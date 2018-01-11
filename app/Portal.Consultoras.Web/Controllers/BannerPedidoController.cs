@@ -87,9 +87,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -122,7 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEBannerPedido> items = lst;
 
                 #region Sort Section
@@ -170,9 +166,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -252,18 +248,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 }
-
-                Mapper.CreateMap<AdministrarBannerPedidoModel, BEBannerPedido>()
-                   .ForMember(t => t.BannerPedidoID, f => f.MapFrom(c => c.BannerPedidoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaIDInicio, f => f.MapFrom(c => c.CampaniaIDInicio))
-                   .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                   .ForMember(t => t.ArchivoPortada, f => f.MapFrom(c => c.ArchivoPortada))
-                   .ForMember(t => t.Archivo, f => f.MapFrom(c => c.Archivo))
-                   .ForMember(t => t.TipoUrl, f => f.MapFrom(c => c.grupoTipoUrl))
-                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.PosicionBannerPedido))
-                   .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
+                
                 BEBannerPedido entidad = Mapper.Map<AdministrarBannerPedidoModel, BEBannerPedido>(model);
 
                 if (model.PaisID == 0)
@@ -377,18 +362,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-
-                Mapper.CreateMap<AdministrarBannerPedidoModel, BEBannerPedido>()
-                   .ForMember(t => t.BannerPedidoID, f => f.MapFrom(c => c.BannerPedidoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaIDInicio, f => f.MapFrom(c => c.CampaniaIDInicio))
-                   .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                   .ForMember(t => t.ArchivoPortada, f => f.MapFrom(c => c.ArchivoPortada))
-                   .ForMember(t => t.ArchivoPortadaAnterior, f => f.MapFrom(c => c.ArchivoPortadaAnterior))
-                   .ForMember(t => t.Archivo, f => f.MapFrom(c => c.Archivo))
-                   .ForMember(t => t.TipoUrl, f => f.MapFrom(c => c.grupoTipoUrl))
-                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.PosicionBannerPedido))
-                   .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
 
                 BEBannerPedido entidad = Mapper.Map<AdministrarBannerPedidoModel, BEBannerPedido>(model);
 

@@ -67,13 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectAllZonas(PaisID);
             }
-
-            Mapper.CreateMap<BEZona, ZonaModel>()
-               .ForMember(x => x.ZonaID, t => t.MapFrom(c => c.ZonaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
-               .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
-
+            
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
 
@@ -85,8 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
                 else
                 {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
+                    lst = new List<BEPais> {sv.SelectPais(UserData().PaisID)};
                 }
             }
 
@@ -193,13 +186,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BESolicitudCredito> items = lst;
 
                 #region Sort Section
@@ -268,9 +263,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -290,7 +285,11 @@ namespace Portal.Consultoras.Web.Controllers
                                                                         a.SolicitudCreditoID.ToString(),
                                                                         a.CodigoConsultoraRecomienda,
                                                                         a.NombreConsultoraRecomienda,
-                                                                        (a.NumeroDocumento == null) ? "" :(UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) ? a.NumeroDocumento = string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) : a.NumeroDocumento ,
+                                                                        (a.NumeroDocumento == null) 
+                                                                            ? "" 
+                                                                            : (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) 
+                                                                                ? string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) 
+                                                                                : a.NumeroDocumento ,
                                                                         a.CodigoConsultora,
                                                                         (a.FechaCreacion == null
                                                                              ? ""
@@ -319,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (vTipoSolicitud == "INS")
                     {
-                        listaSolicitudes = new List<BESolicitudCredito>();
                         BESolicitudCredito solicitud = new BESolicitudCredito()
                         {
                             PaisID = vPaisID,
@@ -336,7 +334,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        listaSolicitudes = new List<BESolicitudCredito>();
                         BESolicitudCredito solicitud = new BESolicitudCredito()
                         {
                             PaisID = vPaisID,
@@ -353,41 +350,34 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaSolicitudes = new List<BESolicitudCredito>();
             }
-
-            Mapper.CreateMap<BESolicitudCredito, SolicitudCreditoModel>()
-          .ForMember(x => x.SolicitudCreditoID, t => t.MapFrom(c => c.SolicitudCreditoID))
-          .ForMember(x => x.CodigoZona, t => t.MapFrom(c => c.CodigoZona))
-          .ForMember(x => x.CodigoConsultoraRecomienda, t => t.MapFrom(c => c.CodigoConsultoraRecomienda))
-          .ForMember(x => x.NombreConsultoraRecomienda, t => t.MapFrom(c => c.NombreConsultoraRecomienda))
-          .ForMember(x => x.NumeroDocumento, t => t.MapFrom(c => c.NumeroDocumento))
-          .ForMember(x => x.CodigoConsultora, t => t.MapFrom(c => c.CodigoConsultora))
-          .ForMember(x => x.FechaCreacion, t => t.MapFrom(c => c.FechaCreacion))
-          .ForMember(x => x.CodigoLote, t => t.MapFrom(c => c.CodigoLote))
-          .ForMember(x => x.TipoSolicitud, t => t.MapFrom(c => c.TipoSolicitud));
-
+            
             var list = Mapper.Map<IList<BESolicitudCredito>, IList<SolicitudCreditoModel>>(listaSolicitudes);
 
-            if (UserData().CodigoISO == Consultoras.Common.Constantes.CodigosISOPais.PuertoRico)
+            if (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico)
             {
                 list.ToList().ForEach(x =>
                 {
                     x.NumeroDocumento = x.NumeroDocumento.Length > 4 ? string.Format("*****{0}", x.NumeroDocumento.Remove(0, 5)) : string.Empty;
                 });
             }
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Zona", "CodigoZona");
-            dic.Add("ID Interno", "SolicitudCreditoID");
-            dic.Add("Cod. Consultora que Refiere", "CodigoConsultoraRecomienda");
-            dic.Add("Nombre", "NombreConsultoraRecomienda");
-            dic.Add("Doc. Identidad", "NumeroDocumento");
-            dic.Add("Cod. Consultora", "CodigoConsultora");
-            dic.Add("Fecha", "FechaCreacion");
-            dic.Add("Estado", "EstadoDescripcion");
-            dic.Add("Tipo", "TipoSolicitud");
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Zona", "CodigoZona"},
+                {"ID Interno", "SolicitudCreditoID"},
+                {"Cod. Consultora que Refiere", "CodigoConsultoraRecomienda"},
+                {"Nombre", "NombreConsultoraRecomienda"},
+                {"Doc. Identidad", "NumeroDocumento"},
+                {"Cod. Consultora", "CodigoConsultora"},
+                {"Fecha", "FechaCreacion"},
+                {"Estado", "EstadoDescripcion"},
+                {"Tipo", "TipoSolicitud"}
+            };
             Util.ExportToExcel("SolicitudesExcel", list.ToList(), dic);
             return View();
 
@@ -400,19 +390,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -468,19 +458,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -507,19 +497,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -542,82 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void MapeoEntidadModelo(ref SolicitudCreditoModel model, BESolicitudCredito beSolicitudCredito)
         {
-            #region Mapeo
-
-            Mapper.CreateMap<BESolicitudCredito, SolicitudCreditoModel>()
-                .ForMember(x => x.SolicitudCreditoID, t => t.MapFrom(c => c.SolicitudCreditoID))
-                .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-                .ForMember(x => x.TipoSolicitud, t => t.MapFrom(c => c.TipoSolicitud ?? ""))
-                .ForMember(x => x.CodigoUbigeo, t => t.MapFrom(c => c.CodigoUbigeo ?? ""))
-                .ForMember(x => x.IndicadorActivo, t => t.MapFrom(c => c.IndicadorActivo))
-                .ForMember(x => x.UsuarioCreacion, t => t.MapFrom(c => c.UsuarioCreacion ?? ""))
-                .ForMember(x => x.FechaCreacion, t => t.MapFrom(c => c.FechaCreacion))
-                .ForMember(x => x.CodigoLote, t => t.MapFrom(c => c.CodigoLote))
-                .ForMember(x => x.FuenteIngreso, t => t.MapFrom(c => c.FuenteIngreso ?? ""))
-                .ForMember(x => x.NumeroPreimpreso, t => t.MapFrom(c => c.NumeroPreimpreso ?? ""))
-                .ForMember(x => x.CodigoZona, t => t.MapFrom(c => c.CodigoZona ?? ""))
-                .ForMember(x => x.CodigoTerritorio, t => t.MapFrom(c => c.CodigoTerritorio ?? ""))
-                .ForMember(x => x.TipoContacto, t => t.MapFrom(c => c.TipoContacto))
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.CodigoConsultoraRecomienda, t => t.MapFrom(c => c.CodigoConsultoraRecomienda ?? ""))
-                .ForMember(x => x.NombreConsultoraRecomienda, t => t.MapFrom(c => c.NombreConsultoraRecomienda ?? ""))
-                .ForMember(x => x.CodigoConsultora, t => t.MapFrom(c => c.CodigoConsultora ?? ""))
-                .ForMember(x => x.CodigoPremio, t => t.MapFrom(c => c.CodigoPremio ?? ""))
-                .ForMember(x => x.ApellidoPaterno, t => t.MapFrom(c => c.ApellidoPaterno ?? ""))
-                .ForMember(x => x.ApellidoMaterno, t => t.MapFrom(c => c.ApellidoMaterno ?? ""))
-                .ForMember(x => x.PrimerNombre, t => t.MapFrom(c => c.PrimerNombre ?? ""))
-                .ForMember(x => x.SegundoNombre, t => t.MapFrom(c => c.SegundoNombre ?? ""))
-                .ForMember(x => x.TipoDocumento, t => t.MapFrom(c => c.TipoDocumento ?? ""))
-                .ForMember(x => x.NumeroDocumento, t => t.MapFrom(c => c.NumeroDocumento ?? ""))
-                .ForMember(x => x.Sexo, t => t.MapFrom(c => c.Sexo ?? ""))
-                .ForMember(x => x.FechaNacimiento, t => t.MapFrom(c => c.FechaNacimiento))
-                .ForMember(x => x.EstadoCivil, t => t.MapFrom(c => c.EstadoCivil ?? ""))
-                .ForMember(x => x.NivelEducativo, t => t.MapFrom(c => c.NivelEducativo ?? ""))
-                .ForMember(x => x.CodigoOtrasMarcas, t => t.MapFrom(c => c.CodigoOtrasMarcas))
-                .ForMember(x => x.TipoNacionalidad, t => t.MapFrom(c => c.TipoNacionalidad ?? ""))
-                .ForMember(x => x.Telefono, t => t.MapFrom(c => c.Telefono ?? ""))
-                .ForMember(x => x.Celular, t => t.MapFrom(c => c.Celular ?? ""))
-                .ForMember(x => x.CorreoElectronico, t => t.MapFrom(c => c.CorreoElectronico ?? ""))
-                .ForMember(x => x.Direccion, t => t.MapFrom(c => c.Direccion ?? ""))
-                .ForMember(x => x.Referencia, t => t.MapFrom(c => c.Referencia ?? ""))
-                .ForMember(x => x.Ciudad, t => t.MapFrom(c => c.Ciudad ?? ""))
-                .ForMember(x => x.TipoVia, t => t.MapFrom(c => c.TipoVia ?? ""))
-                .ForMember(x => x.PoblacionVilla, t => t.MapFrom(c => c.PoblacionVilla ?? ""))
-                .ForMember(x => x.CodigoPostal, t => t.MapFrom(c => c.CodigoPostal ?? ""))
-                .ForMember(x => x.DireccionEntrega, t => t.MapFrom(c => c.DireccionEntrega ?? ""))
-                .ForMember(x => x.ReferenciaEntrega, t => t.MapFrom(c => c.ReferenciaEntrega ?? ""))
-                .ForMember(x => x.TelefonoEntrega, t => t.MapFrom(c => c.TelefonoEntrega ?? ""))
-                .ForMember(x => x.CelularEntrega, t => t.MapFrom(c => c.CelularEntrega ?? ""))
-                .ForMember(x => x.ObservacionEntrega, t => t.MapFrom(c => c.ObservacionEntrega ?? ""))
-                .ForMember(x => x.ApellidoFamiliar, t => t.MapFrom(c => c.ApellidoFamiliar ?? ""))
-                .ForMember(x => x.NombreFamiliar, t => t.MapFrom(c => c.NombreFamiliar ?? ""))
-                .ForMember(x => x.DireccionFamiliar, t => t.MapFrom(c => c.DireccionFamiliar ?? ""))
-                .ForMember(x => x.TelefonoFamiliar, t => t.MapFrom(c => c.TelefonoFamiliar ?? ""))
-                .ForMember(x => x.CelularFamiliar, t => t.MapFrom(c => c.CelularFamiliar ?? ""))
-                .ForMember(x => x.TipoVinculoFamiliar, t => t.MapFrom(c => c.TipoVinculoFamiliar))
-                .ForMember(x => x.ApellidoNoFamiliar, t => t.MapFrom(c => c.ApellidoNoFamiliar ?? ""))
-                .ForMember(x => x.NombreNoFamiliar, t => t.MapFrom(c => c.NombreNoFamiliar ?? ""))
-                .ForMember(x => x.DireccionNoFamiliar, t => t.MapFrom(c => c.DireccionNoFamiliar ?? ""))
-                .ForMember(x => x.TelefonoNoFamiliar, t => t.MapFrom(c => c.TelefonoNoFamiliar ?? ""))
-                .ForMember(x => x.CelularNoFamiliar, t => t.MapFrom(c => c.CelularNoFamiliar ?? ""))
-                .ForMember(x => x.TipoVinculoNoFamiliar, t => t.MapFrom(c => c.TipoVinculoNoFamiliar))
-                .ForMember(x => x.ApellidoPaternoAval, t => t.MapFrom(c => c.ApellidoPaternoAval ?? ""))
-                .ForMember(x => x.ApellidoMaternoAval, t => t.MapFrom(c => c.ApellidoMaternoAval ?? ""))
-                .ForMember(x => x.PrimerNombreAval, t => t.MapFrom(c => c.PrimerNombreAval ?? ""))
-                .ForMember(x => x.SegundoNombreAval, t => t.MapFrom(c => c.SegundoNombreAval ?? ""))
-                .ForMember(x => x.DireccionAval, t => t.MapFrom(c => c.DireccionAval ?? ""))
-                .ForMember(x => x.TelefonoAval, t => t.MapFrom(c => c.TelefonoAval ?? ""))
-                .ForMember(x => x.CelularAval, t => t.MapFrom(c => c.CelularAval ?? ""))
-                .ForMember(x => x.TipoDocumentoAval, t => t.MapFrom(c => c.TipoDocumentoAval ?? ""))
-                .ForMember(x => x.NumeroDocumentoAval, t => t.MapFrom(c => c.NumeroDocumentoAval ?? ""))
-                .ForMember(x => x.TipoVinculoAval, t => t.MapFrom(c => c.TipoVinculoAval))
-                .ForMember(x => x.MontoMeta, t => t.MapFrom(c => c.MontoMeta))
-                .ForMember(x => x.TipoMeta, t => t.MapFrom(c => c.TipoMeta ?? ""))
-                .ForMember(x => x.DescripcionMeta, t => t.MapFrom(c => c.DescripcionMeta ?? ""));
-
             model = Mapper.Map<BESolicitudCredito, SolicitudCreditoModel>(beSolicitudCredito);
-
-            #endregion
         }
 
         private List<InfoGenerica> ObtenerAnioNacimiento()
@@ -628,9 +543,11 @@ namespace Portal.Consultoras.Web.Controllers
             int count;
             for (count = minAnho; count < maxAnho; count++)
             {
-                InfoGenerica infoGenerica = new InfoGenerica();
-                infoGenerica.Valor = count.ToString();
-                infoGenerica.Texto = count.ToString();
+                InfoGenerica infoGenerica = new InfoGenerica
+                {
+                    Valor = count.ToString(),
+                    Texto = count.ToString()
+                };
                 lista.Add(infoGenerica);
             }
 
@@ -658,20 +575,20 @@ namespace Portal.Consultoras.Web.Controllers
         private List<InfoGenerica> ObtenerMesNacimiento()
         {
             List<InfoGenerica> listaMesNacimiento = new List<InfoGenerica>()
-                                                        {
-                                                            new InfoGenerica() {Valor = "01", Texto = "Enero"},
-                                                            new InfoGenerica() {Valor = "02", Texto = "Febrero"},
-                                                            new InfoGenerica() {Valor = "03", Texto = "Marzo"},
-                                                            new InfoGenerica() {Valor = "04", Texto = "Abril"},
-                                                            new InfoGenerica() {Valor = "05", Texto = "Mayo"},
-                                                            new InfoGenerica() {Valor = "06", Texto = "Junio"},
-                                                            new InfoGenerica() {Valor = "07", Texto = "Julio"},
-                                                            new InfoGenerica() {Valor = "08", Texto = "Agosto"},
-                                                            new InfoGenerica() {Valor = "09", Texto = "Setiembre"},
-                                                            new InfoGenerica() {Valor = "10", Texto = "Octubre"},
-                                                            new InfoGenerica() {Valor = "11", Texto = "Noviembre"},
-                                                            new InfoGenerica() {Valor = "12", Texto = "Diciembre"},
-                                                        };
+            {
+                new InfoGenerica {Valor = "01", Texto = "Enero"},
+                new InfoGenerica {Valor = "02", Texto = "Febrero"},
+                new InfoGenerica {Valor = "03", Texto = "Marzo"},
+                new InfoGenerica {Valor = "04", Texto = "Abril"},
+                new InfoGenerica {Valor = "05", Texto = "Mayo"},
+                new InfoGenerica {Valor = "06", Texto = "Junio"},
+                new InfoGenerica {Valor = "07", Texto = "Julio"},
+                new InfoGenerica {Valor = "08", Texto = "Agosto"},
+                new InfoGenerica {Valor = "09", Texto = "Setiembre"},
+                new InfoGenerica {Valor = "10", Texto = "Octubre"},
+                new InfoGenerica {Valor = "11", Texto = "Noviembre"},
+                new InfoGenerica {Valor = "12", Texto = "Diciembre"},
+            };
             return listaMesNacimiento;
         }
 
@@ -694,23 +611,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             List<InfoGenerica> listaAvenidaCalle = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="AV", Texto="Avenida" },
-                new InfoGenerica(){ Valor="CL", Texto="Calle" }
+                new InfoGenerica { Valor="AV", Texto="Avenida" },
+                new InfoGenerica { Valor="CL", Texto="Calle" }
             };
 
             List<InfoGenerica> listaCasaEdificio = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="CAS", Texto="Casa" },
-                new InfoGenerica(){ Valor="EDF", Texto="Edificio" }
+                new InfoGenerica { Valor="CAS", Texto="Casa" },
+                new InfoGenerica { Valor="EDF", Texto="Edificio" }
             };
 
             List<InfoGenerica> listaUrbanizacionSector = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="URB", Texto="Urbanización" },
-                new InfoGenerica(){ Valor="SEC", Texto="Sector" }
+                new InfoGenerica { Valor="URB", Texto="Urbanización" },
+                new InfoGenerica { Valor="SEC", Texto="Sector" }
             };
 
             List<InfoGenerica> listaApartamentoCasa = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="APTO", Texto="N° Apartamento" },
-                new InfoGenerica(){ Valor="CASA", Texto="N° Casa" }
+                new InfoGenerica { Valor="APTO", Texto="N° Apartamento" },
+                new InfoGenerica { Valor="CASA", Texto="N° Casa" }
             };
 
             model.ListaAvenidaCalle = listaAvenidaCalle;
@@ -747,7 +664,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string[] resultado = null;
+                string[] resultado;
 
                 using (var ws = new SACServiceClient())
                 {
@@ -765,14 +682,12 @@ namespace Portal.Consultoras.Web.Controllers
                         rutaSolActualizacion = resultado[1]
                     });
                 }
-                else
+
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de carga de solicitudes ha finalizado satisfactoriamente."
-                    });
-                }
+                    success = true,
+                    mensaje = "El proceso de carga de solicitudes ha finalizado satisfactoriamente."
+                });
             }
             catch (FaultException ex)
             {

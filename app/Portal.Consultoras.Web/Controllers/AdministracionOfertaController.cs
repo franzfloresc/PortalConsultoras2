@@ -55,13 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -105,12 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -164,7 +151,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEConfiguracionOferta> items = lst;
 
                 #region Sort Section
@@ -206,8 +192,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

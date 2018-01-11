@@ -43,7 +43,7 @@ function RechazarPedido(id) {
     };
 
     ShowLoading();
- 
+
     $.ajax({
         type: "POST",
         url: baseUrl + "ConsultoraOnline/RechazarPedido",
@@ -54,7 +54,7 @@ function RechazarPedido(id) {
             if (checkTimeout(data)) {
                 CloseLoading();
                 if (data.success == true) {
-                    
+
                     $('#PedidoRechazado').hide();
                     $('#PedidoRechazadoDetalle').hide();
                     $('#MensajePedidoRechazado').show();
@@ -152,7 +152,7 @@ function AceptarPedido(id, tipo) {
 
                             //showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK, AceptarPedidoRegistraClienteCancel);
                             showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK);
-                           
+
                         }
                         else {
                             pedido.ClienteId = response.codigo;
@@ -169,7 +169,7 @@ function AceptarPedido(id, tipo) {
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
-   
+
 
     if (obj != null && _pedido !== null) {
         _pedido.ClienteId = obj.ClienteID;
@@ -183,7 +183,7 @@ function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
 function ProcesarAceptarPedido(pedido) {
-  
+
     //console.log(pedido);
 
     waitingDialog({});

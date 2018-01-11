@@ -134,7 +134,7 @@
 
         var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
-       
+
         if (typeof PopUpChatOpened == 'undefined' ||
             PopUpChatOpened == null ||
             PopUpChatOpened == 'false') {
@@ -945,7 +945,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
+    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));

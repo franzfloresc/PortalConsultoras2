@@ -178,6 +178,9 @@ namespace Portal.Consultoras.BizLogic
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             BEUsuario usuario = null;
+            try
+            {
+
             BEConfiguracionCampania configuracion = null;
             var DAUsuario = new DAUsuario(paisID);
             var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
@@ -319,6 +322,12 @@ namespace Portal.Consultoras.BizLogic
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID.ToString());
+                usuario = null;
+            }
             return usuario;
         }
 
@@ -413,8 +422,8 @@ namespace Portal.Consultoras.BizLogic
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
             
-            usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
-            usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result == null ? false : politicaPrivacidadTask.Result.Aceptado);
+            usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result != null && terminosCondicionesTask.Result.Aceptado);
+            usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result != null && politicaPrivacidadTask.Result.Aceptado);
             usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
 
             usuario.GPRMostrarBannerRechazo = gprBannerTask.Result.MostrarBannerRechazo;
@@ -919,15 +928,10 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //return 2;
                                     }
                                     else
                                     {
                                         //Se valida las campañas que no ha ingresado
-                                        //if (CampaniaActual - UltimaCampania > 100 && UltimaCampania != 0)
-                                        //    return 2;
-                                        //else
-                                        //{
                                         //Validamos el Autoriza Pedido
                                         if (AutorizaPedido == "N")
                                         {
@@ -935,8 +939,6 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //return 3;
-                                        //}
                                     }
                                 }
                                 else
@@ -945,10 +947,6 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == IdEstadoActividad);
                                     if (Restriccion_Egresada != null)
                                     {
-                                        //if (paisID == 6)  R2133
-                                        //    return 2;
-                                        //else
-                                        //{
                                         if (AutorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
@@ -959,7 +957,6 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //} R2133
                                     }
                                     else
                                     {
@@ -1640,10 +1637,8 @@ namespace Portal.Consultoras.BizLogic
                                         htmlTemplate = htmlTemplate.Replace("#NOMBRE_CONTACTO#", gznombre);
                                         htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);
 
-                                        //EnviarMail("no-responder@somosbelcorp.com", email, asuntoEmail, mensaje, true, "", PaisISO);
                                         Common.Util.EnviarMail("no-responder@somosbelcorp.com", entidad.Correo, asuntoEmail, htmlTemplate, true, null);
 
-                                        //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
                                         //Actualizando flag envio de correo
                                         DAUsuario.UpdFlagEnvioCorreo(codusuario);
@@ -1892,34 +1887,47 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region EventoFestivo
+
         public IList<BEEventoFestivo> GetEventoFestivo(int paisId, string alcance, int campaniaId)
         {
-            if (paisId == 0)
+            IList<BEEventoFestivo> listaEvento;
+            try
             {
-                paisId = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
-            }
-
-            string customKey = alcance + "_" + campaniaId;
-            IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
-                ECacheItem.ConfiguracionEventoFestivo, customKey);
-            if (listaEvento == null || listaEvento.Count == 0)
-            {
-                var DAUsuario = new DAUsuario(paisId);
-                listaEvento = new List<BEEventoFestivo>();
-                using (IDataReader reader = DAUsuario.GetEventoFestivo(alcance, campaniaId))
+                if (paisId == 0)
                 {
-                    while (reader.Read())
-                    {
-                        var evento = new BEEventoFestivo(reader);
-                        listaEvento.Add(evento);
-                    }
+                    paisId = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
                 }
 
-                CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
+                string customKey = alcance + "_" + campaniaId;
+                listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
+                    ECacheItem.ConfiguracionEventoFestivo, customKey);
+                if (listaEvento == null || listaEvento.Count == 0)
+                {
+                    var DAUsuario = new DAUsuario(paisId);
+                    listaEvento = new List<BEEventoFestivo>();
+                    using (IDataReader reader = DAUsuario.GetEventoFestivo(alcance, campaniaId))
+                    {
+                        while (reader.Read())
+                        {
+                            var evento = new BEEventoFestivo(reader);
+                            listaEvento.Add(evento);
+                        }
+                    }
+
+                    CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey,
+                        listaEvento);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "alcance = " + alcance, paisId.ToString());
+                listaEvento = new List<BEEventoFestivo>();
             }
 
             return listaEvento;
         }
+
         #endregion
 
         public int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName)

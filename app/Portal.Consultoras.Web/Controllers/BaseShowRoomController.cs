@@ -28,8 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
                 BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
-                ShowRoomModel ShowRoom = new ShowRoomModel();
-
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -85,9 +83,10 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                         userData.CloseOfertaDelDia
-                         ? false
-                         : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !userData.CloseOfertaDelDia
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -127,7 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
         private bool NuncaMostrarBannerPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -219,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
         public bool TienePersonalizacion()
         {
             var showRoomEvento = userData.BeShowRoom;
-            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
+            var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
             return tienePersonalizacion;
         }
 
@@ -431,8 +429,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return listadoProductosCPCModel1;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return null;
                 throw;
 
@@ -531,19 +530,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var showRoomEvento = userData.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
-
-                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
-                    .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
-                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
-                    .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
-
+                
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;

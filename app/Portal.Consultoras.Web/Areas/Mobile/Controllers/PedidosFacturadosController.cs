@@ -168,8 +168,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 descripcionCampania = CampaniaID.Substring(0, 4) + "-C" + CampaniaID.Substring(4, 2);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 descripcionCampania = CampaniaID;
             }
             return descripcionCampania;

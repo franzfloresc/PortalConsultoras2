@@ -69,13 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -193,8 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
-
+                
                 IEnumerable<BESolicitudCliente> items = lst;
                 if (sord == "asc")
                 {
@@ -251,9 +243,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -303,11 +295,11 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
-                IEnumerable<BESolicitudClienteDetalle> items = lst;
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                IEnumerable<BESolicitudClienteDetalle> items = lst;
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -587,7 +579,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEReporteAfiliados> items = lst;
 
                 #region Sort Section
@@ -670,8 +662,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -780,8 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-
-                BEPager pag = new BEPager();
+                
                 IEnumerable<BEReportePedidos> items = lst;
 
                 #region Sort Section
@@ -918,8 +909,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

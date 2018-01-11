@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new SACServiceClient())
                     {
                         var lst = await sv.ListarAppsAsync(Constantes.PaisID.Peru);
-                        var itemPais = lst.Where(x => x.PaisISO == iso).FirstOrDefault();
+                        var itemPais = lst.FirstOrDefault(x => x.PaisISO == iso);
                         if (itemPais != null) return Redirect(itemPais.Url);
                     }
                 }

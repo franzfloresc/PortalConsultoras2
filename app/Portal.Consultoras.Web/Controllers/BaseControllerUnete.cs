@@ -167,22 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Métodos privados
-
-        private string ObtenerIPPublicaRouter()
-        {
-            var ipPublica = string.Empty;
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    ipPublica = webClient.DownloadString("http://checkip.dyndns.org/");
-                    ipPublica = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"))
-                             .Matches(ipPublica)[0].ToString();
-                }
-            }
-            catch { }
-            return ipPublica;
-        }
+        
         private string ObtenerIPPublica()
         {
             var context = System.Web.HttpContext.Current;

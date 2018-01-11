@@ -66,14 +66,12 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             IEnumerable<BEProductoSugerido> items = lst;
             
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Util.PaginadorGenerico(grid, lst);
-            string ISO = Util.GetPaisISO(PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
+
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
 
             var data = new
@@ -176,14 +174,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -205,15 +196,6 @@ namespace Portal.Consultoras.Web.Controllers
             var userData = UserData();
             try
             {
-                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
-                   .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                   .ForMember(t => t.CUVSugerido, f => f.MapFrom(c => c.CUVSugerido))
-                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                   .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
@@ -336,10 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var userData = UserData();
             try
-            {
-                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
-                   .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID));
-
+            {   
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 string r = "";
