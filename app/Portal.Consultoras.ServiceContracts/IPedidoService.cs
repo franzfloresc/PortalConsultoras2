@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1180,6 +1181,19 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
+        #endregion
+
+        #region CargaMasivaImagenes
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
+
         #endregion
 
         #region ProductosPrecargados
