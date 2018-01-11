@@ -37,7 +37,7 @@ BEGIN
 	,''
 	,NULL
 	,''
-	,0
+	,1
 	)
 END
 GO

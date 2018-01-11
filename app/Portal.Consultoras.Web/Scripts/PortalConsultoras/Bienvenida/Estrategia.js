@@ -158,11 +158,11 @@ function inicializarDivMasVendidos(origen) {
     var slickArrows = {
         'mobile': {
             prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
         },
         'desktop': {
             prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }
     };
 
@@ -179,18 +179,18 @@ function inicializarDivMasVendidos(origen) {
         prevArrow: slickArrows[origen].prev,
         nextArrow: slickArrows[origen].next,
         responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 900,
-                    settings: { slidesToShow: 2, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 600,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
+            {
+                breakpoint: 1200,
+                settings: { slidesToShow: 3, slidesToScroll: 1 }
+            },
+            {
+                breakpoint: 900,
+                settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+                breakpoint: 600,
+                settings: { slidesToShow: 1, slidesToScroll: 1 }
+            }
         ]
     });
 }
@@ -295,6 +295,7 @@ function ArmarCarouselEstrategias(data) {
     $.each(data.ListaLan, function (i, item) {
         item.Posicion = i + 1;
     });
+
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
     });
@@ -317,7 +318,7 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
@@ -707,14 +708,14 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var flagNueva = objParameter.FlagNueva;
 
     var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
-                                                  || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
-                                                  || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+        || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
+        || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     origenPedidoWebEstrategia =
         $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-       || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-       || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-       || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-       || origenPedidoWebEstrategia;
+        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 

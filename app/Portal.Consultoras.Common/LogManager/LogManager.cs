@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Common
             {
                 if (logError == null || logError.Exception == null) return;
 
-                if (Util.isNumeric(logError.IsoPais))
+                if (Util.IsNumeric(logError.IsoPais))
                 {
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
