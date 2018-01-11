@@ -10,8 +10,8 @@ $(document).ready(function () {
 
         me.Funciones = {
             InicializarEventos: function () {
-                $(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.ActivarOpcion);
-                $(document).on('click', '.barra_activacion.barra_activacion_terminos_condiciones', me.Eventos.ActivarOpcion);
+                //$(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.ActivarOpcion);
+                $(document).on('click', '.barra_activacion', me.Eventos.ActivarOpcion);
             }
         },
         me.Eventos = {

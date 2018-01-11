@@ -9,12 +9,10 @@
     <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
 
     <style type="text/css">
-
-        .footer-page{
-            display:none;
-            margin-bottom:54px;
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
         }
-
     </style>
 
 }
@@ -29,293 +27,158 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA CUANDO NO HAY PAGOS PENDIENTES -->
-    <div class="info_pagos_pendientes" style="display:none;">
-        <p>
-            <strong>No tienes pagos pendientes.</strong>
-        </p>
-        <p>
-            ¡Muy bien <span>Valeria</span>!
-            <span class="imagen_felicitacion">
-                <img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" />
-            </span>
-        </p>
-        <p>Cumplir con tus pagos puntualmente, te llevará muy lejos.</p>
-    </div>
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
 
-    <!-- FIN VISTA CUANDO NO HAY PAGOS PENDIENTES -->
-    <!-- VISTA PAGOS PENDIENTES -->
-    <div class="proceso_de_pago_online">
+    <div class="proceso_de_pago_en_linea">
 
-        <!-- CANTIDAD DE PASOS PARA PROCESO DE PAGO ONLINE -->
-        <div class="contenedor_pasos_proceso_pago_online">
-            <div class="linea_conexion_pasos"></div>
-            <div class="num_paso_pago_online paso_activo">1</div>
-            <div class="num_paso_pago_online">2</div>
-            <div class="num_paso_pago_online">3</div>
-        </div>
-        <!-- FIN CANTIDAD DE PASOS PARA PROCESO DE PAGO ONLINE -->
+        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
-        <!-- RESUMEN DE PAGO -->
-        <div class="resumen_del_pago">
-            <div class="resumen_pago_titulo">
-                <span>Revisa el monto a pagar, si deseas puedes modificarlo</span>
-            </div>
-            <div class="resumen_pago_detalle">
-                <div>
-                    <span>Deuda total:</span>
-                    <span>S/.</span>
-                    <span>1000.00</span>
-                </div>
-                <div>
-                    <span>Comisión (2%):</span>
-                    <span>S/.</span>
-                    <span>20.00</span>
-                </div>
-            </div>
-            <div class="resumen_pago_total">
-                <span>
-                    <span>Total a pagar:</span>
-                </span>
-                <span>S/.</span>
-                <span>1020.00</span>
-            </div>
-            <div class="activacion_modificacion_monto_a_pagar">
-                <div class="barra_activacion barra_activacion_edicion_monto_a_pagar" data-estado="0">
-                    <div class="control_activacion">
-                        <span></span>
-                    </div>
-                </div>
-                <div class="descripcion_opcion_activacion">
-                    MODIFICAR MONTO A PAGAR
-                </div>
+        <div class="cantidad_pasos_proceso_pago">
+            <span class="paso_proceso_pago_en_linea paso_activo" data-num-paso="1">1</span>
+            <span class="paso_proceso_pago_en_linea" data-num-paso="2">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0" data-num-paso="3">3</span>
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
-        <!-- FIN RESUMEN DE PAGO -->
 
-        <!-- EDICIÓN DE MONTO A PAGAR -->
-        <div class="resumen_del_pago" style="display:none;">
-            <div class="contenedor_deuda_total">
-                <span>Deuda total:</span>
-                <span>
-                    S/. <span>1000.00</span>
-                </span>
-            </div>
-            <div class="monto_a_pagar_editado">
-                <div>¿Cuánto vas a pagar?</div>
-                <span>S/.</span>
-                <input type="text" value="" placeholder="0.00" />
-            </div>
-            <div class="resumen_pago_editado">
-                <div class="resumen_pago_titulo">
-                    RESUMEN DEL PAGO
-                </div>
-                <div class="resumen_pago_detalle mb-10 quitarBordeInferior">
-                    <div>
-                        <span>Monto :</span>
-                        <span>S/.</span>
-                        <span>500.00</span>
-                    </div>
-                    <div>
-                        <span>Comisión (2%):</span>
-                        <span>S/.</span>
-                        <span>10.00</span>
-                    </div>
-                    <div>
-                        <span>Total a pagar:</span>
-                        <span>S/.</span>
-                        <span class="monto_total_editado">510.00</span>
-                    </div>
-                </div>
-                <div>
-                    <span>Saldo pendiente:</span>
-                    <span>
-                        S/. <span>500.00</span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!-- FIN EDICIÓN DE MONTO A PAGAR -->
+        <!-- FIN CANTIDAD PASOS PROCESO DE PAGO -->
 
-        <!-- ESCOGER MÉTODO DE PAGO -->
-        <div class="resumen_del_pago" style="display:none;">
-            <div class="resumen_pago_titulo agregarBordeInferior pb-11">
-                ACEPTA LOS TÉRMINOS Y CONDICIONES
-            </div>
-            <div class="texto_informativo_pago">
-                Por el momento sólo puedes pagar con VISA.
-            </div>
-            <div class="opciones_pago">
-                <form class="form_opcion_pago" method="post" action="">
-                    <ul>
-                        <li>
-                            <input type="radio" id="PagoVisa" value="pagovisa" checked>
-                            <label for="PagoVisa">
+        <!-- VISTA SELECCIÓN MONTO A PAGAR -->
+
+        <div class="seleccion_monto_a_pagar">
+            <h3>Selecciona el monto a pagar</h3>
+            <form class="opciones_pago" method="post" action="">
+                <ul class="lista_opciones_pago">
+                    <li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="monto_total_pago_en_linea">
+                                <span class="tipo_moneda_pais">S/</span>
+                                <span class="monto_moneda_pais">1000.00</span>
+                            </div>
+                            <div class="fecha_vencimiento_pago_en_linea">
+                                <span>Vence </span>
+                                <span>15/01</span>
+                            </div>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="pagoTotal" name="opcionPago" value="1" checked />
+                            <label for="pagoTotal">
                                 <span></span>
                             </label>
-                            <span class="texto_opcion_pago">Pago con Visa</span>
-                            <span class="marca_visa marca_visa_opcion_pago"></span>
-                            <div class="terminos_condiciones">
-                                <p>
-                                    Términos y condiciones
-                                </p>
-                                <p>
-                                    ajdkajkasjdkajkajakjdakdjakdajdkajakjakjakajdadakjskdajdkadjakdjakdjakajdkajkksdjskjsdkfdsjfksjfskfjsfksjskjskfjsfksjfksfjkfdjskfsjfksfjskfjkfsjf.
-                                </p>
+                        </div>
+                    </li>
+                    @*<li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="monto_total_pago_en_linea">
+                                <span class="tipo_moneda_pais">S/</span>
+                                <span class="monto_moneda_pais">437.34</span>
                             </div>
-                        </li>
-                    </ul>
-                </form>
-            </div>
+                            <div class="fecha_vencimiento_pago_en_linea">
+                                <span>Vence </span>
+                                <span>27/01</span>
+                            </div>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="pagoTotal2" name="opcionPago" value="2" />
+                            <label for="pagoTotal2">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>*@
+                    <li class="opcion_pago">
+                        <div class="col_izq">
+                            <h4 class="titulo_monto_editable">
+                                Pago Parcial
+                            </h4>
+                            <div class="monto_editable_pago_en_linea">
+                                <span class="tipo_moneda_pais">S/</span>
+                                <input type="text" class="monto_a_editar" placeholder="0.00" value="" />
+                            </div>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="pagoParcial" name="opcionPago" value="3" />
+                            <label for="pagoParcial">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+            <p class="info_comision_pago_en_linea">
+                *Se cargará una comisión del 2% (
+                <span class="tipo_moneda_pais">S/</span>
+                <span class="monto_comision_pago_en_linea">20.00</span>
+                )
+            </p>
             <div class="aceptar_terminos_y_condiciones">
-                <div class="barra_activacion barra_activacion_terminos_condiciones" data-estado="0">
-                    <div class="control_activacion control_activacion_terminos_condiciones">
+                <div class="barra_activacion" data-estado="0">
+                    <div class="control_activacion">
                     </div>
                     <div class="tooltip_terminos_y_condiciones">
                         <span>Debes aceptar los términos y condiciones</span>
                     </div>
                 </div>
-                <div class="descripcion_opcion_activacion texto_terminos_y_condiciones">
+                <div class="descripcion_opcion_activacion">
                     Acepto los términos y condiciones
                 </div>
             </div>
         </div>
-        <!-- FIN ESCOGER MÉTODO DE PAGO -->
 
-        <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-        <div class="resumen_del_pago estado_redireccion_proveedor_pago" style="display:none;">
-            <div class="texto_estado_redireccion">Te estamos redirigiendo al proveedor de pago</div>
-            <div class="precarga_redireccion">
+        <!-- FIN VISTA SELECCIÓN MONTO A PAGAR -->
+
+    </div>
+
+    <!-- FIN VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="contenedor_info_pago_seguro_y_ctas">
+
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+
+        <div class="info_pago_seguro_con_tarjetas">
+            <div class="icono_pago_seguro">
+                <img src="@Url.Content("~/Content/Images/icono-pago-seguro.svg")" alt="Pago Seguro" />
             </div>
-        </div>
-        <!-- FIN VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-        <!-- FORMULARIO VISA -->
-        <div class="contenedor_formulario_visa" style="display:none;">
-            <form class="formulario_visa" method="post" action="">
-                <div class="grupo_form">
-                    <div class="campo_ingreso_num_tarjeta">
-                        <input type="tel" value="" placeholder="Número de tarjeta" />
-                    </div>
-                </div>
-                <div class="grupo_form">
-                    <div class="campo_fecha_vencimiento_tarjeta">
-                        <input type="tel" value="" placeholder="MM/AA" />
-                    </div>
-                    <div class="campo_codigo_seguridad">
-                        <input type="tel" value="" placeholder="CVV" />
-                        <span class="icono_pregunta_sobre_campo"></span>
-                    </div>
-                </div>
-                <div class="grupo_form">
-                    <div class="campo_nombre_usuario_tarjeta">
-                        <input type="text" value="" placeholder="Nombre" />
-                    </div>
-                    <div class="campo_apellido_usuario_tarjeta">
-                        <input type="text" value="" placeholder="Apellido" />
-                    </div>
-                </div>
-                <div class="grupo_form">
-                    <div class="campo_email_usuario_tarjeta">
-                        <input type="text" value="" placeholder="Email" />
-                    </div>
-                </div>
-                <div class="grupo_form">
-                    <div class="campo_num_cuotas_a_pagar">
-                        <select>
-                            <option>Sin cuotas</option>
-                            <option>1 cuota</option>
-                            <option>2 cuotas</option>
-                            <option>3 cuotas</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grupo_form">
-                    <div class="campo_recordar_tarjeta">
-                        <input type="checkbox" value="1" />
-                        <span class="texto_campo">Recordar tarjeta</span>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- FIN FORMULARIO VISA -->
-
-        <!-- VISTA PAGO REALIZADO CON ÉXITO -->
-        <div class="pago_realizado" style="display:none;">
-            <p>
-                <strong>Tu pago se realizó con éxito.</strong>
-            </p>
-            <p>
-                ¡Muy bien <span>Valeria</span>!
-                <span class="imagen_felicitacion">
-                    <img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" />
+            <div class="texto_info_pago_seguro">
+                <span class="texto_pago_seguro solo_visa">Pago seguro. Por ahora sólo a través de</span>
+                @*<span class="texto_pago_seguro visa_y_mastercard">Pago seguro</span>*@
+            </div>
+            <div class="icono_marcas_tarjetas">
+                <span class="icono_marca_visa">
+                    <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
                 </span>
-            </p>
-            <p>Cumplir con tus pagos puntualmente, te llevará muy lejos.</p>
-
-            <!-- RESUMEN DE PAGO -->
-            <div class="resumen_del_pago">
-                <div class="resumen_pago_titulo">
-                    <span>Resumen del pago</span>
-                </div>
-                <div class="resumen_pago_detalle">
-                    <div>
-                        <span>Deuda total:</span>
-                        <span>S/.</span>
-                        <span>1000.00</span>
-                    </div>
-                    <div>
-                        <span>Comisión (2%):</span>
-                        <span>S/.</span>
-                        <span>20.00</span>
-                    </div>
-                </div>
-                <div class="resumen_pago_total">
-                    <span>
-                        <span>Total pagado:</span>
-                    </span>
-                    <span>S/.</span>
-                    <span>1020.00</span>
-                </div>
+                @*<span class="icono_marca_mastercard">
+                    <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                </span>*@
             </div>
-            <!-- FIN RESUMEN DE PAGO -->
-
         </div>
-        <!-- FIN VISTA PAGO REALIZADO CON ÉXITO -->
 
-    </div>
-    <div class="contenedor_info_adicional_y_ctas">
+        <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
 
-        <!-- INFORMACIÓN DE PAGO SEGURO CON VISA -->
-        <div class="info_pago_seguro_visa">
-            <span class="icono_pago_seguro"></span>
-            <span class="descripcion_pago_seguro">
-                Pago seguro, por el momento sólo a través de
+        <!-- CALL TO ACTIONS PAGO EN LÍNEA -->
+
+        @*<button type="button" class="cta_pago_en_linea btn_continuar">
+            Continuar
+        </button>*@
+
+        <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
+            <span>Pagar con crédito Visa</span>
+            <span>
+                (
+                <span class="tipo_moneda_pais">S/</span>
+                <span class="monto_a_pagar">1020.00</span>
+                )
             </span>
-            <span class="marca_visa"></span>
-        </div>
-        <!-- FIN INFORMACIÓN DE PAGO SEGURO CON VISA -->
-
-        <!-- INFORMACIÓN OTROS LUGARES DE PAGO -->
-        <div class="otros_lugares_pago" style="display:none;">
-            Si buscas otras formas de pagar, mira los lugares de pago <a href="javascript(void);" title="Click para ver otros lugares de pago">aquí</a>
-        </div>
-        <!-- FIN INFORMACIÓN OTROS LUGARES DE PAGO -->
-
-        <!-- CALL TO ACTION PAGO -->
-        <button type="button" class="btnPagar">
-            Continuar pago con visa
         </button>
-        <!-- FIN CALL TO ACTION PAGO -->
 
-        <!-- CALL TO ACTION COMPLETAR PAGO -->
-        <button type="button" class="btnPagar" style="display:none;">
-            Completar pago (<span>S/. </span><span>510.00</span>)
-        </button>
-        <!-- FIN CALL TO ACTION COMPLETAR PAGO -->
+        @*<button type="button" class="cta_pago_en_linea btn_pagar">
+            Pagar
+        </button>*@
+
+        <!-- FIN CALL TO ACTIONS PAGO EN LÍNEA -->
 
     </div>
-    <!-- FIN VISTA PAGOS PENDIENTES -->
+
 </div>
 
 @section scripts{
