@@ -33,8 +33,10 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = DAPedidoWeb.GetPedidosWebByConsultora(consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWeb(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEPedidoWeb(reader)
+                    {
+                        PaisID = paisID
+                    };
                     pedidoWeb.Add(entidad);
                 }
 
@@ -590,8 +592,10 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
                 }
 
-                TransactionOptions transactionOptions = new TransactionOptions();
-                transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     this.ConfigurarDTCargaWebDD(dsPedidosWeb, dsPedidosDD, fechaFacturacion, nroLote, usuario, codigoPais);
@@ -1708,8 +1712,10 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = DAPedidoWeb.GetPedidosWebByConsultoraCampania(consultoraID, campaniaID))
                 if (reader.Read())
                 {
-                    pedidoWeb = new BEPedidoWeb(reader);
-                    pedidoWeb.PaisID = paisID;
+                    pedidoWeb = new BEPedidoWeb(reader)
+                    {
+                        PaisID = paisID
+                    };
                 }
             return pedidoWeb;
         }

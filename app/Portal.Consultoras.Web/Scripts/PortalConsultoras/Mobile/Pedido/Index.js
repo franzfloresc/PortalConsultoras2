@@ -649,8 +649,8 @@ function ObtenerProductosSugeridos(CUV) {
                 prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
                 nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
             });
-            $('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
-            $('#divCarruselSugerido').prepend($(".js-slick-next-h"));
+            //$('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
+            //$('#divCarruselSugerido').prepend($(".js-slick-next-h"));
             CloseLoading();
         },
         error: function (data, error) {
