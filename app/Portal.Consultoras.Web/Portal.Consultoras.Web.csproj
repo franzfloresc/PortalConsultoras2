@@ -3824,13 +3824,9 @@
     <None Include="Service References\ServiceODS\ODSService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
-    <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
-    <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
-    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
+    <None Include="Service References\ServiceODS\configuration91.svcinfo" />
+    <None Include="Service References\ServiceODS\configuration.svcinfo" />
+    <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -3844,11 +3840,8 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceODS\configuration91.svcinfo" />
-    <None Include="Service References\ServiceODS\configuration.svcinfo" />
-    <None Include="Service References\ServiceODS\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService3.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServicePedido\PedidoService.xsd">
@@ -3981,6 +3974,12 @@
     <None Include="Service References\ServicePedido\configuration91.svcinfo" />
     <None Include="Service References\ServicePedido\configuration.svcinfo" />
     <None Include="Service References\ServicePedido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
