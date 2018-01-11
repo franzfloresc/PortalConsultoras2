@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
+            clienteModel.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();

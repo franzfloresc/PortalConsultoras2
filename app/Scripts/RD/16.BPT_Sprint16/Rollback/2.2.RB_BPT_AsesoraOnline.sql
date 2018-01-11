@@ -1,4 +1,7 @@
 
+
+USE BelcorpChile
+
 go
 
 declare @origen varchar(10) = 'RD'

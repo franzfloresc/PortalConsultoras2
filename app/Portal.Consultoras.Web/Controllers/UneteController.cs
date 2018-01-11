@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return "El archivo especificado no existe.";
                 }
 
-                if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
@@ -630,7 +630,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return "El archivo especificado no existe.";
                 }
 
-                if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
