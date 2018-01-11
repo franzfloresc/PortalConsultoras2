@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.WebPages
                     if (Request.QueryString["data"] != null)
                     {
                         //Formato que envia la url: CodigoUsuario;IdPais
-                        string[] query = Util.desencriptar(Request.QueryString["data"].ToString().Replace("\0","")).Split(',');
+                        string[] query = Util.Desencriptar(Request.QueryString["data"].ToString().Replace("\0","")).Split(',');
 
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
