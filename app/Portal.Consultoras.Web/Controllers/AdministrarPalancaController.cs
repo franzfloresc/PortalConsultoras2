@@ -84,18 +84,18 @@ namespace Portal.Consultoras.Web.Controllers
                 var data = new
                 {
                     rows = from a in list
-                           select new
-                           {
-                               id = a.ConfiguracionPaisID,
-                               cell = new string[]
-                               {
+                    select new
+                    {
+                        id = a.ConfiguracionPaisID,
+                        cell = new string[]
+                        {
                             a.ConfiguracionPaisID.ToString(),
                             a.Orden.ToString(),
-                            a.Codigo.ToString(),
-                            a.Descripcion.ToString(),
+                            a.Codigo,
+                            a.Descripcion,
                             a.Estado.ToString()
-                               }
-                           }
+                        }
+                    }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var list = ListarConfiguracionOfertasHome(campaniaID);
+                var list = ListarConfiguracionOfertasHome(campaniaID).ToList();
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -123,9 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
 
-
-                var items = list;
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 var pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {
@@ -133,10 +131,10 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                           select new
-                           {
-                               id = a.ConfiguracionOfertasHomeID,
-                               cell = new string[]
+                    select new
+                    {
+                        id = a.ConfiguracionOfertasHomeID,
+                        cell = new string[]
                         {
                             a.ConfiguracionOfertasHomeID.ToString(),
                             a.DesktopOrden.ToString(),
@@ -144,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
                             a.ConfiguracionPais.Descripcion,
                             a.DesktopTitulo
                         }
-                           }
+                    }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -222,12 +220,12 @@ namespace Portal.Consultoras.Web.Controllers
         
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()
         {
-            List<ServiceSAC.BEConfiguracionPais> lst;
+            List<BEConfiguracionPais> lst;
             using (var sv = new SACServiceClient())
             {
                 lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
             }
-            return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
+            return Mapper.Map<IList<BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
         }
 
 
@@ -241,12 +239,12 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> ListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> ListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
@@ -281,8 +279,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetUrlS3()
         {
-            var paisISO = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var paisIso = Util.GetPaisISO(userData.PaisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
             return ConfigS3.GetUrlS3(carpetaPais);
         }
 
