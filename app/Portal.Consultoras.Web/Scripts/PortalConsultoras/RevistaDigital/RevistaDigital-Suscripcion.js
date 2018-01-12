@@ -74,22 +74,26 @@ $(document).ready(function () {
             }
         });
     }
+    
+   
 
 });
-
-function onYouTubePlayerAPIReady() {
+ window.onYouTubePlayerAPIReady = function () {
     player = new YT.Player('player', {
         width: '640',
         height: '390',
         rel: 0,
         fs: 0,
         videoId: videoKey,
+        playerVars: {
+            autoplay: 1
+        },
         events: {
             onReady: onScrollDown,
             onStateChange: onPlayerStateChange
         }
     });
-}
+ }
 
 function onScrollDown(event) {
     $(window).scroll(function () {
@@ -114,6 +118,10 @@ function onPlayerStateChange(event) {
         });
         $("#div-suscribite").hide();
     }
+    if (event.data == YT.PlayerState.PLAYING && !done) {
+        rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "");
+        done = true;
+    }
 }
 
 function ScrollUser(anchor, alto) {
@@ -126,9 +134,7 @@ function ScrollUser(anchor, alto) {
 
 function RDPopupCerrar() {
     AbrirLoad();
-
-    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
-
+    rdAnalyticsModule.CerrarPopUp();
     $.ajax({
         type: 'POST',
         url: baseUrl + 'RevistaDigital/PopupCerrar',
@@ -221,31 +227,12 @@ function RDDesuscripcion() {
     });
 }
 
-function RDPopupNoVolverMostrar() {
-    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
-    CerrarPopup("#PopRDSuscripcion");
-    AbrirLoad();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            CerrarLoad();
-        },
-        error: function (data, error) {
-            CerrarLoad();
-        }
-    });
-}
-
 function RDRedireccionarInformacion(seccion) {
     seccion = seccion || 0;
-    rdAnalyticsModule.IrCancelarSuscripcion();
+    rdAnalyticsModule.IrEnterate();
+    
     var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
-
     if (seccion == 2) url += "?tipo=" + seccion;
-
     var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
     if (urlLocal.indexOf("/revistadigital//Informacion/") >= 0) {
