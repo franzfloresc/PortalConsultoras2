@@ -1243,6 +1243,7 @@
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.svg" />
     <Content Include="Content\Css\Site\Images\android-EPM-mockup.png" />
     <Content Include="Content\Css\Site\Images\arrow-caja.png" />
     <Content Include="Content\Css\Site\Images\bgx.jpg" />
@@ -3706,6 +3707,9 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\Index.cshtml" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.eot" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.ttf" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.woff" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
