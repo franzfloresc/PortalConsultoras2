@@ -430,10 +430,12 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.EstadoRDSuscripcion.Activo:
                     if (revistaDigital.SubscripcionAutomaticaAVirtualCoach)
                     {
-                        var asesoraOnLine = new BEAsesoraOnline();
-                        asesoraOnLine.CodigoConsultora = userData.CodigoConsultora;
-                        asesoraOnLine.ConfirmacionInscripcion = 1;
-                        asesoraOnLine.Origen = Constantes.RevistaDigitalOrigen.RD;
+                        var asesoraOnLine = new BEAsesoraOnline
+                        {
+                            CodigoConsultora = userData.CodigoConsultora,
+                            ConfirmacionInscripcion = 1,
+                            Origen = Constantes.RevistaDigitalOrigen.RD
+                        };
                         using (var sv = new AsesoraOnlineServiceClient())
                         {
                             sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
@@ -497,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
                 bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
                 string message = resultado.Split('|')[2];
-                int Cantidad = int.Parse(resultado.Split('|')[3]);
+                int cantidad = int.Parse(resultado.Split('|')[3]);
 
                 if (!seActualizoMisDatos)
                 {
@@ -505,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message,
-                        Cantidad,
+                        Cantidad = cantidad,
                         extra = string.Empty
                     });
                 }
