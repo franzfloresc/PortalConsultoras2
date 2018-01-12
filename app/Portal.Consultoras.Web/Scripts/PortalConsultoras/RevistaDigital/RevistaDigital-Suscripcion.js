@@ -125,6 +125,7 @@ function ScrollUser(anchor, alto) {
 }
 
 function RDPopupCerrar() {
+    
     AbrirLoad();
 
     rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
@@ -136,6 +137,28 @@ function RDPopupCerrar() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            CerrarLoad();
+        }
+    });
+}
+
+function RDPopupMobileCerrar() {
+
+    AbrirLoad();
+
+    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();

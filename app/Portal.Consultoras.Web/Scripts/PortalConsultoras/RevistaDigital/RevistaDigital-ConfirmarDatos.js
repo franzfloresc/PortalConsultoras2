@@ -1,4 +1,10 @@
-﻿function RDConfirmarDatos() {
+﻿$(document).ready(function () {
+    $("a[data-popup-close=PopRDSuscripcion]").on("click", function () {
+        window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+    });
+});
+
+function RDConfirmarDatos() {
     var correoAnterior = $.trim($('#CorreoAnterior').val());
     var email = $.trim($('#Email').val());
     var celular = $.trim($('#Celular').val());
