@@ -83,7 +83,25 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais > ();
 
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
+            Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 
+            Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
+                .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
+                .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
+                .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
+                .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado))
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
         }
     }
 }

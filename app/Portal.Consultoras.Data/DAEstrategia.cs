@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TieneImagen", DbType.Int32, entidad.Imagen);
                 Context.Database.AddInParameter(command, "@Activo", DbType.Int32, entidad.Activo);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, entidad.CodigoConcurso);
                 return Context.ExecuteReader(command);
             }
         }
@@ -129,6 +131,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
                 Context.Database.AddInParameter(command, "@Ganancia", DbType.Decimal, entidad.Ganancia);
                 Context.Database.AddInParameter(command, "@EsOfertaIndependiente", DbType.Boolean, entidad.EsOfertaIndependiente);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, entidad.CodigoConcurso);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -318,7 +322,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteScalar(command).ToString();
             }
         }
-        // 1747 - Inicio
+
         public IDataReader GetRegionZonaZE(int RegionID, int ZonaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRegionZonaZE");
@@ -327,7 +331,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-		// 1747 - Fin
         
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
@@ -464,8 +467,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter2);
             return Context.ExecuteNonQuery(command);
         }
-
-        /*PL20-1226*/
+        
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
@@ -580,6 +582,52 @@ namespace Portal.Consultoras.Data
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;
+        }
+        #endregion
+
+        #region ActualizarDescripcion
+        public IDataReader ActualizarDescripcionEstrategia(int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
+        {
+            var command =
+                new SqlCommand("dbo.ActualizarDescripcionEstrategia") { CommandType = CommandType.StoredProcedure };
+
+            command.Parameters.Add(new SqlParameter("@DescripcionEstrategia", SqlDbType.Structured) {
+                    TypeName = "dbo.DescripcionEstrategiaType",
+                    Value = new GenericDataReader<BEDescripcionEstrategia>(listaDescripcionEstrategias)
+                });
+            command.Parameters.Add(new SqlParameter("@CampaniaId", SqlDbType.Int) { Value = campaniaId });
+            command.Parameters.Add(new SqlParameter("@TipoEstrategiaId", SqlDbType.Int) { Value = tipoEstrategiaId });
+            return Context.ExecuteReader(command);
+        }
+        #endregion
+
+        #region CargaMasivaImagenes
+
+        public IDataReader GetListaImagenesEstrategiasByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesEstrategiasByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaImagenesOfertaLiquidacionByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesOfertaLiquidacionByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaImagenesProductoSugeridoByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesProductoSugeridoByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
         }
 
         #endregion

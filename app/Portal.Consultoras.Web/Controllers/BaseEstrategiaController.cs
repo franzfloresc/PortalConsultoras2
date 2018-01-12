@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -15,9 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
-            //string varSession = Constantes.ConstSession.ListaEstrategia;
-            //if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
-
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
@@ -47,10 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
 
-            //if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-            //    return listEstrategia;
-
-            //Session[varSession] = listEstrategia;
             return listEstrategia;
         }
 
@@ -73,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     return listEstrategia;
                 }
-
+                
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -210,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                 joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
                 var listaAppCatalogo = new List<Producto>();
-                var numeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
                     listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinCuv, numeroCampanias).ToList();
@@ -318,7 +310,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                //estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
                 estrategiaModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
@@ -363,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Validar Tipo RD
 
-                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo))
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -544,6 +535,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || tipo == 2
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
+                prodModel.FotoProductoMedium = estrategia.FotoProductoMedium;
+                prodModel.FotoProductoSmall = estrategia.FotoProductoSmall;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;
                 prodModel.DescripcionResumen = estrategia.DescripcionResumen;
@@ -573,12 +566,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
-
-                //estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -79,7 +80,6 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.HoraInicioPreReserva = oBEConfiguracionCampania.HoraInicioNoFacturable;
             usuario.HoraFinPreReserva = oBEConfiguracionCampania.HoraCierreNoFacturable;
             usuario.DiasCampania = oBEConfiguracionCampania.DiasAntes;
-            //usuario.DiaPROL = ValidarPROL(usuario);
             usuario.NombreCorto = oBEConfiguracionCampania.CampaniaDescripcion;
             usuario.CampaniaID = oBEConfiguracionCampania.CampaniaID;
             usuario.ZonaHoraria = oBEConfiguracionCampania.ZonaHoraria;
@@ -106,13 +106,13 @@ namespace Portal.Consultoras.Web.Controllers
             var estado = false;
             try
             {
+                var cantidad = origen == "OfertaLiquidacion" ? cantidadregistros * 2 : cantidadregistros;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros * 2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
+                    lst = sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidad).ToList();
                 }
                 ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
 
-                // 1664
                 if (lst != null && lst.Count > 0)
                 {
                     if (lst.Count > cantidadregistros)
@@ -122,8 +122,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     lst = lst.Take(cantidadregistros).ToList();
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                    lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
+                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+
+                    foreach (var item in lst)
+                    {
+                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);                                                
+                        item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+                        item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+                        item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                    }
                 }
             }
             catch (Exception ex)
@@ -167,7 +175,6 @@ namespace Portal.Consultoras.Web.Controllers
                   .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                   .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
 
-            // 1664
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -221,13 +228,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
 
-                //EPD-2248
                 if (entidad != null)
                 {
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
@@ -240,7 +246,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
-                //EPD-2248
 
                 return Json(new
                 {
@@ -397,7 +402,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             int UnidadesPermitidas = 0;
             int Saldo = 0;
-            /* 2024 - Inicio */
             int CantidadPedida = 0;
             var entidad = new BEOfertaProducto();
             entidad.PaisID = userData.PaisID;
@@ -461,7 +465,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
+                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
             return View(cronogramaModel);
         }
@@ -481,10 +485,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -537,7 +537,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
@@ -609,13 +608,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetProductosByTipoOferta(PaisID, Constantes.ConfiguracionOferta.Liquidacion, CampaniaID, codigoOferta).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEOfertaProducto> items = lst;
 
@@ -694,10 +691,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                // lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
                 lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
                 lst.Update(x => x.ISOPais = ISO);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -740,6 +735,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWeb(OfertaProductoModel model)
         {
+            string mensajeErrorImagenResize = "";
             try
             {
                 Mapper.CreateMap<OfertaProductoModel, BEOfertaProducto>()
@@ -759,24 +755,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, userData.CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = string.Empty;
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
+
+                    #region Imagen Resize 
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                    #endregion                    
+
                     sv.InsOfertaProducto(entidad);
                 }
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la Oferta Liquidación satisfactoriamente.",
+                    message = "Se actualizó la Oferta Liquidación satisfactoriamente." + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -805,6 +805,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateOfertaWeb(OfertaProductoModel model)
         {
+            string mensajeErrorImagenResize = "";
             try
             {
                 Mapper.CreateMap<OfertaProductoModel, BEOfertaProducto>()
@@ -824,29 +825,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //string imgAnterior = System.IO.Path.GetFileName(model.ImagenProductoAnterior).ToString().Trim();
-                    //string img = System.IO.Path.GetFileName(model.ImagenProducto);
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    FileManager.DeleteImage(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, imgAnterior);
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, userData.CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = (img == "prod_grilla_vacio.png" ? string.Empty : img);
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
-                    //entidad.Stock = model.Cantida;
+
+                    #region Imagen Resize 
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                    #endregion                    
+
                     sv.UpdOfertaProducto(entidad);
-                    //sv.UpdOfertaProductoStock()
                 }
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la Oferta Liquidación satisfactoriamente.",
+                    message = "Se actualizó la Oferta Liquidación satisfactoriamente." + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -1156,8 +1156,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        /* 2024 - Inicio */
-
         [HttpGet]
         public ActionResult ConsultarTallaColor(string sidx, string sord, int page, int rows, string CampaniaID, string CUV)
         {
@@ -1175,13 +1173,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetTallaColorLiquidacion(entidad).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEOfertaProducto> items = lst;
 
@@ -1189,7 +1185,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1347,8 +1342,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /* 2024 - Fin */
-
         #endregion
 
         [HttpPost]
@@ -1406,5 +1399,70 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        #region CargaMasivaImagenes
+
+        public JsonResult CargaMasivaImagenes(int campaniaId)
+        {
+            try
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var lista = new List<BECargaMasivaImagenes>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    lista = ps.GetListaImagenesOfertaLiquidacionByCampania(userData.PaisID, campaniaId).ToList();
+                }
+                //lista = lista.Take(5).ToList();
+                var cantidadImagenesGeneradas = 0;
+                var cuvNoGenerados = "";
+                var cuvNoExistentes = "";
+
+                foreach (var item in lista)
+                {
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, item.RutaImagen);
+                    var mensajeError = "";
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                    else
+                        cuvNoExistentes += item.Cuv + ",";
+
+                    if (mensajeError == "")
+                        cantidadImagenesGeneradas++;
+                    else
+                        cuvNoGenerados += item.Cuv + ",";
+                }
+
+                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                if (cuvNoGenerados != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
+                }
+                if (cuvNoExistentes != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }

@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Codigos", DbType.String, Codigos);
             Context.Database.AddInParameter(command, "@Tipo", DbType.Int32, Tipo);
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.DateTime, FechaFacturacion);
-            //Context.Database.AddInParameter(command, "@FechaFinFacturacion", DbType.DateTime, FechaFinFacturacion);
             Context.Database.AddInParameter(command, "@FechaReFacturacion", DbType.DateTime, FechaReFacturacion);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
 

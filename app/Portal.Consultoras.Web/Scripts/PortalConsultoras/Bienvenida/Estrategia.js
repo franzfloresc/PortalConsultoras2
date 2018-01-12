@@ -110,7 +110,7 @@ var CargarCarouselMasVendidos = function (origen) {
         ArmarCarouselMasVendidos(model);
         inicializarDivMasVendidos(origen);
         _validarDivTituloMasVendidos();
-    }    
+    }
 }
 
 var obtenerModelMasVendidos = function () {
@@ -129,7 +129,7 @@ var obtenerModelMasVendidos = function () {
                     }
                 }
             });
-    }    
+    }
     return model;
 }
 
@@ -158,14 +158,14 @@ function inicializarDivMasVendidos(origen) {
     var slickArrows = {
         'mobile': {
             prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
         },
         'desktop': {
             prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }
     };
-   
+
     $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
         infinite: true,
         vertical: false,
@@ -179,18 +179,18 @@ function inicializarDivMasVendidos(origen) {
         prevArrow: slickArrows[origen].prev,
         nextArrow: slickArrows[origen].next,
         responsive: [
-                {
-                    breakpoint: 1200,
-                    settings: { slidesToShow: 3, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 900,
-                    settings: { slidesToShow: 2, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 600,
-                    settings: { slidesToShow: 1, slidesToScroll: 1 }
-                }
+            {
+                breakpoint: 1200,
+                settings: { slidesToShow: 3, slidesToScroll: 1 }
+            },
+            {
+                breakpoint: 900,
+                settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+                breakpoint: 600,
+                settings: { slidesToShow: 1, slidesToScroll: 1 }
+            }
         ]
     });
 }
@@ -224,7 +224,7 @@ function PintarPrecioTachado(listaMasVendidos) {
 }
 
 function _pintarPrecioTachado(item) {
-    var xdiv = "#precio-tachado-" + item.EstrategiaID.toString();    
+    var xdiv = "#precio-tachado-" + item.EstrategiaID.toString();
     if (item.Ganancia > 0) {
         $(xdiv).show();
     }
@@ -274,17 +274,17 @@ function _pintarEstrellas(item) {
             $(xdiv).show();
         }
     }
-    
+
 }
 
 function ArmarCarouselEstrategias(data) {
-    
+
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
-    $('#contenedor_template_estrategia_cabecera').show();
+    //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
+    //$('#contenedor_template_estrategia_cabecera').show();
 
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();
@@ -292,10 +292,10 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
-    //data.Lista = EstructurarDataCarousel(data.Lista);
     $.each(data.ListaLan, function (i, item) {
         item.Posicion = i + 1;
     });
+
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
     });
@@ -304,13 +304,12 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data.Lista;
 
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
-   
+
     try {
         SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
 
         if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
             $('#divListaEstrategias').show();
-            //return false;
             if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
                 $('#divListadoEstrategia2 #bc_promo').remove();
                 $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
@@ -319,12 +318,12 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
-    
-    if (tipoOrigenEstrategia == 11) { 
+
+    if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
@@ -341,7 +340,7 @@ function ArmarCarouselEstrategias(data) {
 
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
-        var esVariableWidth = $("#divListadoEstrategia2").length > 0;        
+        var esVariableWidth = $("#divListadoEstrategia2").length > 0;
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
@@ -457,7 +456,7 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             dots: false,
             prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-7%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
             responsive: [
@@ -569,12 +568,11 @@ function EstructurarDataCarousel(array) {
     array = array || new Array();
     var isList = array.length != undefined;
     if (typeof array == "object") {
-        //var isList = array[0].DescripcionCUV2 != undefined;
         var lista = isList ? array : new Array();
         if (!isList)
             lista.push(array);
-    }    
-    
+    }
+
     var urlOfertaDetalle = $.trim(urlOfertaDetalle);
     $.each(lista, function (i, item) {
         item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
@@ -664,7 +662,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 if (itemClone.length > 0) {
                     divMensaje.find("[data-item-html]").html(itemClone.html());
                     divMensaje = divMensaje.find("[data-item-html]");
-                    //var htmlProd = $(objInput).parents("[data-item]");
                     divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
                     divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
                     divMensaje.find('[data-item-tag="body"]').css("float", "none");
@@ -678,14 +675,13 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                     divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
                     divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
                     divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
-                    //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
                 }
 
                 $(".contenedor_popup_detalleCarousel").hide();
                 $("#divMensajeBloqueada").show();
             }
         }
-       
+
         return false;
     }
     var attrClass = $.trim($(objInput).attr("class"));
@@ -711,14 +707,14 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var flagNueva = objParameter.FlagNueva;
 
     var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
-                                                  || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
-                                                  || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+        || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
+        || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     origenPedidoWebEstrategia =
         $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-       || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-       || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-       || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-       || origenPedidoWebEstrategia;
+        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
@@ -759,7 +755,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 var cuvs = $("[data-tono][data-tono-select]");
                 if (cuvs.length > 0) {
                     $.each(cuvs,
-                        function(i, item) {
+                        function (i, item) {
                             var cuv = $(item).attr("data-tono-select");
                             if (cuv != "") {
                                 datos.data.CUV2 = cuv;
@@ -845,7 +841,7 @@ function EstrategiaTallaColor(datos) {
         $(".zonaCantidad").hide();
         $("#hdnProgramaOfertaNuevo").val(true);
         var nroPedidos = false;
-        var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
+        var pedidosData = $('#divListadoPedido').find("input[id^='hdfFlagNueva']");
 
         pedidosData.each(function (indice, valor) {
             if (valor.value == 1) {
@@ -917,22 +913,20 @@ function EstrategiaTallaColor(datos) {
         }
     }
 
-    //closeWaitingDialog();
-    //showDialog('divVistaPrevia');
 }
 
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
-    var marcaID = datosEst.MarcaID; // $("#txtCantidadZE").attr("est-marcaID");
-    var cuv = datosEst.CUV2; // $("#txtCantidadZE").attr("est-cuv2");
-    var precio = datosEst.Precio2;// $("#txtCantidadZE").attr("est-precio2");
+    var marcaID = datosEst.MarcaID;
+    var cuv = datosEst.CUV2;
+    var precio = datosEst.Precio2;
     var ofertas = datosEst.DescripcionCUV2.split('|');
-    var descripcion = ofertas[0]; //$("#txtCantidadZE").attr("est-descripcion");
-    var cantidad = datosEst.cantidadIngresada; // $("#txtCantidadZE").val();
-    var cantidadLimite = datosEst.LimiteVenta; // $("#txtCantidadZE").attr("est-cantidad");
-    var indicadorMontoMinimo = datosEst.IndicadorMontoMinimo; // $("#txtCantidadZE").attr("est-montominimo");
+    var descripcion = ofertas[0];
+    var cantidad = datosEst.cantidadIngresada;
+    var cantidadLimite = datosEst.LimiteVenta;
+    var indicadorMontoMinimo = datosEst.IndicadorMontoMinimo;
     var OrigenPedidoWeb = origenPedidoWebEstrategia;
-    
+
     if (datosEst.FlagNueva == 1) {
         cantidad = cantidadLimite;
     }
@@ -1008,7 +1002,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         if (divAgregado != null) {
                             $(divAgregado).show();
-                        } 
+                        }
 
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, '1');
@@ -1017,7 +1011,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             if (_validartieneMasVendidos() === 1) {
                                 //CargarCarouselMasVendidos('desktop');
                             }
-                            
+
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 11) {
@@ -1037,7 +1031,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         else if ($.trim(tipoOrigenEstrategia)[0] == "1") {
                             CargarResumenCampaniaHeader(true);
                         }
-                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27|| tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
+                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
                                 origenRetorno = $.trim(origenRetorno);
@@ -1173,7 +1167,7 @@ function _validarDivTituloMasVendidos() {
     if (tieneMasVendidosFlag === 0) {
         $(".content_mas_vendidos").hide();
         return;
-    }    
+    }
 
     if (tieneMasVendidosFlag === 1) {
         if (xlista.length === 0) {

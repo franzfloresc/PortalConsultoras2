@@ -191,7 +191,6 @@
             Sobrenombre: jQuery('#txtSobrenombre').val(),
             CorreoAnterior: $.trim(jQuery('#hdn_Correo').val()),
             NombreCompleto: jQuery('#hdn_NombreCompleto').val(),
-            //CompartirDatos: jQuery('#ddlCompartirDatos').val() == "1" ? true : false,
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContrato').is(':checked')
         };
@@ -282,11 +281,7 @@
                             {
                                 <p class="azul">Estás en <span>@ViewBag.Campania</span>, te quedan <strong>@ViewBag.Dias días</strong> para el cierre.</p>
                             }
-                            <p>@ViewBag.MensajeCierreCampania</p>
-                            if (ViewBag.TieneFechaPromesa == 1)
-                            {
-                                <span class="fcolor">@ViewBag.MensajeFechaPromesa</span>
-                            }
+                            <p>@ViewBag.MensajeCierreCampania</p>                            
                         }
                         else
                         {

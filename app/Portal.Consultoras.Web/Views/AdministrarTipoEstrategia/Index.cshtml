@@ -34,12 +34,16 @@
             $("#hdImagenOfertaIndependiente").val("");
             $("#hdImagenOfertaIndependienteAnterior").val("");
 
+
             $("#hdTipoEstrategiaID").val("0");
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
             $("#chkMostrarImg").attr("checked", false);
             $("#chkMostrarImgIndependiente").attr("checked", false);
             $(".divOfertaIndependiente").hide();
+
+			$("#chkValImg").attr("checked", false);
+			$("#txtPesoMaximoImagen").val("0");
 
             fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -93,6 +97,33 @@
                 $("#txtCodigoPrograma").val(null);
             }
         });
+
+		$("#chkValImg").click(function () {
+            if ($("#chkValImg").attr('checked')) {
+                $("#txtPesoMaximoImagen").attr('disabled', false);
+                $("#txtPesoMaximoImagen").val("0");
+            }
+			else
+			{
+				$("#txtPesoMaximoImagen").attr('disabled', true);
+				$("#txtPesoMaximoImagen").val("0");
+			}
+        });
+
+		$(document).ready(function() {
+			$("#txtPesoMaximoImagen").keydown(function (e) {
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+					(e.keyCode == 65 && e.ctrlKey === true) || 
+					(e.keyCode >= 35 && e.keyCode <= 39)) {
+						 return;
+				}
+ 
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+					e.preventDefault();
+				}
+			});
+		});
+
         $("#btnAgregarOferta").click(function () {
 
             var ofertaID = $("#hdofertaid").val();
@@ -178,7 +209,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente'],
+            colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente','FlagValidarImagen', 'PesoMaximoImagen'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Codigo', index: 'Codigo', width: 100, editable: true, resizable: false, hidden: false },
@@ -194,7 +225,9 @@
                 { name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'MostrarImgOfertaIndependiente', index: 'MostrarImgOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true },
-                { name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage  }
+                { name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage  },
+				{ name: 'FlagValidarImagen', index: 'FlagValidarImagen', width: 0, editable: true, resizable: false, hidden: true },
+				{ name: 'PesoMaximoImagen', index: 'PesoMaximoImagen', width: 180, editable: true, resizable: false, hidden: true },
             ],
             jsonReader:
             {
@@ -289,7 +322,23 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[7] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13] + "','" + rowObject[14] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
+            + rowObject[0]
+            + "','" + rowObject[1]
+            + "','" + rowObject[2]
+            + "','" + rowObject[4]
+            + "','" + rowObject[5]
+            + "','" + rowObject[6]
+            + "','" + rowObject[7]
+            + "','" + rowObject[11]
+            + "','" + rowObject[12]
+            + "','" + rowObject[13]
+            + "','" + rowObject[14]
+            + "','" + rowObject[15]
+            + "','" + rowObject[16]
+            + "');\" >"
+            + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -434,7 +483,9 @@
 
                     ofertaID = $("#hdofertas").val();
 
-                    if (ofertaID.length > 0) ofertaID = ofertaID.substring(0, ofertaID.length - 1);
+                    if (ofertaID.length > 0) {
+                        ofertaID = ofertaID.substring(0, ofertaID.length - 1);
+                    }
 
                     if ($("#chkMostrarImg").attr("checked")) {
                         if ($("#img01").attr("src") == "" || ($("#img01").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
@@ -450,6 +501,14 @@
                         }
                     }
 
+					if ($("#chkValImg").attr("checked")) {
+                        if ($("#txtPesoMaximoImagen").val() == "" || $("#txtPesoMaximoImagen").val() == "0") {
+                            alert("Debe Ingresar un tamaño en Kb mayor a 0 de la imagen a validar.");
+                            return false;
+                        }
+                    }
+
+
                     var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
                     var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
                     var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
@@ -457,6 +516,8 @@
                     var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
                     var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
                     var codigo = $("#txCodigoOriginalModal").val();
+					var flagValidarImagen = ($("#chkValImg").attr("checked")) ? "1" : "0";
+					var pesoMaximoImagen = flagValidarImagen ? $("#txtPesoMaximoImagen").val() : "0";
 
                     var params = {
                         TipoEstrategiaID: tipoEstrategiaID,
@@ -471,6 +532,8 @@
                         FlagRecoProduc: flagRecoProduc,
                         CodigoPrograma: codigoPrograma,
                         FlagMostrarImg: flagMostrarImg,
+						FlagValidarImagen: flagValidarImagen,
+						PesoMaximoImagen: pesoMaximoImagen,
                         MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
                         ImagenOfertaIndependiente: imagenOfertaIndependiente,
                         ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior,
@@ -539,7 +602,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente) {
+        Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
             if (id) {
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
                 $("#hdPais").val($("#ddlPais").val());
@@ -562,6 +625,15 @@
 
                 imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
 
+
+
+				var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
+				$("#chkValImg").attr("checked", (flagValidarImagen == "1"));
+
+				$("#txtPesoMaximoImagen").val(pesoMaximoImagen);
+
+				
+
                 if (imgOfertaIndependiente.length > 0) {
                     $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
                     $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
@@ -572,10 +644,11 @@
                 var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
                 var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
 
-                $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
-                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
-                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1") ? true : false);
-                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1") ? true : false);
+
+                $('#chkNueva').attr("checked", (flagNueva == "1"));
+                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1"));
+                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1"));
+                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1"));
 
                 $("#hdTipoEstrategiaID").val(id);
                 $("#hdofertas").val(ofertas + ',');
@@ -596,6 +669,12 @@
                     $(".divOfertaIndependiente").show();
                 } else {
                     $(".divOfertaIndependiente").hide();
+                }
+
+				if (flagValidarImagen == "1") {
+                   $("#txtPesoMaximoImagen").prop('disabled', false);
+                } else {
+                    $("#txtPesoMaximoImagen").prop('disabled', true);
                 }
 
                 fnGrillaOfertas(id);
@@ -730,6 +809,20 @@
                 <input type="text" id="txtCodigoPrograma" />
             </div>
         </div>
+
+		<div class="div-3">
+		    <div class="titB">Validar Tamaño :</div>
+                <div class="selectCheck borde_redondeado">
+                <input type="checkbox" id="chkValImg" />
+            </div>
+            <div class="titB">Tamaño (Kb):</div>
+                <div class="selectP2 borde_redondeado">
+                <input type="number" id="txtPesoMaximoImagen" />
+            </div>
+
+        </div>
+
+
         <div class="div-3">
             <div class="titA"></div>
             <div class="titG">
@@ -741,12 +834,10 @@
         <div>
             <div class="float-left">
                 <div class="div-3">
-                    <!--SB2-353 - INICIO -->
                     <div class="titB">Mostrar imagen:</div>
                     <div class="selectCheck borde_redondeado">
                         <input type="checkbox" id="chkMostrarImg" />
                     </div>
-                    <!--SB2-353 - FIN -->
                 </div>
                 <div class="div-3">
                     <div class="titB">Imagen:</div>
@@ -757,13 +848,10 @@
                     <div class="titB" style="display: none;">Oferta:</div>
                     <div class="container clearfix" style="display: none;">
                         <div class="selectA borde_redondeado">
-                            <!-- table id="listaOfertas"></table>
-                            <div id="pagerOferta"></div -->
                         </div>
                     </div>
                 </div>
                 <div class="div-3">
-                    <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
                     <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
                     <div class="titG" style="width: 180px;">
                         <div class="input_search">

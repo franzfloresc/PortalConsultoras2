@@ -86,7 +86,8 @@ var rdAnalyticsModule = (function () {
         roInscribirme: "Revista Online - Inscribirme a Ésika para mí",
         banner: "Banner",
         popup: "Home pop-up - 1",
-        notAvailable: "(not available)"
+        notAvailable: "(not available)", 
+        contenedor: "Contendor"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -227,7 +228,7 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.home: //Home
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogos: //Catalogos
+                case _origenWeb.catalogo: //Catalogos
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido: //Pedido
@@ -264,13 +265,13 @@ var rdAnalyticsModule = (function () {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
@@ -460,6 +461,9 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
     }
 
+    function ContendorSection(titulo) {
+        _virtualEventPush(_text.contenedor, titulo + " – Ver Todo", _text.notAvailable);
+    }
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
@@ -475,6 +479,7 @@ var rdAnalyticsModule = (function () {
         AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
-        Access: Access
+        Access: Access,
+        ContendorSection: ContendorSection
     };
 })();

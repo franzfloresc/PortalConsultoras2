@@ -77,9 +77,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
@@ -270,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string output = serializer.Serialize(complain);
 
-            string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+            string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
             Uri uri = new Uri(strUri);
             WebRequest request = WebRequest.Create(uri);
             request.Method = "POST";
@@ -297,7 +296,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
                     {
-                        //R20150906
                         if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
                         {
                             foreach (var item in st.GET_URLResult.objeto)
@@ -409,7 +407,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
@@ -435,9 +432,8 @@ namespace Portal.Consultoras.Web.Controllers
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             SC.BEPedidoWebDetalle source = SourceDetails[i];
 
                             string[] arr = new string[2];
@@ -480,7 +476,7 @@ namespace Portal.Consultoras.Web.Controllers
                         decimal importT = ((SC.BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
                         string importeTotalPedido = Util.DecimalToStringFormat(importT, userData.CodigoISO);
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + importeTotalPedido;
                         TotalPedido += importT;
                     }
@@ -503,12 +499,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -526,7 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-            List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+            List<BEPedidoFacturado> lista;
             try
             {
                 using (SACServiceClient client = new SACServiceClient())
@@ -539,6 +533,8 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 lista = null;
             }
+
+            lista = lista ?? new List<BEPedidoFacturado>();
 
             foreach (var item in lista)
             {
@@ -607,7 +603,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                //decimal TotalPedido = 0;
                 string Simbolo = userData.Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
@@ -634,9 +629,8 @@ namespace Portal.Consultoras.Web.Controllers
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             BEPedidoWebDetalle source = SourceDetails[i];
                             string[] arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
@@ -693,12 +687,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -741,7 +733,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = Util.PaginadorGenerico(grid, items);
             var importeTotal = Util.DecimalToStringFormat(items.Sum(p => p.ImporteTotal), userData.CodigoISO);
-            // Creamos la estructura
             var data = new
             {
                 CampaniaId,
@@ -777,7 +768,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEGrid grid = SetGrid(sidx, sord, page, rows);
 
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado, pedidoId);
-            var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
+            var pedidoWeb = lst.Any() ? lst[0] : new BEPedidoWebDetalle();
 
             var listaCliente = (from item in lst
                                 select new ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre }
@@ -793,7 +784,6 @@ namespace Portal.Consultoras.Web.Controllers
             var ImporteTotal = Util.DecimalToStringFormat(totalpedido, userData.CodigoISO);
             var montoConDesctoString = Util.DecimalToStringFormat(montoConDescto, userData.CodigoISO);
             var itm = items.FirstOrDefault() ?? new BEPedidoWebDetalle();
-            // Creamos la estructura
             var data = new
             {
                 pedidoId,
@@ -855,7 +845,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora, EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(CampaniaId);
+                    bePedidoWebDetalleParametros.ConsultoraId = ObtenerConsultoraId();
+                    bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    lst = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
                 lst.Update(c => c.NombreCliente = string.IsNullOrEmpty(c.Nombre) ? userData.NombreConsultora : c.Nombre);
                 #endregion

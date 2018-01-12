@@ -142,7 +142,6 @@ namespace Portal.Consultoras.BizLogic
             return DAServicio.DelServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
 
-        //RQ_DC - R2133
         public void DeleteCacheServicio(string CodigoISO, int CampaniaId)
         {
             CacheManager<BEServicioCampania>.RemoveData(GetPaisID(CodigoISO), ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
@@ -181,7 +180,6 @@ namespace Portal.Consultoras.BizLogic
             return int.Parse(paisID);
         }
 
-        //RQ_PBS - R2161
         public BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
             BEServicioSegmentoZona oBEServicioSegmentoZona = null;
@@ -194,13 +192,12 @@ namespace Portal.Consultoras.BizLogic
                     {
                         Segmento = Convert.ToInt32(reader["Segmento"]),
                         ConfiguracionZona = Convert.ToString(reader["ConfiguracionZona"]),
-                        SegmentoInternoID = Convert.ToString(reader["SegmentoInternoID"])/*CGI(RSA) - REQ 2544*/
+                        SegmentoInternoID = Convert.ToString(reader["SegmentoInternoID"])
                     };
                 }
             return oBEServicioSegmentoZona;
         }
 
-        //RQ_PBS - R2161
         public List<BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo)
         {
             List<BEServicioSegmentoZona> Lista = new List<BEServicioSegmentoZona>();
@@ -228,9 +225,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return Lista;
         }
-
-        //RQ_PBS - R2161
-        /*RE2544 - CS(CGI) - 14/05/2015 */     
+        
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DAServicio DAServicio = new DAServicio();

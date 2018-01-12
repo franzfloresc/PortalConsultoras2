@@ -13,9 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ParticipantesDemandaAnticipadaController : BaseController
     {
-        //
-        // GET: /ParticipantesDemandaAnticipada/
-
         public ActionResult Index()
         {
             var participantesConsultora = new ParticipantesDemandaAnticipadaModel()
@@ -57,13 +54,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, CodigoConsultora);
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BEParticipantesDemandaAnticipada> items = lst;
 
@@ -149,7 +144,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = Paginador(grid, vBusqueda);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -178,8 +172,6 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-            //}
-            //return RedirectToAction("Index", "ModificacionCronograma");
         }
 
         [HttpPost]
@@ -235,7 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
                     configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(ConsultoraID);
                     configuracionConsultoraDA.CampaniaID = Convert.ToString(CodigoCampania);
                     configuracionConsultoraDA.TipoConfiguracion = Convert.ToByte(TipoConfiguracion);
-                    configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario); //R20160214
+                    configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario);
                     using (SACServiceClient sv = new SACServiceClient())
                     {
 
@@ -325,7 +317,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             int RecordCount;
 
-            // TODO: probar si es necesario el valor de 'vBusqueda'
             if (string.IsNullOrEmpty(CodigoCampania))
                 RecordCount = lst.Count;
             else
@@ -347,7 +338,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(string CodigoCampania)
         {
-            // consulta toda la data de ConfiguracionValidacionZona
             IList<BEParticipantesDemandaAnticipada> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {

@@ -126,6 +126,14 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public string DescripcionEstrategia { get; set; }
 
+        [DataMember]
+        [ViewProperty]
+        public string ImagenProductoSmall { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        public string ImagenProductoMedium { get; set; }
+
         public BEOfertaProducto(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaProductoID") && row["OfertaProductoID"] != DBNull.Value)

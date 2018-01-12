@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Prol { get; set; }
 
-        public string ProlTooltip { get; set; } /* SB20-287 */
+        public string ProlTooltip { get; set; }
 
         public string MensajeGuardarColombia { get; set; }
 
@@ -201,10 +201,6 @@ namespace Portal.Consultoras.Web.Models
         public int Dias { get; set; }
 
         public string MensajeCierreCampania { get; set; }
-
-        public int TieneFechaPromesa { get; set; }
-
-        public string MensajeFechaPromesa { get; set; }
 
         public string CodigoZona { get; set; }
 
