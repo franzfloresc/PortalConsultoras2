@@ -1054,37 +1054,27 @@
                 JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                 WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null)
-                {
-                    if (st.LIS_CampanaResult != null)
+                if (st != null && st.LIS_CampanaResult != null && st.LIS_CampanaResult.lista != null &&
+                    st.LIS_CampanaResult.lista.Count != 0)
+
+                    foreach (var item in st.LIS_CampanaResult.lista)
                     {
-                        if (st.LIS_CampanaResult.lista != null)
+                        lstCampaniaModel.Add(new CampaniaModel()
                         {
-                            if (st.LIS_CampanaResult.lista.Count != 0)
-                            {
-                                foreach (var item in st.LIS_CampanaResult.lista)
-                                {
-                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
-                                }
-                            }
-                            else
-                            {
-                            }
-                        }
-                        else
-                        {
-                        }
+                            CampaniaID = Convert.ToInt32(item),
+                            Codigo = item
+                        });
                     }
-                }
             }
             catch (Exception ex)
             {
                 Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+
             if (lstCampaniaModel.Count != 0)
                 return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
-            else
-                return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
+
+            return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
 
 
         }
@@ -1147,31 +1137,28 @@
                 JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                 WrapperPDFWeb st = jsonSerializer.Deserialize<WrapperPDFWeb>(outResult);
-                if (st != null)
-                {
-                    if (st.GET_URLResult != null)
+                if (st != null && st.GET_URLResult != null)
+
+                    if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
                     {
-                        if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
+                        if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
                         {
-                            if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
+                            foreach (var item in st.GET_URLResult.objeto)
                             {
-                                foreach (var item in st.GET_URLResult.objeto)
+                                lstRvprfModel.Add(new RVPRFModel()
                                 {
-                                    lstRvprfModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
-                                }
+                                    Nombre = "Paquete Documentario",
+                                    FechaFacturacion = item.fechaFacturacion,
+                                    Ruta = Convert.ToString(item.url)
+                                });
                             }
-
                         }
-                        else
-                        {
-                            errorCode = st.GET_URLResult.errorCode;
-                            errorMessage = st.GET_URLResult.errorMessage;
-                        }
-
                     }
-
-                }
-
+                    else
+                    {
+                        errorCode = st.GET_URLResult.errorCode;
+                        errorMessage = st.GET_URLResult.errorMessage;
+                    }
             }
             catch (Exception ex)
             {
