@@ -33096,6 +33096,17 @@ h1#penmostreo .campana {
             z-index: 10000;
             display:table;
         }
+
+.contenedor_fondo_popup_ganancia { 
+    display: block;
+    position: absolute;
+    top: 0%;
+    background: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+}
+
     .contenido .centrar-estructura{
       height: 80%;
     }
