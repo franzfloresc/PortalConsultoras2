@@ -228,7 +228,7 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.home: //Home
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogos: //Catalogos
+                case _origenWeb.catalogo: //Catalogos
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido: //Pedido

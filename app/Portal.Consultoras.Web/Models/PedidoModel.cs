@@ -201,6 +201,10 @@ namespace Portal.Consultoras.Web.Models
 
         public int FactorCuadre { get; set; }
 
+        public string ImagenProductoSugeridoSmall { get; set; }
+
+        public string ImagenProductoSugeridoMedium { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

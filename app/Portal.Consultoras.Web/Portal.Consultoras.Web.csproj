@@ -3273,6 +3273,7 @@
     <Content Include="Content\Temporales\FolderContent.txt" />
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
+    <Content Include="google04fc719c24157f19.html" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="LBelConmigo.html" />
@@ -3856,10 +3857,19 @@
     <None Include="Service References\ServicePedido\PedidoService11.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService111.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService113.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService112.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
