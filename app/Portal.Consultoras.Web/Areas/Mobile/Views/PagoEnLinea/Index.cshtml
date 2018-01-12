@@ -34,9 +34,9 @@
         <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
         <div class="cantidad_pasos_proceso_pago">
-            <span class="paso_proceso_pago_en_linea paso_activo" data-num-paso="1">1</span>
-            <span class="paso_proceso_pago_en_linea" data-num-paso="2">2</span>
-            <span class="paso_proceso_pago_en_linea mr-0" data-num-paso="3">3</span>
+            <span class="paso_proceso_pago_en_linea paso_activo">1</span>
+            <span class="paso_proceso_pago_en_linea mr-0">2</span>
+            @*<span class="paso_proceso_pago_en_linea mr-0">3</span>*@
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
@@ -111,21 +111,20 @@
                 </ul>
             </form>
             <p class="info_comision_pago_en_linea">
-                *Se cargará una comisión del 2% (
-                <span class="tipo_moneda_pais">S/</span>
-                <span class="monto_comision_pago_en_linea">20.00</span>
-                )
+                *Cargo por gastos administrativos: 3% (<span class="tipo_moneda_pais">S/ </span><span class="monto_comision_pago_en_linea">20.00</span>)
             </p>
             <div class="aceptar_terminos_y_condiciones">
-                <div class="barra_activacion" data-estado="0">
-                    <div class="control_activacion">
-                    </div>
-                    <div class="tooltip_terminos_y_condiciones">
-                        <span>Debes aceptar los términos y condiciones</span>
+                <div class="area_activa_barra_activacion">
+                    <div class="barra_activacion" data-estado="0">
+                        <div class="control_activacion">
+                        </div>
+                        <div class="tooltip_terminos_y_condiciones">
+                            <span>Debes aceptar los términos y condiciones</span>
+                        </div>
                     </div>
                 </div>
                 <div class="descripcion_opcion_activacion">
-                    Acepto los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
+                    Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
                 </div>
             </div>
         </div>
@@ -145,7 +144,7 @@
                 <img src="@Url.Content("~/Content/Images/icono-pago-seguro.svg")" alt="Pago Seguro" />
             </div>
             <div class="texto_info_pago_seguro">
-                <span class="texto_pago_seguro solo_visa">Pago seguro. Por ahora sólo a través de</span>
+                <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
                 @*<span class="texto_pago_seguro visa_y_mastercard">Pago seguro</span>*@
             </div>
             <div class="icono_marcas_tarjetas">
@@ -169,10 +168,7 @@
         <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
             <span>Pagar con crédito Visa</span>
             <span>
-                (
-                <span class="tipo_moneda_pais">S/</span>
-                <span class="monto_a_pagar">1020.00</span>
-                )
+                (<span class="tipo_moneda_pais">S/ </span><span class="monto_a_pagar">1020.00</span>)
             </span>
         </button>
 
@@ -184,6 +180,31 @@
 
     </div>
 
+</div>
+
+<div class="fondo_modal">
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
+        <p class="descripcion_terminos_y_condiciones">
+            dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
+        </p>
+        <div class="aceptar_terminos_y_condiciones mb-0">
+            <div class="area_activa_barra_activacion">
+                <div class="barra_activacion" data-estado="0">
+                    <div class="control_activacion">
+                    </div>
+                    <div class="tooltip_terminos_y_condiciones">
+                        <span>Debes aceptar los términos y condiciones</span>
+                    </div>
+                </div>
+            </div>
+            <div class="descripcion_opcion_activacion">
+                Acepta los términos y condiciones
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts{

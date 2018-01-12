@@ -14,6 +14,7 @@ $(document).ready(function () {
                 $(document).on('click', '.opcion_pago', me.Eventos.SeleccionarTipoPago);
                 $(document).on('click', '.barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
+                $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
             }
         },
         me.Eventos = {
@@ -32,8 +33,13 @@ $(document).ready(function () {
                     console.log('No has aceptado los términos y condiciones');
                 }
             },
-            AbrirPopupTerminosYCondiciones: function () {
-                console.log("Mostrar popup de términos y condiciones");
+            AbrirPopupTerminosYCondiciones: function (e) {
+                e.preventDefault();
+                $('.fondo_modal').fadeIn(300);
+            },
+            CerrarPopupTerminosYCondiciones: function (e) {
+                e.preventDefault();
+                $('.fondo_modal').fadeOut(300);
             }
         },
         me.Inicializar = function () {
