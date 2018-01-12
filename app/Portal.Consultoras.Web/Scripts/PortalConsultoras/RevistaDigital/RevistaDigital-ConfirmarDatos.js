@@ -9,7 +9,7 @@ function RDConfirmarDatos() {
     var email = $.trim($('#Email').val());
     var celular = $.trim($('#Celular').val());
 
-    if (email === '' || celular === '') {
+    if (email === '' && celular === '') {
         alert('Debe ingresar al menos un campo.');
         return false;
     }
