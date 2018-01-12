@@ -60,6 +60,10 @@
     <Reference Include="HiQPdf">
       <HintPath>..\Binaries\HiQPdf.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.7.300\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MaxMind.Db, Version=2.0.0.0, Culture=neutral, PublicKeyToken=66afa4cc5ae853ac, processorArchitecture=MSIL">
       <HintPath>..\packages\MaxMind.Db.2.1.3\lib\net45\MaxMind.Db.dll</HintPath>
       <Private>True</Private>
@@ -142,6 +146,8 @@
     <Compile Include="Globals.cs" />
     <Compile Include="LogManager\LogError.cs" />
     <Compile Include="LogManager\LogManager.cs" />
+    <Compile Include="MagickNet\EntidadMagickResize.cs" />
+    <Compile Include="MagickNet\MagickNetLibrary.cs" />
     <Compile Include="MailUtilities.cs" />
     <Compile Include="MandrillMail.cs" />
     <Compile Include="MapUtil.cs" />

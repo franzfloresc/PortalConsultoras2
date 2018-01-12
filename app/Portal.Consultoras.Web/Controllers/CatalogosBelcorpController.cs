@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             userData.NroCampanias = nroCampanias;
 
-            CatalogosRevistas.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
+            CatalogosRevistas.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
             CatalogosRevistas.CampaniaActual = CampaniaActiva;
             CatalogosRevistas.CampaniaAnterior = AddCampaniaAndNumero(Convert.ToInt32(CampaniaActiva), -1).ToString();
             CatalogosRevistas.CampaniaSiguiente = AddCampaniaAndNumero(Convert.ToInt32(CampaniaActiva), 1).ToString();
