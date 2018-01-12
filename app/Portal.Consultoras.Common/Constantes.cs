@@ -131,12 +131,6 @@ namespace Portal.Consultoras.Common
             public const int Accesorizate = 7;
         }
 
-        public static class ConsultoraNueva
-        {
-            public const int Sicc = 2;
-            public const int Fox = 1;
-        }
-
         public static class RangoCantidadPedido
         {
             public const int IdRango = 39;

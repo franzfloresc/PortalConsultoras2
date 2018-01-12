@@ -4018,7 +4018,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
-                if (userData.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && userData.ConsultoraNueva != Constantes.ConsultoraNueva.Fox &&
+                if (userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Registrada && userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Ingreso_Nueva &&
                     userData.NombreCorto != null && userData.AnoCampaniaIngreso.Trim() != "")
                 {
                     int campaniaActual = int.Parse(userData.NombreCorto);
