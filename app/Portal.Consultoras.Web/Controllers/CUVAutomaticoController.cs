@@ -32,37 +32,33 @@ namespace Portal.Consultoras.Web.Controllers
             return View(oCuvAutomaticoModel);
         }
 
-
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        public void LoadConsultorasCache(int PaisID)
+
+        public void LoadConsultorasCache(int paisId)
         {
-            using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
+            using (ODSServiceClient sv = new ODSServiceClient())
             {
-                sv.LoadConsultoraCodigo(PaisID);
+                sv.LoadConsultoraCodigo(paisId);
             }
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
@@ -70,26 +66,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            IEnumerable<CampaniaModel> lst;
-
             if (PaisID == 0)
             {
-                lst = null;
-
                 return Json(new
                 {
-                    lista = lst
+                    lista = (IEnumerable<CampaniaModel>) null
                 }, JsonRequestBehavior.AllowGet);
             }
-            else
+
+            var lst = DropDowListCampanias(PaisID);
+
+            return Json(new
             {
-                lst = DropDowListCampanias(PaisID);
-
-                return Json(new
-                {
-                    lista = lst
-                }, JsonRequestBehavior.AllowGet);
-            }
+                lista = lst
+            }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -110,9 +100,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                object jsonData = null;
-                string paisISO = UserData().CodigoISO;
-                string CodigoUsuario = UserData().CodigoUsuario;
+                object jsonData;
+                string paisIso = UserData().CodigoISO;
+                string codigoUsuario = UserData().CodigoUsuario;
                 string messageCodigosNoValidos = string.Empty;
                 List<BECUVAutomatico> cuvautomaticos = new List<BECUVAutomatico>();
 
@@ -124,13 +114,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (productosAValidar.Length != 0)
                 {
                     List<string> productosNoValidos = new List<string>();
-                    List<ServiceODS.BEProductoDescripcion> productoFaltante;
 
                     using (ODSServiceClient srv = new ODSServiceClient())
                     {
                         foreach (string cuv in productosAValidar)
                         {
-                            productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaID, cuv, paisID, 1).ToList();
+                            var productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaID, cuv, paisID, 1).ToList();
 
                             if (productoFaltante.Count == 0 || productoFaltante[0].CUV != cuv)
                             {
@@ -164,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (ServiceODS.BEProductoDescripcion producto in productosValidos)
                     {
-                        cuvautomaticos.Add(new BECUVAutomatico() { CampaniaID = campaniaID, CUV = producto.CUV, PaisISO = paisISO, UsuarioRegistro = CodigoUsuario });
+                        cuvautomaticos.Add(new BECUVAutomatico() { CampaniaID = campaniaID, CUV = producto.CUV, PaisISO = paisIso, UsuarioRegistro = codigoUsuario });
                     }
 
 
@@ -215,8 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool rslt = false;
-                using (SACServiceClient SACsrv = new SACServiceClient())
+                using (SACServiceClient saCsrv = new SACServiceClient())
                 {
                     BECUVAutomatico producto = new BECUVAutomatico()
                     {
@@ -224,7 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = CUV
                     };
 
-                    rslt = SACsrv.DelCUVAutomatico(UserData().PaisID, producto);
+                    saCsrv.DelCUVAutomatico(UserData().PaisID, producto);
                 }
                 return Json(new
                 {
@@ -255,6 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int paisID, int campaniaID)
         {
             try
@@ -271,17 +260,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                         lst = srv.GetProductoCuvAutomatico(paisID, producto, sidx, sord, page, 1, rows).ToList();
                     }
-                    int Records = 0, TotalPages = 0;
+                    int records = 0, totalPages = 0;
                     if (lst.Count > 0)
                     {
-                        TotalPages = lst[0].TotalPages;
-                        Records = lst[0].RowsCount;
+                        totalPages = lst[0].TotalPages;
+                        records = lst[0].RowsCount;
                     }
                     var data = new
                     {
-                        total = TotalPages,
+                        total = totalPages,
                         page = page,
-                        records = Records,
+                        records = records,
                         rows = from a in lst
                                select new
                                {
@@ -299,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 return RedirectToAction("Index", "Bienvenida");
             }
-            catch (System.ServiceModel.FaultException ex)
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return Json(new
