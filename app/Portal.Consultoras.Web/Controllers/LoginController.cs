@@ -1519,7 +1519,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
-                    var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
                         revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
                     if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
                         ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
