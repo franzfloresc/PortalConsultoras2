@@ -1,69 +1,61 @@
 ﻿@model Portal.Consultoras.Web.Models.ValidacionAutomaticaModel
 <table id="tbListadoPedido">
-    <thead>
-        <tr>
-            <th style="width: 15%;">Fecha/Hora Inicio
-            </th>
-            <th style="width: 15%;">Fecha/Hora Fin
-            </th>
-            <th style="width: 25%;">Estado
-            </th>
-            <th style="width: 15%;">Envío de Correo
-            </th>
-            <th style="width: 15%;">Fecha/Hora Inicio Envío Correo
-            </th>
-            <th style="width: 15%;">Fecha/Hora Fin Envío Correo
-            </th>
-            <th style="width: 15%;">
-                Fecha Facturacion
-            </th>            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.ListaValidacionAutomatica)
+    @foreach (var item in Model.ListaValidacionAutomatica)
+    {
+        var formatoHoraFacturacion = "";
+        if (item.FechaHoraFacturacion.Year != 2000)
         {
-            <tr class="f3">
-                <td class="center">
-                    @Html.DisplayTextFor(modelItem => item.FechaHoraInicio)
-                </td>
-                <td class="center">
-                    @if (item.FechaHoraFin.Year != 2000)
-                    {
-                        @Html.DisplayTextFor(modelItem => item.FechaHoraFin)
-                    }
-                </td>
-                <td class="center">
-                    @Html.DisplayTextFor(modelItem => item.DescripcionEstado)
-                </td>
-                <td class="center">
-                    @if (item.EnvioCorreo)
-                    {
-                        <label>SI</label>
-                    }
-                    else
-                    { 
-                        <label>NO</label>
-                    }
-                </td>
-                <td class="center">
-                    @if (item.FechaHoraInicioEnvio.Year != 2000)
-                    {
-                        @Html.DisplayTextFor(modelItem => item.FechaHoraInicioEnvio)
-                    }
-                </td>
-                <td class="center">
-                    @if (item.FechaHoraFinEnvio.Year != 2000)
-                    {
-                        @Html.DisplayTextFor(modelItem => item.FechaHoraFinEnvio)
-                    }
-                </td>
-                <td class="center">
-                    @if (item.FechaHoraFacturacion.Year != 2000)
-                    {
-                        @Html.DisplayTextFor(modelItem => item.FechaHoraFacturacion)
-                    }
-                </td>
-            </tr>
+            formatoHoraFacturacion = item.FechaHoraFacturacion.Day.ToString().PadLeft(2, '0') + "/" +
+            item.FechaHoraFacturacion.Month.ToString().PadLeft(2, '0') + "/" + item.FechaHoraFacturacion.Year;
         }
-    </tbody>
+
+        <tr>
+            <td class="titulo_grilla_ListaProcesoAutoProl">Fecha de Facturación</td>
+            <td colspan="3" class="fondoInfo_grilla_ListaProcesoAutoProl">
+                @formatoHoraFacturacion
+            </td>            
+        </tr>
+        <tr>
+            <td class="titulo_grilla_ListaProcesoAutoProl">Proceso</td>
+            <td class="titulo_grilla_ListaProcesoAutoProl">Fecha / Hora Inicio</td>
+            <td class="titulo_grilla_ListaProcesoAutoProl">Fecha / Hora Fin</td>
+            <td class="titulo_grilla_ListaProcesoAutoProl">Estado</td>
+        </tr>
+        <tr>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">Reserva de Pedido</td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">@Html.DisplayTextFor(modelItem => item.FechaHoraInicio)</td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">
+                @if (item.FechaHoraFin.Year != 2000)
+                {
+                    @Html.DisplayTextFor(modelItem => item.FechaHoraFin)
+                }
+            </td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">@Html.DisplayTextFor(modelItem => item.DescripcionEstado)</td>
+        </tr>
+        <tr>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">Envío de Correo</td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">
+                @if (item.FechaHoraInicioEnvio.Year != 2000)
+                {
+                    @Html.DisplayTextFor(modelItem => item.FechaHoraInicioEnvio)
+                }
+            </td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">
+                @if (item.FechaHoraFinEnvio.Year != 2000)
+                {
+                    @Html.DisplayTextFor(modelItem => item.FechaHoraFinEnvio)
+                }
+            </td>
+            <td class="fondoInfo_grilla_ListaProcesoAutoProl">
+                @if (item.EnvioCorreo)
+                {
+                    <label>SI</label>
+                }
+                else
+                {
+                    <label>NO</label>
+                }
+            </td>
+        </tr>
+    }
 </table>
