@@ -87,11 +87,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string Regionddl = lista[1];
                 string Zonaddl = lista[2];
                 string Paisddl = lista[3];
-                string Fechaddl = lista[4];
                 string territoriotxt = lista[5];
-                string EstadoPedidoddl = lista[6];
                 string CodConsultoratxt = lista[7];
-                string Bloqueadoddl = lista[8];
 
                 string Campaniaddl_val = lista[9];
                 string Regionddl_val = lista[10];
@@ -208,14 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-               .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Anio, t => t.MapFrom(c => c.Anio))
-               .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-               .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-               .ForMember(x => x.Activo, t => t.MapFrom(c => c.Activo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
@@ -226,13 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectAllZonas(PaisID);
             }
-
-            Mapper.CreateMap<BEZona, ZonaModel>()
-               .ForMember(x => x.ZonaID, t => t.MapFrom(c => c.ZonaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
-               .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
-
+            
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
 
@@ -298,7 +282,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -322,9 +305,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 int total = lst.FindAll(x => x.Bloqueado == 0).Count;
 
@@ -377,35 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
-                IEnumerable<BEPedidoWebDetalle> items = lst;
-
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "CodVenta":
-                            items = lst.OrderBy(x => x.CUV);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CodVenta":
-                            items = lst.OrderByDescending(x => x.CUV);
-                            break;
-                    }
-                }
-                #endregion
-                if (string.IsNullOrEmpty(vCodVenta))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                else
-                    items = items.Where(p => p.CUV.ToUpper().Contains(vCodVenta.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                pag = Util.PaginadorGenerico(grid, lst.ToList());
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList());
 
                 var data = new
                 {
@@ -438,13 +393,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
-                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.DescripcionBloqueo, f => f.MapFrom(c => c.DescripcionBloqueo));
-
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -487,12 +435,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
-                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -679,8 +621,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }

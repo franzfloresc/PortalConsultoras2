@@ -148,13 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View();
         }
-
-        private string GetCampaniaLider(int paisID, long ConsultoraID, string CodigoPais)
-        {
-            ContenidoServiceClient sv = new ContenidoServiceClient();
-            return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
-        }
-
+        
         private List<MiCurso> ValidadCursosMA()
         {
             try
@@ -178,7 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
                         model.Cursos = model.Cursos ?? new List<MiCurso>();
-                        var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+                        var lstCursos = model.Cursos.OrderBy(x => x.estado).Take(max);
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 

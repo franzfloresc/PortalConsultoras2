@@ -211,9 +211,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult EliminarImagen(int ImagenId, string PaisId, string CampaniaID)
         {
-            NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-            List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
-            BENavidadConsultora registro = new BENavidadConsultora();
             try
             {
                 using (ContenidoServiceClient servicio = new ContenidoServiceClient())
@@ -239,9 +236,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }

@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Entities.Cliente
         [DataMember]
         public IEnumerable<BEPedidoDDWebDetalle> Pedidos { get; set; }
 
-        //todo: should be part of BaseModel
         [DataMember]
         public string Code { get; set; }
 

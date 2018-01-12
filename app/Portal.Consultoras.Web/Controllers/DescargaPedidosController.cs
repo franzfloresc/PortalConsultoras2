@@ -70,8 +70,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaproceso;
                 if (model.TipoCronogramaID == 5)
                 {
-                    string isoPais = UserData().CodigoISO;
-
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                     {
                         string anio;
@@ -112,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (ContadorCarga == 0)
                         {
                             string usuario = UserData().NombreConsultora;
-                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
+                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 || (model.TipoCronogramaID == 3), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
                         }
                         else
                         {
@@ -312,10 +310,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DescargarPedidosHeader(string header)
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string path = @"D:\Files\Belcorp\Pedidos\";
-            httpPath = path + header;
+            string httpPath = path + header;
             if (System.IO.File.Exists(httpPath))
             {
                 HttpContext.Response.Clear();
@@ -334,10 +330,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DescargarPedidosDetail(string detail)
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string path = @"D:\Files\Belcorp\Pedidos\";
-            httpPath = path + detail;
+            string httpPath = path + detail;
             if (System.IO.File.Exists(httpPath))
             {
                 HttpContext.Response.Clear();

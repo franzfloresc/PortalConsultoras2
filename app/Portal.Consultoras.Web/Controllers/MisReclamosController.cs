@@ -499,7 +499,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool ValidarDetalleGuardar(ref MisReclamosModel modelOri)
         {
-            var rpta = true;
             var model = modelOri ?? new MisReclamosModel();
             model.CUV = Util.SubStr(model.CUV, 0);
             model.CUV2 = Util.SubStr(model.CUV2, 0);
@@ -513,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var cdrWebs = CargarBECDRWeb(model);
             if (cdrWebs.Count != 1)
-                return rpta;
+                return true;
 
             var cdrWeb = cdrWebs[0];
 
@@ -524,14 +523,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             var lista = CargarDetalle(model);
 
+            bool rpta = true;
             if (model.Accion == "I")
             {
-                rpta = lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion) ? false : rpta;
+                rpta = !lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion);
             }
             else if (model.Accion == "U")
             {
 
-                rpta = lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion) ? rpta : false;
+                rpta = lista.Any(d => d.CDRWebID == model.CDRWebID && d.CUV == model.CUV && d.CodigoOperacion == model.Operacion);
             }
 
             if (model.Accion == "")
@@ -657,8 +657,8 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 message = "",
                 detalle = lista,
-                cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
-                cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
+                cantobservado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado),
+                cantaprobado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado),
                 esCDRExpress = TieneDetalleCDRExpress(lista), 
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
@@ -787,10 +787,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisReclamosModel, BECDRWebDetalle>()
-                    .ForMember(t => t.CDRWebDetalleID, f => f.MapFrom(c => c.CDRWebDetalleID))
-                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad));
-
                 var listaCdr = Mapper.Map<List<MisReclamosModel>, List<BECDRWebDetalle>>(lista);
 
                 bool ok;
@@ -974,10 +970,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BECDRWeb entidad = new BECDRWeb();
                 entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
-                entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
-                entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+                entidad.RegionID = string.IsNullOrEmpty(RegionID) ? 0 : int.Parse(RegionID);
+                entidad.ZonaID = string.IsNullOrEmpty(ZonaID) ? 0 : int.Parse(ZonaID);
                 entidad.ConsultoraCodigo = CodigoConsultora;
-                entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+                entidad.Estado = string.IsNullOrEmpty(Estado) ? 0 : int.Parse(Estado);
                 entidad.TipoConsultora = TipoConsultora;
 
                 List<BECDRWebDetalleReporte> lst;
@@ -999,7 +995,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECDRWebDetalleReporte> items = lst;
 
                 #region Sort Section
@@ -1160,8 +1155,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1211,10 +1206,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BECDRWeb entidad = new BECDRWeb();
             entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
-            entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
-            entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+            entidad.RegionID = string.IsNullOrEmpty(RegionID) ? 0 : int.Parse(RegionID);
+            entidad.ZonaID = string.IsNullOrEmpty(ZonaID) ? 0 : int.Parse(ZonaID);
             entidad.ConsultoraCodigo = CodigoConsultora;
-            entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+            entidad.Estado = string.IsNullOrEmpty(Estado) ? 0 : int.Parse(Estado);
             entidad.TipoConsultora = TipoConsultora;
 
             IList<BECDRWebDetalleReporte> lst;
@@ -1334,14 +1329,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 

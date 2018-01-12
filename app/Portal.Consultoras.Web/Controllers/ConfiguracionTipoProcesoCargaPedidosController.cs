@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
+                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
 
 
                 var listaZonas = DropDowListZonasNoProl(PaisID);
@@ -112,10 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionTipoProcesoCargaPedidos(PaisID, 1);
             }
-            Mapper.CreateMap<BEConfiguracionTipoProcesoCargaPedidos, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.DiasParametroCarga, f => f.MapFrom(c => c.DiasParametroCarga));
 
             return Mapper.Map<IList<BEConfiguracionTipoProcesoCargaPedidos>, IEnumerable<ZonaModel>>(lst);
         }
@@ -127,11 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionTipoProcesoCargaPedidos(PaisID, 2);
             }
-            Mapper.CreateMap<BEConfiguracionTipoProcesoCargaPedidos, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.DiasParametroCarga, f => f.MapFrom(c => c.DiasParametroCarga));
-
+            
             return Mapper.Map<IList<BEConfiguracionTipoProcesoCargaPedidos>, IEnumerable<ZonaModel>>(lst);
         }
 

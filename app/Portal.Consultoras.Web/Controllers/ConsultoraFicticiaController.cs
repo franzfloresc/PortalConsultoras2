@@ -36,10 +36,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
                 BEPais bepais = new BEPais();
 
@@ -99,10 +95,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
                 BEPais bepais = new BEPais();
 
@@ -161,14 +153,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
-                List<BEConsultora> lst = new List<BEConsultora>();
+
                 int result;
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -238,20 +224,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave))
-                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
-
-                List<BEConsultora> lst = new List<BEConsultora>();
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-
                     sv.UpdConsultoraFicticia(entidad.CodigoUsuario, entidad.CodigoConsultora, entidad.PaisID, entidad.ConsultoraID, entidad.ActualizarClave);
                 }
 
@@ -288,10 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -344,7 +316,6 @@ namespace Portal.Consultoras.Web.Controllers
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -392,9 +363,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Paginador(grid, lst);
+                    BEPager pag = Paginador(grid, lst);
 
                     var data = new
                     {
@@ -427,7 +398,6 @@ namespace Portal.Consultoras.Web.Controllers
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -475,9 +445,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Paginador(grid, lst);
+                    BEPager pag = Paginador(grid, lst);
 
                     var data = new
                     {
@@ -519,7 +489,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

@@ -309,7 +309,6 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        //PL20-1237
         public int InsProductoCompartido(BEProductoCompartido ProComp)
         {
             var DAProducto = new DAProducto(ProComp.PaisID);

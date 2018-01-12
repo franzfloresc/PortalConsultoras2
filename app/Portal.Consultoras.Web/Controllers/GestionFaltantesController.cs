@@ -134,11 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectZonaByCodigo(int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
             List<BEZona> lista;
             using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
             {
@@ -152,10 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectCodigoProducto(int campaniaID, int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>()
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
             List<ServiceODS.BEProductoDescripcion> lista;
             using (ODSServiceClient srv = new ODSServiceClient())
             {
@@ -447,17 +438,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = model.PaisID;
             int campaniaID = model.CampaniaID;
-            string message = string.Empty;
             try
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
                 string finalPath = string.Empty, httpPath = string.Empty;
@@ -465,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
 
                 string fileName = Guid.NewGuid().ToString();
@@ -484,33 +474,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (IsCorrect && lista != null)
                 {
-                    Mapper.CreateMap<GestionFaltantesModel, BEProductoFaltante>()
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                   .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona))
-                   .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
-
                     var lst = Mapper.Map<IList<GestionFaltantesModel>, IEnumerable<BEProductoFaltante>>(lista);
                     using (SACServiceClient srv = new SACServiceClient())
                     {
                         string s = srv.InsProductoFaltanteMasivo(paisID, UserData().CodigoISO, UserData().CodigoUsuario, campaniaID, lst.ToArray(), model.FaltanteUltimoMinuto);
                     }
-                    return message = "Se realizo satisfactoriamente la carga de datos.";
+                    return "Se realizo satisfactoriamente la carga de datos.";
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
 
@@ -566,11 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
