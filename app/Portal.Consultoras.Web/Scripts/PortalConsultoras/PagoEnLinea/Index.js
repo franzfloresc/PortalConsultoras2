@@ -22,18 +22,20 @@ $(document).ready(function () {
                 var opcionSeleccionada = $(this).find('input[type="radio"]');
                 opcionSeleccionada.prop('checked', true);
             },
-            AceptarTerminosYCondiciones: function () {
-                $(this).toggleClass('activado');
-                if ($(this).is('.activado')) {
-                    $(this).attr('data-estado', 1);
+            AceptarTerminosYCondiciones: function (e) {
+                var barraActivacion = $('.barra_activacion');
+                barraActivacion.toggleClass('activado');
+                if (barraActivacion.is('.activado')) {
+                    barraActivacion.attr('data-estado', 1);
                     // $('.tooltip_terminos_y_condiciones').fadeOut();
                     console.log('Has aceptado los términos y condiciones');
                 } else {
-                    $(this).attr('data-estado', 0);
+                    barraActivacion.attr('data-estado', 0);
                     console.log('No has aceptado los términos y condiciones');
                 }
             },
             AbrirPopupTerminosYCondiciones: function (e) {
+                e.stopPropagation();
                 e.preventDefault();
                 $('.fondo_modal').fadeIn(300);
             },

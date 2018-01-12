@@ -418,18 +418,26 @@
 }
 
 .control_activacion{
-    width:19px;
-    height:18px;
+    width: 19px;
+    height: 18px;
     top: -3.95px;
     right: 45%;
-    background-color:#bbbbbb;
-    background-image:url(../../../images/icono-paso-completado.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:60%;
-    border:none;
+    background-color: #bbbbbb;
+    /* background-image: url(../../../images/icono-paso-completado.svg); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    border: none;
     border-radius: 100%;
     position: absolute;
+    font-family: 'somos-belcorp-iconos';
+    font-size: 9px;
+    padding-top: 4px;
+    color: #FFF;
+}
+
+.control_activacion:before{
+    content:'\e90e';
 }
 
 .barra_activacion.activado .control_activacion{
@@ -523,9 +531,18 @@
 }
 
 .icono_pago_seguro{
-    width:15px;
-    margin-right:6px;
-    margin-bottom:4px;
+    width: 15px;
+    height: 18px;
+    margin-right: 6px;
+    margin-bottom: 10px;
+    font-family: 'somos-belcorp-iconos';
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.icono_pago_seguro:before{
+    content:'\e910';
 }
 
 .icono_pago_seguro img,
@@ -605,6 +622,7 @@
     bottom:0;
     left:0;
     right:0;
+    overflow:auto;
 }
 
 .popup_terminos_y_condiciones{
@@ -612,7 +630,7 @@
     max-width:400px;
     height:auto;
     background-color:#FFF;
-    margin:0 auto;
+    margin:0 auto 25px auto;
     top:16%;
     position:relative;
     padding:33px 24px 26px 24px;
