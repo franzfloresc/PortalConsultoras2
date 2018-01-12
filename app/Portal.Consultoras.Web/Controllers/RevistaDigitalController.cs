@@ -419,6 +419,10 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
             };
 
+            entidad.Origen = Util.Trim(entidad.Origen) == ""
+                ? Constantes.RevistaDigitalOrigen.RD
+                : Util.Trim(entidad.Origen);
+
             switch (tipo)
             {
                 case Constantes.EstadoRDSuscripcion.Desactivo:
