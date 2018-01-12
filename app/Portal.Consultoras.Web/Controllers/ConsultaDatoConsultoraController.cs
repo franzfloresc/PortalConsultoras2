@@ -10,7 +10,6 @@
     using Portal.Consultoras.Web.ServiceZonificacion;
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -22,10 +21,12 @@
     {
         public ActionResult ConsultaDatoConsultora()
         {
-            var model = new ConsultaDatoConsultoraModel();
-            model.listaPaises = DropDowListPaises();
-            model.PaisID = userData.PaisID;
-            model.listaCampania = ObtenterCampaniasPorPais(userData.PaisID);
+            var model = new ConsultaDatoConsultoraModel
+            {
+                listaPaises = DropDowListPaises(),
+                PaisID = userData.PaisID,
+                listaCampania = ObtenterCampaniasPorPais(userData.PaisID)
+            };
             return View(model);
         }
 
@@ -33,7 +34,7 @@
         {
             try
             {
-                ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
+                UsuarioServiceClient consultora = new UsuarioServiceClient();
                 BEConsultoraDatoSAC consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);
                 return Json(consultoraDato, JsonRequestBehavior.AllowGet);
             }
@@ -48,7 +49,7 @@
         {
             try
             {
-                ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
+                UsuarioServiceClient consultora = new UsuarioServiceClient();
                 BEConsultoraEstadoSAC consultoraEstado = consultora.ConsultoraEstadoSAC(paisID, codigoConsultora);
                 return Json(consultoraEstado, JsonRequestBehavior.AllowGet);
             }
@@ -62,9 +63,8 @@
         {
             try
             {
-                List<BEOfertaNueva> lista;
-                ServicePedido.PedidoServiceClient svc = new ServicePedido.PedidoServiceClient();
-                lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
+                PedidoServiceClient svc = new PedidoServiceClient();
+                var lista = svc.GetProductosOfertaConsultoraNueva(userData.PaisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraID)).ToList();
                 var data = new
                 {
                     rows = from a in lista
@@ -73,7 +73,7 @@
                                cell = new string[]
                                {
                                    a.OfertaNuevaId.ToString(),
-                                   a.DescripcionProd.ToString()
+                                   a.DescripcionProd
                                }
                            }
                 };
@@ -90,31 +90,22 @@
         {
             if (ModelState.IsValid)
             {
-                List<EstadoCuentaModel> lst;
-                string DeudaActualConultora = "0.00";
+                string deudaActualConultora = "0.00";
 
-                long ConsulID = ObtenerConsultoraId(codigoConsultora);
-                lst = EstadodeCuenta(ConsulID);
+                long consulId = ObtenerConsultoraId(codigoConsultora);
+                var lst = EstadodeCuenta(consulId);
 
                 using (SACServiceClient client = new SACServiceClient())
                 {
-                    DeudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, ConsulID);
+                    deudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, consulId);
                 }
 
                 string fechaVencimiento;
                 string montoPagar;
-                string simbolo;
                 if (lst.Count == 0)
                 {
                     fechaVencimiento = "";
-                    if (userData.PaisID == 4)
-                    {
-                        montoPagar = "0";
-                    }
-                    else
-                    {
-                        montoPagar = "0.0";
-                    }
+                    montoPagar = userData.PaisID == 4 ? "0" : "0.0";
                 }
                 else
                 {
@@ -122,27 +113,24 @@
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     else
                         fechaVencimiento = string.Empty;
-                    if (userData.PaisID == 4)
-                    {
-                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));
-                    }
-                    else
-                    {
-                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora);
-                    }
+                    montoPagar = userData.PaisID == 4 
+                        ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.')) 
+                        : string.Format("{0:#,##0.00}", deudaActualConultora);
                 }
-                simbolo = string.Format("{0} ", userData.Simbolo);
+                var simbolo = string.Format("{0} ", userData.Simbolo);
 
                 if (lst.Count != 0)
                 {
                     lst.RemoveAt(lst.Count - 1);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<EstadoCuentaModel> items = lst;
 
                 #region Sort Section
@@ -184,7 +172,7 @@
                 }
                 #endregion
 
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
                 BEPager pag = Paginador(grid, lst);
 
@@ -207,7 +195,7 @@
                                    cell = new string[]
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa.ToString(),
+                                   a.Glosa,
                                    string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Cargo).Replace(',','.'),
                                    string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Abono).Replace(',','.')
                                 }
@@ -231,7 +219,7 @@
                                    cell = new string[]
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa.ToString(),
+                                   a.Glosa,
                                    string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
                                    string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
                                 }
@@ -250,7 +238,7 @@
         {
             if (ModelState.IsValid)
             {
-                List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
+                List<ServicePedido.BEPedidoWeb> lst = new List<ServicePedido.BEPedidoWeb>();
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
                 try
                 {
@@ -266,32 +254,37 @@
 
                 foreach (var pedido in lista)
                 {
-                    Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
-                    oBEPedidoWeb.CampaniaID = pedido.Campania;
-                    oBEPedidoWeb.ImporteTotal = pedido.ImporteTotal;
-                    oBEPedidoWeb.CantidadProductos = pedido.Cantidad;
+                    ServicePedido.BEPedidoWeb obePedidoWeb = new ServicePedido.BEPedidoWeb
+                    {
+                        CampaniaID = pedido.Campania,
+                        ImporteTotal = pedido.ImporteTotal,
+                        CantidadProductos = pedido.Cantidad
+                    };
+
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
                     {
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
                         {
-                            oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
+                            obePedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                            obePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                            obePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
 
 
                     }
 
-                    lst.Add(oBEPedidoWeb);
+                    lst.Add(obePedidoWeb);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> items = lst;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                IEnumerable<ServicePedido.BEPedidoWeb> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -344,20 +337,20 @@
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   id = a.CampaniaID,
-                                   cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
-                               }
+                        select new
+                        {
+                            id = a.CampaniaID,
+                            cell = new string[]
+                            {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -369,20 +362,20 @@
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   id = a.CampaniaID,
-                                   cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
-                               }
+                        select new
+                        {
+                            id = a.CampaniaID,
+                            cell = new string[]
+                            {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -394,8 +387,8 @@
         {
             if (ModelState.IsValid)
             {
-                decimal Flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
-                decimal TotalFacturado = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
+                decimal flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
+                decimal totalFacturado = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
                 string importeTotal;
                 string fleteString;
                 string totalFacturadoString;
@@ -403,19 +396,19 @@
                 if (userData.PaisID == 4)
                 {
 
-                    fleteString = string.Format("{0:#,##0}", Flete2).Replace(',', '.');
-                    totalFacturadoString = string.Format("{0:#,##0}", TotalFacturado).Replace(',', '.');
-                    importeTotal = string.Format("{0:#,##0}", TotalFacturado - Flete2).Replace(',', '.');
+                    fleteString = string.Format("{0:#,##0}", flete2).Replace(',', '.');
+                    totalFacturadoString = string.Format("{0:#,##0}", totalFacturado).Replace(',', '.');
+                    importeTotal = string.Format("{0:#,##0}", totalFacturado - flete2).Replace(',', '.');
                 }
                 else
                 {
-                    fleteString = string.Format("{0:#,##0.00}", Flete2);
-                    totalFacturadoString = string.Format("{0:#,##0.00}", TotalFacturado);
-                    importeTotal = string.Format("{0:#,##0.00}", TotalFacturado - Flete2);
+                    fleteString = string.Format("{0:#,##0.00}", flete2);
+                    totalFacturadoString = string.Format("{0:#,##0.00}", totalFacturado);
+                    importeTotal = string.Format("{0:#,##0.00}", totalFacturado - flete2);
                 }
 
 
-                List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                List<ServicePedido.BEPedidoWebDetalle> lst = new List<ServicePedido.BEPedidoWebDetalle>();
                 List<BEPedidoFacturado> lista;
                 try
                 {
@@ -436,7 +429,7 @@
                 {
                     if (pedido.CUV.Trim().Length > 0 &&
                         pedido.Descripcion.Trim().Length > 0)
-                        lst.Add(new Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle
+                        lst.Add(new ServicePedido.BEPedidoWebDetalle
                         {
                             CUV = pedido.CUV,
                             DescripcionProd = pedido.Descripcion,
@@ -447,12 +440,14 @@
                         });
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> items = lst;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                IEnumerable<ServicePedido.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -524,21 +519,23 @@
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                               select new
-                               {
-                                   id = a.CUV,
-                                   cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   (" " + a.ImporteTotal.ToString("#,##0").Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotalPedido).Replace(',','.')),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal - a.ImporteTotalPedido).Replace(',','.'))
-                                }
-                               }
+                        select new
+                        {
+                            id = a.CUV,
+                            cell = new string[]
+                            {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.PrecioUnidad).Replace(',', '.')),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                (" " + a.ImporteTotal.ToString("#,##0").Replace(',', '.')),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotalPedido).Replace(',', '.')),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotal - a.ImporteTotalPedido).Replace(',', '.'))
+                            }
+                        }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -556,21 +553,22 @@
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                               select new
-                               {
-                                   id = a.CUV,
-                                   cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   (" " + a.ImporteTotal.ToString("#0.00")),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotalPedido)),
-                                   (userData.Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal - a.ImporteTotalPedido))
-                                }
-                               }
+                        select new
+                        {
+                            id = a.CUV,
+                            cell = new string[]
+                            {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.PrecioUnidad)),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                (" " + a.ImporteTotal.ToString("#0.00")),
+                                (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotalPedido)),
+                                (userData.Simbolo + " " +
+                                 string.Format("{0:#,##0.00}", a.ImporteTotal - a.ImporteTotalPedido))
+                            }
+                        }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -583,17 +581,21 @@
         {
             if (ModelState.IsValid)
             {
-                List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
-                using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
+                List<ServicePedido.BEPedidoWebDetalle> olstPedido;
+
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                 {
-                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
-                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
-                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(campaniaId);
-                    bePedidoWebDetalleParametros.ConsultoraId = long.Parse(consultoraId);
-                    bePedidoWebDetalleParametros.Consultora = "";
-                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
-                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
-                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+                    PaisId = userData.PaisID,
+                    CampaniaId = int.Parse(campaniaId),
+                    ConsultoraId = long.Parse(consultoraId),
+                    Consultora = "",
+                    EsBpt = EsOpt() == 1,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva
+                };
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
 
                     olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                     
