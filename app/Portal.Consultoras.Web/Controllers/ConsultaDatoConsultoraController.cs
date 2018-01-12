@@ -190,16 +190,18 @@
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   cell = new string[]
-                               {
-                                   a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa,
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Cargo).Replace(',','.'),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0}", a.Abono).Replace(',','.')
-                                }
-                               }
+                        select new
+                        {
+                            cell = new string[]
+                            {
+                                a.Fecha.ToString("dd/MM/yyyy"),
+                                a.Glosa,
+                                string.Format("{0} ", userData.Simbolo) +
+                                string.Format("{0:#,##0}", a.Cargo).Replace(',', '.'),
+                                string.Format("{0} ", userData.Simbolo) +
+                                string.Format("{0:#,##0}", a.Abono).Replace(',', '.')
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -214,16 +216,16 @@
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   cell = new string[]
-                               {
-                                   a.Fecha.ToString("dd/MM/yyyy"),
-                                   a.Glosa,
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
-                                   string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
-                                }
-                               }
+                        select new
+                        {
+                            cell = new string[]
+                            {
+                                a.Fecha.ToString("dd/MM/yyyy"),
+                                a.Glosa,
+                                string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
+                                string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -388,7 +390,7 @@
             if (ModelState.IsValid)
             {
                 decimal flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
-                decimal totalFacturado = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
+                decimal totalFacturadoD = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
                 string importeTotal;
                 string fleteString;
                 string totalFacturadoString;
@@ -397,14 +399,14 @@
                 {
 
                     fleteString = string.Format("{0:#,##0}", flete2).Replace(',', '.');
-                    totalFacturadoString = string.Format("{0:#,##0}", totalFacturado).Replace(',', '.');
-                    importeTotal = string.Format("{0:#,##0}", totalFacturado - flete2).Replace(',', '.');
+                    totalFacturadoString = string.Format("{0:#,##0}", totalFacturadoD).Replace(',', '.');
+                    importeTotal = string.Format("{0:#,##0}", totalFacturadoD - flete2).Replace(',', '.');
                 }
                 else
                 {
                     fleteString = string.Format("{0:#,##0.00}", flete2);
-                    totalFacturadoString = string.Format("{0:#,##0.00}", totalFacturado);
-                    importeTotal = string.Format("{0:#,##0.00}", totalFacturado - flete2);
+                    totalFacturadoString = string.Format("{0:#,##0.00}", totalFacturadoD);
+                    importeTotal = string.Format("{0:#,##0.00}", totalFacturadoD - flete2);
                 }
 
 
