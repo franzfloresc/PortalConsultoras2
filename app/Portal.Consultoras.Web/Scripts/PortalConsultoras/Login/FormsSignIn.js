@@ -938,13 +938,13 @@ function Enmascarar_Numero(pNumCelular){
 }
 
 function ProcesaEnvioEmail() {
-    var paisId = $("#cboPaisCambioClave").val();
+    var paisId = $("#cboPaisCambioClave").val(); 
 
     var parametros = {
         paisId: paisId,
         filtro: $("#txtCorreoElectronico").val(),
         EsMobile: parseInt($(".lk_chat").attr("ismovildevice")),
-        Intento: nroIntentosCo
+        Intento: nroIntentosCo 
     };
 
     waitingDialog();
