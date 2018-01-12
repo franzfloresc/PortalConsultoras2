@@ -46,8 +46,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaZonas = DropDownListZonas(PaisID);
-                var listaZonasActivas = DropDowListZonasActivas(PaisID);
+                var listaZonas = DropDownListZonas(PaisID).ToList();
+                var listaZonasActivas = DropDowListZonasActivas(PaisID).ToList();
                 List<ConfiguracionValidacionZonaModel> lstActivos = new List<ConfiguracionValidacionZonaModel>();
 
                 var filter = (from req in listaZonasActivas
@@ -63,15 +63,15 @@ namespace Portal.Consultoras.Web.Controllers
                         lstActivos.Add(entidad);
                     }
                 }
-                listaZonas = listaZonas.Where(x => !filter.Contains(x.ZonaID));
+                listaZonas = listaZonas.Where(x => !filter.Contains(x.ZonaID)).ToList();
 
-                var Modelo = GetConfiguracionValidacionLista(PaisID);
+                var modelo = GetConfiguracionValidacionLista(PaisID);
 
                 return Json(new
                 {
                     listaZonas = listaZonas,
                     listaZonasActivas = lstActivos,
-                    Modelo = Modelo
+                    Modelo = modelo
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
@@ -102,34 +102,30 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<ConfiguracionValidacionZonaModel> DropDowListZonasActivas(int PaisID)
+        private IEnumerable<ConfiguracionValidacionZonaModel> DropDowListZonasActivas(int paisId)
         {
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetCampaniasActivas(PaisID, CampaniaID);
+                lst = sv.GetCampaniasActivas(paisId, CampaniaID);
             }
             return Mapper.Map<IList<BEConfiguracionValidacionZona>, IEnumerable<ConfiguracionValidacionZonaModel>>(lst);
         }
 
-        private IEnumerable<ConfiguracionValidacionModel> GetConfiguracionValidacionLista(int PaisID)
+        private IEnumerable<ConfiguracionValidacionModel> GetConfiguracionValidacionLista(int paisId)
         {
             IList<BEConfiguracionValidacion> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetConfiguracionValidacion(PaisID, CampaniaID);
+                lst = sv.GetConfiguracionValidacion(paisId, CampaniaID);
             }
             
             return Mapper.Map<IList<BEConfiguracionValidacion>, IEnumerable<ConfiguracionValidacionModel>>(lst);
@@ -191,12 +187,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public List<BEConfiguracionValidacionZona> ConfigurarDiasCronograma(int PaisID, int CampaniaID, List<BEConfiguracionValidacionZona> lstZonasActivas)
+        public List<BEConfiguracionValidacionZona> ConfigurarDiasCronograma(int paisId, int campaniaId, List<BEConfiguracionValidacionZona> lstZonasActivas)
         {
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetCampaniasActivas(PaisID, CampaniaID);
+                lst = sv.GetCampaniasActivas(paisId, campaniaId);
             }
 
             if (lst != null)
@@ -204,12 +200,9 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var item in lstZonasActivas)
                 {
                     BEConfiguracionValidacionZona[] temp = lst.Where(p => p.ZonaID == item.ZonaID).ToArray();
-                    if (temp != null && temp.Length != 0)
-                    {
-                        item.DiasDuracionCronograma = temp[0].DiasDuracionCronograma;
-                    }
-                    else
-                        item.DiasDuracionCronograma = 1;
+                    item.DiasDuracionCronograma = temp.Length != 0 
+                        ? temp[0].DiasDuracionCronograma
+                        : (short) 1;
                 }
             }
 

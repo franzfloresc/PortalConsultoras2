@@ -17,12 +17,12 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { listaCampanias = listaCampanias }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CampaniaModel> ObtenerCampaniasDesdeServicio(int PaisID)
+        private IEnumerable<CampaniaModel> ObtenerCampaniasDesdeServicio(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
