@@ -26,9 +26,8 @@
 .opciones_pago,
 .lista_opciones_pago,
 .opcion_pago,
-.monto_total_pago_en_linea,
 .fecha_vencimiento_pago_en_linea,
-.titulo_monto_editable,
+.titulo_monto_pago_editable,
 .monto_editable_pago_en_linea,
 .info_comision_pago_en_linea,
 .cta_pago_en_linea,
@@ -44,6 +43,8 @@
 .paso_proceso_pago_en_linea,
 .col_izq,
 .col_der,
+.titulo_monto_pago_total,
+.monto_total_pago_en_linea,
 .tipo_moneda_pais,
 .monto_moneda_pais,
 .monto_a_editar,
@@ -170,12 +171,13 @@
 .opcion_pago{
     border:1px solid #D2D2D2;
     margin-bottom:8px;
-    padding: 6px 11px 10px 11px;
+    padding: 1px 11px 8px 11px;
 }
 
 .opcion_pago:last-child{
     margin-bottom:0;
     padding-top:10px;
+    padding-bottom:10px;
 }
 
 .opcion_pago input[type="radio"]{
@@ -188,8 +190,12 @@
     border-radius:100%;
     border:1px solid #CCC!important;
     position:relative;
-    margin-top:8px;
+    margin-top:20px;
     margin-bottom:0;
+}
+
+.pagoParcial label{
+    margin-top:8px;
 }
 
 .opcion_pago label,
@@ -223,6 +229,12 @@
     background:#e81c36;
 }
 
+.col_izq,
+.col_der
+{
+    vertical-align:top;
+}
+
 .col_izq{
     width:91%;
 }
@@ -237,6 +249,12 @@
 {
     font-weight:400;
     letter-spacing:0.4px;
+}
+
+.titulo_monto_pago_total,
+.monto_total_pago_en_linea
+{
+    vertical-align:bottom;
 }
 
 .monto_total_pago_en_linea{
@@ -254,12 +272,18 @@
     color:#909090;
 }
 
-.titulo_monto_editable{
+.titulo_monto_pago_total,
+.titulo_monto_pago_editable
+{
     margin:0;
     font-size:14px;
     text-transform:uppercase;
     font-weight:400;
     margin-bottom:4px;
+}
+
+.titulo_monto_pago_total{
+    margin-right:6px;
 }
 
 .monto_editable_pago_en_linea{
@@ -293,7 +317,7 @@
 .info_comision_pago_en_linea{
     font-size:11px;
     letter-spacing:0.25px;
-    margin-bottom:34px;
+    margin-bottom:36px;
 }
 
 .info_comision_pago_en_linea,
@@ -408,6 +432,11 @@
     font-weight:400;
     margin-bottom:2px;
     letter-spacing:0.2px;
+    color:#000;
+}
+
+.ver_terminos_y_condiciones{
+    text-decoration:underline;
 }
 
 .descripcion_opcion_activacion,
@@ -453,7 +482,7 @@
 }
 
 .contenedor_info_pago_seguro_y_ctas{
-    margin-bottom: 77px;
+    margin-bottom: 67px;
 }
 
 .icono_pago_seguro{

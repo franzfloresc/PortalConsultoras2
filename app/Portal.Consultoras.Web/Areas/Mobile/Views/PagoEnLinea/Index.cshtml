@@ -52,9 +52,14 @@
                 <ul class="lista_opciones_pago">
                     <li class="opcion_pago">
                         <div class="col_izq">
-                            <div class="monto_total_pago_en_linea">
-                                <span class="tipo_moneda_pais">S/</span>
-                                <span class="monto_moneda_pais">1000.00</span>
+                            <div class="contenedor_monto_pago_total">
+                                <h4 class="titulo_monto_pago_total">
+                                    Pago total:
+                                </h4>
+                                <div class="monto_total_pago_en_linea">
+                                    <span class="tipo_moneda_pais">S/</span>
+                                    <span class="monto_moneda_pais">1000.00</span>
+                                </div>
                             </div>
                             <div class="fecha_vencimiento_pago_en_linea">
                                 <span>Vence </span>
@@ -86,10 +91,10 @@
                             </label>
                         </div>
                     </li>*@
-                    <li class="opcion_pago">
+                    <li class="opcion_pago pagoParcial">
                         <div class="col_izq">
-                            <h4 class="titulo_monto_editable">
-                                Pago Parcial
+                            <h4 class="titulo_monto_pago_editable">
+                                Pago Parcial:
                             </h4>
                             <div class="monto_editable_pago_en_linea">
                                 <span class="tipo_moneda_pais">S/</span>
@@ -120,7 +125,7 @@
                     </div>
                 </div>
                 <div class="descripcion_opcion_activacion">
-                    Acepto los términos y condiciones
+                    Acepto los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
                 </div>
             </div>
         </div>
