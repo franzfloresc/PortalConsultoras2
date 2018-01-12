@@ -1585,16 +1585,13 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.EstadoRDSuscripcion.Activo:
                     revistaDigitalModel.NoVolverMostrar = true;
                     break;
+                case Constantes.EstadoRDSuscripcion.SinRegistroDB:
                 case Constantes.EstadoRDSuscripcion.Desactivo:
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
                     revistaDigitalModel.NoVolverMostrar =
                         revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
-                    break;
-                default:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
                     break;
             }
 
