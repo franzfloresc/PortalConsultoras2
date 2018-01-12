@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
@@ -48,8 +49,9 @@ namespace Portal.Consultoras.Service
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
+        private readonly ITrackingBusinessLogic _trackingBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -78,11 +80,12 @@ namespace Portal.Consultoras.Service
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
-            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
+            _trackingBusinessLogic = trackingBusinessLogic;
         }
 
         #region Reporte Lider
@@ -828,6 +831,10 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
 
+        public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
+        {
+            return _trackingBusinessLogic.GetTrackingPedidoByConsultora(paisID, codigoConsultora, top);
+        }
         #endregion
 
         #region CUV_Automatico
@@ -2163,6 +2170,25 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
+        #endregion
+
+        #region CargaMasivaImagenes
+
+        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
+        }
+
         #endregion
 
         #region ProductosPrecargados

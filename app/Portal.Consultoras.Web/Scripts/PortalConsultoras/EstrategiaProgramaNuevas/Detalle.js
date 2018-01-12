@@ -284,7 +284,8 @@ $("#btnGuardar").click(function (e) {
         PrecioAnt: "",
         EsOfertaIndependiente: "0",
         Ganancia: $.trim($("#Ganancia").val()),
-        CodigoPrograma: $.trim($("#CodigoPrograma").val())
+        CodigoPrograma: $.trim($("#CodigoPrograma").val()),
+        RutaImagenCompleta: rutaImagen
     };
 
     waitingDialog({});
