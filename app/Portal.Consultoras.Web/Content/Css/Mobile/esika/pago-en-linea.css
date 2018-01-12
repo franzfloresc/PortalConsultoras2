@@ -56,7 +56,9 @@
 .aceptar_terminos_y_condiciones,
 .barra_activacion,
 .btn_pago_credito_visa > span,
-.fondo_modal
+.fondo_modal,
+.redireccion_proveedor_de_pago,
+.animacion_precarga_redireccion_proveedor_pago
 {
     display:block;
 }
@@ -126,7 +128,8 @@
 }
 
 .proceso_de_pago_en_linea,
-.contenedor_info_pago_seguro_y_ctas
+.contenedor_info_pago_seguro_y_ctas,
+.redireccion_proveedor_de_pago
 {
     padding: 24px 6px 0 6px;
 }
@@ -615,7 +618,7 @@
     position:fixed;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.7);
+    background:rgba(0,0,0,0.8);
     z-index:2000;
     margin:auto;
     top:0;
@@ -642,7 +645,10 @@
     font-size: 24px;
     position: absolute;
     top: -37px;
-    right: 4px;
+    right: -7px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
 }
 
 .cerrar_popup_terminos_y_condiciones:before{
@@ -666,4 +672,95 @@
     font-size:13px;
     line-height:17px;
     margin-bottom:40px;
+}
+
+.redireccion_proveedor_de_pago{
+    margin-top:40px;
+    text-align:center;
+}
+
+.info_redireccion_proveedor_de_pago{
+    text-transform:uppercase;
+    color:#000;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:36px;
+}
+
+.animacion_precarga_redireccion_proveedor_pago{
+    margin:0 auto;
+    width:60px;
+    height:56px;
+    background-image:url(../../../Images/Esika/precarga-pago-en-linea.svg);
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position:center;
+    animation-name:rotacionPrecarga;
+    animation-duration:1s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+}
+
+@-webkit-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-moz-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-o-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
 }

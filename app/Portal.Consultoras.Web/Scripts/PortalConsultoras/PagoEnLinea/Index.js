@@ -35,7 +35,6 @@ $(document).ready(function () {
                 }
             },
             AbrirPopupTerminosYCondiciones: function (e) {
-                e.stopPropagation();
                 e.preventDefault();
                 $('.fondo_modal').fadeIn(300);
             },

@@ -29,7 +29,7 @@
 
     <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
 
-    <div class="proceso_de_pago_en_linea">
+    <div class="proceso_de_pago_en_linea" style="display:none;">
 
         <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
@@ -135,10 +135,20 @@
 
     <!-- FIN VISTA PROCESO DE PAGO EN LÍNEA -->
 
-    <div class="contenedor_info_pago_seguro_y_ctas">
+    <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
 
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+    <div class="redireccion_proveedor_de_pago">
+        <p class="info_redireccion_proveedor_de_pago">
+            Te estamos redirigiendo al proveedor de pago
+        </p>
+        <div class="animacion_precarga_redireccion_proveedor_pago"></div>
+    </div>
 
+    <!-- FIN - VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
+
+    <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+
+    <div class="contenedor_info_pago_seguro_y_ctas" style="display:none;">
         <div class="info_pago_seguro_con_tarjetas">
             <div class="icono_pago_seguro">
             </div>
@@ -155,8 +165,6 @@
                 </span>*@
             </div>
         </div>
-
-        <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
 
         <!-- CALL TO ACTIONS PAGO EN LÍNEA -->
 
@@ -178,6 +186,8 @@
         <!-- FIN CALL TO ACTIONS PAGO EN LÍNEA -->
 
     </div>
+
+    <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
 
 </div>
 
