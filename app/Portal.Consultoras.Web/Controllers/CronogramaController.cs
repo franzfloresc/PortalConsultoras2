@@ -768,68 +768,64 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool validar = false;
             string mensajeFechaDa = null;
-            if (UserData().EsquemaDAConsultora)
-            {
-                if (UserData().EsZonaDemAnti == 1)
+            if (UserData().EsquemaDAConsultora && UserData().EsZonaDemAnti == 1)
+                using (SACServiceClient sv = new SACServiceClient())
                 {
-                    using (SACServiceClient sv = new SACServiceClient())
+                    var configuracionConsultoraDa = new BEConfiguracionConsultoraDA
                     {
+                        CampaniaID = Convert.ToString(UserData().CampaniaID),
+                        ConsultoraID = Convert.ToInt32(UserData().ConsultoraID),
+                        ZonaID = UserData().ZonaID
+                    };
 
-                        var configuracionConsultoraDa = new BEConfiguracionConsultoraDA
+                    var consultoraDa = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
+
+                    if (consultoraDa == 0)
+                    {
+                        var cronograma =
+                            sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID,
+                                UserData().ZonaID, 2).FirstOrDefault();
+                        if (cronograma != null && cronograma.FechaInicioWeb != null)
                         {
-                            CampaniaID = Convert.ToString(UserData().CampaniaID),
-                            ConsultoraID = Convert.ToInt32(UserData().ConsultoraID),
-                            ZonaID = UserData().ZonaID
-                        };
+                            DateTime fechaDa = (DateTime) cronograma.FechaInicioWeb;
 
-                        var consultoraDa = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
+                            TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
+                            var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
+                            var diasemana = "";
+                            var dia = fechaDa.DayOfWeek.ToString();
 
-                        if (consultoraDa == 0)
-                        {
-                            var cronograma = sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID, UserData().ZonaID, 2).FirstOrDefault();
-                            if (cronograma != null && cronograma.FechaInicioWeb != null)
+                            switch (dia)
                             {
-                                DateTime fechaDa = (DateTime)cronograma.FechaInicioWeb;
-
-                                TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
-                                var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
-                                var diasemana = "";
-                                var dia = fechaDa.DayOfWeek.ToString();
-
-                                switch (dia)
-                                {
-                                    case "Monday":
-                                        diasemana = "Lunes";
-                                        break;
-                                    case "Tuesday":
-                                        diasemana = "Martes";
-                                        break;
-                                    case "Wednesday":
-                                        diasemana = "Miércoles";
-                                        break;
-                                    case "Thursday":
-                                        diasemana = "Jueves";
-                                        break;
-                                    case "Friday":
-                                        diasemana = "Viernes";
-                                        break;
-                                    case "Saturday":
-                                        diasemana = "Sábado";
-                                        break;
-                                    case "Sunday":
-                                        diasemana = "Domingo";
-                                        break;
-                                }
-
-                                mensajeFechaDa = diasemana + " " + fechaDa.Day.ToString() + " de " + NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
+                                case "Monday":
+                                    diasemana = "Lunes";
+                                    break;
+                                case "Tuesday":
+                                    diasemana = "Martes";
+                                    break;
+                                case "Wednesday":
+                                    diasemana = "Miércoles";
+                                    break;
+                                case "Thursday":
+                                    diasemana = "Jueves";
+                                    break;
+                                case "Friday":
+                                    diasemana = "Viernes";
+                                    break;
+                                case "Saturday":
+                                    diasemana = "Sábado";
+                                    break;
+                                case "Sunday":
+                                    diasemana = "Domingo";
+                                    break;
                             }
 
-                            validar = true;
+                            mensajeFechaDa = diasemana + " " + fechaDa.Day.ToString() + " de " +
+                                             NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
                         }
 
+                        validar = true;
                     }
                 }
-            }
 
 
             return Json(new
