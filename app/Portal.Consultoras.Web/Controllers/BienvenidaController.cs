@@ -1612,7 +1612,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

@@ -97,8 +97,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var consultoraAfiliar = DatoUsuario();
             HttpRequestBase request = this.HttpContext.Request;
-            string rutaPDF = "/Content/FAQ/CCC_TC_Consultoras.pdf";
-            ViewBag.PDFLink = String.Format("{0}WebPages/DownloadPDF.aspx?file={1}", Util.GetUrlHost(request), rutaPDF);
+            const string rutaPdf = "/Content/FAQ/CCC_TC_Consultoras.pdf";
+            ViewBag.PDFLink = String.Format("{0}WebPages/DownloadPDF.aspx?file={1}", Util.GetUrlHost(request), rutaPdf);
 
             return View(consultoraAfiliar);
         }
@@ -890,7 +890,7 @@ namespace Portal.Consultoras.Web.Controllers
                     // 0=App Catalogos, >0=Portal Marca
                     if (pedido.MarcaID == 0)
                     {
-                        int? revistaGana = null;
+                        int? revistaGana;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID,
@@ -1553,8 +1553,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm,
-            out bool ErrorServer, out string tipo)
+        private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle obePedidoWebDetalle, string tipoAdm,
+            out bool errorServer, out string tipo)
         {
             List<BEPedidoWebDetalle> olstTempListado;
 
@@ -1566,51 +1566,51 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!pedidoWebDetalleNula)
                 {
-                    if (oBEPedidoWebDetalle.PedidoDetalleID == 0)
+                    if (obePedidoWebDetalle.PedidoDetalleID == 0)
                     {
-                        if (olstTempListado.Any(p => p.CUV == oBEPedidoWebDetalle.CUV))
-                            oBEPedidoWebDetalle.TipoPedido = "X";
+                        if (olstTempListado.Any(p => p.CUV == obePedidoWebDetalle.CUV))
+                            obePedidoWebDetalle.TipoPedido = "X";
                     }
                     else
                     {
-                        if (olstTempListado.Any(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID))
-                            oBEPedidoWebDetalle.TipoPedido = "X";
+                        if (olstTempListado.Any(p => p.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID))
+                            obePedidoWebDetalle.TipoPedido = "X";
                     }
                 }
 
-                if (TipoAdm == "I")
+                if (tipoAdm == "I")
                 {
                     int cantidad;
-                    short result = ValidarInsercion(olstTempListado, oBEPedidoWebDetalle, out cantidad);
+                    short result = ValidarInsercion(olstTempListado, obePedidoWebDetalle, out cantidad);
                     if (result != 0)
                     {
-                        TipoAdm = "U";
-                        oBEPedidoWebDetalle.Stock = oBEPedidoWebDetalle.Cantidad;
-                        oBEPedidoWebDetalle.Cantidad += cantidad;
-                        oBEPedidoWebDetalle.ImporteTotal =
-                            oBEPedidoWebDetalle.Cantidad * oBEPedidoWebDetalle.PrecioUnidad;
-                        oBEPedidoWebDetalle.PedidoDetalleID = result;
-                        oBEPedidoWebDetalle.Flag = 2;
-                        oBEPedidoWebDetalle.OrdenPedidoWD = 1;
+                        tipoAdm = "U";
+                        obePedidoWebDetalle.Stock = obePedidoWebDetalle.Cantidad;
+                        obePedidoWebDetalle.Cantidad += cantidad;
+                        obePedidoWebDetalle.ImporteTotal =
+                            obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                        obePedidoWebDetalle.PedidoDetalleID = result;
+                        obePedidoWebDetalle.Flag = 2;
+                        obePedidoWebDetalle.OrdenPedidoWD = 1;
                     }
                 }
 
-                int totalClientes = CalcularTotalCliente(olstTempListado, oBEPedidoWebDetalle,
-                    TipoAdm == "D" ? oBEPedidoWebDetalle.PedidoDetalleID : (short) 0, TipoAdm);
-                decimal totalImporte = CalcularTotalImporte(olstTempListado, oBEPedidoWebDetalle,
-                    TipoAdm == "I" ? (short) 0 : oBEPedidoWebDetalle.PedidoDetalleID, TipoAdm);
+                int totalClientes = CalcularTotalCliente(olstTempListado, obePedidoWebDetalle,
+                    tipoAdm == "D" ? obePedidoWebDetalle.PedidoDetalleID : (short) 0, tipoAdm);
+                decimal totalImporte = CalcularTotalImporte(olstTempListado, obePedidoWebDetalle,
+                    tipoAdm == "I" ? (short) 0 : obePedidoWebDetalle.PedidoDetalleID, tipoAdm);
 
-                oBEPedidoWebDetalle.ImporteTotalPedido = totalImporte;
-                oBEPedidoWebDetalle.Clientes = totalClientes;
+                obePedidoWebDetalle.ImporteTotalPedido = totalImporte;
+                obePedidoWebDetalle.Clientes = totalClientes;
 
-                oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
-                oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
+                obePedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
+                obePedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 var indPedidoAutentico = new BEIndicadorPedidoAutentico
                 {
-                    PedidoID = oBEPedidoWebDetalle.PedidoID,
-                    CampaniaID = oBEPedidoWebDetalle.CampaniaID,
-                    PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID,
+                    PedidoID = obePedidoWebDetalle.PedidoID,
+                    CampaniaID = obePedidoWebDetalle.CampaniaID,
+                    PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
                     IndicadorToken = Session["TokenPedidoAutentico"] != null
@@ -1618,23 +1618,23 @@ namespace Portal.Consultoras.Web.Controllers
                         : ""
                 };
 
-                oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                obePedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
 
-                switch (TipoAdm)
+                switch (tipoAdm)
                 {
                     case "I":
                         BEPedidoWebDetalle oBePedidoWebDetalleTemp;
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            oBePedidoWebDetalleTemp = sv.Insert(oBEPedidoWebDetalle);
+                            oBePedidoWebDetalleTemp = sv.Insert(obePedidoWebDetalle);
                         }
 
-                        oBePedidoWebDetalleTemp.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
-                        oBePedidoWebDetalleTemp.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
-                        oBePedidoWebDetalleTemp.Nombre = oBEPedidoWebDetalle.Nombre;
+                        oBePedidoWebDetalleTemp.ImporteTotal = obePedidoWebDetalle.ImporteTotal;
+                        oBePedidoWebDetalleTemp.DescripcionProd = obePedidoWebDetalle.DescripcionProd;
+                        oBePedidoWebDetalleTemp.Nombre = obePedidoWebDetalle.Nombre;
 
-                        oBEPedidoWebDetalle.PedidoDetalleID = oBePedidoWebDetalleTemp.PedidoDetalleID;
+                        obePedidoWebDetalle.PedidoDetalleID = oBePedidoWebDetalleTemp.PedidoDetalleID;
 
                         if (userData.PedidoID == 0)
                         {
@@ -1650,18 +1650,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            sv.UpdPedidoWebDetalle(oBEPedidoWebDetalle);
+                            sv.UpdPedidoWebDetalle(obePedidoWebDetalle);
                         }
 
-                        olstTempListado.Where(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID)
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID)
                             .Update(p =>
                             {
-                                p.Cantidad = oBEPedidoWebDetalle.Cantidad;
-                                p.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
-                                p.ClienteID = oBEPedidoWebDetalle.ClienteID;
-                                p.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
-                                p.Nombre = oBEPedidoWebDetalle.Nombre;
-                                p.TipoPedido = oBEPedidoWebDetalle.TipoPedido;
+                                p.Cantidad = obePedidoWebDetalle.Cantidad;
+                                p.ImporteTotal = obePedidoWebDetalle.ImporteTotal;
+                                p.ClienteID = obePedidoWebDetalle.ClienteID;
+                                p.DescripcionProd = obePedidoWebDetalle.DescripcionProd;
+                                p.Nombre = obePedidoWebDetalle.Nombre;
+                                p.TipoPedido = obePedidoWebDetalle.TipoPedido;
                             });
 
                         break;
@@ -1670,8 +1670,8 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
 
                 olstTempListado = ObtenerPedidoWebDetalle();
-                ErrorServer = false;
-                tipo = TipoAdm;
+                errorServer = false;
+                tipo = tipoAdm;
 
                 UpdPedidoWebMontosPROL();
             }
@@ -1680,7 +1680,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 olstTempListado = ObtenerPedidoWebDetalle();
-                ErrorServer = true;
+                errorServer = true;
                 tipo = "";
             }
 
@@ -1691,9 +1691,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> temp = new List<BEPedidoWebDetalle>(pedido);
             BEPedidoWebDetalle obe =
-                temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
-            cantidad = obe != null ? obe.Cantidad : 0;
-            return obe != null ? obe.PedidoDetalleID : (short) 0;
+                temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV) ?? new BEPedidoWebDetalle();
+            cantidad = obe.Cantidad;
+            return obe.PedidoDetalleID;
         }
 
         private int CalcularTotalCliente(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido,
@@ -2022,7 +2022,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CancelarPedido(long SolicitudId, int OpcionCancelado, string RazonMotivoCancelado)
         {
             int paisId = userData.PaisID;
-            DateTime fechaActual = DateTime.Now;
+            DateTime fechaActual;
             try
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
@@ -2074,7 +2074,7 @@ namespace Portal.Consultoras.Web.Controllers
             ServiceSAC.BESolicitudCliente solicitudCliente)
         {
             DateTime fechaMaxima = solicitudCliente.FechaModificacion.AddDays(1);
-            var culture = new System.Globalization.CultureInfo("es-PE");
+            var culture = new CultureInfo("es-PE");
             var dia = culture.DateTimeFormat.GetDayName(fechaMaxima.DayOfWeek);
             var mes = culture.DateTimeFormat.GetMonthName(fechaMaxima.Month);
             dia = ToUpperFirstLetter(dia);
