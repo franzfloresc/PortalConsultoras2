@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -12,6 +13,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,6 +24,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Threading.Tasks;
+
 using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1155,6 +1159,274 @@ namespace Portal.Consultoras.Web.Controllers
             return usuarioModel;
         }
 
+        public async Task<UsuarioModel> GetUserDataAsync(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
+        {
+            pasoLog = "Login.GetUserData";
+            sessionManager.SetIsContrato(1);
+            sessionManager.SetIsOfertaPack(1); 
+
+            var usuarioModel = (UsuarioModel)null;
+            var valores = "";
+            string[] arrValores;
+            try
+            {
+                if (paisId == 0)
+                    throw new ArgumentException("Parámetro paisId no puede ser cero.");
+                if (string.IsNullOrEmpty(codigoUsuario))
+                    throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
+                var usuario = await GetUsuarioAndLogsIngresoPortalAsync(paisId, codigoUsuario, refrescarDatos);
+                if (usuario != null)
+                {
+                    #region UsuarioModel
+                    usuarioModel = Mapper.Map<ServiceUsuario.BEUsuario, UsuarioModel>(usuario);
+                    if (DateTime.Now.AddHours(usuario.ZonaHoraria) < usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes))
+                    {
+                        usuarioModel.DiaPROL = false;
+                        usuarioModel.FechaFacturacion = usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes);
+                        usuarioModel.HoraFacturacion = usuario.DiasAntes == 0 ? usuario.HoraInicio : usuario.HoraInicioNoFacturable;
+                    }
+                    else
+                    {
+                        usuarioModel.DiaPROL = true;
+                        usuarioModel.FechaFacturacion = usuario.FechaFinFacturacion;
+                        usuarioModel.HoraFacturacion = usuario.HoraFin;
+                    }
+                    switch (usuario.RolID)
+                    {
+                        case Constantes.Rol.Administrador:
+                            usuarioModel.FechaFinCampania = usuario.FechaFinFacturacion;
+                            break;
+                        case Constantes.Rol.Consultora:
+                            usuarioModel.FechaFinCampania = usuario.FechaFinFacturacion;
+                            break;
+                    }
+                    usuarioModel.IPUsuario = GetIpCliente();
+                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        usuarioModel.IndicadorPermisoFlexipago = await GetPermisoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoISO, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
+                    usuarioModel.MenuNotificaciones = 1;
+                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        usuarioModel.TieneNotificaciones = await TieneNotificacionesAsync(usuario);
+                    if (usuario.CampaniaID != 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                    {
+                        valores = await GetFechaPromesaEntregaAsync(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora,
+
+                                                            usuario.FechaInicioFacturacion);
+                        arrValores = valores.Split('|');
+                        usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
+                        usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
+                        usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
+                    }
+                    var lista = await GetLinksPorPaisAsync(usuarioModel.PaisID);
+                    if (lista.Count > 0)
+                    {
+                        usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
+                        usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
+                        usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                    }
+                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        usuarioModel.EsUsuarioComunidad = await EsUsuarioComunidadAsync(usuario.PaisID, usuario.CodigoUsuario);
+                    usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 4 || usuarioModel.PaisID == 3 || usuarioModel.PaisID == 12 ? 1 : 0;
+                    usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4 ? "https://www.zonapagos.com/pagosn2/LoginCliente"
+                        : usuarioModel.PaisID == 3 ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"
+                        : usuarioModel.PaisID == 12 ? "https://www.somosbelcorp.com/Paypal"
+                        : "";
+                    #endregion
+                    if (usuarioModel.RolID == Constantes.Rol.Consultora)
+                    {
+                        #region Hana
+                        if (usuarioModel.TieneHana == 1)
+                        {
+                            if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                var usuarioHana = await ActualizarDatosHanaAsync(usuarioModel);
+                                if (usuarioHana != null)
+                                {
+                                    usuarioModel.FechaLimPago = usuarioHana.FechaLimPago;
+                                    usuarioModel.MontoMinimo = usuarioHana.MontoMinimoPedido;
+                                    usuarioModel.MontoMaximo = usuarioHana.MontoMaximoPedido;
+                                    usuarioModel.MontoDeuda = usuarioHana.MontoDeuda;
+                                    usuarioModel.IndicadorFlexiPago = usuarioHana.IndicadorFlexiPago;
+                                    usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (usuarioHana.MontoMinimoFlexipago < 0 ? 0M : usuarioHana.MontoMinimoFlexipago));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                usuarioModel.MontoDeuda = await GetMontoDeudaAsync(usuarioModel);
+                            usuarioModel.MontoMinimoFlexipago = "0.00";
+                            if (usuarioModel.IndicadorFlexiPago > 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                var ofertaFlexipago = await GetLineaCreditoFlexipagoAsync(usuarioModel);
+                                usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}",
+                                    (ofertaFlexipago.MontoMinimoFlexipago < 0
+                                        ? 0M
+                                        : ofertaFlexipago.MontoMinimoFlexipago));
+                            }
+                        }
+                        #endregion
+                        #region GPR
+                        if (!esAppMobile)
+                        {
+                            usuarioModel.IndicadorGPRSB = usuario.IndicadorGPRSB;
+                            if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                var gprBanner = await GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda);
+                                if (gprBanner != null)
+                                {
+                                    usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
+                                    usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
+                                    usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
+                                    usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
+                                    usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
+                                }
+                            }
+                        }
+                        #endregion
+
+                        #region ODD
+                        if (!esAppMobile)
+                        {
+                            if (usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                usuarioModel.OfertasDelDia = await GetOfertaDelDiaModelAsync(usuarioModel);
+                                usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
+                            }
+                        }
+                        #endregion
+                        #region RegaloPN
+                        if (GetRegaloProgramaNuevasFlag() == "1")
+                        {
+                            var fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
+                            var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
+                            if (esDiasFacturacion)
+                                usuarioModel.ConsultoraRegaloProgramaNuevas = await GetConsultoraRegaloProgramaNuevasAsync(usuarioModel);
+                        }
+                        #endregion
+                        #region LoginFB
+                        if (!esAppMobile)
+                        {
+                            if (usuario.TieneLoginExterno)
+                            {
+                                using (var usuarioServiceClient = new UsuarioServiceClient())
+                                {
+                                    var lst = await usuarioServiceClient.GetListaLoginExternoAsync(usuario.PaisID, usuario.CodigoUsuario);
+                                    var lstLoginExterno = lst.ToList();
+                                    if (lstLoginExterno.Any())
+                                        usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
+                                }
+                            }
+                        }
+                        #endregion
+                        #region ConfiguracionPais
+                        try
+                        {
+                            if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+                            var revistaDigitalModel = new RevistaDigitalModel();
+                            var ofertaFinalModel = new OfertaFinalModel();
+                            revistaDigitalModel.NoVolverMostrar = true;
+                            var configuracionesPaisModels = await GetConfiguracionPaisAsync(usuarioModel);
+                            if (configuracionesPaisModels.Any())
+                            {
+                                var listaPaisDatos = await ConfiguracionPaisDatosAsync(usuarioModel);
+                                foreach (var c in configuracionesPaisModels)
+                                {
+                                    switch (c.Codigo)
+                                    {
+                                        case Constantes.ConfiguracionPais.RevistaDigital:
+                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
+                                                listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
+                                            ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                                            break;
+                                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                                            if (revistaDigitalModel.TieneRDC)
+                                                break;
+                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
+                                                listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                                            revistaDigitalModel.TieneRDR = true;
+                                            break;
+                                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                                            usuarioModel.TieneValidacionMontoMaximo = c.Estado;
+                                            break;
+                                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                                            ofertaFinalModel.Algoritmo = c.Codigo;
+                                            ofertaFinalModel.Estado = c.Estado;
+                                            if (c.Estado)
+                                            {
+                                                usuarioModel.OfertaFinal = 1;
+                                                usuarioModel.EsOfertaFinalZonaValida = true;
+                                            }
+                                            break;
+                                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                                            usuarioModel.TieneGND = true;
+                                            break;
+                                    }
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
+                                        usuarioModel.OfertaFinalGanaMas = 1;
+                                }
+                                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                                revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
+                                revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                                revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
+                                revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+                                sessionManager.SetRevistaDigital(revistaDigitalModel);
+                                sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                                sessionManager.SetOfertaFinalModel(ofertaFinalModel);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
+                            pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
+                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+                            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+                            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+                        }
+                        #endregion
+                        #region EventoFestivo
+                        var eventoFestivoDataModel = await ConfigurarEventoFestivoAsync(usuarioModel);
+                        sessionManager.SetEventoFestivoDataModel(eventoFestivoDataModel);
+                        #endregion
+                        #region IncentivosConcursos
+                        var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+                        var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
+                        var result = await ConfigurarIncentivosConcursosAsync(usuarioModel);
+                        var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                        if (Concursos.Any()) usuarioModel.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
+                        var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                        if (ProgramaNuevas.Any()) usuarioModel.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
+                        #endregion
+                    }
+                    if (usuarioModel.CatalogoPersonalizado != 0)
+                    {
+                        var lstFiltersFAV = await CargarFiltersFAVAsync(usuarioModel);
+                        if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
+                    }
+                    usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
+                    sessionManager.SetTieneLan(true);
+                    sessionManager.SetTieneLanX1(true);
+                    sessionManager.SetTieneOpt(true);
+                    sessionManager.SetTieneOpm(true);
+                    sessionManager.SetTieneOpmX1(true);
+                    sessionManager.SetTieneRdr(true);
+                }
+                sessionManager.SetUserData(usuarioModel);
+                return usuarioModel;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, codigoUsuario, paisId.ToString(), string.Empty);
+                pasoLog = "Error: " + ex.Message;
+                throw;
+            }
+        }
+
         protected virtual List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
         {
             IList<ServiceUsuario.BEConfiguracionPais> listaConfigPais;
@@ -2065,7 +2337,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult IngresoExterno(string token)
+        public async Task<ActionResult> IngresoExterno(string token)
         {
             this.SetUniqueKeyAvoiding(Guid.NewGuid());
 
@@ -2076,11 +2348,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
-                var userData = sessionManager.GetUserData();
+                var userData = new UsuarioModel(); //sessionManager.GetUserData();
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     Session.Clear();
-                    userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
+                    //userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
+                    userData = await GetUserDataAsync(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
 
                 var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
@@ -2266,5 +2539,432 @@ namespace Portal.Consultoras.Web.Controllers
                 .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
         }
+
+        #region GetUserDataAsync
+        private async Task<bool> GetPermisoFlexipagoAsync(int PaisID, string PaisISO, string CodigoConsultora, int CampaniaID)
+        {
+            var hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
+            if (!hasFlexipago.Contains(PaisISO)) return false;
+            using (var sv = new PedidoServiceClient())
+            {
+                return await sv.GetPermisoFlexipagoAsync(PaisID, CodigoConsultora, CampaniaID);
+            }
+        }
+
+        private async Task<int> TieneNotificacionesAsync(ServiceUsuario.BEUsuario oBEUsuario)
+        {
+            using (var sv = new UsuarioServiceClient())
+            {
+                return await sv.GetNotificacionesSinLeerAsync(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR);
+            }
+        }
+
+        private async Task<string> GetFechaPromesaEntregaAsync(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
+        {
+            var sFecha = Convert.ToDateTime("2000-01-01").ToString();
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    sFecha = await sv.GetFechaPromesaCronogramaByCampaniaAsync(PaisId, CampaniaId, CodigoConsultora, FechaFact);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoConsultora, PaisId.ToString(), string.Empty);
+            }
+            return sFecha;
+        }
+
+        private async Task<List<TipoLinkModel>> GetLinksPorPaisAsync(int paisId)
+        {
+            List<BETipoLink> listModel;
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    var lst = await contenidoServiceClient.GetLinksPorPaisAsync(paisId);
+                    listModel = lst.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listModel = new List<BETipoLink>();
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.GetLinksPorPais");
+            }
+            return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
+        }
+
+        private async Task<bool> EsUsuarioComunidadAsync(int PaisId, string CodigoUsuario)
+        {
+            ServiceComunidad.BEUsuarioComunidad result = null;
+            try
+            {
+                using (var sv = new ServiceComunidad.ComunidadServiceClient())
+                {
+                    result = await sv.GetUsuarioInformacionAsync(new ServiceComunidad.BEUsuarioComunidad()
+                    {
+                        PaisId = PaisId,
+                        UsuarioId = 0,
+                        CodigoUsuario = CodigoUsuario,
+                        Tipo = 3
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
+            }
+            return result != null;
+        }
+
+        private async Task<ServiceUsuario.BEUsuario> GetUsuarioAndLogsIngresoPortalAsync(int paisId, string codigoUsuario, int refrescarDatos)
+        {
+            using (var usuarioServiceClient = new UsuarioServiceClient())
+            {
+                var usuario = await usuarioServiceClient.GetSesionUsuarioAsync(paisId, codigoUsuario);
+                if (usuario != null && refrescarDatos == 0)
+                {
+                    try
+                    {
+                        await usuarioServiceClient.InsLogIngresoPortalAsync(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString(), EsDispositivoMovil() ? Constantes.Canal.Mobile : Constantes.Canal.Desktop);
+                    }
+                    catch (Exception ex)
+                    {
+                        logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(), string.Empty);
+                        pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
+                    }
+                }
+                return usuario;
+            }
+        }
+        private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHanaAsync(UsuarioModel model)
+        {
+            using (var us = new UsuarioServiceClient())
+            {
+                return await us.GetDatosConsultoraHanaAsync(model.PaisID, model.CodigoUsuario, model.CampaniaID);
+            }
+        }
+        private async Task<decimal> GetMontoDeudaAsync(UsuarioModel usuarioModel)
+        {
+            var montoDeuda = 0.0M;
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    montoDeuda = await contenidoServiceClient.GetMontoDeudaAsync(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), "LoginController.GetMontoDeuda");
+            }
+
+            return montoDeuda;
+        }
+        private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipagoAsync(UsuarioModel usuarioModel)
+        {
+            using (var svc = new PedidoServiceClient())
+            {
+                return await svc.GetLineaCreditoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
+            }
+        }
+        private async Task<ServicePedidoRechazado.BEGPRBanner> GetMotivoRechazoAsync(ServiceUsuario.BEUsuario usuario, decimal montoDeuda)
+        {
+            ServicePedidoRechazado.BEGPRBanner gprBanner = null;
+            try
+            {
+                using (var sv = new ServicePedidoRechazado.PedidoRechazadoServiceClient())
+                {
+                    var gprUsuario = new ServicePedidoRechazado.BEGPRUsuario()
+                    {
+                        IndicadorGPRSB = usuario.IndicadorGPRSB,
+                        CampaniaID = usuario.CampaniaID,
+                        PaisID = usuario.PaisID,
+                        ConsultoraID = usuario.ConsultoraID,
+                        MontoDeuda = montoDeuda,
+                        Simbolo = usuario.Simbolo,
+                        CodigoISO = usuario.CodigoISO,
+                        MontoMinimoPedido = usuario.MontoMinimoPedido,
+                        MontoMaximoPedido = usuario.MontoMaximoPedido,
+                        ValidacionAbierta = usuario.ValidacionAbierta,
+                        EstadoPedido = usuario.EstadoPedido
+                    };
+                    gprBanner = await sv.GetMotivoRechazoAsync(gprUsuario);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.PaisID.ToString(), "LoginController.GetMotivoRechazo");
+            }
+            return gprBanner;
+        }
+        private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModelAsync(UsuarioModel model)
+        {
+            var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
+            try
+            {
+                var ofertasDelDia = await ObtenerOfertasDelDiaAsync(model);
+                if (!ofertasDelDia.Any()) return ofertasDelDiaModel;
+                var personalizacionesOfertaDelDia = await ObtenerPersonalizacionesOfertaDelDiaAsync(model);
+                if (!personalizacionesOfertaDelDia.Any()) return ofertasDelDiaModel;
+                ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+                var countdown = await CountdownODDAsync(model);
+                var contOdd = 0;
+                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                foreach (var oferta in ofertasDelDia)
+                {
+                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
+                    var oddModel = new OfertaDelDiaModel();
+                    oddModel.CodigoIso = model.CodigoISO;
+                    oddModel.TipoEstrategiaID = oferta.TipoEstrategiaID;
+                    oddModel.EstrategiaID = oferta.EstrategiaID;
+                    oddModel.MarcaID = oferta.MarcaID;
+                    oddModel.CUV2 = oferta.CUV2;
+                    oddModel.LimiteVenta = oferta.LimiteVenta;
+                    oddModel.IndicadorMontoMinimo = oferta.IndicadorMontoMinimo;
+                    oddModel.TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar;
+                    oddModel.TeQuedan = countdown;
+                    oddModel.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                    oddModel.ColorFondo1 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                    oddModel.ImagenBanner = oferta.FotoProducto01;
+                    oddModel.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count);
+                    oddModel.ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                    oddModel.ColorFondo2 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                    oddModel.ImagenDisplay = oferta.FotoProducto01;
+                    oddModel.ID = contOdd++;
+                    oddModel.NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2);
+                    oddModel.DescripcionOferta = ObtenerDescripcionOfertaDelDia(oferta.DescripcionCUV2);
+                    oddModel.PrecioOferta = oferta.Precio2;
+                    oddModel.PrecioCatalogo = oferta.Precio;
+                    oddModel.TieneOfertaDelDia = true;
+                    oddModel.Orden = oferta.Orden;
+                    ofertasDelDiaModel.Add(oddModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(), "LoginController.GetOfertaDelDiaModel");
+            }
+            return ofertasDelDiaModel;
+        }        private async Task<List<BEEstrategia>> ObtenerOfertasDelDiaAsync(UsuarioModel model)
+        {
+            using (var svc = new PedidoServiceClient())
+            {
+                var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
+                return lst.ToList();
+            }
+        }        private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDiaAsync(UsuarioModel model)
+        {
+            using (var svc = new SACServiceClient())
+            {
+                var lst = await svc.GetTablaLogicaDatosAsync(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+                return lst.ToList();
+            }
+        }        private async Task<TimeSpan> CountdownODDAsync(UsuarioModel model)
+        {
+            DateTime hoy;
+            DateTime d2;
+            using (var svc = new SACServiceClient())
+            {
+                hoy = await svc.GetFechaHoraPaisAsync(model.PaisID);
+            }
+            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+
+            if (model.EsDiasFacturacion)
+            {
+                var t1 = model.HoraCierreZonaNormal;
+                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+            }
+            else
+            {
+                d2 = d1.AddDays(1);
+            }
+            var t2 = (d2 - hoy);
+            return t2;
+        }
+        private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevasAsync(UsuarioModel model)
+        {
+            ConsultoraRegaloProgramaNuevasModel result = null;
+            pasoLog = "GetConsultoraRegaloProgramaNuevas";
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                    if (entidad != null)
+                    {
+                        if (!string.IsNullOrEmpty(entidad.CodigoSap))
+                        {
+                            using (var svc2 = new ProductoServiceClient())
+                            {
+                                var lst = await svc2.ObtenerProductosPorCampaniasBySapAsync(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3);
+                                var listaProdCatalogo = lst.ToList();
+                                if (listaProdCatalogo.Any())
+                                {
+                                    var prodCatalogo = listaProdCatalogo.FirstOrDefault();
+                                    if (prodCatalogo != null)
+                                    {
+                                        var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial) ? prodCatalogo.NombreComercial : prodCatalogo.DescripcionComercial);
+                                        if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
+                                        if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
+                                        if (prodCatalogo.PrecioValorizado > 0) entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                                        entidad.UrlImagenRegalo = prodCatalogo.Imagen;
+                                    }
+                                }
+                            }
+                        }
+                        result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
+                        result.CodigoIso = model.CodigoISO;
+                        result.DescripcionPremio = result.DescripcionPremio.ToUpper();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
+            }
+            return result;
+        }
+        private async Task<List<ConfiguracionPaisModel>> GetConfiguracionPaisAsync(UsuarioModel usuarioModel)
+        {
+            var listaConfigPais = new List<ServiceUsuario.BEConfiguracionPais>();
+            try
+            {
+                var config = new ServiceUsuario.BEConfiguracionPais
+                {
+                    DesdeCampania = usuarioModel.CampaniaID,
+                    Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        CodigoRegion = usuarioModel.CodigorRegion,
+                        CodigoZona = usuarioModel.CodigoZona,
+                        CodigoSeccion = usuarioModel.SeccionAnalytics
+                    }
+                };
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var lst = await sv.GetConfiguracionPaisAsync(config);
+                    listaConfigPais = lst.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetConfiguracionPais");
+            }
+            return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+        }
+        private async Task<List<BEConfiguracionPaisDatos>> ConfiguracionPaisDatosAsync(UsuarioModel usuarioModel)
+        {
+            var listaEntidad = new List<BEConfiguracionPaisDatos>();
+            try
+            {
+                var entidad = new BEConfiguracionPaisDatos
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                        {
+                            CodigoConsultora = usuarioModel.CodigoConsultora,
+                            CodigoRegion = usuarioModel.CodigorRegion,
+                            CodigoZona = usuarioModel.CodigoZona,
+                            CodigoSeccion = usuarioModel.SeccionAnalytics
+                        }
+                    }
+                };
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var lst = await sv.GetConfiguracionPaisDatosAsync(entidad);
+                    listaEntidad = lst.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.ConfiguracionPaisDatos");
+            }
+            return listaEntidad;
+        }
+        private async Task<EventoFestivoDataModel> ConfigurarEventoFestivoAsync(UsuarioModel usuarioModel)
+        {
+            var eventoFestivoDataModel = new EventoFestivoDataModel();
+            try
+            {
+                eventoFestivoDataModel.ListaEventoFestivo = await ObtenerEventoFestivoAsync(usuarioModel.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, usuarioModel.CampaniaID);
+                if (eventoFestivoDataModel.ListaEventoFestivo.Any())
+                {
+                    foreach (var item in eventoFestivoDataModel.ListaEventoFestivo)
+                    {
+                        switch (item.Nombre)
+                        {
+                            case Constantes.EventoFestivoNombre.SALUDO:
+                                eventoFestivoDataModel.EfSaludo = item.Personalizacion;
+                                break;
+                            case Constantes.EventoFestivoNombre.FONDO_INGPED:
+                                eventoFestivoDataModel.EfRutaPedido = item.Personalizacion;
+                                break;
+                        }
+                    }
+                }
+                eventoFestivoDataModel.ListaGifMenuContenedorOfertas = await ObtenerEventoFestivoAsync(usuarioModel.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, usuarioModel.CampaniaID);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
+                pasoLog = "Ocurrió un error al cargar Eventofestivo";
+                sessionManager.SetEventoFestivoDataModel(new EventoFestivoDataModel());
+            }
+            return eventoFestivoDataModel;
+        }        private async Task<List<EventoFestivoModel>> ObtenerEventoFestivoAsync(int paisID, string Alcance, int Campania)
+        {
+            var lst = new List<BEEventoFestivo>();
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var result = await sv.GetEventoFestivoAsync(paisID, Alcance, Campania);
+                    lst = result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, Campania.ToString() + " - " + Alcance, paisID.ToString(), string.Empty);
+            }
+            return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
+        }
+        private async Task<List<BEIncentivoConcurso>> ConfigurarIncentivosConcursosAsync(UsuarioModel usuarioModel)
+        {
+            var lst = new List<BEIncentivoConcurso>();
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuarioModel.PaisID, usuarioModel.CampaniaID.ToString(), usuarioModel.CodigoConsultora, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
+                    lst = result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO, string.Empty);
+            }
+            return lst;
+        }
+        private async Task<List<BETablaLogicaDatos>> CargarFiltersFAVAsync(UsuarioModel usuarioModel)
+        {
+            var lstFiltersFAV = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                for (var i = 94; i <= 97; i++)
+                {
+                    var lstItems = await svc.GetTablaLogicaDatosAsync(usuarioModel.PaisID, (short)i);
+                    if (!lstItems.Any()) continue;
+                    lstFiltersFAV.AddRange(lstItems);
+                }
+            }
+            return lstFiltersFAV;
+        }
+        #endregion
     }
 }

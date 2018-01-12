@@ -262,5 +262,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
         }
 
+        void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
+        {
+            HttpContext.Current.Session["ListFiltersFAV"] = lista;
+        }
+
+        List<ServiceSAC.BETablaLogicaDatos> ISessionManager.GetListFiltersFAV()
+        {
+            return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
+        }
     }
 }
