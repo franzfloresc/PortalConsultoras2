@@ -1365,52 +1365,33 @@ namespace Portal.Consultoras.Web.Controllers
                             usuarioModel.MontoDeuda = montoDeudaTask.Result;
 
                             var ofertaFlexipago = lineaCreditoFPTask.Result;
-                            usuarioModel.MontoMinimoFlexipago = (lineaCreditoFPTask == null ? "0.00" : string.Format("{0:#,##0.00}",
+                            usuarioModel.MontoMinimoFlexipago = (ofertaFlexipago == null ? "0.00" : string.Format("{0:#,##0.00}",
                                                     (ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago)));
                         }
                         #endregion
 
-                        //    #region GPR
-                        //    if (!esAppMobile)
-                        //    {
-                        //        usuarioModel.IndicadorGPRSB = usuario.IndicadorGPRSB;
+                        #region GPR_ODD_RegaloPN
+                        var motivoRechazoTask = Task.Run(() => GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda, esAppMobile));
+                        var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModelAsync(usuarioModel, usuario, esAppMobile));
+                        var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevasAsync(usuarioModel));
 
-                        //        if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        //        {
-                        //            var gprBanner = await GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda);
-                        //            if (gprBanner != null)
-                        //            {
-                        //                usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
-                        //                usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
-                        //                usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
-                        //                usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
-                        //                usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
-                        //            }
-                        //        }
-                        //    }
-                        //    #endregion
+                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas);
 
-                        //    #region ODD
-                        //    if (!esAppMobile)
-                        //    {
-                        //        if (usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        //        {
-                        //            usuarioModel.OfertasDelDia = await GetOfertaDelDiaModelAsync(usuarioModel);
-                        //            usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
-                        //        }
-                        //    }
-                        //    #endregion
+                        var gprBanner = motivoRechazoTask.Result;
+                        if (gprBanner != null)
+                        {
+                            usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
+                            usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
+                            usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
+                            usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
+                            usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
+                        }
 
-                        //    #region RegaloPN
-                        //    if (GetRegaloProgramaNuevasFlag() == "1")
-                        //    {
-                        //        var fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
-                        //        var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
+                        usuarioModel.OfertasDelDia = ofertaDelDiaTask.Result;
+                        usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
 
-                        //        if (esDiasFacturacion)
-                        //            usuarioModel.ConsultoraRegaloProgramaNuevas = await GetConsultoraRegaloProgramaNuevasAsync(usuarioModel);
-                        //    }
-                        //    #endregion
+                        usuarioModel.ConsultoraRegaloProgramaNuevas = regaloProgramaNuevas.Result;
+                        #endregion
 
                         //    #region LoginFB
                         //    if (!esAppMobile)
@@ -2588,68 +2569,68 @@ namespace Portal.Consultoras.Web.Controllers
                     userData = await GetUserDataAsync(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
 
-                var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
-                this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
+                //var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
+                //this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
 
-                if (userData == null) return RedirectToAction("UserUnknown", "Login", new {area = ""});
+                //if (userData == null) return RedirectToAction("UserUnknown", "Login", new {area = ""});
 
-                FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
+                //FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
 
-                this.SetUniqueSession("MobileAppConfiguracion", new MobileAppConfiguracionModel
-                {
-                    MostrarBotonAtras = !model.EsAppMobile,
-                    ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile,
-                    EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int) FormsAuthentication.Timeout.TotalMinutes
-                });
+                //this.SetUniqueSession("MobileAppConfiguracion", new MobileAppConfiguracionModel
+                //{
+                //    MostrarBotonAtras = !model.EsAppMobile,
+                //    ClienteID = model.ClienteID,
+                //    MostrarHipervinculo = !model.EsAppMobile,
+                //    EsAppMobile = model.EsAppMobile,
+                //    TimeOutSession = (int) FormsAuthentication.Timeout.TotalMinutes
+                //});
 
-                this.SetUniqueSession("IngresoExterno", model.Version ?? "");
+                //this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
-                if (!string.IsNullOrEmpty(model.Identifier))
-                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                //if (!string.IsNullOrEmpty(model.Identifier))
+                //    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
 
-                Session["StartSession"] = DateTime.Now;
+                //Session["StartSession"] = DateTime.Now;
 
-                switch (model.Pagina.ToUpper())
-                {
-                    case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
-                    case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
-                            new {campania = model.Campania, numeroPedido = model.NumeroPedido});
-                    case Constantes.IngresoExternoPagina.PedidoDetalle:
-                        var listTrue = new List<string> {"1", bool.TrueString};
-                        var autoReservar = listTrue.Any(s =>
-                            s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToUniqueRoute("Pedido", "Detalle", new {autoReservar = autoReservar});
-                    case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
-                            new {ProcesoId = model.ProcesoId, TipoOrigen = 1});
-                    case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToUniqueRoute("Pedido", "Index",
-                            new
-                            {
-                                ProcesoId = model.ProcesoId,
-                                TipoOrigen = 1
-                            });
-                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
-                            new
-                            {
-                                campania = model.Campania,
-                                tipoCatalogo = model.TipoCatalogo,
-                                url = model.UrlCatalogo
-                            });
-                    case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
-                    case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
-                    case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
-                    case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToUniqueRoute("Ofertas", "Index", null);
-                }
+                //switch (model.Pagina.ToUpper())
+                //{
+                //    case Constantes.IngresoExternoPagina.EstadoCuenta:
+                //        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
+                //    case Constantes.IngresoExternoPagina.SeguimientoPedido:
+                //        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
+                //            new {campania = model.Campania, numeroPedido = model.NumeroPedido});
+                //    case Constantes.IngresoExternoPagina.PedidoDetalle:
+                //        var listTrue = new List<string> {"1", bool.TrueString};
+                //        var autoReservar = listTrue.Any(s =>
+                //            s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
+                //        return RedirectToUniqueRoute("Pedido", "Detalle", new {autoReservar = autoReservar});
+                //    case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
+                //        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
+                //            new {ProcesoId = model.ProcesoId, TipoOrigen = 1});
+                //    case Constantes.IngresoExternoPagina.Pedido:
+                //        return RedirectToUniqueRoute("Pedido", "Index",
+                //            new
+                //            {
+                //                ProcesoId = model.ProcesoId,
+                //                TipoOrigen = 1
+                //            });
+                //    case Constantes.IngresoExternoPagina.CompartirCatalogo:
+                //        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
+                //            new
+                //            {
+                //                campania = model.Campania,
+                //                tipoCatalogo = model.TipoCatalogo,
+                //                url = model.UrlCatalogo
+                //            });
+                //    case Constantes.IngresoExternoPagina.MisPedidos:
+                //        return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                //    case Constantes.IngresoExternoPagina.ShowRoom:
+                //        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
+                //    case Constantes.IngresoExternoPagina.ProductosAgotados:
+                //        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
+                //    case Constantes.IngresoExternoPagina.Ofertas:
+                //        return RedirectToUniqueRoute("Ofertas", "Index", null);
+                //}
             }
             catch (Exception ex)
             {
@@ -2920,9 +2901,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return await svc.GetLineaCreditoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
             }
         }
-        private async Task<ServicePedidoRechazado.BEGPRBanner> GetMotivoRechazoAsync(ServiceUsuario.BEUsuario usuario, decimal montoDeuda)
+        private async Task<ServicePedidoRechazado.BEGPRBanner> GetMotivoRechazoAsync(ServiceUsuario.BEUsuario usuario, decimal montoDeuda,
+            bool esAppMobile)
         {
             ServicePedidoRechazado.BEGPRBanner gprBanner = null;
+            if (!(usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return gprBanner;
+            if(!esAppMobile) return gprBanner;
+
             try
             {
                 using (var sv = new ServicePedidoRechazado.PedidoRechazadoServiceClient())
@@ -2950,9 +2935,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return gprBanner;
         }
-        private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModelAsync(UsuarioModel model)
+        private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModelAsync(UsuarioModel model, ServiceUsuario.BEUsuario usuario,
+            bool esAppMobile)
         {
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
+            if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return ofertasDelDiaModel;
+            if (!esAppMobile) return ofertasDelDiaModel;
+
             try
             {
                 var ofertasDelDia = await ObtenerOfertasDelDiaAsync(model);
@@ -3040,6 +3029,12 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "GetConsultoraRegaloProgramaNuevas";
             try
             {
+                if (!(GetRegaloProgramaNuevasFlag() == "1")) return result;
+
+                var fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+                if (!esDiasFacturacion) return result;
+
                 using (var svc = new PedidoServiceClient())
                 {
                     var entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
