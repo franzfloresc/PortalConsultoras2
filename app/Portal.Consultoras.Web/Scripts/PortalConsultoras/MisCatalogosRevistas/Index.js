@@ -111,34 +111,35 @@ function ObtenerURLExpofertas() {
         dataType: 'Json',
         success: function (dataResult) {
             if (checkTimeout(dataResult)) {
-                if (dataResult.success) {
-                    var $arrayBanners = $.grep(dataResult.data, function (e) { return e.GrupoBannerID == -5; });
-                    if ($arrayBanners.length > 1) {
-                        var urlExpoferta = "";
-                        $.each($arrayBanners, function (key, banner) {
-                            if (banner.TituloComentario.toLowerCase() == "expoferta") {
-                                urlExpoferta = banner.URL;
-                            }
-                        });
-                        if (urlExpoferta.length > 0) {
-                            $('#contenedorExpofertaMCR').show();
-                            $('#catalogoExpoferta').click(function () {
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Catálogos y revistas',
-                                    'action': 'Ver expoferta',
-                                    'label': 'Expoferta',
-                                    'value': 0
-                                });
-                                window.open(urlExpoferta, '_blank');
-                            });
-                        }
-                        else $('#contenedorExpofertaMCR').hide();
-
-                        $("#catalogoExpoferta").css("cursor", "pointer");
-                    }
+                if (!dataResult.success) {
+                    MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
+                    return;
                 }
-                else MonstrarExclamacion('Error al cargar la informacion de Expoferta.');
+
+                var $arrayBanners = $.grep(dataResult.data, function (e) {
+                    return e.GrupoBannerID == -5;
+                });
+
+                if ($arrayBanners.length === 0)
+                    return;
+
+                var urlExpoferta = '';
+                $.each($arrayBanners, function (key, banner) {
+                    if (banner.TituloComentario.toLowerCase() === "expoferta") {
+                        urlExpoferta = banner.URL;
+                    }
+                });
+
+                $("#catalogoExpoferta").css("cursor", "pointer");
+                $('#contenedorExpofertaMCR').hide();
+
+                if (urlExpoferta.length > 0) {
+                    $('#contenedorExpofertaMCR').show();
+                    $('#catalogoExpoferta').click(function () {
+                        SetGoogleAnalytics('', 'Ver expoferta', 'Expoferta');
+                        window.open(urlExpoferta, '_blank');
+                    });
+                }
             }
         }
     });
@@ -218,7 +219,7 @@ function FinRenderCatalogo() {
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
     waitingDialog();
 
-    if (!(typeof (accion) === 'undefined')) {
+    if (typeof (accion) !== 'undefined') {
         SetGoogleAnalytics("", accion, label);
     }
 
@@ -272,8 +273,8 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
             : i == 1 && data.estadoCyzone != 1 ? tagCyzone
-            : i == 2 && data.estadoEsika != 1 ? tagEsika
-            : "";
+                : i == 2 && data.estadoEsika != 1 ? tagEsika
+                    : "";
 
         if (tagCat == "") {
             cont++;
@@ -281,9 +282,9 @@ function GetCatalogosLinksByCampania(data, campania) {
         }
 
         var estado = i == 0 && data.estadoLbel != 1 ? "1"
-        : i == 1 && data.estadoCyzone != 1 ? "1"
-        : i == 2 && data.estadoEsika != 1 ? "1"
-        : "0";
+            : i == 1 && data.estadoCyzone != 1 ? "1"
+                : i == 2 && data.estadoEsika != 1 ? "1"
+                    : "0";
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
@@ -603,11 +604,11 @@ function CatalogoEnviarEmail() {
 function renderItemCliente(event, ui) {
     var htmlTag = '' //'<div class="foto_usuario_compartir"><img src="' + urlIconoClienteAutoCompletar + '" alt="" /></div>'
         + '<a>'
-                + '<div class="content_datos_c">'
-                    + '<div class="nombre_compartir">{nombre}</div>'
-                    + '<div class="correo_compartir">{email}</div>'
-                + '</div>'
-    + '</a>';
+        + '<div class="content_datos_c">'
+        + '<div class="nombre_compartir">{nombre}</div>'
+        + '<div class="correo_compartir">{email}</div>'
+        + '</div>'
+        + '</a>';
     $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
         var htmlTagAdd = htmlTag.replace('{nombre}', item.nombre);
         htmlTagAdd = htmlTagAdd.replace('{email}', item.email);
