@@ -14,6 +14,7 @@
     using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Text;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
@@ -123,11 +124,11 @@
                         fechaVencimiento = string.Empty;
                     if (userData.PaisID == 4)
                     {
-                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));//lst[lst.Count - 1].Cargo).Replace(',', '.');
+                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));
                     }
                     else
                     {
-                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora); //lst[lst.Count - 1].Cargo);
+                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora);
                     }
                 }
                 simbolo = string.Format("{0} ", userData.Simbolo);
@@ -142,7 +143,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<EstadoCuentaModel> items = lst;
 
                 #region Sort Section
@@ -184,9 +184,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
@@ -291,7 +291,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -333,10 +332,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -454,7 +452,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -510,10 +507,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -632,7 +628,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -656,10 +651,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -700,7 +694,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -748,10 +741,9 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -834,101 +826,107 @@
 
 
                     #region Mensaje a Enviar
-                    string mailBody = string.Empty;
-                    mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-                    mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
-                    mailBody += "<table border='1' style='width: 80%;'>";
-                    mailBody += "<tr style='color: #FFFFFF'>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
-                    mailBody += "Cod. Venta";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>";
-                    mailBody += "Descripción";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>";
-                    mailBody += "Cantidad";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>";
-                    mailBody += "Precio Unit.";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                    mailBody += "Precio Total";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
+
+                    var txtBuil = new StringBuilder();
+
+                    txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
+                    txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
+                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                    txtBuil.Append("<table border='1' style='width: 80%;'>");
+                    txtBuil.Append("<tr style='color: #FFFFFF'>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
+                    txtBuil.Append("Cod. Venta");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
+                    txtBuil.Append("Descripción");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
+                    txtBuil.Append("Cantidad");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Unit.");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Total");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
 
                     for (int i = 0; i < lst.Count; i++)
                     {
 
-                        mailBody += "<tr>";
-                        mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + lst[i].CUV.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += " <td style='font-size:11px; width: 347px;'>";
-                        mailBody += "" + lst[i].DescripcionProd.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                        mailBody += "" + lst[i].Cantidad.ToString() + "";
-                        mailBody += "</td>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].CUV.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                        txtBuil.Append("" + lst[i].DescripcionProd.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
+                        txtBuil.Append("</td>");
+
                         if (userData.PaisID == 4)
                         {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
-                            mailBody += "</td>";
-
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
                         }
                         else
                         {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
-                            mailBody += "</td>";
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
                         }
-                        mailBody += "</tr>";
+
+                        txtBuil.Append("</tr>");
+
                         Total += lst[i].ImporteTotal;
 
                     }
-                    mailBody += "<tr>";
-                    mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
-                    mailBody += "Total :";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
+
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>");
+                    txtBuil.Append("Total :");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
+
                     if (userData.PaisID == 4)
                     {
-                        mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
+                        txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "");
                     }
                     else
                     {
-                        mailBody += "" + userData.Simbolo + Total.ToString("#0.00") + "";
+                        txtBuil.Append("" + userData.Simbolo + Total.ToString("#0.00") + "");
                     }
 
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<div style='font-size:12px;'>Saludos,</div>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<table border='0'>";
-                    mailBody += "<tr>";
-                    mailBody += "<td>";
-                    mailBody += "<img src='cid:Logo' border='0' />";
-                    mailBody += "</td>";
-                    mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
-                    mailBody += "<strong>Consultora</strong>";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
+                    txtBuil.Append("</table>");
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<div style='font-size:12px;'>Saludos,</div>");
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<table border='0'>");
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td>");
+                    txtBuil.Append("<img src='cid:Logo' border='0' />");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='text-align: center; font-size:12px;'>");
+                    txtBuil.Append("<strong>" + userData.NombreConsultora + "</strong> <br />");
+                    txtBuil.Append("<strong>Consultora</strong>");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
+                    txtBuil.Append("</table>");
 
+                    string mailBody = txtBuil.ToString();
                     #endregion
 
                     Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
-
 
                     return Json(new
                     {
@@ -971,7 +969,6 @@
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -1000,8 +997,8 @@
                 }
             }
             #endregion
-            
-            pag = Paginador(grid, campania, lst);
+
+            BEPager pag = Paginador(grid, campania, lst);
 
             var data = new
             {
@@ -1090,8 +1087,6 @@
             if (lstCampaniaModel.Count != 0)
                 return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
             else
-
-
                 return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
 
 
@@ -1122,10 +1117,6 @@
             {
                 lista = servicezona.SelectCampanias(PaisID).ToList();
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
@@ -1133,8 +1124,6 @@
         public List<RVPRFModel> GetPDFRVDigital(string campania, string codigo, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
         {
             UsuarioModel usuario = userData;
-            string Marca;
-            string NombrePais = DevolverNombrePais(codigo, out Marca);
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), Campana = campania };
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
             ErrorServicio = false;
@@ -1276,14 +1265,14 @@
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1341,7 +1330,7 @@
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

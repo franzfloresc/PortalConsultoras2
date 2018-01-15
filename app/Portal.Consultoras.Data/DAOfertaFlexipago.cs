@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.AnsiString, CampaniaID.ToString());            
             int result = int.Parse(Context.ExecuteScalar(command).ToString());
-            return result == 0 ? false : true;
+            return result != 0;
         }
     }
 }

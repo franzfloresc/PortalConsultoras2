@@ -279,16 +279,13 @@ namespace Portal.Consultoras.BizLogic
                 {
                     DAPedidoWebDetalle.InsPedidoWebDetalleOferta(pedidowebdetalle);
                     DAPedidoWebDetalle.UpdPedidoWebTotalesOferta(pedidowebdetalle.ConsultoraID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CodigoUsuarioModificacion);
-                    if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
+                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                     {
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                     }
-                    if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
+                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Accesorizate)
                     {
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
-                    }
-                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
-                    {
                     }
 
                     oTransactionScope.Complete();

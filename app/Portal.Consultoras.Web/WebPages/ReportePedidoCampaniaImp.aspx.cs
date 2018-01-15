@@ -36,7 +36,6 @@ namespace Portal.Consultoras.Web.WebPages
             string Usuario = lista[10];
             string Imagen = lista[11];
             string NombrePais = lista[12];
-            string Simbolo = lista[13];
 
             lblNombrePais.Text = NombrePais;
             imgBandera.ImageUrl = "../Content/Banderas/" + Imagen;
@@ -53,14 +52,9 @@ namespace Portal.Consultoras.Web.WebPages
             sb.Append("<thead><tr><th>Cod. Consultora</th><th>Territorio</th><th>Cod. Venta</th><th>Cod. Producto</th><th>Unidades Demandadas</th><th>Monto Demandado</th><th>Cod. Tipo Oferta</th><th>Origen</th><th>Fecha Ult. Act.</th></tr></thead>");
             sb.Append("<tbody>");
 
-            List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
             BEPais bepais = new BEPais();
 
-
-            //ServiceOSBBelcorp.BusinessService BusinessService = new BusinessService();
-            //ServiceOSBBelcorp.pedidoWebAnteriorDetalleBean[] lista;
             PedidoBS BusinessService = new PedidoBS();
-            //BusinessService.getPedidoWebAnteriorDetalle .pedidoWebAnteriorDetalleBean[] lista;
             ServiceOSBBelcorpPedido.pedidoWebAnteriorDetalleBean[] listaE;
 
 
@@ -105,18 +99,14 @@ namespace Portal.Consultoras.Web.WebPages
 
             try
             {
-                //listaE = BusinessService.obtenerPedidoWebAnteriorDetalle("201303", "PE", "0", "0", "032396461");
                 listaE = BusinessService.obtenerPedidoWebAnteriorDetalle(Campaniaddl_val, ISOWS, Regionddl, Zonaddl, CodConsultoratxt_ID);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ReportePedidoCampaniaImp - Page_Load - obtenerPedidoWebAnteriorDetalle");
+
                 listaE = null;
             }
-
-            //if (listaE == null)
-            //{
-            //    lst = new List<ReportePedidoCampaniaModel>();
-            //}
 
             if (listaE != null)
             {
@@ -161,9 +151,10 @@ namespace Portal.Consultoras.Web.WebPages
 
             lTabla.Text = sb.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ReportePedidoCampaniaImp - Page_Load");
+
                 throw;
             }
         }

@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Configuration;
 using System.ServiceModel;
 using System.Web.Mvc;
 
@@ -12,11 +11,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            BEUsuario beusuario = new BEUsuario();
             var model = new ActualizarDatosModel();
 
             try
             {
+                BEUsuario beusuario;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);

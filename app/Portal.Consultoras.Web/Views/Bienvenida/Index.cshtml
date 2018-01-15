@@ -11,7 +11,6 @@
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
         }
-           
     </style>
 }
 
@@ -20,7 +19,7 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -259,7 +258,7 @@
 }
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
-   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", revistaDigital) 
+   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -678,7 +677,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                        <input type="text" name="nombres" value="@Model.NombreCompleto" />
                     </div>
                     <div>
                         <label>Teléfono</label>
@@ -1074,7 +1073,7 @@
 <!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
-        <a href="javascript:CerrarCamara();" id="" title="Cerrar">
+        <a href="javascript:CerrarCamara();" title="Cerrar">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
@@ -2036,7 +2035,7 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-@if (Model.RevistaDigital.TieneRDS == true)
+@if (revistaDigital.TieneRDS == true)
 {
     <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="PopRDSuscripcion" data-popup-main="" data-popup-function-hide="RDPopupCerrar()" style="display:none;">
        

@@ -145,13 +145,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -166,7 +159,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        lst = sv.GetCronogramaByCampania(PaisID == string.Empty ? 11 : int.Parse(PaisID), CampaniaID == "" ? 0 : int.Parse(CampaniaID), ZonaID.Equals(string.Empty) ? -1 : int.Parse(ZonaID), Int16.Parse(TipoCronogramaID)).ToList();
+                        lst = sv.GetCronogramaByCampania(
+                            PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                            CampaniaID == "" ? 0 : int.Parse(CampaniaID),
+                            string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                            Int16.Parse(TipoCronogramaID)).ToList();
                     }
                 }
                 else
@@ -179,7 +176,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECronograma> items = lst;
 
                 #region Sort Section
@@ -227,9 +223,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -272,7 +268,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BELogActualizacionFacturacion> items = lst;
 
                 #region Sort Section
@@ -332,9 +327,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -369,7 +364,11 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BECronograma> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.GetCronogramaByCampaniaAnticipado(PaisID == string.Empty ? 11 : int.Parse(PaisID), CampaniaID == "" ? -1 : int.Parse(CampaniaID), ZonaID.Equals(string.Empty) ? -1 : int.Parse(ZonaID), Int16.Parse(TipoCronogramaID)).ToList();
+                    lst = sv.GetCronogramaByCampaniaAnticipado(
+                        PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                        CampaniaID == "" ? -1 : int.Parse(CampaniaID),
+                        string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                        Int16.Parse(TipoCronogramaID)).ToList();
                 }
 
                 BEGrid grid = new BEGrid();
@@ -377,7 +376,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECronograma> items = lst;
 
                 #region Sort Section
@@ -425,9 +423,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -458,14 +456,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {
@@ -479,18 +477,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
@@ -543,14 +529,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {
@@ -564,18 +550,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
@@ -619,18 +593,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;

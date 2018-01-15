@@ -73,9 +73,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -105,7 +102,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEFeErratas> items = lst;
 
                 #region Sort Section
@@ -153,9 +149,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -190,14 +186,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
             if (listaEntradas != null && listaEntradas.Count > 0)
             {
-                Mapper.CreateMap<AdministrarFeErratasModel, BEFeErratas>()
-                   .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                   .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                   .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                   .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
                 var updateErratas = listaEntradas.Where(x => !x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray();
                 foreach (var item in updateErratas)
                 {
@@ -289,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 if (Session["entradas"] != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => e.Eliminar == false).ToList();
+                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => !e.Eliminar).ToList();
                 }
                 else
                 {
@@ -298,11 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.SelectFeErratasEntradas(vpaisID, vCampaniaID, vTitulo).ToList();
                     }
-                    Mapper.CreateMap<BEFeErratas, AdministrarFeErratasModel>()
-                       .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                       .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                       .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                       .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
+
                     List<AdministrarFeErratasModel> entidades = Mapper.Map<IEnumerable<BEFeErratas>, List<AdministrarFeErratasModel>>(lst);
                     listaEntradas = new List<AdministrarFeErratasModel>();
                     listaEntradas.AddRange(entidades);
@@ -314,7 +298,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<AdministrarFeErratasModel> items = listaEntradas;
 
                 #region Sort Section
@@ -350,9 +333,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, listaEntradas);
+                BEPager pag = Util.PaginadorGenerico(grid, listaEntradas);
 
                 var data = new
                 {

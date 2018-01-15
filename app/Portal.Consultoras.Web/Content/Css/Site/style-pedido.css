@@ -5,17 +5,16 @@
     max-width: 700px !important;
 }
 
-.SubHeader
-{
+.SubHeader {
     position: absolute;
     margin-left: 83px;
 }
+
 .ubicacion_web {
     width: 100% !important;
     max-width: 1189px !important;
     position: relative !important;
     z-index: 6 !important;
-    /*margin-top: 83px!important;*/
 }
 
     .ubicacion_web span {
@@ -35,15 +34,15 @@
 }
 
 .logo_esika a {
-    transition: opacity 0.3s ease;
-    -moz-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    -ms-transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
 }
 
     .logo_esika a:hover {
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=50);
     }
 
@@ -80,12 +79,12 @@
     border-left: 1px solid #CCCCCC !important;
     padding-left: 5px !important;
     font-size: 15px !important;
-    margin-right: 0px !important;
+    margin-right: 0 !important;
 }
 
 .pedido_ingreso_datos input {
     height: 45px !important;
-    background: #FFF;
+    background: #fff;
     margin-right: 2px;
     font-family: 'lato';
     font-size: 14px;
@@ -131,19 +130,19 @@
     border: 0;
     width: 20.2% !important;
     height: 45px !important;
-    padding-left: 0px !important;
+    padding-left: 0 !important;
     font-size: 13px !important;
-    transition: opacity 0.3s ease;
-    -moz-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    -ms-transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
     .pedido_agregado:hover {
-        opacity: 0.8;
+        opacity: .8;
         filter: alpha(opacity=80);
     }
 
@@ -197,7 +196,7 @@
     .texto_pedidos.subtotal span.icon-advertencia {
         top: 44%;
         right: -16%;
-        zoom: 0.8;
+        zoom: .8;
     }
 
     .pedido_agregado {
@@ -214,9 +213,6 @@
 .btn_animado {
     display: none;
     position: absolute;
-    /*width: 70px;
-    height: 30px;
-    background: red;*/
     z-index: 1000;
     text-align: center;
 }
@@ -233,8 +229,7 @@
     background-color: silver;
 }
 
-.SubHeader
-{
+.SubHeader {
     position: absolute;
     margin-left: 83px;
 }

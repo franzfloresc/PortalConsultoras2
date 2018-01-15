@@ -143,7 +143,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -185,10 +184,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (UserData().PaisID == 4)
                 {
@@ -299,7 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -355,10 +353,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (UserData().PaisID == 4)
                 {
@@ -666,11 +663,10 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.End();
                 stream = null;
 
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 

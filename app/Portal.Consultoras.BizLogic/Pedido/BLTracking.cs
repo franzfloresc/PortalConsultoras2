@@ -213,7 +213,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 Result = DATracking.InsConfirmacionRecojo(oBEConfirmacionRecoja);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, oBEConfirmacionRecoja.CodigoConsultora, paisID.ToString());
+            }
 
             return Result;
         }

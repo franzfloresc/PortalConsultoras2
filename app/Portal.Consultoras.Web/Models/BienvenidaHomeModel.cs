@@ -121,12 +121,12 @@ namespace Portal.Consultoras.Web.Models
         public int ShowRoomMostrarLista { get; set; }
         public string ShowRoomBannerUrl { get; set; }
         public int TieneCupon { get; set; }
-        public int CampaniaMasDos { get; set; }
         public int TieneMasVendidos { get; set; }
         public string NombreGerenteZonal { get; internal set; }
         public bool PopupInicialCerrado { get; set; }
         public bool ShowPopupMisDatos { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
+        public PartialSectionBpt PartialSectionBpt { get; set; }
 
         public BienvenidaHomeModel()
         {

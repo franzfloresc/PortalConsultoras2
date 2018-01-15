@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ZonaValida
         {
-            get { return TempZonaValida == -1 ? false : true; }
+            get { return TempZonaValida != -1; }
             set { TempZonaValida = value ? 1 : -1; }
         }
 
