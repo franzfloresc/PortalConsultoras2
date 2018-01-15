@@ -25,9 +25,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            var model = new UsuarioRolModel();
-            model.DropDownListRol = CargarRol();
-            model.listaPaises = DropDowListPaises();
+
+            var model = new UsuarioRolModel
+            {
+                DropDownListRol = CargarRol(),
+                listaPaises = DropDowListPaises()
+            };
             return View(model);
         }
         public ActionResult ConsultarUsuarioRol(string sidx, string sord, int page, int rows, string vRolDescripcion, string vNombreUsuario)
@@ -40,11 +43,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectUsuarioRol(UserData().PaisID, vRolDescripcion, vNombreUsuario).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
                 IEnumerable<ServiceUsuario.BEUsuarioRol> items = lst;
 
@@ -228,8 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    bool result;
-                    result = sv.IsUserExist(entidad.PaisID, entidad.CodigoUsuario);
+                    var result = sv.IsUserExist(entidad.PaisID, entidad.CodigoUsuario);
 
                     if (result)
                     {
@@ -276,20 +280,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -298,13 +300,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
