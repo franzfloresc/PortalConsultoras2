@@ -153,8 +153,9 @@
 }
 
 .cantidad_pasos_proceso_pago{
-    text-align:center;
     position:relative;
+    margin:0 auto;
+    width:100px;
 }
 
 .paso_proceso_pago_en_linea{
@@ -199,7 +200,7 @@
     left:0;
     right:0;
     background-color:#000;
-    width:25%;
+    width:100%;
     height:1px;
 }
 

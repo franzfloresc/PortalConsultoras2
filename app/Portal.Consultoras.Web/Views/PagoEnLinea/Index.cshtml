@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Pago en Línea";
 }
+
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+}
+
 <!-- Titulo -->
 <div class="fondo_f9f9f9">
     <div class="content_belcorp content_belcorp_misPedidos">
@@ -13,7 +18,69 @@
 <!-- Fin titulo-->
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
-    <div class="EstadoCuenta">
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+        <div class="cantidad_pasos_proceso_pago">
+            <span class="paso_proceso_pago_en_linea paso_activo">1</span>
+            <span class="paso_proceso_pago_en_linea mr-0">2</span>
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>          
+        </div>
+        
+        <!-- VISTA SELECCIÓN DE MONTO A PAGAR -->
+
+        <div class="seleccion_monto_a_pagar">
+            <h3 class="titulo_seleccion_monto_a_pagar">Selecciona el monto a pagar</h3>
+            <form class="opciones_pago" method="post" action="">
+                <div class="monto_total_pago_en_linea">
+                    <div class="col_izq">
+                        <div class="monto_total_a_pagar">
+                            <span>S/ </span>
+                            <span>1000.00</span>
+                        </div>
+                        <div class="fecha_vencimiento_monto_total">
+                            <span>Vence</span>
+                            <span>15/01</span>
+                        </div>
+                    </div>
+                    <div class="col_der">
+                        <input type="radio" id="pagoTotal" name="opcionPago" value="1" checked />
+                        <label for="pagoTotal">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="monto_parcial_pago_en_linea">
+                    <div class="col_izq">
+                        <h4 class="titulo_pago_parcial">Pago Parcial:</h4>
+                        <div class="monto_editable_pago_en_linea">
+                            <span>S/ </span>
+                            <input type="text" value="" placeholder="0.00" class="monto_a_editar" />
+                        </div>
+                    </div>
+                    <div class="col_der">
+                        <input type="radio" id="pagoParcial" name="opcionPago" value="2" />
+                        <label for="pagoParcial">
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div class="info_cargo_gastos_administrativos">
+                *Cargo por gastos administrativos: 3% (<span class="tipo_moneda_pais">S/ </span><span class="monto_comision_pago_en_linea">20.00</span>)
+            </div>
+        </div>
+
+        <!-- FIN VISTA SELECCIÓN DE MONTO A PAGAR -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    @*<div class="EstadoCuenta">
         <div class="content_left_pagos">
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
@@ -83,8 +150,8 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div style="clear:both;"></div>
+    </div>*@
+    @*<div style="clear:both;"></div>
     <div>
         <div>
             <input type="checkbox" name="chkAceptoTerminos" id="chkAceptoTerminos" />
@@ -97,9 +164,9 @@
     </div>
     <div style="clear:both;">
         <div></div>
-        <div>
+        <div>*@
             @*<a class="pagar_btn" id="btnPagar">PAGAR</a>*@
-            <form id="formBoton" action="@Url.Action("PagoEnLinea", "PagoEnLinea")" method="post" runat="server">
+            @*<form id="formBoton" action="@Url.Action("PagoEnLinea", "PagoEnLinea")" method="post" runat="server">
                 <script id="javascriptBoton" src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
                         data-sessiontoken='@ViewBag.SessionToken'
                         data-merchantid='@ViewBag.MerchantId'
@@ -109,5 +176,5 @@
                         data-amount='@ViewBag.SaldoActual'></script>
             </form>
         </div>
-    </div>
+    </div>*@
 </div>

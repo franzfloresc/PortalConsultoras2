@@ -1239,6 +1239,7 @@
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\pago-en-linea.css" />
+    <Content Include="Content\Css\Site\Esika\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
