@@ -21,6 +21,39 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EMail = userData.EMail;
             ViewBag.Celular = userData.Celular;
 
+            #region limite Min - Max Telef
+            switch (userData.PaisID)
+            {
+                case Constantes.PaisID.Mexico:
+                    ViewBag.limiteMinimoTelef = 5;
+                    ViewBag.limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    ViewBag.limiteMinimoTelef = 7;
+                    ViewBag.limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    ViewBag.limiteMinimoTelef = 10;
+                    ViewBag.limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    ViewBag.limiteMinimoTelef = 8;
+                    ViewBag.limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    ViewBag.limiteMinimoTelef = 9;
+                    ViewBag.limiteMaximoTelef = 10;
+                    break;
+                default:
+                    ViewBag.limiteMinimoTelef = 0;
+                    ViewBag.limiteMaximoTelef = 15;
+                    break;
+            }
+            #endregion
+
             var modelo = new RevistaDigitalInformativoModel
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
