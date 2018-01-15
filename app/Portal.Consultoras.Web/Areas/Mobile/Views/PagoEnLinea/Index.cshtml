@@ -29,12 +29,12 @@
 
     <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
 
-    <div class="proceso_de_pago_en_linea" style="display:none;">
+    <div class="proceso_de_pago_en_linea">
 
         <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
         <div class="cantidad_pasos_proceso_pago">
-            <span class="paso_proceso_pago_en_linea paso_activo">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo paso_activo">1</span>
             <span class="paso_proceso_pago_en_linea mr-0">2</span>
             @*<span class="paso_proceso_pago_en_linea mr-0">3</span>*@
             <div class="linea_conectora_pasos">
@@ -74,23 +74,23 @@
                         </div>
                     </li>
                     @*<li class="opcion_pago">
-                        <div class="col_izq">
-                            <div class="monto_total_pago_en_linea">
-                                <span class="tipo_moneda_pais">S/</span>
-                                <span class="monto_moneda_pais">437.34</span>
+                            <div class="col_izq">
+                                <div class="monto_total_pago_en_linea">
+                                    <span class="tipo_moneda_pais">S/</span>
+                                    <span class="monto_moneda_pais">437.34</span>
+                                </div>
+                                <div class="fecha_vencimiento_pago_en_linea">
+                                    <span>Vence </span>
+                                    <span>27/01</span>
+                                </div>
                             </div>
-                            <div class="fecha_vencimiento_pago_en_linea">
-                                <span>Vence </span>
-                                <span>27/01</span>
+                            <div class="col_der">
+                                <input type="radio" id="pagoTotal2" name="opcionPago" value="2" />
+                                <label for="pagoTotal2">
+                                    <span></span>
+                                </label>
                             </div>
-                        </div>
-                        <div class="col_der">
-                            <input type="radio" id="pagoTotal2" name="opcionPago" value="2" />
-                            <label for="pagoTotal2">
-                                <span></span>
-                            </label>
-                        </div>
-                    </li>*@
+                        </li>*@
                     <li class="opcion_pago pagoParcial">
                         <div class="col_izq">
                             <h4 class="titulo_monto_pago_editable">
@@ -131,63 +131,106 @@
 
         <!-- FIN VISTA SELECCIÓN MONTO A PAGAR -->
 
+        <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
+
+        <div class="redireccion_proveedor_de_pago" style="display:none;">
+            <p class="info_redireccion_proveedor_de_pago">
+                Te estamos redirigiendo al proveedor de pago
+            </p>
+            <div class="animacion_precarga_redireccion_proveedor_pago"></div>
+        </div>
+
+        <!-- FIN - VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
+
+        <!-- VISTA PAGO EXITOSO -->
+
+        <div class="pago_exitoso" style="display:none;">
+
+            <h3 class="titulo_pago_exitoso">Pago exitoso</h3>
+            <p class="mensaje_felicitacion_por_pago_exitoso">
+                Muy bien Valeria <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
+            </p>
+
+            <div class="resumen_pago_exitoso">
+                <h3 class="titulo_resumen_pago_exitoso">
+                    Resumen del pago
+                </h3>
+                <div class="resumen_pago">
+                    <div class="monto_pagado">
+                        <span>Monto:</span>
+                        <span>500.00</span>
+                    </div>
+                    <div class="monto_gastos_administrativos">
+                        <span>Gasto administrativo:</span>
+                        <span>10.00</span>
+                    </div>
+                    <div class="total_monto_pagado">
+                        <span>Total pagado:</span>
+                        <span>510.00</span>
+                    </div>
+                    <div class="monto_saldo_pendiente">
+                        <div>Saldo pendiente:</div>
+                        <div>
+                            <span>S/</span>
+                            <span>500.00</span>
+                        </div>
+                    </div>
+                    <div class="fecha_vencimiento_saldo_pendiente">
+                        <span>Vencimiento:</span>
+                        <span>31/06</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FIN VISTA PAGO EXITOSO -->
+
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+
+        <div class="contenedor_info_pago_seguro_y_ctas">
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                    @*<span class="texto_pago_seguro visa_y_mastercard">Pago seguro</span>*@
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                    @*<span class="icono_marca_mastercard">
+                            <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                        </span>*@
+                </div>
+            </div>
+
+            <!-- CALL TO ACTIONS PAGO EN LÍNEA -->
+
+            @*<button type="button" class="cta_pago_en_linea btn_continuar">
+                    Continuar
+                </button>*@
+
+            <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
+                <span>
+                    Pagar con Visa (<span class="tipo_moneda_pais">S/ </span><span class="monto_a_pagar">1020.00</span>)
+                </span>
+            </button>
+
+            @*<button type="button" class="cta_pago_en_linea btn_pagar">
+                    Pagar
+                </button>*@
+
+            <!-- FIN CALL TO ACTIONS PAGO EN LÍNEA -->
+
+        </div>
+
+        <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+
     </div>
 
     <!-- FIN VISTA PROCESO DE PAGO EN LÍNEA -->
-
-    <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-    <div class="redireccion_proveedor_de_pago">
-        <p class="info_redireccion_proveedor_de_pago">
-            Te estamos redirigiendo al proveedor de pago
-        </p>
-        <div class="animacion_precarga_redireccion_proveedor_pago"></div>
-    </div>
-
-    <!-- FIN - VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-    <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
-
-    <div class="contenedor_info_pago_seguro_y_ctas" style="display:none;">
-        <div class="info_pago_seguro_con_tarjetas">
-            <div class="icono_pago_seguro">
-            </div>
-            <div class="texto_info_pago_seguro">
-                <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
-                @*<span class="texto_pago_seguro visa_y_mastercard">Pago seguro</span>*@
-            </div>
-            <div class="icono_marcas_tarjetas">
-                <span class="icono_marca_visa">
-                    <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                </span>
-                @*<span class="icono_marca_mastercard">
-                    <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                </span>*@
-            </div>
-        </div>
-
-        <!-- CALL TO ACTIONS PAGO EN LÍNEA -->
-
-        @*<button type="button" class="cta_pago_en_linea btn_continuar">
-            Continuar
-        </button>*@
-
-        <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
-            <span>Pagar con crédito Visa</span>
-            <span>
-                (<span class="tipo_moneda_pais">S/ </span><span class="monto_a_pagar">1020.00</span>)
-            </span>
-        </button>
-
-        @*<button type="button" class="cta_pago_en_linea btn_pagar">
-            Pagar
-        </button>*@
-
-        <!-- FIN CALL TO ACTIONS PAGO EN LÍNEA -->
-
-    </div>
-
-    <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
 
 </div>
 
