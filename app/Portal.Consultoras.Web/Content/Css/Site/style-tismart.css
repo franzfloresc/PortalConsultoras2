@@ -729,8 +729,11 @@ img {
         color: #d226aa;
     }
 
-    .submenu > ul > li > a font-size: 1.3em; margin-bottom: 10px; text-transform: uppercase;
-}
+    .submenu > ul > li > a {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
 
 .submenu > ul > li ul > li {
     float: none;
