@@ -23,13 +23,13 @@ var aCamRev = new Array();
 
 $(document).ready(function () {
     configurarContenedorExpoOfertas();
-    campSelect = $("#hdCampaniaActual").val().substring(4, 6);
+    campSelect = getNumeroCampania(getCodigoCampaniaActual());
 
-    $('#campaniaRevista').val($("#hdCampaniaActual").val());
+    $('#campaniaRevista').val(getCodigoCampaniaActual());
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
-    aCam.push($("#hdCampaniaAnterior").val());
-    aCam.push($("#hdCampaniaActual").val());
-    aCam.push($("#hdCampaniaSiguiente").val());
+    aCam.push(getCodigoCampaniaAnterior());
+    aCam.push(getCodigoCampaniaActual());
+    aCam.push(getCodigoCampaniaSiguiente());
 
     nombreCat[tagLbel] = "L'Bel";
     nombreCat[tagEsika] = "Ésika";
@@ -89,6 +89,28 @@ $(document).ready(function () {
 
     $("#btnEnviarCorreo").on("click", function () { CatalogoEnviarEmail(); });
 });
+
+function getCodigoCampaniaAnterior() {
+    return $.trim($("#hdCampaniaAnterior").val()) || '';
+}
+
+function getCodigoCampaniaActual() {
+    return $.trim($("#hdCampaniaActual").val()) || '';
+}
+
+function getCodigoCampaniaSiguiente() {
+    return $.trim($("#hdCampaniaSiguiente").val()) || '';
+}
+
+function getNumeroCampania(codigoCampania) {
+    codigoCampania = codigoCampania || '';
+    return codigoCampania.substring(4, 6);
+}
+
+function getAnioCampania(codigoCampania) {
+    codigoCampania = codigoCampania || '';
+    return codigoCampania.substring(0, 4);
+}
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
     InsertarLogDymnamo(
@@ -162,16 +184,16 @@ function CargarCarruselCatalogo() {
         var tipo = "";
 
         if (i < cantCat) {
-            anio = $("#hdCampaniaAnterior").val().substring(0, 4);
-            nro = $("#hdCampaniaAnterior").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaAnterior());
+            nro = getNumeroCampania(getCodigoCampaniaAnterior());
         }
         else if (i < cantCat * 2) {
-            anio = $("#hdCampaniaActual").val().substring(0, 4);
-            nro = $("#hdCampaniaActual").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaActual());
+            nro = getNumeroCampania(getCodigoCampaniaActual());
         }
         else if (i < cantCat * 3) {
-            anio = $("#hdCampaniaSiguiente").val().substring(0, 4);
-            nro = $("#hdCampaniaSiguiente").val().substring(4, 6);
+            anio = getAnioCampania(getCodigoCampaniaSiguiente());
+            nro = getNumeroCampania(getCodigoCampaniaSiguiente());
         }
 
         var x = i - parseInt(i / cantCat) * cantCat;
@@ -207,7 +229,7 @@ function CargarCarruselCatalogo() {
 function FinRenderCatalogo() {
     waitingDialog();
     if (cont >= cantCam * cantCat) {
-        campSelect = campSelect || $("#hdCampaniaActual").val().substring(4, 6);
+        campSelect = campSelect || getAnioCampania(getCodigoCampaniaActual());
         campSelectI = campSelectI || 1;
         $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
         $("#divCatalogo > div > div").show();
@@ -265,8 +287,8 @@ function GetCatalogosLinksByCampania(data, campania) {
     $.ajaxSetup({ cache: false });
     var paisNombre = $("#hdPaisNombre").val();
 
-    var anio = campania.substring(0, 4);
-    var nro = campania.substring(4, 6);
+    var anio = getAnioCampania(campania);
+    var nro = getNumeroCampania(campania);
     var idCat = "#divCatalogo";
 
     for (var i = 0; i < cantCat; i++) {
@@ -306,8 +328,8 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
         }
         else {
-            var n = campania.substring(4, 6);
-            var a = campania.substring(0, 4);
+            var a = getAnioCampania(campania);
+            var n = getNumeroCampania(campania);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
             $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
@@ -352,7 +374,7 @@ function CatalogoMostrar(accion, btn) {
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
     var campS = aCam[campSelectI];
-    campSelect = campS.substring(4, 6);
+    campSelect = getNumeroCampania(campS);
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
     $("#divCatalogo > div").hide();
     $("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
@@ -531,7 +553,7 @@ function CatalogoEnviarEmail() {
     // Flags => Considerar a todos los clientes
     var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
 
-    var campActual = $("#hdCampaniaActual").val();
+    var campActual = getCodigoCampaniaActual();
     var campComparte = campaniaEmail; //$("#hdCampaniaComparte").val();
     var Tipo = campActual == campComparte ? "1" : "2";
 
@@ -621,12 +643,12 @@ function renderItemCliente(event, ui) {
 // js-Revista
 
 jQuery(document).ready(function () {
-    aCamRev.push($("#hdrCampaniaAnterior").val());
-    aCamRev.push($("#hdrCampaniaActual").val());
-    aCamRev.push($("#hdrCampaniaSiguiente").val());
+    aCamRev.push(getCodigoCampaniaAnterior());
+    aCamRev.push(getCodigoCampaniaActual());
+    aCamRev.push(getCodigoCampaniaSiguiente());
 
-    rCampSelect = $("#hdrCampaniaActual").val();
-    $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
+    rCampSelect = getCodigoCampaniaActual();
+    $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(rCampSelect));
 
     waitingDialog({ title: "Cargando Imagen" });
     MostrarRevistaCorrecta(rCampSelect);
