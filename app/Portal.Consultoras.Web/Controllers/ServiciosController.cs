@@ -81,11 +81,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -139,11 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -699,7 +689,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -735,9 +724,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -783,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -819,9 +808,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -860,7 +849,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEServicioParametro> items = lst;
 
                 #region Sort Section
@@ -884,9 +873,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                BEPager pag = PaginadorDetalle(grid, lst);
 
                 var data = new
                 {
@@ -925,7 +914,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -949,9 +937,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {
@@ -1058,7 +1046,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -1082,9 +1070,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {
@@ -1135,7 +1123,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1157,7 +1145,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1179,7 +1167,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1195,10 +1183,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectParametros().ToList();
             }
-            Mapper.CreateMap<BEParametro, ParametroModel>()
-                    .ForMember(t => t.ParametroId, f => f.MapFrom(c => c.ParametroId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Abreviatura, f => f.MapFrom(c => c.Abreviatura));
 
             return Mapper.Map<IList<BEParametro>, IEnumerable<ParametroModel>>(lst);
         }
@@ -1336,11 +1320,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
             }
-
-            Mapper.CreateMap<BEServicioSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
+            
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -1352,10 +1332,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
             }
 
-            Mapper.CreateMap<BEServicioSegmentoZona, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaId))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania));
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<CampaniaModel>>(lst);
 
         }

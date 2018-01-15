@@ -22,13 +22,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 listaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            Mapper.CreateMap<BECliente, ClienteMobileModel>()
-                .ForMember(t => t.Email, f => f.MapFrom(c => c.eMail))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                .ForMember(t => t.TieneTelefono, f => f.MapFrom(c => c.TieneTelefono));
-
             var listaClienteModel = Mapper.Map<List<BECliente>, List<ClienteMobileModel>>(listaClientes);
 
             return View(listaClienteModel);
@@ -59,7 +52,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteDB> response = new List<BEClienteDB>();
 
             try
             {
@@ -108,12 +100,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Contactos = contactos.ToArray()
                 });
 
+                List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
-                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList() ?? new List<BEClienteDB>();
                 }
 
-                var itemResponse = response.First();
+                var itemResponse = response.FirstOrDefault() ?? new BEClienteDB();
 
                 if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {

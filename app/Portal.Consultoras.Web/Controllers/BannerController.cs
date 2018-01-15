@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,17 +51,16 @@ namespace Portal.Consultoras.Web.Controllers
         public string InsertarActualizar(BannerModel model)
         {
             string message = string.Empty;
-            string finalPath = string.Empty, httpPath = string.Empty;
+            string httpPath = string.Empty;
             try
             {
                 BEBanner obeBanner = new BEBanner();
-                string FileName = string.Empty;
 
                 if (model.Accion == "Insertar")
                 {
                     var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                     if (img.Width > model.Ancho || img.Height > model.Alto)
-                        return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                        return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                        "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                     img.Dispose();
 
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                         if (img.Width > model.Ancho || img.Height > model.Alto)
-                            return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                            return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                            "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                         
                         img.Dispose();
@@ -137,7 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string finalPath = string.Empty;
                 bool IsCorrect = true;
-                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>(); ;
+                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>();
 
                 if (flConsultoras != null)
                 {
@@ -286,11 +286,10 @@ namespace Portal.Consultoras.Web.Controllers
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
                     IEnumerable<BEGrupoBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -349,18 +348,15 @@ namespace Portal.Consultoras.Web.Controllers
                     if (lst != null)
                         if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
 
-                    List<string> lstCell = new List<string>();
-
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
                     IEnumerable<BEBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -560,10 +556,9 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
-
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Any())
-                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+            
+            if (lstFinalInfo.Any())
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -607,7 +602,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
@@ -633,8 +627,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new { success = true, name = ffFileName }, "text/html");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -739,8 +734,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string DevolverCadenaParametros()
         {
-            string Cadena = "?";
-            List<ServiceContenido.BEParametro> list = new List<ServiceContenido.BEParametro>();
+            var txtBuil = new StringBuilder();
+            txtBuil.Append("?");
+
+            List<ServiceContenido.BEParametro> list;
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
@@ -749,9 +746,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (ServiceContenido.BEParametro item in list)
             {
-                Cadena = Cadena + item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&";
+                txtBuil.Append(item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&");
             }
 
+            var Cadena = txtBuil.ToString();
             Cadena = Cadena.Substring(0, Cadena.Length - 1);
 
             return Cadena;
@@ -1016,10 +1014,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetBannerPaisesAsignados(CampaniaId, BannerId).ToList();
             }
-            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
 
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }

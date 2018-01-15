@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 decimal precioValorizado = 0;
-                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { }
+                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { /*no log*/ }
 
                 return (precioValorizado - Precio2);
             }

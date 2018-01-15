@@ -19,7 +19,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CUVAutomatico/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-
             await Task.Run(() => LoadConsultorasCache(11));
             var listaCampanias = DropDowListCampanias(11);
 
@@ -65,9 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -99,10 +95,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>()
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
             List<ServiceODS.BEProductoDescripcion> lista;
             using (ODSServiceClient srv = new ODSServiceClient())
             {

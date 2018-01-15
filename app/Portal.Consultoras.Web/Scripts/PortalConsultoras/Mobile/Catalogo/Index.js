@@ -180,7 +180,7 @@ function CargarCarruselCatalogo() {
 
         $("#divCatalogo").append(html);
     }
-    
+
     CloseLoading();
 }
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
@@ -483,7 +483,7 @@ function CatalogoEnviarEmail() {
     var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
 
     var campActual = $("#hdCampaniaActual").val();
-    var campComparte = campaniaEmail; 
+    var campComparte = campaniaEmail;
     var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
@@ -634,7 +634,7 @@ function RevistaMostrar(accion, btn) {
         'label': 'Revista C-' + rCampSelect.substr(4),
         'value': 0
     });
-    
+
     ShowLoading();
     MostrarRevistaCorrecta(rCampSelect);
 

@@ -101,7 +101,7 @@ function VerDetalleEstrategia(e) {
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
 
     estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido
-    
+
     if (estrategia.TipoEstrategiaImagenMostrar == '2') {
 
         EstrategiaVerDetallePackNueva(estrategia);
@@ -481,10 +481,10 @@ function EstrategiaAgregar(event, popup, limite) {
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != "undefined")
                     MostrarBarra(data, '1');
-                
+
                 if (typeof ActualizarGanancia != "undefined")
                     ActualizarGanancia(data.DataBarra);
-                
+
                 if (typeof CargarCarouselEstrategias != "undefined")
                     CargarCarouselEstrategias(cuv);
 

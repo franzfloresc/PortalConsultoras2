@@ -147,16 +147,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult RechazarSolicitud(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId)
         {
             var userData = UserData();
-            var numIteracionMaximo = 3;
 
             using (var service = new SACServiceClient())
             {
                 var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
                 var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
                 var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
+
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 
-                numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
+                var numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
 
                 if (NumIteracion == numIteracionMaximo)
                 {
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {

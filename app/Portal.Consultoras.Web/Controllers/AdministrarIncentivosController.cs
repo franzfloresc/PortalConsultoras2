@@ -66,9 +66,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -104,7 +101,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEIncentivo> items = lst;
 
                 #region Sort Section
@@ -164,9 +160,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -219,18 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Insertar(HttpPostedFileBase flArchivoPDF, AdministrarIncentivosModel model)
         {
             try
-            {
-                Mapper.CreateMap<AdministrarIncentivosModel, BEIncentivo>()
-                   .ForMember(t => t.IncentivoID, f => f.MapFrom(c => c.IncentivoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaIDInicio, f => f.MapFrom(c => c.CampaniaIDInicio))
-                   .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                   .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                   .ForMember(t => t.Subtitulo, f => f.MapFrom(c => c.Subtitulo))
-                   .ForMember(t => t.ArchivoPortada, f => f.MapFrom(c => c.ArchivoPortada))
-                   .ForMember(t => t.ArchivoPDF, f => f.MapFrom(c => c.ArchivoPDF))
-                   .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
+            {   
                 BEIncentivo entidad = Mapper.Map<AdministrarIncentivosModel, BEIncentivo>(model);
 
                 if (model.PaisID == 0)
@@ -316,18 +301,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarIncentivosModel, BEIncentivo>()
-                   .ForMember(t => t.IncentivoID, f => f.MapFrom(c => c.IncentivoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaIDInicio, f => f.MapFrom(c => c.CampaniaIDInicio))
-                   .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                   .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                   .ForMember(t => t.Subtitulo, f => f.MapFrom(c => c.Subtitulo))
-                   .ForMember(t => t.ArchivoPortada, f => f.MapFrom(c => c.ArchivoPortada))
-                   .ForMember(t => t.ArchivoPortadaAnterior, f => f.MapFrom(c => c.ArchivoPortadaAnterior))
-                   .ForMember(t => t.ArchivoPDF, f => f.MapFrom(c => c.ArchivoPDF))
-                   .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEIncentivo entidad = Mapper.Map<AdministrarIncentivosModel, BEIncentivo>(model);
 
                 string finalPath = string.Empty;

@@ -595,8 +595,13 @@ namespace Portal.Consultoras.BizLogic
             decimal indicadorNumero;
 
             BEFactorGanancia factorGanancia = null;
-            try { factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId); }
-            catch { }
+            try {
+                factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId.ToString());
+            }
             decimal porcentajeGanancia = factorGanancia == null ? 0 : (factorGanancia.Porcentaje / 100);
 
             var ProductosIndicadorDscto = bLFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(paisId, campaniaId, pedidoId).ToList();

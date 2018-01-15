@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.WebPages
                         Hashtable settingsMap = new Hashtable();
                         settingsMap.Add("profile.name_first", usuario.Nombre);
                         settingsMap.Add("profile.name_last", usuario.Apellido);
-                        //settingsMap.Add("profile.im_id_aim", "janem04");
+
                         if (!string.IsNullOrEmpty(usuario.Rol))
                         {
                             settingsMap.Add("roles.grant", usuario.Rol);
