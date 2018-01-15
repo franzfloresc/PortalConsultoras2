@@ -4235,14 +4235,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.EsMobile = 1;//EPD-1780
 
-            if (userData.TieneLoginExterno)
-            {
-                var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
-                if (loginFacebook != null)
-                {
-                    ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
-                }
-            }
+            ViewBag.FotoPerfil = userData.FotoPerfil;
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
