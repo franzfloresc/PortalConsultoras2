@@ -22,7 +22,7 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
-    ObtenerURLExpofertas();
+    configurarContenedorExpoOfertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
 
     $('#campaniaRevista').val($("#hdCampaniaActual").val());
@@ -103,7 +103,7 @@ function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantid
     );
 }
 
-function ObtenerURLExpofertas() {
+function configurarContenedorExpoOfertas() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Banner/ObtenerBannerPaginaPrincipal',
