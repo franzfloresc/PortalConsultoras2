@@ -137,7 +137,7 @@ function RDPopupCerrar() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();

@@ -45,8 +45,10 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
             if (listaProductoModel.Any())
             {
-                ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
-                ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                var entProd = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                ViewBag.PrecioMin = entProd.PrecioCatalogoString;
+                entProd = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                ViewBag.PrecioMax = entProd.PrecioCatalogoString;
 
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
@@ -68,8 +70,8 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            int CantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
-            return ObtenerProductos(CantProFav);
+            int cantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
+            return ObtenerProductos(cantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
@@ -119,7 +121,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
-            List<Producto> lista;
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
 
@@ -131,6 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
+                    List<Producto> lista;
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
@@ -253,8 +255,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region filtros
                 var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
-                var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
-                var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
+                var prodModel = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                var precioMinimo = prodModel.PrecioCatalogoString;
+                prodModel = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault() ?? new ProductoModel();
+                var precioMaximo = prodModel.PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
                 if (lstFilters == null && tipoOrigen == 1)
@@ -267,17 +271,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lstFilters != null)
                 {
-                    string v1 = "";
                     for (int i = 0; i < lstFilters.Count; i++)
                     {
-                        v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
+                        var v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
                         if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
                         {
                             if (!(lstFilters[i].Id == "4" 
                                 && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) 
                                 && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo)))
                             {
-                                flt += v1.Split(',').Count();
+                                flt += v1.Split(',').Length;
                             }
                         }
                     }
@@ -416,21 +419,21 @@ namespace Portal.Consultoras.Web.Controllers
                 var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
-                ObjOfertaCatalogos dataPROL;
+                ObjOfertaCatalogos dataProl;
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb];
-                    dataPROL = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
+                    dataProl = sv.Ofertas_catalogo(userData.CodigoISO, userData.CampaniaID.ToString(), cuv, userData.CodigoConsultora, userData.ZonaID.ToString(), tipoOfertaRevista);
                 }
-                dataPROL = dataPROL ?? new ObjOfertaCatalogos();
+                dataProl = dataProl ?? new ObjOfertaCatalogos();
 
                 #region nombre de los pack
 
-                dataPROL.lista_oObjPack = dataPROL.lista_oObjPack ?? new ObjPack[0];
+                dataProl.lista_oObjPack = dataProl.lista_oObjPack ?? new ObjPack[0];
 
-                if (dataPROL.lista_oObjPack.Length > 0)
+                if (dataProl.lista_oObjPack.Length > 0)
                 {
-                    foreach (var item in dataPROL.lista_oObjPack)
+                    foreach (var item in dataProl.lista_oObjPack)
                     {
                         using (ODSServiceClient sv = new ODSServiceClient())
                         {
@@ -451,12 +454,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var txtBuil = new StringBuilder();
                 txtBuil.Append(caracterSepara);
 
-                dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
-                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
+                dataProl.lista_oObjGratis = dataProl.lista_oObjGratis ?? new ObjGratis[0];
+                dataProl.lista_oObjItemPack = dataProl.lista_oObjItemPack ?? new ObjItemPack[0];
 
-                if (dataPROL.lista_oObjGratis.Length > 0)
+                if (dataProl.lista_oObjGratis.Length > 0)
                 {
-                    foreach (var objGrati in dataPROL.lista_oObjGratis)
+                    foreach (var objGrati in dataProl.lista_oObjGratis)
                     {
                         objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
                         if (objGrati.codsap_nivel_gratis == "")
@@ -467,9 +470,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (dataPROL.lista_oObjItemPack.Length > 0)
+                if (dataProl.lista_oObjItemPack.Length > 0)
                 {
-                    foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                    foreach (var objItemPack in dataProl.lista_oObjItemPack)
                     {
                         objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
                         if (objItemPack.codsap_item_pack == "")
@@ -490,13 +493,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
                     }
-                    listaProductoBySap = listaProductoBySap ?? new List<Producto>();
                     
                     foreach (var itemSap in listaProductoBySap)
                     {
-                        if (dataPROL.lista_oObjGratis.Length > 0)
+                        if (dataProl.lista_oObjGratis.Length > 0)
                         {
-                            foreach (var objGrati in dataPROL.lista_oObjGratis)
+                            foreach (var objGrati in dataProl.lista_oObjGratis)
                             {
                                 objGrati.codsap_nivel_gratis = Util.SubStr(objGrati.codsap_nivel_gratis, 0);
                                 if (objGrati.codsap_nivel_gratis == "")
@@ -515,9 +517,9 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        if (dataPROL.lista_oObjItemPack.Length > 0)
+                        if (dataProl.lista_oObjItemPack.Length > 0)
                         {
-                            foreach (var objItemPack in dataPROL.lista_oObjItemPack)
+                            foreach (var objItemPack in dataProl.lista_oObjItemPack)
                             {
                                 objItemPack.codsap_item_pack = Util.SubStr(objItemPack.codsap_item_pack, 0);
                                 if (objItemPack.codsap_item_pack == "")
@@ -542,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto producto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataPROL.cuv_revista,
+                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataProl.cuv_revista,
                         userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault() ?? new BEProducto();
                 }
 
@@ -559,7 +561,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "",
                     data = new
                     {
-                        dataPROL = dataPROL,
+                        dataPROL = dataProl,
                         producto = producto,
                         txtGanancia,
                         txtRecibeGratis
@@ -678,8 +680,8 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                         }
 
-                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
-                        productoModel.Tonos = ListaTonos;
+                        var listaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                        productoModel.Tonos = listaTonos;
                     }
 
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
