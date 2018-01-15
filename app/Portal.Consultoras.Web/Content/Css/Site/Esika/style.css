@@ -21363,14 +21363,14 @@ display:inline-block;
 .revista_content .revista_content2 .revistatxt {
 display: table;
 height: 203px;
-margin-left: 43px;
+margin-left: -20px;
 }
 .revista_content .revista_content2 .revistatxt .contrevista{
 display:table-cell;
 vertical-align:middle;
 }
 .revista_content .revista_content2 .revistatxt .contrevista p {
-font-size: 12px;
+font-size: 13px;
 font-weight: normal;
 font-style: normal;
 font-stretch: normal;
