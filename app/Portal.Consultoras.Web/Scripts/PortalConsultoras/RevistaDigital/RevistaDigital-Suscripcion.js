@@ -125,6 +125,7 @@ function ScrollUser(anchor, alto) {
 }
 
 function RDPopupCerrar() {
+    
     AbrirLoad();
 
     rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
@@ -136,6 +137,28 @@ function RDPopupCerrar() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            CerrarLoad();
+        }
+    });
+}
+
+function RDPopupMobileCerrar() {
+
+    AbrirLoad();
+
+    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
@@ -147,28 +170,52 @@ function RDSuscripcion() {
 
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'RevistaDigital/Suscripcion',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
+
+    var rdSuscriocionPromise = RDSuscripcionPromise();
+    rdSuscriocionPromise.then(
+        function (data) {
             CerrarLoad();
             if (!checkTimeout(data))
                 return false;
 
-            if (data.success != true) {
+            if (!data.success) {
                 AbrirMensaje(data.message);
                 return false;
             }
-
             rdAnalyticsModule.SuscripcionExistosa();
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+
+            //
+            $('#PopRDSuscripcion').css('display', 'block');
+
+            $('.popup_confirmacion_datos .form-datos input').keyup(); //to update button style
+
+            return false;
         },
-        error: function (data, error) {
+        function (xhr, status, error) {
             CerrarLoad();
+            console.log(xhr.responseText);
         }
+    );
+}
+
+function RDSuscripcionPromise() {
+    var d = $.Deferred();
+
+    var promise = $.ajax({
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/Suscripcion',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true
     });
+
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+
+    promise.fail(d.reject);
+
+    return d.promise();
 }
 
 function RDDesuscripcion() {

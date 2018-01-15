@@ -42,8 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-
             return listEstrategia;
         }
 
@@ -84,7 +82,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
                 }
-                listEstrategia = listEstrategia ?? new List<BEEstrategia>();
 
                 if (campaniaId == userData.CampaniaID)
                 {
@@ -130,19 +127,18 @@ namespace Portal.Consultoras.Web.Controllers
                 Simbolo = userData.Simbolo,
             };
 
-            var listEstrategia = new List<BEEstrategia>();
+            List<BEEstrategia> listEstrategia;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listEstrategia = sv.GetMasVendidos(entidad).ToList();
             }
-            listEstrategia = listEstrategia ?? new List<BEEstrategia>();
 
             return listEstrategia;
         }
 
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
-            var estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
+            EstrategiaPersonalizadaProductoModel estrategiaModelo;
 
             try
             {
@@ -269,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
                         var listaHermanosR = new List<ProductoModel>();
-                        var hermano = new ProductoModel();
+                        ProductoModel hermano;
                         foreach (var item in listaHermanos)
                         {
                             hermano = (ProductoModel)item.Clone();
@@ -314,12 +310,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                estrategiaModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
+                estrategiaModelo.Hermanos = listaHermanosCuadre;
             }
             catch (Exception ex)
             {
-                estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
-                estrategiaModelo.Hermanos = new List<ProductoModel>();
+                estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+                {
+                    Hermanos = new List<ProductoModel>()
+                };
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategiaModelo;
@@ -327,15 +325,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalleCuv(string cuv)
         {
-            var estrategia = new EstrategiaPersonalizadaProductoModel();
+            EstrategiaPersonalizadaProductoModel estrategia;
             try
             {
                 estrategia = EstrategiaGetDetalle(0, cuv);
             }
             catch (Exception ex)
             {
-                estrategia = new EstrategiaPersonalizadaProductoModel();
-                estrategia.Hermanos = new List<ProductoModel>();
+                estrategia = new EstrategiaPersonalizadaProductoModel
+                {
+                    Hermanos = new List<ProductoModel>()
+                };
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategia;
@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string cuv = "", string codAgrupacion = "")
         {
-            var listModel = new List<BEEstrategia>();
+            List<BEEstrategia> listModel;
             if (Session[Constantes.ConstSession.ListaEstrategia] != null)
                 listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
             else
@@ -370,8 +370,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return new List<EstrategiaPedidoModel>();
                     }
 
-                    var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList() ?? new List<BEEstrategia>();
-                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi).ToList() ?? new List<BEEstrategia>();
+                    var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi).ToList();
 
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;

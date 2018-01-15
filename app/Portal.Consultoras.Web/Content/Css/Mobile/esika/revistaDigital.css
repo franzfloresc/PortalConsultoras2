@@ -2475,6 +2475,48 @@ div#tab_revistasdigital_mobile {
         display: none;
     }
 
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha p {
+        font-weight: bold;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        display: block;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha span {
+        display: block;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #909090;
+    }
+
+        .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha span b {
+            color: black;
+        }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha hr {
+        background: #e81c36;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border: none;
+        height: 1px;
+        width: 100%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda img {
+        width: 288px !important;
+        display: block;
+        margin-top: 25px;
+        margin: auto;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
 .suscribete-gratis a.btn-suscribete {
     background: #e81c36;
     color: white;
