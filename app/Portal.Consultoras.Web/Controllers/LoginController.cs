@@ -2049,7 +2049,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int SessionExists(int res)
         {
             var sessionCookie = HttpContext.Request.Headers["Cookie"];
-            if (!((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0)))
+            if (!(sessionCookie != null && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0)))
             {
                 return res;
             }
