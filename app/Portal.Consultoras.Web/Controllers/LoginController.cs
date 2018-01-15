@@ -1161,13 +1161,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<UsuarioModel> GetUserDataAsync(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
         {
-            pasoLog = "Login.GetUserData";
+            pasoLog = "Login.GetUserDataAsync";
             sessionManager.SetIsContrato(1);
             sessionManager.SetIsOfertaPack(1); 
 
             var usuarioModel = (UsuarioModel)null;
-            var valores = "";
-            string[] arrValores;
+            //var valores = "";
+            //string[] arrValores;
             try
             {
                 if (paisId == 0)
@@ -1201,30 +1201,39 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
                     usuarioModel.IPUsuario = GetIpCliente();
-                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        usuarioModel.IndicadorPermisoFlexipago = await GetPermisoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoISO, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
-                    usuarioModel.MenuNotificaciones = 1;
-                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        usuarioModel.TieneNotificaciones = await TieneNotificacionesAsync(usuario);
-                    if (usuario.CampaniaID != 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                    {
-                        valores = await GetFechaPromesaEntregaAsync(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora,
+                    usuarioModel.MenuNotificaciones = 1;
 
-                                                            usuario.FechaInicioFacturacion);
-                        arrValores = valores.Split('|');
+                    var flexiPagoTask = Task.Run(() => GetPermisoFlexipagoAsync(usuario));
+                    var notificacionTask = Task.Run(() => TieneNotificacionesAsync(usuario));
+                    var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntregaAsync(usuario));
+                    var linkPaisTask = Task.Run(() => GetLinksPorPaisAsync(usuario));
+                    var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidadAsync(usuario));
+
+                    Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+
+                    usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
+
+                    usuarioModel.TieneNotificaciones = notificacionTask.Result;
+
+                    var fechaPromesa = fechaPromesaTask.Result;
+                    if (!string.IsNullOrEmpty(fechaPromesa))
+                    {
+                        var arrValores = fechaPromesa.Split('|');
                         usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
                         usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
                         usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
-                    }
-                    var lista = await GetLinksPorPaisAsync(usuarioModel.PaisID);
+                    }
+
+                    var lista = linkPaisTask.Result;
                     if (lista.Count > 0)
                     {
                         usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
                         usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
                         usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
-                    }
-                    if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        usuarioModel.EsUsuarioComunidad = await EsUsuarioComunidadAsync(usuario.PaisID, usuario.CodigoUsuario);
+                    }
+
+                    usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
+
                     usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 4 || usuarioModel.PaisID == 3 || usuarioModel.PaisID == 12 ? 1 : 0;
                     usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4 ? "https://www.zonapagos.com/pagosn2/LoginCliente"
                         : usuarioModel.PaisID == 3 ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"
@@ -1252,162 +1261,181 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                                usuarioModel.MontoDeuda = await GetMontoDeudaAsync(usuarioModel);
-                            usuarioModel.MontoMinimoFlexipago = "0.00";
-                            if (usuarioModel.IndicadorFlexiPago > 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                            {
-                                var ofertaFlexipago = await GetLineaCreditoFlexipagoAsync(usuarioModel);
-                                usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}",
-                                    (ofertaFlexipago.MontoMinimoFlexipago < 0
-                                        ? 0M
-                                        : ofertaFlexipago.MontoMinimoFlexipago));
-                            }
-                        }
-                        #endregion
-                        #region GPR
-                        if (!esAppMobile)
-                        {
-                            usuarioModel.IndicadorGPRSB = usuario.IndicadorGPRSB;
-                            if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                            {
-                                var gprBanner = await GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda);
-                                if (gprBanner != null)
-                                {
-                                    usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
-                                    usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
-                                    usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
-                                    usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
-                                    usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
-                                }
-                            }
+                            var montoDeudaTask = Task.Run(() => GetMontoDeudaAsync(usuarioModel));
+                            var lineaCreditoFPTask = Task.Run(() => GetLineaCreditoFlexipagoAsync(usuarioModel));
+
+                            Task.WaitAll(montoDeudaTask, lineaCreditoFPTask);
+
+                            usuarioModel.MontoDeuda = montoDeudaTask.Result;
+
+                            var ofertaFlexipago = lineaCreditoFPTask.Result;
+                            usuarioModel.MontoMinimoFlexipago = (lineaCreditoFPTask == null ? "0.00" : string.Format("{0:#,##0.00}",
+                                                    (ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago)));
                         }
                         #endregion
 
-                        #region ODD
-                        if (!esAppMobile)
-                        {
-                            if (usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                            {
-                                usuarioModel.OfertasDelDia = await GetOfertaDelDiaModelAsync(usuarioModel);
-                                usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
-                            }
-                        }
-                        #endregion
-                        #region RegaloPN
-                        if (GetRegaloProgramaNuevasFlag() == "1")
-                        {
-                            var fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
-                            var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
-                            if (esDiasFacturacion)
-                                usuarioModel.ConsultoraRegaloProgramaNuevas = await GetConsultoraRegaloProgramaNuevasAsync(usuarioModel);
-                        }
-                        #endregion
-                        #region LoginFB
-                        if (!esAppMobile)
-                        {
-                            if (usuario.TieneLoginExterno)
-                            {
-                                using (var usuarioServiceClient = new UsuarioServiceClient())
-                                {
-                                    var lst = await usuarioServiceClient.GetListaLoginExternoAsync(usuario.PaisID, usuario.CodigoUsuario);
-                                    var lstLoginExterno = lst.ToList();
-                                    if (lstLoginExterno.Any())
-                                        usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
-                                }
-                            }
-                        }
-                        #endregion
-                        #region ConfiguracionPais
-                        try
-                        {
-                            if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
-                            var revistaDigitalModel = new RevistaDigitalModel();
-                            var ofertaFinalModel = new OfertaFinalModel();
-                            revistaDigitalModel.NoVolverMostrar = true;
-                            var configuracionesPaisModels = await GetConfiguracionPaisAsync(usuarioModel);
-                            if (configuracionesPaisModels.Any())
-                            {
-                                var listaPaisDatos = await ConfiguracionPaisDatosAsync(usuarioModel);
-                                foreach (var c in configuracionesPaisModels)
-                                {
-                                    switch (c.Codigo)
-                                    {
-                                        case Constantes.ConfiguracionPais.RevistaDigital:
-                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
-                                                listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
-                                            ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
-                                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
-                                            break;
-                                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                            if (revistaDigitalModel.TieneRDC)
-                                                break;
-                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
-                                                listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
-                                            revistaDigitalModel.TieneRDR = true;
-                                            break;
-                                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                                            usuarioModel.TieneValidacionMontoMaximo = c.Estado;
-                                            break;
-                                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
-                                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
-                                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                                            ofertaFinalModel.Algoritmo = c.Codigo;
-                                            ofertaFinalModel.Estado = c.Estado;
-                                            if (c.Estado)
-                                            {
-                                                usuarioModel.OfertaFinal = 1;
-                                                usuarioModel.EsOfertaFinalZonaValida = true;
-                                            }
-                                            break;
-                                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                                            usuarioModel.TieneGND = true;
-                                            break;
-                                    }
-                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
-                                        usuarioModel.OfertaFinalGanaMas = 1;
-                                }
-                                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
-                                revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
-                                revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
-                                revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
-                                revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
-                                sessionManager.SetRevistaDigital(revistaDigitalModel);
-                                sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
-                                sessionManager.SetOfertaFinalModel(ofertaFinalModel);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
-                            pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
-                            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
-                        }
-                        #endregion
-                        #region EventoFestivo
-                        var eventoFestivoDataModel = await ConfigurarEventoFestivoAsync(usuarioModel);
-                        sessionManager.SetEventoFestivoDataModel(eventoFestivoDataModel);
-                        #endregion
-                        #region IncentivosConcursos
-                        var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
-                        var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
-                        var result = await ConfigurarIncentivosConcursosAsync(usuarioModel);
-                        var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
-                        if (Concursos.Any()) usuarioModel.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
-                        var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
-                        if (ProgramaNuevas.Any()) usuarioModel.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
-                        #endregion
+                        //    #region GPR
+                        //    if (!esAppMobile)
+                        //    {
+                        //        usuarioModel.IndicadorGPRSB = usuario.IndicadorGPRSB;
+
+                        //        if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        //        {
+                        //            var gprBanner = await GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda);
+                        //            if (gprBanner != null)
+                        //            {
+                        //                usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
+                        //                usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
+                        //                usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
+                        //                usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
+                        //                usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
+                        //            }
+                        //        }
+                        //    }
+                        //    #endregion
+
+                        //    #region ODD
+                        //    if (!esAppMobile)
+                        //    {
+                        //        if (usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        //        {
+                        //            usuarioModel.OfertasDelDia = await GetOfertaDelDiaModelAsync(usuarioModel);
+                        //            usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
+                        //        }
+                        //    }
+                        //    #endregion
+
+                        //    #region RegaloPN
+                        //    if (GetRegaloProgramaNuevasFlag() == "1")
+                        //    {
+                        //        var fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
+                        //        var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
+
+                        //        if (esDiasFacturacion)
+                        //            usuarioModel.ConsultoraRegaloProgramaNuevas = await GetConsultoraRegaloProgramaNuevasAsync(usuarioModel);
+                        //    }
+                        //    #endregion
+
+                        //    #region LoginFB
+                        //    if (!esAppMobile)
+                        //    {
+                        //        if (usuario.TieneLoginExterno)
+                        //        {
+                        //            using (var usuarioServiceClient = new UsuarioServiceClient())
+                        //            {
+                        //                var lst = await usuarioServiceClient.GetListaLoginExternoAsync(usuario.PaisID, usuario.CodigoUsuario);
+                        //                var lstLoginExterno = lst.ToList();
+
+                        //                if (lstLoginExterno.Any())
+                        //                    usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
+                        //            }
+                        //        }
+                        //    }
+                        //    #endregion
+
+                        //    #region ConfiguracionPais
+                        //    try
+                        //    {
+                        //        if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                        //            throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+
+                        //        var revistaDigitalModel = new RevistaDigitalModel();
+                        //        var ofertaFinalModel = new OfertaFinalModel();
+                        //        revistaDigitalModel.NoVolverMostrar = true;
+
+                        //        var configuracionesPaisModels = await GetConfiguracionPaisAsync(usuarioModel);
+
+                        //        if (configuracionesPaisModels.Any())
+                        //        {
+                        //            var listaPaisDatos = await ConfiguracionPaisDatosAsync(usuarioModel);
+
+                        //            foreach (var c in configuracionesPaisModels)
+                        //            {
+                        //                switch (c.Codigo)
+                        //                {
+                        //                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        //                        ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
+                        //                            listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
+                        //                        ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
+                        //                        FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                        //                        revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                        //                        break;
+                        //                    case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                        //                        if (revistaDigitalModel.TieneRDC)
+                        //                            break;
+                        //                        ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
+                        //                            listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
+                        //                        FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                        //                        revistaDigitalModel.TieneRDR = true;
+                        //                        break;
+                        //                    case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                        //                        usuarioModel.TieneValidacionMontoMaximo = c.Estado;
+                        //                        break;
+                        //                    case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+
+                        //                    case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+
+                        //                    case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                        //                        ofertaFinalModel.Algoritmo = c.Codigo;
+                        //                        ofertaFinalModel.Estado = c.Estado;
+                        //                        if (c.Estado)
+                        //                        {
+                        //                            usuarioModel.OfertaFinal = 1;
+                        //                            usuarioModel.EsOfertaFinalZonaValida = true;
+                        //                        }
+                        //                        break;
+                        //                    case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                        //                        usuarioModel.TieneGND = true;
+                        //                        break;
+                        //                }
+
+                        //                if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
+                        //                    usuarioModel.OfertaFinalGanaMas = 1;
+                        //            }
+
+                        //            revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                        //            revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
+                        //            revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                        //            revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
+                        //            revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+                        //            sessionManager.SetRevistaDigital(revistaDigitalModel);
+                        //            sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                        //            sessionManager.SetOfertaFinalModel(ofertaFinalModel);
+                        //        }
+                        //    }
+                        //    catch (Exception ex)
+                        //    {
+                        //        logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
+                        //        pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
+                        //        sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+                        //        sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+                        //        sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+                        //    }
+                        //    #endregion
+
+                        //    #region EventoFestivo
+                        //    var eventoFestivoDataModel = await ConfigurarEventoFestivoAsync(usuarioModel);
+                        //    sessionManager.SetEventoFestivoDataModel(eventoFestivoDataModel);
+                        //    #endregion
+
+                        //    #region IncentivosConcursos
+                        //    var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+                        //    var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
+
+                        //    var result = await ConfigurarIncentivosConcursosAsync(usuarioModel);
+
+                        //    var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                        //    if (Concursos.Any()) usuarioModel.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
+
+                        //    var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                        //    if (ProgramaNuevas.Any()) usuarioModel.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
+                        //    #endregion
                     }
-                    if (usuarioModel.CatalogoPersonalizado != 0)
-                    {
-                        var lstFiltersFAV = await CargarFiltersFAVAsync(usuarioModel);
-                        if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
-                    }
+                    //if (usuarioModel.CatalogoPersonalizado != 0)
+                    //{
+                    //    var lstFiltersFAV = await CargarFiltersFAVAsync(usuarioModel);
+                    //    if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
+                    //}
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -2356,67 +2384,67 @@ namespace Portal.Consultoras.Web.Controllers
                     userData = await GetUserDataAsync(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
 
-                var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
-                this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
+                //    var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
+                //    this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
 
-                if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
+                //    if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
-                FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
+                //    FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
 
-                this.SetUniqueSession("MobileAppConfiguracion", new MobileAppConfiguracionModel
-                {
-                    MostrarBotonAtras = !model.EsAppMobile,
-                    ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile,
-                    EsAppMobile = model.EsAppMobile,
-                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
-                });
+                //    this.SetUniqueSession("MobileAppConfiguracion", new MobileAppConfiguracionModel
+                //    {
+                //        MostrarBotonAtras = !model.EsAppMobile,
+                //        ClienteID = model.ClienteID,
+                //        MostrarHipervinculo = !model.EsAppMobile,
+                //        EsAppMobile = model.EsAppMobile,
+                //        TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
+                //    });
 
-                this.SetUniqueSession("IngresoExterno", model.Version ?? "");
+                //    this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
-                if (!string.IsNullOrEmpty(model.Identifier))
-                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                //    if (!string.IsNullOrEmpty(model.Identifier))
+                //        Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
 
-                Session["StartSession"] = DateTime.Now;
+                //    Session["StartSession"] = DateTime.Now;
 
-                switch (model.Pagina.ToUpper())
-                {
-                    case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
-                    case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
-                            new { campania = model.Campania, numeroPedido = model.NumeroPedido });
-                    case Constantes.IngresoExternoPagina.PedidoDetalle:
-                        var listTrue = new List<string> { "1", bool.TrueString };
-                        var autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToUniqueRoute("Pedido", "Detalle", new { autoReservar = autoReservar });
-                    case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
-                            new { ProcesoId = model.ProcesoId, TipoOrigen = 1 });
-                    case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToUniqueRoute("Pedido", "Index",
-                            new
-                            {
-                                ProcesoId = model.ProcesoId,
-                                TipoOrigen = 1
-                            });
-                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
-                            new
-                            {
-                                campania = model.Campania,
-                                tipoCatalogo = model.TipoCatalogo,
-                                url = model.UrlCatalogo
-                            });
-                    case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
-                    case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
-                    case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
-                    case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToUniqueRoute("Ofertas", "Index", null);
-                }
+                //    switch (model.Pagina.ToUpper())
+                //    {
+                //        case Constantes.IngresoExternoPagina.EstadoCuenta:
+                //            return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
+                //        case Constantes.IngresoExternoPagina.SeguimientoPedido:
+                //            return RedirectToUniqueRoute("SeguimientoPedido", "Index",
+                //                new { campania = model.Campania, numeroPedido = model.NumeroPedido });
+                //        case Constantes.IngresoExternoPagina.PedidoDetalle:
+                //            var listTrue = new List<string> { "1", bool.TrueString };
+                //            var autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
+                //            return RedirectToUniqueRoute("Pedido", "Detalle", new { autoReservar = autoReservar });
+                //        case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
+                //            return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
+                //                new { ProcesoId = model.ProcesoId, TipoOrigen = 1 });
+                //        case Constantes.IngresoExternoPagina.Pedido:
+                //            return RedirectToUniqueRoute("Pedido", "Index",
+                //                new
+                //                {
+                //                    ProcesoId = model.ProcesoId,
+                //                    TipoOrigen = 1
+                //                });
+                //        case Constantes.IngresoExternoPagina.CompartirCatalogo:
+                //            return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
+                //                new
+                //                {
+                //                    campania = model.Campania,
+                //                    tipoCatalogo = model.TipoCatalogo,
+                //                    url = model.UrlCatalogo
+                //                });
+                //        case Constantes.IngresoExternoPagina.MisPedidos:
+                //            return RedirectToUniqueRoute("MisPedidos", "Index", null);
+                //        case Constantes.IngresoExternoPagina.ShowRoom:
+                //            return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
+                //        case Constantes.IngresoExternoPagina.ProductosAgotados:
+                //            return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
+                //        case Constantes.IngresoExternoPagina.Ofertas:
+                //            return RedirectToUniqueRoute("Ofertas", "Index", null);
+                //    }
             }
             catch (Exception ex)
             {
@@ -2541,62 +2569,71 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region GetUserDataAsync
-        private async Task<bool> GetPermisoFlexipagoAsync(int PaisID, string PaisISO, string CodigoConsultora, int CampaniaID)
+        private async Task<bool> GetPermisoFlexipagoAsync(ServiceUsuario.BEUsuario usuario)
         {
+            if (!(usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return false;
+
             var hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
-            if (!hasFlexipago.Contains(PaisISO)) return false;
+            if (!hasFlexipago.Contains(usuario.CodigoISO)) return false;
             using (var sv = new PedidoServiceClient())
             {
-                return await sv.GetPermisoFlexipagoAsync(PaisID, CodigoConsultora, CampaniaID);
+                return await sv.GetPermisoFlexipagoAsync(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID);
             }
         }
 
-        private async Task<int> TieneNotificacionesAsync(ServiceUsuario.BEUsuario oBEUsuario)
+        private async Task<int> TieneNotificacionesAsync(ServiceUsuario.BEUsuario usuario)
         {
+            if (!(usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return 0;
+
             using (var sv = new UsuarioServiceClient())
             {
-                return await sv.GetNotificacionesSinLeerAsync(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR);
+                return await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR);
             }
         }
 
-        private async Task<string> GetFechaPromesaEntregaAsync(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
+        private async Task<string> GetFechaPromesaEntregaAsync(ServiceUsuario.BEUsuario usuario)
         {
-            var sFecha = Convert.ToDateTime("2000-01-01").ToString();
+            if (!(usuario.CampaniaID != 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return string.Empty;
+
+            var sFecha = Convert.ToDateTime("2000-01-01").ToString();
+
             try
             {
                 using (var sv = new UsuarioServiceClient())
                 {
-                    sFecha = await sv.GetFechaPromesaCronogramaByCampaniaAsync(PaisId, CampaniaId, CodigoConsultora, FechaFact);
+                    sFecha = await sv.GetFechaPromesaCronogramaByCampaniaAsync(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora, usuario.FechaInicioFacturacion);
                 }
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, CodigoConsultora, PaisId.ToString(), string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.PaisID.ToString(), "LoginController.GetFechaPromesaEntregaAsync");
             }
             return sFecha;
         }
 
-        private async Task<List<TipoLinkModel>> GetLinksPorPaisAsync(int paisId)
+        private async Task<List<TipoLinkModel>> GetLinksPorPaisAsync(ServiceUsuario.BEUsuario usuario)
         {
             List<BETipoLink> listModel;
             try
             {
                 using (var contenidoServiceClient = new ContenidoServiceClient())
                 {
-                    var lst = await contenidoServiceClient.GetLinksPorPaisAsync(paisId);
+                    var lst = await contenidoServiceClient.GetLinksPorPaisAsync(usuario.PaisID);
                     listModel = lst.ToList();
                 }
             }
             catch (Exception ex)
             {
                 listModel = new List<BETipoLink>();
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.GetLinksPorPais");
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, usuario.PaisID.ToString(), "LoginController.GetLinksPorPaisAsync");
             }
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
 
-        private async Task<bool> EsUsuarioComunidadAsync(int PaisId, string CodigoUsuario)
+        private async Task<bool> EsUsuarioComunidadAsync(ServiceUsuario.BEUsuario usuario)
         {
+            if (!(usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return false;
+
             ServiceComunidad.BEUsuarioComunidad result = null;
             try
             {
@@ -2604,16 +2641,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = await sv.GetUsuarioInformacionAsync(new ServiceComunidad.BEUsuarioComunidad()
                     {
-                        PaisId = PaisId,
+                        PaisId = usuario.PaisID,
                         UsuarioId = 0,
-                        CodigoUsuario = CodigoUsuario,
+                        CodigoUsuario = usuario.CodigoUsuario,
                         Tipo = 3
                     });
                 }
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoUsuario, usuario.PaisID.ToString(), "LoginController.EsUsuarioComunidadAsync");
             }
             return result != null;
         }
@@ -2650,6 +2687,8 @@ namespace Portal.Consultoras.Web.Controllers
             var montoDeuda = 0.0M;
             try
             {
+                if (!(usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return montoDeuda;
+
                 using (var contenidoServiceClient = new ContenidoServiceClient())
                 {
                     montoDeuda = await contenidoServiceClient.GetMontoDeudaAsync(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
@@ -2664,6 +2703,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
         private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipagoAsync(UsuarioModel usuarioModel)
         {
+            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return null;
+
             using (var svc = new PedidoServiceClient())
             {
                 return await svc.GetLineaCreditoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);

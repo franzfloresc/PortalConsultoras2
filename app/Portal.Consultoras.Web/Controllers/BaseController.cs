@@ -4288,7 +4288,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetUrlFranjaNegra()
         {
-            var urlFranjaNegra = sessionManager.GetEventoFestivoDataModel().EfRutaPedido;
+            var oModel = sessionManager.GetEventoFestivoDataModel();
+            var urlFranjaNegra = oModel == null ? string.Empty : oModel.EfRutaPedido;
 
             if (string.IsNullOrEmpty(urlFranjaNegra))
                 urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
