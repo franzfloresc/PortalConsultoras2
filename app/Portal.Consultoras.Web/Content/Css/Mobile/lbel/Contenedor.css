@@ -455,3 +455,67 @@ img.icono-submenu-tabs {
     text-align: center;
     display: none;
 }
+/* viñeta gnd */
+.revistagnd {
+position: fixed;
+bottom: -132px;
+z-index: 90;
+width: 81.5%;
+margin: auto;
+text-align: center;
+/* right: 1px; */
+left: 50%;
+transform: translate(-50%, 0);
+}
+.revistagnd .nrorevista {
+background: black;
+color: white;
+padding: 8px;
+}
+.revistagnd .nrorevista .nro {
+float: left;
+font-size: 11px;
+letter-spacing: 1px;
+position: relative;
+top: 3px;
+padding-left: 10px;
+}
+.revistagnd .nrorevista .vineta {
+float: right;
+padding-right: 10px;
+}
+.revistagnd .nrorevista .vineta img {
+width: 20px;
+border: 1px solid white;
+padding: 5px;
+position: relative;
+}
+.revistagnd .contrevistagnd {
+padding: 20px;
+background: white;
+border: 1px solid #00000017;
+border-bottom: 0;
+}
+.revistagnd .contrevistagnd .imgrevista{
+float:left;
+width:41%;
+}
+.revistagnd .contrevistagnd .inforevista{
+float:right;
+width:59%;
+word-wrap:break-word;
+}
+.revistagnd .contrevistagnd .inforevista a {
+display: block;
+border: 1px solid black;
+width: 70%;
+margin: auto;
+padding: 5px 10px;
+font-size: 11px;
+transition:.3s;
+}
+.revistagnd .contrevistagnd .inforevista a:hover{
+background:black;
+color:white;
+}
+/*fin viñeta gnd*/
