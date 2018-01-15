@@ -529,6 +529,7 @@
       <xs:element minOccurs="0" name="CUVKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />

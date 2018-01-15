@@ -936,6 +936,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
 
+        [OperationContract]
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+
         #endregion
 
         [OperationContract]
