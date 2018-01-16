@@ -12,6 +12,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/GuiaNegocio-Landing")
 }
 
+
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
                
@@ -86,6 +87,25 @@
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
 
+<div class="cerrar-vineta">
+    <div class="sbcont">
+        <span>REVISTA C-17 <img src="~/Content/Images/flecha-hacia-abajo.png" /></span>
+    </div>
+</div>
+<div class="cont-vineta">
+    <div class="sbcont">
+        <div class="marco">
+            <img src="http://lorempixel.com/92/89/sports/" alt="">
+            <span>
+                Encuentra también aquí las mismas ofertas en el formato antiguo
+            </span>
+            <a href="">VER GUÍA</a>
+        </div>
+    </div>
+</div>
+
+
+
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
@@ -101,4 +121,37 @@
         var campaniaId = @Model.CampaniaID;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/GuiaNegocio-Landing")
+
+    <script>
+
+            $(document).ready(main);
+
+            var contador = 0;
+
+            function main() {
+                $('.cerrar-vineta .sbcont span').click(function () {
+                    // $('nav').toggle();
+
+                    if (contador == 1) {
+                        $('.cont-vineta').animate({
+                            right: '0'
+                        });
+                        $('.cerrar-vineta').animate({
+                            right: '150px'
+                        });
+                        contador = 0;
+                    } else {
+                        contador = 1;
+                        $('.cont-vineta').animate({
+                            right: '-100%'
+                        });
+                        $('.cerrar-vineta').animate({
+                            right: '0%'
+                        });
+                    }
+
+                });
+            };
+    </script>
 }
+
