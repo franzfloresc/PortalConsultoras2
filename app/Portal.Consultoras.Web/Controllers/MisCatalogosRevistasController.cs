@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);

@@ -737,6 +737,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.BanderaImagen = usuario.BanderaImagen;
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
+                    usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
@@ -1060,7 +1061,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
+                                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, 
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
@@ -1073,7 +1074,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             if (revistaDigitalModel.TieneRDC)
                                                 break;
 
-                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
+                                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
@@ -1105,12 +1106,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         usuarioModel.OfertaFinalGanaMas = 1;
                                 }
 
-                                revistaDigitalModel.TieneRDR =
-                                    !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno =
-                                    AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1,
-                                        usuarioModel.NroCampanias) % 100;
+                                    Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1,usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
@@ -1183,22 +1182,17 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+                            var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
                             using (var sv = new PedidoServiceClient())
                             {
-                                var result = sv.ObtenerConcursosXConsultora(usuarioModel.PaisID,
-                                    usuarioModel.CampaniaID.ToString(), usuarioModel.CodigoConsultora,
-                                    usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
+                                var result = sv.ObtenerConcursosXConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID.ToString(), usuarioModel.CodigoConsultora, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
 
-                                var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
-                                if (concursos.Any())
-                                    usuarioModel.CodigosConcursos =
-                                        string.Join("|", concursos.Select(c => c.CodigoConcurso));
+                                var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                                if (Concursos.Any()) usuarioModel.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
 
-                                var programaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
-                                if (programaNuevas.Any())
-                                    usuarioModel.CodigosProgramaNuevas = string.Join("|",
-                                        programaNuevas.Select(c => c.CodigoConcurso));
+                                var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
+                                if (ProgramaNuevas.Any()) usuarioModel.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
                             }
                         }
                         catch (Exception ex)
@@ -1240,6 +1234,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneRdr(true);
+
+                    usuarioModel.FotoPerfil = usuario.FotoPerfil;
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1326,15 +1322,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        private void ConfiguracionPaisDatosRevistaDigital(ref RevistaDigitalModel revistaDigitalModel,
-            List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital( RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                if (revistaDigitalModel == null)
+                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
 
-                if (listaDatos == null || !listaDatos.Any())
-                    return;
+                if (listaDatos == null)
+                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+
+                if (paisIso == null)
+                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+
+                if (!listaDatos.Any())
+                    return revistaDigitalModel;
 
                 var value1 = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
@@ -1402,6 +1404,9 @@ namespace Portal.Consultoras.Web.Controllers
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
                 if (value1 != null) revistaDigitalModel.BloquearProductosSugeridos = Convert.ToInt32(value1.Valor1);
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
+                if (value1 != null) revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = value1.Valor1 == "1";
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
@@ -1413,6 +1418,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos =
@@ -1424,17 +1430,18 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
                     "LoginController.ConfiguracionPaisDatosRevistaDigital");
             }
+
+            return revistaDigitalModel;
         }
 
-        private void ConfiguracionPaisDatosRevistaDigitalReducida(ref RevistaDigitalModel revistaDigitalModel,
-            List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
                 revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
 
                 if (listaDatos == null || !listaDatos.Any())
-                    return;
+                    return revistaDigitalModel;
 
                 var value1 =
                     listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
@@ -1472,6 +1479,8 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
                     "LoginController.ConfiguracionPaisDatosRevistaDigital");
             }
+
+            return revistaDigitalModel;
         }
 
         private void ConfiguracionPaisRevistaDigital(ref RevistaDigitalModel revistaDigitalModel,
@@ -1502,7 +1511,7 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(
-                AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
+                Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
                     usuarioModel.NroCampanias).ToString(), 4, 2);
 
             revistaDigitalModel.CampaniaSuscripcion =
@@ -1510,7 +1519,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
-                var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
                     revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
 
                 if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
@@ -1525,7 +1534,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
-                    var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
                         revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
                     if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
                         ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
@@ -1542,7 +1551,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
                     revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
 
                 if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
@@ -1572,16 +1581,13 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.EstadoRDSuscripcion.Activo:
                     revistaDigitalModel.NoVolverMostrar = true;
                     break;
+                case Constantes.EstadoRDSuscripcion.SinRegistroDB:
                 case Constantes.EstadoRDSuscripcion.Desactivo:
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
                     revistaDigitalModel.NoVolverMostrar =
                         revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
-                    break;
-                default:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
                     break;
             }
 
@@ -2039,7 +2045,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int SessionExists(int res)
         {
             var sessionCookie = HttpContext.Request.Headers["Cookie"];
-            if (!((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0)))
+            if (!(sessionCookie != null && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0)))
             {
                 return res;
             }
@@ -2428,23 +2434,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-
-        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
-        {
-            var anioCampania = campania / 100;
-            var nroCampania = campania % 100;
-            var sumNroCampania = (nroCampania + numero) - 1;
-            var anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
-            var nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
-
-            if (nroCampaniaResult < 1)
-            {
-                anioCampaniaResult = anioCampaniaResult - 1;
-                nroCampaniaResult = nroCampaniaResult + nroCampanias;
-            }
-
-            return (anioCampaniaResult * 100) + nroCampaniaResult;
-        }
 
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
         {

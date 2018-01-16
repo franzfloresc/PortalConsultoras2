@@ -26,8 +26,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CodigoConsultora = userData.CodigoConsultora;
                 }
 
-                var BEProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
-                RegistrarComentarioServicio(BEProdComentario);
+                var beProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
+                RegistrarComentarioServicio(beProdComentario);
 
                 return Json(new { success = true });
             }
@@ -59,20 +59,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<EstrategiaProductoComentarioModel> ListarComentariosServicio(string codigoSAP, int cantidadMostrar, int cantidadConstante, int orden)
+        private List<EstrategiaProductoComentarioModel> ListarComentariosServicio(string codigoSap, int cantidadMostrar, int cantidadConstante, int orden)
         {
-            var listaComentarios = new List<EstrategiaProductoComentarioModel>();
+            List<EstrategiaProductoComentarioModel> listaComentarios;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                BEProductoComentarioFilter filter = new BEProductoComentarioFilter();
-                filter.Valor = codigoSAP;
-                filter.Limite = cantidadMostrar;
-                filter.Cantidad = cantidadConstante;
-                filter.Ordenar = Convert.ToInt16(orden);
+                BEProductoComentarioFilter filter = new BEProductoComentarioFilter
+                {
+                    Valor = codigoSap,
+                    Limite = cantidadMostrar,
+                    Cantidad = cantidadConstante,
+                    Ordenar = Convert.ToInt16(orden)
+                };
 
-                var listarComentariosBE = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, filter).ToList();
-                listaComentarios = listarComentariosBE.Select(x => MapearProductoComentarioBEAProductoComentarioModel(x)).ToList();
+                var listarComentariosBe = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, filter).ToList();
+                listaComentarios = listarComentariosBe.Select(x => MapearProductoComentarioBEAProductoComentarioModel(x)).ToList();
             }
 
             return listaComentarios;
@@ -102,30 +104,30 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private EstrategiaProductoComentarioModel MapearProductoComentarioBEAProductoComentarioModel(BEProductoComentarioDetalle modelBE)
+        private EstrategiaProductoComentarioModel MapearProductoComentarioBEAProductoComentarioModel(BEProductoComentarioDetalle modelBe)
         {
             TextInfo tInfo = new CultureInfo("es-ES", false).TextInfo;
-            var fechaFormateada = modelBE.FechaRegistro.ToString("dd MMMM yyyy", new CultureInfo("es-ES"));
+            var fechaFormateada = modelBe.FechaRegistro.ToString("dd MMMM yyyy", new CultureInfo("es-ES"));
             var fechaConMayusculas = tInfo.ToTitleCase(fechaFormateada);
 
             return new EstrategiaProductoComentarioModel()
             {
-                ProdComentarioDetalleId = modelBE.ProdComentarioDetalleId,
-                ProdComentarioId = modelBE.ProdComentarioId,
-                Valorizado = modelBE.Valorizado,
-                Recomendado = modelBE.Recomendado,
-                Comentario = modelBE.Comentario,
-                CodigoConsultora = modelBE.CodigoConsultora,
-                CampaniaID = modelBE.CampaniaID,
-                FechaRegistro = modelBE.FechaRegistro,
+                ProdComentarioDetalleId = modelBe.ProdComentarioDetalleId,
+                ProdComentarioId = modelBe.ProdComentarioId,
+                Valorizado = modelBe.Valorizado,
+                Recomendado = modelBe.Recomendado,
+                Comentario = modelBe.Comentario,
+                CodigoConsultora = modelBe.CodigoConsultora,
+                CampaniaID = modelBe.CampaniaID,
+                FechaRegistro = modelBe.FechaRegistro,
                 FechaRegistroFormateada = fechaConMayusculas,
-                FechaAprobacion = modelBE.FechaAprobacion,
-                CodTipoOrigen = modelBE.CodTipoOrigen,
-                Estado = modelBE.Estado,
-                CodigoSAP = modelBE.CodigoSap,
-                CodigoGenerico = modelBE.CodigoGenerico,
-                URLFotoConsultora = modelBE.URLFotoConsultora,
-                NombreConsultora = modelBE.NombreConsultora
+                FechaAprobacion = modelBe.FechaAprobacion,
+                CodTipoOrigen = modelBe.CodTipoOrigen,
+                Estado = modelBe.Estado,
+                CodigoSAP = modelBe.CodigoSap,
+                CodigoGenerico = modelBe.CodigoGenerico,
+                URLFotoConsultora = modelBe.URLFotoConsultora,
+                NombreConsultora = modelBe.NombreConsultora
             };
         }
 

@@ -13,37 +13,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
 
-            var model = new RevistaDigitalLandingModel();
-
-            model.CampaniaID = userData.CampaniaID;
-            model.IsMobile = IsMobile();
-
-            model.FiltersBySorting = GetFiltersBySorting();
-            model.FiltersByBrand = GetFiltersByBrand();
-
-            model.Success = true;
-            model.CantidadFilas = 10;
-
+            var model = new RevistaDigitalLandingModel
+            {
+                CampaniaID = userData.CampaniaID,
+                IsMobile = IsMobile(),
+                FiltersBySorting = GetFiltersBySorting(),
+                FiltersByBrand = GetFiltersByBrand(),
+                Success = true,
+                CantidadFilas = 10
+            };
+            
             return PartialView("Index", model);
         }
 
         public List<BETablaLogicaDatos> GetFiltersBySorting()
         {
-            var filtersBySorting = new List<BETablaLogicaDatos>();
-            filtersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR PRECIO" });
-            filtersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
-            filtersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
+            var filtersBySorting = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido,
+                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MenorAMayor,
+                    Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MayorAMenor,
+                    Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
+                }
+            };
             return filtersBySorting;
         }
 
 
         public List<BETablaLogicaDatos> GetFiltersByBrand()
         {
-            var filterByBrand = new List<BETablaLogicaDatos>();
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone, Descripcion = "CYZONE" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = "ÉSIKA" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL" });
+            var filterByBrand = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido,
+                    Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone,
+                    Descripcion = "CYZONE"
+                },
+                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = "ÉSIKA"},
+                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL"}
+            };
             return filterByBrand;
         }
 

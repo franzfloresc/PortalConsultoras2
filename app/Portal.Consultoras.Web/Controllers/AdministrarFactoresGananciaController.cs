@@ -42,13 +42,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -64,11 +60,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectFactorGanancia(UserData().PaisID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEFactorGanancia> items = lst;
 
                 #region Sort Section
@@ -152,23 +150,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            int recordCount;
 
             if (string.IsNullOrEmpty(vBusqueda))
-                RecordCount = lst.Count;
+                recordCount = lst.Count;
             else
-                RecordCount = lst.Count(p => p.PaisNombre.ToUpper().Contains(vBusqueda.ToUpper()));
+                recordCount = lst.Count(p => p.PaisNombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
-            pag.RecordCount = RecordCount;
+            pag.RecordCount = recordCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -188,13 +186,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
-                int RangoValido = 0;
+                int rangoValido;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    RangoValido = sv.InsertFactorGanancia(entidad);
+                    rangoValido = sv.InsertFactorGanancia(entidad);
                 }
 
-                if (RangoValido == 0)
+                if (rangoValido == 0)
                     return Json(new
                     {
                         success = true,
@@ -237,12 +235,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
-                int RangoValido = 0;
+                int rangoValido;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    RangoValido = sv.UpdateFactorGanancia(entidad);
+                    rangoValido = sv.UpdateFactorGanancia(entidad);
                 }
-                if (RangoValido == 0)
+                if (rangoValido == 0)
                     return Json(new
                     {
                         success = true,

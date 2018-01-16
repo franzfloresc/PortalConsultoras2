@@ -12,8 +12,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
+            List<BEValidacionAutomatica> listaValidacion = GetEstadoProcesoPROLAutoDetalle();
+            model.ListaValidacionAutomatica = listaValidacion;
 
             return View(model);
         }
@@ -21,8 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
         public PartialViewResult ListarProcesoParcial()
         {
             ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
+            List<BEValidacionAutomatica> listaValidacion = GetEstadoProcesoPROLAutoDetalle();
+            model.ListaValidacionAutomatica = listaValidacion;
 
             return PartialView("ListaProcesoPROL", model);
         }
@@ -30,8 +30,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ListarProceso()
         {
             ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
+            List<BEValidacionAutomatica> listaValidacion = GetEstadoProcesoPROLAutoDetalle();
+            model.ListaValidacionAutomatica = listaValidacion;
 
             return PartialView("ListaProcesoPROL", model);
         }
@@ -41,44 +41,44 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int Respuesta = -1000;
-                DateTime FechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
+                int respuesta;
+                DateTime fechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    Respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, FechaHoraFacturacion);
+                    respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, fechaHoraFacturacion);
                 }
 
-                string MensajeRespuesta = string.Empty;
+                string mensajeRespuesta = string.Empty;
 
-                switch (Respuesta)
+                switch (respuesta)
                 {
                     case -1:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 001)";
+                        mensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 001)";
                         break;
                     case 0:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso. (COD. 000)";
+                        mensajeRespuesta = "El proceso de PROL Automático esta en proceso. (COD. 000)";
                         break;
                     case 1:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 001)";
+                        mensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 001)";
                         break;
                     case 2:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 002)";
+                        mensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 002)";
                         break;
                     case 3:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 003)";
+                        mensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 003)";
                         break;
                     case 99:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 099)";
+                        mensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 099)";
                         break;
                 }
 
 
-                if (Respuesta != -1000)
+                if (respuesta != -1000)
                 {
                     return Json(new
                     {
                         success = true,
-                        mensaje = MensajeRespuesta,
+                        mensaje = mensajeRespuesta,
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -103,12 +103,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<BEValidacionAutomatica> GetEstadoProcesoPROLAutoDetalle()
         {
-            List<BEValidacionAutomatica> ListaValidacion = new List<BEValidacionAutomatica>();
+            List<BEValidacionAutomatica> listaValidacion;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                ListaValidacion = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
+                listaValidacion = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
             }
-            return ListaValidacion;
+            return listaValidacion;
         }
 
     }
