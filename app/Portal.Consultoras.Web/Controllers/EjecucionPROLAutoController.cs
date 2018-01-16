@@ -1,7 +1,9 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,28 +13,19 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
-
+            var model = GetEstadoProcesoPROLAutoDetalle();
             return View(model);
         }
 
         public PartialViewResult ListarProcesoParcial()
         {
-            ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
-
+            var model = GetEstadoProcesoPROLAutoDetalle();
             return PartialView("ListaProcesoPROL", model);
         }
 
         public ActionResult ListarProceso()
         {
-            ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();
-            List<BEValidacionAutomatica> ListaValidacion = GetEstadoProcesoPROLAutoDetalle();
-            model.ListaValidacionAutomatica = ListaValidacion;
-
+            var model = GetEstadoProcesoPROLAutoDetalle();
             return PartialView("ListaProcesoPROL", model);
         }
 
@@ -48,29 +41,29 @@ namespace Portal.Consultoras.Web.Controllers
                     Respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, FechaHoraFacturacion);
                 }
 
-                string MensajeRespuesta = string.Empty;
-
+                string mensajeRespuesta = string.Empty;
                 switch (Respuesta)
                 {
-                    case -1:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 001)";
+                    case Constantes.ValAutoEstado.NoExisteProceso:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.NoExisteProceso;
                         break;
-                    case 0:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso. (COD. 000)";
+                    case Constantes.ValAutoEstado.Programado:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Programado;
                         break;
-                    case 1:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 001)";
+                    case Constantes.ValAutoEstado.EnEjecucion:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.EnEjecucion;
                         break;
-                    case 2:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 002)";
+                    case Constantes.ValAutoEstado.Finalizado:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Finalizado;
                         break;
-                    case 3:
-                        MensajeRespuesta = "El proceso de PROL Automático esta en proceso (COD. 003)";
+                    case Constantes.ValAutoEstado.FaltaEnvioCorreos:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.FaltaEnvioCorreos;
                         break;
-                    case 99:
-                        MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 099)";
+                    case Constantes.ValAutoEstado.Error:
+                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Error;
                         break;
                 }
+                mensajeRespuesta += string.Format(" (COD. {0})", Respuesta);
 
 
                 if (Respuesta != -1000)
@@ -78,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        mensaje = MensajeRespuesta,
+                        mensaje = mensajeRespuesta,
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -101,15 +94,46 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public List<BEValidacionAutomatica> GetEstadoProcesoPROLAutoDetalle()
+        public ValidacionAutomaticaModel GetEstadoProcesoPROLAutoDetalle()
         {
-            List<BEValidacionAutomatica> ListaValidacion = new List<BEValidacionAutomatica>();
+            var listValidacionAutomatica = new List<BEValidacionAutomatica>();
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                ListaValidacion = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
+                listValidacionAutomatica = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
             }
-            return ListaValidacion;
+            if (listValidacionAutomatica == null || listValidacionAutomatica.Count == 0) return null;
+
+            var valAuto = listValidacionAutomatica[0];
+            var model = new ValidacionAutomaticaModel { FechaFacturacion = GetFechaString(valAuto.FechaHoraFacturacion, "dd/MM/yyyy") };
+            model.ListaValidacionAutomatica = new List<ValidacionAutomaticaDetalleModel>{
+                new ValidacionAutomaticaDetalleModel {
+                    Proceso = "Reserva de Pedido",
+                    FechaHoraInicio = GetFechaString(valAuto.FechaHoraInicio, "dd/MM/yyyy hh:mm:ss"),
+                    FechaHoraFin = GetFechaString(valAuto.FechaHoraFin, "dd/MM/yyyy hh:mm:ss"),
+                    Estado =
+                        valAuto.Estado == Constantes.ValAutoEstado.Error ? Constantes.ValAutoDetalleEstadoDescripcion.Error :
+                        valAuto.Estado == Constantes.ValAutoEstado.Programado ? Constantes.ValAutoDetalleEstadoDescripcion.Programado :
+                        valAuto.Estado == Constantes.ValAutoEstado.EnEjecucion ? Constantes.ValAutoDetalleEstadoDescripcion.EnEjecucion :
+                        Constantes.ValAutoDetalleEstadoDescripcion.Finalizado
+                },
+                new ValidacionAutomaticaDetalleModel {
+                    Proceso = "Envío de Correo",
+                    FechaHoraInicio = GetFechaString(valAuto.FechaHoraInicioEnvio, "dd/MM/yyyy hh:mm:ss"),
+                    FechaHoraFin = GetFechaString(valAuto.FechaHoraFinEnvio, "dd/MM/yyyy hh:mm:ss"),
+                    Estado =
+                        valAuto.Estado == Constantes.ValAutoEstado.Error ? Constantes.ValAutoDetalleEstadoDescripcion.Error :
+                        valAuto.Estado == Constantes.ValAutoEstado.Finalizado ? Constantes.ValAutoDetalleEstadoDescripcion.Finalizado :
+                        valAuto.Estado == Constantes.ValAutoEstado.FaltaEnvioCorreos ? Constantes.ValAutoDetalleEstadoDescripcion.EnEjecucion :
+                        Constantes.ValAutoDetalleEstadoDescripcion.Programado
+                }
+            };
+            return model;
         }
 
+        private string GetFechaString(DateTime fechaHora, string format)
+        {
+            if (fechaHora.Year == 2000) return "";
+            return fechaHora.ToString(format, CultureInfo.InvariantCulture);
+        }
     }
 }
