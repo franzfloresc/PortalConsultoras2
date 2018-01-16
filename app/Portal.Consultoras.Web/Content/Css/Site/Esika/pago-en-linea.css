@@ -33,9 +33,10 @@
 .contenedor_info_pago_seguro_y_ctas,
 .info_pago_seguro_con_tarjetas,
 .texto_pago_seguro,
-.contenedor_cta
+.contenedor_cta,
+.redireccion_proveedor_de_pago
 {
-    display:block!important;
+    display:block;
 }
 
 .paso_proceso_pago_en_linea,
@@ -65,6 +66,7 @@
 .proceso_de_pago_en_linea{
     width:100%;
     max-width:869px;
+    min-height:542px;
     margin:0 auto;
     padding:40px 0 27px 0;
 }
@@ -506,4 +508,97 @@
 .btn_pago_credito_visa{
     line-height:31px;
     padding-top:4px;
+}
+
+.redireccion_proveedor_de_pago{
+    margin-top:70px;
+    margin-bottom:70px;
+    text-align:center;
+}
+
+.info_redireccion_proveedor_de_pago{
+    text-transform: uppercase;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 auto 36px auto;
+    max-width: 212px;
+}
+
+.animacion_precarga_redireccion_proveedor_pago{
+    margin:0 auto;
+    width:60px;
+    height:56px;
+    background-image:url(../../../Images/Esika/precarga-pago-en-linea.svg);
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position:center;
+    animation-name:rotacionPrecarga;
+    animation-duration:1s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+}
+
+@-webkit-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-moz-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-o-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
 }
