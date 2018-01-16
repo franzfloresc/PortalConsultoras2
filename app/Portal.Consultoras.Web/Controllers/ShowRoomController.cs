@@ -1372,111 +1372,22 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertOfertaShowRoom(ShowRoomOfertaModel model)
+        public JsonResult InsertOrUpdateOfertaShowRoom(ShowRoomOfertaModel model)
         {
             try
             {
-                Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
-                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                    .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
-                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));
-
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
+                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                entidad.UsuarioRegistro = userData.CodigoConsultora;
+                entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID, model.ImagenProducto == model.ImagenMini);
+                entidad.ImagenMini = GuardarImagenAmazon(model.ImagenMini, model.ImagenMiniAnterior, userData.PaisID);
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.UsuarioRegistro = userData.CodigoConsultora;
-
-                    string imagenProductoFinal = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID);
-                    string imagenMiniFinal = GuardarImagenAmazon(model.ImagenMini, model.ImagenMiniAnterior, userData.PaisID);
-
-                    entidad.ImagenProducto = imagenProductoFinal;
-                    entidad.ImagenMini = imagenMiniFinal;
-
-                    sv.InsOfertaShowRoom(userData.PaisID, entidad);
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "Se insertó la Oferta ShowRoom satisfactoriamente.",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
-
-        [HttpPost]
-        public JsonResult UpdateOfertaShowRoom(ShowRoomOfertaModel model)
-        {
-            try
-            {
-                Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
-                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                    .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
-                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
-                    .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
-                    .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
-                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado))
-                    .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
-
-                BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.UsuarioModificacion = userData.CodigoConsultora;
-
-                    string imagenProductoFinal = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID);
-                    string imagenMiniFinal = GuardarImagenAmazon(model.ImagenMini, model.ImagenMiniAnterior, userData.PaisID);
-
-                    entidad.ImagenProducto = imagenProductoFinal;
-                    entidad.ImagenMini = imagenMiniFinal;
-
-                    sv.UpdOfertaShowRoom(userData.PaisID, entidad);
-                }
+                using (var sv = new PedidoServiceClient()) { sv.InsOrUpdOfertaShowRoom(userData.PaisID, entidad); }
 
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la Oferta Show Room satisfactoriamente.",
+                    message = "Se guardó la Oferta ShowRoom satisfactoriamente.",
                     extra = ""
                 });
             }
@@ -1844,37 +1755,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId)
+        public string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
         {
             string nombreImagenFinal = "";
-
-            string tempImage01 = nombreImagen ?? "";
             nombreImagen = nombreImagen ?? "";
             nombreImagenAnterior = nombreImagenAnterior ?? "";
 
-            string ISO = Util.GetPaisISO(paisId);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-
-            bool esNuevo = nombreImagenAnterior == "";
-
             if (nombreImagen != nombreImagenAnterior)
             {
+                string ISO = Util.GetPaisISO(paisId);
+                string carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
                 string soloImagen = nombreImagen.Split('.')[0];
                 string soloExtension = nombreImagen.Split('.')[1];
-
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var newfilename = ISO + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
-
-                nombreImagenFinal = newfilename;
-
-                if (!esNuevo)
-                    ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
-                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
+                nombreImagenFinal = ISO + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
+                
+                if (nombreImagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
             }
-            else
-            {
-                nombreImagenFinal = nombreImagen;
-            }
+            else nombreImagenFinal = nombreImagen;
 
             return nombreImagenFinal;
         }

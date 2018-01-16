@@ -4,11 +4,13 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -44,7 +46,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
-        IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
+        IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         IList<BEPedidoDDWeb> SelectPedidosDDWeb(BEPedidoDDWeb BEPedidoDDWeb);
@@ -809,6 +811,9 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
+        int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
@@ -1178,6 +1183,19 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
 
+        #region CargaMasivaImagenes
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
+
+        #endregion
+
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
@@ -1185,5 +1203,22 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
+
+	#region ConfiguracionProgramaNuevasApp
+        [OperationContract]
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        [OperationContract]
+        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
+        #endregion
+
+        #region Certificado Digital
+        [OperationContract]
+        bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
+
+        [OperationContract]
+        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
+
+        #endregion
+
     }
 }

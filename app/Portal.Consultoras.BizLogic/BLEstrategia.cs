@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CargaMasiva;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,21 +16,10 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<BEEstrategia> GetEstrategias(BEEstrategia entidad)
         {
-            try
+            using (IDataReader reader = new DAEstrategia(entidad.PaisID).GetEstrategia(entidad))
             {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetEstrategia(entidad))
-                {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader, 1));
-                    }
-                }
-                return listaEstrategias;
+                return reader.MapToCollection<BEEstrategia>();
             }
-            catch (Exception) { throw; }
         }
 
         public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
@@ -332,7 +322,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (estrategia.Precio <= estrategia.Precio2)
                     estrategia.Precio = Convert.ToDecimal(0.0);
-
+                
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
@@ -341,6 +331,8 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.FotoProductoSmall = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                estrategia.FotoProductoMedium = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium); ;
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
@@ -624,6 +616,58 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region CargaMasivaImagenes
+
+        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        {
+            var lista = new List<BECargaMasivaImagenes>();
+            var daEstrategia = new DAEstrategia(paisId);
+
+            using (var reader = daEstrategia.GetListaImagenesEstrategiasByCampania(campaniaId))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BECargaMasivaImagenes(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
+        {
+            var lista = new List<BECargaMasivaImagenes>();
+            var daEstrategia = new DAEstrategia(paisId);
+
+            using (var reader = daEstrategia.GetListaImagenesOfertaLiquidacionByCampania(campaniaId))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BECargaMasivaImagenes(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
+        {
+            var lista = new List<BECargaMasivaImagenes>();
+            var daEstrategia = new DAEstrategia(paisId);
+
+            using (var reader = daEstrategia.GetListaImagenesProductoSugeridoByCampania(campaniaId))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BECargaMasivaImagenes(reader));
+                }
+            }
+
+            return lista;
         }
 
         #endregion

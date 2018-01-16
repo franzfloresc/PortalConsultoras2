@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     return listEstrategia;
                 }
-
+                
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -535,6 +535,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || tipo == 2
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
+                prodModel.FotoProductoMedium = estrategia.FotoProductoMedium;
+                prodModel.FotoProductoSmall = estrategia.FotoProductoSmall;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;
                 prodModel.DescripcionResumen = estrategia.DescripcionResumen;

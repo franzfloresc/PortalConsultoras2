@@ -11,6 +11,8 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 
+using Portal.Consultoras.Web.Models.MisCertificados;
+
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class DomainToModelMappingProfile : Profile
@@ -268,7 +270,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                   .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
                   .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-            Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
+                  
+             Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
+             
+             Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
+
+
         }
     }
 }

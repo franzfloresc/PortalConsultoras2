@@ -1500,6 +1500,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ReferenciaEntregaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool RequiereAprobacionSACField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2835,6 +2838,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ReferenciaEntregaField, value) != true)) {
                     this.ReferenciaEntregaField = value;
                     this.RaisePropertyChanged("ReferenciaEntrega");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
                 }
             }
         }
@@ -8184,6 +8200,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string FechaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaNacimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FuenteIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8556,6 +8575,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.FechaIngresoField, value) != true)) {
                     this.FechaIngresoField = value;
                     this.RaisePropertyChanged("FechaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaNacimiento {
+            get {
+                return this.FechaNacimientoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaNacimientoField, value) != true)) {
+                    this.FechaNacimientoField = value;
+                    this.RaisePropertyChanged("FechaNacimiento");
                 }
             }
         }
@@ -10555,10 +10587,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.paginacionGrid> ConsultarSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO);
+        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso", ReplyAction="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngresoResponse")]
         System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso();
@@ -11026,12 +11058,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ConsultarSolicitudesPostulanteV2Async(model);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO) {
-            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO);
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
+            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO) {
-            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteBE[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE) {
+            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE);
         }
         
         public System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso() {
