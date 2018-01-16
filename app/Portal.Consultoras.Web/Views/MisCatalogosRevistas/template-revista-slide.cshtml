@@ -3,20 +3,23 @@
     <div class="titulo_central" data-titulo='revista'></div>
     <div class="revista_content2">
         <div>
-            <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
-            <a class="revista_carrusel" id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
-                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
+            @*<span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>*@
+            <a class="revista_carrusel" id="lbPortadaGana" href="javascript:;" onclick="MostrarMiRevista();">
+                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" alt=""/>
             </a>
-            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
+            @*<span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>*@
         </div>
         <div>
             <div class="revistatxt">
                 <div class="contrevista">
                     <p>Tu guía de negocio de siempre, <b>AHORA DIGITAL.</b></p>
-                    <a href="#">ENCUENTRALA AQUÍ</a>
+                    <a href="@Url.Action("Index", "GuiaNegocio")">
+                        ENCUENTRALA AQUÍ
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br />
 <!-- FIN REVISTA -->

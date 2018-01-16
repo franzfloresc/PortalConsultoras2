@@ -20,31 +20,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            var clienteModel = new MisCatalogosRevistasModel();
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
+                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                TieneGND = userData.TieneGND
+            };
 
-            clienteModel.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
-            clienteModel.CampaniaActual = userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
-            clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-
-            var tieneGND = userData.TieneGND;
-            clienteModel.TieneGND = tieneGND;
-            clienteModel.MostrarTab =
-                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
-                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
-                (revistaDigital.TieneRDR && !tieneGND);
-
+            
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = EsConsultoraNueva();
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-            ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
         }
 
