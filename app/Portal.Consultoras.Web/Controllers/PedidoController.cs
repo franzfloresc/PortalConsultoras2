@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text.RegularExpressions;
@@ -263,8 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CampaniaId = userData.CampaniaID;
                 model.Dias = ViewBag.Dias;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.TieneFechaPromesa = ViewBag.TieneFechaPromesa;
-                model.MensajeFechaPromesa = ViewBag.MensajeFechaPromesa;
                 model.CodigoZona = userData.CodigoZona;
                 model.FechaFacturacionPedido = ViewBag.FechaFacturacionPedido;
 
@@ -1674,7 +1673,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (esFacturacion)
                 {
-                    string codigoSap = "";
+                    string codigoSap = "";                    
                     foreach (var beProducto in listaProduto)
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
@@ -1738,6 +1737,8 @@ namespace Portal.Consultoras.Web.Controllers
                             FlagNueva = beProducto.FlagNueva,
                             TipoEstrategiaID = beProducto.TipoEstrategiaID,
                             ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
+                            ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall),
+                            ImagenProductoSugeridoMedium = ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium),
                             CodigoProducto = beProducto.CodigoProducto,
                             TieneStockPROL = true
                         });
@@ -1751,6 +1752,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
+        }
+
+        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension)
+        {
+            string ruta = "";
+
+            if (string.IsNullOrEmpty(rutaImagen))
+                return ruta;
+
+            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+
+            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                
+                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+            }
+            else
+            {
+                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
+            }
+
+            return ruta;
         }
 
         [HttpPost]
@@ -3939,6 +3966,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     p.ImagenProductoSugerido = imagenUrl;
+                    p.ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                    p.ImagenProductoSugeridoMedium = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                     p.TipoCross = TipoCross;
                 });
             }

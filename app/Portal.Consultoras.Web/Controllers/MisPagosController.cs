@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lsta = new List<BEDatosBelcorp>();
                 }
 
-                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
+                string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
 
                 return Json(new
                 {
@@ -556,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
             string NumeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
             string FechaEmision = data["FechaEmision"].ToString();
             string ImportePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
-            string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
+            string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
 
             using (SACServiceClient sv = new SACServiceClient())
             {
