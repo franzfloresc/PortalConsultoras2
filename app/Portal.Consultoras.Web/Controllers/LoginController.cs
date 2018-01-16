@@ -1370,12 +1370,13 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
-                        #region GPR_ODD_RegaloPN
+                        #region GPR_ODD_RegaloPN_LoginFB
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazoAsync(usuario, usuarioModel.MontoDeuda, esAppMobile));
                         var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModelAsync(usuarioModel, usuario, esAppMobile));
                         var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevasAsync(usuarioModel));
+                        var loginExternoTask = Task.Run(() => GetListaLoginExternoAsync(usuario, esAppMobile));
 
-                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas);
+                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas, loginExternoTask);
 
                         var gprBanner = motivoRechazoTask.Result;
                         if (gprBanner != null)
@@ -1391,104 +1392,100 @@ namespace Portal.Consultoras.Web.Controllers
                         usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
 
                         usuarioModel.ConsultoraRegaloProgramaNuevas = regaloProgramaNuevas.Result;
+
+                        usuarioModel.ListaLoginExterno = loginExternoTask.Result;
                         #endregion
 
-                        //    #region LoginFB
-                        //    if (!esAppMobile)
-                        //    {
-                        //        if (usuario.TieneLoginExterno)
-                        //        {
-                        //            using (var usuarioServiceClient = new UsuarioServiceClient())
-                        //            {
-                        //                var lst = await usuarioServiceClient.GetListaLoginExternoAsync(usuario.PaisID, usuario.CodigoUsuario);
-                        //                var lstLoginExterno = lst.ToList();
+                        #region ConfiguracionPais
+                        try
+                        {
+                            if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
-                        //                if (lstLoginExterno.Any())
-                        //                    usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
-                        //            }
-                        //        }
-                        //    }
-                        //    #endregion
+                            var revistaDigitalModel = new RevistaDigitalModel();
+                            var ofertaFinalModel = new OfertaFinalModel();
+                            revistaDigitalModel.NoVolverMostrar = true;
 
-                        //    #region ConfiguracionPais
-                        //    try
-                        //    {
-                        //        if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                        //            throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+                            var configuracionesPaisModels = await GetConfiguracionPaisAsync(usuarioModel);
+                            if (configuracionesPaisModels.Any())
+                            {
+                                var listaPaisDatos = await ConfiguracionPaisDatosAsync(usuarioModel);
 
-                        //        var revistaDigitalModel = new RevistaDigitalModel();
-                        //        var ofertaFinalModel = new OfertaFinalModel();
-                        //        revistaDigitalModel.NoVolverMostrar = true;
+                                foreach (var c in configuracionesPaisModels)
+                                {
+                                    switch (c.Codigo)
+                                    {
+                                        //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
+                                        case Constantes.ConfiguracionPais.RevistaDigital:
+                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
+                                                listaPaisDatos
+                                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                                    .ToList(), usuarioModel.CodigoISO);
+                                            ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
+                                                usuarioModel.Sobrenombre);
+                                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                                            break;
+                                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                                            if (revistaDigitalModel.TieneRDC)
+                                                break;
 
-                        //        var configuracionesPaisModels = await GetConfiguracionPaisAsync(usuarioModel);
+                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
+                                                listaPaisDatos
+                                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                                    .ToList(), usuarioModel.CodigoISO);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
+                                                usuarioModel.Sobrenombre);
+                                            revistaDigitalModel.TieneRDR = true;
+                                            break;
+                                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                                            usuarioModel.TieneValidacionMontoMaximo = c.Estado;
+                                            break;
+                                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                                            ofertaFinalModel.Algoritmo = c.Codigo;
+                                            ofertaFinalModel.Estado = c.Estado;
+                                            if (c.Estado)
+                                            {
+                                                usuarioModel.OfertaFinal = 1;
+                                                usuarioModel.EsOfertaFinalZonaValida = true;
+                                            }
 
-                        //        if (configuracionesPaisModels.Any())
-                        //        {
-                        //            var listaPaisDatos = await ConfiguracionPaisDatosAsync(usuarioModel);
+                                            break;
+                                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                                            usuarioModel.TieneGND = true;
+                                            break;
+                                    }
 
-                        //            foreach (var c in configuracionesPaisModels)
-                        //            {
-                        //                switch (c.Codigo)
-                        //                {
-                        //                    case Constantes.ConfiguracionPais.RevistaDigital:
-                        //                        ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
-                        //                            listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
-                        //                        ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
-                        //                        FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
-                        //                        revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
-                        //                        break;
-                        //                    case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                        //                        if (revistaDigitalModel.TieneRDC)
-                        //                            break;
-                        //                        ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
-                        //                            listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
-                        //                        FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
-                        //                        revistaDigitalModel.TieneRDR = true;
-                        //                        break;
-                        //                    case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                        //                        usuarioModel.TieneValidacionMontoMaximo = c.Estado;
-                        //                        break;
-                        //                    case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
+                                        usuarioModel.OfertaFinalGanaMas = 1;
+                                }
 
-                        //                    case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                                revistaDigitalModel.TieneRDR =
+                                    !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                                revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
+                                revistaDigitalModel.CampaniaMasUno =
+                                    AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1,
+                                        usuarioModel.NroCampanias) % 100;
+                                revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+                                sessionManager.SetRevistaDigital(revistaDigitalModel);
+                                sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                                sessionManager.SetOfertaFinalModel(ofertaFinalModel);
+                            }
 
-                        //                    case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                        //                        ofertaFinalModel.Algoritmo = c.Codigo;
-                        //                        ofertaFinalModel.Estado = c.Estado;
-                        //                        if (c.Estado)
-                        //                        {
-                        //                            usuarioModel.OfertaFinal = 1;
-                        //                            usuarioModel.EsOfertaFinalZonaValida = true;
-                        //                        }
-                        //                        break;
-                        //                    case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        //                        usuarioModel.TieneGND = true;
-                        //                        break;
-                        //                }
-
-                        //                if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
-                        //                    usuarioModel.OfertaFinalGanaMas = 1;
-                        //            }
-
-                        //            revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
-                        //            revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
-                        //            revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
-                        //            revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
-                        //            revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
-                        //            sessionManager.SetRevistaDigital(revistaDigitalModel);
-                        //            sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
-                        //            sessionManager.SetOfertaFinalModel(ofertaFinalModel);
-                        //        }
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
-                        //        pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                        //        sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                        //        sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
-                        //        sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
-                        //    }
-                        //    #endregion
+                            usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
+                        }
+                        catch (Exception ex)
+                        {
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora,
+                                usuarioModel.PaisID.ToString(), string.Empty);
+                            pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
+                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+                            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+                            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+                        }
+                        #endregion
 
                         //    #region EventoFestivo
                         //    var eventoFestivoDataModel = await ConfigurarEventoFestivoAsync(usuarioModel);
@@ -3072,6 +3069,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return result;
         }
+        private async Task<List<UsuarioExternoModel>> GetListaLoginExternoAsync(ServiceUsuario.BEUsuario usuario, bool esAppMobile)
+        {
+            if (esAppMobile) return new List<UsuarioExternoModel>();
+
+            if (!usuario.TieneLoginExterno) return new List<UsuarioExternoModel>();
+
+            using (var usuarioServiceClient = new UsuarioServiceClient())
+            {
+                var result = await usuarioServiceClient.GetListaLoginExternoAsync(usuario.PaisID, usuario.CodigoUsuario);
+                return Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(result.ToList());
+            }
+        }
+
         private async Task<List<ConfiguracionPaisModel>> GetConfiguracionPaisAsync(UsuarioModel usuarioModel)
         {
             var listaConfigPais = new List<ServiceUsuario.BEConfiguracionPais>();
