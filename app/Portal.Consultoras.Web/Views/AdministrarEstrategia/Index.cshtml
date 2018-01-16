@@ -117,6 +117,48 @@
     </div>
 </div>
 <div class="wrap">
+
+    <!--SHOWROOM-INICIO-->
+    <div class="wrap" id="divShowRoomEvento" style="display: none;">
+        <div class="container clearfix">
+            <div class="border-wrapper">
+                <table id="listEvento"></table>
+                <div id="pagerEvento"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap" id="divShowRoomEventoNuevo" style="display: none;">
+        <div class="filtros">
+            <div class="elements" style="padding-top: 0">
+                <div class="div-3">
+                    <div class="input_search">
+                        <input type="button" value="Nuevo ShowRoom" id="btnNuevoShowRoom" name="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="elements" id="divPersonalizacion" style="display: none;">
+        <div class="container clearfix">
+            <h3>Personalización</h3>
+            <div class="div-3">
+                <div class="titC">Nivel:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="cbNivelEvento"></select>
+                </div>
+
+                <div class="">
+                    <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
+                           style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+                </div>
+            </div>
+        </div>
+        <br /><br />
+    </div>
+    <!--SHOWROOM-FIN-->
+
     <div class="container clearfix">
         <div class="border-wrapper">
             <table id="list"></table>
@@ -351,6 +393,110 @@
         </div>
     </div>
 </div>
+
+<!-- SHOWROOM-INICIO -->
+
+<div id="DialogDatosShowRoom" style="display: none;">
+    <div class="Content_modal">
+        <input type="hidden" id="hdEventoID" />
+        <input type="hidden" id="hdCampaniaMinimaPersonalizacion" />
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtEventoPaisID" readonly="readonly" style="background: #F9F9F0;" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
+                <input type="text" id="txtEventoCampaniaID" readonly="readonly" style="background: #F9F9F0;" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Nombre:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoNombre" />
+            </div>
+            <div class="titG">Tema:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoTema" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Dias Antes Fact.:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoDiasAntes" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+            <div class="titG">Dias Despues Fact.:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoDiasDespues" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+            </div>
+        </div>
+        @*<div class="div-3">
+            <div class="titG"># de Perfiles:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtEventoNumeroPerfiles" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " />
+            </div>
+            <div id="divEventoEstado">
+                <div class="titG">Habilitar Evento</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px;">
+                    <input type="checkbox" class="check" id="chkEventoEstado" />
+                </div>
+            </div>
+        </div>*@
+        <div class="div-3">
+            <div>
+                <div class="titG">Habilitar Categorías</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
+                </div>
+            </div>
+            <div>
+                <div class="titG">Habilitar Compra por Compra</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventocompraXcompra" />
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div>
+                <div class="titG">Habilitar SubCampañas</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTieneSubCampania" />
+                </div>
+            </div>
+            @*<div>
+                <div class="titG">Habilitar Personalización</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTienePersonalizacion" />
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<div id="DialogPersonalizacionDetalle">
+    <div class="wrap">
+        <fieldset style="border: 1px black; border-style: groove; margin-bottom: 20px;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Mobile</h3>
+                <div id="divPersonalizacionDetalleMobile">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset style="border: 1px black; border-style: groove;">
+            <legend></legend>
+            <div class="container clearfix" style="width: 750px;">
+                <h3>Desktop</h3>
+                <div id="divPersonalizacionDetalleDesktop">
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- SHOWROOM-FIN -->
+
 <div id="loadingScreen"></div>
 
 <script type="text/javascript">
@@ -388,7 +534,22 @@
     var CodigoLosMasVendidos = "020";
     var CodigoOfertaDelDia = "009";
     var CodigoGuiaDeNegocio = "010";
+    var codigoShowRoom = '030';
     var _toastHelper = ToastHelper();
+
+    // SHOWROOM-INICIO
+    var urlConsultarShowRoom = baseUrl + 'ShowRoom/ConsultarShowRoom';
+    var urlGetShowRoomNiveles = baseUrl + 'ShowRoom/GetShowRoomNiveles';
+    var urlGetShowRoomPersonalizacionNivel = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionNivel';
+    var urlGuardarPersonalizacionNivelShowRoom = baseUrl + 'ShowRoom/GuardarPersonalizacionNivelShowRoom';
+    var urlImageMatrizUpload = '@Url.Action("ImageMatrizUpload", "FileUpload")';
+    var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
+    var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
+    var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
+    var imagenEliminar = '@Url.Content("~/Content/Images/delete.png")';
+    var imagenProductoVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
+    // SHOWROOM-FIN
 
     jQuery(document).ready(function () {
         fnGrilla();
@@ -609,9 +770,9 @@
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
-            
+
             if (aux2.in(CodigoOfertaParaTi, CodigoOfertaDelDia, CodigoLosMasVendidos, CodigoLanzamiento,
-                        CodigoOfertasParaMi, CodigoPackAltoDesembolso, CodigoGuiaDeNegocio)) {
+                        CodigoOfertasParaMi, CodigoPackAltoDesembolso, CodigoGuiaDeNegocio, codigoShowRoom)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
@@ -914,9 +1075,11 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 && estrategiaId !== 12) {
-                    alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                    return false;
+                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
+                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
+                    estrategiaId !== 12 && estrategiaId !== 30) {
+                        alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+                        return false;
                 }
             }
 
@@ -951,9 +1114,11 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 && estrategiaId !== 12) {
-                    _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                    return false;
+                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
+                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
+                    estrategiaId !== 12 && estrategiaId != 22 && estrategiaId !== 30) {
+                        _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+                        return false;
                 }
             }
 
@@ -962,7 +1127,7 @@
 
             showDialog("DialogDescMasivo");
         });
-        
+
         $("#btnCancelarDescMasivo1").click(function () {
             HideDialog("DialogDescMasivo");
         });
@@ -972,7 +1137,7 @@
             $("#divDescMasivoPaso2").hide();
             UploadFileCvs();
         });
-        
+
         $("#btnAceptarMasivo1").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
@@ -1077,6 +1242,173 @@
             HideDialog("DialogNuevoMasivo");
         });
 
+        //SHOWROOM-INICIO
+
+        $("#btnBuscarPersonalizacionNivel").click(function() {
+            var eventoId = $("#hdEventoID").val();
+            var nivelId = $("#cbNivelEvento").val();
+
+            if (eventoId == undefined || eventoId == 0) {
+                alert_msg("Evento no se puedo identificar");
+                return false;
+            }
+
+            if (nivelId == undefined || nivelId == 0) {
+                alert_msg("Debe seleccionar un Nivel");
+                return false;
+            }
+
+            var item = { eventoId: eventoId, nivelId: nivelId };
+
+            waitingDialog({ title: "Procesando" });
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetShowRoomPersonalizacionNivel,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            closeWaitingDialog();
+
+                            $("#divPersonalizacionDetalleDesktop").html("");
+                            $("#divPersonalizacionDetalleMobile").html("");
+                            var listaPersonalizacion = response.listaPersonalizacion;
+
+                            var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");
+
+                            $.each(listaPersonalizacionMobile, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionDetalleMobile").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            $.each(listaPersonalizacionDesktop, function (index, value) {
+                                var htmlPersonalizacion = '';
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == 'IMAGEN' ? value.Valor.replace(/^.*[\\\/]/, '') : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += '</div>';
+                                    htmlPersonalizacion += '</div>';
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + '</div>';
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
+                                    htmlPersonalizacion += '</div>';
+                                }
+
+                                htmlPersonalizacion += '</div>';
+
+                                $("#divPersonalizacionDetalleDesktop").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == 'IMAGEN') {
+                                    InsertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            showDialog("DialogPersonalizacionDetalle");
+                        } else {
+                            closeWaitingDialog();
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        alert_msg(response.message);
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+        });
+
+        $("#btnNuevoShowRoom").click(function () {
+            LimpiarDatosEventoShowRoom();
+            $("#txtEventoPaisID").val(paisNombre);
+            $("#txtEventoCampaniaID").val($("#ddlCampania").val());
+
+            $("#divEventoEstado").css("display", "none");
+
+            //$("#divShowRoomPerfil").css("display", "none");
+
+            /*
+            if ($("#hdCampaniaMinimaPersonalizacion").val()) {
+                var campaniaMinimaPersonalizacion = parseInt($("#hdCampaniaMinimaPersonalizacion").val());
+                if (parseInt($("#ddlCampania").val()) >= campaniaMinimaPersonalizacion) {
+                    $("#chkEventoTienePersonalizacion").prop('checked', true);
+                }
+            }
+            */
+
+            showDialog("DialogDatosShowRoom");
+        });
+   
+        //SHOWROOM-FIN
+
         UploadFileLanzamineto('img-fondo-desktop');
         UploadFileLanzamineto('img-prev-desktop');
         UploadFileLanzamineto('img-ficha-desktop');
@@ -1112,7 +1444,7 @@
                 success: function (data) {
                     //if(data.success)
                     closeWaitingDialog();
-                    alert(data.message);                    
+                    alert(data.message);
                 },
                 error: function (data, error) {
                     alert(data.message);
@@ -1120,7 +1452,7 @@
             });
         });
 
-        });
+    });
 
     $("#divImagenEstrategia").click(function () {
         $(this).css("color", "white");
@@ -1482,7 +1814,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010"),
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == "030"),
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1536,7 +1868,12 @@
             }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010") { $("#list").jqGrid('hideCol', ["Orden"]); }
+        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == "030") { $("#list").jqGrid('hideCol', ["Orden"]); }
+
+        // SHOWROOM
+        if (codigo == codigoShowRoom) {
+            cargarEventoShowRoom();
+        }
     }
 
     function ShowInputTC(cellvalue, options, rowObject) {
@@ -1857,15 +2194,17 @@
                     }
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
                     var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11 && aux2 !== 12) {
-                        if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
-                            alert("Ingrese un orden para mostrar.");
-                            return false;
-                        }
-                        if ($("#txtOrden").val() <= 0) {
-                            alert("Ingrese un valor para el orden a mostrar mayor a cero.");
-                            return false;
-                        }
+                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 &&
+                        aux2 !== 9 && aux2 !== 10 && aux2 !== 11 &&
+                        aux2 !== 12 && aux2 !== 30) {
+                            if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                                alert("Ingrese un orden para mostrar.");
+                                return false;
+                            }
+                            if ($("#txtOrden").val() <= 0) {
+                                alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+                                return false;
+                            }
                     }
 
                     if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
@@ -2240,6 +2579,92 @@
             draggable: false,
             title: "Resultado de estrategias no actualizadas"
         });
+
+        // SHOWROOM-INICIO
+        $('#DialogDatosShowRoom').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Carga de Evento ShowRoom",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#txtEventoNombre').val()) == "")
+                        vMessage += "- Debe ingresar el Nombre del Evento.\n";
+                    if (jQuery.trim($('#txtEventoTema').val()) == "")
+                        vMessage += "- Debe ingresar el Tema del Evento.\n";
+                    if (jQuery.trim($('#txtEventoDiasAntes').val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                    if (parseInt(jQuery.trim($('#txtEventoDiasAntes').val())) <= 0)
+                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                    if (jQuery.trim($('#txtEventoDiasDespues').val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                    if (parseInt(jQuery.trim($('#txtEventoDiasDespues').val())) <= 0)
+                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
+                    //if (jQuery.trim($('#txtEventoNumeroPerfiles').val()) == "")
+                    //    vMessage += "- Debe ingresar la cantidad de perfiles.\n";
+                    //if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
+                    //    vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    } else {
+                        GuardarShowRoomEvento();
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        $('#DialogPersonalizacionDetalle').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Detalle de Personalizacion por Nivel",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+
+                    var eventoId = $("#hdEventoID").val();
+                    var nivelId = $("#cbNivelEvento").val();
+
+                    if (eventoId == "")
+                        vMessage += "- Debe seleccionar el evento.\n";
+
+                    if (nivelId == "")
+                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
+        // SHOWROOM-FIN
     }
 
     function UploadFileLanzamineto(divId) {
@@ -2290,7 +2715,7 @@
                     { Descripcion: "CUVs Actualizados", Cantidad: data.listActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"},
                     { Descripcion: "CUVs no Actualizados", Cantidad: data.listNoActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"}]
                 };
- 
+
                 $("#listCargaDescMasiva").empty().jqGrid({
                     datatype: 'jsonstring',
                     datastr: gridJson,
@@ -2312,7 +2737,7 @@
                     sortorder: "asc",
                     viewrecords: true,
                     hoverrows: false,
-                    caption: "",    
+                    caption: "",
                 });
                 createGridUpdated(data.listActualizado);
                 createGridNotUpdated(data.listNoActualizado);
@@ -2357,7 +2782,7 @@
             sortorder: "asc",
             viewrecords: true,
             hoverrows: false,
-            caption: "",           
+            caption: "",
             beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
         });
     }
@@ -2383,8 +2808,576 @@
             sortorder: "asc",
             viewrecords: true,
             hoverrows: false,
-            caption: "",           
+            caption: "",
             beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
         });
     }
+
+    // SHOWROOM-INICIO
+    function cargarEventoShowRoom() {
+        //$("#divCargaArchivos").css("display", "none");
+        $("#divPersonalizacion").css("display", "none");
+        //$("#divPersonalizacionCategoria").css("display", "none");
+        //$("#divOfertasShowRoom").css("display", "none");
+        //$("#divShowRoomPerfil").css("display", "none");
+
+        //$("#divPerfilOfertaShowRoom").css("display", "none");
+
+        LimpiarDatosEventoShowRoom();
+
+        var msjex = "";
+        if ($("#ddlPais").val() == "")
+            msjex += " - Debe seleccionar un País .\n";
+        if ($("#ddlCampania").val() == "")
+            msjex += " - Debe seleccionar un Campania .\n";
+
+        if (msjex == "") {
+            paisNombre = $("#ddlPais option:selected").text();
+            paisID = $("#ddlPais").val();
+
+            fnGrillaEvento();
+
+            $("#divShowRoomEvento").css("display", "");
+        }
+        else {
+            alert(msjex);
+            return false;
+        }
+    };
+
+    $.jgrid.extend({
+        EditarEvento: function (ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania, tienePersonalizacion) {
+            $("#txtEventoPaisID").val(paisNombre);
+            $("#txtEventoCampaniaID").val(campaniaID);
+            $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
+            $('#txtEventoTema').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Tema'));
+            $('#txtEventoDiasAntes').val(jQuery("#listEvento").jqGrid('getCell', ID, 'DiasAntes'));
+            $('#txtEventoDiasDespues').val(jQuery("#listEvento").jqGrid('getCell', ID, 'DiasDespues'));
+            //$('#txtEventoNumeroPerfiles').val(jQuery("#listEvento").jqGrid('getCell', ID, 'NumeroPerfiles'));
+            $('#txtEventoRutaShowRoomPopup').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomPopup'));
+            $('#txtEventoRutaShowRoomBannerLateral').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomBannerLateral'));
+
+            $("#chkEventoEstado").prop('checked', estado == "1");
+            $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
+            $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
+            $("#chkEventoTieneSubCampania").prop('checked', tieneSubCampania == "True");
+
+            //$("#chkEventoTienePersonalizacion").prop('checked', tienePersonalizacion);
+
+            $("#divEventoEstado").css("display", "");
+
+            showDialog("DialogDatosShowRoom");
+        },
+        DeshabilitarEvento: function(ID, CampaniaID) {
+            var deshabilitar = confirm('¿ Está seguro que desea deshabilitar el evento?');
+            if (!deshabilitar)
+                return false;
+
+            var item = {
+                campaniaID: CampaniaID,
+                eventoID: ID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlDeshabilitarShowRoomEvento,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        },
+        EliminarEvento: function(ID, CampaniaID) {
+            var eliminar = confirm('¿ Está seguro que desea eliminar el evento?');
+            if (!eliminar)
+                return false;
+
+            $("#divShowRoomPerfil").css("display", "none");
+
+            var item = {
+                campaniaID: CampaniaID,
+                eventoID: ID
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlEliminarShowRoomEvento,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function(data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            $("#divCargaArchivos").css("display", "none");
+                            $("#divOfertasShowRoom").css("display", "none");
+                            LimpiarDatosEventoShowRoom();
+                            alert(data.message);
+                            jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function(data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    function LimpiarDatosEventoShowRoom() {
+        $("#txtEventoNombre").val("");
+        $("#txtEventoTema").val("");
+        $("#txtEventoDiasAntes").val("");
+        $("#txtEventoDiasDespues").val("");
+        //$("#txtEventoNumeroPerfiles").val("");
+        $("#txtEventoRutaShowRoomPopup").val("");
+        $("#txtEventoRutaShowRoomBannerLateral").val("");
+
+        $("#divPopupWebFondo").html("");
+        $("#divPopupVentaImagenSet").html("");
+        $("#divPopupWebImagenSet").html("");
+        $("#divPopupTagLateralVentaImagenSet").html("");
+        $("#divCabeceraPaginaProductos").html("");
+        $("#divPestaniaNombreShowRoom").html("");
+        $("#divPopupImagenPreventaDigital").html("");
+
+        //$("#chkEventoTieneCategoria, #chkEventoTieneSubCampania, #chkEventocompraXcompra, #chkEventoTienePersonalizacion").attr('checked', false);
+        $("#chkEventoTieneCategoria, #chkEventoTieneSubCampania, #chkEventocompraXcompra").attr('checked', false);
+    }
+
+    function fnGrillaEvento() {
+        jQuery("#listEvento").jqGrid({
+            url: urlConsultarShowRoom,
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function () { return $("#ddlPais").val(); },
+                CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['EventoID', 'Nombre', 'Tema', 'Dias Antes Fact.', 'Dias Despues Fact.', 'Personalización', '# Perfiles', 'Imagen1', 'Imagen2', 'ImagenCabeceraProducto', 'ImagenVentaSetPopup', 'ImagenVentaTagLateral', 'ImagenPestaniaShowRoom', 'ImagenPreventaDigital', ''],
+            colModel: [
+                { name: 'id', width: 50, editable: true, resizable: false },
+                { name: 'Nombre',  width: 80, editable: true, resizable: false },
+                { name: 'Tema', width: 80, editable: true, resizable: false },
+                { name: 'DiasAntes', width: 50, editable: true, resizable: false },
+                { name: 'DiasDespues', width: 50, editable: true, resizable: false },
+                { name: 'TienePersonalizacion', width: 50, editable: true, resizable: false, formatter: function (cellvalue) {
+                    return cellvalue == true ? 'Activa' : 'Inactiva';
+                }
+                },
+                { name: 'NumeroPerfiles', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'Imagen1', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'Imagen2', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenCabeceraProducto', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenVentaSetPopup', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenVentaTagLateral', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenPestaniaShowRoom', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ImagenPreventaDigital', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsEvento }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                cell:"",
+                id: "id"
+            },
+            pager: jQuery('#pagerEvento'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                var cantidadRegistros = jQuery('#listEvento').jqGrid('getGridParam', 'reccount');
+                if (cantidadRegistros <= 0) {
+                    $("#hdEventoID").val("0");
+                    //Carga de Consultora
+                    $("#hdCargaEventoID").val("0");
+                    $("#hdCargaCampaniaID").val("");
+                    //Carga de Stock
+                    $("#hdCargaStockEventoID").val("0");
+                    //Carga de Descripcion de Sets
+                    $("#hdCargaDescripcionSetsEventoID").val("0");
+                    $("#hdCargaDescripcionSetsCampaniaID").val("");
+                    //Carga de Productos Compra por Compra
+                    $("#hdCargarProductoCpcEventoID").val("0");
+                    $("#hdCargarProductoCpcCampaniaID").val("");
+
+                    $("#divShowRoomEventoNuevo").css("display", "");
+                    //$("#divCargaArchivos").css("display", "none");
+                    //$("#divOfertasShowRoom").css("display", "none");
+                } else {
+                    $("#divShowRoomEventoNuevo").css("display", "none");
+                    //$("#divCargaArchivos").css("display", "");
+
+                    var showroomEvento = jQuery('#listEvento').jqGrid('getRowData')[0];
+                    CargarImagenes(showroomEvento);
+
+                    CargarNiveles();
+                    //CargarCategorias();
+
+                    //fnGrilla();
+
+                    //if (showroomEvento.TienePersonalizacion && showroomEvento.TienePersonalizacion == 'Activa') {
+                        //$("#divPerfilOfertaShowRoom").hide();
+                    //}
+
+                    //$("#divOfertasShowRoom").css("display", "");
+                }
+            }
+        });
+        jQuery("#listEvento").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function CargarNiveles() {
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGetShowRoomNiveles,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $("#cbNivelEvento").empty();
+
+                        if (response.data == "") {
+                            $("#divPersonalizacion").css("display", "none");
+                        } else {
+                            var listaNiveles = response.data || new Array();
+
+                            $("#cbNivelEvento").append('<option value="">-- Seleccionar --</option>');
+
+                            $.each(listaNiveles, function (index, value) {
+                                var html = '<option value="' + value.NivelId + '">' + value.Descripcion + '</option>';
+
+                                $("#cbNivelEvento").append(html);
+                            });
+
+                            $("#divPersonalizacion").css("display", "");
+                        }
+                    } else {
+                        $("#divPersonalizacion").css("display", "none");
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function CargarImagenes(showroomEvento) {
+        if (showroomEvento.Imagen1 != "") {
+            $("#divPopupWebFondo").html("");
+            var htmlImagen1 = '<img src="' + showroomEvento.Imagen1 + '" alt="PopupWebFondo" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebFondo").html(htmlImagen1);
+        }
+        $("#hdImagen1").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ''));
+        $("#hdImagen1Anterior").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenVentaSetPopup != "") {
+            $("#divPopupVentaImagenSet").html("");
+            var htmlImagen2 = '<img src="' + showroomEvento.ImagenVentaSetPopup + '" alt="PopupVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupVentaImagenSet").html(htmlImagen2);
+        }
+        $("#hdImagenVentaSetPopup").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenVentaSetPopupAnterior").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.Imagen2 != "") {
+            $("#divPopupWebImagenSet").html("");
+            var htmlImagen3 = '<img src="' + showroomEvento.Imagen2 + '" alt="Imagen2" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebImagenSet").html(htmlImagen3);
+        }
+        $("#hdImagen2").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ''));
+        $("#hdImagen2Anterior").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenVentaTagLateral != "") {
+            $("#divPopupTagLateralVentaImagenSet").html("");
+            var htmlImagen4 = '<img src="' + showroomEvento.ImagenVentaTagLateral + '" alt="PopupTagLateralVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupTagLateralVentaImagenSet").html(htmlImagen4);
+        }
+        $("#hdImagenVentaTagLateral").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenVentaTagLateralAnterior").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenCabeceraProducto != "") {
+            $("#divCabeceraPaginaProductos").html("");
+            var htmlImagen5 = '<img src="' + showroomEvento.ImagenCabeceraProducto + '" alt="CabeceraPaginaProductos" style="width: 75px; height: 50px;" />';
+            $("#divCabeceraPaginaProductos").html(htmlImagen5);
+        }
+        $("#hdImagenCabeceraProducto").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenCabeceraProductoAnterior").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenPestaniaShowRoom != "") {
+            $("#divPestaniaNombreShowRoom").html("");
+            var htmlImagen6 = '<img src="' + showroomEvento.ImagenPestaniaShowRoom + '" alt="PestaniaNombreShowRoom" style="width: 75px; height: 50px;" />';
+            $("#divPestaniaNombreShowRoom").html(htmlImagen6);
+        }
+        $("#hdImagenPestaniaShowRoom").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenPestaniaShowRoomAnterior").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ''));
+
+        if (showroomEvento.ImagenPreventaDigital != "") {
+            $("#divPopupImagenPreventaDigital").html("");
+            var htmlImagen7 = '<img src="' + showroomEvento.ImagenPreventaDigital + '" alt="PopupImagenPreventaDigital" style="width: 75px; height: 50px;" />';
+            $("#divPopupImagenPreventaDigital").html(htmlImagen7);
+        }
+        $("#hdImagenPreventaDigital").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ''));
+        $("#hdImagenPreventaDigitalAnterior").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ''));
+    }
+
+    function ShowActionsEvento(cellvalue, options, rowObject) {
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ");\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+
+        var resultado = edit;
+
+        if (rowObject.Estado == "1")
+            resultado += del;
+
+        if (rowObject.Estado == "1")
+            resultado += remove;
+
+        $("#hdEventoID").val(options.rowId);
+        //Carga de Consultoras
+        $("#hdCargaEventoID").val(options.rowId);
+        $("#hdCargaCampaniaID").val(rowObject.CampaniaID);
+        //Carga de Stock
+        $("#hdCargaStockEventoID").val(options.rowId);
+        //Carga de Descripcion de Sets
+        $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
+        $("#hdCargaDescripcionSetsCampaniaID").val(rowObject.CampaniaID);
+        //Carga de Productos Compra por Compra
+        $("#hdCargarProductoCpcEventoID").val(options.rowId);
+        $("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+
+        return resultado;
+    }
+
+    function GuardarShowRoomEvento() {
+        var eventoID = $("#hdEventoID").val();
+        var campaniaID = $("#txtEventoCampaniaID").val();
+        var nombre = $("#txtEventoNombre").val();
+        var tema = $("#txtEventoTema").val();
+        var diasAntes = $("#txtEventoDiasAntes").val();
+        var diasDespues = $("#txtEventoDiasDespues").val();
+        //var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
+        var numeroPerfiles = 0;
+        var estado = $("#chkEventoEstado").is(":checked");
+        var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
+        var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
+        var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
+        //var tienePersonalizacion = $("#chkEventoTienePersonalizacion").is(":checked");
+        var tienePersonalizacion = true;
+
+        var showRoom = {
+            EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
+            CampaniaID: campaniaID,
+            Nombre: nombre,
+            Tema: tema,
+            DiasAntes: parseInt(diasAntes),
+            DiasDespues: parseInt(diasDespues),
+            NumeroPerfiles: parseInt(numeroPerfiles),
+            Estado: estado,
+            TieneCategoria: tieneCategoria,
+            TieneCompraXcompra: tieneCompraXcompra,
+            TieneSubCampania: tieneSubCampania,
+            TienePersonalizacion: tienePersonalizacion
+        };
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(showRoom),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        closeWaitingDialog();
+                        var id = response.data;
+
+                        if ($("#hdEventoID").val() == "0")
+                            fnGrilla();
+
+                        $("#hdEventoID").val(id);
+                        //Cargar de Consultoras
+                        $("#hdCargaEventoID").val(id);
+                        $("#hdCargaCampaniaID").val(campaniaID);
+                        //Carga de Stock
+                        $("#hdCargaStockEventoID").val(id);
+                        //Carga de Descripcion de Sets
+                        $("#hdCargaDescripcionSetsEventoID").val(id);
+                        $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);
+                        //Carga de Productos Compra por Compra
+                        $("#hdCargarProductoCpcEventoID").val(id);
+                        $("#hdCargarProductoCpcCampaniaID").val(campaniaID);
+
+                        HideDialog("DialogDatosShowRoom");
+                        jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        alert_msg(response.message);
+                    } else {
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    function InsertarImagenPersonalizacion(personalizacionId) {
+        var elementoPadre = $('.div-3[data-idpersonalizacion="' + personalizacionId + '"]');
+        var elementoAgregarImagen = $(elementoPadre).find('.fpPopupImagenPersonalizacion')[0];
+        var elementoDivVerImagen = $(elementoPadre).find('.divPopupImagenPersonalizacion')[0];
+        var elementoHiddenValor = $(elementoPadre).find('.hdValor')[0];
+        $.ajaxSetup({ cache: false });
+        var uploader = new qq.FileUploader({
+            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+            element: elementoAgregarImagen,
+            action: urlImageMatrizUpload,
+            onComplete: function (id, fileName, responseJSON) {
+                if (checkTimeout(responseJSON)) {
+                    $(".qq-upload-list").css("display", "none");
+                    if (responseJSON.success) {
+                        var rutaImagen = rutaImagenTemporal + responseJSON.name;
+
+                        $(elementoHiddenValor).val(responseJSON.name);
+
+                        var html = '<img  alt="" src="' + rutaImagen + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                        $(elementoDivVerImagen).html(html);
+                    } else {
+                        alert(responseJSON.message);
+                    }
+                }
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+        });
+    }
+
+    function RegistrarShowRoomPersonalizacionNivel(eventoId, nivelId) {
+        var lista = $("#DialogPersonalizacionDetalle .div-3[data-idpersonalizacion]");
+        var array = new Array();
+
+        $.each(lista, function (index, value) {
+            var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
+            var personalizacionId = $(value).attr("data-idpersonalizacion");
+            var atributo = $(value).find(".hdAtributo").val();
+
+            var valor = "";
+            var esImagen = false;
+            var tipoAtributo = $(value).find(".hdTipoAtributo").val();
+
+            if (tipoAtributo == "IMAGEN") {
+                valor = $(value).find(".hdValor").val();
+                esImagen = true;
+            } else {
+                valor = $(value).find(".txtAtributoPersonalizacion").val();
+            }
+
+            var item = {
+                PersonalizacionNivelId: personalizacionNivelId,
+                PersonalizacionId: personalizacionId,
+                EventoId: eventoId,
+                NivelId: nivelId,
+                CategoriaId: 0,
+                Atributo: atributo,
+                Valor: valor,
+                ValorAnterior: $(value).find(".hdValorAnterior").val(),
+                EsImagen: esImagen
+            };
+
+            array.push(item);
+        });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarPersonalizacionNivelShowRoom,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(array),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+
+                        HideDialog("DialogPersonalizacionDetalle");
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    // SHOWROOM-FIN
+
+
 </script>

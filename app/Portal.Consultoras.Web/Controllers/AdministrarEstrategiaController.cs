@@ -717,7 +717,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);
 
@@ -731,6 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
                 var estrategiaDetalle = new BEEstrategiaDetalle();
+
                 foreach (var item in NumeroPedidosAsociados)
                 {
                     entidad.NumeroPedido = item;
@@ -1349,8 +1351,8 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada;
-
+                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
 
                     foreach (var opt in listBeEstrategias)
                     {
