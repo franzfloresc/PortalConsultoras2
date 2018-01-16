@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -26,25 +25,28 @@ namespace Portal.Consultoras.Web.Controllers
             string fechaVencimiento;
             string montoPagar;
             decimal montoPagarDec;
-
             ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
 
             var parametroAEncriptar = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
 
-            var model = new MisPagosModel();
-            model.CodigoISO = userData.CodigoISO;
-            model.UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar);
-            model.RutaChile = userData.CodigoISO == "CL" ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
-            model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
-            model.Simbolo = string.Format("{0} ", userData.Simbolo);
-            model.TieneFlexipago = userData.IndicadorFlexiPago;
-            model.MontoMinimoFlexipago = userData.MontoMinimoFlexipago;
-            model.TienePagoOnline = userData.IndicadorPagoOnline;
-            model.UrlPagoOnline = userData.UrlPagoOnline;
-            model.CorreoConsultora = userData.EMail;
-            model.FechaVencimiento = fechaVencimiento;
-            model.MontoPagar = montoPagar;
-            model.PestanhaInicial = pestanhaInicial ?? "";
+            var model = new MisPagosModel
+            {
+                CodigoISO = userData.CodigoISO,
+                UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar),
+                RutaChile = userData.CodigoISO == "CL"
+                    ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
+                    : string.Empty,
+                MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;",
+                Simbolo = string.Format("{0} ", userData.Simbolo),
+                TieneFlexipago = userData.IndicadorFlexiPago,
+                MontoMinimoFlexipago = userData.MontoMinimoFlexipago,
+                TienePagoOnline = userData.IndicadorPagoOnline,
+                UrlPagoOnline = userData.UrlPagoOnline,
+                CorreoConsultora = userData.EMail,
+                FechaVencimiento = fechaVencimiento,
+                MontoPagar = montoPagar,
+                PestanhaInicial = pestanhaInicial ?? ""
+            };
 
             List<string> pestanhaMisPagosAll = new List<string> {
                 Constantes.PestanhasMisPagos.EstadoCuenta,
@@ -61,20 +63,20 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ListarEstadoCuenta(string sidx, string sord, int page, int rows, string vCampania)
         {
-            List<EstadoCuentaModel> lst;
-
-            lst = ObtenerEstadoCuenta();
+            var lst = ObtenerEstadoCuenta();
             if (lst.Count != 0)
             {
                 lst.RemoveAt(lst.Count - 1);
             }
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
+
             IEnumerable<EstadoCuentaModel> items = lst;
 
             lst.ForEach(l =>
@@ -116,17 +118,16 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EnviarCorreoEstadoCuenta(string correo)
         {
-            string aux_fechaVencimiento;
-            string montoPagar;
-            decimal montoPagarDec = 0;
-
             try
             {
-                List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-                lst = ObtenerEstadoCuenta();
+                var lst = ObtenerEstadoCuenta();
                 lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
-                ObtenerFechaVencimientoMontoPagar(out aux_fechaVencimiento, out montoPagar, out montoPagarDec);
+                string auxFechaVencimiento;
+                string montoPagar;
+                decimal montoPagarDec;
+                ObtenerFechaVencimientoMontoPagar(out auxFechaVencimiento, out montoPagar, out montoPagarDec);
+
                 lst.Add(new EstadoCuentaModel()
                 {
                     Cargo = montoPagarDec
@@ -154,11 +155,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count > 0)
                 {
-                    string fechaVencimiento = string.Empty;
-                    if (!lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("19000101") && !lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("00010101"))
-                    {
-                        fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
-                    }
                     if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
                     {
 
@@ -215,8 +211,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelEstadoCuenta()
         {
             decimal abono = 0;
-            string fechaVencimiento;
-            string montoPagar;
             decimal montoPagarDec = 0;
             List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
             lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
@@ -225,6 +219,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count != 0)
             {
+                string fechaVencimiento;
+                string montoPagar;
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
                 
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
@@ -234,12 +230,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-
-            dic.Add("Fecha", "Fecha");
-            dic.Add("Ultimos Movimientos", "Glosa");
-            dic.Add("Pedidos", userData.Simbolo + " #Cargo");
-            dic.Add("Abonos", userData.Simbolo + " #Abono");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Fecha", "Fecha"},
+                {"Ultimos Movimientos", "Glosa"},
+                {"Pedidos", userData.Simbolo + " #Cargo"},
+                {"Abonos", userData.Simbolo + " #Abono"}
+            };
 
             string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
 
@@ -284,11 +281,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcion(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEComprobantePercepcion> items = lst;
 
             #region Sort Section
@@ -366,12 +365,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
                 }
-                if (lsta == null)
-                {
-                    lsta = new List<BEDatosBelcorp>();
-                }
 
-                string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
+                string importePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
 
                 return Json(new
                 {
@@ -380,7 +375,7 @@ namespace Portal.Consultoras.Web.Controllers
                     RUC = lsta[0].RUC,
                     RazonSocial = lsta[0].RazonSocial,
                     Simbolo = UserData().Simbolo,
-                    Texto = ImportePercepcionTexto
+                    Texto = importePercepcionTexto
                 });
             }
             catch (FaultException ex)
@@ -410,11 +405,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcionDetalle(UserData().PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
             }
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEComprobantePercepcionDetalle> items = lst;
 
             #region Sort Section
@@ -547,31 +544,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BEDatosBelcorp> lsta;
 
-            string IdComprobantePercepcion = data["IdComprobantePercepcion"].ToString();
-            string RUCAgentePerceptor = data["RUCAgentePerceptor"].ToString();
-            string NombreAgentePerceptor = data["NombreAgentePerceptor"].ToString();
-            string NumeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
-            string FechaEmision = data["FechaEmision"].ToString();
-            string ImportePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
-            string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
+            string idComprobantePercepcion = data["IdComprobantePercepcion"].ToString();
+            string rucAgentePerceptor = data["RUCAgentePerceptor"].ToString();
+            string nombreAgentePerceptor = data["NombreAgentePerceptor"].ToString();
+            string numeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
+            string fechaEmision = data["FechaEmision"].ToString();
+            string importePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
+            string importePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
 
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
             }
 
-            var model = new PercepcionesModel();
+            var model = new PercepcionesModel
+            {
+                IdComprobantePercepcion = idComprobantePercepcion,
+                RUCAgentePerceptor = rucAgentePerceptor,
+                NombreAgentePerceptor = nombreAgentePerceptor,
+                NumeroComprobanteSerie = numeroComprobanteSerie,
+                FechaEmision = fechaEmision,
+                ImportePercepcion = UserData().Simbolo + " " + importePercepcion,
+                ImportePercepcionTexto = importePercepcionTexto,
+                Direccion = lsta[0].Direccion,
+                RUC = lsta[0].RUC,
+                RazonSocial = lsta[0].RazonSocial
+            };
 
-            model.IdComprobantePercepcion = IdComprobantePercepcion;
-            model.RUCAgentePerceptor = RUCAgentePerceptor;
-            model.NombreAgentePerceptor = NombreAgentePerceptor;
-            model.NumeroComprobanteSerie = NumeroComprobanteSerie;
-            model.FechaEmision = FechaEmision;
-            model.ImportePercepcion = UserData().Simbolo + " " + ImportePercepcion;
-            model.ImportePercepcionTexto = ImportePercepcionTexto;
-            model.Direccion = lsta[0].Direccion;
-            model.RUC = lsta[0].RUC;
-            model.RazonSocial = lsta[0].RazonSocial;
 
             return View(model);
         }
