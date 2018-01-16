@@ -1,4 +1,19 @@
 ﻿
+/* ICONOS CONVERTIDOS A TIPOGRAFÍAS */
+
+@font-face {
+  font-family: 'somos-belcorp-iconos';
+  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp');
+  src:  url('../../Site/fonts/icomoon/somos-belcorp-iconos.eot?3epbkp#iefix') format('embedded-opentype'),
+    url('../../Site/fonts/icomoon/somos-belcorp-iconos.ttf?3epbkp') format('truetype'),
+    url('../../Site/fonts/icomoon/somos-belcorp-iconos.woff?3epbkp') format('woff'),
+    url('../../Site/fonts/icomoon/somos-belcorp-iconos.svg?3epbkp#somos-belcorp-iconos') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* FIN - ICONOS CONVERTIDOS A TIPOGRAFÍAS */
+
 .mr-0{
     margin-right:0!important;
 }
@@ -13,7 +28,12 @@
 .opciones_pago label,
 .monto_total_a_pagar,
 .fecha_vencimiento_monto_total,
-.info_cargo_gastos_administrativos
+.info_cargo_gastos_administrativos,
+.aceptar_terminos_y_condiciones,
+.contenedor_info_pago_seguro_y_ctas,
+.info_pago_seguro_con_tarjetas,
+.texto_pago_seguro,
+.contenedor_cta
 {
     display:block!important;
 }
@@ -28,7 +48,15 @@
 .monto_editable_pago_en_linea span,
 .monto_a_editar,
 .tipo_moneda_pais,
-.monto_comision_pago_en_linea
+.monto_comision_pago_en_linea,
+.area_activa_barra_activacion,
+.descripcion_opcion_activacion,
+.ver_terminos_y_condiciones,
+.icono_pago_seguro,
+.texto_info_pago_seguro,
+.icono_marcas_tarjetas,
+.icono_marca_visa,
+.cta_pago_en_linea
 {
     display:inline-block;
     vertical-align:middle;
@@ -38,7 +66,7 @@
     width:100%;
     max-width:869px;
     margin:0 auto;
-    padding:27px 0;
+    padding:40px 0 27px 0;
 }
 
 .cantidad_pasos_proceso_pago{
@@ -262,10 +290,220 @@
     font-size:11px;
     font-weight:400;
     letter-spacing:0.25px;
+    margin-bottom:36px;
 }
 
 .info_cargo_gastos_administrativos .tipo_moneda_pais,
 .info_cargo_gastos_administrativos .monto_comision_pago_en_linea
 {
     margin-bottom:2px;
+}
+
+.aceptar_terminos_y_condiciones{
+    text-align:center;
+    margin-bottom:52px;
+}
+
+.area_activa_barra_activacion,
+.barra_activacion
+{
+    width:32.52px;
+}
+
+.area_activa_barra_activacion{
+    height:45px;
+    position:relative;
+    margin-right: 5px;
+}
+
+.barra_activacion{
+    height:11.79px;
+    background:rgba(211, 211, 211, 0.44);
+    border:1px solid rgba(163, 159, 159, 0.44);
+    border-radius: 10px 10px;
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    cursor:pointer;
+}
+
+.barra_activacion,
+.control_activacion
+{
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.control_activacion{
+    width: 19px;
+    height: 18px;
+    top:-4.123px;
+    right: 45%;
+    background-color: #bbbbbb;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    border: none;
+    border-radius: 100%;
+    position: absolute;
+    font-family: 'somos-belcorp-iconos';
+    font-size: 9px;
+    padding-top: 3.82px;
+    color: #FFF;
+}
+
+.control_activacion:before{
+    content:'\e90e';
+}
+
+.barra_activacion.activado .control_activacion{
+    right:-5%;
+    background-color:#e81c36;
+}
+
+.descripcion_opcion_activacion{
+    font-size:13px;
+    font-weight:400;
+    margin-top:0.2px;
+    letter-spacing:0.2px;
+    color:#000;
+}
+
+.ver_terminos_y_condiciones{
+    text-decoration:underline;
+    margin-bottom:2px;
+}
+
+.descripcion_opcion_activacion,
+.tooltip_terminos_y_condiciones
+{
+    text-align:left;
+}
+
+.tooltip_terminos_y_condiciones{
+    display:none;
+    background: #FFF;
+    min-width: 189px;
+    min-height: 69px;
+    padding: 18px 10px 0 14px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    top: 22px;
+    left: -14px;
+    box-sizing: border-box;
+    z-index:1001;
+    box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -moz-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -o-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -ms-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -webkit-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+}
+
+.tooltip_terminos_y_condiciones:after {
+    bottom: 100%;
+    left: 11%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #FFF;
+    border-width: 7px;
+    margin-left: -7px;
+    z-index:1;
+}
+
+.icono_pago_seguro{
+    width: 15px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    font-family: 'somos-belcorp-iconos';
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.icono_pago_seguro:before{
+    content:'\e910';
+}
+
+.icono_pago_seguro img,
+.icono_marca_visa img
+{
+    width:100%;
+    height:auto;
+}
+
+.texto_info_pago_seguro{
+    margin-right:6px;
+}
+
+.texto_pago_seguro{
+    font-size:10px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    text-transform:uppercase;
+}
+
+.icono_marca_visa{
+    width: 29px;
+    margin-top:4px;
+}
+
+.contenedor_cta{
+    margin-top:19px;
+    margin-bottom:54px;
+    border-top: 2px solid #e81c36;
+    padding-top:13px;
+    text-align:right;
+}
+
+.cta_pago_en_linea {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    max-width: 380px;
+    height: 48px;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(232,28,54,1);
+    color: #FFF;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.37px;
+    border: none;
+    opacity:1;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.cta_pago_en_linea:hover,
+.cta_pago_en_linea:focus,
+.cta_pago_en_linea:active
+{
+    background-color: rgba(232,28,54,0.9);
+}
+
+.cta_pago_en_linea .tipo_moneda_pais{
+    color:#FFF;
+    margin-bottom:4px;
+}
+
+.btn_pago_credito_visa{
+    line-height:31px;
+    padding-top:4px;
 }
