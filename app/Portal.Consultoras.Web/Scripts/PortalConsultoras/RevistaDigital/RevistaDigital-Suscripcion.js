@@ -81,8 +81,12 @@ function onYouTubePlayerAPIReady() {
     player = new YT.Player('player', {
         width: '640',
         height: '390',
-        rel: 0,
+        enablejsapi: 1,
+        playerVars: { rel: 0 },
         fs: 0,
+        showinfo: 0,
+        modestbranding: 1,
+        loop:1,
         videoId: videoKey,
         events: {
             onReady: onScrollDown,
@@ -295,9 +299,10 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    if ($.trim(origenWeb) != "")
+    origenWeb = $.trim(origenWeb);
+    if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
+    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }

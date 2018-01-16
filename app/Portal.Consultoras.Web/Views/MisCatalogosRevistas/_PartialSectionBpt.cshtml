@@ -19,87 +19,71 @@
 {
     if (revistaDigital.EsActiva)
     {
-        if (!Model.TieneGND)
-        {
-            <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="large">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                        <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    </div>
-                    <div class="btn_diagonal">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                            VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                        </a>
-                    </div>
+        <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="large">
+                </div>
+                <div class="hblock_text">
+                    <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                </div>
+                <div class="btn_diagonal">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                    </a>
                 </div>
             </div>
-            <hr class="clear" />
-            <div style="height: 35px; background: #fff;"></div>
-        }
+        </div>
+        <hr class="clear" />
+        <div style="height: 35px; background: #fff;"></div>
     }
     else
     {
-        if (!Model.TieneGND)
-        {
-            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-            <br/>
-            <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="large">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                        <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    </div>
-                    <div class="btn_diagonal btn_stroke_white">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                            VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                        </a>
-                    </div>
+        <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="large">
+                </div>
+                <div class="hblock_text">
+                    <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                </div>
+                <div class="btn_diagonal btn_stroke_white">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    </a>
                 </div>
             </div>
-            <hr class="clear" />
-            <div style="height: 35px; background: #fff;"></div>
-        }
+        </div>
+        <hr class="clear" />
+        <div style="height: 35px; background: #fff;"></div>
     }
 }
 else if (revistaDigital.TieneRDR)
 {
-    if (!Model.TieneGND)
-    {
-        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-        <br />
-        <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
+    <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
+        <div>
+            <div style="height: 127px; position: relative; margin-bottom: 16px;">
+                <img src="@urlLogo" alt="" class="large"/>
+            </div>
             <div>
-                <div style="height: 127px; position: relative; margin-bottom: 16px;">
-                    <img src="@urlLogo" alt="" class="large"/>
-                </div>
-                <div>
-                    <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
-                    <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
-                </div>
-                <div class="revistadigital revistaDigital_catalogosRevistas">
-                    <div class="boxoffer" onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
-                        <div class="fondo_boton"></div>
-                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-                    </div>
+                <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
+                <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
+            </div>
+            <div class="revistadigital revistaDigital_catalogosRevistas">
+                <div class="boxoffer" onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                    <div class="fondo_boton"></div>
+                    <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                 </div>
             </div>
         </div>
-    }
-}
-else if (!Model.TieneGND)
-{
-    @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+    </div>
+    
 }
 
 
