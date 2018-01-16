@@ -12,7 +12,7 @@ $(document).ready(function () {
             InicializarEventos: function () {
                 //$(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.opcion_pago', me.Eventos.SeleccionarTipoPago);
-                $(document).on('click', '.barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
+                $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
             }
