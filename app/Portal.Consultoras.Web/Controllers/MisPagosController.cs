@@ -609,11 +609,11 @@ namespace Portal.Consultoras.Web.Controllers
         private LugaresPagoModel ObtenerLugaresPago()
         {
             List<BELugarPago> lst;
-            int paisID = userData.PaisID;
+            int paisId = userData.PaisID;
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).OrderBy(x => x.Posicion).ToList();
+                lst = (sv.SelectLugarPago(paisId) ?? new BELugarPago[0]).OrderBy(x => x.Posicion).ToList();
             }
 
             foreach (var item in lst)
@@ -628,7 +628,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var lugaresPagoModel = new LugaresPagoModel()
             {
-                PaisID = paisID,
+                PaisID = paisId,
                 CampaniaID = userData.CampaniaID,
                 ISO = iso,
                 listaLugaresPago = lst
@@ -637,7 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lugaresPagoModel;
         }
 
-        private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)
         {
             try
@@ -647,25 +647,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
-                int index = 1;
+                List<string> columns = new List<string>();
 
                 int row = 1;
                 int col = 0;
-                int i = 0;
 
-                int col2 = 1;
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -676,21 +673,19 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns)
+                        foreach (string column in columns)
                         {
-                            EstadoCuentaModel source = SourceDetails[i];
+                            EstadoCuentaModel source = sourceDetails[i];
 
-                            string[] arr = new string[2];
-                            if (column.Contains("#"))
-                                arr = column.Split('#');
-                            else
-                                arr = new string[] { "", column };
+                            var arr = column.Contains("#") 
+                                ? column.Split('#') 
+                                : new string[] { "", column };
 
                             if (arr[1] == "Fecha")
                             {
@@ -708,30 +703,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = "";
-                                if (userData.PaisID == 4)
-                                {
-                                    cargo = source.Cargo.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    cargo = source.Cargo.ToString("0.00");
-                                }
+                                string cargo = userData.PaisID == 4 
+                                    ? source.Cargo.ToString("#,##0").Replace(',', '.') 
+                                    : source.Cargo.ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + cargo;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
                             }
 
                             else if (arr[1] == "Abono")
                             {
-                                string abono = "";
-                                if (userData.PaisID == 4)
-                                {
-                                    abono = source.Abono.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    abono = source.Abono.ToString("0.00");
-                                }
+                                string abono = userData.PaisID == 4
+                                    ? source.Abono.ToString("#,##0").Replace(',', '.') 
+                                    : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
                             }
@@ -740,7 +724,7 @@ namespace Portal.Consultoras.Web.Controllers
                         row++;
                         i++;
                     }
-                    Columns = new List<string>();
+                    columns = new List<string>();
                     if (arrTotal.Length > 0)
                     {
                         ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
@@ -780,8 +764,8 @@ namespace Portal.Consultoras.Web.Controllers
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + cargo;
                     }
                     row++;
-                    index = keyvalue.Key + 1;
-                    SourceDetails.RemoveRange(0, index);
+                    var index = keyvalue.Key + 1;
+                    sourceDetails.RemoveRange(0, index);
                 }
 
                 ws.Columns().AdjustToContents();
@@ -811,20 +795,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -833,20 +815,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }

@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal)
         {
             try
@@ -427,7 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
                         col = 1;
                         foreach (string column in columns)
                         {
-                            SC.BEPedidoWebDetalle source = SourceDetails[i];
+                            SC.BEPedidoWebDetalle source = sourceDetails[i];
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value =
@@ -465,7 +465,7 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        decimal importT = SourceDetails[i].ImporteTotalPedido;
+                        decimal importT = sourceDetails[i].ImporteTotalPedido;
                         string importeTotalPedido = Util.DecimalToStringFormat(importT, userData.CodigoISO);
 
                         ws.Cell(row, col - 2).Value = arrTotal[0];
@@ -474,7 +474,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     row++;
                     var index = keyvalue.Key + 1;
-                    SourceDetails.RemoveRange(0, index);
+                    sourceDetails.RemoveRange(0, index);
                 }
 
                 string importeTotalFinal = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
@@ -563,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
             Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
@@ -622,7 +622,7 @@ namespace Portal.Consultoras.Web.Controllers
                         col = 1;
                         foreach (string column in columns)
                         {
-                            BEPedidoWebDetalle source = SourceDetails[i];
+                            BEPedidoWebDetalle source = sourceDetails[i];
                             string[] arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
                             string value =
