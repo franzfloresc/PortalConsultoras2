@@ -62,14 +62,18 @@
     <!-- FIN CATALOGO -->
 
     <div class="expoferta_revista">
-        @if (Model.TieneGND)
-        {
-            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-        }
-        else
+      
+        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
+            new ViewDataDictionary {
+                { "TieneGnd", Model.TieneGND },
+                { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
+            })
+        
+        @if (!Model.TieneGND)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
         }
+
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 

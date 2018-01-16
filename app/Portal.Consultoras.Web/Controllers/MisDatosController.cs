@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -18,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            BEUsuario beusuario = new BEUsuario();
+            BEUsuario beusuario;
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -45,8 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     bezona = sv.SelectZonaById(UserData().PaisID, UserData().ZonaID);
                 }
-                if (bezona.ToList().Count == 0) model.NombreGerenteZonal = "";
-                else model.NombreGerenteZonal = bezona[0].NombreGerenteZona;
+                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if ((!beusuario.EMailActivo) && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
@@ -59,11 +57,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string PaisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (PaisesDigitoControl.Contains(model.PaisISO))
+                if (paisesDigitoControl.Contains(model.PaisISO))
                 {
-                    model.DigitoVerificador = beusuario.DigitoVerificador.ToString();
+                    model.DigitoVerificador = beusuario.DigitoVerificador;
                 }
             }
 
@@ -78,14 +76,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
@@ -135,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
                 bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
                 string message = resultado.Split('|')[2];
-                int Cantidad = int.Parse(resultado.Split('|')[3]);
+                int cantidad = int.Parse(resultado.Split('|')[3]);
 
                 if (!seActualizoMisDatos)
                 {
@@ -143,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = false,
                         message,
-                        Cantidad,
+                        Cantidad = cantidad,
                         extra = string.Empty
                     });
                 }

@@ -4516,7 +4516,6 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
