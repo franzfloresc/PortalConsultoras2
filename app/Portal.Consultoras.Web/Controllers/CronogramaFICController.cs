@@ -18,10 +18,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CronogramaFIC/Index"))
                 return RedirectToAction("Index", "Bienvenida");
-            CronogramaFICModel model = new CronogramaFICModel();
-            model.listaPaises = DropDowListPaises();
-            model.listaZonas = new List<ZonaModel>();
-            model.DropDownListCampania = CargarCampania();
+            CronogramaFICModel model = new CronogramaFICModel
+            {
+                listaPaises = DropDowListPaises(),
+                listaZonas = new List<ZonaModel>(),
+                DropDownListCampania = CargarCampania()
+            };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
             return View(model);
         }
@@ -30,9 +32,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CronogramaFIC/ConfigurarCronogramaFIC"))
                 return RedirectToAction("Index", "Bienvenida");
-            CronogramaFICModel model = new CronogramaFICModel();
-            model.listaPaises = DropDowListPaises();
-            model.DropDownListCampania = CargarCampania();
+            CronogramaFICModel model = new CronogramaFICModel
+            {
+                listaPaises = DropDowListPaises(),
+                DropDownListCampania = CargarCampania()
+            };
             return View(model);
         }
 
@@ -40,23 +44,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CronogramaFIC/DesactivarCronogramaFIC"))
                 return RedirectToAction("Index", "Bienvenida");
-            CronogramaFICModel model = new CronogramaFICModel();
-            model.listaPaises = DropDowListPaises();
-            model.listaZonas = DropDownListZonas(UserData().PaisID);
-            model.DropDownListCampania = CargarCampania();
+            CronogramaFICModel model = new CronogramaFICModel
+            {
+                listaPaises = DropDowListPaises(),
+                listaZonas = DropDownListZonas(UserData().PaisID),
+                DropDownListCampania = CargarCampania()
+            };
             return View(model);
         }
 
         public ActionResult DescargaModelo()
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string fileName = "PlantillaModelFIC.xlsx";
             string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-            httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+            string httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
             if (!Directory.Exists(pathfaltante))
                 Directory.CreateDirectory(pathfaltante);
-            finalPath = Path.Combine(pathfaltante, fileName);
+            var finalPath = Path.Combine(pathfaltante, fileName);
 
             HttpContext.Response.Clear();
             HttpContext.Response.Buffer = false;
@@ -85,11 +89,14 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetCronogramaFICByCampania(Convert.ToInt32(PaisID), CampaniaID).ToList();
                     }
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BECronogramaFIC> items = lst;
 
                 #region Sort Section
@@ -140,8 +147,8 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.ZonaID,
                                cell = new string[]
                                {
-                                   a.Campania.ToString(),
-                                   a.Zona.ToString(),
+                                   a.Campania,
+                                   a.Zona,
                                    a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
                                    a.ZonaID.ToString(),
                                    a.CampaniaID.ToString()
@@ -155,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerZonas(int PaisID, int CampaniaID)
         {
-            bool issuccess = true;
+            bool issuccess;
             List<ZonaModel> lstZonasActivas;
             List<ZonaModel> lstZonasInactivas;
             try
@@ -194,11 +201,11 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult InsCronogramaFIC(int PaisID, int CampaniaID, string ZonaCodigo)
         {
             bool issuccess = true;
-            List<ZonaModel> lstZonasActivas = new List<ZonaModel>();
-            List<ZonaModel> lstZonasInactivas = new List<ZonaModel>();
+            List<ZonaModel> lstZonasActivas;
+            List<ZonaModel> lstZonasInactivas;
             List<ZonaModel> lstZonasInactivasEliminar = new List<ZonaModel>();
 
-            string[] Zonas = ZonaCodigo.Split(',');
+            string[] zonas = ZonaCodigo.Split(',');
 
             try
             {
@@ -207,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasInactivas)
                 {
-                    foreach (string zona in Zonas)
+                    foreach (string zona in zonas)
                     {
                         if (zona.Trim() == item.Codigo.Trim())
                         {
@@ -258,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ZonaModel> lstZonasInactivas;
             List<ZonaModel> lstZonasActivasEliminar = new List<ZonaModel>();
 
-            string[] Zonas = ZonaCodigo.Split(',');
+            string[] zonas = ZonaCodigo.Split(',');
 
             try
             {
@@ -267,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasActivas)
                 {
-                    foreach (string zona in Zonas)
+                    foreach (string zona in zonas)
                     {
                         if (zona.Trim() == item.Codigo.Trim())
                         {
@@ -370,6 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         public JsonResult Update(CronogramaFICModel model)
         {
             #region Validar Fechas
@@ -433,12 +441,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -453,23 +458,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<ZonaModel> ObtenerZonasActivas(int PaisID, int CampaniaID)
+        private List<ZonaModel> ObtenerZonasActivas(int paisId, int campaniaId)
         {
             IList<BEZona> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectZonasActivasFIC(PaisID, CampaniaID).ToList();
+                lst = sv.SelectZonasActivasFIC(paisId, campaniaId).ToList();
             }
 
             return Mapper.Map<IList<BEZona>, List<ZonaModel>>(lst);
         }
 
-        private List<ZonaModel> ObtenerZonasInactivas(int PaisID, int CampaniaID)
+        private List<ZonaModel> ObtenerZonasInactivas(int paisId, int campaniaId)
         {
             IList<BEZona> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectZonasInactivasFIC(PaisID, CampaniaID).ToList();
+                lst = sv.SelectZonasInactivasFIC(paisId, campaniaId).ToList();
             }
 
             return Mapper.Map<IList<BEZona>, List<ZonaModel>>(lst);
@@ -478,8 +483,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string ProcesarMasivo(HttpPostedFileBase uplArchivo, CronogramaFICModel model)
         {
-            int paisID = model.PaisID;
-            int campaniaID = Convert.ToInt32(model.NombreCorto.Trim());
+            int paisId = model.PaisID;
+            int campaniaId = Convert.ToInt32(model.NombreCorto.Trim());
             try
             {
                 if (uplArchivo == null)
@@ -491,9 +496,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
-
-                string finalPath = string.Empty, httpPath = string.Empty;
-                string fileextension = Path.GetExtension(uplArchivo.FileName);
+                
+                string fileextension = Path.GetExtension(uplArchivo.FileName) ?? "";
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
@@ -502,25 +506,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-                httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+                string httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
                 if (!Directory.Exists(pathfaltante))
                     Directory.CreateDirectory(pathfaltante);
-                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
                 uplArchivo.SaveAs(finalPath);
 
-                bool IsCorrect = false;
+                bool isCorrect = false;
                 CronogramaFICModel prod = new CronogramaFICModel();
-                IList<CronogramaFICModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                IList<CronogramaFICModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
 
                 System.IO.File.Delete(finalPath);
 
-                if (IsCorrect && lista != null)
+                if (isCorrect && lista != null)
                 {
                     var lst = Mapper.Map<IList<CronogramaFICModel>, IEnumerable<BECronogramaFIC>>(lista);
 
                     using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
                     {
-                        srv.InsCronogramaFICMasivo(paisID, campaniaID, lst.ToArray());
+                        srv.InsCronogramaFICMasivo(paisId, campaniaId, lst.ToArray());
                     }
                     return "Se realizó satisfactoriamente la carga de datos.";
                 }
@@ -543,22 +547,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarArbolRegionesZonas(string PaisID, string Codigocampaña, string ZonaID)
         {
-            if (PaisID == "" || PaisID == null)
+            if (string.IsNullOrEmpty(PaisID))
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            if (ZonaID == "" || ZonaID == null)
+            if (string.IsNullOrEmpty(ZonaID))
                 ZonaID = "x";
 
-            List<BECronogramaFIC> lst = new List<BECronogramaFIC>();
-            List<String> zonas;
+            List<BECronogramaFIC> lst;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lst = sv.GetCronogramaFICByZona(Convert.ToInt32(PaisID), Codigocampaña, ZonaID).ToList();
             }
 
-            zonas = (from item in lst
-                     select item.Zona).ToList();
+            var zonas = (from item in lst
+                select item.Zona).ToList();
 
             zonas = (from item in zonas
                      select item).Distinct().ToList();

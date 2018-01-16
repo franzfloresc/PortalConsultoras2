@@ -3,6 +3,30 @@
         rdAnalyticsModule.CerrarPopUp("ConfirmarDatos");
         window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
     });
+
+    $("#Celular").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+
+    $("#Email").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            return re.test(keyChar);
+        }
+    });
 });
 
 function RDConfirmarDatos() {
