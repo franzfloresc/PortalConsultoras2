@@ -19,7 +19,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };            
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
+
+            if (userData.RolID != Constantes.Rol.Consultora)
+                return View("IndexSAC", model);
 
             try
             {
@@ -35,21 +38,19 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                var bePedidoWeb = ObtenerPedidoWeb();
+                if (bePedidoWeb != null)
                 {
-                    var bePedidoWeb = ObtenerPedidoWeb();
-                    if (bePedidoWeb != null)
-                    {
-                        model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
-                        model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
-                    }
-
-                    var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
-                    if (bePedidoWebDetalle != null)
-                    {
-                        model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
-                    }
+                    model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
+                    model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
                 }
+
+                var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if (bePedidoWebDetalle != null)
+                {
+                    model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
+                }
+
                 #endregion
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
@@ -155,11 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
 
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
-                }
-
+                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
 
@@ -207,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Lógica de Popups
-                
+
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
 
                 #endregion
@@ -2103,7 +2100,7 @@ namespace Portal.Consultoras.Web.Controllers
             var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
             if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                !String.IsNullOrEmpty(fechaInicioChat))
+                fechaInicioChat != "")
             {
                 var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
                     "dd/MM/yyyy",

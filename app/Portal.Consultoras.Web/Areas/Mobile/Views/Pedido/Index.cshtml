@@ -376,7 +376,7 @@
 
         <div class="content_item_home">
             <div class="producto_img_mobile">
-                <img src="{{ImagenProductoSugerido}}">
+                <img src="{{ImagenProductoSugeridoSmall}}">
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -484,7 +484,7 @@
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
-        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
+        var listaMensajeMeta = dataBarra == null ? null :dataBarra.ListaMensajeMeta;
     </script>
 
     @if (mobileConfiguracion.EsAppMobile)

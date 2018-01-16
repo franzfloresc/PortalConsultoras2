@@ -19448,20 +19448,26 @@ hr{
     bottom: -4px;
 }
 .content_left_pagos{
-   width:100%;
+    width:100%;
     height:auto;
     float:left;
     margin-top:45px;
     margin-bottom: 45px;
 }
-.titulo_detalle_pago{
+
+.titulo_detalle_pago,
+.titulo_mis_certificados{
     overflow:hidden;
     font-family:'lato';
     font-size:12pt;
     font-weight:300;
     letter-spacing:0.25px;
-   
 }
+
+.titulo_mis_certificados.mt-45{
+    margin-top:45px;
+}
+
 .titulo_detalle_pago_img{
     float:left;
     width:31px;
@@ -19470,6 +19476,16 @@ hr{
     margin-top:0px !important;
     background:url("../../../Images/Esika/estado_cuenta.png") no-repeat;
 }
+.titulo_mis_certificados_img{
+    float:left;
+    width:36px;
+    height:36px;
+    margin-right:10px;
+    margin-top:0px !important;
+    background: url("../../../Images/MisCertificados/icono-certificado-esika.svg") no-repeat;
+    background-size:100%;
+}
+
 .titulo_detalle_percepciones_img{
     float:left;
     width:31px;
@@ -19486,10 +19502,51 @@ hr{
     margin-top:0px !important;
     background: url("../../../Images/Esika/lugares_pago.png") no-repeat;
 }
-.titulo_detalle_pago div{
+.titulo_detalle_pago div,
+.titulo_mis_certificados div{
     float:left;
     margin-right:10px;
     margin-top:2px;
+}
+.titulo_mis_certificados div{
+    margin-top:5px;
+}
+.contenedor_lista_certificados{
+    display:block;
+    text-align:center;
+    margin:40px auto 60px auto;
+}
+.certificado_digital{
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:65px;
+}
+.certificado_digital:last-child{
+    margin-right:0;
+}
+.certificado_digital a span.icono_certificados{
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:10px;
+    width:40px;
+    height:40px;
+    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg");
+    background-size:100%;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.certificado_digital:hover a span.icono_certificados{
+    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg");
+}
+.certificado_digital a span.nombre_certificado{
+    font-size:15px;
+}
+.certificado_digital:hover a span.nombre_certificado{
+    text-decoration:underline;
+    color:#e81c36;
 }
 .info_detalle_pago{
    float:left;
@@ -31862,7 +31919,7 @@ h1#penmostreo .campana {
     height:280px;
     position:relative;
     top:50%;
-    margin:-140px auto auto auto;
+    margin: 20% auto auto auto;
     background:url(../../../Images/PL20/fondo_cupon1.png) no-repeat;
 }
 .content_monto_cupon{
