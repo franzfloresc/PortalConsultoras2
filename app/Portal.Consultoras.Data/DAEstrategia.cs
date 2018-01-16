@@ -600,5 +600,37 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
-    }   
+
+        #region CargaMasivaImagenes
+
+        public IDataReader GetListaImagenesEstrategiasByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesEstrategiasByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaImagenesOfertaLiquidacionByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesOfertaLiquidacionByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaImagenesProductoSugeridoByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesProductoSugeridoByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        #endregion
+
+    }
 }

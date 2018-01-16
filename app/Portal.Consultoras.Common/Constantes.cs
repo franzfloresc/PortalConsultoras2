@@ -169,6 +169,11 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
+
+            public const int ValoresImagenesResizeWitdhSmall = 12101;
+            public const int ValoresImagenesResizeHeightSmall = 12102;
+            public const int ValoresImagenesResizeWitdhMedium = 12103;
+            public const int ValoresImagenesResizeHeightMedium = 12104;
         }
 
         public static class ParametrosNames
@@ -1258,6 +1263,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
+            public const int ValoresImagenesResize = 121;
         }
 
         public struct MensajesCDRExpress
@@ -1587,6 +1593,19 @@ namespace Portal.Consultoras.Common
             public const string CampaniaVer = "#CX1";
             public const string CampaniaSuscripcion = "#CS";
             public const string CampaniaActiva = "#CS1";
+        }
+
+        public class ConfiguracionImagenResize
+        {
+            public const string ExtensionNombreImagenSmall = "_small";
+            public const string ExtensionNombreImagenMedium = "_medium";
+            public const int WidthImagenSmall = 125;
+            public const int HeightImagenSmall = 125;
+            public const int WidthImagenMedium = 250;
+            public const int HeightImagenMedium = 250;
+            public const string TipoImagenSmall = "SMALL";
+            public const string TipoImagenMedium = "MEDIUM";
+            public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
         }
 
         public class RecuperacionPedido
