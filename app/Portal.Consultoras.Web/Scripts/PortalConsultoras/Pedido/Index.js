@@ -59,7 +59,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    //EPD-1564
     $("body").click(function (e) {
         if (!$(e.target).closest('.ui-dialog').length) {
             if ($('#divObservacionesPROL').is(':visible'))
@@ -72,19 +71,7 @@ $(document).ready(function () {
                 HideDialog("divReservaSatisfactoria3");
         }
     });
-    //FIn EPD-1564
 
-    /*
-    EPD-1871
-    $(document).on('change', '.seleccion_pagina select', function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ver lista de productos',
-            'label': $(this).find('option:selected').text()
-        });
-    });
-    */
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -149,7 +136,8 @@ $(document).ready(function () {
             .data("item.autocomplete", item)
             .append("<a>" + item.Nombre + "</a>")
             .appendTo(ul);
-    };
+        };
+
     $('#txtDescripcionProd').keyup(function (evt) {
         $("#divObservaciones").html("");
         $("#txtCantidad").removeAttr("disabled");
@@ -179,6 +167,7 @@ $(document).ready(function () {
             .append("<a>" + item.Descripcion + "</a>")
             .appendTo(ul);
     };
+
     $("#txtCUV").keyup(function (evt) {
         $("#txtCantidad").removeAttr("disabled");
         $("#txtCantidad").val("");
@@ -189,11 +178,10 @@ $(document).ready(function () {
         $("#txtPrecioR").val("");
         $("#hdfPrecioUnidad").val("");
 
-        if ($(this).val().length == 5) {
+        if ($(this).val().length === 5) {
             BuscarByCUV($(this).val());
         } else {
             $("#hdfCUV").val("");
-
             $("#divObservaciones").html("");
         }
     });
@@ -216,7 +204,8 @@ $(document).ready(function () {
             .data("item.autocomplete", item)
             .append("<a>" + item.CUV + "</a>")
             .appendTo(ul);
-    };
+        };
+
     $(".ValidaAlfanumerico").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -1339,56 +1328,60 @@ function CerrarSplash() {
 }
 
 function BuscarByCUV(CUV) {
-    if (CUV != $('#hdfCUV').val()) {
-        var item = {
-            CUV: CUV
-        };
+    CUV =  $.trim(CUV);
+    if (CUV === $('#hdfCUV').val()) {
+        return false;
+    }
+    
+    var item = {
+        CUV: CUV
+    };
 
-        AbrirSplash();
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'Pedido/FindByCUV',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            cache: false,
-            success: function (data) {
-                CerrarSplash();
-                if (!checkTimeout(data)) {
-                    return false;
+    AbrirSplash();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/FindByCUV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: true,
+        cache: false,
+        success: function (data) {
+            CerrarSplash();
+            if (!checkTimeout(data)) {
+                return false;
+            }
+
+            $("#divObservaciones").html("");
+
+            if (data[0].MarcaID != 0) {
+                TrackingJetloreSearch(CUV, $("#hdCampaniaCodigo").val());
+                $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
+                $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
+                ObservacionesProducto(data[0]);
+                $('#hdMetodoBusqueda').val('Por código');
+                if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
+                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
+            } else {
+                $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
 
-                $("#divObservaciones").html("");
-
-                if (data[0].MarcaID != 0) {
-                    TrackingJetloreSearch(CUV, $("#hdCampaniaCodigo").val());
-                    $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);
-                    $("#hdConfiguracionOfertaID").val(data[0].ConfiguracionOfertaID);
-                    ObservacionesProducto(data[0]);
-                    $('#hdMetodoBusqueda').val('Por código');
-                    if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
-                        $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
-                    }
+                if (data[0].TieneSugerido != 0)
+                    ObtenerProductosSugeridos(CUV);
+            }
+        },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+                if (data.message == "" || data.message === undefined) {
+                    location.href = baseUrl + "Login/SesionExpirada";
                 } else {
-                    $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>" + data[0].CUV + "</div></div>");
-
-                    if (data[0].TieneSugerido != 0)
-                        ObtenerProductosSugeridos(CUV);
-                }
-            },
-            error: function (data, error) {
-                CerrarSplash();
-                if (checkTimeout(data)) {
-                    if (data.message == "" || data.message === undefined) {
-                        location.href = baseUrl + "Login/SesionExpirada";
-                    } else {
-                        AbrirMensaje(data.message);
-                    }
+                    AbrirMensaje(data.message);
                 }
             }
-        });
-    }
+        }
+    });
+    
 }
 
 function ObtenerProductosSugeridos(CUV) {
@@ -1615,6 +1608,7 @@ function ObservacionesProducto(item) {
         }
 
         $("#btnAgregar").attr("disabled", "disabled");
+
     } else {
         if (item.TieneStock == true) {
             if (item.TieneSugerido != 0) {
@@ -1687,7 +1681,7 @@ function ObservacionesProducto(item) {
                     $('#hdnPagina').val(), ";",
                     $('#hdnClienteID2_').val());
 
-                $("#OfertaTipoNuevo").val(OfertaTipoNuevo)
+                $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
                 return;
             }
         });

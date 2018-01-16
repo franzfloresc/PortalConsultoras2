@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 video = Util.Trim(dato.Valor1);
-                video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+               // video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
             }
 
             return video;
