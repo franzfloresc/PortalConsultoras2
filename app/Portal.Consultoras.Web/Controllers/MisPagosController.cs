@@ -24,8 +24,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             string fechaVencimiento;
             string montoPagar;
-
-            ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out _);
+            decimal montoPagarDec;
+            ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
 
             var parametroAEncriptar = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
 
@@ -123,8 +123,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var lst = ObtenerEstadoCuenta();
                 lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
+                string auxFechaVencimiento;
+                string montoPagar;
                 decimal montoPagarDec;
-                ObtenerFechaVencimientoMontoPagar(out _, out _, out montoPagarDec);
+                ObtenerFechaVencimientoMontoPagar(out auxFechaVencimiento, out montoPagar, out montoPagarDec);
+
                 lst.Add(new EstadoCuentaModel()
                 {
                     Cargo = montoPagarDec
