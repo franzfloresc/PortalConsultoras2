@@ -21374,7 +21374,50 @@ body {
     -moz-box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
     box-shadow: 6px 7px 5px 0 rgba(212,205,212,1);
 }
-
+.revista_content {
+display: inline-block;
+margin-bottom: 70px;
+overflow: hidden;
+background: #ecebf0;
+width: 100%;
+padding-bottom: 35px;
+}
+.revista_content .revista_content2{
+text-align:center;
+}
+.revista_content .revista_content2 div{
+display:inline-block;
+}
+.revista_content .revista_content2 .revistatxt {
+display: table;
+height: 203px;
+margin-left: 50px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista{
+display:table-cell;
+vertical-align:middle;
+}
+.revista_content .revista_content2 .revistatxt .contrevista p {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 0.3px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a {
+width: 173px;
+/* height: 30px; */
+padding: 8px;
+margin: auto;
+display: block;
+border: solid 1px #000000;
+transition:.3s;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a:hover{
+background:black;
+color:white;
+}
     .revista img {
         width: 100%;
         height: 100%;

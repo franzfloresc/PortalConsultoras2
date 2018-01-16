@@ -404,7 +404,9 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito -- Pantalla
             // A: Contenedor Home           B: Contenedor Home Revisar
             // C: Landing EPM               D: Landing EPM Revisar
-            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+            // E: Landing ShowRoom          F: Landing ShowRoom Intriga
+            // G: Revista Digital Info      H: Revista Digital Detalle
+            // I: Guia de Negocio
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT

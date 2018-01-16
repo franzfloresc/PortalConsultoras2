@@ -593,7 +593,6 @@ namespace Portal.Consultoras.Web.Controllers
                         MensajeDespacho = model.MensajeDespacho
                     };
 
-
                     using (CDRServiceClient sv = new CDRServiceClient())
                     {
                         id = sv.InsCDRWeb(userData.PaisID, entidad);
@@ -1372,11 +1371,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais> {sv.SelectPais(UserData().PaisID)};
-                }
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

@@ -26,9 +26,11 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
 
-            var model = new MatrizCampaniaModel();
-            model.listaPaises = ObtenerPaises();
-            model.DropDownListCampania = ObtenerCampanias();
+            var model = new MatrizCampaniaModel
+            {
+                listaPaises = ObtenerPaises(),
+                DropDownListCampania = ObtenerCampanias()
+            };
             ViewBag.HabilitarRegalo = userData.CodigoISO == Constantes.CodigosISOPais.Chile;
 
             return View(model);
@@ -97,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productos = (List<ServiceSAC.BEProductoDescripcion>)null;
+                List<BEProductoDescripcion> productos;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     productos = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
@@ -115,13 +117,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                if (productos.Count == 2 && !string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
-                {
-                    string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                    productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
-                        productos.LastOrDefault().RegaloImagenUrl,
-                        carpetaPais);
-                }
+                if (productos.Count == 2 && productos.LastOrDefault() != null)
+                    if (!string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
+                    {
+                        string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                        productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
+                            productos.LastOrDefault().RegaloImagenUrl,
+                            carpetaPais);
+                    }
 
                 return Json(new
                 {

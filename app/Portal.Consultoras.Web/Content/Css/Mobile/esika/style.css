@@ -6404,7 +6404,36 @@ body {
     .content_revistas_mobile img {
         width: 100%;
     }
-
+.contrevista p {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 0.3px;
+display: block;
+text-align: center;
+width: 200px;
+margin: auto;
+margin-top: -30px;
+margin-bottom: 15px;
+}
+.contrevista a {
+width: 200px;
+/* height: 30px; */
+padding: 8px;
+margin: auto;
+display: block;
+border: solid 1px #000000;
+transition: .3s;
+margin-bottom: 30px;
+text-align: center;
+transition: .3s;
+}
+.contrevista a:hover{
+background:black;
+color:white;
+}
 .previous_revistas_mobile, .next_revistas_mobile {
     width: 14px;
     height: 34px;

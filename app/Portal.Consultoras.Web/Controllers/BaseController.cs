@@ -751,13 +751,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
-            if (userData.TieneGND && lstMenuMobileModel.Any(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas))
-            {
-                var menu = lstMenuMobileModel.First(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas);
-                menu.Descripcion = GetDescripcionMenuMobileCatalogos(userData.PaisID) ?? menu.Descripcion;
-            }
-
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
@@ -852,14 +845,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var descripcionMenuCatalogos = string.Empty;
 
-            IList<BETablaLogicaDatos> revistaDigitalTaablaLogica;
+            IList<BETablaLogicaDatos> revistaDigitalTablaLogica;
             using (var sacServiceClient = new SACServiceClient())
             {
-                revistaDigitalTaablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
+                revistaDigitalTablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
             }
-            if (revistaDigitalTaablaLogica != null && revistaDigitalTaablaLogica.Any())
+            if (revistaDigitalTablaLogica != null && revistaDigitalTablaLogica.Any())
             {
-                descripcionMenuCatalogos = revistaDigitalTaablaLogica.First().Codigo;
+                descripcionMenuCatalogos = revistaDigitalTablaLogica.First().Codigo;
             }
 
             return descripcionMenuCatalogos;
