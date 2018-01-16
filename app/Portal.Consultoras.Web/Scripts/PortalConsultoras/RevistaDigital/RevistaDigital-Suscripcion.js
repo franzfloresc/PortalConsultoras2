@@ -135,7 +135,7 @@ function ScrollUser(anchor, alto) {
 function RDPopupCerrar() {
     
     AbrirLoad();
-    rdAnalyticsModule.CerrarPopUp();
+    rdAnalyticsModule.CerrarPopUp("Enterate");
     $.ajax({
         type: 'POST',
         url: baseUrl + 'RevistaDigital/PopupCerrar',

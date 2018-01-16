@@ -58,7 +58,9 @@ var rdAnalyticsModule = (function () {
         pedido: "Pedido",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
-        pedidoMobile: "Mobile Pedido"
+        pedidoMobile: "Mobile Pedido",
+        enterate: "Enterate",
+        confirmarDatos: "ConfirmarDatos"
     },
     _text = {
         noDisponible: "NO DISPONIBLE",
@@ -89,7 +91,8 @@ var rdAnalyticsModule = (function () {
         contenedor: "Contendor",
         enterate: "Click en botón - Entérate aquí",
         cerrarPopup: "Cerrar popup",
-        suscribete: "Suscríbete gratis aquí"
+        suscribete: "Suscríbete gratis aquí",
+        guardarDatos: "Click en botón - Guardar datos"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -108,7 +111,8 @@ var rdAnalyticsModule = (function () {
         ordenar: "Ordenar",
         filtrar: "Filtrar por marca",
         borrar: "Borrar Filtros",
-        popupEnterate: "Popup Entérate aquí"
+        popupEnterate: "Popup Entérate aquí",
+        popupSuscripcion: "Popup Suscripción"
     },
     _tabCode = {
         comprar: "1",
@@ -130,16 +134,16 @@ var rdAnalyticsModule = (function () {
     }
 
 
-    function _virtualEventPush(category, action, label) {
+    var _virtualEventPush = function(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
             "category": category,
             "action": action,
             "label": label
         });
-    }
+    };
 
-    function _promotionClickPush(name, position, creative) {
+    var _promotionClickPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionClick,
             "ecommerce": {
@@ -156,7 +160,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _promotionViewPush(name, position, creative) {
+    var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionView,
             "ecommerce": {
@@ -173,7 +177,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _addToCartPush(list, estrategia) {
+    var _addToCartPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.addToCart,
             "ecommerce": {
@@ -196,7 +200,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _productClickPush(list, estrategia) {
+    var _productClickPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.productClick,
             "ecommerce": {
@@ -217,7 +221,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _socialEventPush(socialNetwork, socialAction, socialUrl) {
+    var _socialEventPush = function (socialNetwork, socialAction, socialUrl) {
         dataLayer.push({
             'event': _event.socialEvent,
             'socialNetwork': socialNetwork,
@@ -456,8 +460,25 @@ var rdAnalyticsModule = (function () {
 
     }
 
-    function CerrarPopUp() {
-        _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.cerrarPopup);
+    function CerrarPopUp(tipo) {
+        try {
+            var action = "";
+            switch (tipo) {
+                case _seccionWeb.enterate:
+                    action = _action.popupEnterate;
+                    break;
+                case _seccionWeb.confirmarDatos:
+                    action = _action.popupSuscripcion;
+                    break;
+            }
+            _virtualEventPush(_category.ganaMas, action, _text.cerrarPopup);
+        } catch (e) {
+            console.log(_text.exception + e);
+        }
+    }
+    
+    function GuardarDatos() {
+        _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
     function IrCancelarSuscripcion() {
@@ -493,6 +514,7 @@ var rdAnalyticsModule = (function () {
         Tabs: Tabs,
         Access: Access,
         ContendorSection: ContendorSection,
-        IrEnterate: IrEnterate
+        IrEnterate: IrEnterate,
+        GuardarDatos: GuardarDatos
     };
 })();
