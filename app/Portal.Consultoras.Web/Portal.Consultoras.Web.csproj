@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>41615</IISExpressSSLPort>
+    <IISExpressSSLPort>44376</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -3385,6 +3385,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -3393,6 +3394,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
@@ -3739,6 +3741,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
+    <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4605,6 +4608,7 @@
     <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
+    <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
