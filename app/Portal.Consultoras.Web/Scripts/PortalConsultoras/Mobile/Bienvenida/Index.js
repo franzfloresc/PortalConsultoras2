@@ -51,11 +51,7 @@ $(document).ready(function () {
     $("#imgProductoMobile").click(function () {
 
     });
-
-    if (viewBagVioTutorial == "0") {
-        VerTutorialMobile();
-    }
-
+    
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
@@ -384,7 +380,11 @@ function CargarPopupsConsultora() {
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         rdAnalyticsModule.MostrarPopup();
     }
-    if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
+
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
+    else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         AbrirPopupFade("#PopRDSuscripcion");
     }
 };
