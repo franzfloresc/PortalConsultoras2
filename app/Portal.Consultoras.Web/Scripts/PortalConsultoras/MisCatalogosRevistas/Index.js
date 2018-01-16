@@ -1,12 +1,15 @@
 ﻿var tagLbel = "Lbel";
 var tagEsika = "Esika";
-var tagCyzone = "Cyzone";
+var tagCyzone = "Cyzone";
+
 var campSelect = "";
-var campSelectI = 1;
+var campSelectI = 1;
+
 var aCam = new Array();
 var linkCat = new Object();
 var descrCat = new Object();
-var ordenCat = new Object();
+var ordenCat = new Object();
+
 var cantCat = 3;
 var cantCam = 3;
 var cont = 0;
@@ -643,15 +646,12 @@ function renderItemCliente(event, ui) {
 // js-Revista
 
 jQuery(document).ready(function () {
-    aCamRev.push(getCodigoCampaniaAnterior());
-    aCamRev.push(getCodigoCampaniaActual());
-    aCamRev.push(getCodigoCampaniaSiguiente());
-
-    rCampSelect = getCodigoCampaniaActual();
-    $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(rCampSelect));
+    aCamRev.push($("#hdrCampaniaAnterior").val());
+    aCamRev.push($("#hdrCampaniaActual").val());
+    aCamRev.push($("#hdrCampaniaSiguiente").val());
 
     waitingDialog({ title: "Cargando Imagen" });
-    MostrarRevistaCorrecta(rCampSelect);
+    MostrarRevistaCorrecta($("#hdrCampaniaActual").val());
 });
 
 function RevistaMostrar(accion, btn) {
@@ -693,33 +693,39 @@ function MostrarMiRevista() {
     frmMiRevista.submit();
 }
 
-function MostrarRevistaCorrecta(campania) {
-    var urlImagen = "";
-    var defered = jQuery.Deferred();
-    defered = ObtenerImagenRevista(campania, defered);
-    defered.done(function (urlRevista) { urlImagen = urlRevista; });
-
-    $.when(defered).done(function () {
-        $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-        $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
-        FinRenderCatalogo();
+function MostrarRevistaCorrecta(codigoCampania) {
+    var promise = getUrlImagenPortadaRevistaPromise(codigoCampania);
+    $.when(promise).done(function (promiseResult) {
+        if (checkTimeout(promiseResult)) {
+            var urlImagen = promiseResult || defaultImageRevista;
+            $("#imgPortadaGana").attr("src", urlImagen);
+            $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + getNumeroCampania(codigoCampania));
+            FinRenderCatalogo();
+        }
     });
 }
 
-function ObtenerImagenRevista(campania, defered) {
+function getUrlImagenPortadaRevistaPromise(codigoCampania) {
+
+    var defered = jQuery.Deferred();
+
+    var data = JSON.stringify({
+        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+    });
     jQuery.ajax({
         type: 'POST',
         url: urlObtenerPortadaRevista,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ codigoRevista: RevistaCodigoIssuu[campania] }),
+        data: data,
         success: function (response) {
-            if (checkTimeout(response)) defered.resolve(response ? response : defaultImageRevista);
+            defered.resolve(response);
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) defered.resolve(defaultImageRevista);
+        error: function () {
+            defered.resolve(defaultImageRevista);
         }
     });
+
     return defered.promise();
 }
 
