@@ -129,7 +129,7 @@
                 height: 37px;
                 line-height: 34px;
                 padding: 0;
-                background: url(../Content/Images/zona_.png) 0 0 no-repeat;
+                background: url('../Content/Images/zona_.png') 0 0 no-repeat;
                 color: #fff;
                 font-size: 14px;
                 text-align: center;

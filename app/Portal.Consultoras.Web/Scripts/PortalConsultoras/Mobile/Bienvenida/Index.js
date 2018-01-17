@@ -20,7 +20,7 @@ $(document).ready(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
     });
-    $(".footer-page").css({ "margin-bottom": "54px" });    
+    $(".footer-page").css({ "margin-bottom": "54px" });
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
@@ -30,7 +30,7 @@ $(document).ready(function () {
     $("#tutorialFooterMobile").click(function () {
         VerTutorialMobile();
     });
-    $(".ver_video_introductorio").click(function () {        
+    $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
 
         ConfigurarYoutube();
@@ -51,11 +51,7 @@ $(document).ready(function () {
     $("#imgProductoMobile").click(function () {
 
     });
-
-    if (viewBagVioTutorial == "0") {
-        VerTutorialMobile();
-    }
-
+    
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
@@ -103,9 +99,9 @@ $(document).ready(function () {
             }
         });
     });
-   
+
     ObtenerComunicadosPopup();
-    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");    
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -119,7 +115,7 @@ function CrearPopShow() {
     }
     */
 
-    $("#btnCerrarPopShowroom").click(function () {        
+    $("#btnCerrarPopShowroom").click(function () {
         $("#PopShowroom").modal("hide");
     });
 
@@ -160,7 +156,7 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
-    
+
     if (!sesionEsShowRoom) {
         return;
     }
@@ -183,7 +179,7 @@ function MostrarShowRoom() {
                                 $("#spnShowRoomDiaInicioHoy").html(response.diaFin - 2);
                                 $("#spnShowRoomDiaFinHoy").html(response.diaFin);
                                 $("#spnShowRoomMesHoy").html(response.mesFin);
-                                
+
                                 $("#PopShowroomHoy").modal("show");
                                 $("#lnkConoceMasShowRoomPopupHoy").attr("href", urlShowRoomBienvenida);
 
@@ -192,7 +188,7 @@ function MostrarShowRoom() {
                                 $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                 AgregarTagManagerShowRoomPopup(evento.Tema, true);
-                                
+
                             } else {
                                 $("#spnShowRoomNombreConsultora").html(response.nombre);
                                 $("#spnShowRoomEvento").html(evento.Tema);
@@ -202,7 +198,7 @@ function MostrarShowRoom() {
                                 if (response.mesFin.length > 6) {
                                     $(".fecha_promocion_m").css("font-size", "10.5pt");
                                 }
-                                
+
                                 $("#PopShowroom").modal("show");
                                 $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 
@@ -229,7 +225,7 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 
     if (esHoy)
         name += " - fase 2";
-    
+
     dataLayer.push({
         'event': 'promotionView',
         'ecommerce': {
@@ -311,12 +307,12 @@ function UpdateUsuarioTutorialMobile() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-            viewBagVioTutorial = data.result;
+                viewBagVioTutorial = data.result;
             }
         },
         error: function (data) {
             if (checkTimeout(data)) {
-        }
+            }
         }
     });
 };
@@ -359,7 +355,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 if (mostrarAlerta == true) {
                     CloseLoading();
                     //messageInfo(data.message);
-                    AbrirPopupPedidoReservado(data.message,'2');
+                    AbrirPopupPedidoReservado(data.message, '2');
                 }
                 else fnRedireccionar();
             }
@@ -370,21 +366,25 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-            console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-        }
+                console.log(error);
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
 };
 
 function CargarPopupsConsultora() {
-    
+
     MostrarDemandaAnticipada();
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         rdAnalyticsModule.MostrarPopup();
     }
-    if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
+
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
+    else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         AbrirPopupFade("#PopRDSuscripcion");
     }
 };
@@ -405,7 +405,7 @@ function MostrarDemandaAnticipada() {
                     $("#popupDemandaAnticipada").show();
                     contadorFondoPopUp++;
                 }
-                
+
             }
         },
         error: function (data, error) {
@@ -611,7 +611,7 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(comunicado){
+function armarComunicadosPopup(comunicado) {
     if (comunicado == null)
         return;
 
@@ -656,7 +656,7 @@ function grabarComunicadoPopup() {
         success: function (data) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                if(!data.success) alert(data.message)
+                if (!data.success) alert(data.message)
             }
         },
         error: function (data, error) {
@@ -683,15 +683,12 @@ function VerSeccionBienvenida(seccion) {
         case "Footer":
             id = "footer";
             break;
-        default://Home
-            id = "#contentmobile";
-            break;
     }
-    //if (id != "") {
-        //$("html, body").animate({
-        //    scrollTop: $(id).offset().top - 60
-        //}, 1000);
-    //}
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }
 
 function VerTutorialMobile() {

@@ -30,13 +30,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -55,13 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -105,12 +94,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -159,12 +142,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetConfiguracionOfertaAdministracion(PaisID, TipoOfertaSisID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEConfiguracionOferta> items = lst;
 
                 #region Sort Section
@@ -206,8 +190,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -272,7 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarCodigoOferta(int paisID, string codigoOferta)
         {
-            int rslt = 0;
+            int rslt;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

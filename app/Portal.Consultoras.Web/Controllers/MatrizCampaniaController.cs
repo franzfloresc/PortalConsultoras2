@@ -158,8 +158,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>();
-
                 ServiceSAC.BEProductoDescripcion entidad = Mapper.Map<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
