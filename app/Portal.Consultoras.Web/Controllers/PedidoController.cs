@@ -1662,9 +1662,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
-            //userData.OfertaDelDia.BloqueoProductosDigitales
-            var s = revistaDigital.BloqueoProductoDigital;
-
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
@@ -1681,24 +1678,28 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.OfertaDelDia.BloqueoProductoDigital)
             {
                 beProductos = beProductos
-                    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia))
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                     .ToList();
             }
 
             if (guiaNegocio.BloqueoProductoDigital)
             {
                 beProductos = beProductos
-                    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada))
+                    .Where(prod =>
+                        prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
                     .ToList();
             }
 
-            beProductos = beProductos
-                .Where(prod =>
-                    !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos
-                    )
-                )
-                .ToList();
+            if (userData.OptBloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                    .ToList();
+            }
+
+            //beProductos = beProductos
+            //    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
+            //    .ToList();
 
         }
 
