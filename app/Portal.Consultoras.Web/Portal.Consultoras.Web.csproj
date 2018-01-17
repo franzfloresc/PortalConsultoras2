@@ -1199,6 +1199,7 @@
     <Content Include="Content\Banderas\SV.png" />
     <Content Include="Content\Banderas\VE.png" />
     <Content Include="Content\Banners\FolderContent.txt" />
+    <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\Comunidad\style_registro.css" />
     <Content Include="Content\Css\Comunidad\ingreso_comunidad.css" />
     <Content Include="Content\Css\jcarousellite\style.css" />

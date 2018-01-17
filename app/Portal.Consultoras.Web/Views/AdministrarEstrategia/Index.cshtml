@@ -20,6 +20,7 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Button/style.css")" rel="stylesheet" />
 
 <input type="hidden" id="mensajeErrorCUV" />
 <input type="hidden" id="mensajeErrorCUV2" />
@@ -100,7 +101,7 @@
             <div class="div-3">
                 <div class="titG">&nbsp;</div>
                 <div class="input_horizontal">
-                    <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
+                    <input class="button blue" type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
                     { 
@@ -3379,5 +3380,12 @@
 
     // SHOWROOM-FIN
 
-
+    function VistaNuevoProductoShowroon()
+    {
+        if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == '030') {
+            $("#seccionTallaColor").hide();
+            $("#seccionMensajeAdicional").hide();
+            $("#seccionOfertaUltimoMinuto").hide();
+        }
+    }
 </script>
