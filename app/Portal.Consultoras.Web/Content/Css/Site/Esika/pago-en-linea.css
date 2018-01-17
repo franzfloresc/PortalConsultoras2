@@ -413,7 +413,7 @@
 }
 
 .tooltip_terminos_y_condiciones{
-    display:none;
+    display:block;
     background: #FFF;
     min-width: 189px;
     min-height: 69px;
@@ -837,6 +837,10 @@
 
 .popup_terminos_y_condiciones .aceptar_terminos_y_condiciones{
     margin-bottom:0;
+}
+
+.popup_terminos_y_condiciones .descripcion_opcion_activacion{
+    margin-top:0;
 }
 
 /* FIN POPUP TÉRMINOS Y CONDICIONES */

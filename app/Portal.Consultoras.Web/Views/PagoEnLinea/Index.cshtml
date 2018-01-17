@@ -84,9 +84,11 @@
                 <div class="area_activa_barra_activacion">
                     <div class="barra_activacion" data-estado="0">
                         <div class="control_activacion"></div>
-                        <div class="tooltip_terminos_y_condiciones">
+                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
                             <span>Debes aceptar los términos y condiciones</span>
                         </div>
+                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                     </div>
                 </div>
                 <div class="descripcion_opcion_activacion">
@@ -190,7 +192,39 @@
 
     </div>
 
+    <!-- POPUP DE TÉRMINOS Y CONDICIONES -->
+
+    <div class="fondo_modal">
+        <div class="popup_terminos_y_condiciones">
+            <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+            </a>
+            <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
+            <p class="descripcion_terminos_y_condiciones">
+                dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
+            </p>
+            <div class="aceptar_terminos_y_condiciones mb-0">
+                <div class="area_activa_barra_activacion">
+                    <div class="barra_activacion" data-estado="0">
+                        <div class="control_activacion">
+                        </div>
+                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
+                            <span>Debes aceptar los términos y condiciones</span>
+                        </div>
+                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                    </div>
+                </div>
+                <div class="descripcion_opcion_activacion">
+                    Acepta los términos y condiciones
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
+
     <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
     @*<div class="EstadoCuenta">
             <div class="content_left_pagos">
                 <form class="formulario_actualizar_datos">
@@ -289,35 +323,6 @@
             </div>
         </div>*@
 </div>
-
-<!-- POPUP DE TÉRMINOS Y CONDICIONES -->
-
-<div class="fondo_modal">
-    <div class="popup_terminos_y_condiciones">
-        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
-        </a>
-        <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
-        <p class="descripcion_terminos_y_condiciones">
-            dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
-        </p>
-        <div class="aceptar_terminos_y_condiciones mb-0">
-            <div class="area_activa_barra_activacion">
-                <div class="barra_activacion" data-estado="0">
-                    <div class="control_activacion">
-                    </div>
-                    <div class="tooltip_terminos_y_condiciones">
-                        <span>Debes aceptar los términos y condiciones</span>
-                    </div>
-                </div>
-            </div>
-            <div class="descripcion_opcion_activacion">
-                Acepta los términos y condiciones
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
 
 @section scripts{
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>

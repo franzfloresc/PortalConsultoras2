@@ -526,7 +526,7 @@
 }
 
 .tooltip_terminos_y_condiciones{
-    display:none;
+    display:block;
     background: #FFF;
     min-width: 189px;
     min-height: 69px;
