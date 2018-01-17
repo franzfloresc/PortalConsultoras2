@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var contadorbottomgnd = 1;
-    $('.revistagnd').click(function () {
+    $('.nrorevista').click(function () {
         // $('nav').toggle();
 
         if (contadorbottomgnd == 1) {
@@ -18,6 +18,11 @@
     });
 
     mostrarImagenPortadaRevista(campaniaId);
+
+    $('#btnVerGuiaNegocio').click(function () {
+        $('#campaniaRevista').val(campaniaId);
+        $('#frmGuiaNegocio').submit();
+    });
 });
 
 

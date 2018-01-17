@@ -22,6 +22,11 @@ $(document).ready(function () {
     });
 
     mostrarImagenPortadaRevista(campaniaId);
+
+    $('#btnVerGuiaNegocio').click(function () {
+        $('#campaniaRevista').val(campaniaId);
+        $('#frmGuiaNegocio').submit();
+    });
 });
 
 function mostrarImagenPortadaRevista(codigoCampania) {

@@ -12,7 +12,13 @@
         </div>
         <div class="inforevista">
             <p>Disfruta de la revista impresa aquí</p>
-            <a href="">VER GUÍA</a>
+            <a href="#" id="btnVerGuiaNegocio">VER GUÍA</a>
+            <div style="display: none;">
+                @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank", area = "" }))
+                {
+                    <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+                }
+            </div>
         </div>
         <div style="clear:both;"></div>
     </div>

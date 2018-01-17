@@ -7,7 +7,13 @@
             <div class="gndbloque">
                 <img id="imgPortadaRevista" src="~/Content/Images/revista_no_disponible.jpg" alt="">
                 <p class="txtgnd">Encuentra también aquí las mismas ofertas en el formato antiguo</p>
-                <a href="#" class="irgnd">VER GUÍA</a>
+                <a href="#" class="irgnd" id="btnVerGuiaNegocio">VER GUÍA</a>
+                <div style="display: none;">
+                    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank" }))
+                    {
+                    <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+                    }
+                </div>
             </div>
             <div style="clear:both;"></div>
         </div>
