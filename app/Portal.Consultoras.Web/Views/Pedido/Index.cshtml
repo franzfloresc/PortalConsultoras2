@@ -226,12 +226,12 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
-                                <div id="" class="contenedorCupon" style="width:100%;">
-                                    <div id="" class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                <div class="contenedorCupon" style="width:100%;">
+                                    <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
                                         <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
                                         <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
                                     </div>
-                                    <div id="" class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
+                                    <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
                                         <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
@@ -533,7 +533,7 @@
         {
             <div class="truco_bloqueo sim2"></div>
         }
-        @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.RevistaDigital)
+        @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
         
     <div class="clear"></div>
@@ -1878,6 +1878,7 @@
                                     <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                                    <input type="hidden" class="hdOfertaFinalImagenProductoSugeridoMedium" value="{{ImagenProductoSugerido}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />

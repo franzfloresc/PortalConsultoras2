@@ -34,9 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetProveedorDespachoCobranza(PaisID);
             }
-            Mapper.CreateMap<BEProveedorDespachoCobranza, ProveedorDespachoCobranzaModel>()
-                    .ForMember(t => t.ProveedorDespachoCobranzaID, f => f.MapFrom(c => c.ProveedorDespachoCobranzaID))
-                    .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial));
 
             return Mapper.Map<IList<BEProveedorDespachoCobranza>, IEnumerable<ProveedorDespachoCobranzaModel>>(lst);
         }
@@ -76,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
+
                     IEnumerable<ServiceSAC.BEProveedorDespachoCobranza> items = lst;
 
                     #region Sort Section
@@ -100,9 +97,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Util.PaginadorGenerico(grid, lst.ToList());
+                    BEPager pag = Util.PaginadorGenerico(grid, lst.ToList());
 
                     var data = new
                     {
@@ -144,9 +141,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int PaisID = UserData().PaisID;
 
-                Mapper.CreateMap<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>()
-                    .ForMember(t => t.ProveedorDespachoCobranzaID, f => f.MapFrom(c => c.ProveedorDespachoCobranzaID))
-                    .ForMember(t => t.CampoId, f => f.MapFrom(c => c.CampoId));
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
                 List<ServiceSAC.BEProveedorDespachoCobranza> lst;
@@ -234,13 +228,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int PaisID = UserData().PaisID;
-
-                Mapper.CreateMap<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>()
-                    .ForMember(t => t.Accion, f => f.MapFrom(c => c.Accion))
-                    .ForMember(t => t.CampoId, f => f.MapFrom(c => c.CampoId))
-                    .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor))
-                    .ForMember(t => t.ValorAnterior, f => f.MapFrom(c => c.ValorAnterior));
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
                 using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
@@ -294,11 +281,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>()
-                    .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
-                    .ForMember(t => t.RazonSocial, f => f.MapFrom(c => c.RazonSocial))
-                    .ForMember(t => t.RFC, f => f.MapFrom(c => c.RFC));
-
                 BEProveedorDespachoCobranza ProveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
                 using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
@@ -342,12 +324,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int PaisID = UserData().PaisID;
-
-                Mapper.CreateMap<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>()
-                    .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial))
-                    .ForMember(t => t.ProveedorDespachoCobranzaID, f => f.MapFrom(c => c.ProveedorDespachoCobranzaID))
-                    .ForMember(t => t.RazonSocial, f => f.MapFrom(c => c.RazonSocial))
-                    .ForMember(t => t.RFC, f => f.MapFrom(c => c.RFC));
 
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
@@ -459,8 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-
-                BEPager pag = new BEPager();
+                
                 IEnumerable<ServiceSAC.BEProveedorDespachoCobranza> items = lst;
 
                 #region Sort Section
@@ -484,8 +459,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst.ToList());
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList());
 
                 var data = new
                 {

@@ -55,7 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -86,11 +85,11 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             if (string.IsNullOrEmpty(Campania))
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
             else
-                items = items.Where(p => p.Nombre.ToUpper().Contains(Campania.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Where(p => p.Nombre.ToUpper().Contains(Campania.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Paginador(grid, Campania, lst);
+            BEPager pag = Paginador(grid, Campania, lst);
 
             var data = new
             {
@@ -332,14 +331,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -358,7 +357,7 @@ namespace Portal.Consultoras.Web.Controllers
                 nombre = cadenas[cadenas.Length - 2] + "_" + cadenas[cadenas.Length - 1];
             }
 
-            return nombre.Replace(".pdf", ""); ;
+            return nombre.Replace(".pdf", "");
         }
 
         public string DevolverFecha(string url)

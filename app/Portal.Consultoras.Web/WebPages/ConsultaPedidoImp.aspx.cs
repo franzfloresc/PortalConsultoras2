@@ -21,10 +21,8 @@ namespace Portal.Consultoras.Web.WebPages
                 string[] lst = param.Split(new char[] { ';' });
 
                 string Campaniaddl = lst[0];
-                string Regionddl = lst[1];
                 string Zonaddl = lst[2];
                 string Paisddl = lst[3];
-                //string Fechaddl = lst[4];
                 string territoriotxt = lst[5];
                 string EstadoPedidoddl = lst[6];
                 string CodConsultoratxt = lst[7];
@@ -34,7 +32,6 @@ namespace Portal.Consultoras.Web.WebPages
                 string Regionddl_val = "";
                 string Zonaddl_val = lst[11];
                 string Paisddl_val = lst[12];
-                //string Fechaddl_val = lst[13];
                 string EstadoPedidoddl_val = lst[14];
                 string Bloqueadoddl_val = lst[15];
                 string territoriotxt_ID = lst[16];

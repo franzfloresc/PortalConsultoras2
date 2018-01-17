@@ -74,6 +74,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.FotoPerfil = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -81,6 +82,7 @@ namespace Portal.Consultoras.Web.Models
         public string TelefonoTrabajo { get; set; }
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
+        public bool EsConsultoraNueva { get; set; }
         public string NombrePais { get; set; }
         public string BanderaImagen { get; set; }
         public string CodigoFuente { get; set; }
@@ -233,12 +235,9 @@ namespace Portal.Consultoras.Web.Models
         public static bool HasAcces(List<PermisoModel> lista, string Action)
         {
             bool estado = false;
-            if (lista != null)
+            if (lista != null && lista.Count > 0)
             {
-                if (lista.Count > 0)
-                {
-                    estado = HasAccessRecursive(lista, Action);
-                }
+                estado = HasAccessRecursive(lista, Action);
             }
             return estado;
         }
@@ -364,10 +363,12 @@ namespace Portal.Consultoras.Web.Models
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
         public bool TieneGND { get; set; }
-
+        public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
 
         public DateTime FechaHoy { get; set; }
+
+        public string FotoPerfil { get; set; }
     }
 }

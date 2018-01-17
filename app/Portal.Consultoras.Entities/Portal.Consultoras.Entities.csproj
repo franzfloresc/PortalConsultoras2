@@ -123,6 +123,8 @@
     <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
     <Compile Include="Pedido\BEMisPedidosIngresados.cs" />
     <Compile Include="Pedido\BEMisPedidosIngresadosDetalle.cs" />
+    <Compile Include="Pedido\BETrackinDetalle.cs" />
+    <Compile Include="Pedido\BETracking.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
@@ -305,7 +307,6 @@
     <Compile Include="BETipoEstrategia.cs" />
     <Compile Include="BETipoLink.cs" />
     <Compile Include="BETipoMeta.cs" />
-    <Compile Include="BETracking.cs" />
     <Compile Include="BEUbigeo.cs" />
     <Compile Include="BEUnidadGeografica.cs" />
     <Compile Include="Usuario\BEUsuario.cs" />

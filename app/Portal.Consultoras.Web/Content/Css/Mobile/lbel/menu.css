@@ -12,12 +12,12 @@
     height: 100%;
     position: fixed;
     width: 90%;
-   -webkit-box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
+    -webkit-box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
     -moz-box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
     box-shadow: 5px 17px 40px -9px rgba(0,0,0,1);
     border-top: none;
     color: #722789;
-    overflow:auto;
+    overflow: auto;
 }
 
     .menu ul {
@@ -42,7 +42,6 @@
         }
 
     .menu a {
-       
     }
 
 .icon-close {
@@ -98,15 +97,14 @@
         position: absolute;
         right: 0;
         top: 13px;
-           
     }
 
     #cssmenu > ul > li.has-sub > a {
-        background: url(../../Images/mobile/img-icon/mobile_icon_mas.png) 100% top no-repeat;
+        background: url('../../Images/mobile/img-icon/mobile_icon_mas.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li.active > a {
-        background: url(../../Images/mobile/img-icon/mobile_icon_menos.png) 100% top no-repeat;
+        background: url('../../Images/mobile/img-icon/mobile_icon_menos.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li > a > figure,
@@ -137,22 +135,22 @@
         padding: 0;
         margin: 0;
     }
-    #cssmenu ul ul a .fa{
-    color: #C4D1DC;
-   }
 
-#cssmenu ul li .icon {
-    top: 0 !important;
-    position: relative;
-    margin-left: -10px;
-    width: 45px !important;
-    height: 44px !important;
-    
-}
+    #cssmenu ul ul a .fa {
+        color: #C4D1DC;
+    }
 
-#cssmenu button .icon {
-    top: 0 !important;
-}
+    #cssmenu ul li .icon {
+        top: 0 !important;
+        position: relative;
+        margin-left: -10px;
+        width: 45px !important;
+        height: 44px !important;
+    }
+
+    #cssmenu button .icon {
+        top: 0 !important;
+    }
 
 .bg_white {
     background-color: white;
@@ -171,7 +169,7 @@ div#ic_menu::before {
     position: fixed;
     top: 0;
     left: 0;
-    content: "";
+    content: '';
     -webkit-box-shadow: 0 0 10px #000;
     -ms-box-shadow: 0 0 10px #000;
     box-shadow: 0 0 10px #000;
@@ -210,18 +208,18 @@ div#caja-back-header {
 }
 
 .nombre {
-	width:50%;
-	padding:12px 1%;
-	position:relative;
-	float:left;
-	background-color:#D1E0EC;
-	color:#fff;
-	text-align:center;
-	font-size:20px;
+    width: 50%;
+    padding: 12px 1%;
+    position: relative;
+    float: left;
+    background-color: #D1E0EC;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
 }
 
 .clear {
-    content: "";
+    content: '';
     display: block;
     clear: both;
 }
@@ -257,87 +255,96 @@ div#caja-back-header {
 
 
 @media (max-width:332px) {
-  #cssmenu > ul > li > a > span {
-      font-size: 11px;
-      margin-left: -10px;
-  }
-  .fa-2x {font-size: 1em !important;}
-  .menu li span { font-size:12px;}
-  
+    #cssmenu > ul > li > a > span {
+        font-size: 11px;
+        margin-left: -10px;
+    }
+
+    .fa-2x {
+        font-size: 1em !important;
+    }
+
+    .menu li span {
+        font-size: 12px;
+    }
 }
-
-    
-
 
 /*CAMBIOS MENU*/
-.foto_menu{
-    width:89px;
-    margin:auto;
-    overflow:hidden;
-    
+.foto_menu {
+    width: 89px;
+    margin: auto;
+    overflow: hidden;
 }
-.menu[style="left: 0px;"] {
+
+.menu[style='left: 0;'] {
     width: 90%;
 }
-.saludo_menu{
-    text-align:center;
-    font-family:'Lato';
-    color:black;
-    font-size:17px;
-    margin-top:7px;
-    padding-bottom:30px;
-    padding-left:22px;
-    padding-right:22px;
-    letter-spacing:0.3px;
-    border-bottom:1px solid #e5e5e5;
+
+.saludo_menu {
+    text-align: center;
+    font-family: 'Lato';
+    color: black;
+    font-size: 17px;
+    margin-top: 7px;
+    padding-bottom: 30px;
+    padding-left: 22px;
+    padding-right: 22px;
+    letter-spacing: .3px;
+    border-bottom: 1px solid #e5e5e5;
 }
-.menu_mobile_belcorp{
-    display:block;
-    font-family:'Lato';
-    color:black;
-    font-size:14px;
-    padding-top:12px;
-    padding-bottom:12px;
-    padding-left:22px;
-    border-bottom:1px solid #e5e5e5;
-    color:black;
+
+.menu_mobile_belcorp {
+    display: block;
+    font-family: 'Lato';
+    color: black;
+    font-size: 14px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 22px;
+    border-bottom: 1px solid #e5e5e5;
+    color: black;
 }
-.btn_cerrar_sesion{
-    display:block;
-    font-family:'Lato';
-    color:black;
-    font-size:13px;
-    text-decoration:underline;
-    margin-top:60px;
-    padding-left:22px;
-    cursor:pointer;
+
+.btn_cerrar_sesion {
+    display: block;
+    font-family: 'Lato';
+    color: black;
+    font-size: 13px;
+    text-decoration: underline;
+    margin-top: 60px;
+    padding-left: 22px;
+    cursor: pointer;
     margin-bottom: 20px;
 }
-.indicador_bel{
-    background: url("../../../Images/mobile/Lbel/indicador_pedido.png") no-repeat;
+
+.indicador_bel {
+    background: url('../../../Images/mobile/Lbel/indicador_pedido.png') no-repeat;
     background-position: 10px 17px;
 }
-.indicador_submenu{
-    background: url("../../../Images/mobile/Esika/menu_mobile.png") no-repeat;
+
+.indicador_submenu {
+    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 95% 19px;
 }
-.submenu_1{
-    padding-top:25px;
-    padding-bottom:10px;
-    background:#f1f1f1;
+
+.submenu_1 {
+    padding-top: 25px;
+    padding-bottom: 10px;
+    background: #f1f1f1;
 }
-.menu_subHeader{
+
+.menu_subHeader {
     display: block;
     margin-bottom: 15px;
     padding-left: 43px;
     font-family: 'Lato';
     color: black;
-    font-size: 14px
+    font-size: 14px;
 }
-.content_close{   
+
+.content_close {
     overflow: hidden;
     width: 100%;
     position: relative;
     height: 37px;
-
 }
