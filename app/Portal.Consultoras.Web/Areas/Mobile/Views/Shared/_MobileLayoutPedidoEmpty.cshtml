@@ -472,5 +472,13 @@
     </script>
     @TempData.Remove("PixelCodigoIso");
 }
+
+@{
+if (TempData.ContainsKey("LimpiarLocalStorage"))
+{
+    TempData.Remove("LimpiarLocalStorage");
+    <script>limpiar_local_storage();</script>
+}
+}
 </body>
 </html>
