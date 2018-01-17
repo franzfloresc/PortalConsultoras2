@@ -44,6 +44,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         RevistaDigitalModel GetRevistaDigital();
 
+        void SetGuiaNegocio(GuiaNegocioModel revistaDigital);
+
+        GuiaNegocioModel GetGuiaNegocio();
+
         void SetIsContrato(int isContrato);
 
         int GetIsContrato();

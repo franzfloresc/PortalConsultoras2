@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Models
         public OfertaDelDiaModel()
         {
             ListaOfertas = new List<OfertaDelDiaModel>();
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
         }
 
         public int ID { get; set; }
@@ -65,6 +66,7 @@ namespace Portal.Consultoras.Web.Models
         public short Position { get; set; }
 
 
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public bool BloqueoProductoDigital { get; set; }
     }
 }
