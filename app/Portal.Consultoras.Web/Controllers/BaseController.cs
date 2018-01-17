@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
+        protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
 
