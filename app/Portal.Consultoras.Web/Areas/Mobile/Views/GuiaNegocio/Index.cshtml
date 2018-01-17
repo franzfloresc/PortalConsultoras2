@@ -93,7 +93,7 @@
 @Html.Partial("~/Areas/Mobile/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         /*var tipoOrigenPantalla = 1;*/
         var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
@@ -106,6 +106,14 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var lsListaRD = "GNDLista";
         var campaniaId = @Model.CampaniaID;
-    </script>
+        //
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var RevistaCodigoIssuu = {
+            '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
+            '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
+            '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+        };
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/GuiaNegocio-Landing")
 }
