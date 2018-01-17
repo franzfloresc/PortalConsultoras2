@@ -458,7 +458,7 @@ img.icono-submenu-tabs {
 /* viñeta gnd */
 .revistagnd {
 position: fixed;
-bottom: -132px;
+bottom: -17%;
 z-index: 90;
 width: 81.5%;
 margin: auto;
@@ -481,8 +481,12 @@ top: 3px;
 padding-left: 10px;
 }
 .revistagnd .nrorevista .vineta {
-float: right;
-padding-right: 10px;
+    float: right;
+    padding-right: 25px;
+    writing-mode: horizontal-tb;
+    transform: rotate(90deg);
+    position: relative;
+    top: 12px;
 }
 .revistagnd .nrorevista .vineta img {
 width: 20px;
@@ -500,11 +504,21 @@ border-bottom: 0;
 float:left;
 width:41%;
 }
-.revistagnd .contrevistagnd .inforevista{
-float:right;
-width:59%;
-word-wrap:break-word;
+.revistagnd .contrevistagnd .imgrevista img{
+    width:100%;
 }
+    .revistagnd .contrevistagnd .inforevista {
+        float: right;
+        width: 59%;
+        word-wrap: break-word;
+        display: table;
+        padding-top: 12%;
+    }
+        .revistagnd .contrevistagnd .inforevista .continforevista {
+            display: table-cell;
+            vertical-align: middle;
+            padding-left: 20px;
+        }
 .revistagnd .contrevistagnd .inforevista a {
 display: block;
 border: 1px solid black;
@@ -517,5 +531,27 @@ transition:.3s;
 .revistagnd .contrevistagnd .inforevista a:hover{
 background:black;
 color:white;
+}
+@media (max-width:494px){
+    .revistagnd .contrevistagnd .inforevista {
+        padding-top: calc(8% - 4%);
+    }
+}
+@media (max-width:360px) {
+    .revistagnd .contrevistagnd .imgrevista{
+        width:35%;
+    }
+    .revistagnd .contrevistagnd .inforevista{
+        width:65%;
+    }
+    .revistagnd .contrevistagnd{
+        padding:13px;
+    }
+    .revistagnd .contrevistagnd .inforevista{
+        padding-top:0;
+    }
+    .revistagnd .contrevistagnd .inforevista .continforevista p{
+        margin-bottom:3px;
+    }
 }
 /*fin viñeta gnd*/

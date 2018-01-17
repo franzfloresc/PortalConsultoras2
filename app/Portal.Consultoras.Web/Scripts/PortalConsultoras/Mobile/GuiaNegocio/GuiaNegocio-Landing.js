@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
+    var alturacontgnd = $('.revistagnd .contrevistagnd').height();
     var contadorbottomgnd = 1;
+    $('.revistagnd').css("bottom", '-' + alturacontgnd + 'px');
     $('.revistagnd').click(function () {
         // $('nav').toggle();
 
@@ -11,8 +13,9 @@
         } else {
             contadorbottomgnd = 1;
             $('.revistagnd').animate({
-                bottom: '-132px'
+                bottom: '-' + alturacontgnd + 'px'
             });
+            
         }
 
     });
