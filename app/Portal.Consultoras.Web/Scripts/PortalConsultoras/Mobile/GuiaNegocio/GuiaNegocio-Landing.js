@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
+    var alturacontgnd = $('.revistagnd .contrevistagnd').height();
     var contadorbottomgnd = 1;
-    $('.nrorevista').click(function () {
+    $('.revistagnd').css("bottom", '-' + alturacontgnd + 'px');
+    $('.revistagnd').click(function () {
         // $('nav').toggle();
 
         if (contadorbottomgnd == 1) {
@@ -11,8 +13,9 @@
         } else {
             contadorbottomgnd = 1;
             $('.revistagnd').animate({
-                bottom: '-132px'
+                bottom: '-' + alturacontgnd + 'px'
             });
+            
         }
 
     });
