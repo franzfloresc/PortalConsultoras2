@@ -45,19 +45,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 Constantes.OrigenPedidoWeb.Campos.PANTALLA_INICIO,
                 Constantes.OrigenPedidoWeb.Campos.PANTALLA_TAMANO
                 );
-            var secciontPantallaString = Util.SubStr(
-                origen.ToString(),
-                Constantes.OrigenPedidoWeb.Campos.SECCION_DENTRO_DE_PANTALLA_INICIO,
-                Constantes.OrigenPedidoWeb.Campos.SECCION_DENTRO_DE_PANTALLA_TAMANO
-            );
+
             var pantalla = Enumeradores.PantallaOrigenPedidoWeb.Default;
-            
+
             Enum.TryParse<Enumeradores.PantallaOrigenPedidoWeb>(pantallaString, out pantalla);
 
-            if (pantallaString.Equals("8") && secciontPantallaString.Equals("2"))
-                pantalla = Enumeradores.PantallaOrigenPedidoWeb.Contenedor;
-
-           
             return pantalla;
         }
         
@@ -122,8 +114,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     return RedirectToAction("Index", "GuiaNegocio", new { area = "Mobile" });
-                case Enumeradores.PantallaOrigenPedidoWeb.Contenedor:
-                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
                 case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:
                 case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:

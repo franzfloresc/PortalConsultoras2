@@ -294,8 +294,7 @@
             OfertaParaTi = 6,
             RevistaDigital = 7,
             GuiaNegocioDigital = 8,
-            General = 9,
-            Contenedor = 10
+            General = 9
         }
 
     }
