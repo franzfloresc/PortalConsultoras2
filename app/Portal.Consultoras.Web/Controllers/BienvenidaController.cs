@@ -452,8 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.TipoPopUp.RevistaDigitalSuscripcion:
                         if (!revistaDigital.TieneRDS
                             || revistaDigital.NoVolverMostrar
-                            || revistaDigital.EsSuscrita
-                            || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                            || revistaDigital.EsSuscrita)
                             continue;
 
                         tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;

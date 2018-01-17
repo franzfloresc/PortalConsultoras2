@@ -245,10 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (revistaDigital.EsSuscrita)
                 return TipoPopUpMostrar;
-
-            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
-                return TipoPopUpMostrar;
-
+            
             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
