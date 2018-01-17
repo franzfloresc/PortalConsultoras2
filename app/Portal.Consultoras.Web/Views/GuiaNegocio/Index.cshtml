@@ -110,6 +110,24 @@
         '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
         '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
     };
+    var contadorgnddesktop = 1;
+    $('.desplegablegnd .gndcontenido .gnd span.gndcerrar').click(function () {
+        if (contadorgnddesktop == 1) {
+            $('.desplegablegnd').animate({
+                right: '0'
+            });
+            $('.desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd').css('transform', 'rotate(360deg)');
+            contadorgnddesktop = 0;
+        } else {
+            contadorgnddesktop = 1;
+            $('.desplegablegnd').animate({
+                right: '-160px'
+            });
+            $('.desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd').css('transform', 'rotate(180deg)');
+        }
+    });
+
+
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/GuiaNegocio-Landing")
 }
