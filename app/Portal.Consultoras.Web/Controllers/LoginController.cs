@@ -2456,15 +2456,20 @@ namespace Portal.Consultoras.Web.Controllers
         private void FormatTextConfiguracionPaisDatosModel(ref RevistaDigitalModel revistaDigital,
             string nombreConsultora)
         {
+            if (revistaDigital == null) return;
+            if (revistaDigital.ConfiguracionPaisDatos == null) return;
+
             foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
             {
-                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1 ?? "", nombreConsultora);
-                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2 ?? "", nombreConsultora);
+                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
+                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
             }
         }
 
         private string RemplazaTagNombre(string cadena, string nombre)
         {
+            cadena = Util.Trim(cadena);
+            nombre = Util.Trim(nombre);
             return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
