@@ -22,7 +22,7 @@
     <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
     PAGO EN LÍNEA
 </div>
-<!-- FIN TÍTULO -->
+<!-- FIN - TÍTULO -->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
@@ -34,15 +34,21 @@
         <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
         <div class="cantidad_pasos_proceso_pago">
+
+            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
             <span class="paso_proceso_pago_en_linea mr-0">2</span>
-            @*<span class="paso_proceso_pago_en_linea mr-0">3</span>*@
+
+            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
 
-        <!-- FIN CANTIDAD PASOS PROCESO DE PAGO -->
+        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
 
         <!-- VISTA SELECCIÓN MONTO A PAGAR -->
 
@@ -73,24 +79,6 @@
                             </label>
                         </div>
                     </li>
-                    @*<li class="opcion_pago">
-                            <div class="col_izq">
-                                <div class="monto_total_pago_en_linea">
-                                    <span class="tipo_moneda_pais">S/</span>
-                                    <span class="monto_moneda_pais">437.34</span>
-                                </div>
-                                <div class="fecha_vencimiento_pago_en_linea">
-                                    <span>Vence </span>
-                                    <span>27/01</span>
-                                </div>
-                            </div>
-                            <div class="col_der">
-                                <input type="radio" id="pagoTotal2" name="opcionPago" value="2" />
-                                <label for="pagoTotal2">
-                                    <span></span>
-                                </label>
-                            </div>
-                        </li>*@
                     <li class="opcion_pago pagoParcial">
                         <div class="col_izq">
                             <h4 class="titulo_monto_pago_editable">
@@ -129,7 +117,7 @@
             </div>
         </div>
 
-        <!-- FIN VISTA SELECCIÓN MONTO A PAGAR -->
+        <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
 
         <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
 
@@ -184,9 +172,9 @@
 
         </div>
 
-        <!-- FIN VISTA PAGO EXITOSO -->
+        <!-- FIN - VISTA PAGO EXITOSO -->
 
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
         <div class="contenedor_info_pago_seguro_y_ctas">
             <div class="info_pago_seguro_con_tarjetas">
@@ -194,23 +182,15 @@
                 </div>
                 <div class="texto_info_pago_seguro">
                     <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
-                    @*<span class="texto_pago_seguro visa_y_mastercard">Pago seguro</span>*@
                 </div>
                 <div class="icono_marcas_tarjetas">
                     <span class="icono_marca_visa">
                         <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
                     </span>
-                    @*<span class="icono_marca_mastercard">
-                            <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                        </span>*@
                 </div>
             </div>
 
-            <!-- CALL TO ACTIONS PAGO EN LÍNEA -->
-
-            @*<button type="button" class="cta_pago_en_linea btn_continuar">
-                    Continuar
-                </button>*@
+            <!-- CALL TO ACTION PAGO EN LÍNEA -->
 
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
                 <span>
@@ -218,21 +198,19 @@
                 </span>
             </button>
 
-            @*<button type="button" class="cta_pago_en_linea btn_pagar">
-                    Pagar
-                </button>*@
-
-            <!-- FIN CALL TO ACTIONS PAGO EN LÍNEA -->
+            <!-- FIN - CALL TO ACTION PAGO EN LÍNEA -->
 
         </div>
 
-        <!-- FIN INFORMACIÓN DE PAGO SEGURO CON TARJETAS (VISA Y MASTERCARD) -->
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
     </div>
 
-    <!-- FIN VISTA PROCESO DE PAGO EN LÍNEA -->
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>
+
+<!-- POPUP DE TÉRMINOS Y CONDICIONES -->
 
 <div class="fondo_modal">
     <div class="popup_terminos_y_condiciones">
@@ -258,6 +236,8 @@
         </div>
     </div>
 </div>
+
+<!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
 
 @section scripts{
 
