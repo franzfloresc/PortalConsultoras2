@@ -6,14 +6,16 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -46,8 +48,9 @@ namespace Portal.Consultoras.Service
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
+        private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -75,10 +78,12 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
+            _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
         }
 
         #region Reporte Lider
@@ -119,9 +124,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
-        {
-            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
+        public IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        {            
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
@@ -1512,6 +1517,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.DelOfertaShowRoom(paisID, entity);
         }
 
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.InsOrUpdOfertaShowRoom(paisID, entity);
+        }
+
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
@@ -2156,6 +2166,25 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
+        #region CargaMasivaImagenes
+
+        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
+        }
+
+        #endregion
+
         #region ProductosPrecargados
         public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
         {
@@ -2167,5 +2196,28 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         #endregion  
+        
+        #region ConfiguracionProgramaNuevasApp
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+        }
+        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+        }
+        #endregion
+
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
+        }
+        #endregion
     }
 }

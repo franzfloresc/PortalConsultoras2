@@ -103,6 +103,42 @@
                                         @simboloMoneda @string.Format("{0:N2}", item.ImporteTotal)
                                     </td>
                                 </tr>
+
+                                @if (!string.IsNullOrEmpty(@item.ObservacionPROL))
+                                {
+
+
+                                    string[] obser = item.ObservacionPROL.Split('|');
+
+
+                                    if (obser != null)
+                                    {
+                                        int total = obser.Length - 1;
+                                        int count = 1;
+                                        foreach (string ob in obser)
+                                        {
+                                            if (!string.IsNullOrEmpty(ob))
+                                            {
+                                                if (total == count)
+                                                {
+                                                    <tr style="background-color: #eeeeee">
+                                                        <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr style="background-color: #eeeeee;">
+
+                                                        <td colspan='2' style="text-align: left;color: #000; font-family: 'Arial'; padding:4px 7px 2px">@ob</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            count++;
+                                        }
+                                    }
+
+                                }
+
                                 <tr>
                                     <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
                                         Cliente: @(!string.IsNullOrEmpty(item.NombreCliente) ? item.NombreCliente : Model.NombreConsultora)

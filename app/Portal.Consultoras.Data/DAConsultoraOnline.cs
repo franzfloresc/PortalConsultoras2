@@ -85,9 +85,17 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        public IDataReader GetProductoByCampaniaByConsultoraId(int campaniaId, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSolicitudesPedidoDetalleByCampaniaByConsultoraId");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
 
         #region AppCatalogo
-        
+
         public IDataReader GetPedidosClienteAppCatalogo(string DispositivoID, int Campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.GetMisPedidosCliente");

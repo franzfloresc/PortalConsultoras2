@@ -880,6 +880,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress;
                     usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva;
 
+                    usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
+                    usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1130,7 +1133,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
-                    }
+                    }                    
 
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1719,6 +1722,9 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
                 oddModel.ColorFondo1 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                 oddModel.ImagenBanner = oferta.FotoProducto01;
+                //se usará mas adelante small y medium
+                //oddModel.ImagenBannerSmall = Util.GenerarRutaImagenResize(oferta.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                //oddModel.ImagenBannerMedium = Util.GenerarRutaImagenResize(oferta.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                 oddModel.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count);
                 oddModel.ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
                 oddModel.ColorFondo2 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;

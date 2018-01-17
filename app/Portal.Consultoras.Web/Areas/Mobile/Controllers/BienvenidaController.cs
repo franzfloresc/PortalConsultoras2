@@ -23,16 +23,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (userData.RolID != Constantes.Rol.Consultora)
                     return RedirectToAction("Index", "Bienvenida", new { area = "" });
+                    
+                model.RevistaDigital = revistaDigital;
+                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
 
-                if (base.ObtenerPedidoWeb() != null)
+                var pedidoWeb = base.ObtenerPedidoWeb();
+                if (pedidoWeb != null)
                 {
-                    model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;
-                    model.MontoAhorroRevista = base.ObtenerPedidoWeb().MontoAhorroRevista;
+                    model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+                    model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
                 }
 
-                if (base.ObtenerPedidoWebDetalle() != null)
+                var pedidoWebDetalle = base.ObtenerPedidoWebDetalle();
+                if (pedidoWebDetalle != null)
                 {
-                    model.MontoPedido = base.ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+                    model.MontoPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 }
 
                 model.Saludo = ObtenerSaludo();
@@ -46,9 +51,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.NumeroCampania = userData.CampaniaID == 0 ? "" : userData.CampaniaID.ToString().Substring(4);
                 model.DiasParaCierre = ViewBag.Dias;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.TieneFechaPromesa = ViewBag.TieneFechaPromesa;
-                model.DiaFechaPromesa = (ViewBag.DiaFechaPromesa == null ? 0 : ViewBag.DiaFechaPromesa);
-                model.MensajeFechaPromesa = ViewBag.MensajeFechaPromesa;
                 model.IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC;
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;
@@ -86,9 +88,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = GetBucketNameFromConfig();
-                ViewBag.NombreConsultora = model.NombreConsultora;
-
-                model.RevistaDigital = revistaDigital;
+                ViewBag.NombreConsultora = model.NombreConsultora;                
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
@@ -320,11 +320,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
             if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                !String.IsNullOrEmpty(fechaInicioChat))
+                fechaInicioChat != "")
             {
                 DateTime fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
                     "dd/MM/yyyy",
                     CultureInfo.InvariantCulture);
+
                 if (DateTime.Now >= fechaInicioChatPais)
                 {
                     url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
@@ -388,6 +389,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
                     if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 

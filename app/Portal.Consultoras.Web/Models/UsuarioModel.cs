@@ -364,5 +364,10 @@ namespace Portal.Consultoras.Web.Models
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
         public bool TieneGND { get; set; }
+
+        public string CodigoPrograma { get; set; }
+        public int ConsecutivoNueva { get; set; }
+
+        public DateTime FechaHoy { get; set; }
     }
 }
