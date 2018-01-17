@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lst = UserData().RolID == 2
-                    ? sv.SelectPaises().ToList() 
+                    ? sv.SelectPaises().ToList()
                     : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
@@ -281,8 +281,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda)
-                ? lst.Count 
+            var recordCount = string.IsNullOrEmpty(vBusqueda) 
+                ? lst.Count
                 : lst.Count(p => p.Fecha.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = recordCount;
