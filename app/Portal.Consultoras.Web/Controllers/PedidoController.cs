@@ -1659,19 +1659,47 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void BloqueoProductosDigitales(ref List<BEProducto> beProductos)
         {
+            if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
-            beProductos = beProductos
-                .Where(prod =>
-                    !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                      || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada
+            if (revistaDigital.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod =>
+                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                        )
                     )
-                )
-                .ToList();
+                    .ToList();
+            }
+
+            if (userData.OfertaDelDia.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                    .ToList();
+            }
+
+            if (guiaNegocio.BloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod =>
+                        prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                    .ToList();
+            }
+
+            if (userData.OptBloqueoProductoDigital)
+            {
+                beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                    .ToList();
+            }
+
+            //beProductos = beProductos
+            //    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
+            //    .ToList();
 
         }
 

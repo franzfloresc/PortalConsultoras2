@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
@@ -27,8 +28,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.Common.MagickNet;
-using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -39,6 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
+        protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
 
@@ -71,13 +71,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (userData == null)
                 {
-                    string URLSignOut = ObtenerUrlCerrarSesion();                    
+                    string urlSignOut = ObtenerUrlCerrarSesion();                    
 
-                    filterContext.Result = new RedirectResult(URLSignOut);
+                    filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
 
-                revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
+                revistaDigital = sessionManager.GetRevistaDigital();
+                guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())
                 {

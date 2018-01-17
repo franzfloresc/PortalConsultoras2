@@ -283,6 +283,8 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            public const string GuiaNegocio = "GuiaNegocio";
         }
 
         public static class ConfiguracionManager
@@ -1073,6 +1075,8 @@ namespace Portal.Consultoras.Common
 
         public static class ConfiguracionPaisDatos
         {
+            public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1157,6 +1161,7 @@ namespace Portal.Consultoras.Common
 
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
+
             }
 
             public static class RDR

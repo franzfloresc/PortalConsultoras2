@@ -39,8 +39,6 @@ function RDConfirmarDatos() {
         return false;
     }
 
-    rdAnalyticsModule.GuardarDatos();
-    
     if (email !== '') {
         if (!validateEmail(email)) {
             $('#Email').focus();
@@ -65,7 +63,9 @@ function RDConfirmarDatos() {
             return false;
         }
     }
-
+    
+    rdAnalyticsModule.GuardarDatos();
+    
     var confirmarDatosModel = {
         Email: email,
         Celular: celular,
