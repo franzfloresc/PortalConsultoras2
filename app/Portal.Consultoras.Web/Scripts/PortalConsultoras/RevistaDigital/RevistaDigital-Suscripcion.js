@@ -286,9 +286,10 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    if ($.trim(origenWeb) != "")
+    origenWeb = $.trim(origenWeb);
+    if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
+    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
