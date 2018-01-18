@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css",
+                "~/Content/Css/Button/style.css",
                 "~/Content/Css/Site/style-tismart.css",
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
             ));
