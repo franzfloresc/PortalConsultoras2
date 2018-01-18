@@ -126,17 +126,17 @@ namespace Portal.Consultoras.BizLogic
             {
                 beGPRBanner.MostrarBannerRechazo = true;
 
-                if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((usuario.ValidacionAbierta == false && usuario.EstadoPedido == 201) || usuario.ValidacionAbierta == true && usuario.EstadoPedido == 202))
+                if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((!usuario.ValidacionAbierta && usuario.EstadoPedido == 201) || usuario.ValidacionAbierta && usuario.EstadoPedido == 202))
                 {
                     beGPRBanner.MostrarBannerRechazo = true;
                 }
-                else if (beGPRBanner.RechazadoXdeuda == true)
+                else if (beGPRBanner.RechazadoXdeuda)
                 {
                     beGPRBanner.MostrarBannerRechazo = true;
                 }
                 else
                 {
-                    beGPRBanner.MostrarBannerRechazo = (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false);
+                    beGPRBanner.MostrarBannerRechazo = (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado);
                 }
             }
 

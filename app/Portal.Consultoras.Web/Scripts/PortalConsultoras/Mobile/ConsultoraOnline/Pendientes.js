@@ -41,7 +41,7 @@ function RechazarPedido(id) {
             if (checkTimeout(data)) {
                 CloseLoading();
                 if (data.success == true) {
-                    
+
                     $('#PedidoRechazado').hide();
                     $('#PedidoRechazadoDetalle').hide();
                     $('#MensajePedidoRechazado').show();

@@ -1,55 +1,52 @@
 ﻿
 .Content_Actualizar {
-    background:#FFF;
-    padding: 0px 0px 10px 25px;
+    background: #fff;
+    padding: 0 0 10px 25px;
     max-height: 600px;
     overflow: auto;
-    /*border: 1px solid #D0D0D0;*/
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
-    behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
-/*GR-1209*/
 .Content_Comunicado {
-    background:#FFF;
-    padding: 0px 0px 10px 25px;
+    background: #fff;
+    padding: 0 0 10px 25px;
     max-height: 900px;
     overflow: auto;
-    /*border: 1px solid #D0D0D0;*/
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
-    behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
 .titulo {
-     font-family: Arial;
-     font-size: 20px;
-     color: #993399;
-     font-weight: bold;
-     padding:6px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #993399;
+    font-weight: bold;
+    padding: 6px;
 }
 
 .tituloC {
-     font-family: Arial;
-     font-size: 20px;
-     color: #993399;
-     font-weight: bold;
+    font-family: Arial;
+    font-size: 20px;
+    color: #993399;
+    font-weight: bold;
 }
 
 .mensaje_Consultora {
-     font-family: Arial;
-     font-size: 13px;
-     color: #768591;
-     font-weight: bold;
-     padding-right:49px;
-     padding-bottom: 2em;
+    font-family: Arial;
+    font-size: 13px;
+    color: #768591;
+    font-weight: bold;
+    padding-right: 49px;
+    padding-bottom: 2em;
 }
 
 .Content_Actualizar .div-3 {
@@ -59,8 +56,8 @@
     margin: 0 0 5px -35px;
     padding: 0 0 1px 0;
 }
- 
-.Content_Actualizar .div-3 .titZ {
+
+    .Content_Actualizar .div-3 .titZ {
         float: left;
         width: 170px;
         height: auto;
@@ -73,177 +70,159 @@
         text-align: right;
     }
 
-.Content_Actualizar .div-3 .TextBox {
-    float: left;
-    /*width: 248px;
-    height: auto;*/
-    /*padding: 9px;*/
-    background: #fff;
-    color: #702789;
-    margin-right: auto;
-    /*border: 1px solid #cfcfcf;*/
-    position: relative;
-}
+    .Content_Actualizar .div-3 .TextBox {
+        float: left;
+        background: #fff;
+        color: #702789;
+        margin-right: auto;
+        position: relative;
+    }
 
 .borde {
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
-    behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
 .inputTextBox {
     width: 345px;
     height: 30px;
-    line-height:30px;
+    line-height: 30px;
     margin-left: 10px;
 }
 
 .mensaje_CampoObligatorio {
-     font-family: Arial,Verdana,sans-serif;
-     font-size: 11px;
-     color: #660066;
-     padding-left:410px;
-     padding-top:20px;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 11px;
+    color: #660066;
+    padding-left: 410px;
+    padding-top: 20px;
 }
 
 .asteriscos {
-     font-family: Arial,Verdana,sans-serif;
-     font-size: 17px;
-     color: #660066;
-     float:left;
-     margin-left:-9px;
-     margin-top:7px;
-     font-weight: bold;
+    font-family: Arial,Verdana,sans-serif;
+    font-size: 17px;
+    color: #660066;
+    float: left;
+    margin-left: -9px;
+    margin-top: 7px;
+    font-weight: bold;
 }
 
-.ocultarCambiarContrasena
-{
-   display: none;
+.ocultarCambiarContrasena {
+    display: none;
 }
 
-.mostrarCambiarContrasena
-{
+.mostrarCambiarContrasena {
     display: block;
 }
 
-.cambiarContrasena
-{
-     font-family: Arial;
-     font-size: 12px;
-     color: #993399;
-     font-weight: bold;
-     padding-left:164px;
-     padding-bottom:2px;
-     padding-top:0px;
+.cambiarContrasena {
+    font-family: Arial;
+    font-size: 12px;
+    color: #993399;
+    font-weight: bold;
+    padding-left: 164px;
+    padding-bottom: 2px;
+    padding-top: 0;
 }
 
-.btnCerrar
-{
+.btnCerrar {
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
-    cursor:pointer;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
+    cursor: pointer;
 }
 
-.checkBox
-{
-    width:18px;
-    height:18px;
-    float:left;
+.checkBox {
+    width: 18px;
+    height: 18px;
+    float: left;
 }
 
-.terminosContrato
-{
+.terminosContrato {
     font-family: Arial,Verdana,sans-serif;
     font-size: 11px;
     color: #768591;
 }
 
-.btnActualizar
-{
-    background: url("/Content/Images/btnActualizar_AD.png") no-repeat;
-    cursor:pointer;
-    width:148px;
-    height:38px;
+.btnActualizar {
+    background: url('/Content/Images/btnActualizar_AD.png') no-repeat;
+    cursor: pointer;
+    width: 148px;
+    height: 38px;
 }
 
-/*GR-1209*/
-.btnAceptar
-{
-    background: url("/Content/Images/afiliacion/aceptar.png") no-repeat;
-    cursor:pointer;
-    height:47px;
+.btnAceptar {
+    background: url('/Content/Images/afiliacion/aceptar.png') no-repeat;
+    cursor: pointer;
+    height: 47px;
 }
 
-.contentActualizar
-{
+.contentActualizar {
     padding-left: 225px;
-    padding-top:14px;
+    padding-top: 14px;
 }
 
 .contentAceptar {
-   padding-left: 190px;
+    padding-left: 190px;
     padding-top: 14px;
 }
 
 .tituloMensajeConfirmacion {
-     font-family: Arial;
-     font-size: 20px;
-     color: #993399;
-     font-weight: bold;
-     padding:6px;
-     text-align:center;
+    font-family: Arial;
+    font-size: 20px;
+    color: #993399;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
 }
 
-.checkImage
-{
-    background: url("/Content/Images/check_AD.png") no-repeat;
+.checkImage {
+    background: url('/Content/Images/check_AD.png') no-repeat;
     background-position: 24% 4px;
-    padding: 6px 0px;
+    padding: 6px 0;
 }
 
-/*GR-1209*/
 .lblComunicadoV {
-    display: block;    
+    display: block;
     text-indent: -15px;
-    padding-top: 0.2em;
-    font-size: 0.9em;
-}
-.lblComunicadoV .chkComunicadoV {
-    width: 13px;
-    height: 13px;
-    padding: 0;
-    margin-right: 1.7em;
-    vertical-align: bottom;
-    position: relative;
-    top: -13px;
-    float:left;
-    *overflow: hidden;
+    padding-top: .2em;
+    font-size: .9em;
 }
 
-.textoMensajeConfirmacion
-{
-    color:#768591;
+    .lblComunicadoV .chkComunicadoV {
+        width: 13px;
+        height: 13px;
+        padding: 0;
+        margin-right: 1.7em;
+        vertical-align: bottom;
+        position: relative;
+        top: -13px;
+        float: left;
+        *overflow: hidden;
+    }
+
+.textoMensajeConfirmacion {
+    color: #768591;
     font-family: Arial,Verdana,sans-serif;
     font-size: 14px;
-    text-align:center;
+    text-align: center;
     padding-top: 25px;
 }
 
-.btnCerrarMensajeConfirmacion
-{
+.btnCerrarMensajeConfirmacion {
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
-    cursor:pointer;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
+    cursor: pointer;
 }
 
-.contenedorCheckImage
-{
-    padding-left:148px;
+.contenedorCheckImage {
+    padding-left: 148px;
 }

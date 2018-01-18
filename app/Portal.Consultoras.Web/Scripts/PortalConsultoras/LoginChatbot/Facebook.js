@@ -53,7 +53,7 @@ function MostrarLoginNormal(responseFB) {
 }
 
 function AsociarUsuarioFB() {
-    ValidarLoginNormal(function(paisID, paisISO, user, password){ 
+    ValidarLoginNormal(function (paisID, paisISO, user, password) {
         ShowLoading();
         FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (responseFB) {
             CloseLoading();

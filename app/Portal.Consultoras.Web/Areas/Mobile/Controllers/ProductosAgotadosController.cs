@@ -48,8 +48,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     total = lstProductoFaltante.Count
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

@@ -17,31 +17,31 @@ namespace Portal.Consultoras.Web.Controllers
         {
             AdministrarBelcorpRespondeModel model = new AdministrarBelcorpRespondeModel();
 
-            var paisID = UserData().PaisID;
+            var paisId = UserData().PaisID;
 
             try
             {
-                List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
+                List<BEBelcorpResponde> lista;
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
-                    lista = svc.GetBelcorpRespondeAdministrador(Convert.ToInt32(paisID)).ToList();
+                    lista = svc.GetBelcorpRespondeAdministrador(Convert.ToInt32(paisId)).ToList();
+                }
 
-                    var belcorpResponde = lista.FirstOrDefault();
+                var belcorpResponde = lista.FirstOrDefault();
 
-                    if (belcorpResponde != null)
-                    {
-                        model.Chat = belcorpResponde.Chat ?? string.Empty;
-                        model.ChatURL = belcorpResponde.ChatURL ?? string.Empty;
-                        model.PaisID = belcorpResponde.PaisID;
-                        model.Telefono1 = belcorpResponde.Telefono1 ?? string.Empty;
-                        model.Telefono2 = belcorpResponde.Telefono2 ?? string.Empty;
-                        model.Escribenos = belcorpResponde.Escribenos ?? string.Empty;
-                        model.EscribenosURL = belcorpResponde.EscribenosURL ?? string.Empty;
-                        model.Correo = belcorpResponde.Correo ?? string.Empty;
-                        model.CorreoBcc = belcorpResponde.CorreoBcc ?? string.Empty;
-                        model.ParametroPais = belcorpResponde.ParametroPais;
-                        model.ParametroCodigoConsultora = belcorpResponde.ParametroCodigoConsultora;
-                    }
+                if (belcorpResponde != null)
+                {
+                    model.Chat = belcorpResponde.Chat ?? string.Empty;
+                    model.ChatURL = belcorpResponde.ChatURL ?? string.Empty;
+                    model.PaisID = belcorpResponde.PaisID;
+                    model.Telefono1 = belcorpResponde.Telefono1 ?? string.Empty;
+                    model.Telefono2 = belcorpResponde.Telefono2 ?? string.Empty;
+                    model.Escribenos = belcorpResponde.Escribenos ?? string.Empty;
+                    model.EscribenosURL = belcorpResponde.EscribenosURL ?? string.Empty;
+                    model.Correo = belcorpResponde.Correo ?? string.Empty;
+                    model.CorreoBcc = belcorpResponde.CorreoBcc ?? string.Empty;
+                    model.ParametroPais = belcorpResponde.ParametroPais;
+                    model.ParametroCodigoConsultora = belcorpResponde.ParametroCodigoConsultora;
                 }
             }
             catch (FaultException ex)
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEBelcorpResponde> lista = new List<BEBelcorpResponde>();
+                List<BEBelcorpResponde> lista;
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
                     lista = svc.GetBelcorpRespondeAdministrador(Convert.ToInt32(PaisID)).ToList();
@@ -98,23 +98,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(AdministrarBelcorpRespondeModel model)
         {
-            string message = string.Empty;
-            string finalPath = string.Empty, httpPath = string.Empty;
             try
             {
-                Mapper.CreateMap<AdministrarBelcorpRespondeModel, BEBelcorpResponde>()
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.Telefono1, f => f.MapFrom(c => c.Telefono1))
-                   .ForMember(t => t.Telefono2, f => f.MapFrom(c => c.Telefono2))
-                   .ForMember(t => t.Escribenos, f => f.MapFrom(c => c.Escribenos))
-                   .ForMember(t => t.EscribenosURL, f => f.MapFrom(c => c.EscribenosURL))
-                   .ForMember(t => t.Correo, f => f.MapFrom(c => c.Correo))
-                   .ForMember(t => t.CorreoBcc, f => f.MapFrom(c => c.CorreoBcc))
-                   .ForMember(t => t.Chat, f => f.MapFrom(c => c.Chat))
-                   .ForMember(t => t.ChatURL, f => f.MapFrom(c => c.ChatURL))
-                   .ForMember(t => t.ParametroPais, f => f.MapFrom(c => c.ParametroPais))
-                   .ForMember(t => t.ParametroCodigoConsultora, f => f.MapFrom(c => c.ParametroCodigoConsultora));
-
                 BEBelcorpResponde entidad = Mapper.Map<AdministrarBelcorpRespondeModel, BEBelcorpResponde>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -163,18 +148,18 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        public void EliminarCacheBelcorpResponde(int PaisId)
+        public void EliminarCacheBelcorpResponde(int paisId)
         {
             try
             {
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
-                    svc.DeleteBelcorpRespondeCache(PaisId);
+                    svc.DeleteBelcorpRespondeCache(paisId);
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", Util.GetPaisISO(PaisId));
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", Util.GetPaisISO(paisId));
             }
         }
     }

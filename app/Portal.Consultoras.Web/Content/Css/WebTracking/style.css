@@ -3,10 +3,10 @@
 
 body {
     background: white;
-    font-size: .80em;
-    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
-    margin: 0px;
-    padding: 0px;
+    font-size: .8em;
+    font-family: 'Helvetica Neue', 'Lucida Grande', 'Segoe UI', Arial, Helvetica, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     color: #696969;
 }
 
@@ -29,7 +29,7 @@ p {
 }
 
 
-/* HEADINGS   
+/* HEADINGS  
 ----------------------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,13 +38,13 @@ h1, h2, h3, h4, h5, h6 {
     font-variant: small-caps;
     text-transform: none;
     font-weight: 200;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 h1 {
     font-size: 1.6em;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 h2 {
@@ -64,35 +64,35 @@ h5, h6 {
     font-size: 1em;
 }
 
-/* this rule styles <h1> and <h2> tags that are the 
+/* this rule styles <h1> and <h2> tags that are the
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 
-/* PRIMARY LAYOUT ELEMENTS   
+/* PRIMARY LAYOUT ELEMENTS  
 ----------------------------------------------------------*/
 
 .page {
     width: 960px;
     background-color: #fff;
-    margin: 20px auto 0px auto;
+    margin: 20px auto 0 auto;
     border: 1px solid #496077;
 }
 
 .header {
     position: relative;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background: #4b6c9e;
     width: 100%;
 }
 
     .header h1 {
         font-weight: 700;
-        margin: 0px;
-        padding: 0px 0px 0px 20px;
+        margin: 0;
+        padding: 0 0 0 20px;
         color: #f9f9f9;
         border: none;
         line-height: 2em;
@@ -100,13 +100,13 @@ first child of the left and right table columns */
     }
 
 .main {
-    padding: 0px 12px;
+    padding: 0 12px;
     margin: 12px 8px 8px 8px;
     min-height: 420px;
 }
 
 .leftCol {
-    padding: 6px 0px;
+    padding: 6px 0;
     margin: 12px 8px 8px 8px;
     width: 200px;
     min-height: 200px;
@@ -114,14 +114,14 @@ first child of the left and right table columns */
 
 .footer {
     color: #4e5766;
-    padding: 8px 0px 0px 0px;
-    margin: 0px auto;
+    padding: 8px 0 0 0;
+    margin: 0 auto;
     text-align: center;
     line-height: normal;
 }
 
 
-/* TAB MENU   
+/* TAB MENU  
 ----------------------------------------------------------*/
 
 div.hideSkiplink {
@@ -130,13 +130,13 @@ div.hideSkiplink {
 }
 
 div.menu {
-    padding: 4px 0px 4px 8px;
+    padding: 4px 0 4px 8px;
 }
 
     div.menu ul {
         list-style: none;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         width: auto;
     }
 
@@ -163,18 +163,18 @@ div.menu {
                 text-decoration: none;
             }
 
-/* FORM ELEMENTS   
+/* FORM ELEMENTS  
 ----------------------------------------------------------*/
 
 fieldset {
     padding: 0;
-   
     border: 0;
     margin: 0;
 }
-fieldset:first-child{
-     padding-right: 35px;
-}
+
+    fieldset:first-child {
+        padding-right: 35px;
+    }
 
     fieldset p {
         margin: 2px 12px 10px 10px;
@@ -189,15 +189,13 @@ fieldset:first-child{
     }
 
 legend {
-    padding-top:20px;
-   
+    padding-top: 20px;
     font-size: 21px;
     letter-spacing: 3px;
     color: #000;
-    font-family:'Lato';
-   
-    margin-bottom:20px;
-    text-transform:uppercase;
+    font-family: 'Lato';
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 input.textEntry {
@@ -214,7 +212,7 @@ div.accountInfo {
     width: 42%;
 }
 
-/* MISC  
+/* MISC 
 ----------------------------------------------------------*/
 
 .clear {
@@ -249,7 +247,7 @@ div.accountInfo {
 .row {
     display: table-row;
     height: 8px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .cell {
@@ -463,7 +461,7 @@ div.accountInfo {
 
 .button {
     font-weight: bold;
-    color: #FFFFFF;
+    color: #fff;
     background-color: #555555;
     border-style: solid;
     border-color: #000000;
@@ -506,7 +504,7 @@ div.accountInfo {
 }
 
 .textbox {
-    background: #FFFFFF url(../images/search.png) no-repeat 4px 4px;
+    background: #FFFFFF url('../images/search.png') no-repeat 4px 4px;
     padding: 4px 4px 4px 22px;
     border: 1px solid #CCCCCC;
     width: 60px;
@@ -515,19 +513,14 @@ div.accountInfo {
 .backgroundColor {
     background-color: Gray;
     filter: alpha(opacity=70);
-    opacity: 0.7;
-    -moz-opacity: 0.7;
+    opacity: .7;
+    -moz-opacity: .7;
 }
 
 .gradient3 {
     background-color: #B0B0B0;
-    /* For WebKit (Safari, Chrome, etc)  #FFFFFF */
     background: #E8E8E8 -webkit-gradient(linear, left top, left bottom, from(#E8E8E8), to(#B0B0B0 )) no-repeat;
-    /* Mozilla,Firefox/Gecko #FFFFFF */
     background: #E8E8E8 -moz-linear-gradient(top,#E8E8E8, #B0B0B0 ) no-repeat;
-    /* IE 5.5 - 7 * top #ACA68C/
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ACA68C, endColorstr=#E8E8E8 ) no-repeat;
-    /* IE 8 */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E8E8E8 , endColorstr=#B0B0B0)" no-repeat;
 }
 
@@ -541,8 +534,7 @@ div.accountInfo {
 
 .tabla2 {
     overflow: hidden;
-   
-    border:0;
+    border: 0;
 }
 
     .tabla2 table {
@@ -552,14 +544,14 @@ div.accountInfo {
 
     .tabla2 td, .tabla2 th {
         padding-top: 20px;
-    padding-bottom: 20px;
-    font-weight: normal;
-    border-bottom: 1px solid #ccc;
-    font-family:'Lato';
-    font-weight:300;
-    border-top:0;
+        padding-bottom: 20px;
+        font-weight: normal;
+        border-bottom: 1px solid #ccc;
+        font-family: 'Lato';
+        font-weight: 300;
+        border-top: 0;
     }
-    
+
 
     .tabla2 thead tr {
         background: #f8fcfd;
@@ -582,7 +574,6 @@ div.accountInfo {
             }
 
     .tabla2 tbody tr {
-        /*background: #f0f6f8;*/
     }
 
         .tabla2 tbody tr.f1 {
@@ -601,47 +592,45 @@ div.accountInfo {
             font-size: 11px !Important;
         }
 
-        /*.tabla2 tbody tr:hover {
-            background: #f0f0f0;
-        }*/
-
     .tabla2 tbody td {
         padding-top: 21px;
         padding-bottom: 20px;
         font-size: 10pt;
-        color:black;
-        font-weight:400;
+        color: black;
+        font-weight: 400;
         TEXT-TRANSFORM: lowercase;
     }
-    .tabla2 tbody td::first-letter {
-        TEXT-TRANSFORM: uppercase;
-    }
+
+        .tabla2 tbody td::first-letter {
+            TEXT-TRANSFORM: uppercase;
+        }
+
     .tabla2 tbody tr:first-child {
-            border-top:2px solid black;
-            border-bottom:2px solid black;
-        }
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+    }
+
     .tabla2 tbody tr:hover:first-child {
-            background: white;
-           
-        }
-   .tabla2 tbody tr:hover {
-            background: #f0f0f0;
-        }
+        background: white;
+    }
 
-        .tabla2 tbody td span {
-            
-             display: block;
-        }
+    .tabla2 tbody tr:hover {
+        background: #f0f0f0;
+    }
 
-        .tabla2 tbody td a:link {
-            color: black;
-            text-decoration: underline;
-        }
+    .tabla2 tbody td span {
+        display: block;
+    }
 
-        .tabla2 tbody td a:hover {
-            color: black;
-            text-decoration: underline;
-        }
+    .tabla2 tbody td a:link {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .tabla2 tbody td a:hover {
+        color: black;
+        text-decoration: underline;
+    }
 
 .input_search input {
     float: right;
@@ -649,41 +638,45 @@ div.accountInfo {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: white url(../../images/webtracking/regresar.png) no-repeat -1px 0px;
-    color: black;    
+    background: white url('../../images/webtracking/regresar.png') no-repeat -1px 0;
+    color: black;
     border: 0;
-    cursor:pointer;
-    font-family:'Lato';
-    text-transform:uppercase;
-   
+    cursor: pointer;
+    font-family: 'Lato';
+    text-transform: uppercase;
     font-size: 15px;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
 }
 
-#upTracking{
-    margin-top:30px;
-    font-family:'Lato';
+#upTracking {
+    margin-top: 30px;
+    font-family: 'Lato';
 }
-.lupa_tracking{
-    top: 0px;
-    position:relative;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+
+.lupa_tracking {
+    top: 0;
+    position: relative;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
-.lupa_tracking:hover{
-    top: -5px;
-    opacity: 0.5;
-    filter: alpha(opacity=60);
+
+    .lupa_tracking:hover {
+        top: -5px;
+        opacity: .5;
+        filter: alpha(opacity=60);
+    }
+
+.margin_25 {
+    padding-top: 25px;
 }
-.margin_25{
-    padding-top:25px;
+
+.width_50 {
+    width: 50%;
 }
-.width_50{
-    width:50%;
-}
-.width_100{
-    width:100%;
+
+.width_100 {
+    width: 100%;
 }

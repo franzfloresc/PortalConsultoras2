@@ -168,58 +168,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
-                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
-                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
-                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
+                string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
+                bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
+                string message = resultado.Split('|')[2];
+                int Cantidad = int.Parse(resultado.Split('|')[3]);
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
-                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
-                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
-                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
-                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
-                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
-                entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
-
-                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                if (!seActualizoMisDatos)
                 {
-                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-                    string[] lst = resultado.Split('|');
-
-                    if (lst[0] == "0")
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            Cantidad = lst[3],
-                            success = false,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
-                    else
+                        success = false,
+                        message,
+                        Cantidad,
+                        extra = string.Empty
+                    });
+                }
+                else
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            Cantidad = 0,
-                            success = true,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
+                        success = true,
+                        message,
+                        Cantidad = 0,
+                        extra = string.Empty
+                    });
                 }
             }
             catch (FaultException ex)
@@ -251,11 +225,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.ZonaID = UserData().ZonaID;

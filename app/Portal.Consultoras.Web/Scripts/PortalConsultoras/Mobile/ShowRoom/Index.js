@@ -4,13 +4,13 @@
     var AbrirBanner = 0;
     $("#AbrirBannerCompra").click(function () {
         if (AbrirBanner == 0) {
-            $('#BannerCompra').slideDown();            
+            $('#BannerCompra').slideDown();
             AbrirBanner = 1;
         }
         else {
             $('#BannerCompra').slideUp();
             AbrirBanner = 0;
-        }      
+        }
 
     });
 
@@ -114,7 +114,7 @@ function filterShowRoomMobile() {
     var valores = new Array();
 
     var seleccionado = false;
-    $.each($('#idcategory').find('input[type="checkbox"]:checked'), function(index, value) {
+    $.each($('#idcategory').find('input[type="checkbox"]:checked'), function (index, value) {
         seleccionado = true;
         var valor = $(value).val();
         valores.push(valor);
