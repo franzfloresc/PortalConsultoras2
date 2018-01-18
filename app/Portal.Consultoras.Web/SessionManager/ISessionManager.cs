@@ -107,5 +107,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
 
         List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
+
+        void SetStartSession(DateTime StartSession);
+
+        DateTime GetStartSession();
     }
 }
