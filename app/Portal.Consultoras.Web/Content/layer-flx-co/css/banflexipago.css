@@ -2,15 +2,50 @@
     font-family: 'Museo Sans 300';
     src: url('../fonts/museo_sans_r300-webfont.eot');
     src: url('../fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/museo_sans_r300-webfont.woff') format('woff'),
-         url('../fonts/museo_sans_r300-webfont.ttf') format('truetype'),
-         url('../fonts/museo_sans_r300-webfont.svg') format('svg');
+        url('../fonts/museo_sans_r300-webfont.woff') format('woff'),
+        url('../fonts/museo_sans_r300-webfont.ttf') format('truetype'),
+        url('../fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-body, html{margin: 0px;padding: 0px;}
-#banner{width: 500px;height: 369px;position: relative;}
-#banner .btn{position: absolute;top: 256px;left: 66px;}
-#banner > .coneFlexi{left: 274px}
-#banner > .close{font-family: Arial; color: #fff; font-size: 12px; display: block; position: absolute;top: 0px; right: 0px;padding: 10px;}
-#banner > .inscribirme{font-family: 'Museo Sans 300'; color: #6c207e; font-size: 14px; position: absolute;bottom: 14px; left: 176px;}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+#banner {
+    width: 500px;
+    height: 369px;
+    position: relative;
+}
+
+    #banner .btn {
+        position: absolute;
+        top: 256px;
+        left: 66px;
+    }
+
+    #banner > .coneFlexi {
+        left: 274px;
+    }
+
+    #banner > .close {
+        font-family: Arial;
+        color: #fff;
+        font-size: 12px;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+    }
+
+    #banner > .inscribirme {
+        font-family: 'Museo Sans 300';
+        color: #6c207e;
+        font-size: 14px;
+        position: absolute;
+        bottom: 14px;
+        left: 176px;
+    }

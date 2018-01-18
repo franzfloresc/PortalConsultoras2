@@ -75,12 +75,9 @@ namespace Portal.Consultoras.Web.WebPages
                     int codigoPais = Convert.ToInt32(datos["IdPais"].ToString());
 
                     lst = sv.SelectByEmail(correo, codigoPais).ToList();
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(lst[0].CodigoISO);
 
-                    // 1891 - Inicio
                     if (codigoPais.ToString().Trim() == "4")
-                    {// 1895 - Inicio
+                    {
                         if (lst.Count == 0)
                         {
                             return serializer.Serialize(new
@@ -219,8 +216,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClave - RecuperarClaveCS");
+
                 return serializer.Serialize(new
                 {
                     succes = false,

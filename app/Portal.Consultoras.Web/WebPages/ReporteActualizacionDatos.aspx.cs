@@ -24,11 +24,8 @@ namespace Portal.Consultoras.Web.WebPages
             string Seccion = lst[3];
             string NumDocumento = lst[4];
             string EstadoPedido = lst[5];
-            string page = lst[6];
             string sortname = lst[7];
             string sortorder = lst[8];
-            string rowNum = lst[9];
-            string ZonaID = lst[2];
             string CodZona = lst[12];
             string TipoSolicitud = lst[14];
             lblNombrePais.Text = lst[11];

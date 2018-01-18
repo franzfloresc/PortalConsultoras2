@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -17,8 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var model = new UpdatePassSACModel();
-            model.listaPaises = DropDowListPaises();
+            var model = new UpdatePassSACModel {listaPaises = DropDowListPaises()};
             return View(model);
         }
 
@@ -30,11 +28,13 @@ namespace Portal.Consultoras.Web.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Dictionary<string, object> data = serializer.Deserialize<Dictionary<string, object>>(Request.Form["data"]);
 
-            var model = new UpdatePassSACModel();
+            var model = new UpdatePassSACModel
+            {
+                PaisID = Convert.ToInt32(data["paisID"]),
+                CodigoConsultora = data["CodigoConsultora"].ToString(),
+                listaPaises = DropDowListPaises()
+            };
 
-            model.PaisID = Convert.ToInt32(data["paisID"]);
-            model.CodigoConsultora = data["CodigoConsultora"].ToString();
-            model.listaPaises = DropDowListPaises();
 
             return View(model);
         }
@@ -49,12 +49,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectByNombre(Convert.ToInt32(vPaisID), vCodigoConsultora).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEUsuario> items = lst;
 
                 #region Sort Section
@@ -84,9 +86,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -112,20 +114,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEPais bepais = new BEPais();
+                BEPais bepais;
 
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
@@ -143,14 +143,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
+                    var resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(model.PaisID, bepais.CodigoISO, model.CodigoConsultora,
+                        var result = sv.CambiarClaveUsuario(model.PaisID, bepais.CodigoISO, model.CodigoConsultora,
                             model.Clave, "", userData.CodigoUsuario, EAplicacionOrigen.ActualizarClaveSAC);
 
                         if (result)
@@ -199,14 +196,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2)
-                    lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -216,8 +208,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "UpdatePassSAC/MantenimientoUsuarioGZ"))
                 return RedirectToAction("Index", "Bienvenida");
-            string Url =GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
-            return Redirect(Url);
+            string url =GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
+            return Redirect(url);
         }
     }
 }

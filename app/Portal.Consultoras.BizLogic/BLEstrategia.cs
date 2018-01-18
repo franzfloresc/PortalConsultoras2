@@ -363,7 +363,7 @@ namespace Portal.Consultoras.BizLogic
             var DAEstrategia = new DAEstrategia(entidad.PaisID);
             return DAEstrategia.ValidarStockEstrategia(entidad);
         }
-        // 1747 - Inicio
+
         public IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID)
         {
             var lista = new List<BEConfiguracionValidacionZE>();
