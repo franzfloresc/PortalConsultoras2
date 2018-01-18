@@ -50,9 +50,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ListaEstadoCuentaDetalle = model.ListaEstadoCuentaDetalle.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
                     var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
 
-                    model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
-                    model.Glosa = ultimoMovimiento.Glosa.ToString();
-                    model.MontoStr = ultimoMovimiento.MontoStr;
+                    if (ultimoMovimiento != null)
+                    {
+                        model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
+                        model.Glosa = ultimoMovimiento.Glosa;
+                        model.MontoStr = ultimoMovimiento.MontoStr;
+                    }
+
                     model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
                     model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
                 }
