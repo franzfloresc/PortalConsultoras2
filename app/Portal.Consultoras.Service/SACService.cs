@@ -1382,11 +1382,17 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        #region DescripcionEstrategia
+        #region Estrategia
         public List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
         {
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
+        }
+
+        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
+        {
+            var bl = new BLAdministrarEstrategia();
+            return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
         #endregion
     }
