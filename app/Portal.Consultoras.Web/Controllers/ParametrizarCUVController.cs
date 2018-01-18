@@ -18,14 +18,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ParametrizarCUV/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var parametrizarCUVModel = new ParametrizarCUVModel()
+            var parametrizarCuvModel = new ParametrizarCUVModel()
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaZonas = new List<ZonaModel>(),
                 listaPaises = DropDowListPaises()
             };
 
-            return View(parametrizarCUVModel);
+            return View(parametrizarCuvModel);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
@@ -33,13 +33,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -63,11 +59,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEMensajeCUV>();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
                 IEnumerable<BEMensajeCUV> items = lst;
 
@@ -129,10 +127,10 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(string ParametroID, string PaisID, string CampaniaID, string Mensaje, string CUVs)
         {
-            bool resultado = false;
             string operacion = "registró";
             try
             {
+                bool resultado;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     resultado = sv.SetMensajesCUVsByPaisAndCampania(Convert.ToInt32(ParametroID), Convert.ToInt32(PaisID),

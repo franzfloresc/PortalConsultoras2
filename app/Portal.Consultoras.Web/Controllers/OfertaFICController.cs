@@ -35,22 +35,25 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else lst = new List<BEPais> { sv.SelectPais(userData.PaisID) };
+                lst = userData.RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IEnumerable<PaisModel>>(lst);
         }
+
         public JsonResult ObtenterCampanias(int PaisID)
         {
             var listCampania = PaisID == 0 ? null : DropDowListCampanias(PaisID);
             return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
         }
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
             return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
         }
@@ -58,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {
             List<ServiceODS.BEProductoDescripcion> lista;
-            int campaniaAnterior = AddCampaniaAndNumero(campaniaID, -1);
+
             using (ODSServiceClient srv = new ODSServiceClient())
             {
                 lista = srv.GetProductoComercialByPaisAndCampania(campaniaID, codigo, paisID, rowCount).ToList();
@@ -84,14 +87,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (productosAValidar.Length != 0)
                 {
                     List<string> productosNoValidos = new List<string>();
-                    List<ServiceODS.BEProductoDescripcion> productoFaltante;
 
                     using (ODSServiceClient srv = new ODSServiceClient())
                     {
                         int campaniaAnterior = AddCampaniaAndNumero(model.CampaniaID, -1);
                         foreach (string cuv in productosAValidar)
                         {
-                            productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();
+                            List<ServiceODS.BEProductoDescripcion>  productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();
                             if (productoFaltante.Count == 0 || productoFaltante[0].CUV != cuv)
                             {
                                 productosNoValidos.Add(cuv);
@@ -109,22 +111,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (uplArchivo == null) return "El archivo especificado no existe.";
 
-                string fileextension = Path.GetExtension(uplArchivo.FileName);
+                string fileextension = Path.GetExtension(uplArchivo.FileName) ?? "";
                 if (!fileextension.ToLower().Equals(".jpg")) return "Sólo se permiten imágenes en formato JPG.";
 
                 string fileName = Guid.NewGuid().ToString() + fileextension;
                 if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
                 var path = Path.Combine(Globals.RutaTemporales, fileName);
                 HttpPostedFileBase postedFile = Request.Files[0];
-                postedFile.SaveAs(path);
+                if (postedFile != null) postedFile.SaveAs(path);
 
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
                 ConfigS3.SetFileS3(path, carpetaPais, fileName);
 
-                var ofertaFIC = productosValidos.Select(p => new BEOfertaFIC() { CampaniaID = model.CampaniaID, CUV = p.CUV, ImagenUrl = fileName, PaisISO = userData.CodigoISO, UsuarioRegistro = userData.CodigoUsuario, NombreImagen = uplArchivo.FileName }).ToArray();
+                var ofertaFic = productosValidos.Select(p => new BEOfertaFIC() { CampaniaID = model.CampaniaID, CUV = p.CUV, ImagenUrl = fileName, PaisISO = userData.CodigoISO, UsuarioRegistro = userData.CodigoUsuario, NombreImagen = uplArchivo.FileName }).ToArray();
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.InsOfertaFIC(model.PaisID, ofertaFIC.ToArray());
+                    sv.InsOfertaFIC(model.PaisID, ofertaFic.ToArray());
                 }
                 return "El registro ha sido ingresado satisfactoriamente.";
             }
@@ -153,18 +155,18 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = srv.GetProductoOfertaFIC(paisID, producto, sidx, sord, page, 1, rows).ToList();
                 }
 
-                int Records = 0, TotalPages = 0;
+                int records = 0, totalPages = 0;
                 if (lst.Count > 0)
                 {
-                    TotalPages = lst[0].TotalPages;
-                    Records = lst[0].RowsCount;
+                    totalPages = lst[0].TotalPages;
+                    records = lst[0].RowsCount;
                 }
 
                 var data = new
                 {
-                    total = TotalPages,
+                    total = totalPages,
                     page = page,
-                    records = Records,
+                    records = records,
                     rows = from a in lst
                            select new
                            {
@@ -195,14 +197,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                using (SACServiceClient SACsrv = new SACServiceClient())
+                BEOfertaFIC producto = new BEOfertaFIC
                 {
-                    BEOfertaFIC producto = new BEOfertaFIC
-                    {
-                        CampaniaID = CampaniaID,
-                        CUV = CUV
-                    };
-                    SACsrv.DelOfertaFIC(userData.PaisID, producto);
+                    CampaniaID = CampaniaID,
+                    CUV = CUV
+                };
+
+                using (SACServiceClient sacSrv = new SACServiceClient())
+                {
+                    sacSrv.DelOfertaFIC(userData.PaisID, producto);
                 }
                 return SuccessJson("Se elimino satisfactoriamente el registro");
             }

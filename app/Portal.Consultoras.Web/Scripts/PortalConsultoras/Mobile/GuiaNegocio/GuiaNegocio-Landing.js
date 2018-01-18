@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
+    $('.nro').html('REVISTA C-' + campaniaId.toString().substring(4, 6));
+
+    var alturacontgnd = $('.revistagnd .contrevistagnd').height();
     var contadorbottomgnd = 1;
-    $('.revistagnd').click(function () {
+    $('.revistagnd').css("bottom", '-' + alturacontgnd + 'px');
+    $('.nrorevista').click(function () {
         // $('nav').toggle();
 
         if (contadorbottomgnd == 1) {
@@ -11,13 +15,19 @@
         } else {
             contadorbottomgnd = 1;
             $('.revistagnd').animate({
-                bottom: '-132px'
+                bottom: '-' + alturacontgnd + 'px'
             });
+            
         }
 
     });
 
     mostrarImagenPortadaRevista(campaniaId);
+
+    $('#btnVerGuiaNegocio').click(function () {
+        $('#campaniaRevista').val(campaniaId);
+        $('#frmGuiaNegocio').submit();
+    });
 });
 
 
