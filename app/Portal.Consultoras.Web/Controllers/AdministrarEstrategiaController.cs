@@ -678,7 +678,9 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoEstrategia = producto.codigo_estrategia,
                     CodigoError = producto.codigo_error,
                     CodigoErrorObs = producto.obs_error,
-                    FactorCuadre = producto.factor_cuadre
+                    FactorCuadre = producto.factor_cuadre,
+                    NombreProducto = producto.descripcion,
+                    MarcaId = producto.idmarca
                 };
 
                 using (var sv = new PedidoServiceClient())

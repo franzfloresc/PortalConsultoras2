@@ -44,6 +44,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int FactorCuadre { get; set; }
 
+        [DataMember]
+        public string NombreProducto { get; set; }
+        [DataMember]
+        public string Descripcion1 { get; set; }
+        [DataMember]
+        public string ImagenProducto { get; set; }
+        [DataMember]
+        public int MarcaId { get; set; }
+
         public BEEstrategiaProducto(IDataRecord row)
         {
             EstrategiaProductoID = DataRecord.GetColumn<int>(row, "EstrategiaProductoID");
@@ -62,6 +71,11 @@ namespace Portal.Consultoras.Entities
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
             FactorCuadre = DataRecord.GetColumn<int>(row, "FactorCuadre");
+
+            NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
+            Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
+            ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
+            MarcaId = DataRecord.GetColumn<int>(row, "MarcaId");
         }
     }
 }
