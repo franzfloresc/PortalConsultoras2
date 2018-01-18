@@ -102,17 +102,17 @@
                 <div class="titG">&nbsp;</div>
                 <div class="input_horizontal">
                     <input class="button blue" type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    @*<input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
                     { 
                         <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
                     }
-                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />
+                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />*@
                 </div>
-                <div class="input_modifica_pedido">
+                @*<div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
                     <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;"/>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -140,7 +140,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="elements" id="divPersonalizacion" style="display: none;">
         <div class="container clearfix">
             <h3>Personalización</h3>
@@ -162,6 +162,22 @@
     <!--SHOWROOM-FIN-->
 
     <div class="container clearfix">
+        <div class="div-3">
+            <div class="input_horizontal">
+                <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
+                {
+                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                }
+                <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
+                <input type="button" name="btnDescripcionMasivoProd" id="btnDescripcionMasivoProd" value="Descrip. Masivo Producto" style="display: none;" />
+            </div>
+            <div class="input_modifica_pedido">
+                <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;" />
+            </div>
+        </div>
+
         <div class="border-wrapper">
             <table id="list"></table>
             <div id="pager"></div>
@@ -800,6 +816,15 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
+
+                if (aux2 == codigoShowRoom) {
+                    $('#btnDescripcionMasivo').val('Descrip. Masivo Set');
+                    $("#btnDescripcionMasivoProd").show();
+                }
+                else {
+                    $('#btnDescripcionMasivo').val('Descrip. Masivo');
+                    $("#btnDescripcionMasivoProd").hide();
+                }
             }
 
             SeleccionarTipoOferta();
@@ -823,6 +848,10 @@
             $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
 
             $("#list").html("");
+            $("#divShowRoomEvento").hide();
+            $("#divShowRoomEventoNuevo").hide();
+            $("#divPersonalizacion").hide();
+
             var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             if (codigo == codigoShowRoom) {
                 cargarEventoShowRoom();
@@ -1835,6 +1864,7 @@
         var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
         var allRowsInGrid = [];
         var flag = true;
+        var colNameActions = (codigo == "030") ? 'Set' : ''
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -1850,7 +1880,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == "030"),
-            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', colNameActions,'EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
