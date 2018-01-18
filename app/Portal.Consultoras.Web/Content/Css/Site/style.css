@@ -1079,7 +1079,7 @@ ul.tabs {
     line-height: 40px;
     padding: 0;
     margin: 0 10px 0 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    /*background: url(../../Images/buscar.png) 0 0 no-repeat;*/
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -2478,7 +2478,7 @@ ul.tabs {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    /*background: url(../../Images/buscar.png) 0 0 no-repeat;*/
     color: #fff;
     font-size: 14px;
     border: 0;
@@ -2490,7 +2490,7 @@ ul.tabs {
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/buscar.png') 0 0 no-repeat;
+        /*background: url(../../Images/buscar.png) 0 0 no-repeat;*/
         color: #fff;
         font-size: 14px;
         border: 0;
@@ -2502,12 +2502,12 @@ ul.tabs {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
-    color: #fff;
-    font-size: 14px;
-    border: 0;
-    margin-right: 5px;
-}
+    /*background: url(../../Images/buscar.png) 0 0 no-repeat;*/
+        color: #fff;
+        font-size: 14px;
+        border: 0;
+        margin-right: 5px;
+    }
 
 .div-3 .input_add2 input {
     float: right;

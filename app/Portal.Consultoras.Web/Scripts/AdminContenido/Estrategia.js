@@ -416,6 +416,7 @@
         $('#file-upload').hide();
 
         $('#imgSeleccionada').attr("src", rutaImagenVacia);
+        $('#imgMiniSeleccionada').attr("src", rutaImagenVacia);
         $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
         $("#divImagenEstrategiaContenido").show();

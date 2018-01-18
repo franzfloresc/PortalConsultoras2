@@ -262,6 +262,14 @@ namespace Portal.Consultoras.Entities
         [Column("TipoConcurso")]
         public string TipoConcurso { get; set; }
 
+
+        [DataMember]
+        [Column("ImagenMiniaturaURL")]
+        public string ImagenMiniaturaURL { get; set; }
+
+        [DataMember]
+        [Column("EsSubCampania")]
+        public int EsSubCampania { get; set; }
         public BEEstrategia()
         { }
 
