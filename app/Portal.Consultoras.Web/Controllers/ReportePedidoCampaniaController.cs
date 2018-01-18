@@ -183,13 +183,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
-                BEPais bepais;
 
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
                 try
                 {
                     try
                     {
+                        BEPais bepais;
                         using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                         {
                             bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
