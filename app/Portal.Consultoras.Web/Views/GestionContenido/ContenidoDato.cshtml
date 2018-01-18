@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Configuración de Formularios Informativos";
 }
+
+<link href="@Url.Content("~/Content/Css/Button/style.css")" rel="stylesheet" />
+
 <script type="text/javascript">
 
     jQuery(document).ready(function () {
@@ -136,7 +139,7 @@
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampanias, "CampaniaID", "Codigo"), "-- Seleccionar --", new { id = "ddlCampania" })
                     </div>
                     <div class="input_search">
-                        <input type="submit" value="Guardar" />
+                        <input class="button blue" type="submit" value="Guardar" />
                     </div>
                 </div>
 
