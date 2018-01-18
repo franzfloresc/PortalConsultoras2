@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyCantidadGetCantidadPedidos = "cantidadGetCantidadPedidos";
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
-        bool isEsika = false;
+        readonly bool isEsika = false;
         #endregion
 
         public ConsultoraOnlineController()
@@ -117,22 +117,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 try
                 {
-                    var sEmail = string.Empty;
-                    var sTelefono = string.Empty;
-                    var sCelular = string.Empty;
-
                     if (model.ActualizarClave == null) model.ActualizarClave = "";
                     if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                    if (model.Email != null)
-                        sEmail = model.Email;
-                    if (model.Telefono != null)
-                        sTelefono = model.Telefono;
-                    if (model.Celular != null)
-                        sCelular = model.Celular;
+                    var sEmail = Util.Trim(model.Email);
+                    var sTelefono = Util.Trim(model.Telefono);
+                    var sCelular = Util.Trim(model.Celular);
 
                     var result = 0;
                     var cambio = false;
-                    var resultado = string.Empty;
 
                     if (model.Email != string.Empty)
                     {
@@ -263,26 +255,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (consultoraAfiliar.Afiliado)
                     return RedirectToAction("Index", "ConsultoraOnline", new { area = "Mobile" });
-
-
-                var hasSuccess = false;
+                
                 if (Request.QueryString["data"] != null)
                 {
                     var query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
 
                     using (var srv = new UsuarioServiceClient())
                     {
-                        hasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                        srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                     }
                 }
 
                 consultoraAfiliar = DatoUsuario();
-                hasSuccess = true;
-
-                if (String.IsNullOrEmpty(consultoraAfiliar.Email.Trim()) || consultoraAfiliar.EmailActivo == false)
-                {
-                    hasSuccess = false;
-                }
+                var hasSuccess = !(String.IsNullOrEmpty(consultoraAfiliar.Email.Trim()) || !consultoraAfiliar.EmailActivo);
 
                 if (consultoraAfiliar.EsPrimeraVez)
                 {
@@ -441,8 +426,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     total = consultoraOnlineMisPedidos.ListaPedidos.Count
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -489,7 +475,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var message = string.Empty;
             var success = true;
             var userData = UserData();
-            var fechaActual = DateTime.Now;
             try
             {
                 using (var sc = new SACServiceClient())
@@ -499,7 +484,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
                     var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                    fechaActual = beSolicitudCliente.FechaModificacion;
 
                     var refresh = new List<BEMisPedidos>();
                     foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
@@ -824,174 +808,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return mensaje.ToString();
         }
-
-        private string mensajeRechazoPedido(string consultora, string contextoBase, BESolicitudCliente SolicitudCliente)
-        {
-            DateTime fechaMaxima = SolicitudCliente.FechaModificacion.AddDays(1);
-            var culture = new System.Globalization.CultureInfo("es-PE");
-            var dia = culture.DateTimeFormat.GetDayName(fechaMaxima.DayOfWeek);
-            var mes = culture.DateTimeFormat.GetMonthName(fechaMaxima.Month);
-            dia = ToUpperFirstLetter(dia);
-            mes = ToUpperFirstLetter(mes);
-            string fechaFormato = String.Format("{0} {1} de {2} - {3}", dia, fechaMaxima.ToString("dd"), mes, fechaMaxima.ToString("hh:mm tt"));
-            string carpetaPais = "Correo/CCC";
-            string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
-            StringBuilder mensaje = new StringBuilder();
-            mensaje.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"20\" align=\"center\" bgcolor=\"#f6f7f9\" style=\"font-family:Arial, sans-serif;\">");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td style=\"text-align:center;\">");
-            mensaje.AppendLine("<table id=\"Table_01\" width=\"682\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#ffffff\" style=\"color:#768ea3;\">");
-            mensaje.AppendLine(String.Format("	<tr><td colspan=\"7\"><img src=\"{0}\" width=\"682\" height=\"117\" alt=\"\"></td><tr>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_01.png", string.Empty)));
-            mensaje.AppendLine("	<tr>");
-            mensaje.AppendLine(String.Format("		<td><img src=\"{0}\" width=\"54\" height=\"148\" alt=\"\"></td>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty)));
-            mensaje.AppendLine("		<td colspan=\"3\" style=\"text-align:left; padding-top:50px; padding-bottom:20px; font-size:18px;\">");
-            mensaje.AppendLine(String.Format("        	Hola, {0}<br/><br/>", consultora));
-            mensaje.AppendLine("            ¡Un nuevo cliente te ha elegido como su Consultora para");
-            mensaje.AppendLine("			hacerte un pedido!<br/><br/>");
-            mensaje.AppendLine("            Cliente:<br/>");
-            mensaje.AppendLine(String.Format("            <span style=\"font-weight:bold;\">{0}</span>  <br/><br/>", SolicitudCliente.NombreCompleto));
-            mensaje.AppendLine("            Fecha límite para aceptar o rechazar el pedido:<br/>");
-            mensaje.AppendLine(String.Format("            <span style=\"font-weight:bold;\">{0}</span><br/><br/>", fechaFormato));
-            mensaje.AppendLine("            Atiende su pedido y conviértete en su Consultora, ¡crear");
-            mensaje.AppendLine("			una excelente relación depende de ti!");
-            mensaje.AppendLine("        </td>");
-            mensaje.AppendLine(String.Format("		<td colspan=\"3\"><img src=\"{0}\" width=\"71\" height=\"148\" alt=\"\"></td>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_05.png", string.Empty)));
-            mensaje.AppendLine("	</tr>");
-            mensaje.AppendLine("	<tr>");
-            mensaje.AppendLine("		<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-            //mensaje.AppendLine(String.Format("			<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
-            mensaje.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
-            mensaje.AppendLine("		</td>");
-            mensaje.AppendLine("	</tr>");
-            mensaje.AppendLine("	<tr>");
-            mensaje.AppendLine("		<td colspan=\"7\" style=\"background-color:#acbbc9;\">");
-            mensaje.AppendLine(String.Format("        <img src=\"{0}\" width=\"611\" height=\"30\" alt=\"\" align=\"left\">", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_12.png", string.Empty)));
-            mensaje.AppendLine("        <a href=\"http://www.facebook.com/SomosBelcorpOficial\" target=\"_blank\">");
-            mensaje.AppendLine(String.Format("            <img src=\"{0}\" width=\"26\" height=\"30\" border=\"0\" alt=\"Facebook\" align=\"left\"></a>", ConfigS3.GetUrlFileS3(carpetaPais, "Facebook.png", string.Empty)));
-            mensaje.AppendLine("        <a href=\"https://www.youtube.com/user/somosbelcorp\" target=\"_blank\">");
-            mensaje.AppendLine(String.Format("            <img src=\"{0}\" width=\"27\" height=\"30\" border=\"0\" alt=\"Youtube\" align=\"left\"></a>", ConfigS3.GetUrlFileS3(carpetaPais, "Youtube.png", string.Empty)));
-            mensaje.AppendLine("        </td>");
-            mensaje.AppendLine("	</tr>");
-            mensaje.AppendLine("	<tr>");
-            mensaje.AppendLine("        <td colspan=\"7\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("                ¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>");
-            mensaje.AppendLine("        </td>");
-            mensaje.AppendLine("	</tr>");
-            mensaje.AppendLine("	<tr>");
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"54\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"192\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"201\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"164\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"26\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"27\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("		<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"18\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("	</tr>");
-            mensaje.AppendLine("</table>");
-            mensaje.AppendLine("</td>");
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("</table>");
-            return mensaje.ToString();
-        }
-
-        private string mensajeCambioCorreo(string consultora, string url, string correo, string correo_anterior)
-        {
-            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
-            string carpetaPais = "Correo/CCC";
-            string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
-            string mailing_01 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_01.png", string.Empty);
-            string mailing_03 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty);
-            string mailing_05 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_05.png", string.Empty);
-            string mailing_9 = ConfigS3.GetUrlFileS3(carpetaPais, "9-Mailing.png", string.Empty);
-            string mailing_12 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_12.png", string.Empty);
-            string youtube = ConfigS3.GetUrlFileS3(carpetaPais, "Youtube.png", string.Empty);
-            string facebook = ConfigS3.GetUrlFileS3(carpetaPais, "Facebook.png", string.Empty);
-            StringBuilder mensaje = new StringBuilder();
-
-            mensaje.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"20\" align=\"center\" bgcolor=\"#f6f7f9\" style=\"font-family:Arial, sans-serif;\">");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td style=\"text-align:center;\">");
-            mensaje.AppendLine("<table id=\"Table_01\" width=\"682\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#ffffff\" style=\"color:#768ea3;\">");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td colspan=\"7\">");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"682\" height=\"117\" alt=\"\"></td>", mailing_01));
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"54\" height=\"148\" alt=\"\"></td>", mailing_03));
-            mensaje.AppendLine("<td colspan=\"3\" style=\"text-align:left; padding-top:50px; padding-bottom:20px; font-size:18px;\">");
-            mensaje.AppendLine(String.Format("Hola, {0}<br/><br/>", consultora));
-            mensaje.AppendLine("Has cambiado tu correo principal de Somos Belcorp.");
-            mensaje.AppendLine(String.Format("De <span style=\"font-weight:bold;\">{0}</span> a <span style=\"font-weight:bold;\">{1}</span><br/><br/>", correo_anterior, correo));
-            mensaje.AppendLine("Por favor haz clic en el siguiente botón para verificar este nuevo correo.");
-            mensaje.AppendLine("</td>");
-            mensaje.AppendLine("<td colspan=\"3\">");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"71\" height=\"148\" alt=\"\"></td>", mailing_05));
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-            mensaje.AppendLine(String.Format("<a href=\"{0}\" target=\"_blank\">", url));
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Verificar correo\"></a></td>", ConfigS3.GetUrlFileS3(carpetaPais, "9-Mailing.png", string.Empty)));
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td colspan=\"7\" style=\"background-color:#acbbc9;\">");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"611\" height=\"30\" alt=\"\" align=\"left\">", mailing_12));
-            mensaje.AppendLine("<a href=\"http://www.facebook.com/SomosBelcorpOficial\" target=\"_blank\">");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"26\" height=\"30\" border=\"0\" alt=\"Facebook\" align=\"left\"></a>", facebook));
-            mensaje.AppendLine("<a href=\"https://www.youtube.com/user/somosbelcorp\" target=\"_blank\">");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"27\" height=\"30\" border=\"0\" alt=\"Youtube\" align=\"left\"></a>", youtube));
-            mensaje.AppendLine("</td>");
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td colspan=\"7\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>");
-            mensaje.AppendLine("</td>");
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("<tr>");
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"54\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"192\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"201\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"164\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"26\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"27\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("<td>");
-            mensaje.AppendLine(String.Format("<img src=\"{0}\" width=\"18\" height=\"1\" alt=\"\"></td>", spacerGif));
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("</table>");
-            mensaje.AppendLine("</td>");
-            mensaje.AppendLine("</tr>");
-            mensaje.AppendLine("</table>");
-
-            return mensaje.ToString();
-        }
-
-        private string ToUpperFirstLetter(string source)
-        {
-            if (string.IsNullOrEmpty(source))
-                return string.Empty;
-            char[] letters = source.ToCharArray();
-            letters[0] = char.ToUpper(letters[0]);
-            return new string(letters);
-        }
-
+        
         #endregion
 
         public ActionResult Historial()
         {
             var model = new ConsultoraOnlineHistorialMobileModel();
-            var listaPedidoFacturados = new List<ServicePedido.BEPedidoWeb>();
 
             try
             {
@@ -1096,7 +918,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
@@ -1104,7 +926,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else
                         {
-                            var pedidoReciente = olstMisPedidos.Where(x => x.FlagConsultora == false).OrderBy(x => x.FechaSolicitud).First();
+                            var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
 
                             DateTime starDate = DateTime.Now;
                             DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
@@ -1137,16 +959,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetallePedidoPendiente(int pedidoId)
         {
-            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
             MisPedidosDetalleModel model = new MisPedidosDetalleModel();
 
             try
             {
-                MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-                BEMisPedidos pedido = new BEMisPedidos();
+                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                 long _pedidoId = Convert.ToInt64(pedidoId);
-                pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0).FirstOrDefault();
+                BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
 
                 if (pedido == null)
                 {
@@ -1160,6 +979,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
+                List<BEMisPedidosDetalle> olstMisPedidosDet;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
@@ -1179,15 +999,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
-
-                        string inputCUV = "";
+                        
+                        var txtBuil = new StringBuilder();
                         foreach (var item in olstMisPedidosDet)
                         {
-                            inputCUV += item.CUV + ",";
+                            txtBuil.Append(item.CUV + ",");
                         }
 
+                        var inputCUV = txtBuil.ToString();
                         inputCUV = inputCUV.Substring(0, inputCUV.Length - 1);
-                        List<BEProducto> olstMisProductos = new List<BEProducto>();
+
+                        List<BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {
@@ -1198,7 +1020,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         foreach (var item in olstMisPedidosDet)
                         {
-                            var pedidoVal = olstMisProductos.Where(x => x.CUV == item.CUV).FirstOrDefault();
+                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
                                 item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;

@@ -7,130 +7,127 @@
 .img_papel_regalo_navidenio,
 .info_tarjeta_navidenia,
 .info_papel_regalo_navidenio,
-.icono_descarga_tarjetas{
-    display:block;
+.icono_descarga_tarjetas {
+    display: block;
 }
 
-.contenedor_seccion_personaliza{
-    width:100%;
-    min-height:500px;
-    background-image:url("/Content/Images/Esika/Contenedor/fondo-seccion-descarga-imprime.jpg");
-    background-repeat:no-repeat;
-    background-position:center;
-    padding-top:34px;
-    box-sizing:border-box;
-    font-family:'Lato';
-    margin-top:0;
-    /*margin-bottom:20px;*/
+.contenedor_seccion_personaliza {
+    width: 100%;
+    min-height: 500px;
+    background-image: url('/Content/Images/Esika/Contenedor/fondo-seccion-descarga-imprime.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 34px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    margin-top: 0;
 }
 
-.seccion_personaliza_descarga_e_imprime{
-    margin:0 auto;
-    width:100%;
-    max-width:903px;
-    height:auto;
+.seccion_personaliza_descarga_e_imprime {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 903px;
+    height: auto;
 }
 
-.titulo_seccion_personaliza, .texto_personaliza_tus_regalos{
-    text-transform:uppercase;
-    text-align:left;
+.titulo_seccion_personaliza, .texto_personaliza_tus_regalos {
+    text-transform: uppercase;
+    text-align: left;
 }
 
-.titulo_seccion_personaliza{
-    font-size:24px;
-    font-weight:bold;
-    color:#b52e36;    
-    letter-spacing:2.1px;
-    /*margin-bottom:6px;*/
+.titulo_seccion_personaliza {
+    font-size: 24px;
+    font-weight: bold;
+    color: #b52e36;
+    letter-spacing: 2.1px;
 }
 
-.texto_personaliza_tus_regalos{
-    font-size:16px;
-    font-weight:400;
-    color:#000;
-    letter-spacing:0.2px;
-    margin-bottom:32px;
+.texto_personaliza_tus_regalos {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: .2px;
+    margin-bottom: 32px;
 }
 
-.col_izq_seccion_personaliza, .col_der_seccion_personaliza{
-    display:inline-block;
-    vertical-align:top;
-    height:338px;
-    box-sizing:border-box;
+.col_izq_seccion_personaliza, .col_der_seccion_personaliza {
+    display: inline-block;
+    vertical-align: top;
+    height: 338px;
+    box-sizing: border-box;
 }
 
-.col_izq_seccion_personaliza{
-    width:54.5%;
-    border-right: 1px solid rgba(151,151,151,0.41);
-    padding-left:69px;
+.col_izq_seccion_personaliza {
+    width: 54.5%;
+    border-right: 1px solid rgba(151,151,151,.41);
+    padding-left: 69px;
 }
 
-.col_der_seccion_personaliza{
-    width:45%;
-    padding-left:94px;
+.col_der_seccion_personaliza {
+    width: 45%;
+    padding-left: 94px;
 }
 
-.img_tarjeta_navidenia, .img_papel_regalo_navidenio, .icono_descarga_tarjetas{
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-position:center;
+.img_tarjeta_navidenia, .img_papel_regalo_navidenio, .icono_descarga_tarjetas {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.img_tarjeta_navidenia, .img_papel_regalo_navidenio{
-    margin-bottom:20px;
+.img_tarjeta_navidenia, .img_papel_regalo_navidenio {
+    margin-bottom: 20px;
 }
 
-.img_tarjeta_navidenia{
-    width:185px;
-    height:225px;
-    background-image:url("/Content/Images/Esika/Contenedor/tarjetas-navidenias.png");
-    margin-left:25px;
+.img_tarjeta_navidenia {
+    width: 185px;
+    height: 225px;
+    background-image: url('/Content/Images/Esika/Contenedor/tarjetas-navidenias.png');
+    margin-left: 25px;
 }
 
-.img_papel_regalo_navidenio{
-    width:277px;
-    height:221px;
-    background-image:url("/Content/Images/Esika/Contenedor/papel-de-regalo.png");
-    margin-left:10px;
+.img_papel_regalo_navidenio {
+    width: 277px;
+    height: 221px;
+    background-image: url('/Content/Images/Esika/Contenedor/papel-de-regalo.png');
+    margin-left: 10px;
 }
 
-.info_tarjeta_navidenia > span, .info_papel_regalo_navidenio > span{
-    font-size:17px;
-    font-weight:400;
-    letter-spacing:0.3px;
-    color:#000;
+.info_tarjeta_navidenia > span, .info_papel_regalo_navidenio > span {
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: .3px;
+    color: #000;
 }
 
-.info_papel_regalo_navidenio{
-    margin-bottom:10px;
+.info_papel_regalo_navidenio {
+    margin-bottom: 10px;
 }
 
-.enlace_descargables{
-    display:inline-block;
-    vertical-align:middle;
-    margin-right:20px;
+.enlace_descargables {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
 }
 
-.enlace_descargables .icono_descarga_tarjetas{
-    width:40px;
-    height:40px;
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg");
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    .enlace_descargables .icono_descarga_tarjetas {
+        width: 40px;
+        height: 40px;
+        background-image: url('/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg');
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+    }
+
+    .enlace_descargables:hover .icono_descarga_tarjetas {
+        background-image: url('/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg');
+    }
+
+.marca_esika_o_lbel {
+    display: inline;
 }
 
-.enlace_descargables:hover .icono_descarga_tarjetas{
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg");
-}
-
-.marca_esika_o_lbel{
-    display:inline;
-}
-
-.marca_esika_o_lbel:after{
-    content:"\00C9sika";
-}
-
+    .marca_esika_o_lbel:after {
+        content: '\00C9sika';
+    }

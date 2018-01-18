@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Portal.Consultoras.Common
 {
@@ -141,18 +142,20 @@ namespace Portal.Consultoras.Common
         public string ByteArrToString(byte[] byteArr)
         {
             byte val;
-            string tempStr = "";
+
+            var txtBuil = new StringBuilder();
             for (int i = 0; i <= byteArr.GetUpperBound(0); i++)
             {
                 val = byteArr[i];
                 if (val < (byte)10)
-                    tempStr += "00" + val.ToString();
+                    txtBuil.Append("00" + val.ToString());
                 else if (val < (byte)100)
-                    tempStr += "0" + val.ToString();
+                    txtBuil.Append("0" + val.ToString());
                 else
-                    tempStr += val.ToString();
+                    txtBuil.Append(val.ToString());
             }
-            return tempStr;
+
+            return txtBuil.ToString();
         }
 
         public static string EncryptLogin(string clearText)

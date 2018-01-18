@@ -46,25 +46,25 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-	for (i = 0; i < numObjects; i++) {
-		var fallingObject = document.getElementById('fO' + i);
-		if ((objects[i][1] > (winHeightSR - (objects[i][5] + objects[i][7]))) || (objects[i][0] > (winWidthSR - (objects[i][2] + objects[i][8])))) {
-			fallObject(i, objects[i][6], 0);
-		}
-		objects[i][0] += wind;
-		objects[i][1] += objects[i][5];
-		objects[i][4] += objects[i][3];
-		var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
-			k = Math.round(k * 100) / 100;
-		with(fallingObject.style) {
-			top = objects[i][1] + winOffset + 'px';
-			left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
-			opacity = k;
-		}
-	}
+    for (i = 0; i < numObjects; i++) {
+        var fallingObject = document.getElementById('fO' + i);
+        if ((objects[i][1] > (winHeightSR - (objects[i][5] + objects[i][7]))) || (objects[i][0] > (winWidthSR - (objects[i][2] + objects[i][8])))) {
+            fallObject(i, objects[i][6], 0);
+        }
+        objects[i][0] += wind;
+        objects[i][1] += objects[i][5];
+        objects[i][4] += objects[i][3];
+        var k = (100 - (objects[i][1] * 100 / winHeightSR)) / 100;
+        k = Math.round(k * 100) / 100;
+        with (fallingObject.style) {
+            top = objects[i][1] + winOffset + 'px';
+            left = objects[i][0] + (objects[i][2] * Math.cos(objects[i][4])) + 'px';
+            opacity = k;
+        }
+    }
 
-	if (closeImagenRain == 0) {
-	    setTimeout("fall()", 30);
-	    $("img[id^='fO']").show();
-	}
+    if (closeImagenRain == 0) {
+        setTimeout("fall()", 30);
+        $("img[id^='fO']").show();
+    }
 }

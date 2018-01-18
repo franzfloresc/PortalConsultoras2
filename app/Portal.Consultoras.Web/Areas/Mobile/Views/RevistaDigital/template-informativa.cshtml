@@ -15,14 +15,20 @@
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
-@if (Model.Video != "")
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+    /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */
+}
+else
 {
     <div class="video-visual">
         <div class="video-container">
-            <iframe src="@Model.Video" frameborder="0" allowfullscreen=""></iframe>
+            <div id="player"></div>
         </div>
     </div>
 }
+
+<div id="saber-mas-uno"></div>
 <div class="bloques-gana-mas gana-mas">
     <div class="contenedor-mobile-fix" style="padding: 0;">
         <div class="logo"></div>
@@ -82,115 +88,197 @@
         <div class="clear"></div>
     </div>
 </div>
-<div class="bloques-gana-mas como-funciona">
-    <div class="contenedor-mobile-fix">
-        <div class="arrow"></div>
-        <p class="titulo">¿CÓMO FUNCIONA?</p>
-        <div class="bloque-texto">
-            <span class="nro">-</span>
-            <span class="txt">
-                En esta campaña te suscribes al Club GANA+
-            </span>
-            <div class="clear"></div>
-            <span class="nro">-</span>
-            <span class="txt">
-                Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
-            </span>
-            <div class="clear"></div>
-            <span class="nro mobil-nro-funciona">-</span>
-            <span class="txt mobil-nro-funciona">
-                En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
-            </span>
-            <div class="clear"></div>
-            
-        </div>
 
-        <div class="bloque-img">
-            <div class="cnt">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/visual_de_funcionamiento.png")" alt=".">
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+    <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
+        <div class="contenedor-mobile-fix">
+            <div class="arrow"></div>
+            <p class="titulo">¿POR QUÉ EL CLUB ES PERFECTO PARA TI?</p>
+            <div class="caja-club-derecha">
+                <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
+                <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
+                <hr />
+                <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
+                <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
+                <hr />
+                <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
+                <span class="cont-caja-club">¡Lo digital es para ti!</span>
             </div>
-        </div>
-        <div class="clear"></div>
-        <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
-            <span class="nro" style="width:7%;">-</span>
-            <span class="txt" style="width: 91%;">
-                En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
-            </span>
+
+            <div class="caja-club-izquierda">
+                <img src="~/Content/Images/visual_de_causa.png" />
+            </div>
             <div class="clear"></div>
-            
-        </div>
-        <div class="clear"></div>
-        @if (!Model.EsSuscrita)
+            @if (!Model.EsSuscrita)
             {
                 <span class="txt recuerda-txt">
                     RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
                 </span>
             }
-        <div class="clear"></div>
-    </div>
-</div>
-<div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion">
-    <div class="contenedor-mobile-fix" style="padding: 25px;">
-        @if (!Model.EsSuscrita) {
-        <div class="logo" style="margin-top:0;"></div>
-        }
-        @if (Model.EsSuscrita)
-        {
-            <p class="txt-deseas-cancelar">
-                ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-            </p>
-            <span class="deseas-cancelar">
-                Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-            </span>
-            <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
-        }
-        else
-        {
-            <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
-        }
-
-        <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
-            VER TÉRMINOS Y CONDICIONES
-        </a>
-
-    </div>
-</div>
-
-<hr class="clear" />
-<div class="content_320 ingresoPedidom">
-    <div class="box_preguntas_ept">
-        <div class="tit_light_ept">PREGUNTAS FRECUENTES</div>
-        <div class="ept_preguntasRespuestas_accordion">
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Cuál es la diferencia entre GANA+ y Club GANA+? </div>
-                <div class="text_respuesta_ept">GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com. Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donden recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Cómo cancelo mi suscripción?</div>
-                <div class="text_respuesta_ept">Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “QUIERO CANCELAR MI CUENTA” y al hacer clic, tu suscripción se anulará. Recuerda que puedes suscribirte nuevamente cuando desees.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Por qué ya no recibo la guía de negocio impresa?</div>
-                <div class="text_respuesta_ept">Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con más y mejores beneficios.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Las ofertas del Club GANA+ tienen alguna restricción?</div>
-                <div class="text_respuesta_ept">Al seleccionar “Club GANA+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.</div>
-            </div>
-        </div>
-        <div class="descargarPreguntasRespuestas">
-            <a href="@Model.UrlPreguntasFrecuentes" target="_blank">+ DESCARGA AQUÍ TODAS LAS PREGUNTAS FRECUENTES</a>
+            <div class="clear"></div>
         </div>
     </div>
+}
+else
+{
+    <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
+        <div class="contenedor-mobile-fix">
+            <div class="arrow"></div>
+            <p class="titulo">¿CÓMO FUNCIONA?</p>
+            <div class="bloque-texto">
+                <span class="nro">-</span>
+                <span class="txt">
+                    En esta campaña te suscribes al Club GANA+
+                </span>
+                <div class="clear"></div>
+                <span class="nro">-</span>
+                <span class="txt">
+                    Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
+                </span>
+                <div class="clear"></div>
+                <span class="nro mobil-nro-funciona">-</span>
+                <span class="txt mobil-nro-funciona">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+
+            </div>
+
+            <div class="bloque-img">
+                <div class="cnt">
+                    <div class="visual-funcionamiento"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
+                <span class="nro" style="width:7%;">-</span>
+                <span class="txt" style="width: 91%;">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+
+            </div>
+            <div class="clear"></div>
+            @if (!Model.EsSuscrita)
+            {
+                <span class="txt recuerda-txt">
+                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                </span>
+            }
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+    <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
+        <div class="contenedor-mobile-fix" style="padding: 25px;">
+            @if (!Model.EsSuscrita)
+            {
+                <div class="logo" style="margin-top:0;"></div>
+            }
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿NO TE GUSTÓ EL CLUB?
+                </p>
+                <span class="deseas-cancelar">
+                    Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+            }
+            else
+            {
+                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+            }
+
+            <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
+        <div class="contenedor-mobile-fix" style="padding: 25px;">
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+                </p>
+                <span class="deseas-cancelar">
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
+            }
+            else
+            {
+                <div id="div-suscribite">
+                    <div class="logo" style="margin-top:0;"></div>
+                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                </div>
+            }
+
+            <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+
+        </div>
+    </div>
+}
+
+<div class="preguntas-frecuentes-cont-sus">
+    <div class="contenedor-mobile-fix">
+        <ul class="preg-frecuentes">
+            <li>
+                <a class="abrir-preg-frecuente"><p>PREGUNTAS FRECUENTES <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <b>¿Cuál es la diferencia entre GANA+ y Club GANA+?</b>
+                        <span>
+                            GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
+                            Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
+                        </span>
+                        <b>¿Cómo cancelo mi suscripción?</b>
+                        <span>
+                            Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
+                            Recuerda que puedes suscribirte nuevamente cuando desees.
+                        </span>
+                        <b>¿Por qué ya no recibo la guía de negocio impresa?</b>
+                        <span>Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.</span>
+                    </li>
+                    <li><a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
 </div>
+
+<a href="javascript: RDSuscripcion();" class="btn-suscribete-video">SUSCRÍBETE GRATIS AQUÍ</a>
+
+<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-confirmacion-datos.cshtml")
 
 @section scripts{
+
     <script type="text/javascript">
-        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var tipoOrigenPantalla = 1;
-        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-        var isScroll = false;
+    var PosBannerMenu;
+    var player; // create youtube player
+    var videoKey = '@Model.Video';
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var tipoOrigenPantalla = 1;
+    var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
+    var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+    var isScroll = false;
+    var estaSuscrita = '@Model.EsSuscrita';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

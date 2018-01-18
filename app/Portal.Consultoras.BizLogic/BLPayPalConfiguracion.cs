@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
-//R2004
 using System.IO;
 using System.Transactions;
 using System.Configuration;
@@ -74,7 +73,6 @@ namespace Portal.Consultoras.BizLogic
             return configuracionPayPal;
         }
 
-		//R2004 - R2122
         public string[] DescargaPaypal(int paisID, string codigoUsuario, DateTime fechaEjecucion)
         {
             var numeroLote = 0;
@@ -197,7 +195,6 @@ namespace Portal.Consultoras.BizLogic
             return new string[] { s, r };
         }
 
-		//R2004
         private static string FormatFile(string codigoPais, string fileName, DateTime date, Guid fileGuid)
         {
             return string.Format("{0}-{1}-{2}-{3}{4}",
@@ -208,8 +205,6 @@ namespace Portal.Consultoras.BizLogic
                 Path.GetExtension(fileName));
         }
 
-
-		//R2004
         private static string BuildLine(DataRow row)
         {
             var line = string.Empty;

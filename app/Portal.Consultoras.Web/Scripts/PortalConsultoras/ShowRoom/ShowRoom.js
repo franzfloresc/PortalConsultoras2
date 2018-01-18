@@ -18,7 +18,7 @@ $(document).ready(function () {
             $("#PopDetalleCompra").show();
 
             EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
-            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');            
+            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
                 lazyLoad: 'ondemand',
                 dots: false,
@@ -211,14 +211,14 @@ $(document).ready(function () {
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
-        var padre = $(this).parents("[data-item]");        
+        var padre = $(this).parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
 
         if (cantidad == "" || cantidad == 0) {
             AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
             return false;
-        }        
+        }
 
         //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
@@ -278,7 +278,7 @@ function CargarProductosShowRoom(busquedaModel) {
 
     $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
-            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);            
+            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
             EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
         })
         .fail(function (response) {
@@ -300,8 +300,7 @@ function CargarProductosShowRoom(busquedaModel) {
                     impressions.push(impression);
                 }
 
-                if (impressions.length > 0)
-                {
+                if (impressions.length > 0) {
                     dataLayer.push({
                         'event': 'productImpression',
                         'ecommerce': { 'impressions': impressions }
@@ -342,12 +341,12 @@ function AgregarOfertaShowRoom(article, cantidad) {
                     'brand': descripcionMarca,
                     'variant': 'Ofertas Showroom',
                     'category': 'NO DISPONIBLE',
-                    'quantity':cantidad
+                    'quantity': cantidad
                 }]
             }
         }
     });
-     
+
 
 
     var origen = $(article).find(".origenPedidoWeb").val() || 0;
@@ -383,7 +382,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
             var UnidadesPermitidas = data.UnidadesPermitidas;
 
             CerrarLoad();
-            
+
             if (Saldo == UnidadesPermitidas)
                 AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
             else {
@@ -400,7 +399,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 CUV: CUV,
                 ConfiguracionOfertaID: ConfiguracionOfertaID,
                 OrigenPedidoWeb: origen
-            };            
+            };
 
             $.ajaxSetup({ cache: false });
 
@@ -453,7 +452,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-     
+
     AbrirLoad();
 
     AgregarProductoAlCarrito($(article).parents("[data-item]"));
@@ -479,7 +478,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
         async: true,
-        success: function(response) {
+        success: function (response) {
             CerrarLoad();
 
             if (response.success == true) {
@@ -501,7 +500,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 
             } else messageInfoError(response.message);
         },
-        error: function(response, error) {
+        error: function (response, error) {
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
@@ -545,11 +544,10 @@ function AgregarProductoAlCarrito(padre) {
                 $(this).remove();
             });
         });
-    }    
+    }
 }
 
-function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarca, Posicion)
-{
+function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarca, Posicion) {
     dataLayer.push({
         'event': 'productClick',
         'ecommerce': {
@@ -589,7 +587,7 @@ function recortarPalabra(palabra, tamanio) {
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
 
-    if (response.success) {        
+    if (response.success) {
         if (aplicarFiltrosSubCampanias) {
             response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
             $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
@@ -614,7 +612,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             //    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -1%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             //});
         }
-        
+
         $.each(response.listaNoSubCampania, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
@@ -646,7 +644,7 @@ function CargarShowroomMobile(busquedaModel) {
                 CerrarLoad();
                 console.log(response);
             }
-    });
+        });
 }
 
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
@@ -670,7 +668,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
     }
 }
-function ConfigurarSlick() {    
+function ConfigurarSlick() {
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
         lazyLoad: 'ondemand',
@@ -741,7 +739,7 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
                 function (index, value) {
                     if (value.EsSubCampania == true) {
                         //if (value.UnidadesPermitidasRestantes > 0) {
-                            lista.push(value);
+                        lista.push(value);
                         //}
                     }
                     else {
@@ -753,7 +751,7 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
     return lista;
 }
 
-function compraxcompra_promotion_click(cuv,descripcion) {
+function compraxcompra_promotion_click(cuv, descripcion) {
     var id = cuv;
     var name = 'Showroom – ' + descripcion;
     dataLayer.push({

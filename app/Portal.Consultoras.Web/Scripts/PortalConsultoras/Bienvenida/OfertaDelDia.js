@@ -5,8 +5,8 @@ $(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
     var odd_desktop_google_analytics_promotion_impresion_fech;
-    
-   
+
+
     var self = window.OfertaDelDia;
 
     var CONS_TIPO_ORIGEN = {
@@ -77,7 +77,7 @@ $(document).ready(function () {
         var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
 
         if ($(contenedorOfertas).length == 0)
-            return false;   
+            return false;
 
         $.ajax({
             type: 'GET',
@@ -91,7 +91,7 @@ $(document).ready(function () {
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
                 var _data = response.data;
-                
+
                 RenderOfertaDelDiaMobile(_data, contenedorOfertas);
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
@@ -102,7 +102,7 @@ $(document).ready(function () {
             error: function (err) {
                 checkTimeout(err);
             }
-        });        
+        });
     }
 
     function MostrarRelojOfertaDelDia(totalSegundos) {
@@ -126,7 +126,7 @@ $(document).ready(function () {
         if (response.data.ListaOfertas.length <= 0) {
             $("#ODD").find(".seccion-content-contenedor").fadeOut();
             return false;
-        } 
+        }
         $("#ODD").find(".seccion-content-contenedor").fadeIn();
         return true;
     }
@@ -178,7 +178,7 @@ $(document).ready(function () {
             contenedorOfertas = elements.ContenedorOfertaDelDiaOfertas;
 
         if ($(contenedorOfertas).length == 0)
-            return false;        
+            return false;
 
         $.ajax({
             type: 'GET',
@@ -193,10 +193,10 @@ $(document).ready(function () {
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
 
-                var _data = response.data;                                               
+                var _data = response.data;
 
                 RenderOfertaDelDia(_data, contenedorOfertas)
-                
+
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 ///*Para personalizar el fondo del reloj*/
@@ -229,8 +229,8 @@ $(document).ready(function () {
                     $('#banner-odd').parent().hide();
                     $('#PopOfertaDia').show();
                 }
-                
-                if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME){
+
+                if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
                     LayoutHeader();
                     if (odd_desktop_google_analytics_promotion_impresion_flag) {
                         odd_desktop_google_analytics_promotion_impresion();
@@ -242,9 +242,9 @@ $(document).ready(function () {
                 checkTimeout(err);
             }
         });
-        
+
         if (!seAtacharonEventosOdd) {
-            
+
             $("body").off("click", contenedorOfertas + " [data-odd-accion]");
             $("body").on("click", contenedorOfertas + " [data-odd-accion]", function (e) {
                 var accion = $(this).attr("data-odd-accion").toUpperCase();
@@ -273,24 +273,24 @@ $(document).ready(function () {
                 }
             });
             seAtacharonEventosOdd = true;
-        } 
+        }
     }
 
     function RenderOfertaDelDia(data, contenedorOfertas) {
-        
+
         $(contenedorOfertas).hide();
-        
+
         data.CantidadProductos = data.ListaOfertas.length;
         data.Simbolo = vbSimbolo;
         data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
 
-        SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);        
+        SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);
         odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
     }
 
-    function ConfigurarCarruselProductos(contenedorOfertas,cantidadProductos) {
+    function ConfigurarCarruselProductos(contenedorOfertas, cantidadProductos) {
         if (cantidadProductos > 1) {
             $(contenedorOfertas + ' #imgSoloHoy').show();
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
@@ -327,7 +327,7 @@ $(document).ready(function () {
         }
     }
 
-    function ConfigurarCarruselDetalleProductos(contenedorOfertas,cantidadProductos) {
+    function ConfigurarCarruselDetalleProductos(contenedorOfertas, cantidadProductos) {
         if (cantidadProductos == 1) {
             $(contenedorOfertas + ' #imgSoloHoy').show();
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
@@ -446,7 +446,7 @@ $(document).ready(function () {
         return true;
     }
 
-    function ObtenerProducto(itemCampos, cantidad) {        
+    function ObtenerProducto(itemCampos, cantidad) {
         var esMobile = ViewBagEsMobile == 1 ? 0 : 1000; /*1 Desktop, 2 Mobile*/
 
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
@@ -480,7 +480,7 @@ $(document).ready(function () {
         if (!EsOddAgregarValido(btn, cantidad)) {
             return false;
         }
-        
+
         var producto = ObtenerProducto(itemCampos, cantidad);
 
         var promiseValidarStockEstrategia = ValidarStockEstrategia(producto);
@@ -491,7 +491,7 @@ $(document).ready(function () {
                 return false;
             }
             var promiseAgregarProducto = AgregarProducto(producto);
-            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {               
+            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {
                 if (!checkTimeout(responseAgregarProd)) {
                     CerrarLoad();
                     return false;
@@ -556,7 +556,7 @@ $(document).ready(function () {
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();
         var teImagenMostrar = itemCampos.find('.teimagenmostrar-odd').val();
-        
+
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
         if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
         else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
@@ -755,7 +755,7 @@ $(document).ready(function () {
         } else {
             var promiseAgregarProducto = AgregarProducto(producto);
             $.when(promiseAgregarProducto).then(
-                ResolverPromiseAgregarProducto(response), 
+                ResolverPromiseAgregarProducto(response),
                 ResolverPromiseAgregarProductoError(response)
              );
         }
@@ -850,7 +850,7 @@ $(document).ready(function () {
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
     }
-    
+
     function AsignarClaseCssAPalabraGratisMobile(listaOfertas) {
         var listaOfertasConClases = [];
 
@@ -873,7 +873,26 @@ $(document).ready(function () {
         return listaOfertasConClases;
     }
 
-    $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+    $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome).click(function () {
+        document.location.href = urlOfertaDelDiaMobile;
+    });
+
+    $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '002',
+                        'name': 'Oferta del dia',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
+        
         document.location.href = urlOfertaDelDiaMobile;
     });
 
@@ -896,9 +915,8 @@ $(document).ready(function () {
 });
 
 function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide) {
-    if (currentSlide != nextSlide)
-    {
-        var accion = "";        
+    if (currentSlide != nextSlide) {
+        var accion = "";
         var index = 0;
         var impresions = [];
 
@@ -911,21 +929,18 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
         } else {
             accion = 'prev';
         };
-        
-        if (accion == "prev")
-        {
+
+        if (accion == "prev") {
             index = nextSlide;
         }
-        if (accion == "next")
-        {
+        if (accion == "next") {
             index = nextSlide + 2;
         }
-        if (index >= array_odd.CantidadProductos)
-        {
+        if (index >= array_odd.CantidadProductos) {
             index = index - array_odd.CantidadProductos;
         }
-        
-        var div = $('#divOddCarrusel').find("[data-item-position=" + index + "]");        
+
+        var div = $('#divOddCarrusel').find("[data-item-position=" + index + "]");
         var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
         var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();
         var price = $(div).find("[data-item-campos]").find(".precio-odd").val();
@@ -942,11 +957,11 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
             'list': 'Oferta del día',
             'position': position
         });
-        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });        
+        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
     }
 }
 
-function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list) {    
+function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list) {
     if (currentSlide != nextSlide) {
         var accion = "";
         var index = 0;

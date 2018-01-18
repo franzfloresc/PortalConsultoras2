@@ -10,7 +10,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -24,7 +23,9 @@ namespace Portal.Consultoras.Web.Controllers
             get
             {
                 var url = Request.Url;
-                return string.Format("{0}://{1}", url.Scheme, url.Authority);
+                return url != null 
+                    ? string.Format("{0}://{1}", url.Scheme, url.Authority) 
+                    : "";
             }
         }
         public string DefaultCodigoISO
@@ -39,17 +40,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var codigoISO = string.Empty;
+                string codigoIso;
                 var ip = ObtenerIPPublica();
 
                 using (var webClient = new WebClient())
                 {
                     var result = webClient.DownloadString(string.Format("{0}/{1}", "http://ip-api.com/json", ip));
                     var json = JsonConvert.DeserializeObject<dynamic>(result);
-                    codigoISO = json.countryCode;
+                    codigoIso = json.countryCode;
                 }
 
-                return string.IsNullOrEmpty(codigoISO) ? string.Empty : codigoISO;
+                return string.IsNullOrEmpty(codigoIso) ? string.Empty : codigoIso;
             }
             catch
             {
@@ -57,10 +58,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public string AplicarFormatoNumeroDocumentoPorPais(string codigoISO, string numeroDocumento)
+        public string AplicarFormatoNumeroDocumentoPorPais(string codigoIso, string numeroDocumento)
         {
-            return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoISO) && Dictionaries.FormatoNumeroDocumentoBD[codigoISO] != null && !string.IsNullOrWhiteSpace(numeroDocumento) ?
-                Dictionaries.FormatoNumeroDocumentoBD[codigoISO](numeroDocumento) : numeroDocumento;
+            return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoIso) && Dictionaries.FormatoNumeroDocumentoBD[codigoIso] != null && !string.IsNullOrWhiteSpace(numeroDocumento) ?
+                Dictionaries.FormatoNumeroDocumentoBD[codigoIso](numeroDocumento) : numeroDocumento;
         }
 
         public JObject ConsumirServicio(string metodo, object data)
@@ -71,9 +72,9 @@ namespace Portal.Consultoras.Web.Controllers
             return BaseUtilities.ConsumirServicio<dynamic>(dataJson, urlBase, metodo) as JObject;
         }
         
-        public bool CodigoISOActivo(string codigoISO)
+        public bool CodigoISOActivo(string codigoIso)
         {
-            if (string.IsNullOrWhiteSpace(codigoISO))
+            if (string.IsNullOrWhiteSpace(codigoIso))
             {
                 return false;
             }
@@ -81,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
             var paises = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.PaisesHojaIncripcion) && ConfigurationManager.AppSettings[AppSettingsKeys.PaisesHojaIncripcion] != null ?
                 ConfigurationManager.AppSettings[AppSettingsKeys.PaisesHojaIncripcion].Split(',') : new string[] { };
 
-            return paises.Contains(codigoISO);
+            return paises.Contains(codigoIso);
         }
 
         public string RenderViewAsString(string viewName, object model)
@@ -104,28 +105,33 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public void EnviarCorreoNotificacion(
-            string codigoISO,
-            Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante,
-            HojaInscripcionODS.ConsultoraLiderBE consultoraLider,
-            HojaInscripcionODS.ZonaBE zona,
-            HojaInscripcionODS.SeccionBE seccion,
+            string codigoIso,
+            ServiceUnete.SolicitudPostulante solicitudPostulante,
+            ConsultoraLiderBE consultoraLider,
+            ZonaBE zona,
+            SeccionBE seccion,
             string tieneExperiencia,
             bool viaWeb = true)
         {
             var nombreCompleto = string.Format("{0} {1}", solicitudPostulante.PrimerNombre, solicitudPostulante.ApellidoPaterno);
 
             var sv = new ODSServiceClient();
-            var consultora = sv.ObtenerConsultoraPorZonaYSeccionUnete(codigoISO, consultoraLider.ConsultoraID.ToInt());
+            var consultora = sv.ObtenerConsultoraPorZonaYSeccionUnete(codigoIso, consultoraLider.ConsultoraID.ToInt());
             sv.Close();
-            var mailVM = new MailVM()
+            var edad = solicitudPostulante.FechaNacimiento == null
+                ? ""
+                : ((new DateTime(1, 1, 1) + (DateTime.Now - solicitudPostulante.FechaNacimiento.Value)).Year - 1)
+                .ToString();
+
+            var mailVm = new MailVM
             {
                 NombreCandidata = solicitudPostulante.PrimerNombre,
                 NombreCompleto = nombreCompleto,
-                FechaNacimiento = solicitudPostulante.FechaNacimiento.Value.ToFormattedStringDate(),
+                FechaNacimiento = solicitudPostulante.FechaNacimiento == null ? "" : solicitudPostulante.FechaNacimiento.Value.ToFormattedStringDate(),
                 Direccion = solicitudPostulante.Direccion,
                 Telefono = !string.IsNullOrEmpty(solicitudPostulante.Telefono) ? solicitudPostulante.Telefono : solicitudPostulante.Celular,
                 CorreoElectronico = solicitudPostulante.CorreoElectronico,
-                Edad = ((new DateTime(1, 1, 1) + (DateTime.Now - solicitudPostulante.FechaNacimiento.Value)).Year - 1).ToString(),
+                Edad = edad,
                 TieneExperiencia = tieneExperiencia,
                 EvaluacionCrediticia = "No cuenta con deuda",
                 ContactoUnete = viaWeb,
@@ -136,30 +142,30 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteSE) && ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE] != null ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE] : "#"
             };
 
-            var html = RenderViewAsString("_MailNotificacionSE", mailVM);
-            var result = MailUtilities.EnviarMailMandrillJson(new List<ToWithType>
+            var html = RenderViewAsString("_MailNotificacionSE", mailVm);
+            MailUtilities.EnviarMailMandrillJson(new List<ToWithType>
             {
                 new ToWithType
                 {
-                    email = mailVM.CorreoElectronicoDestinatario,
-                    name = mailVM.NombreDestinatario,
+                    email = mailVm.CorreoElectronicoDestinatario,
+                    name = mailVm.NombreDestinatario,
                     type = "to"
                 }
             }, html, ImagenesMailNotificacionSE());
 
 
-            mailVM.NombreDestinatario = zona.GerenteZona;
-            mailVM.CorreoElectronicoDestinatario = zona.GZEmail;
-            mailVM.ParaGZ = true;
-            mailVM.UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteFFVV) && ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] != null ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] : "#";
+            mailVm.NombreDestinatario = zona.GerenteZona;
+            mailVm.CorreoElectronicoDestinatario = zona.GZEmail;
+            mailVm.ParaGZ = true;
+            mailVm.UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteFFVV) && ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] != null ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteFFVV] : "#";
 
-            html = RenderViewAsString("_MailNotificacionGZ", mailVM);
-            result = MailUtilities.EnviarMailMandrillJson(new List<ToWithType>
+            html = RenderViewAsString("_MailNotificacionGZ", mailVm);
+            MailUtilities.EnviarMailMandrillJson(new List<ToWithType>
             {
                 new ToWithType
                 {
-                    email =mailVM.CorreoElectronicoDestinatario,
-                    name = mailVM.NombreDestinatario,
+                    email =mailVm.CorreoElectronicoDestinatario,
+                    name = mailVm.NombreDestinatario,
                     type = "to"
                 }
 
@@ -167,22 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Métodos privados
-
-        private string ObtenerIPPublicaRouter()
-        {
-            var ipPublica = string.Empty;
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    ipPublica = webClient.DownloadString("http://checkip.dyndns.org/");
-                    ipPublica = (new Regex(@"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"))
-                             .Matches(ipPublica)[0].ToString();
-                }
-            }
-            catch { }
-            return ipPublica;
-        }
+        
         private string ObtenerIPPublica()
         {
             var context = System.Web.HttpContext.Current;

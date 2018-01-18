@@ -17,7 +17,7 @@
 
     var _listarCampaniasPromise = function (paisId) {
         var d = $.Deferred();
-        
+
         var promise = $.ajax({
             type: 'GET',
             url: (setting.BaseUrl + setting.UrlListarCampanias),

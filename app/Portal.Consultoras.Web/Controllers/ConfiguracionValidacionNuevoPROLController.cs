@@ -43,12 +43,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var listaZonas = DropDowListZonasNoProl(PaisID);
-                var listaZonasNuevoPROL = DropDowListZonasPROL(PaisID);
+                var listaZonasNuevoProl = DropDowListZonasPROL(PaisID);
 
                 return Json(new
                 {
                     listaZonas = listaZonas,
-                    listaZonasNuevoPROL = listaZonasNuevoPROL
+                    listaZonasNuevoPROL = listaZonasNuevoProl
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -68,43 +68,33 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int paisId)
         {
             IList<BEConfiguracionValidacionNuevoPROL> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetConfiguracionValidacionNuevoPROL(PaisID, 1);
+                lst = sv.GetConfiguracionValidacionNuevoPROL(paisId, 1);
             }
-            Mapper.CreateMap<BEConfiguracionValidacionNuevoPROL, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona));
 
             return Mapper.Map<IList<BEConfiguracionValidacionNuevoPROL>, IEnumerable<ZonaModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonasPROL(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasPROL(int paisId)
         {
             IList<BEConfiguracionValidacionNuevoPROL> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetConfiguracionValidacionNuevoPROL(PaisID, 2);
+                lst = sv.GetConfiguracionValidacionNuevoPROL(paisId, 2);
             }
-            Mapper.CreateMap<BEConfiguracionValidacionNuevoPROL, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona));
-
+            
             return Mapper.Map<IList<BEConfiguracionValidacionNuevoPROL>, IEnumerable<ZonaModel>>(lst);
         }
 

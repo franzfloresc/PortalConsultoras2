@@ -82,11 +82,7 @@ namespace Portal.Consultoras.BizLogic
  
             using (IDataReader readerLogEmail = DAMailingLista.ListaLogEmailingAutomaticoSE(PaisID))
             {
-                //while (readerLogEmail.Read())
-                //{
                 DTLogEmailingAutomaticoSE.Load(readerLogEmail);
-                //    ListaLogEmailingAutomaticoSE.Add(new BELogEmailingAutomaticoSE(readerLogEmail));
-                //}
             }
  
 
@@ -112,7 +108,6 @@ namespace Portal.Consultoras.BizLogic
                     BEConsultora.SeccionID, BEConsultora.Plantilla, BEConsultora.ConsultoraID);
 
         }
-        //R2447 - JICM - Agregando Método para obtener ZonaHoraria del Pais
         public DateTime GetPaisZonaHoraria(int PaisID)
         {
             var DAMailing = new DAMailing(PaisID);
