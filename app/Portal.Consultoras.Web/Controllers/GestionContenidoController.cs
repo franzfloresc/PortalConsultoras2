@@ -841,12 +841,12 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public IEnumerable<CampaniaModel> DropDownCampanias(int PaisID)
+        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
         {
             List<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectCampanias(PaisID).ToList();
+                lista = servicezona.SelectCampanias(paisId).ToList();
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);

@@ -50,10 +50,10 @@ namespace Portal.Consultoras.Web.CustomFilters
                     {
                         filterContext.RouteData.Values.Add(IdentifierKey, validatedGuid.ToString());
 
-                        //foreach (var param in filterContext.ActionParameters)
-                        //{
-                        //    filterContext.RouteData.Values.Add(param.Key, param.Value);
-                        //}
+                        foreach (var param in filterContext.ActionParameters)
+                        {
+                            filterContext.RouteData.Values.Add(param.Key, param.Value);
+                        }
 
                         filterContext.Result = new RedirectToRouteResult(RouteName, filterContext.RouteData.Values);
 

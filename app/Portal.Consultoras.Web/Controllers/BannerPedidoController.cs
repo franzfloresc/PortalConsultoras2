@@ -49,13 +49,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -64,15 +60,19 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<PosicionBannerPedidoModel> DropDowListPosicionBannerPedido()
         {
             List<PosicionBannerPedidoModel> lst = new List<PosicionBannerPedidoModel>();
-      
-            PosicionBannerPedidoModel oPosicionBannerPedidoModel = new PosicionBannerPedidoModel();
-            oPosicionBannerPedidoModel.PosicionBannerPedidoId = 1;
-            oPosicionBannerPedidoModel.PosicionBannerPedido = "Banner 1";
+
+            var oPosicionBannerPedidoModel = new PosicionBannerPedidoModel
+            {
+                PosicionBannerPedidoId = 1,
+                PosicionBannerPedido = "Banner 1"
+            };
             lst.Add(oPosicionBannerPedidoModel);
 
-            PosicionBannerPedidoModel oPosicionBannerPedidoModel4 = new PosicionBannerPedidoModel();
-            oPosicionBannerPedidoModel4.PosicionBannerPedidoId = 4;
-            oPosicionBannerPedidoModel4.PosicionBannerPedido = "Banner 4";
+            var oPosicionBannerPedidoModel4 = new PosicionBannerPedidoModel
+            {
+                PosicionBannerPedidoId = 4,
+                PosicionBannerPedido = "Banner 4"
+            };
             lst.Add(oPosicionBannerPedidoModel4);
 
             return lst;
@@ -80,12 +80,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
@@ -111,14 +111,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetaPais = Globals.UrlBanner + "/" + UserData().CodigoISO;
-                if (lst != null)
-                    if (lst.Count > 0) lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO));
+                if (lst.Count > 0) lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO));
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEBannerPedido> items = lst;
 
                 #region Sort Section
@@ -208,8 +209,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult Mantener(HttpPostedFileBase flArchivoPDF, AdministrarBannerPedidoModel model)
         {
-            JsonResult result;
-            result = model.BannerPedidoID == 0 ? Insertar(flArchivoPDF, model) : Actualizar(flArchivoPDF, model);
+            var result = model.BannerPedidoID == 0 ? Insertar(flArchivoPDF, model) : Actualizar(flArchivoPDF, model);
             if (Request.IsAjaxRequest())
             {
                 return result;
@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.SelectBannerPedido(UserData().PaisID, model.CampaniaIDInicio).ToList();
                 }
-                if (lst != null && lst.Count > 0)
+                if (lst.Count > 0)
                 {
                     var lista = from a in lst
                                 where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
@@ -257,15 +257,14 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Convert.ToInt32(Request.Form["PaisID"].ToString().Substring(1));
                 }
 
-                string finalPath = string.Empty;
                 string fileName = string.Empty;
                 if (flArchivoPDF != null)
                 {
-                    fileName = Path.GetFileName(flArchivoPDF.FileName);
+                    fileName = Path.GetFileName(flArchivoPDF.FileName) ?? "";
                     string pathBanner = Globals.RutaTemporales;
                     if (!Directory.Exists(pathBanner))
                         Directory.CreateDirectory(pathBanner);
-                    finalPath = Path.Combine(pathBanner, fileName);
+                    var finalPath = Path.Combine(pathBanner, fileName);
                     flArchivoPDF.SaveAs(finalPath);
 
                     var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
@@ -280,12 +279,12 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     string tempImage01 = model.ArchivoPortada ?? string.Empty;
-                    string ISO = Util.GetPaisISO(model.PaisID);
+                    string iso = Util.GetPaisISO(model.PaisID);
 
                     string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                    var newfilename = ISO + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    var newfilename = iso + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                     var path = Path.Combine(Globals.RutaTemporales, tempImage01);
-                    var carpetaPais = Globals.UrlBanner + "/" + ISO;
+                    var carpetaPais = Globals.UrlBanner + "/" + iso;
                     ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                     entidad.ArchivoPortada = newfilename;
                     entidad.UsuarioCreacion = UserData().CodigoUsuario;
@@ -330,7 +329,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.SelectBannerPedido(UserData().PaisID, model.CampaniaIDInicio).ToList();
                 }
-                if (lst != null && lst.Count > 0)
+                if (lst.Count > 0)
                 {
                     var lista1 = from a in lst
                                  where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido && a.BannerPedidoID == model.BannerPedidoID
@@ -340,9 +339,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!lista1.Any())
                     {
-                        var lista = from a in lst
+                        var lista = (from a in lst
                                     where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
-                                    select a;
+                                    select a).ToList();
 
                         if (lista.Any())
                         {
@@ -365,9 +364,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEBannerPedido entidad = Mapper.Map<AdministrarBannerPedidoModel, BEBannerPedido>(model);
 
-                string finalPath = string.Empty;
-                string fileName = string.Empty;
-
                 switch (model.grupoUrlPDF.ToLower())
                 {
                     case "url":
@@ -376,11 +372,11 @@ namespace Portal.Consultoras.Web.Controllers
                     case "pdf":
                         if (flArchivoPDF != null)
                         {
-                            fileName = Path.GetFileName(flArchivoPDF.FileName);
+                            var fileName = Path.GetFileName(flArchivoPDF.FileName) ?? "";
                             string pathBanner = Globals.RutaTemporales;
                             if (!Directory.Exists(pathBanner))
                                 Directory.CreateDirectory(pathBanner);
-                            finalPath = Path.Combine(pathBanner, fileName);
+                            var finalPath = Path.Combine(pathBanner, fileName);
                             flArchivoPDF.SaveAs(finalPath);
 
                             var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
@@ -400,12 +396,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string tempImage01 = model.ArchivoPortada ?? string.Empty;
                     string tempImagenLogoAnterior01 = model.ArchivoPortadaAnterior ?? string.Empty;
-                    string ISO = Util.GetPaisISO(model.PaisID);
+                    string iso = Util.GetPaisISO(model.PaisID);
 
                     if (tempImage01 != tempImagenLogoAnterior01)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
 
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
                         var carpetaPais = Globals.UrlBanner + "/" + UserData().CodigoISO;
