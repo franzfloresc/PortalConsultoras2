@@ -52,7 +52,7 @@ namespace Portal.Consultoras.BizLogic
             var producto = _blProducto.SelectProductoByCodigoDescripcionSearchRegionZona(model.PaisID, model.CampaniaID, model.CUV,
                 usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true).FirstOrDefault();
             if (producto == null)
-                return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado); //TODO: Validar mensaje
+                return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado);
 
             int tipoEstrategia;
             //validar stock estrategia
@@ -338,13 +338,10 @@ namespace Portal.Consultoras.BizLogic
                         decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
                         decimal.TryParse(datos.MontoEscala, out montoEscala);
 
-                        if (datos != null)
+                        if (datos.ListaConcursoIncentivos != null)
                         {
-                            if (datos.ListaConcursoIncentivos != null)
-                            {
-                                Puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
-                                PuntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
-                            }
+                            Puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
+                            PuntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
                         }
                     }
                 }

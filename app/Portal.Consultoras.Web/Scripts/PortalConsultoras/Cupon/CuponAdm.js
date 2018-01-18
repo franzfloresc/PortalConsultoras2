@@ -22,6 +22,6 @@
         urlImagenEnable: urlImagenEnable,
         urlImagenDisable: urlImagenDisable
     };
-    
+
     cuponAdmModule.ini(objInitializerCupon);
 });

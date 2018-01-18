@@ -127,7 +127,7 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DACrossSellingProducto(entidad.PaisID);
             return dataAccess.DelCrossSellingAsociacion(entidad);
         }
-		public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad)//1673
+		public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad)
         {
             var dataAccess = new DACrossSellingProducto(entidad.PaisID);
             return dataAccess.DelCrossSellingAsociacion_Perfil(entidad);

@@ -224,12 +224,12 @@ var menuModule = (function () {
             window.location = window.location.origin + url;
         }
     }
-    function tabClick(element, url) {
+    function tabClick(element, url, pantalla) {
         if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
         var campania = $(element).data("campania") || "";
         var codigo = $(element).data("codigo") || "";
         if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.Tabs(codigo, campania);
+            rdAnalyticsModule.Tabs(codigo, campania, pantalla);
         }
         window.location = window.location.origin + url;
     }

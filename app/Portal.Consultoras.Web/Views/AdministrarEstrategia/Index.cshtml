@@ -20,7 +20,6 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Button/style.css")" rel="stylesheet" />
 
 <input type="hidden" id="mensajeErrorCUV" />
 <input type="hidden" id="mensajeErrorCUV2" />
@@ -102,16 +101,16 @@
                 <div class="titG">&nbsp;</div>
                 <div class="input_horizontal">
                     <input class="button blue" type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    <input class="button blue" type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
                     { 
-                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                        <input class="button blue" type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
                     }
-                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />
+                    <input class="button blue" type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />
                 </div>
                 <div class="input_modifica_pedido">
-                    <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
-                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;"/>
+                    <input class="button blue" type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                    <input class="button blue" type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;"/>
                 </div>
             </div>
         </div>
@@ -134,13 +133,13 @@
             <div class="elements" style="padding-top: 0">
                 <div class="div-3">
                     <div class="input_search">
-                        <input type="button" value="Nuevo ShowRoom" id="btnNuevoShowRoom" name="">
+                        <input class="button blue" type="button" value="Nuevo Evento" id="btnNuevoShowRoom" name="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <div class="elements" id="divPersonalizacion" style="display: none;">
         <div class="container clearfix">
             <h3>Personalización</h3>
@@ -151,13 +150,14 @@
                 </div>
 
                 <div class="">
-                    <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
-                           style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+                    <input class="button blue" type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
+                            style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
                 </div>
             </div>
         </div>
         <br /><br />
     </div>
+
     <!--SHOWROOM-FIN-->
 
     <div class="container clearfix">
@@ -256,8 +256,8 @@
                 </div>
                 <div class="div-3">
                     <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
-                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
+                        <input class="button blue" type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
+                        <input class="button blue" type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
                     </div>
                 </div>
             </div>
@@ -278,8 +278,8 @@
                 </div>
                 <div class="div-3">
                     <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
-                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                        <input class="button blue" type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input class="button blue" type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
                     </div>
                 </div>
             </div>
@@ -296,7 +296,7 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
+                    <input class="button blue" type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -341,8 +341,8 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
-                    <input type="button" name="btnCancelarMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
+                    <input class="button blue" type="button" name="btnAceptarMasivo1" id="btnAceptarDescMasivo1" value="Continuar" style="float: none;" />
+                    <input class="button blue" type="button" name="btnCancelarMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -358,7 +358,7 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescMasivo')" value="Cerrar" style="float: none;" />
+                    <input class="button blue" type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescMasivo')" value="Cerrar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -374,7 +374,7 @@
         </div>
         <div class="div-3">
             <div class="input_horizontal" style="text-align: center;">
-                <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescActualizada')" value="Volver" style="float: none;" />
+                <input class="button blue" type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescActualizada')" value="Volver" style="float: none;" />
             </div>
         </div>
     </div>
@@ -389,7 +389,7 @@
         </div>
         <div class="div-3">
             <div class="input_horizontal" style="text-align: center;">
-                <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescNoActualizada')" value="Volver" style="float: none;" />
+                <input class="button blue" type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescNoActualizada')" value="Volver" style="float: none;" />
             </div>
         </div>
     </div>
@@ -431,23 +431,16 @@
                 <input type="text" id="txtEventoDiasDespues" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </div>
         </div>
-        @*<div class="div-3">
-            <div class="titG"># de Perfiles:</div>
+        <div class="div-3">
+            @*<div class="titG"># de Perfiles:</div>
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtEventoNumeroPerfiles" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " />
-            </div>
+            </div>*@
+
             <div id="divEventoEstado">
                 <div class="titG">Habilitar Evento</div>
                 <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px;">
                     <input type="checkbox" class="check" id="chkEventoEstado" />
-                </div>
-            </div>
-        </div>*@
-        <div class="div-3">
-            <div>
-                <div class="titG">Habilitar Categorías</div>
-                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
-                    <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
                 </div>
             </div>
             <div>
@@ -458,12 +451,32 @@
             </div>
         </div>
         <div class="div-3">
+            @*<div>
+                <div class="titG">Habilitar Categorías</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTieneCategoria" />
+                </div>
+            </div>*@
+            @*<div>
+                <div class="titG">Habilitar Compra por Compra</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventocompraXcompra" />
+                </div>
+            </div>*@
             <div>
                 <div class="titG">Habilitar SubCampañas</div>
                 <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
                     <input type="checkbox" class="check" id="chkEventoTieneSubCampania" />
                 </div>
             </div>
+        </div>
+        <div class="div-3">
+            @*<div>
+                <div class="titG">Habilitar SubCampañas</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTieneSubCampania" />
+                </div>
+            </div>*@
             @*<div>
                 <div class="titG">Habilitar Personalización</div>
                 <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
@@ -546,6 +559,7 @@
     var urlImageMatrizUpload = '@Url.Action("ImageMatrizUpload", "FileUpload")';
     var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
     var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
+    var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
     var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
     var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
     var imagenEliminar = '@Url.Content("~/Content/Images/delete.png")';
@@ -806,7 +820,15 @@
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdTipoConsulta").val("1");
             $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
-            fnGrilla();
+
+            $("#list").html("");
+            var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+            if (codigo == codigoShowRoom) {
+                cargarEventoShowRoom();
+            }
+            else {
+                fnGrilla();
+            }
         });
         $('#ddlPais').change(function () {
             $("#hdTipoConsulta").attr("value", "0");
@@ -1087,8 +1109,8 @@
                 if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
                     estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
                     estrategiaId !== 12 && estrategiaId !== 30) {
-                        alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                        return false;
+                    alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+                    return false;
                 }
             }
 
@@ -1126,8 +1148,8 @@
                 if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
                     estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
                     estrategiaId !== 12 && estrategiaId != 22 && estrategiaId !== 30) {
-                        _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
-                        return false;
+                    _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+                    return false;
                 }
             }
 
@@ -1258,12 +1280,14 @@
             var nivelId = $("#cbNivelEvento").val();
 
             if (eventoId == undefined || eventoId == 0) {
-                alert_msg("Evento no se puedo identificar");
+                //alert_msg("Evento no se puedo identificar");
+                alert('Evento no se puedo identificar');
                 return false;
             }
 
             if (nivelId == undefined || nivelId == 0) {
-                alert_msg("Debe seleccionar un Nivel");
+                //alert_msg("Debe seleccionar un Nivel");
+                alert('Debe seleccionar un Nivel');
                 return false;
             }
 
@@ -1387,7 +1411,8 @@
                 },
                 error: function (response, error) {
                     if (checkTimeout(response)) {
-                        alert_msg(response.message);
+                        //alert_msg(response.message);
+                        alert(response.message);
                         closeWaitingDialog();
                     }
                 }
@@ -1877,11 +1902,9 @@
             }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == "030") { $("#list").jqGrid('hideCol', ["Orden"]); }
-
-        // SHOWROOM
-        if (codigo == codigoShowRoom) {
-            cargarEventoShowRoom();
+        if (tipo == '4' || codigo == "005" || codigo == "007" || 
+            codigo == "008" || codigo == "010" || codigo == "030") { 
+            $("#list").jqGrid('hideCol', ["Orden"]); 
         }
     }
 
@@ -2206,14 +2229,14 @@
                     if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 &&
                         aux2 !== 9 && aux2 !== 10 && aux2 !== 11 &&
                         aux2 !== 12 && aux2 !== 30) {
-                            if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
-                                alert("Ingrese un orden para mostrar.");
-                                return false;
-                            }
-                            if ($("#txtOrden").val() <= 0) {
-                                alert("Ingrese un valor para el orden a mostrar mayor a cero.");
-                                return false;
-                            }
+                        if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                            alert("Ingrese un orden para mostrar.");
+                            return false;
+                        }
+                        if ($("#txtOrden").val() <= 0) {
+                            alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+                            return false;
+                        }
                     }
 
                     if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
@@ -2867,7 +2890,7 @@
             $('#txtEventoRutaShowRoomBannerLateral').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomBannerLateral'));
 
             $("#chkEventoEstado").prop('checked', estado == "1");
-            $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
+            //$("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
             $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
             $("#chkEventoTieneSubCampania").prop('checked', tieneSubCampania == "True");
 
@@ -2978,7 +3001,7 @@
         $("#divPopupImagenPreventaDigital").html("");
 
         //$("#chkEventoTieneCategoria, #chkEventoTieneSubCampania, #chkEventocompraXcompra, #chkEventoTienePersonalizacion").attr('checked', false);
-        $("#chkEventoTieneCategoria, #chkEventoTieneSubCampania, #chkEventocompraXcompra").attr('checked', false);
+        $("#chkEventoTieneSubCampania, #chkEventocompraXcompra").attr('checked', false);
     }
 
     function fnGrillaEvento() {
@@ -3064,6 +3087,9 @@
                     $("#divShowRoomEventoNuevo").css("display", "none");
                     //$("#divCargaArchivos").css("display", "");
 
+                    // Listar Productos ShowRoom
+                    fnGrilla();
+
                     var showroomEvento = jQuery('#listEvento').jqGrid('getRowData')[0];
                     CargarImagenes(showroomEvento);
 
@@ -3113,13 +3139,15 @@
                         }
                     } else {
                         $("#divPersonalizacion").css("display", "none");
-                        alert_msg(response.message);
+                        //alert_msg(response.message);
+                        alert(response.message);
                     }
                 }
             },
             error: function (response, error) {
                 if (checkTimeout(response)) {
-                    alert_msg(response.message);
+                    //alert_msg(response.message);
+                    alert(response.message);
                     closeWaitingDialog();
                 }
             }
@@ -3223,7 +3251,8 @@
         //var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var numeroPerfiles = 0;
         var estado = $("#chkEventoEstado").is(":checked");
-        var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
+        //var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
+        var tieneCategoria = 0;
         var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
         var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
         //var tienePersonalizacion = $("#chkEventoTienePersonalizacion").is(":checked");
@@ -3276,15 +3305,18 @@
 
                         HideDialog("DialogDatosShowRoom");
                         jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                        alert_msg(response.message);
+                        //alert_msg(response.message);
+                        alert(response.message);
                     } else {
-                        alert_msg(response.message);
+                        //alert_msg(response.message);
+                        alert(response.message);
                     }
                 }
             },
             error: function (response, error) {
                 if (checkTimeout(response)) {
-                    alert_msg(response.message);
+                    //alert_msg(response.message);
+                    alert(response.message);
                     closeWaitingDialog();
                 }
             }

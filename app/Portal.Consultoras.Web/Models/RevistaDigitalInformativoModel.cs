@@ -10,6 +10,6 @@ namespace Portal.Consultoras.Web.Models
         public string Video { get; set; }
         public string UrlTerminosCondiciones { get; set; }
         public string UrlPreguntasFrecuentes { get; set; }
-
+        public string Origen { get; set; }
     }
 }

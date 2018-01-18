@@ -31,17 +31,14 @@ namespace Portal.Consultoras.Web.WebPages
                     if (Request.QueryString["data"] != null)
                     {
                         string parametros = Request.QueryString["data"];
-                        var parametrosDesencriptados = Util.Decrypt(parametros);// Util.DesencriptarQueryString(parametros);
+                        var parametrosDesencriptados = Util.Decrypt(parametros);
                         string[] query = parametrosDesencriptados.Split(';');
                         string paisid = query[1];
-                        //032610099;11;PE;leonarddgl@gmail.com;31/12/9999 23:59:59
 
                         if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
                             esEsika = true;
 
                         txtmarca.Text = esEsika ? "esika" : "lbel";
-                        //Formato que envia la url: CodigoUsuario;IdPais
-                        //string[] query1 = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
 
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
@@ -69,23 +66,11 @@ namespace Portal.Consultoras.Web.WebPages
                         result = "Ha ocurrido un error con la activación de su correo electrónico.";
                     lblConfirmacion.Text = result;
                     linkregresarasomosbelcorp.NavigateUrl = urlportal;
-                    //if (Request.QueryString["tipo"] != null)
-                    //{
-                    //    if (!Request.QueryString["tipo"].Equals("ccc"))
-                    //        lnkClienteCC.Visible = false;
-                    //}
-                    //else
-                    //{
-                    //    lnkClienteCC.Visible = false;
-                    //}
                 }
-                //else
-                //    lblConfirmacion.Text = "Para activar la dirección E-mail, debe hacer clic en el enlace enviado a su correo electrónico.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
-                //lblConfirmacion.Text = ex.Message;
                 lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
         }

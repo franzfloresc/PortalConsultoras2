@@ -34,6 +34,10 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CodigoError", DbType.Int32, entidad.CodigoError);
                 Context.Database.AddInParameter(command, "@CodigoErrorObs", DbType.Int32, entidad.CodigoErrorObs);
                 Context.Database.AddInParameter(command, "@FactorCuadre", DbType.Int32, entidad.FactorCuadre);
+
+                Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
+                Context.Database.AddInParameter(command, "@MarcaId", DbType.Int16, entidad.MarcaId);
+
                 Context.ExecuteNonQuery(command);
 
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);

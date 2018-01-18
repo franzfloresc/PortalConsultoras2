@@ -1,133 +1,166 @@
 @font-face {
-	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?sva50n');
-	src:url('../fonts/icomoon.eot?#iefixsva50n') format('embedded-opentype'),
-		url('../fonts/icomoon.ttf?sva50n') format('truetype'),
-		url('../fonts/icomoon.woff?sva50n') format('woff'),
-		url('../fonts/icomoon.svg?sva50n#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?sva50n');
+    src: url('../fonts/icomoon.eot?#iefixsva50n') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?sva50n') format('truetype'),
+        url('../fonts/icomoon.woff?sva50n') format('woff'),
+        url('../fonts/icomoon.svg?sva50n#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+[class^='icon-'], [class*=' icon-'] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-circle:before {
-	content: "\e620";
+    content: '\e620';
 }
+
 .icon-circle-check:before {
-	content: "\e623";
+    content: '\e623';
 }
+
 .icon-info:before {
-	content: "\e621";
+    content: '\e621';
 }
+
 .icon-facebook:before {
-	content: "\e61f";
+    content: '\e61f';
 }
+
 .icon-angle-next-belcorp:before {
-	content: "\e601";
+    content: '\e601';
 }
+
 .icon-angle-left:before {
-	content: "\e61e";
+    content: '\e61e';
 }
+
 .icon-plus-circle-belcorp:before {
-	content: "\e61a";
+    content: '\e61a';
 }
+
 .icon-plus-belcorp:before {
-	content: "\e61c";
+    content: '\e61c';
 }
+
 .icon-minus-belcorp:before {
-	content: "\e61d";
+    content: '\e61d';
 }
+
 .icon-angle-up:before {
-	content: "\e622";
+    content: '\e622';
 }
+
 .icon-angle-down:before {
-	content: "\e616";
+    content: '\e616';
 }
+
 .icon-envelope:before {
-	content: "\e617";
+    content: '\e617';
 }
+
 .icon-delete:before {
-	content: "\e618";
+    content: '\e618';
 }
+
 .icon-icon-check:before {
-	content: "\e619";
+    content: '\e619';
 }
+
 .icon-exclamation-circle:before {
-	content: "\e61b";
+    content: '\e61b';
 }
+
 .icon-shop-belcorp:before {
-	content: "\e60d";
+    content: '\e60d';
 }
+
 .icon-academia-belcorp:before {
-	content: "\e600";
+    content: '\e600';
 }
+
 .icon-belcorp-home:before {
-	content: "\e602";
+    content: '\e602';
 }
+
 .icon-belcorp-logo:before {
-	content: "\e603";
+    content: '\e603';
 }
+
 .icon-caja-armar:before {
-	content: "\e604";
+    content: '\e604';
 }
+
 .icon-caja-close:before {
-	content: "\e605";
+    content: '\e605';
 }
+
 .icon-caja-open:before {
-	content: "\e606";
+    content: '\e606';
 }
+
 .icon-catalagos-belcorp:before {
-	content: "\e607";
+    content: '\e607';
 }
+
 .icon-close-belcorp:before {
-	content: "\e608";
+    content: '\e608';
 }
+
 .icon-close-session-belcorp:before {
-	content: "\e609";
+    content: '\e609';
 }
+
 .icon-comunidad-belcorp:before {
-	content: "\e60a";
+    content: '\e60a';
 }
+
 .icon-factura:before {
-	content: "\e60b";
+    content: '\e60b';
 }
+
 .icon-hora-entrega:before {
-	content: "\e60c";
+    content: '\e60c';
 }
+
 .icon-icon-ticket:before {
-	content: "\e60e";
+    content: '\e60e';
 }
+
 .icon-marcas-belcorp:before {
-	content: "\e611";
+    content: '\e611';
 }
+
 .icon-menu-belcorp:before {
-	content: "\e612";
+    content: '\e612';
 }
+
 .icon-negocio:before {
-	content: "\e613";
+    content: '\e613';
 }
+
 .icon-notificaciones-belcorp:before {
-	content: "\e614";
+    content: '\e614';
 }
+
 .icon-pedido-envio:before {
-	content: "\e615";
+    content: '\e615';
 }
+
 .icon-tarjeta-belcorp:before {
-	content: "\e60f";
+    content: '\e60f';
 }
+
 .icon-useradd-belcorp:before {
-	content: "\e610";
+    content: '\e610';
 }

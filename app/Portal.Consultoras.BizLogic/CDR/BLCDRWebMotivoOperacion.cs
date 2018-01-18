@@ -77,28 +77,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return listaEntity;
             }
         }
-
-        //public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
-        //{
-        //    var listaEntity = new List<BECDRTipoOperacion>();
-        //    try
-        //    {
-        //        var DACDRWebTipoOperacion = new DACDRWebMotivoOperacion(PaisID);
-        //        using (IDataReader reader = DACDRWebTipoOperacion.GetCDRWebTipoOperacion())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var entidad = new BECDRTipoOperacion(reader);
-        //                listaEntity.Add(entidad);
-        //            }
-        //        }
-        //        return listaEntity;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return null;
-        //        throw;               
-        //    }
-        //}
+        
     }
 }
