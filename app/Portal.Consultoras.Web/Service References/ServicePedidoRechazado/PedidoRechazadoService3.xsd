@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguna" />
-      <xs:enumeration value="Deuda" />
-      <xs:enumeration value="ModificaPedido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/SB2WCF/PedidoRechazadoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:element name="SetPedidoRechazado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q1:ArrayOfBEPedidoRechazadoSicc" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPedidoRechazadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetPedidoRechazadoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBELogGPRValidacionByGetLogGPRValidacionId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="logGPRValidacionId" type="xs:long" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBELogGPRValidacionByGetLogGPRValidacionIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetBELogGPRValidacionByGetLogGPRValidacionIdResult" nillable="true" type="q2:ArrayOfBELogGPRValidacion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="logGPRValidacionId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionIdResult" nillable="true" type="q3:ArrayOfBELogGPRValidacionDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMotivoRechazo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="usuario" nillable="true" type="q4:BEGPRUsuario" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMotivoRechazoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMotivoRechazoResult" nillable="true" type="q5:BEGPRBanner" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

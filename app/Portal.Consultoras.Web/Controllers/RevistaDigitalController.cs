@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -410,11 +412,16 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = userData.CampaniaID,
                 CodigoZona = userData.CodigoZona,
                 EstadoRegistro = tipo,
+                Origen = revistaDigital.SuscripcionModel.Origen,
                 EstadoEnvio = 0,
                 IsoPais = userData.CodigoISO,
                 EMail = userData.EMail,
                 CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
             };
+
+            entidad.Origen = Util.Trim(entidad.Origen) == ""
+                ? Constantes.RevistaDigitalOrigen.RD
+                : Util.Trim(entidad.Origen);
 
             switch (tipo)
             {
@@ -425,6 +432,20 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     break;
                 case Constantes.EstadoRDSuscripcion.Activo:
+                    if (revistaDigital.SubscripcionAutomaticaAVirtualCoach)
+                    {
+                        var asesoraOnLine = new BEAsesoraOnline
+                        {
+                            CodigoConsultora = userData.CodigoConsultora,
+                            ConfirmacionInscripcion = 1,
+                            Origen = Constantes.RevistaDigitalOrigen.RD
+                        };
+                        using (var sv = new AsesoraOnlineServiceClient())
+                        {
+                            sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
+                        }
+                    }
+                    
                     using (var sv = new PedidoServiceClient())
                     {
                         entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
@@ -469,6 +490,63 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ""
                 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarDatos(MisDatosModel model)
+        {
+            try
+            {
+                var usuario = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
+
+                string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
+                bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
+                string message = resultado.Split('|')[2];
+                int cantidad = int.Parse(resultado.Split('|')[3]);
+
+                if (!seActualizoMisDatos)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message,
+                        Cantidad = cantidad,
+                        extra = string.Empty
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message,
+                        Cantidad = 0,
+                        extra = string.Empty
+                    });
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
             }
         }
     }

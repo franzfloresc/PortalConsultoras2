@@ -49,15 +49,11 @@ namespace Portal.Consultoras.Web.WebPages
             
             BEProveedorDespachoCobranza proveedor = new BEProveedorDespachoCobranza();
             
-            //I cec gr-335
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetProveedorDespachoCobranza(9).ToList();
             }
 
-            //proveedor = lst.Where(l => l.ProveedorDespachoCobranzaID == id).FirstOrDefault();
-            
-            //I cec gr-335
             proveedor = lst[id];
 
             lblNombreComercial.Text = proveedor.NombreComercial;
@@ -84,10 +80,6 @@ namespace Portal.Consultoras.Web.WebPages
             string[] nombreEjecutivos = proveedor.NombreEjecutivos.Split(new Char[] { '|' });
             lblNombresEjecutivos.Text = saltoLinea(nombreEjecutivos);
 
-            //hdidProveedor.Value = id.ToString();
-            //hdtotalIdProveedor.Value = lst.Count().ToString();
-
-            //lblNombreComercial.Text = lst.Where(l => l.ProveedorDespachoCobranzaID == 1).Select(x => x.NombreComercial).ToString();
         }
 
 

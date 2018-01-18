@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     "use strict"
-    
+
     if (typeof tieneCupon != 'undefined' && tieneCupon == '1') {
         var _mostrarPopupCuponGanaste = ((typeof mostrarPopupCuponGanaste != 'undefined') ? mostrarPopupCuponGanaste.toLowerCase() == "true" : false);
         var objInitializer = {
@@ -23,7 +23,7 @@
         }
     }
 
-    
+
 });
 
 function ProcesarActualizacionMostrarContenedorCupon() {

@@ -10,7 +10,7 @@
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     
     var titulo = "MIS CATÁLOGOS Y REVISTAS";
     if (Model.TieneGND)
@@ -115,7 +115,7 @@
                 <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
             }
           
-            @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.RevistaDigital)
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
           
         </div>
     <!--FIN TAB REVISTA-->

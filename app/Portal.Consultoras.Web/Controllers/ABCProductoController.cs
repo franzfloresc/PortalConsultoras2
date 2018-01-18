@@ -8,8 +8,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            UrlModel url = new UrlModel();
-            url.Nombre = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_ABCProductos) + UserData().PaisID;
+            UrlModel url = new UrlModel
+            {
+                Nombre = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_ABCProductos) + UserData().PaisID
+            };
             return View(url);
         }
 

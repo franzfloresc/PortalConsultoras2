@@ -30,22 +30,24 @@ namespace Portal.Consultoras.Entities.RevistaDigital
         public string EMail { get; set; }
         [DataMember]
         public int CampaniaEfectiva { get; set; }
+        [DataMember]
+        public string Origen { get; set; }
 
         public BERevistaDigitalSuscripcion() { }
 
         public BERevistaDigitalSuscripcion(IDataRecord row)
         {
-            if (row.HasColumn("RevistaDigitalSuscripcionID")) RevistaDigitalSuscripcionID = Convert.ToInt32(row["RevistaDigitalSuscripcionID"]);
-            if (row.HasColumn("CodigoConsultora")) CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (row.HasColumn("FechaSuscripcion")) FechaSuscripcion = Convert.ToDateTime(row["FechaSuscripcion"]);
-            if (row.HasColumn("FechaDesuscripcion")) FechaDesuscripcion = Convert.ToDateTime(row["FechaDesuscripcion"]);
-            if (row.HasColumn("EstadoRegistro")) EstadoRegistro = Convert.ToInt32(row["EstadoRegistro"]);
-            if (row.HasColumn("EstadoEnvio")) EstadoEnvio = Convert.ToInt32(row["EstadoEnvio"]);
-            if (row.HasColumn("IsoPais")) IsoPais = Convert.ToString(row["IsoPais"]);
-            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (row.HasColumn("CodigoZona")) CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (row.HasColumn("EMail")) EMail = Convert.ToString(row["EMail"]);
-            if (row.HasColumn("CampaniaEfectiva")) CampaniaEfectiva = Convert.ToInt32(row["CampaniaEfectiva"]);
+            RevistaDigitalSuscripcionID = DataRecord.GetColumn<int>(row, "RevistaDigitalSuscripcionID");
+            CampaniaID = DataRecord.GetColumn<int>(row, "CampaniaID");
+            CampaniaEfectiva = DataRecord.GetColumn<int>(row, "CampaniaEfectiva");
+            EstadoRegistro = DataRecord.GetColumn<int>(row, "EstadoRegistro");
+            EstadoEnvio = DataRecord.GetColumn<int>(row, "EstadoEnvio");
+            CodigoConsultora = DataRecord.GetColumn<string>(row, "CodigoConsultora");
+            Origen = DataRecord.GetColumn<string>(row, "Origen");
+            CodigoZona = DataRecord.GetColumn<string>(row, "CodigoZona");
+            EMail = DataRecord.GetColumn<string>(row, "EMail");
+            FechaSuscripcion = DataRecord.GetColumn<DateTime>(row, "FechaSuscripcion");
+            FechaDesuscripcion = DataRecord.GetColumn<DateTime>(row, "FechaDesuscripcion");
         }
     }
 }

@@ -19,7 +19,7 @@
     var REGULAR_EXPRESSION = {
         CORREO: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     };
-    
+
     var elements = {
         PopupCuponGana: '#Cupon1',
         PopupConfirmacion: '#Cupon2',
@@ -81,7 +81,7 @@
         celular: '',
         correo: ''
     };
-    
+
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
@@ -272,8 +272,7 @@
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_BIENVENIDA ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO ||
-            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO_DETALLE)
-        {
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO_DETALLE) {
             if (setting.MostrarContenedorPadreCupon) {
                 $(elements.ContenedorPadreCupon).show();
 
@@ -457,16 +456,16 @@
         }
 
         if (!esFormatoCorreoValido(emailIngresado)) {
-        //if (emailOriginal == "") {
-        //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
-        //    cantidadErrores++;
-        //}
-        //if (celular == "") {
-        //    mostrarMensajeErrorCelular();
-        //    return false;
-        //}else{
-        //    ocultarMensajeErrorCelular();
-        //}
+            //if (emailOriginal == "") {
+            //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
+            //    cantidadErrores++;
+            //}
+            //if (celular == "") {
+            //    mostrarMensajeErrorCelular();
+            //    return false;
+            //}else{
+            //    ocultarMensajeErrorCelular();
+            //}
 
             mostrarMensajeErrorCorreo();
             cantidadErrores++;
@@ -480,7 +479,7 @@
         } else {
             ocultarMensajeTerminosCondiciones();
         }
-        
+
         return (cantidadErrores == 0);
     }
 
@@ -516,7 +515,7 @@
         $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
         $(elements.ContenedorMontoLimitePopupGanaste).empty();
         $(elements.ContenedorMontoLimitePopupGanaste).append('Tu dscto lo verás reflejado en tu <br/>facturación (dscto hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + ')');
-        
+
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
@@ -578,9 +577,9 @@
                     }
                     else if (existeContenedorTextoMobile) {
                         //if (existeContenedorTextoMobile) {
-                            $(this).find('div.texto_cupon').empty();
-                            $(this).find('div.texto_cupon').append(mensaje);
-                            $(this).show();
+                        $(this).find('div.texto_cupon').empty();
+                        $(this).find('div.texto_cupon').append(mensaje);
+                        $(this).show();
                         //}
                     } else {
                         $(this).empty();

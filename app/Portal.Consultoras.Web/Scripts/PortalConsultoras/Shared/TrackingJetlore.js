@@ -12,7 +12,7 @@ function TrackingJetloreAdd(cantidad, campania, cuv) {
             deal_id: cuv,
             option_id: campania
         });
-    }       
+    }
 }
 
 function TrackingJetloreRemove(cantidad, campania, cuv) {
@@ -26,7 +26,7 @@ function TrackingJetloreRemove(cantidad, campania, cuv) {
             deal_id: cuv,
             option_id: campania
         });
-    }    
+    }
 }
 
 function TrackingJetloreRemoveAll(lista) {

@@ -16,14 +16,14 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             AdministrarConfiguracionPortalModel model = new AdministrarConfiguracionPortalModel();
-            BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal();
 
             try
             {
 
-                BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal();
-                configuracionPortalParametro.PaisID = UserData().PaisID;
+                BEConfiguracionPortal configuracionPortalParametro =
+                    new BEConfiguracionPortal {PaisID = UserData().PaisID};
 
+                BEConfiguracionPortal configuracionPortal;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     configuracionPortal = sv.ObtenerConfiguracionPortal(configuracionPortalParametro);
@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PaisID = UserData().PaisID;
                 model.EstadoSimplificacionCUV = configuracionPortal.EstadoSimplificacionCUV;
                 model.EsquemaDAConsultora = configuracionPortal.EsquemaDAConsultora;
-                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
+                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
                 model.lstPais = DropDowListPaises();
 
 
@@ -51,13 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -67,30 +63,25 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarConfiguracionPortal(int EstadoSimplificacionCUV, int EsquemaDAConsultora, int TipoProcesoCarga)
         {
-            int resultado = 0;
-            string operacion = "";
-
             try
             {
-                BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal();
-                configuracionPortal.EstadoSimplificacionCUV = Convert.ToBoolean(EstadoSimplificacionCUV);
-                configuracionPortal.EsquemaDAConsultora = Convert.ToBoolean(EsquemaDAConsultora);
-                configuracionPortal.TipoProcesoCarga = Convert.ToBoolean(TipoProcesoCarga);
-                configuracionPortal.PaisID = UserData().PaisID;
+                BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal
+                {
+                    EstadoSimplificacionCUV = Convert.ToBoolean(EstadoSimplificacionCUV),
+                    EsquemaDAConsultora = Convert.ToBoolean(EsquemaDAConsultora),
+                    TipoProcesoCarga = Convert.ToBoolean(TipoProcesoCarga),
+                    PaisID = UserData().PaisID
+                };
 
+                int resultado;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     resultado = sv.ActualizarConfiguracionPortal(configuracionPortal);
                 }
 
-                if (resultado == 0)
-                {
-                    operacion = "No se actualizó la configuracion portal.";
-                }
-                else
-                {
-                    operacion = "Se actualizó la configuracion portal.";
-                }
+                var operacion = resultado == 0 
+                    ? "No se actualizó la configuracion portal."
+                    : "Se actualizó la configuracion portal.";
 
                 return Json(new
                 {

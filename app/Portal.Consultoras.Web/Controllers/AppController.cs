@@ -1,13 +1,12 @@
-﻿using System;
-using System.Web;
-using System.Web.Mvc;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Configuration;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Linq;
-
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSAC;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -37,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new SACServiceClient())
                     {
                         var lst = await sv.ListarAppsAsync(Constantes.PaisID.Peru);
-                        var itemPais = lst.Where(x => x.PaisISO == iso).FirstOrDefault();
+                        var itemPais = lst.FirstOrDefault(x => x.PaisISO == iso);
                         if (itemPais != null) return Redirect(itemPais.Url);
                     }
                 }

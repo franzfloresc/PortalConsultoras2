@@ -38,27 +38,6 @@ namespace Portal.Consultoras.Web.WebPages
                     LogManager.LogManager.LogErrorWebServicesBus(ex, this.Request["USER2"].ToString(), "Error Silent Post");
                 }
 
-                //bePagosLinea.codigoPais = this.Request["USER1"];
-                //bePagosLinea.codigoConsultora = this.Request["USER2"];
-                //double montoAbono = (string.IsNullOrEmpty(Request["AMOUNT"])) ? 0 : Double.Parse(this.Request["AMOUNT"]);
-                //string codigoAutorizacionBancaria = this.Request["AUTHCODE"];
-                //string codigoTransaccion = this.Request["PNREF"];
-                //string resultado = this.Request["RESULT"];
-                //bool respuesta = false;
-
-                //titProcesando.Text += ", bePagosLinea.codigoPais =" + bePagosLinea.codigoPais;
-                //string connstring = Application[beUsuarioLogin.codigoPais].ToString();
-
-                //DataSet paises = (DataSet)Application["Paises"];
-                //string connstring = string.Empty;
-                //for (int i = 0; i < paises.Tables[0].Rows.Count && string.IsNullOrEmpty(connstring); i++)
-                //{
-                //    if (paises.Tables[0].Rows[i]["chrCodigoPais"].ToString() == "0282")
-                //        connstring = paises.Tables[0].Rows[i]["dataconn"].ToString();
-                //}
-
-                //BGPagosLinea bgPagoLinea = new BGPagosLinea();
-                //respuesta = bgPagoLinea.RegistrarAbono(bePagosLinea, connstring, montoAbono, codigoAutorizacionBancaria, codigoTransaccion, resultado);
             }
         }
     }

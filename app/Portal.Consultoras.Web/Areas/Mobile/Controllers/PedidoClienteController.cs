@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -142,7 +143,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                 {
                     decimal total = 0;
-                    var lst = new List<BEPedidoWebDetalle>();
+                    List<BEPedidoWebDetalle> lst;
                     using (var sv = new ClienteServiceClient())
                     {
                         lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(CampaniaId), userData.ConsultoraID, int.Parse(ClientId)).ToList();
@@ -150,94 +151,98 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     #region Mensaje a Enviar
 
-                    var mailBody = string.Empty;
-                    mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-                    mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
-                    mailBody += "<table border='1' style='width: 80%;'>";
-                    mailBody += "<tr style='color: #FFFFFF'>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
-                    mailBody += "Cod. Venta";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>";
-                    mailBody += "Descripción";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>";
-                    mailBody += "Cantidad";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>";
-                    mailBody += "Precio Unit.";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                    mailBody += "Precio Total";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
+                    var txtBuil = new StringBuilder();
+
+                    txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
+                    txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
+                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                    txtBuil.Append("<table border='1' style='width: 80%;'>");
+                    txtBuil.Append("<tr style='color: #FFFFFF'>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
+                    txtBuil.Append("Cod. Venta");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
+                    txtBuil.Append("Descripción");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
+                    txtBuil.Append("Cantidad");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Unit.");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Total");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
 
                     for (var i = 0; i < lst.Count; i++)
                     {
-                        mailBody += "<tr>";
-                        mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + lst[i].CUV.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += " <td style='font-size:11px; width: 347px;'>";
-                        mailBody += "" + lst[i].DescripcionProd.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                        mailBody += "" + lst[i].Cantidad.ToString() + "";
-                        mailBody += "</td>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].CUV.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                        txtBuil.Append("" + lst[i].DescripcionProd.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
+                        txtBuil.Append("</td>");
                         if (UserData().PaisID == 4)
                         {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
-                            mailBody += "</td>";
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
                         }
                         else
                         {
-                            mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailBody += "" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
-                            mailBody += "</td>";
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + userData.Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
                         }
-                        mailBody += "</tr>";
+                        txtBuil.Append("</tr>");
                         total += lst[i].ImporteTotal;
                     }
 
-                    mailBody += "<tr>";
-                    mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
-                    mailBody += "Total :";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>");
+                    txtBuil.Append("Total :");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
+
                     if (UserData().PaisID == 4)
                     {
-                        mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "";
+                        txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "");
                     }
                     else
                     {
-                        mailBody += "" + userData.Simbolo + total.ToString("#0.00") + "";
+                        txtBuil.Append("" + userData.Simbolo + total.ToString("#0.00") + "");
                     }
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<div style='font-size:12px;'>Saludos,</div>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<table border='0'>";
-                    mailBody += "<tr>";
-                    mailBody += "<td>";
-                    mailBody += "<img src='cid:Logo' border='0' />";
-                    mailBody += "</td>";
-                    mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
-                    mailBody += "<strong>Consultora</strong>";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
 
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
+                    txtBuil.Append("</table>");
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<div style='font-size:12px;'>Saludos,</div>");
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<table border='0'>");
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td>");
+                    txtBuil.Append("<img src='cid:Logo' border='0' />");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='text-align: center; font-size:12px;'>");
+                    txtBuil.Append("<strong>" + userData.NombreConsultora + "</strong> <br />");
+                    txtBuil.Append("<strong>Consultora</strong>");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
+                    txtBuil.Append("</table>");
+                    
+                    var mailBody = txtBuil.ToString();
                     #endregion
 
                     Util.EnviarMailMobile("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
@@ -314,7 +319,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             });
                     }
                     List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
-                    List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
+
                     List<BEPedidoWebDetalle> lstDetallesTemp = new List<BEPedidoWebDetalle>();
                     foreach (var item in listaClientes)
                     {
@@ -378,115 +383,116 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     #region Mensaje a Enviar
 
-                    var mailBody = string.Empty;
-                    mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-                    mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                    mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + campaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />";
-                    mailBody += "<table border='1' style='width: 80%;'>";
-                    mailBody += "<tr style='color: #FFFFFF'>";
-                    mailBody += "<td style='font-size:11px; width: 347px; font-weight: bold; text-align: center; background-color: #666699;'>";
-                    mailBody += "Cliente";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
-                    mailBody += "Cod. Venta";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>";
-                    mailBody += "Descripción";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>";
-                    mailBody += "Cantidad";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>";
-                    mailBody += "Precio Unit.";
-                    mailBody += "</td>";
-                    mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                    mailBody += "Precio Total";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
+                    var txtBuil = new StringBuilder();
+
+                    txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
+                    txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
+                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + campaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                    txtBuil.Append("<table border='1' style='width: 80%;'>");
+                    txtBuil.Append("<tr style='color: #FFFFFF'>");
+                    txtBuil.Append("<td style='font-size:11px; width: 347px; font-weight: bold; text-align: center; background-color: #666699;'>");
+                    txtBuil.Append("Cliente");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
+                    txtBuil.Append("Cod. Venta");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
+                    txtBuil.Append("Descripción");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
+                    txtBuil.Append("Cantidad");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Unit.");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                    txtBuil.Append("Precio Total");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
                     /* Armado de Data */
                     foreach (var item in listaClientes)
                     {
                         //for a la segunda lista para obtener los detalles
                         foreach (var item2 in item.ListaPedidoWebDetalleProductos)
                         {
-                            mailBody += "<tr>";
-                            mailBody += "<td style='font-size:11px; width: 347px; text-align: center;'>";
-                            mailBody += "" + item.Nombre.ToString() + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                            mailBody += "" + item2.CUV.ToString() + "";
-                            mailBody += "</td>";
-                            mailBody += " <td style='font-size:11px; width: 347px;'>";
-                            mailBody += "" + item2.DescripcionProd.ToString() + "";
-                            mailBody += "</td>";
-                            mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                            mailBody += "" + item2.Cantidad.ToString() + "";
-                            mailBody += "</td>";
+                            txtBuil.Append("<tr>");
+                            txtBuil.Append("<td style='font-size:11px; width: 347px; text-align: center;'>");
+                            txtBuil.Append("" + item.Nombre.ToString() + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                            txtBuil.Append("" + item2.CUV.ToString() + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                            txtBuil.Append("" + item2.DescripcionProd.ToString() + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                            txtBuil.Append("" + item2.Cantidad.ToString() + "");
+                            txtBuil.Append("</td>");
                             if (userData.PaisID == 4)
                             {
-                                mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                                mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item2.PrecioUnidad).Replace(',', '.') + "";
-                                mailBody += "</td>";
-                                mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                                mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item2.ImporteTotal).Replace(',', '.') + "";
-                                mailBody += "</td>";
+                                txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                                txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item2.PrecioUnidad).Replace(',', '.') + "");
+                                txtBuil.Append("</td>");
+                                txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                                txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item2.ImporteTotal).Replace(',', '.') + "");
+                                txtBuil.Append("</td>");
                             }
                             else
                             {
-                                mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                                mailBody += userData.Simbolo + item2.PrecioUnidad.ToString("#0.00");
-                                mailBody += "</td>";
-                                mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                                mailBody += userData.Simbolo + item2.ImporteTotal.ToString("#0.00");
-                                mailBody += "</td>";
+                                txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                                txtBuil.Append(userData.Simbolo + item2.PrecioUnidad.ToString("#0.00"));
+                                txtBuil.Append("</td>");
+                                txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                                txtBuil.Append(userData.Simbolo + item2.ImporteTotal.ToString("#0.00"));
+                                txtBuil.Append("</td>");
                             }
-                            mailBody += "</tr>";
+                            txtBuil.Append("</tr>");
                         }
                         /* Fin de Armado de Data*/
-                        mailBody += "<tr>";
-                        mailBody += "<td colspan='5' style='font-size:11px; text-align: right; font-weight: bold'>";
-                        mailBody += "Total :";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td colspan='5' style='font-size:11px; text-align: right; font-weight: bold'>");
+                        txtBuil.Append("Total :");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
 
-                        if (userData.PaisID == 4) mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "";
-                        else mailBody += "" + userData.Simbolo + item.ImporteTotalPedido.ToString("#0.00") + "";
-                        mailBody += "</td>";
-                        mailBody += "</tr>";
+                        if (userData.PaisID == 4) txtBuil.Append("" + userData.Simbolo + string.Format("{0:#,##0}", item.ImporteTotalPedido).Replace(',', '.') + "");
+                        else txtBuil.Append("" + userData.Simbolo + item.ImporteTotalPedido.ToString("#0.00") + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("</tr>");
                     }
-                    mailBody += "</table>";
+                    txtBuil.Append("</table>");
 
-
-                    mailBody += "<div style='font-size:12px;font-weight:bold;width:80%;text-align:right; margin-top:5px;'>";
+                    txtBuil.Append("<div style='font-size:12px;font-weight:bold;width:80%;text-align:right; margin-top:5px;'>");
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
-                        mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.SubtotalString + "</div>";
-                        mailBody += "<div style='float:right;'>SubTotal:</div>";
-                        mailBody += "<div style='clear:both;height:3px;'></div>";
-                        mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.DescuentoString + "</div>";
-                        mailBody += "<div style='float:right;'>Descuento por ofertas con más de un precio:</div>";
-                        mailBody += "<div style='clear:both;height:3px;'></div>";
+                        txtBuil.Append("<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.SubtotalString + "</div>");
+                        txtBuil.Append("<div style='float:right;'>SubTotal:</div>");
+                        txtBuil.Append("<div style='clear:both;height:3px;'></div>");
+                        txtBuil.Append("<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.DescuentoString + "</div>");
+                        txtBuil.Append("<div style='float:right;'>Descuento por ofertas con más de un precio:</div>");
+                        txtBuil.Append("<div style='clear:both;height:3px;'></div>");
                     }
-                    mailBody += "<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.ImporteTotalString + "</div>";
-                    mailBody += "<div style='float:right;'>Total:</div>";
-                    mailBody += "<div style='clear:both;'></div>";
-                    mailBody += "</div>";
+                    txtBuil.Append("<div style='float:right;width:120px;'>" + userData.Simbolo + pedidoCliente.ImporteTotalString + "</div>");
+                    txtBuil.Append("<div style='float:right;'>Total:</div>");
+                    txtBuil.Append("<div style='clear:both;'></div>");
+                    txtBuil.Append("</div>");
 
-                    mailBody += "<br /><br />";
-                    mailBody += "<div style='font-size:12px;'>Saludos,</div>";
-                    mailBody += "<br /><br />";
-                    mailBody += "<table border='0'>";
-                    mailBody += "<tr>";
-                    mailBody += "<td>";
-                    mailBody += "<img src='cid:Logo' border='0' />";
-                    mailBody += "</td>";
-                    mailBody += "<td style='text-align: center; font-size:12px;'>";
-                    mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
-                    mailBody += "<strong>Consultora</strong>";
-                    mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "</table>";
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<div style='font-size:12px;'>Saludos,</div>");
+                    txtBuil.Append("<br /><br />");
+                    txtBuil.Append("<table border='0'>");
+                    txtBuil.Append("<tr>");
+                    txtBuil.Append("<td>");
+                    txtBuil.Append("<img src='cid:Logo' border='0' />");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("<td style='text-align: center; font-size:12px;'>");
+                    txtBuil.Append("<strong>" + userData.NombreConsultora + "</strong> <br />");
+                    txtBuil.Append("<strong>Consultora</strong>");
+                    txtBuil.Append("</td>");
+                    txtBuil.Append("</tr>");
+                    txtBuil.Append("</table>");
 
+                    var mailBody = txtBuil.ToString();
                     #endregion
 
                     Util.EnviarMailMobile("no-responder@somosbelcorp.com", userData.EMail, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
