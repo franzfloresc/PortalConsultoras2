@@ -4018,7 +4018,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
-                if (userData.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && userData.ConsultoraNueva != Constantes.ConsultoraNueva.Fox &&
+                if (userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Registrada && userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Ingreso_Nueva &&
                     userData.NombreCorto != null && userData.AnoCampaniaIngreso.Trim() != "")
                 {
                     int campaniaActual = int.Parse(userData.NombreCorto);
@@ -4292,6 +4292,44 @@ namespace Portal.Consultoras.Web.Controllers
                 return flag;                
             }
         }
+
+
+        protected string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
+        {
+            if (string.IsNullOrWhiteSpace(usuario.CodigoUsuario))
+                usuario.CodigoUsuario = UserData().CodigoUsuario;
+
+            if (string.IsNullOrWhiteSpace(usuario.EMail))
+                usuario.EMail = UserData().EMail;
+
+            if (string.IsNullOrWhiteSpace(usuario.Celular))
+                usuario.Celular = UserData().Celular;
+
+            if (string.IsNullOrWhiteSpace(usuario.Telefono))
+                usuario.Telefono = UserData().Telefono;
+
+            if (string.IsNullOrWhiteSpace(usuario.TelefonoTrabajo))
+                usuario.TelefonoTrabajo = UserData().TelefonoTrabajo;
+
+            if (string.IsNullOrWhiteSpace(usuario.Sobrenombre))
+                usuario.Sobrenombre = UserData().Sobrenombre;
+
+            usuario.ZonaID = UserData().ZonaID;
+            usuario.RegionID = UserData().RegionID;
+            usuario.ConsultoraID = UserData().ConsultoraID;
+            usuario.PaisID = UserData().PaisID;
+            usuario.PrimerNombre = userData.PrimerNombre;
+            usuario.CodigoISO = UserData().CodigoISO;
+
+            var resultado = string.Empty;
+            using (UsuarioServiceClient svr = new UsuarioServiceClient())
+            {
+                resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            return resultado;
+        }
+
 
     }
 }

@@ -30,13 +30,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -146,11 +142,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetConfiguracionOfertaAdministracion(PaisID, TipoOfertaSisID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEConfiguracionOferta> items = lst;
 
                 #region Sort Section
@@ -258,7 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarCodigoOferta(int paisID, string codigoOferta)
         {
-            int rslt = 0;
+            int rslt;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

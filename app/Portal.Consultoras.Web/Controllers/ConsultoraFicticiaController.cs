@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -26,8 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            var model = new ConsultoraFicticiaModel();
-            model.listaPaises = DropDowListPaises();
+
+            var model = new ConsultoraFicticiaModel {listaPaises = DropDowListPaises()};
             return View(model);
         }
 
@@ -37,20 +36,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-                BEPais bepais = new BEPais();
 
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
                 }
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int result_portal;
+                    var resultPortal = sv.ValidarUsuarioPrueba(entidad.CodigoConsultora, entidad.PaisID);
 
-                    result_portal = sv.ValidarUsuarioPrueba(entidad.CodigoConsultora, entidad.PaisID);
-
-                    if (result_portal == 0)
+                    if (resultPortal == 0)
                     {
                         return Json(new
                         {
@@ -59,14 +55,12 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            ConsultoraID = result_portal
-                        });
-                    }
+                        success = true,
+                        ConsultoraID = resultPortal
+                    });
                 }
             }
             catch (FaultException ex)
@@ -96,20 +90,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-                BEPais bepais = new BEPais();
 
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
                 }
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int result_portal;
+                    var resultPortal = sv.ValidarUsuarioPrueba(entidad.CodigoUsuario, entidad.PaisID);
 
-                    result_portal = sv.ValidarUsuarioPrueba(entidad.CodigoUsuario, entidad.PaisID);
-
-                    if (result_portal > 0)
+                    if (resultPortal > 0)
                     {
                         return Json(new
                         {
@@ -118,13 +109,11 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true
-                        });
-                    }
+                        success = true
+                    });
                 }
             }
             catch (FaultException ex)
@@ -161,12 +150,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.InsConsultoraFicticia(entidad);
                 }
-
-                BEPais bepais = new BEPais();
-
+                
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
                 }
 
                 if (result == 3)
@@ -311,11 +298,13 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.SelectConsultoraFicticia(Convert.ToInt32(vPaisID), vCodigoUsuario, vNombreCompleto).ToList();
                     }
 
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -373,19 +362,19 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   cell = new string[]
-                                {
-                                   a.ConsultoraID.ToString(),
-                                   vPaisID,
-                                   a.CodigoUsuario,
-                                   a.CodigoConsultora,
-                                   a.NombreCompleto,
-                                   a.PaisNombre,
-                                   a.ZonaNombre
-                                }
-                               }
+                        select new
+                        {
+                            cell = new string[]
+                            {
+                                a.ConsultoraID.ToString(),
+                                vPaisID,
+                                a.CodigoUsuario,
+                                a.CodigoConsultora,
+                                a.NombreCompleto,
+                                a.PaisNombre,
+                                a.ZonaNombre
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -393,11 +382,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<BEConsultoraFicticia> lst = new List<BEConsultoraFicticia>();
 
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -455,19 +446,19 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   cell = new string[]
-                               {
-                                   a.ConsultoraID.ToString(),
-                                   vPaisID,
-                                   a.CodigoUsuario,
-                                   a.CodigoConsultora,
-                                   a.NombreCompleto,
-                                   a.PaisNombre,
-                                   a.ZonaNombre
-                                }
-                               }
+                        select new
+                        {
+                            cell = new string[]
+                            {
+                                a.ConsultoraID.ToString(),
+                                vPaisID,
+                                a.CodigoUsuario,
+                                a.CodigoConsultora,
+                                a.NombreCompleto,
+                                a.PaisNombre,
+                                a.ZonaNombre
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -480,20 +471,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -503,13 +492,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

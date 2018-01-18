@@ -532,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region validar cuv de inicio obligatorio
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                if (EsConsultoraNueva())
+                if (userData.EsConsultoraNueva)
                 {
                     var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
                     detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
@@ -834,10 +834,8 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private PedidoDetalleModel DeletePedido(BEPedidoWebDetalle obe)
+        private void DeletePedido(BEPedidoWebDetalle obe)
         {
-            var pedidoModelo = new PedidoDetalleModel {Simbolo = userData.Simbolo};
-
             if (sessionManager.GetObservacionesProl() != null)
             {
                 var observaciones = sessionManager.GetObservacionesProl();
@@ -853,21 +851,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 ModelState.AddModelError("", mensaje);
-                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-                pedidoModelo.ListaDetalle = olstPedidoWebDetalle;
-                pedidoModelo.Total = string.Format("{0:N2}", olstPedidoWebDetalle.Sum(p => p.ImporteTotal));
-
-                pedidoModelo.MensajeError = mensaje;
-                return pedidoModelo;
+                return;
             }
             
             var errorServer = false;
             var tipo = "";
             bool modificoBackOrder;
             AdministradorPedido(obe, "D", out errorServer, out tipo, out modificoBackOrder);
-
-            return pedidoModelo;
+            
         }
 
         [HttpPost]
@@ -1243,7 +1234,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int iCantidad;
                 entidad.Cantidad = int.TryParse(Cantidad, out iCantidad) ? iCantidad : 0;
 
-                var iTipoOferta = 0;
+                int iTipoOferta;
                 entidad.FlagCantidad = int.TryParse(TipoOferta, out iTipoOferta) ? iTipoOferta : 0;
 
                 entidad.CUV2 = CUV;
@@ -1492,7 +1483,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
-                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
+                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ??
+                                 new BEEstrategia {LimiteVenta = 99};
+
                 if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                 {
                     productosModel.Add(GetProductoNoExiste());
@@ -1540,7 +1533,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = productos[0].TipoEstrategiaID,
                     TieneSugerido = productos[0].TieneSugerido,
                     CodigoProducto = productos[0].CodigoProducto,
-                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99,
+                    LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc
                 });
@@ -1852,7 +1845,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, oUsuarioModel.CodigoConsultora, oUsuarioModel.CodigoISO);
-                olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo." });
+                olstProductoModel.Add(new ProductoModel { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo." });
                 return Json(new
                 {
                     success = false,
@@ -2339,15 +2332,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool CambioBannerGPR()
+        private void CambioBannerGPR()
         {
             if (userData.IndicadorGPRSB == 2)
             {
                 userData.MostrarBannerRechazo = userData.RechazadoXdeuda;
                 userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
-                return true;
             }
-            return false;
         }
 
         #region Campaña y Zona No Configurada
@@ -2667,10 +2658,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ListaDetalle = PedidoJerarquico(olstPedidoWebDetalle),
                 Simbolo = lista[3],
-                Total = string.Format("{0:N2}",
-                    olstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal)),
-                Total_Minimo = string.Format("{0:N2}",
-                    olstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal))
+                Total = string.Format("{0:N2}", olstPedidoWebDetalle.Where(p => p.PedidoDetalleIDPadre == 0).Sum(p => p.ImporteTotal)),
+                Total_Minimo = string.Format("{0:N2}", olstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal))
             };
             ViewBag.Simbolo = pedidoModelo.Simbolo;
             ViewBag.Total = pedidoModelo.Total;
@@ -3024,7 +3013,7 @@ namespace Portal.Consultoras.Web.Controllers
                     PedidoDetalleID = obePedidoWebDetalle.PedidoDetalleID,
                     IndicadorIPUsuario = GetIPCliente(),
                     IndicadorFingerprint = "",
-                    IndicadorToken = (Session["TokenPedidoAutentico"] != null)
+                    IndicadorToken = Session["TokenPedidoAutentico"] != null
                         ? Session["TokenPedidoAutentico"].ToString()
                         : ""
                 };
@@ -3144,9 +3133,9 @@ namespace Portal.Consultoras.Web.Controllers
         private short ValidarInsercion(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, out int cantidad)
         {
             var temp = new List<BEPedidoWebDetalle>(pedido);
-            var obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
-            cantidad = obe != null ? obe.Cantidad : 0;
-            return obe != null ? obe.PedidoDetalleID : (short)0;
+            var obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV) ?? new BEPedidoWebDetalle();
+            cantidad = obe.Cantidad;
+            return obe.PedidoDetalleID;
         }
 
         private void CalcularMasivo(List<BEPedidoWebDetalle> pedido, List<BEPedidoWebDetalle> actualizar, out int clientes, out decimal importe)
@@ -3171,22 +3160,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EnHorarioRestringido()
         {
+            if (userData == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Sesión expirada.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             try
             {
                 var mensaje = string.Empty;
                 var estado = false;
 
-                if (userData == null) mensaje = "Sesión expirada.";
-                else
+                using (var sv = new PedidoServiceClient())
                 {
-                    using (var sv = new PedidoServiceClient())
+                    var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
                     {
-                        var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
-                        {
-                            mensaje = result.Mensaje;
-                            estado = true;
-                        }
+                        mensaje = result.Mensaje;
+                        estado = true;
                     }
                 }
 
@@ -3211,24 +3206,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ReservadoOEnHorarioRestringido(string tipoAccion = null)
         {
+
+            if (userData == null)
+            {
+                return Json(new
+                {
+                    success = false,
+                    pedidoReservado = false,
+                    message = "Sesión expirada.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             try
             {
-                string mensaje;
-                var pedidoReservado = false;
-                var estado = false;
-
-                if (userData == null) mensaje = "Sesión expirada.";
-                else
+                BEValidacionModificacionPedido result;
+                using (var sv = new PedidoServiceClient())
                 {
-                    BEValidacionModificacionPedido result;
-                    using (var sv = new PedidoServiceClient())
-                    {
-                        result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
-                    }
-                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
-                    mensaje = result.Mensaje;
+                    result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
+                var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                var mensaje = result.Mensaje;
 
                 return Json(new
                 {
@@ -3344,12 +3343,11 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            List<BEBannerPedido> lst1 = null;
             return Json(new
             {
 
                 success = true,
-                data = lst1
+                data = (List<BEBannerPedido>) null
             });
         }
 
@@ -3419,7 +3417,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
-            if (!EsConsultoraNueva())
+            if (!userData.EsConsultoraNueva)
             {
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
@@ -3724,7 +3722,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                segmentoId = userData.SegmentoInternoID ?? userData.SegmentoID;
             }
 
             var resultado = segmentoId == 1;
@@ -4085,11 +4083,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (area == "")
-                    return RedirectToAction("Index", "Pedido", new { area = area });
-                else
-                    return RedirectToAction("Detalle", "Pedido", new { area = area });
-
+                return RedirectToAction(area == "" ? "Index" : "Detalle", "Pedido", new { area = area });
             }
             catch (Exception ex)
             {
@@ -4248,9 +4242,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region FiltrarEstrategiaPedido
                 FlagNueva = Util.Trim(FlagNueva);
-                int IndFlagNueva;
-                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
-                var estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
+                int indFlagNueva;
+                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out indFlagNueva);
+                var estrategia = FiltrarEstrategiaPedido(EstrategiaID, indFlagNueva);
                 if (estrategia.EstrategiaID <= 0)
                 {
                     var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];

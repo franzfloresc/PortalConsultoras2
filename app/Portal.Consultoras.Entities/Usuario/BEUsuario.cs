@@ -610,6 +610,8 @@ namespace Portal.Consultoras.Entities
             get { return mConsultoraNueva; }
             set { mConsultoraNueva = value; }
         }
+        [DataMember]
+        public bool EsConsultoraNueva { get; set; }
 
         [DataMember]
         public string NombrePais

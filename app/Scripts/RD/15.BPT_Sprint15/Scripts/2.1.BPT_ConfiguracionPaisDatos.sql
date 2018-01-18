@@ -15,11 +15,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -42,11 +42,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -69,11 +69,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -96,11 +96,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -123,11 +123,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -150,11 +150,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -177,11 +177,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -204,11 +204,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -231,11 +231,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -258,11 +258,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -285,11 +285,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -312,11 +312,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
@@ -339,11 +339,11 @@ begin
 	delete from ConfiguracionPaisDatos where Codigo in ('BloquearPedidoRevistaImp', 'BloquearSugerenciaProducto');
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearPedidoRevistaImp', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearPedidoRevistaImp', 1, 
 		'1 - Activa el bloqueo de revista impresa en pase pedido, 0 - Desactiva el bloqueo de la revista impresa en pase pedido')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'BloquearSugerenciaProducto', 1, 
+	values (@ConfiguracionPaisID, 0, 0, 'BloquearSugerenciaProducto', 1, 
 		'1 - Activa el bloqueo de sugerencia de producto en pase pedido, 0 - Desactiva el bloqueo de sugerencia de producto en pase pedido')
 end
 
