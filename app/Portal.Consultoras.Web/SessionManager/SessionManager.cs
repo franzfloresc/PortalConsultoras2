@@ -112,6 +112,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
         }
 
+        void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modelo)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio] = modelo;
+        }
+
+        GuiaNegocioModel ISessionManager.GetGuiaNegocio()
+        {
+            return ((GuiaNegocioModel)HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio]) ?? new GuiaNegocioModel();
+        }
+
         void ISessionManager.SetIsContrato(int isContrato)
         {
             HttpContext.Current.Session["IsContrato"] = isContrato;

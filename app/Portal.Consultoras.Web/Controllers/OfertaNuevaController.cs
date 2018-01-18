@@ -50,20 +50,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetaPais = Globals.UrlOfertasNuevas + "/" + UserData().CodigoISO;
-                if (lst != null)
-                    if (lst.Count > 0)
-                    {
-                        lst.Update(x => x.ImagenProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto01, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
-                        lst.Update(x => x.ImagenProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto02, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
-                        lst.Update(x => x.ImagenProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto03, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
-                    }
+                if (lst.Count > 0)
+                {
+                    lst.Update(x => x.ImagenProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto01, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
+                    lst.Update(x => x.ImagenProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto02, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
+                    lst.Update(x => x.ImagenProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto03, Globals.RutaImagenesOfertasNuevas + "/" + UserData().CodigoISO));
+                }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEOfertaNueva> items = lst;
 
                 #region Sort Section
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string mensaje = string.Empty;
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.ValidarOfertasNuevas(new BEOfertaNueva()
@@ -228,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string mensaje = string.Empty;
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.ValidarUnidadesPermitidas(new BEOfertaNueva()
@@ -286,7 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEOfertaNueva result = null;
+                BEOfertaNueva result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.GetDescripcionPackByCUV(vPaisID, vCUV, (string.IsNullOrEmpty(vCodigoCampania) ? 0 : Convert.ToInt32(vCodigoCampania)));
@@ -334,12 +335,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public IEnumerable<CampaniaModel> DropDownCampanias(int PaisID)
+        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
         {
             IList<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = servicezona.SelectCampanias(PaisID);
+                lista = servicezona.SelectCampanias(paisId);
             }
             
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
@@ -350,13 +351,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -364,11 +361,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerISOPais(int paisID)
         {
-            string ISO = Util.GetPaisISO(paisID);
+            string iso = Util.GetPaisISO(paisID);
 
             return Json(new
             {
-                ISO = ISO
+                ISO = iso
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -376,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.UpdEstadoPacksOfertasNuevas(UserData().PaisID, UserData().CodigoConsultora, vCambioEstado);
@@ -429,14 +426,14 @@ namespace Portal.Consultoras.Web.Controllers
                     string tempImage01 = model.ImagenProducto01 ?? string.Empty;
                     string tempImage02 = model.ImagenProducto02 ?? string.Empty;
                     string tempImage03 = model.ImagenProducto03 ?? string.Empty;
-                    int paisID = UserData().PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
-                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + ISO;
+                    int paisId = UserData().PaisID;
+                    string iso = Util.GetPaisISO(paisId);
+                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + iso;
 
                     if (!string.IsNullOrEmpty(tempImage01))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto01 = newfilename;
@@ -447,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(tempImage02))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto02 = newfilename;
@@ -458,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(tempImage03))
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenProducto03 = newfilename;
@@ -466,7 +463,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         entidad.ImagenProducto03 = string.Empty;
 
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioRegistro = UserData().CodigoConsultora;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Nueva;
                     entidad.ConfiguracionOfertaID = Constantes.TipoOferta.Nueva;
@@ -516,14 +513,14 @@ namespace Portal.Consultoras.Web.Controllers
                     string tempImagenProductoAnterior01 = model.ImagenProductoAnterior01 ?? string.Empty;
                     string tempImagenProductoAnterior02 = model.ImagenProductoAnterior02 ?? string.Empty;
                     string tempImagenProductoAnterior03 = model.ImagenProductoAnterior03 ?? string.Empty;
-                    int paisID = UserData().PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
-                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + ISO;
+                    int paisId = UserData().PaisID;
+                    string iso = Util.GetPaisISO(paisId);
+                    var carpetaPais = Globals.UrlOfertasNuevas + "/" + iso;
 
                     if (tempImage01 != tempImagenProductoAnterior01)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior01);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -535,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tempImage02 != tempImagenProductoAnterior02)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior02);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -547,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tempImage03 != tempImagenProductoAnterior03)
                     {
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
+                        var newfilename = iso + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
                         ConfigS3.DeleteFileS3(carpetaPais, tempImagenProductoAnterior03);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
@@ -556,7 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (string.IsNullOrEmpty(tempImage03))
                         entidad.ImagenProducto03 = string.Empty;
 
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioModificacion = UserData().CodigoConsultora;
 
                     svc.UpdOfertasNuevas(entidad);
@@ -598,9 +595,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    int paisID = UserData().PaisID;
+                    int paisId = UserData().PaisID;
                     
-                    entidad.PaisID = paisID;
+                    entidad.PaisID = paisId;
                     entidad.UsuarioModificacion = UserData().CodigoConsultora;
 
                     svc.DelOfertasNuevas(entidad, Constantes.TipoOferta.Nueva);
@@ -638,13 +635,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int result = 0;
+                int result;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     result = svc.UpdEstadoPacksOfertasNueva(UserData().PaisID, Convert.ToInt32(UserData().ConsultoraID), UserData().CodigoConsultora, UserData().CampaniaID);
                 }
-
-
+                
                 if (result == 0)
                     return Json(new { result = false, mensaje = "Ocurrió un error al actualizar el numero de acceso al sistema" }, JsonRequestBehavior.AllowGet);
 

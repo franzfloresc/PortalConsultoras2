@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
@@ -27,8 +28,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.Common.MagickNet;
-using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -39,6 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
+        protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
 
@@ -71,13 +71,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (userData == null)
                 {
-                    string URLSignOut = ObtenerUrlCerrarSesion();                    
+                    string urlSignOut = ObtenerUrlCerrarSesion();                    
 
-                    filterContext.Result = new RedirectResult(URLSignOut);
+                    filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
 
-                revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
+                revistaDigital = sessionManager.GetRevistaDigital();
+                guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())
                 {
@@ -751,13 +752,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
-            if (userData.TieneGND && lstMenuMobileModel.Any(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas))
-            {
-                var menu = lstMenuMobileModel.First(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas);
-                menu.Descripcion = GetDescripcionMenuMobileCatalogos(userData.PaisID) ?? menu.Descripcion;
-            }
-
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
@@ -852,14 +846,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var descripcionMenuCatalogos = string.Empty;
 
-            IList<BETablaLogicaDatos> revistaDigitalTaablaLogica;
+            IList<BETablaLogicaDatos> revistaDigitalTablaLogica;
             using (var sacServiceClient = new SACServiceClient())
             {
-                revistaDigitalTaablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
+                revistaDigitalTablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
             }
-            if (revistaDigitalTaablaLogica != null && revistaDigitalTaablaLogica.Any())
+            if (revistaDigitalTablaLogica != null && revistaDigitalTablaLogica.Any())
             {
-                descripcionMenuCatalogos = revistaDigitalTaablaLogica.First().Codigo;
+                descripcionMenuCatalogos = revistaDigitalTablaLogica.First().Codigo;
             }
 
             return descripcionMenuCatalogos;

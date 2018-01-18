@@ -20,32 +20,30 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (sessionManager.GetUserData() != null)
             {
-                IList<ServiceSAC.BEServicioCampania> lstTemp_1 = new List<ServiceSAC.BEServicioCampania>();
-                IList<ServiceSAC.BEServicioCampania> lstTemp_2 = new List<ServiceSAC.BEServicioCampania>();
-                IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
+                IList<BEServicioCampania> lstTemp1;
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
+                    lstTemp1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
 
-                int SegmentoID;
+                int segmentoId;
                 if (userData.CodigoISO == "VE")
                 {
-                    SegmentoID = userData.SegmentoID;
+                    segmentoId = userData.SegmentoID;
                 }
                 else
                 {
-                    SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
+                int segmentoServicio = userData.EsJoven == 1 ? 99 : segmentoId;
 
-                lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
-                lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();
+                IList<BEServicioCampania> lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
+                IList<BEServicioCampania> lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();
                 
                 return Json(new
                 {
-                    lista = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst),
+                    lista = Mapper.Map<IList<BEServicioCampania>, List<ServicioCampaniaModel>>(lst),
                     exito = true,
                     codigoISO = userData.CodigoISO
                 }, JsonRequestBehavior.AllowGet);

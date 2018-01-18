@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class OfertaFlexipagoController : BaseController
     {
+        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+
         #region Oferta Flexipago
 
         public ActionResult OfertasFlexipago()
@@ -24,8 +26,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "OfertaFlexipago/OfertasFlexipago"))
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.CampaniaID = UserData().CampaniaID.ToString();
-                ViewBag.ISO = UserData().CodigoISO.ToString();
-                ViewBag.Simbolo = UserData().Simbolo.ToString().Trim();
+                ViewBag.ISO = UserData().CodigoISO;
+                ViewBag.Simbolo = UserData().Simbolo.Trim();
                 var lista = GetListadoOfertasFlexipago();
                 if (lista != null && lista.Count > 0)
                 {
@@ -33,13 +35,13 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                     lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
                 }
-                BEConfiguracionCampania oBEConfiguracionCampania = null;
+                BEConfiguracionCampania obeConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().ZonaID, UserData().RegionID);
+                    obeConfiguracionCampania = sv.GetEstadoPedido(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().ZonaID, UserData().RegionID);
                 }
-                if (oBEConfiguracionCampania != null)
-                    ValidarStatusCampania(oBEConfiguracionCampania);
+                if (obeConfiguracionCampania != null)
+                    ValidarStatusCampania(obeConfiguracionCampania);
 
                 ViewBag.ListaOfertasFlexipago = lista;
             }
@@ -51,11 +53,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public string GetDescripcionMarca(int MarcaID)
+        public string GetDescripcionMarca(int marcaId)
         {
             string result = string.Empty;
 
-            switch (MarcaID)
+            switch (marcaId)
             {
                 case 1:
                     result = "L'Bel";
@@ -74,63 +76,63 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private void ValidarStatusCampania(BEConfiguracionCampania oBEConfiguracionCampania)
+        private void ValidarStatusCampania(BEConfiguracionCampania obeConfiguracionCampania)
         {
             UsuarioModel usuario = UserData();
-            usuario.ZonaValida = oBEConfiguracionCampania.ZonaValida;
-            usuario.FechaInicioCampania = oBEConfiguracionCampania.FechaInicioFacturacion;
+            usuario.ZonaValida = obeConfiguracionCampania.ZonaValida;
+            usuario.FechaInicioCampania = obeConfiguracionCampania.FechaInicioFacturacion;
 
-            usuario.FechaFinCampania = oBEConfiguracionCampania.FechaInicioFacturacion.AddDays(oBEConfiguracionCampania.DiasDuracionCronograma - 1);
+            usuario.FechaFinCampania = obeConfiguracionCampania.FechaInicioFacturacion.AddDays(obeConfiguracionCampania.DiasDuracionCronograma - 1);
 
-            usuario.HoraInicioReserva = oBEConfiguracionCampania.HoraInicio;
-            usuario.HoraFinReserva = oBEConfiguracionCampania.HoraFin;
-            usuario.HoraInicioPreReserva = oBEConfiguracionCampania.HoraInicioNoFacturable;
-            usuario.HoraFinPreReserva = oBEConfiguracionCampania.HoraCierreNoFacturable;
-            usuario.DiasCampania = oBEConfiguracionCampania.DiasAntes;
-            usuario.NombreCorto = oBEConfiguracionCampania.CampaniaDescripcion;
-            usuario.CampaniaID = oBEConfiguracionCampania.CampaniaID;
-            usuario.ZonaHoraria = oBEConfiguracionCampania.ZonaHoraria;
-            usuario.HoraCierreZonaDemAnti = oBEConfiguracionCampania.HoraCierreZonaDemAnti;
-            usuario.HoraCierreZonaNormal = oBEConfiguracionCampania.HoraCierreZonaNormal;
+            usuario.HoraInicioReserva = obeConfiguracionCampania.HoraInicio;
+            usuario.HoraFinReserva = obeConfiguracionCampania.HoraFin;
+            usuario.HoraInicioPreReserva = obeConfiguracionCampania.HoraInicioNoFacturable;
+            usuario.HoraFinPreReserva = obeConfiguracionCampania.HoraCierreNoFacturable;
+            usuario.DiasCampania = obeConfiguracionCampania.DiasAntes;
+            usuario.NombreCorto = obeConfiguracionCampania.CampaniaDescripcion;
+            usuario.CampaniaID = obeConfiguracionCampania.CampaniaID;
+            usuario.ZonaHoraria = obeConfiguracionCampania.ZonaHoraria;
+            usuario.HoraCierreZonaDemAnti = obeConfiguracionCampania.HoraCierreZonaDemAnti;
+            usuario.HoraCierreZonaNormal = obeConfiguracionCampania.HoraCierreZonaNormal;
 
-            if (DateTime.Now.AddHours(oBEConfiguracionCampania.ZonaHoraria) < oBEConfiguracionCampania.FechaInicioFacturacion.AddDays(-oBEConfiguracionCampania.DiasAntes))
+            if (DateTime.Now.AddHours(obeConfiguracionCampania.ZonaHoraria) < obeConfiguracionCampania.FechaInicioFacturacion.AddDays(-obeConfiguracionCampania.DiasAntes))
             {
-                usuario.FechaFacturacion = oBEConfiguracionCampania.FechaInicioFacturacion.AddDays(-oBEConfiguracionCampania.DiasAntes);
-                usuario.HoraFacturacion = oBEConfiguracionCampania.HoraInicioNoFacturable;
+                usuario.FechaFacturacion = obeConfiguracionCampania.FechaInicioFacturacion.AddDays(-obeConfiguracionCampania.DiasAntes);
+                usuario.HoraFacturacion = obeConfiguracionCampania.HoraInicioNoFacturable;
             }
             else
             {
-                usuario.FechaFacturacion = oBEConfiguracionCampania.FechaFinFacturacion;
-                usuario.HoraFacturacion = oBEConfiguracionCampania.HoraFin;
+                usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
+                usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
             SetUserData(usuario);
         }
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV)
         {
-            int UnidadesPermitidas = 0;
-            int Saldo = 0;
+            int unidadesPermitidas;
+            int saldo;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                UnidadesPermitidas = sv.GetUnidadesPermitidasByCuvFlexipago(UserData().PaisID, UserData().CampaniaID, CUV);
-                Saldo = sv.ValidarUnidadesPermitidasEnPedidoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, UserData().ConsultoraID);
+                unidadesPermitidas = sv.GetUnidadesPermitidasByCuvFlexipago(UserData().PaisID, UserData().CampaniaID, CUV);
+                saldo = sv.ValidarUnidadesPermitidasEnPedidoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, UserData().ConsultoraID);
             }
 
             return Json(new
             {
-                UnidadesPermitidas = UnidadesPermitidas,
-                Saldo = Saldo
+                UnidadesPermitidas = unidadesPermitidas,
+                Saldo = saldo
             }, JsonRequestBehavior.AllowGet);
         }
 
         public List<OfertaFlexipagoModel> GetListadoOfertasFlexipago()
         {
-            var lst = new List<BEOfertaFlexipago>();
+            List<BEOfertaFlexipago> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                int Cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(UserData().PaisID);
-                lst = sv.GetOfertaProductosPortalFlexipago(UserData().PaisID, Constantes.ConfiguracionOferta.Flexipago, UserData().CodigoConsultora, UserData().CampaniaID).Take(Cantidad).ToList();
+                int cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(UserData().PaisID);
+                lst = sv.GetOfertaProductosPortalFlexipago(UserData().PaisID, Constantes.ConfiguracionOferta.Flexipago, UserData().CodigoConsultora, UserData().CampaniaID).Take(cantidad).ToList();
             }
             
             return Mapper.Map<IList<BEOfertaFlexipago>, List<OfertaFlexipagoModel>>(lst);
@@ -138,16 +140,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerStockActualProducto(string CUV)
         {
-            int Stock = 0;
+            int stock;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                Stock = sv.GetStockOfertaProductoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, Constantes.ConfiguracionOferta.Flexipago);
+                stock = sv.GetStockOfertaProductoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, Constantes.ConfiguracionOferta.Flexipago);
             }
 
             return Json(new
             {
-                Stock = Stock
+                Stock = stock
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -175,15 +177,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
-                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
-                    indPedidoAutentico.PedidoID = entidad.PedidoID;
-                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
-                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
-                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = "";
-                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
+                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
+                {
+                    PedidoID = entidad.PedidoID,
+                    CampaniaID = entidad.CampaniaID,
+                    PedidoDetalleID = entidad.PedidoDetalleID,
+                    IndicadorIPUsuario = GetIPCliente(),
+                    IndicadorFingerprint = "",
+                    IndicadorToken = (Session["TokenPedidoAutentico"] != null)
+                        ? Session["TokenPedidoAutentico"].ToString()
+                        : ""
+                };
 
-                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
                 return Json(new
                 {
@@ -266,22 +272,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
-
         #region Administración Flexipago
 
         public JsonResult ObtenerCantidadMaximaPorPais(int paisID)
         {
-            int Cantidad = 0;
+            int cantidad;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                Cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(paisID);
+                cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(paisID);
             }
 
             return Json(new
             {
-                Cantidad = Cantidad
+                Cantidad = cantidad
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -348,12 +352,12 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string ActualizarStockMasivo(HttpPostedFileBase flStock, string tipoCarga)
         {
-            string message = string.Empty;
+            string message;
             int registros = 0;
             try
             {
                 #region Procesar Carga Masiva Archivo CSV
-                string finalPath = string.Empty;
+
                 List<BEOfertaFlexipago> lstActualizMasiva = new List<BEOfertaFlexipago>();
 
                 if (flStock != null)
@@ -363,45 +367,47 @@ namespace Portal.Consultoras.Web.Controllers
                     string pathFile = Server.MapPath("~/Content/FileCargaStock");
                     if (!Directory.Exists(pathFile))
                         Directory.CreateDirectory(pathFile);
-                    finalPath = Path.Combine(pathFile, newfileName);
+                    var finalPath = Path.Combine(pathFile, newfileName);
                     flStock.SaveAs(finalPath);
-
-                    string inputLine = "";
-
-                    string[] values = null;
 
                     using (StreamReader sr = new StreamReader(finalPath))
                     {
+                        string inputLine;
                         while ((inputLine = sr.ReadLine()) != null)
                         {
-                            values = inputLine.Split(',');
+                            var values = inputLine.Split(',');
                             if (values.Length > 1)
                             {
                                 if (tipoCarga.Equals("0")) // Carga de Stock por Categoria
                                 {
-                                    if (IsNumeric(values[1].ToString().Trim()) && IsNumeric(values[2].ToString().Trim())
-                                        && IsNumeric(values[3].ToString().Trim()))
+                                    if (IsNumeric(values[1].Trim()) && IsNumeric(values[2].Trim())
+                                        && IsNumeric(values[3].Trim()))
                                     {
-                                        BEOfertaFlexipago ent = new BEOfertaFlexipago();
-                                        ent.ISOPais = values[0].ToString().Trim();
-                                        ent.CampaniaID = int.Parse(values[1].ToString());
-                                        ent.CUV = values[2].ToString().Trim();
-                                        ent.Stock = 0;
-                                        ent.CategoriaID = values[3].ToString().Trim();
+                                        BEOfertaFlexipago ent = new BEOfertaFlexipago
+                                        {
+                                            ISOPais = values[0].Trim(),
+                                            CampaniaID = int.Parse(values[1]),
+                                            CUV = values[2].Trim(),
+                                            Stock = 0,
+                                            CategoriaID = values[3].Trim()
+                                        };
                                         if (ent.Stock >= 0)
                                             lstActualizMasiva.Add(ent);
                                     }
                                 }
                                 else //Carga de Consultoras por Categoria [tipoCarga=1]
                                 {
-                                    if (IsNumeric(values[1].ToString().Trim()) && IsNumeric(values[2].ToString().Trim())
-                                       && IsNumeric(values[3].ToString().Trim()))
+                                    if (IsNumeric(values[1].Trim()) && IsNumeric(values[2].Trim())
+                                       && IsNumeric(values[3].Trim()))
                                     {
-                                        BEOfertaFlexipago ent = new BEOfertaFlexipago();
-                                        ent.ISOPais = values[0].ToString().Trim();
-                                        ent.CampaniaID = int.Parse(values[1].ToString());
-                                        ent.CodigoConsultora = values[2].ToString().Trim();
-                                        ent.CategoriaID = values[3].ToString().Trim();
+                                        BEOfertaFlexipago ent = new BEOfertaFlexipago
+                                        {
+                                            ISOPais = values[0].Trim(),
+                                            CampaniaID = int.Parse(values[1]),
+                                            CodigoConsultora = values[2].Trim(),
+                                            CategoriaID = values[3].Trim()
+                                        };
+
                                         if (!string.IsNullOrEmpty(ent.CodigoConsultora))
                                             lstActualizMasiva.Add(ent);
                                     }
@@ -419,30 +425,33 @@ namespace Portal.Consultoras.Web.Controllers
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
                                 List<BEOfertaFlexipago> lstStockTemporal = lstActualizMasiva.FindAll(x => x.ISOPais == lstPaises[i].ISOPais);
-                                int paisID = Util.GetPaisID(lstPaises[i].ISOPais);
-                                if (paisID > 0)
+                                int paisId = Util.GetPaisID(lstPaises[i].ISOPais);
+                                if (paisId > 0)
                                 {
                                     try
                                     {
                                         if (tipoCarga.Equals("0")) // Carga de Stock por Categoria
                                         {
-                                            registros += sv.UpdOfertaFlexipagoStockMasivo(paisID, lstStockTemporal.ToArray());
+                                            registros += sv.UpdOfertaFlexipagoStockMasivo(paisId, lstStockTemporal.ToArray());
 
                                             #region Log de Cargas de Stock
                                             using (PedidoServiceClient srv = new PedidoServiceClient())
                                             {
-                                                BEStockCargaLog ent = new BEStockCargaLog();
-                                                ent.CantidadRegistros = registros;
-                                                ent.PaisID = paisID;
-                                                ent.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
-                                                ent.UsuarioRegistro = UserData().CodigoConsultora;
+                                                BEStockCargaLog ent = new BEStockCargaLog
+                                                {
+                                                    CantidadRegistros = registros,
+                                                    PaisID = paisId,
+                                                    TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago,
+                                                    UsuarioRegistro = UserData().CodigoConsultora
+                                                };
+
                                                 srv.InsStockCargaLog(ent);
                                             }
                                             #endregion
                                         }
                                         else //Carga de Consultoras por Categoria [tipoCarga=1]
                                         {
-                                            registros += sv.UpdCategoriaConsultoraMasivo(paisID, lstStockTemporal.ToArray());
+                                            registros += sv.UpdCategoriaConsultoraMasivo(paisId, lstStockTemporal.ToArray());
                                         }
                                     }
                                     catch (FaultException ex)
@@ -469,10 +478,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    if (tipoCarga.Equals("0"))
-                        message = "No se actualizó la Categoría de ninguno de los CUV's de productos que estaban dentro del archivo (CSV), verifique.";
-                    else
-                        message = "No se actualizó ninguna de las consultoras por categoría que estaban dentro del archivo (CSV), verifique que los códigos sean correctos.";
+                    message = tipoCarga.Equals("0") 
+                        ? "No se actualizó la Categoría de ninguno de los CUV's de productos que estaban dentro del archivo (CSV), verifique." 
+                        : "No se actualizó ninguna de las consultoras por categoría que estaban dentro del archivo (CSV), verifique que los códigos sean correctos.";
                 }
             }
             catch (FaultException ex)
@@ -494,18 +502,16 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
-        public static bool IsNumeric(object Expression)
+        public static bool IsNumeric(object expression)
         {
-            bool isNum;
             double retNum;
-
-            isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
         }
 
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
-            List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
+            List<BEMatrizComercial> lst;
 
             var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
@@ -553,11 +559,13 @@ namespace Portal.Consultoras.Web.Controllers
                         CodigoSAP, CUV, CategoriaID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEOfertaFlexipago> items = lst;
 
                 #region Sort Section
@@ -626,11 +634,11 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
-                string ISO = Util.GetPaisISO(PaisID);
+                string iso = Util.GetPaisISO(PaisID);
 
-                var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+                var carpetaPais = Globals.UrlMatriz + "/" + iso;
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
-                lst.Update(x => x.ISOPais = ISO);
+                lst.Update(x => x.ISOPais = iso);
                 lst.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago);
                 var data = new
                 {
@@ -643,25 +651,25 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.NroOrden,
                                cell = new string[]
                                {
-                                   a.TipoOferta.ToString(),
-                                   a.CodigoProducto.ToString(),
-                                   a.CodigoCampania.ToString(),
-                                   a.CUV.ToString(),
-                                   a.Descripcion.ToString(),
+                                   a.TipoOferta,
+                                   a.CodigoProducto,
+                                   a.CodigoCampania,
+                                   a.CUV,
+                                   a.Descripcion,
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.PrecioNormal.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.CategoriaID,
                                    a.Stock.ToString(),
-                                   a.ImagenProducto.ToString(),
+                                   a.ImagenProducto,
                                    a.CampaniaID.ToString() ,
                                    a.UnidadesPermitidas.ToString(),
                                    a.FlagHabilitarProducto.ToString(),
                                    a.OfertaProductoID.ToString(),
-                                   a.CodigoTipoOferta.ToString().Trim(),
-                                   a.ISOPais.ToString(),
+                                   a.CodigoTipoOferta.Trim(),
+                                   a.ISOPais,
                                    a.ConfiguracionOfertaID.ToString(),
-                                   a.CodigoProducto.ToString(),
+                                   a.CodigoProducto,
                                    a.TipoOfertaSisID.ToString()
                                 }
                            }
@@ -764,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEOfertaFlexipago entidad = null;
+                BEOfertaFlexipago entidad;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     entidad = svc.GetLinksOfertaFlexipago(PaisID);
@@ -799,32 +807,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarPriorizacion(int paisID, string codigoOferta, int CampaniaID, int Orden)
         {
-            int FlagExiste = 0;
+            int flagExiste;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                int ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == codigoOferta).ConfiguracionOfertaID;
-                FlagExiste = sv.ValidarPriorizacion(paisID, ConfiguracionOfertaID, CampaniaID, Orden);
+                int configuracionOfertaId = lstConfiguracion.Find(x => x.CodigoOferta == codigoOferta).ConfiguracionOfertaID;
+                flagExiste = sv.ValidarPriorizacion(paisID, configuracionOfertaId, CampaniaID, Orden);
             }
 
             return Json(new
             {
-                FlagExiste = FlagExiste
+                FlagExiste = flagExiste
             }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ObtenerOrdenPriorizacion(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
-            int Orden = 0;
+            int orden;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                Orden = sv.GetOrdenPriorizacion(paisID, ConfiguracionOfertaID, CampaniaID);
+                orden = sv.GetOrdenPriorizacion(paisID, ConfiguracionOfertaID, CampaniaID);
             }
 
             return Json(new
             {
-                Orden = Orden
+                Orden = orden
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -926,7 +934,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.PaisID = model.PaisID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora.ToString();
+                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
                     entidad.TipoOfertaSisID = model.TipoOfertaSisID;
                     sv.DelOfertaFlexipago(entidad);
                 }
@@ -965,12 +973,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -987,23 +992,23 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisID)
+        private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisId)
         {
             List<BEConfiguracionOferta> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lstConfiguracion = sv.GetTipoOfertasAdministracion(paisID, Constantes.ConfiguracionOferta.Flexipago).ToList();
+                lstConfiguracion = sv.GetTipoOfertasAdministracion(paisId, Constantes.ConfiguracionOferta.Flexipago).ToList();
                 lst = lstConfiguracion;
             }
 

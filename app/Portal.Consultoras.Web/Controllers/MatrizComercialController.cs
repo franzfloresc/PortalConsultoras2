@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -48,11 +47,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetMatrizComercialByCodigoSAP(paisID, codigoSAP).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEMatrizComercial> items = lst;
 
                 #region Sort Section
@@ -91,14 +92,14 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
-                string ISO = Util.GetPaisISO(paisID);
+                string iso = Util.GetPaisISO(paisID);
 
                 var data = new
                 {
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    ISOPais = ISO.ToString().Trim(),
+                    ISOPais = iso.Trim(),
                     rows = from a in items
                            select new
                            {
@@ -106,9 +107,9 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.IdMatrizComercial.ToString(),
-                                   a.CodigoSAP.ToString(),
-                                   a.DescripcionOriginal.ToString(),
-                                   a.Descripcion.ToString()
+                                   a.CodigoSAP,
+                                   a.DescripcionOriginal,
+                                   a.Descripcion
                                 }
                            }
                 };
@@ -123,13 +124,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -160,13 +157,13 @@ namespace Portal.Consultoras.Web.Controllers
             return foto;
         }
 
-        private FileNameFormat GetFileNameFormat(int paisID, string codigoSAP)
+        private FileNameFormat GetFileNameFormat(int paisId, string codigoSap)
         {
-            string paisISO = Util.GetPaisISO(paisID);
+            string paisIso = Util.GetPaisISO(paisId);
             return new FileNameFormat
             {
-                PreFileName = string.Format("{0}_{1}", paisISO, codigoSAP),
-                CarpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, paisISO)
+                PreFileName = string.Format("{0}_{1}", paisIso, codigoSap),
+                CarpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, paisIso)
             };
         }
 
@@ -398,12 +395,12 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string UpdDescripcionProductoMasivo(HttpPostedFileBase flDescProd)
         {
-            string message = string.Empty;
+            string message;
             int registros = 0;
             try
             {
                 #region Procesar Carga Masiva Archivo CSV
-                string finalPath = string.Empty;
+
                 List<BEMatrizComercial> lstmatriz = new List<BEMatrizComercial>();
 
                 if (flDescProd != null)
@@ -413,25 +410,24 @@ namespace Portal.Consultoras.Web.Controllers
                     string pathFile = Server.MapPath("~/Content/FileCargaStock");
                     if (!Directory.Exists(pathFile))
                         Directory.CreateDirectory(pathFile);
-                    finalPath = Path.Combine(pathFile, newfileName);
+                    var finalPath = Path.Combine(pathFile, newfileName);
                     flDescProd.SaveAs(finalPath);
-
-                    string inputLine = "";
-
-                    string[] values = null;
 
                     using (StreamReader sr = new StreamReader(finalPath))
                     {
+                        string inputLine;
                         while ((inputLine = sr.ReadLine()) != null)
                         {
-                            values = inputLine.Split(',');
+                            var values = inputLine.Split(',');
                             if (values.Length > 1)
                             {
-                                if (IsNumeric(values[0].ToString().Trim()))
+                                if (IsNumeric(values[0].Trim()))
                                 {
-                                    BEMatrizComercial ent = new BEMatrizComercial();
-                                    ent.CodigoSAP = values[0].ToString().Trim();
-                                    ent.Descripcion = values[1].ToString().Trim();
+                                    BEMatrizComercial ent = new BEMatrizComercial
+                                    {
+                                        CodigoSAP = values[0].Trim(),
+                                        Descripcion = values[1].Trim()
+                                    };
                                     if (!string.IsNullOrEmpty(ent.CodigoSAP))
                                         lstmatriz.Add(ent);
                                 }
@@ -442,12 +438,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            int paisID = Util.GetPaisID(UserData().CodigoISO);
-                            if (paisID > 0)
+                            int paisId = Util.GetPaisID(UserData().CodigoISO);
+                            if (paisId > 0)
                             {
                                 try
                                 {
-                                    registros += sv.UpdMatrizComercialDescripcionMasivo(paisID, lstmatriz.ToArray(), UserData().CodigoConsultora);
+                                    registros += sv.UpdMatrizComercialDescripcionMasivo(paisId, lstmatriz.ToArray(), UserData().CodigoConsultora);
                                 }
                                 catch (FaultException ex)
                                 {
@@ -485,23 +481,21 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
-        public static bool IsNumeric(object Expression)
+        public static bool IsNumeric(object expression)
         {
-            bool isNum;
             double retNum;
-
-            isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
         }
 
         public JsonResult ObtenerISOPais(int paisID)
         {
-            string ISO = Util.GetPaisISO(paisID);
+            string iso = Util.GetPaisISO(paisID);
             string habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
 
             return Json(new
             {
-                ISO = ISO,
+                ISO = iso,
                 habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
@@ -520,7 +514,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
         {
-            var lst = new List<BEMatrizComercialImagen>();
+            List<BEMatrizComercialImagen> lst;
             int totalRegistros = 0;
             int idMatrizComercial = 0;
             int rows = 10;
@@ -587,10 +581,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { imagenes = data, totalRegistros = totalRegistros });
         }
 
-        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisId)
         {
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            string paisIso = Util.GetPaisISO(paisId);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen

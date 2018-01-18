@@ -283,6 +283,8 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            public const string GuiaNegocio = "GuiaNegocio";
         }
 
         public static class ConfiguracionManager
@@ -404,7 +406,9 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito -- Pantalla
             // A: Contenedor Home           B: Contenedor Home Revisar
             // C: Landing EPM               D: Landing EPM Revisar
-            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+            // E: Landing ShowRoom          F: Landing ShowRoom Intriga
+            // G: Revista Digital Info      H: Revista Digital Detalle
+            // I: Guia de Negocio
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -1071,6 +1075,8 @@ namespace Portal.Consultoras.Common
 
         public static class ConfiguracionPaisDatos
         {
+            public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1155,6 +1161,7 @@ namespace Portal.Consultoras.Common
 
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
+
             }
 
             public static class RDR
