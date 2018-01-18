@@ -646,6 +646,7 @@
             $('#file-upload').hide();
 
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
+            $('#imgMiniSeleccionada').attr("src", rutaImagenVacia);
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
             $("#divImagenEstrategiaContenido").show();
@@ -667,7 +668,7 @@
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
 
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
 
@@ -690,7 +691,7 @@
 
                 $("#hdnEtiqueta1").val('4');
             }
-            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
@@ -740,9 +741,16 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
+            if (aux2 == '030') {
+                VistaNuevoProductoShowroon();
+            } else {
+                VistaNuevoProductoGeneral();
+            }
+
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
         });
+
         $("#btnActivarDesactivar").click(function () {
 
             var proceder = confirm('¿ Desea habilitar/deshabiltar las estrategias?');
@@ -3410,15 +3418,21 @@
             }
         });
     }
-
+    function VistaNuevoProductoShowroon() {
+        $("#seccionTallaColor").hide();
+        $("#seccionMensajeAdicional").hide();
+        $("#seccionOfertaUltimoMinuto").hide();
+        $("#seccionImagenMiniatura").show();
+        $("#seccionEsSubCampania").show();
+    }
+    function VistaNuevoProductoGeneral() {
+        $("#seccionEsSubCampania").hide();
+        $("#seccionImagenMiniatura").hide();
+        $("#seccionTallaColor").show();
+        $("#seccionMensajeAdicional").show();
+        $("#seccionOfertaUltimoMinuto").show();
+    }
     // SHOWROOM-FIN
 
-    function VistaNuevoProductoShowroon()
-    {
-        if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == '030') {
-            $("#seccionTallaColor").hide();
-            $("#seccionMensajeAdicional").hide();
-            $("#seccionOfertaUltimoMinuto").hide();
-        }
-    }
+
 </script>

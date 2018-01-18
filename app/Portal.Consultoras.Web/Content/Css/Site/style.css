@@ -1619,7 +1619,30 @@ ul.tabs {
     border: 0;
     text-align: left;
 }
-
+.div-3 .titG3 {
+    float: left;
+    width: 120px;
+    height: auto;
+    padding: 9px;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
+.div-3 .titG4 {
+    float: left;
+    width: 127px;
+    height: auto;
+    padding: 9px;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
 .div-3 .titX {
     float: left;
     width: 125px;
