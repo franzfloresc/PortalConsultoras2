@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -17,32 +16,39 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Administra()
         {
-            NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-            modelo.ListaPaises = CargarListaPaises();
-            modelo.ListaCampania = CargarListaCampanias(UserData().PaisID);
+            NavidadConsultoraModel modelo = new NavidadConsultoraModel
+            {
+                ListaPaises = CargarListaPaises(),
+                ListaCampania = CargarListaCampanias(UserData().PaisID)
+            };
             return View(modelo);
         }
 
         public ActionResult Index()
         {
             NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-            List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
-            BENavidadConsultora registro = new BENavidadConsultora();
             try
             {
+                List<BENavidadConsultora> resultado;
                 using (ContenidoServiceClient servicio = new ContenidoServiceClient())
                 {
-                    BENavidadConsultora parametro = new BENavidadConsultora();
-                    parametro.PaisId = UserData().PaisID;
-                    parametro.CampaniaId = UserData().CampaniaID;
+                    BENavidadConsultora parametro = new BENavidadConsultora
+                    {
+                        PaisId = UserData().PaisID,
+                        CampaniaId = UserData().CampaniaID
+                    };
                     resultado = servicio.BuscarNavidadConsultora(parametro).ToList();
                 }
                 var carpetaPais = Globals.UrlNavidadConsultora;
-                string parametroComparte = "";
-                registro = resultado.FirstOrDefault();
-                modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg, "");
-                parametroComparte = Convert.ToString(registro.ImagenId) + "-" + Convert.ToString(registro.PaisId);
-                modelo.UrlComparte = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/NavidadConsultora.aspx?comparte=" + parametroComparte;
+                var registro = resultado.FirstOrDefault() ?? new BENavidadConsultora();
+                modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
+                var parametroComparte = Convert.ToString(registro.ImagenId) + "-" + Convert.ToString(registro.PaisId);
+                if (Request.Url != null)
+                    modelo.UrlComparte = Request.Url.Scheme + "://" + Request.Url.Authority +
+                                         (Request.ApplicationPath != null && Request.ApplicationPath.Equals("/")
+                                             ? "/"
+                                             : (Request.ApplicationPath + "/")) +
+                                         "WebPages/NavidadConsultora.aspx?comparte=" + parametroComparte;
                 return View(modelo);
             }
             catch
@@ -54,19 +60,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ListaNavidadConsultora(int PaisId, int? CampaniaId)
         {
-
-            List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
+            List<BENavidadConsultora> resultado;
+            BENavidadConsultora parametro = new BENavidadConsultora
+            {
+                PaisId = PaisId,
+                CampaniaId = CampaniaId
+            };
             using (ContenidoServiceClient servicio = new ContenidoServiceClient())
             {
-                BENavidadConsultora parametro = new BENavidadConsultora();
-                parametro.PaisId = PaisId;
-                parametro.CampaniaId = CampaniaId;
                 resultado = servicio.BuscarNavidadConsultora(parametro).ToList();
             }
             var carpetaPais = Globals.UrlNavidadConsultora;
 
-            if (resultado != null)
-                if (resultado.Count > 0) resultado.Update(x => x.NombreImg = ConfigS3.GetUrlFileS3(carpetaPais, x.NombreImg, ""));
+            if (resultado.Count > 0)
+                resultado.Update(x => x.NombreImg = ConfigS3.GetUrlFileS3(carpetaPais, x.NombreImg));
 
             var data = new
             {
@@ -78,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.ImagenId.ToString(),
                                    a.CampaniaId.ToString(),
-                                   a.NombreImg.ToString(),
+                                   a.NombreImg,
                                    a.ImagenId.ToString(),
                                    a.PaisId.ToString()
                                 }
@@ -93,30 +100,34 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int height = 0;
-                int width = 0;
-                long contentLength = 0;
+                int height;
+                int width;
+                long contentLength;
 
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
                     var postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    using (var sourceimage = System.Drawing.Image.FromStream(postedFile.InputStream))
+                    if (postedFile != null)
                     {
-                        height = sourceimage.Height;
-                        width = sourceimage.Width;
+                        var fileName = Path.GetFileName(postedFile.FileName) ?? "";
+                        using (var sourceimage = System.Drawing.Image.FromStream(postedFile.InputStream))
+                        {
+                            height = sourceimage.Height;
+                            width = sourceimage.Width;
+                        }
+                        contentLength = postedFile.ContentLength;
+                        if (TieneImagenAltoAnchoYTamanioValido(height, width, contentLength))
+                            return Json(new { success = false, name = "", nameFile = "" }, "text/html");
+
+                        if (!System.IO.File.Exists(Globals.RutaTemporales))
+                            Directory.CreateDirectory(Globals.RutaTemporales);
+
+                        var path = Path.Combine(Globals.RutaTemporales, fileName);
+                        postedFile.SaveAs(path);
+
+                        return Json(new { success = true, name = qqfile, nameFile = fileName }, "text/html");
                     }
-                    contentLength = postedFile.ContentLength;
-                    if (TieneImagenAltoAnchoYTamanioValido(height, width, contentLength))
-                        return Json(new { success = false, name = "", nameFile = "" }, "text/html");
-
-                    if (!System.IO.File.Exists(Globals.RutaTemporales))
-                        Directory.CreateDirectory(Globals.RutaTemporales);
-
-                    var path = Path.Combine(Globals.RutaTemporales, fileName);
-                    postedFile.SaveAs(path);
-
-                    return Json(new { success = true, name = qqfile, nameFile = fileName }, "text/html");
+                    return Json(new { success = false, name = qqfile, nameFile = "" }, "text/html");
                 }
                 else
                 {
@@ -161,16 +172,14 @@ namespace Portal.Consultoras.Web.Controllers
                     BENavidadConsultora parametro = new BENavidadConsultora();
                     try
                     {
-                        string httpPath = string.Empty;
                         var img = System.Drawing.Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(ImagenActualizar));
                         img.Dispose();
 
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = time + "_" + System.Net.WebUtility.UrlDecode(ImagenActualizar);
-                        httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(ImagenActualizar));
+                        var httpPath = Path.Combine(Globals.RutaTemporales, System.Net.WebUtility.UrlDecode(ImagenActualizar));
                         var carpetaPais = Globals.UrlNavidadConsultora;
                         ConfigS3.SetFileS3(httpPath, carpetaPais, newfilename);
-                        httpPath = newfilename;
 
                         parametro.PaisId = Convert.ToInt32(PaisId);
                         parametro.CampaniaId = Convert.ToInt32(CampaniaID);
@@ -215,10 +224,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ContenidoServiceClient servicio = new ContenidoServiceClient())
                 {
-                    BENavidadConsultora parametro = new BENavidadConsultora();
-                    parametro.PaisId = Convert.ToInt32(PaisId);
-                    parametro.CampaniaId = Convert.ToInt32(CampaniaID);
-                    parametro.ImagenId = ImagenId;
+                    BENavidadConsultora parametro = new BENavidadConsultora
+                    {
+                        PaisId = Convert.ToInt32(PaisId),
+                        CampaniaId = Convert.ToInt32(CampaniaID),
+                        ImagenId = ImagenId
+                    };
                     servicio.EliminarNavidadConsultora(parametro);
                 }
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -229,12 +240,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<CampaniaModel> CargarListaCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> CargarListaCampanias(int paisId)
         {
             IList<BECampania> lista;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lista = sv.SelectCampanias(PaisID);
+                lista = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
@@ -245,13 +256,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lista;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lista = sv.SelectPaises().ToList();
-                else
-                {
-                    lista = new List<BEPais>();
-                    lista.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lista = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lista);
