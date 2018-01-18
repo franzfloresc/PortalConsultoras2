@@ -1,8 +1,10 @@
 ﻿$(document).ready(function () {
+    $('.nro').html('REVISTA C-' + campaniaId.toString().substring(4, 6));
+
     var alturacontgnd = $('.revistagnd .contrevistagnd').height();
     var contadorbottomgnd = 1;
     $('.revistagnd').css("bottom", '-' + alturacontgnd + 'px');
-    $('.revistagnd').click(function () {
+    $('.nrorevista').click(function () {
         // $('nav').toggle();
 
         if (contadorbottomgnd == 1) {

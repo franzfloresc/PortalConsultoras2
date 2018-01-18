@@ -1,6 +1,8 @@
 ﻿var contador = 0;
 
 $(document).ready(function () {
+    $('#tituloGuiaNegocioFloteante').html('REVISTA C-' + campaniaId.toString().substring(4,6));
+
     $('.cerrar-vineta .sbcont span').click(function () {
         if (contador == 1) {
             $('.cont-vineta').animate({
