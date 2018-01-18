@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.Models;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.CustomFilters
