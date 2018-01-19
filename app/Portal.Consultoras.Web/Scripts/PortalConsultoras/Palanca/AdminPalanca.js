@@ -71,6 +71,12 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
+
+        if ($(this).find('option:selected').attr("data-codigo") === _palanca.odd) {
+            $(".hide-config-image-odd").show();
+        } else {
+            $(".hide-config-image-odd").hide();
+        }
     });
 });
 
@@ -223,10 +229,47 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () { },
+        close: function() {
+            $('div[id^="collorpicker_"]').hide();
+        },
         draggable: false,
         title: "Configurar Contenedor Home",
-        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+        open: function(event, ui) {
+            $(".ui-dialog-titlebar-close", ui.dialog).hide();
+            $("#colorpickerHolder").ColorPicker({ flat: true });
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto").ColorPicker({
+                onSubmit: function (hsb, hex, rgb, el) {
+                        var newValue = "#" + hex;
+                        $(el).val(newValue);
+                        $(el).ColorPickerHide();
+                    },
+                    onBeforeShow: function () {
+                        $(this).ColorPickerSetColor(this.value);
+                    }
+                })
+                .bind("keyup", function () {
+                    $(this).ColorPickerSetColor(this.value);
+                });
+
+            if ($("#DesktopColorFondo").val() === "") {
+                $("#DesktopColorFondo").val("#000000");
+            }
+
+            if ($("#MobileColorFondo").val() === "") {
+                $("#MobileColorFondo").val("#000000");
+            }
+
+            if ($("#DesktopColorTexto").val() === "") {
+                $("#DesktopColorTexto").val("#ffffff");
+            }
+
+            if ($("#MobileColorTexto").val() === "") {
+                $("#MobileColorTexto").val("#ffffff");
+            }
+            if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") !== _palanca.odd ) {
+                $(".hide-config-image-odd").hide();
+            }
+        },
         buttons:
         {
             "Guardar": function () {
@@ -252,8 +295,28 @@ function IniDialogs() {
                     _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                     return false;
                 }
+
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
+                    $("#DesktopUsarImagenFondo").attr("checked") && $("#nombre-fondo-desktop").val() === "") {
+                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en desktop.");
+                    return false;
+                }
+
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
+                    $("#MobileUsarImagenFondo").attr("checked") && $("#nombre-fondo-mobile").val() === "") {
+                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en móvil.");
+                    return false;
+                }
+
                 var desktopTipoPresentacion = $("#ddlDesktopTipoPresentacionOfertas").val();
                 var mobileTipoPresentacion = $("#ddlMobileTipoPresentacionOfertas").val();
+                var desktopColorFondo = $("#DesktopColorFondo").val();
+                var mobileColorFondo = $("#MobileColorFondo").val();
+                var desktopColorTexto = $("#DesktopColorTexto").val();
+                var mobileColorTexto = $("#MobileColorTexto").val();
+                var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").attr("checked");
+                var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").attr("checked");
+
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.showroom) {
                     desktopTipoPresentacion = _tipopresentacion.showroom;
                     mobileTipoPresentacion = _tipopresentacion.showroom;
@@ -261,6 +324,13 @@ function IniDialogs() {
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
+                } else {
+                    desktopColorFondo = "";
+                    mobileColorFondo = "";
+                    desktopColorTexto = "";
+                    mobileColorTexto = "";
+                    desktopUsarImagenFondo = false;
+                    mobileUsarImagenFondo = false;
                 }
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
@@ -268,8 +338,14 @@ function IniDialogs() {
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
                     MobileOrden: $("#MobileOrden").val(),
+                    DesktopColorFondo: desktopColorFondo,
+                    MobileColorFondo: mobileColorFondo,
+                    DesktopUsarImagenFondo: desktopUsarImagenFondo,
+                    MobileUsarImagenFondo: mobileUsarImagenFondo,
                     DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
                     MobileImagenFondo: $("#nombre-fondo-mobile").val(),
+                    DesktopColorTexto: desktopColorTexto,
+                    MobileColorTexto: mobileColorTexto,
                     DesktopTitulo: $("#DesktopTitulo").val(),
                     MobileTitulo: $("#MobileTitulo").val(),
                     DesktopSubTitulo: $("#DesktopSubTitulo").val(),
