@@ -303,32 +303,26 @@ namespace Portal.Consultoras.Web.Controllers
                     PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen)
                 };
 
-                if (ImagenEstrategia != "")
+                if (ImagenEstrategia != "" && imagenAnterior != ImagenEstrategia)
                 {
-                    if (imagenAnterior != ImagenEstrategia)
-                    {
-                        var path = Path.Combine(Globals.RutaTemporales, ImagenEstrategia);
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                        if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                        entidad.ImagenEstrategia = newfilename;
-                    }
+                    var path = Path.Combine(Globals.RutaTemporales, ImagenEstrategia);
+                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                    entidad.ImagenEstrategia = newfilename;
                 }
 
-                if (ImagenOfertaIndependiente != "")
+                if (ImagenOfertaIndependiente != "" && ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
                 {
-                    if (ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
-                    {
-                        var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                        if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                        entidad.ImagenOfertaIndependiente = newfilename;
-                    }
+                    var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
+                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                    entidad.ImagenOfertaIndependiente = newfilename;
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

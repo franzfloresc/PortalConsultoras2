@@ -161,27 +161,21 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var arrString = valor.Split(',');
 
-                        if (valor == "1" || valor == "2" || valor == "6")
+                        if (
+                            (valor == "1" || valor == "2" || valor == "6")
+                            && arrString.Count() > 6)
                         {
-                            if (arrString.Count() > 6)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
-                        }
-                        if (valor == "7")
-                        {
-                            if (arrString.Count() > 2)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
+                            returnValue = "No se puede ingresar mas datos.";
                         }
 
-                        if (valor == "8")
+                        if (valor == "7" && arrString.Count() > 2)
                         {
-                            if (arrString.Count() > 49)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
+                            returnValue = "No se puede ingresar mas datos.";
+                        }
+
+                        if (valor == "8" && arrString.Count() > 49)
+                        {
+                            returnValue = "No se puede ingresar mas datos.";
                         }
 
                     }

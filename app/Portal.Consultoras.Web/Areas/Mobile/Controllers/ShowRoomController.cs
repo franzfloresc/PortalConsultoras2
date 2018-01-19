@@ -32,26 +32,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// <returns></returns>
         public ActionResult Procesar()
         {
+            var model = new ShowRoomBannerLateralModel();
+            var zonaHoraria = 0d;
+            var fechaInicioCampania = DateTime.Now.Date;
+
             var userData = sessionManager.GetUserData();
             if (userData != null)
+            {
                 CargarEntidadesShowRoom(userData);
+
+                model.BEShowRoom = userData.BeShowRoom;
+                zonaHoraria = userData.ZonaHoraria;
+                fechaInicioCampania = userData.FechaInicioCampania;
+            }
 
             var esShowRoom = false;
 
-            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
-            model.BEShowRoom = userData.BeShowRoom;
-
-            if (model.BEShowRoom == null)
+            if (model.BEShowRoom != null)
             {
-                model.BEShowRoom = new BEShowRoomEvento();
-            }
+                var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
 
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
-                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
-            {
-                esShowRoom = OfertaShowRoom() != null;
+                if ((fechaHoy >= fechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                    fechaHoy <= fechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
+                {
+                    esShowRoom = OfertaShowRoom() != null;
+                }
             }
 
             return esShowRoom ?
@@ -87,6 +92,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var showRoomEventoModel = OfertaShowRoom();
 
             if (query != null)
+            //if(!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
                 string[] lista = param.Split(';');

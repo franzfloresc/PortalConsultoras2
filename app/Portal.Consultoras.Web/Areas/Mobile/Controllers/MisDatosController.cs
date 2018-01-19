@@ -93,12 +93,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (paisesDigitoControl.Contains(model.PaisISO))
+
+                if (paisesDigitoControl.Contains(model.PaisISO) && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
-                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador))
-                    {
-                        model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-                    }
+                    model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
             }
 

@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
             string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);

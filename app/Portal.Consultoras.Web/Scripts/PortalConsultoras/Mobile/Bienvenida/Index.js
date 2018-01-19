@@ -683,15 +683,12 @@ function VerSeccionBienvenida(seccion) {
         case "Footer":
             id = "footer";
             break;
-        default://Home
-            id = "#contentmobile";
-            break;
     }
-    //if (id != "") {
-        //$("html, body").animate({
-        //    scrollTop: $(id).offset().top - 60
-        //}, 1000);
-    //}
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }
 
 function VerTutorialMobile() {

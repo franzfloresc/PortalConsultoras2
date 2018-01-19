@@ -13927,7 +13927,7 @@ span.icon-advertencia {
         }
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
-    background: ##613c87 !important;
+    background: #613c87 !important;
 }
 
 .popup_confirmacion_datos .estructura_confirmar_datos {
@@ -13977,7 +13977,7 @@ span.icon-advertencia {
         font-size: 17px;
         font-weight: bolder;
         letter-spacing: 1px;
-        color: ##613c87;
+        color: #613c87;
         margin-bottom: 20px;
     }
 

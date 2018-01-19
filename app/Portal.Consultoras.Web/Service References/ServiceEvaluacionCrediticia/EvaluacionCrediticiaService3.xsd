@@ -86,4 +86,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ConsultarServicioCrediticioBO">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="territorio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarServicioCrediticioBOResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioBOResult" nillable="true" type="q6:EvaluacionCrediticiaBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -4012,7 +4012,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
-                if (userData.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && userData.ConsultoraNueva != Constantes.ConsultoraNueva.Fox &&
+                if (userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Registrada && userData.ConsultoraNueva != Constantes.EstadoActividadConsultora.Ingreso_Nueva &&
                     userData.NombreCorto != null && userData.AnoCampaniaIngreso.Trim() != "")
                 {
                     int campaniaActual = int.Parse(userData.NombreCorto);
@@ -4229,14 +4229,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.EsMobile = 1;//EPD-1780
 
-            if (userData.TieneLoginExterno)
-            {
-                var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
-                if (loginFacebook != null)
-                {
-                    ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
-                }
-            }
+            ViewBag.FotoPerfil = userData.FotoPerfil;
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
@@ -4246,7 +4239,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetUrlFranjaNegra()
         {
-            var urlFranjaNegra = sessionManager.GetEventoFestivoDataModel().EfRutaPedido;
+            var oModel = sessionManager.GetEventoFestivoDataModel();
+            var urlFranjaNegra = oModel == null ? string.Empty : oModel.EfRutaPedido;
 
             if (string.IsNullOrEmpty(urlFranjaNegra))
                 urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
