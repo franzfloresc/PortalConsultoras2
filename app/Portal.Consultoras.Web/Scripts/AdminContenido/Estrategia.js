@@ -231,8 +231,8 @@ var Estrategia = function (config) {
 
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $("#hdEstrategiaCodigo").val();
-
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == codigoShowRoom) {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
 
@@ -247,7 +247,7 @@ var Estrategia = function (config) {
                 $('#txt2-estrella').show();
             }
 
-            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == codigoShowRoom) {
                 $("#ddlEtiqueta1").children('option').hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
