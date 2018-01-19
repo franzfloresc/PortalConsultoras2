@@ -290,15 +290,6 @@ $(document).ready(function () {
             }
         });
 
-    //$(".codigoSms").keydown(
-    //    function (e) {
-    //        var oID = $(this).attr("id");
-    //        if (e.keyCode == $.ui.keyCode.BACKSPACE) {
-    //            $(oID).val() = "";
-    //            var backfocus = parseInt(oID.substring(0, 1)) - 1;
-    //            $("#" + backfocus + "Digito").focus();
-    //        }
-    //    });
 
     if (typeof errorLogin !== 'undefined') {
         var errorMessage = "Mensaje: " + errorLogin;
@@ -312,6 +303,10 @@ $(document).ready(function () {
             saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
         }
     }
+
+    $("#btnRegresar").click(function () {
+        Regresar();
+    });
 
     $("#btnRecuperarClave").click(function () {
         RecuperarClave("1");
@@ -1282,7 +1277,7 @@ function RecuperarClave(tipoRecuperar) {
             }
 
 
-            ////ESTO LO HIZO EL MINI PEDÚ
+            ////Codigo Manuel
             //if (!response.success){
             //    //alert("Mensaje: " + response.message + " Incorrectas");
             //    return false;
@@ -1531,3 +1526,10 @@ function ObtenerCodigoSms(CodIngresado)
         }
     });
 }
+
+function Regresar()
+{
+    $("#popup2").hide();
+    $("#popupRestaurarClave").show();
+}
+
