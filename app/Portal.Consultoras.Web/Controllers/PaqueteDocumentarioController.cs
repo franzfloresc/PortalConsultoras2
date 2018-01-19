@@ -136,23 +136,15 @@ namespace Portal.Consultoras.Web.Controllers
                     JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                     WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
-                    if (st != null)
+                    if (st != null && st.LIS_CampanaResult != null)
                     {
-                        if (st.LIS_CampanaResult != null)
+                        if (st.LIS_CampanaResult.lista != null)
                         {
-                            if (st.LIS_CampanaResult.lista != null)
+                            if (st.LIS_CampanaResult.lista.Count != 0)
                             {
-                                if (st.LIS_CampanaResult.lista.Count != 0)
+                                foreach (var item in st.LIS_CampanaResult.lista)
                                 {
-                                    foreach (var item in st.LIS_CampanaResult.lista)
-                                    {
-                                        lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
-                                    }
-                                }
-                                else
-                                {
-                                    errorCode = st.LIS_CampanaResult.errorCode;
-                                    errorMessage = st.LIS_CampanaResult.errorMessage;
+                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
                                 }
                             }
                             else
@@ -161,6 +153,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 errorMessage = st.LIS_CampanaResult.errorMessage;
                             }
                         }
+                        else
+                        {
+                            errorCode = st.LIS_CampanaResult.errorCode;
+                            errorMessage = st.LIS_CampanaResult.errorMessage;
+                        }
+                        
                     }
                 }
             }
@@ -211,26 +209,23 @@ namespace Portal.Consultoras.Web.Controllers
                     JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                     WrapperPDFWeb st = jsonSerializer.Deserialize<WrapperPDFWeb>(outResult);
-                    if (st != null)
+                    if (st != null && st.GET_URLResult != null)
                     {
-                        if (st.GET_URLResult != null)
+                        if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
                         {
-                            if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
+                            if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
                             {
-                                if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
+                                foreach (var item in st.GET_URLResult.objeto)
                                 {
-                                    foreach (var item in st.GET_URLResult.objeto)
-                                    {
-                                        lstRVPRFModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
-                                    }
+                                    lstRVPRFModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
                                 }
+                            }
 
-                            }
-                            else
-                            {
-                                errorCode = st.GET_URLResult.errorCode;
-                                errorMessage = st.GET_URLResult.errorMessage;
-                            }
+                        }
+                        else
+                        {
+                            errorCode = st.GET_URLResult.errorCode;
+                            errorMessage = st.GET_URLResult.errorMessage;
                         }
 
                     }

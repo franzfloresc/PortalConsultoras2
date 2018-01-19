@@ -110,9 +110,9 @@ namespace Portal.Consultoras.Web.SessionManager
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
         }
 
-        void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modelo)
+        void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modeloGnd)
         {
-            HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio] = modelo;
+            HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio] = modeloGnd;
         }
 
         GuiaNegocioModel ISessionManager.GetGuiaNegocio()

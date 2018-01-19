@@ -85,9 +85,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
                         }
                     }
-                    if (listaEstadoSeguimiento.Count == 0)
-                        if (model.Fecha != null)
-                            listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
+                    if (listaEstadoSeguimiento.Count == 0 && model.Fecha != null)
+                        listaEstadoSeguimiento = AgregarTracking(codigoConsultora, model.Fecha.Value);
 
                     foreach (var item in listaEstadoSeguimiento)
                     {

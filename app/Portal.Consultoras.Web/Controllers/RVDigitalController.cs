@@ -149,23 +149,15 @@ namespace Portal.Consultoras.Web.Controllers
                     JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                     WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
-                    if (st != null)
+                    if (st != null && st.LIS_CampanaResult != null)
                     {
-                        if (st.LIS_CampanaResult != null)
+                        if (st.LIS_CampanaResult.lista != null)
                         {
-                            if (st.LIS_CampanaResult.lista != null)
+                            if (st.LIS_CampanaResult.lista.Count != 0)
                             {
-                                if (st.LIS_CampanaResult.lista.Count != 0)
+                                foreach (var item in st.LIS_CampanaResult.lista)
                                 {
-                                    foreach (var item in st.LIS_CampanaResult.lista)
-                                    {
-                                        lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
-                                    }
-                                }
-                                else
-                                {
-                                    errorCode = st.LIS_CampanaResult.errorCode;
-                                    errorMessage = st.LIS_CampanaResult.errorMessage;
+                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
                                 }
                             }
                             else
@@ -173,6 +165,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 errorCode = st.LIS_CampanaResult.errorCode;
                                 errorMessage = st.LIS_CampanaResult.errorMessage;
                             }
+                        }
+                        else
+                        {
+                            errorCode = st.LIS_CampanaResult.errorCode;
+                            errorMessage = st.LIS_CampanaResult.errorMessage;
                         }
                     }
                 }
@@ -291,23 +288,15 @@ namespace Portal.Consultoras.Web.Controllers
                     JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 
                     WrapperPDF st = jsonSerializer.Deserialize<WrapperPDF>(outResult);
-                    if (st != null)
+                    if (st != null && st.SEL_PDFxCampanaResult != null)
                     {
-                        if (st.SEL_PDFxCampanaResult != null)
+                        if (st.SEL_PDFxCampanaResult.lista != null)
                         {
-                            if (st.SEL_PDFxCampanaResult.lista != null)
+                            if (st.SEL_PDFxCampanaResult.lista.Count != 0)
                             {
-                                if (st.SEL_PDFxCampanaResult.lista.Count != 0)
+                                foreach (var item in st.SEL_PDFxCampanaResult.lista)
                                 {
-                                    foreach (var item in st.SEL_PDFxCampanaResult.lista)
-                                    {
-                                        lstRVPRFModel.Add(new RVPRFModel() { Nombre = item, Ruta = item });
-                                    }
-                                }
-                                else
-                                {
-                                    errorCode = st.SEL_PDFxCampanaResult.errorCode;
-                                    errorMessage = st.SEL_PDFxCampanaResult.errorMessage;
+                                    lstRVPRFModel.Add(new RVPRFModel() { Nombre = item, Ruta = item });
                                 }
                             }
                             else
@@ -315,6 +304,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 errorCode = st.SEL_PDFxCampanaResult.errorCode;
                                 errorMessage = st.SEL_PDFxCampanaResult.errorMessage;
                             }
+                        }
+                        else
+                        {
+                            errorCode = st.SEL_PDFxCampanaResult.errorCode;
+                            errorMessage = st.SEL_PDFxCampanaResult.errorMessage;
                         }
                     }
                 }
