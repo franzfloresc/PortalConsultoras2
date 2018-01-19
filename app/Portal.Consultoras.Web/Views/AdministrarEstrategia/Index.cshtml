@@ -31,9 +31,9 @@
 <input type="hidden" id="hdZonas" value="" />
 <input type="hidden" id="hdSimbolo" />
 <input type="hidden" id="hdTallaColorID" />
-<div class="wrap_cab">
-    <div class="filtros2">
-        <div class="elements">
+<div class="wrap_cab_plan50">
+    <div class="filtros2_plan50">
+        <div class="elements_plan50">
             <div class="div-2">
                 <h1><span>Zona de Estrategias @(Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? "- Programa de Nuevas" : string.Empty)</span></h1>
             </div>
@@ -108,20 +108,16 @@
 </div>
 <div>
     <!--SHOWROOM-INICIO-->
-    <div class="wrap" id="divShowRoomEvento" style="display: none;">
-        <h3>Evento</h3>
-        <div class="wrapa" id="divShowRoomEventoNuevo" style="display: none;">
-            <div class="filtros">
-                <div class="elements" style="padding-top: 0">
-                    <div class="div-3">
-                        <div class="input_search">
-                            <input class="button blue" type="button" value="Nuevo Evento" id="btnNuevoShowRoom" name="">
-                        </div>
+    <div class="wrap_plan50" id="divShowRoomEvento" style="display: none;">
+        <div class="container_plan50 clearfix">
+            <h3>Evento</h3>
+            <div id="divShowRoomEventoNuevo" style="display: none;">
+                <div class="div-3">
+                    <div class="input_search">
+                        <input class="button blue" type="button" value="Nuevo Evento" id="btnNuevoShowRoom" name="">
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container clearfix">
             <div class="border-wrapper">
                 <table id="listEvento"></table>
                 <div id="pagerEvento"></div>
@@ -129,8 +125,8 @@
         </div>
     </div>
 
-    <div class="wrap" id="divPersonalizacion" style="display: none;">
-        <div class="container clearfix">
+    <div class="wrap_plan50" id="divPersonalizacion" style="display: none;">
+        <div class="container_plan50 clearfix">
             <h3>Personalización</h3>
             <div class="div-3">
                 <div class="titC">Nivel:</div>
@@ -147,8 +143,8 @@
     </div>
 
     <!--SHOWROOM-FIN-->
-    <div class="wrap" id="" style="">
-        <div class="container clearfix">
+    <div class="wrap_plan50" id="" style="">
+        <div class="container_plan50 clearfix">
             <h3>Producto</h3>
             <div class="div-3">
                 <div class="input_horizontal">
