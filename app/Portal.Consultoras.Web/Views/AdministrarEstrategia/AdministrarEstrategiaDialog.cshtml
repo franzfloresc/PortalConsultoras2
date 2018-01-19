@@ -13,6 +13,7 @@
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
     <input type="hidden" id="hdEstrategiaPrecioAnt" />
+    <input type="hidden" id="hdImagenMiniaturaURLAnterior" />
     <div class="Content_modal">
 
         <div class="div-3">
@@ -123,7 +124,6 @@
                                         if (responseJSON.success) {
                                             var rutaImagen = '@Url.Content("~/Content/Temporales/")' + responseJSON.name;
                                             $("#imgMiniSeleccionada").attr('src', rutaImagen);
-                                            /*$("#hdImagenProducto").val(responseJSON.name);*/
                                         }
                                         else {
                                             alert(responseJSON.message);

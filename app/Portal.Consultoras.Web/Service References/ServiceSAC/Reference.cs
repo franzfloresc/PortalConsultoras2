@@ -1512,6 +1512,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int DesktopCantidadProductosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesktopColorFondoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesktopColorTextoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DesktopImagenFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1533,10 +1539,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string DesktopTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool DesktopUsarImagenFondoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool MobileActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MobileCantidadProductosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MobileColorFondoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MobileColorTextoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MobileImagenFondoField;
@@ -1558,6 +1573,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MobileTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MobileUsarImagenFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlSeccionField;
@@ -1636,6 +1654,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.DesktopCantidadProductosField.Equals(value) != true)) {
                     this.DesktopCantidadProductosField = value;
                     this.RaisePropertyChanged("DesktopCantidadProductos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesktopColorFondo {
+            get {
+                return this.DesktopColorFondoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesktopColorFondoField, value) != true)) {
+                    this.DesktopColorFondoField = value;
+                    this.RaisePropertyChanged("DesktopColorFondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesktopColorTexto {
+            get {
+                return this.DesktopColorTextoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesktopColorTextoField, value) != true)) {
+                    this.DesktopColorTextoField = value;
+                    this.RaisePropertyChanged("DesktopColorTexto");
                 }
             }
         }
@@ -1732,6 +1776,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool DesktopUsarImagenFondo {
+            get {
+                return this.DesktopUsarImagenFondoField;
+            }
+            set {
+                if ((this.DesktopUsarImagenFondoField.Equals(value) != true)) {
+                    this.DesktopUsarImagenFondoField = value;
+                    this.RaisePropertyChanged("DesktopUsarImagenFondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool MobileActivo {
             get {
                 return this.MobileActivoField;
@@ -1753,6 +1810,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MobileCantidadProductosField.Equals(value) != true)) {
                     this.MobileCantidadProductosField = value;
                     this.RaisePropertyChanged("MobileCantidadProductos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MobileColorFondo {
+            get {
+                return this.MobileColorFondoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MobileColorFondoField, value) != true)) {
+                    this.MobileColorFondoField = value;
+                    this.RaisePropertyChanged("MobileColorFondo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MobileColorTexto {
+            get {
+                return this.MobileColorTextoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MobileColorTextoField, value) != true)) {
+                    this.MobileColorTextoField = value;
+                    this.RaisePropertyChanged("MobileColorTexto");
                 }
             }
         }
@@ -1844,6 +1927,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.MobileTituloField, value) != true)) {
                     this.MobileTituloField = value;
                     this.RaisePropertyChanged("MobileTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MobileUsarImagenFondo {
+            get {
+                return this.MobileUsarImagenFondoField;
+            }
+            set {
+                if ((this.MobileUsarImagenFondoField.Equals(value) != true)) {
+                    this.MobileUsarImagenFondoField = value;
+                    this.RaisePropertyChanged("MobileUsarImagenFondo");
                 }
             }
         }

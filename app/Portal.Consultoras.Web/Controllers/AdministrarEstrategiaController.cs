@@ -665,7 +665,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
-                var entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
+                BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
 
                 model.NumeroPedido = nroPedido == "" ? "0" : nroPedido;
                 nroPedido = model.NumeroPedido.Contains(",") ? nroPedido : "";
@@ -725,7 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
 
                         #endregion
-
+                        entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -815,7 +815,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 List<BEEstrategia> lst;
-
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -824,12 +823,15 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                     CUV2 = cuv2
                 };
-
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.FiltrarEstrategia(entidad).ToList();
                 }
-
+                if (lst.Count > 0)
+                {
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenMiniaturaURL, carpetapais));
+                }
                 if (lst.Count <= 0)
                     return Json(new
                     {
@@ -2192,6 +2194,29 @@ namespace Portal.Consultoras.Web.Controllers
             }            
         }
 
+        public string GuardarImagenMiniAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
+        {
+            string nombreImagenFinal;
+            nombreImagen = nombreImagen ?? "";
+            nombreImagenAnterior = nombreImagenAnterior ?? "";
+
+            if (nombreImagen != nombreImagenAnterior)
+            {
+                string iso = Util.GetPaisISO(paisId);
+                string carpetaPais = Globals.UrlMatriz + "/" + iso;
+
+                string soloImagen = nombreImagen.Split('.')[0];
+                string soloExtension = nombreImagen.Split('.')[1];
+                string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                nombreImagenFinal = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_mini_" + FileManager.RandomString() + "." + soloExtension;
+
+                if (nombreImagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
+            }
+            else nombreImagenFinal = nombreImagen;
+
+            return nombreImagenFinal;
+        }
         #endregion
 
     }

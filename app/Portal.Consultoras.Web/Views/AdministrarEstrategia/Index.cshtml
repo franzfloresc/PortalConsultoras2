@@ -621,8 +621,9 @@
 
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
             $('#imgMiniSeleccionada').attr("src", rutaImagenVacia);
+            $("#hdImagenMiniaturaURLAnterior").val('');
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
-
+            $('#chkEsSubCampania').removeAttr('checked');
             $("#divImagenEstrategiaContenido").show();
             $("#divInformacionAdicionalEstrategiaContenido").hide();
 
@@ -642,7 +643,7 @@
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
 
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == codigoShowRoom) {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
 
@@ -665,7 +666,7 @@
 
                 $("#hdnEtiqueta1").val('4');
             }
-            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
+            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == codigoShowRoom) {
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
@@ -715,7 +716,7 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
-            if (aux2 == '030') {
+            if (aux2 == codigoShowRoom) {
                 VistaNuevoProductoShowroon();
             } else {
                 VistaNuevoProductoGeneral();
@@ -1837,8 +1838,8 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == "030"),
-            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', colNameActions,'EsOfertaIndependiente'],
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == codigoShowRoom),
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
@@ -1892,7 +1893,7 @@
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         if (tipo == '4' || codigo == "005" || codigo == "007" || 
-            codigo == "008" || codigo == "010" || codigo == "030") { 
+            codigo == "008" || codigo == "010" || codigo == codigoShowRoom) { 
             $("#list").jqGrid('hideCol', ["Orden"]); 
         }
     }
@@ -2146,7 +2147,7 @@
             buttons:
             {
                 "Guardar": function () {
-
+                    
                     if ($('#mensajeErrorCUV').val() != "") {
                         alert($('#mensajeErrorCUV').val());
                         return false;
@@ -2288,6 +2289,8 @@
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
                     var ganancia = $("#txtGanancia").val();
                     var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
+                    var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
+                    var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
 
                     var params = {
                         EstrategiaID: EstrategiaID,
@@ -2331,7 +2334,10 @@
                         PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
                         EsOfertaIndependiente: esOfertaIndependiente,
                         Ganancia: ganancia,
-                        RutaImagenCompleta: imagenEstrategiaProducto
+                        RutaImagenCompleta: imagenEstrategiaProducto,
+                        ImagenMiniaturaURL: ImagenMiniaturaURL,
+                        ImagenMiniaturaURLAnterior: $('#hdImagenMiniaturaURLAnterior').val(),
+                        EsSubCampania: EsSubCampania
                     };
                     jQuery.ajax({
                         type: 'POST',
