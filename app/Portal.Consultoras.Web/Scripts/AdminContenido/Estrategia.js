@@ -72,7 +72,7 @@
     };
 
     var _editar = function (data, id) {
-
+        
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -124,7 +124,6 @@
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
-
             if (data.success == false) {
                 alert(data.message);
                 closeWaitingDialog();
@@ -177,7 +176,18 @@
             $("#ddlCampaniaFin").val(data.CampaniaIDFin);
             $("#hdNumeroPedido").val(data.NumeroPedido);
             $("#imgSeleccionada").attr('src', rutaImagenVacia);
-
+            if (data.ImagenMiniaturaURL == "") {
+                $("#imgMiniSeleccionada").attr('src', rutaImagenVacia);
+                $("#hdImagenMiniaturaURLAnterior").val('');
+            } else {
+                $("#imgMiniSeleccionada").attr('src', data.ImagenMiniaturaURL);
+                $("#hdImagenMiniaturaURLAnterior").val(data.ImagenMiniaturaURL.replace(/^.*[\\\/]/, ''));
+            }
+            if (data.EsSubCampania == 1) {
+                $('#chkEsSubCampania').attr('checked', true);
+            } else {
+                $('#chkEsSubCampania').removeAttr('checked');
+            }
             $("#divInformacionAdicionalEstrategiaContenido").hide();
 
             $("#divImagenEstrategia").css("color", "white");
@@ -417,8 +427,9 @@
 
         $('#imgSeleccionada').attr("src", rutaImagenVacia);
         $('#imgMiniSeleccionada').attr("src", rutaImagenVacia);
+        $("#hdImagenMiniaturaURLAnterior").val('');
         $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
-
+        $('#chkEsSubCampania').removeAttr('checked');
         $("#divImagenEstrategiaContenido").show();
         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
