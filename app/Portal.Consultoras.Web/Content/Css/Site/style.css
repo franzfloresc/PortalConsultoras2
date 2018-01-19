@@ -984,7 +984,13 @@ ul.tabs {
 }
 
 .wrap_cab {
-    border: 2px solid #9dc4cc;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.wrap_cab_plan50 {
+    border: 2px solid #dfeaec;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
@@ -995,12 +1001,27 @@ ul.tabs {
 }
 
 .filtros {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 10px 0 0 0;
+}
+
+.filtros_plan50 {
     display: block;
     height: auto;
     width: 100%;
 }
 
 .filtros2 {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: block;
+    padding: 10px 0 0 0;
+}
+
+.filtros2_plan50 {
     display: block;
     height: auto;
     overflow: hidden;
@@ -1008,6 +1029,16 @@ ul.tabs {
 }
 
 .elements {
+    width: 940px;
+    height: auto;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto 0 auto;
+    padding: 50px 0 7px;
+    position: relative;
+}
+
+.elements_plan50 {
     display: block;
     height: auto;
     margin: 0 auto 0 auto;
@@ -3355,7 +3386,15 @@ select.ui-pg-selbox {
 
 /******************************************/
 .wrap {
-    border: 2px solid #9dc4cc;
+    position: relative;
+    margin: 0 auto;
+    padding: 20px 0 0 0;
+    width: 100%;
+    background: #fff;
+}
+
+.wrap_plan50 {
+    border: 2px solid #dfeaec;
     -moz-border-radius: 10px 10px 10px 10px;
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
@@ -3370,6 +3409,11 @@ select.ui-pg-selbox {
 }
 
 .container {
+    margin: 0 auto;
+    width: 940px;
+}
+
+.container_plan50 {
     margin: 0 auto 0 auto;
     padding: 15px 10px 15px 0;
     width: 940px;
