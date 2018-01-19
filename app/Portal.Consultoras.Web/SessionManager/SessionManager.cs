@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -262,5 +263,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
         }
 
+        void ISessionManager.SetDatosPagoVisa(PagoEnLineaModel model)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa] = model;
+        }
+
+        PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
+        {
+            return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
+        }
     }
 }

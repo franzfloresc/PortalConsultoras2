@@ -53,5 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int TieneAsesoraOnline { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
         public int TipoPopUpMostrar { get; set; }
+
+        public bool TienePagoEnLinea { get; set; }
     }
 }
