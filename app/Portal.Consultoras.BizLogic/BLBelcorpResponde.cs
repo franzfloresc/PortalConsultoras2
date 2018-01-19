@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -17,9 +13,9 @@ namespace Portal.Consultoras.BizLogic
             if (lista == null)
             {
                 lista = new List<BEBelcorpResponde>();
-                var DABelcorpResponde = new DABelcorpResponde();
+                var daBelcorpResponde = new DABelcorpResponde();
 
-                using (IDataReader reader = DABelcorpResponde.GetBelcorpResponde(paisID))
+                using (IDataReader reader = daBelcorpResponde.GetBelcorpResponde(paisID))
                     while (reader.Read())
                     {
                         var entidad = new BEBelcorpResponde(reader);
@@ -33,9 +29,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEBelcorpResponde> GetBelcorpRespondeAdministrador(int paisID)
         {
             var lista = new List<BEBelcorpResponde>();
-            var DABelcorpResponde = new DABelcorpResponde();
+            var daBelcorpResponde = new DABelcorpResponde();
 
-            using (IDataReader reader = DABelcorpResponde.GetBelcorpResponde(paisID))
+            using (IDataReader reader = daBelcorpResponde.GetBelcorpResponde(paisID))
                 while (reader.Read())
                 {
                     var entidad = new BEBelcorpResponde(reader);
@@ -47,8 +43,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsBelcorpResponde(BEBelcorpResponde BEBelcorpResponde)
         {
-            var DABelcorpResponde = new DABelcorpResponde();
-            DABelcorpResponde.InsBelcorpResponde(BEBelcorpResponde);
+            var daBelcorpResponde = new DABelcorpResponde();
+            daBelcorpResponde.InsBelcorpResponde(BEBelcorpResponde);
 
             CacheManager<BEBelcorpResponde>.RemoveData(BEBelcorpResponde.PaisID, ECacheItem.BelcorpResponde);
         }
