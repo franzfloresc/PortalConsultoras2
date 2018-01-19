@@ -526,7 +526,7 @@
 }
 
 .tooltip_terminos_y_condiciones{
-    display:none;
+    display:block;
     background: #FFF;
     min-width: 189px;
     min-height: 69px;
@@ -643,67 +643,6 @@
 
 .btn_pagar{
     display:none;
-}
-
-.fondo_modal{
-    display:none;
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    z-index:2000;
-    margin:auto;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    overflow:auto;
-}
-
-.popup_terminos_y_condiciones{
-    width:90%;
-    max-width:400px;
-    height:auto;
-    background-color:#FFF;
-    margin:0 auto 25px auto;
-    top:16%;
-    position:relative;
-    padding:33px 24px 26px 24px;
-}
-
-.cerrar_popup_terminos_y_condiciones{
-    font-family: 'somos-belcorp-iconos';
-    color: #FFF;
-    font-size: 24px;
-    position: absolute;
-    top: -37px;
-    right: -7px;
-    width: 45px;
-    height: 45px;
-    text-align: center;
-}
-
-.cerrar_popup_terminos_y_condiciones:before{
-    content:'\e911';
-}
-
-.titulo_terminos_y_condiciones{
-    font-size:20px;
-    margin-top:0;
-    margin-bottom:26px;
-}
-
-.titulo_terminos_y_condiciones,
-.descripcion_terminos_y_condiciones
-{
-    letter-spacing:0.22px;
-    font-weight:400;
-}
-
-.descripcion_terminos_y_condiciones{
-    font-size:13px;
-    line-height:17px;
-    margin-bottom:40px;
 }
 
 .redireccion_proveedor_de_pago{
@@ -900,3 +839,68 @@
     font-weight:300;
     line-height:15px!important;
 }
+
+/* POPUP TÉRMINOS Y CONDICIONES */
+
+.fondo_modal{
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    z-index:2000;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:auto;
+}
+
+.popup_terminos_y_condiciones{
+    width:90%;
+    max-width:400px;
+    height:auto;
+    background-color:#FFF;
+    margin:0 auto 25px auto;
+    top:16%;
+    position:relative;
+    padding:33px 24px 26px 24px;
+}
+
+.cerrar_popup_terminos_y_condiciones{
+    font-family: 'somos-belcorp-iconos';
+    color: #FFF;
+    font-size: 24px;
+    position: absolute;
+    top: -37px;
+    right: -7px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+}
+
+.cerrar_popup_terminos_y_condiciones:before{
+    content:'\e911';
+}
+
+.titulo_terminos_y_condiciones{
+    font-size:20px;
+    margin-top:0;
+    margin-bottom:26px;
+}
+
+.titulo_terminos_y_condiciones,
+.descripcion_terminos_y_condiciones
+{
+    letter-spacing:0.22px;
+    font-weight:400;
+}
+
+.descripcion_terminos_y_condiciones{
+    font-size:13px;
+    line-height:17px;
+    margin-bottom:40px;
+}
+
+/* FIN - POPUP TÉRMINOS Y CONDICIONES */

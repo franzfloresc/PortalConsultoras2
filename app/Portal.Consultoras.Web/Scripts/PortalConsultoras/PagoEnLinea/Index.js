@@ -53,10 +53,12 @@ $(document).ready(function () {
             },
             AbrirPopupTerminosYCondiciones: function (e) {
                 e.preventDefault();
+                $('body').css({"overflow-y":"hidden"});
                 $('.fondo_modal').fadeIn(300);
             },
             CerrarPopupTerminosYCondiciones: function (e) {
                 e.preventDefault();
+                $('body').css({ "overflow-y": "auto" });
                 $('.fondo_modal').fadeOut(300);
             },
             ObtenerMontosPagoParcial: function (e) {

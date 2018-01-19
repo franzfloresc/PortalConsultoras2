@@ -34,7 +34,12 @@
 .info_pago_seguro_con_tarjetas,
 .texto_pago_seguro,
 .contenedor_cta,
-.redireccion_proveedor_de_pago
+.redireccion_proveedor_de_pago,
+.titulo_pago_exitoso,
+.resumen_pago_exitoso,
+.titulo_resumen_pago_exitoso,
+.resumen_pago,
+.resumen_pago > div
 {
     display:block;
 }
@@ -57,7 +62,12 @@
 .texto_info_pago_seguro,
 .icono_marcas_tarjetas,
 .icono_marca_visa,
-.cta_pago_en_linea
+.mensaje_felicitacion_por_pago_exitoso,
+.imagen_felicitacion,
+.resumen_pago_exitoso,
+.resumen_pago > div > span,
+.monto_saldo_pendiente > div,
+.fecha_vencimiento_saldo_pendiente > div
 {
     display:inline-block;
     vertical-align:middle;
@@ -98,6 +108,19 @@
 .paso_activo{
     background-color:#e81c36;
     border:1px solid #e81c36;
+    color:#FFF;
+}
+
+.paso_completado{
+    color: #e81c36;
+    font-family: 'somos-belcorp-iconos';
+    font-weight: 400;
+    font-size: 12px;
+    padding:1px 6px;
+}
+
+.paso_completado:before{
+    content:'\e90e';
     color:#FFF;
 }
 
@@ -296,7 +319,8 @@
 }
 
 .info_cargo_gastos_administrativos .tipo_moneda_pais,
-.info_cargo_gastos_administrativos .monto_comision_pago_en_linea
+.info_cargo_gastos_administrativos .monto_comision_pago_en_linea,
+.info_saldo_pendiente .tipo_moneda_pais
 {
     margin-bottom:2px;
 }
@@ -389,7 +413,7 @@
 }
 
 .tooltip_terminos_y_condiciones{
-    display:none;
+    display:block;
     background: #FFF;
     min-width: 189px;
     min-height: 69px;
@@ -602,3 +626,221 @@
     }
 
 }
+
+.titulo_pago_exitoso{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:bold!important;
+    color:#000;
+    text-transform:uppercase;
+    margin-top:19px;
+    margin-bottom:26px;
+    padding-bottom:13px;
+    border-bottom:1px solid #B5B5B5;
+}
+
+.pago_exitoso .col_izq,
+.pago_exitoso .col_der
+{
+    vertical-align:top;
+}
+
+.pago_exitoso .col_izq{
+    width:29%;
+}
+
+.pago_exitoso .col_der{
+    width:70%;
+    text-align:right;
+}
+
+.mensaje_felicitacion_por_pago_exitoso{
+    margin-top:8px;
+    margin-bottom:2px;
+    font-weight:bold;
+    color:#a18328;
+    text-transform:uppercase;
+    line-height:10px;
+}
+
+.imagen_felicitacion{
+    width:19px;
+    margin-left:8px;
+    margin-bottom:1px;
+}
+
+.imagen_felicitacion img{
+    width:100%;
+    height:auto;
+}
+
+.mensaje_felicitacion_por_pago_exitoso,
+.info_saldo_pendiente
+{
+    font-size:12px;
+}
+
+.info_saldo_pendiente{
+    font-weight:400;
+    color:#000;
+}
+
+.resumen_pago_exitoso{
+    min-width:300px;
+}
+
+.resumen_pago_exitoso,
+.titulo_resumen_pago_exitoso
+{
+    color:#000;
+    font-size:14px;
+}
+
+.titulo_resumen_pago_exitoso,
+.total_monto_pagado
+{
+    text-transform:uppercase;
+}
+
+.titulo_resumen_pago_exitoso,
+.monto_saldo_pendiente
+{
+    font-weight:bold!important;
+}
+
+.titulo_resumen_pago_exitoso{
+    font-family:'Lato';
+    text-align:left;
+}
+
+.resumen_pago{
+    border: 1px solid #d2d2d2;
+    padding: 13px 13px 14px 13px;
+}
+
+.resumen_pago > div {
+    line-height: 23px;
+}
+
+.monto_gastos_administrativos{
+    padding-bottom:4px;
+    border-bottom:1px solid #B5B5B5;
+}
+
+.monto_pagado span:first-child,
+.monto_gastos_administrativos span:first-child,
+.total_monto_pagado span:first-child,
+.monto_saldo_pendiente div:first-child
+{
+    width:50%;
+    text-align:left;
+    overflow-wrap: break-word;
+    vertical-align:top;
+}
+
+.monto_pagado span:last-child,
+.monto_gastos_administrativos span:last-child,
+.total_monto_pagado span:last-child,
+.monto_saldo_pendiente div:last-child
+{
+    width:48.5%;
+    text-align:right;
+    overflow-wrap: break-word;
+    vertical-align:top;
+}
+
+.total_monto_pagado{
+    padding-top:4px;
+    margin-bottom:20px;
+    font-weight:900;
+}
+
+.monto_saldo_pendiente div:last-child{
+    margin-bottom:1px;
+}
+
+.fecha_vencimiento_saldo_pendiente{
+    font-size:13px;
+    font-weight:300;
+    line-height:15px!important;
+    text-align:left;
+}
+
+/* POPUP TÉRMINOS Y CONDICIONES */
+
+.fondo_modal{
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    z-index:2000;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:auto;
+}
+
+.popup_terminos_y_condiciones{
+    width: 100%;
+    max-width: 600px;
+    max-height: 289px;
+    height: auto;
+    background-color: #FFF;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    padding: 33px 24px 26px 24px;
+}
+
+.cerrar_popup_terminos_y_condiciones{
+    font-family: 'somos-belcorp-iconos';
+    color: #FFF;
+    font-size: 24px;
+    position: absolute;
+    top: -37px;
+    right: -7px;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+}
+
+.cerrar_popup_terminos_y_condiciones:before{
+    content:'\e911';
+}
+
+.titulo_terminos_y_condiciones{
+    font-family:'Lato';
+    font-size:20px;
+    margin-top:0;
+    margin-bottom:26px;
+    color:#000;
+}
+
+.titulo_terminos_y_condiciones,
+.descripcion_terminos_y_condiciones
+{
+    letter-spacing:0.22px;
+    font-weight:400!important;
+}
+
+.descripcion_terminos_y_condiciones{
+    font-size:13px;
+    line-height:17px;
+    margin-bottom:40px;
+}
+
+.popup_terminos_y_condiciones .aceptar_terminos_y_condiciones{
+    margin-bottom:0;
+}
+
+.popup_terminos_y_condiciones .descripcion_opcion_activacion{
+    margin-top:0;
+}
+
+/* FIN POPUP TÉRMINOS Y CONDICIONES */
