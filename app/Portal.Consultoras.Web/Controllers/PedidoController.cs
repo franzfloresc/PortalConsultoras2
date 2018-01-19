@@ -1677,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
-            if (userData.OfertaDelDia.BloqueoProductoDigital)
+            if (userData.OfertaDelDia != null && userData.OfertaDelDia.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
