@@ -503,7 +503,6 @@ ul.type-6 li {
 
 .button {
     display: inline-block;
-    margin-bottom: 1.5em;
     padding: 8px 13px;
     outline: none;
     color: #fff;
@@ -985,34 +984,37 @@ ul.tabs {
 }
 
 .wrap_cab {
+    border: 2px solid #9dc4cc;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin: 40px auto 5px auto;
     position: relative;
-    margin: 0 auto;
-    padding: 0;
+    width: 75%;
+    min-width: 960px;
 }
 
 .filtros {
-    width: 100%;
-    height: auto;
     display: block;
-    padding: 10px 0 0 0;
+    height: auto;
+    width: 100%;
 }
 
 .filtros2 {
-    width: 100%;
+    display: block;
     height: auto;
     overflow: hidden;
-    display: block;
-    padding: 10px 0 0 0;
+    width: 100%;
 }
 
 .elements {
-    width: 940px;
-    height: auto;
-    overflow: hidden;
     display: block;
+    height: auto;
     margin: 0 auto 0 auto;
-    padding: 50px 0 7px;
+    overflow: hidden;
+    padding: 15px 10px 0px 30px;
     position: relative;
+    width: auto;
 }
 
 .elements_percepcion {
@@ -2668,15 +2670,15 @@ ul.tabs {
 
 .div-3 .input_modifica_pedido input {
     float: left;
-    width: 140px;
-    height: 37px;
-    line-height: 37px;
-    padding: 0;
-    background: url('../../Images/btn_modifica_pedido.png') 0 0 no-repeat;
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px 0 10px;
+    /* background: url('../../Images/btn_modifica_pedido.png') 0 0 no-repeat; */
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     border: 0;
-    margin: 0 0 0 0;
+    margin: 0 5px 0 0;
 }
 
 .div-3 .input_modifica_pedido a {
@@ -3353,11 +3355,14 @@ select.ui-pg-selbox {
 
 /******************************************/
 .wrap {
+    border: 2px solid #9dc4cc;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px auto 5px auto;
     position: relative;
-    margin: 0 auto;
-    padding: 20px 0 0 0;
-    width: 100%;
-    background: #fff;
+    width: 75%;
+    min-width: 960px;
 }
 
 #slider {
@@ -3365,7 +3370,8 @@ select.ui-pg-selbox {
 }
 
 .container {
-    margin: 0 auto;
+    margin: 0 auto 0 auto;
+    padding: 15px 10px 15px 0;
     width: 940px;
 }
 
@@ -7243,14 +7249,14 @@ table.falsa {
     }
 
 .border-wrapper {
-    padding: 5px;
-    overflow: hidden;
     background: #fff;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     border: solid 1px #d0d0d0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    behavior: url('../../../../Content/Css/Pie/PIE.htc');
+    overflow: hidden;
+    padding: 5px;
     position: relative;
 }
 

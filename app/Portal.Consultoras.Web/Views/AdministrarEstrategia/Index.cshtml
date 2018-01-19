@@ -106,8 +106,7 @@
         </div>
     </div>
 </div>
-<div class="wrap">
-
+<div>
     <!--SHOWROOM-INICIO-->
     <div class="wrap" id="divShowRoomEvento" style="display: none;">
         <div class="container clearfix">
@@ -119,6 +118,7 @@
     </div>
 
     <div class="wrap" id="divShowRoomEventoNuevo" style="display: none;">
+        <h3>Evento</h3>
         <div class="filtros">
             <div class="elements" style="padding-top: 0">
                 <div class="div-3">
@@ -130,7 +130,7 @@
         </div>
     </div>
 
-    <div class="elements" id="divPersonalizacion" style="display: none;">
+    <div class="wrap" id="divPersonalizacion" style="display: none;">
         <div class="container clearfix">
             <h3>Personalización</h3>
             <div class="div-3">
@@ -141,7 +141,7 @@
 
                 <div class="">
                     <input class="button blue" type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name=""
-                            style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
+                           style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;">
                 </div>
             </div>
         </div>
@@ -149,27 +149,29 @@
     </div>
 
     <!--SHOWROOM-FIN-->
-
-    <div class="container clearfix">
-        <div class="div-3">
-            <div class="input_horizontal">
-                <input class="button blue" type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
-                {
-                    <input class="button blue" type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
-                }
+    <div class="wrap" id="" style="">
+        <div class="container clearfix">
+            <h3>Producto</h3>
+            <div class="div-3">
+                <div class="input_horizontal">
+                    <input class="button blue" type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
+                    @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
+                    {
+                        <input class="button blue" type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    }
+                </div>
+                <div class="input_modifica_pedido">
+                    <input class="button blue" type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
+                    <input class="button blue" type="button" name="btnDescripcionMasivoProd" id="btnDescripcionMasivoProd" value="Descrip. Masivo Producto" style="display: none;" />
+                    <input class="button blue" type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                    <input class="button blue" type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;" />
+                </div>
             </div>
-            <div class="input_modifica_pedido">
-                <input class="button blue" type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
-                <input class="button blue" type="button" name="btnDescripcionMasivoProd" id="btnDescripcionMasivoProd" value="Descrip. Masivo Producto" style="display: none;" />
-                <input class="button blue" type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
-                <input class="button blue" type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;" />
-            </div>
-        </div>
 
-        <div class="border-wrapper">
-            <table id="list"></table>
-            <div id="pager"></div>
+            <div class="border-wrapper">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
         </div>
     </div>
 </div>
