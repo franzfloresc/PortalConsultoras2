@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Data.CDR;
+using Portal.Consultoras.Entities.CDR;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data.CDR;
-using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.BizLogic.CDR
 {
@@ -17,8 +14,8 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             try
             {
-                var DACDRParametria = new DACDRParametria(PaisID);
-                using (IDataReader reader = DACDRParametria.GetCDRParametria(entity))
+                var dacdrParametria = new DACDRParametria(PaisID);
+                using (IDataReader reader = dacdrParametria.GetCDRParametria(entity))
                 {
                     while (reader.Read())
                     {
