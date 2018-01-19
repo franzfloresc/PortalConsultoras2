@@ -85,7 +85,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             $('#popup_cliente_online_detalle .spnClienteOnlineDireccion').html(direccion);
             $('#popup_cliente_online_detalle .spnClienteOnlineEstado').html(estadoDesc);
             $('#popup_cliente_online_detalle .spnClienteOnlineMensaje').html(mensaje);
-            
+
             $('#popup_cliente_online_detalle .divClienteOnlineMensaje').css('display', marcaId == 0 ? 'none' : 'block');
             $('#popup_cliente_online_detalle .cubre').css('height', marcaId == 0 ? '160px' : '');
             var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas';
@@ -101,10 +101,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             console.log(data, error);
         },
         complete: closeWaitingDialog
-    });    
+    });
 }
-function AbrirConfirmacionCancelado()
-{
+function AbrirConfirmacionCancelado() {
     $('#popup_cliente_online_detalle').hide();
     $('#dialog_confirmacionCancelado').show();
 }
@@ -138,7 +137,7 @@ function CancelarSolicitud() {
                         MensajeErrorCancelado(data.message);
                         return false;
                     }
-                                        
+
                     $('#dialog_motivoCancelado').hide();
                     if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
                     else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
@@ -155,12 +154,12 @@ function CancelarSolicitud() {
                 complete: closeWaitingDialog
             });
         }
-    )    
+    )
 }
 function MensajeErrorCancelado(message) {
     $('#dialog_motivoCancelado').hide();
     $('#dialog_confirmacionCancelado').show();
-    if(message != null && message != '') alert_msg(message);
+    if (message != null && message != '') alert_msg(message);
 }
 function CerrarMensajeCancelado() {
     $('#dialog_mensajeCancelado').hide();

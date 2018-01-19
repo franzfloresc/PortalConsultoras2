@@ -19,6 +19,6 @@
         public bool MostrarRevistaDigital { get; set; }
         public bool TieneGND { get; set; }
         
-        public RevistaDigitalModel RevistaDigital { get; set; }
+        public PartialSectionBpt PartialSectionBpt { get; set; }
     }
 }

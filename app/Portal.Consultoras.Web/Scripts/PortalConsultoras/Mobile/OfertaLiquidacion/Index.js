@@ -74,7 +74,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         if (mostrarAlerta == true) {
                             CloseLoading();
                             //AbrirMensaje(data.message, '', fnRedireccionar);
-                            AbrirPopupPedidoReservado(data.message,'2')
+                            AbrirPopupPedidoReservado(data.message, '2')
                         }
                         else fnRedireccionar();
                     }
@@ -84,7 +84,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
@@ -172,7 +172,7 @@ function AgregarOfertaProducto(article) {
         ShowLoading();
 
         $.ajaxSetup({ cache: false });
-        $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV, Cantidad: cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+        $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV, Cantidad: cantidad, PrecioUnidad: PrecioUnidad }, function (data) {
             if (data.message.length > 0) {
                 CloseLoading();
                 messageInfo(data.message);

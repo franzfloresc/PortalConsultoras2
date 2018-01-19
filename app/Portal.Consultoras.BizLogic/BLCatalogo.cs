@@ -67,7 +67,6 @@ namespace Portal.Consultoras.BizLogic
             return catalogos;
         }
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         public IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID)
         {
             var catalogos = new List<BECatalogoConfiguracion>();

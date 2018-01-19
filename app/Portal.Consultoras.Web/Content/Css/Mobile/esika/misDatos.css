@@ -1,188 +1,185 @@
 ﻿/* ACTUALIZAR MIS DATOS */
 
 .wrapper_actualizarMisDatos {
-    /*max-width:380px;
-    margin:0 auto;*/
     padding: 30px 20px 25px 20px;
 }
 
-.titulo_actualizarMisDatos{
+.titulo_actualizarMisDatos {
     width: 100%;
     margin: 0 auto 40px auto;
     padding: 0;
     font-family: 'Lato';
     font-size: 26px;
     color: #000;
-    font-weight: 300!important;
+    font-weight: 300 !important;
     text-align: center;
 }
 
-.titulo_actualizarMisDatos b{
-    font-weight:bold;
+    .titulo_actualizarMisDatos b {
+        font-weight: bold;
+    }
+
+.formulario_actualizar_datos {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato';
 }
 
-.formulario_actualizar_datos{
-    display:block;
-    margin:0;
-    padding:0;
-    font-family:'Lato';
-}
-
-.grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label{
-    display:block;
+.grupo_input_actualizarMisDatos, .grupo_input_actualizarMisDatos div label {
+    display: block;
     cursor: text;
 }
 
-.grupo_input_password{
-    display:none;
+.grupo_input_password {
+    display: none;
 }
 
-.grupo_input_actualizarMisDatos div label{
-    margin-bottom:8px;
-    font-size:15px;
-    font-weight:400;
-    color:#000;
+.grupo_input_actualizarMisDatos div label {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #000;
 }
 
-.grupo_input_actualizarMisDatos div input[type="text"], .grupo_input_actualizarMisDatos div input[type="email"], .grupo_input_actualizarMisDatos div input[type="password"]{
-    display:block;
-    border:1px solid #CCC;
-    background:#FFF;
-    width:100%;
-    height:45px;
-    line-height:45px;
-    text-align:left;
-    padding-left:15px;
-    color:#666;
-    font-family:'Lato';
-    font-size:14px;
+.grupo_input_actualizarMisDatos div input[type='text'], .grupo_input_actualizarMisDatos div input[type='email'], .grupo_input_actualizarMisDatos div input[type='password'] {
+    display: block;
+    border: 1px solid #CCC;
+    background: #fff;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: left;
+    padding-left: 15px;
+    color: #666;
+    font-family: 'Lato';
+    font-size: 14px;
 }
 
 .grupo_input_actualizarMisDatos div {
-    display:block;
+    display: block;
     width: 100%;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
-.cambiar_contrasenia{
-    font-size:15px;
-    font-weight:bold;
-    text-decoration:underline;
-    margin-top:10px;
+.cambiar_contrasenia {
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 10px;
 }
 
-.datos_obligatorios{
-    width:100%;
-    vertical-align:middle!important;
+.datos_obligatorios {
+    width: 100%;
+    vertical-align: middle !important;
 }
 
-.checkbox_condiciones{
-    margin-right:9px!important;
-    vertical-align:top!important;
+.checkbox_condiciones {
+    margin-right: 9px !important;
+    vertical-align: top !important;
 }
 
-.checkbox_condiciones input[type="checkbox"]{
-    display:none!important;
+    .checkbox_condiciones input[type='checkbox'] {
+        display: none !important;
+    }
+
+.texto_terminosCondiciones {
+    font-size: 13px !important;
+    padding-left: 25px;
+    position: relative;
 }
 
-.texto_terminosCondiciones{
-    font-size:13px!important;
-    padding-left:25px;
-    position:relative;
-}
+    .texto_terminosCondiciones span a {
+        color: #000;
+        text-decoration: underline;
+    }
 
-.texto_terminosCondiciones span a{
-    color:#000;
-    text-decoration:underline;
-}
+    .texto_terminosCondiciones:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 16px;
+        height: 16px;
+        margin-top: 3px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        background: #fff;
+        border: 2px solid #bababa;
+        cursor: pointer;
+        z-index: 10;
+    }
 
-.texto_terminosCondiciones:before{
-    content: "";
-    position: absolute;
-    left: 0px;
-    /* float: left; */
+.checkbox_condiciones input[type='checkbox']:checked + .texto_terminosCondiciones:before {
+    content: '';
     width: 16px;
     height: 16px;
-    margin-top: 3px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background: #FFF;
-    border: 2px solid #bababa;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before{
-    content: "";
-    width:16px;
-    height:16px;
-    border-radius:3px;
-    background:#e81c36;
+    border-radius: 3px;
+    background: #e81c36;
     text-align: center;
 }
 
-.asterisco_actualizar_datos{
-    color:#e81c36;
+.asterisco_actualizar_datos {
+    color: #e81c36;
 }
 
-.contenedor_boton_actualizar, .contenedor_boton_cancelar{
-    vertical-align: middle!important;
+.contenedor_boton_actualizar, .contenedor_boton_cancelar {
+    vertical-align: middle !important;
     height: 45px;
 }
 
-.btn_actualizarMisDatos, .btn_cancelar{
-    display:block;
-    margin:0 auto 16px auto;
-    width:100%;
-    height:45px;
-    line-height:45px;
-    font-family:'Lato';
-    font-size:16px;
-    letter-spacing:0.7px;
-    font-weight:bold;
-    text-align:center;
+.btn_actualizarMisDatos, .btn_cancelar {
+    display: block;
+    margin: 0 auto 16px auto;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    font-family: 'Lato';
+    font-size: 16px;
+    letter-spacing: .7px;
+    font-weight: bold;
+    text-align: center;
 }
 
-.btn_actualizarMisDatos{
-    border:none;
-    background:#e81c36;
-    color:#FFF;
-    margin-top:28px;
+.btn_actualizarMisDatos {
+    border: none;
+    background: #e81c36;
+    color: #fff;
+    margin-top: 28px;
 }
 
-.btn_cancelar{
-    border:1px solid #000;
-    background:#FFF;
-    color:#000;
+.btn_cancelar {
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
 }
 
-.titulo_misDatos{
+.titulo_misDatos {
     margin: 0 auto 25px auto;
 }
 
-.misDatos{
-    margin-bottom:20px;
+.misDatos {
+    margin-bottom: 20px;
 }
 
-.datos_consultora{
-    display:block;
-    margin-bottom:10px;
-    text-align:left;
+.datos_consultora {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
-.datos_consultora_img, .datos_consultora_textos{
-    display:block;
+.datos_consultora_img, .datos_consultora_textos {
+    display: block;
 }
 
-.datos_consultora_img{
+.datos_consultora_img {
     width: 21%;
     height: 117px;
-    margin-left:9px;
+    margin-left: 9px;
 }
 
-.datos_consultora_textos{
-    width:100%;
-    text-align:left;
+.datos_consultora_textos {
+    width: 100%;
+    text-align: left;
     margin-bottom: 25px;
     margin-top: 20px;
 }
@@ -191,49 +188,35 @@
 .datos_nombre_usuario span:first-child,
 .datos_cod_usuario span:last-child,
 .datos_nombre_usuario span:last-child,
-.enlace_cambiarContraseniachkAceptoContratoMD{
-    display:block;
-    font-weight:400;
+.enlace_cambiarContraseniachkAceptoContratoMD {
+    display: block;
+    font-weight: 400;
 }
 
-.datos_cod_usuario, .datos_nombre_usuario{
-    margin-bottom:7px;
-} 
-
-.datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child{
-    color: #000;
-    font-size:15px;
-    margin-bottom:3px;
+.datos_cod_usuario, .datos_nombre_usuario {
+    margin-bottom: 7px;
 }
 
-.datos_cod_usuario span:last-child, .datos_nombre_usuario span:last-child{
-    font-size:14px;
-    color:#666;
-}
-
-.enlace_cambiarContraseniachkAceptoContratoMD{
-    margin-top:12px;
-}
-
-.campos_actualizarDatos{
-    display:block;
-    font-size:13px;
-}
-
-.campos_cambiarContrasenia{
-    display:none;
-}
-
-/*@media screen and (min-width:480px) and (max-width:767px){
-
-    .datos_cod_usuario span, .datos_nombre_usuario span {
-        display: inline-block!important;
+    .datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child {
+        color: #000;
+        font-size: 15px;
+        margin-bottom: 3px;
     }
 
-    .datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child{
-        width:35.5%;
-        max-width:161px;
-        height:21px;
+    .datos_cod_usuario span:last-child, .datos_nombre_usuario span:last-child {
+        font-size: 14px;
+        color: #666;
     }
 
-}*/
+.enlace_cambiarContraseniachkAceptoContratoMD {
+    margin-top: 12px;
+}
+
+.campos_actualizarDatos {
+    display: block;
+    font-size: 13px;
+}
+
+.campos_cambiarContrasenia {
+    display: none;
+}

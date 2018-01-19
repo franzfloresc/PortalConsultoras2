@@ -18,12 +18,6 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string imagen = Request.QueryString["imagen"];
-            //string nombre = Request.QueryString["nombre"];
-
-            //ImagenCuv = imagen;
-            //NombreProducto = nombre;
-
             string id = Request.QueryString["id"];
 
             var array = id.Split('_');
@@ -119,9 +113,6 @@ namespace Portal.Consultoras.Web.WebPages
                 Page.Header.Controls.Add(meta4);
                 Page.Header.Controls.Add(meta5);
                 Page.Header.Controls.Add(meta6);
-                //imgCuv.Content = imagen;
-                //imgCuvSecure.Content = imagen;
-                //nombreCuv.Content = nombre;
                 imgCuvProducto.Src = ofertaShowRoom.ImagenProducto;
 
                 pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion;

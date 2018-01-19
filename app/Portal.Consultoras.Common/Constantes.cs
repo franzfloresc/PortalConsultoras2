@@ -66,33 +66,19 @@ namespace Portal.Consultoras.Common
         public static class PaisID
         {
             public const int Argentina = 1;
-            
             public const int Bolivia = 2;
-            
             public const int Chile = 3;
-            
             public const int Colombia = 4;
-            
             public const int CostaRica = 5;
-            
             public const int Ecuador = 6;
-            
             public const int ElSalvador = 7;
-            
             public const int Guatemala = 8;
-            
             public const int Mexico = 9;
-            
             public const int Panama = 10;
-            
             public const int Peru = 11;
-            
             public const int PuertoRico = 12;
-            
             public const int RepublicaDominicana = 13;
-            
             public const int Venezuela = 14;
-            
             public const int Brasil = 15;
         }
 
@@ -143,12 +129,6 @@ namespace Portal.Consultoras.Common
             public const int Nueva = 5;
             public const int Flexipago = 6;
             public const int Accesorizate = 7;
-        }
-
-        public static class ConsultoraNueva
-        {
-            public const int Sicc = 2;
-            public const int Fox = 1;
         }
 
         public static class RangoCantidadPedido
@@ -361,7 +341,7 @@ namespace Portal.Consultoras.Common
             public const string CarpetaRevistaDigital = "CarpetaRevistaDigital";
             public const string URL_S3 = "URL_S3";
             public const string ROOT_DIRECTORY = "ROOT_DIRECTORY";
-            public const string ServiceController="ServiceController";
+            public const string ServiceController = "ServiceController";
             public const string ServiceAction = "ServiceAction";
             public const string Ambiente = "Ambiente";
 
@@ -387,7 +367,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesDigitoControl = "PaisesDigitoControl";
             public const string UrlIssuu = "UrlIssuu";
             public const string PaisesCatalogoUnificado = "PaisesCatalogoUnificado";
-            public const string WS_RV_Campanias_NEW ="WS_RV_Campanias_NEW";
+            public const string WS_RV_Campanias_NEW = "WS_RV_Campanias_NEW";
             public const string WS_RV_PDF_NEW = "WS_RV_PDF_NEW";
             public const string WS_RV_Campanias = "WS_RV_Campanias";
             public const string WS_RV_PDF = "WS_RV_PDF";
@@ -418,6 +398,39 @@ namespace Portal.Consultoras.Common
             public const int SinConfiguracion = 0;
             public const int Arp = 1;
             public const int Jetlore = 2;
+        }
+
+        public static class OrigenPantallaWeb
+        {
+            // Primer Dígito -- Plataforma
+            // 1: Desktop                   2: Mobile
+
+            // Segundo Dígito -- Pantalla
+            // A: Contenedor Home           B: Contenedor Home Revisar
+            // C: Landing EPM               D: Landing EPM Revisar
+            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+
+            // Tercer Dígito -- Sección dentro de la Pantalla
+            // 0: Principal                 1: OPT
+
+            public const string DContenedorHome = "1A0";
+            public const string MContenedorHome = "2A0";
+            public const string DContenedorHomeRevisar = "1B0";
+            public const string MContenedorHomeRevisar = "2B0";
+            public const string DRevistaDigital = "1C0";
+            public const string MRevistaDigital = "2C0";
+            public const string DRevistaDigitalRevisar = "1D0";
+            public const string MRevistaDigitalRevisar = "2D0";
+            public const string DShowRoom = "1E0";
+            public const string MShowRoom = "2E0";
+            public const string DShowRoomIntriga = "1F0";
+            public const string MShowRoomIntriga = "2F0";
+            public const string DRevistaDigitalInfo = "1G0";
+            public const string MRevistaDigitalInfo = "2G0";
+            public const string DRevistaDigitalDetalle = "1H0";
+            public const string MRevistaDigitalDetalle = "2H0";
+            public const string DGuiaNegocio = "1I0";
+            public const string MGuiaNegocio = "2I0";
         }
 
         public static class OrigenPedidoWeb
@@ -471,7 +484,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiDesktopHomePopUp = 1122; // Debe utilizarse
             public const int OfertasParaTiDesktopPedido = 1221;
             public const int OfertasParaTiDesktopPedidoPopUp = 1222; // Debe utilizarse
-            public const int OfertasParaTiDesktopContenedor	= 1821;
+            public const int OfertasParaTiDesktopContenedor = 1821;
             public const int OfertasParaTiDesktopContenedorPopup = 1822;
             public const int OfertasParaTiMobileDetalle = 2621;
             public const int OfertasParaTiMobileHome = 2121;
@@ -541,7 +554,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
-            
+
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
@@ -549,7 +562,7 @@ namespace Portal.Consultoras.Common
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
-            
+
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar a Mobile/OfertasParaTi/Detalle
@@ -914,6 +927,12 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class RevistaDigitalOrigen
+        {
+            public const string RD = "RD";
+            public const string Unete = "UNETE";
+        }
+
         public static class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
@@ -943,7 +962,7 @@ namespace Portal.Consultoras.Common
             public static readonly int NecesitasAyuda = 1039;
         }
 
-            public static class BannerCodigo
+        public static class BannerCodigo
         {
             public const string RevistaDigital = "RevistaDigital";
         }
@@ -992,8 +1011,8 @@ namespace Portal.Consultoras.Common
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
         }
-        
-	public static class RevistaNombre
+
+        public static class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
@@ -1054,7 +1073,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string PagoEnLinea = "PAYONLINE";
         }
-        
+
         public static class ConfiguracionPaisDatos
         {
             public static class RD
@@ -1070,6 +1089,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
+                public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
+                public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
                 #endregion
 
                 #region Bienvenida
@@ -1273,6 +1295,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
+            public const short CodigoRevistaFisica = 132;
             public const int ValoresImagenesResize = 121;
             public const int ValoresPagoEnLinea = 122;
         }
@@ -1384,7 +1407,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO = "19";
                 public const string ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO = "20";
                 public const string ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO = "21";
-                public const string ERROR_RECORDATORIOINVALIDA = "22"; //todo: 
+                public const string ERROR_RECORDATORIOINVALIDA = "22";
             }
 
             public static Dictionary<string, string> Message
@@ -1490,6 +1513,7 @@ namespace Portal.Consultoras.Common
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
+            public const string CalculoProgramaNuevas = "P";
         }
 
         public static class ComunicadoTipoDispositivo
@@ -1578,7 +1602,8 @@ namespace Portal.Consultoras.Common
             public const int ProgramaNuevas = 1;
         }
 
-        public static class Canal {
+        public static class Canal
+        {
             public const string Mobile = "M";
             public const string Desktop = "W";
         }
@@ -1589,7 +1614,7 @@ namespace Portal.Consultoras.Common
             public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
-        
+
         public static class TagCadenaRd
         {
             public const string Nombre = "#NOMBRE";

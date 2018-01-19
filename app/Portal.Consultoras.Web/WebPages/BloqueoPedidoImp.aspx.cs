@@ -23,15 +23,9 @@ namespace Portal.Consultoras.Web.WebPages
             string Direccion = lst[2].ToString();
             string CodigoTerritorio = lst[3].ToString();
             string PedidoID = lst[4].ToString();
-            int CampaniaID = Convert.ToInt32(lst[5].ToString());
-            string vpage = lst[6].ToString();
-            string vsortname = lst[7].ToString();
-            string vsortorder = lst[8].ToString();
-            string vrowNum = lst[9].ToString();
             int PaisID = Convert.ToInt32(lst[10]);
             string Usuario = lst[11];
 
-            string Simbolo = lst[14];
             string TotalImporte = lst[15];
 
             imgBandera.ImageUrl = "../Content/Banderas/" + lst[12];

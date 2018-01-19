@@ -97,7 +97,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
                 .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
                 .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
-                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
+                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+                .ForMember(t => t.FlagValidarImagen, f => f.MapFrom(c => c.FlagValidarImagen))
+                .ForMember(t => t.PesoMaximoImagen, f => f.MapFrom(c => c.PesoMaximoImagen));
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 
@@ -114,19 +116,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMisPedidosDetalle, ClienteOnlineDetalleModel>()
                 .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));
+
             Mapper.CreateMap<BELogGPRValidacionDetalle, NotificacionesModelDetallePedido>()
                 .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
 
             Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
-
             Mapper.CreateMap<BEMatrizComercial, MatrizComercialResultadoModel>();
             Mapper.CreateMap<BERegion, RegionModel>();
-
-            Mapper.CreateMap<BEZona, ZonaModel>();
-            Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
-
+            
             Mapper.CreateMap<Producto, ProductoModel>()
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap))
@@ -138,8 +137,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.IdMarca))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
-                .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido))
-                ;
+                .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
             Mapper.CreateMap<BECDRWeb, CDRWebModel>();
 
@@ -189,8 +187,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                  .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
                  .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                  .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
-            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
+            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
             Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
@@ -212,41 +210,47 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEPermiso, PermisoModel>()
                 .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
-                .ForMember(t => t.DescripcionFormateada, f => f.MapFrom(c => c.Descripcion.ToLower()));
+                .ForMember(t => t.DescripcionFormateada, f => f.MapFrom(c => c.Descripcion.ToLower()))
+                .ForMember(x => x.PermisoID, t => t.MapFrom(c => c.PermisoID))
+                .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
+                .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                .ForMember(x => x.IdPadre, t => t.MapFrom(c => c.IdPadre))
+                .ForMember(x => x.OrdenItem, t => t.MapFrom(c => c.OrdenItem))
+                .ForMember(x => x.UrlItem, t => t.MapFrom(c => c.UrlItem))
+                .ForMember(x => x.PaginaNueva, t => t.MapFrom(c => c.PaginaNueva))
+                .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
+                .ForMember(x => x.Mostrar, t => t.MapFrom(c => c.Mostrar))
+                .ForMember(x => x.Posicion, t => t.MapFrom(c => c.Posicion));
 
             Mapper.CreateMap<BEMenuMobile, MenuMobileModel>()
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
 
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
-
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
-
-            Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
 
             Mapper.CreateMap<BEPais, PaisModel>()
                 .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                 .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
-                ;
+                .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO));
 
-            Mapper.CreateMap<BECampania, CampaniaModel>();
             Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
 
             Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>();
 
             Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
-                   .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                   .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
-                   .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
-                   .ForMember(t => t.TextoPago, f => f.MapFrom(c => c.TextoPago))
-                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
-                   .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
+                .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
+                .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
+                .ForMember(t => t.TextoPago, f => f.MapFrom(c => c.TextoPago))
+                .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
+                .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
 
             Mapper.CreateMap<BEFichaProducto, FichaProductoModel>();
+
             Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
                 .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
                 .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
@@ -258,24 +262,254 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
-            Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
-
+            Mapper.CreateMap<BEEventoFestivo, EventoFestivoModel>();
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
 
 
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteModel>();
-            Mapper.CreateMap<ServiceCliente.BECliente, ClienteMobileModel>();
             Mapper.CreateMap<BEDescripcionEstrategia, DescripcionEstrategiaModel>();
+
             Mapper.CreateMap<BETipoLink, TipoLinkModel>()
-                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
-                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-                  
-             Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
+                .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
+
+            Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
              
              Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
 
 
+            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
+                .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+            Mapper.CreateMap<BEFeErratas, AdministrarFeErratasModel>()
+                .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
+                .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
+                .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
+                .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
+
+            Mapper.CreateMap<BEOfertaProducto, OfertaProductoModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
+                .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
+                .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
+                .ForMember(t => t.TallaColor, f => f.MapFrom(c => c.TallaColor))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
+                .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
+                .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
+
+            Mapper.CreateMap<BEConfiguracionOferta, ConfiguracionOfertaModel>()
+                .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+            Mapper.CreateMap<ServiceCliente.BECliente, ClienteMobileModel>()
+                .ForMember(t => t.Email, f => f.MapFrom(c => c.eMail))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
+                .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+                .ForMember(t => t.TieneTelefono, f => f.MapFrom(c => c.TieneTelefono));
+
+            Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
+                .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
+                .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
+            
+            Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
+                .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
+                .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
+                .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
+                .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
+                .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
+                .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
+
+            Mapper.CreateMap<BEConfiguracionTipoProcesoCargaPedidos, ZonaModel>()
+                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona))
+                .ForMember(t => t.DiasParametroCarga, f => f.MapFrom(c => c.DiasParametroCarga));
+
+            Mapper.CreateMap<BEConfiguracionValidacionZona, ConfiguracionValidacionZonaModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
+
+            Mapper.CreateMap<BEConfiguracionValidacion, ConfiguracionValidacionModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.DiasAntes, f => f.MapFrom(c => c.DiasAntes))
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicio))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFin))
+                .ForMember(t => t.HoraInicioNoFacturable, f => f.MapFrom(c => c.HoraInicioNoFacturable))
+                .ForMember(t => t.HoraCierreNoFacturable, f => f.MapFrom(c => c.HoraCierreNoFacturable))
+                .ForMember(t => t.FlagNoValidados, f => f.MapFrom(c => c.FlagNoValidados))
+                .ForMember(t => t.ProcesoRegular, f => f.MapFrom(c => c.ProcesoRegular))
+                .ForMember(t => t.ProcesoDA, f => f.MapFrom(c => c.ProcesoDA))
+                .ForMember(t => t.ProcesoDAPRD, f => f.MapFrom(c => c.ProcesoDAPRD))
+                .ForMember(t => t.HabilitarRestriccionHoraria, f => f.MapFrom(c => c.HabilitarRestriccionHoraria));
+
+            Mapper.CreateMap<BEConfiguracionValidacionNuevoPROL, ZonaModel>()
+                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona));
+
+            Mapper.CreateMap<BEZona, ZonaModel>()
+                .ForMember(x => x.ZonaID, t => t.MapFrom(c => c.ZonaID))
+                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
+                .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
+                .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
+
+            Mapper.CreateMap<BECrossSellingProducto, CrossSellingProductoModel>()
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+            Mapper.CreateMap<BECrossSellingAsociacion, CrossSellingAsociacionModel>()
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+            
+            Mapper.CreateMap<BEOfertaFlexipago, OfertaFlexipagoModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
+                .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
+                .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
+                .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal));
+            
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
+
+            Mapper.CreateMap<BESolicitudCredito, SolicitudCreditoModel>()
+                .ForMember(x => x.SolicitudCreditoID, t => t.MapFrom(c => c.SolicitudCreditoID))
+                .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
+                .ForMember(x => x.TipoSolicitud, t => t.MapFrom(c => c.TipoSolicitud ?? ""))
+                .ForMember(x => x.CodigoUbigeo, t => t.MapFrom(c => c.CodigoUbigeo ?? ""))
+                .ForMember(x => x.IndicadorActivo, t => t.MapFrom(c => c.IndicadorActivo))
+                .ForMember(x => x.UsuarioCreacion, t => t.MapFrom(c => c.UsuarioCreacion ?? ""))
+                .ForMember(x => x.FechaCreacion, t => t.MapFrom(c => c.FechaCreacion))
+                .ForMember(x => x.CodigoLote, t => t.MapFrom(c => c.CodigoLote))
+                .ForMember(x => x.FuenteIngreso, t => t.MapFrom(c => c.FuenteIngreso ?? ""))
+                .ForMember(x => x.NumeroPreimpreso, t => t.MapFrom(c => c.NumeroPreimpreso ?? ""))
+                .ForMember(x => x.CodigoZona, t => t.MapFrom(c => c.CodigoZona ?? ""))
+                .ForMember(x => x.CodigoTerritorio, t => t.MapFrom(c => c.CodigoTerritorio ?? ""))
+                .ForMember(x => x.TipoContacto, t => t.MapFrom(c => c.TipoContacto))
+                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
+                .ForMember(x => x.CodigoConsultoraRecomienda, t => t.MapFrom(c => c.CodigoConsultoraRecomienda ?? ""))
+                .ForMember(x => x.NombreConsultoraRecomienda, t => t.MapFrom(c => c.NombreConsultoraRecomienda ?? ""))
+                .ForMember(x => x.CodigoConsultora, t => t.MapFrom(c => c.CodigoConsultora ?? ""))
+                .ForMember(x => x.CodigoPremio, t => t.MapFrom(c => c.CodigoPremio ?? ""))
+                .ForMember(x => x.ApellidoPaterno, t => t.MapFrom(c => c.ApellidoPaterno ?? ""))
+                .ForMember(x => x.ApellidoMaterno, t => t.MapFrom(c => c.ApellidoMaterno ?? ""))
+                .ForMember(x => x.PrimerNombre, t => t.MapFrom(c => c.PrimerNombre ?? ""))
+                .ForMember(x => x.SegundoNombre, t => t.MapFrom(c => c.SegundoNombre ?? ""))
+                .ForMember(x => x.TipoDocumento, t => t.MapFrom(c => c.TipoDocumento ?? ""))
+                .ForMember(x => x.NumeroDocumento, t => t.MapFrom(c => c.NumeroDocumento ?? ""))
+                .ForMember(x => x.Sexo, t => t.MapFrom(c => c.Sexo ?? ""))
+                .ForMember(x => x.FechaNacimiento, t => t.MapFrom(c => c.FechaNacimiento))
+                .ForMember(x => x.EstadoCivil, t => t.MapFrom(c => c.EstadoCivil ?? ""))
+                .ForMember(x => x.NivelEducativo, t => t.MapFrom(c => c.NivelEducativo ?? ""))
+                .ForMember(x => x.CodigoOtrasMarcas, t => t.MapFrom(c => c.CodigoOtrasMarcas))
+                .ForMember(x => x.TipoNacionalidad, t => t.MapFrom(c => c.TipoNacionalidad ?? ""))
+                .ForMember(x => x.Telefono, t => t.MapFrom(c => c.Telefono ?? ""))
+                .ForMember(x => x.Celular, t => t.MapFrom(c => c.Celular ?? ""))
+                .ForMember(x => x.CorreoElectronico, t => t.MapFrom(c => c.CorreoElectronico ?? ""))
+                .ForMember(x => x.Direccion, t => t.MapFrom(c => c.Direccion ?? ""))
+                .ForMember(x => x.Referencia, t => t.MapFrom(c => c.Referencia ?? ""))
+                .ForMember(x => x.Ciudad, t => t.MapFrom(c => c.Ciudad ?? ""))
+                .ForMember(x => x.TipoVia, t => t.MapFrom(c => c.TipoVia ?? ""))
+                .ForMember(x => x.PoblacionVilla, t => t.MapFrom(c => c.PoblacionVilla ?? ""))
+                .ForMember(x => x.CodigoPostal, t => t.MapFrom(c => c.CodigoPostal ?? ""))
+                .ForMember(x => x.DireccionEntrega, t => t.MapFrom(c => c.DireccionEntrega ?? ""))
+                .ForMember(x => x.ReferenciaEntrega, t => t.MapFrom(c => c.ReferenciaEntrega ?? ""))
+                .ForMember(x => x.TelefonoEntrega, t => t.MapFrom(c => c.TelefonoEntrega ?? ""))
+                .ForMember(x => x.CelularEntrega, t => t.MapFrom(c => c.CelularEntrega ?? ""))
+                .ForMember(x => x.ObservacionEntrega, t => t.MapFrom(c => c.ObservacionEntrega ?? ""))
+                .ForMember(x => x.ApellidoFamiliar, t => t.MapFrom(c => c.ApellidoFamiliar ?? ""))
+                .ForMember(x => x.NombreFamiliar, t => t.MapFrom(c => c.NombreFamiliar ?? ""))
+                .ForMember(x => x.DireccionFamiliar, t => t.MapFrom(c => c.DireccionFamiliar ?? ""))
+                .ForMember(x => x.TelefonoFamiliar, t => t.MapFrom(c => c.TelefonoFamiliar ?? ""))
+                .ForMember(x => x.CelularFamiliar, t => t.MapFrom(c => c.CelularFamiliar ?? ""))
+                .ForMember(x => x.TipoVinculoFamiliar, t => t.MapFrom(c => c.TipoVinculoFamiliar))
+                .ForMember(x => x.ApellidoNoFamiliar, t => t.MapFrom(c => c.ApellidoNoFamiliar ?? ""))
+                .ForMember(x => x.NombreNoFamiliar, t => t.MapFrom(c => c.NombreNoFamiliar ?? ""))
+                .ForMember(x => x.DireccionNoFamiliar, t => t.MapFrom(c => c.DireccionNoFamiliar ?? ""))
+                .ForMember(x => x.TelefonoNoFamiliar, t => t.MapFrom(c => c.TelefonoNoFamiliar ?? ""))
+                .ForMember(x => x.CelularNoFamiliar, t => t.MapFrom(c => c.CelularNoFamiliar ?? ""))
+                .ForMember(x => x.TipoVinculoNoFamiliar, t => t.MapFrom(c => c.TipoVinculoNoFamiliar))
+                .ForMember(x => x.ApellidoPaternoAval, t => t.MapFrom(c => c.ApellidoPaternoAval ?? ""))
+                .ForMember(x => x.ApellidoMaternoAval, t => t.MapFrom(c => c.ApellidoMaternoAval ?? ""))
+                .ForMember(x => x.PrimerNombreAval, t => t.MapFrom(c => c.PrimerNombreAval ?? ""))
+                .ForMember(x => x.SegundoNombreAval, t => t.MapFrom(c => c.SegundoNombreAval ?? ""))
+                .ForMember(x => x.DireccionAval, t => t.MapFrom(c => c.DireccionAval ?? ""))
+                .ForMember(x => x.TelefonoAval, t => t.MapFrom(c => c.TelefonoAval ?? ""))
+                .ForMember(x => x.CelularAval, t => t.MapFrom(c => c.CelularAval ?? ""))
+                .ForMember(x => x.TipoDocumentoAval, t => t.MapFrom(c => c.TipoDocumentoAval ?? ""))
+                .ForMember(x => x.NumeroDocumentoAval, t => t.MapFrom(c => c.NumeroDocumentoAval ?? ""))
+                .ForMember(x => x.TipoVinculoAval, t => t.MapFrom(c => c.TipoVinculoAval))
+                .ForMember(x => x.MontoMeta, t => t.MapFrom(c => c.MontoMeta))
+                .ForMember(x => x.TipoMeta, t => t.MapFrom(c => c.TipoMeta ?? ""))
+                .ForMember(x => x.DescripcionMeta, t => t.MapFrom(c => c.DescripcionMeta ?? ""));
+            
+            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
+            
+            Mapper.CreateMap<BEProveedorDespachoCobranza, ProveedorDespachoCobranzaModel>()
+                .ForMember(t => t.ProveedorDespachoCobranzaID, f => f.MapFrom(c => c.ProveedorDespachoCobranzaID))
+                .ForMember(t => t.NombreComercial, f => f.MapFrom(c => c.NombreComercial));
+
+            Mapper.CreateMap<ServiceSAC.BEParametro, ParametroModel>()
+                .ForMember(t => t.ParametroId, f => f.MapFrom(c => c.ParametroId))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.Abreviatura, f => f.MapFrom(c => c.Abreviatura));
+
+            Mapper.CreateMap<BEServicioSegmentoZona, PaisModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
+
+            Mapper.CreateMap<BEServicioSegmentoZona, CampaniaModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaId))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania));
+
+            Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+            
         }
     }
 }
