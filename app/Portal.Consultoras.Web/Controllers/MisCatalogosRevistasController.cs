@@ -608,13 +608,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                else if (revistaDigital.TieneRDR)
+                else if (revistaDigital.TieneRDR && !tieneGnd)
                 {
-                    if (!tieneGnd)
-                    {
-                        partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
-
-                    }
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+                    
                 }
             }
             catch (Exception ex)
