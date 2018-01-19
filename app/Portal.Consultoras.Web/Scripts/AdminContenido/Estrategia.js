@@ -1,4 +1,5 @@
-﻿var Estrategia = function (config) {
+﻿
+var Estrategia = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
@@ -296,6 +297,11 @@
             $("#txtPrecioPublico").val(data.PrecioPublico);
             $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
+            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == codigoShowRoom) {
+                VistaNuevoProductoShowroon();
+            } else {
+                VistaNuevoProductoGeneral();
+            }
 
             return data;
         };
