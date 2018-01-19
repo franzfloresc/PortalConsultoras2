@@ -94,6 +94,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         TerminacionDocumentoBolivia = 30,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TipoRechazoAdicional = 31,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
