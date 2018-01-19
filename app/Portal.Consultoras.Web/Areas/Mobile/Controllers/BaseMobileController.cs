@@ -93,16 +93,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
 
-                if (mostrarBanner)
+                if (mostrarBanner
+                    && !(
+                            (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                            || userData.IndicadorGPRSB == 0
+                        )
+                )
                 {
-                    if (!(
-                        (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                        || userData.IndicadorGPRSB == 0)
-                    )
-                    {
-                        ViewBag.MostrarBannerPL20 = false;
-                        ViewBag.MostrarOfertaDelDia = false;
-                    }
+                    ViewBag.MostrarBannerPL20 = false;
+                    ViewBag.MostrarOfertaDelDia = false;
+
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
@@ -303,6 +303,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var oComunicados = (BEComunicado)Session["BannerApp"];
+            //var consultoraNueva = UserData().ConsultoraNueva;
+            //if (oComunicados != null && (consultoraNueva == 1 || consultoraNueva == 7))
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;

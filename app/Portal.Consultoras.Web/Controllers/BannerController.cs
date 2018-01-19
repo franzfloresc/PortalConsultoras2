@@ -584,7 +584,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEBannerInfo> lstBannerInfoTemp;
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == 2).ToList();
+                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva).ToList();
                 }
 
                 string zonaIdStr = "," + userData.ZonaID.ToString().Trim() + ",";
@@ -927,7 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, codigoConsultora, userData.ConsultoraNueva == 2).ToList();
+                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, codigoConsultora, userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva).ToList();
                 }
 
                 if (vTipoBanner == "P")

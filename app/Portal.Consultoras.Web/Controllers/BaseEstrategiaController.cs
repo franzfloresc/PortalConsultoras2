@@ -492,12 +492,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 estrategia.PuedeCambiarCantidad = 1;
-                if (estrategia.TieneVariedad == 0)
+                if (estrategia.TieneVariedad == 0 && estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
                 {
-                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
-                    {
-                        estrategia.PuedeCambiarCantidad = 0;
-                    }
+                    estrategia.PuedeCambiarCantidad = 0;
                 }
                 estrategia.PuedeAgregar = 1;
                 estrategia.PuedeVerDetalle = estrategia.EstrategiaDetalle != null &&

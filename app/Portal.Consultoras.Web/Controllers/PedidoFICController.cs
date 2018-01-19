@@ -50,13 +50,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ImagenUrlOfertaFIC = url;
                 ViewBag.PaisID = userData.PaisID;
 
-                if (olstPedidoFicDetalle.Count != 0)
+                if (olstPedidoFicDetalle.Count != 0 && userData.PedidoID == 0)
                 {
-                    if (userData.PedidoID == 0)
-                    {
-                        userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
-                        SetUserData(userData);
-                    }
+                    userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
+                    SetUserData(userData);
                 }
 
                 ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
