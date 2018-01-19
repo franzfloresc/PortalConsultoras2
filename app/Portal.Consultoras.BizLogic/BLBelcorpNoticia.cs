@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEBelcorpNoticia> SelectBelcorpNoticias(int paisID, int campaniaID)
         {
             var lista = new List<BEBelcorpNoticia>();
-            var DABelcorpNoticia = new DABelcorpNoticia(paisID);
+            var daBelcorpNoticia = new DABelcorpNoticia(paisID);
 
-            using (IDataReader reader = DABelcorpNoticia.SelectBelcorpNoticia(paisID, campaniaID))
+            using (IDataReader reader = daBelcorpNoticia.SelectBelcorpNoticia(paisID, campaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEBelcorpNoticia(reader);
@@ -29,9 +25,9 @@ namespace Portal.Consultoras.BizLogic
         public BEBelcorpNoticia GetBelcorpNoticiaById(int paisID, int BelcorpNoticiaID)
         {
             var entidad = new BEBelcorpNoticia();
-            var DABelcorpNoticia = new DABelcorpNoticia(paisID);
+            var daBelcorpNoticia = new DABelcorpNoticia(paisID);
 
-            using (IDataReader reader = DABelcorpNoticia.GetBelcorpNoticiaById(BelcorpNoticiaID))
+            using (IDataReader reader = daBelcorpNoticia.GetBelcorpNoticiaById(BelcorpNoticiaID))
             if (reader.Read())
             {
                 entidad = new BEBelcorpNoticia(reader);
@@ -42,20 +38,20 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertBelcorpNoticia(BEBelcorpNoticia entidad)
         {
-            var DABelcorpNoticia = new DABelcorpNoticia(entidad.PaisID);
-            DABelcorpNoticia.Insert(entidad);
+            var daBelcorpNoticia = new DABelcorpNoticia(entidad.PaisID);
+            daBelcorpNoticia.Insert(entidad);
         }
 
         public void UpdateBelcorpNoticia(BEBelcorpNoticia entidad)
         {
-            var DABelcorpNoticia = new DABelcorpNoticia(entidad.PaisID);
-            DABelcorpNoticia.Update(entidad);
+            var daBelcorpNoticia = new DABelcorpNoticia(entidad.PaisID);
+            daBelcorpNoticia.Update(entidad);
         }
 
         public void DeleteBelcorpNoticia(int paisID, int BEBelcorpNoticiaID)
         {
-            var DABelcorpNoticia = new DABelcorpNoticia(paisID);
-            DABelcorpNoticia.Delete(BEBelcorpNoticiaID);
+            var daBelcorpNoticia = new DABelcorpNoticia(paisID);
+            daBelcorpNoticia.Delete(BEBelcorpNoticiaID);
         }
     }
 }
