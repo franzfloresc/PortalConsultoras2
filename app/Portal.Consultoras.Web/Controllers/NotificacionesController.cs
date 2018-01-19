@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
                 var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;
-                return !(diferencia.TotalMinutes > 30);
+                return (diferencia.TotalMinutes <= 30);
             }
             return false;
         }

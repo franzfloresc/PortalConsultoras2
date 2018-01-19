@@ -46,18 +46,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region GetParameters
             string param = Util.DesencriptarQueryString(parametros);
-            string[] lista = param.Split(new char[] { ';' });
+            string[] lista = param.Split(';');
 
-            string Paisddl = lista[0];
-            string Campaniaddl = lista[1];
-            string Regionddl = lista[2];
-            string Zonaddl = lista[3];
-            string CodConsultoratxt = lista[4];
-            string Paisddl_val = (lista[5] == string.Empty ? "0" : lista[5]);
-            string Campaniaddl_val = (lista[6] == string.Empty ? "0" : lista[6]);
-            string Regionddl_val = (lista[7] == string.Empty ? "0" : lista[7]);
-            string Zonaddl_val = (lista[8] == string.Empty ? "0" : lista[8]);
-            string CodConsultoratxt_ID = lista[9];
+            string paisddl = lista[0];
+            string campaniaddl = lista[1];
+            string regionddl = lista[2];
+            string zonaddl = lista[3];
+            string codConsultoratxt = lista[4];
+            string paisddlVal = (lista[5] == string.Empty ? "0" : lista[5]);
+            string campaniaddlVal = (lista[6] == string.Empty ? "0" : lista[6]);
+            string regionddlVal = (lista[7] == string.Empty ? "0" : lista[7]);
+            string zonaddlVal = (lista[8] == string.Empty ? "0" : lista[8]);
+            string codConsultoratxtId = lista[9];
             string page = lista[10];
             string sortname = lista[11];
             string sortorder = lista[12];
@@ -65,27 +65,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             IEnumerable<PaisModel> listaPaises = new List<PaisModel>() {
                                 new PaisModel() {
-                                    PaisID = Convert.ToInt32(Paisddl_val),
-                                    Nombre = Paisddl
+                                    PaisID = Convert.ToInt32(paisddlVal),
+                                    Nombre = paisddl
                                 }
             };
 
             IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
                                 new CampaniaModel() {
-                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)),
-                                    NombreCorto = Campaniaddl
+                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(campaniaddlVal) ? "0" : campaniaddlVal)),
+                                    NombreCorto = campaniaddl
                                 }
             };
             IEnumerable<RegionModel> lstRegion = new List<RegionModel>() {
                                 new RegionModel() {
-                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )),
-                                    Codigo = Regionddl
+                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(regionddlVal) ? "0" :regionddlVal )),
+                                    Codigo = regionddl
                                 }
             };
             IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() {
                                 new ZonaModel() {
-                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)),
-                                    Codigo = Zonaddl
+                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(zonaddlVal) ? "0" :zonaddlVal)),
+                                    Codigo = zonaddl
                                 }
             };
 
@@ -97,13 +97,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCampanias = lstCampania,
                 listaRegiones = lstRegion,
                 listaZonas = lstZona,
-                CodConsultoratxt_ID = CodConsultoratxt_ID,
+                CodConsultoratxt_ID = codConsultoratxtId,
                 vpage = page,
-                PaisID = int.Parse(Paisddl_val),
-                CampaniaID = int.Parse(Campaniaddl_val),
-                RegionID = int.Parse(Regionddl_val),
-                ZonaID = int.Parse(Zonaddl_val),
-                CodConsultoratxt = CodConsultoratxt,
+                PaisID = int.Parse(paisddlVal),
+                CampaniaID = int.Parse(campaniaddlVal),
+                RegionID = int.Parse(regionddlVal),
+                ZonaID = int.Parse(zonaddlVal),
+                CodConsultoratxt = codConsultoratxt,
                 vsortname = sortname,
                 vsortorder = sortorder,
                 vrowNum = rowNum
@@ -137,11 +137,11 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public void LoadConsultorasCache(int PaisID)
+        public void LoadConsultorasCache(int paisId)
         {
             using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
             {
-                sv.LoadConsultoraCodigo(PaisID);
+                sv.LoadConsultoraCodigo(paisId);
             }
         }
 
@@ -150,24 +150,20 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
@@ -187,13 +183,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
-                BEPais bepais = new BEPais();
 
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
                 try
                 {
                     try
                     {
+                        BEPais bepais;
                         using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                         {
                             bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
@@ -218,33 +214,30 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 }
-                if (lista == null)
+
+                foreach (var pedido in lista)
                 {
-                    lst = new List<ReportePedidoCampaniaModel>();
-                }
-                else
-                {
-                    foreach (var pedido in lista)
+                    lst.Add(new ReportePedidoCampaniaModel
                     {
-                        lst.Add(new ReportePedidoCampaniaModel
-                        {
-                            CodigoConsultora = pedido.CodigoConsultora,
-                            Territorio = pedido.CodigoTerritorio,
-                            CUV = pedido.CUV,
-                            CodigoProducto = pedido.CodigoProducto,
-                            UnidadesDemandadas = pedido.Cantidad.ToString(),
-                            MontoDemandado = pedido.ImporteTotal.ToString("#0.00"),
-                            TipoOferta = pedido.CodigoTipoOferta,
-                            Origen = pedido.Origen,
-                            FechaUltima = pedido.FechaUltimaActualizacion.ToShortDateString()
-                        });
-                    }
+                        CodigoConsultora = pedido.CodigoConsultora,
+                        Territorio = pedido.CodigoTerritorio,
+                        CUV = pedido.CUV,
+                        CodigoProducto = pedido.CodigoProducto,
+                        UnidadesDemandadas = pedido.Cantidad.ToString(),
+                        MontoDemandado = pedido.ImporteTotal.ToString("#0.00"),
+                        TipoOferta = pedido.CodigoTipoOferta,
+                        Origen = pedido.Origen,
+                        FechaUltima = pedido.FechaUltimaActualizacion.ToShortDateString()
+                    });
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
                 IEnumerable<ReportePedidoCampaniaModel> items = lst;
 
@@ -356,9 +349,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
-            BEPais bepais = new BEPais();
+            BEPais bepais;
 
-            List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -369,44 +361,40 @@ namespace Portal.Consultoras.Web.Controllers
             if (vZona == "" || vZona == "-- Todas --") vZona = "0";
             if (vConsultora == "") vConsultora = "0";
 
+            List<BEPedidoFacturado> lista;
             using (SACServiceClient client = new SACServiceClient())
             {
                 lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
             }
 
-            if (lista == null)
+            foreach (var pedido in lista)
             {
-                lst = new List<ReportePedidoCampaniaModel>();
-            }
-            else
-            {
-                foreach (var pedido in lista)
+                lst.Add(new ReportePedidoCampaniaModel
                 {
-                    lst.Add(new ReportePedidoCampaniaModel
-                    {
-                        CodigoConsultora = pedido.CodigoConsultora,
-                        Territorio = pedido.CodigoTerritorio,
-                        CUV = pedido.CUV,
-                        CodigoProducto = pedido.CodigoProducto,
-                        UnidadesDemandadas = pedido.Cantidad.ToString(),
-                        MontoDemandado = pedido.ImporteTotal.ToString("#0.00"),
-                        TipoOferta = pedido.CodigoTipoOferta,
-                        Origen = pedido.Origen,
-                        FechaUltima = pedido.FechaUltimaActualizacion.ToShortDateString()
-                    });
-                }
+                    CodigoConsultora = pedido.CodigoConsultora,
+                    Territorio = pedido.CodigoTerritorio,
+                    CUV = pedido.CUV,
+                    CodigoProducto = pedido.CodigoProducto,
+                    UnidadesDemandadas = pedido.Cantidad.ToString(),
+                    MontoDemandado = pedido.ImporteTotal.ToString("#0.00"),
+                    TipoOferta = pedido.CodigoTipoOferta,
+                    Origen = pedido.Origen,
+                    FechaUltima = pedido.FechaUltimaActualizacion.ToShortDateString()
+                });
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Cod. Consultora", "CodigoConsultora");
-            dic.Add("Territorio", "Territorio");
-            dic.Add("Cod. Venta", "CUV");
-            dic.Add("Cod. Producto", "CodigoProducto");
-            dic.Add("Unidades Demandadas", "UnidadesDemandadas");
-            dic.Add("Monto Demandado", "MontoDemandado");
-            dic.Add("Cod. Tipo Oferta", "TipoOferta");
-            dic.Add("Origen", "Origen");
-            dic.Add("Fecha Ult. Act.", "FechaUltima");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Cod. Consultora", "CodigoConsultora"},
+                {"Territorio", "Territorio"},
+                {"Cod. Venta", "CUV"},
+                {"Cod. Producto", "CodigoProducto"},
+                {"Unidades Demandadas", "UnidadesDemandadas"},
+                {"Monto Demandado", "MontoDemandado"},
+                {"Cod. Tipo Oferta", "TipoOferta"},
+                {"Origen", "Origen"},
+                {"Fecha Ult. Act.", "FechaUltima"}
+            };
             ExportToExcel("PedidosExcel", lst, dic);
             return View();
         }
@@ -422,21 +410,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                List<string> columns = new List<string>();
                 int index = 1;
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
-                    Columns.Add(keyvalue.Value);
+                    columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
-                    foreach (string column in Columns)
+                    var col = 1;
+                    foreach (string column in columns)
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
@@ -515,20 +502,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
+﻿using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
 using Portal.Consultoras.Web.ServiceUnete;
 
 namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia

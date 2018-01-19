@@ -18,21 +18,21 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ProveedorDespachoCobranza/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var ProveedorDespachoCobranzaModel = new ProveedorDespachoCobranzaModel()
+            var proveedorDespachoCobranzaModel = new ProveedorDespachoCobranzaModel()
             {
                 lstPais = DropDowListPaises(),
                 lstProveedores = DropDowListProveedores(UserData().PaisID)
             };
 
-            return View(ProveedorDespachoCobranzaModel);
+            return View(proveedorDespachoCobranzaModel);
         }
 
-        private IEnumerable<ProveedorDespachoCobranzaModel> DropDowListProveedores(int PaisID)
+        private IEnumerable<ProveedorDespachoCobranzaModel> DropDowListProveedores(int paisId)
         {
             IList<BEProveedorDespachoCobranza> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetProveedorDespachoCobranza(PaisID);
+                lst = sv.GetProveedorDespachoCobranza(paisId);
             }
 
             return Mapper.Map<IList<BEProveedorDespachoCobranza>, IEnumerable<ProveedorDespachoCobranzaModel>>(lst);
@@ -43,13 +43,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -59,22 +55,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisID = UserData().PaisID;
-                if (paisID.ToString() != "")
+                int paisId = UserData().PaisID;
+                if (paisId.ToString() != "")
                 {
-                    List<ServiceSAC.BEProveedorDespachoCobranza> lst;
-                    using (ServiceSAC.SACServiceClient srv = new ServiceSAC.SACServiceClient())
+                    List<BEProveedorDespachoCobranza> lst;
+                    using (SACServiceClient srv = new SACServiceClient())
                     {
-                        lst = srv.GetProveedorDespachoCobranza(paisID).ToList();
+                        lst = srv.GetProveedorDespachoCobranza(paisId).ToList();
                     }
 
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
 
-                    IEnumerable<ServiceSAC.BEProveedorDespachoCobranza> items = lst;
+                    IEnumerable<BEProveedorDespachoCobranza> items = lst;
 
                     #region Sort Section
                     if (sord == "asc")
@@ -113,9 +111,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    cell = new string[]
                                     {
                                        a.ProveedorDespachoCobranzaID.ToString(),
-                                       a.NombreComercial.ToString(),
-                                       a.RazonSocial.ToString(),
-                                       a.RFC.ToString()
+                                       a.NombreComercial,
+                                       a.RazonSocial,
+                                       a.RFC
                                     }
                                }
                     };
@@ -135,61 +133,52 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerDatosCampo(ProveedorDespachoCobranzaModel model)
         {
-            string Valor;
             string returnValue = "";
             try
             {
-                int PaisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
 
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
-                List<ServiceSAC.BEProveedorDespachoCobranza> lst;
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                List<BEProveedorDespachoCobranza> lst;
+                using (SACServiceClient sv = new SACServiceClient())
                 {
                     proveedorDespachoCobranza.PaisID = UserData().PaisID;
-                    lst = sv.GetProveedorDespachoCobranzaBYiD(PaisID, proveedorDespachoCobranza).ToList();
+                    lst = sv.GetProveedorDespachoCobranzaBYiD(paisId, proveedorDespachoCobranza).ToList();
                 }
 
                 if (lst.Count > 0)
                 {
-                    Valor = lst[0].Valor;
+                    var valor = lst[0].Valor;
                     if (proveedorDespachoCobranza.CampoId == 3 || proveedorDespachoCobranza.CampoId == 4)
                     {
-                        if (Valor != "")
+                        if (valor != "")
                         {
                             returnValue = "No se puede ingresar mas datos.";
                         }
                     }
                     else
                     {
-                        string[] arrString;
-                        arrString = Valor.Split(',');
+                        var arrString = valor.Split(',');
 
-                        if (Valor == "1" || Valor == "2" || Valor == "6")
+                        if (
+                            (valor == "1" || valor == "2" || valor == "6")
+                            && arrString.Count() > 6)
                         {
-                            if (arrString.Count() > 6)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
-                        }
-                        if (Valor == "7")
-                        {
-                            if (arrString.Count() > 2)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
+                            returnValue = "No se puede ingresar mas datos.";
                         }
 
-                        if (Valor == "8")
+                        if (valor == "7" && arrString.Count() > 2)
                         {
-                            if (arrString.Count() > 49)
-                            {
-                                returnValue = "No se puede ingresar mas datos.";
-                            }
+                            returnValue = "No se puede ingresar mas datos.";
+                        }
+
+                        if (valor == "8" && arrString.Count() > 49)
+                        {
+                            returnValue = "No se puede ingresar mas datos.";
                         }
 
                     }
-
                 }
 
                 return Json(new
@@ -230,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sv = new SACServiceClient())
                 {
                     proveedorDespachoCobranza.PaisID = UserData().PaisID;
                     sv.MntoCampoProveedorDespachoCobranza(proveedorDespachoCobranza, proveedorDespachoCobranza.Accion, proveedorDespachoCobranza.CampoId, proveedorDespachoCobranza.Valor, proveedorDespachoCobranza.ValorAnterior);
@@ -281,12 +270,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEProveedorDespachoCobranza ProveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
+                BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sv = new SACServiceClient())
                 {
-                    ProveedorDespachoCobranza.PaisID = UserData().PaisID;
-                    sv.InsProveedorDespachoCobranzaCabecera(UserData().PaisID, ProveedorDespachoCobranza);
+                    proveedorDespachoCobranza.PaisID = UserData().PaisID;
+                    sv.InsProveedorDespachoCobranzaCabecera(UserData().PaisID, proveedorDespachoCobranza);
                 }
 
                 return Json(new
@@ -323,14 +312,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int PaisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
 
                 BEProveedorDespachoCobranza proveedorDespachoCobranza = Mapper.Map<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>(model);
 
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sv = new SACServiceClient())
                 {
                     proveedorDespachoCobranza.PaisID = UserData().PaisID;
-                    sv.UpdProveedorDespachoCobranzaCabecera(PaisID, proveedorDespachoCobranza);
+                    sv.UpdProveedorDespachoCobranzaCabecera(paisId, proveedorDespachoCobranza);
                 }
 
                 return Json(new
@@ -367,12 +356,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int PaisID = UserData().PaisID;
-                int result = 0;
+                int paisId = UserData().PaisID;
+                int result;
 
-                using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sv = new SACServiceClient())
                 {
-                    result = sv.DelProveedorDespachoCobranza(PaisID, ProveedorDespachoCobranzaID);
+                    result = sv.DelProveedorDespachoCobranza(paisId, ProveedorDespachoCobranzaID);
                 }
                 if (result == 0)
                 {
@@ -418,25 +407,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
 
-                BEProveedorDespachoCobranza entidad = new BEProveedorDespachoCobranza();
-                entidad.ProveedorDespachoCobranzaID = ProveedorDespachoCobranzaId;
-                entidad.CampoId = CampoID;
-
-                List<ServiceSAC.BEProveedorDespachoCobranza> lst;
-                using (ServiceSAC.SACServiceClient srv = new ServiceSAC.SACServiceClient())
+                BEProveedorDespachoCobranza entidad = new BEProveedorDespachoCobranza
                 {
-                    lst = srv.GetProveedorDespachoCobranzaMnto(paisID, entidad).ToList();
+                    ProveedorDespachoCobranzaID = ProveedorDespachoCobranzaId,
+                    CampoId = CampoID
+                };
+
+                List<BEProveedorDespachoCobranza> lst;
+                using (SACServiceClient srv = new SACServiceClient())
+                {
+                    lst = srv.GetProveedorDespachoCobranzaMnto(paisId, entidad).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                
-                IEnumerable<ServiceSAC.BEProveedorDespachoCobranza> items = lst;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<BEProveedorDespachoCobranza> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -474,7 +467,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.ProveedorDespachoCobranzaID.ToString(),
-                                   a.NombreComercial.ToString(),
+                                   a.NombreComercial,
                                    a.CampoId.ToString(),
                                    a.NombreCampo,
                                    a.Valor

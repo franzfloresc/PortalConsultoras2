@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -16,7 +15,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index(bool vc = false)
         {
-            BEUsuario beusuario = new BEUsuario();
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
 
             var model = new MisDatosModel();
@@ -52,7 +50,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.limiteMaximoTelef = 15;
             }
 
-
+            BEUsuario beusuario;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
@@ -93,14 +91,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                string PaisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (PaisesDigitoControl.Contains(model.PaisISO))
+
+                if (paisesDigitoControl.Contains(model.PaisISO) && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
-                    if (!String.IsNullOrEmpty(beusuario.DigitoVerificador))
-                    {
-                        model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-                    }
+                    model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
             }
 
@@ -116,14 +112,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
@@ -173,7 +166,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
                 bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
                 string message = resultado.Split('|')[2];
-                int Cantidad = int.Parse(resultado.Split('|')[3]);
+                int cantidad = int.Parse(resultado.Split('|')[3]);
 
                 if (!seActualizoMisDatos)
                 {
@@ -181,7 +174,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         success = false,
                         message,
-                        Cantidad,
+                        Cantidad = cantidad,
                         extra = string.Empty
                     });
                 }
@@ -289,10 +282,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                int cantidad = 0;
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    var cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
                     if (cantidad > 0)
                     {
                         return Json(new

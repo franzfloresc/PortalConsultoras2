@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RenderDetalle(id, origen);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
             }
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (modelo == null || modelo.EstrategiaID <= 0)
                 return GetRedirectTo(origenPantalla);
 
-            ViewBag.OrigenUrl = GetActionTo(origenPantalla);
+            ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
             ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
@@ -124,9 +124,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla)
+        public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla, int origenPedidoWeb)
         {
-            var result = string.Empty;
+            string result;
 
             switch (origenPantalla)
             {
@@ -144,6 +144,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
+                    if (origenPedidoWeb == Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor)
+                    {
+                        result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    }
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
                 case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:

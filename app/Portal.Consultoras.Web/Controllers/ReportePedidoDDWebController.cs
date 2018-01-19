@@ -610,7 +610,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
 
-            List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
+            List<BEPedidoDDWeb> lst;
             BEPais bepais = new BEPais();
 
             if (vPaisID == "")
@@ -759,10 +759,9 @@ namespace Portal.Consultoras.Web.Controllers
                     columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
+                    var col = 1;
                     foreach (string column in columns)
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
@@ -845,10 +844,9 @@ namespace Portal.Consultoras.Web.Controllers
                     columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
+                    var col = 1;
                     foreach (string column in columns)
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
@@ -939,10 +937,9 @@ namespace Portal.Consultoras.Web.Controllers
                     columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
+                    var col = 1;
                     foreach (string column in columns)
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
