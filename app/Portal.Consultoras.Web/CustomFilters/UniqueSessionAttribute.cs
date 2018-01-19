@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Web.CustomFilters
 
                         foreach (var param in filterContext.ActionParameters)
                         {
+                            if (filterContext.RouteData.Values.ContainsKey(param.Key)) continue;
                             filterContext.RouteData.Values.Add(param.Key, param.Value);
                         }
 
