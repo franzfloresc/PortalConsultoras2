@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.Cliente
 {
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
         public ResponseType<List<BENota>> Listar(int paisId, long consultoraId, short clienteId = 0)
         {
-            var notas = new List<BENota>();
+            List<BENota> notas;
             var daCliente = new DACliente(paisId);
 
             using (IDataReader reader = daCliente.NotaObtener(consultoraId, clienteId))

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.Cliente
 {

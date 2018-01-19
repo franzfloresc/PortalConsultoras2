@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic.Cliente
 {

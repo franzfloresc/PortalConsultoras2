@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.Cliente
 {
@@ -33,7 +31,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
         public IEnumerable<BEMovimiento> Listar(int paisId, short clienteId, long consultoraId)
         {
-            var movimientos = new List<BEMovimiento>();
+            List<BEMovimiento> movimientos;
             var daCliente = new DACliente(paisId);
             var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
 
