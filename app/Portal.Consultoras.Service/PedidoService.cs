@@ -49,8 +49,9 @@ namespace Portal.Consultoras.Service
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
+        private readonly ITrackingBusinessLogic _trackingBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -79,11 +80,12 @@ namespace Portal.Consultoras.Service
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
-            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, ITrackingBusinessLogic trackingBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
             _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
+            _trackingBusinessLogic = trackingBusinessLogic;
         }
 
         #region Reporte Lider
@@ -829,6 +831,10 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
         }
 
+        public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
+        {
+            return _trackingBusinessLogic.GetTrackingPedidoByConsultora(paisID, codigoConsultora, top);
+        }
         #endregion
 
         #region CUV_Automatico

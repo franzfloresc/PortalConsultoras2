@@ -5,11 +5,9 @@
 @if (Model.MostrarShowRoomProductos == true)
 {
     <li>
-        <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-            <div class="content_banner_header_showroom">
-                <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
-            </div>
-        </a>
+        <div id="bannerShowRoomTop" class="content_banner_header_showroom">
+            <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
+        </div>
     </li>
 }
 else
@@ -24,3 +22,7 @@ else
         </a>
     </li>
 }
+
+<script>
+    var urlShowRoom = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+</script>
