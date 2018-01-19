@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEBannerPedido> SelectBannerPedido(int paisID, int campaniaID)
         {
             var lista = new List<BEBannerPedido>();
-            var DABannerPedido = new DABannerPedido(paisID);
+            var daBannerPedido = new DABannerPedido(paisID);
 
-            using (IDataReader reader = DABannerPedido.SelectBannerPedido(paisID, campaniaID))
+            using (IDataReader reader = daBannerPedido.SelectBannerPedido(paisID, campaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEBannerPedido(reader);
@@ -28,20 +24,20 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertBannerPedido(BEBannerPedido entidad)
         {
-            var DABannerPedido = new DABannerPedido(entidad.PaisID);
-            DABannerPedido.Insert(entidad);
+            var daBannerPedido = new DABannerPedido(entidad.PaisID);
+            daBannerPedido.Insert(entidad);
         }
 
         public void UpdateBannerPedido(BEBannerPedido entidad)
         {
-            var DABannerPedido = new DABannerPedido(entidad.PaisID);
-            DABannerPedido.Update(entidad);
+            var daBannerPedido = new DABannerPedido(entidad.PaisID);
+            daBannerPedido.Update(entidad);
         }
 
         public void DeleteBannerPedido(int paisID, int BannerPedidoID)
         {
-            var DABannerPedido = new DABannerPedido(paisID);
-            DABannerPedido.Delete(BannerPedidoID);
+            var daBannerPedido = new DABannerPedido(paisID);
+            daBannerPedido.Delete(BannerPedidoID);
         }
     }
 }
