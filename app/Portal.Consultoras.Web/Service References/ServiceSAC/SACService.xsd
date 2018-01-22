@@ -92,7 +92,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q5:BEProveedorDespachoCobranza" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q5:BEProveedorDespachoCobranza" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -138,7 +138,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisId" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
         <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
         <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
@@ -172,7 +172,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1013,7 +1013,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1393,8 +1393,8 @@
         <xs:element minOccurs="0" name="codigoUbigeo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campania" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="marcaId" type="xs:int" />
-        <xs:element minOccurs="0" name="OpcionRechazo" type="xs:int" />
-        <xs:element minOccurs="0" name="RazonMotivoRechazo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="opcionRechazo" type="xs:int" />
+        <xs:element minOccurs="0" name="razonMotivoRechazo" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1623,7 +1623,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
         <xs:element minOccurs="0" name="TipoCronogramaID" type="xs:short" />
       </xs:sequence>
@@ -1640,7 +1640,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -1684,7 +1684,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
         <xs:element minOccurs="0" name="TipoCronogramaID" type="xs:short" />
       </xs:sequence>
@@ -1739,7 +1739,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -1835,7 +1835,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="paisISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="prod" nillable="true" type="q105:ArrayOfBEProductoFaltante" />
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="productoFaltante" nillable="true" type="q105:ArrayOfBEProductoFaltante" />
         <xs:element minOccurs="0" name="flag" type="xs:int" />
         <xs:element minOccurs="0" name="pais" type="xs:int" />
         <xs:element minOccurs="0" name="campania" type="xs:int" />
@@ -1877,7 +1877,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
         <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
@@ -1973,7 +1973,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1986,7 +1986,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2054,7 +2054,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       </xs:sequence>

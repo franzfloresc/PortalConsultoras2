@@ -1,16 +1,14 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -29,7 +27,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return;
             }
 
-            var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try
@@ -37,8 +34,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.EsMobile = 2;
                 BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
-
-                ShowRoomModel ShowRoom = new ShowRoomModel();
 
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
@@ -85,9 +80,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                        userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia
-                        ? false
-                        : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -110,7 +106,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
-                /*FIN: PL20-1289*/
 
                 MostrarBannerApp();
             }
@@ -124,7 +119,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var oddModel = this.GetOfertaDelDiaModel();
+                var oddModel = GetOfertaDelDiaModel();
                 return Json(new
                 {
                     success = oddModel != null,
@@ -177,16 +172,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             return false;
         }
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -206,8 +200,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
@@ -224,8 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -274,7 +267,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Session["OcultarBannerApp"] = true;
+                Session["OcultarBannerApp"] = true;
+
                 return Json(new
                 {
                     success = true,
@@ -289,29 +283,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }
+
         private void MostrarBannerApp()
         {
             if (Session["OcultarBannerApp"] != null)
             {
                 Session["BannerApp"] = null;
                 return;
-            }
+            }
+
             if (Session["BannerApp"] == null)
             {
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
-                    Session["BannerApp"] = lstComunicados.Where(x => x.Descripcion == Constantes.Comunicado.AppConsultora).FirstOrDefault();
+                    Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
                 }
-            }
+            }
+
             var oComunicados = (BEComunicado)Session["BannerApp"];
+            //var consultoraNueva = UserData().ConsultoraNueva;
+            //if (oComunicados != null && (consultoraNueva == 1 || consultoraNueva == 7))
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;
                 ViewBag.BannerApp = oComunicados;
             }
-        }
+        }
+
         #endregion
     }
 }

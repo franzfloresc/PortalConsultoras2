@@ -440,7 +440,7 @@ function getVALbyISO(ISO) {
         case "00":
             result = "0";
             break;
-        
+
         case "BO":
             result = "2";
             break;
@@ -456,7 +456,7 @@ function getVALbyISO(ISO) {
         case "CR":
             result = "5";
             break;
-        
+
         case "EC":
             result = "6";
             break;
@@ -472,7 +472,7 @@ function getVALbyISO(ISO) {
         case "MX":
             result = "9";
             break;
-        
+
         case "PA":
             result = "10";
             break;
@@ -488,7 +488,7 @@ function getVALbyISO(ISO) {
         case "DO":
             result = "13";
             break;
-        
+
         case "VE":
             result = "14";
             break;
@@ -500,7 +500,7 @@ function getVALbyISO(ISO) {
         default:
             break;
     }
-    
+
     return result;
 
 }
@@ -846,7 +846,7 @@ function login2() {
                 alert("Error al procesar la solicitud" + errorMessage);
                 saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
             }
-           
+
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
             //preventClick(2, false);
@@ -1050,7 +1050,7 @@ function saveLog(ISO, usuario, mensaje) {
         async: true,
         success: function (response) {
             if (response.success) {
-                
+
             }
         },
         error: function (response) {
@@ -1059,8 +1059,7 @@ function saveLog(ISO, usuario, mensaje) {
     });
 }
 /*HD-817*/
-function Fondofestivo(id)
-{
+function Fondofestivo(id) {
     if ($("body").hasClass("fondo_festivo")) {
         var ruta = $("#" + id).val();
         if ($(window).width() <= ancho) {

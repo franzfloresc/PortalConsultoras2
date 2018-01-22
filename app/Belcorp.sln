@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Client", "1. Client", "{50230F7F-B9B0-46A3-A234-8820B82E16E8}"
 EndProject
@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Consultoras.Web", "P
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{D93096D3-E22A-4FAC-B528-E2F84DF755CE}"
+	ProjectSection(SolutionItems) = preProject
+		Portal.Consultoras.Web\Web.config = Portal.Consultoras.Web\Web.config
+		Portal.Consultoras.Web\Web.Debug.config = Portal.Consultoras.Web\Web.Debug.config
+		Portal.Consultoras.Web\Web.Release.config = Portal.Consultoras.Web\Web.Release.config
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Data", "3. Data", "{84F42BD5-939F-4867-806E-3C24565E6FE8}"
 EndProject

@@ -171,5 +171,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetTrackingPedidoByConsultora(string codigoConsultora, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingPedidoByConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Top", DbType.Int32, top);
+            return Context.ExecuteReader(command);
+        }
     }
 }

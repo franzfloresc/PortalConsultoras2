@@ -88,9 +88,6 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
-                    //bool result = true;
-
                     bool result = sv.CambiarClaveUsuario(idpais, paisiso, codigousuario, nuevacontrasena, correo, "SISTEMA", EAplicacionOrigen.RecuperarClave);
 
                     if (result)
@@ -111,8 +108,10 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RestablecerContrasena - ModificarClaveCS");
+
                 return serializer.Serialize(new
                 {
                     succes = false,

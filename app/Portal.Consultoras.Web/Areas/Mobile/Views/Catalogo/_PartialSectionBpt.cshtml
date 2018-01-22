@@ -1,17 +1,17 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-@model RevistaDigitalModel
+@model PartialSectionBpt
 @{
-    ConfiguracionPaisDatosModel configuracionPaisDatosModel;
-    var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
-    var urlLogo = Model.MLogoComercialNoActiva;
-    if (Model.TieneRDC && Model.EsSuscrita)
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
+    RevistaDigitalModel revistaDigital = Model.RevistaDigital;
+    var urlLogo = revistaDigital.MLogoComercialNoActiva;
+    if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
-        urlLogo = Model.MLogoComercialActiva;
+        urlLogo = revistaDigital.MLogoComercialActiva;
     }
-    else if (Model.TieneRDR)
+    else if (revistaDigital.TieneRDR)
     {
-        urlLogo = Model.MLogoComercialFondoNoActiva;
+        urlLogo = revistaDigital.MLogoComercialFondoNoActiva;
     }
 
     var urlArrowRight = "~/Content/Images/RevistaDigital/";
@@ -19,18 +19,10 @@
 
 }
 <div class="content_revistas_mob">
-    @if (Model.TieneRDC)
+    @if (revistaDigital.TieneRDC)
     {
-        if (Model.EsActiva)
+        if (revistaDigital.EsActiva)
         {
-            if (Model.EsSuscrita)
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-            }
-            else
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-            }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
@@ -55,17 +47,9 @@
         }
         else
         {
-            if (!tieneGND)
+            if (!Model.TieneGND)
             {
                 @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-            }
-            if (Model.EsSuscrita)
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-            }
-            else
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
             }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -90,10 +74,9 @@
             </div>
         }
     }
-    else if (Model.TieneRDR)
+    else if (revistaDigital.TieneRDR)
     {
         @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
         <hr class="clear" />
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">
@@ -117,12 +100,9 @@
             </div>
         </div>
     }
-    else
+    else if (!Model.TieneGND)
     {
-        if (!tieneGND)
-        {
-            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        }
+        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
     }
-
+    
 </div>

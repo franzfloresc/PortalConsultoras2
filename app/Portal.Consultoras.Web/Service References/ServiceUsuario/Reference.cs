@@ -1427,6 +1427,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsConsecutivoNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsConsultoraNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCumpleanioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1641,6 +1644,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PasePedidoWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PasoSextoPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PedidoFICActivoField;
@@ -2486,6 +2492,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsConsecutivoNuevaField.Equals(value) != true)) {
                     this.EsConsecutivoNuevaField = value;
                     this.RaisePropertyChanged("EsConsecutivoNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsConsultoraNueva {
+            get {
+                return this.EsConsultoraNuevaField;
+            }
+            set {
+                if ((this.EsConsultoraNuevaField.Equals(value) != true)) {
+                    this.EsConsultoraNuevaField = value;
+                    this.RaisePropertyChanged("EsConsultoraNueva");
                 }
             }
         }
@@ -3422,6 +3441,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.PasePedidoWebField.Equals(value) != true)) {
                     this.PasePedidoWebField = value;
                     this.RaisePropertyChanged("PasePedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PasoSextoPedido {
+            get {
+                return this.PasoSextoPedidoField;
+            }
+            set {
+                if ((this.PasoSextoPedidoField.Equals(value) != true)) {
+                    this.PasoSextoPedidoField = value;
+                    this.RaisePropertyChanged("PasoSextoPedido");
                 }
             }
         }

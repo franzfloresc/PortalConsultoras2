@@ -92,9 +92,7 @@ namespace Portal.Consultoras.BizLogic
 
                             BLFileManager.FtpUploadFile(ftpElement.Address + NombreArchivo,
                                 headerFile, ftpElement.UserName, ftpElement.Password);
-
-                            //BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                            //    headerFile, ftpElement.UserName, ftpElement.Password);
+                            
                         }
                         catch (Exception ex)
                         {

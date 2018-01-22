@@ -1,77 +1,78 @@
 ﻿.titulo {
-    padding-top:40px;
-    padding-left:243px;
+    padding-top: 40px;
+    padding-left: 243px;
 }
 
-.contenedor-botones{
+.contenedor-botones {
     float: left;
-    position:relative;
-    left:-365px;
-    top:10px;
+    position: relative;
+    left: -365px;
+    top: 10px;
 }
 
-.botones input{
-    width:100px;
-    line-height:40px;
-    padding:0;
-    background:url(../../Images/buscar.png) 0 0 no-repeat;
-    color:#fff;
-    font-size:14px;
-    border:0
+.botones input {
+    width: 100px;
+    line-height: 40px;
+    padding: 0;
+    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    color: #fff;
+    font-size: 14px;
+    border: 0;
 }
 
-.div-3{
-    height:100px;
-    overflow:hidden;
-    margin:0 0 -8px 0;
+.div-3 {
+    height: 100px;
+    overflow: hidden;
+    margin: 0 0 -8px 0;
 }
 
 .div-5 {
-    height:70px;
-    overflow:hidden;
-    margin:0 0 -8px 0;
+    height: 70px;
+    overflow: hidden;
+    margin: 0 0 -8px 0;
 }
 
-.div-5 .titB {
-    float: left;
-    width: 70px;
-    height: auto;
-    padding: 9px;
-    background: none;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
-    border: 0;
-    text-align: right;
-}
+    .div-5 .titB {
+        float: left;
+        width: 70px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align: right;
+    }
 
-.div-5 .selectA {
-    float: left;
-    width: 248px;
-    height: auto;
-    padding: 9px;
-    background: #fff;
-    color: #702789;
-    margin-right: 10px;
-    border: 1px solid #cfcfcf;
-    position: relative;
-}
-.div-5 .selectA select {
-    float: left;
-    width: 248px;
-    height: 18px;
-    padding: 0;
-    background: #fff;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
-    border: 0;
-}
+    .div-5 .selectA {
+        float: left;
+        width: 248px;
+        height: auto;
+        padding: 9px;
+        background: #fff;
+        color: #702789;
+        margin-right: 10px;
+        border: 1px solid #cfcfcf;
+        position: relative;
+    }
+
+        .div-5 .selectA select {
+            float: left;
+            width: 248px;
+            height: 18px;
+            padding: 0;
+            background: #fff;
+            color: #702789;
+            font-size: 14px;
+            margin: 0;
+            border: 0;
+        }
 
 .div-6 .titG {
     float: left;
     width: 200px;
-    height:21px;
+    height: 21px;
     background: none;
     color: #702789;
     font-size: 14px;
@@ -79,69 +80,75 @@
     border: 0;
     text-align: left;
 }
+
 .div-4 {
-    height:240px;
-    overflow:hidden;
-    margin:0 0 -8px 0;
+    height: 240px;
+    overflow: hidden;
+    margin: 0 0 -8px 0;
 }
 
-.div-4 .titB {
-    float: left;
-    width: 70px;
-    height: auto;
-    padding: 9px;
-    background: none;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
-    border: 0;
-    text-align: right;
-}
+    .div-4 .titB {
+        float: left;
+        width: 70px;
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        text-align: right;
+    }
 
-.div-4 .selectA {
-    float: left;
-    width: 248px;
-    height: auto;
-    padding: 9px;
-    background: #fff;
-    color: #702789;
-    margin-right: 10px;
-    border: 1px solid #cfcfcf;
-    position: relative;
-    text-align: center;
-}
+    .div-4 .selectA {
+        float: left;
+        width: 248px;
+        height: auto;
+        padding: 9px;
+        background: #fff;
+        color: #702789;
+        margin-right: 10px;
+        border: 1px solid #cfcfcf;
+        position: relative;
+        text-align: center;
+    }
+
 .div-7 {
     width: 470px;
     text-align: right;
     margin-top: 20px;
 }
-.div-8{
-    height:100px;
-    overflow:hidden;
+
+.div-8 {
+    height: 100px;
+    overflow: hidden;
     margin-left: 80px;
 }
+
 .elements {
     overflow: hidden;
     display: block;
     margin: 0 auto 0 auto;
-    padding: 0px 0 7px;
+    padding: 0 0 7px;
     position: relative;
-    padding-top:50px;
+    padding-top: 50px;
 }
+
 .oculto {
-    display:none;
+    display: none;
 }
+
 .centrar {
-    text-align:center;
+    text-align: center;
 }
 
 #imagenCompartir {
-    width:403px;
-    height:403px;
+    width: 403px;
+    height: 403px;
 }
 
 .border-wrapper {
-    min-height:100px;
+    min-height: 100px;
     padding: 5px;
     overflow: hidden;
     background: #fff;
@@ -149,6 +156,6 @@
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }

@@ -7,75 +7,74 @@
 .contenedor_imagenes_seccion_personaliza,
 .img_tarjeta_navidenia,
 .img_papel_regalo_navidenio,
-.texto_disponibles_desktop
-{
-    display:block;
+.texto_disponibles_desktop {
+    display: block;
 }
 
-.contenedor_seccion_personaliza{
-    width:100%;
-    height:auto;
-    padding-top:22px;
-    box-sizing:border-box;
-    font-family:'Lato';
-    margin-top:0;
-    margin-bottom:40px;
+.contenedor_seccion_personaliza {
+    width: 100%;
+    height: auto;
+    padding-top: 22px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    margin-top: 0;
+    margin-bottom: 40px;
 }
 
-.seccion_personaliza_descarga_e_imprime{
-    margin:0 auto;
-    width:100%;
-    height:auto;
+.seccion_personaliza_descarga_e_imprime {
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
 }
 
-.titulo_seccion_personaliza, .texto_personaliza_tus_regalos{
-    text-transform:uppercase;
-    text-align:center;
+.titulo_seccion_personaliza, .texto_personaliza_tus_regalos {
+    text-transform: uppercase;
+    text-align: center;
 }
 
-.titulo_seccion_personaliza{
-    font-size:17px;
-    font-weight:bold;
-    color:#b52e36;    
-    letter-spacing:2.1px;
-    margin-bottom:4px;
+.titulo_seccion_personaliza {
+    font-size: 17px;
+    font-weight: bold;
+    color: #b52e36;
+    letter-spacing: 2.1px;
+    margin-bottom: 4px;
 }
 
-.texto_personaliza_tus_regalos{
-    font-size:13px;
-    font-weight:400;
-    color:#000;
-    letter-spacing:0.2px;
-    margin-bottom:32px;
+.texto_personaliza_tus_regalos {
+    font-size: 13px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: .2px;
+    margin-bottom: 32px;
 }
 
-.contenedor_imagenes_seccion_personaliza{
-    text-align:center;
+.contenedor_imagenes_seccion_personaliza {
+    text-align: center;
 }
 
-.img_tarjeta_navidenia, .img_papel_regalo_navidenio{
-    display:inline-block;
-    vertical-align:top;
-    margin-bottom:23px;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-position:center;
+.img_tarjeta_navidenia, .img_papel_regalo_navidenio {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 23px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.img_tarjeta_navidenia{
+.img_tarjeta_navidenia {
     width: 53.1px;
     height: 63.4px;
-    margin-right:10px;
-    background-image:url("/Content/Images/Esika/Contenedor/tarjetas-navidenias.png");
+    margin-right: 10px;
+    background-image: url('/Content/Images/Esika/Contenedor/tarjetas-navidenias.png');
 }
 
 .img_papel_regalo_navidenio {
     width: 86.5px;
     height: 67.7px;
-    background-image: url("/Content/Images/Esika/Contenedor/papel-de-regalo.png");
+    background-image: url('/Content/Images/Esika/Contenedor/papel-de-regalo.png');
 }
 
-.texto_disponibles_desktop{
+.texto_disponibles_desktop {
     text-align: center;
     font-size: 13px;
     font-weight: 400;

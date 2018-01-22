@@ -183,5 +183,96 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, result.TieneGND);
             }
         }
+
+        [TestClass]
+        public class ConfiguracionPaisDatosRevistaDigital : Base
+        {
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_RevistaDigitalEsNulo_EscribeEnLog()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(null, null, null);
+
+                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.Is<string>( s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))), 
+                    Times.AtLeastOnce);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_EscribeEnLog()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(new RevistaDigitalModel(), null, null);
+
+                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
+                    Times.AtLeastOnce);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_EscribeEnLog()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>();
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, null);
+
+                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
+                    Times.AtLeastOnce);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneBloquearDiasAntesFacturar_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar,
+                        Valor1 = "100"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(100, result.BloquearDiasAntesFacturar);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSubscripcionAutomaticaAVirtualCoach_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach,
+                        Valor1 = "1"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SubscripcionAutomaticaAVirtualCoach);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+        }
     }
 }

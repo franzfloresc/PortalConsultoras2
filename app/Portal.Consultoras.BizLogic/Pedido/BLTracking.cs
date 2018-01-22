@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
+using System.Configuration;
+using System.Linq;
+
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
-using System.Configuration;
-
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLTracking
+    public class BLTracking : ITrackingBusinessLogic
     {
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
@@ -214,7 +213,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 Result = DATracking.InsConfirmacionRecojo(oBEConfirmacionRecoja);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, oBEConfirmacionRecoja.CodigoConsultora, paisID.ToString());
+            }
 
             return Result;
         }
@@ -269,6 +271,40 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return recojos;
+        }
+
+        public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
+        {
+            var pedidos = new List<BETracking>();
+            var pedidosDetalle = new List<BETrackingDetalle>();
+
+            using (IDataReader reader = new DATracking(paisID).GetTrackingPedidoByConsultora(codigoConsultora, top))
+            {
+                pedidos = reader.MapToCollection<BETracking>();
+                if (reader.NextResult()) pedidosDetalle = reader.MapToCollection<BETrackingDetalle>();
+
+                foreach (var item in pedidos)
+                {
+                    item.Detalles = pedidosDetalle.Where(x => x.Campana == item.Campana).Select(x => new BETrackingDetalle
+                    {
+                        Etapa = x.Etapa,
+                        Situacion = x.Situacion,
+                        Fecha = x.Fecha,
+                        FechaFormatted = item.Fecha.HasValue ? item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString() : string.Empty,
+                        Observacion = x.Observacion
+                    }).Select(x => new BETrackingDetalle
+                    {
+                        Etapa = x.Etapa,
+                        Situacion = x.Situacion,
+                        Fecha = x.Fecha,
+                        FechaFormatted = x.FechaFormatted,
+                        Alcanzado = (x.FechaFormatted == "01/01/2001" || x.FechaFormatted == "02/01/2010" || x.FechaFormatted == string.Empty ? false : true),
+                        Observacion = x.Observacion
+                    }).ToList();
+                }
+            }
+
+            return pedidos;
         }
     }
 }

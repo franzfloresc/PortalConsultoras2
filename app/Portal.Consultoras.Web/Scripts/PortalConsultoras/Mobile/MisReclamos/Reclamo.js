@@ -49,7 +49,7 @@ $(document).ready(function () {
             hdParametriaCdr: "#hdParametriaCdr",
             hdPedidoID: "#hdPedidoID",
             IrSolicitudInicial: "#IrSolicitudInicial",
-            listado_soluciones_cdr: ".listado_soluciones_cdr",            
+            listado_soluciones_cdr: ".listado_soluciones_cdr",
             listadoProductosAgregados: ".listado_productos_agregados",
             listaMotivos: "#listaMotivos",
             miSolicitudCDR: ".mi_solicitud_cdr",
@@ -453,7 +453,7 @@ $(document).ready(function () {
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.Registro3).show();
-                })              
+                })
             }
         };
 
@@ -468,7 +468,7 @@ $(document).ready(function () {
 
         me.Funciones = {
 
-            ValidarPaso2Trueque: function() {
+            ValidarPaso2Trueque: function () {
                 //if ($("#CambioProducto2").hasClass("disabledClick")) {
                 //    return false;
                 //}
@@ -502,7 +502,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
                         CloseLoading();
-                        
+
                         ok = data.success;
 
                         if (!data.success && data.message != "") {
@@ -546,9 +546,9 @@ $(document).ready(function () {
             },
 
             EvaluarCUV: function () {
-                
+
                 if (!me.Funciones.CUVCambio()) return false;
-                
+
                 $(me.Variables.txtCantidad1).attr("disabled", "disabled");
                 $(me.Variables.txtCantidad1).attr("data-maxvalue", "0");
                 $(me.Variables.txtDescripcionCuv).html("");
@@ -584,15 +584,15 @@ $(document).ready(function () {
                         CloseLoading();
                         if (!checkTimeout(data))
                             return false;
-                        
-                        if (data.success == false) {                            
+
+                        if (data.success == false) {
                             //me.Variables.CuvValido = false;
                             messageInfoValidado(data.message);
                             return false;
                         }
 
                         data.detalle = data.detalle || new Array();
-                        if (data.detalle.length <= 0) {                            
+                        if (data.detalle.length <= 0) {
                             //me.Variables.CuvValido = false;
                             messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
@@ -691,7 +691,7 @@ $(document).ready(function () {
                 if (CampaniaId <= 0 || cuv.length < 5)
                     return false;
 
-                var PedidoId = $.trim($(me.Variables.hdPedidoID)) || 0;                
+                var PedidoId = $.trim($(me.Variables.hdPedidoID)) || 0;
 
                 var item = {
                     CampaniaID: CampaniaId,
@@ -748,8 +748,8 @@ $(document).ready(function () {
                 });
             },
 
-            BuscarMotivo: function () {                
-                
+            BuscarMotivo: function () {
+
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
@@ -787,12 +787,12 @@ $(document).ready(function () {
                 });
             },
 
-            ValidarCUVCampania: function () {                
+            ValidarCUVCampania: function () {
                 var ok = true;
                 //ok = me.Variables.CuvValido;
                 ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
-                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;                
+                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
 
                 if (!ok) {
                     messageInfoValidado("Datos incorrectos");
@@ -805,8 +805,8 @@ $(document).ready(function () {
                 $(me.Variables.Registro2).hide();
                 $(me.Variables.pasodosactivo).hide();
                 $(me.Variables.pasodos).show();
-                $(me.Variables.Registro1).show();                
-            }, 
+                $(me.Variables.Registro1).show();
+            },
 
             ValidarPaso1: function () {
                 var ok = true;
@@ -822,7 +822,7 @@ $(document).ready(function () {
                     return false;
                 }
 
-                if (!($.trim($(me.Variables.txtCantidad1).val()) > 0 && $.trim($(me.Variables.txtCantidad1).val()) <= $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {                    
+                if (!($.trim($(me.Variables.txtCantidad1).val()) > 0 && $.trim($(me.Variables.txtCantidad1).val()) <= $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
                     messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
                         $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
                     me.Funciones.RegresarRegistro1();
@@ -877,7 +877,7 @@ $(document).ready(function () {
                     $(me.Variables.btnAceptarSolucion).show();
                 }
 
-                if (id == 'D') {                    
+                if (id == 'D') {
                     if (me.Funciones.ValidarPaso2Devolucion(id)) {
 
                         $("[data-tipo-confirma='cambio']").hide();
@@ -894,7 +894,7 @@ $(document).ready(function () {
                         //me.Funciones.CambioPaso2(100);
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
-                        
+
                         me.Funciones.CargarPropuesta(id);
                         $(me.Variables.Registro3).hide();
                         $(me.Variables.btnAceptarSolucion).show()
@@ -924,7 +924,7 @@ $(document).ready(function () {
                     var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                     var cantidad = $(me.Variables.txtCantidad1).val();
                     var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
-                    
+
                     $(me.Variables.hdMontoMinimoReclamo).val(totalTrueque);
                     $(me.Variables.spnMontoMinimoReclamoFormato).html(DecimalToStringFormat(totalTrueque));
 
@@ -939,7 +939,7 @@ $(document).ready(function () {
                     $(me.Variables.btnCambioProducto).show();
 
                     me.Funciones.ObtenerValorParametria(id);
-                    me.Funciones.CargarPropuesta(id);                    
+                    me.Funciones.CargarPropuesta(id);
                 }
             },
 
@@ -1265,7 +1265,7 @@ $(document).ready(function () {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0
                 };
-                
+
                 ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
@@ -1610,7 +1610,7 @@ $(document).ready(function () {
             },
 
             PopupPedido: function (pedidos) {
-                
+
                 $("#divPopupPedido").hide();
                 pedidos = pedidos || new Array();
                 SetHandlebars("#template-pedido", pedidos, "#divPedido");
@@ -1621,7 +1621,7 @@ $(document).ready(function () {
             },
 
             PopupPedidoSeleccionar: function (obj) {
-                
+
                 var objPedido = $(obj);
                 var id = objPedido.attr("data-pedido-id");
                 var pedidos = listaPedidos.Find("PedidoID", id);

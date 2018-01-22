@@ -11700,10 +11700,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task MntoCampoProveedorDespachoCobranzaAsync(Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMntoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity);
+        Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMnto", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaMntoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaMntoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaMntoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiD", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaBYiDResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaBYiD(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity);
@@ -11718,10 +11718,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<bool> EnviarProactivaChatbotAsync(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServiceSAC.BEChatbotProactivaMensaje[] listMensajeProactiva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobileResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
+        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobileResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturado", ReplyAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturadoResponse")]
         int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
@@ -11730,10 +11730,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<int> UpdateClientePedidoFacturadoAsync(int paisID, int codigoPedido, int ClienteID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse")]
-        string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
+        string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse")]
-        System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoISO);
+        System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoIso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarApps", ReplyAction="http://tempuri.org/ISACService/ListarAppsResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEApp[] ListarApps(int paisID);
@@ -12068,10 +12068,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task UpdConfiguracionParametroCargaAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion ent, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] lista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelConfiguracionParametroCarga", ReplyAction="http://tempuri.org/ISACService/DelConfiguracionParametroCargaResponse")]
-        void DelConfiguracionParametroCarga(int paisID, int CampaniaID);
+        void DelConfiguracionParametroCarga(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelConfiguracionParametroCarga", ReplyAction="http://tempuri.org/ISACService/DelConfiguracionParametroCargaResponse")]
-        System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int CampaniaID);
+        System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCarga", ReplyAction="http://tempuri.org/ISACService/GetRegionZonaDiasParametroCargaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID);
@@ -12218,10 +12218,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task RechazarSolicitudClienteAsync(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
+        Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/CancelarSolicitudCliente", ReplyAction="http://tempuri.org/ISACService/CancelarSolicitudClienteResponse")]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
@@ -12308,16 +12308,16 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
+        Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAsync(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAsync(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MigrarCronogramaAnticipado", ReplyAction="http://tempuri.org/ISACService/MigrarCronogramaAnticipadoResponse")]
-        int MigrarCronogramaAnticipado(int paisID, int CampaniaID, int ZonaID);
+        int MigrarCronogramaAnticipado(int paisID, int campaniaID, int ZonaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/MigrarCronogramaAnticipado", ReplyAction="http://tempuri.org/ISACService/MigrarCronogramaAnticipadoResponse")]
-        System.Threading.Tasks.Task<int> MigrarCronogramaAnticipadoAsync(int paisID, int CampaniaID, int ZonaID);
+        System.Threading.Tasks.Task<int> MigrarCronogramaAnticipadoAsync(int paisID, int campaniaID, int ZonaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaAutomaticoActivacion", ReplyAction="http://tempuri.org/ISACService/GetCronogramaAutomaticoActivacionResponse")]
         bool GetCronogramaAutomaticoActivacion(int paisID);
@@ -12332,10 +12332,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<int> GetCampaniaFacturacionPaisAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampaniaAnticipado", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaAnticipadoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampaniaAnticipado(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
+        Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampaniaAnticipado(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampaniaAnticipado", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaAnticipadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAnticipadoAsync(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAnticipadoAsync(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertCronogramaAnticipado", ReplyAction="http://tempuri.org/ISACService/InsertCronogramaAnticipadoResponse")]
         int InsertCronogramaAnticipado(Portal.Consultoras.Web.ServiceSAC.BECronograma cronograma);
@@ -12356,10 +12356,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task DeleteCronogramaAnticipadoAsync(Portal.Consultoras.Web.ServiceSAC.BECronograma cronograma);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampaniayZona", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniayZonaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BECronograma GetCronogramaByCampaniayZona(int paisID, int CampaniaID, int ZonaID);
+        Portal.Consultoras.Web.ServiceSAC.BECronograma GetCronogramaByCampaniayZona(int paisID, int campaniaID, int ZonaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampaniayZona", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniayZonaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma> GetCronogramaByCampaniayZonaAsync(int paisID, int CampaniaID, int ZonaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma> GetCronogramaByCampaniayZonaAsync(int paisID, int campaniaID, int ZonaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsConfiguracionConsultoraDA", ReplyAction="http://tempuri.org/ISACService/InsConfiguracionConsultoraDAResponse")]
         int InsConfiguracionConsultoraDA(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionConsultoraDA configuracionConsultoraDA);
@@ -12392,10 +12392,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<bool> DelProductoFaltanteAsync(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante productoFaltante);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltante2", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltante2Response")]
-        int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha);
+        int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelProductoFaltante2", ReplyAction="http://tempuri.org/ISACService/DelProductoFaltante2Response")]
-        System.Threading.Tasks.Task<int> DelProductoFaltante2Async(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha);
+        System.Threading.Tasks.Task<int> DelProductoFaltante2Async(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProductoFaltanteByEntity", ReplyAction="http://tempuri.org/ISACService/GetProductoFaltanteByEntityResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByEntity(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
@@ -12404,10 +12404,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByEntityAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaID", ReplyAction="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaIDResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion);
+        Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaID", ReplyAction="http://tempuri.org/ISACService/GetProductoFaltanteByCampaniaAndZonaIDResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsProductoFaltanteMasivo", ReplyAction="http://tempuri.org/ISACService/InsProductoFaltanteMasivoResponse")]
         string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productosFaltantes, bool FaltanteUltimoMinuto);
@@ -12440,16 +12440,16 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task UpdConfiguracionValidacionZonaAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion ent, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacionZona[] lista);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/DelConfiguracionValidacionZonaResponse")]
-        void DelConfiguracionValidacionZona(int paisID, int CampaniaID);
+        void DelConfiguracionValidacionZona(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DelConfiguracionValidacionZona", ReplyAction="http://tempuri.org/ISACService/DelConfiguracionValidacionZonaResponse")]
-        System.Threading.Tasks.Task DelConfiguracionValidacionZonaAsync(int paisID, int CampaniaID);
+        System.Threading.Tasks.Task DelConfiguracionValidacionZonaAsync(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacion", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[] GetConfiguracionValidacion(int paisID, int CampaniaID);
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[] GetConfiguracionValidacion(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionValidacion", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionValidacionResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[]> GetConfiguracionValidacionAsync(int paisID, int CampaniaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[]> GetConfiguracionValidacionAsync(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertConfiguracionValidacion", ReplyAction="http://tempuri.org/ISACService/InsertConfiguracionValidacionResponse")]
         void InsertConfiguracionValidacion(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion entidad);
@@ -12476,10 +12476,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task UpdProductoDescripcionAsync(Portal.Consultoras.Web.ServiceSAC.BEProductoDescripcion producto, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertaWebByCampania", ReplyAction="http://tempuri.org/ISACService/GetOfertaWebByCampaniaResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[] GetOfertaWebByCampania(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID);
+        Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[] GetOfertaWebByCampania(int PaisID, int campaniaID, int PedidoID, long ConsultoraID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetOfertaWebByCampania", ReplyAction="http://tempuri.org/ISACService/GetOfertaWebByCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[]> GetOfertaWebByCampaniaAsync(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[]> GetOfertaWebByCampaniaAsync(int PaisID, int campaniaID, int PedidoID, long ConsultoraID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsConsultoraFicticia", ReplyAction="http://tempuri.org/ISACService/InsConsultoraFicticiaResponse")]
         int InsConsultoraFicticia(Portal.Consultoras.Web.ServiceSAC.BEConsultoraFicticia BEConsultoraFicticia);
@@ -12893,12 +12893,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.MntoCampoProveedorDespachoCobranzaAsync(entidad, accion, campoid, valor, valorAntiguo);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity) {
-            return base.Channel.GetProveedorDespachoCobranzaMnto(paisID, entity);
+        public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaMnto(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            return base.Channel.GetProveedorDespachoCobranzaMnto(paisID, entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaMntoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity) {
-            return base.Channel.GetProveedorDespachoCobranzaMntoAsync(paisID, entity);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[]> GetProveedorDespachoCobranzaMntoAsync(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entidad) {
+            return base.Channel.GetProveedorDespachoCobranzaMntoAsync(paisID, entidad);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranzaBYiD(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza entity) {
@@ -12917,12 +12917,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.EnviarProactivaChatbotAsync(paisISO, urlRelativa, listMensajeProactiva);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
-            return base.Channel.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
+            return base.Channel.GetPedidosFacturadosDetalleMobile(PaisId, campaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
-            return base.Channel.GetPedidosFacturadosDetalleMobileAsync(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
+            return base.Channel.GetPedidosFacturadosDetalleMobileAsync(PaisId, campaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
         
         public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID) {
@@ -12933,12 +12933,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpdateClientePedidoFacturadoAsync(paisID, codigoPedido, ClienteID);
         }
         
-        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO) {
-            return base.Channel.GetCampaniaActualAndSiguientePais(paisID, codigoISO);
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso) {
+            return base.Channel.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
         }
         
-        public System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoISO) {
-            return base.Channel.GetCampaniaActualAndSiguientePaisAsync(paisID, codigoISO);
+        public System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoIso) {
+            return base.Channel.GetCampaniaActualAndSiguientePaisAsync(paisID, codigoIso);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEApp[] ListarApps(int paisID) {
@@ -13381,12 +13381,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpdConfiguracionParametroCargaAsync(ent, lista);
         }
         
-        public void DelConfiguracionParametroCarga(int paisID, int CampaniaID) {
-            base.Channel.DelConfiguracionParametroCarga(paisID, CampaniaID);
+        public void DelConfiguracionParametroCarga(int paisID, int campaniaID) {
+            base.Channel.DelConfiguracionParametroCarga(paisID, campaniaID);
         }
         
-        public System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int CampaniaID) {
-            return base.Channel.DelConfiguracionParametroCargaAsync(paisID, CampaniaID);
+        public System.Threading.Tasks.Task DelConfiguracionParametroCargaAsync(int paisID, int campaniaID) {
+            return base.Channel.DelConfiguracionParametroCargaAsync(paisID, campaniaID);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionParametroCarga[] GetRegionZonaDiasParametroCarga(int PaisID, int RegionID, int ZonaID) {
@@ -13581,12 +13581,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.RechazarSolicitudClienteAsync(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
-            return base.Channel.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
+        public Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo) {
+            return base.Channel.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, opcionRechazo, razonMotivoRechazo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo) {
-            return base.Channel.ReasignarSolicitudClienteAsync(paisID, solicitudId, codigoUbigeo, campania, marcaId, OpcionRechazo, RazonMotivoRechazo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BESolicitudNuevaConsultora> ReasignarSolicitudClienteAsync(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo) {
+            return base.Channel.ReasignarSolicitudClienteAsync(paisID, solicitudId, codigoUbigeo, campania, marcaId, opcionRechazo, razonMotivoRechazo);
         }
         
         public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion) {
@@ -13701,20 +13701,20 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetCampaniaActivaPaisAsync(paisID, fechaConsulta);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {
-            return base.Channel.GetCronogramaByCampania(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+        public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID) {
+            return base.Channel.GetCronogramaByCampania(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAsync(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {
-            return base.Channel.GetCronogramaByCampaniaAsync(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAsync(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID) {
+            return base.Channel.GetCronogramaByCampaniaAsync(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
         
-        public int MigrarCronogramaAnticipado(int paisID, int CampaniaID, int ZonaID) {
-            return base.Channel.MigrarCronogramaAnticipado(paisID, CampaniaID, ZonaID);
+        public int MigrarCronogramaAnticipado(int paisID, int campaniaID, int ZonaID) {
+            return base.Channel.MigrarCronogramaAnticipado(paisID, campaniaID, ZonaID);
         }
         
-        public System.Threading.Tasks.Task<int> MigrarCronogramaAnticipadoAsync(int paisID, int CampaniaID, int ZonaID) {
-            return base.Channel.MigrarCronogramaAnticipadoAsync(paisID, CampaniaID, ZonaID);
+        public System.Threading.Tasks.Task<int> MigrarCronogramaAnticipadoAsync(int paisID, int campaniaID, int ZonaID) {
+            return base.Channel.MigrarCronogramaAnticipadoAsync(paisID, campaniaID, ZonaID);
         }
         
         public bool GetCronogramaAutomaticoActivacion(int paisID) {
@@ -13733,12 +13733,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetCampaniaFacturacionPaisAsync(paisID);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampaniaAnticipado(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {
-            return base.Channel.GetCronogramaByCampaniaAnticipado(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+        public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampaniaAnticipado(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID) {
+            return base.Channel.GetCronogramaByCampaniaAnticipado(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAnticipadoAsync(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {
-            return base.Channel.GetCronogramaByCampaniaAnticipadoAsync(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma[]> GetCronogramaByCampaniaAnticipadoAsync(int paisID, int campaniaID, int ZonaID, short TipoCronogramaID) {
+            return base.Channel.GetCronogramaByCampaniaAnticipadoAsync(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
         
         public int InsertCronogramaAnticipado(Portal.Consultoras.Web.ServiceSAC.BECronograma cronograma) {
@@ -13765,12 +13765,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.DeleteCronogramaAnticipadoAsync(cronograma);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BECronograma GetCronogramaByCampaniayZona(int paisID, int CampaniaID, int ZonaID) {
-            return base.Channel.GetCronogramaByCampaniayZona(paisID, CampaniaID, ZonaID);
+        public Portal.Consultoras.Web.ServiceSAC.BECronograma GetCronogramaByCampaniayZona(int paisID, int campaniaID, int ZonaID) {
+            return base.Channel.GetCronogramaByCampaniayZona(paisID, campaniaID, ZonaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma> GetCronogramaByCampaniayZonaAsync(int paisID, int CampaniaID, int ZonaID) {
-            return base.Channel.GetCronogramaByCampaniayZonaAsync(paisID, CampaniaID, ZonaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BECronograma> GetCronogramaByCampaniayZonaAsync(int paisID, int campaniaID, int ZonaID) {
+            return base.Channel.GetCronogramaByCampaniayZonaAsync(paisID, campaniaID, ZonaID);
         }
         
         public int InsConfiguracionConsultoraDA(int paisID, Portal.Consultoras.Web.ServiceSAC.BEConfiguracionConsultoraDA configuracionConsultoraDA) {
@@ -13813,12 +13813,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.DelProductoFaltanteAsync(paisID, paisISO, CodigoUsuario, productoFaltante);
         }
         
-        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha) {
-            return base.Channel.DelProductoFaltante2(paisID, paisISO, CodigoUsuario, prod, flag, pais, campania, zona, cuv, e_producto, fecha);
+        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha) {
+            return base.Channel.DelProductoFaltante2(paisID, paisISO, CodigoUsuario, productoFaltante, flag, pais, campania, zona, cuv, e_producto, fecha);
         }
         
-        public System.Threading.Tasks.Task<int> DelProductoFaltante2Async(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha) {
-            return base.Channel.DelProductoFaltante2Async(paisID, paisISO, CodigoUsuario, prod, flag, pais, campania, zona, cuv, e_producto, fecha);
+        public System.Threading.Tasks.Task<int> DelProductoFaltante2Async(int paisID, string paisISO, string CodigoUsuario, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, System.DateTime fecha) {
+            return base.Channel.DelProductoFaltante2Async(paisID, paisISO, CodigoUsuario, productoFaltante, flag, pais, campania, zona, cuv, e_producto, fecha);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByEntity(int paisID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina) {
@@ -13829,12 +13829,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetProductoFaltanteByEntityAsync(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion) {
-            return base.Channel.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID, cuv, descripcion);
+        public Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion) {
+            return base.Channel.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion) {
-            return base.Channel.GetProductoFaltanteByCampaniaAndZonaIDAsync(paisID, CampaniaID, ZonaID, cuv, descripcion);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[]> GetProductoFaltanteByCampaniaAndZonaIDAsync(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion) {
+            return base.Channel.GetProductoFaltanteByCampaniaAndZonaIDAsync(paisID, campaniaID, ZonaID, cuv, descripcion);
         }
         
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, Portal.Consultoras.Web.ServiceSAC.BEProductoFaltante[] productosFaltantes, bool FaltanteUltimoMinuto) {
@@ -13877,20 +13877,20 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpdConfiguracionValidacionZonaAsync(ent, lista);
         }
         
-        public void DelConfiguracionValidacionZona(int paisID, int CampaniaID) {
-            base.Channel.DelConfiguracionValidacionZona(paisID, CampaniaID);
+        public void DelConfiguracionValidacionZona(int paisID, int campaniaID) {
+            base.Channel.DelConfiguracionValidacionZona(paisID, campaniaID);
         }
         
-        public System.Threading.Tasks.Task DelConfiguracionValidacionZonaAsync(int paisID, int CampaniaID) {
-            return base.Channel.DelConfiguracionValidacionZonaAsync(paisID, CampaniaID);
+        public System.Threading.Tasks.Task DelConfiguracionValidacionZonaAsync(int paisID, int campaniaID) {
+            return base.Channel.DelConfiguracionValidacionZonaAsync(paisID, campaniaID);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[] GetConfiguracionValidacion(int paisID, int CampaniaID) {
-            return base.Channel.GetConfiguracionValidacion(paisID, CampaniaID);
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[] GetConfiguracionValidacion(int paisID, int campaniaID) {
+            return base.Channel.GetConfiguracionValidacion(paisID, campaniaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[]> GetConfiguracionValidacionAsync(int paisID, int CampaniaID) {
-            return base.Channel.GetConfiguracionValidacionAsync(paisID, CampaniaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion[]> GetConfiguracionValidacionAsync(int paisID, int campaniaID) {
+            return base.Channel.GetConfiguracionValidacionAsync(paisID, campaniaID);
         }
         
         public void InsertConfiguracionValidacion(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionValidacion entidad) {
@@ -13925,12 +13925,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpdProductoDescripcionAsync(producto, codigoUsuario);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[] GetOfertaWebByCampania(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID) {
-            return base.Channel.GetOfertaWebByCampania(PaisID, CampaniaID, PedidoID, ConsultoraID);
+        public Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[] GetOfertaWebByCampania(int PaisID, int campaniaID, int PedidoID, long ConsultoraID) {
+            return base.Channel.GetOfertaWebByCampania(PaisID, campaniaID, PedidoID, ConsultoraID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[]> GetOfertaWebByCampaniaAsync(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID) {
-            return base.Channel.GetOfertaWebByCampaniaAsync(PaisID, CampaniaID, PedidoID, ConsultoraID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEOfertaWeb[]> GetOfertaWebByCampaniaAsync(int PaisID, int campaniaID, int PedidoID, long ConsultoraID) {
+            return base.Channel.GetOfertaWebByCampaniaAsync(PaisID, campaniaID, PedidoID, ConsultoraID);
         }
         
         public int InsConsultoraFicticia(Portal.Consultoras.Web.ServiceSAC.BEConsultoraFicticia BEConsultoraFicticia) {
