@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Error;
                         break;
                 }
-                mensajeRespuesta += string.Format(" (COD. {0})", Respuesta);
+                mensajeRespuesta += string.Format(" (COD. {0})", respuesta);
 
 
                 if (respuesta != -1000)
