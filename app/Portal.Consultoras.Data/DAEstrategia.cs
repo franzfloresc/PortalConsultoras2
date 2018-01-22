@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Data
             }
         }
 
-
         public IDataReader GetEstrategiaDetalle(int idEstrategiaDetalle)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaDetalle"))

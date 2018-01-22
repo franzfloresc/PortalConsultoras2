@@ -204,13 +204,15 @@ namespace Portal.Consultoras.BizLogic
         {
             BEPedidoWeb bePEdidoWeb = _blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, usuario.CampaniaID, usuario.ConsultoraID);
 
-            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
-            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
-            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
-            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
-            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
-            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
-            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva
+            };
 
             List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
@@ -239,14 +241,14 @@ namespace Portal.Consultoras.BizLogic
             if (tipoAccion == "I")
             {
                 int itemCantidad;
-                short pedidoDetalleID = ValidarInsercion(olstTempListado, item, out itemCantidad);
-                if (pedidoDetalleID != 0)
+                short pedidoDetalleId = ValidarInsercion(olstTempListado, item, out itemCantidad);
+                if (pedidoDetalleId != 0)
                 {
                     tipoAccion = "U";
                     item.Stock = item.Cantidad;
                     item.Cantidad += itemCantidad;
                     item.ImporteTotal = item.Cantidad * item.PrecioUnidad;
-                    item.PedidoDetalleID = pedidoDetalleID;
+                    item.PedidoDetalleID = pedidoDetalleId;
                     item.Flag = 2;
                     item.OrdenPedidoWD = 1;
                 }
@@ -308,25 +310,27 @@ namespace Portal.Consultoras.BizLogic
         private void ActualizarPedidoWebMontosPROL(BEUsuario usuario)
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
-            string CodigosConcursos = string.Empty, Puntajes = string.Empty, PuntajesExigidos = string.Empty;
-            
-            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
-            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
-            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
-            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
-            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
-            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
-            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+            string codigosConcursos = string.Empty, puntajes = string.Empty, puntajesExigidos = string.Empty;
+
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva
+            };
             var listProducto = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
             if (listProducto.Any())
             {
                 var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
-                var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
-                if (Concursos.Any()) CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
+                var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
+                if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));
 
-                var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, CodigosConcursos);
+                var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, codigosConcursos);
                 if (lista != null)
                 {
                     if (lista.Count > 0)
@@ -340,8 +344,8 @@ namespace Portal.Consultoras.BizLogic
 
                         if (datos.ListaConcursoIncentivos != null)
                         {
-                            Puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
-                            PuntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
+                            puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
+                            puntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
                         }
                     }
                 }
@@ -360,20 +364,20 @@ namespace Portal.Consultoras.BizLogic
 
                 _blPedidoWeb.UpdateMontosPedidoWeb(bePedidoWeb);
 
-                if (!string.IsNullOrEmpty(CodigosConcursos))
-                    _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), CodigosConcursos, Puntajes, PuntajesExigidos);
+                if (!string.IsNullOrEmpty(codigosConcursos))
+                    _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigosConcursos, puntajes, puntajesExigidos);
             }
         }
 
         private static List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, List<BEPedidoWebDetalle> pedido, string CodigosConcursos)
         {
-            string ListaCUVS = string.Join("|", pedido.Select(p => p.CUV));
-            string ListaCantidades = string.Join("|", pedido.Select(p => p.Cantidad));
+            string listaCuvs = string.Join("|", pedido.Select(p => p.CUV));
+            string listaCantidades = string.Join("|", pedido.Select(p => p.Cantidad));
 
             var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
             var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
-            var result = new DACalculoPROL(ConfigurationManager.AppSettings[keyWeb]).CalculoMontosProl(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, ListaCUVS, ListaCantidades, CodigosConcursos).ToList();
+            var result = new DACalculoPROL(ConfigurationManager.AppSettings[keyWeb]).CalculoMontosProl(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, listaCuvs, listaCantidades, CodigosConcursos).ToList();
             return result;
         }
 
