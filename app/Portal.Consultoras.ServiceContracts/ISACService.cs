@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using System.Data;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Mobile;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.ServiceContracts
 {
