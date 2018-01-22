@@ -45,22 +45,14 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (respuesta)
                 {
                     case Constantes.ValAutoEstado.NoExisteProceso:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.NoExisteProceso;
+                    case Constantes.ValAutoEstado.Finalizado:
+                    case Constantes.ValAutoEstado.Error:
+                        mensajeRespuesta = Constantes.ValAutoEjecucionResultado.Inicio;
                         break;
                     case Constantes.ValAutoEstado.Programado:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Programado;
-                        break;
                     case Constantes.ValAutoEstado.EnEjecucion:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.EnEjecucion;
-                        break;
-                    case Constantes.ValAutoEstado.Finalizado:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Finalizado;
-                        break;
                     case Constantes.ValAutoEstado.FaltaEnvioCorreos:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.FaltaEnvioCorreos;
-                        break;
-                    case Constantes.ValAutoEstado.Error:
-                        mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.Error;
+                        mensajeRespuesta = Constantes.ValAutoEjecucionResultado.YaExisteProceso;
                         break;
                 }
                 mensajeRespuesta += string.Format(" (COD. {0})", respuesta);

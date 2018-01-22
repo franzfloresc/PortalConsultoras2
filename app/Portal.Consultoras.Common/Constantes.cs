@@ -1665,6 +1665,11 @@ namespace Portal.Consultoras.Common
             public const string FaltaEnvioCorreos = "El proceso de envío de correos está en ejecución.";
             public const string Error = "Error en la ejecución de los procesos programados.";
         }
+        public class ValAutoEjecucionResultado
+        {
+            public const string Inicio = "El proceso de PROL Automático ha iniciado.";
+            public const string YaExisteProceso = "El proceso de PROL Automático está en proceso.";
+        }
         public class ValAutoDetalleEstadoDescripcion
         {
             public const string Programado = "Programado";
