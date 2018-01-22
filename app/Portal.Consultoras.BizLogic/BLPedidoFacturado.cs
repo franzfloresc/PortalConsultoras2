@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.Hana;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -16,13 +13,13 @@ namespace Portal.Consultoras.BizLogic
         {
             var lista = new List<BEPedidoFacturado>();
 
-            var BLPais = new BLPais();
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!blPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
+                var daPedidoFacturado = new DAPedidoFacturado(PaisId);
 
-                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosCabecera(CodigoConsultora))
+                using (IDataReader reader = daPedidoFacturado.GetPedidosFacturadosCabecera(CodigoConsultora))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoFacturado(reader, 1);
@@ -32,18 +29,20 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHPedido = new DAHPedido();
+                var dahPedido = new DAHPedido();
 
-                var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
+                var listaPedidoHana = dahPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
 
                 listaPedidoHana = listaPedidoHana.Where(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO").OrderByDescending(p => p.CampaniaID).Take(3).ToList();
 
                 foreach (var pedidoHana in listaPedidoHana)
                 {
-                    var bePedidoFacturado = new BEPedidoFacturado();
-                    bePedidoFacturado.PedidoId = pedidoHana.PedidoID;
-                    bePedidoFacturado.Campania = pedidoHana.CampaniaID;
-                    bePedidoFacturado.ImporteTotal = pedidoHana.ImporteTotal;
+                    var bePedidoFacturado = new BEPedidoFacturado
+                    {
+                        PedidoId = pedidoHana.PedidoID,
+                        Campania = pedidoHana.CampaniaID,
+                        ImporteTotal = pedidoHana.ImporteTotal
+                    };
 
                     string origen = string.IsNullOrEmpty(pedidoHana.CanalIngreso) ? "" : pedidoHana.CanalIngreso;
                     string flete = pedidoHana.Flete.ToString();
@@ -65,12 +64,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var lista = new List<BEPedidoFacturado>();
 
-            var BLPais = new BLPais();
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!blPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
-                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalle(Campania, Region, Zona, CodigoConsultora, pedidoId))
+                var daPedidoFacturado = new DAPedidoFacturado(PaisId);
+                using (IDataReader reader = daPedidoFacturado.GetPedidosFacturadosDetalle(Campania, Region, Zona, CodigoConsultora, pedidoId))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoFacturado(reader);
@@ -80,9 +79,9 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHPedidoDetalle = new DAHPedidoDetalle();
+                var dahPedidoDetalle = new DAHPedidoDetalle();
 
-                lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoId);
+                lista = dahPedidoDetalle.GetPedidoDetalle(PaisId, pedidoId);
             }
 
             return lista;
@@ -92,12 +91,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var lista = new List<BEPedidoFacturado>();
 
-            var BLPais = new BLPais();
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!blPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
-                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalleMobile(CampaniaID, ConsultoraID, ClienteID))
+                var daPedidoFacturado = new DAPedidoFacturado(PaisId);
+                using (IDataReader reader = daPedidoFacturado.GetPedidosFacturadosDetalleMobile(CampaniaID, ConsultoraID, ClienteID))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoFacturado(reader);
@@ -107,15 +106,15 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHPedido = new DAHPedido();
+                var dahPedido = new DAHPedido();
 
-                var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
+                var listaPedidoHana = dahPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
                 var pedidoHana = listaPedidoHana.FirstOrDefault(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO" && p.CampaniaID == CampaniaID);
 
                 if (pedidoHana != null)
                 {
-                    var DAHPedidoDetalle = new DAHPedidoDetalle();
-                    lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoHana.PedidoID);
+                    var dahPedidoDetalle = new DAHPedidoDetalle();
+                    lista = dahPedidoDetalle.GetPedidoDetalle(PaisId, pedidoHana.PedidoID);
                     if (ClienteID > 0) lista = lista.Where(x => x.ClienteID == ClienteID).ToList();
                 }
             }
@@ -125,8 +124,8 @@ namespace Portal.Consultoras.BizLogic
 
         public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
         {
-            var DAPedidoWeb = new DAPedidoFacturado(paisID);
-            return DAPedidoWeb.UpdateClientePedidoFacturado(codigoPedido, ClienteID);
+            var daPedidoWeb = new DAPedidoFacturado(paisID);
+            return daPedidoWeb.UpdateClientePedidoFacturado(codigoPedido, ClienteID);
         }
     }
 }
