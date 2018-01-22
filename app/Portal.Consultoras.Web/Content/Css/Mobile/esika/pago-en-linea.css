@@ -73,7 +73,9 @@
 .monto_saldo_pendiente,
 .fecha_vencimiento_saldo_pendiente,
 .icono_pago_exitoso,
-.confirmacion_pago
+.confirmacion_pago,
+.info_constancia_pago_exitoso,
+.info_num_operacion_pago
 {
     display:block;
 }
@@ -100,7 +102,8 @@
 .total_monto_pagado span,
 .monto_saldo_pendiente div,
 .monto_saldo_pendiente div span,
-.fecha_vencimiento_saldo_pendiente span
+.fecha_vencimiento_saldo_pendiente span,
+.num_operacion_pago
 {
     display:inline-block;
     vertical-align:middle;
@@ -651,6 +654,7 @@
 
 .confirmacion_pago .total_monto_pagado{
     margin-bottom:0;
+    padding-top:7px;
 }
 
 /*.redireccion_proveedor_de_pago{
@@ -812,16 +816,42 @@
     height:auto;
 }
 
-.info_saldo_pendiente{
+.info_saldo_pendiente,
+.info_constancia_pago_exitoso
+{
     font-size:12px;
+}
+
+.info_saldo_pendiente,
+.info_num_operacion_pago
+{
     color:#000;
-    margin-bottom:26px;
+}
+
+.info_saldo_pendiente{
+    margin-bottom:4px;
+}
+
+.info_constancia_pago_exitoso{
+    margin-bottom:23px;
+}
+
+.info_num_operacion_pago{
+    font-weight:bold;
+}
+
+.num_operacion_pago {
+    margin-bottom: 1.87px;
 }
 
 .resumen_pago_exitoso,
 .titulo_resumen_pago_exitoso
 {
     font-size:14px;
+}
+
+.resumen_pago_exitoso{
+    margin-bottom:56px;
 }
 
 .titulo_resumen_pago_exitoso,
