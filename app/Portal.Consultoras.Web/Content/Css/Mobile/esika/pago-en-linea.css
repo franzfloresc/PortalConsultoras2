@@ -60,8 +60,10 @@
 .redireccion_proveedor_de_pago,
 .animacion_precarga_redireccion_proveedor_pago,
 .pago_exitoso,
+.pago_rechazado,
 .titulo_pago_exitoso,
 .mensaje_felicitacion_por_pago_exitoso,
+.info_saldo_pendiente,
 .resumen_pago_exitoso,
 .titulo_resumen_pago_exitoso,
 .resumen_pago,
@@ -69,7 +71,8 @@
 .monto_gastos_administrativos,
 .total_monto_pagado,
 .monto_saldo_pendiente,
-.fecha_vencimiento_saldo_pendiente
+.fecha_vencimiento_saldo_pendiente,
+.icono_pago_exitoso
 {
     display:block;
 }
@@ -737,21 +740,55 @@
 
 }
 
-.pago_exitoso{
-    margin-top:22px;
+.pago_exitoso,
+.pago_rechazado
+{
+    margin-top:10px;
 }
 
-.titulo_pago_exitoso{
-    font-size:13px;
-    font-weight:bold;
-    margin:0;
-    padding-bottom:9px;
+.icono_pago_exitoso,
+.icono_pago_rechazado
+{
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 18px auto;
+    font-family: 'somos-belcorp-iconos';
+    font-size: 21px;
+    border-radius: 100%;
+    border: 2px solid #e81c36;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.icono_pago_exitoso:before,
+.icono_pago_rechazado:before
+{
+    color:#e81c36;
+}
+
+.icono_pago_exitoso:before{
+    content: '\e90e';
+}
+
+.icono_pago_rechazado:before{
+    content: '\e90e';
+}
+
+.titulo_pago_exitoso,
+.titulo_pago_rechazado
+{
+    font-size:24px;
+    font-weight:300;
+    margin:0 0 33px 0;
     text-transform:uppercase;
-    border-bottom:1px solid #b5b5b5;
+    text-align:center;
 }
 
-.mensaje_felicitacion_por_pago_exitoso{
+.mensaje_felicitacion_por_pago_exitoso,
+.mensaje_felicitacion_por_pago_rechazado
+{
     margin-top:8px;
+    margin-bottom:0;
     font-size:12px;
     font-weight:bold;
     color:#a18328;
@@ -768,6 +805,12 @@
 .imagen_felicitacion img{
     width:100%;
     height:auto;
+}
+
+.info_saldo_pendiente{
+    font-size:12px;
+    color:#000;
+    margin-bottom:26px;
 }
 
 .resumen_pago_exitoso,
@@ -806,7 +849,7 @@
 .monto_gastos_administrativos span:first-child,
 .total_monto_pagado span:first-child
 {
-    width:50%;
+    width:55%;
     text-align:left;
 }
 
@@ -814,7 +857,7 @@
 .monto_gastos_administrativos span:last-child,
 .total_monto_pagado span:last-child
 {
-    width:48.5%;
+    width:43.5%;
     text-align:right;
 }
 

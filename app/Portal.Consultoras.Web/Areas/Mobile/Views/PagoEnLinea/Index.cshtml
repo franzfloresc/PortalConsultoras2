@@ -121,64 +121,10 @@
 
         <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
 
-        <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-        <div class="redireccion_proveedor_de_pago" style="display:none;">
-            <p class="info_redireccion_proveedor_de_pago">
-                Te estamos redirigiendo al proveedor de pago
-            </p>
-            <div class="animacion_precarga_redireccion_proveedor_pago"></div>
-        </div>
-
-        <!-- FIN - VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-        <!-- VISTA PAGO EXITOSO -->
-
-        <div class="pago_exitoso" style="display:none;">
-
-            <h3 class="titulo_pago_exitoso">Pago exitoso</h3>
-            <p class="mensaje_felicitacion_por_pago_exitoso">
-                Muy bien Valeria <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
-            </p>
-
-            <div class="resumen_pago_exitoso">
-                <h3 class="titulo_resumen_pago_exitoso">
-                    Resumen del pago
-                </h3>
-                <div class="resumen_pago">
-                    <div class="monto_pagado">
-                        <span>Monto:</span>
-                        <span>500.00</span>
-                    </div>
-                    <div class="monto_gastos_administrativos">
-                        <span>Gasto administrativo:</span>
-                        <span>10.00</span>
-                    </div>
-                    <div class="total_monto_pagado">
-                        <span>Total pagado:</span>
-                        <span>510.00</span>
-                    </div>
-                    <div class="monto_saldo_pendiente">
-                        <div>Saldo pendiente:</div>
-                        <div>
-                            <span>S/</span>
-                            <span>500.00</span>
-                        </div>
-                    </div>
-                    <div class="fecha_vencimiento_saldo_pendiente">
-                        <span>Vencimiento:</span>
-                        <span>31/06</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- FIN - VISTA PAGO EXITOSO -->
-
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
 
         <div class="contenedor_info_pago_seguro_y_ctas">
+
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
                 </div>
@@ -196,7 +142,7 @@
 
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
                 <span>
-                    Pagar con Visa (<span class="tipo_moneda_pais">S/ </span><span class="monto_a_pagar">1020.00</span>)
+                    Continuar
                 </span>
             </button>
 
@@ -204,7 +150,7 @@
 
         </div>
 
-        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
 
     </div>
 

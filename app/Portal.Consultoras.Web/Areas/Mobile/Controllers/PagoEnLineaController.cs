@@ -14,5 +14,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View();
         }
 
+        public ActionResult ConfirmacionPago()
+        {
+            return View();
+        }
+
+        public ActionResult PagoExitoso()
+        {
+            return View();
+        }
+
+        public ActionResult PagoRechazado()
+        {
+            return View();
+        }
+
     }
 }
