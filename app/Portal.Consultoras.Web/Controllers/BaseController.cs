@@ -4389,18 +4389,16 @@ namespace Portal.Consultoras.Web.Controllers
             return lstRVPRFModel;
         }
 
-        protected List<CampaniaModel> GetCampaniasRVDigitalWeb(out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
+        protected List<CampaniaModel> GetCampaniasRVDigitalWeb(string codigoConsultora, out string errorMessage)
         {                
             List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
+            errorMessage = string.Empty;
             try
             {
                 ResultObject2 result;
                 using (var sv = new PdfServiceClient())
                 {
-                    result = sv.LIS_Campana(userData.CodigoISO, "1", userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora);
+                    result = sv.LIS_Campana(userData.CodigoISO, "1", codigoConsultora);
                 }
 
                 if (result != null)
@@ -4409,17 +4407,16 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result.lista.Select(p => new CampaniaModel() { CampaniaID = Convert.ToInt32(p.campana), Codigo = p.campana });
                     }
-                    else
+                    else if(result.errorCode != string.Empty && result.errorCode != "00000")
                     {
-                        ErrorCode = result.errorCode;
-                        ErrorMessage = result.errorMessage;
+                        errorMessage = result.errorMessage;
                     }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
+                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ListaCampanias;
             }
 
             if (lstCampaniaModel.Count != 0) return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();

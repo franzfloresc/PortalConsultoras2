@@ -1070,8 +1070,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
 
             return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
-
-
         }
 
         #region metodos genericos

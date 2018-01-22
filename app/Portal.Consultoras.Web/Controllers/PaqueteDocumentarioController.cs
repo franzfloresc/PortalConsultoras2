@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             RVDigitalModel oRVDigitalModel = new RVDigitalModel();
             oRVDigitalModel.listaCampania = GetCampaniasRVDigitalWeb(out ErrorServicio, out ErrorCode, out ErrorMessage);
+            oRVDigitalModel.listaCampania = GetCampaniasRVDigitalWeb(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, out ErrorServicio, out ErrorCode, out ErrorMessage);
 
             if (ErrorServicio)
             {
