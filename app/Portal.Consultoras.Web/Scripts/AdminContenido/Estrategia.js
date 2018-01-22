@@ -72,7 +72,7 @@
     };
 
     var _editar = function (data, id) {
-       
+
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -88,7 +88,7 @@
             ValidarImagen: data.ValidarImagen,
             PesoMaximo: data.PesoMaximo
         };
-       
+
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
             var TipoEstrategiaCodigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             if (TipoEstrategiaCodigo == TipoEstrategiaIncentivosProgramaNuevas)
@@ -130,9 +130,9 @@
                 closeWaitingDialog();
                 return false;
             }
-           
+
             $("#hdSimbolo").val(data.Simbolo);
-            
+
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
             else $("#chkHabilitarOferta").attr("checked", false);
 
@@ -153,7 +153,7 @@
 
             if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
             else $("#hdColorFondo").val("#FFF");
-            
+
             if (data.EsOfertaIndependiente == "1") $("#chkEsOfertaIndependiente").attr('checked', true);
             else $("#chkEsOfertaIndependiente").attr('checked', false);
 

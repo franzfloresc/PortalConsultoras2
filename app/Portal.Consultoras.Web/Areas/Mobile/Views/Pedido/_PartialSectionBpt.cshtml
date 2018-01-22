@@ -1,28 +1,20 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-@model RevistaDigitalModel
+@model PartialSectionBpt
 @{
-    ConfiguracionPaisDatosModel configuracionPaisDatosModel;
-    var urlLogo = Model.MLogoComercialNoActiva;
-    if (Model.TieneRDC && Model.EsSuscrita)
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
+    RevistaDigitalModel revistaDigital = Model.RevistaDigital;
+    var urlLogo = revistaDigital.MLogoComercialNoActiva;
+    if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
-        urlLogo = Model.MLogoComercialActiva;
+        urlLogo = revistaDigital.MLogoComercialActiva;
     }
 }
 
-@if (Model.TieneRDC)
+@if (revistaDigital.TieneRDC)
 {
-    if (Model.EsActiva)
-    {
-        if (Model.EsSuscrita)
-        {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-        }
-        else
-        {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-        }
-            
+    if (revistaDigital.EsActiva)
+    {            
         <div class="mob_home_bpt">
             <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
                 <div class="cabecera_pedido_rd">
@@ -50,16 +42,7 @@
         </div>
     }
     else
-    {
-        if (Model.EsSuscrita)
-        {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-        }
-        else
-        {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-        }
-            
+    { 
         <div class="wrapper_resumen_mobile">
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
@@ -81,13 +64,16 @@
         </div>
         <hr class="clear" />
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-        new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", ViewBag.NombreConsultora },
-            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
+        new ViewDataDictionary {
+            { "Source", 2 },
+            { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+            { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+        });
     }
 }
-else if (Model.TieneRDR)
+else if (revistaDigital.TieneRDR)
 {
-    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
     <div class="mob_home_bpt">
         <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
             <div class="cabecera_pedido_rd">
@@ -117,6 +103,10 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-    new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", ViewBag.NombreConsultora },
-        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
+    new ViewDataDictionary {
+        { "Source", 1 },
+        { "NombreConsultora", ViewBag.NombreConsultora },
+        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+        { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+    });
 }

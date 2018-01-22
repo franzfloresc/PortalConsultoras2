@@ -43,7 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = sidx,
                 SortOrder = sord
             };
-            BEPager pag = new BEPager();
 
             var lst = new List<RVPRFModel>();
             if (!string.IsNullOrEmpty(Campania)) lst = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
@@ -72,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             items = lst;
 
-            pag = Paginador(grid, Campania, lst);
+            BEPager pag = Paginador(grid, Campania, lst);
 
             var data = new
             {
@@ -174,14 +173,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

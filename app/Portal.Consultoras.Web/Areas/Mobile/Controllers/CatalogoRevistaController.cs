@@ -86,20 +86,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View();
         }
 
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + NroCampanias.ToString();
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == NroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
-        }
-
         public JsonResult Detalle(int campania)
         {
             List<Catalogo> listCatalogo = this.GetCatalogosPublicados(CodigoISO, campania.ToString());
@@ -173,7 +159,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else if (docName == catalogoFinart) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetCatalogosPublicados");
+                catalogos = new List<Catalogo>();
+            }
             return catalogos;
         }
 
@@ -287,7 +277,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetUrlRevistaIssuu");
+            }
+
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }

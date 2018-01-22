@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -155,25 +156,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var userData = UserData();
 
-            var cadena = "<h2> Estado de cuenta </h2>" +
-                         "<table width='650px' border = '1px' bordercolor='black' cellpadding='5px' cellspacing='0px' bgcolor='dddddd' >" +
-                         "<tr>" +
-                            "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Fecha</th>" +
-                            "<th bgcolor='666666' width='350px' align='center'><font color='#FFFFFF'>Últimos Movimientos</th>" +
-                            "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Pedidos</th>" +
-                            "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
-                         "</tr>";
+            var txtBuil = new StringBuilder();
+
+            txtBuil.Append(
+                        "<h2> Estado de cuenta </h2>" +
+                        "<table width='650px' border = '1px' bordercolor='black' cellpadding='5px' cellspacing='0px' bgcolor='dddddd' >" +
+                            "<tr>" +
+                                "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Fecha</th>" +
+                                "<th bgcolor='666666' width='350px' align='center'><font color='#FFFFFF'>Últimos Movimientos</th>" +
+                                "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Pedidos</th>" +
+                                "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
+                            "</tr>"
+                          );
 
             if (userData.PaisID == 4 && lst.Any())
             {
                 for (int i = 0; i < lst.Count - 1; i++)
                 {
-                    cadena += "<tr>" +
-                                  "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
-                                  "<td align='left'>" + lst[i].Glosa + "</td>" +
-                                  "<td align='right'>" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].Cargo).Replace(',', '.') + "</td>" +
-                                  "<td align='right'>" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].Abono).Replace(',', '.') + "</td>" +
-                              "</tr>";
+                    txtBuil.Append(
+                            "<tr>" +
+                                "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
+                                "<td align='left'>" + lst[i].Glosa + "</td>" +
+                                "<td align='right'>" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].Cargo).Replace(',', '.') + "</td>" +
+                                "<td align='right'>" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].Abono).Replace(',', '.') + "</td>" +
+                            "</tr>"
+                            );
                 }
             }
             else
@@ -182,15 +189,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     for (int i = 0; i < lst.Count - 1; i++)
                     {
-                        cadena += "<tr>" +
+                        txtBuil.Append(
+                                "<tr>" +
                                     "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
                                     "<td align='left'>" + lst[i].Glosa + "</td>" +
                                     "<td align='right'>" + userData.Simbolo + lst[i].Cargo.ToString("0.00") + "</td>" +
                                     "<td align='right'>" + userData.Simbolo + lst[i].Abono.ToString("0.00") + "</td>" +
-                                  "</tr>";
+                                "</tr>"
+                                     );
                     }
                 }
             }
+
+            var cadena = txtBuil.ToString();
+
             if (lst.Any())
             {
                 if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)

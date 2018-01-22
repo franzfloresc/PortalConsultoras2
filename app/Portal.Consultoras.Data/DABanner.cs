@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@GrupoBannerID", SqlDbType.Int);
-            parameter.Value = (int)grupoBanner.GrupoBannerID;
+            parameter.Value = grupoBanner.GrupoBannerID;
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@TiempoRotacion", SqlDbType.Int);
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@GrupoBannerID", SqlDbType.Int);
-            parameter.Value = (int)banner.GrupoBannerID;
+            parameter.Value = banner.GrupoBannerID;
             command.Parameters.Add(parameter);
 
             parameter = new SqlParameter("@Orden", SqlDbType.Int);

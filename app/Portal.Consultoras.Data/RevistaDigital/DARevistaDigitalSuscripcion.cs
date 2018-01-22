@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "EstadoRegistro", DbType.Int32, entity.EstadoRegistro);
             Context.Database.AddInParameter(command, "EstadoEnvio", DbType.Int32, entity.EstadoEnvio);
+            Context.Database.AddInParameter(command, "Origen", DbType.String, entity.Origen);
             Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
             Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);
@@ -40,6 +41,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "EstadoRegistro", DbType.Int32, entity.EstadoRegistro);
             Context.Database.AddInParameter(command, "EstadoEnvio", DbType.Int32, entity.EstadoEnvio);
+            Context.Database.AddInParameter(command, "Origen", DbType.String, entity.Origen);
             Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
             Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);

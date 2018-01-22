@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.WebPages
                     if (Request.QueryString["data"] != null)
                     {
                         //Formato que envia la url: CodigoUsuario;IdPais
-                        string[] query = Util.desencriptar(Request.QueryString["data"].ToString().Replace("\0","")).Split(',');
+                        string[] query = Util.Desencriptar(Request.QueryString["data"].ToString().Replace("\0","")).Split(',');
 
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
@@ -38,13 +38,10 @@ namespace Portal.Consultoras.Web.WebPages
                         result = "Ha ocurrido un error con la activación de su correo electrónico.";
                     lblConfirmacion.Text = result;
                 }
-                //else
-                //    lblConfirmacion.Text = "Para activar la dirección E-mail, debe hacer clic en el enlace enviado a su correo electrónico.";
             }
             catch (Exception ex)
             {
                 lblConfirmacion.Text = ex.Message;
-                //lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
         }
     }

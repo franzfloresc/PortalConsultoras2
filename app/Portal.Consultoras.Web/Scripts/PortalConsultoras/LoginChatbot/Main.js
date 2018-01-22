@@ -17,7 +17,7 @@ CargarEventosExternos();
 $(document).ready(function () { CargarPlugins(); });
 
 function CargarPlugins() {
-    if (arrayDeferred.length > 0){
+    if (arrayDeferred.length > 0) {
         ShowLoading();
         $.when.apply($, arrayDeferred).then(function () {
             ConsoleLog('Terminó CargarPlugins');
@@ -92,7 +92,7 @@ function MessageInfoError(message, fnAceptar) {
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error .btn-aceptar').off('click');
     if ($.isFunction(fnAceptar)) $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    
+
     $('#popupInformacionSB2Error').show();
 }
 function MostrarArrayMensaje(arrayMessage) {

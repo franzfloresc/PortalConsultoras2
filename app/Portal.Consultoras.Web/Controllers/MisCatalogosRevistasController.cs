@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
+
+            clienteModel.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
@@ -37,11 +38,11 @@ namespace Portal.Consultoras.Web.Controllers
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
                 (revistaDigital.TieneRDR && !tieneGND);
-            
-            clienteModel.RevistaDigital = revistaDigital;
+
+            clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
@@ -49,7 +50,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Detalle(int campania)
         {
-            string ISO = userData.CodigoISO;
             List<BECatalogoConfiguracion> lstCatalogoConfiguracion = new List<BECatalogoConfiguracion>();
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -59,10 +59,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<Catalogo> listCatalogo = this.GetCatalogosPublicados(userData.CodigoISO, campania.ToString());
 
             campania = campania <= 0 ? userData.CampaniaID : campania;
-            string estadoLbel = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.LBel).FirstOrDefault(), campania);
-            string estadoEsika = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Esika).FirstOrDefault(), campania);
-            string estadoCyzone = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Cyzone).FirstOrDefault(), campania);
-            string estadoFinart = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Finart).FirstOrDefault(), campania);
+            string estadoLbel = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.LBel), campania);
+            string estadoEsika = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Esika), campania);
+            string estadoCyzone = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Cyzone), campania);
+            string estadoFinart = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Finart), campania);
             string catalogoUnificado = "0";
 
             if (EsCatalogoUnificado(campania))
@@ -128,15 +128,18 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (docName == catalogoFinart) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                catalogos = new List<Catalogo>();
+            }
             return catalogos;
         }
 
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            List<BECliente> lista = new List<BECliente>();
-            lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
+            var lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
@@ -167,7 +170,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string CampaniaID = string.Empty;
             string FechaFacturacion = string.Empty;
-            List<CatalogoClienteModel> lstClientesCat = new List<CatalogoClienteModel>();
 
             try
             {
@@ -225,13 +227,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string RutaPublicaImagen = "";
-                string nombrecorto = userData.NombreCorto;
                 string CorreosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
-                Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
@@ -550,7 +550,10 @@ namespace Portal.Consultoras.Web.Controllers
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
@@ -567,6 +570,64 @@ namespace Portal.Consultoras.Web.Controllers
 
             int campaniaInicio = Convert.ToInt32(paisCamp[1]);
             return campania >= campaniaInicio;
+        }
+
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+                partial.TieneGND = userData.TieneGND;
+
+                var tieneGnd = userData.TieneGND;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (!tieneGnd)
+                        {
+                            if (revistaDigital.EsSuscrita)
+                            {
+                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                            }
+                            else
+                            {
+                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!tieneGnd)
+                        {
+                            if (revistaDigital.EsSuscrita)
+                            {
+                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                            }
+                            else
+                            {
+                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                            }
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    if (!tieneGnd)
+                    {
+                        partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
         }
     }
 }

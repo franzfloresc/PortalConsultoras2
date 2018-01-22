@@ -102,7 +102,7 @@
             <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
         </div>
         <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" id="" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
 </div>
@@ -606,6 +606,7 @@
                                 <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                                 <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                                 <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                                <input type="hidden" class="hdOfertaFinalImagenProductoSugeridoMedium" value="{{ImagenProductoSugeridoMedium}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
@@ -619,7 +620,7 @@
                             </div>
                             <div class="contenido_item_ofertaFinal">
                                 <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="">
-                                    <img src="{{ImagenProductoSugerido}}">
+                                    <img src="{{ImagenProductoSugeridoSmall}}">
                                 </div>
                                 <div class="producto_nombre_descripcion">
                                     <div onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">

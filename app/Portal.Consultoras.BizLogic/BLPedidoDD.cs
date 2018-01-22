@@ -309,7 +309,6 @@
             return resultado;
         }
 
-        // R20151003 - Inicio
         public int ValidarCuvDescargado(int paisID, int anioCampania, string codigoVenta, string codigoConsultora)
         {
             int resultado;
@@ -322,7 +321,6 @@
                 }
             return resultado;
         }
-        // R20151003 - Fin
 
         public void RegistrarAsistenciaCompartamos(int paisID, BEAsistenciaCompartamos beAsistenciaCompartamos)
         {

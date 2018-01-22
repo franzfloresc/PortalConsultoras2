@@ -7,7 +7,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             var container = $('#PopShowroomVenta');
             var pnombreedescripcion = $("#spnShowRoomEventoVenta").val();
             var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcionVenta").val();
-            
+
             dataLayer.push({
                 'event': 'promotionClick',
                 'ecommerce': {

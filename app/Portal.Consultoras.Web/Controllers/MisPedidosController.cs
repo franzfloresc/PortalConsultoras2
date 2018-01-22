@@ -11,6 +11,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using sc = Portal.Consultoras.Web.ServiceCliente;
@@ -24,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MisPedidosSb2Model();
             var pedidoActual = new BEPedidoWeb();
-            var listaPedidoFacturados = new List<BEPedidoWeb>();
+            List<BEPedidoWeb> listaPedidoFacturados;
 
             try
             {
@@ -103,12 +104,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult ClienteOnline(int[] campanias)
         {
-            var listPedidosClienteOnline = new List<BEMisPedidos>();
-            var listModel = new List<ClienteOnlineModel>();
             int campaniaResultado = 0;
 
             try
             {
+                var listPedidosClienteOnline = new List<BEMisPedidos>();
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     foreach (int campania in campanias)
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (listPedidosClienteOnline.Count != 0) break;
                     }
                 }
-                listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
+                var listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
                 listModel.Update(model =>
                 {
                     model.TipoCliente = model.ClienteNuevo ? "NUEVO CLIENTE" : "CLIENTE EXISTENTE";
@@ -163,16 +163,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
-            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
-            var listModel = new List<ClienteOnlineDetalleModel>();
 
             try
             {
+                List<BEMisPedidosDetalle> listDetallesClienteOnline;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     listDetallesClienteOnline = sv.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, solicitudClienteId).ToList();
                 }
-                listModel = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
+                var listModel = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
                 listModel.Update(model =>
                 {
                     model.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioUnitario.ToDecimal(), userData.CodigoISO));
@@ -209,8 +208,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult ClienteOnlineCancelarSolicitud(int solicitudClienteId, int? motivoSolicitudId, string razonMotivoSolicitud)
         {
-            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
-            var listModel = new List<ClienteOnlineDetalleModel>();
             try
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
@@ -292,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
                 dicCabeceras.Add(new KeyValuePair<int, string>(lstDetallesTemp.Count, item.Nombre));
                 lstDetallesTemp.Add(new SC.BEPedidoWebDetalle() { ImporteTotalPedido = suma });
-                lstDetalles.AddRange((List<SC.BEPedidoWebDetalle>)lstDetallesTemp);
+                lstDetalles.AddRange(lstDetallesTemp);
             }
 
             Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
@@ -414,7 +411,7 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        decimal importT = ((SC.BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
+                        decimal importT = SourceDetails[i].ImporteTotalPedido;
                         string importeTotalPedido = Util.DecimalToStringFormat(importT, userData.CodigoISO);
 
                         ws.Cell(row, col - 2).Value = arrTotal[0];
@@ -663,8 +660,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = item.ClienteID,
                     Nombre = item.Nombre,
                     eMail = item.eMail,
-                    Cantidad = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
-                    ImporteTotal = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
+                    Cantidad = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
+                    ImporteTotal = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
                 };
 
                 items.Add(itemx);
@@ -684,7 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.PageSize,
 
                 Simbolo = userData.Simbolo,
-                CantidadCliente = items.Count(),
+                CantidadCliente = items.Count,
                 CantidadProducto = items.Sum(p => p.Cantidad),
                 SubTotal = importeTotal,
                 OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),
@@ -804,7 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (estado == "f")
             {
                 #region facturado
-                List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+                List<BEPedidoFacturado> lista;
                 try
                 {
                     using (SACServiceClient client = new SACServiceClient())
@@ -817,11 +814,11 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lista = new List<BEPedidoFacturado>();
                 }
-
+                
                 foreach (var pedido in lista)
                 {
-                    pedido.CUV = pedido.CUV ?? "";
-                    pedido.Descripcion = pedido.Descripcion ?? "";
+                    pedido.CUV = Util.Trim(pedido.CUV);
+                    pedido.Descripcion = Util.Trim(pedido.Descripcion);
 
                     if (pedido.CUV.Trim() == "" || pedido.Descripcion.Trim() == "")
                     {

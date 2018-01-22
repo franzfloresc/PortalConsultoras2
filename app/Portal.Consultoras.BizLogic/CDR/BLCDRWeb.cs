@@ -144,7 +144,6 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
-        //EPD-1919
         public BECDRWeb GetMontoFletePorZonaId(int PaisID, int ZonaId)
         {
             try

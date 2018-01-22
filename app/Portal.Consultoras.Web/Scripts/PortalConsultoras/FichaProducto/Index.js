@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $(document).on('click', '#btnAceptarNoHayProducto', me.Funciones.IrASeccionBienvenida);
             },
             Ready: function () {
-                
+
                 if (!window.hasOwnProperty('detalleFichaProducto'))
                     FichaProducto.Funciones.ObtenerProducto();
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
                     nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
                     nuevoScript.id = "infusionsoft";
                     cabecera.appendChild(nuevoScript);
-                    
+
                     me.Funciones.Marcador();
                 }
             },
@@ -124,14 +124,14 @@ $(document).ready(function () {
                 me.Funciones.CloseLoading();
             },
             ObtenerProducto: function () {
-               
+
                 if (me.settings.cuv !== "") {
                     var fichaPromise = me.Funciones.ObtenerProductoPromise(me.settings.cuv, me.settings.campana);
 
                     $.when(fichaPromise).then(function (response) {
                         if (checkTimeout(response)) {
                             if (response !== null) {
-                              
+
                                 var cabecera = document.getElementsByTagName("head")[0];
                                 var nuevoScript = document.createElement('script');
                                 nuevoScript.type = 'text/javascript';
@@ -283,7 +283,7 @@ $(document).ready(function () {
                             me.Funciones.CloseLoading();
                             return false;
                         }
-                        
+
                         dataLayer.push({
                             'event': 'addToCart',
                             'ecommerce': {
@@ -372,7 +372,7 @@ $(document).ready(function () {
                 }
             },
             Marcador: function () {
-                
+
                 dataLayer.push({
                     'event': 'promotionView',
                     'ecommerce': {
