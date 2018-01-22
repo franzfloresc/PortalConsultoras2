@@ -2561,12 +2561,11 @@ namespace Portal.Consultoras.Web.Controllers
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new {area = ""});
 
-                var userData = new UsuarioModel(); //sessionManager.GetUserData();
+                var userData = sessionManager.GetUserData();
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
-                    //userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                     userData = await GetUserDataAsync(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
 
