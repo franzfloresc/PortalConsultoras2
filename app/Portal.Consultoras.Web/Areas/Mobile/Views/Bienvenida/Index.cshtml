@@ -7,9 +7,9 @@
 @model BienvenidaModel
 
 @{
-    Model.RevistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
     var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    Model.RevistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
@@ -285,7 +285,7 @@
 
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
-    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.RevistaDigital) 
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
 </div>
 <!--FIN CARRUSEL-->
 

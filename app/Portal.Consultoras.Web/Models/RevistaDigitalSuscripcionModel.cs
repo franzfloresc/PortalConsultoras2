@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoZona { get; set; }
         public string EMail { get; set; }
         public int CampaniaEfectiva { get; set; }
+        public string Origen { get; set; }
 
     }
 }

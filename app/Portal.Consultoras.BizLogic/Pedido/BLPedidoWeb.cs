@@ -72,7 +72,7 @@ namespace Portal.Consultoras.BizLogic
 
             Exception exceptionCoDat = null;
             string headerFile = null, detailFile = null, NombreCabecera = null, NombreDetalle = null, dataConFile = null, NombreCoDat = null, ErrorCoDat = null;
-            string detailFileAct = null, NombreDetalleAct = null; //CGI (VVA) 2450
+            string detailFileAct = null, NombreDetalleAct = null;
             string headerFileS3 = null, detailFileS3 = null, dataConFileS3 = null;
             DateTime FechaHoraPais;
             bool incluirConsultora = ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1;
@@ -171,7 +171,7 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && isFox == false)
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && !isFox)
                 {
                     try
                     {
@@ -228,7 +228,7 @@ namespace Portal.Consultoras.BizLogic
                 {
 
                     ftpElement = ftpSection.FtpConfigurations[key];
-                    ftpElementActDAt = ftpSection.FtpConfigurations[keyActDat]; //2450 VVA
+                    ftpElementActDAt = ftpSection.FtpConfigurations[keyActDat];
 
                     headerFileS3 = headerFile = FormatFile(codigoPais, ftpElement.Header, fechaFacturacion, fileGuid);
                     detailFileS3 = detailFile = FormatFile(codigoPais, ftpElement.Detail, fechaFacturacion, fileGuid);
@@ -527,12 +527,11 @@ namespace Portal.Consultoras.BizLogic
             }
 
             string[] s = null;
-            if (headerFile == null && detailFile == null && detailFileAct == null) s = new string[] { };//CGI - VVA - 2450                
-            else s = new string[] { headerFile, detailFile, detailFileAct }; //CGI - VVA - 2450
+            if (headerFile == null && detailFile == null && detailFileAct == null) s = new string[] { };
+            else s = new string[] { headerFile, detailFile, detailFileAct };
             return s;
         }
 
-        // R20151003 - Inicio
         public string[] DescargaPedidosDD(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
         {
             int nroLote = 0;
@@ -733,7 +732,7 @@ namespace Portal.Consultoras.BizLogic
                 string codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
                 string codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
 
-                TemplateField[] headerTemplate, detailTemplate; //VVA 2450 CGI
+                TemplateField[] headerTemplate, detailTemplate;
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
                 var element = section.Countries[paisID];                                
                 headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate]);
@@ -996,7 +995,7 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case "CELULAR":
                         item = row["Celular"].ToString().Length > 15 ? row["Celular"].ToString().Substring(0, 15) : row["Celular"].ToString();
-                        break; //VVA 2450 CGI
+                        break; 
                     case "EMAIL":
                         item = row["EMail"].ToString().Length > 50 ? row["EMail"].ToString().Substring(0, 50) : row["EMail"].ToString();
                         break;
@@ -1595,6 +1594,16 @@ namespace Portal.Consultoras.BizLogic
             return lstPedidosDetalle;
         }
 
+        public bool ExistsPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(paisID);
+            using (IDataReader reader = daPedidoWeb.GetPedidoWebByCampaniaConsultora(campaniaID, consultoraID))
+            {
+                if (reader.Read()) return true;
+            }
+            return false;
+        }
+
         public BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
         {
             BEPedidoWeb bePedidoWeb = null;
@@ -1672,12 +1681,12 @@ namespace Portal.Consultoras.BizLogic
                 beConsultoraCUVRegular = blConsultora.GetConsultoraCUVRegular(paisID, campaniaID, cuv);
                 beConsultoraCUVCredito = blConsultora.GetConsultoraCUVCredito(paisID, campaniaID, cuv);
 
-                if (beConsultoraTop.EsTop == true && !string.IsNullOrEmpty(beConsultoraCUVRegular.CUVCredito))
+                if (beConsultoraTop.EsTop && !string.IsNullOrEmpty(beConsultoraCUVRegular.CUVCredito))
                 {
                     beCUVCredito.CuvCredito = beConsultoraCUVRegular.CUVCredito;
                     beCUVCredito.IdMensaje = 1;
                 }
-                if (beConsultoraTop.EsTop == false && !string.IsNullOrEmpty(beConsultoraCUVCredito.CUVRegular))
+                if (!beConsultoraTop.EsTop && !string.IsNullOrEmpty(beConsultoraCUVCredito.CUVRegular))
                 {
                     beCUVCredito.CuvRegular = beConsultoraCUVCredito.CUVRegular;
                     beCUVCredito.IdMensaje = 2;

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    
+
     $("#txtBusqueda").keypress(function (e) {
         if (e.which == 13) {
             if (checkTimeout()) {
@@ -88,22 +88,22 @@ function CargarListaCliente(page, rows) {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-            var html = ArmarListaCliente(data.rows);
-            $('#divListaCliente').html(html);
+                var html = ArmarListaCliente(data.rows);
+                $('#divListaCliente').html(html);
 
-            var htmlPaginador = ArmarListaClientePaginador(data);
-            $('#paginadorCab').html(htmlPaginador);
-            $('#paginadorPie').html(htmlPaginador);
+                var htmlPaginador = ArmarListaClientePaginador(data);
+                $('#paginadorCab').html(htmlPaginador);
+                $('#paginadorPie').html(htmlPaginador);
 
-            $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-            $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-            alert(error);
-        }
+                alert(error);
+            }
         }
     });
 }
@@ -126,9 +126,8 @@ function showClienteDetalle(fila) {
         return false;
     }
 
-    var cliente = {};    
-    if (fila != null)
-    {
+    var cliente = {};
+    if (fila != null) {
         var div = $(fila).parents('.content_listado_notificaciones');
 
         cliente.ClienteID = $(div).find('.cliente_id').html();
@@ -205,7 +204,7 @@ function EliminarCliente() {
 }
 
 function CerrarDiv(opt) {
-    switch(opt) {
+    switch (opt) {
         case 3:
             $('#divEliminarCliente').hide();
             break;
@@ -254,8 +253,7 @@ function DownloadAttachExcelMC() {
     document.body.appendChild(iframe_);
 }
 
-function validarExportarMC()
-{
+function validarExportarMC() {
     if ($('#divListaCliente .content_listado_notificaciones').length > 0) {
         DownloadAttachExcelMC();
     } else {

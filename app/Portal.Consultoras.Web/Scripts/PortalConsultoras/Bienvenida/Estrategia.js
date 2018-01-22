@@ -567,8 +567,9 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 function EstructurarDataCarousel(array) {
     array = array || new Array();
     var isList = array.length != undefined;
+    var lista = [];
     if (typeof array == "object") {
-        var lista = isList ? array : new Array();
+        lista = isList ? array : [];
         if (!isList)
             lista.push(array);
     }

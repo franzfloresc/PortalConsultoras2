@@ -66,7 +66,6 @@ namespace Portal.Consultoras.BizLogic
         {
             IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId,
                 ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString());
-            //IList<BEConfiguracionOfertasHome> lista = new List<BEConfiguracionOfertasHome>();
 
             if (lista == null || lista.Count == 0)
             {

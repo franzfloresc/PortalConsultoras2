@@ -197,6 +197,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptaPoliticaPrivacidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool AceptaTerminosCondicionesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -210,6 +213,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ActualizarClaveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AniosPermanenciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AnoCampaniaIngresoField;
@@ -254,6 +260,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string CodigoISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTerritorioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -264,6 +273,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigorRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosConcursosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosProgramaNuevasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CompartirDatosField;
@@ -279,6 +294,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConfirmarClaveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsecutivoNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConsultoraAsociadaField;
@@ -323,6 +341,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool EMailActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsAniversarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsCDRWebZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -330,6 +351,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsConsecutivoNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCumpleanioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
@@ -717,6 +741,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AceptaPoliticaPrivacidad {
+            get {
+                return this.AceptaPoliticaPrivacidadField;
+            }
+            set {
+                if ((this.AceptaPoliticaPrivacidadField.Equals(value) != true)) {
+                    this.AceptaPoliticaPrivacidadField = value;
+                    this.RaisePropertyChanged("AceptaPoliticaPrivacidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool AceptaTerminosCondiciones {
             get {
                 return this.AceptaTerminosCondicionesField;
@@ -777,6 +814,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.ActualizarClaveField, value) != true)) {
                     this.ActualizarClaveField = value;
                     this.RaisePropertyChanged("ActualizarClave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AniosPermanencia {
+            get {
+                return this.AniosPermanenciaField;
+            }
+            set {
+                if ((this.AniosPermanenciaField.Equals(value) != true)) {
+                    this.AniosPermanenciaField = value;
+                    this.RaisePropertyChanged("AniosPermanencia");
                 }
             }
         }
@@ -964,6 +1014,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPrograma {
+            get {
+                return this.CodigoProgramaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
+                    this.CodigoProgramaField = value;
+                    this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoTerritorio {
             get {
                 return this.CodigoTerritorioField;
@@ -1011,6 +1074,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.CodigorRegionField, value) != true)) {
                     this.CodigorRegionField = value;
                     this.RaisePropertyChanged("CodigorRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosConcursos {
+            get {
+                return this.CodigosConcursosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosConcursosField, value) != true)) {
+                    this.CodigosConcursosField = value;
+                    this.RaisePropertyChanged("CodigosConcursos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosProgramaNuevas {
+            get {
+                return this.CodigosProgramaNuevasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosProgramaNuevasField, value) != true)) {
+                    this.CodigosProgramaNuevasField = value;
+                    this.RaisePropertyChanged("CodigosProgramaNuevas");
                 }
             }
         }
@@ -1076,6 +1165,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.ConfirmarClaveField, value) != true)) {
                     this.ConfirmarClaveField = value;
                     this.RaisePropertyChanged("ConfirmarClave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConsecutivoNueva {
+            get {
+                return this.ConsecutivoNuevaField;
+            }
+            set {
+                if ((this.ConsecutivoNuevaField.Equals(value) != true)) {
+                    this.ConsecutivoNuevaField = value;
+                    this.RaisePropertyChanged("ConsecutivoNueva");
                 }
             }
         }
@@ -1263,6 +1365,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsAniversario {
+            get {
+                return this.EsAniversarioField;
+            }
+            set {
+                if ((this.EsAniversarioField.Equals(value) != true)) {
+                    this.EsAniversarioField = value;
+                    this.RaisePropertyChanged("EsAniversario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EsCDRWebZonaValida {
             get {
                 return this.EsCDRWebZonaValidaField;
@@ -1297,6 +1412,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.EsConsecutivoNuevaField.Equals(value) != true)) {
                     this.EsConsecutivoNuevaField = value;
                     this.RaisePropertyChanged("EsConsecutivoNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCumpleanio {
+            get {
+                return this.EsCumpleanioField;
+            }
+            set {
+                if ((this.EsCumpleanioField.Equals(value) != true)) {
+                    this.EsCumpleanioField = value;
+                    this.RaisePropertyChanged("EsCumpleanio");
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
             string tipoDocumento = entidad.TipoDocumento != null ? entidad.TipoDocumento : string.Empty;
             string codigoRegion = string.Empty;
 
-            var evaluacionCrediticaBe = default(EvaluacionCrediticiaBE);
+            EvaluacionCrediticiaBE evaluacionCrediticaBe;
 
             using (var sv = new EvaluacionCrediticiaServiceClient())
             {
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 
             }
 
-            return evaluacionCrediticaBe;
+            return evaluacionCrediticaBe ?? new EvaluacionCrediticiaBE();
         }
     }
 }

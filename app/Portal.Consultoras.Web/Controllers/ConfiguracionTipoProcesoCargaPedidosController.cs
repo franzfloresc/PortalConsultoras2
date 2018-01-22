@@ -43,9 +43,8 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarConfiguracionPortalModel model = new AdministrarConfiguracionPortalModel();
             try
             {
-                BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal();
-                BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal();
-                configuracionPortalParametro.PaisID = PaisID;
+                BEConfiguracionPortal configuracionPortal;
+                BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal {PaisID = PaisID};
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -53,11 +52,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
+                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
 
 
                 var listaZonas = DropDowListZonasNoProl(PaisID);
-                var listaZonasNuevoPROL = DropDowListZonasPROL(PaisID);
+                var listaZonasNuevoProl = DropDowListZonasPROL(PaisID);
 
                 if (!model.TipoProcesoCarga)
                 {
@@ -67,14 +66,12 @@ namespace Portal.Consultoras.Web.Controllers
                         listaZonasNuevoPROL = new List<ZonaModel>()
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
+
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        listaZonas = listaZonas,
-                        listaZonasNuevoPROL = listaZonasNuevoPROL,
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                    listaZonas = listaZonas,
+                    listaZonasNuevoPROL = listaZonasNuevoProl,
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -93,45 +90,33 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasNoProl(int paisId)
         {
             IList<BEConfiguracionTipoProcesoCargaPedidos> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetConfiguracionTipoProcesoCargaPedidos(PaisID, 1);
+                lst = sv.GetConfiguracionTipoProcesoCargaPedidos(paisId, 1);
             }
-            Mapper.CreateMap<BEConfiguracionTipoProcesoCargaPedidos, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.DiasParametroCarga, f => f.MapFrom(c => c.DiasParametroCarga));
 
             return Mapper.Map<IList<BEConfiguracionTipoProcesoCargaPedidos>, IEnumerable<ZonaModel>>(lst);
         }
 
-        private IEnumerable<ZonaModel> DropDowListZonasPROL(int PaisID)
+        private IEnumerable<ZonaModel> DropDowListZonasPROL(int paisId)
         {
             IList<BEConfiguracionTipoProcesoCargaPedidos> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetConfiguracionTipoProcesoCargaPedidos(PaisID, 2);
+                lst = sv.GetConfiguracionTipoProcesoCargaPedidos(paisId, 2);
             }
-            Mapper.CreateMap<BEConfiguracionTipoProcesoCargaPedidos, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.DiasParametroCarga, f => f.MapFrom(c => c.DiasParametroCarga));
-
+            
             return Mapper.Map<IList<BEConfiguracionTipoProcesoCargaPedidos>, IEnumerable<ZonaModel>>(lst);
         }
 

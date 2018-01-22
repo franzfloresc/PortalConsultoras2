@@ -34,15 +34,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int Respuesta = -1000;
-                DateTime FechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
+                int respuesta;
+                DateTime fechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    Respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, FechaHoraFacturacion);
+                    respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, fechaHoraFacturacion);
                 }
 
                 string mensajeRespuesta = string.Empty;
-                switch (Respuesta)
+                switch (respuesta)
                 {
                     case Constantes.ValAutoEstado.NoExisteProceso:
                         mensajeRespuesta = Constantes.ValAutoEstadoDescripcion.NoExisteProceso;
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mensajeRespuesta += string.Format(" (COD. {0})", Respuesta);
 
 
-                if (Respuesta != -1000)
+                if (respuesta != -1000)
                 {
                     return Json(new
                     {

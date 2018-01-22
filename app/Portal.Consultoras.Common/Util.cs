@@ -2836,6 +2836,8 @@ namespace Portal.Consultoras.Common
 
         public static string GetISObyIPAddress(string ip)
         {
+            if (string.IsNullOrWhiteSpace(ip)) return "";
+
             string geoLiteDbPath = HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
             return GetISObyIPAddress(ip, geoLiteDbPath);
         }

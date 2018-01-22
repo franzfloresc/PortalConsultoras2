@@ -57,10 +57,9 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //lblConfirmacion.Text = ex.Message;
-                //lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ConfirmacionRegistroComunidad - Page_Load");
             }
         }
 

@@ -307,7 +307,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);

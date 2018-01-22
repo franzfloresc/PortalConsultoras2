@@ -13,7 +13,7 @@
     };
 
     var _hidePopup = function () {
-        
+
         waitingDialog();
         $.post(config.cerrarPopupInicialUrl)
             .always(closeWaitingDialog)
@@ -50,9 +50,9 @@
     };
 
     var _asignarEventos = function (isoPais, codigoConsultora) {
-        
-       $("#quiero-tips-ofertas").on("click", function () {
-           
+
+        $("#quiero-tips-ofertas").on("click", function () {
+
             dataLayer.push({
                 'event': 'promotionClick',
                 'ecommerce': {
@@ -69,8 +69,8 @@
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion';
         });
         //$("#quiero-tips-ofertas").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion');
-       $("#ver-mas-informacion").on("click", function () {
-           _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "Ver más Información");
+        $("#ver-mas-informacion").on("click", function () {
+            _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "Ver más Información");
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen);
         });
         //$("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
@@ -102,7 +102,7 @@
 
     };
     var _dataLayerVirutalCoach = function (action, label) {
-       
+
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Coach Virtual',

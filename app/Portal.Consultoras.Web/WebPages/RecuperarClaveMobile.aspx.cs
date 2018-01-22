@@ -213,8 +213,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClaveMobile - RecuperarClaveCSMobile");
+
                 return serializer.Serialize(new
                 {
                     succes = false,
