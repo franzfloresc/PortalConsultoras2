@@ -1,14 +1,11 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ShowRoom;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.Data
 {
@@ -52,7 +49,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TieneSubCampania", DbType.Boolean, showRoomEvento.TieneSubCampania);
             Context.Database.AddInParameter(command, "@TienePersonalizacion", DbType.Boolean, showRoomEvento.TienePersonalizacion);
 
-            int result = Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
 
             return Convert.ToInt32(command.Parameters["@EventoID"].Value);
         }
