@@ -59,13 +59,11 @@ namespace Portal.Consultoras.BizLogic
             return lista.ToList();
         }
 
-
         public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID)
         {
             var daProveedor = new DAProveedorDespachoCobranza(paisID);
             return daProveedor.DelProveedorDespachoCobranza(ProveedorDespachoCobanzaID);
         }
-
 
         public void UpdProveedorDespachoCobranzaCabecera(int paisID, BEProveedorDespachoCobranza entidad)
         {
