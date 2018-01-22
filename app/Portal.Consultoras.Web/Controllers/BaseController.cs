@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
@@ -30,9 +31,6 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using Portal.Consultoras.Common.MagickNet;
-using System.IO;
-using Portal.Consultoras.Web.ServicePaqueteDocumentario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
