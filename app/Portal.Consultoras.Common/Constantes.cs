@@ -174,6 +174,15 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
+
+            public const int MerchantId = 12201;
+            public const int AccessKeyId = 12202;
+            public const int SecretAccessKey = 12203;
+            public const int UrlSessionBotonPago = 12204;
+            public const int UrlGenerarNumeroPedido = 12205;
+            public const int PorcentajeGastosAdministrativos = 12206;
+            public const int UrlLibreriaPagoVisa = 12207;
+            public const int UrlAutorizacionBotonPago = 12208;
         }
 
         public static class ParametrosNames
@@ -297,6 +306,7 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+            public const string DatosPagoVisa = "DatosPagoVisa";
         }
 
         public static class ConfiguracionManager
@@ -1042,6 +1052,7 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string PagoEnLinea = "PAYONLINE";
         }
         
         public static class ConfiguracionPaisDatos
@@ -1263,6 +1274,7 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             public const int ValoresImagenesResize = 121;
+            public const int ValoresPagoEnLinea = 122;
         }
 
         public struct MensajesCDRExpress

@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -4334,6 +4335,30 @@ namespace Portal.Consultoras.Web.Controllers
                 return flag;                
             }
         }
+
+        #region PagoEnLinea
+
+        public PagoEnLineaModel ObtenerValoresPagoEnLinea()
+        {
+            var model = new PagoEnLineaModel();
+
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+            model.MontoDeuda = userData.MontoDeuda;
+            model.FechaVencimiento = userData.FechaLimPago;
+
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+
+            var porcentajeGastosAdministrativosString = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
+            int porcentajeGastosAdministrativos;
+            bool esInt = int.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
+
+            model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
+
+            return model;
+        }
+
+        #endregion
 
     }
 }

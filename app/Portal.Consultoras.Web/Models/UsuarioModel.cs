@@ -369,5 +369,7 @@ namespace Portal.Consultoras.Web.Models
         public int ConsecutivoNueva { get; set; }
 
         public DateTime FechaHoy { get; set; }
+
+        public bool TienePagoEnLinea { get; set; }
     }
 }

@@ -456,6 +456,8 @@
     <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoVisaModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -3745,6 +3747,8 @@
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.woff" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoVisa.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoResultado.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoExitoso.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\ConfirmacionPago.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoRechazado.cshtml" />

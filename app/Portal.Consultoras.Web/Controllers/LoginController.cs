@@ -1027,6 +1027,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
                                             usuarioModel.TieneGND = true;
                                             break;
+                                        case Constantes.ConfiguracionPais.PagoEnLinea:
+                                            if (c.Estado)
+                                                usuarioModel.TienePagoEnLinea = true;
+                                            break;
                                     }
 
                                     if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
@@ -2261,6 +2265,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string RemplazaTagNombre(string cadena, string nombre)
         {
+            cadena = string.IsNullOrEmpty(cadena) ? "" : cadena;
+
             return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);

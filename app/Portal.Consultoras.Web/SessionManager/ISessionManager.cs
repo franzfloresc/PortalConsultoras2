@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -103,5 +104,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMisCertificadosData(List<BEMiCertificado> lista);
 
         List<BEMiCertificado> GetMisCertificadosData();
+
+        void SetDatosPagoVisa(PagoEnLineaModel model);
+
+        PagoEnLineaModel GetDatosPagoVisa();
     }
 }

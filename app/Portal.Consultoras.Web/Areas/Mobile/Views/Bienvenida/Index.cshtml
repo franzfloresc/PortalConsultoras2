@@ -241,9 +241,9 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.PaisID == 3) //Chile
+            @if (Model.TienePagoEnLinea)
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();">
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")" >
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
                         <span>con Tarjeta Crédito</span>
@@ -252,51 +252,30 @@
                         <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
                     </div>
                     @*<div class="logo_mastercard">
-                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                    </div>*@
+                    <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                </div>*@
                 </a>
                 <p class="info_lugares_de_pago">
                     Lugares de pago <a href="" title="Lugares de pago">aquí</a>
                 </p>
             }
-            else if (Model.PaisID == 4) //Colombia
+            else
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                        <span>con Tarjeta Crédito</span>
-                    </div>
-                    <div class="logo_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </div>
-                    <div class="logo_mastercard">
-                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                    </div>
-                </a>
-                <p class="info_lugares_de_pago">
-                    También puedes ver los lugares de pago <a href="javascript:;" title="Lugares de pago">aquí</a>
-                </p>
-            }
-            else if (Model.PaisID == 12) //Puerto Rico
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                        <span>con Tarjeta Crédito</span>
-                    </div>
-                    <div class="logo_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </div>
-                    <div class="logo_mastercard">
-                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                    </div>
-                </a>
-                <p class="info_lugares_de_pago">
-                    También puedes ver los lugares de pago <a href="javascript:;" title="Lugares de pago">aquí</a>
-                </p>
-            }
-            else if (Model.PaisID == 6 || Model.PaisID == 11)
-            {
+                if (Model.PaisID == 3) //Chile
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 4) //Colombia
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 12) //Puerto Rico
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.PaisID == 6 || Model.PaisID == 11)
+                {
+                }
             }
         </div>
         <!--FIN ITEM 2-->
