@@ -202,12 +202,11 @@ namespace Portal.Consultoras.Data
                 parListPalabra.Value = new GenericDataReader<DEPalabra>(listProducto.Select(p => new DEPalabra { Palabra = p.CUV }));
                 dbCommand.Parameters.Add(parListPalabra);
 
-                BEProducto producto = null;
                 using (var reader = Context.ExecuteReader(dbCommand))
                 {
                     while (reader.Read())
                     {
-                        producto = listProducto.First(p => p.CUV == Convert.ToString(reader["CUV"]));
+                        var producto = listProducto.First(p => p.CUV == Convert.ToString(reader["CUV"]));
                         producto.TieneStock = Convert.ToBoolean(reader["TieneStock"]);
                     }
                 }

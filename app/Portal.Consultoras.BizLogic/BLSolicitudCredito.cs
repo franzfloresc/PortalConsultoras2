@@ -9,7 +9,7 @@
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
-    using System.Text; 
+    using System.Text;
     using System.Transactions;
 
     public class BLSolicitudCredito
@@ -17,9 +17,9 @@
         public IList<BESolicitudCredito> GetSolicitudCreditos(BESolicitudCredito objSolicitud)
         {
             var solicitudes = new List<BESolicitudCredito>();
-            var DASolicitud = new DASolicitudCredito(objSolicitud.PaisID);
+            var daSolicitud = new DASolicitudCredito(objSolicitud.PaisID);
 
-            using (IDataReader reader = DASolicitud.GetSolicitudCreditos(objSolicitud))
+            using (IDataReader reader = daSolicitud.GetSolicitudCreditos(objSolicitud))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
@@ -157,7 +157,7 @@
 
             string pathFileSolCredito = string.Empty, pathFileSolCreditoS3 = string.Empty;
             string pathFileSolActualizacion = string.Empty, pathFileSolActualizacionS3 = string.Empty;
-            string pathFileConsuFlex = string.Empty, pathFileConsuFlexS3 = string.Empty;
+            string pathFileConsuFlexS3 = string.Empty;
             string fileSolCredito = string.Empty;
             string fileSolActualizacion = string.Empty;
             string fileConsuFlex = string.Empty;
@@ -341,6 +341,7 @@
                     fileConsuFlex = FormatFile(codigoPais, ftpElementConsuFlex.Header, fechaProceso, fileGuid);
 
                     var path = ConfigurationManager.AppSettings.Get("OrderDownloadPath");
+                    string pathFileConsuFlex;
                     pathFileConsuFlexS3 = pathFileConsuFlex = path + fileConsuFlex;
 
                     try
@@ -380,8 +381,10 @@
 
                 #endregion
 
-                TransactionOptions transactionOptions = new TransactionOptions();
-                transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     if (paisConSolicitudCredito)
@@ -462,7 +465,7 @@
                 }
             }
 
-            string[] s = null;
+            string[] s;
             if (string.IsNullOrEmpty(pathFileSolCredito) && string.IsNullOrEmpty(pathFileSolActualizacion)) s = new string[] { };
             else s = new string[] { pathFileSolCredito, pathFileSolActualizacion };
             return s;
@@ -516,9 +519,9 @@
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
             var colonias = new List<BETablaLogicaDatos>();
-            var DASolicitud = new DASolicitudCredito(paisID);
+            var daSolicitud = new DASolicitudCredito(paisID);
 
-            using (IDataReader reader = DASolicitud.ListarColoniasByTerritorio(codigo))
+            using (IDataReader reader = daSolicitud.ListarColoniasByTerritorio(codigo))
             {
                 while (reader.Read())
                 {
@@ -528,31 +531,32 @@
             }
             return colonias;
         }
+
         public string ValidarNumeroRFC(int paisID, string numeroRFC)
         {
-            var DASolicitud = new DASolicitudCredito(paisID);
-            return DASolicitud.ValidarNumeroRFC(numeroRFC);
+            var daSolicitud = new DASolicitudCredito(paisID);
+            return daSolicitud.ValidarNumeroRFC(numeroRFC);
         }
 
         public DateTime GetFechaHoraPais(int paisID)
         {
-            DateTime FechaHoraPais;
+            DateTime fechaHoraPais;
             try
             {
-                FechaHoraPais = new DASolicitudCredito(paisID).GetFechaHoraPais();
+                fechaHoraPais = new DASolicitudCredito(paisID).GetFechaHoraPais();
             }
             catch
             {
-                FechaHoraPais = DateTime.Now;
+                fechaHoraPais = DateTime.Now;
             }
-            return FechaHoraPais;
+            return fechaHoraPais;
         }
 
         public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
             DataTable dtRepRegion = new DataTable();
-            DataSet dsRepRegion = dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
+            DataSet dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
 
             try
             {

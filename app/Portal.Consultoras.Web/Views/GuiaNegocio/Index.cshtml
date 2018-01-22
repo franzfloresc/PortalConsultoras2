@@ -114,16 +114,16 @@
     $('.desplegablegnd .gndcontenido .gnd span.gndcerrar').click(function () {
         if (contadorgnddesktop == 1) {
             $('.desplegablegnd').animate({
-                right: '0'
+                right: '-160'
             });
-            $('.desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd').css('transform', 'rotate(180deg)');
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(270deg)');
             contadorgnddesktop = 0;
         } else {
             contadorgnddesktop = 1;
             $('.desplegablegnd').animate({
-                right: '-160px'
+                right: '0px'
             });
-            $('.desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd').css('transform', 'rotate(360deg)');
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(90deg)');
         }
     });
 

@@ -1,16 +1,15 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
-using Portal.Consultoras.Entities.Pedido;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.CargaMasiva;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
