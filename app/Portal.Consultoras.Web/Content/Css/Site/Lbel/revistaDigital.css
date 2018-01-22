@@ -3451,13 +3451,13 @@ font-size: 11px;
 /* FIN CONFIRMACIÓN DE DATOS */
 
 /* DESPEGABLE LATERAL GND */
-.desplegablegnd{
-  	position:fixed;
-  	right: -160px;
-  	display: table;
-  	height: 100vh;
-    top:0;
-  }
+.desplegablegnd {
+    position: fixed;
+    right: 0px;
+    display: table;
+    height: 100vh;
+    top: 0;
+    }
   .desplegablegnd .gndcontenido{
   	display: table-cell;
   	vertical-align: middle;
@@ -3480,6 +3480,9 @@ font-size: 11px;
   	padding: 10px 5px;
   	float: left;
   }
+  .desplegablegnd #imgPortadaRevista{
+      
+  }
   .desplegablegnd .gndcontenido .gnd .gndbloque{
   	height: 264px;
   	background: white;
@@ -3488,17 +3491,22 @@ font-size: 11px;
   	border: 1px solid #0000001f;
   	border-left: 0;
   }
-  .desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd{
-  	writing-mode: horizontal-tb;
-  	transform: rotate(180deg);
-  	display: inline-block;
-  	margin-top: 10px;
+  .desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd{
+  	    writing-mode: horizontal-tb;
+    transform: rotate(90deg);
+    display: inline-block;
+    margin-top: 10px;
+    width: 15px;
+    /* position: relative; */
+    height: 15px;
   }
   .desplegablegnd .gndcontenido .gnd .gndbloque img{
   	width: 100%;
   	display: block;
   	margin: auto;
   	padding: 15px 10px 5px;
+      overflow:hidden;
+      height:141.19px;
   }
   .desplegablegnd .gndcontenido .gnd .gndbloque p{
   	display: block;
@@ -3525,4 +3533,5 @@ font-size: 11px;
   	color:white;
   	text-decoration: none;
   }
+/* FIN DEPEGABLE */
 /* FIN DEPEGABLE */
