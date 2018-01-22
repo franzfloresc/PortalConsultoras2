@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ebd89728-19b2-4ab9-b881-3d6e4d7b1f71" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PdfService.xsd" MetadataType="Schema" ID="fc97521c-3b07-425f-b618-d9c93f1f97a3" SourceId="1" SourceUrl="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PdfService1.xsd" MetadataType="Schema" ID="49358934-41e5-4d72-adfc-6cb50ec376b6" SourceId="1" SourceUrl="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PdfService2.xsd" MetadataType="Schema" ID="0e117794-5cf4-403b-917d-bdd2c00fc732" SourceId="1" SourceUrl="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PdfService3.xsd" MetadataType="Schema" ID="3b2a693b-ea88-4843-8a53-417445c4e202" SourceId="1" SourceUrl="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PdfService.wsdl" MetadataType="Wsdl" ID="8a51309a-b961-4ffc-b942-a151f6cd91ce" SourceId="1" SourceUrl="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

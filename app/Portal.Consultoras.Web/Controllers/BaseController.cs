@@ -32,6 +32,7 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Portal.Consultoras.Common.MagickNet;
 using System.IO;
+using Portal.Consultoras.Web.ServicePaqueteDocumentario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -4332,7 +4333,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
-
         
         protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido)
         {
@@ -4387,6 +4387,43 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return lstRVPRFModel;
+        }
+
+        protected List<CampaniaModel> GetCampaniasRVDigitalWeb(out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
+        {                
+            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
+            ErrorServicio = false;
+            ErrorCode = string.Empty;
+            ErrorMessage = string.Empty;
+            try
+            {
+                ResultObject2 result;
+                using (var sv = new PdfServiceClient())
+                {
+                    result = sv.LIS_Campana(userData.CodigoISO, "1", userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora);
+                }
+
+                if (result != null)
+                {
+                    if (result.lista != null && result.lista.Length != 0)
+                    {
+                        result.lista.Select(p => new CampaniaModel() { CampaniaID = Convert.ToInt32(p.campana), Codigo = p.campana });
+                    }
+                    else
+                    {
+                        ErrorCode = result.errorCode;
+                        ErrorMessage = result.errorMessage;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                ErrorServicio = true;
+            }
+
+            if (lstCampaniaModel.Count != 0) return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();
+            return lstCampaniaModel;
         }
     }
 }

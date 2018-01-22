@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://54.208.59.210/RVDigitalWSPrueba/PdfService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/BEL.RVDigital.DC" />
+  <xs:element name="LIS_Campana">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LIS_CampanaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/BEL.RVDigital.DC" minOccurs="0" name="LIS_CampanaResult" nillable="true" type="q1:ResultObject2" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GET_URL">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Campana" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GET_URLResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/BEL.RVDigital.DC" minOccurs="0" name="GET_URLResult" nillable="true" type="q2:ResultObject" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
