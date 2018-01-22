@@ -72,7 +72,8 @@
 .total_monto_pagado,
 .monto_saldo_pendiente,
 .fecha_vencimiento_saldo_pendiente,
-.icono_pago_exitoso
+.icono_pago_exitoso,
+.confirmacion_pago
 {
     display:block;
 }
@@ -648,7 +649,11 @@
     display:none;
 }
 
-.redireccion_proveedor_de_pago{
+.confirmacion_pago .total_monto_pagado{
+    margin-bottom:0;
+}
+
+/*.redireccion_proveedor_de_pago{
     margin-top:40px;
     text-align:center;
 }
@@ -738,7 +743,7 @@
         transform:rotate(360deg);
     }
 
-}
+}*/
 
 .pago_exitoso,
 .pago_rechazado
@@ -849,7 +854,7 @@
 .monto_gastos_administrativos span:first-child,
 .total_monto_pagado span:first-child
 {
-    width:55%;
+    width:66%;
     text-align:left;
 }
 
@@ -857,7 +862,7 @@
 .monto_gastos_administrativos span:last-child,
 .total_monto_pagado span:last-child
 {
-    width:43.5%;
+    width:32.5%;
     text-align:right;
 }
 
