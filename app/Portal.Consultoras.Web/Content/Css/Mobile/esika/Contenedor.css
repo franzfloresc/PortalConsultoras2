@@ -458,7 +458,6 @@ img.icono-submenu-tabs {
 /* viñeta gnd */
 .revistagnd {
 position: fixed;
-bottom: -17%;
 z-index: 90;
 width: 81.5%;
 margin: auto;
