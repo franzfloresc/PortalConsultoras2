@@ -1504,6 +1504,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_MotivoRechazo");
         }
 
+        public ActionResult ErrorGenerandoCodigo()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ErrorGenerandoCodigo", null);
+            return PartialView("_Message");
+        }
+
         [HttpPost]
         public ActionResult DevolverSolicitud(int id, string observacion)
         {

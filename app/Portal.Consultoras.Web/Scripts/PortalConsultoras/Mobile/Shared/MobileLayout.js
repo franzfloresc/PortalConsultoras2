@@ -156,6 +156,24 @@
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
+        var curSlide = $("#flexslidertop").find(".flex-active-slide").html();
+        if (curSlide.indexOf("BloqueOfertaDiaHeader") > -1) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Banners',
+                'action': 'Cerrar Banner',
+                'label': 'Oferta del dia'
+            });
+        }
+        else if (curSlide.indexOf("bannerShowRoomTop") > -1) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Banners',
+                'action': 'Cerrar Banner',
+                'label': 'Showroom'
+            });
+        }
+
         //$('.header_slider').slideUp();
         $('.header_slider').hide();
         //$("#contentmobile").css({ 'margin-top': '63px' });
@@ -313,6 +331,25 @@
             }
         });
 
+    });
+
+    $("#bannerShowRoomTop").click(function () {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '001',
+                        'name': 'Showroom',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
+
+        document.location.href = urlShowRoom;
     });
 
     BannerApp();
@@ -1061,11 +1098,31 @@ function BannerApp() {
     }
     $(".banner_app div").click(function (e) {
         e.preventDefault();
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Banners',
+            'action': 'Cerrar Banner',
+            'label': 'Descargar app consultora'
+        });
         $(".banner_app").hide();
         OcultarBannerApp();
         return false;
     });
     $(".banner_app").click(function (e) {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '003',
+                        'name': 'Descargar app consultora',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
         window.open(oBannerApp.DescripcionAccion);
     });
     $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");

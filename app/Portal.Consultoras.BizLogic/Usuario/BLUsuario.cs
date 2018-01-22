@@ -303,6 +303,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
+                usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
                 BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
                 var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
 
@@ -329,6 +330,18 @@ namespace Portal.Consultoras.BizLogic
                 usuario = null;
             }
             return usuario;
+        }
+
+        protected bool EsConsultoraNueva(BEUsuario usuario)
+        {
+            var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
+            if (!(listEstadosValidos.Contains(usuario.ConsultoraNueva))) return false;
+            
+            int campaniaAnterior = Common.Util.AddCampaniaAndNumero(usuario.CampaniaID, -1, usuario.NroCampanias);
+            if (campaniaAnterior <= 0) return false;
+
+            var existsPedidoAnterior = new BLPedidoWeb().ExistsPedidoWebByCampaniaConsultora(usuario.PaisID, campaniaAnterior, usuario.usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID);
+            return !existsPedidoAnterior;
         }
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
@@ -544,7 +557,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (usuario.RolID == Constantes.Rol.Consultora)
             {
-                if (usuario.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && usuario.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
+                if (usuario.ConsultoraNueva != Constantes.EstadoActividadConsultora.Registrada && usuario.ConsultoraNueva != Constantes.EstadoActividadConsultora.Ingreso_Nueva)
                 {
                     if (usuario.CampaniaDescripcion != null && usuario.AnoCampaniaIngreso.Trim() != "")
                     {
@@ -591,6 +604,7 @@ namespace Portal.Consultoras.BizLogic
             var lstConcursos = new List<string>();
 
             var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+            var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
             var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
 
@@ -599,7 +613,7 @@ namespace Portal.Consultoras.BizLogic
                 var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
                 lstConcursos.Add(string.Join("|", Concursos.Select(c => c.CodigoConcurso)));
 
-                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
                 lstConcursos.Add(string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso)));
             }
 

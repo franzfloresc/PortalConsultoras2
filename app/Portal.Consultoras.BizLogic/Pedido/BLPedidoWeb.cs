@@ -1594,6 +1594,16 @@ namespace Portal.Consultoras.BizLogic
             return lstPedidosDetalle;
         }
 
+        public bool ExistsPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(paisID);
+            using (IDataReader reader = daPedidoWeb.GetPedidoWebByCampaniaConsultora(campaniaID, consultoraID))
+            {
+                if (reader.Read()) return true;
+            }
+            return false;
+        }
+
         public BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
         {
             BEPedidoWeb bePedidoWeb = null;

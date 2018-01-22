@@ -74,6 +74,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.FotoPerfil = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -81,6 +82,7 @@ namespace Portal.Consultoras.Web.Models
         public string TelefonoTrabajo { get; set; }
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
+        public bool EsConsultoraNueva { get; set; }
         public string NombrePais { get; set; }
         public string BanderaImagen { get; set; }
         public string CodigoFuente { get; set; }
@@ -367,5 +369,7 @@ namespace Portal.Consultoras.Web.Models
         public int ConsecutivoNueva { get; set; }
 
         public DateTime FechaHoy { get; set; }
+
+        public string FotoPerfil { get; set; }
     }
 }

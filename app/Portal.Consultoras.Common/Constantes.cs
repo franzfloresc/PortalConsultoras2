@@ -131,12 +131,6 @@ namespace Portal.Consultoras.Common
             public const int Accesorizate = 7;
         }
 
-        public static class ConsultoraNueva
-        {
-            public const int Sicc = 2;
-            public const int Fox = 1;
-        }
-
         public static class RangoCantidadPedido
         {
             public const int IdRango = 39;
@@ -1514,6 +1508,7 @@ namespace Portal.Consultoras.Common
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
+            public const string CalculoProgramaNuevas = "P";
         }
 
         public static class ComunicadoTipoDispositivo

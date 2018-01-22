@@ -678,10 +678,13 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
         #endregion
 
-        #region DescripcionEstrategia
+        #region Estrategia
         [OperationContract]
-        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId,
-            List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, 
+                int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+
+        [OperationContract]
+        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
         #endregion
     }
 }

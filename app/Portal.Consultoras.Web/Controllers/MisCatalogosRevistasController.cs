@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             return View(clienteModel);
         }
@@ -608,13 +608,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                else if (revistaDigital.TieneRDR)
+                else if (revistaDigital.TieneRDR && !tieneGnd)
                 {
-                    if (!tieneGnd)
-                    {
-                        partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
-
-                    }
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+                    
                 }
             }
             catch (Exception ex)

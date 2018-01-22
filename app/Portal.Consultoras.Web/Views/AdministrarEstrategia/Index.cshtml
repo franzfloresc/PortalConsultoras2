@@ -354,8 +354,8 @@
 </div>
 <div id="loadingScreen"></div>
 
-<div id="DialogActualizarTono" style="display: none;">
-    <div class="Content_modal">
+<div id="DialogActualizarTono">
+    <div class="Content_modal" style="overflow: hidden;">
         <div id="divActualizarTono">
             <div class="div-3" style="text-align: center;">
                 Resultado de la actualización:
@@ -376,7 +376,7 @@
 </div>
 
 <div id="DialogTonoActualizada">
-    <div class="Content_modal">
+    <div class="Content_modal" style="overflow: hidden;">
         <div class="container" style="margin: 15px auto; width: auto;">
             <div class="border-wrapper">
                 <table id="listTonoActualizada"></table>
@@ -992,7 +992,7 @@
         });
         $("#btnActualizarTonos").click(function() {
             if (ValidarMasivo()) {
-                
+                ActualizarTonos();
             }
         });
         $("#btnAceptarMasivo1").click(function () {
@@ -2262,6 +2262,26 @@
             draggable: false,
             title: "Resultado de estrategias no actualizadas"
         });
+        
+        $('#DialogActualizarTono').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Resultado de actualización de tonos."
+        });
+        
+        $('#DialogTonoActualizada').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Lista de CUVs actualizados."
+        });
     }
 
     function UploadFileLanzamineto(divId) {
@@ -2318,9 +2338,7 @@
                     datastr: gridJson,
                     colNames: ['Descripcion', 'Cantidad'],
                     colModel: [{ name: 'Descripcion', index: 'Descripcion', sortable: false},
-                        {
-                            name: 'Cantidad', index: 'Cantidad', width: 30, sortable: false
-                        }],
+                        {name: 'Cantidad', index: 'Cantidad', width: 30, sortable: false}],
                     pager: false,
                     jsonReader: {
                         repeatitems: false
@@ -2334,7 +2352,7 @@
                     sortorder: "asc",
                     viewrecords: true,
                     hoverrows: false,
-                    caption: "",    
+                    caption: ""   
                 });
                 createGridUpdated(data.listActualizado);
                 createGridNotUpdated(data.listNoActualizado);
@@ -2424,7 +2442,7 @@
             return false;
         } else {
             var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-            if (estrategiaId.in(Id.OfertaParaTi, Id.GuiaDeNegocio, Id.LosMasVendidos, Id.Lanzamiento, 
+            if (!estrategiaId.in(Id.OfertaParaTi, Id.GuiaDeNegocio, Id.LosMasVendidos, Id.Lanzamiento, 
                 Id.OfertasParaMi, Id.PackAltoDesembolso, Id.OfertaDelDia)) {
                 _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                 return false;
@@ -2443,25 +2461,76 @@
 
         jQuery.ajax({
             type: 'POST',
-            url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+            url: baseUrl + 'AdministrarEstrategia/ActualizarTono',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                if (data.message == "OK") {
-                    $("#txtDescripcionCUVTC").val(data.descripcion);
-                    $("#txtPrecioCUVTC").val(parseFloat(data.precio).toFixed(2));
-                    closeWaitingDialog();
-                } else {
-                    alert(data.message);
-                    closeWaitingDialog();
-                }
+                $("#listActualizarTono").jqGrid("GridUnload");
+                var gridJson = { page: 1, total: 2, records: 10, rows: [
+                    { Descripcion: "CUVs Actualizados", Cantidad: data.listActualizado.length + " <a href='#' onclick=showDialog(\'DialogTonoActualizada\')> Ver </a>"}
+                ]};
+ 
+                $("#listActualizarTono").empty().jqGrid({
+                    datatype: 'jsonstring',
+                    datastr: gridJson,
+                    colNames: ['Descripcion', 'Cantidad'],
+                    colModel: [{ name: 'Descripcion', index: 'Descripcion', sortable: false},
+                        {
+                            name: 'Cantidad', index: 'Cantidad', width: 30, sortable: false
+                        }],
+                    pager: false,
+                    jsonReader: {
+                        repeatitems: false
+                    },
+                    width: 540,
+                    height: "auto",
+                    scrollOffset: 20,
+                    rowNum: 10,
+                    rowList: [10, 15, 20, 25],
+                    sortname: 'Label',
+                    sortorder: "asc",
+                    viewrecords: true,
+                    hoverrows: false,
+                    caption: ""  
+                });
+                createGridTonoUpdated(data.listActualizado);
+                _toastHelper.success(data.message);
+                closeWaitingDialog();
+                showDialog('DialogActualizarTono');
             },
             error: function (data, error) {
                 closeWaitingDialog();
                 _toastHelper.error(data.message);
             }
+        });
+    }
+    
+    function createGridTonoUpdated(list) {
+        var gridJson = { page: 1, total: 2, records: 10, rows: list };
+        $("#listTonoActualizada").jqGrid("GridUnload");
+        $("#listTonoActualizada").empty().jqGrid({
+            datatype: 'jsonstring',
+            datastr: gridJson,
+            colNames: ['CUV', 'Descripción'],
+            colModel: [{ name: 'CUV2', index: 'CUV2', width: 30, sortable: false},
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', sortable: false }],
+            pager: jQuery('#pagerTonoActualizada'),
+            jsonReader: {
+                repeatitems: false
+            },
+            width: 540,
+            height: "auto",
+            scrollOffset: 20,
+            rowNum: 10,
+            rowList: [10, 15, 20, 25],
+            sortname: 'Label',
+            sortorder: "asc",
+            viewrecords: true,
+            hoverrows: false,
+            caption: "",           
+            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
         });
     }
 </script>

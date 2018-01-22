@@ -992,7 +992,7 @@ button.ui-button::-moz-focus-inner {
 /*ITG - 1869*/
 .ui-widget-header {
     border: 1px solid #aaaaaa;
-    background: #cccccc;
+    background: #cccccc url(../ui.jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x;
     color: #222222;
     font-weight: bold;
 }
@@ -1005,7 +1005,7 @@ button.ui-button::-moz-focus-inner {
     /*ITG - 1869*/
     .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
         border: 1px solid #d3d3d3;
-        background: #e6e6e6;
+        background: #e6e6e6 url(../ui.jquery/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
         font-weight: normal;
         color: #555555;
     }
@@ -1021,7 +1021,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
     border: 1px solid #94DDF5;
-    background:;
+    background: #94DDF5 50% 50% repeat-x;
     font-weight: normal;
     color: #444444;
 }
@@ -1058,7 +1058,7 @@ button.ui-button::-moz-focus-inner {
 /*ITG - 1869*/
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     border: 1px solid #fcefa1;
-    background: #fbf9ee;
+    background: #fbf9ee url(../ui.jquery/images/ui-bg_glass_55_fbf9ee_1x400.png) 50% 50% repeat-x;
     color: #363636;
 }
 
@@ -1068,7 +1068,7 @@ button.ui-button::-moz-focus-inner {
 /*ITG - 1869*/
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
     border: 1px solid #cd0a0a;
-    background: #fef1ec;
+    background: #fef1ec url(../ui.jquery/images/ui-bg_glass_95_fef1ec_1x400.png) 50% 50% repeat-x;
     color: #cd0a0a;
 }
 
@@ -1903,15 +1903,15 @@ button.ui-button::-moz-focus-inner {
 
 /* Overlays ITG - 1869*/
 .ui-widget-overlay {
-    background: #aaaaaa;
+    background: #aaaaaa url(../ui.jquery/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
     opacity: .3;
     filter: Alpha(Opacity=30);
 }
 
 .ui-widget-shadow {
-    margin: -8px;
+    margin: -8px 0 0 -8px;
     padding: 8px;
-    background: #aaaaaa;
+    background: #aaaaaa url(../ui.jquery/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
     opacity: .3;
     filter: Alpha(Opacity=30);
     -moz-border-radius: 8px;

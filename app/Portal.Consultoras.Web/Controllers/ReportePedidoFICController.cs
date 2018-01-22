@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
+                List<BEServicePROLFIC> lst;
                 BEPais bepais = new BEPais();
                 
                 try
@@ -74,11 +74,13 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEServicePROLFIC> items = lst;
 
                 #region Sort Section
@@ -132,18 +134,19 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else lst = new List<BEPais> { sv.SelectPais(userData.PaisID) };
+                lst = userData.RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(paisID);
+                lst = sv.SelectCampanias(paisId);
             }
             return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
         }
@@ -170,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (vRegion == "" || vRegion == "-- Todas --") vRegion = "x";
             if (vZona == "" || vZona == "-- Todas --") vZona = "x";
 
-            List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
+            List<BEServicePROLFIC> lst;
             try
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -184,18 +187,20 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = new List<BEServicePROLFIC>();
             }
 
-            var dic = new Dictionary<string, string>();
-            dic.Add("País", "PAIS");
-            dic.Add("Periodo", "PERIODO");
-            dic.Add("Fecha Registro", "FechaRegistro");
-            dic.Add("Fecha Modificación", "FechaModificacion");
-            dic.Add("Zona", "ZONA");
-            dic.Add("Cuenta", "CUENTA");
-            dic.Add("CUV", "CUV");
-            dic.Add("Producto", "PRODUCTO");
-            dic.Add("Tipo de Oferta", "TIPO_OFETA");
-            dic.Add("Unidades", "UNIDADES");
-            dic.Add("Venta Neta", "VENTA_NETA");
+            var dic = new Dictionary<string, string>
+            {
+                {"País", "PAIS"},
+                {"Periodo", "PERIODO"},
+                {"Fecha Registro", "FechaRegistro"},
+                {"Fecha Modificación", "FechaModificacion"},
+                {"Zona", "ZONA"},
+                {"Cuenta", "CUENTA"},
+                {"CUV", "CUV"},
+                {"Producto", "PRODUCTO"},
+                {"Tipo de Oferta", "TIPO_OFETA"},
+                {"Unidades", "UNIDADES"},
+                {"Venta Neta", "VENTA_NETA"}
+            };
 
             Util.ExportToExcel_FIC("PedidosFICExcel", lst, dic);
             return View();

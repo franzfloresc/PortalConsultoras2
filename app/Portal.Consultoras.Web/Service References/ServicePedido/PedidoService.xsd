@@ -3,6 +3,7 @@
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
   <xs:complexType name="ArrayOfBEReporteValidacionSRCampania">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
@@ -973,6 +974,7 @@
       <xs:element minOccurs="0" name="EsCDRWebZonaValida" type="xs:int" />
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
@@ -1045,6 +1047,7 @@
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PasoSextoPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="PedidoFICActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="PortalLideres" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
@@ -1133,6 +1136,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraResumen.PedidoResumen" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
+  <xs:complexType name="ArrayOfBENovedadTracking">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBENovedadTracking" nillable="true" type="tns:ArrayOfBENovedadTracking" />
+  <xs:complexType name="BENovedadTracking">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Boleta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DesNovedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DesTipoEntrega" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaNovedad" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeNovedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
   <xs:complexType name="BEConfirmacionEntrega">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
@@ -1856,6 +1881,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Campana" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" minOccurs="0" name="Detalles" nillable="true" type="q4:ArrayOfBETrackingDetalle" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Etapa" type="xs:int" />
       <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime" />
@@ -2073,28 +2099,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEInformacion" nillable="true" type="tns:BEInformacion" />
-  <xs:complexType name="ArrayOfBENovedadTracking">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBENovedadTracking" nillable="true" type="tns:ArrayOfBENovedadTracking" />
-  <xs:complexType name="BENovedadTracking">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Boleta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DesNovedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DesTipoEntrega" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaNovedad" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeNovedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
   <xs:complexType name="BEPedidoReporteLiderIndicador">
     <xs:sequence>
       <xs:element minOccurs="0" name="PedidoWebEnProceso" type="xs:int" />

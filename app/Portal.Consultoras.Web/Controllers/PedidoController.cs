@@ -532,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region validar cuv de inicio obligatorio
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                if (EsConsultoraNueva())
+                if (userData.EsConsultoraNueva)
                 {
                     var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
                     detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
@@ -847,7 +847,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
-            var mensaje = string.Empty;
+            string mensaje;
             if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 ModelState.AddModelError("", mensaje);
@@ -1106,17 +1106,17 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
-            List<BEProducto> olstProducto;
             var olstProductoModel = new List<ProductoModel>();
 
             var oUsuarioModel = userData;
             try
             {
+                List<BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, false).ToList();
                 }
-                olstProducto = olstProducto ?? new List<BEProducto>();
+
                 if (olstProducto.Count == 0)
                 {
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe." });
@@ -1128,64 +1128,66 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var strCUV = CUV;
+                var strCuv = CUV;
 
-                var oBEPedidoWebDetalle = new BEPedidoWebDetalle();
-                oBEPedidoWebDetalle.IPUsuario = oUsuarioModel.IPUsuario;
-                oBEPedidoWebDetalle.CampaniaID = oUsuarioModel.CampaniaID;
-                oBEPedidoWebDetalle.ConsultoraID = oUsuarioModel.ConsultoraID;
-                oBEPedidoWebDetalle.PaisID = oUsuarioModel.PaisID;
-                oBEPedidoWebDetalle.TipoOfertaSisID = 1700;
-                oBEPedidoWebDetalle.ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID;
-                oBEPedidoWebDetalle.ClienteID = (short)0;
-                oBEPedidoWebDetalle.PedidoID = oUsuarioModel.PedidoID;
-                oBEPedidoWebDetalle.OfertaWeb = false;
-                oBEPedidoWebDetalle.IndicadorMontoMinimo = Convert.ToInt32(olstProducto[0].IndicadorMontoMinimo.ToString().Trim());
-                oBEPedidoWebDetalle.SubTipoOfertaSisID = Convert.ToInt32(0);
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
+                {
+                    IPUsuario = oUsuarioModel.IPUsuario,
+                    CampaniaID = oUsuarioModel.CampaniaID,
+                    ConsultoraID = oUsuarioModel.ConsultoraID,
+                    PaisID = oUsuarioModel.PaisID,
+                    TipoOfertaSisID = 1700,
+                    ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                    ClienteID = (short) 0,
+                    PedidoID = oUsuarioModel.PedidoID,
+                    OfertaWeb = false,
+                    IndicadorMontoMinimo = Convert.ToInt32(olstProducto[0].IndicadorMontoMinimo.ToString().Trim()),
+                    SubTipoOfertaSisID = Convert.ToInt32(0),
+                    MarcaID = Convert.ToByte(olstProducto[0].MarcaID),
+                    Cantidad = CantCUVpedido,
+                    PrecioUnidad = olstProducto[0].PrecioCatalogo,
+                    CUV = olstProducto[0].CUV.Trim(),
+                    DescripcionProd = olstProducto[0].Descripcion.Trim()
+                };
 
-                oBEPedidoWebDetalle.MarcaID = Convert.ToByte(olstProducto[0].MarcaID);
-                oBEPedidoWebDetalle.Cantidad = CantCUVpedido;
-                oBEPedidoWebDetalle.PrecioUnidad = olstProducto[0].PrecioCatalogo;
-                oBEPedidoWebDetalle.CUV = olstProducto[0].CUV.Trim();
 
-                oBEPedidoWebDetalle.DescripcionProd = olstProducto[0].Descripcion.Trim();
-                oBEPedidoWebDetalle.ImporteTotal = oBEPedidoWebDetalle.Cantidad * oBEPedidoWebDetalle.PrecioUnidad;
-                oBEPedidoWebDetalle.Nombre = oUsuarioModel.NombreConsultora;
-                oBEPedidoWebDetalle.DescripcionLarga = olstProducto[0].DescripcionMarca;
-                oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
-                oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
+                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                obePedidoWebDetalle.Nombre = oUsuarioModel.NombreConsultora;
+                obePedidoWebDetalle.DescripcionLarga = olstProducto[0].DescripcionMarca;
+                obePedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
+                obePedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
 
-                oBEPedidoWebDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
+                obePedidoWebDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
 
-                IList<BEPedidoWebService> olstCuvMarquesina = null;
+                IList<BEPedidoWebService> olstCuvMarquesina;
                 using (var sv = new PedidoServiceClient())
                 {
-                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, oUsuarioModel.ConsultoraID, strCUV);
+                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, oUsuarioModel.ConsultoraID, strCuv);
                 }
 
-                bool ErrorServer;
+                bool errorServer;
                 string tipo;
                 bool modificoBackOrder;
 
                 if (olstCuvMarquesina.Count == 0 || olstCuvMarquesina[0].CUV == "")
                 {
-                    AdministradorPedido(oBEPedidoWebDetalle, "I", out ErrorServer, out tipo, out modificoBackOrder);
+                    AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
                 }
                 else
                 {
-                    oBEPedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
-                    oBEPedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
-                    oBEPedidoWebDetalle.Cantidad = oBEPedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
-                    AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo, out modificoBackOrder);
+                    obePedidoWebDetalle.PedidoID = olstCuvMarquesina[0].PedidoWebID;
+                    obePedidoWebDetalle.PedidoDetalleID = Convert.ToInt16(olstCuvMarquesina[0].PedidoWebDetalleID);
+                    obePedidoWebDetalle.Cantidad = obePedidoWebDetalle.Cantidad + olstCuvMarquesina[0].Cantidad;
+                    AdministradorPedido(obePedidoWebDetalle, "U", out errorServer, out tipo, out modificoBackOrder);
                 }
 
                 return Json(new
                 {
-                    success = !ErrorServer,
-                    message = !ErrorServer ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
+                    success = !errorServer,
+                    message = !errorServer ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
                     : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
-                    oPedidoDetalle = oBEPedidoWebDetalle,
-                    DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    oPedidoDetalle = obePedidoWebDetalle,
+                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
                     tipo
                 }, JsonRequestBehavior.AllowGet);
 
@@ -1489,7 +1491,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var cuv = productos.First().CUV.Trim();
             var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
-            var tieneRDC = revistaDigital.TieneRDC && revistaDigital.EsActiva;
+            var tieneRdc = revistaDigital.TieneRDC && revistaDigital.EsActiva;
 
             productosModel.AddRange(productos.Select(prod => new ProductoModel()
             {
@@ -1511,7 +1513,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DescripcionCategoria = prod.DescripcionCategoria,
                 FlagNueva = prod.FlagNueva,
                 TipoEstrategiaID = prod.TipoEstrategiaID,
-                TieneRDC = tieneRDC,
+                TieneRDC = tieneRdc,
                 EsOfertaIndependiente = prod.EsOfertaIndependiente
             }));
 
@@ -1561,11 +1563,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
 
-                var ObservacionCUV = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
+                var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
 
                 var mensajeByCuv = GetMensajeByCUV(userModel, producto.CUV.Trim());
 
-                var tieneRDC = revistaDigital.TieneRDC && revistaDigital.EsActiva;
+                var tieneRdc = revistaDigital.TieneRDC && revistaDigital.EsActiva;
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
@@ -1583,7 +1585,7 @@ namespace Portal.Consultoras.Web.Controllers
                     IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim(),
                     TipoOfertaSisID = producto.TipoOfertaSisID,
                     ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
-                    ObservacionCUV = ObservacionCUV,
+                    ObservacionCUV = observacionCuv,
                     MensajeCUV = mensajeByCuv.Mensaje,
                     DesactivaRevistaGana = revistaGana,
                     DescripcionMarca = producto.DescripcionMarca,
@@ -1595,7 +1597,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
-                    TieneRDC = tieneRDC
+                    TieneRDC = tieneRdc
                 });
 
             }
@@ -1675,7 +1677,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
-            if (userData.OfertaDelDia.BloqueoProductoDigital)
+            if (userData.OfertaDelDia != null && userData.OfertaDelDia.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
@@ -3440,7 +3442,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
-            if (!EsConsultoraNueva())
+            if (!userData.EsConsultoraNueva)
             {
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
@@ -4426,15 +4428,15 @@ namespace Portal.Consultoras.Web.Controllers
             return estado;
         }
 
-        private BEEstrategia FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
+        private BEEstrategia FiltrarEstrategiaPedido(string estrategiaId, int flagNueva = 0)
         {
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
-                EstrategiaID = Convert.ToInt32(EstrategiaID),
-                FlagNueva = FlagNueva
+                EstrategiaID = Convert.ToInt32(estrategiaId),
+                FlagNueva = flagNueva
             };
 
             using (var sv = new PedidoServiceClient())

@@ -2,7 +2,7 @@
     <div class="nrorevista">
         <div class="nro">REVISTA C-17</div>
         <div class="vineta">
-            <span>❯</span>
+            <span><</span>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -11,7 +11,7 @@
             <img id="imgPortadaRevista" src="~/Content/Images/revista_no_disponible.jpg" alt="">
         </div>
         <div class="inforevista">
-            <p>Disfruta de la revista impresa aquí</p>
+            <p>Encuentra aquí las ofertas de la guía de negocio impresa</p>
             <a href="#" id="btnVerGuiaNegocio">VER GUÍA</a>
             <div style="display: none;">
                 @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", new { area = ""}, FormMethod.Post, new { id = "frmGuiaNegocio", target = "_blank" }))

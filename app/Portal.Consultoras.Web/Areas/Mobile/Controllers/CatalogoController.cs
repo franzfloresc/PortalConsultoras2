@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
             string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
-            var url = string.Empty;
+            string url;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
 
             try
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string GetStringIssuRevista(string codigoRevista)
         {
-            var stringIssuuRevista = string.Empty;
+            string stringIssuuRevista;
             using (var client = new WebClient())
             {
                 var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);

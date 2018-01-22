@@ -493,6 +493,21 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int ActualizarTonoEstrategia(int EstrategiaId, string CodigoEstrategia, int TieneVariedad)
+        {
+            int result;
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizarTonoEstrategias"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, EstrategiaId);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, CodigoEstrategia);
+                Context.Database.AddInParameter(command, "@TieneVariedad", DbType.String, TieneVariedad);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+            }
+            return result;
+        }
+
         #region Producto Comentario
 
         public int InsertarProductoComentario(BEProductoComentario entidad)
