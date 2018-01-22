@@ -1,9 +1,8 @@
 ﻿using Portal.Consultoras.Entities;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Data;
 using System.Data.Common;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Data
 {
@@ -37,7 +36,7 @@ namespace Portal.Consultoras.Data
         }
         public string InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            string result = string.Empty;
+            string result;
 
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))
             {
