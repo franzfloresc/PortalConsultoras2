@@ -1,14 +1,39 @@
-﻿@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+﻿@using Portal.Consultoras.Web.Models;
+@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+
+@{
+    ConfiguracionSeccionHomeModel configOdd = new ConfiguracionSeccionHomeModel();
+    configOdd = ViewBag.configSeccionODD;
+}
+
 <style>
     .flip-clock-wrapper .flip{
-        box-shadow: 0 2px 5px @Model.ColorFondo1 !important;
+        box-shadow: 0 2px 5px @(string.IsNullOrEmpty(configOdd.ColorFondo) ? Model.ColorFondo1 : configOdd.ColorFondo) !important;
     }
     .flip-clock-wrapper ul li a div div.inn {
-        text-shadow: 0 1px 2px @Model.ColorFondo1 !important;
-        background-color: @Model.ColorFondo1 !important;
+        text-shadow: 0 1px 2px @(string.IsNullOrEmpty(configOdd.ColorFondo) ? Model.ColorFondo1 : configOdd.ColorFondo) !important;
+        background-color: @(string.IsNullOrEmpty(configOdd.ColorFondo) ? Model.ColorFondo1 : configOdd.ColorFondo) !important;
+        @(string.IsNullOrEmpty(configOdd.ColorTexto) ? "" : "color:" + configOdd.ColorTexto + ";")
+    }
+
+    .flip-clock-dot {
+        @(string.IsNullOrEmpty(configOdd.ColorTexto) ? "" : "background:" + configOdd.ColorTexto + ";")
     }
 </style>
-<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bloqueOfertaDia_vistaOfertas" style="background-color:@Model.ColorFondo1; height:190px;">
+@{
+    var estiloFondo = "";
+
+    if (configOdd.UsarImagenFondo && !string.IsNullOrEmpty(configOdd.ImagenFondo))
+    {
+        estiloFondo = "background: url(" + configOdd.ImagenFondo + ") center center no-repeat; background-size: 100%; height:190px;";
+    }
+    else
+    {
+        estiloFondo = "background-color:" + (string.IsNullOrEmpty(configOdd.ColorFondo) ? Model.ColorFondo1 : configOdd.ColorFondo) + "; height: 190px;";
+    }
+}
+
+<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bloqueOfertaDia_vistaOfertas" style="@estiloFondo">
     <div style="width:290px; margin:0 auto;" id="content_oferta_dia_mobile">
         <div class="solo_hoy_mobile">
             <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy" />
@@ -21,21 +46,23 @@
 
 
         <div class="float_left" style="width:50%; margin-left:3%;">
-            <div class="nombre_set_oferta_mobile">@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
+            <div class="nombre_set_oferta_mobile" @(string.IsNullOrEmpty(configOdd.ColorTexto) ? "" : "style=color:" + configOdd.ColorTexto + ";")>@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
             @if (Model.ListaOfertas != null)
             {
                 if (Model.ListaOfertas.Count > 1)
                 {
-                    <a class="btn_compralo_ahora" href="#">VER OFERTAS</a>
+                    <a class="btn_compralo_ahora" href="#"
+                       @(string.IsNullOrEmpty(configOdd.ColorTexto) ? "" : "style=color:" + configOdd.ColorTexto + ";border-color:" + configOdd.ColorTexto + ";")>VER OFERTAS</a>
                 }
                 else
                 {
-                    <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                    <a class="btn_compralo_ahora" href="#"
+                       @(string.IsNullOrEmpty(configOdd.ColorTexto) ? "" : "style=color:" + configOdd.ColorTexto + ";border-color:" + configOdd.ColorTexto + ";")>VER OFERTA</a>
                 }
             }
         </div>
         <hr class="clear" />
-        <div  style="display:none;" id="banner-odd-mobile">
+        <div style="display:none;" id="banner-odd-mobile">
             <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
             <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
             <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />

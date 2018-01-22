@@ -278,6 +278,9 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            //ODD
+            public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
         }
 
         public static class ConfiguracionManager

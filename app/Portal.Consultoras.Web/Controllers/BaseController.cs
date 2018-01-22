@@ -2048,6 +2048,38 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
+        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategiaOdd(string codigoEstrategia)
+        {
+            var menuActivo = GetSessionMenuActivo();
+
+            if (menuActivo.CampaniaId <= 0)
+                menuActivo.CampaniaId = userData.CampaniaID;
+
+            ConfiguracionSeccionHomeModel configuracionModel;
+            var sessionNombre = "";
+
+            switch (codigoEstrategia)
+            {
+                case Constantes.ConfiguracionPais.OfertaDelDia:
+                    sessionNombre = Constantes.ConstSession.ConfiguracionEstrategiaOdd + menuActivo.CampaniaId;
+                    break;
+                default:
+                    return null;
+            }
+
+            if (Session[sessionNombre] != null)
+            {
+                configuracionModel = (ConfiguracionSeccionHomeModel)Session[sessionNombre];
+            }
+            else
+            {
+                configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
+                Session[sessionNombre] = configuracionModel;
+            }
+
+            return configuracionModel;
+        }
+
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
         {
             var model = new ShowRoomBannerLateralModel();
@@ -3038,7 +3070,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isBpt ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                    ColorFondo = isMobile ? entConf.MobileColorFondo : entConf.DesktopColorFondo,
+                    UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
+                    ColorTexto = isMobile ? entConf.MobileColorTexto : entConf.DesktopColorTexto,
                     Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
