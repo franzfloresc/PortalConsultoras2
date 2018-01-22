@@ -2089,10 +2089,27 @@ namespace Portal.Consultoras.Web.Controllers
                 if (readLine != null)
                 {
                     var arraySplitHeader = readLine.Split(',');
-                    if (!arraySplitHeader[0].ToLower().Equals("cuv") || 
-                        !arraySplitHeader[1].ToLower().Equals("descripcion"))
+
+
+                    if (model.TipoEstrategia == "3028")
                     {
-                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
+                            !arraySplitHeader[1].ToLower().Equals("Nombre de Set") ||
+                            !arraySplitHeader[2].ToLower().Equals("Precio Normal") ||
+                            !arraySplitHeader[3].ToLower().Equals("Unidades Permitidas") ||
+                            !arraySplitHeader[4].ToLower().Equals("Tipo de Negocio") ||
+                            !arraySplitHeader[5].ToLower().Equals("Es SubCampania"))
+                        {
+                            throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        }
+                    }
+                    else
+                    {
+                        if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
+                        !arraySplitHeader[1].ToLower().Equals("descripcion"))
+                        {
+                            throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
+                        }
                     }
                 }
                 

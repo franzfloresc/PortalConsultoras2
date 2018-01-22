@@ -338,8 +338,17 @@
             </div>
             <div class="div-3" style="margin: 15px auto; width: 200px;">
                 Formato de archivo (*.csv):<br/>
-                - CUV<br />
-                - Descripción<br />
+                    - CUV<br />
+                <span id="seccionFormatoArchivoGeneral">                    
+                    - Descripción<br />
+                </span>
+                <span id="seccionFormatoArchivoShowroon">
+                    - Nombre de Set<br />
+                    - Precio Normal<br />
+                    - Unidades Permitidas<br />
+                    - Tipo de Negocio<br />
+                    - Es Subcampaña<br />
+                </span>
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
@@ -1141,10 +1150,15 @@
                     return false;
                 }
             }
-
             $("#divDescMasivoPaso1").show();
             $("#divDescMasivoPaso2").hide();
-
+            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == codigoShowRoom) {
+                $("#seccionFormatoArchivoShowroon").show();
+                $("#seccionFormatoArchivoGeneral").hide();
+            } else {
+                $("#seccionFormatoArchivoGeneral").show();
+                $("#seccionFormatoArchivoShowroon").hide();
+            }
             showDialog("DialogDescMasivo");
         });
 
@@ -1429,7 +1443,7 @@
 
             showDialog("DialogDatosShowRoom");
         });
-   
+
         //SHOWROOM-FIN
 
         UploadFileLanzamineto('img-fondo-desktop');
@@ -1892,9 +1906,9 @@
             }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == '4' || codigo == "005" || codigo == "007" || 
-            codigo == "008" || codigo == "010" || codigo == codigoShowRoom) { 
-            $("#list").jqGrid('hideCol', ["Orden"]); 
+        if (tipo == '4' || codigo == "005" || codigo == "007" ||
+            codigo == "008" || codigo == "010" || codigo == codigoShowRoom) {
+            $("#list").jqGrid('hideCol', ["Orden"]);
         }
     }
 
@@ -2147,7 +2161,7 @@
             buttons:
             {
                 "Guardar": function () {
-                    
+
                     if ($('#mensajeErrorCUV').val() != "") {
                         alert($('#mensajeErrorCUV').val());
                         return false;
