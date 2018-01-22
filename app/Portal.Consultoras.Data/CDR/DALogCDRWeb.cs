@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Entities.CDR;
 using System.Data;
 using System.Data.Common;
-using System.Runtime.Remoting.Contexts;
 
 namespace Portal.Consultoras.Data.CDR
 {
