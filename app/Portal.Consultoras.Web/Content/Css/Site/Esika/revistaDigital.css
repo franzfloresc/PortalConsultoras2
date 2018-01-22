@@ -3490,7 +3490,7 @@ font-size: 11px;
   }
   .desplegablegnd .gndcontenido .gnd span.gndcerrar span.flechitagnd{
   	writing-mode: horizontal-tb;
-  	transform: rotate(180deg);
+  	transform: rotate(360deg);
   	display: inline-block;
   	margin-top: 10px;
   }

@@ -1664,6 +1664,18 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva)
+            {
+                beProductos = beProductos
+                    .Where(prod =>
+                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                        )
+                    )
+                    .ToList();
+            }
+
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
