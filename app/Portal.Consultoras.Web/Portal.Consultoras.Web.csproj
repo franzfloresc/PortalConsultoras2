@@ -701,11 +701,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ServicePaqueteDocumentario\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Service References\ServicePedidoRechazado\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3844,19 +3839,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServicePaqueteDocumentario\PdfService.wsdl" />
-    <None Include="Service References\ServicePaqueteDocumentario\PdfService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePaqueteDocumentario\PdfService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePaqueteDocumentario\PdfService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePaqueteDocumentario\PdfService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
       <SubType>Designer</SubType>
@@ -4007,12 +3989,6 @@
     <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
     <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
     <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServicePaqueteDocumentario\configuration91.svcinfo" />
-    <None Include="Service References\ServicePaqueteDocumentario\configuration.svcinfo" />
-    <None Include="Service References\ServicePaqueteDocumentario\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -5084,7 +5060,6 @@
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />
-    <WCFMetadataStorage Include="Service References\ServicePaqueteDocumentario\" />
     <WCFMetadataStorage Include="Service References\ServicePedidoRechazado\" />
     <WCFMetadataStorage Include="Service References\ServicePedido\" />
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />

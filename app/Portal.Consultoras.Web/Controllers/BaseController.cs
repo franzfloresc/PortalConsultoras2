@@ -4333,94 +4333,109 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
-        
+
         protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido)
         {
-            var complain = new RVDWebCampaniasParam {
-                Pais = userData.CodigoISO,
-                Tipo = "1",
-                CodigoConsultora = codigoConsultora,
-                Campana = campania,
-                NumeroPedido = numeroPedido
-            };
+            string errorMessage;
+            return GetPDFRVDigital(codigoConsultora, campania, numeroPedido, out errorMessage);
+        }
+        protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido, out string errorMessage)
+        {
+            errorMessage = string.Empty;
 
             var lstRVPRFModel = new List<RVPRFModel>();
             try
             {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
+                var input = new {
+                    Pais = userData.CodigoISO,
+                    Tipo = "1",
+                    CodigoConsultora = codigoConsultora,
+                    Campana = campania,
+                    NumeroPedido = numeroPedido
+                };
+                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                var wrapper = ConsumirServicio<WrapperPDFWeb>(input, urlService);
 
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+                var result = (wrapper ?? new WrapperPDFWeb()).GET_URLResult;
+                if (result != null)
                 {
-                    writer.Write(output);
-                }
-
-                WebResponse response = request.GetResponse();
-                Stream reader = response.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-                WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
-
-                if ((st != null && st.GET_URLResult != null) &&
-                (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK") &&
-                (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0))
-                {
-                    lstRVPRFModel = st.GET_URLResult.objeto.Select(item => new RVPRFModel
+                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+                    
+                    if(string.IsNullOrEmpty(errorMessage) &&  result.objeto != null)
                     {
-                        Nombre = "Paquete Documentario",
-                        FechaFacturacion = item.fechaFacturacion,
-                        Ruta = Convert.ToString(item.url)
-                    }).ToList();
+                        lstRVPRFModel = result.objeto.Select(item => new RVPRFModel
+                        {
+                            Nombre = "Paquete Documentario",
+                            FechaFacturacion = item.fechaFacturacion,
+                            Ruta = Convert.ToString(item.url)
+                        }).ToList();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ConsumirServicio;
             }
             return lstRVPRFModel;
         }
 
-        protected List<CampaniaModel> GetCampaniasRVDigitalWeb(string codigoConsultora, out string errorMessage)
-        {                
-            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
+        protected List<CampaniaModel> GetListCampaniaPaqueteDocumentario(string codigoConsultora, out string errorMessage)
+        {
             errorMessage = string.Empty;
+
+            var lstCampaniaModel = new List<CampaniaModel>();
             try
             {
-                ResultObject2 result;
-                using (var sv = new PdfServiceClient())
-                {
-                    result = sv.LIS_Campana(userData.CodigoISO, "1", codigoConsultora);
-                }
+                var input = new {
+                    Pais = userData.CodigoISO,
+                    Tipo = "1",
+                    CodigoConsultora = codigoConsultora
+                };
+                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
+                var wrapper = ConsumirServicio<WrapperCampanias>(input, urlService);
 
+                var result = (wrapper ?? new WrapperCampanias()).LIS_CampanaResult;
                 if (result != null)
                 {
-                    if (result.lista != null && result.lista.Length != 0)
+                    if (result.errorCode != string.Empty && result.errorCode != "00000") errorMessage = result.errorMessage;
+
+                    if (string.IsNullOrEmpty(errorMessage) && result.lista != null)
                     {
-                        result.lista.Select(p => new CampaniaModel() { CampaniaID = Convert.ToInt32(p.campana), Codigo = p.campana });
-                    }
-                    else if(result.errorCode != string.Empty && result.errorCode != "00000")
-                    {
-                        errorMessage = result.errorMessage;
+                        lstCampaniaModel = result.lista.Select(p => p.campana).Distinct()
+                            .Select(s => new CampaniaModel() { CampaniaID = Convert.ToInt32(s), Codigo = s })
+                            .OrderBy(c => c.CampaniaID).ToList();
                     }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ListaCampanias;
+                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ConsumirServicio;
+            }
+            return lstCampaniaModel;
+        }
+
+        private T ConsumirServicio<T>(object input, string metodo)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            WebRequest request = WebRequest.Create(metodo);
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+
+            string inputJson = serializer.Serialize(input);
+            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            {
+                writer.Write(inputJson);
             }
 
-            if (lstCampaniaModel.Count != 0) return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();
-            return lstCampaniaModel;
+            string outputJson;
+            using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
+            {
+                outputJson = reader.ReadToEnd();
+            }            
+            return serializer.Deserialize<T>(outputJson);
         }
     }
 }

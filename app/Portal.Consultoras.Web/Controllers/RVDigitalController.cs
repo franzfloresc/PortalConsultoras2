@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 foreach (var item in st.LIS_CampanaResult.lista)
                                 {
-                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item), Codigo = item });
+                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item.campana), Codigo = item.campana });
                                 }
                             }
                             else

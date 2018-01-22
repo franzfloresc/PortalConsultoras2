@@ -1021,55 +1021,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GetCampaniasRVDigitalWeb(string CodigoConsultora)
         {
-            UsuarioModel usuario = userData;
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : CodigoConsultora) };
-            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-
-                WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null && st.LIS_CampanaResult != null && st.LIS_CampanaResult.lista != null &&
-                    st.LIS_CampanaResult.lista.Count != 0)
-
-                    foreach (var item in st.LIS_CampanaResult.lista)
-                    {
-                        lstCampaniaModel.Add(new CampaniaModel()
-                        {
-                            CampaniaID = Convert.ToInt32(item),
-                            Codigo = item
-                        });
-                    }
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            if (lstCampaniaModel.Count != 0)
-                return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
-
-            return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
+            string errorMessage;
+            return Json(GetListCampaniaPaqueteDocumentario(CodigoConsultora, out errorMessage), JsonRequestBehavior.AllowGet);
         }
 
         #region metodos genericos

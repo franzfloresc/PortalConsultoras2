@@ -50,8 +50,15 @@ namespace Portal.Consultoras.Web.Models
     {
         public string errorCode { get; set; }
         public string errorMessage { get; set; }
-        public List<string> lista { get; set; }
+        public List<LIS_PedidoResult> lista { get; set; }
         public string objeto { get; set; }
+    }
+
+    [Serializable]
+    public class LIS_PedidoResult
+    {
+        public string campana { get; set; }
+        public string pedido { get; set; }
     }
 
     [Serializable]
@@ -67,16 +74,6 @@ namespace Portal.Consultoras.Web.Models
         public string errorMessage { get; set; }
         public List<string> lista { get; set; }
         public string objeto { get; set; }
-    }
-
-    [Serializable]
-    public class RVDWebCampaniasParam
-    {
-        public string Pais { get; set; }
-        public string Tipo { get; set; }
-        public string CodigoConsultora { get; set; }
-        public string Campana { get; set; }
-        public string NumeroPedido { get; set; }
     }
 
     [Serializable]
