@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 
 namespace Portal.Consultoras.Data.Hana

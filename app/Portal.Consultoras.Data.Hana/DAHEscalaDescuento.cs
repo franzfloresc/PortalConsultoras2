@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,8 +11,7 @@ namespace Portal.Consultoras.Data.Hana
     {
         public List<BEEscalaDescuento> GetEscalaDescuento(int paisId)
         {
-            var listBE = new List<BEEscalaDescuento>();
-            var listaHana = new List<EscalaDescuentoHana>();
+            var listBe = new List<BEEscalaDescuento>();
 
             try
             {
@@ -26,23 +22,25 @@ namespace Portal.Consultoras.Data.Hana
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
-                listaHana = JsonConvert.DeserializeObject<List<EscalaDescuentoHana>>(responseFromServer);
+                var listaHana = JsonConvert.DeserializeObject<List<EscalaDescuentoHana>>(responseFromServer);
 
                 foreach (var escalaDescuentoHana in listaHana)
                 {
-                    var beEscalaDescuento = new BEEscalaDescuento();
-                    beEscalaDescuento.MontoHasta = escalaDescuentoHana.Monto_Hasta;
-                    beEscalaDescuento.PorDescuento = Convert.ToInt32(escalaDescuentoHana.Por_Descuento);
+                    var beEscalaDescuento = new BEEscalaDescuento
+                    {
+                        MontoHasta = escalaDescuentoHana.Monto_Hasta,
+                        PorDescuento = Convert.ToInt32(escalaDescuentoHana.Por_Descuento)
+                    };
 
-                    listBE.Add(beEscalaDescuento);
+                    listBe.Add(beEscalaDescuento);
                 }
             }
             catch (Exception)
             {
-                listBE = new List<BEEscalaDescuento>();
+                listBe = new List<BEEscalaDescuento>();
             }            
 
-            return listBE;
+            return listBe;
         } 
     }
 }
