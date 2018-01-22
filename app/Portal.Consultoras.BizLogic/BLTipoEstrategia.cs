@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,32 +9,24 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertTipoEstrategia(BETipoEstrategia entidad)
         {
-            try
-            {
-                var DATipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-                int result = DATipoEstrategia.Insert(entidad);
+                var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
+                int result = daTipoEstrategia.Insert(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public int DeleteTipoEstrategia(BETipoEstrategia entidad)
         {
-            try
-            {
-                var DATipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-                int result = DATipoEstrategia.Delete(entidad);
+                var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
+                int result = daTipoEstrategia.Delete(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad)
         {
             List<BETipoEstrategia> listaTipoEstrategias = new List<BETipoEstrategia>();
 
-            var DATipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-            using (IDataReader reader = DATipoEstrategia.GetTipoEstrategia(entidad))
+            var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
+            using (IDataReader reader = daTipoEstrategia.GetTipoEstrategia(entidad))
             {
                 while (reader.Read())
                 {
