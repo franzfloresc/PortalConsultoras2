@@ -9,7 +9,6 @@ using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
-    //R2319 - JLCS
     public class BLAfiliaClienteConsultora
     {
 
@@ -17,7 +16,6 @@ namespace Portal.Consultoras.BizLogic
         {
         }
 
-        //R2319 - JLCS
         public BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID,string ConsultoraID)
         {
             BEAfiliaClienteConsultora beAfiliacionClienteConsultora = new BEAfiliaClienteConsultora();
@@ -27,21 +25,20 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-                    beAfiliacionClienteConsultora = new BEAfiliaClienteConsultora(reader);// ha sido afiliado y activo -> 1 //afiliado y inactivo -> 0
+                    // ha sido afiliado y activo -> 1 //afiliado y inactivo -> 0
+                    beAfiliacionClienteConsultora = new BEAfiliaClienteConsultora(reader);
                 }
             }
 
             return beAfiliacionClienteConsultora;
         }
 
-        //R2319 - JLCS
         public int InsAfiliaClienteConsultora(int paisID,long ConsultoraID)
         {
             var DAAfiliaClienteConsultora = new DAAfiliaClienteConsultora(paisID);
             return DAAfiliaClienteConsultora.InsAfiliaClienteConsultora(ConsultoraID);
         }
 
-        //R2319 - JLCS
         public int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion)
         {
             var DAAfiliaClienteConsultora = new DAAfiliaClienteConsultora(paisID);

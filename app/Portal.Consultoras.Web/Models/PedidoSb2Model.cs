@@ -289,8 +289,9 @@ namespace Portal.Consultoras.Web.Models
 
         public int TieneMasVendidos { get; set; }
         public int TieneOfertaLog { get; set; }
+        
+        public PartialSectionBpt PartialSectionBpt { get; set; }
 
-        public RevistaDigitalModel RevistaDigital { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }

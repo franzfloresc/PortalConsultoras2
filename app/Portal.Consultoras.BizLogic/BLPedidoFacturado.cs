@@ -8,7 +8,6 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoFacturado
@@ -111,7 +110,7 @@ namespace Portal.Consultoras.BizLogic
                 var DAHPedido = new DAHPedido();
 
                 var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
-                var pedidoHana = listaPedidoHana.Where(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO" && p.CampaniaID == CampaniaID).FirstOrDefault();
+                var pedidoHana = listaPedidoHana.FirstOrDefault(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO" && p.CampaniaID == CampaniaID);
 
                 if (pedidoHana != null)
                 {

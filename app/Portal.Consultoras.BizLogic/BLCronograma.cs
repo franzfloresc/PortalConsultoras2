@@ -27,12 +27,6 @@ namespace Portal.Consultoras.BizLogic
             return cronogramas;
         }
 
-        //public void Update(BECronograma cronograma)
-        //{
-        //    var DACronograma = new DACronograma(cronograma.PaisID);
-        //    DACronograma.UpdCronograma(cronograma);
-        //}
-
         public BECronograma GetCronogramaByCampaniayZona(int paisID, int CampaniaID, int ZonaID)
         {
             var cronograma = new BECronograma();
@@ -132,7 +126,7 @@ namespace Portal.Consultoras.BizLogic
             return oDACronograma.GetCampaniaFacturacionPais(); 
         }
 
-        public List<BEPaisCampana> GetCampaniaActivaPais(int paisID, DateTime fechaConsulta) //1556
+        public List<BEPaisCampana> GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
         {
             var paisCampania = new List<BEPaisCampana>();
             var oDACronograma = new DACronograma(paisID);

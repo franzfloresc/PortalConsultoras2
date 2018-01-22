@@ -12,13 +12,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "DuplaSAC/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            string XmlPath = Server.MapPath("~/Key");
-            string KeyPath = Path.Combine(XmlPath, "KeyPublicaEnvioCadena.xml");
+            string xmlPath = Server.MapPath("~/Key");
+            string keyPath = Path.Combine(xmlPath, "KeyPublicaEnvioCadena.xml");
 
-            string PathData = "Aplicacion=2&CodigoUsuario=" + UserData().NombreConsultora + "&Pais=4";
-            string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(KeyPath, PathData));
+            string pathData = "Aplicacion=2&CodigoUsuario=" + UserData().NombreConsultora + "&Pais=4";
+            string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(keyPath, pathData));
 
-            string Url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
+            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
             
             if (UserData().CodigoISO == "PE"
                 || UserData().CodigoISO == "BO"
@@ -33,9 +33,9 @@ namespace Portal.Consultoras.Web.Controllers
                 || UserData().CodigoISO == "GT"
                 || UserData().CodigoISO == "PR"
                 || UserData().CodigoISO == "SV")
-                Url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
+                url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE + UserData().CodigoISO);
 
-            return Redirect(Url);
+            return Redirect(url);
         }
     }
 }

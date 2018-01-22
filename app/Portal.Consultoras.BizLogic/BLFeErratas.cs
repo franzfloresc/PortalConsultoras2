@@ -21,28 +21,12 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEFeErratas(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 
             return lista;
         }
-
-        //public BEFeErratas GetFeErratasById(int paisID, int feErratasID)
-        //{
-        //    var entidad = new BEFeErratas();
-        //    var DAFeErratas = new DAFeErratas(paisID);
-
-        //    using (IDataReader reader = DAFeErratas.GetFeErratasById(feErratasID))
-        //    if (reader.Read())
-        //    {
-        //        entidad = new BEFeErratas(reader);
-        //        //entidad.PaisID = paisID;
-        //    }
-
-        //    return entidad;
-        //}
-
+        
         public void InsertFeErratas(BEFeErratas entidad)
         {
             var DAFeErratas = new DAFeErratas(entidad.PaisID);
@@ -94,7 +78,6 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEFeErratas(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 

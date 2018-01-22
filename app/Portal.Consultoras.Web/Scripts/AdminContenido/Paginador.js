@@ -16,7 +16,7 @@ var Paginador = function (config) {
             _config.elementClick(page);
         }
     };
-    
+
     var _getItemBlock = function (disabled, current, label) {
         var classes = disabled ? 'item-disabled' : '';
         classes = classes += (current ? ' current' : '');
@@ -29,7 +29,7 @@ var Paginador = function (config) {
         return '<span>{0}-{1} de {2} registros.</span>'.replace('{0}', start).replace('{1}', end).replace('{2}', obj.number);
     };
 
-    var _itemOnSelect = function(page) {
+    var _itemOnSelect = function (page) {
         $('#' + _config.elementId + ' .item').last().after(_getLabelElement(this));
     };
 

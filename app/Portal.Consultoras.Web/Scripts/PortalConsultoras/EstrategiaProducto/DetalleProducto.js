@@ -6,16 +6,16 @@
     };
 
     var elements = {
-        
+
     };
-    
+
     var setting = {
-        baseUrl: ''        
+        baseUrl: ''
     };
 
     var lista = [];
 
-    var _bindEvents = function () {         
+    var _bindEvents = function () {
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
@@ -32,8 +32,8 @@
             _pintarUltimoComentarioConsultora(item);
             var xdata = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(xdata);
-            if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
-            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }            
+            if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop'); }
+            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }
             _validarDivTituloMasVendidos();
             if (tipoOrigenPantalla === 2) { $('.header_slider').hide(); LayoutHeader(); }
         });
@@ -311,7 +311,7 @@
                 readOnly: true
             });
         }
-        
+
     }
 
     var _validarGanancia = function (item) {
@@ -357,7 +357,7 @@
                         var model = get_local_storage("data_mas_vendidos");
                         model.Item = item;
                         model.Lista = _actualizarListaStorate(model.Lista, item);
-                        set_local_storage(model, "data_mas_vendidos");                        
+                        set_local_storage(model, "data_mas_vendidos");
                         location.href = setting.urlDetalleProducto;
                     } else {
                         console.log(verDetalleResponse.menssage);
@@ -380,7 +380,7 @@
 
         return item;
     };
-    
+
     var _actualizarListaStorate = function (lista, item) {
         var temp = [];
         var elem = null;
@@ -422,7 +422,7 @@
         },
         estrategiaVerDetalle: function (estrategiaId) {
             _verDetalleProductoMasVendidos(estrategiaId);
-        },       
+        },
         readVariables: function (parameters) {
             _readVariables(parameters);
         },

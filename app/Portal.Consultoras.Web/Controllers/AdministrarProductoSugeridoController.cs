@@ -7,7 +7,6 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -19,7 +18,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var userData = UserData();
             var model = new AdministrarProductoSugeridoModel()
             {
                 lstCampania = new List<CampaniaModel>(),
@@ -32,17 +30,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            var userData = UserData();
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(userData.PaisID));
-                }
-
+                lst = userData.RolID == 2 
+                    ? sv.SelectPaises().ToList() 
+                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -61,19 +54,19 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido).ToList();
             }
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            BEPager pag = new BEPager();
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEProductoSugerido> items = lst;
             
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Util.PaginadorGenerico(grid, lst);
-            string ISO = Util.GetPaisISO(PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
+
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
 
             var data = new
@@ -102,16 +95,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerMatriz(int paisID, int campaniaID, string cuv)
         {
-            BEPais pais = new BEPais();
-            int nroCampanias = -1;
+            BEPais pais;
+            int nroCampanias;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 pais = sv.SelectPais(paisID);
                 nroCampanias = sv.GetPaisNumeroCampaniasByPaisID(paisID);
             }
-            if (nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
 
-            BEMatrizComercial matriz = null;
+            if (nroCampanias == -1)
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar cargar las imágenes del CUV"
+                }, JsonRequestBehavior.AllowGet);
+
+            BEMatrizComercial matriz;
             List<BEMatrizComercialImagen> imagenes = null;
             using (var sv = new PedidoServiceClient())
             {
@@ -141,26 +140,26 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Imagenes = new List<MatrizComercialImagen>();
                 }
 
-                int nroCampaniasAtras = 0;
+                int nroCampaniasAtras;
                 Int32.TryParse(GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
-                string paisesCCC = GetPaisesConConsultoraOnlineFromConfig();
-                if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
+                string paisesCcc = GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesCcc.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
         }
 
-        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisId)
         {
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            string paisIso = Util.GetPaisISO(paisId);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                FechaRegistro = p.FechaRegistro ?? default(DateTime),
                 Foto = urlS3 + p.Foto,
                 NemoTecnico = p.NemoTecnico,
                 DescripcionComercial = p.DescripcionComercial
@@ -169,21 +168,14 @@ namespace Portal.Consultoras.Web.Controllers
             return data;
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -202,18 +194,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(AdministrarProductoSugeridoModel model)
         {
-            var userData = UserData();
             try
             {
-                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
-                   .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                   .ForMember(t => t.CUVSugerido, f => f.MapFrom(c => c.CUVSugerido))
-                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                   .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
@@ -222,9 +204,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Imagen Resize 
 
-                var listaImagenesResize = new List<EntidadMagickResize>();
+                List<EntidadMagickResize> listaImagenesResize;
 
-                string rutaImagen = entidad.ImagenProducto.Clone().ToString() ?? "";
+                string rutaImagen = entidad.ImagenProducto.Clone().ToString();
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
                 if (rutaImagen.ToLower().Contains(valorAppCatalogo))
                 {
@@ -240,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                string r = "";
+                string r;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     if (entidad.ProductoSugeridoID > 0)
@@ -301,25 +283,33 @@ namespace Portal.Consultoras.Web.Controllers
                 EntidadMagickResize entidadResize;
                 if (!Util.ExisteUrlRemota(rutaImagenSmall))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenSmall;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall;
-                    entidadResize.CodigoIso = userData.CodigoISO;
+                    entidadResize = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = rutaImagen,
+                        RutaImagenResize = rutaImagenSmall,
+                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
+                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall),
+                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
+                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall),
+                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall,
+                        CodigoIso = userData.CodigoISO
+                    };
                     listaImagenesResize.Add(entidadResize);
                 }
 
                 if (!Util.ExisteUrlRemota(rutaImagenMedium))
                 {
-                    entidadResize = new EntidadMagickResize();
-                    entidadResize.RutaImagenOriginal = rutaImagen;
-                    entidadResize.RutaImagenResize = rutaImagenMedium;
-                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium;
-                    entidadResize.CodigoIso = userData.CodigoISO;
+                    entidadResize = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = rutaImagen,
+                        RutaImagenResize = rutaImagenMedium,
+                        Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
+                            Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium),
+                        Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize,
+                            Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium),
+                        TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium,
+                        CodigoIso = userData.CodigoISO
+                    };
                     listaImagenesResize.Add(entidadResize);
                 }
             }
@@ -334,19 +324,16 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
-            var userData = UserData();
             try
-            {
-                Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
-                   .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID));
-
+            {   
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
-                string r = "";
+                entidad.Estado = 1;
+                entidad.UsuarioModificacion = userData.CodigoConsultora;
+
+                string r;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.Estado = 1;
-                    entidad.UsuarioModificacion = userData.CodigoConsultora;
                     r = sv.DelProductoSugerido(userData.PaisID, entidad);
                 }
 
@@ -400,12 +387,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int nroCampaniasAtras)
+        private string ImagenAppCatalogo(int campaniaId, string codigoSap, int nroCampaniasAtras)
         {
-            Producto[] arrayProducto = null;
+            Producto[] arrayProducto;
             using (ProductoServiceClient sv = new ProductoServiceClient())
             {
-                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaID, codigoSAP, nroCampaniasAtras);
+                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaId, codigoSap, nroCampaniasAtras);
             }
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
@@ -417,15 +404,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                var lista = new List<BECargaMasivaImagenes>();
+                List<BECargaMasivaImagenes> lista;
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
                 }
                 //listaEstrategias = listaEstrategias.Take(5).ToList();
-                var cantidadImagenesGeneradas = 0;
                 var cuvNoGenerados = "";
                 var cuvNoExistentes = "";
 
@@ -433,9 +418,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {                    
                     var mensajeError = "";
 
-                    var listaImagenesResize = new List<EntidadMagickResize>();
+                    List<EntidadMagickResize> listaImagenesResize;
 
-                    string rutaImagen = item.RutaImagen.Clone().ToString() ?? "";
+                    string rutaImagen = item.RutaImagen.Clone().ToString();
                     var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
                     if (rutaImagen.ToLower().Contains(valorAppCatalogo))
                     {
@@ -451,9 +436,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         cuvNoExistentes += item.Cuv + ",";
 
-                    if (mensajeError == "")
-                        cantidadImagenesGeneradas++;
-                    else
+                    if (mensajeError != "")
                         cuvNoGenerados += item.Cuv + ",";
                 }
 

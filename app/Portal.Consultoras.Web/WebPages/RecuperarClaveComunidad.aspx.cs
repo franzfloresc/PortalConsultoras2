@@ -106,7 +106,6 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("</tr>");
                     sb.Append("</table></body></html>");
 
-                    //Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", datos["Correo"].ToString(), "Cambia tu contraseña - Comunidad Somos Belcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
                     Util.EnviarMail("comunidadsomosbelcorp@somosbelcorp.com", datos["Correo"].ToString(), "Cambia tu contraseña - Comunidad Somos Belcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
 
                     using (ComunidadServiceClient sv = new ComunidadServiceClient())
@@ -133,8 +132,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClaveComunidad - RecuperarClaveUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false

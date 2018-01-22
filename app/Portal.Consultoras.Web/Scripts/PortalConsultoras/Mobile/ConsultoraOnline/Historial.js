@@ -46,8 +46,7 @@ function LoadPedidosClienteOnlineByCampaniaId(campanias) {
         complete: CloseLoading
     });
 }
-function CargarDetalleHistorial(solicitudClienteId)
-{
+function CargarDetalleHistorial(solicitudClienteId) {
     ShowLoading();
     location.href = urlClienteOnlineDetalleHistorial + '?solicitudClienteID=' + solicitudClienteId;
 }
