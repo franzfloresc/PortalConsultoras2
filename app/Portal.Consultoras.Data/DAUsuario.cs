@@ -787,7 +787,7 @@ namespace Portal.Consultoras.Data
 
         public void UpdFechaBloqueoRestaurarClave(string CodigoUsuario, string Tipo)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFechaBloqueoRestaurarClave"); ;
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFechaBloqueoRestaurarClave");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@TipoBloqueo", DbType.AnsiString, Tipo);
 

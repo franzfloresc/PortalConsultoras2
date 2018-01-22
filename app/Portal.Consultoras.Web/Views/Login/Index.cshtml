@@ -746,7 +746,7 @@
                     <span class="icono_regresar_ver_otras_opciones"><img src="~/Content/Images/Login2/Icons/flecha-regresar.svg" alt="Alternate Text" /></span>
                     <span>Regresar</span>
                 </a>
-                <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();" title="Cerrar"></a>
+                <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="CerrarPopup2()" title="Cerrar"></a>
                 <!-- INICIO - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
                 <div id="divPopupIntentosCorreo" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <!-- INICIO - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
@@ -820,7 +820,7 @@
                         <input type="text" maxlength="1" id="5Digito" name="quintoDigito" class="codigoSms" value="">
                         <input type="text" maxlength="1" id="6Digito" name="sextoDigito" class="codigoSms" value="">
                         <div class="tiempo_validez_codigoSms">
-                            <span>01</span>:<span>00</span>
+                            <span id="spnMin">01</span>:<span id="spnSeg">00</span>
                         </div>
                         <div class="mensaje_error_codigo codigoInvalido" style="display:none;">
                             <span class="icono_alerta_error"></span>
