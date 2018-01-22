@@ -63,9 +63,11 @@ namespace Portal.Consultoras.Common
 
             if (s3FileInfo.Exists)
             {
-                var deleteRequest = new DeleteObjectRequest();
-                deleteRequest.BucketName = ConfigS3.BUCKET_NAME;
-                deleteRequest.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
+                var deleteRequest = new DeleteObjectRequest
+                {
+                    BucketName = ConfigS3.BUCKET_NAME,
+                    Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName
+                };
                 // Fix Error: cliente no cuenta con permiso para eliminar archivos. 
                 try
                 {
@@ -91,19 +93,23 @@ namespace Portal.Consultoras.Common
             {
                 if (fileName != "")
                 {
-                    if (System.IO.File.Exists(path))
+                    if (File.Exists(path))
                     {
                         var inputStream = new FileStream(path, FileMode.Open);
                         using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
                         {
-                            var request = new PutObjectRequest();
-                            request.BucketName = ConfigS3.BUCKET_NAME;
-                            request.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-                            request.InputStream = inputStream;
+                            var request = new PutObjectRequest
+                            {
+                                BucketName = ConfigS3.BUCKET_NAME,
+                                Key = ConfigS3.ROOT_DIRECTORY + "/" + 
+                                      ((carpetaPais != "") ? carpetaPais + "/" : "") +
+                                      fileName,
+                                InputStream = inputStream
+                            };
                             if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
                             client.PutObject(request);
                         }
-                        if (EliminarArchivo) System.IO.File.Delete(path);
+                        if (EliminarArchivo) File.Delete(path);
                     }
                 }
                 return true;
@@ -117,8 +123,6 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileS3WithAuthentication(string carpetaPais, string fileName, string carpetaAnterior)
         {
-            try
-            {
                 if (fileName.Trim() == "") return fileName;
 
                 var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
@@ -130,14 +134,16 @@ namespace Portal.Consultoras.Common
                     ConfigS3.BUCKET_NAME,
                     ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName);
 
-                var url = "";
+                string url;
 
                 if (s3FileInfo.Exists)
                 {
-                    var expiryUrlRequest = new GetPreSignedUrlRequest();
-                    expiryUrlRequest.BucketName = ConfigS3.BUCKET_NAME;
-                    expiryUrlRequest.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-                    expiryUrlRequest.Expires = DateTime.Now.AddDays(1);
+                    var expiryUrlRequest = new GetPreSignedUrlRequest
+                    {
+                        BucketName = ConfigS3.BUCKET_NAME,
+                        Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName,
+                        Expires = DateTime.Now.AddDays(1)
+                    };
 
                     url = client.GetPreSignedURL(expiryUrlRequest);
                 }
@@ -150,8 +156,6 @@ namespace Portal.Consultoras.Common
                 client.Dispose();
 
                 return url;
-            }
-            catch (Exception) { throw; }
         }
 
         public static string GetUrlFileS3WithAuthentication(string keyRuta)
