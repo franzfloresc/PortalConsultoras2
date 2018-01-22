@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Pago En Línea";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+    </style>
+
+}
+
+<!-- TÍTULO -->
+<div class="cabecera_vista_pago_en_linea">
+    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+
+        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
+
+        <div class="cantidad_pasos_proceso_pago">
+
+            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
+            <span class="paso_proceso_pago_en_linea paso_activo">1</span>
+            <span class="paso_proceso_pago_en_linea mr-0">2</span>
+
+            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
+
+        <!-- VISTA SELECCIÓN MONTO A PAGAR -->
+
+        <div class="seleccion_monto_a_pagar">
+            <h3>Selecciona el monto a pagar</h3>
+            <form class="opciones_pago" method="post" action="">
+                <ul class="lista_opciones_pago">
+                    <li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="contenedor_monto_pago_total">
+                                <h4 class="titulo_monto_pago_total">
+                                    Pago total:
+                                </h4>
+                                <div class="monto_total_pago_en_linea">
+                                    <span class="tipo_moneda_pais">S/</span>
+                                    <span class="monto_moneda_pais">1000.00</span>
+                                </div>
+                            </div>
+                            <div class="fecha_vencimiento_pago_en_linea">
+                                <span>Vence </span>
+                                <span>15/01</span>
+                            </div>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="pagoTotal" name="opcionPago" value="1" checked />
+                            <label for="pagoTotal">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="opcion_pago pagoParcial">
+                        <div class="col_izq">
+                            <h4 class="titulo_monto_pago_editable">
+                                Pago Parcial:
+                            </h4>
+                            <div class="monto_editable_pago_en_linea">
+                                <span class="tipo_moneda_pais">S/</span>
+                                <input type="text" class="monto_a_editar" placeholder="0.00" value="" />
+                            </div>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="pagoParcial" name="opcionPago" value="2" />
+                            <label for="pagoParcial">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+            <p class="info_comision_pago_en_linea">
+                *Cargo por gastos administrativos: 3% (<span class="tipo_moneda_pais">S/ </span><span class="monto_comision_pago_en_linea">20.00</span>)
+            </p>
+            <div class="aceptar_terminos_y_condiciones">
+                <div class="area_activa_barra_activacion">
+                    <div class="barra_activacion" data-estado="0">
+                        <div class="control_activacion">
+                        </div>
+                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
+                            <span>Debes aceptar los términos y condiciones</span>
+                        </div>
+                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                    </div>
+                </div>
+                <div class="descripcion_opcion_activacion">
+                    Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
+
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+        <div class="contenedor_info_pago_seguro_y_ctas">
+
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                </div>
+            </div>
+
+            <!-- CALL TO ACTION PAGO EN LÍNEA -->
+
+            <button type="button" class="cta_pago_en_linea btn_pago_credito_visa">
+                <span>
+                    Continuar
+                </span>
+            </button>
+
+            <!-- FIN - CALL TO ACTION PAGO EN LÍNEA -->
+
+        </div>
+
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
+
+<!-- POPUP DE TÉRMINOS Y CONDICIONES -->
+
+<div class="fondo_modal">
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
+        <p class="descripcion_terminos_y_condiciones">
+            dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
+        </p>
+        <div class="aceptar_terminos_y_condiciones mb-0">
+            <div class="area_activa_barra_activacion">
+                <div class="barra_activacion" data-estado="0">
+                    <div class="control_activacion">
+                    </div>
+                    <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                    <div class="tooltip_terminos_y_condiciones" style="display:none;">
+                        <span>Debes aceptar los términos y condiciones</span>
+                    </div>
+                    <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                </div>
+            </div>
+            <div class="descripcion_opcion_activacion">
+                Acepta los términos y condiciones
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
+
+@section scripts{
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
+
+}
