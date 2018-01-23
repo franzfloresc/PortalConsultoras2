@@ -35,11 +35,11 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int respuesta;
-                DateTime fechaHoraFacturacion = Convert.ToDateTime(FechaFacturacion);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    respuesta = sv.GetEstadoProcesoPROLAuto(UserData().PaisID, fechaHoraFacturacion);
+                    respuesta = sv.GetEstadoProcesoPROLAuto(userData.PaisID, Convert.ToDateTime(FechaFacturacion));
                 }
+                if (respuesta == -1000) return SuccessJson("Hubo un problema al momento de Iniciar el Proceso. Por favor, volver a intentar.", true);
 
                 string mensajeRespuesta = string.Empty;
                 switch (respuesta)
@@ -57,32 +57,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 mensajeRespuesta += string.Format(" (COD. {0})", respuesta);
 
-
-                if (respuesta != -1000)
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = mensajeRespuesta,
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "Hubo un problema al momento de Iniciar el Proceso. Por favor, volver a intentar."
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                return SuccessJson(mensajeRespuesta, true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoUsuario, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    mensaje = "Hubo un problema al momento de Iniciar el Proceso. Detalle Error:" + ex.Message,
-                }, JsonRequestBehavior.AllowGet);
+                return ErrorJson("Hubo un problema al momento de Iniciar el Proceso. Detalle Error:" + ex.Message, true);
             }
         }
 
@@ -114,8 +94,8 @@ namespace Portal.Consultoras.Web.Controllers
                     FechaHoraFin = GetFechaString(valAuto.FechaHoraFinEnvio, "dd/MM/yyyy hh:mm:ss"),
                     Estado =
                         valAuto.Estado == Constantes.ValAutoEstado.Error ? Constantes.ValAutoDetalleEstadoDescripcion.Error :
-                        valAuto.Estado == Constantes.ValAutoEstado.Finalizado ? Constantes.ValAutoDetalleEstadoDescripcion.Finalizado :
-                        valAuto.Estado == Constantes.ValAutoEstado.FaltaEnvioCorreos ? Constantes.ValAutoDetalleEstadoDescripcion.EnEjecucion :
+                        !EsFechaValidacionNula(valAuto.FechaHoraFinEnvio) ? Constantes.ValAutoDetalleEstadoDescripcion.Finalizado :
+                        !EsFechaValidacionNula(valAuto.FechaHoraInicioEnvio) ? Constantes.ValAutoDetalleEstadoDescripcion.EnEjecucion :
                         Constantes.ValAutoDetalleEstadoDescripcion.Programado
                 }
             };
@@ -124,8 +104,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFechaString(DateTime fechaHora, string format)
         {
-            if (fechaHora.Year == 2000) return "";
+            if(EsFechaValidacionNula(fechaHora)) return "";
             return fechaHora.ToString(format, CultureInfo.InvariantCulture);
+        }
+        private bool EsFechaValidacionNula(DateTime fechaHora) {
+            return fechaHora.Year == 2000;
         }
     }
 }
