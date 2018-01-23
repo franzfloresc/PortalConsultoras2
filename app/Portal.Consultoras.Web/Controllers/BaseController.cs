@@ -370,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
         }
-
+        
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             try
@@ -397,7 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 mensaje = "Ocurrió un error al intentar validar si puede modificar su pedido.";
-                return false;
+                return true;
             }
         }
 
