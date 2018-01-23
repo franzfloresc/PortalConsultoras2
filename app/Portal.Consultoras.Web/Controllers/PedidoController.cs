@@ -3416,19 +3416,18 @@ namespace Portal.Consultoras.Web.Controllers
         private void AgregarKitNuevas()
         {
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
-
             if (!userData.EsConsultoraNueva)
             {
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
+            if (ReservadoEnHorarioRestringido()) return;
             
             using (var sv = new PedidoServiceClient())
             {
                 try
                 {
                     var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-
                     if (obeConfiguracionProgramaNuevas == null)
                     {
                         Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
