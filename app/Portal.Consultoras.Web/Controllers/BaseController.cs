@@ -2116,6 +2116,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected string GetRevistaCodigoIssuu(string campania)
         {
             string codigo = null;
+            string nroCampania = string.Empty;
+            string anioCampania = string.Empty;
 
             var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
             var esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
@@ -2123,7 +2125,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
             codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
-            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+
+            if (campania.Length >= 6)
+                nroCampania = campania.Substring(4, 2);
+            if (campania.Length >= 6)
+                anioCampania = campania.Substring(0, 4);
+            return string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania);
         }
 
         protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
