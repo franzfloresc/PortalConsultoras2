@@ -1230,25 +1230,56 @@ function RecuperarClave(tipoRecuperar) {
                         } break;                        
 
                     case "prioridad2_llamada":
-                        {                            
-                            $(".clstelefono").remove();
-                            var telefonos = response.data.TelefonoCentral.split(',');
-                            if (paisId == 11) {
-                                $(".nametitlepais").html("Central Telefónica del Perú");
-                                $("#contenidotelefono").append("<span class='clstelefono'>Lima: " + telefonos[0] + "</span>");
-                                $("#contenidotelefono").append("<span class='clstelefono'>Provincias: " + telefonos[1] + "</span>");
+                        {            
+                            if (response.esMovil) {
+
+                                var htmlFono = "<a class='central_telefonica' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
+                                htmlFono += "<div class='icono_llamada'></div>";
+                                htmlFono += "<div class='texto_opcion_llamada'>#TEXTO#</div></a>";
+
+                                var telefonos = response.data.TelefonoCentral.split(',');
+                                if (paisId == 11) {
+
+                                    var Lima = htmlFono.replace("#CELULAR#", telefonos[0]);
+                                    Lima = Lima.replace("#TEXTO#", "LLAMAR DE LIMA");
+                                    $("#divllamadasPeru").append(Lima);
+
+                                    var prov = htmlFono.replace("#CELULAR#", telefonos[1]);
+                                    prov = prov.replace("#TEXTO#", "LLAMAR DE PROVINCIA");
+                                    $("#divllamadasPeru").append(prov);
+                                } else {
+
+                                    var htmlcentral;
+                                    $.each(telefonos, function (index, value) {
+                                        htmlcentral = htmlFono.replace("#CELULAR#", value);
+                                        htmlcentral = htmlcentral.replace("#TEXTO#", "LLAMAR A CENTRAL " + (index + 1));
+                                        $("#divllamadasPeru").append(htmlcentral);
+                                    });
+                                }
+
+                                $("#Opcionesllamada").show();
+                                $("#menPrioridad2_llamada").show();
+                                $("#divllamadasMobile").show();
+
                             } else {
-                                var npais = $("#ddlPais option:selected").html();
-                                $(".nametitlepais").html("Central Telefónica de " + npais);
-                                $.each(telefonos, function (index, value) {
-                                    $("#contenidotelefono").append("<span class='clstelefono'>Central " + (index + 1) + ": " + value + "</span>")
-                                });
-                            }
-                            
-                            $("#Opcionesllamada").show();
-                            $("#menPrioridad2_llamada").show();
-                            $("#prioridad2_llamada").show();
-                            
+                                $(".clstelefono").remove();
+                                var telefonos = response.data.TelefonoCentral.split(',');
+                                if (paisId == 11) {
+                                    $(".nametitlepais").html("Central Telefónica del Perú");
+                                    $("#contenidotelefono").append("<span class='clstelefono'>Lima: " + telefonos[0] + "</span>");
+                                    $("#contenidotelefono").append("<span class='clstelefono'>Provincias: " + telefonos[1] + "</span>");
+                                } else {
+                                    var npais = $("#ddlPais option:selected").html();
+                                    $(".nametitlepais").html("Central Telefónica de " + npais);
+                                    $.each(telefonos, function (index, value) {
+                                        $("#contenidotelefono").append("<span class='clstelefono'>Central " + (index + 1) + ": " + value + "</span>")
+                                    });
+                                }
+
+                                $("#Opcionesllamada").show();
+                                $("#menPrioridad2_llamada").show();
+                                $("#prioridad2_llamada").show();
+                            }                            
                         } break;
 
                     case "prioridad3":

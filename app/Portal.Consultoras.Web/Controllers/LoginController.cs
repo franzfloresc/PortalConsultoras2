@@ -2083,6 +2083,7 @@ namespace Portal.Consultoras.Web.Controllers
             /// nroOpcion 4: Contiene Horario de llamadas - Última prioridad
 
             string resul = string.Empty;
+            bool esMovil = EsDispositivoMovil();
 
             try
             {
@@ -2163,79 +2164,66 @@ namespace Portal.Consultoras.Web.Controllers
                                     case 2:
                                         {
                                             //BOLIVIA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CI";
                                             oRestaurarClave.TelefonoCentral = "901-105678"; break;
                                         };
                                     case 3:
                                         {
                                             //CHILE
-                                            oRestaurarClave.NombreCampoCodigo = "Número de RUT (sin puntos ni guión)";
                                             oRestaurarClave.TelefonoCentral = "02-28762100"; break;
                                         };
                                     case 4:
                                         {
                                             //COLOMBIA
-                                            oRestaurarClave.NombreCampoCodigo = "Número de cédula (CC)";
                                             oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
                                         };
                                     case 5:
                                         {
                                             //COSTA RICA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DUI";
                                             oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
                                         };
                                     case 6:
                                         {
                                             //ECUADOR
-                                            oRestaurarClave.NombreCampoCodigo = "Número de cédula (CC)";
                                             oRestaurarClave.TelefonoCentral = "1800-76667"; break;
                                         };
                                     case 7:
                                         {
                                             //EL SALVADOR
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DUI";
                                             oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
                                         };
                                     case 8:
                                         {
                                             //GUATEMALA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CUI";
                                             oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
                                         };
                                     case 9:
                                         {
                                             //MEXICO
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o INE";
                                             oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
                                         };
                                     case 10:
                                         {
                                             //PANAMA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CPI";
                                             oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
                                         };
                                     case 11:
                                         {
                                             //PERU
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DNI";
                                             oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
                                         };
                                     case 12:
                                         {
                                             //PUERTO RICO
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o Tarjeta Electoral";
                                             oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
                                         };
                                     case 13:
                                         {
                                             //REPUBLICA DOMINICANA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CIE";
                                             oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
                                         };
                                     case 14:
                                         {
                                             //VENEZUELA
-                                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CI";
                                             oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
                                         };
                                 }
@@ -2259,6 +2247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "OK",
+                    esMovil = esMovil,
                     resul = resul,
                     data = oRestaurarClave,
                 }, JsonRequestBehavior.AllowGet);
