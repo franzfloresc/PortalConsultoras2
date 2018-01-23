@@ -969,6 +969,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SHOWROOM";
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
             public const string Ofertas = "OFERTAS";
+            public const string GuiaNegocio = "GUIANEGOCIO";
         }
 
         public static class EstadoCuentaTipoMovimiento
