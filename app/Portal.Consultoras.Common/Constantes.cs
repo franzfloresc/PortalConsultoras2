@@ -1646,5 +1646,12 @@ namespace Portal.Consultoras.Common
         {
             public const string AppConsultora = "App Consultora";
         }
+
+        public class GanaMas
+        {
+            public const short PaisSinGanaMas = 1;
+            public const short PaisConGanaMasNoSuscrita = 2;
+            public const short PaisConGanaMasSuscrita = 3;
+        }
     }
 }

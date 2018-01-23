@@ -1397,5 +1397,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("PasoSextoPedido")]
         public bool PasoSextoPedido { get; set; }
+        [DataMember]
+        public short RevistaDigitalSuscripcion { get; set; }
     }
 }

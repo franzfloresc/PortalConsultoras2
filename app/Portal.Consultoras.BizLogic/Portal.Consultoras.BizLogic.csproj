@@ -185,6 +185,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IncentivoMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="RevistaDigital\IRevistaDigitalSuscripcionBusinessLogic.cs" />
     <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
     <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
       <AutoGen>True</AutoGen>

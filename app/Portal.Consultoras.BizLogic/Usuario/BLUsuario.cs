@@ -3,6 +3,8 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.BizLogic.RevistaDigital;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 using System;
 using System.Collections.Generic;
@@ -18,15 +20,18 @@ namespace Portal.Consultoras.BizLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
 
-        public BLUsuario() : this(new BLTablaLogicaDatos(), new BLConsultoraConcurso())
+        public BLUsuario() : this(new BLTablaLogicaDatos(), new BLConsultoraConcurso(), new BLRevistaDigitalSuscripcion())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, 
-                        IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+                        IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
+                        IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -420,7 +425,8 @@ namespace Portal.Consultoras.BizLogic
             var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
             var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
             var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
-            var IncentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
+            var incentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
+            var revistaDigitalSuscripcionTask = Task.Run(() => this.GetRevistaDigitalSuscripcion(usuario));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -430,7 +436,8 @@ namespace Portal.Consultoras.BizLogic
                             usuarioConsultoraTask,
                             consultoraAniversarioTask,
                             consultoraCumpleanioTask,
-                            IncentivosConcursosTask);
+                            incentivosConcursosTask,
+                            revistaDigitalSuscripcionTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -452,8 +459,10 @@ namespace Portal.Consultoras.BizLogic
             usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
             usuario.AniosPermanencia = (int)consultoraAniversarioTask.Result[1];
 
-            usuario.CodigosConcursos = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[0] : string.Empty;
-            usuario.CodigosProgramaNuevas = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[1] : string.Empty;
+            usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
+            usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
+
+            usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result;
 
             return usuario;
         }
@@ -618,6 +627,34 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return lstConcursos;
+        }
+
+        private short GetRevistaDigitalSuscripcion(BEUsuario usuario)
+        {
+            short resultado = Constantes.GanaMas.PaisSinGanaMas;
+
+            if (WebConfig.PaisesGanaMas.Contains(usuario.CodigoISO))
+            {
+                var oRequest = new BERevistaDigitalSuscripcion()
+                {
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    CampaniaID = usuario.CampaniaID,
+                    PaisID = usuario.PaisID
+                };
+
+                var oResponse = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(oRequest);
+
+                if (oResponse.RevistaDigitalSuscripcionID > 0)
+                {
+                    if (oResponse.FechaDesuscripcion == DateTime.MinValue) resultado = Constantes.GanaMas.PaisConGanaMasSuscrita;
+                    else if (oResponse.FechaSuscripcion == DateTime.MinValue) resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
+                    else if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion) resultado = Constantes.GanaMas.PaisConGanaMasSuscrita;
+                    else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion) resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
+                    else resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
+                }
+            }
+
+            return resultado;
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)
