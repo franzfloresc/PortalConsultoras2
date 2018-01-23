@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
             var lstRVPRFModel = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
-            return lstRVPRFModel.Count > 0 ? lstRVPRFModel[0].Ruta : "";
+            return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 
         public string ObtenerFormatoFecha(DateTime fecha)
