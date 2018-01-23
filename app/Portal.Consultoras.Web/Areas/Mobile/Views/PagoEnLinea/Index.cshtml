@@ -56,130 +56,78 @@
 
         <div class="seleccion_monto_a_pagar" id="divPagoEnLineaPaso1">
             <h3>Selecciona el monto a pagar</h3>
-            <ul class="lista_opciones_pago">
-                <li class="opcion_pago">
-                    <div class="col_izq">
-                        <div class="contenedor_monto_pago_total">
-                            <h4 class="titulo_monto_pago_total">
-                                Pago total:
-                            </h4>
-                            <div class="monto_total_pago_en_linea">
-                                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
-                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+            <form class="opciones_pago" method="post" action="">
+                <ul class="lista_opciones_pago">
+                    <li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="contenedor_monto_pago_total">
+                                <h4 class="titulo_monto_pago_total">
+                                    Pago total:
+                                </h4>
+                                <div class="monto_total_pago_en_linea">
+                                    <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
+                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                    <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+                                </div>
+                            </div>
+                            <div class="fecha_vencimiento_pago_en_linea">
+                                <span>Vence </span>
+                                <span>@Model.FechaVencimientoString</span>
                             </div>
                         </div>
-                        <div class="fecha_vencimiento_pago_en_linea">
-                            <span>Vence </span>
-                            <span>@Model.FechaVencimientoString</span>
+                        <div class="col_der">
+                            <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                            <label for="rbPagoTotal">
+                                <span></span>
+                            </label>
                         </div>
-                    </div>
-                    <div class="col_der">
-                        <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                        <label for="rbPagoTotal">
-                            <span></span>
-                        </label>
-                    </div>
-                </li>
-                <li class="opcion_pago pagoParcial">
-                    <div class="col_izq">
-                        <h4 class="titulo_monto_pago_editable">
-                            Pago Parcial:
-                        </h4>
-                        <div class="monto_editable_pago_en_linea">
-                            <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                            <input type="text" class="monto_a_editar" id="txtMontoParcial"
-                                   placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
-                                   value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                    </li>
+                    <li class="opcion_pago pagoParcial">
+                        <div class="col_izq">
+                            <h4 class="titulo_monto_pago_editable">
+                                Pago Parcial:
+                            </h4>
+                            <div class="monto_editable_pago_en_linea">
+                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                <input type="text" class="monto_a_editar" id="txtMontoParcial"
+                                       placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
+                                       value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="col_der">
-                        <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
-                        <label for="rbPagoParcial">
-                            <span></span>
-                        </label>
-                    </div>
-                </li>
-            </ul>
-
+                        <div class="col_der">
+                            <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
+                            <label for="rbPagoParcial">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </form>
             <input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />
             <p class="info_comision_pago_en_linea">
-                *Cargo por gastos administrativos:  <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)
+                *Cargo por gastos administrativos: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)                
             </p>
-            @*<div class="aceptar_terminos_y_condiciones">
-                    <div class="area_activa_barra_activacion">
-                        <div class="barra_activacion" data-estado="0">
-                            <div class="control_activacion">
-                            </div>
-                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
-                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
-                                <span>Debes aceptar los términos y condiciones</span>
-                            </div>
-                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+            <div class="aceptar_terminos_y_condiciones">
+                <div class="area_activa_barra_activacion">
+                    <div class="barra_activacion" data-estado="0">
+                        <div class="control_activacion">
                         </div>
+                        <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
+                            <span>Debes aceptar los términos y condiciones</span>
+                        </div>
+                        <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                     </div>
-                    <div class="descripcion_opcion_activacion">
-                        Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
-                    </div>
-                </div>*@
+                </div>
+                <div class="descripcion_opcion_activacion">
+                    Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
+                </div>
+            </div>
         </div>
 
         <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
-        <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-
-        <div class="redireccion_proveedor_de_pago" style="display:none;" id="divPagoEnLineaPaso2">
-            <p class="info_redireccion_proveedor_de_pago">
-                Te estamos redirigiendo al proveedor de pago
-            </p>
-            <div class="animacion_precarga_redireccion_proveedor_pago"></div>
-        </div>
-
-        <!-- FIN - VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
-        <!-- VISTA PAGO EXITOSO -->
-
-        <div class="pago_exitoso" style="display:none;">
-
-            <h3 class="titulo_pago_exitoso">Pago exitoso</h3>
-            <p class="mensaje_felicitacion_por_pago_exitoso">
-                Muy bien Valeria <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
-            </p>
-
-            <div class="resumen_pago_exitoso">
-                <h3 class="titulo_resumen_pago_exitoso">
-                    Resumen del pago
-                </h3>
-                <div class="resumen_pago">
-                    <div class="monto_pagado">
-                        <span>Monto:</span>
-                        <span>500.00</span>
-                    </div>
-                    <div class="monto_gastos_administrativos">
-                        <span>Gasto administrativo:</span>
-                        <span>10.00</span>
-                    </div>
-                    <div class="total_monto_pagado">
-                        <span>Total pagado:</span>
-                        <span>510.00</span>
-                    </div>
-                    <div class="monto_saldo_pendiente">
-                        <div>Saldo pendiente:</div>
-                        <div>
-                            <span>S/</span>
-                            <span>500.00</span>
-                        </div>
-                    </div>
-                    <div class="fecha_vencimiento_saldo_pendiente">
-                        <span>Vencimiento:</span>
-                        <span>31/06</span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- FIN - VISTA PAGO EXITOSO -->
+       
         <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
-
         <div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
@@ -195,15 +143,6 @@
             </div>
 
             <!-- CALL TO ACTION PAGO EN LÍNEA -->
-
-            @*<form id="formBoton" action="@Url.Action("ProcesarPago","PagoEnLinea")" method="post">
-                    <script id="javascriptBoton" src="https://static-content.vnforapps.com/v1/js/checkout.js?qa=true"
-                            data-sessiontoken="190E1A43-1E28-463C-A4E5-6D86FC0DBE58"
-                            data-merchantid="148009103" data-merchantlogo="https://www.somosbelcorp.com/Content/Images/Esika/logo_esika_negro.png"
-                            data-formbuttoncolor="#D80000" data-purchasenumber="325" data-amount="100" data-recurrence="FALSE"
-                            data-recurrencetype="" data-recurrencefrequency="" data-recurrenceamount="0.00"></script>
-                </form>*@
-
             <input type="hidden" id="hdMontoDeudaConGastos" value="@Model.MontoDeudaConGastos" />
             <input type="hidden" id="hdMontoDeudaConGastosString" value="@Model.MontoDeudaConGastosString" />
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
@@ -211,50 +150,43 @@
                     Pagar con Visa (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_a_pagar" id="spnMontoDeudaConGastosString">@Model.MontoDeudaConGastosString</span>)
                 </span>
             </button>
-
             <!-- FIN - CALL TO ACTION PAGO EN LÍNEA -->
-
         </div>
-
         <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
-
     </div>
-
     <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
-
 </div>
 
 <!-- POPUP DE TÉRMINOS Y CONDICIONES -->
-@*<div class="fondo_modal">
 
-        <div class="popup_terminos_y_condiciones">
-            <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
-            </a>
-            <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
-            <p class="descripcion_terminos_y_condiciones">
-                dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
-            </p>
-            <div class="aceptar_terminos_y_condiciones mb-0">
-                <div class="area_activa_barra_activacion">
-                    <div class="barra_activacion" data-estado="0">
-                        <div class="control_activacion">
-                        </div>
+<div class="fondo_modal">
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
+        <p class="descripcion_terminos_y_condiciones">
+            dfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas afas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas adfdsasdf sdfsd fasf as fas a.
+        </p>
+        <div class="aceptar_terminos_y_condiciones mb-0">
+            <div class="area_activa_barra_activacion">
+                <div class="barra_activacion" data-estado="0">
+                    <div class="control_activacion">
+                    </div>
                     <!-- TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                     <div class="tooltip_terminos_y_condiciones" style="display:none;">
-                            <span>Debes aceptar los términos y condiciones</span>
-                        </div>
-                    <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
+                        <span>Debes aceptar los términos y condiciones</span>
                     </div>
-                </div>
-                <div class="descripcion_opcion_activacion">
-                    Acepta los términos y condiciones
+                    <!-- FIN - TOOLTIP QUE TE INDICA QUE DEBES ACEPTAR LOS TÉRMINOS Y CONDICIONES ANTES DE HACER EL PAGO -->
                 </div>
             </div>
+            <div class="descripcion_opcion_activacion">
+                Acepta los términos y condiciones
+            </div>
         </div>
-    </div>*@
+    </div>
+</div>
 
 <!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
-
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>

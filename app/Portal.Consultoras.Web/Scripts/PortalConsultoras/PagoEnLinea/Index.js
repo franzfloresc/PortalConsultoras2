@@ -44,11 +44,11 @@ $(document).ready(function () {
                 barraActivacion.toggleClass('activado');
                 if (barraActivacion.is('.activado')) {
                     barraActivacion.attr('data-estado', 1);
-                    // $('.tooltip_terminos_y_condiciones').fadeOut();
-                    console.log('Has aceptado los términos y condiciones');
+                    $("#divTooltipTerminosCondiciones").hide();
+                    //console.log('Has aceptado los términos y condiciones');
                 } else {
                     barraActivacion.attr('data-estado', 0);
-                    console.log('No has aceptado los términos y condiciones');
+                    //console.log('No has aceptado los términos y condiciones');
                 }
             },
             AbrirPopupTerminosYCondiciones: function (e) {
@@ -68,13 +68,19 @@ $(document).ready(function () {
                 var montoGastos = montoParcial * (porcentaje / 100);
                 var montoParcialConGastos = montoParcial * (1 + porcentaje / 100);
 
-                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))
-
-                //$("#hdMontoFinal").val(montoParcialConGastos)
+                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))                
                 $("#spnMontoDeudaConGastosString").html(DecimalToStringFormat(montoParcialConGastos))
             },
             PagarConVisaPaso1: function (e) {
                 e.preventDefault();
+
+                var barraActivacion = $('.barra_activacion');
+                var aceptoTerminos = barraActivacion.is('.activado');
+
+                if (!aceptoTerminos) {
+                    $("#divTooltipTerminosCondiciones").show();
+                    return false;
+                }
 
                 var montoDeuda = 0;
                 var esPagoTotal = $("#rbPagoTotal").is(':checked');

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
+using Portal.Consultoras.Entities.PagoEnLinea;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1222,5 +1223,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        #region Pago en Linea
+
+        [OperationContract]
+        int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
+
+        #endregion
     }
 }

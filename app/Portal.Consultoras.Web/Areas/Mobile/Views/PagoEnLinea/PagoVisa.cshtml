@@ -23,30 +23,97 @@
 <!-- TÍTULO -->
 <div class="cabecera_vista_pago_en_linea">
     <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-    PAGO EN LÍNEA VISA
+    PAGO EN LÍNEA
 </div>
 <!-- FIN TÍTULO -->
 
-Monto Deuda: @Model.MontoDeudaString
-<br />
-Monto Gastos Adminsitrativos: @Model.MontoGastosAdministrativosString
-<br />
-Monto Total: @Model.MontoDeudaConGastosString
-<br />
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
 
-@*<div style="text-align: center; padding: 10px;">*@
-    <form id="formBoton" action="@Url.Action("ProcesarPagoVisa","PagoEnLinea")" method="post">
-        <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-                data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-                data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-                data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
-                data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-                data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
-                data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
-                data-buttonsize="LARGE"></script>
-    </form>
-@*</div>*@
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
 
+    <div class="proceso_de_pago_en_linea">
+
+        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
+
+        <div class="cantidad_pasos_proceso_pago">
+
+            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
+
+            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
+        <!-- VISTA CONFIRMACIÓN PAGO -->
+
+        <div class="confirmacion_pago">
+            <h3 class="titulo_resumen_pago_exitoso">
+                Confirma el monto final
+            </h3>
+            <div class="resumen_pago">
+                <div class="monto_pagado">
+                    <span>Monto:</span>
+                    <span>@Model.MontoDeudaString</span>
+                </div>
+                <div class="monto_gastos_administrativos">
+                    <span>Gastos administrativos (@Model.PorcentajeGastosAdministrativos%):</span>
+                    <span>@Model.MontoGastosAdministrativosString</span>
+                </div>
+                <div class="total_monto_pagado">
+                    <span>Total por pagar:</span>
+                    <span>@Model.MontoDeudaConGastosString</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN - VISTA CONFIRMACIÓN PAGO -->
+
+        <div style="text-align: center; padding: 10px;">
+            <form id="formBoton" action="@Url.Action("ProcesarPagoVisa","PagoEnLinea")" method="post">
+                <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                        data-buttonsize="LARGE"></script>
+            </form>
+        </div>
+
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+        <div class="contenedor_info_pago_seguro_y_ctas">
+
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
 
 <div class="fondo_modal">
     <div class="popup_terminos_y_condiciones">

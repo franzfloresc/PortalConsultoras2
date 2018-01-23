@@ -1240,6 +1240,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneRdr(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
+                    usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
                 }
 
                 sessionManager.SetUserData(usuarioModel);

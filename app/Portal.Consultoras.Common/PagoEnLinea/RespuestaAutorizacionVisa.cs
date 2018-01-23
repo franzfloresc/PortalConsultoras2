@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Common.PagoEnLinea
 {
     public class RespuestaAutorizacionVisa
     {
-        public int errorCode { get; set; }
+        public string errorCode { get; set; }
         public string errorMessage { get; set; }
         public string transactionUUID { get; set; }
         public string externalTransactionId { get; set; }
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Common.PagoEnLinea
         public string ID_UNICO { get; set; }
         public string userTokenUUID { get; set; }
         public string ETICKET { get; set; }
-        public object DECISIONCS { get; set; }
+        public string DECISIONCS { get; set; }
         public string CSIPORCENTAJEDESCUENTO { get; set; }
         public string NROCUOTA { get; set; }
         public string cardTokenUUID { get; set; }
