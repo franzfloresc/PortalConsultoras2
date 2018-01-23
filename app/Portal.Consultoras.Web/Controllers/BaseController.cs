@@ -370,12 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
         }
-
-        protected bool ReservadoEnHorarioRestringido()
-        {
-            string mensaje;
-            return ReservadoEnHorarioRestringido(out mensaje);
-        }
+        
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             try

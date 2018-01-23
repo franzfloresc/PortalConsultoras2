@@ -3417,7 +3417,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return;
             }
             if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-            if (ReservadoEnHorarioRestringido()) return;
             
             using (var sv = new PedidoServiceClient())
             {
