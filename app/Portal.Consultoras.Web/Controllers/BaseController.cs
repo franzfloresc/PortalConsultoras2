@@ -2347,11 +2347,6 @@ namespace Portal.Consultoras.Web.Controllers
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
         }
 
-        protected JsonResult ErrorJson(string message)
-        {
-            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
-        }
-
         public string GetUrlCompartirFB()
         {
             var urlBaseFb = "";
