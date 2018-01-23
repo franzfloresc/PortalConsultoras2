@@ -512,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (objValidad != null)
                     return Json(objValidad);
 
-                objValidad = InsertarValidarKitInicio(model);
+                objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null)
                     return Json(objValidad);
 
@@ -640,17 +640,17 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
-        private object InsertarValidarKitInicio(PedidoSb2Model model)
+        private object InsertarValidarKitInicio(string cuv)
         {
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
             if (userData.EsConsultoraNueva)
             {
-                var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
-                detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
+                var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == cuv) ?? new BEPedidoWebDetalle();
+                detCuv.CUV = Util.Trim(detCuv.CUV);
                 if (detCuv.CUV != "")
                 {
                     var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-                    if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == model.CUV)
+                    if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
                     {
                         return new
                         {
