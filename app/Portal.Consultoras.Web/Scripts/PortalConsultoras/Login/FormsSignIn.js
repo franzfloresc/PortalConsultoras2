@@ -1326,8 +1326,8 @@ function ObtenerCodigoSms(CodIngresado)
         async: true,
         success: function (response) {
             if (response.success) {
-                //alert('codigo correcto');
-                $("#popup2").hide();
+                clearTimeout(t);
+                $("#popup2").hide();                
                 window.open(response.url); 
             } else {
                 $(".codigoInvalido").show();
