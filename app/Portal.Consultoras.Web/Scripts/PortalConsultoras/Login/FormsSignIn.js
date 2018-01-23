@@ -1242,18 +1242,17 @@ function RecuperarClave(tipoRecuperar) {
 
                                     var Lima = htmlFono.replace("#CELULAR#", telefonos[0]);
                                     Lima = Lima.replace("#TEXTO#", "LLAMAR DE LIMA");
-                                    $("#divllamadasPeru").append(Lima);
+                                    $("#divllamadasMobile").append(Lima);
 
                                     var prov = htmlFono.replace("#CELULAR#", telefonos[1]);
                                     prov = prov.replace("#TEXTO#", "LLAMAR DE PROVINCIA");
-                                    $("#divllamadasPeru").append(prov);
                                 } else {
 
                                     var htmlcentral;
                                     $.each(telefonos, function (index, value) {
                                         htmlcentral = htmlFono.replace("#CELULAR#", value);
                                         htmlcentral = htmlcentral.replace("#TEXTO#", "LLAMAR A CENTRAL " + (index + 1));
-                                        $("#divllamadasPeru").append(htmlcentral);
+                                        $("#divllamadasMobile").append(htmlcentral);
                                     });
                                 }
 
