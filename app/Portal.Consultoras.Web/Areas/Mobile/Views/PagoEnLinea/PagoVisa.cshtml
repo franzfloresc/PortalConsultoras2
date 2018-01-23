@@ -34,30 +34,18 @@ Monto Gastos Adminsitrativos: @Model.MontoGastosAdministrativosString
 Monto Total: @Model.MontoDeudaConGastosString
 <br />
 
-<div class="aceptar_terminos_y_condiciones">
-    <div class="area_activa_barra_activacion">
-        <div class="barra_activacion" data-estado="0">
-            <div class="control_activacion">
-            </div>
-            <div class="tooltip_terminos_y_condiciones">
-                <span>Debes aceptar los términos y condiciones</span>
-            </div>
-        </div>
-    </div>
-    <div class="descripcion_opcion_activacion">
-        Acepta los <a title="Términos y condiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
-    </div>
-</div>
-
-<form id="formBoton" action="@Url.Action("ProcesarPagoVisa","PagoEnLinea")" method="post">
-    <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-            data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-            data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-            data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber" 
-            data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-            data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency" 
-            data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"></script>
-</form>
+@*<div style="text-align: center; padding: 10px;">*@
+    <form id="formBoton" action="@Url.Action("ProcesarPagoVisa","PagoEnLinea")" method="post">
+        <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                data-buttonsize="LARGE"></script>
+    </form>
+@*</div>*@
 
 
 <div class="fondo_modal">
@@ -86,7 +74,14 @@ Monto Total: @Model.MontoDeudaConGastosString
 </div>
 
 @section scripts{
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var monto = '@Model.MontoDeudaConGastosString';
+            var boton = $("button[type='submit']")[0];
+            $(boton).css("background", "red");
+            $(boton).html("PAGAR (" + monto + ") <div style='display:inline-block; width:44px; height:35px;'><img src='https://icon-icons.com/icons2/1186/PNG/512/1490135017-visa_82256.png' alt='' style='width:100%; height:auto;'/></div>");
+        });
+    </script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>*@
 
 }

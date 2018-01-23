@@ -157,6 +157,7 @@
     <Compile Include="PagoEnLinea\Data.cs" />
     <Compile Include="PagoEnLinea\DataRequestAut.cs" />
     <Compile Include="PagoEnLinea\JsonHelper.cs" />
+    <Compile Include="PagoEnLinea\RespuestaAutorizacionVisa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />

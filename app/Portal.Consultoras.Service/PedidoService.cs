@@ -16,6 +16,8 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.PagoEnLinea;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +47,7 @@ namespace Portal.Consultoras.Service
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private BLCuponConsultora BLCuponConsultora;
         private BLFichaProducto blFichaProducto;
+        private BLPagoEnLinea BLPagoEnLinea;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
@@ -77,6 +80,7 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
             blFichaProducto = new BLFichaProducto();
+            BLPagoEnLinea = new BLPagoEnLinea();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
@@ -2224,6 +2228,15 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
+        #endregion
+
+        #region Pago en Linea
+
+        public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
+        {
+            return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
+        }
+
         #endregion
     }
 }

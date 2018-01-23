@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return MontoDeuda * (decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100);
+                return decimal.Round(MontoDeuda * (decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100), 2);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return MontoDeuda * (1 + decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100);
+                return decimal.Round(MontoDeuda * (1 + decimal.Parse(PorcentajeGastosAdministrativos.ToString()) / 100), 2);
             }
         }
 

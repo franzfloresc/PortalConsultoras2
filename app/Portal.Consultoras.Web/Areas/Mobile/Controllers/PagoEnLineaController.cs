@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult GuardarDatosPago(PagoEnLineaModel model)
         {
             model.CodigoIso = userData.CodigoISO;
-            model.PorcentajeGastosAdministrativos = 3;
+            model.Simbolo = userData.Simbolo;
 
             sessionManager.SetDatosPagoVisa(model);
 
@@ -209,7 +209,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             #endregion            
 
-            model.PagoVisaModel.Demooooo = respuestaAutorizacion;
+            var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
+            
+
 
             return View("PagoResultado", model);
         }

@@ -103,11 +103,6 @@ namespace Portal.Consultoras.Service
             return new BLConsultora().GetSaldoActualConsultora(paisID, Codigo);
         }
 
-        public BEPagoEnLineaInfo GetPagoEnLineaInfo(int paisID, string Codigo, int CampaniaId, int ZonaId)
-        {
-            return new BLConsultora().GetPagoEnLineaInfo(paisID, Codigo, CampaniaId, ZonaId);
-        }
-
         public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
             string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
             int rowCount, bool validarOpt)

@@ -239,16 +239,7 @@ namespace Portal.Consultoras.Service
             return BLPayPalConfiguracion.GetReporteAbonos(paisID, chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion);
         }
 
-        #endregion
-
-        #region Configuración de VISA
-
-        public IList<BEVisaConfiguracion> GetVisaConfiguracion(int PaisId)
-        {
-            return new BLVisaConfiguracion().GetConfiguracionVisa(PaisId);
-        }
-
-        #endregion
+        #endregion        
 
         #region RevistaGana
         public Int32 CrearContenidoRevista(int paisId, string nroCampania, string rutaImagenPortada)

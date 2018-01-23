@@ -282,9 +282,5 @@ namespace Portal.Consultoras.ServiceContracts
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
-
-        [OperationContract]
-        IList<BEVisaConfiguracion> GetVisaConfiguracion(int PaisId);
-
     }
 }

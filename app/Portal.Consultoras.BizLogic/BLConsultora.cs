@@ -56,22 +56,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAConsultora = new DAConsultora(paisID);
             return DAConsultora.GetSaldoActualConsultora(Codigo);
-        }
-
-        public BEPagoEnLineaInfo GetPagoEnLineaInfo(int paisID, string Codigo, int CampaniaId, int ZonaId)
-        {
-            var DAConsultora = new DAConsultora(paisID);
-            BEPagoEnLineaInfo PagoEnlinea = new BEPagoEnLineaInfo();
-
-            using (IDataReader reader = DAConsultora.GetPagoEnlineaInfo(Codigo, CampaniaId, ZonaId))
-            {
-                if (reader.Read())
-                {
-                    PagoEnlinea = new BEPagoEnLineaInfo(reader);
-                }
-            }
-            return PagoEnlinea;
-        }
+        }        
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
         {
