@@ -655,7 +655,9 @@ namespace Portal.Consultoras.Web.Controllers
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
             var tieneEventoFestivoData = sessionManager.GetEventoFestivoDataModel() != null &&
-                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null;
+                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null &&
+                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas.Any();
+
             if (!tieneRevistaDigital)
             {
                 urlImagen = GetDefaultGifMenuOfertas();
@@ -3193,7 +3195,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida && !revistaDigital.TieneRDR) return false;
 
-            titulo = revistaDigital.TieneRDC ? "OFERTAS CLUB GANA+" : revistaDigital.TieneRDR ? "OFERTAS GANA+" : "";
+            titulo = revistaDigital.TieneRDC 
+                ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
+                    ? "OFERTAS CLUB GANA+"
+                    : "OFERTAS GANA+"
+                : revistaDigital.TieneRDR ? "OFERTAS GANA+" : "";
+
             subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
 
             if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)

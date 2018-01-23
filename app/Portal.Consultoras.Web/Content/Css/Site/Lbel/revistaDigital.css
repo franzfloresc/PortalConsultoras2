@@ -3456,7 +3456,7 @@ font-size: 11px;
     right: 0px;
     display: table;
     height: 100vh;
-    top: 0;
+    top: 6px;
     }
   .desplegablegnd .gndcontenido{
   	display: table-cell;
