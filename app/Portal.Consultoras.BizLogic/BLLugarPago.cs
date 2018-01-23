@@ -20,7 +20,6 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BELugarPago(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 
@@ -36,7 +35,6 @@ namespace Portal.Consultoras.BizLogic
             if (reader.Read())
             {
                 entidad = new BELugarPago(reader);
-                //entidad.PaisID = paisID;
             }
 
             return entidad;

@@ -7,7 +7,6 @@ using Portal.Consultoras.Entities.Comunicado;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
 
-//R2004
 namespace Portal.Consultoras.BizLogic
 {
     public class BLComunicado : IComunicadoBusinessLogic

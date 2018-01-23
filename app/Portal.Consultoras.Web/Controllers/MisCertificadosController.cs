@@ -69,8 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
             var nombre = "";
             var mensajeError = "";
 
-            //userData.MontoDeuda = 0;    // test
-
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
@@ -119,7 +117,6 @@ namespace Portal.Consultoras.Web.Controllers
             var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
-            //const int cantidadCampaniaConsecutiva = 5;
             var cantidadCampaniaConsecutiva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
 
             switch (userData.PaisID)
@@ -134,7 +131,6 @@ namespace Portal.Consultoras.Web.Controllers
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
                     }
 
-                    //tieneCampaniaConsecutivas = true;   // test
                     if (!tieneCampaniaConsecutivas)
                     {
                         mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
@@ -203,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        beMiCertificado = listaData.Where(x => x.TipoCert == tipo).FirstOrDefault();
+                        beMiCertificado = listaData.FirstOrDefault(x => x.TipoCert == tipo);
                         model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                     }
 
@@ -216,12 +212,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var dt = DateTime.Now;
                         var nombreMes1 = dt.ToString("MMMM", new CultureInfo("es-ES"));
-                        //var format = @"dd \de MMMM \de yyyy";
                         var letrasAnio = Conversores.NumeroALetras(dt.Year).ToLower();
                         var ff1 = dt.ToString("dd") + " de " + nombreMes1.ToUpper(1) + " de " + dt.ToString("yyyy");
                         var ff2 = dt.ToString("dd") + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
                         var fi = beMiCertificado.FechaIngresoConsultora;
-                        //var ff3 = beMiCertificado.FechaIngresoConsultora.ToString(format1, new CultureInfo("es-ES"));
                         var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
                         var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
 
@@ -229,7 +223,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.FechaCreacionTexto = ff2;
                         model.FechaIngresoConsultora = ff3;
                         model.Moneda = userData.Simbolo;
-                        //model.UrlFirma = "";
 
                         model.CodigoIso = userData.CodigoISO;
                         model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";

@@ -5,7 +5,7 @@ var AutocompleteClick = false;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
-belcorp.pedido.initialize = function() {
+belcorp.pedido.initialize = function () {
     registerEvent.call(this, "onProductoAgregado");
 }
 
@@ -49,8 +49,7 @@ $(document).ready(function () {
         select: function (event, ui) {
             $("#txtClienteId").val("0");
 
-            if (ui.item.cliente.ClienteID == -1)
-            {
+            if (ui.item.cliente.ClienteID == -1) {
                 $("#txtClienteNombre").val("");
 
                 if (gTipoUsuario == '2') {
@@ -59,13 +58,12 @@ $(document).ready(function () {
                     $('#popupInformacionSB2Error').show();
                     return false;
                 }
-               
+
                 showClienteDetalle(null);
 
                 return false;
             }
-            else if (ui.item.cliente.ClienteID != 0)
-            {
+            else if (ui.item.cliente.ClienteID != 0) {
                 $.each(lstClientes, function (key, cliente) {
                     if (cliente.ClienteID == ui.item.cliente.ClienteID && cliente.TieneTelefono == 0) {
                         showClienteDetalle(cliente);
@@ -272,7 +270,7 @@ $(document).ready(function () {
         };
         InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
     });
-    
+
     $("#linkAgregarCliente").on("click", function () {
         if (gTipoUsuario == '2') {
             var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -331,7 +329,7 @@ function CargarDetallePedido(page, rows) {
 }
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
-    if (formatoTotal != undefined) {}
+    if (formatoTotal != undefined) { }
 
     if (total != undefined)
         $("#hdfTotal").val(total);
@@ -439,7 +437,7 @@ function ValidarPermiso(obj) {
 };
 
 function BuscarByCUV(cuv) {
-    
+
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -471,8 +469,8 @@ function BuscarByCUV(cuv) {
             }
 
             $("#txtCantidad").removeAttr("disabled");
-            var item = data[0];  
-            
+            var item = data[0];
+
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
                 $("#divProductoInformacion").hide();
@@ -524,10 +522,10 @@ function ObservacionesProducto(item) {
         return false;
     }
     if (item.TieneStock === true) {
-    	if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
-    	if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-    	    if (!item.TieneRDC)
-    	        MostrarMensaje("mensajeCUVOfertaEspecial");
+        if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
+        if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+            if (!item.TieneRDC)
+                MostrarMensaje("mensajeCUVOfertaEspecial");
         };
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
@@ -610,7 +608,7 @@ function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
     $('#divCarruselSugerido.slick-initialized').slick('unslick');
-    
+
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     $("#divProductoInformacion").hide();
 
@@ -715,7 +713,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             }
 
             CloseLoading();
-            
+
             $("#divProductoObservaciones").html("");
             VisibleEstrategias(true);
             $("#divResumenPedido").show();
@@ -868,7 +866,7 @@ function InsertarProducto() {
 
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
-                    messageInfoError(data.message);   
+                    messageInfoError(data.message);
                 }
                 else {
                     $.each(lstClientes, function (ind, cli) {

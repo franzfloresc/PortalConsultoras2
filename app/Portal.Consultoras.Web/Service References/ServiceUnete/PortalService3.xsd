@@ -749,6 +749,7 @@
         <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

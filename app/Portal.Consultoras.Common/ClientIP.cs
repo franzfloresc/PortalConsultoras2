@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Common
             ip = ip == null ? String.Empty : ip.Replace(Convert.ToChar(9), ' ').Trim();
 
             if (0 == ip.Length
-                || false == IPAddress.TryParse(ip, out ipAddr)
+                || !IPAddress.TryParse(ip, out ipAddr)
                 || (ipAddr.AddressFamily != AddressFamily.InterNetwork
                     && ipAddr.AddressFamily != AddressFamily.InterNetworkV6))
                 return false;

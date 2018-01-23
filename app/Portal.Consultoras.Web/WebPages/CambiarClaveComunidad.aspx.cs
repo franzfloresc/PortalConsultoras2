@@ -89,8 +89,10 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "CambiarClaveComunidad - Page_Load");
+
                 pnlCambio.Visible = false;
                 pnlMensaje.Visible = true;
                 lblMensaje.Text = "Hubo un error al intentar cargar la página.";
@@ -120,8 +122,9 @@ namespace Portal.Consultoras.Web.WebPages
                     message = "Su contraseña fue actualizada con éxito"
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "CambiarClaveComunidad - CambiarClaveUsuarioComunidad");
                 return serializer.Serialize(new
                 {
                     success = false,

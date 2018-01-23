@@ -176,8 +176,8 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
         {
-            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
-            List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
+            List<BEIncentivoConcurso> incentivosConcursos;
+            List<BEIncentivoNivel> incentivosNivel;
             List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
 
             DAConcurso DAConcurso = new DAConcurso(paisID);
@@ -333,7 +333,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEIncentivoConcurso> ObtenerIncentivosPuntosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
-            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
+            List<BEIncentivoConcurso> incentivosConcursos;
             List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
             List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
 
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEIncentivoConcurso> ObtenerIncentivosProgramaNuevasConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
         {
-            var incentivosConcursos = new List<BEIncentivoConcurso>();
+            List<BEIncentivoConcurso> incentivosConcursos;
             var incentivosNivel = new List<BEIncentivoProgramaNuevasNivel>();
             var incentivosPremios = new List<BEIncentivoProgramaNuevasPremio>();
             var incentivosCupon = new List<BEIncentivoProgramaNuevasCupon>();
@@ -413,9 +413,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     item.NivelesProgramaNuevas = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
 
-                    if (incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas).Any())
+                    if (incentivosPremios.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
                         item.UrlBannerPremiosProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerPremiosProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
-                    if (incentivosCupon.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas).Any())
+                    if (incentivosCupon.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
                         item.UrlBannerCuponesProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerCuponesProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
                 }
             }

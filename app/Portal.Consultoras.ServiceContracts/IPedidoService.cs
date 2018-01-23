@@ -461,6 +461,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
 
+        [OperationContract]
+        List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top);
         #endregion
 
         #region "CUV Automatico"

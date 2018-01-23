@@ -84,7 +84,7 @@ function SeccionCargarProductos(objConsulta) {
     var mob = isMobile();
     if (mob && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
-        $("#ODD").find(".seccion-content-contenedor").fadeIn();   
+        $("#ODD").find(".seccion-content-contenedor").fadeIn();
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
@@ -93,8 +93,8 @@ function SeccionCargarProductos(objConsulta) {
     }
 
     if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-            $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
+        $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
     if (objConsulta.UrlObtenerProductos === "")
@@ -144,7 +144,7 @@ function SeccionCargarProductos(objConsulta) {
         error: function (error, x) {
             console.log(error, x);
         }
-    });    
+    });
 }
 
 function SeccionMostrarProductos(data) {
@@ -157,7 +157,7 @@ function SeccionMostrarProductos(data) {
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         if (data.Seccion !== undefined &&
-            (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() || 
+            (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() ||
             data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
             data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
@@ -201,7 +201,7 @@ function SeccionMostrarProductos(data) {
 
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
-            
+
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
@@ -225,7 +225,7 @@ function SeccionMostrarProductos(data) {
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
-    
+
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         if (isMobile()) {
             RenderCarruselSimple(htmlSeccion);
@@ -242,7 +242,7 @@ function SeccionMostrarProductos(data) {
 function RenderCarruselPrevisuales(divProd) {
     if (typeof divProd == "undefined")
         return false;
-    
+
     EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
 
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
@@ -312,9 +312,9 @@ function RenderCarruselSimple(divProd) {
         speed: 260,
         prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
-    //})
-    //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-    //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+        //})
+        //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -348,7 +348,7 @@ function UpdateSessionState(codigo, campaniaId) {
         error: function (error, x) {
             console.log(error, x);
         }
-    });    
+    });
 }
 
 function VerificarSecciones() {

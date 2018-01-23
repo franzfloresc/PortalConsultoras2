@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -49,18 +50,17 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string InsertarActualizar(BannerModel model)
         {
-            string message = string.Empty;
-            string finalPath = string.Empty, httpPath = string.Empty;
+            string message;
+            string httpPath = string.Empty;
             try
             {
                 BEBanner obeBanner = new BEBanner();
-                string FileName = string.Empty;
 
                 if (model.Accion == "Insertar")
                 {
                     var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                     if (img.Width > model.Ancho || img.Height > model.Alto)
-                        return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                        return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                        "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                     img.Dispose();
 
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                         if (img.Width > model.Ancho || img.Height > model.Alto)
-                            return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                            return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                            "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                         
                         img.Dispose();
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.Orden = model.Orden;
                 obeBanner.Titulo = model.Titulo;
                 obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(model.Archivo);
-                obeBanner.URL = model.URL == null ? string.Empty : model.URL;
+                obeBanner.URL = model.URL ?? string.Empty;
                 obeBanner.FlagGrupoConsultora = model.FlagGrupoConsultora;
                 obeBanner.UdpSoloBanner = true;
                 obeBanner.TipoContenido = model.TipoContenido;
@@ -132,24 +132,23 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string InsertarGrupoBanner(HttpPostedFileBase flConsultoras, BannerModel model)
         {
-            string message = string.Empty;
+            string message;
             try
             {
-                string finalPath = string.Empty;
-                bool IsCorrect = true;
-                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>(); ;
+                bool isCorrect = true;
+                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>();
 
                 if (flConsultoras != null)
                 {
-                    string fileName = Path.GetFileName(flConsultoras.FileName);
+                    string fileName = Path.GetFileName(flConsultoras.FileName) ?? "";
                     string pathBanner = Server.MapPath("~/Content/FileConsultoras");
                     if (!Directory.Exists(pathBanner))
                         Directory.CreateDirectory(pathBanner);
-                    finalPath = Path.Combine(pathBanner, fileName);
+                    var finalPath = Path.Combine(pathBanner, fileName);
                     flConsultoras.SaveAs(finalPath);
 
                     BEGrupoConsultora obeGrupoConsultora = new BEGrupoConsultora();
-                    lstGrupoConsultora = Util.ReadXmlFile(finalPath, obeGrupoConsultora, false, ref IsCorrect);
+                    lstGrupoConsultora = Util.ReadXmlFile(finalPath, obeGrupoConsultora, false, ref isCorrect);
                 }
 
                 List<BEPais> lstPais;
@@ -163,11 +162,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 lstGrupoConsultora.RemoveAll(x => x.PaisID == 0);
 
-                BEGrupoBanner obeGrupo = new BEGrupoBanner();
-                obeGrupo.CampaniaID = model.CampaniaID;
-                obeGrupo.GrupoBannerID = model.GrupoBannerID;
-                obeGrupo.TiempoRotacion = model.TiempoRotacion;
-                obeGrupo.Consultoras = lstGrupoConsultora.ToArray();
+                BEGrupoBanner obeGrupo = new BEGrupoBanner
+                {
+                    CampaniaID = model.CampaniaID,
+                    GrupoBannerID = model.GrupoBannerID,
+                    TiempoRotacion = model.TiempoRotacion,
+                    Consultoras = lstGrupoConsultora.ToArray()
+                };
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
                     svc.SaveGrupoBanner(obeGrupo);
@@ -198,8 +199,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.Archivo = System.Net.WebUtility.UrlDecode(item.Archivo);
                     item.UdpSoloBanner = false;
-                    item.URL = item.URL == null ? string.Empty : item.URL;
-                    item.Archivo = item.Archivo == null ? string.Empty : item.Archivo;
+                    item.URL = item.URL ?? string.Empty;
+                    item.Archivo = item.Archivo ?? string.Empty;
                 });
 
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
@@ -281,16 +282,17 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = svc.SelectGrupoBanner(CampaniaId).ToList();
                     }
 
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEGrupoBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -298,20 +300,20 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                               select new
-                               {
-                                   id = a.GrupoBannerID,
-                                   cell = new string[]
-                               {
-                                   a.GrupoBannerID.ToString(),
-                                   a.TiempoRotacion.ToString(),
-                                   a.Nombre.ToString(),
-                                   a.Nombre.ToString(),
-                                   a.Dimension.ToString(),
-                                   a.Ancho.ToString(),
-                                   a.Alto.ToString()
-                                }
-                               }
+                        select new
+                        {
+                            id = a.GrupoBannerID,
+                            cell = new string[]
+                            {
+                                a.GrupoBannerID.ToString(),
+                                a.TiempoRotacion.ToString(),
+                                a.Nombre,
+                                a.Nombre,
+                                a.Dimension,
+                                a.Ancho.ToString(),
+                                a.Alto.ToString()
+                            }
+                        }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -346,21 +348,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     var carpetaPais = Globals.UrlBanner;
-                    if (lst != null)
-                        if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
+                    if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
 
-                    List<string> lstCell = new List<string>();
-
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -405,35 +405,128 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPais> lstPais;
 
-            List<string> colNames = new List<string>();
-            colNames.Add("BannerID");
-            colNames.Add("GrupoBannerID");
-            colNames.Add("Titulo");
-            colNames.Add("Archivo");
-            colNames.Add("ArchivoRutaCompleto");
-            colNames.Add("Url");
-            colNames.Add("TipoContenido");
-            colNames.Add("PaginaNueva");
-            colNames.Add("TituloComentario");
-            colNames.Add("TextoComentario");
-            colNames.Add("TipoAccion");
-            colNames.Add("CuvPedido");
-            colNames.Add("CantCuvPedido");
-            List<Model> colModel = new List<Model>();
-            colModel.Add(new Model { name = "BannerID", index = "BannerID", width = 150, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "GrupoBannerID", index = "GrupoBannerID", width = 150, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "Titulo", index = "Titulo", width = 150, key = true, sortable = false });
+            List<string> colNames = new List<string>
+            {
+                "BannerID",
+                "GrupoBannerID",
+                "Titulo",
+                "Archivo",
+                "ArchivoRutaCompleto",
+                "Url",
+                "TipoContenido",
+                "PaginaNueva",
+                "TituloComentario",
+                "TextoComentario",
+                "TipoAccion",
+                "CuvPedido",
+                "CantCuvPedido"
+            };
+
+            List<Model> colModel = new List<Model>
+            {
+                new Model
+                {
+                    name = "BannerID",
+                    index = "BannerID",
+                    width = 150,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "GrupoBannerID",
+                    index = "GrupoBannerID",
+                    width = 150,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model {name = "Titulo", index = "Titulo", width = 150, key = true, sortable = false},
+                new Model
+                {
+                    name = "Archivo",
+                    index = "Archivo",
+                    width = 150,
+                    key = false,
+                    sortable = false,
+                    formatter = "formatearArchivo"
+                },
+                new Model
+                {
+                    name = "ArchivoRutaCompleto",
+                    index = "ArchivoRutaCompleto",
+                    width = 150,
+                    key = true,
+                    sortable = true,
+                    hidden = true
+                },
+                new Model {name = "Url", index = "Url", width = 150, key = true, sortable = false, hidden = true},
+                new Model
+                {
+                    name = "TipoContenido",
+                    index = "TipoContenido",
+                    width = 150,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "PaginaNueva",
+                    index = "PaginaNueva",
+                    width = 150,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "TituloComentario",
+                    index = "TituloComentario",
+                    width = 0,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "TextoComentario",
+                    index = "TextoComentario",
+                    width = 0,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "TipoAccion",
+                    index = "TipoAccion",
+                    width = 0,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "CuvPedido",
+                    index = "CuvPedido",
+                    width = 0,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                },
+                new Model
+                {
+                    name = "CantCuvPedido",
+                    index = "CantCuvPedido",
+                    width = 0,
+                    key = true,
+                    sortable = false,
+                    hidden = true
+                }
+            };
             // colModel.Add(new Model { name = "Archivo", index = "Archivo", width = 150, key = false, sortable = false });
-            colModel.Add(new Model { name = "Archivo", index = "Archivo", width = 150, key = false, sortable = false, formatter = "formatearArchivo" });
-            colModel.Add(new Model { name = "ArchivoRutaCompleto", index = "ArchivoRutaCompleto", width = 150, key = true, sortable = true, hidden = true });
-            colModel.Add(new Model { name = "Url", index = "Url", width = 150, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "TipoContenido", index = "TipoContenido", width = 150, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "PaginaNueva", index = "PaginaNueva", width = 150, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "TituloComentario", index = "TituloComentario", width = 0, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "TextoComentario", index = "TextoComentario", width = 0, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "TipoAccion", index = "TipoAccion", width = 0, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "CuvPedido", index = "CuvPedido", width = 0, key = true, sortable = false, hidden = true });
-            colModel.Add(new Model { name = "CantCuvPedido", index = "CantCuvPedido", width = 0, key = true, sortable = false, hidden = true });
 
             using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
             {
@@ -474,31 +567,31 @@ namespace Portal.Consultoras.Web.Controllers
              * 9: Seccion Baja 4
              */
 
-            bool issuccess = true;
+            bool issuccess;
             List<BEBannerInfo> lstFinalInfo = new List<BEBannerInfo>();
             try
             {
-                int SegmentoBanner;
+                int segmentoBanner;
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
-                    SegmentoBanner = userData.SegmentoID;
+                    segmentoBanner = userData.SegmentoID;
                 }
                 else
                 {
-                    SegmentoBanner = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    segmentoBanner = userData.SegmentoInternoID ?? userData.SegmentoID;
                 }
 
-                List<BEBannerInfo> lstBannerInfoTemp = new List<BEBannerInfo>();
+                List<BEBannerInfo> lstBannerInfoTemp;
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == 2).ToList();
+                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva).ToList();
                 }
 
-                string zonaIDStr = "," + userData.ZonaID.ToString().Trim() + ",";
+                string zonaIdStr = "," + userData.ZonaID.ToString().Trim() + ",";
                 lstBannerInfoTemp.Where(p => p.ConfiguracionZona != string.Empty).Update(p => p.ConfiguracionZona = "," + p.ConfiguracionZona + ",");
 
-                lstBannerInfoTemp = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(zonaIDStr)).ToList();
-                List<BEBannerInfo> lstBannerInfo = lstBannerInfoTemp.Where(p => p.Segmento == -1 || p.Segmento == SegmentoBanner).ToList();
+                lstBannerInfoTemp = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(zonaIdStr)).ToList();
+                List<BEBannerInfo> lstBannerInfo = lstBannerInfoTemp.Where(p => p.Segmento == -1 || p.Segmento == segmentoBanner).ToList();
 
                 foreach (BEBannerInfo item in lstBannerInfo)
                 {
@@ -511,29 +604,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Select -5,-6,-7
-                List<BEBannerInfo> ban_temp_inter = lstBannerInfo.Where(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4).ToList();
+                List<BEBannerInfo> banTempInter = lstBannerInfo.Where(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4).ToList();
 
-                if (ban_temp_inter.Count > 0)
+                if (banTempInter.Count > 0)
                 {
                     lstBannerInfo.RemoveAll(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4);
 
-                    List<BEBannerInfo> inter_temp_1_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).ToList();
-                    List<BEBannerInfo> inter_temp_2_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -6).ToList();
-                    List<BEBannerInfo> inter_temp_3_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -7).ToList();
+                    List<BEBannerInfo> interTemp1Sb2 = banTempInter.Where(p => p.GrupoBannerID == -5).ToList();
+                    List<BEBannerInfo> interTemp2Sb2 = banTempInter.Where(p => p.GrupoBannerID == -6).ToList();
+                    List<BEBannerInfo> interTemp3Sb2 = banTempInter.Where(p => p.GrupoBannerID == -7).ToList();
 
-                    if (inter_temp_1_SB2.Any())
+                    if (interTemp1Sb2.Any())
                     {
-                        lstBannerInfo.AddRange(inter_temp_1_SB2);
+                        lstBannerInfo.AddRange(interTemp1Sb2);
                     }
 
-                    if (inter_temp_2_SB2.Any())
+                    if (interTemp2Sb2.Any())
                     {
-                        lstBannerInfo.AddRange(inter_temp_2_SB2);
+                        lstBannerInfo.AddRange(interTemp2Sb2);
                     }
 
-                    if (inter_temp_3_SB2.Any())
+                    if (interTemp3Sb2.Any())
                     {
-                        lstBannerInfo.AddRange(inter_temp_3_SB2);
+                        lstBannerInfo.AddRange(interTemp3Sb2);
                     }
                 }
                 #endregion
@@ -560,10 +653,9 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
-
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Any())
-                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+            
+            if (lstFinalInfo.Any())
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -607,18 +699,21 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
                     HttpPostedFileBase postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    var path = Path.Combine(Globals.RutaTemporales, fileName);
-                    if (!System.IO.File.Exists(Globals.RutaTemporales))
-                        System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
-                    postedFile.SaveAs(path);
-                    path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
+                    if (postedFile != null)
+                    {
+                        var fileName = Path.GetFileName(postedFile.FileName) ?? "";
+                        var path = Path.Combine(Globals.RutaTemporales, fileName);
+                        if (!System.IO.File.Exists(Globals.RutaTemporales))
+                            Directory.CreateDirectory(Globals.RutaTemporales);
+                        postedFile.SaveAs(path);
+                        path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
+                    }
+
                     return Json(new { success = true, name = qqfile }, "text/html");
                 }
                 else
@@ -628,13 +723,14 @@ namespace Portal.Consultoras.Web.Controllers
                     string ffFileName = qqfile;
                     var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                     if (!System.IO.File.Exists(Globals.RutaTemporales))
-                        System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                        Directory.CreateDirectory(Globals.RutaTemporales);
                     System.IO.File.WriteAllBytes(path, fileBytes);
                     return Json(new { success = true, name = ffFileName }, "text/html");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -653,20 +749,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string[] CrearCellArray(BEBanner obe, List<BEPais> lstPais)
         {
-            List<string> lstCell = new List<string>();
-            lstCell.Add(obe.BannerID.ToString());
-            lstCell.Add(obe.GrupoBannerID.ToString());
-            lstCell.Add(obe.Titulo.ToString());
-            lstCell.Add(obe.Archivo.ToString().Substring(obe.Archivo.LastIndexOf("/") + 1));
-            lstCell.Add(obe.Archivo.ToString());
-            lstCell.Add(obe.URL.ToString());
-            lstCell.Add(obe.TipoContenido.ToString());
-            lstCell.Add(obe.PaginaNueva.ToString());
-            lstCell.Add(obe.TituloComentario ?? string.Empty);
-            lstCell.Add(obe.TextoComentario ?? string.Empty);
-            lstCell.Add(obe.TipoAccion.ToString());
-            lstCell.Add(obe.CuvPedido ?? string.Empty);
-            lstCell.Add(obe.CantCuvPedido.ToString());
+            List<string> lstCell = new List<string>
+            {
+                obe.BannerID.ToString(),
+                obe.GrupoBannerID.ToString(),
+                obe.Titulo,
+                obe.Archivo.Substring(obe.Archivo.LastIndexOf("/") + 1),
+                obe.Archivo,
+                obe.URL,
+                obe.TipoContenido.ToString(),
+                obe.PaginaNueva.ToString(),
+                obe.TituloComentario ?? string.Empty,
+                obe.TextoComentario ?? string.Empty,
+                obe.TipoAccion.ToString(),
+                obe.CuvPedido ?? string.Empty,
+                obe.CantCuvPedido.ToString()
+            };
 
             foreach (BEPais obePais in lstPais)
             {
@@ -713,34 +811,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         public Boolean ValidarEnviarEmail()
         {
-            List<BETablaLogicaDatos> list_Cantidad = new List<BETablaLogicaDatos>();
-            int cantidad_validacion;
-            int cantidad_envios;
+            int cantidadValidacion;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                list_Cantidad = sv.GetTablaLogicaDatos(userData.PaisID, 21).ToList();
-                cantidad_validacion = Convert.ToInt32((from item in list_Cantidad where item.TablaLogicaDatosID == 2101 select item.Codigo).First());
+                var listCantidad = sv.GetTablaLogicaDatos(userData.PaisID, 21).ToList();
+                cantidadValidacion = Convert.ToInt32((from item in listCantidad where item.TablaLogicaDatosID == 2101 select item.Codigo).First());
             }
 
-            if (cantidad_validacion == 0)
+            if (cantidadValidacion == 0)
                 return true;
-            else
+
+            int cantidadEnvios;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    cantidad_envios = sv.ValidarEnvioCatalogo(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID, cantidad_validacion);
-                }
-                if (cantidad_envios >= cantidad_validacion)
-                    return true;
-                else
-                    return false;
+                cantidadEnvios = sv.ValidarEnvioCatalogo(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID, cantidadValidacion);
             }
+
+            return cantidadEnvios >= cantidadValidacion;
         }
 
         public string DevolverCadenaParametros()
         {
-            string Cadena = "?";
-            List<ServiceContenido.BEParametro> list = new List<ServiceContenido.BEParametro>();
+            var txtBuil = new StringBuilder();
+            txtBuil.Append("?");
+
+            List<ServiceContenido.BEParametro> list;
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
@@ -749,17 +844,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (ServiceContenido.BEParametro item in list)
             {
-                Cadena = Cadena + item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&";
+                txtBuil.Append(item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&");
             }
 
-            Cadena = Cadena.Substring(0, Cadena.Length - 1);
+            var cadena = txtBuil.ToString();
+            cadena = cadena.Substring(0, cadena.Length - 1);
 
-            return Cadena;
+            return cadena;
         }
 
-        private string DevolverValorParametro(int ParametroId)
+        private string DevolverValorParametro(int parametroId)
         {
-            switch (ParametroId)
+            switch (parametroId)
             {
                 case 1:
                     return userData.NombrePais.Trim();
@@ -822,16 +918,16 @@ namespace Portal.Consultoras.Web.Controllers
             * vTipoBanner = I => Intermedio
             * vTipoBanner = B => Baja
             */
-            bool issuccess = true;
+            bool issuccess;
             List<BEBannerInfo> lstBannerInfo = null;
 
             try
             {
-                string CodigoConsultora = userData.CodigoConsultora;
+                string codigoConsultora = userData.CodigoConsultora;
 
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, CodigoConsultora, userData.ConsultoraNueva == 2).ToList();
+                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, codigoConsultora, userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva).ToList();
                 }
 
                 if (vTipoBanner == "P")
@@ -857,7 +953,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     lstBannerInfo = new List<BEBannerInfo>();
 
-                if (lstBannerInfo != null && lstBannerInfo.Count > 0)
+                if (lstBannerInfo.Count > 0)
                 {
                     lstBannerInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
                 }
@@ -964,7 +1060,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerSegmentoBanner(int PaisId)
         {
-            IEnumerable<BESegmentoBanner> lst = null;
+            IEnumerable<BESegmentoBanner> lst;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -986,16 +1082,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerSegmentoZona(int BannerId, int CampaniaId, int PaisId)
         {
-            BEBannerSegmentoZona oBEBannerSegmentoZona = null;
+            BEBannerSegmentoZona obeBannerSegmentoZona;
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
-                oBEBannerSegmentoZona = sv.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId);
+                obeBannerSegmentoZona = sv.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId);
             }
 
-            if (oBEBannerSegmentoZona == null)
+            if (obeBannerSegmentoZona == null)
             {
-                oBEBannerSegmentoZona = new BEBannerSegmentoZona()
+                obeBannerSegmentoZona = new BEBannerSegmentoZona()
                 {
                     Segmento = -1,
                     ConfiguracionZona = string.Empty
@@ -1004,55 +1100,51 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                Segmento = oBEBannerSegmentoZona.Segmento,
-                ConfiguracionZona = oBEBannerSegmentoZona.ConfiguracionZona
+                Segmento = obeBannerSegmentoZona.Segmento,
+                ConfiguracionZona = obeBannerSegmentoZona.ConfiguracionZona
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<PaisModel> DropDowListPaisesByBannerId(int BannerId, int CampaniaId)
+        private IEnumerable<PaisModel> DropDowListPaisesByBannerId(int bannerId, int campaniaId)
         {
             List<BEBannerSegmentoZona> lst;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
-                lst = sv.GetBannerPaisesAsignados(CampaniaId, BannerId).ToList();
+                lst = sv.GetBannerPaisesAsignados(campaniaId, bannerId).ToList();
             }
-            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
 
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult UpdBannerPaisSegmentoZona(int BannerId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
-            string Mensaje = string.Empty;
+            string mensaje;
             try
             {
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     sv.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
                 }
-                Mensaje = "La información se guardó con éxito.";
+                mensaje = "La información se guardó con éxito.";
             }
             catch (Exception ex)
             {
-                Mensaje = "Ocurrió un error: " + ex.Message;
+                mensaje = "Ocurrió un error: " + ex.Message;
             }
 
             return Json(new
             {
-                Mensaje = Mensaje
+                Mensaje = mensaje
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public void EliminarCacheBanner(int CampaniaId)
+        public void EliminarCacheBanner(int campaniaId)
         {
             try
             {
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
-                    svc.DeleteCacheBanner(CampaniaId);
+                    svc.DeleteCacheBanner(campaniaId);
                 }
             }
             catch (Exception ex)
@@ -1063,7 +1155,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
         {
-            BEBannerSegmentoZona banner = null;
+            BEBannerSegmentoZona banner;
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {

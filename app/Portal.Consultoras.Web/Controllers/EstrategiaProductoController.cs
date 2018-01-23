@@ -32,9 +32,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (item.UltimoComentario == null)
                         {
-                            item.UltimoComentario = new EstrategiaProductoComentarioModel();
-                            item.UltimoComentario.Comentario = string.Empty;
-                            item.UltimoComentario.NombreConsultora = string.Empty;
+                            item.UltimoComentario = new EstrategiaProductoComentarioModel
+                            {
+                                Comentario = string.Empty,
+                                NombreConsultora = string.Empty
+                            };
                         }
                     }
                 }

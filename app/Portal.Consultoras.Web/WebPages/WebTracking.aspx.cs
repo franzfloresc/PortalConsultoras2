@@ -31,19 +31,15 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
-
-            try
+            
+            if (Util.Trim(ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Ambiente]) != "PR")
             {
-                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PR")
-                {
-                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-                }
-                else
-                {
-                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
-                }
+                lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
             }
-            catch  {}
+            else
+            {
+                lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+            }
 
         }
 
@@ -92,47 +88,33 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
+
+            if (boton == null)
+                return;
+
+            BETracking tracking = e.Row.DataItem as BETracking;
+
+            if (tracking == null) return;
+
             string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            Image botonSI = (Image)e.Row.FindControl("imgSI");
+            Image botonNO = (Image)e.Row.FindControl("imgNO");
+            Image botonNO2 = (Image)e.Row.FindControl("imgNO2");
+            Label lblTexto = (Label)e.Row.FindControl("lblTexto");
+            Label lblFecha = (Label)e.Row.FindControl("lblFecha");
+            LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
+            Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
 
-            Image boton = new Image();
-            boton = (Image)e.Row.FindControl("imgMuestra");
-
-            Image botonSI = new Image();
-            botonSI = (Image)e.Row.FindControl("imgSI");
-
-            Image botonNO = new Image();
-            botonNO = (Image)e.Row.FindControl("imgNO");
-
-            Image botonNO2 = new Image();
-            botonNO2 = (Image)e.Row.FindControl("imgNO2");
-
-            Label lblTexto = new Label();
-            lblTexto = (Label)e.Row.FindControl("lblTexto");
-
-            Label lblFecha = new Label();
-            lblFecha = (Label)e.Row.FindControl("lblFecha");
-
-            LinkButton botonSegPed = new LinkButton();
-            botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
-          
-            Label lblTextoValorTurno = new Label();
-            lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
             if (lblTextoValorTurno != null)
-                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
-
-            if (boton != null)
-            {
-                BETracking tracking = e.Row.DataItem as BETracking;
-
-                if (tracking == null) return;
+                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
+            
 
                 string strSituacion = tracking.Situacion;
 
-                /*SB20-964 - INICIO */
                 if (strSituacion.Contains("<br/>")) {
                     strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
                 }
-                /*SB20-964 - FIN */
 
                 string strFecha = string.Empty;
 
@@ -217,7 +199,7 @@ namespace Portal.Consultoras.Web.WebPages
                         botonNO.Visible = false;
                         break;
                 }
-            }
+            
         }
 
         protected void BtnCancel1_Click(object sender, EventArgs e)
@@ -389,7 +371,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                 IList<BETracking> tracking = new List<BETracking>();
                 IList<BENovedadTracking> novedades = new List<BENovedadTracking>();
-                BENovedadFacturacion oBENovedadFacturacion = null; //R2004
+                BENovedadFacturacion oBENovedadFacturacion = null;
 
                 if (string.IsNullOrEmpty(nropedido))
                 {
@@ -624,13 +606,7 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 mvTracking.ActiveViewIndex = 1;
 
-                foreach (GridViewRow row in gvNovedades.Rows)
-                {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
-                }
-
                 gvNovedades.SelectedIndex = 0;
-                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[0]["Longitud"];
@@ -649,14 +625,8 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (e.CommandName == "Mapa")
             {
-                foreach (GridViewRow row in gvNovedades.Rows)
-                {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
-                }
-
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedades.SelectedIndex = Index;
-                //gvNovedades.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedades.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedades.DataKeys[Index]["Longitud"];
@@ -710,42 +680,25 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string paisISO = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisISO == "CO")
+            if (paisISO == "CO" && e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    ImageButton botonFoto = new ImageButton();
-                    botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
-                    botonFoto.Visible = true;
+                ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
+                botonFoto.Visible = true;
 
-                    ImageButton botonBoleta = new ImageButton();
-                    botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
-                    botonBoleta.Visible = true;
-
-                }
+                ImageButton botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
+                botonBoleta.Visible = true;
             }
 
         }
 
         protected void gridSeguimientoPostVenta_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            Image boton = new Image();
-            boton = (Image)e.Row.FindControl("imgMuestra");
-
-            Image botonSI = new Image();
-            botonSI = (Image)e.Row.FindControl("imgSI");
-
-            Image botonNO2 = new Image();
-            botonNO2 = (Image)e.Row.FindControl("imgNO2");
-
-            Label lblTexto = new Label();
-            lblTexto = (Label)e.Row.FindControl("lblTexto");
-
-            Label lblFecha = new Label();
-            lblFecha = (Label)e.Row.FindControl("lblFecha");
-
-            LinkButton botonSegPed = new LinkButton();
-            botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
+            Image botonSI = (Image)e.Row.FindControl("imgSI");
+            Image botonNO2 = (Image)e.Row.FindControl("imgNO2");
+            Label lblTexto = (Label)e.Row.FindControl("lblTexto");
+            Label lblFecha = (Label)e.Row.FindControl("lblFecha");
+            LinkButton botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
 
             if (boton != null)
             {
@@ -783,14 +736,8 @@ namespace Portal.Consultoras.Web.WebPages
             if (e.CommandName == "NOVEDADES")
             {
                 mvTracking.ActiveViewIndex = 1;
-
-                foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
-                {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
-                }
-
+                
                 gvNovedadesPostVenta.SelectedIndex = 0;
-                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[0]["Longitud"];
@@ -800,21 +747,14 @@ namespace Portal.Consultoras.Web.WebPages
 
             }
 
-
         }
 
         protected void gvNovedadesPostVenta_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Mapa")
             {
-                foreach (GridViewRow row in gvNovedadesPostVenta.Rows)
-                {
-                    //row.BackColor = System.Drawing.ColorTranslator.FromHtml("#f8fcfd");
-                }
-
                 int Index = Convert.ToInt32(e.CommandArgument.ToString());
                 gvNovedadesPostVenta.SelectedIndex = Index;
-                //gvNovedadesPostVenta.SelectedRow.BackColor = System.Drawing.ColorTranslator.FromHtml("#94ddf5");
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[Index]["Latitud"];
                 string Long = (string)gvNovedadesPostVenta.DataKeys[Index]["Longitud"];
@@ -867,19 +807,13 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string paisISO = Convert.ToString(ViewState["PAISISO"]);
 
-            if (paisISO == "CO")
+            if (paisISO == "CO" && e.Row.RowType == DataControlRowType.DataRow)
             {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    ImageButton botonFoto = new ImageButton();
-                    botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
-                    botonFoto.Visible = true;
+                ImageButton botonFoto = (ImageButton)e.Row.FindControl("btnFoto");
+                botonFoto.Visible = true;
 
-                    ImageButton botonBoleta = new ImageButton();
-                    botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
-                    botonBoleta.Visible = true;
-
-                }
+                ImageButton botonBoleta = (ImageButton)e.Row.FindControl("btnBoleta");
+                botonBoleta.Visible = true;
             }
         }
     }

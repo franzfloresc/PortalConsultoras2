@@ -1,121 +1,88 @@
 ﻿/*-------------Modal----------------*/
 
-.fuzemodal
-{
-    /*width:760px;
-    min-height:300px;*/
-    min-width:300px;
-    border:1px solid #CCC;
-    background-color:#FFF !important;
-    position:absolute;
-	/*font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;*/
-	color:#666;
-	font-weight:300;
+.fuzemodal {
+    min-width: 300px;
+    border: 1px solid #CCC;
+    background-color: #FFF !important;
+    position: absolute;
+    color: #666;
+    font-weight: 300;
 }
 
-.fuzemodal_message
-{
-    min-width:260px;
-    min-height:100px;
-	width:auto;
-    border:1px solid #CCC;
-    background-color:#FFF;
-    position:absolute;
-	/*font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;*/
-	color:#666;
-	padding-top:40px;
+.fuzemodal_message {
+    min-width: 260px;
+    min-height: 100px;
+    width: auto;
+    border: 1px solid #CCC;
+    background-color: #fff;
+    position: absolute;
+    color: #666;
+    padding-top: 40px;
 }
 
-.fuzemodal .fuzemodal_messages_items
-{
-    position:absolute;
-    right:10px;
-	margin-right:12px;
-    top:14px;
-	cursor:pointer;
-	height:40px;
-	width:40px;
-	text-align:right;
-	display:inline-block;
-	clear:both;
+.fuzemodal .fuzemodal_messages_items {
+    position: absolute;
+    right: 10px;
+    margin-right: 12px;
+    top: 14px;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    text-align: right;
+    display: inline-block;
+    clear: both;
 }
 
-.fuzemodal .fuzemodal_content
-{
-    padding:0px 40px 20px 40px;
-	overflow-y: scroll;
+.fuzemodal .fuzemodal_content {
+    padding: 0 40px 20px 40px;
+    overflow-y: scroll;
     max-height: 620px;
 }
 
-.fuzemodal .fuzemodal_center
-{
-    display:inline-block;
-    padding-top:20px;
+.fuzemodal .fuzemodal_center {
+    display: inline-block;
+    padding-top: 20px;
 }
 
-.fuzemodal .fuzemodal_title
-{
-    background-color:#FFF;
-    width:100%;
-    height:50px;
-    padding:12px;
-    -moz-box-sizing:border-box;
-    box-sizing:border-box;
-    font-size:18px;
-    font-weight:300;
-    position:relative;
-    margin-bottom:20px;
-}
-
-.fuzemodal .fuzemodal_title_items
-{
-    position:absolute;
-    right:12px;
-    top:14px;
-	cursor:pointer;
-}
-
-.fuzemodal .fuzemodal_buttons
-{
-	text-align:center;
-	width:100%;
-	padding:15px 0px 50px 0px;
-	margin-top:30px;
-}
-
-.fuzemodal .fuzemodal_message_buttons
-{
-	text-align:center;
-	width:100%;
-	margin-top:30px;
-}
-
-.fuzemodal .fuzemodal_centertext
-{
-	text-align:center;	
-}
-
-.fuzemodal_title_image
-{
-	position:absolute;
+.fuzemodal .fuzemodal_title {
+    background-color: #fff;
     width: 100%;
-    height: 45px;	
+    height: 50px;
+    padding: 12px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: 300;
+    position: relative;
+    margin-bottom: 20px;
 }
 
-/*.fuzemodal input[type="button"], .fuzemodal input[type="submit"]
-{
-    width:120px;
-    height:26px;
-    background-color:#00AECF;
-    color:#F1F9FB;
-    text-align:center;
-    font-size:12px;
-    padding:6px;
-	border-radius:5px;
-    box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    cursor:pointer !important;
-    display:inline-block;
-	border:none;
-	margin-right:20px;
-}*/
+.fuzemodal .fuzemodal_title_items {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    cursor: pointer;
+}
+
+.fuzemodal .fuzemodal_buttons {
+    text-align: center;
+    width: 100%;
+    padding: 15px 0 50px 0;
+    margin-top: 30px;
+}
+
+.fuzemodal .fuzemodal_message_buttons {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.fuzemodal .fuzemodal_centertext {
+    text-align: center;
+}
+
+.fuzemodal_title_image {
+    position: absolute;
+    width: 100%;
+    height: 45px;
+}

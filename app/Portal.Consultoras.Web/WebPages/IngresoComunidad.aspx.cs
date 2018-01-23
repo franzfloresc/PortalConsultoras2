@@ -113,8 +113,10 @@ namespace Portal.Consultoras.Web.WebPages
                     page = page
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "IngresoComunidad - ValidarUsuario");
+
                 return serializer.Serialize(new
                 {
                     success = false,
@@ -179,7 +181,6 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("</tr></tbody></table></td></tr>");
                     sb.Append("</tbody></table></td></tr></table></td></tr></table>");
 
-                    //Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", datos["Correo"].ToString(), "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
                     Util.EnviarMail("comunidadsomosbelcorp@somosbelcorp.com", datos["Correo"].ToString(), "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
 
                     using (ComunidadServiceClient sv = new ComunidadServiceClient())
@@ -205,8 +206,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "IngresoComunidad - RegistrarUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false
