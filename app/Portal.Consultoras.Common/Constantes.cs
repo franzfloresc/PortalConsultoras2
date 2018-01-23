@@ -704,7 +704,7 @@ namespace Portal.Consultoras.Common
             public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
-            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span><a>Chat en Línea</a></span>.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span>Chat en Línea</span>.";
         }
 
         public static class CodigoOperacionCDR
