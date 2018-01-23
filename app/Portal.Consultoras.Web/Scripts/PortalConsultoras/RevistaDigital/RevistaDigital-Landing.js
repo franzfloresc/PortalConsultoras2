@@ -281,7 +281,12 @@ function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     filtroCampania[indCampania].response = response;
     filtroCampania[indCampania].IsLoad = false;
     OfertaArmarEstrategias(response);
+
+    /*$(OfertaArmarEstrategias).ajaxComplete(function (event, request, settings) {
+        alert('complete');
+    });*/
     return true;
+    
 }
 
 function OfertaObtenerIndLocal(campId) {
