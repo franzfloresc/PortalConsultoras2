@@ -3446,62 +3446,65 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
             {
-                try
+                using (var sv = new PedidoServiceClient())
                 {
-                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-
-                    if (obeConfiguracionProgramaNuevas == null)
+                    try
                     {
-                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                        return;
-                    }
+                        var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
 
-                    Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
-                    if (!flagkit) //Kit en 2 y 3 pedido
-                        if (oBEConfiguracionProgramaNuevas.IndProgObli != "1") return;
-
-                    var listaTempListado = ObtenerPedidoWebDetalle();
-
-                    var det = new BEPedidoWebDetalle();
-                    if (listaTempListado != null)
-                        det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
-
-                    if (det.PedidoDetalleID > 0) return;
-
-                    List<BEProducto> olstProducto;                    
-                    using (var svOds = new ODSServiceClient())
-                    {
-                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
-                    }
-
-                    if (olstProducto.Count > 0)
-                    {
-                        var producto = olstProducto[0];
-                        var model = new PedidoSb2Model
+                        if (obeConfiguracionProgramaNuevas == null)
                         {
-                            TipoOfertaSisID = 0,
-                            ConfiguracionOfertaID = 0,
-                            IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim(),
-                            MarcaID = producto.MarcaID,
-                            Cantidad = "1",
-                            PrecioUnidad = producto.PrecioCatalogo,
-                            CUV = obeConfiguracionProgramaNuevas.CUVKit,
-                            Tipo = 0,
-                            DescripcionProd = producto.Descripcion,
-                            Pagina = "0",
-                            DescripcionEstrategia = "",
-                            EsSugerido = false,
-                            EsKitNueva = true
-                        };
+                            Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                            return;
+                        }
 
-                        Insert(model);
+                        Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
+                        if (!flagkit) //Kit en 2 y 3 pedido
+                            if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+
+                        var listaTempListado = ObtenerPedidoWebDetalle();
+
+                        var det = new BEPedidoWebDetalle();
+                        if (listaTempListado != null)
+                            det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
+
+                        if (det.PedidoDetalleID > 0) return;
+
+                        List<BEProducto> olstProducto;                    
+                        using (var svOds = new ODSServiceClient())
+                        {
+                            olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
+                        }
+
+                        if (olstProducto.Count > 0)
+                        {
+                            var producto = olstProducto[0];
+                            var model = new PedidoSb2Model
+                            {
+                                TipoOfertaSisID = 0,
+                                ConfiguracionOfertaID = 0,
+                                IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim(),
+                                MarcaID = producto.MarcaID,
+                                Cantidad = "1",
+                                PrecioUnidad = producto.PrecioCatalogo,
+                                CUV = obeConfiguracionProgramaNuevas.CUVKit,
+                                Tipo = 0,
+                                DescripcionProd = producto.Descripcion,
+                                Pagina = "0",
+                                DescripcionEstrategia = "",
+                                EsSugerido = false,
+                                EsKitNueva = true
+                            };
+
+                            Insert(model);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    sv.Abort();
-                }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        sv.Abort();
+                    }
+                }              
             }
         }
 
