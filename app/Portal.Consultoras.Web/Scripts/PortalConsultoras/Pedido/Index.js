@@ -336,7 +336,7 @@ $(document).ready(function () {
                 Posicion: posicion
             };
 
-            AgregarProducto('Insert', model, 'divProductoSugerido', true);
+            AgregarProducto('PedidoInsertar', model, 'divProductoSugerido', true);
             dataLayer.push({
                 'event': 'addToCart',
                 'ecommerce': {

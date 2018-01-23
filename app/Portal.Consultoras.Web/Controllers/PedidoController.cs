@@ -502,6 +502,117 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region CRUD
+        
+        [HttpPost]
+        public JsonResult PedidoInsertar(PedidoCrudModel model)
+        {
+            try
+            {
+                var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
+                if (objValidad != null)
+                    return Json(objValidad);
+
+                objValidad = InsertarValidarKitInicio(model.CUV);
+                if (objValidad != null)
+                    return Json(objValidad);
+
+                #region AdministradorPedido
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
+                {
+                    PaisID = userData.PaisID,
+                    IPUsuario = userData.IPUsuario,
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PedidoID = userData.PedidoID,
+                    TipoOfertaSisID = model.TipoOfertaSisID,
+                    SubTipoOfertaSisID = 0,
+                    CUV = model.CUV,
+                    Cantidad = Convert.ToInt32(model.Cantidad),
+                    PrecioUnidad = model.PrecioUnidad,
+                    TipoEstrategiaID = model.TipoEstrategiaID,
+                    OrigenPedidoWeb = model.OrigenPedidoWeb,
+                    ConfiguracionOfertaID = model.ConfiguracionOfertaID,
+                    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                    OfertaWeb = model.OfertaWeb,
+                    IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
+                    EsSugerido = model.EsSugerido,
+                    EsKitNueva = model.EsKitNueva,
+                    MarcaID = Convert.ToByte(model.MarcaID),
+                    DescripcionProd = model.DescripcionProd
+                };
+
+                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                obePedidoWebDetalle.Nombre = obePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+
+                bool errorServer;
+                string tipo;
+                bool modificoBackOrder;
+                var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
+
+                #endregion
+
+                var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+
+                var listaCliente = ListarClienteSegunPedido(model.ClienteID_, olstPedidoWebDetalle);
+
+                #region PedidoWebDetalleModel
+                var pedidoWebDetalleModel = Mapper.Map<BEPedidoWebDetalle, PedidoWebDetalleModel>(obePedidoWebDetalle);
+                pedidoWebDetalleModel.Simbolo = userData.Simbolo;
+                pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
+                pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
+                pedidoWebDetalleModel.CodigoIso = userData.CodigoISO;
+
+                var bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(p => p.CUV == model.CUV);
+                if (bePedidoWebDetalle != null)
+                {
+                    pedidoWebDetalleModel.IndicadorOfertaCUV = bePedidoWebDetalle.IndicadorOfertaCUV;
+                    pedidoWebDetalleModel.DescripcionLarga = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionLarga)
+                        ? bePedidoWebDetalle.DescripcionLarga : "";
+                    pedidoWebDetalleModel.DescripcionOferta = !string.IsNullOrEmpty(bePedidoWebDetalle.DescripcionOferta)
+                        ? bePedidoWebDetalle.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
+                    pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
+                        ? bePedidoWebDetalle.TipoPedido : "";
+                    pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
+                    pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
+                    pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
+                }
+                #endregion
+
+                return Json(new
+                {
+                    success = !errorServer,
+                    message = !errorServer ? "OK"
+                        : tipo.Length > 1 ? tipo
+                        : "Ocurrió un error al ejecutar la operación.",
+                    data = pedidoWebDetalleModel,
+                    total,
+                    formatoTotal,
+                    listaCliente,
+                    errorInsertarProducto = !errorServer ? "0" : "1",
+                    tipo,
+                    modificoBackOrder,
+                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
+                });
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = "",
+                    total = "",
+                    formatoTotal = "",
+                    listaCliente = "",
+                    errorInsertarProducto = "0",
+                    tipo = ""
+                });
+            }
+        }
 
         [HttpPost]
         public JsonResult Insert(PedidoSb2Model model)

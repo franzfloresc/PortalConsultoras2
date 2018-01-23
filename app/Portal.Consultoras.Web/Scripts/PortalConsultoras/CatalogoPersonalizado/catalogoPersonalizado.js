@@ -505,24 +505,6 @@ function AgregarProductoCatalogoPersonalizado(item) {
         return false;
     }
 
-    var model = {
-        TipoOfertaSisID: tipoOfertaSisID,
-        ConfiguracionOfertaID: configuracionOfertaID,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        MarcaID: marcaID,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidad,
-        CUV: cuv,
-        Tipo: tipo,
-        DescripcionProd: descripcionProd,
-        Pagina: pagina,
-        DescripcionCategoria: descripcionCategoria,
-        DescripcionMarca: descripcionMarca,
-        DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    };
-
     if (tipoOrigen == '3') {
         var imagenProducto = $('#imagenAnimacion>img', item);
 
@@ -553,7 +535,26 @@ function AgregarProductoCatalogoPersonalizado(item) {
         }
     }
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    var model = {
+        CUV: cuv,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidad,
+        OrigenPedidoWeb: OrigenPedidoWeb,
+        MarcaID: marcaID,
+        DescripcionProd: descripcionProd,
+        TipoOfertaSisID: tipoOfertaSisID,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        ConfiguracionOfertaID: configuracionOfertaID,
+        EsSugerido: false,
+
+        Tipo: tipo,
+        Pagina: pagina,
+        DescripcionCategoria: descripcionCategoria,
+        DescripcionMarca: descripcionMarca,
+        DescripcionEstrategia: descripcionEstrategia
+    };
+
+    AgregarProducto('PedidoInsertar', model, function () { $(divPadre).find(".product-add").show(); });
     //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
 
@@ -871,7 +872,7 @@ function AgregarProductoOfertaRevista(btn) {
         });
     }
 
-    AgregarProducto('Insert', model, function () {
+    AgregarProducto('PedidoInsertar', model, function () {
         $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
         //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();

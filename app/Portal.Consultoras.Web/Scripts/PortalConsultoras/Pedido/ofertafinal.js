@@ -81,7 +81,7 @@ $(document).ready(function () {
         };
         var add = new Object();
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('Insert', model, "", false, false);
+            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
             var add = InsertarProducto(model, false);
@@ -183,7 +183,7 @@ $(document).ready(function () {
 
         var add = new Object();
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('Insert', model, "", false, false);
+            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
             var add = InsertarProducto(model, false);
