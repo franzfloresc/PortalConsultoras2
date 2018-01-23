@@ -512,12 +512,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (objValidad != null)
                     return Json(objValidad);
 
-                objValidad = InsertarValidarKitInicio(model);
+                objValidad = InsertarValidarKitInicio(model.CUV);
                 if (objValidad != null)
                     return Json(objValidad);
 
                 #region AdministradorPedido
-                var oBePedidoWebDetalle = new BEPedidoWebDetalle
+                var obePedidoWebDetalle = new BEPedidoWebDetalle
                 {
                     IPUsuario = userData.IPUsuario,
                     CampaniaID = userData.CampaniaID,
@@ -540,13 +540,13 @@ namespace Portal.Consultoras.Web.Controllers
                     DescripcionProd = model.DescripcionProd
                 };
                 
-                oBePedidoWebDetalle.ImporteTotal = oBePedidoWebDetalle.Cantidad * oBePedidoWebDetalle.PrecioUnidad;
-                oBePedidoWebDetalle.Nombre = oBePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+                obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
+                obePedidoWebDetalle.Nombre = obePedidoWebDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
 
                 bool errorServer;
                 string tipo;
                 bool modificoBackOrder;
-                var olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
+                var olstPedidoWebDetalle = AdministradorPedido(obePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
 
                 #endregion
 
@@ -556,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaCliente = ListarClienteSegunPedido(model.ClienteID_, olstPedidoWebDetalle);
 
                 #region PedidoWebDetalleModel
-                var pedidoWebDetalleModel = Mapper.Map<BEPedidoWebDetalle, PedidoWebDetalleModel>(oBePedidoWebDetalle);
+                var pedidoWebDetalleModel = Mapper.Map<BEPedidoWebDetalle, PedidoWebDetalleModel>(obePedidoWebDetalle);
                 pedidoWebDetalleModel.Simbolo = userData.Simbolo;
                 pedidoWebDetalleModel.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 pedidoWebDetalleModel.ClienteID_ = model.ClienteID_;
@@ -640,17 +640,17 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
-        private object InsertarValidarKitInicio(PedidoSb2Model model)
+        private object InsertarValidarKitInicio(string cuv)
         {
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
             if (userData.EsConsultoraNueva)
             {
-                var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
-                detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
+                var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == cuv) ?? new BEPedidoWebDetalle();
+                detCuv.CUV = Util.Trim(detCuv.CUV);
                 if (detCuv.CUV != "")
                 {
                     var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-                    if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == model.CUV)
+                    if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
                     {
                         return new
                         {
@@ -1096,13 +1096,12 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
-            var oUsuarioModel = userData;
             try
             {
                 List<BEProducto> olstProducto;
                 using (var sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, false).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -1119,14 +1118,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
                 {
-                    IPUsuario = oUsuarioModel.IPUsuario,
-                    CampaniaID = oUsuarioModel.CampaniaID,
-                    ConsultoraID = oUsuarioModel.ConsultoraID,
-                    PaisID = oUsuarioModel.PaisID,
+                    IPUsuario = userData.IPUsuario,
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID,
                     TipoOfertaSisID = 1700,
                     ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
                     ClienteID = (short)0,
-                    PedidoID = oUsuarioModel.PedidoID,
+                    PedidoID = userData.PedidoID,
                     OfertaWeb = false,
                     IndicadorMontoMinimo = Convert.ToInt32(olstProducto[0].IndicadorMontoMinimo.ToString().Trim()),
                     SubTipoOfertaSisID = Convert.ToInt32(0),
@@ -1135,7 +1134,7 @@ namespace Portal.Consultoras.Web.Controllers
                     PrecioUnidad = olstProducto[0].PrecioCatalogo,
                     CUV = olstProducto[0].CUV.Trim(),
                     DescripcionProd = olstProducto[0].Descripcion.Trim(),
-                    Nombre = oUsuarioModel.NombreConsultora,
+                    Nombre = userData.NombreConsultora,
                     DescripcionLarga = olstProducto[0].DescripcionMarca,
                     DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
                     Categoria = olstProducto[0].DescripcionCategoria,
@@ -1147,7 +1146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 IList<BEPedidoWebService> olstCuvMarquesina;
                 using (var sv = new PedidoServiceClient())
                 {
-                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, oUsuarioModel.ConsultoraID, strCuv);
+                    olstCuvMarquesina = sv.GetPedidoCuvMarquesina(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, strCuv);
                 }
 
                 string accion;
@@ -1183,7 +1182,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, oUsuarioModel.CodigoConsultora, oUsuarioModel.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
