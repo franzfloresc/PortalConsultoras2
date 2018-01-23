@@ -3764,6 +3764,10 @@
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.woff" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoVisa.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoResultado.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoExitoso.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\ConfirmacionPago.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoRechazado.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\SeleccionTipoPago.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

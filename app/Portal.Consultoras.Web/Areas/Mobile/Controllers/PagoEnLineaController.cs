@@ -24,6 +24,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+        
+         public ActionResult SeleccionTipoPago()
+        {
+            return View();
+        }
+
+        public ActionResult ConfirmacionPago()
+        {
+            return View();
+        }
+
+        public ActionResult PagoExitoso()
+        {
+            return View();
+        }
+
+        public ActionResult PagoRechazado()
+        {
+            return View();
+        }
+
 
         public JsonResult GuardarDatosPago(PagoEnLineaModel model)
         {

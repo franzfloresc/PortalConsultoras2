@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Pago Exitoso";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+    </style>
+
+}
+
+<!-- TÍTULO -->
+<div class="cabecera_vista_pago_en_linea">
+    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+
+        <!-- VISTA PAGO RECHAZADO -->
+
+        <div class="pago_rechazado">
+
+            <div class="icono_pago_rechazado"></div>
+            <h3 class="titulo_pago_rechazado">
+                Pago <strong>rechazado</strong>
+            </h3>
+            <p class="mensaje_felicitacion_por_pago_rechazado">
+                Tu pago no se pudo realizar
+            </p>
+            <p class="info_saldo_pendiente">
+                Contáctate con tu Banco para mayor información.
+            </p>
+
+        </div>
+
+        <!-- FIN - VISTA PAGO RECHAZADO -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
+
+}

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Pago Exitoso";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+    </style>
+
+}
+
+<!-- TÍTULO -->
+<div class="cabecera_vista_pago_en_linea">
+    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+
+        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
+
+        <div class="cantidad_pasos_proceso_pago">
+
+            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
+
+            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
+
+        <!-- VISTA CONFIRMACIÓN PAGO -->
+
+        <div class="confirmacion_pago">
+            <h3 class="titulo_resumen_pago_exitoso">
+                Confirma el monto final
+            </h3>
+            <div class="resumen_pago">
+                <div class="monto_pagado">
+                    <span>Monto:</span>
+                    <span>1000.00</span>
+                </div>
+                <div class="monto_gastos_administrativos">
+                    <span>Gastos administrativos (3%):</span>
+                    <span>20.00</span>
+                </div>
+                <div class="total_monto_pagado">
+                    <span>Total por pagar:</span>
+                    <span>1020.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN - VISTA CONFIRMACIÓN PAGO -->
+
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+        <div class="contenedor_info_pago_seguro_y_ctas">
+
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
+
+}
