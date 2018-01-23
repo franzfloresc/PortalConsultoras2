@@ -359,8 +359,6 @@ namespace Portal.Consultoras.Common
             public const string PaisesCatalogoUnificado = "PaisesCatalogoUnificado";
             public const string WS_RV_Campanias_NEW = "WS_RV_Campanias_NEW";
             public const string WS_RV_PDF_NEW = "WS_RV_PDF_NEW";
-            public const string WS_RV_Campanias = "WS_RV_Campanias";
-            public const string WS_RV_PDF = "WS_RV_PDF";
             public const string ExpresionValidacionNemotecnico = "ExpresionValidacionNemotecnico";
             public const string URL_DUPLACYZONE = "URL_DUPLACYZONE";
             public const string WebTrackingConfirmacion = "WebTrackingConfirmacion";

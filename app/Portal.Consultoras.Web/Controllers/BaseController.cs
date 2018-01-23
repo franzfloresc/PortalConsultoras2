@@ -380,7 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "";
                 if (userData == null)
                 {
-                    mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
+                    mensaje = "Su sessión expiró, por favor vuelva a loguearse.";
                     sessionManager.SetUserData(null);
                     HttpContext.Session.Clear();
                     HttpContext.Session.Abandon();

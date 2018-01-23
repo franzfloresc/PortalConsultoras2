@@ -20,13 +20,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
-            BEGrid grid = new BEGrid {
-                PageSize = rows,
-                CurrentPage = page,
-                SortColumn = sidx,
-                SortOrder = sord
-            };
-
             var lst = new List<RVPRFModel>();
             if (!string.IsNullOrEmpty(Campania)) lst = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
             IEnumerable<RVPRFModel> items = lst;
@@ -54,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             items = lst;
 
+            BEGrid grid = SetGrid(sidx, sord, page, rows);
             BEPager pag = Paginador(grid, Campania, lst);
 
             var data = new

@@ -19,48 +19,27 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            bool ErrorServicio;
-            string ErrorCode;
-            string ErrorMessage;
-
-            if (UserData().PaisID == 4)
+            string errorMessage;
+            string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
+            var oRVDigitalModel = new RVDigitalModel { listaCampania = GetListCampaniaPaqueteDocumentario(codigoConsultora, out errorMessage) };
+            
+            ViewBag.ErrorDescripcion = errorMessage;
+            if (userData.PaisID == 4)
             {
-                ContenidoServiceClient sv = new ContenidoServiceClient();
-                ViewBag.PaisID = UserData().PaisID;
-                ViewBag.InvitacionPaquete = Convert.ToInt32(sv.ValidarInvitacionPaqueteDocumentario(UserData().PaisID, UserData().CodigoConsultora));
+                ViewBag.PaisID = userData.PaisID;
+                using (var sv = new ContenidoServiceClient())
+                {
+                    ViewBag.InvitacionPaquete = Convert.ToInt32(sv.ValidarInvitacionPaqueteDocumentario(userData.PaisID, userData.CodigoConsultora));
+                }
             }
 
-            var oRVDigitalModel = new RVDigitalModel()
-            {
-                listaCampania = GetCampaniasRVDigital(out ErrorServicio, out ErrorCode, out ErrorMessage)
-            };
-            if (ErrorServicio)
-            {
-                ViewBag.ErrorDescripcion = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
-            }
-            else
-            {
-                if (ErrorCode == string.Empty || ErrorCode == "00000")
-                    ViewBag.ErrorDescripcion = string.Empty;
-                else
-                    ViewBag.ErrorDescripcion = ErrorMessage;
-            }
             return View(oRVDigitalModel);
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            bool ErrorServicio;
-            string ErrorCode;
-            string ErrorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(Campania))
-                lst = GetPDFRVDigital(Campania, out ErrorServicio, out ErrorCode, out ErrorMessage);
+            if (!string.IsNullOrEmpty(Campania)) lst = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
@@ -83,6 +62,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
+
+            BEGrid grid = SetGrid(sidx, sord, page, rows);
 
             if (string.IsNullOrEmpty(Campania))
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
@@ -110,216 +91,6 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        public List<CampaniaModel> GetCampaniasRVDigital(out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
-        {
-            UsuarioModel usuario = UserData();
-            string Marca;
-            string NombrePais = DevolverNombrePais(usuario.CodigoISO, out Marca);
-            var complain = new RVDCampaniasParam { pais = NombrePais, tipo = "Paq Doc Consultora", docIdentidad = "", consultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), marca = Marca };
-            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperCampanias st = json_serializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null)
-                {
-                    if (st.LIS_CampanaResult != null)
-                    {
-                        if (st.LIS_CampanaResult.lista != null)
-                        {
-                            if (st.LIS_CampanaResult.lista.Count != 0)
-                            {
-                                foreach (var item in st.LIS_CampanaResult.lista)
-                                {
-                                    lstCampaniaModel.Add(new CampaniaModel() { CampaniaID = Convert.ToInt32(item.campana), Codigo = item.campana });
-                                }
-                            }
-                            else
-                            {
-                                ErrorCode = st.LIS_CampanaResult.errorCode;
-                                ErrorMessage = st.LIS_CampanaResult.errorMessage;
-                            }
-                        }
-                        else
-                        {
-                            ErrorCode = st.LIS_CampanaResult.errorCode;
-                            ErrorMessage = st.LIS_CampanaResult.errorMessage;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
-            }
-
-            return lstCampaniaModel;
-        }
-
-        public string DevolverNombrePais(string ISO, out string Marca)
-        {
-            string result = string.Empty;
-            Marca = string.Empty;
-
-            switch (ISO)
-            {
-                case "AR":
-                    result = "ARGENTINA";
-                    Marca = "L'Bel";
-                    break;
-                case "BO":
-                    result = "BOLIVIA";
-                    Marca = "Esika";
-                    break;
-                case "CL":
-                    result = "CHILE";
-                    Marca = "Esika";
-                    break;
-                case "CO":
-                    result = "COLOMBIA";
-                    Marca = "L'Bel";
-                    break;
-                case "CR":
-                    result = "COSTA RICA";
-                    Marca = "L'Bel";
-                    break;
-                case "DO":
-                    result = "DOMINICANA";
-                    Marca = "L'Bel";
-                    break;
-                case "EC":
-                    result = "ECUADOR";
-                    Marca = "L'Bel";
-                    break;
-                case "SV":
-                    result = "EL SALVADOR";
-                    Marca = "Esika";
-                    break;
-                case "GT":
-                    result = "GUATEMALA";
-                    Marca = "Esika";
-                    break;
-                case "MX":
-                    result = "MEXICO";
-                    Marca = "L'Bel";
-                    break;
-                case "PA":
-                    result = "PANAMA";
-                    Marca = "L'Bel";
-                    break;
-                case "PE":
-                    result = "PERU";
-                    Marca = "Esika";
-                    break;
-                case "PR":
-                    result = "PUERTO RICO";
-                    Marca = "L'Bel";
-                    break;
-                case "VE":
-                    result = "VENEZUELA";
-                    Marca = "L'Bel";
-                    break;
-            }
-            return result;
-        }
-
-
-        public List<RVPRFModel> GetPDFRVDigital(string Campania, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
-        {
-            UsuarioModel usuario = UserData();
-            string Marca;
-            string NombrePais = DevolverNombrePais(usuario.CodigoISO, out Marca);
-            var complain = new RVDPDFParam { pais = NombrePais, tipo = "Paq Doc Consultora", docIdentidad = "", consultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), marca = Marca, Campana = Campania };
-            List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperPDF st = json_serializer.Deserialize<WrapperPDF>(outResult);
-                if (st != null)
-                {
-                    if (st.SEL_PDFxCampanaResult != null)
-                    {
-                        if (st.SEL_PDFxCampanaResult.lista != null)
-                        {
-                            if (st.SEL_PDFxCampanaResult.lista.Count != 0)
-                            {
-                                foreach (var item in st.SEL_PDFxCampanaResult.lista)
-                                {
-                                    lstRVPRFModel.Add(new RVPRFModel() { Nombre = item, Ruta = item });
-                                }
-                            }
-                            else
-                            {
-                                ErrorCode = st.SEL_PDFxCampanaResult.errorCode;
-                                ErrorMessage = st.SEL_PDFxCampanaResult.errorMessage;
-                            }
-                        }
-                        else
-                        {
-                            ErrorCode = st.SEL_PDFxCampanaResult.errorCode;
-                            ErrorMessage = st.SEL_PDFxCampanaResult.errorMessage;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
-            }
-
-            return lstRVPRFModel;
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)
