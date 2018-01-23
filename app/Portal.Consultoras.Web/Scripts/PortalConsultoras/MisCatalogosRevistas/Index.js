@@ -660,7 +660,7 @@ function RevistaMostrar(accion, btn) {
 
     rCampSelect = aCamRev[rCampSelectI] || "";
 
-    $("#numero_campania").text(rCampSelect); //EMP
+    $("#numero_campania").text(rCampSelect);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
