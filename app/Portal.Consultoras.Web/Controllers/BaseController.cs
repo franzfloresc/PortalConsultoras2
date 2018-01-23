@@ -4332,12 +4332,12 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-        protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido)
+        protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)
         {
             string errorMessage;
-            return GetPDFRVDigital(codigoConsultora, campania, numeroPedido, out errorMessage);
+            return GetListPaqueteDocumentario(codigoConsultora, campania, numeroPedido, out errorMessage);
         }
-        protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido, out string errorMessage)
+        protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, out string errorMessage)
         {
             errorMessage = string.Empty;
 

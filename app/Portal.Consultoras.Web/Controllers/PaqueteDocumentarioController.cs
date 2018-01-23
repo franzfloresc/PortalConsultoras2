@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
             var lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(Campania)) lst = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
+            if (!string.IsNullOrEmpty(Campania)) lst = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section

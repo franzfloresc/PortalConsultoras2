@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var lstRVPRFModel = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
+            var lstRVPRFModel = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
             return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 

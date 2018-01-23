@@ -973,7 +973,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SortOrder = sord
             };
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(campania)) lst = GetPDFRVDigital(codigo, campania, "");
+            if (!string.IsNullOrEmpty(campania)) lst = GetListPaqueteDocumentario(codigo, campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
