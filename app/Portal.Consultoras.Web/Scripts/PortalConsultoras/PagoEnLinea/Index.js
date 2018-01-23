@@ -11,6 +11,10 @@ $(document).ready(function () {
     mainPL = function () {
         var me = this;
 
+        me.globals = {
+            barraActivacion : $('.barra_activacion')
+        }
+
         me.Funciones = {
             InicializarEventos: function () {
                 //$(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.AceptarTerminosYCondiciones);
@@ -18,6 +22,7 @@ $(document).ready(function () {
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
+                $(document).on('click', '.btn_continuar', me.Eventos.MostrarTooltipAceptarTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
             }
@@ -39,15 +44,25 @@ $(document).ready(function () {
                     //$("#hdMontoFinal").val(0);
                 }
             },
+            MostrarTooltipAceptarTerminosYCondiciones: function(){
+                if (!(me.globals.barraActivacion).is('.activado')) {
+                    $('body,html').animate({
+                        scrollTop: $(document).height()
+                    }, 1000);
+                    $('.tooltip_terminos_y_condiciones').fadeIn();
+                } else {
+                    $('.tooltip_terminos_y_condiciones').fadeOut();
+                }
+            },
             AceptarTerminosYCondiciones: function (e) {
-                var barraActivacion = $('.barra_activacion');
-                barraActivacion.toggleClass('activado');
-                if (barraActivacion.is('.activado')) {
-                    barraActivacion.attr('data-estado', 1);
+                me.globals.barraActivacion.toggleClass('activado');
+                if (me.globals.barraActivacion.is('.activado')) {
+                    me.globals.barraActivacion.attr('data-estado', 1);
+                    $('.tooltip_terminos_y_condiciones').fadeOut();
                     $("#divTooltipTerminosCondiciones").hide();
                     //console.log('Has aceptado los términos y condiciones');
                 } else {
-                    barraActivacion.attr('data-estado', 0);
+                    me.globals.barraActivacion.attr('data-estado', 0);
                     //console.log('No has aceptado los términos y condiciones');
                 }
             },
