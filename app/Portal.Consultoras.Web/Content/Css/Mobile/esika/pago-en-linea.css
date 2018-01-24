@@ -239,8 +239,9 @@
 }
 
 .campo_seleccion_monto_a_pagar{
-    display:none;
+    /*display:none;*/
     margin-bottom:29px;
+    opacity:0.45;
 }
 
 .metodo_pago_seleccionado{
@@ -275,6 +276,8 @@
 
 .icono_marca_tarjeta{
     margin-right:14px;
+    filter:grayscale(100%);
+    -webkit-filter: grayscale(100%);
 }
 
 .marca_tarjeta{
