@@ -24,20 +24,20 @@
             var productoModel = {
                 'CUV': '@Model.CUV',
                 'Cantidad': '1',
-                'DescripcionProd': '@Html.Raw(@Model.Descripcion)', //EPD-2598
-                'IndicadorMontoMinimo': '@Model.IndicadorMontoMinimo',
+                'PrecioUnidad': '@Model.PrecioCatalogo',
                 'MarcaID': '@Model.MarcaID',
-                'PrecioUnidad': '@Model.PrecioCatalogo'
+                'DescripcionProd': '@Html.Raw(@Model.Descripcion)',
+                'IndicadorMontoMinimo': '@Model.IndicadorMontoMinimo'
             };
 
             var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
             var urlDesreservarPedido = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "", Tipo = "PV" })';
-            var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
+            var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new { area = "" })';
             var urlPedidoWeb = '@Url.Action("Index", "Pedido", new { area = "" })';
             var urlPedidoMobile = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';
 
             var mensajePostFail = 'Hubieron problemas de conexión al intentar registrar su producto. Inténtelo más tarde.';
-            var mensajeRegistroSatisfactorio = 'El producto se registró satisfactoriamente';            
+            var mensajeRegistroSatisfactorio = 'El producto se registró satisfactoriamente';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/IncentivosSMS/Index.js")"></script>
     </head>
