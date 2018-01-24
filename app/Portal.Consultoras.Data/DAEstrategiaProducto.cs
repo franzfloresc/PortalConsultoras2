@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FactorCuadre", DbType.Int32, entidad.FactorCuadre);
 
                 Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
-                Context.Database.AddInParameter(command, "@MarcaId", DbType.Int16, entidad.MarcaId);
+                Context.Database.AddInParameter(command, "@IdMarca", DbType.Int16, entidad.IdMarca);
 
                 Context.ExecuteNonQuery(command);
 
@@ -51,6 +51,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
 
             return Context.ExecuteReader(command);
+        }
+
+        public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProducto"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@CUV", DbType.Int32, entidad.CUV2);
+                
+                result = Context.ExecuteNonQuery(command);
+            }
+            return (result > 0);
         }
     }
 }

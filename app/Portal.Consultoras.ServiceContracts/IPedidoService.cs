@@ -1019,6 +1019,9 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
 
         [OperationContract]
+        bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
 
         [OperationContract]

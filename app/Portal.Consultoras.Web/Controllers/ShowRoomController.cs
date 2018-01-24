@@ -1758,14 +1758,18 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
-        public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int campaniaId, string cuv)
+        public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int campaniaId, string cuv, int estrategiaId)
         {
             if (ModelState.IsValid)
             {
-                List<BEShowRoomOfertaDetalle> lst;
+                //List<BEShowRoomOfertaDetalle> lst;
+                List<BEEstrategiaProducto> lst;
+                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
+
                 using (var sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetProductosShowRoomDetalle(userData.PaisID, campaniaId, cuv).ToList();
+                    //lst = sv.GetProductosShowRoomDetalle(userData.PaisID, campaniaId, cuv).ToList();
+                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
                 }
 
                 var grid = new BEGrid
@@ -1775,7 +1779,8 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<BEShowRoomOfertaDetalle> items = lst;
+                //IEnumerable<BEShowRoomOfertaDetalle> items = lst;
+                IEnumerable<BEEstrategiaProducto> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -1788,6 +1793,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Descripcion1":
                             items = lst.OrderBy(x => x.Descripcion1);
                             break;
+                            /*
                         case "Descripcion2":
                             items = lst.OrderBy(x => x.Descripcion2);
                             break;
@@ -1797,6 +1803,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case "MarcaProducto":
                             items = lst.OrderBy(x => x.MarcaProducto);
                             break;
+                            */
                     }
                 }
                 else
@@ -1809,6 +1816,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Descripcion1":
                             items = lst.OrderBy(x => x.Descripcion1);
                             break;
+                            /*
                         case "Descripcion2":
                             items = lst.OrderBy(x => x.Descripcion2);
                             break;
@@ -1818,6 +1826,7 @@ namespace Portal.Consultoras.Web.Controllers
                         case "MarcaProducto":
                             items = lst.OrderBy(x => x.MarcaProducto);
                             break;
+                            */
                     }
                 }
                 #endregion
@@ -1828,7 +1837,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.RutaImagenesMatriz + "/" + iso));
+                //lst.Update(x => x.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
 
                 var data = new
                 {
@@ -1838,6 +1848,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
+                               /*
                                id = a.OfertaShowRoomDetalleID,
                                cell = new[]
                                {
@@ -1851,6 +1862,19 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Imagen,
                                    a.MarcaProducto,
                                 }
+                                */
+                                id = a.EstrategiaProductoID,
+                                cell = new[]
+                                {
+                                    a.EstrategiaProductoID.ToString(),
+                                    a.EstrategiaID.ToString(),
+                                    a.Campania.ToString(),
+                                    a.CUV,
+                                    a.NombreProducto,
+                                    a.Descripcion1,
+                                    a.ImagenProducto,
+                                    a.NombreMarca
+                                }
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -1859,18 +1883,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
+        //public JsonResult InsertOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
+        public JsonResult InsertOfertaShowRoomDetalle(EstrategiaProductoModel model)
         {
             try
             {
-                BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
+                //BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
 
-                entidad.UsuarioCreacion = userData.CodigoConsultora;
-                entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                //entidad.UsuarioCreacion = userData.CodigoConsultora;
+                //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                entidad.UsuarioModificacion = userData.CodigoConsultora;
+                entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.InsOfertaShowRoomDetalle(userData.PaisID, entidad);
+                    //sv.InsOfertaShowRoomDetalle(userData.PaisID, entidad);
+                    sv.InsertarEstrategiaProducto(entidad);
                 }
 
                 return Json(new
@@ -1903,18 +1932,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
+        //public JsonResult UpdateOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
+        public JsonResult UpdateOfertaShowRoomDetalle(EstrategiaProductoModel model)
         {
             try
             {
-                BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
+                //BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
 
+                //entidad.UsuarioModificacion = userData.CodigoConsultora;
+                //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
-                entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.UpdOfertaShowRoomDetalle(userData.PaisID, entidad);
+                    //sv.UpdOfertaShowRoomDetalle(userData.PaisID, entidad);
+                    sv.InsertarEstrategiaProducto(entidad);
                 }
 
                 return Json(new
@@ -1947,20 +1981,27 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarOfertaShowRoomDetalle(int ofertaShowRoomDetalleId, int campaniaId, string cuv)
+        //public JsonResult EliminarOfertaShowRoomDetalle(int ofertaShowRoomDetalleId, int campaniaId, string cuv)
+        public JsonResult EliminarOfertaShowRoomDetalle(int estrategiaId, string cuv)
         {
             try
             {
-                var beShowRoomOfertaDetalle = new BEShowRoomOfertaDetalle
+                //var beShowRoomOfertaDetalle = new BEShowRoomOfertaDetalle
+                //{
+                //    OfertaShowRoomDetalleID = ofertaShowRoomDetalleId,
+                //    CampaniaID = campaniaId,
+                //    CUV = cuv
+                //};
+                var entidad = new BEEstrategiaProducto
                 {
-                    OfertaShowRoomDetalleID = ofertaShowRoomDetalleId,
-                    CampaniaID = campaniaId,
-                    CUV = cuv
+                    EstrategiaID = estrategiaId,
+                    CUV2 = cuv
                 };
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.EliminarOfertaShowRoomDetalle(userData.PaisID, beShowRoomOfertaDetalle);
+                    //sv.EliminarOfertaShowRoomDetalle(userData.PaisID, beShowRoomOfertaDetalle);
+                    sv.EliminarEstrategiaProducto(entidad);
                 }
 
                 return Json(new

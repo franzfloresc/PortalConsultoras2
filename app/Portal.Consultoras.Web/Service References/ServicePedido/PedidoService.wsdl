@@ -30,19 +30,25 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_DeshacerPedidoValidado_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerPedidoValidado" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_DeshacerPedidoValidado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeshacerPedidoValidadoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerResumen_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerResumen" />
   </wsdl:message>
@@ -685,6 +691,12 @@
   <wsdl:message name="IPedidoService_InsertarEstrategiaProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarEstrategiaProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarEstrategiaProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarEstrategiaProducto" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EliminarEstrategiaProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarEstrategiaProductoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiaProducto_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaProducto" />
   </wsdl:message>
@@ -798,12 +810,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_CargarSesionAndDeshacerPedidoValidado_OutputMessage">
     <wsdl:part name="parameters" element="tns:CargarSesionAndDeshacerPedidoValidadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeshacerPedidoValidado_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeshacerPedidoValidado" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DeshacerPedidoValidado_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeshacerPedidoValidadoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetNovedadesTracking_InputMessage">
     <wsdl:part name="parameters" element="tns:GetNovedadesTracking" />
@@ -2336,6 +2342,10 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="DeshacerPedidoValidado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" message="tns:IPedidoService_DeshacerPedidoValidado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse" message="tns:IPedidoService_DeshacerPedidoValidado_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumen" message="tns:IPedidoService_ObtenerResumen_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumenResponse" message="tns:IPedidoService_ObtenerResumen_OutputMessage" />
@@ -2764,6 +2774,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProducto" message="tns:IPedidoService_InsertarEstrategiaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarEstrategiaProductoResponse" message="tns:IPedidoService_InsertarEstrategiaProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EliminarEstrategiaProducto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarEstrategiaProducto" message="tns:IPedidoService_EliminarEstrategiaProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarEstrategiaProductoResponse" message="tns:IPedidoService_EliminarEstrategiaProducto_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaProducto">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProducto" message="tns:IPedidoService_GetEstrategiaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoResponse" message="tns:IPedidoService_GetEstrategiaProducto_OutputMessage" />
@@ -2839,10 +2853,6 @@
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" message="tns:IPedidoService_CargarSesionAndDeshacerPedidoValidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse" message="tns:IPedidoService_CargarSesionAndDeshacerPedidoValidado_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeshacerPedidoValidado">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" message="tns:IPedidoService_DeshacerPedidoValidado_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse" message="tns:IPedidoService_DeshacerPedidoValidado_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetNovedadesTracking">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetNovedadesTracking" message="tns:IPedidoService_GetNovedadesTracking_InputMessage" />
@@ -3867,6 +3877,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeshacerPedidoValidado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
@@ -4830,6 +4849,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarEstrategiaProducto">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarEstrategiaProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProducto" style="document" />
       <wsdl:input>
@@ -4994,15 +5022,6 @@
     </wsdl:operation>
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeshacerPedidoValidado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7309,6 +7328,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeshacerPedidoValidado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
@@ -8272,6 +8300,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EliminarEstrategiaProducto">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarEstrategiaProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProducto" style="document" />
       <wsdl:input>
@@ -8436,15 +8473,6 @@
     </wsdl:operation>
     <wsdl:operation name="CargarSesionAndDeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeshacerPedidoValidado">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
