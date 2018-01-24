@@ -1228,6 +1228,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad);
 
+        [OperationContract]
+        string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora);
+
         #endregion
     }
 }

@@ -33518,6 +33518,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         System.Threading.Tasks.Task<int> InsertPagoEnLineaResultadoLogAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultoraResponse" +
+            "")]
+        string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultoraResponse" +
+            "")]
+        System.Threading.Tasks.Task<string> ObtenerTokenTarjetaGuardadaByConsultoraAsync(int paisId, string codigoConsultora);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom", ReplyAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse")]
         int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
         
@@ -35952,6 +35960,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> InsertPagoEnLineaResultadoLogAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad) {
             return base.Channel.InsertPagoEnLineaResultadoLogAsync(paisId, entidad);
+        }
+        
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora) {
+            return base.Channel.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<string> ObtenerTokenTarjetaGuardadaByConsultoraAsync(int paisId, string codigoConsultora) {
+            return base.Channel.ObtenerTokenTarjetaGuardadaByConsultoraAsync(paisId, codigoConsultora);
         }
         
         public int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity) {

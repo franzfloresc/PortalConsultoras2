@@ -2237,6 +2237,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.InsertPagoEnLineaResultadoLog(paisId, entidad);
         }
 
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
+        {
+            return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
+        }
+
         #endregion
     }
 }

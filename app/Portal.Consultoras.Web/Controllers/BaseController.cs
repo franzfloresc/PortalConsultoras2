@@ -32,6 +32,7 @@ using Portal.Consultoras.Common.MagickNet;
 using System.IO;
 using Portal.Consultoras.Common.PagoEnLinea;
 using System.Net;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -4442,9 +4443,35 @@ namespace Portal.Consultoras.Web.Controllers
             pagoVisaModel.RecurrenceType = "";
             pagoVisaModel.RecurrenceAmount = "0.00";
 
-            #endregion            
+            #endregion
 
-            return pagoVisaModel;            
+            #region Obtener Token de Tarjeta Guardada
+
+            var tokenTarjetaGuardada = "";
+
+            try
+            {
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    tokenTarjetaGuardada = ps.ObtenerTokenTarjetaGuardadaByConsultora(userData.PaisID, userData.CodigoConsultora);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                tokenTarjetaGuardada = "";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                tokenTarjetaGuardada = "";
+            }            
+
+            pagoVisaModel.TokenTarjetaGuardada = tokenTarjetaGuardada;
+
+            #endregion
+
+            return pagoVisaModel;        
         }
 
         public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
