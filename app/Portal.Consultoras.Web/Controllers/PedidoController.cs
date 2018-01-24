@@ -955,25 +955,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(x => x.Cantidad)
             }, JsonRequestBehavior.AllowGet);
         }
-
-        private void DeletePedido(BEPedidoWebDetalle obe)
-        {
-            string mensaje;
-            if (ReservadoEnHorarioRestringido(out mensaje))
-            {
-                ModelState.AddModelError("", mensaje);
-                return;
-            }
-
-            obe.Mensaje = GetObservacionesProlPorCuv(obe.CUV);
-            
-            bool errorServer;
-            string tipo;
-            bool modificoBackOrder;
-            AdministradorPedido(obe, "D", out errorServer, out tipo, out modificoBackOrder);
-            
-        }
-
+        
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder)
         {
@@ -1233,8 +1215,10 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var strCuv = CUV;
+                var producto = olstProducto[0];
 
+                var strCuv = CUV;
+                int outVal;
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
                 {
                     IPUsuario = userData.IPUsuario,
@@ -1242,22 +1226,23 @@ namespace Portal.Consultoras.Web.Controllers
                     ConsultoraID = userData.ConsultoraID,
                     PaisID = userData.PaisID,
                     TipoOfertaSisID = 1700,
-                    ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                    ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
                     ClienteID = (short)0,
                     PedidoID = userData.PedidoID,
                     OfertaWeb = false,
-                    IndicadorMontoMinimo = Convert.ToInt32(olstProducto[0].IndicadorMontoMinimo.ToString().Trim()),
+                    IndicadorMontoMinimo = Convert.ToInt32(producto.IndicadorMontoMinimo.ToString().Trim()),
                     SubTipoOfertaSisID = Convert.ToInt32(0),
-                    MarcaID = Convert.ToByte(olstProducto[0].MarcaID),
+                    MarcaID = Convert.ToByte(producto.MarcaID),
                     Cantidad = CantCUVpedido,
-                    PrecioUnidad = olstProducto[0].PrecioCatalogo,
-                    CUV = olstProducto[0].CUV.Trim(),
-                    DescripcionProd = olstProducto[0].Descripcion.Trim(),
+                    PrecioUnidad = producto.PrecioCatalogo,
+                    CUV = producto.CUV.Trim(),
+                    DescripcionProd = producto.Descripcion.Trim(),
                     Nombre = userData.NombreConsultora,
-                    DescripcionLarga = olstProducto[0].DescripcionMarca,
-                    DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
-                    Categoria = olstProducto[0].DescripcionCategoria,
-                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome
+                    DescripcionLarga = producto.DescripcionMarca,
+                    DescripcionEstrategia = producto.DescripcionEstrategia,
+                    Categoria = producto.DescripcionCategoria,
+                    OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome,
+                    TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0
                 };
 
                 obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
@@ -1527,6 +1512,24 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 sessionManager.SetDetallesPedido(null);
             }
+        }
+
+        private void DeletePedido(BEPedidoWebDetalle obe)
+        {
+            string mensaje;
+            if (ReservadoEnHorarioRestringido(out mensaje))
+            {
+                ModelState.AddModelError("", mensaje);
+                return;
+            }
+
+            obe.Mensaje = GetObservacionesProlPorCuv(obe.CUV);
+
+            bool errorServer;
+            string tipo;
+            bool modificoBackOrder;
+            AdministradorPedido(obe, "D", out errorServer, out tipo, out modificoBackOrder);
+
         }
         #endregion
 
