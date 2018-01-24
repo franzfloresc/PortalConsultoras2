@@ -1110,7 +1110,7 @@
       <soap:address location="http://localhost:41615/ODSService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IODSService" binding="tns:BasicHttpsBinding_IODSService">
-      <soap:address location="https://localhost:44353/ODSService.svc" />
+      <soap:address location="https://localhost:44392/ODSService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
