@@ -363,6 +363,12 @@ function OfertaCargarScroll() {
             document.body.scrollTop = $(window).scrollTop();
             OfertaObtenerProductos();
         }
+
+        //
+        if (filtroCamp.CantMostrados === filtroCamp.CantTotal) {
+            $(window).unbind("scroll");
+            alert('bryan');
+        }
     }
 
 }
