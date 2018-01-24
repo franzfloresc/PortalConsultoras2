@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string RecurrenceType { get; set; }
         public string RecurrenceFrequency { get; set; }
         public string RecurrenceAmount { get; set; }
+        public string TokenTarjetaGuardada { get; set; }
 
         #endregion
 
@@ -27,8 +28,6 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string SecretAccessKey { get; set; }
         public string UrlSessionBotonPagos { get; set; }
         public string UrlGenerarNumeroPedido { get; set; }
-        public string UrlLibreriaPagoVisa { get; set; }
-
-        public string Demooooo { get; set; }
+        public string UrlLibreriaPagoVisa { get; set; }        
     }
 }

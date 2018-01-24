@@ -61,5 +61,13 @@ namespace Portal.Consultoras.Data.PagoEnLinea
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public string ObtenerTokenTarjetaGuardadaByConsultora(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerTokenTarjetaGuardadaByConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
     }
 }

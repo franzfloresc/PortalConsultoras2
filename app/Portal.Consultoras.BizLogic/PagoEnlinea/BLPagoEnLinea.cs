@@ -15,5 +15,12 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var dataAccess = new DAPagoEnLinea(paisId);
             return dataAccess.InsertPagoEnLineaResultadoLog(entidad);
         }
+
+        public string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora)
+        {
+            var dataAccess = new DAPagoEnLinea(paisId);
+            return dataAccess.ObtenerTokenTarjetaGuardadaByConsultora(codigoConsultora);
+        }
+        
     }
 }

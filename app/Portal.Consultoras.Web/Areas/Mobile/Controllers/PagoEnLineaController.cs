@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                    model.NumeroOperacion = bePagoEnLinea.IdUnicoTransaccion;
+                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
                     model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);                    
 
