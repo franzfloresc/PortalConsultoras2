@@ -4810,6 +4810,10 @@ table > thead > tr > th {
     margin-right:12px;
 }
 
+.texto_btn_pago_en_linea{
+    text-align:left;
+}
+
 .texto_btn_pago_en_linea span{
     display:block;
     line-height:16px;

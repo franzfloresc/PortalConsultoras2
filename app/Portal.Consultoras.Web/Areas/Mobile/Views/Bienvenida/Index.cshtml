@@ -244,12 +244,12 @@
             @if (Model.TienePagoEnLinea)
             {
                 <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")" >
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                        <span>con Tarjeta Crédito</span>
-                    </div>
                     <div class="logo_visa">
                         <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </div>
+                    <div class="texto_btn_pago_en_linea">
+                        <span>PAGA EN LÍNEA</span>
+                        <span>con Crédito Visa</span>
                     </div>
                     @*<div class="logo_mastercard">
                     <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
