@@ -3175,6 +3175,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
         private List<ShowRoomOfertaModel> ValidarUnidadesPermitidas(List<ShowRoomOfertaModel> listaShowRoomOferta)
         {
             if (listaShowRoomOferta != null)
