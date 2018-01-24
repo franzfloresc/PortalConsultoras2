@@ -2326,7 +2326,8 @@ namespace Portal.Consultoras.Web.Controllers
                             TipoEstrategiaID = int.Parse(model.TipoEstrategia),
                             CampaniaID = int.Parse(model.CampaniaId),
                             UsuarioCreacion = userData.CodigoUsuario,
-                            UsuarioModificacion = userData.CodigoUsuario
+                            UsuarioModificacion = userData.CodigoUsuario,
+                            PaisID =Util.GetPaisID(userData.CodigoISO)
                         };
                         numberRecords = service.InsertarEstrategiaMasiva(estrategia);
                     }

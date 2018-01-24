@@ -639,10 +639,12 @@ namespace Portal.Consultoras.Data
 
         public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
-            int result = 0;
+            try
+            {
+int result = 0;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
             {
-                Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML);
+                Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entidad.UsuarioCreacion);
@@ -652,6 +654,13 @@ namespace Portal.Consultoras.Data
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
             }
             return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
