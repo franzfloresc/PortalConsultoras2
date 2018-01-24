@@ -4,25 +4,17 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
-@if (ViewBag.EsPaisEsika == "1")
-{ 
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/esika/descargar-app.css")">
+@section styles{
+    <style>
+        header, footer {
+            display: none;
+        }
+
+        #contentmobile {
+            margin-top: 0 !important;
+        }
+    </style>
 }
-else
-{
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/lbel/descargar-app.css")">
-}
-
-<style>
-    header, footer {
-        display: none;
-    }
-
-    #contentmobile {
-        margin-top: 0 !important;
-    }
-</style>
-
 
 <div class="contenedor_vista_descargar_app">
     <a href="" class="btn_cerrar_vista_descargar_app" title="Cerrar">

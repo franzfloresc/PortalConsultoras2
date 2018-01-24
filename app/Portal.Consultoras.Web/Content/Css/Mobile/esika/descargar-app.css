@@ -100,7 +100,7 @@ body{
 
 .img_vista_descargar_app {
 	display:block;
-	width:76%;
+	width:100%;
 	max-width:345px;
 	/*width: 85.625%;*/
     margin: 0 auto;
@@ -140,9 +140,14 @@ body{
         position:relative;
     }
 
+    .btn_descargar_app{
+        height:55px;
+        font-size:14px;
+    }
+
 }
 
-@media screen and (min-width:414px) and (max-height:736px){
+@media screen and (min-width:414px) and (max-height:736px) and (orientation:portrait){
 
 	.titulo_descargar_app,
 	.info_descarga
@@ -175,15 +180,19 @@ body{
 
 }
 
-@media screen and (min-width:320px) and (max-height:568px){
+@media screen and (min-width:320px) and (max-height:568px) and (orientation:portrait){
 
 	.contenedor_vista_descargar_app{
 		padding-top:45px;
 	}
 
+    .img_vista_descargar_app{
+        width:87%;
+    }
+
 }
 
-@media screen and (min-width:320px) and (max-height:480px){
+@media screen and (min-width:320px) and (max-height:480px) and (orientation:portrait){
 
 	.contenedor_vista_descargar_app{
 		padding-top:39px;
@@ -207,7 +216,7 @@ body{
 	}
 
 	.img_vista_descargar_app{
-		width:64%;
+		width:76%;
 	}
 
 	.img_vista_descargar_app img{
@@ -222,7 +231,7 @@ body{
 
 }
 
-@media screen and (min-height:734px) and (max-height:1366px){
+@media screen and (min-height:734px) and (max-height:1366px) and (orientation:portrait){
 
 	.img_vista_descargar_app{
 		width:100%;
