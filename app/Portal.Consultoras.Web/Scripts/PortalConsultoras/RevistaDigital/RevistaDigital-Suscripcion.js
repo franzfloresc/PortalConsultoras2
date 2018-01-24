@@ -83,14 +83,14 @@ $(document).ready(function () {
         width: '640',
         height: '390',
         enablejsapi: 1,
-        playerVars: { rel: 0 },
         fs: 0,
         showinfo: 0,
         modestbranding: 1,
         loop:1,
         videoId: videoKey,
         playerVars: {
-            autoplay: 1
+            autoplay: 1,
+            rel: 0
         },
         events: {
             onReady: onScrollDown,

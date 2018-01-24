@@ -30,24 +30,6 @@ $(document).ready(function () {
         $('#frmGuiaNegocio').submit();
     });
 
-    var footer = $('.footer_e');
-    pos = footer.offset();
-
-    // Esperamos al DOM
-    $(window).scroll(function () {
-        // Anclamos el menú si el scroll es
-        // mayor a la posición superior del tag
-        if (($(this).scrollTop() >= pos.top)) {
-            $('.desplegablegnd').animate({
-                top: '-95'
-            });
-        } else if (($(this).scrollTop() <= pos.top)) {
-            $('.desplegablegnd').animate({
-                top: '0'
-            });
-        }
-    });
-
 });
 
 function mostrarImagenPortadaRevista(codigoCampania) {
