@@ -513,16 +513,20 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titC">F. I. Ingreso:</div>
-                <div class="calendar borde_redondeado">
-                    <input type="text" id="txtFechaInicio">
-                </div>
-                <div class="titC">F. F. Ingreso:</div>
-                <div class="calendar borde_redondeado">
-                    <input type="text" id="txtFechaFin">
-                </div>
+                <fieldset class="fieldset-2">
+                    <legend >Fecha de Ingreso</legend>
+
+                    <div class="titC" style="padding-left: 0px;">Inicio:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaInicio">
+                    </div>
+                    <div class="titC" style="padding-left: 5px;">Fin:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaFin">
+                    </div>
+                </fieldset>
                 <div class="input_search">
-                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" style="margin-top: 22px;" />
                 </div>
             </div>
             <input type="hidden" id="hdnPedidoDetalle" value="0" />
