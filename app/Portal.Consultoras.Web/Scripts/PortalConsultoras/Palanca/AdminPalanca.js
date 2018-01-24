@@ -297,13 +297,13 @@ function IniDialogs() {
                 }
 
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
-                    $("#DesktopUsarImagenFondo").attr("checked") && $("#nombre-fondo-desktop").val() === "") {
+                    $("#DesktopUsarImagenFondo").prop("checked") && $("#nombre-fondo-desktop").val() === "") {
                     _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en desktop.");
                     return false;
                 }
 
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
-                    $("#MobileUsarImagenFondo").attr("checked") && $("#nombre-fondo-mobile").val() === "") {
+                    $("#MobileUsarImagenFondo").prop("checked") && $("#nombre-fondo-mobile").val() === "") {
                     _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en móvil.");
                     return false;
                 }
@@ -314,8 +314,8 @@ function IniDialogs() {
                 var mobileColorFondo = $("#MobileColorFondo").val();
                 var desktopColorTexto = $("#DesktopColorTexto").val();
                 var mobileColorTexto = $("#MobileColorTexto").val();
-                var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").attr("checked");
-                var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").attr("checked");
+                var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
 
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.showroom) {
                     desktopTipoPresentacion = _tipopresentacion.showroom;
