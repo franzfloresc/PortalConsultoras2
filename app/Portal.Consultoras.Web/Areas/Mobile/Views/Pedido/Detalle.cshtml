@@ -617,6 +617,7 @@
                                 <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                                 <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
                                 <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
+                                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
                             </div>
                             <div class="contenido_item_ofertaFinal">
                                 <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="">
@@ -752,13 +753,14 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="OF" />
-                    <input type="hidden" class="ID" value="{{ID}}" />
-                    <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
-                    <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
-                    <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
-                    <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
-                    <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
-                    <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="ID" value="{{ID}}" />
+                <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+                <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+                <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
@@ -834,7 +836,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';

@@ -16,17 +16,17 @@
 
         public string DescripcionProd { get; set; }
 
-        public string ClienteID { set; get; }
-
-        public string ClienteID_ { get; set; }
-
-        public string ClienteDescripcion { get; set; }
-
         public int TipoOfertaSisID { get; set; }
 
         public string IndicadorMontoMinimo { get; set; }
 
         public int ConfiguracionOfertaID { get; set; }
+
+        public string ClienteID { set; get; }
+
+        public string ClienteID_ { get; set; }
+
+        public string ClienteDescripcion { get; set; }
 
         public bool OfertaWeb { get; set; }
 

@@ -33,9 +33,8 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
-        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
-
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
         if (!isInt(cantidad)) {
@@ -66,6 +65,7 @@ $(document).ready(function () {
             CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
+            TipoEstrategiaID: tipoEstrategiaId,
             OrigenPedidoWeb: OrigenPedidoWeb,
             MarcaID: marcaID,
             DescripcionProd: descripcionProd,
@@ -132,6 +132,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
 
         if (!isInt(cantidad)) {
@@ -162,6 +163,7 @@ $(document).ready(function () {
             CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
+            TipoEstrategiaID: tipoEstrategiaId,
             OrigenPedidoWeb: OrigenPedidoWeb,
             MarcaID: marcaID,
             DescripcionProd: descripcionProd,
