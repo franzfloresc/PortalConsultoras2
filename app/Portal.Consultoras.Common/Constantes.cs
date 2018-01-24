@@ -1052,6 +1052,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
@@ -1160,6 +1161,21 @@ namespace Portal.Consultoras.Common
             }
 
             public static class RDR
+            {
+                public const string LogoComercial = "LogoComercial";
+                public const string LogoComercialFondo = "LogoComercialFondo";
+                public const string DBienvenidaRdr = "DBienvenidaRdr";
+                public const string DPedidoRdr = "DPedidoRdr";
+                public const string DCatalogoRdr = "DCatalogoRdr";
+                public const string MBienvenidaRdr = "MBienvenidaRdr";
+                public const string MPedidoRdr = "MPedidoRdr";
+                public const string MCatalogoRdr = "MCatalogoRdr";
+                public const string DRDRLandingBanner = "DRDRLandingBanner";
+                public const string MRDRLandingBanner = "MRDRLandingBanner";
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
+            }
+
+            public static class RDI
             {
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
