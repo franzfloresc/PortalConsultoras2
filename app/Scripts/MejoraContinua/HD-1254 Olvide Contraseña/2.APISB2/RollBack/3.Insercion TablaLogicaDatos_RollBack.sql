@@ -1,91 +1,130 @@
 USE BelcorpPeru
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpMexico
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpColombia
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpVenezuela
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpSalvador
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpPuertoRico
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpPanama
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpGuatemala
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpEcuador
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpDominicana
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpCostaRica
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpChile
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 
 USE BelcorpBolivia
 GO
 
-DELETE from TablaLogicaDatos where TablaLogicaID = 132 --> Verificar el correlativo qen caso exista.
-DELETE from TablaLogica where TablaLogicaID = 132
+declare @TablalogicaID smallint
+select @TablalogicaID = TablalogicaID from TablaLogica where Descripcion = 'Datos SMS'
+
+DELETE from TablaLogicaDatos where TablaLogicaID = @TablalogicaID 
+DELETE from TablaLogica where TablaLogicaID = @TablalogicaID
 GO
 

@@ -1,104 +1,130 @@
 USE BelcorpPeru
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpMexico
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpColombia
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpVenezuela
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpSalvador
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpPuertoRico
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpPanama
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpGuatemala
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpEcuador
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpDominicana
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpCostaRica
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpChile
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
 USE BelcorpBolivia
 GO
 
-GO
 IF OBJECT_ID('dbo.HorarioDetalle') IS NOT NULL
 	DROP TABLE HorarioDetalle
+GO
+IF OBJECT_ID('dbo.Horario') IS NOT NULL
+	DROP TABLE Horario
 GO
 
