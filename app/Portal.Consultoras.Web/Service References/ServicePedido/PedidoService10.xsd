@@ -1,9 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+  <xs:complexType name="BEUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AceptaPoliticaPrivacidad" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
+      <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
+      <xs:element minOccurs="0" name="AnoCampaniaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CampanaInvitada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaInicioLider" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CatalogoPersonalizado" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClaveSecreta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoFuente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigorRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigosConcursos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigosProgramaNuevas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CompartirDatos" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CompraKitDupla" type="xs:int" />
+      <xs:element minOccurs="0" name="CompraOfertaDupla" type="xs:int" />
+      <xs:element minOccurs="0" name="CompraOfertaEspecial" type="xs:int" />
+      <xs:element minOccurs="0" name="ConfirmarClave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsecutivoNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraAsociada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraAsociadaID" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DestinatariosFeedback" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasCierre" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasDuracionCronograma" type="xs:int" />
+      <xs:element minOccurs="0" name="DigitoVerificador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsAniversario" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCDRWebZonaValida" type="xs:int" />
+      <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
+      <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
+      <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FechaActivacionSuscripcion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaActualPais" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaActualizacionEmail" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCancelacionSuscripcion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaFinFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaLimPago" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q1:Enumeradores.RechazoBannerUrl" />
+      <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HabilitarRestriccionHoraria" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraCierreNoFacturable" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraCierreZonaDemAnti" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraCierreZonaDemAntiCierre" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraCierreZonaNormal" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraFin" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraInicio" type="ser:duration" />
+      <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
+      <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorMeta" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorOfertaFIC" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorPermisoFIC" type="xs:int" />
+      <xs:element minOccurs="0" name="InscritaFlexipago" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Lider" type="xs:int" />
+      <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajePedidoDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajePedidoMobile" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
+      <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
+      <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaDelDia" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OfertaFinal" type="xs:int" />
+      <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
+      <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PasoSextoPedido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PedidoFICActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PortalLideres" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProgramaReconocimiento" type="xs:int" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="Rol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolID" type="xs:short" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeccionAnalytics" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeccionGestionLider" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Segmento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegmentoAbreviatura" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegmentoConstancia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegmentoID" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentoInternoID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sobrenombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneOfertaLog" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:short" />
+      <xs:element minOccurs="0" name="UsuarioPrueba" type="xs:int" />
+      <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="VioTutorial" type="xs:int" />
+      <xs:element minOccurs="0" name="VioTutorialDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="VioTutorialSalvavidas" type="xs:int" />
+      <xs:element minOccurs="0" name="VioVideo" type="xs:int" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+      <xs:element minOccurs="0" name="ZonaNuevoPROL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="esConsultoraLider" type="xs:boolean" />
+      <xs:element minOccurs="0" name="mdFechaEncuesta" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="msCampaniaEncuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msCampaniaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msRpta1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msRpta2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msRpta3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msRpta4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="msSeccion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
   <xs:complexType name="BEConsultoraResumen">
     <xs:sequence>
       <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
@@ -168,7 +353,7 @@
       <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
       <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
       <xs:element minOccurs="0" name="Niveles" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" minOccurs="0" name="NivelesProgramaNuevas" nillable="true" type="q1:ArrayOfBEIncentivoProgramaNuevasNivel" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" minOccurs="0" name="NivelesProgramaNuevas" nillable="true" type="q2:ArrayOfBEIncentivoProgramaNuevasNivel" />
       <xs:element minOccurs="0" name="PuntajeExigido" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosAcumulados" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
@@ -945,7 +1130,7 @@
   <xs:complexType name="BEValidacionModificacionPedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="MotivoPedidoLock" type="q2:Enumeradores.MotivoPedidoLock" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="MotivoPedidoLock" type="q3:Enumeradores.MotivoPedidoLock" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEValidacionModificacionPedido" nillable="true" type="tns:BEValidacionModificacionPedido" />
@@ -962,191 +1147,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraRegaloProgramaNuevas" nillable="true" type="tns:BEConsultoraRegaloProgramaNuevas" />
-  <xs:complexType name="BEUsuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AceptaPoliticaPrivacidad" type="xs:boolean" />
-      <xs:element minOccurs="0" name="AceptaTerminosCondiciones" type="xs:boolean" />
-      <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
-      <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
-      <xs:element minOccurs="0" name="AnoCampaniaIngreso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CampanaInvitada" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaInicioLider" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CatalogoPersonalizado" type="xs:int" />
-      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ClaveSecreta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoFuente" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigorRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigosConcursos" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigosProgramaNuevas" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CompartirDatos" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CompraKitDupla" type="xs:int" />
-      <xs:element minOccurs="0" name="CompraOfertaDupla" type="xs:int" />
-      <xs:element minOccurs="0" name="CompraOfertaEspecial" type="xs:int" />
-      <xs:element minOccurs="0" name="ConfirmarClave" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsecutivoNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="ConsultoraAsociada" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraAsociadaID" type="xs:long" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-      <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DestinatariosFeedback" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
-      <xs:element minOccurs="0" name="DiasCierre" type="xs:int" />
-      <xs:element minOccurs="0" name="DiasDuracionCronograma" type="xs:int" />
-      <xs:element minOccurs="0" name="DigitoVerificador" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsAniversario" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsCDRWebZonaValida" type="xs:int" />
-      <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
-      <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
-      <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
-      <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FechaActivacionSuscripcion" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaActualPais" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaActualizacionEmail" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaCancelacionSuscripcion" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaFinFIC" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaFinFacturacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaLimPago" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q3:Enumeradores.RechazoBannerUrl" />
-      <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="HabilitarRestriccionHoraria" type="xs:boolean" />
-      <xs:element minOccurs="0" name="HoraCierreNoFacturable" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraCierreZonaDemAnti" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraCierreZonaDemAntiCierre" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraCierreZonaNormal" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraFin" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraInicio" type="ser:duration" />
-      <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
-      <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
-      <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorBloqueoCDR" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorContrato" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorDupla" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorFlexiPago" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorMeta" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorOfertaFIC" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorPermisoFIC" type="xs:int" />
-      <xs:element minOccurs="0" name="InscritaFlexipago" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Lider" type="xs:int" />
-      <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajePedidoDesktop" type="xs:int" />
-      <xs:element minOccurs="0" name="MensajePedidoMobile" type="xs:int" />
-      <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
-      <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
-      <xs:element minOccurs="0" name="NuevoPROL" type="xs:boolean" />
-      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaDelDia" type="xs:boolean" />
-      <xs:element minOccurs="0" name="OfertaFinal" type="xs:int" />
-      <xs:element minOccurs="0" name="OfertaFinalGanaMas" type="xs:int" />
-      <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
-      <xs:element minOccurs="0" name="PasoSextoPedido" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PedidoFICActivo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PortalLideres" type="xs:boolean" />
-      <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ProgramaReconocimiento" type="xs:int" />
-      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
-      <xs:element minOccurs="0" name="Rol" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RolDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RolID" type="xs:short" />
-      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SeccionAnalytics" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SeccionGestionLider" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Segmento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SegmentoAbreviatura" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SegmentoConstancia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SegmentoID" type="xs:int" />
-      <xs:element minOccurs="0" name="SegmentoInternoID" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Sobrenombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
-      <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
-      <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneOfertaLog" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoUsuario" type="xs:short" />
-      <xs:element minOccurs="0" name="UsuarioPrueba" type="xs:int" />
-      <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="VioTutorial" type="xs:int" />
-      <xs:element minOccurs="0" name="VioTutorialDesktop" type="xs:int" />
-      <xs:element minOccurs="0" name="VioTutorialSalvavidas" type="xs:int" />
-      <xs:element minOccurs="0" name="VioVideo" type="xs:int" />
-      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
-      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
-      <xs:element minOccurs="0" name="ZonaNuevoPROL" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="esConsultoraLider" type="xs:boolean" />
-      <xs:element minOccurs="0" name="mdFechaEncuesta" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="msCampaniaEncuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msCampaniaIngreso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msRpta1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msRpta2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msRpta3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msRpta4" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="msSeccion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
   <xs:complexType name="ArrayOfBENovedadTracking">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />

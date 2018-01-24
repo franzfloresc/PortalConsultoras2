@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -671,5 +672,19 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = DAEstrategia.InsertarEstrategiaMasiva(entidad);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

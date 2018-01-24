@@ -278,6 +278,9 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            //ODD
+            public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
         }
 
         public static class ConfiguracionManager
@@ -1646,6 +1649,17 @@ namespace Portal.Consultoras.Common
         public class Comunicado
         {
             public const string AppConsultora = "App Consultora";
+        }
+        public static class ColumnsStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string NormalPrice = "precio normal";
+            public const string AllowedUnits = "unidades permitidas";
+            public const string NameSet = "nombre de set";
+            public const string IsSubcampaign = "essubcampania";
+            public const string BusinessTip = "tip negocio";
+
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
         }
     }
 }

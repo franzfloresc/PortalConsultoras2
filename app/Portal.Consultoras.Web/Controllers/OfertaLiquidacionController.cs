@@ -833,7 +833,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public string ActualizarStockMasivo(HttpPostedFileBase flStock)
+        public string ActualizarStockMasivo(HttpPostedFileBase fileShowroom)
         {
             string message = string.Empty;
             int registros = 0;
@@ -843,14 +843,14 @@ namespace Portal.Consultoras.Web.Controllers
                 string finalPath = string.Empty;
                 List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>();
 
-                if (flStock != null)
+                if (fileShowroom != null)
                 {
-                    string fileName = Path.GetFileName(flStock.FileName);
+                    string fileName = Path.GetFileName(fileShowroom.FileName);
                     string pathBanner = Server.MapPath("~/Content/FileCargaStock");
                     if (!Directory.Exists(pathBanner))
                         Directory.CreateDirectory(pathBanner);
                     finalPath = Path.Combine(pathBanner, fileName);
-                    flStock.SaveAs(finalPath);
+                    fileShowroom.SaveAs(finalPath);
 
                     string inputLine = "";
 

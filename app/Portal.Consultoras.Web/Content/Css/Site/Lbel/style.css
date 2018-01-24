@@ -32295,7 +32295,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 5px;
     font-family: 'Lato';
-    color: white;
+    color: black;
     font-size: 14px;
     text-align: left;
     line-height: 18px;
@@ -32319,7 +32319,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
-    color: white;
+    color: black;
     margin-bottom: 7px;
 }
 
@@ -32353,9 +32353,17 @@ h1#penmostreo .campana {
 }
 
 .content_set_pop_hoy {
-    width: 90%;
-    margin: 0 auto;
-    overflow: hidden;
+    width: 45%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 20px;
+    font-family: 'Lato';
+    border: 1px solid rgba(0, 0, 0, .03);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0 15px 13px -8px rgba(236,236,236,1)
 }
 
 .right_set_hoy {
@@ -32365,7 +32373,7 @@ h1#penmostreo .campana {
 }
 
 .precio_valorizado_oferta {
-    color: white;
+    color: black;
     font-family: 'Lato';
     font-size: 13px;
     margin-top: 23px;
@@ -34011,7 +34019,7 @@ h1#penmostreo .campana {
 }
 
 .titulo_set_ODD {
-    color: white;
+    color: black;
     font-family: 'Lato';
     font-size: 25px;
     font-weight: 700;
@@ -34081,7 +34089,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 15px;
     margin-top: 10px;
-    color: white;
+    color: black;
     height: 39px;
     overflow: hidden;
     text-align: center;
@@ -34090,7 +34098,7 @@ h1#penmostreo .campana {
 .valorizado_carrusel_ODD {
     font-family: 'Lato';
     font-size: 11px;
-    color: white;
+    color: black;
     text-align: center;
 }
 
@@ -34100,7 +34108,7 @@ h1#penmostreo .campana {
 .precio_carrusel_ODD {
     font-family: 'Lato';
     font-size: 22px;
-    color: white;
+    color: black;
     font-weight: 700;
     text-align: center;
     margin-bottom: 14px;

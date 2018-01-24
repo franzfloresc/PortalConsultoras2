@@ -278,7 +278,13 @@
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
             <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
-                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
+                <div class="rd_volver" style="position: absolute;">
+                    <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
+                        <img class="previous_volver" src="/Content/Images/RevistaDigital/previous_volver.png" style="width: 8px">
+                        <span style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px">VOLVER</span>
+                    </a>
+                </div>
+                <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:47px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
                 <div class="clock" style="float:right"></div>
             </div>
@@ -334,23 +340,23 @@
                                     </div>
                                     <div>
                                         <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                                <a class="mas js-no-popup" tabindex="0">
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
                                                 </a>
                                                 <a class="menos js-no-popup" tabindex="0">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
                                                 </a>
                                             </div>
                                         </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                        <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
                                 <div class="imagen_set_Oferta_pop">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <div class="compartir_redes_ficha" style="margin-top:10px;">
-                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
+                                        <div class="texto_compartelo clase_control_color_dinamico" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                                             <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
                                         </a>
@@ -370,7 +376,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
+                            <div class="content_item_carrusel">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -387,39 +393,36 @@
                                     <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                 </div>
-                                <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <div style="height:139px;">
-                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                    </div>
+                                <div class="producto_img_home mini" data-odd-accion="verdetalle">
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
-                                    <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
-                                    {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
-                                    {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
-                                <div style="text-align: center">
-                                    <div class="liquidacion_rango_home js-no-popup">
-                                        <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                <div class="producto_nombre_descripcion">
+                                    <p class="nombre-producto-set">{{detalle.NombreOferta}}</p>
+                                    <div class="producto_precio" style="margin-bottom: 3px;">
+                                        {{#iff detalle.PrecioCatalogo '>' 0}}
+                                        <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        {{/iff}}
+                                        <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
+                                    </div>
+                                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                        <input type="text" value="1" size="2" maxlength="2"
+                                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd"
+                                               tabindex="0">
                                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                                            <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                            </a>
-                                            <a class="menos js-no-popup" tabindex="0">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                            </a>
+                                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                </div>
-                                <!-- SE AÑADIO EL CHECK AGREGADO  -->
-                                <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
-                                        AGREGADO
-                                        <div class="icono"></div>
+                                    <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                    <div class="clear"></div>
+                                    <div style="margin: 9px 0;height: 15px;">
+                                        <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
+                                            AGREGADO
+                                            <div class="icono"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!--FIN SE AÑADIO EL CHECK AGREGADO -->
                             </div>
                         </div>
                         {{/each}}

@@ -16,6 +16,7 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -2230,5 +2231,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         #endregion
+
+
+        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
+        }
     }
 }
