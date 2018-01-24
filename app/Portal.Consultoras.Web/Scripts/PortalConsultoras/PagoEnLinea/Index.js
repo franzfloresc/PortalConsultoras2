@@ -13,8 +13,7 @@ $(document).ready(function () {
 
         me.globals = {
             barraActivacion : $('.barra_activacion')
-        }
-
+        },
         me.Funciones = {
             InicializarEventos: function () {
                 //$(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.AceptarTerminosYCondiciones);
