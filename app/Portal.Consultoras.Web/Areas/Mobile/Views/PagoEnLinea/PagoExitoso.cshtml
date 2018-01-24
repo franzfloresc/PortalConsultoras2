@@ -1,4 +1,6 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
 @{
     ViewBag.Title = "Pago Exitoso";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -40,13 +42,13 @@
                 ¡Pago <strong>exitoso</strong>!
             </h3>
             <p class="mensaje_felicitacion_por_pago_exitoso">
-                Muy bien Valeria <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
+                Muy bien @Model.NombreConsultora <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
             </p>
             <p class="info_constancia_pago_exitoso">
                 Te enviamos una constancia de pago a tu correo o puedes revisarla <a href="" class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>
             </p>
             <p class="info_num_operacion_pago">
-                Número de operación: <span class="num_operacion_pago">00000000123</span>
+                Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
             </p>
             <div class="resumen_pago_exitoso">
                 <h3 class="titulo_resumen_pago_exitoso">
@@ -55,26 +57,26 @@
                 <div class="resumen_pago">
                     <div class="monto_pagado">
                         <span>Monto:</span>
-                        <span>500.00</span>
+                        <span>@Model.MontoDeudaString</span>
                     </div>
                     <div class="monto_gastos_administrativos">
                         <span>Gastos administrativos:</span>
-                        <span>10.00</span>
+                        <span>@Model.MontoGastosAdministrativos</span>
                     </div>
                     <div class="total_monto_pagado">
                         <span>Total pagado:</span>
-                        <span>510.00</span>
+                        <span>@Model.MontoDeudaConGastosString</span>
                     </div>
                     <div class="monto_saldo_pendiente">
                         <div>Saldo pendiente:</div>
                         <div>
-                            <span>S/</span>
-                            <span>500.00</span>
+                            <span>@Model.Simbolo</span>
+                            <span>@Model.SaldoPendienteString</span>
                         </div>
                     </div>
                     <div class="fecha_vencimiento_saldo_pendiente">
                         <span>Vencimiento:</span>
-                        <span>31/06</span>
+                        <span>@Model.FechaVencimientoString</span>
                     </div>
                 </div>
             </div>

@@ -35,13 +35,9 @@ $(document).ready(function () {
                 var esPagoTotal = $("#rbPagoTotal").is(':checked');
 
                 if (esPagoTotal) {                    
-                    $("#spnMontoGastosAdministrativos").html($("#hdMontoGastosAdministrativosString").val());
-                    $("#spnMontoDeudaConGastosString").html($("#hdMontoDeudaConGastosString").val());
-                    //$("#hdMontoFinal").val($("#hdMontoDeudaConGastos").val());
+                    $("#spnMontoGastosAdministrativos").html($("#hdMontoGastosAdministrativosString").val());                    
                 } else {
-                    $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(0));
-                    $("#spnMontoDeudaConGastosString").html(DecimalToStringFormat(0));
-                    //$("#hdMontoFinal").val(0);
+                    $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(0));                    
                 }
             },
             MostrarTooltipAceptarTerminosYCondiciones: function(){
@@ -83,19 +79,21 @@ $(document).ready(function () {
                 var montoGastos = montoParcial * (porcentaje / 100);
                 var montoParcialConGastos = montoParcial * (1 + porcentaje / 100);
 
-                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))                
-                $("#spnMontoDeudaConGastosString").html(DecimalToStringFormat(montoParcialConGastos))
+                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))
             },
             PagarConVisaPaso1: function (e) {
                 e.preventDefault();
 
-                var barraActivacion = $('.barra_activacion');
-                var aceptoTerminos = barraActivacion.is('.activado');
+                if (!(me.globals.barraActivacion).is('.activado')) {
+                    $('body,html').animate({
+                        scrollTop: $(document).height()
+                    }, 1000);
+                    $('.tooltip_terminos_y_condiciones').fadeIn();
 
-                if (!aceptoTerminos) {
-                    $("#divTooltipTerminosCondiciones").show();
                     return false;
-                }
+                } else {
+                    $('.tooltip_terminos_y_condiciones').fadeOut();
+                }                
 
                 var montoDeuda = 0;
                 var esPagoTotal = $("#rbPagoTotal").is(':checked');

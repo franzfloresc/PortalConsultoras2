@@ -36,10 +36,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View();
         }
 
-        public ActionResult PagoExitoso()
-        {
-            return View();
-        }
+        //public ActionResult PagoExitoso()
+        //{
+        //    return View();
+        //}
 
         public ActionResult PagoRechazado()
         {
@@ -226,10 +226,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     postStreamReaderAutorizacion.Close();
                 }
 
-                Response.Clear();
-                Response.ContentType = "application/json; charset=utf-8";
-                Response.Write(respuestaAutorizacion);
-                Response.End();
+                //Response.Clear();
+                //Response.ContentType = "application/json; charset=utf-8";
+                //Response.Write(respuestaAutorizacion);
+                //Response.End();
 
                 #endregion
 
@@ -280,7 +280,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
                 }
 
-                return View("PagoResultado", model);
+                if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
+                {
+                    model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                    model.FechaVencimiento = userData.FechaLimPago;
+                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
+
+                    sessionManager.SetDatosPagoVisa(null);
+
+                    return View("PagoExitoso", model);
+                }
+                else
+                {
+                    return View("PagoRechazado", model);
+                }                
             }
             catch (FaultException ex)
             {
@@ -290,6 +304,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
+
+            return View("PagoRechazado", model);
         }
     }
 }

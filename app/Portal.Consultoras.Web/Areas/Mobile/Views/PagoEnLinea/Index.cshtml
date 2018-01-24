@@ -55,54 +55,61 @@
         <!-- VISTA SELECCIÓN MONTO A PAGAR -->
 
         <div class="seleccion_monto_a_pagar" id="divPagoEnLineaPaso1">
-            <h3>Selecciona el monto a pagar</h3>
-            <form class="opciones_pago" method="post" action="">
-                <ul class="lista_opciones_pago">
-                    <li class="opcion_pago">
-                        <div class="col_izq">
-                            <div class="contenedor_monto_pago_total">
-                                <h4 class="titulo_monto_pago_total">
-                                    Pago total:
-                                </h4>
-                                <div class="monto_total_pago_en_linea">
-                                    <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
-                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                    <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
-                                </div>
-                            </div>
-                            <div class="fecha_vencimiento_pago_en_linea">
-                                <span>Vence </span>
-                                <span>@Model.FechaVencimientoString</span>
-                            </div>
-                        </div>
-                        <div class="col_der">
-                            <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                            <label for="rbPagoTotal">
-                                <span></span>
-                            </label>
-                        </div>
-                    </li>
-                    <li class="opcion_pago pagoParcial">
-                        <div class="col_izq">
-                            <h4 class="titulo_monto_pago_editable">
-                                Pago Parcial:
+            <div class="campo_seleccion_monto_a_pagar">
+                <h3>Selecciona el método y tipo de pago</h3>
+                <div class="metodo_pago_seleccionado">
+                    <span class="icono_marca_tarjeta">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                    <span class="marca_tarjeta">Tarjeta Crédito VISA</span>
+                </div>
+            </div>
+            <h3>Tipo de pago :</h3>
+            <ul class="lista_opciones_pago">
+                <li class="opcion_pago">
+                    <div class="col_izq">
+                        <div class="contenedor_monto_pago_total">
+                            <h4 class="titulo_monto_pago_total">
+                                Pago total:
                             </h4>
-                            <div class="monto_editable_pago_en_linea">
+                            <div class="monto_total_pago_en_linea">
+                                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
                                 <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                <input type="text" class="monto_a_editar" id="txtMontoParcial"
-                                       placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
-                                       value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                                <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
                             </div>
                         </div>
-                        <div class="col_der">
-                            <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
-                            <label for="rbPagoParcial">
-                                <span></span>
-                            </label>
+                        <div class="fecha_vencimiento_pago_en_linea">
+                            <span>Vence </span>
+                            <span>@Model.FechaVencimientoString</span>
                         </div>
-                    </li>
-                </ul>
-            </form>
+                    </div>
+                    <div class="col_der">
+                        <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                        <label for="rbPagoTotal">
+                            <span></span>
+                        </label>
+                    </div>
+                </li>
+                <li class="opcion_pago pagoParcial">
+                    <div class="col_izq">
+                        <h4 class="titulo_monto_pago_editable">
+                            Pago Parcial:
+                        </h4>
+                        <div class="monto_editable_pago_en_linea">
+                            <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                            <input type="text" class="monto_a_editar" id="txtMontoParcial"
+                                    placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
+                                    value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                        </div>
+                    </div>
+                    <div class="col_der">
+                        <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
+                        <label for="rbPagoParcial">
+                            <span></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
             <input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />
             <p class="info_comision_pago_en_linea">
                 *Cargo por gastos administrativos: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)                
@@ -147,7 +154,7 @@
             <input type="hidden" id="hdMontoDeudaConGastosString" value="@Model.MontoDeudaConGastosString" />
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
                 <span>
-                    Pagar con Visa (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_a_pagar" id="spnMontoDeudaConGastosString">@Model.MontoDeudaConGastosString</span>)
+                    Continuar
                 </span>
             </button>
             <!-- FIN - CALL TO ACTION PAGO EN LÍNEA -->

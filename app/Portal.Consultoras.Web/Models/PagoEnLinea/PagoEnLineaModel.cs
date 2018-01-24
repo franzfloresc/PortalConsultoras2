@@ -18,6 +18,14 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
 
         public PagoVisaModel PagoVisaModel { get; set; }
 
+        #region Propiedades luego de la respuesta de la pasarela de pago
+
+        public string NombreConsultora { get; set; }
+        public string NumeroOperacion { get; set; }
+        public decimal SaldoPendiente { get; set; }
+
+        #endregion        
+
         public string MontoDeudaString
         {
             get
@@ -65,5 +73,13 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
                 return Util.DecimalToStringFormat(MontoDeudaConGastos, CodigoIso);
             }
         }
+
+        public string SaldoPendienteString
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(SaldoPendiente, CodigoIso);
+            }
+        }        
     }
 }
