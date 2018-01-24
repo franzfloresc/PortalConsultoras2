@@ -79,9 +79,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    var configOdd = GetConfiguracionEstrategiaOdd(Constantes.ConfiguracionPais.OfertaDelDia);
-                    ViewBag.configSeccionODD = configOdd;
-
                 ViewBag.MostrarOfertaDelDia =
                         !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
                         && userData.TieneOfertaDelDia 

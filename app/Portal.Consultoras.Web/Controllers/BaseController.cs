@@ -2036,7 +2036,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var oferta in model.ListaOfertas)
             {
                 oferta.Position = posicion++;
-                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
+                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID).Replace("'", @"\'");
                 oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
 
                 if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
@@ -2045,10 +2045,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
+
+            var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+            model.ConfiguracionContenedor = configOdd;
             return model;
         }
 
-        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategiaOdd(string codigoEstrategia)
+        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
         {
             var menuActivo = GetSessionMenuActivo();
 
