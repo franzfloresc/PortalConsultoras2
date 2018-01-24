@@ -174,8 +174,13 @@ namespace Portal.Consultoras.Common
 
             return (dtValue);
         }
-        
-        static public bool isNumeric(object value)
+
+        /// <summary>
+        /// Valida si un objecto es de tipo numérico
+        /// </summary>
+        /// <param name="value">objecto a verificar</param>
+        /// <returns>true o false sea el caso</returns>
+        static public bool IsNumeric(object value)
         {
             bool resultado;
             double numero;
@@ -1072,7 +1077,7 @@ namespace Portal.Consultoras.Common
         /// <param name="filename">Ubicacion del archivo</param>
         /// <param name="TypeDocExt">Tipo de documento</param>
         /// <returns></returns>
-        public static bool isFileExtension(string filename, Enumeradores.TypeDocExtension TypeDocExt)
+        public static bool IsFileExtension(string filename, Enumeradores.TypeDocExtension TypeDocExt)
         {
             List<string> types = new List<string>();
             try
@@ -1108,7 +1113,7 @@ namespace Portal.Consultoras.Common
         /// </summary>
         /// <param name="path">Ubicacion del archivo</param>
         /// <returns></returns>
-        public static bool isFileOpen(string path)
+        public static bool IsFileOpen(string path)
         {
             FileStream fs = null;
             try
@@ -1953,7 +1958,7 @@ namespace Portal.Consultoras.Common
             return rsa;
         }
 
-        public static string enletras(string num)
+        public static string Enletras(string num)
         {
             string res, dec = "";
             Int64 entero;
@@ -1976,11 +1981,11 @@ namespace Portal.Consultoras.Common
                 dec = " CON " + decimales.ToString() + "/100";
             }
 
-            res = toText(entero) + dec;
+            res = ToText(entero) + dec;
             return res;
         }
 
-        private static string toText(long value)
+        private static string ToText(long value)
         {
             string Num2Text = "";
             if (value == 0) Num2Text = "CERO";
@@ -1999,9 +2004,9 @@ namespace Portal.Consultoras.Common
             else if (value == 13) Num2Text = "TRECE";
             else if (value == 14) Num2Text = "CATORCE";
             else if (value == 15) Num2Text = "QUINCE";
-            else if (value < 20) Num2Text = "DIECI" + toText(value - 10);
+            else if (value < 20) Num2Text = "DIECI" + ToText(value - 10);
             else if (value == 20) Num2Text = "VEINTE";
-            else if (value < 30) Num2Text = "VEINTI" + toText(value - 20);
+            else if (value < 30) Num2Text = "VEINTI" + ToText(value - 20);
             else if (value == 30) Num2Text = "TREINTA";
             else if (value == 40) Num2Text = "CUARENTA";
             else if (value == 50) Num2Text = "CINCUENTA";
@@ -2009,37 +2014,37 @@ namespace Portal.Consultoras.Common
             else if (value == 70) Num2Text = "SETENTA";
             else if (value == 80) Num2Text = "OCHENTA";
             else if (value == 90) Num2Text = "NOVENTA";
-            else if (value < 100) Num2Text = toText(value / 10 * 10) + " Y " + toText(value % 10);
+            else if (value < 100) Num2Text = ToText(value / 10 * 10) + " Y " + ToText(value % 10);
             else if (value == 100) Num2Text = "CIEN";
-            else if (value < 200) Num2Text = "CIENTO " + toText(value - 100);
-            else if ((value == 200) || (value == 300) || (value == 400) || (value == 600) || (value == 800)) Num2Text = toText(value / 100) + "CIENTOS";
+            else if (value < 200) Num2Text = "CIENTO " + ToText(value - 100);
+            else if ((value == 200) || (value == 300) || (value == 400) || (value == 600) || (value == 800)) Num2Text = ToText(value / 100) + "CIENTOS";
             else if (value == 500) Num2Text = "QUINIENTOS";
             else if (value == 700) Num2Text = "SETECIENTOS";
             else if (value == 900) Num2Text = "NOVECIENTOS";
-            else if (value < 1000) Num2Text = toText(value / 100 * 100) + " " + toText(value % 100);
+            else if (value < 1000) Num2Text = ToText(value / 100 * 100) + " " + ToText(value % 100);
 
             else if (value == 1000) Num2Text = "MIL";
-            else if (value < 2000) Num2Text = "MIL " + toText(value % 1000);
+            else if (value < 2000) Num2Text = "MIL " + ToText(value % 1000);
             else if (value < 1000000)
             {
-                Num2Text = toText(value / 1000) + " MIL";
-                if (value % 1000 > 0) Num2Text = Num2Text + " " + toText(value % 1000);
+                Num2Text = ToText(value / 1000) + " MIL";
+                if (value % 1000 > 0) Num2Text = Num2Text + " " + ToText(value % 1000);
             }
 
             else if (value == 1000000) Num2Text = "UN MILLON";
-            else if (value < 2000000) Num2Text = "UN MILLON " + toText(value % 1000000);
+            else if (value < 2000000) Num2Text = "UN MILLON " + ToText(value % 1000000);
             else if (value < 1000000000000)
             {
-                Num2Text = toText(value / 1000000) + " MILLONES";
-                if (value % 1000000 > 0) Num2Text = Num2Text + " " + toText(value % 1000000);
+                Num2Text = ToText(value / 1000000) + " MILLONES";
+                if (value % 1000000 > 0) Num2Text = Num2Text + " " + ToText(value % 1000000);
             }
 
             else if (value == 1000000000000) Num2Text = "UN BILLON";
-            else if (value < 2000000000000) Num2Text = "UN BILLON " + toText(value % 1000000000000);
+            else if (value < 2000000000000) Num2Text = "UN BILLON " + ToText(value % 1000000000000);
             else
             {
-                Num2Text = toText(value / 1000000000000) + " BILLONES";
-                if (value % 1000000000000 > 0) Num2Text = Num2Text + " " + toText(value % 1000000000000);
+                Num2Text = ToText(value / 1000000000000) + " BILLONES";
+                if (value % 1000000000000 > 0) Num2Text = Num2Text + " " + ToText(value % 1000000000000);
             }
 
             return Num2Text;
@@ -2195,7 +2200,7 @@ namespace Portal.Consultoras.Common
             return (new string(chars)).ToUpper();
         }
 
-        public static string desencriptar(string cadena)
+        public static string Desencriptar(string cadena)
         {
             cadena = cadena.Replace("ABCDE", "+");
             string clave = "12345678912345678912345678912345";
@@ -2822,6 +2827,8 @@ namespace Portal.Consultoras.Common
 
         public static string GetISObyIPAddress(string ip)
         {
+            if (string.IsNullOrWhiteSpace(ip)) return "";
+
             string geoLiteDbPath = HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
             return GetISObyIPAddress(ip, geoLiteDbPath);
         }
@@ -3010,7 +3017,7 @@ namespace Portal.Consultoras.Common
             }
             return Result;
         }
-
+        
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0 || nroCampanias <= 0) return 0;
@@ -3034,6 +3041,51 @@ namespace Portal.Consultoras.Common
         {
             Uri uriResult;
             return Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+        }
+
+        public static bool ExisteUrlRemota(string url)
+        {
+            bool result = false;
+
+            WebRequest webRequest = WebRequest.Create(url);
+            webRequest.Timeout = 1200; // miliseconds
+            webRequest.Method = "HEAD";
+
+            HttpWebResponse response = null;
+
+            try
+            {
+                response = (HttpWebResponse)webRequest.GetResponse();
+                result = true;
+            }
+            catch (WebException webException)
+            {                
+                LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
+                result = false;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+
+            return result;
+        }
+
+        public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
+        {            
+            if (string.IsNullOrEmpty(rutaImagen))
+                return "";            
+
+            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+
+            var ruta = rutaImagen.Clone().ToString();
+
+            ruta = ruta.Replace(soloImagen, soloImagen + rutaNombreExtension);
+
+            return ruta;
         }
     }
 

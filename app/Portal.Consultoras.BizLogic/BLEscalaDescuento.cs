@@ -24,7 +24,6 @@ namespace Portal.Consultoras.BizLogic
 
                     if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
                     {
-                        //List<BEEscalaDescuento> lstEscalaDescuento = null;
                         DAEscalaDescuento DAEscalaDescuento = new DAEscalaDescuento(paisID);
 
 
@@ -68,7 +67,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (lstParametriaOfertaFinal == null || lstParametriaOfertaFinal.Count == 0)
                 {
-                    //List<BEEscalaDescuento> lstEscalaDescuento = null;
                     DAEscalaDescuento DAEscalaDescuento = new DAEscalaDescuento(paisID);
                     
                     List<BEEscalaDescuento> lstEscalaDescuentoTemp = new List<BEEscalaDescuento>();
@@ -82,7 +80,7 @@ namespace Portal.Consultoras.BizLogic
                     lstParametriaOfertaFinal = new List<BEEscalaDescuento>();
                     if (lstEscalaDescuentoTemp.Count > 0)
                     {
-                        lstParametriaOfertaFinal.AddRange((List<BEEscalaDescuento>)lstEscalaDescuentoTemp);
+                        lstParametriaOfertaFinal.AddRange(lstEscalaDescuentoTemp);
                     }
 
                     CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.ParametriaOfertaFinal, lstParametriaOfertaFinal);

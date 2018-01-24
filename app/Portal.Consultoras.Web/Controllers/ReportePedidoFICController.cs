@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
                 BEPais bepais = new BEPais();
-                DataTable dt = new DataTable();
+                
                 try
                 {
                     if (vPaisID == "")
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                var pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

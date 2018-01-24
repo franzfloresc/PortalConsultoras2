@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.WebPages
                 request.Credentials = nc;
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 Stream strm = response.GetResponseStream();
-                long cl = response.ContentLength;
+
                 int bufferSize = 2048;
                 int readCount;
                 byte[] buffer = new byte[bufferSize];

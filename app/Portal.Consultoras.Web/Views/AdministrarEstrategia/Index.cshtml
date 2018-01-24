@@ -110,6 +110,7 @@
                 </div>
                 <div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
+                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;"/>
                 </div>
             </div>
         </div>
@@ -1084,6 +1085,41 @@
         UploadFileLanzamineto('img-ficha-fondo-mobile');
         UploadFileLanzamineto('img-home-desktop');
         UploadFileLanzamineto('img-home-mobile');
+
+        $("#btnCargaMasivaImagenes").click(function(){
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+
+            var campaniaId = $("#ddlCampania").val();
+            var params = {
+                campaniaID: campaniaId
+            };
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarEstrategia/CargaMasivaImagenes',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    //if(data.success)
+                    closeWaitingDialog();
+                    alert(data.message);                    
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                }
+            });
+        });
+
         });
 
     $("#divImagenEstrategia").click(function () {
@@ -1934,7 +1970,8 @@
                         ImgHomeMobile: imgHomeMobile,
                         PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
                         EsOfertaIndependiente: esOfertaIndependiente,
-                        Ganancia: ganancia
+                        Ganancia: ganancia,
+                        RutaImagenCompleta: imagenEstrategiaProducto
                     };
                     jQuery.ajax({
                         type: 'POST',

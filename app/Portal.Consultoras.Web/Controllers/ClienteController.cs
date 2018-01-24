@@ -55,7 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteDB> response = new List<BEClienteDB>();
 
             try
             {
@@ -104,6 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Contactos = contactos.ToArray()
                 });
 
+                List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
@@ -162,12 +162,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BECliente> items = lst;
 
                 #region Sort Section
@@ -216,11 +217,11 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 if (string.IsNullOrEmpty(vBusqueda))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 else
-                    items = items.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, vBusqueda);
+                BEPager pag = Paginador(grid, vBusqueda);
 
                 var data = new
                 {
@@ -239,21 +240,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool rslt = false;
+                bool rslt;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     rslt = sv.Delete(userData.PaisID, userData.ConsultoraID, ClienteID);
                 }
-                string Mensaje = string.Empty;
-                if (rslt)
-                    Mensaje = "Se eliminó satisfactoriamente el registro.";
-                else
-                    Mensaje = "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
+
+                var mensaje = rslt ? "Se eliminó satisfactoriamente el registro." : "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
 
                 return Json(new
                 {
                     success = true,
-                    message = Mensaje,
+                    message = mensaje,
                     extra = ""
                 });
 
@@ -332,23 +330,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = string.IsNullOrEmpty(vBusqueda) 
+                ? lst.Count 
+                : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
-            if (string.IsNullOrEmpty(vBusqueda))
-                RecordCount = lst.Count;
-            else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -368,11 +363,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "",
-                    lista = lst ?? new List<BECliente>()
+                    lista = lst
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -397,12 +393,14 @@ namespace Portal.Consultoras.Web.Controllers
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Nombres y Apellidos", "msNombre"},
+                {"Teléfono Fijo", "msTelefono"},
+                {"Celular", "msCelular"},
+                {"Correo", "mseMail"}
+            };
 
-            dic.Add("Nombres y Apellidos", "msNombre");
-            dic.Add("Teléfono Fijo", "msTelefono");
-            dic.Add("Celular", "msCelular");
-            dic.Add("Correo", "mseMail");
 
             string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
 
@@ -410,35 +408,31 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private void ExportToExcelMisClientes(string filename, List<BECliente> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMisClientes(string filename, List<BECliente> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)
         {
             try
             {
                 string extension = ".xlsx";
-                string originalFileName = System.IO.Path.GetFileNameWithoutExtension(filename) + extension;
+                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
-                int index = 1;
+                List<string> columns = new List<string>();
 
                 int row = 1;
-                int col = 0;
-                int i = 0;
 
-                int col2 = 1;
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -449,21 +443,19 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
                     {
-                        col = 1;
-                        foreach (string column in Columns)
+                        var col = 1;
+                        foreach (string column in columns)
                         {
-                            BECliente source = SourceDetails[i];
+                            BECliente source = sourceDetails[i];
 
-                            string[] arr = new string[2];
-                            if (column.Contains("#"))
-                                arr = column.Split('#');
-                            else
-                                arr = new string[] { "", column };
+                            var arr = column.Contains("#") 
+                                ? column.Split('#')
+                                : new string[] { "", column };
 
                             if (arr[1] == "msNombre")
                             {
@@ -495,8 +487,8 @@ namespace Portal.Consultoras.Web.Controllers
                         i++;
                     }
                     row++;
-                    index = keyvalue.Key;
-                    SourceDetails.RemoveRange(0, index);
+                    var index = keyvalue.Key;
+                    sourceDetails.RemoveRange(0, index);
                 }
 
                 ws.Columns().AdjustToContents();
@@ -516,8 +508,9 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.End();
                 stream = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
     }

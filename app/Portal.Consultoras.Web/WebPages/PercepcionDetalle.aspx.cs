@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (!Page.IsPostBack)
             {
-                string result = string.Empty;
                 List<BEDatosBelcorp> lista;
 
                 if (Request.QueryString["parametros"] != null)

@@ -74,8 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-
-            BEPager pag = new BEPager();
+            
             IEnumerable<EstadoCuentaModel> items = lst;
 
             lst.ForEach(l =>
@@ -92,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Util.PaginadorGenerico(grid, lst);
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
 
             items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
@@ -290,7 +289,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             IEnumerable<BEComprobantePercepcion> items = lst;
 
             #region Sort Section
@@ -332,9 +330,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = PaginadorPercepcion(grid, lst);
+            BEPager pag = PaginadorPercepcion(grid, lst);
 
             var data = new
             {
@@ -373,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lsta = new List<BEDatosBelcorp>();
                 }
 
-                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
+                string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
 
                 return Json(new
                 {
@@ -417,7 +415,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             IEnumerable<BEComprobantePercepcionDetalle> items = lst;
 
             #region Sort Section
@@ -499,9 +496,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = PaginadorDetallePercepcion(grid, lst);
+            BEPager pag = PaginadorDetallePercepcion(grid, lst);
 
             var data = new
             {
@@ -556,7 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
             string NumeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
             string FechaEmision = data["FechaEmision"].ToString();
             string ImportePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
-            string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
+            string ImportePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
 
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -617,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x => x.Posicion).ToList();
+                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).OrderBy(x => x.Posicion).ToList();
             }
 
             foreach (var item in lst)
@@ -805,8 +802,9 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.End();
                 stream = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 
@@ -823,7 +821,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -845,7 +843,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

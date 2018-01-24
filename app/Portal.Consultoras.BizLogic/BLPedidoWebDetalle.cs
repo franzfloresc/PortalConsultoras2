@@ -73,7 +73,8 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                using (TransactionScope oTransactionScope =
+                    new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     if (pedidowebdetalle.PedidoID == 0)
                     {
@@ -85,17 +86,28 @@ namespace Portal.Consultoras.BizLogic
                         oBEPedidoWeb.CodigoUsuarioCreacion = pedidowebdetalle.CodigoUsuarioCreacion;
                         pedidowebdetalle.PedidoID = DAPedidoWeb.InsPedidoWeb(oBEPedidoWeb);
                     }
+
                     BEPedidoWebDetalle = DAPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
-                    DAPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido, pedidowebdetalle.CodigoUsuarioModificacion);
+                    DAPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID,
+                        pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido,
+                        pedidowebdetalle.CodigoUsuarioModificacion);
 
                     if (pedidowebdetalle.TipoOfertaSisID == Common.Constantes.ConfiguracionOferta.ShowRoom)
-                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(Common.Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(
+                            Common.Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID,
+                            pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
-                    if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                    if (pedidowebdetalle.TipoOfertaSisID ==
+                        Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
+                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(
+                            Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion,
+                            pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
-                    if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                    if (pedidowebdetalle.TipoOfertaSisID ==
+                        Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
+                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(
+                            Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate,
+                            pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
@@ -110,14 +122,18 @@ namespace Portal.Consultoras.BizLogic
                         }
                         catch (Exception ex)
                         {
-                            LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioCreacion, Util.GetPaisISO(pedidowebdetalle.PaisID));
+                            LogManager.SaveLog(ex, pedidowebdetalle.CodigoUsuarioCreacion,
+                                Util.GetPaisISO(pedidowebdetalle.PaisID));
                         }
                     }
 
                     oTransactionScope.Complete();
                 }
             }
-            catch (Exception) { throw; }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidowebdetalle.ConsultoraID, pedidowebdetalle.PaisID);
+            }
 
             return BEPedidoWebDetalle;
         }
@@ -298,12 +314,28 @@ namespace Portal.Consultoras.BizLogic
                     pedidoWebDetalle.Add(entidad);
                 }
 
-            #region Eliminar si es de OPT o OPM
+            #region Eliminar si es de OPT o OPM            
 
-            if (bePedidoWebDetalleParametros.EsBpt)
-                pedidoWebDetalle.RemoveAll(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-            else
-                pedidoWebDetalle.RemoveAll(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
+            var listaCuvDuplicado = pedidoWebDetalle.GroupBy(p => new { p.CUV , p.ClienteID } ).Select(i => new { CUV = i.Key.CUV, ClienteId = i.Key.ClienteID, Cantidad = i.Count() });
+            listaCuvDuplicado = listaCuvDuplicado.Where(p => p.Cantidad > 1).ToList();
+
+            foreach (var item in listaCuvDuplicado)
+            {
+                BEPedidoWebDetalle pedidoDuplicado;
+                if (bePedidoWebDetalleParametros.EsBpt)
+                {
+                    pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+                }
+                else
+                {
+                    pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
+                }
+
+                if (pedidoDuplicado != null)
+                {
+                    pedidoWebDetalle.Remove(pedidoDuplicado);
+                }
+            }
 
             #endregion
 
@@ -607,20 +639,11 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsPedidoWebAccionesPROL(List<BEPedidoWebDetalle> olstBEPedidoWebDetalle, int Tipo, int Accion)
         {
-            try
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(olstBEPedidoWebDetalle[0].PaisID);
+            foreach (var item in olstBEPedidoWebDetalle)
             {
-                var DAPedidoWebDetalle = new DAPedidoWebDetalle(olstBEPedidoWebDetalle[0].PaisID);
-                foreach (var item in olstBEPedidoWebDetalle)
-                {
-                    DAPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
-                }
-
+                DAPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
             }
-            catch
-            {
-
-            }
-
         }
     }
 }

@@ -318,7 +318,7 @@ function RechazarPedido() {
         data: JSON.stringify(obj),
         success: function (data) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 if (data.success == true) {
                     $('#btnRechazarPedido').prop('disabled', false);
                     $('#dialog_motivoRechazo').hide();
@@ -331,7 +331,7 @@ function RechazarPedido() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert_msg("Ocurrió un error inesperado al momento de desafiliarte. Consulte con su administrador del sistema para obtener mayor información");
             }
         }
@@ -452,7 +452,7 @@ function AceptarPedidoRegistraClienteCancel(obj) {
 
 function ProcesarAceptarPedido(pedido) {
     //console.log(pedido);
-    
+
     waitingDialog({});
     $.ajax({
         type: 'POST',

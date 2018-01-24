@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
+            clienteModel.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
@@ -40,11 +40,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
                 (revistaDigital.TieneRDR && !tieneGND);
-
-            clienteModel.RevistaDigital = revistaDigital;
+            
+            clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.NombreConsultora = userData.Sobrenombre;
 
@@ -65,8 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            List<BECliente> lista = new List<BECliente>();
-            lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
+            var lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
@@ -133,6 +132,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             ViewBag.Campania = campaniaRevista;
             return View();
+        }
+        
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+                partial.TieneGND = userData.TieneGND;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
         }
     }
 }

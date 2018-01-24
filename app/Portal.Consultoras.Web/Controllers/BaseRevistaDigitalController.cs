@@ -17,13 +17,51 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
+            ViewBag.NombreConsultora = userData.NombreConsultora.ToUpper();
+            ViewBag.EMail = userData.EMail;
+            ViewBag.Celular = userData.Celular;
+
+            #region limite Min - Max Telef
+            switch (userData.PaisID)
+            {
+                case Constantes.PaisID.Mexico:
+                    ViewBag.limiteMinimoTelef = 5;
+                    ViewBag.limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    ViewBag.limiteMinimoTelef = 7;
+                    ViewBag.limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    ViewBag.limiteMinimoTelef = 10;
+                    ViewBag.limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    ViewBag.limiteMinimoTelef = 8;
+                    ViewBag.limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    ViewBag.limiteMinimoTelef = 9;
+                    ViewBag.limiteMaximoTelef = 10;
+                    break;
+                default:
+                    ViewBag.limiteMinimoTelef = 0;
+                    ViewBag.limiteMaximoTelef = 15;
+                    break;
+            }
+            #endregion
+
             var modelo = new RevistaDigitalInformativoModel
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
                 UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes)
+                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
+                Origen = revistaDigital.SuscripcionEfectiva.Origen
             };
                         
             return View("template-informativa", modelo);
@@ -39,16 +77,32 @@ namespace Portal.Consultoras.Web.Controllers
             model.CampaniaID = id;
             model.IsMobile = IsMobile();
 
-            model.FiltersBySorting = new List<BETablaLogicaDatos>();
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO" });
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
+            model.FiltersBySorting = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido,
+                    Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor,
+                    Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor,
+                    Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
+                }
+            };
 
-            model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "CYZONE", Descripcion = "CYZONE" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "ÉSIKA", Descripcion = "ÉSIKA" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
+            model.FiltersByBrand = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos {Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA"},
+                new BETablaLogicaDatos {Codigo = "CYZONE", Descripcion = "CYZONE"},
+                new BETablaLogicaDatos {Codigo = "ÉSIKA", Descripcion = "ÉSIKA"},
+                new BETablaLogicaDatos {Codigo = "LBEL", Descripcion = "LBEL"}
+            };
 
             model.Success = true;
             var dato = ObtenerPerdio(model.CampaniaID);
@@ -102,10 +156,10 @@ namespace Portal.Consultoras.Web.Controllers
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
-        public bool TieneProductosPerdio(int campaniaID)
+        public bool TieneProductosPerdio(int campaniaId)
         {
             if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaID == userData.CampaniaID)
+                campaniaId == userData.CampaniaID)
                 return true;
 
             return false;
@@ -129,9 +183,16 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            var video = IsMobile() ? Util.Trim(dato.Valor2) : Util.Trim(dato.Valor1);
-
-            video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+            string video;
+            if (IsMobile())
+            {
+                video = Util.Trim(dato.Valor2);
+            }
+            else
+            {
+                video = Util.Trim(dato.Valor1);
+                video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+            }
 
             return video;
         }

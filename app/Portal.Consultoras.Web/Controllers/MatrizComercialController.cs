@@ -53,7 +53,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEMatrizComercial> items = lst;
 
                 #region Sort Section
@@ -89,11 +88,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(paisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
                 var data = new
                 {
@@ -276,9 +274,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                var intTotalBytes = ((System.Web.HttpRequestWrapper)Request).TotalBytes;
-           
-
                 string nombreArchivoSinExtension = null;
                 if (model.NemotecnicoActivo)
                 {
@@ -413,7 +408,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (flDescProd != null)
                 {
-                    string fileName = Path.GetFileName(flDescProd.FileName);
                     string extension = Path.GetExtension(flDescProd.FileName);
                     string newfileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
                     string pathFile = Server.MapPath("~/Content/FileCargaStock");
@@ -553,8 +547,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PageSize = rows,
                     CurrentPage = pagina,
-                };
-                var pag = Util.PaginadorGenerico(grid, totalRegistros);
+                };
+
+                var pag = Util.PaginadorGenerico(grid, totalRegistros);
+
                 pageCount = pag.PageCount;
             }
 

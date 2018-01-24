@@ -44,7 +44,7 @@ namespace Portal.Consultoras.BizLogic
             if (Datos.Count < 1) Datos.Add("");
             return Datos;
         }
-        //2397 - control de cambios
+
         public DataSet ObtenerParametrosSuperateLider(int paisID, long ConsultoraID, int CampaniaVenta)
         {
             var DAConsultoraLider = new DAConsultoraLider(paisID);

@@ -1,84 +1,144 @@
 /* surrounding tag container */
 .tag-editor {
-        list-style-type: none;
-    /* padding: 0 5px 0 0; */
+    list-style-type: none;
     margin: 0;
     overflow: hidden;
-    /* border: 1px solid #eee; */
     cursor: text;
     font: normal 14px sans-serif;
     color: #555;
     background: #fff;
     line-height: 20px;
 }
-.tag_fijo_scroll{
+
+.tag_fijo_scroll {
     overflow: auto;
     height: 50px !important;
 }
 
-.tag-editor .tag { display: block; float: left; overflow: hidden; margin-right:3px;background:#e7e7e7;}
-
-.tag-editor .tag span, .tag-editor .tag a { float: left; padding: 0 4px; }
-
-/* tag style */
-.tag-editor .tag span {
-    padding-left: 9px;
-    color: black;
-    background: #e7e7e7;
-    white-space: nowrap;
+.tag-editor .tag {
+    display: block;
+    float: left;
     overflow: hidden;
-    cursor: pointer;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    font-family: 'lato';
-    max-width: 95%;
+    margin-right: 3px;
+    background: #e7e7e7;
 }
 
-/* fin tag style */
+    .tag-editor .tag span, .tag-editor .tag a {
+        float: left;
+        padding: 0 4px;
+    }
+
+    /* tag style */
+    .tag-editor .tag span {
+        padding-left: 9px;
+        color: black;
+        background: #e7e7e7;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        font-family: 'lato';
+        max-width: 95%;
+    }
+
+    /* fin tag style */
 
 
-/* delete icon */
-.tag-editor .tag a { background: #e7e7e7; cursor: pointer; padding-left: 3px; padding-right: 4px; }
-.tag-editor .tag a i {    
-    width: 15px;
-    height: 15px;
-    border-radius: 100px;
-    background: #686868;
-    text-align: center;
-    line-height: 18px;
-    display: inline-block;
-   margin-top: 9px; }
-.tag-editor .tag a i:before { font-size: 15px;
-    /* margin-top: -6px; */
-    color: white;
-    content: "×";
-    /* background: #686868; */
-    /* width: 15px; */
-    font-style: normal;
-     display: block;
-    margin-top: -1px;
-}
-.tag-editor .tag a:hover i:before { color: white; }
-.tag-editor .tag span.active + .tag a, .tag-editor .tag span.active + .tag a i { visibility: hidden; cursor: text; }
+    /* delete icon */
+    .tag-editor .tag a {
+        background: #e7e7e7;
+        cursor: pointer;
+        padding-left: 3px;
+        padding-right: 4px;
+    }
 
-.tag-editor .tag span.active { background: none !important; }
+        .tag-editor .tag a i {
+            width: 15px;
+            height: 15px;
+            border-radius: 100px;
+            background: #686868;
+            text-align: center;
+            line-height: 18px;
+            display: inline-block;
+            margin-top: 9px;
+        }
+
+            .tag-editor .tag a i:before {
+                font-size: 15px;
+                color: white;
+                content: '×';
+                font-style: normal;
+                display: block;
+                margin-top: -1px;
+            }
+
+        .tag-editor .tag a:hover i:before {
+            color: white;
+        }
+
+    .tag-editor .tag span.active + .tag a, .tag-editor .tag span.active + .tag a i {
+        visibility: hidden;
+        cursor: text;
+    }
+
+    .tag-editor .tag span.active {
+        background: none !important;
+    }
 
 /* fin delete icon */
 
 /* core styles usually need no change */
-.tag-editor li { display: block; float: left; overflow: hidden; margin-right:3px;}
-.tag-editor div { float: left; padding: 0 4px; }
-.tag-editor .placeholder { padding: 0 8px; color: #bbb; }
-.tag-editor .tag-editor-spacer { padding: 0; width: 8px; overflow: hidden; color: transparent; background: none; display:none; }
+.tag-editor li {
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin-right: 3px;
+}
+
+.tag-editor div {
+    float: left;
+    padding: 0 4px;
+}
+
+.tag-editor .placeholder {
+    padding: 0 8px;
+    color: #bbb;
+}
+
+.tag-editor .tag-editor-spacer {
+    padding: 0;
+    width: 8px;
+    overflow: hidden;
+    color: transparent;
+    background: none;
+    display: none;
+}
+
 .tag-editor input {
-    vertical-align: inherit; border: 0; outline: none; padding: 0; margin: 0; cursor: text;
-    font-family: inherit; font-weight: inherit; font-size: inherit; font-style: inherit;
-    box-shadow: none; background: none; color: #444;
+    vertical-align: inherit;
+    border: 0;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    cursor: text;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    box-shadow: none;
+    background: none;
+    color: #444;
 }
 /* hide original input field or textarea visually to allow tab navigation */
-.tag-editor-hidden-src { position: absolute !important; left: -99999px; }
-/* hide IE10 "clear field" X */
-.tag-editor ::-ms-clear { display: none; }
+.tag-editor-hidden-src {
+    position: absolute !important;
+    left: -99999px;
+}
+/* hide IE10 'clear field' X */
+.tag-editor ::-ms-clear {
+    display: none;
+}
 
 /* tag style */
 .tag-editor .tag-editor-tag {
@@ -94,34 +154,87 @@
 }
 
 /* delete icon */
-.tag-editor .tag-editor-delete { background: #e7e7e7; cursor: pointer; padding-left: 3px; padding-right: 4px; }
-.tag-editor .tag-editor-delete i {    
-    width: 15px;
-    height: 15px;
-    border-radius: 100px;
-    background: #686868;
-    text-align: center;
-    line-height: 18px;
-    display: inline-block;
-    margin-top: 15px; }
-.tag-editor .tag-editor-delete i:before { font-size: 15px;
-    /* margin-top: -6px; */
-    color: white;
-    content: "×";
-    /* background: #686868; */
-    /* width: 15px; */
-    font-style: normal; }
-.tag-editor .tag-editor-delete:hover i:before { color: white; }
-.tag-editor .tag-editor-tag.active+.tag-editor-delete, .tag-editor .tag-editor-tag.active+.tag-editor-delete i { visibility: hidden; cursor: text; }
+.tag-editor .tag-editor-delete {
+    background: #e7e7e7;
+    cursor: pointer;
+    padding-left: 3px;
+    padding-right: 4px;
+}
 
-.tag-editor .tag-editor-tag.active { background: none !important; }
+    .tag-editor .tag-editor-delete i {
+        width: 15px;
+        height: 15px;
+        border-radius: 100px;
+        background: #686868;
+        text-align: center;
+        line-height: 18px;
+        display: inline-block;
+        margin-top: 15px;
+    }
+
+        .tag-editor .tag-editor-delete i:before {
+            font-size: 15px;
+            color: white;
+            content: '×';
+            font-style: normal;
+        }
+
+    .tag-editor .tag-editor-delete:hover i:before {
+        color: white;
+    }
+
+.tag-editor .tag-editor-tag.active + .tag-editor-delete, .tag-editor .tag-editor-tag.active + .tag-editor-delete i {
+    visibility: hidden;
+    cursor: text;
+}
+
+.tag-editor .tag-editor-tag.active {
+    background: none !important;
+}
 
 /* jQuery UI autocomplete - code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css */
-.ui-autocomplete { position: absolute; top: 0; left: 0; cursor: default; font-size: 14px; }
-.ui-front { z-index: 9999; }
-.ui-menu { list-style: none; padding: 1px; margin: 0; display: block; outline: none; }
-.ui-menu .ui-menu-item a { text-decoration: none; display: block; padding: 2px .4em; line-height: 1.4; min-height: 0; /* support: IE7 */ }
-.ui-widget-content { border: 1px solid #bbb; background: #fff; color: #555; }
-.ui-widget-content a { color: black; }
-.ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { background: #eee; }
-.ui-helper-hidden-accessible { display: none; }
+.ui-autocomplete {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    font-size: 14px;
+}
+
+.ui-front {
+    z-index: 9999;
+}
+
+.ui-menu {
+    list-style: none;
+    padding: 1px;
+    margin: 0;
+    display: block;
+    outline: none;
+}
+
+    .ui-menu .ui-menu-item a {
+        text-decoration: none;
+        display: block;
+        padding: 2px .4em;
+        line-height: 1.4;
+        min-height: 0;
+    }
+
+.ui-widget-content {
+    border: 1px solid #bbb;
+    background: #fff;
+    color: #555;
+}
+
+    .ui-widget-content a {
+        color: black;
+    }
+
+    .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+        background: #eee;
+    }
+
+.ui-helper-hidden-accessible {
+    display: none;
+}

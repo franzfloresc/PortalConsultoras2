@@ -610,6 +610,8 @@ namespace Portal.Consultoras.Entities
             get { return mConsultoraNueva; }
             set { mConsultoraNueva = value; }
         }
+        [DataMember]
+        public bool EsConsultoraNueva { get; set; }
 
         [DataMember]
         public string NombrePais
@@ -1392,5 +1394,8 @@ namespace Portal.Consultoras.Entities
         public string CodigosConcursos { get; set; }
         [DataMember]
         public string CodigosProgramaNuevas { get; set; }
+        [DataMember]
+        [Column("PasoSextoPedido")]
+        public bool PasoSextoPedido { get; set; }
     }
 }

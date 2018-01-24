@@ -83,14 +83,14 @@ var DescripcionComercial = function (config) {
             _toastHelper.error('Ha sobrepasado el tamaño de 800 caracteres.');
             return false;
         }
-        else if(_validarCampoObligatorio(valor)){
+        else if (_validarCampoObligatorio(valor)) {
             _toastHelper.error('El campo Descripción Comercial es obligatorio.');
             return false;
         } else {
             waitingDialog({});
-            var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor};
+            var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor };
             $.post(_config.actualizarDescripcionComercialAction, params).done(_actualizarDescripcionComercialActionSuccess);
-        } 
+        }
     };
 
     var _validarTamañoMaximoCaracteres = function (valor) {

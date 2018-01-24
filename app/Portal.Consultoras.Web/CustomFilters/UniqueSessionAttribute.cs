@@ -49,7 +49,14 @@ namespace Portal.Consultoras.Web.CustomFilters
                     if (!string.IsNullOrEmpty(guid) && !filterContext.RouteData.Values.ContainsKey(IdentifierKey))
                     {
                         filterContext.RouteData.Values.Add(IdentifierKey, validatedGuid.ToString());
+
+                        //foreach (var param in filterContext.ActionParameters)
+                        //{
+                        //    filterContext.RouteData.Values.Add(param.Key, param.Value);
+                        //}
+
                         filterContext.Result = new RedirectToRouteResult(RouteName, filterContext.RouteData.Values);
+
                         return;
                     }
                 }

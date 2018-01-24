@@ -202,10 +202,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string MensajeCierreCampania { get; set; }
 
-        public int TieneFechaPromesa { get; set; }
-
-        public string MensajeFechaPromesa { get; set; }
-
         public string CodigoZona { get; set; }
 
         public string FechaFacturacionPedido { get; set; }
@@ -293,8 +289,9 @@ namespace Portal.Consultoras.Web.Models
 
         public int TieneMasVendidos { get; set; }
         public int TieneOfertaLog { get; set; }
+        
+        public PartialSectionBpt PartialSectionBpt { get; set; }
 
-        public RevistaDigitalModel RevistaDigital { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }

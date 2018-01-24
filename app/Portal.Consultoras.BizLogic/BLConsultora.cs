@@ -200,13 +200,11 @@ namespace Portal.Consultoras.BizLogic
 
         }
 
-        //Inicio ITG 1793 HFMG
         public long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora)
         {
             var DAConsultora = new DAConsultora(paisID);
             return DAConsultora.GetConsultoraIdByCodigo(CodigoConsultora);
         }
-        //Fin ITG 1793 HFMG
 
         public BEConsultoraDatoSAC GetConsultoraDatoSAC(string paisID, string codigoConsultora, string documento)
         {
@@ -245,7 +243,6 @@ namespace Portal.Consultoras.BizLogic
             return beConsultora;
         }
 
-        //R2140
         public BEConsultoraTop GetConsultoraTop(int paisID, string codigoConsultora)
         {
 
@@ -265,7 +262,6 @@ namespace Portal.Consultoras.BizLogic
             return beConsultoraTop;
         }
 
-        //R2140
         public BEConsultoraCUV GetConsultoraCUVRegular(int paisID, int campaniaID, string CUVRegular)
         {
 
@@ -285,7 +281,6 @@ namespace Portal.Consultoras.BizLogic
             return beConsultoraCVU;
         }
 
-        //R2140
         public BEConsultoraCUV GetConsultoraCUVCredito(int paisID, int campaniaID, string CUVCredito)
         {
 

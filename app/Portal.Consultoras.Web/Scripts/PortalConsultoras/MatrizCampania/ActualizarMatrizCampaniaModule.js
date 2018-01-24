@@ -11,7 +11,7 @@ var actualizarMatrizCampaniaModule = (function () {
         habilitarNemotecnico: false,
         getImagesByCodigoSapUrl: '',
     };
-    
+
     var _constants = {
         BUSCAR: 'Buscar',
         BUSCAR_OTRO: 'Buscar Otro',
@@ -82,7 +82,7 @@ var actualizarMatrizCampaniaModule = (function () {
     };
 
     var _initDialogs = function () {
-        $('#'+_elements.divVistaPrevia).dialog({
+        $('#' + _elements.divVistaPrevia).dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -308,7 +308,7 @@ var actualizarMatrizCampaniaModule = (function () {
                                 $(_elements.imgSeleccionada).attr("src", data.lstProducto[1].RegaloImagenUrl);
                             }
                         }
-                        
+
                     }
 
                     if (_settings.habilitarRegalo) {
@@ -348,7 +348,7 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
-                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val(); 
+                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val();
                 $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
                 if (IdMatrizComercialAnterior == '0')
                     _crearFileUploadAdd();

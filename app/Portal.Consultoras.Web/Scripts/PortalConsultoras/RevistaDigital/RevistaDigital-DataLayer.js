@@ -68,7 +68,7 @@ var rdAnalyticsModule = (function () {
         exception: "Exception on analytics RD ",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
-        saberMas: "Saber más de Ésika para mí",
+        saberMas: "Conoce todo sobre Club Gana+",
         rdBannerPrincipal: "Oferta para ti - RO Banner Principal",
         rdBannerDetPrincipal: "Oferta para ti - RO Detalle Banner Principal",
         rdMisOfertas: "Oferta para ti - RO Mis Ofertas",
@@ -86,7 +86,7 @@ var rdAnalyticsModule = (function () {
         roInscribirme: "Revista Online - Inscribirme a Ésika para mí",
         banner: "Banner",
         popup: "Home pop-up - 1",
-        notAvailable: "(not available)", 
+        notAvailable: "(not available)",
         contenedor: "Contendor"
     },
     _action = {
@@ -123,8 +123,8 @@ var rdAnalyticsModule = (function () {
         precio: "precio",
         marca: "marca"
     }
-        
-        
+
+
     function _virtualEventPush(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
@@ -228,7 +228,7 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.home: //Home
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogos: //Catalogos
+                case _origenWeb.catalogo: //Catalogos
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido: //Pedido
@@ -261,17 +261,17 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function Tabs(codigo, campaniaId) {
+    function Tabs(codigo, campaniaId, pantalla) {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
@@ -282,19 +282,19 @@ var rdAnalyticsModule = (function () {
     function FiltrarProducto(tipo, label) {
         try {
             switch (tipo.toString()) {
-            case _filterCode.marca:
-                _virtualEventPush(_text.epm, _action.filtrar, label);
-                break;
-            case _filterCode.precio:
-                _virtualEventPush(_text.epm, _action.ordenar, label);
-                break;
-            default:
-                _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
-                break;
+                case _filterCode.marca:
+                    _virtualEventPush(_text.epm, _action.filtrar, label);
+                    break;
+                case _filterCode.precio:
+                    _virtualEventPush(_text.epm, _action.ordenar, label);
+                    break;
+                default:
+                    _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
+                    break;
             }
         } catch (e) {
             console.log(_text.exception + e);
-        } 
+        }
     }
 
     function AgregarProducto(origenWeb, estrategia, popup) {
@@ -462,7 +462,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor, titulo + " – Ver Todo", _text.notAvailable);
+        _virtualEventPush(_text.contenedor + " - Home", titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
     }
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,

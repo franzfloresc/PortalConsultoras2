@@ -23,12 +23,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CodigoISO != IncentivoPaisISO) return RedirectToAction("Index", "Bienvenida");
                 if (userData.CampaniaID != IncentivoCampania) return RedirectToAction("Index", "Bienvenida");
 
-                List<BEProducto> listProducto = null;
+                List<BEProducto> listProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     listProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, IncentivoCUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
                 }
-                if (listProducto == null || listProducto.Count == 0) return RedirectToAction("Index", "Bienvenida");
+                if (listProducto.Count == 0) return RedirectToAction("Index", "Bienvenida");
 
                 var model = new ProductoModel()
                 {

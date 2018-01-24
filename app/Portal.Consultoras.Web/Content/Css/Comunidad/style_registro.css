@@ -1,395 +1,382 @@
 
-/**************************************************************************
-***************************************************************************/
-
 html, body {
-        width: 100%;
-        height:   100%;     
-        padding:  0;
-        margin:   0;
-        /*overflow-x: hidden;*/
-      }
-
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 
 body {
-	font-size: 13px;
+    font-size: 13px;
     font-family: 'museo_300regular', Helvetica, Arial, Tahoma;
-	margin: 0px;
-	padding:0px;
-	background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #FFF;
-	color: #555;
-	line-height: 18px;
-	text-align: center;
-	/*text-align: center;*/
+    margin: 0;
+    padding: 0;
+    background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #fff;
+    color: #555;
+    line-height: 18px;
+    text-align: center;
 }
 
 ul {
-	margin: 0px;
-	padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 li {
-	list-style-type: none;
-	/*display: block;*/
-	padding: 0px;
-	margin:0px
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 p {
-	margin: 0px;
-	padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 img {
-	margin: 0px;
-	padding: 0px;
-	vertical-align: top;
-	border: 0px;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    border: 0;
 }
 
 input, textarea {
-	padding: 0px;
-	margin: 0px;
-	outline: 0 none;
-	font-family: Arial, Helvetica;
-	color: #666;
+    padding: 0;
+    margin: 0;
+    outline: 0 none;
+    font-family: Arial, Helvetica;
+    color: #666;
 }
 
 span {
-	padding: 0px;
-	margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 h1, .h1 {
-	font-size: 36px;
+    font-size: 36px;
 }
 
 h2, .h2 {
-	font-size: 30px;
+    font-size: 30px;
 }
 
 h3, .h3 {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 h4, .h4 {
-	font-size: 18px;
+    font-size: 18px;
 }
 
 h5, .h5 {
-	font-size: 14px;
+    font-size: 14px;
 }
 
 h6, .h6 {
-	font-size: 12px;
+    font-size: 12px;
 }
-
 /**** ESTRUCTURA *******/
-
 .wrapper {
-	width: 1280px;
-	margin: 0px auto;
-	text-align: left;
+    width: 1280px;
+    margin: 0 auto;
+    text-align: left;
     padding-top: 10px;
 }
 
-.wrapper .top {
-	height: 124px;
-}
+    .wrapper .top {
+        height: 124px;
+    }
 
 .top .boxMenu {
-	display: block;
-	margin-left: 188px;
+    display: block;
+    margin-left: 188px;
 }
 
 .top .logo {
-	float: left;
-	width: 188px;
-	display: block;
+    float: left;
+    width: 188px;
+    display: block;
 }
 
 .boxHiper {
-	height: 38px;
-	line-height: 38px;
-	background: #798591;
-	color: #FFF;
-	text-align: right;
+    height: 38px;
+    line-height: 38px;
+    background: #798591;
+    color: #fff;
+    text-align: right;
 }
 
-.boxHiper a {
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
-	text-align: center;
-	color: #FFF;
-	padding: 0px 13px 0px 13px;
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 12px;
-}
+    .boxHiper a {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        text-align: center;
+        color: #fff;
+        padding: 0 13px 0 13px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 12px;
+    }
 
-.boxHiper a:hover {
-	color: #FFF;
-	background: #6a7a84;
-}
+        .boxHiper a:hover {
+            color: #fff;
+            background: #6a7a84;
+        }
 
 .nav {
-	height: 86px;
-	line-height: 86px;
+    height: 86px;
+    line-height: 86px;
 }
 
-.nav a {
-	height: 86px;
-	line-height: 86px;
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
-	text-align: center;
-	padding: 0px 105px 0px 105px;
-	color: #993399;
-	font-weight: bold;
-	text-decoration: none;
-	font-size: 14px;
-}
+    .nav a {
+        height: 86px;
+        line-height: 86px;
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        text-align: center;
+        padding: 0 105px 0 105px;
+        color: #993399;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 14px;
+    }
 
 .wrapMain {
-	padding: 28px 0px 0px 150px;
+    padding: 28px 0 0 150px;
 }
 
 .wrapMain_B {
-	padding: 28px 0px 0px 20%;
+    padding: 28px 0 0 20%;
 }
 
 .webForm {
-	width: 326px;
-    float:left;
+    width: 326px;
+    float: left;
 }
 
 .webForm_B {
-	width: 90%;
-    float:left;
+    width: 90%;
+    float: left;
 }
 
 .webForm .title {
-	display: block;
-	padding: 0px 0px 22px 0px;
-	font-weight: bold;
-	font-size: 20px;
-	line-height: 28px;
-	color: #993399;
-	font-family: 'museo_sans_500regular';
+    display: block;
+    padding: 0 0 22px 0;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+    color: #993399;
+    font-family: 'museo_sans_500regular';
 }
 
 .webForm_B .title_B {
-	display: block;
-	padding: 0px 0px 22px 0px;
-	font-size: 28px;
-	line-height: 28px;
-	color: #993399;
-	font-family: 'museo_sans_500regular';
+    display: block;
+    padding: 0 0 22px 0;
+    font-size: 28px;
+    line-height: 28px;
+    color: #993399;
+    font-family: 'museo_sans_500regular';
 }
 
 .webForm .formCont {
-	display: block;
+    display: block;
 }
 
 .webForm .formMen {
-	display: block;
+    display: block;
     font-size: 14px;
     font-family: 'museo_sans_500regular';
-    color:#A69B9C;
-    height:65px;
+    color: #A69B9C;
+    height: 65px;
 }
 
 .webForm_B .formMen_B {
-	display: block;
+    display: block;
     font-size: 16px;
     font-family: 'museo_300regular';
-    color:#425363;
-    height:75px;
+    color: #425363;
+    height: 75px;
 }
 
-
 .webForm .formMen .MenGen {
-    float:left; 
-    padding-right:4px;
-    height:35px;
-    padding-top:10px;
+    float: left;
+    padding-right: 4px;
+    height: 35px;
+    padding-top: 10px;
 }
 
 .webForm .formMen .MenImg {
-    float:left; 
-    padding-right:4px;
-    height:35px;
+    float: left;
+    padding-right: 4px;
+    height: 35px;
 }
 
 .webForm .formMenB {
-	display: block;
+    display: block;
     font-size: 14px;
-    padding-bottom:20px;
+    padding-bottom: 20px;
     font-family: 'museo_sans_500regular';
-    color:#A69B9C;
-    padding-top:10px;
+    color: #A69B9C;
+    padding-top: 10px;
 }
 
 .webFormDiv {
     border-left: 1px solid #C9C9C9;
-    height:450px;
+    height: 450px;
     width: 30px;
-    float:left;
+    float: left;
 }
 
 .webFormDiv_B {
     border-left: 1px solid #C9C9C9;
-    height:350px;
+    height: 350px;
     width: 30px;
-    float:left;
+    float: left;
 }
 
 .formcontrol {
-	display: block;
-	border: 1px solid #9f9f9f;
-	height: 42px;
-	padding-left: 42px;
-	margin-bottom: 14px;
+    display: block;
+    border: 1px solid #9f9f9f;
+    height: 42px;
+    padding-left: 42px;
+    margin-bottom: 14px;
 }
 
-.formcontrol:hover {
-	border: 1px solid #7e267c;
-}
+    .formcontrol:hover {
+        border: 1px solid #7e267c;
+    }
 
-.formcontrol:focus {
-	border: 1px solid #7e267c;
-}
+    .formcontrol:focus {
+        border: 1px solid #7e267c;
+    }
 
-.formcontrol .inputForm {
-	height: 42px;
-	line-height: 42px;
-	padding: 0px;
-	background: transparent;
-	width: 100%;
-	border: none;
-	font-size: 13px;
-	color: #768591;
-}
+    .formcontrol .inputForm {
+        height: 42px;
+        line-height: 42px;
+        padding: 0;
+        background: transparent;
+        width: 100%;
+        border: none;
+        font-size: 13px;
+        color: #768591;
+    }
 
-.formcontrol select {
-	height: 42px;
-	line-height: 42px;
-	padding: 0px;
-	background: transparent;
-	width: 100%;
-	border: none;
-	font-size: 13px;
-	color: #555;
-	color: #768591;
-}
+    .formcontrol select {
+        height: 42px;
+        line-height: 42px;
+        padding: 0;
+        background: transparent;
+        width: 100%;
+        border: none;
+        font-size: 13px;
+        color: #555;
+        color: #768591;
+    }
 
-.formcontrol select:focus {
-	outline: none;
-}
-
+        .formcontrol select:focus {
+            outline: none;
+        }
 
 .formbtn .btnCrear {
-	width: 183px;
-	height: 36px;
-	border: none;
-	cursor: pointer;
-	color: #FFF;
-	background: url('../../images/comunidad/btn_crear.png') 0px 0px no-repeat;
+    width: 183px;
+    height: 36px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
 }
 
-.formbtn .btnCrear:hover {
-	background: url('../../images/comunidad/btn_crear.png') 0px -36px no-repeat;
-}
+    .formbtn .btnCrear:hover {
+        background: url('../../images/comunidad/btn_crear.png') 0 -36px no-repeat;
+    }
 
 .formbtn2 {
-    float:left;
+    float: left;
 }
 
-.formbtn2 .btnCrear {
-	width: 183px;
-	height: 36px;
-	border: none;
-	cursor: pointer;
-	color: #FFF;
-	background: url('../../images/comunidad/btn_crear.png') 0px 0px no-repeat;
-}
+    .formbtn2 .btnCrear {
+        width: 183px;
+        height: 36px;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
+    }
 
-.formbtn2 .btnCrear:hover {
-	background: url('../../images/comunidad/btn_crear.png') 0px -36px no-repeat;
-}
+        .formbtn2 .btnCrear:hover {
+            background: url('../../images/comunidad/btn_crear.png') 0 -36px no-repeat;
+        }
 
 .formbtn3 {
-    float:left;
-    padding-top:10px;
-    padding-left:20px;
+    float: left;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
-.formbtn3 a {
-	cursor: pointer;
-    color: #993399;
-    font-weight:bold;
-	font-family: 'museo_sans_100regular';
-    
-}
+    .formbtn3 a {
+        cursor: pointer;
+        color: #993399;
+        font-weight: bold;
+        font-family: 'museo_sans_100regular';
+    }
 
 .formbtn4 {
-    padding-top:20px;
+    padding-top: 20px;
 }
 
-.formbtn4 a {
-	cursor: pointer;
-    color: #993399;
-    font-size: 15px;
-	font-family: 'museo_300regular';
-    
-}
-
+    .formbtn4 a {
+        cursor: pointer;
+        color: #993399;
+        font-size: 15px;
+        font-family: 'museo_300regular';
+    }
 
 .name {
-	background: url('../../images/comunidad/name_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/name_ico.png') top left no-repeat #fff;
 }
 
 .user {
-	background: url('../../images/comunidad/user_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/user_ico.png') top left no-repeat #fff;
 }
 
 .mail {
-	background: url('../../images/comunidad/correo_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/correo_ico.png') top left no-repeat #fff;
 }
 
 .pass {
-	background: url('../../images/comunidad/pass_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/pass_ico.png') top left no-repeat #fff;
 }
 
 .pais {
-	background: url('../../images/comunidad/pais_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/pais_ico.png') top left no-repeat #fff;
 }
 
 .formbtn label {
-	display: block;
-	padding-bottom: 8px;
+    display: block;
+    padding-bottom: 8px;
 }
 
-.formbtn label a {
-	text-decoration: none;
-	color: #993399;
-}
+    .formbtn label a {
+        text-decoration: none;
+        color: #993399;
+    }
 
-.formbtn label a:hover {
-	text-decoration: underline;
-}
-
+        .formbtn label a:hover {
+            text-decoration: underline;
+        }
 /* -------------------------------------------------- */
 /*  Main Navigation
-    /* -------------------------------------------------- */
-
+/* -------------------------------------------------- */
 /* Generated by Font Squirrel (http://www.fontsquirrel.com) on August 29, 2012 */
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/museo/museosans_900-webfont.woff') format('woff'),
+        url('../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
+        url('../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -397,7 +384,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/museo/museosans_700-webfont.woff') format('woff'),
+        url('../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -405,7 +395,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -413,7 +406,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/museo/museo300-regular-webfont.woff') format('woff'),
+        url('../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
+        url('../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -421,38 +417,39 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/museo/museosans-100-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
+        url('../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
-
 /************ FONT ********/
-
-
 @font-face {
-	font-family: 'FontCS';
-	src: url('../font/KievitPro-Black.eot?') format('eot'), 
-	     url('../font/KievitPro-Black.otf')  format('opentype'),
-	     url('../font/KievitPro-Black.woff') format('woff'), 
-	     url('../font/KievitPro-Black.ttf')  format('truetype'),
-	     url('../font/KievitPro-Black.svg#KievitPro-Black') format('svg');
+    font-family: 'FontCS';
+    src: url('../font/KievitPro-Black.eot?') format('eot'),
+        url('../font/KievitPro-Black.otf') format('opentype'),
+        url('../font/KievitPro-Black.woff') format('woff'),
+        url('../font/KievitPro-Black.ttf') format('truetype'),
+        url('../font/KievitPro-Black.svg#KievitPro-Black') format('svg');
 }
 
-
 @font-face {
-	font-family: 'FontCS_light';
-	src: url('../font/KievitPro-Book.eot?') format('eot'), 
-	     url('../font/KievitPro-Book.otf')  format('opentype'),
-	     url('../font/KievitPro-Book.woff') format('woff'), 
-	     url('../font/KievitPro-Book.ttf')  format('truetype'),
-	     url('../font/KievitPro-Book.svg#KievitPro-Book') format('svg');
+    font-family: 'FontCS_light';
+    src: url('../font/KievitPro-Book.eot?') format('eot'),
+        url('../font/KievitPro-Book.otf') format('opentype'),
+        url('../font/KievitPro-Book.woff') format('woff'),
+        url('../font/KievitPro-Book.ttf') format('truetype'),
+        url('../font/KievitPro-Book.svg#KievitPro-Book') format('svg');
 }
 
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -460,7 +457,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -468,7 +468,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -476,7 +479,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'),
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -484,7 +490,10 @@ h6, .h6 {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -497,30 +506,29 @@ h6, .h6 {
     background: #FFFFFF !important;
     border: 3px solid #F3F3F3;
     color: #555 !important;
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 10px; /* CSS3 */
-    behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
-    /*position:relative;*/
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFFFFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {
     float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
+    margin: .1em 16px .2em 0;
     color: #702789 !important;
 }
 
 #loadingScreen {
-    background: url(../../Images/Loading.gif) no-repeat 5px 8px;
+    background: url('../../Images/Loading.gif') no-repeat 5px 8px;
     padding-left: 25px;
 }
-/* hide the close x on the loading screen */
+
 .loadingScreenWindow .ui-dialog-titlebar-close {
     display: none;
 }
@@ -535,60 +543,60 @@ h6, .h6 {
 }
 
 .webFormMessage {
-    width:100%;
+    width: 100%;
     font-weight: bold;
-	font-size: 32px;
-	line-height: 40px;
-	color: #993399;
-	font-family: 'museo_sans_500regular';
-    text-align:center;
-    padding-top:30px;
+    font-size: 32px;
+    line-height: 40px;
+    color: #993399;
+    font-family: 'museo_sans_500regular';
+    text-align: center;
+    padding-top: 30px;
 }
 
 .formcontrol_B {
-	display: block;
-	border: 1px solid #425363;
-	height: 42px;
-	padding-left: 42px;
-	margin-bottom: 14px;
+    display: block;
+    border: 1px solid #425363;
+    height: 42px;
+    padding-left: 42px;
+    margin-bottom: 14px;
 }
 
-.formcontrol_B .inputForm_B {
-	height: 42px;
-	line-height: 42px;
-	padding: 0px;
-	background: transparent;
-	width: 100%;
-	border: none;
-	font-size: 13px;
-	color: #425363;
-    font-family: 'museo_300regular';
-}
+    .formcontrol_B .inputForm_B {
+        height: 42px;
+        line-height: 42px;
+        padding: 0;
+        background: transparent;
+        width: 100%;
+        border: none;
+        font-size: 13px;
+        color: #425363;
+        font-family: 'museo_300regular';
+    }
 
 .formcontrol_C {
-	display: block;
-	border: 1px solid #9f9f9f;
-	height: 42px;
-	padding-left: 42px;
-	margin-bottom: 14px;
+    display: block;
+    border: 1px solid #9f9f9f;
+    height: 42px;
+    padding-left: 42px;
+    margin-bottom: 14px;
 }
 
-.formcontrol_C:hover {
-	border: 1px solid #7e267c;
-}
+    .formcontrol_C:hover {
+        border: 1px solid #7e267c;
+    }
 
-.formcontrol_C:focus {
-	border: 1px solid #7e267c;
-}
+    .formcontrol_C:focus {
+        border: 1px solid #7e267c;
+    }
 
-.formcontrol_C .inputForm_C {
-	height: 42px;
-	line-height: 42px;
-	padding: 0px;
-	background: transparent;
-	width: 100%;
-	border: none;
-	font-size: 13px;
-	color: #d8d8d8;
-    font-family: 'museo_300regular';
-}
+    .formcontrol_C .inputForm_C {
+        height: 42px;
+        line-height: 42px;
+        padding: 0;
+        background: transparent;
+        width: 100%;
+        border: none;
+        font-size: 13px;
+        color: #d8d8d8;
+        font-family: 'museo_300regular';
+    }

@@ -39,15 +39,10 @@ namespace Portal.Consultoras.Web
 
                 if (objProComp != null)
                 {
-                    int ProductoCompID = objProComp.PcID;
-                    int ProductoCompCampaniaID = objProComp.PcCampaniaID;
-                    string ProductoCompCUV = objProComp.PcCuv;
                     string ProductoCompPalanca = objProComp.PcPalanca;
                     var ArrayDetalle = objProComp.PcDetalle.Split('|');
-                    string ProductoCompApp = objProComp.PcApp;
 
                     string RutaImagen = "";
-                    //string MarcaID = "";
                     string MarcaDesc = "";
                     string NomProducto = "";
                     string Volumen = "";
@@ -118,8 +113,9 @@ namespace Portal.Consultoras.Web
                     pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Pdto - Page_Load");
                 imgCuvProducto.Visible = false;
                 pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
             }           

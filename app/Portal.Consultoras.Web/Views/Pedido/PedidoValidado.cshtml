@@ -430,8 +430,8 @@
 
         </div>
         <div class="cantidad_listado cantidad_listado_pdd">{{Cantidad}}</div>
-        <div class="unitario_listado"> {{PrecioUnidad}}</div>
-        <div class="total_listado">{{ImporteTotal}}</div>
+        <div class="unitario_listado">@Model.Simbolo {{PrecioUnidad}}</div>
+        <div class="total_listado">@Model.Simbolo {{ImporteTotal}}</div>
         <div class="cliente_listado">{{Nombre}}</div>
 
         {{#if AceptoBackOrder}}

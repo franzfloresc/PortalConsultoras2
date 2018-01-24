@@ -29,7 +29,7 @@ function GetProductoStorage(cuv, campania, nombreKey) {
             model = $("[data-item-cuv=" + cuv + "]").attr("data-estrategia");
         }
         if (model == undefined) return model;
-        
+
         model = JSON.parse(model);
         if (model != null) return model;
         else return null;
@@ -68,7 +68,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
             var listaCuv = cuv.split('|');
             $.each(listaCuv, function (ind, cuvItem) {
                 var cuvx = cuvItem.split(';')[0];
-                var lista =  "ListaRD";
+                var lista = "ListaRD";
                 var indCampania = indCampania || 0;
 
                 ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);

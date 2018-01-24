@@ -27,6 +27,8 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenFondo1 { get; set; }
         public string ColorFondo1 { get; set; }
         public string ImagenBanner { get; set; }
+        public string ImagenBannerSmall { get; set; }
+        public string ImagenBannerMedium { get; set; }
         public string ImagenSoloHoy { get; set; }
         public string ImagenFondo2 { get; set; }
         public string ColorFondo2 { get; set; }

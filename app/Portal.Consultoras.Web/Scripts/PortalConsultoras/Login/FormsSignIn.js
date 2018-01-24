@@ -168,7 +168,7 @@ $(document).ready(function () {
         PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
-        
+
         var mensaje = "";
 
         if (PaisID == "")
@@ -216,17 +216,17 @@ $(document).ready(function () {
 
     $("#txtUsuario2").keypress(
         function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            //ValidarAutenticacion();
-            $('#txtContrasenia2').focus();
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#txtContrasenia2').focus();
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
             var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            return re.test(keyChar);
-        }
+                return re.test(keyChar);
+            }
         });
 
     $("#txtContrasenia").keypress(
@@ -263,7 +263,7 @@ $(document).ready(function () {
 
     }
 
-    $("#btnRecuperarClave").click(function() {
+    $("#btnRecuperarClave").click(function () {
         var paisId = $("#cboPaisCambioClave").val();
         var correo = $("#txtCorreoElectronico").val();
 
@@ -317,8 +317,7 @@ $(document).ready(function () {
     localStorage.setItem('PopUpChatOpened', 'false');
 });
 
-function Inicializar()
-{
+function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
     $("#ddlPais").trigger('change');
 }
@@ -358,7 +357,7 @@ function getVALbyISO(ISO) {
         case "00":
             result = "0";
             break;
-        
+
         case "BO":
             result = "2";
             break;
@@ -374,7 +373,7 @@ function getVALbyISO(ISO) {
         case "CR":
             result = "5";
             break;
-        
+
         case "EC":
             result = "6";
             break;
@@ -390,7 +389,7 @@ function getVALbyISO(ISO) {
         case "MX":
             result = "9";
             break;
-        
+
         case "PA":
             result = "10";
             break;
@@ -406,7 +405,7 @@ function getVALbyISO(ISO) {
         case "DO":
             result = "13";
             break;
-        
+
         case "VE":
             result = "14";
             break;
@@ -418,7 +417,7 @@ function getVALbyISO(ISO) {
         default:
             break;
     }
-    
+
     return result;
 
 }
@@ -584,7 +583,7 @@ function AsignarHojaEstilos() {
             $("link[data-id='cssStyleLbel']").prop('disabled', true);
             Fondofestivo("hddFondoFestivoEsika");
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-            
+
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -772,7 +771,7 @@ function login2() {
                 alert("Error al procesar la solicitud" + errorMessage);
                 saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
             }
-           
+
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
             //preventClick(2, false);
@@ -833,7 +832,7 @@ function saveLog(ISO, usuario, mensaje) {
         async: true,
         success: function (response) {
             if (response.success) {
-                
+
             }
         },
         error: function (response) {
@@ -842,8 +841,7 @@ function saveLog(ISO, usuario, mensaje) {
     });
 }
 /*HD-817*/
-function Fondofestivo(id)
-{
+function Fondofestivo(id) {
     if ($("body").hasClass("fondo_festivo")) {
         var ruta = $("#" + id).val();
         if ($(window).width() <= ancho) {

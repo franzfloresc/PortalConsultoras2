@@ -261,7 +261,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
 function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     CerrarLoad();
-    
+
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     if (divProd.length > 0) {
         divProd.find("#divOfertaProductosLoad").hide();
@@ -333,7 +333,7 @@ function AgregarProductoAlCarrito(padre) {
 function OfertaCargarScroll() {
 
     if (isScroll === false) return false;
-    
+
     var footerH = $(window).scrollTop() + $(window).height()
 
     if (footerH == $(document).height()) {

@@ -3,7 +3,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections;
-using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
 
@@ -13,7 +12,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(string Url)
         {
-            int TipoUsuario = 2;
+            int tipoUsuario = 2;
             //2: Consultora
             //3: Colaborador
             //4: Lider
@@ -21,23 +20,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (UserData().Lider == 1)
             {
-                TipoUsuario = 4;
+                tipoUsuario = 4;
             }
             else
             {
-                int EsColaborador = 0;
+                int esColaborador;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    EsColaborador = sv.GetValidarColaboradorZona(UserData().PaisID, UserData().CodigoZona);
+                    esColaborador = sv.GetValidarColaboradorZona(UserData().PaisID, UserData().CodigoZona);
                 }
 
-                if (EsColaborador == 1)
+                if (esColaborador == 1)
                 {
-                    TipoUsuario = 3;
+                    tipoUsuario = 3;
                 }
             }
 
-            BEUsuarioComunidad usuario = null;
+            BEUsuarioComunidad usuario;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
@@ -46,34 +45,36 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoUsuario = UserData().CodigoUsuario,
                     Tipo = 3,
                     PaisId = UserData().PaisID,
-                    TipoUsuario = TipoUsuario
+                    TipoUsuario = tipoUsuario
                 });
             }
 
-            string Url_Com = string.Empty;
+            string urlCom = string.Empty;
 
             if (usuario != null)
             {
-                string XmlPath = Server.MapPath("~/Key");
-                string KeyPath = Path.Combine(XmlPath, GetConfiguracionManager(Constantes.ConfiguracionManager.AMB_COM) == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                string xmlPath = Server.MapPath("~/Key");
+                string keyPath = Path.Combine(xmlPath, GetConfiguracionManager(Constantes.ConfiguracionManager.AMB_COM) == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                SSOClient.init(KeyPath, GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), GetConfiguracionManager(Constantes.ConfiguracionManager.COM_DOMAIN));
+                SSOClient.init(keyPath, GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), GetConfiguracionManager(Constantes.ConfiguracionManager.COM_DOMAIN));
 
-                Models.UsuarioModel UsuarioSesion = UserData();
+                Models.UsuarioModel usuarioSesion = UserData();
 
-                Hashtable settingsMap = new Hashtable();
-                settingsMap.Add("profile.name_first", UsuarioSesion.PrimerNombre);
-                settingsMap.Add("profile.name_last", UsuarioSesion.PrimerApellido);
-                settingsMap.Add("profile.codigo_consultora", UsuarioSesion.CodigoConsultora);
-                settingsMap.Add("profile.pais", UsuarioSesion.CodigoISO);
-                settingsMap.Add("profile.zona", UsuarioSesion.CodigoZona);
-                settingsMap.Add("profile.region", UsuarioSesion.CodigorRegion);
-                settingsMap.Add("profile.seccion", string.Empty);
-                settingsMap.Add("profile.lider", UsuarioSesion.Lider.ToString());
-                settingsMap.Add("profile.seccion_lider", UsuarioSesion.SeccionGestionLider);
-                settingsMap.Add("profile.gz", string.Empty);
-                settingsMap.Add("profile.ubigeo", string.Empty);
-                settingsMap.Add("profile.campania_actual", UsuarioSesion.CampaniaID.ToString());
+                Hashtable settingsMap = new Hashtable
+                {
+                    {"profile.name_first", usuarioSesion.PrimerNombre},
+                    {"profile.name_last", usuarioSesion.PrimerApellido},
+                    {"profile.codigo_consultora", usuarioSesion.CodigoConsultora},
+                    {"profile.pais", usuarioSesion.CodigoISO},
+                    {"profile.zona", usuarioSesion.CodigoZona},
+                    {"profile.region", usuarioSesion.CodigorRegion},
+                    {"profile.seccion", string.Empty},
+                    {"profile.lider", usuarioSesion.Lider.ToString()},
+                    {"profile.seccion_lider", usuarioSesion.SeccionGestionLider},
+                    {"profile.gz", string.Empty},
+                    {"profile.ubigeo", string.Empty},
+                    {"profile.campania_actual", usuarioSesion.CampaniaID.ToString()}
+                };
 
                 if (!string.IsNullOrEmpty(usuario.Rol))
                 {
@@ -91,12 +92,12 @@ namespace Portal.Consultoras.Web.Controllers
                 SSOClient.writeLithiumCookie(usuario.UsuarioId.ToString(), usuario.CodigoUsuario, usuario.Correo, settingsMap, System.Web.HttpContext.Current.Request, System.Web.HttpContext.Current.Response);
 
                 if (string.IsNullOrEmpty(Url))
-                    Url_Com = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM);
+                    urlCom = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM);
                 else
-                    Url_Com = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM) + '/' + Url;
+                    urlCom = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM) + '/' + Url;
             }
 
-            return Redirect(string.IsNullOrEmpty(Url_Com) ? HttpContext.Request.UrlReferrer.AbsoluteUri : Url_Com);
+            return Redirect(string.IsNullOrEmpty(urlCom) ? HttpContext.Request.UrlReferrer.AbsoluteUri : urlCom);
         }
 
     }
