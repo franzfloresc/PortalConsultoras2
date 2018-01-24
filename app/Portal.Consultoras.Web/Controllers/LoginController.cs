@@ -1119,10 +1119,11 @@ namespace Portal.Consultoras.Web.Controllers
                                                 .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                 .ToList());
                                             break;
+                                        case Constantes.ConfiguracionPais.OfertaFinalCrossSellingGanaMas:
+                                            if (c.Estado)
+                                                usuarioModel.OfertaFinalGanaMas = 1;
+                                            break;
                                     }
-
-                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
-                                        usuarioModel.OfertaFinalGanaMas = 1;
                                 }
 
                                 revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;

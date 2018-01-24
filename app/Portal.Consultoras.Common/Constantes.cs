@@ -1060,6 +1060,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string OfertaFinalCrossSellingGanaMas = "OFCGM";
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
