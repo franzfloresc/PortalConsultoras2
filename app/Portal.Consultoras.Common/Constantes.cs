@@ -163,6 +163,8 @@ namespace Portal.Consultoras.Common
             public const int PorcentajeGastosAdministrativos = 12206;
             public const int UrlLibreriaPagoVisa = 12207;
             public const int UrlAutorizacionBotonPago = 12208;
+            public const int UrlLogoPasarelaPago = 12209;
+            public const int ColorBotonPagarPasarelaPago = 12210;
         }
 
         public static class ParametrosNames

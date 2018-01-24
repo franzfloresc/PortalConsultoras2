@@ -76,7 +76,7 @@
         <!-- FIN - VISTA CONFIRMACIÓN PAGO -->
 
         <div style="text-align: center; padding: 10px;">
-            <form id="formBoton" action="@Url.Action("ProcesarPagoVisa","PagoEnLinea")" method="post">
+            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"
                         data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
@@ -142,13 +142,10 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            var monto = '@Model.MontoDeudaConGastosString';
+        $(document).ready(function () {            
             var boton = $("button[type='submit']")[0];
-            $(boton).css("background", "red");
-            $(boton).html("PAGAR (" + monto + ") <div style='display:inline-block; width:44px; height:35px;'><img src='https://icon-icons.com/icons2/1186/PNG/512/1490135017-visa_82256.png' alt='' style='width:100%; height:auto;'/></div>");
+            $(boton).css("background", "#e81c36");
+            $(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='https://icon-icons.com/icons2/1186/PNG/512/1490135017-visa_82256.png' alt='' style='width:100%; height:auto;'/></div>");
         });
     </script>
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>*@
-
 }

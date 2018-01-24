@@ -14,9 +14,9 @@ $(document).ready(function () {
         me.globals = {
             barraActivacion : $('.barra_activacion')
         },
+
         me.Funciones = {
-            InicializarEventos: function () {
-                //$(document).on('click', '.barra_activacion_edicion_monto_a_pagar', me.Eventos.AceptarTerminosYCondiciones);
+            InicializarEventos: function () {                
                 $(document).on('click', '.opcion_pago', me.Eventos.SeleccionarTipoPago);
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
@@ -54,11 +54,9 @@ $(document).ready(function () {
                 if (me.globals.barraActivacion.is('.activado')) {
                     me.globals.barraActivacion.attr('data-estado', 1);
                     $('.tooltip_terminos_y_condiciones').fadeOut();
-                    $("#divTooltipTerminosCondiciones").hide();
-                    //console.log('Has aceptado los términos y condiciones');
+                    $("#divTooltipTerminosCondiciones").hide();                    
                 } else {
-                    me.globals.barraActivacion.attr('data-estado', 0);
-                    //console.log('No has aceptado los términos y condiciones');
+                    me.globals.barraActivacion.attr('data-estado', 0);                    
                 }
             },
             AbrirPopupTerminosYCondiciones: function (e) {
@@ -75,8 +73,7 @@ $(document).ready(function () {
                 var montoParcial = $(this).val();
                 var porcentaje = parseFloat($("#spnPorcentajeGastosAdministrativos").html());
 
-                var montoGastos = montoParcial * (porcentaje / 100);
-                var montoParcialConGastos = montoParcial * (1 + porcentaje / 100);
+                var montoGastos = montoParcial * (porcentaje / 100);                
 
                 $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))
             },
@@ -102,6 +99,11 @@ $(document).ready(function () {
                 }else{
                     montoDeuda = $.trim($("#txtMontoParcial").val());
                 }
+
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda) <= 0) {
+                    AbrirMensaje("El monto a pagar debe ser mayor a cero");
+                    return false;
+                }                    
 
                 var parametros = {
                     MontoDeuda: montoDeuda,

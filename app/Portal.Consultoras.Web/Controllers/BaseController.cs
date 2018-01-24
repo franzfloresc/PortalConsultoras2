@@ -30,6 +30,8 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Portal.Consultoras.Common.MagickNet;
 using System.IO;
+using Portal.Consultoras.Common.PagoEnLinea;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -4351,6 +4353,199 @@ namespace Portal.Consultoras.Web.Controllers
             model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
 
             return model;
+        }
+
+        public PagoVisaModel ObtenerValoresPagoVisa(PagoEnLineaModel model)
+        {
+            var pagoVisaModel = new PagoVisaModel();
+
+            #region Valores Configuracion Pago En Linea
+
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+
+            pagoVisaModel.MerchantId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
+            pagoVisaModel.AccessKeyId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
+            pagoVisaModel.SecretAccessKey = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
+            pagoVisaModel.UrlSessionBotonPagos = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
+            pagoVisaModel.UrlGenerarNumeroPedido = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
+            pagoVisaModel.UrlLibreriaPagoVisa = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
+            pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
+
+            #endregion
+
+            pagoVisaModel.Amount = model.MontoDeudaConGastos;
+
+            #region Generar Sesión para el boton de pagos
+
+            string urlCreateSessionTokenAPI = pagoVisaModel.UrlSessionBotonPagos + pagoVisaModel.MerchantId;
+
+            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(pagoVisaModel.AccessKeyId + ":" + pagoVisaModel.SecretAccessKey));
+
+            DataToken datatoken = new DataToken();
+            datatoken.amount = Convert.ToDouble(pagoVisaModel.Amount.ToString());
+
+            string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
+
+            HttpWebRequest requestSesion;
+            requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
+            requestSesion.Method = "POST";
+            requestSesion.ContentType = "application/json";
+            requestSesion.Headers.Add("Authorization", "Basic " + credentials);
+            requestSesion.Headers.Add("VisaNet-Session-Key", pagoVisaModel.SessionToken);
+
+            StreamWriter postStreamWriterSesion = new StreamWriter(requestSesion.GetRequestStream());
+            postStreamWriterSesion.Write(json);
+            postStreamWriterSesion.Close();
+
+            HttpWebResponse responseSesion;
+            responseSesion = requestSesion.GetResponse() as HttpWebResponse;
+            StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
+            //string respuestaSesion = postStreamReaderSesion.ReadToEnd();
+            postStreamReaderSesion.ReadToEnd();
+            postStreamReaderSesion.Close();
+
+            #endregion
+
+            #region Generar Número de Pedido
+
+            string urlNextCounterAPI = pagoVisaModel.UrlGenerarNumeroPedido + pagoVisaModel.MerchantId + "/nextCounter";
+            HttpWebRequest requestNumPedido;
+            requestNumPedido = WebRequest.Create(urlNextCounterAPI) as HttpWebRequest;
+            requestNumPedido.Method = "GET";
+            requestNumPedido.ContentType = "application/json";
+            requestNumPedido.Headers.Add("Authorization", "Basic " + credentials);
+
+            HttpWebResponse responseNumPedido;
+            responseNumPedido = requestNumPedido.GetResponse() as HttpWebResponse;
+            StreamReader postStreamReaderNumPedido = new StreamReader(responseNumPedido.GetResponseStream());
+
+            pagoVisaModel.PurchaseNumber = postStreamReaderNumPedido.ReadToEnd();
+            postStreamReaderNumPedido.Close();
+
+            #endregion
+
+            #region Variables para el formulario de pago visa
+
+            //buttonSize = "";
+            //buttonColor = "";
+            //merchantName = "";
+            //showAmount = "";
+            //cardholderName = "";
+            //cardholderlastName = "";
+            //cardholderEmail = "";
+            //userToken = "";
+
+            pagoVisaModel.MerchantLogo = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
+            pagoVisaModel.FormButtonColor = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
+            pagoVisaModel.Recurrence = "FALSE";
+            pagoVisaModel.RecurrenceFrequency = "";
+            pagoVisaModel.RecurrenceType = "";
+            pagoVisaModel.RecurrenceAmount = "0.00";
+
+            #endregion            
+
+            return pagoVisaModel;            
+        }
+
+        public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
+        {
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+            string urlAutorizacionBotonPago = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlAutorizacionBotonPago);
+
+            string urlAuthorize = urlAutorizacionBotonPago + merchantId;
+            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
+
+            Data data = new Data();
+            //data.numreferencia = "12345678901234567890";
+            //data.codasociado = "12345";
+            //data.nombreasociado = "prueba";
+            //data.mcc = "3030";
+
+            DataRequestAut dataAutorizacionRQ = new DataRequestAut();
+            dataAutorizacionRQ.transactionToken = transactionToken;
+            dataAutorizacionRQ.sessionToken = sessionToken;
+            dataAutorizacionRQ.data = data;
+
+            string json = JsonHelper.JsonSerializer<DataRequestAut>(dataAutorizacionRQ);
+
+            HttpWebRequest requestAutorizacion;
+            requestAutorizacion = WebRequest.Create(urlAuthorize) as HttpWebRequest;
+            requestAutorizacion.Method = "POST";
+            requestAutorizacion.ContentType = "application/json";
+            requestAutorizacion.Headers.Add("Authorization", "Basic " + credentials);
+            StreamWriter postStreamWriterAutorizacion = new StreamWriter(requestAutorizacion.GetRequestStream());
+            postStreamWriterAutorizacion.Write(json);
+            postStreamWriterAutorizacion.Close();
+
+            HttpWebResponse responseAutorizacion;
+            StreamReader postStreamReaderAutorizacion;
+            string respuestaAutorizacion;
+            try
+            {
+                responseAutorizacion = requestAutorizacion.GetResponse() as HttpWebResponse;
+                postStreamReaderAutorizacion = new StreamReader(responseAutorizacion.GetResponseStream());
+                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+                postStreamReaderAutorizacion.Close();
+            }
+            catch (WebException ex)
+            {
+                postStreamReaderAutorizacion = new StreamReader(ex.Response.GetResponseStream(), true);
+                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+                postStreamReaderAutorizacion.Close();
+            }
+
+            //Response.Clear();
+            //Response.ContentType = "application/json; charset=utf-8";
+            //Response.Write(respuestaAutorizacion);
+            //Response.End();
+
+            return respuestaAutorizacion;
+        }
+
+        public BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(RespuestaAutorizacionVisa respuestaVisa)
+        {
+            BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+            bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
+            bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
+            bePagoEnLinea.CampaniaId = userData.CampaniaID;
+            bePagoEnLinea.TipoTarjeta = "VISA";
+            bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
+            bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
+            bePagoEnLinea.IdGuidTransaccion = respuestaVisa.transactionUUID ?? "";
+            bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.externalTransactionId ?? "";
+            bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
+            bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
+            bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
+            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(respuestaVisa.data.FECHAYHORA_TX);
+            bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
+            bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
+            bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
+            bePagoEnLinea.Etiqueta = respuestaVisa.data.ETICKET ?? "";
+            bePagoEnLinea.RespuestaSistemAntifraude = respuestaVisa.data.DECISIONCS ?? "";
+            bePagoEnLinea.CsiPorcentajeDescuento = Convert.ToDecimal(respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "0");
+            bePagoEnLinea.NumeroCuota = respuestaVisa.data.NROCUOTA ?? "";
+            bePagoEnLinea.TokenTarjetaGuardada = respuestaVisa.data.cardTokenUUID ?? "";
+            bePagoEnLinea.CsiImporteComercio = Convert.ToDecimal(respuestaVisa.data.CSIIMPORTECOMERCIO ?? "0");
+            bePagoEnLinea.CsiCodigoPrograma = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
+            bePagoEnLinea.DescripcionIndicadorComercioElectronico = respuestaVisa.data.DSC_ECI ?? "";
+            bePagoEnLinea.IndicadorComercioElectronico = respuestaVisa.data.ECI ?? "";
+            bePagoEnLinea.DescripcionCodigoAccion = respuestaVisa.data.DSC_COD_ACCION ?? "";
+            bePagoEnLinea.NombreBancoEmisor = respuestaVisa.data.NOM_EMISOR ?? "";
+            bePagoEnLinea.ImporteCuota = Convert.ToDecimal(respuestaVisa.data.IMPCUOTAAPROX ?? "0");
+            bePagoEnLinea.CsiTipoCobro = respuestaVisa.data.CSITIPOCOBRO ?? "";
+            bePagoEnLinea.NumeroReferencia = respuestaVisa.data.NUMREFERENCIA ?? "";
+            bePagoEnLinea.Respuesta = respuestaVisa.data.RESPUESTA ?? "";
+            bePagoEnLinea.NumeroOrdenTienda = respuestaVisa.data.NUMORDEN ?? "";
+            bePagoEnLinea.CodigoAccion = respuestaVisa.data.CODACCION ?? "";
+            bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
+            bePagoEnLinea.CodigoAutorizacion = respuestaVisa.data.COD_AUTORIZA ?? "";
+            bePagoEnLinea.CodigoTienda = respuestaVisa.data.CODTIENDA ?? "";
+            bePagoEnLinea.NumeroTarjeta = respuestaVisa.data.PAN ?? "";
+            bePagoEnLinea.OrigenTarjeta = respuestaVisa.data.ORI_TARJETA ?? "";
+            bePagoEnLinea.UsuarioCreacion = userData.CodigoUsuario;
+
+            return bePagoEnLinea;
         }
 
         #endregion
