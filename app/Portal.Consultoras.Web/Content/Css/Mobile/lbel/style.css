@@ -4787,9 +4787,9 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     font-weight:bold;
-    /*background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
+    background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
     background-position:28% 10px;
-    padding-left:10%;*/
+    padding-left:10%;
 }
 
     .btn_paga_online_mobile:hover {
@@ -4807,7 +4807,7 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea,
 .logo_visa{
-    margin-right:12px;
+    margin-left:12px;
 }
 
 .texto_btn_pago_en_linea{

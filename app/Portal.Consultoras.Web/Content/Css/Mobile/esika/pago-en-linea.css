@@ -241,18 +241,21 @@
 .campo_seleccion_monto_a_pagar{    
     /*display:none;*/
     margin-bottom:29px;
-    opacity:0.45;
 }
 
 .metodo_pago_seleccionado{
     position:relative;
+    border:1px solid #D2D2D2;
 }
 
 .metodo_pago_seleccionado,
 .opcion_metodo_pago
 {
-    border:1px solid #000;
     padding:10px 10px 9px;
+}
+
+.opcion_metodo_pago{
+    border:1px solid #000;
 }
 
 .metodo_pago_seleccionado:before{
@@ -263,6 +266,7 @@
     position: absolute;
     top: 13px;
     right: 11px;
+    color: #D2D2D2;
 }
 
 .desplegar_lista_metodos_pago:before{
@@ -276,8 +280,8 @@
 
 .icono_marca_tarjeta{
     margin-right:14px;
-    filter:grayscale(100%);
-    -webkit-filter: grayscale(100%);
+    /*filter:grayscale(100%);
+    -webkit-filter: grayscale(100%);*/
 }
 
 .marca_tarjeta{
