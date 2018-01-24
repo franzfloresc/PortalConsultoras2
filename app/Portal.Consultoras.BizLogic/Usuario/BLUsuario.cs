@@ -21,17 +21,23 @@ namespace Portal.Consultoras.BizLogic
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
+        private readonly IConfiguracionPaisBusinessLogic _configuracionPaisBusinessLogic;
 
-        public BLUsuario() : this(new BLTablaLogicaDatos(), new BLConsultoraConcurso(), new BLRevistaDigitalSuscripcion())
+        public BLUsuario() : this(new BLTablaLogicaDatos(), 
+                                    new BLConsultoraConcurso(), 
+                                    new BLRevistaDigitalSuscripcion(), 
+                                    new BLConfiguracionPais())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, 
                         IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
-                        IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic)
+                        IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic,
+                        IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
+            _configuracionPaisBusinessLogic = configuracionPaisBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -631,26 +637,38 @@ namespace Portal.Consultoras.BizLogic
 
         private short GetRevistaDigitalSuscripcion(BEUsuario usuario)
         {
-            short resultado = Constantes.GanaMas.PaisSinGanaMas;
+            short resultado = Constantes.GanaMas.PaisSinGND;
 
-            if (WebConfig.PaisesGanaMas.Contains(usuario.CodigoISO))
+            var configPais = new BEConfiguracionPais()
+            {
+                Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada,
+                Detalle = new BEConfiguracionPaisDetalle() { PaisID = usuario.PaisID }
+            };
+
+            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais);
+
+            if (lstCnfigPais.Any())
             {
                 var oRequest = new BERevistaDigitalSuscripcion()
                 {
                     CodigoConsultora = usuario.CodigoConsultora,
-                    CampaniaID = usuario.CampaniaID,
                     PaisID = usuario.PaisID
                 };
 
-                var oResponse = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(oRequest);
+                var oResponse = _revistaDigitalSuscripcionBusinessLogic.GetLast(oRequest);
 
                 if (oResponse.RevistaDigitalSuscripcionID > 0)
                 {
-                    if (oResponse.FechaDesuscripcion == DateTime.MinValue) resultado = Constantes.GanaMas.PaisConGanaMasSuscrita;
-                    else if (oResponse.FechaSuscripcion == DateTime.MinValue) resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
-                    else if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion) resultado = Constantes.GanaMas.PaisConGanaMasSuscrita;
-                    else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion) resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
-                    else resultado = Constantes.GanaMas.PaisConGanaMasNoSuscrita;
+                    if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion)
+                    {
+                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_SuscritaActiva;
+                        else resultado = Constantes.GanaMas.PaisConGND_SuscritaNoActiva;
+                    }
+                    else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
+                    {
+                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
+                        else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                    }
                 }
             }
 

@@ -1650,9 +1650,11 @@ namespace Portal.Consultoras.Common
 
         public class GanaMas
         {
-            public const short PaisSinGanaMas = 1;
-            public const short PaisConGanaMasNoSuscrita = 2;
-            public const short PaisConGanaMasSuscrita = 3;
+            public const short PaisSinGND = 1;
+            public const short PaisConGND_SuscritaActiva = 2;
+            public const short PaisConGND_SuscritaNoActiva = 3;
+            public const short PaisConGND_NoSuscritaActiva = 4;
+            public const short PaisConGND_NoSuscritaNoActiva = 5;
         }
     }
 }

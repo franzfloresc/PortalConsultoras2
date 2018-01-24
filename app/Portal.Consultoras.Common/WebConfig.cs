@@ -24,13 +24,6 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? string.Empty;
             }
         }
-        public static string PaisesGanaMas
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["PaisesGanaMas"] ?? string.Empty;
-            }
-        }
         #endregion
     }
 }
