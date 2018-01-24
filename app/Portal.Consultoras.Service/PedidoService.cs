@@ -1877,6 +1877,11 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
         }
 
+        public bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().DeleteEstrategiaProducto(entidad);
+        }
+
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);

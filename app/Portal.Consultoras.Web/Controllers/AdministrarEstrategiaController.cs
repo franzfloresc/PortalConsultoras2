@@ -276,7 +276,6 @@ namespace Portal.Consultoras.Web.Controllers
                                        a.EsOfertaIndependiente.ToString(),
                                        a.FlagValidarImagen.ToString(),
                                        a.PesoMaximoImagen.ToString()
-
                                     }
                                }
                     };
@@ -639,13 +638,13 @@ namespace Portal.Consultoras.Web.Controllers
                     Cantidad = producto.cantidad,
                     Precio = producto.precio_unitario,
                     PrecioValorizado = producto.precio_valorizado,
-                    Digitable = producto.digitable,
+                    Digitable = Convert.ToInt16(producto.digitable),
                     CodigoEstrategia = producto.codigo_estrategia,
                     CodigoError = producto.codigo_error,
                     CodigoErrorObs = producto.obs_error,
                     FactorCuadre = producto.factor_cuadre,
                     NombreProducto = producto.descripcion,
-                    MarcaId = producto.idmarca
+                    IdMarca = producto.idmarca
                 };
 
                 using (var sv = new PedidoServiceClient())

@@ -20,6 +20,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CUV { get; set; }
         [DataMember]
+        public string CodigoEstrategia { get; set; }
+        [DataMember]
         public string Grupo { get; set; }
         [DataMember]
         public int Orden { get; set; }
@@ -34,9 +36,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioValorizado { get; set; }
         [DataMember]
-        public int Digitable { get; set; }
-        [DataMember]
-        public string CodigoEstrategia { get; set; }
+        public Int16 Digitable { get; set; }
         [DataMember]
         public string CodigoError { get; set; }
         [DataMember]
@@ -51,7 +51,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImagenProducto { get; set; }
         [DataMember]
-        public int MarcaId { get; set; }
+        public int IdMarca { get; set; }
+        [DataMember]
+        public string NombreMarca { get; set; }
+
+        [DataMember]
+        public string UsuarioCreacion { get; set; }
+        [DataMember]
+        public DateTime FechaCreacion { get; set; }
+        [DataMember]
+        public string UsuarioModificacion { get; set; }
+        [DataMember]
+        public DateTime FechaModificacion { get; set; }
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -66,7 +77,7 @@ namespace Portal.Consultoras.Entities
             Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
             Precio = DataRecord.GetColumn<decimal>(row, "Precio");
             PrecioValorizado = DataRecord.GetColumn<decimal>(row, "PrecioValorizado");
-            Digitable = DataRecord.GetColumn<int>(row, "Digitable");
+            Digitable = DataRecord.GetColumn<Int16>(row, "Digitable");
             CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
@@ -75,7 +86,8 @@ namespace Portal.Consultoras.Entities
             NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
             Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
             ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
-            MarcaId = DataRecord.GetColumn<int>(row, "MarcaId");
+            IdMarca = DataRecord.GetColumn<int>(row, "IdMarca");
+            NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
     }
 }

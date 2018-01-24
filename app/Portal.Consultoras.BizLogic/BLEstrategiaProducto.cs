@@ -33,5 +33,13 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
+
+        public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            var DA = new DAEstrategiaProducto(entidad.PaisID);
+
+            var result = DA.DeleteEstrategiaProducto(entidad);
+            return result;
+        }
     }
 }
