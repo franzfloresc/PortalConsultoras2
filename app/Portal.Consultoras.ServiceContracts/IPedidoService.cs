@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -628,6 +629,9 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
+        int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
@@ -1221,6 +1225,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
 
         #endregion
+
 
     }
 }

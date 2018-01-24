@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Data
 {
@@ -333,7 +334,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF_SB2");
@@ -454,7 +455,7 @@ namespace Portal.Consultoras.Data
             }).ToList();
 
             var command =
-                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") {CommandType = CommandType.StoredProcedure};
+                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") { CommandType = CommandType.StoredProcedure };
 
             var parameter =
                 new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
@@ -463,13 +464,13 @@ namespace Portal.Consultoras.Data
                     Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
                 };
 
-            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) {Value = estrategiaId};
+            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) { Value = estrategiaId };
 
             command.Parameters.Add(parameter);
             command.Parameters.Add(parameter2);
             return Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
@@ -593,10 +594,11 @@ namespace Portal.Consultoras.Data
             var command =
                 new SqlCommand("dbo.ActualizarDescripcionEstrategia") { CommandType = CommandType.StoredProcedure };
 
-            command.Parameters.Add(new SqlParameter("@DescripcionEstrategia", SqlDbType.Structured) {
-                    TypeName = "dbo.DescripcionEstrategiaType",
-                    Value = new GenericDataReader<BEDescripcionEstrategia>(listaDescripcionEstrategias)
-                });
+            command.Parameters.Add(new SqlParameter("@DescripcionEstrategia", SqlDbType.Structured)
+            {
+                TypeName = "dbo.DescripcionEstrategiaType",
+                Value = new GenericDataReader<BEDescripcionEstrategia>(listaDescripcionEstrategias)
+            });
             command.Parameters.Add(new SqlParameter("@CampaniaId", SqlDbType.Int) { Value = campaniaId });
             command.Parameters.Add(new SqlParameter("@TipoEstrategiaId", SqlDbType.Int) { Value = tipoEstrategiaId });
             return Context.ExecuteReader(command);
@@ -634,5 +636,22 @@ namespace Portal.Consultoras.Data
 
         #endregion
 
+
+        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            int result = 0;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML);
+                Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entidad.UsuarioCreacion);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+            }
+            return result;
+        }
     }
 }

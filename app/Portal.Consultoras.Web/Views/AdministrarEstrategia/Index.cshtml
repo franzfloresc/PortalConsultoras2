@@ -343,10 +343,9 @@
                     - Descripción<br />
                 </span>
                 <span id="seccionFormatoArchivoShowroon">
-                    - Nombre de Set<br />
                     - Precio Normal<br />
                     - Unidades Permitidas<br />
-                    - Tipo de Negocio<br />
+                    - Nombre de Set<br />
                     - Es Subcampaña<br />
                 </span>
             </div>
@@ -1169,7 +1168,12 @@
         $("#btnAceptarDescMasivo1").click(function () {
             $("#divDescMasivoPaso1").show();
             $("#divDescMasivoPaso2").hide();
-            UploadFileCvs();
+            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == codigoShowRoom) {
+                UploadFileStrategyShowroom();
+            }else{
+                UploadFileCvs();
+            }
+
         });
 
         $("#btnAceptarMasivo1").click(function () {
@@ -3439,6 +3443,68 @@
         $("#seccionTallaColor").show();
         $("#seccionMensajeAdicional").show();
         $("#seccionOfertaUltimoMinuto").show();
+    }
+
+     function UploadFileStrategyShowroom() {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fileDescMasivo").files.length;
+        if (totalFiles <= 0) {
+            _toastHelper.error("Seleccione al menos un archivo.");
+            return false;
+        }
+
+        formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
+        formData.append("Pais", $('#ddlPais').val());
+        formData.append("CampaniaId", $('#ddlCampania').val());
+        formData.append("TipoEstrategia", $('#ddlTipoEstrategia').val());
+
+        $.ajax({
+            url: '@Url.Action("UploadFileStrategyShowroom", "AdministrarEstrategia")',
+            type: "POST",
+            dataType: "JSON",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#listCargaDescMasiva").jqGrid("GridUnload");
+                var gridJson = { page: 1, total: 2, records: 10, rows: [
+                    { Descripcion: "CUVs Actualizados", Cantidad: data.listActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"},
+                    { Descripcion: "CUVs no Actualizados", Cantidad: data.listNoActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"}]
+                };
+
+                $("#listCargaDescMasiva").empty().jqGrid({
+                    datatype: 'jsonstring',
+                    datastr: gridJson,
+                    colNames: ['Descripcion', 'Cantidad'],
+                    colModel: [{ name: 'Descripcion', index: 'Descripcion', sortable: false},
+                        {
+                            name: 'Cantidad', index: 'Cantidad', width: 30, sortable: false
+                        }],
+                    pager: false,
+                    jsonReader: {
+                        repeatitems: false
+                    },
+                    width: 540,
+                    height: "auto",
+                    scrollOffset: 20,
+                    rowNum: 10,
+                    rowList: [10, 15, 20, 25],
+                    sortname: 'Label',
+                    sortorder: "asc",
+                    viewrecords: true,
+                    hoverrows: false,
+                    caption: "",
+                });
+                createGridUpdated(data.listActualizado);
+                createGridNotUpdated(data.listNoActualizado);
+                $("#divDescMasivoPaso1").fadeOut(function() {
+                    $("#divDescMasivoPaso2").fadeIn();
+                });
+            },
+            error: function(data){
+                _toastHelper.error(data.statusText);
+            }
+        });
     }
     // SHOWROOM-FIN
 

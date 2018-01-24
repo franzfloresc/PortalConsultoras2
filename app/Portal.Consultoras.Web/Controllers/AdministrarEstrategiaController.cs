@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -55,9 +56,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -108,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-           
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -125,7 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                              where a.FlagActivo == 1
                              && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
                              select a);
-                
+
                 return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
 
@@ -453,7 +454,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var inputStream = Request.InputStream;
                 var fileBytes = ReadFully(inputStream);
-                var ffFileName = qqfile; 
+                var ffFileName = qqfile;
                 var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
                 if (!System.IO.File.Exists(Globals.RutaTemporales))
@@ -657,7 +658,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
-        {           
+        {
             try
             {
                 string mensajeErrorImagenResize = "";
@@ -770,7 +771,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }        
+        }
 
         private void UpdateCacheListaOfertaFinal(string campania)
         {
@@ -1003,7 +1004,7 @@ namespace Portal.Consultoras.Web.Controllers
                     resultado = sv.ActivarDesactivarEstrategias(userData.PaisID, userData.CodigoUsuario, EstrategiasActivas, EstrategiasDesactivas);
                 }
 
-                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && 
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(EstrategiasDesactivas))
                     UpdateCacheListaOfertaFinal(campaniaID);
 
@@ -1034,7 +1035,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
-        }        
+        }
 
         [HttpPost]
         public JsonResult InsertEstrategiaPortal(PedidoDetalleModel model)
@@ -1082,7 +1083,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (var sv = new PedidoServiceClient())
                 {
@@ -2077,11 +2078,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                
+
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
                 if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
-                if (model.Documento.ContentLength > 4*1024*1024 ) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
-                
+                if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
+
                 var fileContent = new List<BEDescripcionEstrategia>();
                 var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
 
@@ -2089,35 +2090,18 @@ namespace Portal.Consultoras.Web.Controllers
                 if (readLine != null)
                 {
                     var arraySplitHeader = readLine.Split(',');
-
-
-                    if (model.TipoEstrategia == "3028")
+                    if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
+                    !arraySplitHeader[1].ToLower().Equals("descripcion"))
                     {
-                        if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
-                            !arraySplitHeader[1].ToLower().Equals("Nombre de Set") ||
-                            !arraySplitHeader[2].ToLower().Equals("Precio Normal") ||
-                            !arraySplitHeader[3].ToLower().Equals("Unidades Permitidas") ||
-                            !arraySplitHeader[4].ToLower().Equals("Tipo de Negocio") ||
-                            !arraySplitHeader[5].ToLower().Equals("Es SubCampania"))
-                        {
-                            throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
-                        }
-                    }
-                    else
-                    {
-                        if (!arraySplitHeader[0].ToLower().Equals("cuv") ||
-                        !arraySplitHeader[1].ToLower().Equals("descripcion"))
-                        {
-                            throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
-                        }
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
                     }
                 }
-                
+
                 do
                 {
                     readLine = sd.ReadLine();
                     if (readLine == null) continue;
-                    
+
                     var arraySplit = readLine.Split(',');
                     if (arraySplit[0] != "")
                     {
@@ -2167,7 +2151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvNoExistentes = "";
 
                 foreach (var estrategia in listaEstrategias)
-                {                    
+                {
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.RutaImagen);
                     var mensajeError = "";
                     var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
@@ -2187,7 +2171,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
                 }
-                if(cuvNoExistentes != "")
+                if (cuvNoExistentes != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
                 }
@@ -2208,7 +2192,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
-            }            
+            }
         }
 
         public string GuardarImagenMiniAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
@@ -2236,5 +2220,153 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+   
+        [HttpPost]
+        public ActionResult UploadFileStrategyShowroom(DescripcionMasivoModel model)
+        {
+            try
+            {
+                List<BEEstrategia> strategyEntityList = new List<BEEstrategia>();
+                StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
+                string readLine = streamReader.ReadLine();
+                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
+                if (model.Documento.ContentLength > 4 * 1024 * 1024) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
+                if (readLine != null)
+                {
+                    string[] arrayHeader = readLine.Split('|');
+                    string columnObservation = string.Empty;
+                    bool errorColumn = false;
+                    if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsStrategyShowroom.CUV))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.CUV;
+                        errorColumn = true;
+                    }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.NormalPrice].ToLower().Equals(Constantes.ColumnsStrategyShowroom.NormalPrice))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.NormalPrice;
+                        errorColumn = true;
+                    }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.AllowedUnits].ToLower().Equals(Constantes.ColumnsStrategyShowroom.AllowedUnits))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.AllowedUnits;
+                        errorColumn = true;
+                    }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.NameSet].ToLower().Equals(Constantes.ColumnsStrategyShowroom.NameSet))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.NameSet;
+                        errorColumn = true;
+                    }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.BusinessTip].ToLower().Equals(Constantes.ColumnsStrategyShowroom.BusinessTip))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.BusinessTip;
+                        errorColumn = true;
+                    }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.IsSubcampaign].ToLower().Equals(Constantes.ColumnsStrategyShowroom.IsSubcampaign))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.IsSubcampaign;
+                        errorColumn = true;
+                    }
+                    if (errorColumn) {
+                        throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. Referencia: {0}", columnObservation));
+                    }
+                                     do
+                    {
+                        readLine = streamReader.ReadLine();
+                        if (readLine == null) continue;
+                        string[] arrayRows = readLine.Split('|');
+                        if (arrayRows[0] != "CUV")
+                        {
+                            strategyEntityList.Add(new BEEstrategia
+                            {
+                                CUV2 = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToString().TrimEnd(),
+                                Precio = decimal.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.NormalPrice]),
+                                LimiteVenta =int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.AllowedUnits]),
+                                DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
+                                TextoLibre = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
+                                EsSubCampania = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.IsSubcampaign])
+                            });
+                        }
+                    }
+                    while (readLine != null);
+                    using (var svc = new WsGestionWeb())
+                    {
+                        List<PrecioProducto> productPriceList = null;
+                        productPriceList = svc.GetPrecioProductosOfertaWeb(userData.CodigoISO, model.CampaniaId, string.Join("|", strategyEntityList.Select(x => x.CUV2))).ToList();
+                        if (productPriceList != null && productPriceList.Count > 0)
+                        {
+                            strategyEntityList.Update(strategy => strategy.Precio2 = productPriceList.FirstOrDefault(prol => prol.cuv == strategy.CUV2).precio_producto);
+                        }
+                    }
+                    BEEstrategia productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
+                    if (productPriceZero != null)
+                    {
+                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceZero.CUV2);
+                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(),"ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
+                    }
+                    int numberRecords = 0;
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        try
+                        {
+                            XElement strategyXML = new XElement("strategy",
+                            from strategy in strategyEntityList
+                            select new XElement("row",
+                                         new XElement("CUV2", strategy.CUV2),
+                                         new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
+                                         new XElement("Precio", strategy.Precio),
+                                         new XElement("Precio2", strategy.Precio2),
+                                         new XElement("LimiteVenta", strategy.LimiteVenta),
+                                         new XElement("TextoLibre", strategy.TextoLibre),
+                                         new XElement("EsSubCampania", strategy.EsSubCampania)
+                                       ));
+
+                            using (var service = new PedidoServiceClient())
+                            {
+                                BEEstrategiaMasiva estrategia = new BEEstrategiaMasiva
+                                {
+                                    EstrategiaXML= strategyXML,
+                                    TipoEstrategiaID = int.Parse(model.TipoEstrategia),
+                                    CampaniaID = int.Parse(model.CampaniaId),
+                                    UsuarioCreacion = userData.CodigoUsuario,
+                                    UsuarioModificacion= userData.CodigoUsuario
+                                };
+                                numberRecords = service.InsertarEstrategiaMasiva(estrategia);
+                            }
+                        }
+                        catch (FaultException ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        }
+                    }
+
+                    string message = string.Empty;
+                    if (numberRecords > 0)
+                        message = string.Format("Se realizó la actualización de stock de {0} Productos", numberRecords);
+                    else
+                        message = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), verifique el Tipo de Oferta.";
+
+                    return new HttpStatusCodeResult(HttpStatusCode.Accepted, message);
+                }
+                return new HttpStatusCodeResult(HttpStatusCode.Accepted, "readLine = null");
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                //message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+               // message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
     }
 }
