@@ -1230,10 +1230,11 @@ function RecuperarClave(tipoRecuperar) {
                         } break;                        
 
                     case "prioridad2_llamada":
-                        {            
+                        {                                    
                             if (response.esMovil) {
 
-                                var htmlFono = "<a class='central_telefonica' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
+                                $(".fonoMobile").remove();
+                                var htmlFono = "<a class='central_telefonica fonoMobile' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
                                 htmlFono += "<div class='icono_llamada'></div>";
                                 htmlFono += "<div class='texto_opcion_llamada'>#TEXTO#</div></a>";
 
@@ -1246,6 +1247,7 @@ function RecuperarClave(tipoRecuperar) {
 
                                     var prov = htmlFono.replace("#CELULAR#", telefonos[1]);
                                     prov = prov.replace("#TEXTO#", "LLAMAR DE PROVINCIA");
+                                    $("#divllamadasMobile").append(prov);
                                 } else {
 
                                     var htmlcentral;
