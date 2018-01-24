@@ -2220,10 +2220,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-   
+
         [HttpPost]
         public ActionResult UploadFileStrategyShowroom(DescripcionMasivoModel model)
         {
+            int numberRecords = 0;
             try
             {
                 List<BEEstrategia> strategyEntityList = new List<BEEstrategia>();
@@ -2267,10 +2268,11 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsStrategyShowroom.IsSubcampaign;
                         errorColumn = true;
                     }
-                    if (errorColumn) {
+                    if (errorColumn)
+                    {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. Referencia: {0}", columnObservation));
                     }
-                                     do
+                    do
                     {
                         readLine = streamReader.ReadLine();
                         if (readLine == null) continue;
@@ -2281,7 +2283,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 CUV2 = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 Precio = decimal.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.NormalPrice]),
-                                LimiteVenta =int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.AllowedUnits]),
+                                LimiteVenta = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.AllowedUnits]),
                                 DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
                                 TextoLibre = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
                                 EsSubCampania = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.IsSubcampaign])
@@ -2302,49 +2304,32 @@ namespace Portal.Consultoras.Web.Controllers
                     if (productPriceZero != null)
                     {
                         string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceZero.CUV2);
-                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(),"ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
+                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
-                    int numberRecords = 0;
-                    using (var sv = new PedidoServiceClient())
+                    XElement strategyXML = new XElement("strategy",
+                    from strategy in strategyEntityList
+                    select new XElement("row",
+                                 new XElement("CUV2", strategy.CUV2),
+                                 new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
+                                 new XElement("Precio", strategy.Precio),
+                                 new XElement("Precio2", strategy.Precio2),
+                                 new XElement("LimiteVenta", strategy.LimiteVenta),
+                                 new XElement("TextoLibre", strategy.TextoLibre),
+                                 new XElement("EsSubCampania", strategy.EsSubCampania)
+                               ));
+                    using (var service = new PedidoServiceClient())
                     {
-                        try
+                        BEEstrategiaMasiva estrategia = new BEEstrategiaMasiva
                         {
-                            XElement strategyXML = new XElement("strategy",
-                            from strategy in strategyEntityList
-                            select new XElement("row",
-                                         new XElement("CUV2", strategy.CUV2),
-                                         new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
-                                         new XElement("Precio", strategy.Precio),
-                                         new XElement("Precio2", strategy.Precio2),
-                                         new XElement("LimiteVenta", strategy.LimiteVenta),
-                                         new XElement("TextoLibre", strategy.TextoLibre),
-                                         new XElement("EsSubCampania", strategy.EsSubCampania)
-                                       ));
-
-                            using (var service = new PedidoServiceClient())
-                            {
-                                BEEstrategiaMasiva estrategia = new BEEstrategiaMasiva
-                                {
-                                    EstrategiaXML= strategyXML,
-                                    TipoEstrategiaID = int.Parse(model.TipoEstrategia),
-                                    CampaniaID = int.Parse(model.CampaniaId),
-                                    UsuarioCreacion = userData.CodigoUsuario,
-                                    UsuarioModificacion= userData.CodigoUsuario
-                                };
-                                numberRecords = service.InsertarEstrategiaMasiva(estrategia);
-                            }
-                        }
-                        catch (FaultException ex)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        }
+                            EstrategiaXML = strategyXML,
+                            TipoEstrategiaID = int.Parse(model.TipoEstrategia),
+                            CampaniaID = int.Parse(model.CampaniaId),
+                            UsuarioCreacion = userData.CodigoUsuario,
+                            UsuarioModificacion = userData.CodigoUsuario
+                        };
+                        numberRecords = service.InsertarEstrategiaMasiva(estrategia);
                     }
-
                     string message = string.Empty;
                     if (numberRecords > 0)
                         message = string.Format("Se realizó la actualización de stock de {0} Productos", numberRecords);
@@ -2358,14 +2343,12 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("Se actualizó el stock solo de {0} registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.", numberRecords));
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-               // message = "Se actualizó el stock solo de " + registros + " registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("Se actualizó el stock solo de {0} registros, debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.", numberRecords));
             }
         }
     }
