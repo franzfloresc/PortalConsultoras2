@@ -1,13 +1,14 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLConfiguracionPais
+    public class BLConfiguracionPais : IConfiguracionPaisBusinessLogic
     {
         public List<BEConfiguracionPais> GetList(BEConfiguracionPais entidad)
         {
@@ -18,17 +19,14 @@ namespace Portal.Consultoras.BizLogic
                 var da = new DAConfiguracionPais(entidad.Detalle.PaisID);
                 using (IDataReader reader = da.GetList(entidad))
                 {
-                    while (reader.Read())
-                    {
-                        lista.Add( new BEConfiguracionPais(reader));
-                    }
+                    lista = reader.MapToCollection<BEConfiguracionPais>();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", entidad.Detalle.PaisID.ToString());
-                lista = new List<BEConfiguracionPais>();
             }
+
             return lista;
         }
 
@@ -41,16 +39,14 @@ namespace Portal.Consultoras.BizLogic
                 var da = new DAConfiguracionPais(paisId);
                 using (IDataReader reader = da.Get(configuracionPaisId))
                 {
-                    if (reader.Read())
-                    {
-                        configuracionPais = new BEConfiguracionPais(reader);
-                    }
+                    configuracionPais = reader.MapToObject<BEConfiguracionPais>();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisId.ToString());
             }
+
             return configuracionPais;
         }
 
@@ -63,17 +59,14 @@ namespace Portal.Consultoras.BizLogic
                 var da = new DAConfiguracionPais(paisId);
                 using (IDataReader reader = da.GetList(tienePerfil))
                 {
-                    while (reader.Read())
-                    {
-                        lista.Add(new BEConfiguracionPais(reader));
-                    }
+                    lista = reader.MapToCollection<BEConfiguracionPais>();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisId.ToString());
-                lista = new List<BEConfiguracionPais>();
             }
+
             return lista;
         }
 

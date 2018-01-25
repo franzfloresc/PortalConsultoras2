@@ -969,6 +969,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SHOWROOM";
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
             public const string Ofertas = "OFERTAS";
+            public const string GuiaNegocio = "GUIANEGOCIO";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1647,6 +1648,14 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
         }
 
+        public class GanaMas
+        {
+            public const short PaisSinGND = 1;
+            public const short PaisConGND_SuscritaActiva = 2;
+            public const short PaisConGND_SuscritaNoActiva = 3;
+            public const short PaisConGND_NoSuscritaActiva = 4;
+            public const short PaisConGND_NoSuscritaNoActiva = 5;
+        }
         public class ValAutoEstado
         {
             public const int NoExisteProceso = -1;

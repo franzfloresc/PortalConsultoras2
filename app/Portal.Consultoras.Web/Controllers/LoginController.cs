@@ -2630,6 +2630,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
                     case Constantes.IngresoExternoPagina.Ofertas:
                         return RedirectToUniqueRoute("Ofertas", "Index", null);
+                    case Constantes.IngresoExternoPagina.GuiaNegocio:
+                        return RedirectToUniqueRoute("GuiaNegocio", "Index", null);
                 }
             }
             catch (Exception ex)
