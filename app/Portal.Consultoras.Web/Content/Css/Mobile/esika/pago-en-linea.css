@@ -867,6 +867,10 @@
     line-height:10px;
 }
 
+.mensaje_felicitacion_por_pago_rechazado{
+    text-align:center;
+}
+
 .imagen_felicitacion{
     width:19px;
     margin-left:8px;
