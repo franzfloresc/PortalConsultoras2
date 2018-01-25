@@ -94,14 +94,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);                
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
-                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);                
+                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
+
+                sessionManager.SetDatosPagoVisa(null);
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
-                }
-
-                sessionManager.SetDatosPagoVisa(null);
+                }                
 
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {                   

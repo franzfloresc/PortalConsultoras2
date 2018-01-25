@@ -4544,7 +4544,11 @@ namespace Portal.Consultoras.Web.Controllers
             bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
-            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(respuestaVisa.data.FECHAYHORA_TX);
+
+            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(respuestaVisa.data.FECHAYHORA_TX ?? default(DateTime).ToString());
+            if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
+                bePagoEnLinea.FechaTransaccion = DateTime.Now;
+
             bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
             bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
             bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
