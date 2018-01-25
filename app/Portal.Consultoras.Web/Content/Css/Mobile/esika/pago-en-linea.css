@@ -1061,6 +1061,7 @@
 
 .descripcion_terminos_y_condiciones p{
     font-size:12px;
+    text-align:justify;
 }
 
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
