@@ -2036,7 +2036,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var oferta in model.ListaOfertas)
             {
                 oferta.Position = posicion++;
-                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID).Replace("'", @"\'");
+                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
                 oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
 
                 if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
@@ -2053,31 +2053,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
         {
-            var menuActivo = GetSessionMenuActivo();
-
-            if (menuActivo.CampaniaId <= 0)
-                menuActivo.CampaniaId = userData.CampaniaID;
-
             ConfiguracionSeccionHomeModel configuracionModel;
-            var sessionNombre = "";
-
+        
             switch (codigoEstrategia)
             {
                 case Constantes.ConfiguracionPais.OfertaDelDia:
-                    sessionNombre = Constantes.ConstSession.ConfiguracionEstrategiaOdd + menuActivo.CampaniaId;
+                    configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
                     break;
                 default:
                     return null;
-            }
-
-            if (Session[sessionNombre] != null)
-            {
-                configuracionModel = (ConfiguracionSeccionHomeModel)Session[sessionNombre];
-            }
-            else
-            {
-                configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
-                Session[sessionNombre] = configuracionModel;
             }
 
             return configuracionModel;
