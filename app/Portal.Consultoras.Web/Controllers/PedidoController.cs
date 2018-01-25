@@ -1472,7 +1472,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        //public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,        //                                      string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0, bool EsOfertaIndependiente = false)
         public JsonResult AgregarProductoZE(PedidoCrudModel model)
         {
             model.OrigenPedidoWeb = model.OrigenPedidoWeb < 0 ? 0 : model.OrigenPedidoWeb;
@@ -1795,11 +1794,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                     .ToList();
             }
-
-            //beProductos = beProductos
-            //    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
-            //    .ToList();
-
+            
         }
 
         private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
@@ -4356,19 +4351,23 @@ namespace Portal.Consultoras.Web.Controllers
                 int indFlagNueva;
                 Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out indFlagNueva);
                 var estrategia = FiltrarEstrategiaPedido(EstrategiaID, indFlagNueva);
+                #endregion
+
+                #region VirtualCoach 
                 if (estrategia.EstrategiaID <= 0)
                 {
                     var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];
-                    if (ficha != null)
+                    if (ficha == null)
                     {
-                        return AgregarProductoVC(listaCuvTonos, FlagNueva, Cantidad, OrigenPedidoWeb, ClienteID_);
+                        mensaje = "Estrategia no encontrada.";
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensaje
+                        }, JsonRequestBehavior.AllowGet);
                     }
-                    mensaje = "Estrategia no encontrada.";
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    }, JsonRequestBehavior.AllowGet);
+
+                    return AgregarProductoVC(listaCuvTonos, FlagNueva, Cantidad, OrigenPedidoWeb, ClienteID_);
                 }
                 #endregion
 
@@ -4419,15 +4418,10 @@ namespace Portal.Consultoras.Web.Controllers
         private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             #region ValidarStockEstrategia
-            var ofertas = estrategia.DescripcionCUV2.Split('|');
-            var descripcion = ofertas[0];
+            var descripcion = estrategia.DescripcionCUV2;
             if (estrategia.FlagNueva == 1)
             {
                 estrategia.Cantidad = estrategia.LimiteVenta;
-            }
-            else
-            {
-                descripcion = estrategia.DescripcionCUV2;
             }
 
             var resul = false;
@@ -4578,50 +4572,14 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
 
         }
-        #endregion
-
-        #region FichaProducto VirtualCoach
-        [HttpPost]
-        public JsonResult AgregarProductoVC(string listaCuvTonos, string FlagNueva, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
+        
+        private JsonResult AgregarProductoVC(string listaCuvTonos, string FlagNueva, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "";
+                string mensaje = "";
 
-                #region SesiónExpirada
-                if (userData == null)
-                {
-                    mensaje = "Sesión expirada.";
-                    urlRedireccionar = Url.Action("Index", "Login");
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje,
-                        urlRedireccionar
-                    }, JsonRequestBehavior.AllowGet);
-
-                }
-                #endregion
-
-                #region ReservadoOEnHorarioRestringido
-                var horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
-                if (horario)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje,
-                        urlRedireccionar
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                #endregion
-
-                #region FiltrarPedido
-                FlagNueva = Util.Trim(FlagNueva);
-                var indFlagNueva = 0;
-                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out indFlagNueva);
                 var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];
-                #endregion
 
                 var numero = Convert.ToInt32(Cantidad);
 
@@ -4694,9 +4652,8 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #endregion
         
+        #endregion
 
         private PartialSectionBpt GetPartialSectionBptModel()
         {
