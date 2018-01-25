@@ -1310,33 +1310,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estretegias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(
-            string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
+        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
             var mensaje = "";
             var resul = false;
             try
             {
-                var entidad = new BEEstrategia {PaisID = userData.PaisID};
-
-                int iCantidad;
-                entidad.Cantidad = int.TryParse(Cantidad, out iCantidad) ? iCantidad : 0;
-
-                int iTipoOferta;
-                entidad.FlagCantidad = int.TryParse(TipoOferta, out iTipoOferta) ? iTipoOferta : 0;
-
-                entidad.CUV2 = CUV;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.ConsultoraID = userData.ConsultoraID.ToString();
-
+                int outVal;
+                var entidad = new BEEstrategia
+                {
+                    PaisID = userData.PaisID,
+                    CUV2 = CUV,
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID.ToString(),
+                    Cantidad = int.TryParse(Cantidad, out outVal) ? int.Parse(Cantidad) : 0,
+                    FlagCantidad = int.TryParse(TipoOferta, out outVal) ? int.Parse(TipoOferta) : 0
+                };
+                
                 mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
 
                 if (mensaje == "" || resul)
                 {
-                    using (var svc = new PedidoServiceClient())
-                    {
-                        mensaje = svc.ValidarStockEstrategia(entidad);
-                    }
+                    mensaje = ValidarStockEstrategiaMensaje(entidad.CUV2, entidad.Cantidad, entidad.FlagCantidad);
                 }
             }
             catch (FaultException ex)
@@ -1347,24 +1342,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            if (mensaje == "OK")
+            
+            return Json(new
             {
-                return Json(new
-                {
-                    result = true,
-                    message = mensaje
-                });
-            }
-            else
-            {
-                return Json(new
-                {
-                    result = resul,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
-            }
-
+                result = mensaje == "" || resul,
+                message = mensaje
+            }, JsonRequestBehavior.AllowGet);
+            
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -2245,7 +2229,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else if (!reservaProl)
             {
@@ -2254,7 +2237,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else if (!userData.PROLSinStock)
             {
@@ -2263,7 +2245,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else
             {
@@ -2271,8 +2252,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
 
         }
 
@@ -3437,19 +3416,18 @@ namespace Portal.Consultoras.Web.Controllers
         private void AgregarKitNuevas()
         {
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
-
             if (!userData.EsConsultoraNueva)
             {
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
+            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
             
             using (var sv = new PedidoServiceClient())
             {
                 try
                 {
                     var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-
                     if (obeConfiguracionProgramaNuevas == null)
                     {
                         Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
@@ -4325,7 +4303,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
-            #region ValidarStockEstrategia
+            #region Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
             var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1)
@@ -4348,7 +4326,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+            mensaje = ValidarStockEstrategiaMensaje(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
 
             if (mensaje != "")
             {
@@ -4446,7 +4424,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private string ValidarStockEstrategia(string cuv, int cantidad, int tipoOferta)
+        private string ValidarStockEstrategiaMensaje(string cuv, int cantidad, int tipoOferta)
         {
             var mensaje = "";
             try
