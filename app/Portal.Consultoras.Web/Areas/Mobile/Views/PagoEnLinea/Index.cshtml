@@ -39,7 +39,6 @@
         <div class="cantidad_pasos_proceso_pago" id="divProcesoPasosVisa">
 
             <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
-
             <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
             <span class="paso_proceso_pago_en_linea mr-0">2</span>
@@ -98,8 +97,8 @@
                         <div class="monto_editable_pago_en_linea">
                             <span class="tipo_moneda_pais">@Model.Simbolo</span>
                             <input type="text" class="monto_a_editar" id="txtMontoParcial"
-                                    placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
-                                    value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                                   placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
+                                   value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
                         </div>
                     </div>
                     <div class="col_der">
@@ -112,7 +111,7 @@
             </ul>
             <input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />
             <p class="info_comision_pago_en_linea">
-                *Cargo por gastos administrativos: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)                
+                *Cargo por gastos administrativos: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)
             </p>
             <div class="aceptar_terminos_y_condiciones">
                 <div class="area_activa_barra_activacion">
@@ -133,7 +132,6 @@
         </div>
 
         <!-- FIN - VISTA SELECCIÓN MONTO A PAGAR -->
-       
         <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
         <div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
             <div class="info_pago_seguro_con_tarjetas">
@@ -171,21 +169,22 @@
         <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
         </a>
         <h4 class="titulo_terminos_y_condiciones">Términos y condiciones por uso de tarjeta de crédito VISA</h4>
-        <p class="descripcion_terminos_y_condiciones">
-            El uso de tarjetas de crédito o débito VISA se sujetará a los establecido en estos Términos y Condiciones y, en relación con su emisor, 
-            y a lo pactado en los respectivos contratos suscritos con el banco emisor del medio de pago.
-            <br />
-            En caso de contradicción, predominará lo expresado en ese último instrumento. Tratándose de tarjetas bancarias aceptadas en el Sitio, 
-            los aspectos relativos a éstas, tales como fecha de emisión, caducidad, bloqueos, cobros de intereses de compra en cuotas, etc.., 
-            se regirán por los respectivos contratos suscritos con el banco emisor del medio de pago.
-            <br />
-            El uso de este medio de pago generará un gasto USO VISA de 3% del monto pagado, el cual le será cargado en su tarjeta junto con el monto 
-            a pagar determinado por el titular en cada transacción. Este gasto generará un comprobante electrónico el cual podrá ser visualizado en 
-            su estado de cuenta de consultora y en la web.
-            <br />
-            Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de 
-            crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
-        </p>
+        <div class="descripcion_terminos_y_condiciones">
+            <p>
+                El uso de tarjetas de crédito o débito VISA se sujetará a los establecido en estos Términos y Condiciones y, en relación con su emisor, y a lo pactado en los respectivos contratos suscritos con el banco emisor del medio de pago.
+            </p>
+            <p>
+                En caso de contradicción, predominará lo expresado en ese último instrumento. Tratándose de tarjetas bancarias aceptadas en el Sitio, los aspectos relativos a éstas, tales como fecha de emisión, caducidad, bloqueos, cobros de intereses de compra en cuotas, etc..,
+                se regirán por los respectivos contratos suscritos con el banco emisor del medio de pago.
+            </p>
+            <p>
+                El uso de este medio de pago generará un gasto USO VISA de 3% del monto pagado, el cual le será cargado en su tarjeta junto con el monto a pagar determinado por el titular en cada transacción. Este gasto generará un comprobante electrónico el cual podrá ser visualizado en
+                su estado de cuenta de consultora y en la web.
+            </p>
+            <p>
+                Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
+            </p>
+        </div>
         <div class="aceptar_terminos_y_condiciones mb-0">
             <div class="area_activa_barra_activacion">
                 <div class="barra_activacion" data-estado="0">

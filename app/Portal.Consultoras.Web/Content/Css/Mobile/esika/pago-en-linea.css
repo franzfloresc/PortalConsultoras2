@@ -78,7 +78,8 @@
 .icono_pago_exitoso,
 .confirmacion_pago,
 .info_constancia_pago_exitoso,
-.info_num_operacion_pago
+.info_num_operacion_pago,
+.descripcion_terminos_y_condiciones
 {
     display:block;
 }
@@ -407,7 +408,7 @@
 }
 
 .monto_editable_pago_en_linea{
-    width:46%;
+    width:51%;
     border-bottom:1px solid #000;
     font-size:22px;
     font-weight:400;
@@ -1011,14 +1012,14 @@
 }
 
 .popup_terminos_y_condiciones{
-    width:90%;
-    max-width:400px;
-    height:auto;
-    background-color:#FFF;
-    margin:0 auto 25px auto;
-    top:16%;
-    position:relative;
-    padding:33px 24px 26px 24px;
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    background-color: #FFF;
+    margin: 0 auto 25px auto;
+    top: 9%;
+    position: relative;
+    padding: 33px 24px 26px 24px;
 }
 
 .cerrar_popup_terminos_y_condiciones{
@@ -1051,9 +1052,16 @@
 }
 
 .descripcion_terminos_y_condiciones{
-    font-size:13px;
-    line-height:17px;
-    margin-bottom:40px;
+    font-size: 13px;
+    line-height: 17px;
+    margin-bottom: 13px;
+    height: 277px;
+    overflow: auto;
+}
+
+.descripcion_terminos_y_condiciones p{
+    font-size:12px;
+    text-align:justify;
 }
 
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
