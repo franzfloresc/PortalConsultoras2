@@ -2233,7 +2233,7 @@ namespace Portal.Consultoras.Service
         #endregion
 
 
-        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
         }

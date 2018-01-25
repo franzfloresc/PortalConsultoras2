@@ -629,7 +629,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
-        int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
+        List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);

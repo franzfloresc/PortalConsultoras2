@@ -270,6 +270,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
+
         public BEEstrategia()
         { }
 

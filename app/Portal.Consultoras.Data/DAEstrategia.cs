@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using Portal.Consultoras.Entities.Estrategia;
+using System.Text;
 
 namespace Portal.Consultoras.Data
 {
@@ -637,30 +638,23 @@ namespace Portal.Consultoras.Data
         #endregion
 
 
-        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
-            try
-            {
-int result = 0;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
             {
+                //byte[] tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(entidad.EstrategiaXML.ToString());
+                //string estrategiaXML = System.Text.Encoding.UTF8.GetString(tempBytes);
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entidad.UsuarioCreacion);
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
-                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.Database.AddOutParameter(command, "@RetornoActualizacion", DbType.Int32, 1000);
+                Context.Database.AddOutParameter(command, "@RetornoInsercion", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
-                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value), Convert.ToInt32(command.Parameters["@RetornoInsercion"].Value) };
+                return result;
             }
-            return result;
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            
         }
     }
 }
