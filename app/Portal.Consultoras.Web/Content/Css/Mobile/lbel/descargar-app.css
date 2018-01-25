@@ -104,17 +104,19 @@ body{
 
 .img_vista_descargar_app {
 	display:block;
-	width:76%;
+	width:100%;
 	max-width:345px;
 	/*width: 85.625%;*/
     margin: 0 auto;
     position:relative;
+    overflow:hidden;
 }
 
 .img_vista_descargar_app img {
     height: auto;
     position:relative;
     left:-13px;
+    top:4px;
 }
 
 .alternativa_version_web{
@@ -220,7 +222,7 @@ body{
 	}
 
 	.img_vista_descargar_app{
-		width:64%;
+		width:76%;
 	}
 
 	.img_vista_descargar_app img{

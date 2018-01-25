@@ -105,6 +105,7 @@ body{
 	/*width: 85.625%;*/
     margin: 0 auto;
     position:relative;
+    overflow:hidden;
 }
 
 .img_vista_descargar_app img {
