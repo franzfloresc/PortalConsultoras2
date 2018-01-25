@@ -2332,8 +2332,8 @@ namespace Portal.Consultoras.Web.Controllers
                             EstrategiaXML = strategyXML,
                             TipoEstrategiaID = int.Parse(model.TipoEstrategia),
                             CampaniaID = int.Parse(model.CampaniaId),
-                            UsuarioCreacion = userData.CodigoUsuario,
-                            UsuarioModificacion = userData.CodigoUsuario,
+                            UsuarioCreacion = userData.CodigoUsuarioHost,
+                            UsuarioModificacion = userData.CodigoUsuarioHost,
                             PaisID =Util.GetPaisID(userData.CodigoISO)
                         };
                         numberRecords = service.InsertarEstrategiaMasiva(estrategia);
