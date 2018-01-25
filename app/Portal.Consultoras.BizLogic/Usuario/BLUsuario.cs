@@ -190,8 +190,10 @@ namespace Portal.Consultoras.BizLogic
                     usuario = new BEUsuario(reader, true);
             }
 
-            if (usuario != null)
-            {
+            if (usuario == null)
+                return null;
+
+           
                 if (usuario.ConsultoraID != 0)
                 {
                     using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
@@ -238,6 +240,10 @@ namespace Portal.Consultoras.BizLogic
                         usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
                     }
                 }
+
+                if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora 
+                    && (usuario.CampaniaID <= 0 || usuario.ConsultoraID <=0))
+                    return null;
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
@@ -320,8 +326,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
-
-            }
+                
 
             }
             catch (Exception ex)
