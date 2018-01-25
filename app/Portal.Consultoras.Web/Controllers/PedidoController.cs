@@ -1472,29 +1472,16 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0, bool EsOfertaIndependiente = false)
+        //public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,        //                                      string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0, bool EsOfertaIndependiente = false)
+        public JsonResult AgregarProductoZE(PedidoCrudModel model)
         {
-            OrigenPedidoWeb = Util.Trim(OrigenPedidoWeb);
-            OrigenPedidoWeb = OrigenPedidoWeb == "" ? "0" : OrigenPedidoWeb;
+            model.OrigenPedidoWeb = model.OrigenPedidoWeb < 0 ? 0 : model.OrigenPedidoWeb;
+            model.TipoOfertaSisID = model.TipoOfertaSisID > 0 ? model.TipoOfertaSisID : model.TipoEstrategiaID;
+            model.ConfiguracionOfertaID = model.ConfiguracionOfertaID > 0 ? model.ConfiguracionOfertaID : model.TipoOfertaSisID;
 
-            var pedidoModel = new PedidoCrudModel()
-            {
-                CUV = CUV,
-                Cantidad = Cantidad,
-                PrecioUnidad = Convert.ToDecimal(PrecioUnidad),
-                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb),
-                MarcaID = Convert.ToByte(MarcaID),
-                DescripcionProd = Descripcion,
-                TipoOfertaSisID = Convert.ToInt32(TipoOferta),
-                IndicadorMontoMinimo = indicadorMontoMinimo,
-                ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),
-                ClienteID_ = ClienteID_
-            };
-
-            EliminarDetallePackNueva(EsOfertaIndependiente, tipoEstrategiaImagen);
+            EliminarDetallePackNueva(model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
             Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return PedidoInsertar(pedidoModel);
+            return PedidoInsertar(model);
         }
         
         private void EliminarDetallePackNueva(bool esOfertaIndependiente, int tipoEstrategiaImagen)
@@ -4466,20 +4453,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            #region AgregarProductoZE
+            #region Agregar Producto ZE
+            int outVal;
+            var modelo = new PedidoCrudModel
+            {
+                CUV = estrategia.CUV2,
+                Cantidad = estrategia.Cantidad.ToString(),
+                PrecioUnidad = estrategia.Precio2,
+                TipoEstrategiaID = estrategia.TipoEstrategiaID,
+                OrigenPedidoWeb = Int32.TryParse(OrigenPedidoWeb, out outVal) ? Int32.Parse(OrigenPedidoWeb) : 0,
+                MarcaID = estrategia.MarcaID,
+                DescripcionProd = descripcion,
+                IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
+                ClienteID_ = ClienteID_,
+                TipoEstrategiaImagen = tipoEstrategiaImagen,
+                EsOfertaIndependiente = estrategia.EsOfertaIndependiente
+            };
 
-            return AgregarProductoZE(estrategia.MarcaID.ToString(),
-                estrategia.CUV2,
-                estrategia.Precio2.ToString(),
-                descripcion,
-                estrategia.Cantidad.ToString(),
-                estrategia.IndicadorMontoMinimo.ToString(),
-                estrategia.TipoEstrategiaID.ToString(),
-                OrigenPedidoWeb,
-                ClienteID_,
-                tipoEstrategiaImagen,
-                estrategia.EsOfertaIndependiente
-                );
+            return AgregarProductoZE(modelo);
             #endregion
 
         }
@@ -4671,7 +4662,23 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    respuesta = AgregarProductoZE(ficha.MarcaID.ToString(), ficha.CUV2, ficha.Precio2.ToString(), descripcion, Cantidad, ficha.IndicadorMontoMinimo.ToString(), ficha.CodigoEstrategia, OrigenPedidoWeb, ClienteID_, ficha.TipoEstrategiaImagenMostrar);
+                    int outVal;
+                    var modelo = new PedidoCrudModel
+                    {
+                        CUV = ficha.CUV2,
+                        Cantidad = Cantidad,
+                        PrecioUnidad = ficha.Precio2,
+                        TipoEstrategiaID = ficha.TipoEstrategiaID,
+                        OrigenPedidoWeb = Int32.TryParse(OrigenPedidoWeb, out outVal) ? Int32.Parse(OrigenPedidoWeb) : 0,
+                        MarcaID = ficha.MarcaID,
+                        DescripcionProd = descripcion,
+                        TipoOfertaSisID = Int32.TryParse(ficha.CodigoEstrategia, out outVal) ? Int32.Parse(ficha.CodigoEstrategia) : 0,
+                        IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString(),
+                        ClienteID_ = ClienteID_,
+                        TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar
+                    };
+
+                    respuesta = AgregarProductoZE(modelo);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);

@@ -34,5 +34,9 @@
 
         public bool EsKitNueva { get; set; }
 
+        public int TipoEstrategiaImagen { get; set; }
+
+        public bool EsOfertaIndependiente { get; set; }
+
     }
 }

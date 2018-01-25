@@ -889,14 +889,14 @@ function InsertarProducto(form) {
 }
 function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
     var param2 = {
-        MarcaID: $("#hdfMarcaID").val(),
         CUV: $("#txtCUV").val(),
-        PrecioUnidad: $("#hdfPrecioUnidad").val(),
-        Descripcion: $("#txtDescripcionProd").val(),
         Cantidad: $("#txtCantidad").val(),
+        PrecioUnidad: $("#hdfPrecioUnidad").val(),
+        TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
+        MarcaID: $("#hdfMarcaID").val(),
+        DescripcionProd: $("#txtDescripcionProd").val(),
         IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-        TipoOferta: $("#hdTipoEstrategiaID").val(),
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val()
     };
 
