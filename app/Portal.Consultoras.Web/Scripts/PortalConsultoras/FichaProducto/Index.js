@@ -260,19 +260,19 @@ $(document).ready(function () {
 
                 var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
-                var params = ({
-                    listaCuvTonos: $.trim(cuvs),
-                    EstrategiaID: $.trim(ficha.EstrategiaID),
-                    FlagNueva: $.trim(ficha.FlagNueva),
+                var params = {
+                    CuvTonos: $.trim(cuvs),
                     Cantidad: $.trim(cantidad),
+                    TipoEstrategiaID: ficha.TipoEstrategiaID,
+                    EstrategiaID: $.trim(ficha.EstrategiaID),
                     OrigenPedidoWeb: $.trim(origenPedidoWebFichaProducto),
-                    ClienteID_: '-1',
-                    tipoEstrategiaImagen: tipoEstrategiaImagen || 0
-                });
+                    TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+                    FlagNueva: $.trim(ficha.FlagNueva)
+                };
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProducto',
+                    url: baseUrl + 'Pedido/PedidoAgregarProducto',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),

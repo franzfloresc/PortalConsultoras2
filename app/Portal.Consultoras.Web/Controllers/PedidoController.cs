@@ -4308,11 +4308,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Nuevo AgregarProducto
 
-        public JsonResult AgregarProducto(string listaCuvTonos
-            , string EstrategiaID, string FlagNueva
-            , string Cantidad
-            , string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0
-        )
+        public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
             try
             {
@@ -4347,10 +4343,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region FiltrarEstrategiaPedido
-                FlagNueva = Util.Trim(FlagNueva);
+                model.FlagNueva = Util.Trim(model.FlagNueva);
                 int indFlagNueva;
-                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out indFlagNueva);
-                var estrategia = FiltrarEstrategiaPedido(EstrategiaID, indFlagNueva);
+                Int32.TryParse(model.FlagNueva == "" ? "0" : model.FlagNueva, out indFlagNueva);
+                var estrategia = FiltrarEstrategiaPedido(model.EstrategiaID.ToString(), indFlagNueva);
                 #endregion
 
                 #region VirtualCoach 
@@ -4367,11 +4363,11 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    return AgregarProductoVC(listaCuvTonos, FlagNueva, Cantidad, OrigenPedidoWeb, ClienteID_);
+                    return AgregarProductoVC(model.CuvTonos, model.FlagNueva, model.Cantidad, model.OrigenPedidoWeb.ToString(), model.ClienteID_);
                 }
                 #endregion
 
-                estrategia.Cantidad = Convert.ToInt32(Cantidad);
+                estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
 
                 if (estrategia.Cantidad > estrategia.LimiteVenta)
                 {
@@ -4384,12 +4380,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                listaCuvTonos = Util.Trim(listaCuvTonos);
-                if (listaCuvTonos == "")
+                var listCuvTonos = Util.Trim(model.CuvTonos);
+                if (listCuvTonos == "")
                 {
-                    listaCuvTonos = estrategia.CUV2;
+                    listCuvTonos = estrategia.CUV2;
                 }
-                var tonos = listaCuvTonos.Split('|');
+                var tonos = listCuvTonos.Split('|');
                 var respuesta = new JsonResult();
                 foreach (var tono in tonos)
                 {
@@ -4398,7 +4394,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4415,7 +4411,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model)
         {
             #region ValidarStockEstrategia
             var descripcion = estrategia.DescripcionCUV2;
@@ -4448,19 +4444,18 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region Agregar Producto ZE
-            int outVal;
             var modelo = new PedidoCrudModel
             {
                 CUV = estrategia.CUV2,
                 Cantidad = estrategia.Cantidad.ToString(),
                 PrecioUnidad = estrategia.Precio2,
                 TipoEstrategiaID = estrategia.TipoEstrategiaID,
-                OrigenPedidoWeb = Int32.TryParse(OrigenPedidoWeb, out outVal) ? Int32.Parse(OrigenPedidoWeb) : 0,
+                OrigenPedidoWeb = model.OrigenPedidoWeb,
                 MarcaID = estrategia.MarcaID,
                 DescripcionProd = descripcion,
                 IndicadorMontoMinimo = estrategia.IndicadorMontoMinimo.ToString(),
-                ClienteID_ = ClienteID_,
-                TipoEstrategiaImagen = tipoEstrategiaImagen,
+                ClienteID_ = model.ClienteID_,
+                TipoEstrategiaImagen = model.TipoEstrategiaImagen,
                 EsOfertaIndependiente = estrategia.EsOfertaIndependiente
             };
 

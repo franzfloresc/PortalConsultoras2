@@ -2,11 +2,15 @@
 {
     public class PedidoCrudModel
     {
+        public string CuvTonos { get; set; }
+
         public string CUV { get; set; }
 
         public string Cantidad { get; set; }
 
         public decimal PrecioUnidad { get; set; }
+
+        public int EstrategiaID { get; set; }
 
         public int TipoEstrategiaID { get; set; }
 
@@ -37,6 +41,8 @@
         public int TipoEstrategiaImagen { get; set; }
 
         public bool EsOfertaIndependiente { get; set; }
+
+        public string FlagNueva { get; set; }
 
     }
 }
