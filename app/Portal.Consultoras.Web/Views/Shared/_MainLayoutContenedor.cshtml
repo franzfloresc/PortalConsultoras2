@@ -395,7 +395,7 @@
                                 </div>
                                 <div class="producto_img_home mini" data-odd-accion="verdetalle">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                    <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
+                                    <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{EscapeSpecialChars detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{EscapeSpecialChars DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
                                 </div>
                                 <div class="producto_nombre_descripcion">
                                     <p class="nombre-producto-set">{{detalle.NombreOferta}}</p>
