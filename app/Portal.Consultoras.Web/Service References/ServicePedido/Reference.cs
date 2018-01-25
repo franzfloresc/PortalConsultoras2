@@ -6748,6 +6748,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string MerchantIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoGastosAdministrativosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoPagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreBancoEmisorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7149,6 +7155,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.MerchantIdField, value) != true)) {
                     this.MerchantIdField = value;
                     this.RaisePropertyChanged("MerchantId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoGastosAdministrativos {
+            get {
+                return this.MontoGastosAdministrativosField;
+            }
+            set {
+                if ((this.MontoGastosAdministrativosField.Equals(value) != true)) {
+                    this.MontoGastosAdministrativosField = value;
+                    this.RaisePropertyChanged("MontoGastosAdministrativos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoPago {
+            get {
+                return this.MontoPagoField;
+            }
+            set {
+                if ((this.MontoPagoField.Equals(value) != true)) {
+                    this.MontoPagoField = value;
+                    this.RaisePropertyChanged("MontoPago");
                 }
             }
         }

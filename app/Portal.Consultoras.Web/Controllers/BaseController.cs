@@ -4545,7 +4545,8 @@ namespace Portal.Consultoras.Web.Controllers
             bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
             bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
 
-            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(respuestaVisa.data.FECHAYHORA_TX ?? default(DateTime).ToString());
+            var fechaTransaccion = string.IsNullOrEmpty(respuestaVisa.data.FECHAYHORA_TX) ? DateTime.MinValue.ToString() : respuestaVisa.data.FECHAYHORA_TX;
+            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(fechaTransaccion);
             if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
                 bePagoEnLinea.FechaTransaccion = DateTime.Now;
 

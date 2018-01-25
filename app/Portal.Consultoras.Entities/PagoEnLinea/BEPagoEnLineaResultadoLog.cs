@@ -22,6 +22,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public int CampaniaId { get; set; }
         [DataMember]
+        public decimal MontoPago { get; set; }
+        [DataMember]
+        public decimal MontoGastosAdministrativos { get; set; }
+        [DataMember]
         public string TipoTarjeta { get; set; }
         [DataMember]
         public string CodigoError { get; set; }
@@ -108,6 +112,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
                 NumeroDocumento = DbConvert.ToString(datarec["NumeroDocumento"]);
             if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
                 CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
+            if (DataRecord.HasColumn(datarec, "MontoPago") && datarec["MontoPago"] != DBNull.Value)
+                MontoPago = DbConvert.ToDecimal(datarec["MontoPago"]);
+            if (DataRecord.HasColumn(datarec, "MontoGastosAdministrativos") && datarec["MontoGastosAdministrativos"] != DBNull.Value)
+                MontoGastosAdministrativos = DbConvert.ToDecimal(datarec["MontoGastosAdministrativos"]);
             if (DataRecord.HasColumn(datarec, "TipoTarjeta") && datarec["TipoTarjeta"] != DBNull.Value)
                 TipoTarjeta = DbConvert.ToString(datarec["TipoTarjeta"]);
             if (DataRecord.HasColumn(datarec, "CodigoError") && datarec["CodigoError"] != DBNull.Value)

@@ -29,6 +29,8 @@
       <xs:element minOccurs="0" name="IndicadorComercioElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MerchantId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoGastosAdministrativos" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoPago" type="xs:decimal" />
       <xs:element minOccurs="0" name="NombreBancoEmisor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroCuota" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />

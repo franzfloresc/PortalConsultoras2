@@ -23,6 +23,8 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.CodigoConsultora);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, entidad.CampaniaId);
+            Context.Database.AddInParameter(command, "@MontoPago", DbType.Decimal, entidad.MontoPago);
+            Context.Database.AddInParameter(command, "@MontoGastosAdministrativos", DbType.Decimal, entidad.MontoGastosAdministrativos);
             Context.Database.AddInParameter(command, "@TipoTarjeta", DbType.AnsiString, entidad.TipoTarjeta);
             Context.Database.AddInParameter(command, "@CodigoError", DbType.AnsiString, entidad.CodigoError);
             Context.Database.AddInParameter(command, "@MensajeError", DbType.AnsiString, entidad.MensajeError);
