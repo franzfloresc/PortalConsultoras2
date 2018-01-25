@@ -57,15 +57,15 @@
                 <div class="resumen_pago">
                     <div class="monto_pagado">
                         <span>Monto:</span>
-                        <span>@Model.MontoDeudaString</span>
+                        <span>@Model.Simbolo @Model.MontoDeudaString</span>
                     </div>
                     <div class="monto_gastos_administrativos">
                         <span>Gastos administrativos:</span>
-                        <span>@Model.MontoGastosAdministrativos</span>
+                        <span>@Model.Simbolo @Model.MontoGastosAdministrativos</span>
                     </div>
                     <div class="total_monto_pagado">
                         <span>Total pagado:</span>
-                        <span>@Model.MontoDeudaConGastosString</span>
+                        <span>@Model.Simbolo @Model.MontoDeudaConGastosString</span>
                     </div>
                     <div class="monto_saldo_pendiente">
                         <div>Saldo pendiente:</div>
@@ -80,11 +80,8 @@
                     </div>
                 </div>
             </div>
-            <p class="info_actualizacion_estado_cuenta">
-                En unos minutos se actualizará en tu estado de cuenta.
-            </p>
             <p class="info_horarios_efectivos_pagos">
-                Los pagos realizados después de las 10:00 p.m. serán efectivos al día siguiente.
+                @Model.MensajeInformacionPagoExitoso
             </p>
         </div>
 

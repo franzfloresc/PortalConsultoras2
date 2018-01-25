@@ -1231,6 +1231,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string ObtenerTokenTarjetaGuardadaByConsultora(int paisId, string codigoConsultora);
 
+        [OperationContract]
+        void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda);
+
         #endregion
     }
 }

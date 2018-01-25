@@ -2242,6 +2242,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerTokenTarjetaGuardadaByConsultora(paisId, codigoConsultora);
         }
 
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
+        {
+            BLPagoEnLinea.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+        }
+
         #endregion
     }
 }

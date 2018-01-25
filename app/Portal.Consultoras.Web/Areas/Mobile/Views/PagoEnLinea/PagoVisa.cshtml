@@ -60,15 +60,15 @@
             <div class="resumen_pago">
                 <div class="monto_pagado">
                     <span>Monto:</span>
-                    <span>@Model.MontoDeudaString</span>
+                    <span>@Model.Simbolo @Model.MontoDeudaString</span>
                 </div>
                 <div class="monto_gastos_administrativos">
                     <span>Gastos administrativos (@Model.PorcentajeGastosAdministrativos%):</span>
-                    <span>@Model.MontoGastosAdministrativosString</span>
+                    <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
                 </div>
                 <div class="total_monto_pagado">
                     <span>Total por pagar:</span>
-                    <span>@Model.MontoDeudaConGastosString</span>
+                    <span>@Model.Simbolo @Model.MontoDeudaConGastosString</span>
                 </div>
             </div>
         </div>
@@ -143,10 +143,12 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {            
+        $(document).ready(function () {
+            var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+
             var boton = $("button[type='submit']")[0];
-            $(boton).css("background", "#e81c36");
-            $(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='https://icon-icons.com/icons2/1186/PNG/512/1490135017-visa_82256.png' alt='' style='width:100%; height:auto;'/></div>");            
+            $(boton).css("background", colorBoton);
+            $(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
         });
     </script>
 }

@@ -165,6 +165,7 @@ namespace Portal.Consultoras.Common
             public const int UrlAutorizacionBotonPago = 12208;
             public const int UrlLogoPasarelaPago = 12209;
             public const int ColorBotonPagarPasarelaPago = 12210;
+            public const int MensajeInformacionPagoExitoso = 12211;
         }
 
         public static class ParametrosNames

@@ -21,6 +21,11 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var dataAccess = new DAPagoEnLinea(paisId);
             return dataAccess.ObtenerTokenTarjetaGuardadaByConsultora(codigoConsultora);
         }
-        
+
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda)
+        {
+            var dataAccess = new DAPagoEnLinea(paisId);
+            dataAccess.UpdateMontoDeudaConsultora(codigoConsultora, montoDeuda);
+        }
     }
 }

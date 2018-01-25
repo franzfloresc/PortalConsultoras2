@@ -33526,6 +33526,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             "")]
         System.Threading.Tasks.Task<string> ObtenerTokenTarjetaGuardadaByConsultoraAsync(int paisId, string codigoConsultora);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora", ReplyAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultoraResponse")]
+        void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora", ReplyAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultoraResponse")]
+        System.Threading.Tasks.Task UpdateMontoDeudaConsultoraAsync(int paisId, string codigoConsultora, decimal montoDeuda);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom", ReplyAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse")]
         int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
         
@@ -35968,6 +35974,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<string> ObtenerTokenTarjetaGuardadaByConsultoraAsync(int paisId, string codigoConsultora) {
             return base.Channel.ObtenerTokenTarjetaGuardadaByConsultoraAsync(paisId, codigoConsultora);
+        }
+        
+        public void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda) {
+            base.Channel.UpdateMontoDeudaConsultora(paisId, codigoConsultora, montoDeuda);
+        }
+        
+        public System.Threading.Tasks.Task UpdateMontoDeudaConsultoraAsync(int paisId, string codigoConsultora, decimal montoDeuda) {
+            return base.Channel.UpdateMontoDeudaConsultoraAsync(paisId, codigoConsultora, montoDeuda);
         }
         
         public int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity) {

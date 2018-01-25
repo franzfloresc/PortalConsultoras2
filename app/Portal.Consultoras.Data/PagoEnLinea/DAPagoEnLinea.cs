@@ -69,5 +69,14 @@ namespace Portal.Consultoras.Data.PagoEnLinea
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }
+
+        public void UpdateMontoDeudaConsultora(string codigoConsultora, decimal montoDeuda)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMontoDeudaConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@MontoDeuda", DbType.Decimal, montoDeuda);
+
+            Context.ExecuteNonQuery(command);
+        }
     }
 }

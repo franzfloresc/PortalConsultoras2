@@ -104,11 +104,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 sessionManager.SetDatosPagoVisa(null);
 
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
-                {
+                {                   
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                     model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
-                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);                    
+                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
+
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
+                    }
+
+                    var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+                    var mensajeExitoso = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
+
+                    model.MensajeInformacionPagoExitoso = mensajeExitoso;
+
+                    userData.MontoDeuda = model.SaldoPendiente;
+                    sessionManager.SetUserData(userData);
 
                     return View("PagoExitoso", model);
                 }
