@@ -166,6 +166,7 @@
                 <table id="list"></table>
                 <div id="pager"></div>
             </div>
+            <div id="mensajeActivarDesactivar" style="display: none;">(*) Las filas con el check seleccionado indican que la oferta está habilitada. Las filas con el check sin seleccionar indican que la oferta no está habilitada.</div>
         </div>
     </div>
 </div>
@@ -1171,6 +1172,19 @@
             }
             else {
                 fnGrilla();
+            }
+
+            if (codigo == CodigoOfertaParaTi ||
+                codigo == CodigoOfertaDelDia ||
+                codigo == CodigoLanzamiento ||
+                codigo == CodigoOfertasParaMi ||
+                codigo == CodigoPackAltoDesembolso ||
+                codigo == CodigoGuiaDeNegocio ||
+                codigo == CodigoLosMasVendidos ||
+                codigo == codigoShowRoom) {
+                $("#mensajeActivarDesactivar").show();
+            } else {
+                $("#mensajeActivarDesactivar").hide();
             }
         });
         $('#ddlPais').change(function () {
@@ -2217,6 +2231,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010" || codigo == codigoShowRoom),
+			multiselectWidth: 35,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', colNameActions,'Productos', 'EsOfertaIndependiente' ],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -2275,6 +2290,8 @@
             codigo == "008" || codigo == "010" || codigo == codigoShowRoom) {
             $("#list").jqGrid('hideCol', ["Orden"]);
         }
+
+        $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
     }
 
     function ShowInputTC(cellvalue, options, rowObject) {
