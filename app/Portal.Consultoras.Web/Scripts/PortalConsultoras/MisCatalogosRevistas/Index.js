@@ -672,6 +672,8 @@ function RevistaMostrar(accion, btn) {
     waitingDialog({ title: "Cargando Imagen" });
     MostrarRevistaCorrecta(rCampSelect);
 
+    $("#contentRevista [data-accion] img").show();
+
     $("#contentRevista > span[data-accion] img").show();
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
         $(btn).hide();
