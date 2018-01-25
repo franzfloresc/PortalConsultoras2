@@ -1201,7 +1201,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         .ToList(), usuarioModel.CodigoISO);
 
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital( revistaDigitalModel, usuarioModel);
-                                FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                 break;
 
@@ -1214,7 +1214,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                         .ToList(), usuarioModel.CodigoISO);
 
-                                FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
+                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDR = true;
                                 break;
 
@@ -2666,17 +2666,19 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        private void FormatTextConfiguracionPaisDatosModel(ref RevistaDigitalModel revistaDigital,
+        private RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
             string nombreConsultora)
         {
-            if (revistaDigital == null) return;
-            if (revistaDigital.ConfiguracionPaisDatos == null) return;
+            if (revistaDigital == null) return revistaDigital;
+            if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
 
             foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
             {
                 configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
                 configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
             }
+
+            return revistaDigital;
         }
 
         private string RemplazaTagNombre(string cadena, string nombre)
