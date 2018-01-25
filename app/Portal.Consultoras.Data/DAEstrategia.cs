@@ -473,7 +473,10 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
                 Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);
-                Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
+                if (fechaInicioFact == default(DateTime))
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, DBNull.Value);
+                else
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
                 return Context.ExecuteReader(command);
             }
         }
