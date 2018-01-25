@@ -1200,7 +1200,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                         .ToList(), usuarioModel.CodigoISO);
 
-                                ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
+                                revistaDigitalModel = ConfiguracionPaisRevistaDigital( revistaDigitalModel, usuarioModel);
                                 FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                 break;
@@ -1617,7 +1617,7 @@ namespace Portal.Consultoras.Web.Controllers
             return revistaDigital;
         }
 
-        public virtual void ConfiguracionPaisRevistaDigital(ref RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
+        public virtual RevistaDigitalModel ConfiguracionPaisRevistaDigital(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
@@ -1692,7 +1692,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >=
                 usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar)
                 && revistaDigitalModel.BloquearDiasAntesFacturar > 0)
-                return;
+                return revistaDigitalModel;
 
             switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
             {
@@ -1710,6 +1710,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             #endregion
+
+            return revistaDigitalModel;
         }
 
         protected virtual  void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
