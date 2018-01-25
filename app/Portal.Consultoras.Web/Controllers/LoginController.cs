@@ -1665,6 +1665,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                modelo = modelo ?? new OfertaDelDiaModel();
                 if (listaDatos == null || !listaDatos.Any())
                     return modelo;
 
