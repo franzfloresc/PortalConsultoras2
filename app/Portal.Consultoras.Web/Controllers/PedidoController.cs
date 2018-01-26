@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
 
                 AgregarKitNuevas();
-                
+
                 #region Flexipago
                 if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
@@ -314,10 +314,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-                
+
                 ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
                 model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
-                
+
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.PartialSectionBpt = GetPartialSectionBptModel();
@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            
+
 
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
                 }
-                
+
                 var cuv = param.Substring(0, 5);
                 var campanaId = param.Substring(5, 6);
                 var campana = Convert.ToInt32(campanaId);
@@ -428,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return GetPaisesFlexiPago().Contains(codigoIso);
         }
-        
+
         private void ActualizarUserDataConInformacionCampania(BEConfiguracionCampania configuracionCampania)
         {
             var usuario = userData;
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region CRUD
-        
+
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model)
         {
@@ -755,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            
+
             return null;
         }
 
@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                var model = new PedidoSb2Model {Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal)};
+                var model = new PedidoSb2Model { Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal) };
 
                 if (ClienteID != "-1")
                 {
@@ -913,7 +913,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
                 Cantidad = Convert.ToInt32(model.Cantidad),
                 PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
                 CUV = model.CUV,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 Stock = model.Stock,
@@ -955,7 +955,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(x => x.Cantidad)
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder)
         {
@@ -983,7 +983,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (EsBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
                 else obe.Mensaje = GetObservacionesProlPorCuv(CUV);
-                
+
                 bool errorServer;
                 string tipo;
                 bool modificoBackOrder;
@@ -1065,8 +1065,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (olstPedidoWebDetalle.Any() && clienteId != "-1")
             {
                 var lstTemp = (from item in olstPedidoWebDetalle
-                                where item.ClienteID == Convert.ToInt16(clienteId)
-                                select item).ToList();
+                               where item.ClienteID == Convert.ToInt16(clienteId)
+                               select item).ToList();
 
                 var totalCliente = lstTemp.Sum(p => p.ImporteTotal);
                 formatoTotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
@@ -1155,7 +1155,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sv.AceptarBackOrderPedidoWebDetalle(obePedidoWebDetalle);
                 }
-                
+
                 sessionManager.SetDetallesPedido(null);
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
@@ -1275,7 +1275,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = !errorServer,
-                    message = !errorServer 
+                    message = !errorServer
                         ? ("Has agregado " + Convert.ToString(CantCUVpedido) + " unidad(es) del producto a tu pedido.")
                         : tipo.Length > 1 ? tipo : "Ocurrió un error al ejecutar la operación.",
                     oPedidoDetalle = obePedidoWebDetalle,
@@ -1430,7 +1430,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Cantidad = int.TryParse(Cantidad, out outVal) ? int.Parse(Cantidad) : 0,
                     FlagCantidad = int.TryParse(TipoOferta, out outVal) ? int.Parse(TipoOferta) : 0
                 };
-                
+
                 mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
 
                 if (mensaje == "" || resul)
@@ -1446,13 +1446,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            
+
             return Json(new
             {
                 result = mensaje == "" || resul,
                 message = mensaje
             }, JsonRequestBehavior.AllowGet);
-            
+
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -1466,7 +1466,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.ListaEstrategia] = null;
             return PedidoInsertar(model);
         }
-        
+
         private void EliminarDetallePackNueva(bool esOfertaIndependiente, int tipoEstrategiaImagen)
         {
             if (esOfertaIndependiente) return;
@@ -1611,7 +1611,7 @@ namespace Portal.Consultoras.Web.Controllers
                     productosModel.Add(GetProductoInscribeteEnRevistaDigital());
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 BloqueoProductosDigitales(ref productos);
                 if (!productos.Any())
                 {
@@ -1778,7 +1778,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                     .ToList();
             }
-            
+
         }
 
         private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
@@ -1975,7 +1975,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string soloExtension = Path.GetExtension(rutaImagen);
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                
+
                 ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
@@ -2378,7 +2378,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = item.PedidoDetalleID,
                         Cantidad = Convert.ToInt32(item.Cantidad),
                         PrecioUnidad = item.PrecioUnidad,
-                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short) 0 : item.ClienteID
+                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : item.ClienteID
                     };
                     obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
                     olstPedidos.Add(obePedidoWebDetalle);
@@ -2470,7 +2470,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (obeConfiguracionCampania.CampaniaID > userData.CampaniaID)
             {
-                    return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;
@@ -3443,7 +3443,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 success = true,
-                data = (List<BEBannerPedido>) null
+                data = (List<BEBannerPedido>)null
             });
         }
 
@@ -3487,7 +3487,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true
                 });
             }
-            
+
             return Json(new
             {
                 success = true
@@ -3522,7 +3522,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                     return;
                 }
-            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
+                if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
 
@@ -3931,7 +3931,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 descuentoprol = 0;
             }
-            
+
 
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
@@ -4266,7 +4266,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var model = userData.ConsultoraRegaloProgramaNuevas;
                 if (model != null) f = true;
-                
+
                 return Json(new
                 {
                     success = f,
@@ -4547,7 +4547,7 @@ namespace Portal.Consultoras.Web.Controllers
             return mensaje;
 
         }
-        
+
         private JsonResult AgregarProductoVC(string listaCuvTonos, string FlagNueva, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
         {
             try
@@ -4627,7 +4627,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         #endregion
 
         private PartialSectionBpt GetPartialSectionBptModel()
