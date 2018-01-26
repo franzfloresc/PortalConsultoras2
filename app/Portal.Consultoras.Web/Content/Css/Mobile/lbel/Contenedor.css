@@ -470,7 +470,7 @@ border: 1px solid #00000014;
 background: black;
 color:white;
 text-align: center;
-padding: 5px 15px
+padding: 13.5px 15px
 }
 .desplegablegnd .gndcontenido .nrognd > div{
 
@@ -488,10 +488,13 @@ width:50%;
 display: inline-block;
 }
 .desplegablegnd .gndcontenido .nrognd .flechitagnd img{
-width:10px;
-height: 10px;
+width:15px;
+height: 15px;
 writing-mode: horizontal-tb;
 transform: rotate(180deg);
+position: relative;
+top: -1px;
+
 }
 .desplegablegnd .gndcontenido .contenedorgnd{
 padding: 15px;
@@ -536,40 +539,98 @@ font-size: 12px;
 letter-spacing: 1px;
 padding: 10px 15px;
 color: black;
-margin-top: 20px;
+margin-top: 10px;
 transition:.3s;
 }
 .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a:hover{
 background: black;
 color:white;
 }
-@media (max-width: 405px){
+@media (max-width: 512px){
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
+width:40%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd{
+    width:60%;
+    padding-left:5%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+    margin-top:0;
+    padding: 5px 15px;
+}
+
+}
+@media (max-width: 469px){
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
+width:35%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd{
+    width:65%;
+    padding-left:5%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
+    margin-bottom:5px;
+}
+}
+@media (max-width: 435px){
+.desplegablegnd .gndcontenido{
+width:85%;
+}
+}
+@media (max-width: 409px){
 .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
 font-size: 10px;
-margin-top:10px;
+}
+.desplegablegnd .gndcontenido{
+width:90%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 4%;
+}
+}
+@media (max-width: 400px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 9px;
 }
 .desplegablegnd .gndcontenido{
 width:95%;
 }
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 3%;
 }
-@media (max-width: 369px){
-.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
-
-width:55%;
 }
-.desplegablegnd .gndcontenido .contenedorgnd .infognd{
-
-width:40%;
-
+@media (max-width: 409px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 10px;
+}
+.desplegablegnd .gndcontenido{
+width:90%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 4%;
+}
+}
+@media (max-width: 400px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 9px;
+}
+.desplegablegnd .gndcontenido{
+width:95%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 3%;
 }
 .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
-margin-bottom: 0;
+    font-size:12px;
 }
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
-font-size: 10px;
-letter-spacing: 0;
-margin-top: 5px;
-width: 100%;
+}
+@media (max-width: 350px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+    width: 40%;
+}
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    width: 60%;
+    padding-left: 2.5%;
 }
 }
 /*fin viñeta gnd*/

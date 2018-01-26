@@ -33,7 +33,7 @@ function mostrarImagenPortadaRevista(codigoCampania) {
             $('.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd').css("height", alturaimggnd);
 
             var alturacontenedorgndpura = $('.desplegablegnd .gndcontenido .contenedorgnd').height();
-            var esconderparaanimaciongnd = alturacontenedorgnd;
+            var esconderparaanimaciongnd = alturacontenedorgnd+1;
             $('.desplegablegnd').css("bottom", -esconderparaanimaciongnd);
 
             var contadorgnddesktop = 1;
