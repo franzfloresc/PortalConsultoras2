@@ -118,7 +118,9 @@ namespace Portal.Consultoras.Web.WebPages
             string strFecha = string.Empty;
 
             if (tracking.Fecha.HasValue)
-                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours == 0 ? tracking.Fecha.Value.ToString("dd/MM/yyyy") : tracking.Fecha.Value.ToString();
+                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                    ? tracking.Fecha.Value.ToString("dd/MM/yyyy")
+                    : tracking.Fecha.Value.ToString();
 
             if (strFecha == string.Empty)
             {
@@ -435,7 +437,9 @@ namespace Portal.Consultoras.Web.WebPages
                         string strTexto = string.Empty;
 
                         if (item.Fecha.HasValue)
-                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString();
+                            strFecha = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0) 
+                                ? item.Fecha.Value.ToString("dd/MM/yyyy") 
+                                : item.Fecha.Value.ToString();
 
                         if (strFecha == "01/01/2001")
                         {
