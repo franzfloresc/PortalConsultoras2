@@ -629,7 +629,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
-        int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
+        List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
@@ -859,6 +859,9 @@ namespace Portal.Consultoras.ServiceContracts
         int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
+        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID);
+
+        [OperationContract]
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
 
         [OperationContract]
@@ -1017,6 +1020,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad);
 
         [OperationContract]
         bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad);

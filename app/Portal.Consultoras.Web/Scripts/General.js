@@ -278,6 +278,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena).string;
             });
 
+            Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen.replace(/'/g, "\\'");
+                return new Handlebars.SafeString(textoOrigen);
+            });
+
             Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
                 cadena = cadena || "";
                 var listCade = cadena.split(separador);

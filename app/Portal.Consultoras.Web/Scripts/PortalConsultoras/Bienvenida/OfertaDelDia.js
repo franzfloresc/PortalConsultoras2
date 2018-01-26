@@ -244,6 +244,9 @@ $(document).ready(function () {
                     $(".clase_control_color_dinamico").css("border-color", setColorTexto);
                     $(".icono_clase_control_color_dinamico").css("-webkit-filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
                     $(".icono_clase_control_color_dinamico").css("filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
+                    $(".cross_clase_control_color_dinamico").css("background", setColorTexto);
+                    $(".cross_clase_control_color_dinamico").css("background:after", setColorTexto);
+                    $(".cross_line_clase_control_color_dinamico").css("background", setColorTexto);
                 }
 
                 $('#PopOfertaDia').hide();

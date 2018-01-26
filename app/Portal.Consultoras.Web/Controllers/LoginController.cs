@@ -717,7 +717,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (usuario != null)
                 {
                     #region
-
                     usuarioModel = new UsuarioModel();
                     usuarioModel.EstadoPedido = usuario.EstadoPedido;
                     usuarioModel.NombrePais = usuario.NombrePais;
@@ -730,6 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoZona = usuario.CodigoZona;
                     usuarioModel.ConsultoraID = usuario.ConsultoraID;
                     usuarioModel.CodigoUsuario = usuario.CodigoUsuario;
+                    usuarioModel.CodigoUsuarioHost = string.Format("{0}({1})", usuario.CodigoUsuario,((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name);
                     usuarioModel.CodigoConsultora = usuario.CodigoConsultora;
                     usuarioModel.NombreConsultora = usuario.Nombre;
                     usuarioModel.RolID = usuario.RolID;
@@ -2293,6 +2293,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario,
                         StringComparison.OrdinalIgnoreCase) != 0)
                 {
+                    TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }

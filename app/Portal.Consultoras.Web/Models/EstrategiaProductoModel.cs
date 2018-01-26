@@ -21,11 +21,11 @@ namespace Portal.Consultoras.Web.Models
         public string NombreProducto { get; set; }
         public string Descripcion1 { get; set; }
         public string ImagenProducto { get; set; }
-        public Int16 MarcaId { get; set; }
+        public Int16 IdMarca { get; set; }
+        public string NombreMarca { get; set; }
         public string UsuarioCreacion { get; set; }
-        public DateTime FechaCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
-        public DateTime FechaModificacion { get; set; }
         public string ImagenAnterior { get; set; }
+        public Int16 Activo { get; set; }
     }
 }

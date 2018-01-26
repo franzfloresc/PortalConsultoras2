@@ -290,6 +290,12 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.EliminarOfertaShowRoomDetalleAll(campaniaID, cuv);
         }
 
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.EliminarEstrategiaProductoAll(estrategiaID);
+        }
+
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
         {
             var lst = new List<BEShowRoomPerfil>();
