@@ -1,26 +1,5 @@
 ﻿$(document).ready(function () {
-    $('.nro').html('REVISTA C-' + campaniaId.toString().substring(4, 6));
-
-    var alturacontgnd = $('.revistagnd .contrevistagnd').height();
-    var contadorbottomgnd = 1;
-    $('.revistagnd').css("bottom", '-' + alturacontgnd + 'px');
-    $('.nrorevista').click(function () {
-        // $('nav').toggle();
-
-        if (contadorbottomgnd == 1) {
-            $('.revistagnd').animate({
-                bottom: '0'
-            });
-            contadorbottomgnd = 0;
-        } else {
-            contadorbottomgnd = 1;
-            $('.revistagnd').animate({
-                bottom: '-' + alturacontgnd + 'px'
-            });
-            
-        }
-
-    });
+    $('.desplegablegnd .gndcontenido .nrognd .numeritognd').html('REVISTA C-' + campaniaId.toString().substring(4, 6));
 
     mostrarImagenPortadaRevista(campaniaId);
 
@@ -28,18 +7,63 @@
         $('#campaniaRevista').val(campaniaId);
         $('#frmGuiaNegocio').submit();
     });
+
 });
 
 
 function mostrarImagenPortadaRevista(codigoCampania) {
     var promise = getUrlImagenPortadaRevistaPromise(codigoCampania);
+    var imggndnueva = $("#imgPortadaRevista").attr("src");
+    var imgfake = "revista_no_disponible";
     $.when(promise).done(function (promiseResult) {
         if (checkTimeout(promiseResult)) {
             var urlImagen = promiseResult || defaultImageRevista;
             $("#imgPortadaRevista").attr("src", urlImagen);
         }
+
+        if (imggndnueva.indexOf(imgfake) != -1)
+
+        {
+            var alturaimggnd = $('.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img').height();
+            var alturacontenedorgnd = alturaimggnd + 30;
+            var alturanrognd = $('.desplegablegnd .gndcontenido .nrognd').height();
+
+            $('.desplegablegnd .gndcontenido .contenedorgnd').css("height", alturacontenedorgnd);
+
+            $('.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd').css("height", alturaimggnd);
+
+            var alturacontenedorgndpura = $('.desplegablegnd .gndcontenido .contenedorgnd').height();
+            var esconderparaanimaciongnd = alturacontenedorgnd;
+            $('.desplegablegnd').css("bottom", -esconderparaanimaciongnd);
+
+            var contadorgnddesktop = 1;
+
+            $('.desplegablegnd .gndcontenido .nrognd').click(function () {
+                if (contadorgnddesktop == 1) {
+                    $('.desplegablegnd').animate({
+                        bottom: '0'
+                    });
+                    $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(0deg)');
+                    
+                    contadorgnddesktop = 0;
+                } else {
+                    contadorgnddesktop = 1;
+                    $('.desplegablegnd').animate({
+                        bottom: -esconderparaanimaciongnd
+                    });
+                    $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(180deg)');
+                }
+            });
+        }
+
     });
+
+    
+
+
 }
+
+
 
 function getUrlImagenPortadaRevistaPromise(codigoCampania) {
 

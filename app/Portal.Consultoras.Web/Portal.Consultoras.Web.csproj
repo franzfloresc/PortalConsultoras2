@@ -641,6 +641,7 @@
     <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
+    <Compile Include="Models\ValidacionAutomaticaDetalleModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
