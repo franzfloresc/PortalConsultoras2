@@ -22,6 +22,9 @@
         .flip-clock-wrapper ul li a div div.inn {
             text-shadow: 0 1px 2px {{ColorFondo1}}  !important;
             background-color: {{ColorFondo1}}  !important;
+            {{#if ConfiguracionContenedor.ColorTexto}}
+            color: {{ConfiguracionContenedor.ColorTexto}} !important;
+            {{/if}}
         }
         {{#if ConfiguracionContenedor.ColorTexto}}
         .flip-clock-dot {

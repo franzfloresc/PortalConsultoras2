@@ -7304,6 +7304,22 @@ img {
     -ms-interpolation-mode: bicubic;
 }
 
+.cross {
+    position: relative;
+    margin: 5px 5px 7px 5px;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(to bottom, transparent 35%, #fff 35%, #fff 65%, transparent 65%), linear-gradient(to right, transparent 35%, #fff 35%, #fff 65%, transparent 65%);
+}
+
+.cross_line {
+    position: relative;
+    margin: 4px 5px 6px 7px;
+    width: 6px;
+    height: 8px;
+    background: linear-gradient(to bottom, transparent 35%, #fff 35%, #fff 65%, transparent 65%);
+}
+
 hr {
     clear: both;
     margin: 5px 0 5px 0;
@@ -32235,7 +32251,8 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 490px;
     margin: auto, auto;
-    background: #000;
+    /*background: #000;*/
+    padding: 10px 0;
 }
 
 @media screen and (max-width:1280px) {
@@ -32295,7 +32312,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 5px;
     font-family: 'Lato';
-    color: black;
+    color: white;
     font-size: 14px;
     text-align: left;
     line-height: 18px;
@@ -32319,7 +32336,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
-    color: black;
+    color: white;
     margin-bottom: 7px;
 }
 
@@ -32353,17 +32370,10 @@ h1#penmostreo .campana {
 }
 
 .content_set_pop_hoy {
-    width: 45%;
-    float: left;
-    min-height: 100px;
-    background: white;
-    margin-left: 0;
-    padding: 20px;
-    font-family: 'Lato';
-    border: 1px solid rgba(0, 0, 0, .03);
-    -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
-    -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
-    box-shadow: 0 15px 13px -8px rgba(236,236,236,1)
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-bottom: 10px;
 }
 
 .right_set_hoy {
@@ -32373,7 +32383,7 @@ h1#penmostreo .campana {
 }
 
 .precio_valorizado_oferta {
-    color: black;
+    color: white;
     font-family: 'Lato';
     font-size: 13px;
     margin-top: 23px;
@@ -32385,7 +32395,7 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    border: 1px solid #fff;
+    /*border: 1px solid #fff;*/
 }
 /*PAYPAL*/
 .monto_texto {
@@ -34019,7 +34029,7 @@ h1#penmostreo .campana {
 }
 
 .titulo_set_ODD {
-    color: black;
+    color: white;
     font-family: 'Lato';
     font-size: 25px;
     font-weight: 700;

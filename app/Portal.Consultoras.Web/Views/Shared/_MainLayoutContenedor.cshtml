@@ -341,26 +341,28 @@
                                         <hr class="clear">
                                     </div>
                                 </div>
-                                <div class="right_set_hoy">
+                                <div class="right_set_hoy clase_control_color_dinamico">
                                     <div class="height_min">
-                                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                                        <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                        <div class="titulo_set_ODD clase_control_color_dinamico">{{detalle.NombreOferta}}</div>
+                                        <div class="descripcion_set_ofertaDia clase_control_color_dinamico">{{{detalle.DescripcionOferta}}}</div>
+                                        <div class="precio_valorizado_oferta clase_control_color_dinamico">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia clase_control_color_dinamico">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
                                     </div>
                                     <div>
                                         <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0">
-                                                    <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="">
+                                            <input type="text" style ="color:white;" "value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd clase_control_color_dinamico" tabindex="0">
+                                            <div class="liquidacion_rango_right_pedido js-no-popup clase_control_color_dinamico">
+                                                <a class="mas js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                    <div class="cross cross_clase_control_color_dinamico"></div>
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" style="display:none">
                                                 </a>
-                                                <a class="menos js-no-popup" tabindex="0">
-                                                    <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="">
+                                                <a class="menos js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                    <div class="cross_line cross_line_clase_control_color_dinamico"></div>
+                                                    <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" style="display:none">
                                                 </a>
                                             </div>
                                         </div>
-                                        <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                        <a class="btn_pop_agregalo_oferta clase_control_color_dinamico" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
                             </div>
