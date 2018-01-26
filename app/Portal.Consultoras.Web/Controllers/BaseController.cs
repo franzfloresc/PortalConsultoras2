@@ -687,6 +687,17 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            if (revistaDigital.TieneRDI)
+            {
+                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                if (tieneEventoFestivoData)
+                {
+                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+                }
+
+            }
+
             return urlImagen;
         }
 
