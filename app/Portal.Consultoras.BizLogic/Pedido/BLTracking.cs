@@ -275,6 +275,8 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BETracking> pedidos;
             var pedidosDetalle = new List<BETrackingDetalle>();
+            var novedades = new List<BENovedadTracking>();
+            var paisTracking = WebConfig.WebTrackingConfirmacion.Contains(Util.GetPaisISO(paisID));
 
             using (IDataReader reader = new DATracking(paisID).GetTrackingPedidoByConsultora(codigoConsultora, top))
             {
@@ -283,22 +285,38 @@ namespace Portal.Consultoras.BizLogic
 
                 foreach (var item in pedidos)
                 {
-                    item.Detalles = pedidosDetalle.Where(x => x.Campana == item.Campana).Select(x => new BETrackingDetalle
+                    if(paisTracking) novedades = GetNovedadesTracking(paisID, item.NumeroPedido);
+
+                    var lstDetalle = pedidosDetalle.Where(x => x.Campana == item.Campana).ToList();
+
+                    foreach (var itemDet in lstDetalle)
                     {
-                        Etapa = x.Etapa,
-                        Situacion = x.Situacion,
-                        Fecha = x.Fecha,
-                        FechaFormatted = item.Fecha.HasValue ? item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString() : string.Empty,
-                        Observacion = x.Observacion
-                    }).Select(x => new BETrackingDetalle
-                    {
-                        Etapa = x.Etapa,
-                        Situacion = x.Situacion,
-                        Fecha = x.Fecha,
-                        FechaFormatted = x.FechaFormatted,
-                        Alcanzado = (x.FechaFormatted == "01/01/2001" || x.FechaFormatted == "02/01/2010" || x.FechaFormatted == string.Empty ? false : true),
-                        Observacion = x.Observacion
-                    }).ToList();
+                        itemDet.FechaFormatted = (itemDet.Fecha.HasValue ? (itemDet.Fecha.Value.TimeOfDay.TotalHours == 0 ? itemDet.Fecha.Value.ToString("dd/MM/yyyy") : itemDet.Fecha.Value.ToString()) : string.Empty);
+
+                        switch (itemDet.FechaFormatted)
+                        {
+                            case "":
+                                break;
+                            case "01/01/2001":
+                                break;
+                            case "02/01/2010":
+                                break;
+                            case "01/01/2010":
+                                itemDet.Alcanzado = true;
+                                var novedad = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
+                                if (novedad != null)
+                                {
+                                    itemDet.FechaFormatted = (novedad.FechaNovedad.HasValue ? (novedad.FechaNovedad.Value.TimeOfDay.TotalHours == 0 ? novedad.FechaNovedad.Value.ToString("dd/MM/yyyy") : novedad.FechaNovedad.Value.ToString()) : string.Empty);
+                                    itemDet.Fecha = novedad.FechaNovedad.Value;
+                                }
+                                break;
+                            default:
+                                itemDet.Alcanzado = true;
+                                break;
+                        }
+                    }
+
+                    item.Detalles = lstDetalle;
                 }
             }
 
