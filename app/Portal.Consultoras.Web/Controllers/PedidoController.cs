@@ -2592,13 +2592,17 @@ namespace Portal.Consultoras.Web.Controllers
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
                 };
 
-                if (pedidoModelo.ListaDetalle.Any())
+                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoModelo.ListaDetalleFormato = pedidoWebDetalleModel;
+
+                if (pedidoModelo.ListaDetalleFormato.Any())
                 {
                     var grid = SetGrid(sidx, sord, page, rows);
-                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalle);
+                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalleFormato);
 
-                    pedidoModelo.ListaDetalle = pedidoModelo.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
-                    pedidoModelo.ListaDetalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
+                    pedidoModelo.ListaDetalleFormato = pedidoModelo.ListaDetalleFormato.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                    pedidoModelo.ListaDetalleFormato.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
 
                     pedidoModelo.Registros = grid.PageSize.ToString();
                     pedidoModelo.RegistrosTotal = pag.RecordCount.ToString();
