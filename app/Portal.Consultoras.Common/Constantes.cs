@@ -1179,14 +1179,14 @@ namespace Portal.Consultoras.Common
             {
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string DBienvenidaRdr = "DBienvenidaRdr";
-                public const string DPedidoRdr = "DPedidoRdr";
-                public const string DCatalogoRdr = "DCatalogoRdr";
-                public const string MBienvenidaRdr = "MBienvenidaRdr";
-                public const string MPedidoRdr = "MPedidoRdr";
-                public const string MCatalogoRdr = "MCatalogoRdr";
-                public const string DRDRLandingBanner = "DRDRLandingBanner";
-                public const string MRDRLandingBanner = "MRDRLandingBanner";
+                public const string DBienvenidaRdi = "DBienvenidaRdi";
+                public const string DPedidoRdi = "DPedidoRdi";
+                public const string DCatalogoRdi = "DCatalogoRdi";
+                public const string MBienvenidaRdi = "MBienvenidaRdi";
+                public const string MPedidoRdi = "MPedidoRdi";
+                public const string MCatalogoRdi = "MCatalogoRdi";
+                public const string DLandingBannerRdi = "DLandingBannerRdi";
+                public const string MLandingBannerRdi = "MLandingBannerRdi";
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
             }
 

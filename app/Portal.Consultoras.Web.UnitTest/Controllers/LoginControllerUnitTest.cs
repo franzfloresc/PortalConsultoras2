@@ -257,7 +257,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginControllerStub(logManager.Object,sessionManager.Object);
                 var usuario = new UsuarioModel
                 {
-                    TipoUsuario = Constantes.TipoUsuario.Consultora
+                    TipoUsuario = Constantes.TipoUsuario.Consultora,
+                    NombreConsultora = "UnNombre",
+                    Sobrenombre= "UnSobreNombre"
                 };
 
                 var result = controller.ConfiguracionPaisUsuario(usuario);
@@ -269,6 +271,49 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisUsuario"))),
                     Times.AtLeastOnce);
                 Assert.IsNotNull(result);
+            }
+
+            class LoginControllerStub02 : LoginController
+            {
+                public LoginControllerStub02(ILogManager logManager, ISessionManager sessionManager) : base(logManager, sessionManager)
+                {
+
+                }
+
+                protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
+                {
+                    var list = new List<ConfiguracionPaisModel>();
+                    list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
+                    return list;
+                }
+
+                protected override List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
+                {
+                    var list = new List<BEConfiguracionPaisDatos>();
+                    //
+                    return list;
+                }
+
+                protected override void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
+                {
+                    //
+                }
+            }
+            [TestMethod]
+            public void ConfiguracionPaisUsuario_TieneRevistaDigitalIntriga_ActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginControllerStub02(logManager.Object, sessionManager.Object);
+                var usuario = new UsuarioModel
+                {
+                    TipoUsuario = Constantes.TipoUsuario.Consultora,
+                    NombreConsultora = "UnNombre",
+                    Sobrenombre = "UnSobreNombre"
+                };
+
+                var result = controller.ConfiguracionPaisUsuario(usuario);
+
+                Assert.IsNotNull(result);
+                sessionManager.Verify(x => x.SetRevistaDigital(It.Is<RevistaDigitalModel>(rd => rd.TieneRDI == true && rd.TieneRDC == false)));
             }
         }
 
@@ -516,6 +561,66 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(false, result.BloqueoProductoDigital);
                 Assert.AreEqual(0, listaDatos.Count);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+        }
+
+        [TestClass]
+        public class FormatTextConfiguracionPaisDatosModel : Base
+        {
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "No puede ser nulo.\r\nParameter name: revistaDigital")]
+            public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalEsNulo_LanzaException()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var revistaModel = (RevistaDigitalModel)null;
+
+                controller.FormatTextConfiguracionPaisDatosModel(revistaModel,string.Empty);
+            }
+
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "No puede ser nulo o vacío.\r\nParameter name: nombreConsultora")]
+            public void FormatTextConfiguracionPaisDatosModel_NombreConsultoraEsNulo_LanzaException()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var revistaModel = new RevistaDigitalModel();
+
+                controller.FormatTextConfiguracionPaisDatosModel(revistaModel, string.Empty);
+            }
+
+            [TestMethod]
+            public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalModelNoTieneConfiguracionDatos_ReturnRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var revistaModel = new RevistaDigitalModel {
+                    ConfiguracionPaisDatos=null
+                };
+
+                var result = controller.FormatTextConfiguracionPaisDatosModel(revistaModel, "NombreConsultora");
+
+                Assert.IsNotNull(result);
+            }
+
+            [TestMethod]
+            public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalModelTieneConfiguracionDatos_ReturnRevistaDigitalModelTextosFormateados()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var revistaModel = new RevistaDigitalModel
+                {
+                    NombreConsultora="Consultora de Prueba" ,                   
+                    ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel> {
+                        new ConfiguracionPaisDatosModel{
+                            Codigo = Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaRdi,
+                            Valor1="#Nombre, ¡Bienvenida al tu nuevo espacio de ofertas exclusivas",
+                            Valor2="#Nombre, ¡otro mensaje más"
+                        }
+                    }
+                };
+
+                var result = controller.FormatTextConfiguracionPaisDatosModel(revistaModel, revistaModel.NombreConsultora);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual("Consultora de Prueba, ¡Bienvenida al tu nuevo espacio de ofertas exclusivas", revistaModel.ConfiguracionPaisDatos[0].Valor1);
+                Assert.AreEqual("Consultora de Prueba, ¡otro mensaje más", revistaModel.ConfiguracionPaisDatos[0].Valor2);
             }
         }
     }

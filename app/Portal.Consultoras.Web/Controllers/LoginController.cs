@@ -1171,7 +1171,7 @@ namespace Portal.Consultoras.Web.Controllers
         /// <param name="usuarioModel">informacion de usuario</param>
         /// <returns>informacion de usuario actualizada</returns>
         public UsuarioModel ConfiguracionPaisUsuario(UsuarioModel usuarioModel)
-        {
+         {
             try
             {
                 if (usuarioModel== null)
@@ -1233,7 +1233,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     listaPaisDatos
                                         .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                         .ToList(), usuarioModel.CodigoISO);
-
+                                revistaDigitalModel.TieneRDI = true;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuarioModel.TieneValidacionMontoMaximo = c.Estado;
@@ -2666,10 +2666,15 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        private RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
+        public RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
             string nombreConsultora)
         {
-            if (revistaDigital == null) return revistaDigital;
+            if (revistaDigital == null)
+                throw new ArgumentNullException("revistaDigital", "No puede ser nulo.");
+
+            if (string.IsNullOrWhiteSpace(nombreConsultora))
+                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacío.");
+
             if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
 
             foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
