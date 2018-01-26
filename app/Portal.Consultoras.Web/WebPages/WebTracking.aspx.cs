@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
-            
+
             if (Util.Trim(ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.Ambiente]) != "PR")
             {
                 lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
@@ -88,16 +88,8 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            Image boton = (Image)e.Row.FindControl("imgMuestra");
-
-            if (boton == null)
-                return;
-
-            BETracking tracking = e.Row.DataItem as BETracking;
-
-            if (tracking == null) return;
-
             string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
             Image botonSI = (Image)e.Row.FindControl("imgSI");
             Image botonNO = (Image)e.Row.FindControl("imgNO");
             Image botonNO2 = (Image)e.Row.FindControl("imgNO2");
@@ -107,99 +99,106 @@ namespace Portal.Consultoras.Web.WebPages
             Label lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
 
             if (lblTextoValorTurno != null)
-                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
-            
+                lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f");
 
-                string strSituacion = tracking.Situacion;
+            if (boton == null)
+                return;
 
-                if (strSituacion.Contains("<br/>")) {
-                    strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
+            BETracking tracking = e.Row.DataItem as BETracking;
+
+            if (tracking == null) return;
+
+            string strSituacion = tracking.Situacion;
+
+            if (strSituacion.Contains("<br/>"))
+            {
+                strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
+            }
+
+            string strFecha = string.Empty;
+
+            if (tracking.Fecha.HasValue)
+                strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours == 0 ? tracking.Fecha.Value.ToString("dd/MM/yyyy") : tracking.Fecha.Value.ToString();
+
+            if (strFecha == string.Empty)
+            {
+                botonSI.Visible = false;
+                botonNO.Visible = true;
+                if (strSituacion.ToUpper() == "CHEQUEADO")
+                {
+                    botonSI.Visible = false;
+                    botonNO.Visible = false;
                 }
-
-                string strFecha = string.Empty;
-
-                if (tracking.Fecha.HasValue)
-                    strFecha = tracking.Fecha.Value.TimeOfDay.TotalHours == 0 ? tracking.Fecha.Value.ToString("dd/MM/yyyy") : tracking.Fecha.Value.ToString();
-
-                if (strFecha == string.Empty)
+            }
+            else
+            {
+                if (strFecha == "01/01/2001")
                 {
                     botonSI.Visible = false;
                     botonNO.Visible = true;
-                    if (strSituacion.ToUpper() == "CHEQUEADO")
-                    {
-                        botonSI.Visible = false;
-                        botonNO.Visible = false;
-                    }
                 }
                 else
                 {
-                    if (strFecha == "01/01/2001")
+                    if (strFecha == "01/01/2010" || strFecha == "02/01/2010")
                     {
-                        botonSI.Visible = false;
-                        botonNO.Visible = true;
-                    }
-                    else
-                    {
-                        if (strFecha == "01/01/2010" || strFecha == "02/01/2010")
+                        botonNO.Visible = false;
+                        if (strFecha == "01/01/2010")
                         {
-                            botonNO.Visible = false;
-                            if (strFecha == "01/01/2010")
-                            {
-                                botonSI.Visible = true;
-                                botonNO2.Visible = false;
-                                lblFecha.ForeColor = System.Drawing.Color.Blue;
-                                lblFecha.Font.Bold = true;
-                            }
-                            else
-                            {
-                                botonSI.Visible = false;
-                                botonNO2.Visible = true;
-                                lblFecha.ForeColor = System.Drawing.Color.Red;
-                                lblFecha.Font.Bold = true;
-                            }
-
-                            lblTexto.Visible = true;
-                            botonSegPed.Visible = true;
+                            botonSI.Visible = true;
+                            botonNO2.Visible = false;
+                            lblFecha.ForeColor = System.Drawing.Color.Blue;
+                            lblFecha.Font.Bold = true;
                         }
                         else
                         {
-                            botonSI.Visible = true;
-                            botonNO.Visible = false;
+                            botonSI.Visible = false;
+                            botonNO2.Visible = true;
+                            lblFecha.ForeColor = System.Drawing.Color.Red;
+                            lblFecha.Font.Bold = true;
                         }
+
+                        lblTexto.Visible = true;
+                        botonSegPed.Visible = true;
+                    }
+                    else
+                    {
+                        botonSI.Visible = true;
+                        botonNO.Visible = false;
                     }
                 }
+            }
 
-                switch (strSituacion.ToUpper())
-                {
-                    case "PEDIDO RECIBIDO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/pedidorecibido.png";
-                        break;
-                    case "FACTURADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/factura.png";
-                        break;
-                    case "INICIO DE ARMADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/box.png";
-                        boton.Width = 70;
-                        break;
-                    case "CHEQUEADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/check.png";
-                        boton.Width = 50;
-                        break;
-                    case "PUESTO EN TRANSPORTE":
-                        boton.ImageUrl = "~/Content/Images/webtracking/camion.png";
-                        boton.Width = 70;
-                        break;
-                    case "ENTREGADO":
-                        boton.ImageUrl = "~/Content/Images/webtracking/home.png";
-                        boton.Width = 55;
-                        break;
-                    case "FECHA ESTIMADA DE ENTREGA":
-                        boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
-                        botonSI.Visible = false;
-                        botonNO.Visible = false;
-                        break;
-                }
-            
+            switch (strSituacion.ToUpper())
+            {
+                case "PEDIDO RECIBIDO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/pedidorecibido.png";
+                    break;
+                case "FACTURADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/factura.png";
+                    break;
+                case "INICIO DE ARMADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/box.png";
+                    boton.Width = 70;
+                    break;
+                case "CHEQUEADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/check.png";
+                    boton.Width = 50;
+                    break;
+                case "PUESTO EN TRANSPORTE":
+                    boton.ImageUrl = "~/Content/Images/webtracking/camion.png";
+                    boton.Width = 70;
+                    break;
+                case "ENTREGADO":
+                    boton.ImageUrl = "~/Content/Images/webtracking/home.png";
+                    boton.Width = 55;
+                    break;
+                case "FECHA ESTIMADA DE ENTREGA":
+                    boton.ImageUrl = "~/Content/Images/webtracking/calendario.png";
+                    botonSI.Visible = false;
+                    botonNO.Visible = false;
+                    break;
+            }
+
         }
 
         protected void BtnCancel1_Click(object sender, EventArgs e)
@@ -466,7 +465,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                         /*SB20-964 - INICIO */
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
-                        {                          
+                        {
                             if (item.ValorTurno.ToUpper() == "AM")
                             {
                                 item.ValorTurno = "<b>En la mañana</b>";
@@ -476,7 +475,7 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = "<b>En la tarde</b>";
                             }
                             else
-                            {                               
+                            {
                                 item.ValorTurno = string.Empty;
                             }
                         }
@@ -736,7 +735,7 @@ namespace Portal.Consultoras.Web.WebPages
             if (e.CommandName == "NOVEDADES")
             {
                 mvTracking.ActiveViewIndex = 1;
-                
+
                 gvNovedadesPostVenta.SelectedIndex = 0;
 
                 string Lat = (string)gvNovedadesPostVenta.DataKeys[0]["Latitud"];
