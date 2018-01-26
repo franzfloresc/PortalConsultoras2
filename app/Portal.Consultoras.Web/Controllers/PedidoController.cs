@@ -516,7 +516,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (objValidad != null)
                     return Json(objValidad);
 
-                #region AdministradorPedido
+                #region Administrador Pedido
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
                 {
                     PaisID = userData.PaisID,
@@ -635,7 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //if (objValidad != null)
                 //    return Json(objValidad);
 
-                //#region AdministradorPedido
+                //#region Administrador Pedido
                 //var obePedidoWebDetalle = new BEPedidoWebDetalle
                 //{
                 //    IPUsuario = userData.IPUsuario,
@@ -3088,14 +3088,11 @@ namespace Portal.Consultoras.Web.Controllers
                 obePedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 var quitoCantBackOrder = false;
-                if (tipoAdm == "U"
-                    && obePedidoWebDetalle.PedidoDetalleID != 0)
+                if (tipoAdm == "U" && obePedidoWebDetalle.PedidoDetalleID != 0)
                 {
                     var oldPedidoWebDetalle = olstTempListado.FirstOrDefault(x => x.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID) ?? new BEPedidoWebDetalle();
 
-                    if (oldPedidoWebDetalle.AceptoBackOrder
-                        && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad
-                        )
+                    if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
                     {
                         quitoCantBackOrder = true;
                     }
