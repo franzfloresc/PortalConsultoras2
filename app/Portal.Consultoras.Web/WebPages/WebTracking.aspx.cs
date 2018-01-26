@@ -88,16 +88,8 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void gridDatos_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            Image boton = (Image)e.Row.FindControl("imgMuestra");
-
-            if (boton == null)
-                return;
-
-            BETracking tracking = e.Row.DataItem as BETracking;
-
-            if (tracking == null) return;
-
             string paisISO = Convert.ToString(ViewState["PAISISO"]);
+            Image boton = (Image)e.Row.FindControl("imgMuestra");
             Image botonSI = (Image)e.Row.FindControl("imgSI");
             Image botonNO = (Image)e.Row.FindControl("imgNO");
             Image botonNO2 = (Image)e.Row.FindControl("imgNO2");
@@ -109,6 +101,12 @@ namespace Portal.Consultoras.Web.WebPages
             if (lblTextoValorTurno != null)
                 lblTextoValorTurno.ForeColor = System.Drawing.ColorTranslator.FromHtml((ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO)) ? "#e81c36" : "#b75d9f"); 
             
+            if (boton == null)
+                return;
+
+            BETracking tracking = e.Row.DataItem as BETracking;
+
+            if (tracking == null) return;
 
                 string strSituacion = tracking.Situacion;
 
