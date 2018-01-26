@@ -1594,6 +1594,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+        }
+
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
         {
             return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
@@ -1876,6 +1881,11 @@ namespace Portal.Consultoras.Service
         public int InsertarEstrategiaProducto(BEEstrategiaProducto entidad)
         {
             return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
+        }
+
+        public int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().UpdateEstrategiaProducto(entidad);
         }
 
         public bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad)
@@ -2237,5 +2247,6 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
         }
+
     }
 }
