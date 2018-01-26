@@ -75,23 +75,9 @@
 
         <!-- FIN - VISTA CONFIRMACIÓN PAGO -->
 
-        <div style="text-align: center; padding: 10px;">
-            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
-                <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
-                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
-                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
-                        data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
-                        data-buttonsize="LARGE"></script>
-            </form>
-        </div>
-
         <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
 
-        <div class="contenedor_info_pago_seguro_y_ctas">
+        <div class="contenedor_info_pago_seguro_y_ctas" style="margin-bottom:10px;">
 
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
@@ -109,6 +95,20 @@
         </div>
 
         <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
+
+        <div style="text-align: center; padding: 10px;">
+            <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
+                <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                        data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                        data-buttonsize="LARGE"></script>
+            </form>
+        </div>        
 
     </div>
 
@@ -148,7 +148,9 @@
 
             var boton = $("button[type='submit']")[0];
             $(boton).css("background", colorBoton);
-            $(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
+            $(boton).css("width", "100%");
+            //$(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
+            $(boton).html("PAGA CON VISA");
         });
     </script>
 }

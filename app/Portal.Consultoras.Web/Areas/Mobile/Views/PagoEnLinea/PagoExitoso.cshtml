@@ -46,15 +46,15 @@
             </p>
             <p class="info_constancia_pago_exitoso">
                 Te enviamos una constancia de pago a tu correo o puedes revisarla <a href="" class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>
-            </p>
-            <p class="info_num_operacion_pago">
-                Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
-            </p>
+            </p>            
             <div class="resumen_pago_exitoso">
                 <h3 class="titulo_resumen_pago_exitoso">
                     Resumen del pago
                 </h3>
                 <div class="resumen_pago">
+                    <p class="info_num_operacion_pago">
+                        Número de operación: <span class="num_operacion_pago">@Model.NumeroOperacion</span>
+                    </p>
                     <div class="monto_pagado">
                         <span>Monto:</span>
                         <span>@Model.Simbolo @Model.MontoDeudaString</span>
