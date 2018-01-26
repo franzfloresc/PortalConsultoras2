@@ -3036,6 +3036,7 @@
     <Content Include="Content\Images\PL20\icono_agregar.png" />
     <Content Include="Content\Images\PL20\icono_cupon.png" />
     <Content Include="Content\Images\PL20\icono_pop_up_cupon.png" />
+    <Content Include="Content\Images\PL20\ld_arrowright_blanco.png" />
     <Content Include="Content\Images\PL20\left_black_compra.png" />
     <Content Include="Content\Images\PL20\left_compra.png" />
     <Content Include="Content\Images\PL20\mail_lbel.jpg" />

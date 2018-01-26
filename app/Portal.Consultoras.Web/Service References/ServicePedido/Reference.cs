@@ -33730,10 +33730,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> InsertarEstrategiaAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEstrategiaMasiva", ReplyAction="http://tempuri.org/IPedidoService/InsertarEstrategiaMasivaResponse")]
-        int InsertarEstrategiaMasiva(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad);
+        int[] InsertarEstrategiaMasiva(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEstrategiaMasiva", ReplyAction="http://tempuri.org/IPedidoService/InsertarEstrategiaMasivaResponse")]
-        System.Threading.Tasks.Task<int> InsertarEstrategiaMasivaAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad);
+        System.Threading.Tasks.Task<int[]> InsertarEstrategiaMasivaAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/FiltrarEstrategia", ReplyAction="http://tempuri.org/IPedidoService/FiltrarEstrategiaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEEstrategia[] FiltrarEstrategia(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
@@ -36391,11 +36391,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertarEstrategiaAsync(entidad);
         }
         
-        public int InsertarEstrategiaMasiva(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad) {
+        public int[] InsertarEstrategiaMasiva(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad) {
             return base.Channel.InsertarEstrategiaMasiva(entidad);
         }
         
-        public System.Threading.Tasks.Task<int> InsertarEstrategiaMasivaAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad) {
+        public System.Threading.Tasks.Task<int[]> InsertarEstrategiaMasivaAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategiaMasiva entidad) {
             return base.Channel.InsertarEstrategiaMasivaAsync(entidad);
         }
         

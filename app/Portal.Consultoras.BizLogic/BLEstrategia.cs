@@ -673,12 +673,12 @@ namespace Portal.Consultoras.BizLogic
 
         #endregion
 
-        public int InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try
             {
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.InsertarEstrategiaMasiva(entidad);
+                List<int> result = DAEstrategia.InsertarEstrategiaMasiva(entidad);
                 return result;
             }
             catch (Exception)
