@@ -3987,6 +3987,7 @@
         var totalFiles = document.getElementById("fileDescMasivo").files.length;
         if (totalFiles <= 0) {
             _toastHelper.error("Seleccione al menos un archivo.");
+            closeWaitingDialog();
             return false;
         }
 

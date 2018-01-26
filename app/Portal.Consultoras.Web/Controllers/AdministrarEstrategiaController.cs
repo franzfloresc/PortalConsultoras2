@@ -725,8 +725,16 @@ namespace Portal.Consultoras.Web.Controllers
                             mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
 
                         #endregion
+                        if (entidad.ImagenMiniaturaURL == string.Empty || entidad.ImagenMiniaturaURL == "prod_grilla_vacio.png")
+                        {
+                            entidad.ImagenMiniaturaURL = entidad.ImagenURL;
+                        }
+                        else
+                        {
+                            entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
+                        }
 
-                        entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
+                        
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -2215,7 +2223,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
             }
             else nombreImagenFinal = nombreImagen;
-
             return nombreImagenFinal;
         }
         #endregion
