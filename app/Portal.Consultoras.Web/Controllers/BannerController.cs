@@ -666,15 +666,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.Codigo = Constantes.BannerCodigo.RevistaDigital;
                     if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                    {
                         if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                        {
                             if (revistaDigital.NoVolverMostrar)
                             {
                                 if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
-                                    || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                {
-                                    item.Clase = "oculto";
-                                }
-                                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+                                    || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo
+                                    || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                 {
                                     item.Clase = "oculto";
                                 }
@@ -682,7 +681,10 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 item.Clase = "oculto";
+
                             }
+                        }
+                    }
                 }
 
             });
