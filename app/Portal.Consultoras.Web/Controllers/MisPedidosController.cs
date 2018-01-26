@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                 items.Add(itemx);
             }
 
-            BEGrid grid = SetGrid(sidx, sord, page, rows);
+            BEGrid grid = new BEGrid(sidx, sord, page, rows);
 
             BEPager pag = Util.PaginadorGenerico(grid, items);
             var importeTotal = Util.DecimalToStringFormat(items.Sum(p => p.ImporteTotal), userData.CodigoISO);
@@ -758,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarPedidoWebDetallePorCamaniaPorCliente(string sidx, string sord, int page, int rows, string CampaniaId, int cliente, string estado, int pedidoId)
         {
-            BEGrid grid = SetGrid(sidx, sord, page, rows);
+            BEGrid grid = new BEGrid(sidx, sord, page, rows);
 
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado, pedidoId);
             var pedidoWeb = lst.Any() ? lst[0] : new BEPedidoWebDetalle();

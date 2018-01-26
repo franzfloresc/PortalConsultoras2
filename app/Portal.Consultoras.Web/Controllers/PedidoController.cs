@@ -2598,7 +2598,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (pedidoModelo.ListaDetalleFormato.Any())
                 {
-                    var grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalleFormato);
 
                     pedidoModelo.ListaDetalleFormato = pedidoModelo.ListaDetalleFormato.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
@@ -3559,7 +3559,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
                     SetUserData(userData);
 
-                    var grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
 
                     model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();

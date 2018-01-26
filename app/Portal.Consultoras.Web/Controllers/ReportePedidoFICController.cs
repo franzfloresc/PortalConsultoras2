@@ -14,10 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReportePedidoFICController : BaseController
     {
-        delegate List<BEServicePROLFIC> OrderItemsDelegate(List<BEServicePROLFIC> list, Func<BEServicePROLFIC, string> orderFunc);
-        OrderItemsDelegate OrderAscending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-        OrderItemsDelegate OrderDescending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-
         public ActionResult Index()
         {
             var reportePedidoCampaniaModel = new ReportePedidoFICModel();
@@ -74,24 +70,20 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid(sidx, sord, page, rows);
                 IEnumerable<BEServicePROLFIC> items = lst;
 
                 #region Sort Section
-                var orderList = (sord == "asc") ? OrderAscending : OrderDescending;
+                bool orderAsc = (sord == "asc");
                 switch (sidx)
                 {
-                    case "ZONA": items = orderList(lst, x => x.ZONA); break;
-                    case "CUENTA": items = orderList(lst, x => x.CUENTA); break;
-                    case "CUV": items = orderList(lst, x => x.CUV); break;
-                    case "PRODUCTO": items = orderList(lst, x => x.PRODUCTO); break;
-                    case "TIPO_OFETA": items = orderList(lst, x => x.TIPO_OFETA); break;
-                    case "UNIDADES": items = orderList(lst, x => x.UNIDADES); break;
-                    case "VENTA_NETA": items = orderList(lst, x => x.VENTA_NETA); break;
+                    case "ZONA": items = lst.OrderBy(x => x.ZONA, orderAsc); break;
+                    case "CUENTA": items = lst.OrderBy(x => x.CUENTA, orderAsc); break;
+                    case "CUV": items = lst.OrderBy(x => x.CUV, orderAsc); break;
+                    case "PRODUCTO": items = lst.OrderBy(x => x.PRODUCTO, orderAsc); break;
+                    case "TIPO_OFETA": items = lst.OrderBy(x => x.TIPO_OFETA, orderAsc); break;
+                    case "UNIDADES": items = lst.OrderBy(x => x.UNIDADES, orderAsc); break;
+                    case "VENTA_NETA": items = lst.OrderBy(x => x.VENTA_NETA, orderAsc); break;
                 }
                 #endregion
 
@@ -155,14 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ServiceODS.BEConsultoraCodigo[] entidad = sv.SelectConsultoraCodigo(userData.PaisID, regionID, zonaID, busqueda, rowCount);
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public BEPager Paginador(BEGrid item, List<ReportePedidoCampaniaModel> lst)
-        {
-            var pag = new BEPager { RecordCount = lst.Count, CurrentPage = item.CurrentPage };
-            pag.PageCount = (int)(((float)pag.RecordCount / (float)item.PageSize) + 1);
-            if (pag.CurrentPage > pag.PageCount) pag.CurrentPage = pag.PageCount;
-            return pag;
         }
 
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)

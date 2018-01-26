@@ -82,4 +82,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMisPedidosFacturadosDetalle" nillable="true" type="tns:BEMisPedidosFacturadosDetalle" />
+  <xs:complexType name="ArrayOfBETrackingDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETrackingDetalle" nillable="true" type="tns:BETrackingDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBETrackingDetalle" nillable="true" type="tns:ArrayOfBETrackingDetalle" />
+  <xs:complexType name="BETrackingDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Alcanzado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Campana" type="xs:int" />
+      <xs:element minOccurs="0" name="Etapa" type="xs:int" />
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaFormatted" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Situacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BETrackingDetalle" nillable="true" type="tns:BETrackingDetalle" />
 </xs:schema>
