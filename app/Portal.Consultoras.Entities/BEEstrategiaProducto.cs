@@ -54,15 +54,14 @@ namespace Portal.Consultoras.Entities
         public int IdMarca { get; set; }
         [DataMember]
         public string NombreMarca { get; set; }
+        [DataMember]
+        public Int16 Activo { get; set; }
 
         [DataMember]
         public string UsuarioCreacion { get; set; }
         [DataMember]
-        public DateTime FechaCreacion { get; set; }
-        [DataMember]
         public string UsuarioModificacion { get; set; }
-        [DataMember]
-        public DateTime FechaModificacion { get; set; }
+
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -86,7 +85,12 @@ namespace Portal.Consultoras.Entities
             NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
             Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
             ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
-            IdMarca = DataRecord.GetColumn<int>(row, "IdMarca");
+            //IdMarca = DataRecord.GetColumn<int>(row, "IdMarca");
+
+            if (DataRecord.HasColumn(row, "IdMarca")) IdMarca = Convert.ToInt16(row["IdMarca"]);
+
+            if (DataRecord.HasColumn(row, "Activo")) Activo = Convert.ToInt16(row["Activo"]);
+
             NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
     }

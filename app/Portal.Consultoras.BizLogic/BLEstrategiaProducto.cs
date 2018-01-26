@@ -19,6 +19,17 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
+        public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            try
+            {
+                var DA = new DAEstrategiaProducto(entidad.PaisID);
+                int result = DA.UpdateEstrategiaProducto(entidad);
+                return result;
+            }
+            catch (Exception) { throw; }
+        }
+
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             var lista = new List<BEEstrategiaProducto>();

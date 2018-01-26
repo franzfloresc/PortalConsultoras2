@@ -645,7 +645,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoErrorObs = producto.obs_error,
                     FactorCuadre = producto.factor_cuadre,
                     NombreProducto = producto.descripcion,
-                    IdMarca = producto.idmarca
+                    IdMarca = producto.idmarca,
+                    UsuarioModificacion = userData.CodigoConsultora
                 };
 
                 using (var sv = new PedidoServiceClient())

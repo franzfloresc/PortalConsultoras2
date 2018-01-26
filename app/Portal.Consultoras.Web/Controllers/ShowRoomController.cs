@@ -17,6 +17,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
+using Portal.Consultoras.Web.ServiceODS;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
@@ -1758,7 +1760,8 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
-        public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int campaniaId, string cuv, int estrategiaId)
+        //public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int campaniaId, string cuv)
+        public ActionResult ConsultarOfertaShowRoomDetalle(string sidx, string sord, int page, int rows, int estrategiaId)
         {
             if (ModelState.IsValid)
             {
@@ -1863,17 +1866,20 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.MarcaProducto,
                                 }
                                 */
-                                id = a.EstrategiaProductoID,
-                                cell = new[]
+                               id = a.EstrategiaProductoID,
+                               cell = new[]
                                 {
                                     a.EstrategiaProductoID.ToString(),
                                     a.EstrategiaID.ToString(),
                                     a.Campania.ToString(),
-                                    a.CUV,
+                                    a.CUV2,
                                     a.NombreProducto,
                                     a.Descripcion1,
                                     a.ImagenProducto,
-                                    a.NombreMarca
+                                    a.IdMarca.ToString(),
+                                    a.Precio.ToString(),
+                                    a.PrecioValorizado.ToString(),
+                                    a.Activo.ToString()
                                 }
                            }
                 };
@@ -1893,21 +1899,72 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //entidad.UsuarioCreacion = userData.CodigoConsultora;
                 //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
+                List<BEEstrategiaProducto> lstProd;
+                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
+
                 using (var sv = new PedidoServiceClient())
                 {
-                    //sv.InsOfertaShowRoomDetalle(userData.PaisID, entidad);
-                    sv.InsertarEstrategiaProducto(entidad);
+                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                }
+
+                var existe = false;
+                if (lstProd.Any())
+                {
+                    var objx = lstProd.Where(x => x.CUV2 == model.CUV2 && x.Activo == 1).FirstOrDefault();
+                    existe = (objx != null) ? true : false;
+                }
+
+                if (!existe)
+                {
+                    var entidadx = new BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
+                    //var respuestaServiceCdr = new List<RptProductoEstrategia>();
+                    var respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidadx);
+
+                    if (respuestaServiceCdr.Any())
+                    {
+                        //entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
+                        //entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
+                        var objProd = respuestaServiceCdr.Where(x => x.cuv == entidad.CUV2).FirstOrDefault();
+                        if (objProd != null)
+                        {
+                            entidad.CodigoEstrategia = objProd.codigo_estrategia;
+                            entidad.Grupo = objProd.grupo;
+                            entidad.Orden = objProd.orden;
+                            entidad.SAP = objProd.codigo_sap;
+                            entidad.Cantidad = objProd.cantidad;
+                            entidad.Precio = objProd.precio_unitario;
+                            entidad.PrecioValorizado = objProd.precio_valorizado;
+                            entidad.Digitable = Convert.ToInt16(objProd.digitable);
+                            entidad.FactorCuadre = objProd.factor_cuadre;
+                            entidad.IdMarca = objProd.idmarca;
+ 
+                            using (var sv = new PedidoServiceClient())
+                            {
+                                //sv.InsOfertaShowRoomDetalle(userData.PaisID, entidad);
+                                sv.InsertarEstrategiaProducto(entidad);
+                            }
+
+                            return Json(new
+                            {
+                                success = true,
+                                message = "Se insertó el Producto satisfactoriamente.",
+                                extra = ""
+                            });
+                        }
+                    }
                 }
 
                 return Json(new
                 {
-                    success = true,
-                    message = "Se insertó el Producto satisfactoriamente.",
+                    success = false,
+                    message = "No se pudo insertar el Producto, vuelva a intentar.",
                     extra = ""
                 });
+                
             }
             catch (FaultException ex)
             {
@@ -1931,6 +1988,50 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(BEEstrategia entidad)
+        {
+            var respuestaServiceCdr = new List<RptProductoEstrategia>();
+            try
+            {
+                var codigo = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+
+                if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
+                {
+                    using (var sv = new WsGestionWeb())
+                    {
+                        respuestaServiceCdr = sv.GetEstrategiaProducto(entidad.CampaniaID.ToString(), userData.CodigoConsultora, entidad.CUV2, userData.CodigoISO).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                respuestaServiceCdr = new List<RptProductoEstrategia>();
+            }
+            return respuestaServiceCdr;
+        }
+
+        private int TieneVariedad(string codigo, string cuv)
+        {
+            var tieneVariedad = 0;
+            switch (codigo)
+            {
+                case Constantes.TipoEstrategiaSet.IndividualConTonos:
+                    List<BEProducto> listaHermanosE;
+                    using (var svc = new ODSServiceClient())
+                    {
+                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, cuv).ToList();
+                    }
+                    tieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                    break;
+                case Constantes.TipoEstrategiaSet.CompuestaVariable:
+                    tieneVariedad = 1;
+                    break;
+            }
+
+            return tieneVariedad;
+        }
+
         [HttpPost]
         //public JsonResult UpdateOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
         public JsonResult UpdateOfertaShowRoomDetalle(EstrategiaProductoModel model)
@@ -1942,13 +2043,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //entidad.UsuarioModificacion = userData.CodigoConsultora;
                 //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
                 using (var sv = new PedidoServiceClient())
                 {
                     //sv.UpdOfertaShowRoomDetalle(userData.PaisID, entidad);
-                    sv.InsertarEstrategiaProducto(entidad);
+                    sv.ActualizarEstrategiaProducto(entidad);
                 }
 
                 return Json(new
@@ -1994,6 +2096,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //};
                 var entidad = new BEEstrategiaProducto
                 {
+                    PaisID = userData.PaisID,
                     EstrategiaID = estrategiaId,
                     CUV2 = cuv
                 };
@@ -2034,13 +2137,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult EliminarOfertaShowRoomDetalleAll(int campaniaId, string cuv)
+        //public JsonResult EliminarOfertaShowRoomDetalleAll(int campaniaId, string cuv)
+        public JsonResult EliminarOfertaShowRoomDetalleAll(int estrategiaId)
         {
             try
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.EliminarOfertaShowRoomDetalleAll(userData.PaisID, campaniaId, cuv);
+                    //sv.EliminarOfertaShowRoomDetalleAll(userData.PaisID, campaniaId, cuv);
+                    sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId);
                 }
 
                 return Json(new

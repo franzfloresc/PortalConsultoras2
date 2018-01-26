@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Data
 
                 Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
                 Context.Database.AddInParameter(command, "@IdMarca", DbType.Int16, entidad.IdMarca);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
 
                 Context.ExecuteNonQuery(command);
 
@@ -53,14 +54,37 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateEstrategiaProducto"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                //Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@Precio", DbType.Decimal, entidad.Precio);
+                //Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entidad.PrecioValorizado);
+                Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
+                Context.Database.AddInParameter(command, "@Descripcion1", DbType.String, entidad.Descripcion1);
+                Context.Database.AddInParameter(command, "@ImagenProducto", DbType.String, entidad.ImagenProducto);
+                Context.Database.AddInParameter(command, "@IdMarca", DbType.Int16, entidad.IdMarca);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Int16, entidad.Activo);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
+
+                result = Context.ExecuteNonQuery(command);
+            }
+            return result;
+        }
+
         public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
         {
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProducto"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
-                Context.Database.AddInParameter(command, "@CUV", DbType.Int32, entidad.CUV2);
-                
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
+
                 result = Context.ExecuteNonQuery(command);
             }
             return (result > 0);
