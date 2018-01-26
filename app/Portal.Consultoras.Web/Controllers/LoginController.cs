@@ -1188,6 +1188,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                 if (configuracionesPaisModels.Any())
                 {
+#if DEBUG
+                    
+                    //    var rd = configuracionesPaisModels.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
+                    //if (rd != null)
+                    //    configuracionesPaisModels.Remove(rd);
+                    
+#endif
                     var listaPaisDatos = GetConfiguracionPaisDatos(usuarioModel);
 
                     foreach (var c in configuracionesPaisModels)
@@ -1233,6 +1240,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     listaPaisDatos
                                         .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                         .ToList(), usuarioModel.CodigoISO);
+                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
@@ -1573,7 +1581,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!listaDatos.Any())
                     return revistaDigital;
 
-                var confPaisDatoTmp =
+                var confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas);
+                if (confPaisDatoTmp != null)
+                    revistaDigital.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+
+                confPaisDatoTmp =
                     listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial);
                 if (confPaisDatoTmp != null)
                 {
@@ -1589,10 +1602,12 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
                 }
 
-                confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas);
+                confPaisDatoTmp =
+                    listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.NombreComercial);
                 if (confPaisDatoTmp != null)
-                    revistaDigital.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+                {
+                    revistaDigital.NombreComercialNoActiva =confPaisDatoTmp.Valor1;
+                }
 
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
                 if (confPaisDatoTmp != null) revistaDigital.BloqueoProductoDigital = confPaisDatoTmp.Valor1 == "1";
@@ -1601,7 +1616,9 @@ namespace Portal.Consultoras.Web.Controllers
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.NombreComercial
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
+                    
                 );
 
                 revistaDigital.ConfiguracionPaisDatos =

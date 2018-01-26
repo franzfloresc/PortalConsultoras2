@@ -459,6 +459,28 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoMenuOfertas_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas,
+                        Valor1 = "Valor1",
+                        Valor2 = "Valor2"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigitalIntriga(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("Valor1", result.LogoMenuOfertasNoActiva);
+                Assert.AreEqual(0, listaDatos.Count);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoComercial_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
@@ -505,7 +527,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneLogoMenuOfertas_SeActualizaRevistaDigitalModel()
+            public void ConfiguracionPaisDatosRevistaDigitalIntriga_ListaDatosTieneNombreComercial_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
@@ -513,15 +535,14 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     new BEConfiguracionPaisDatos
                     {
-                        Codigo = Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas,
-                        Valor1 = "Valor1",
-                        Valor2 = "Valor2"
+                        Codigo = Constantes.ConfiguracionPaisDatos.RDI.NombreComercial,
+                        Valor1 = "Valor1"
                     }
                 };
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigitalIntriga(rdModel, listaDatos, "PE");
 
-                Assert.AreEqual("Valor1", result.LogoMenuOfertasNoActiva);
+                Assert.AreEqual("Valor1", result.NombreComercialNoActiva);
                 Assert.AreEqual(0, listaDatos.Count);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
@@ -609,7 +630,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     NombreConsultora="Consultora de Prueba" ,                   
                     ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel> {
                         new ConfiguracionPaisDatosModel{
-                            Codigo = Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaRdi,
+                            Codigo = Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga,
                             Valor1="#Nombre, ¡Bienvenida al tu nuevo espacio de ofertas exclusivas",
                             Valor2="#Nombre, ¡otro mensaje más"
                         }

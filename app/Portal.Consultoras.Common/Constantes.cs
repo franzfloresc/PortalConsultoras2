@@ -1177,17 +1177,20 @@ namespace Portal.Consultoras.Common
 
             public static class RDI
             {
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string DBienvenidaIntriga = "DBienvenidaIntriga";
+                public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string DBienvenidaRdi = "DBienvenidaRdi";
+                public const string NombreComercial= "NombreComercial";
+
+
                 public const string DPedidoRdi = "DPedidoRdi";
                 public const string DCatalogoRdi = "DCatalogoRdi";
-                public const string MBienvenidaRdi = "MBienvenidaRdi";
                 public const string MPedidoRdi = "MPedidoRdi";
                 public const string MCatalogoRdi = "MCatalogoRdi";
                 public const string DLandingBannerRdi = "DLandingBannerRdi";
                 public const string MLandingBannerRdi = "MLandingBannerRdi";
-                public const string LogoMenuOfertas = "LogoMenuOfertas";
             }
 
         }
