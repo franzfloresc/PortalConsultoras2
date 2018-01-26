@@ -280,8 +280,8 @@
             <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
                 <div class="rd_volver" style="position: absolute;">
                     <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
-                        <img class="previous_volver" src="/Content/Images/RevistaDigital/previous_volver.png" style="width: 8px">
-                        <span style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px">VOLVER</span>
+                        <img class="previous_volver icono_clase_control_color_dinamico" src="/Content/Images/PL20/ld_arrowright_blanco.png" style="width: 8px">
+                        <span class="clase_control_color_dinamico" style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px; color:#fff;">VOLVER</span>
                     </a>
                 </div>
                 <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
@@ -331,6 +331,16 @@
                                 <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
                             <div class="content_set_pop_hoy">
+                                <div class="imagen_set_Oferta_pop">
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
+                                    <div class="compartir_redes_ficha" style="margin-top:10px;">
+                                        <div class="texto_compartelo clase_control_color_dinamico" style="color:#fff;">Comparte la oferta con tus clientes</div>
+                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
+                                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
+                                        </a>
+                                        <hr class="clear">
+                                    </div>
+                                </div>
                                 <div class="right_set_hoy">
                                     <div class="height_min">
                                         <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
@@ -351,16 +361,6 @@
                                             </div>
                                         </div>
                                         <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                    </div>
-                                </div>
-                                <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                    <div class="compartir_redes_ficha" style="margin-top:10px;">
-                                        <div class="texto_compartelo clase_control_color_dinamico" style="color:#fff;">Comparte la oferta con tus clientes</div>
-                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
-                                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
-                                        </a>
-                                        <hr class="clear">
                                     </div>
                                 </div>
                             </div>

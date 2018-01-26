@@ -317,6 +317,27 @@ function IniDialogs() {
                 var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
                 var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
 
+                var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo  !== "") {
+                    _toastHelper.error("El color de fondo para desktop debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(mobileColorFondo) && mobileColorFondo !== "") {
+                    _toastHelper.error("El color de fondo para móvil debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(desktopColorTexto) && desktopColorTexto !== "") {
+                    _toastHelper.error("El color de texto para desktop debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(mobileColorTexto) && mobileColorTexto !== "") {
+                    _toastHelper.error("El color de texto para móvil debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.showroom) {
                     desktopTipoPresentacion = _tipopresentacion.showroom;
                     mobileTipoPresentacion = _tipopresentacion.showroom;
