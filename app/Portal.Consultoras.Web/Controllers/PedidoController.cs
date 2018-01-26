@@ -2592,13 +2592,17 @@ namespace Portal.Consultoras.Web.Controllers
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
                 };
 
-                if (pedidoModelo.ListaDetalle.Any())
-                {
-                    var grid = SetGrid(sidx, sord, page, rows);
-                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalle);
+                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoModelo.ListaDetalleFormato = pedidoWebDetalleModel;
 
-                    pedidoModelo.ListaDetalle = pedidoModelo.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
-                    pedidoModelo.ListaDetalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
+                if (pedidoModelo.ListaDetalleFormato.Any())
+                {
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
+                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalleFormato);
+
+                    pedidoModelo.ListaDetalleFormato = pedidoModelo.ListaDetalleFormato.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                    pedidoModelo.ListaDetalleFormato.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
 
                     pedidoModelo.Registros = grid.PageSize.ToString();
                     pedidoModelo.RegistrosTotal = pag.RecordCount.ToString();
@@ -3555,7 +3559,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
                     SetUserData(userData);
 
-                    var grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
 
                     model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();

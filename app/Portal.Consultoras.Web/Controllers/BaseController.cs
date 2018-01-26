@@ -1656,18 +1656,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ConfigurationManager.AppSettings[key];
         }
 
-        protected BEGrid SetGrid(string sidx, string sord, int page, int rows)
-        {
-            BEGrid grid = new BEGrid
-            {
-                PageSize = rows <= 0 ? 10 : rows,
-                CurrentPage = page <= 0 ? 1 : page,
-                SortColumn = sidx ?? "",
-                SortOrder = sord ?? "asc"
-            };
-            return grid;
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";
@@ -3873,8 +3861,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string GetConfiguracionManager(string key)
         {
             key = Util.Trim(key);
-            if (key == "")
-                return "";
+            if (key == "") return "";
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
