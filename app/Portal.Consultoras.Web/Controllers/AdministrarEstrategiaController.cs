@@ -2273,7 +2273,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
                     }
-                   
                     do
                     {
                         readLine = streamReader.ReadLine();
@@ -2307,11 +2306,18 @@ namespace Portal.Consultoras.Web.Controllers
                             strategyEntityList.Update(strategy => strategy.Precio2 = productPriceList.FirstOrDefault(prol => prol.cuv == strategy.CUV2).precio_producto);
                         }
                     }
-                  BEEstrategia productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
+                    BEEstrategia productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
                     if (productPriceZero != null)
                     {
-                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceZero.CUV2);
+                        string messageErrorPriceZero = string.Format("No se realizó ninguna operación (actualización/inserción) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
                         LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
+                    }
+                    BEEstrategia productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
+                    if (productPriceOfferZero != null)
+                    {
+                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
+                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceOfferZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
                     XElement strategyXML = new XElement("strategy",
@@ -2350,7 +2356,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FormatException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la línea '{1}'", ex.Message, line));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la registro '{1}'", ex.Message, line));
             }
             catch (Exception ex)
             {
