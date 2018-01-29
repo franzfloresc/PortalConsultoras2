@@ -1872,7 +1872,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.EstrategiaProductoID.ToString(),
                                     a.EstrategiaID.ToString(),
                                     a.Campania.ToString(),
-                                    a.CUV2,
+                                    a.CUV,
                                     a.NombreProducto,
                                     a.Descripcion1,
                                     a.ImagenProducto,
@@ -1914,7 +1914,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var existe = false;
                 if (lstProd.Any())
                 {
-                    var objx = lstProd.Where(x => x.CUV2 == model.CUV2 && x.Activo == 1).FirstOrDefault();
+                    var objx = lstProd.Where(x => x.CUV == model.CUV && x.Activo == 1).FirstOrDefault();
                     existe = (objx != null) ? true : false;
                 }
 
@@ -1928,7 +1928,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         //entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
                         //entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
-                        var objProd = respuestaServiceCdr.Where(x => x.cuv == entidad.CUV2).FirstOrDefault();
+                        var objProd = respuestaServiceCdr.Where(x => x.cuv == entidad.CUV).FirstOrDefault();
                         if (objProd != null)
                         {
                             entidad.CodigoEstrategia = objProd.codigo_estrategia;
@@ -2098,7 +2098,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = estrategiaId,
-                    CUV2 = cuv
+                    CUV = cuv
                 };
 
                 using (var sv = new PedidoServiceClient())
