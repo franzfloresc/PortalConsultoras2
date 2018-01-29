@@ -653,6 +653,7 @@
     var rutastylejstree = '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")';
     var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
     var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
+    var rutaImagenDisable = '@Url.Content("~/Content/Images/NotAllowed.png")';
     var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
     var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
     var urlActivarDesactivarEstrategias = baseUrl + 'AdministrarEstrategia/ActivarDesactivarEstrategias';
@@ -2418,7 +2419,7 @@
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         var remove = "";
         if (rowObject[10] == "1") {
-            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         return edit + remove;
     }
@@ -2433,7 +2434,7 @@
 
             var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Productos Oferta Show Room' title='Editar Productos Oferta Show Room' border='0' /></a>";
             //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room' title='Eliminar Productos Oferta Show Room' border='0' /></a>";
-            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + estrategiaId + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room' title='Eliminar Productos Oferta Show Room' border='0' /></a>";
+            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + estrategiaId + "');\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Productos Oferta Show Room' title='Deshabilitar Productos Oferta Show Room' border='0' /></a>";
 
             return edit + remove;
         }
