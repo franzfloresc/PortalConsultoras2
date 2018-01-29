@@ -7,17 +7,16 @@ namespace Portal.Consultoras.Service
 {
     public class CDRService : ICDRService
     {
-
-        private BLCDRWeb BLCDRWeb;
-        private BLCDRWebDetalle BLCDRWebDetalle;
-        private BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
-        private BLCDRWebDescripcion BLCDRWebDescripcion;
-        private BLLogCDRWeb bLLogCDRWeb;
-        private BLLogCDRWebDetalle bLLogCDRWebDetalle;
-        private BLCDRParametria BLCDRParametria;
-        private BLCDRWebDatos BLCDRWebDatos;
-        private BLLogCDRWebCulminado BLLogCDRWebCulminado;
-        private BLLogCDRWebDetalleCulminado BLLogCDRWebDetalleCulminado;
+        private readonly BLCDRWeb BLCDRWeb;
+        private readonly BLCDRWebDetalle BLCDRWebDetalle;
+        private readonly BLCDRWebMotivoOperacion BLCDRWebMotivoOperacion;
+        private readonly BLCDRWebDescripcion BLCDRWebDescripcion;
+        private readonly BLLogCDRWeb bLLogCDRWeb;
+        private readonly BLLogCDRWebDetalle bLLogCDRWebDetalle;
+        private readonly BLCDRParametria BLCDRParametria;
+        private readonly BLCDRWebDatos BLCDRWebDatos;
+        private readonly BLLogCDRWebCulminado BLLogCDRWebCulminado;
+        private readonly BLLogCDRWebDetalleCulminado BLLogCDRWebDetalleCulminado;
 
         public CDRService()
         {

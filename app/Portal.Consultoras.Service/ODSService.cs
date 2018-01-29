@@ -8,11 +8,11 @@ namespace Portal.Consultoras.Service
 {
     public class ODSService : IODSService
     {
-        private BLProducto BLProducto;
-        private BLMensajeCUV BLMensajeCUV;
-        private BLConsultora BLConsultora;
-        private BLTipoMeta BLTipoMeta;
-        private BLUbigeo BLUbigeo;
+        private readonly BLProducto BLProducto;
+        private readonly BLMensajeCUV BLMensajeCUV;
+        private readonly BLConsultora BLConsultora;
+        private readonly BLTipoMeta BLTipoMeta;
+        private readonly BLUbigeo BLUbigeo;
 
         public ODSService()
         {
