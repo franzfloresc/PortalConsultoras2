@@ -158,6 +158,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
+                }
             }
             catch (Exception ex)
             {

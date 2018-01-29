@@ -1183,12 +1183,12 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
                 public const string NombreComercial= "NombreComercial";
+                public const string DCatalogoIntriga = "DCatalogoIntriga";
+                public const string MCatalogoIntriga = "MCatalogoIntriga";
 
 
                 public const string DPedidoRdi = "DPedidoRdi";
-                public const string DCatalogoRdi = "DCatalogoRdi";
                 public const string MPedidoRdi = "MPedidoRdi";
-                public const string MCatalogoRdi = "MCatalogoRdi";
                 public const string DLandingBannerRdi = "DLandingBannerRdi";
                 public const string MLandingBannerRdi = "MLandingBannerRdi";
             }

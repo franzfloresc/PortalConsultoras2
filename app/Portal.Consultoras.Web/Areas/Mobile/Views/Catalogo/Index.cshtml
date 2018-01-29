@@ -112,7 +112,7 @@
             { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
         })
         
-        @if (!Model.TieneGND)
+        @if (!Model.TieneGND || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
         }

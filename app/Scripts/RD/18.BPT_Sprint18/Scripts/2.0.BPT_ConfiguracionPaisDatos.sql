@@ -184,3 +184,61 @@ begin
 	,1
 	)
 end	
+
+declare @DCatalogoIntrigaCodigo varchar(100) = 'DCatalogoIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @DCatalogoIntrigaCodigo)
+begin
+	print('Insertando  DCatalogoIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@DCatalogoIntrigaCodigo
+	,0
+	,'Pronto podrás suscribirte al Club Gana+'
+	,'¡Y ya no tendrás que digitar códigos!'
+	,null
+	,'Textos de Catálogo para un consultora con RDI'
+	,1
+	)
+end	
+
+declare @MCatalogoIntrigaCodigo varchar(100) = 'MCatalogoIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @MCatalogoIntrigaCodigo)
+begin
+	print('Insertando  MCatalogoIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@MCatalogoIntrigaCodigo
+	,0
+	,'Pronto podrás suscribirte al Club Gana+'
+	,'¡Y ya no tendrás que digitar códigos!'
+	,null
+	,'Textos de Catálogo mobile para un consultora con RDI'
+	,1
+	)
+end	
