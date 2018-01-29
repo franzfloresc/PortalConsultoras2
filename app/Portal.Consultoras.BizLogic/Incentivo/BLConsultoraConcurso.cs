@@ -290,11 +290,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private void AjustarConcursoAnterior(BEConsultoraConcurso concurso)
-        {
-            if (!concurso.Premios.Any(p => p.PuntajeMinimo > concurso.PuntajeTotal)) // Alcanzo todos los niveles, quitar los premios para no acumulativos..
+        { 
+            // Alcanzo todos los niveles, quitar los premios para no acumulativos..
+            if (!concurso.IndicadorPremioAcumulativo && !concurso.Premios.Any(p => p.PuntajeMinimo > concurso.PuntajeTotal))
             {
-                if (!concurso.IndicadorPremioAcumulativo)
-                {
                     concurso.Premios.RemoveAll(p => p.NumeroNivel < concurso.NivelAlcanzado);
                     concurso.Premios = new List<BEPremio>
                     {
@@ -305,7 +304,7 @@ namespace Portal.Consultoras.BizLogic
                             PuntajeMinimo = concurso.Premios.FirstOrDefault().PuntajeMinimo
                         }
                     };
-                }
+                
             }
 
             foreach (BEPremio premio in concurso.Premios)
