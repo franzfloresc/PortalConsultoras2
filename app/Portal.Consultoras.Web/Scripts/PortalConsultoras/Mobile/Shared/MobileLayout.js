@@ -4,6 +4,10 @@
 
     var ventanaChat = null;
 
+    if (!(window.location.href.toLowerCase().indexOf("pedido") > 0)) {
+        $(".CMXD-help").show();
+    }
+    
     SetFormatDecimalPais(formatDecimalPaisMain);
 
     if (mostrarBannerPostulante == 'True') {
@@ -134,7 +138,7 @@
 
         var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
-       
+
         if (typeof PopUpChatOpened == 'undefined' ||
             PopUpChatOpened == null ||
             PopUpChatOpened == 'false') {
