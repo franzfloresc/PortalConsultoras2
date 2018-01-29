@@ -371,10 +371,7 @@ function OfertaCargarScroll() {
 
         if (filtroCamp.CantMostrados === filtroCamp.CantTotal) {
             
-            var alturaContenedorGND = $("#divOfertaProductos").height();
-            
-            if ($(this).scrollTop() > alturaContenedorGND) {
-
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - $("footer").height()) {
                 $('.desplegablegnd').css("visibility", "hidden");
                 $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "none");
             }
@@ -383,7 +380,7 @@ function OfertaCargarScroll() {
                 $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "block");
 
             }
-            
+
         }
     }
 
