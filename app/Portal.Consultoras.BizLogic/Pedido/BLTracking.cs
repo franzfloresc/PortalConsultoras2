@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
+using System.Configuration;
+using System.Linq;
+
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
-using System.Configuration;
-
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLTracking
+    public class BLTracking : ITrackingBusinessLogic
     {
         public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
@@ -214,7 +213,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 Result = DATracking.InsConfirmacionRecojo(oBEConfirmacionRecoja);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, oBEConfirmacionRecoja.CodigoConsultora, paisID.ToString());
+            }
 
             return Result;
         }
@@ -269,6 +271,58 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return recojos;
+        }
+
+        public List<BETracking> GetTrackingPedidoByConsultora(int paisID, string codigoConsultora, int top)
+        {
+            var pedidos = new List<BETracking>();
+            var pedidosDetalle = new List<BETrackingDetalle>();
+            var novedades = new List<BENovedadTracking>();
+            var paisTracking = WebConfig.WebTrackingConfirmacion.Contains(Util.GetPaisISO(paisID));
+
+            using (IDataReader reader = new DATracking(paisID).GetTrackingPedidoByConsultora(codigoConsultora, top))
+            {
+                pedidos = reader.MapToCollection<BETracking>();
+                if (reader.NextResult()) pedidosDetalle = reader.MapToCollection<BETrackingDetalle>();
+
+                foreach (var item in pedidos)
+                {
+                    if(paisTracking) novedades = GetNovedadesTracking(paisID, item.NumeroPedido);
+
+                    var lstDetalle = pedidosDetalle.Where(x => x.Campana == item.Campana).ToList();
+
+                    foreach (var itemDet in lstDetalle)
+                    {
+                        itemDet.FechaFormatted = (itemDet.Fecha.HasValue ? (itemDet.Fecha.Value.TimeOfDay.TotalHours == 0 ? itemDet.Fecha.Value.ToString("dd/MM/yyyy") : itemDet.Fecha.Value.ToString()) : string.Empty);
+
+                        switch (itemDet.FechaFormatted)
+                        {
+                            case "":
+                                break;
+                            case "01/01/2001":
+                                break;
+                            case "02/01/2010":
+                                break;
+                            case "01/01/2010":
+                                itemDet.Alcanzado = true;
+                                var novedad = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
+                                if (novedad != null)
+                                {
+                                    itemDet.FechaFormatted = (novedad.FechaNovedad.HasValue ? (novedad.FechaNovedad.Value.TimeOfDay.TotalHours == 0 ? novedad.FechaNovedad.Value.ToString("dd/MM/yyyy") : novedad.FechaNovedad.Value.ToString()) : string.Empty);
+                                    itemDet.Fecha = novedad.FechaNovedad.Value;
+                                }
+                                break;
+                            default:
+                                itemDet.Alcanzado = true;
+                                break;
+                        }
+                    }
+
+                    item.Detalles = lstDetalle;
+                }
+            }
+
+            return pedidos;
         }
     }
 }

@@ -32,26 +32,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// <returns></returns>
         public ActionResult Procesar()
         {
+            var model = new ShowRoomBannerLateralModel();
+            var zonaHoraria = 0d;
+            var fechaInicioCampania = DateTime.Now.Date;
+
             var userData = sessionManager.GetUserData();
             if (userData != null)
+            {
                 CargarEntidadesShowRoom(userData);
+
+                model.BEShowRoom = userData.BeShowRoom;
+                zonaHoraria = userData.ZonaHoraria;
+                fechaInicioCampania = userData.FechaInicioCampania;
+            }
 
             var esShowRoom = false;
 
-            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
-            model.BEShowRoom = userData.BeShowRoom;
-
-            if (model.BEShowRoom == null)
+            if (model.BEShowRoom != null)
             {
-                model.BEShowRoom = new BEShowRoomEvento();
-            }
+                var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
 
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
-                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
-            {
-                esShowRoom = OfertaShowRoom() != null;
+                if ((fechaHoy >= fechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                    fechaHoy <= fechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
+                {
+                    esShowRoom = OfertaShowRoom() != null;
+                }
             }
 
             return esShowRoom ?
@@ -86,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
-            if (query != null)
+            if(!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
@@ -103,7 +108,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
 
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
@@ -168,7 +173,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
+                model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
                 model.Celular = userData.Celular;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
@@ -222,7 +227,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
@@ -259,7 +264,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 

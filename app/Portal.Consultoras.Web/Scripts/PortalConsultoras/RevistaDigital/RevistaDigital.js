@@ -20,7 +20,7 @@ $(document).ready(function () {
     "use strict";
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
-       
+
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
@@ -49,6 +49,24 @@ $(document).ready(function () {
         $(this).find("div.marcador_tab").removeClass("oculto");
         $(window).scroll();
     });
+
+    /* popup validar datos 2017 */
+
+    $(".popup_confirmacion_datos .form-datos .input input#Email, .popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function () {
+        if ($('.popup_confirmacion_datos .form-datos .input input#Email').val() != "" || $('.popup_confirmacion_datos .form-datos .input input#Celular').val() != "") {
+            $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+            $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+            $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+        }
+        else {
+            $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+            $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+            $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+        }
+    });
+
+
+    /* fin popup validar datos 2017 */
 
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
@@ -139,24 +157,23 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click", "[data-item-accion='verdetalle']", function(e) {
+    $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
         var obj = GetProductoStorage(cuv, campania);
         if (obj == undefined) {
             obj = $(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia");
-            if (obj != undefined)
-            {
-                 obj = JSON.parse(obj);
+            if (obj != undefined) {
+                obj = JSON.parse(obj);
             }
         }
         if (obj == undefined) {
-	        return;
+            return;
         }
 
         var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
-            obj.Posicion = 1;
+        obj.Posicion = 1;
         if (obj.CUV2 != "") {
             rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
@@ -169,9 +186,12 @@ $(document).ready(function () {
 
     $("body").on("click",
         ".btn-volver-fix-detalle span",
-        function(e) {
+        function (e) {
             window.location = urlRetorno;
         });
+
+    
+
 });
 
 function FlechaScrollDown(idCamapania) {
@@ -357,7 +377,7 @@ function OfertaArmarEstrategiasContenedor(responseData) {
         else {
             OfertaArmarEstrategiasContenedorSeccion(Clone(response));
         }
-       
+
     });
 }
 
@@ -588,7 +608,7 @@ function RDPageInformativa() {
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-    
+
     window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
 }
 

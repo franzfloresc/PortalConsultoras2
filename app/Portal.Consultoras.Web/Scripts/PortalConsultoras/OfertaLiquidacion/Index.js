@@ -145,7 +145,7 @@ $(document).ready(function () {
                     closeWaitingDialog();
                     AbrirMensaje(data.message);
                     return false;
-                } 
+                }
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -270,12 +270,12 @@ $(document).ready(function () {
                 cache: false
             });
 
-            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad }, function (data) {
                 if (data.message != "") { /*Validación Pedido Máximo*/
                     closeWaitingDialog();
                     AbrirMensaje(data.message);
                     return false;
-                } 
+                }
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -332,11 +332,11 @@ $(document).ready(function () {
                                     $(lblStock).text(parseInt(Stock - Cantidad));
                                     $(HiddenStock).val(parseInt(Stock - Cantidad));
                                     $(txtCantidad).val(1);
-                                        InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
+                                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     ActualizarGanancia(data.DataBarra);
-                                    
+
                                     closeWaitingDialog();
                                 },
                                 error: function (data, error) {
@@ -391,14 +391,14 @@ function CargarOfertasLiquidacion() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
-            if (!data.verMas) UnlinkCargarOfertasToScroll();
-            offsetRegistros += cantidadRegistros;
+                if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+                if (!data.verMas) UnlinkCargarOfertasToScroll();
+                offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-            console.log(error);
+                console.log(error);
             }
         },
         complete: function (data) {
@@ -441,9 +441,9 @@ function ArmarCarouselLiquidaciones(data) {
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
-        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0,159) + "..." : item.Descripcion);
+        item.Descripcion = (item.Descripcion.length > 159 ? item.Descripcion.substring(0, 159) + "..." : item.Descripcion);
         item.Posicion = contadorLq;
-               
+
         if (item.TallaColor.length > 2 && item.TallaColor.indexOf('^') > -1) {
             item.TipoTallaColor = item.TallaColor.split("^")[0];
             item.TextoBotonTallaColor = (item.TipoTallaColor == "C" ? "ELEGIR TONO" : "ELEGIR COLOR");
@@ -603,7 +603,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!checkTimeout(data)) {
                 return false;
             }
-         
+
             if (data.success == false) {
                 restringido = false;
                 return false;
@@ -627,7 +627,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-        }
+            }
         }
     });
     return restringido;
@@ -651,7 +651,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 fnNoRestringido();
                 return false;
             }
-            
+
             if (data.pedidoReservado && !mostrarAlerta) {
                 waitingDialog();
                 location.href = location.href = baseUrl + 'Pedido/PedidoValidado';
@@ -667,7 +667,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-        }
+            }
         }
     });
 }

@@ -41,19 +41,19 @@ namespace Portal.Consultoras.BizLogic
         public string InsProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.InsProductoSugerido(entidad); ;
+            return dataAccess.InsProductoSugerido(entidad);
         }
 
         public string UpdProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.UpdProductoSugerido(entidad); ;
+            return dataAccess.UpdProductoSugerido(entidad);
         }
 
         public string DelProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.DelProductoSugerido(entidad); ;
+            return dataAccess.DelProductoSugerido(entidad);
         }
     }
 }

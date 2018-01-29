@@ -162,7 +162,7 @@
     $('#btnCancelarOferfaFIC').click(function () {
         $('#divOfertaFIC').dialog('close');
     });
-    
+
     CrearDialogs();
     CargarDetallePedido();
     CargarAutocomplete();

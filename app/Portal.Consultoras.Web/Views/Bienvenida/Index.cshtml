@@ -11,7 +11,6 @@
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
         }
-           
     </style>
 }
 
@@ -20,7 +19,7 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -133,12 +132,16 @@
     <hr class="clear" />
     <div class="items_belcorp">
         @{
-            string verUltmPagos = Model.PaisID == 3 || Model.PaisID == 4 || Model.PaisID == 12 || Model.PaisID == 6 || Model.PaisID == 11 ? "0" : "1";
+            string verUltmPagos = Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile || 
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia || 
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico || 
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador || 
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru ? "0" : "1";
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
             
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
-            if (Model.PaisID == 14) {clasePagoOnlineVZ = "margin-top: 0px;"; }
+            if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela) {clasePagoOnlineVZ = "margin-top: 0px;"; }
         }
 
         <div class="titulo_home_img"></div>
@@ -159,23 +162,24 @@
 
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
 
-        @if (Model.PaisID == 3) //Chile
+        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 4) //Colombia
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 12) //Puerto Rico
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 6 || Model.PaisID == 11)
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador || 
+            Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
         }
-        else if (Model.PaisID == 14) //Venezuela
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta"
                title="Pago en Línea" class="btn_paga_online btn_100_paga"
@@ -259,7 +263,7 @@
 }
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
-   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", revistaDigital) 
+   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -678,7 +682,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                        <input type="text" name="nombres" value="@Model.NombreCompleto" />
                     </div>
                     <div>
                         <label>Teléfono</label>
@@ -719,7 +723,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
+                            @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {
                                 <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
                             }
@@ -730,7 +734,7 @@
                         </label>
                     </div>
                 </div>
-                @if (Model.PaisID == 4)
+                @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                 {
                     <div class="datos_obligatorios">
                         Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
@@ -899,7 +903,7 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>@Model.TextoSobrenombre</label>
-                        @if (Model.PaisID == 4)
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
                         }
@@ -910,10 +914,10 @@
                     </div>
                     <div>
                         <label>
-                            @if (Model.PaisID != 4)
+                            @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
                         </label>
-                        @if (Model.PaisID == 4)
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                         }
@@ -926,10 +930,10 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>
-                            @if (Model.PaisID != 4)
+                            @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
                         </label>
-                        @if (Model.PaisID == 4)
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
                         }
@@ -940,10 +944,10 @@
                     </div>
                     <div>
                         <label>
-                            @if (Model.PaisID != 4)
+                            @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
                         </label>
-                        @if (Model.PaisID == 4)
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
                         }
@@ -957,7 +961,7 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>Otro teléfono:</label>
-                        @if (Model.PaisID == 4)
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
                         }
@@ -971,7 +975,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
+                            @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {
                                 <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
                             }
@@ -983,7 +987,7 @@
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    @if (Model.PaisID == 4)
+                    @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                     {
                         <div class="datos_obligatorios">
                             Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
@@ -1074,7 +1078,7 @@
 <!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
-        <a href="javascript:CerrarCamara();" id="" title="Cerrar">
+        <a href="javascript:CerrarCamara();" title="Cerrar">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
@@ -2036,7 +2040,7 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-@if (Model.RevistaDigital.TieneRDS == true)
+@if (revistaDigital.TieneRDS == true)
 {
     <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="PopRDSuscripcion" data-popup-main="" data-popup-function-hide="RDPopupCerrar()" style="display:none;">
        

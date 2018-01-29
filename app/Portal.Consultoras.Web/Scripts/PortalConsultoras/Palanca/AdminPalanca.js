@@ -19,9 +19,9 @@ jQuery(document).ready(function () {
         UpdateGrillaOfertas();
     });
 
-  
+
     $("#ddlTipoEstrategia").change(function () {
-      
+
     });
 
     $.jgrid.extend({
@@ -65,7 +65,7 @@ jQuery(document).ready(function () {
     });
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
-        
+
         if (_listPalanca.indexOf($(this).find('option:selected').attr("data-codigo")) > -1) {
             $(".hide-configuration").show();
         } else {
@@ -79,7 +79,7 @@ function Modificar(idConfiguracionPais, event) {
         url: baseUrl + 'AdministrarPalanca/GetPalanca',
         type: 'GET',
         dataType: 'html',
-        data: { idConfiguracionPais: idConfiguracionPais }, 
+        data: { idConfiguracionPais: idConfiguracionPais },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-palanca").empty();
@@ -116,9 +116,9 @@ function ModificarOfertas(idOfertasHome) {
             $("#dialog-content-ofertas-home").html(result).ready(
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
-            
+
             showDialog("DialogMantenimientoOfertasHome");
-            
+
             var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
             if (esTrueDesktopCantidad) {
                 $("#cbDesktopCantidadTodos").prop("checked", true);
@@ -148,7 +148,7 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () {},
+        close: function () { },
         draggable: false,
         title: "Configurar Contenedor Menú",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
@@ -162,29 +162,29 @@ function IniDialogs() {
                 }
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
-                    Codigo : $("#ddlConfiguracionPais").val(),
-                    Excluyente : $("input[name='Excluyente']:checked").val(),
+                    Codigo: $("#ddlConfiguracionPais").val(),
+                    Excluyente: $("input[name='Excluyente']:checked").val(),
                     //Descripcion : $("#Descripcion").val(),
                     Estado: $("#Estado").is(':checked'),
-                    Logo : $("#nombre-icono").val(),
+                    Logo: $("#nombre-icono").val(),
                     Orden: $("#Orden").val(),
-                    DesdeCampania : $("#ddlCampania").val(),
-                    DesktopTituloMenu : $("#DesktopTituloMenu").val(),
+                    DesdeCampania: $("#ddlCampania").val(),
+                    DesktopTituloMenu: $("#DesktopTituloMenu").val(),
                     MobileTituloMenu: $("#MobileTituloMenu").val(),
                     DesktopSubTituloMenu: $("#DesktopSubTituloMenu").val(),
                     MobileSubTituloMenu: $("#MobileSubTituloMenu").val(),
-                    DesktopTituloBanner : $("#DesktopTituloBanner").val(),
-                    DesktopSubTituloBanner : $("#DesktopSubTituloBanner").val(),
-                    MobileTituloBanner : $("#MobileTituloBanner").val(),
-                    MobileSubTituloBanner : $("#MobileSubTituloBanner").val(),
-                    DesktopFondoBanner : $("#nombre-desktop-fondo-banner").val(),
-                    DesktopLogoBanner : $("#nombre-desktop-logo-banner").val(),
-                    MobileFondoBanner : $("#nombre-mobile-fondo-banner").val(),
+                    DesktopTituloBanner: $("#DesktopTituloBanner").val(),
+                    DesktopSubTituloBanner: $("#DesktopSubTituloBanner").val(),
+                    MobileTituloBanner: $("#MobileTituloBanner").val(),
+                    MobileSubTituloBanner: $("#MobileSubTituloBanner").val(),
+                    DesktopFondoBanner: $("#nombre-desktop-fondo-banner").val(),
+                    DesktopLogoBanner: $("#nombre-desktop-logo-banner").val(),
+                    MobileFondoBanner: $("#nombre-mobile-fondo-banner").val(),
                     MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
-                    UrlMenu : $("#UrlMenu").val(),
-                    OrdenBpt : $("#OrdenBpt").val(),
-                    MobileOrden : $("#MobileOrden").val(),
-                    MobileOrdenBpt : $("#MobileOrdenBpt").val()
+                    UrlMenu: $("#UrlMenu").val(),
+                    OrdenBpt: $("#OrdenBpt").val(),
+                    MobileOrden: $("#MobileOrden").val(),
+                    MobileOrdenBpt: $("#MobileOrdenBpt").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -231,7 +231,7 @@ function IniDialogs() {
         {
             "Guardar": function () {
                 //valores para seccion de home del contenedor de ofertas
-               
+
                 if ($("#ddlConfiguracionIdOfertas").val() == "" || isNaN($("#ddlConfiguracionIdOfertas").val())) {
                     _toastHelper.error("Selecione una Configuracion Oferta.");
                     return false;
@@ -476,7 +476,7 @@ function ShowActions(cellvalue, options, rowObject) {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Palanca' title='Deshabilitar Estrategia' border='0' /></a>";
     }
     return des;
-}   
+}
 
 function ShowActionsOfertas(cellvalue, options, rowObject) {
 
@@ -485,7 +485,7 @@ function ShowActionsOfertas(cellvalue, options, rowObject) {
         des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Palanca' title='Deshabilitar Estrategia' border='0' /></a>";
     }
     return des;
-}  
+}
 function UploadFilePalanca(tag) {
 
     new qq.FileUploader({

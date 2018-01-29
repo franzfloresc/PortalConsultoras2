@@ -2,7 +2,7 @@
     "use strict"
 
     var CONTANSTES_ = {
-        
+
     };
 
     var elements = {
@@ -30,7 +30,7 @@
         cantidadCrecienteMostrarInicial: 0,
         cantidadCrecienteMostrar: 5,
         esperarScroll: false,
-        origenPantalla:0
+        origenPantalla: 0
     };
 
     var _bindEvents = function () {
@@ -98,10 +98,10 @@
         $(window).scroll(_listarComentariosScroll);
     };
 
-    var _unbindScroll = function(){
+    var _unbindScroll = function () {
         $(window).off("scroll", _listarComentariosScroll);
     };
-    
+
     var _listarComentariosScroll = function () {
         if ($(window).scrollTop() + $(window).height() > ($(document).height() - $('footer').outerHeight())) {
             if (!setting.esperarScroll) {
@@ -121,7 +121,7 @@
                     _mostrarContenedorConfirmacionComentario();
                 } else {
                     alert(registrarComentarioResponse.message);
-                }                
+                }
                 cerrarModalCargando();
             }
         });
@@ -195,7 +195,7 @@
                 htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + (item.Comentario ? item.Comentario : '') + '</div>';
                 htmlSeccionComentarios += '</div>';
             }
-           
+
             if (setting.origenPantalla === 2) {
                 htmlSeccionComentarios += '<div class="ContentcomentariosVisibles">';
                 htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
@@ -210,7 +210,7 @@
                 htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + "\r" + (item.Comentario ? item.Comentario : '') + '</div>';
                 htmlSeccionComentarios += '</div>';
             }
-            
+
         });
 
         $(elements.contenedorComentarios).append(htmlSeccionComentarios);
@@ -277,9 +277,9 @@
     };
 
     var _renderizarEstrellasPorContenedor = function (listaContenedoresEstrellasId) {
-        
+
         $.each(listaContenedoresEstrellasId, function (index, item) {
-            
+
             $('.' + item.contenedorStarsId).rateYo({
                 rating: item.cantidadEstellas,
                 precision: 2,
@@ -371,8 +371,8 @@
     };
 
     var abrirModalCargando = function () {
-        if (setting.origenPantalla === 1) {waitingDialog();}
-        if (setting.origenPantalla === 2) {ShowLoading();}
+        if (setting.origenPantalla === 1) { waitingDialog(); }
+        if (setting.origenPantalla === 2) { ShowLoading(); }
 
     }
 

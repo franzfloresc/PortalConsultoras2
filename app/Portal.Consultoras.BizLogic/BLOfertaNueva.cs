@@ -40,7 +40,6 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        //1487
         public IList<BEOfertaNueva> GetProductosOfertaConsultoraNueva(int paisID, int CampaniaID, int consultoraid)
         {
             var lst = new List<BEOfertaNueva>();

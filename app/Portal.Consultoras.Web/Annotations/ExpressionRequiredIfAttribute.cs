@@ -105,8 +105,7 @@ namespace Portal.Consultoras.Web.Annotations
             string key = metadata.ContainerType.FullName + "." + metadata.GetDisplayName();
 
             int count = 0;
-            if (CountPerField == null)
-                CountPerField = new Dictionary<string, int>();
+            CountPerField = CountPerField ?? new Dictionary<string, int>();
 
             if (CountPerField.ContainsKey(key))
             {
