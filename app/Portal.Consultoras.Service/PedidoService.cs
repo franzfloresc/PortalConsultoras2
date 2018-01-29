@@ -2204,13 +2204,13 @@ namespace Portal.Consultoras.Service
         #endregion  
         
         #region ConfiguracionProgramaNuevasApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(entidad);
         }
-        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(entidad);
         }
         #endregion
 
