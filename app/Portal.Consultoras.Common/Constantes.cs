@@ -1185,10 +1185,10 @@ namespace Portal.Consultoras.Common
                 public const string NombreComercial= "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
-
-
-                public const string DPedidoRdi = "DPedidoRdi";
+                public const string DPedidoIntriga = "DPedidoIntriga";
                 public const string MPedidoRdi = "MPedidoRdi";
+
+
                 public const string DLandingBannerRdi = "DLandingBannerRdi";
                 public const string MLandingBannerRdi = "MLandingBannerRdi";
             }

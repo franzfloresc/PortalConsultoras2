@@ -242,3 +242,32 @@ begin
 	,1
 	)
 end	
+
+declare @DPedidoIntrigaCodigo varchar(100) = 'DPedidoIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @DPedidoIntrigaCodigo)
+begin
+	print('Insertando  DPedidoIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@DPedidoIntrigaCodigo
+	,0
+	,'¡Pronto podrás suscribirte al Club Gana+!'
+	,'y tendrás muchas ofertas exclusivas hechas a tu medida'
+	,null
+	,'Textos de Pedido para un consultora con RDI'
+	,1
+	)
+end	
