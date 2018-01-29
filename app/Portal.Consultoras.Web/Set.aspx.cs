@@ -109,9 +109,7 @@ namespace Portal.Consultoras.Web
                 Page.Header.Controls.Add(meta4);
                 Page.Header.Controls.Add(meta5);
                 Page.Header.Controls.Add(meta6);
-                //imgCuv.Content = imagen;
-                //imgCuvSecure.Content = imagen;
-                //nombreCuv.Content = nombre;
+
                 imgCuvProducto.Src = ofertaShowRoom.ImagenProducto;
 
                 pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion;

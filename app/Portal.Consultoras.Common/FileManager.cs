@@ -96,18 +96,11 @@ namespace Portal.Consultoras.Common
                 Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var r = root + Path + filename;
-            //var g = Guid.NewGuid() + ".jpg";
 
             var newfilename = string.Empty;
 
             if (File.Exists(t))
             {
-                //while (File.Exists(r))
-                //{
-                //    //g = Guid.NewGuid() + ".jpg";
-                //    //filename = g;
-                //    r = root + Path + filename;
-                //}
                 File.Copy(t, r, true);
                 newfilename = filename;
             }
@@ -120,8 +113,6 @@ namespace Portal.Consultoras.Common
             if (!File.Exists(temproot))
                 Directory.CreateDirectory(temproot);
             var t = temproot + TempPath + filename;
-            //var r = root + Path + filename;
-            //var g = Guid.NewGuid() + ".pdf";
 
             if (File.Exists(root))
             {
@@ -168,7 +159,6 @@ namespace Portal.Consultoras.Common
 
         public static string SaveTempPng(string root, string FileName)
         {
-            //var g = Guid.NewGuid() + ".png";
             try
             {
                 string sPathFile = @"D:\LogError\";
@@ -184,15 +174,7 @@ namespace Portal.Consultoras.Common
                 log.WriteLine(string.Format("filePath ==> {0}", filePath));
                 log.WriteLine(string.Format("Globals.RutaImagenesTemp ==> {0}", Globals.RutaImagenesTemp));
                 log.WriteLine(string.Format("TempPath ==> {0}", TempPath));
-
-
-
-                //StreamWriter oStream = new StreamWriter(sPathFile + "Log_" + sFechaTxt + ".log", true);
-                //oStream.WriteLine(string.Format("{0} {1} - Error: {2}", sFechaLog, strUsuario, expException));
-
-                //if (!File.Exists(System.IO.Path.GetDirectoryName(filePath)))
-                //    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(filePath));
-
+                
                 File.Copy(FileName, (Globals.RutaImagenesTemp + TempPath + System.IO.Path.GetFileName(FileName)), true);
                 log.Flush();
                 log.Close();

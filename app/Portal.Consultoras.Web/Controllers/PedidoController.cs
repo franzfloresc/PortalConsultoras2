@@ -1679,10 +1679,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
-            //beProductos = beProductos
-            //    .Where(prod => !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
-            //    .ToList();
-
         }
 
         private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
