@@ -4,8 +4,6 @@ using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
@@ -62,6 +60,7 @@ namespace Portal.Consultoras.Service
             }
             else return 0;
         }
+
         public List<BEUnidadGeografica> ObtenerUbigeosPais(string paisCodigoISO)
         {            
             var BLUbigeo = new BLUbigeo();
