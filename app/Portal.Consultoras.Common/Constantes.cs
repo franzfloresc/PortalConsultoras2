@@ -181,6 +181,11 @@ namespace Portal.Consultoras.Common
             public const int Reactivada = 8;
         }
 
+        public static class ConsecutivoNuevaConsultora
+        {
+            public const int Consecutivo3 = 2;
+        }
+
         public static class TipoEstrategia
         {
             public const int CrossSelling = 1;

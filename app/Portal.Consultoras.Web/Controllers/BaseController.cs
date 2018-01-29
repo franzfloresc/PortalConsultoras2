@@ -1668,7 +1668,15 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 using (var sv = new PedidoServiceClient())
                 {
-                    obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                    {
+                        obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
+                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
+                    }                        
+                    else
+                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
                 }
 
                 Session[constSession] = obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();

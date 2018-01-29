@@ -3419,12 +3419,34 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AgregarKitNuevas()
         {
+            bool flagkit = false;
+
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
             if (!userData.EsConsultoraNueva)
             {
-                Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                return;
-            }
+                /* Kit de nuevas para segundo y tercer pedido*/
+                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                    userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                {
+                    var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+
+                    if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                    {
+                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                        return;
+                    }
+
+                    flagkit = true;
+                }
+                /****************/
+
+                if (!flagkit)
+                {
+                    Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                    return;
+                }
+            }            
             if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
             
             using (var sv = new PedidoServiceClient())
@@ -3439,7 +3461,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
-                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+                    if (!flagkit) //Kit en 2 y 3 pedido
+                        if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
                     var listaTempListado = ObtenerPedidoWebDetalle();
 
@@ -3449,7 +3472,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (det.PedidoDetalleID > 0) return;
 
-                    List<BEProducto> olstProducto;
+                    List<BEProducto> olstProducto;                    
                     using (var svOds = new ODSServiceClient())
                     {
                         olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
