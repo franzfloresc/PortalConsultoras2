@@ -3,11 +3,9 @@
     LayoutHeader();
 
     var ventanaChat = null;
-
-    if (!(window.location.href.toLowerCase().indexOf("pedido") > 0)) {
-        $(".CMXD-help").show();
-    }
     
+    OcultarChatEm();
+
     SetFormatDecimalPais(formatDecimalPaisMain);
 
     if (mostrarBannerPostulante == 'True') {
@@ -351,8 +349,15 @@ function loadBannerLP20() {
             animationSpeed: 1600
         });
 
+    }
+}
 
+function OcultarChatEm() {
+    var url = window.location.href.toLowerCase().split('/');
+    var urlPedido = url[url.length - 1];
 
+    if ((urlPedido !== 'pedido' && !(window.location.href.toLowerCase().indexOf('pedido/detalle') > 0))) {
+        $(".CMXD-help").show();
     }
 }
 
