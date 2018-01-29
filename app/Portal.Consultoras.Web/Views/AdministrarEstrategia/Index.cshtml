@@ -656,6 +656,7 @@
     var rutaImagenDisable = '@Url.Content("~/Content/Images/NotAllowed.png")';
     var urlFiltrarEstrategia = baseUrl + 'AdministrarEstrategia/FiltrarEstrategia';
     var urlDeshabilitarEstrategia = baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia';
+    var urlEliminarEstrategia = baseUrl + 'AdministrarEstrategia/EliminarEstrategia';
     var urlActivarDesactivarEstrategias = baseUrl + 'AdministrarEstrategia/ActivarDesactivarEstrategias';
     var cantidadPrecargar = 0;
     var cantidadPrecargar2 = 0;
@@ -729,6 +730,7 @@
         $.jgrid.extend({
             Editar: estrategiaObj.editar,
             Eliminar: estrategiaObj.eliminar,
+            Remover: estrategiaObj.remover,
             // SHOWROOM-INICIO
             EditarEvento: function (ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania, tienePersonalizacion) {
                 $("#txtEventoPaisID").val(paisNombre);
@@ -2405,7 +2407,6 @@
             }
         });
     }
-
     function ShowImage(cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, '');
@@ -2416,11 +2417,16 @@
     function ShowActions(cellvalue, options, rowObject) {
         var id = rowObject[0];
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
-        var remove = "";
+        var disable = "";
         if (rowObject[10] == "1") {
-            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
-        return edit + remove;
+        var remove = "";
+        if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == codigoShowRoom){
+          remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
+        }
+
+        return edit + disable + remove;
     }
 
     function ShowActionsProductos(cellvalue, options, rowObject) {

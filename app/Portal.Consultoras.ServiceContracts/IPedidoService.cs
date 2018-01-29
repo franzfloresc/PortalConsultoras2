@@ -639,7 +639,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int DeshabilitarEstrategia(BEEstrategia entidad);
-
+        [OperationContract]
+        int EliminarEstrategia(BEEstrategia entidad);
         [OperationContract]
         int EliminarTallaColor(BETallaColor entidad);
 

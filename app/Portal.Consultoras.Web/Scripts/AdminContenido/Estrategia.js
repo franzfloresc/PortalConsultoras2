@@ -689,6 +689,37 @@ var Estrategia = function (config) {
             }
             return false;
         },
+        remover: function (id, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var elimina = confirm('¿Está seguro que desea eliminar el set seleccionado?');
+            if (!elimina){
+                return false;
+            }
+            if (id) {
+                waitingDialog({});
+                $("#hdEstrategiaID").val(id);
+                var params = { EstrategiaID: $("#hdEstrategiaID").val() };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlEliminarEstrategia,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        alert(data.message);
+                        fnGrilla();
+                        closeWaitingDialog();
+                    },
+                    error: function (data, error) {
+                        alert(data.message);
+                        closeWaitingDialog();
+                    }
+                });
+            }
+            return false;
+        },
         actualizarParNemotecnico: _actualizarParNemotecnico,
         habilitarNemotecnico: _config.habilitarNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,

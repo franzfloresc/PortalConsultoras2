@@ -1126,6 +1126,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().DeshabilitarEstrategia(entidad);
         }
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            return new BLEstrategia().EliminarEstrategia(entidad);
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().EliminarTallaColor(entidad);

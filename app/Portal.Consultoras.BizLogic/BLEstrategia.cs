@@ -169,7 +169,16 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { throw; }
         }
-
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = DAEstrategia.EliminarEstrategia(entidad);
+                return result;
+            }
+            catch (Exception) { throw; }
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             try

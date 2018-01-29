@@ -1000,6 +1000,49 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult EliminarEstrategia(string EstrategiaID)
+        {
+            try
+            {
+                var entidad = new BEEstrategia
+                {
+                    PaisID = userData.PaisID,
+                    EstrategiaID = Convert.ToInt32(EstrategiaID)
+                };
+                using (var sv = new PedidoServiceClient())
+                {
+                    sv.EliminarEstrategia(entidad);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Se elimino la estrategia correctamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
 
         [HttpPost]
         public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas, string campaniaID, string tipoEstrategiaCod)
