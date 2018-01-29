@@ -73,10 +73,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (string.IsNullOrEmpty(paisId)) throw new ArgumentNullException("vPaisID", "No puede ser nulo o vacío.");
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                if (!string.IsNullOrEmpty(paisId))
                 {
-                    campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                    {
+                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    }
                 }
             }
             catch (FaultException ex)
