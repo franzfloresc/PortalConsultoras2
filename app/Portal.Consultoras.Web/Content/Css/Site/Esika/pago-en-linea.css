@@ -22,10 +22,13 @@
 .cantidad_pasos_proceso_pago,
 .linea_conectora_pasos,
 .fondo_pasos_proceso_pago_avance,
-.seleccion_monto_a_pagar,
-.titulo_seleccion_monto_a_pagar,
-.opciones_pago,
-.opciones_pago label,
+.seleccion_metodo_y_tipo_de_pago,
+.titulo_seleccion_metodo_pago,
+.metodo_pago_seleccionado,
+.titulo_seleccion_tipo_pago,
+.seleccion_tipo_pago label,
+.monto_total_pago_en_linea,
+.monto_parcial_pago_en_linea
 .monto_total_a_pagar,
 .fecha_vencimiento_monto_total,
 .info_cargo_gastos_administrativos,
@@ -45,10 +48,12 @@
 }
 
 .paso_proceso_pago_en_linea,
-.monto_total_pago_en_linea,
-.monto_parcial_pago_en_linea,
 .col_izq,
 .col_der,
+.seleccion_metodo_pago,
+.icono_marca_tarjeta,
+.marca_tarjeta,
+.seleccion_tipo_pago,
 .titulo_pago_parcial,
 .monto_editable_pago_en_linea,
 .monto_editable_pago_en_linea span,
@@ -85,7 +90,7 @@
     margin:0 auto;
     width:100px;
     position:relative;
-    margin-bottom:19px;
+    margin-bottom:36px;
 }
 
 .paso_proceso_pago_en_linea{
@@ -147,7 +152,20 @@
     background-color:#e81c36;
 }
 
-.titulo_seleccion_monto_a_pagar{
+.seleccion_metodo_pago,
+.seleccion_tipo_pago
+{
+    width: 47.5%;
+    vertical-align:top;
+}
+
+.seleccion_metodo_pago{
+    margin-right:41px;
+}
+
+.titulo_seleccion_metodo_pago,
+.titulo_seleccion_tipo_pago
+{
     font-family:'Lato';
     font-size:13px;
     font-weight:bold!important;
@@ -159,14 +177,57 @@
     padding-bottom:10px;
 }
 
-.opciones_pago{
-    margin-bottom:10px;
+.metodo_pago_seleccionado{
+    position:relative;
+    border:1px solid #D2D2D2;
+    height:59px;
+}
+
+.metodo_pago_seleccionado,
+.opcion_metodo_pago
+{
+    padding:13px 10px;
+}
+
+.opcion_metodo_pago{
+    border:1px solid #000;
+}
+
+.metodo_pago_seleccionado:before{
+    content: "\e904";
+    font-family: 'somos-belcorp-iconos';
+    font-size: 12px;
+    font-weight: 400;
+    position: absolute;
+    top: 20px;
+    right: 11px;
+    color: #D2D2D2;
+    z-index:1;
+}
+
+.desplegar_lista_metodos_pago:before{
+    transform:rotate(180deg);
+    -moz-transform:rotate(180deg);
+    -o-transform:rotate(180deg);
+    -ms-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    top:11px;
+}
+
+.icono_marca_tarjeta{
+    margin-top:4px;
+    margin-right:14px;
+}
+
+.marca_tarjeta{
+    margin-bottom:4px;
+    font-size:14px;
 }
 
 .monto_total_pago_en_linea,
 .monto_parcial_pago_en_linea
 {
-    width:50%;
+    /*width:50%;*/
     max-width:414px;
     height:62px;
     border:1px solid #B5B5B5;
@@ -175,14 +236,14 @@
 }
 
 .monto_total_pago_en_linea{
-    margin-right:38px;
+    margin-bottom:10px;
 }
 
-.opciones_pago input[type="radio"]{
+.seleccion_tipo_pago input[type="radio"]{
     display:none;
 }
 
-.opciones_pago label{
+.seleccion_tipo_pago label{
     width:13px;
     height:13px;
     border-radius:100%;
@@ -195,8 +256,8 @@
     margin-top:8px!important;
 }
 
-.opciones_pago label,
-.opciones_pago input[type="radio"] + label span
+.seleccion_tipo_pago label,
+.seleccion_tipo_pago input[type="radio"] + label span
 {
     transition:all 0.5s ease;
     -moz-transition:all 0.5s ease;
@@ -205,7 +266,7 @@
     -webkit-transition:all 0.5s ease;
 }
 
-.opciones_pago input[type="radio"] + label span{
+.seleccion_tipo_pago input[type="radio"] + label span{
     position:absolute;
     margin: auto;
     top: 0;
@@ -218,11 +279,11 @@
     border-radius:100%;
 }
 
-.opciones_pago input[type="radio"]:checked + label{
+.seleccion_tipo_pago input[type="radio"]:checked + label{
     border:1px solid #e81c36!important;
 }
 
-.opciones_pago input[type="radio"]:checked + label span{
+.seleccion_tipo_pago input[type="radio"]:checked + label span{
     background:#e81c36;
 }
 
@@ -315,6 +376,7 @@
     font-size:11px;
     font-weight:400;
     letter-spacing:0.25px;
+    margin-top:8px;
     margin-bottom:36px;
 }
 
@@ -530,8 +592,7 @@
 }
 
 .btn_pago_credito_visa{
-    line-height:31px;
-    padding-top:4px;
+    margin-top:0;
 }
 
 .redireccion_proveedor_de_pago{
