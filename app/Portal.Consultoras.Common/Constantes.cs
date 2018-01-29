@@ -1186,7 +1186,7 @@ namespace Portal.Consultoras.Common
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
-                public const string MPedidoRdi = "MPedidoRdi";
+                public const string MPedidoIntriga = "MPedidoIntriga";
 
 
                 public const string DLandingBannerRdi = "DLandingBannerRdi";

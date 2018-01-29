@@ -1,4 +1,4 @@
-USE BelcorpChile_BPT
+ÔªøUSE BelcorpChile_BPT
 GO
 
 declare @RevistaDigitalIntricaId int = 0
@@ -35,7 +35,7 @@ begin
 	,'gif-ganamas.gif'
 	,'gif-ganamas.gif'
 	,null
-	,'Gif para el men˙ de rd intriga'
+	,'Gif para el men√∫ de rd intriga'
 	,1
 	)
 end	
@@ -61,7 +61,7 @@ begin
 	@RevistaDigitalIntricaId
 	,@DBienvenidaIntrigaCodigo
 	,0
-	,'°Pronto podr·s suscribirte al Club Gana+! '
+	,'¬°Pronto podr√°s suscribirte al Club Gana+! '
 	,'un nuevo espacio online exclusivo para ti'
 	,'black'
 	,'Textos de bienvenida para un consultora con RDI'
@@ -90,8 +90,8 @@ begin
 	@RevistaDigitalIntricaId
 	,@MBienvenidaIntrigaCodigo
 	,0
-	,'#Nombre, pronto te podr·s suscribir al Club Gana+'
-	,'y difrutar·s de packs hechos a tu medida de tus productos favoritos'
+	,'#Nombre, pronto te podr√°s suscribir al Club Gana+'
+	,'y difrutar√°s de packs hechos a tu medida de tus productos favoritos'
 	,'black'
 	,'Textos de bienvenida mobile para un consultora con RDI'
 	,1
@@ -206,10 +206,10 @@ begin
 	@RevistaDigitalIntricaId
 	,@DCatalogoIntrigaCodigo
 	,0
-	,'Pronto podr·s suscribirte al Club Gana+'
-	,'°Y ya no tendr·s que digitar cÛdigos!'
+	,'Pronto podr√°s suscribirte al Club Gana+'
+	,'¬°Y ya no tendr√°s que digitar c√≥digos!'
 	,null
-	,'Textos de Cat·logo para un consultora con RDI'
+	,'Textos de Cat√°logo para un consultora con RDI'
 	,1
 	)
 end	
@@ -235,10 +235,10 @@ begin
 	@RevistaDigitalIntricaId
 	,@MCatalogoIntrigaCodigo
 	,0
-	,'Pronto podr·s suscribirte al Club Gana+'
-	,'°Y ya no tendr·s que digitar cÛdigos!'
+	,'Pronto podr√°s suscribirte al Club Gana+'
+	,'¬°Y ya no tendr√°s que digitar c√≥digos!'
 	,null
-	,'Textos de Cat·logo mobile para un consultora con RDI'
+	,'Textos de Cat√°logo mobile para un consultora con RDI'
 	,1
 	)
 end	
@@ -264,10 +264,39 @@ begin
 	@RevistaDigitalIntricaId
 	,@DPedidoIntrigaCodigo
 	,0
-	,'°Pronto podr·s suscribirte al Club Gana+!'
-	,'y tendr·s muchas ofertas exclusivas hechas a tu medida'
+	,'¬°Pronto podr√°s suscribirte al Club Gana+!'
+	,'y tendr√°s muchas ofertas exclusivas hechas a tu medida'
 	,null
 	,'Textos de Pedido para un consultora con RDI'
+	,1
+	)
+end	
+
+declare @MPedidoIntrigaCodigo varchar(100) = 'MPedidoIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @MPedidoIntrigaCodigo)
+begin
+	print('Insertando  MPedidoIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@MPedidoIntrigaCodigo
+	,0
+	,'¬°Pronto podr√°s suscribir al Club Gana+!'
+	,'y tendr√°s muchas ofertas exclusivas hechas a tu medida'
+	,null
+	,'Textos de Pedido mobile para un consultora con RDI'
 	,1
 	)
 end	
