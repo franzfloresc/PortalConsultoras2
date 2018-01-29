@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 //Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
-                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@Precio", DbType.Decimal, entidad.Precio);
                 //Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entidad.PrecioValorizado);
                 Context.Database.AddInParameter(command, "@NombreProducto", DbType.String, entidad.NombreProducto);
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProducto"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
-                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
 
                 result = Context.ExecuteNonQuery(command);
