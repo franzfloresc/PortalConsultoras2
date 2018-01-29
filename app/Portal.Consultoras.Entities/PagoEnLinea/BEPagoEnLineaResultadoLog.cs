@@ -16,6 +16,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public int PagoEnLineaResultadoLogId { get; set; }
         [DataMember]
+        public long ConsultoraId { get; set; }
+        [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
         public string NumeroDocumento { get; set; }
@@ -94,6 +96,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public string OrigenTarjeta { get; set; }
         [DataMember]
+        public int EstadoSsicc { get; set; }
+        [DataMember]
+        public bool Visualizado { get; set; }
+        [DataMember]
         public string UsuarioCreacion { get; set; }
         [DataMember]
         public string UsuarioModificacion { get; set; }
@@ -106,6 +112,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         {
             if (DataRecord.HasColumn(datarec, "PagoEnLineaResultadoLogId") && datarec["PagoEnLineaResultadoLogId"] != DBNull.Value)
                 PagoEnLineaResultadoLogId = DbConvert.ToInt32(datarec["PagoEnLineaResultadoLogId"]);
+            if (DataRecord.HasColumn(datarec, "ConsultoraId") && datarec["ConsultoraId"] != DBNull.Value)
+                ConsultoraId = DbConvert.ToInt64(datarec["ConsultoraId"]);            
             if (DataRecord.HasColumn(datarec, "CodigoConsultora") && datarec["CodigoConsultora"] != DBNull.Value)
                 CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
             if (DataRecord.HasColumn(datarec, "NumeroDocumento") && datarec["NumeroDocumento"] != DBNull.Value)
@@ -184,6 +192,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
                 NumeroTarjeta = DbConvert.ToString(datarec["NumeroTarjeta"]);
             if (DataRecord.HasColumn(datarec, "OrigenTarjeta") && datarec["OrigenTarjeta"] != DBNull.Value)
                 OrigenTarjeta = DbConvert.ToString(datarec["OrigenTarjeta"]);
+            if (DataRecord.HasColumn(datarec, "EstadoSsicc") && datarec["EstadoSsicc"] != DBNull.Value)
+                EstadoSsicc = DbConvert.ToInt32(datarec["EstadoSsicc"]);
+            if (DataRecord.HasColumn(datarec, "Visualizado") && datarec["Visualizado"] != DBNull.Value)
+                Visualizado = DbConvert.ToBoolean(datarec["Visualizado"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
                 UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)

@@ -6688,6 +6688,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoTiendaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CsiCodigoProgramaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6707,6 +6710,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionIndicadorComercioElectronicoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoSsiccField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EtiquetaField;
@@ -6797,6 +6803,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool VisualizadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -6900,6 +6909,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConsultoraId {
+            get {
+                return this.ConsultoraIdField;
+            }
+            set {
+                if ((this.ConsultoraIdField.Equals(value) != true)) {
+                    this.ConsultoraIdField = value;
+                    this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CsiCodigoPrograma {
             get {
                 return this.CsiCodigoProgramaField;
@@ -6986,6 +7008,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionIndicadorComercioElectronicoField, value) != true)) {
                     this.DescripcionIndicadorComercioElectronicoField = value;
                     this.RaisePropertyChanged("DescripcionIndicadorComercioElectronico");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoSsicc {
+            get {
+                return this.EstadoSsiccField;
+            }
+            set {
+                if ((this.EstadoSsiccField.Equals(value) != true)) {
+                    this.EstadoSsiccField = value;
+                    this.RaisePropertyChanged("EstadoSsicc");
                 }
             }
         }
@@ -7376,6 +7411,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Visualizado {
+            get {
+                return this.VisualizadoField;
+            }
+            set {
+                if ((this.VisualizadoField.Equals(value) != true)) {
+                    this.VisualizadoField = value;
+                    this.RaisePropertyChanged("Visualizado");
                 }
             }
         }
