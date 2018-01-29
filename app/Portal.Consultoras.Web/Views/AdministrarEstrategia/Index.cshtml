@@ -549,7 +549,7 @@
         <div class="div-3">
             <div class="titG">CUV:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUV2ProductoDetalle" />
+                <input type="text" id="txtCUVProductoDetalle" />
             </div>
             <div class="titG">Marca Producto:</div>
             <div class="selectP2 borde_redondeado">
@@ -699,6 +699,7 @@
     var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
     var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
     var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
+    var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
     var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
     var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
     var imagenEliminar = '@Url.Content("~/Content/Images/delete.png")';
@@ -896,7 +897,7 @@
                 //$('#hdOfertaShowRoomDetalleID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'OfertaShowRoomDetalleID'));
                 $('#hdEstrategiaProductoID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'EstrategiaProductoId'));
                 $('#hdEstrategiaID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'EstrategiaId'));
-                $('#txtCUV2ProductoDetalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'CUV2'));
+                $('#txtCUVProductoDetalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'CUV'));
                 $('#txtNombreProductoDetalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'NombreProducto'));
                 $('#txtDescripcion1Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion1'));
                 //$('#txtDescripcion2Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion2'));
@@ -907,7 +908,7 @@
                 var isActive = (jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Activo') == "1");
                 $('#chkActivoOfertaDetalle').attr('checked', isActive);
 
-                $('#txtCUV2ProductoDetalle').attr('readonly', true);
+                $('#txtCUVProductoDetalle').attr('readonly', true);
                 $('#txtPrecioOfertaDetalle').attr('readonly', true);
 
                 if (typeof Imagen !== 'undefined') {
@@ -1874,7 +1875,7 @@
         $("#btnNuevoDetalle").click(function () {
             LimpiarDatosEventoShowRoomDetalle();
 
-            $('#txtCUV2ProductoDetalle').attr('readonly', false);
+            $('#txtCUVProductoDetalle').attr('readonly', false);
             $('#txtPrecioOfertaDetalle').attr('readonly', false);
 
             showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
@@ -2443,7 +2444,7 @@
 
             return edit + remove;
         }
-        return null;
+        return "";
     }
 
     function ShowActionsVer1(cellvalue, options, rowObject) {
@@ -3201,7 +3202,7 @@
             {
                 "Guardar": function () {
                     var vMessage = "";
-                    if (jQuery.trim($('#txtCUV2ProductoDetalle').val()) == "")
+                    if (jQuery.trim($('#txtCUVProductoDetalle').val()) == "")
                         vMessage += "- Debe ingresar el CUV del Producto.\n";
 
                     if (jQuery.trim($('#ddlMarcaProductoDetalle').val()) == "0")
@@ -3442,7 +3443,7 @@
         //$("#hdOfertaShowRoomDetalleID").val("0");
         $("#hdEstrategiaProductoID").val("0");
         //$("#hdEstrategiaID").val("0");
-        $("#txtCUV2ProductoDetalle").val("");
+        $("#txtCUVProductoDetalle").val("");
         $("#txtNombreProductoDetalle").val("");
         $("#txtDescripcion1Detalle").val("");
         //$("#txtDescripcion2Detalle").val("");
@@ -3909,7 +3910,7 @@
                 { name: 'EstrategiaProductoId', index: 'EstrategiaProductoId', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'EstrategiaId', index: 'Estrategia', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'Campania', index: 'Campania', width: 50, editable: true, resizable: false, hidden: true },
-                { name: 'CUV2', index: 'CUV2', width: 50, editable: true, resizable: false, hidden: false },
+                { name: 'CUV', index: 'CUV', width: 50, editable: true, resizable: false, hidden: false },
                 { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
                 { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
                 { name: 'ImagenProducto', index: 'ImagenProducto', width: 60, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
@@ -4000,8 +4001,8 @@
             EstrategiaProductoID: $("#hdEstrategiaProductoID").val(),
             EstrategiaID: $("#hdEstrategiaID").val(),
             Campania: $("#txtCampaniaDetalle").val(),
-            CUV: $("#txtCUVDetalle").val(),
-            CUV2: $("#txtCUV2ProductoDetalle").val(),
+            CUV2: $("#txtCUVDetalle").val(),
+            CUV: $("#txtCUVProductoDetalle").val(),
             Precio: $("#txtPrecioOfertaDetalle").val(),
             NombreProducto: $("#txtNombreProductoDetalle").val(),
             Descripcion1: $("#txtDescripcion1Detalle").val(),
