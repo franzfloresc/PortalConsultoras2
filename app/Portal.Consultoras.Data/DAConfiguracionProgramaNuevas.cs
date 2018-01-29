@@ -36,22 +36,20 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
-        public string InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))
             {
-                Context.Database.AddInParameter(command, "@ConfiguracionProgramaNuevasAppID", DbType.Int32, entidad.ConfiguracionProgramaNuevasAppID);
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
                 Context.Database.AddInParameter(command, "@TextoCupon", DbType.String, entidad.TextoCupon);
                 Context.Database.AddInParameter(command, "@TextoCuponIndependiente", DbType.String, entidad.TextoCuponIndependiente);
                 Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
                 Context.Database.AddInParameter(command, "@ArchivoBannerCupon", DbType.String, entidad.ArchivoBannerCupon);
                 Context.Database.AddInParameter(command, "@ArchivoBannerPremio", DbType.String, entidad.ArchivoBannerPremio);
-                Context.Database.AddOutParameter(command, "@MensajeValidacion", DbType.String, 200);
 
                 Context.ExecuteNonQuery(command);
 
-                return Convert.ToString(command.Parameters["@MensajeValidacion"].Value);
+                return true;
             }
         }
         #endregion

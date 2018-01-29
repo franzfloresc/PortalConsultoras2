@@ -10,7 +10,7 @@ namespace Portal.Consultoras.BizLogic
 
         #region ConfiguracionApp
         List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);
-        string InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);
+        bool InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);
         #endregion
     }
 }

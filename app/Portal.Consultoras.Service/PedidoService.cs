@@ -2208,7 +2208,7 @@ namespace Portal.Consultoras.Service
         {
             return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(entidad);
         }
-        public string InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
             return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(entidad);
         }
