@@ -1639,8 +1639,14 @@ namespace Portal.Consultoras.Common
         public class ProgramaNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
-            public const string ArchivoBannerCupones = "Cupon{0}.jpg";
-            public const string ArchivoBannerPremios = "Premio{0}.jpg";
+            public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
+            public const string ArchivoBannerPremios = "Premio{0}_{1}.jpg";
+
+            public class TipoBanner
+            {
+                public const short BannerCupon = 1;
+                public const short BannerPremio = 2;
+            }
         }
 
         public class Comunicado
