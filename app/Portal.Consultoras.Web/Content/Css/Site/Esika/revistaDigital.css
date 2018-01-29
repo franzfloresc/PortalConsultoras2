@@ -1581,7 +1581,12 @@
 }
 
 .btn_diagonal:hover .rd_arrowright_blanco {
-    display: block;
+    visibility: initial !important;
+    animation: bounceRight 1.2s infinite;
+    width: 8px;
+    height: 12px;
+    top: 1px;
+    display: inline-block;
 }
 
 .btn_diagonal a {
