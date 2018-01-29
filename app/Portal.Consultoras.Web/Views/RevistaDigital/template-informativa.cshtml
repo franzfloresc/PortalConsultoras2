@@ -22,7 +22,8 @@ else
 {
     <div class="video-visual">
         <div class="video-container">
-            <iframe src="@Model.Video&autoplay=1" frameborder="0" allowfullscreen=""></iframe>
+            <div id="player"></div>
+            @*<iframe src="@Model.Video&autoplay=1" frameborder="0" allowfullscreen=""></iframe>*@
         </div>
     </div>
 }
@@ -253,13 +254,19 @@ else
 @Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml")
 
 @section scripts{
+    <script src="https://www.youtube.com/player_api"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript">
+        var done = false;
+        var player;
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
+        var videoKey = '@Model.Video';
     </script>
-
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }
+
+

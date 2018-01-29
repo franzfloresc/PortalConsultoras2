@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Data
         public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona, 
             string ListaCUVS, string ListaCantidades, string CodigosConcursos)
         {
-            var rtpa = new List<ObjMontosProl>();
+            List<ObjMontosProl> rtpa;
 
             using (var sv = new ServicesCalculoPrecioNiveles())
             {
@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Data
                 rtpa = sv.CalculoMontosProlxIncentivos(pais, periodo, codigoconsultora, zona, ListaCUVS, ListaCantidades, CodigosConcursos).ToList();
             }
 
-            return rtpa ?? new List<ObjMontosProl>();
+            return rtpa;
         }
     }
 }

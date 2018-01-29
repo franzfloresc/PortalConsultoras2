@@ -277,8 +277,9 @@ namespace Portal.Consultoras.Web.Controllers
                         if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
                         {
                             if (!(lstFilters[i].Id == "4" 
-                                && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) 
-                                && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo)))
+                                && Convert.ToDouble(lstFilters[i].Valor1).Equals(Convert.ToDouble(precioMinimo))
+                                && Convert.ToDouble(lstFilters[i].Valor2).Equals(Convert.ToDouble(precioMaximo))
+                                ))
                             {
                                 flt += v1.Split(',').Length;
                             }

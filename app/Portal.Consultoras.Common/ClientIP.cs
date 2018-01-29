@@ -9,42 +9,43 @@ namespace Portal.Consultoras.Common
     {
         public static string ClientIPFromRequest(this HttpRequestBase request, bool skipPrivate)
         {
-            string IP = null;
+            string ip = null;
             foreach (var item in s_HeaderItems)
             {
                 var ipString = request.ServerVariables[item.Key];
                 if (string.IsNullOrWhiteSpace(ipString) || ipString.Trim() == "::1") continue;
 
-                IP = GetFirstValidIpFromString(ipString, skipPrivate);
-                if (!string.IsNullOrWhiteSpace(IP)) break;
+                ip = GetFirstValidIpFromString(ipString, skipPrivate);
+                if (!string.IsNullOrWhiteSpace(ip)) break;
             }
 
-            if (string.IsNullOrWhiteSpace(IP) && request.UserHostAddress != "::1")
+            if (string.IsNullOrWhiteSpace(ip) && request.UserHostAddress != "::1")
             {
-                IP = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
+                ip = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
             }
 
-            if (!string.IsNullOrWhiteSpace(IP) && IP.IndexOf(":") > 0)
+            var indOf = ip.IndexOf(":");
+
+            if (!string.IsNullOrWhiteSpace(ip) && indOf > 0)
             {
-                IP = IP.Substring(0, IP.IndexOf(":") - 1);
+                ip = ip.Substring(0, ip.IndexOf(":") - 1);
             }
-            return IP;
+            return ip;
         }
 
         public static string GetFirstValidIpFromString(string ips, bool skipPrivateIps)
         {
             var result = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(ips))
+            if (string.IsNullOrWhiteSpace(ips)) return result;
+
+            foreach (var ip in ips.Split(','))
             {
-                foreach (var ip in ips.Split(','))
+                var tmpIp = ip.Trim();
+                if (ValidIP(tmpIp, skipPrivateIps))
                 {
-                    var tmpIp = ip.Trim();
-                    if (ValidIP(tmpIp, skipPrivateIps))
-                    {
-                        result = tmpIp;
-                        break;
-                    }
+                    result = tmpIp;
+                    break;
                 }
             }
 
@@ -63,14 +64,13 @@ namespace Portal.Consultoras.Common
                     && ipAddr.AddressFamily != AddressFamily.InterNetworkV6))
                 return false;
 
-            if (skipPrivate && ipAddr.AddressFamily == AddressFamily.InterNetwork)
+            if (!skipPrivate || ipAddr.AddressFamily != AddressFamily.InterNetwork) return true;
+
+            var addr = IpRange.AddrToUInt64(ipAddr);
+            foreach (var range in s_PrivateRanges)
             {
-                var addr = IpRange.AddrToUInt64(ipAddr);
-                foreach (var range in s_PrivateRanges)
-                {
-                    if (range.Encompasses(addr))
-                        return false;
-                }
+                if (range.Encompasses(addr))
+                    return false;
             }
 
             return true;
@@ -154,15 +154,16 @@ namespace Portal.Consultoras.Common
 
         // order is in trust/use order top to bottom
         private static readonly HeaderItem[] s_HeaderItems =
-            new HeaderItem[] {
-            new HeaderItem("HTTP_CLIENT_IP",false),
-            new HeaderItem("HTTP_X_FORWARDED_FOR",true),
-            new HeaderItem("HTTP_X_FORWARDED",false),
-            new HeaderItem("HTTP_X_CLUSTER_CLIENT_IP",false),
-            new HeaderItem("HTTP_FORWARDED_FOR",false),
-            new HeaderItem("HTTP_FORWARDED",false),
-            new HeaderItem("HTTP_VIA",false),
-            new HeaderItem("REMOTE_ADDR",false)
+            new HeaderItem[]
+            {
+                new HeaderItem("HTTP_CLIENT_IP", false),
+                new HeaderItem("HTTP_X_FORWARDED_FOR", true),
+                new HeaderItem("HTTP_X_FORWARDED", false),
+                new HeaderItem("HTTP_X_CLUSTER_CLIENT_IP", false),
+                new HeaderItem("HTTP_FORWARDED_FOR", false),
+                new HeaderItem("HTTP_FORWARDED", false),
+                new HeaderItem("HTTP_VIA", false),
+                new HeaderItem("REMOTE_ADDR", false)
             };
     }
 }

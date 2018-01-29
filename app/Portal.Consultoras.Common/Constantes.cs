@@ -277,6 +277,8 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            public const string GuiaNegocio = "GuiaNegocio";
             
             public const string PedidoWebDDConf = "PedidoWebDDConf";
             public const string PedidoWebDD = "PedidoWebDD";
@@ -404,7 +406,9 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito -- Pantalla
             // A: Contenedor Home           B: Contenedor Home Revisar
             // C: Landing EPM               D: Landing EPM Revisar
-            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+            // E: Landing ShowRoom          F: Landing ShowRoom Intriga
+            // G: Revista Digital Info      H: Revista Digital Detalle
+            // I: Guia de Negocio
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -530,7 +534,7 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region OfertaDelDia 
-            // no tulizan estas variables, todo estos estan en la logica en ofertaDelDia.js
+            // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
             public const int OfertaDelDiaDesktopHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
@@ -1074,6 +1078,8 @@ namespace Portal.Consultoras.Common
 
         public static class ConfiguracionPaisDatos
         {
+            public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1149,15 +1155,9 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                //public const string DInformativoSuscrita = "DInformativoSuscrita";
-                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                //public const string MInformativoSuscrita = "MInformativoSuscrita";
-                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
-
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
+
             }
 
             public static class RDR

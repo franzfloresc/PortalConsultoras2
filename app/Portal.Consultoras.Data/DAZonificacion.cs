@@ -1,5 +1,4 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;

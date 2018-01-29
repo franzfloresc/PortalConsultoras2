@@ -94,16 +94,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
 
-                if (mostrarBanner)
+                if (mostrarBanner
+                    && !(
+                            (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                            || userData.IndicadorGPRSB == 0
+                        )
+                )
                 {
-                    if (!(
-                        (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                        || userData.IndicadorGPRSB == 0)
-                    )
-                    {
-                        ViewBag.MostrarBannerPL20 = false;
-                        ViewBag.MostrarOfertaDelDia = false;
-                    }
+                    ViewBag.MostrarBannerPL20 = false;
+                    ViewBag.MostrarOfertaDelDia = false;
                 }
 
             }

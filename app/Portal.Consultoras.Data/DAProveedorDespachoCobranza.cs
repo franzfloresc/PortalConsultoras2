@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -66,7 +61,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-
         public IDataReader GetProveedorDespachoCobranzaMnto(BEProveedorDespachoCobranza entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("getProveedorDespachoCobranzaMnto");
@@ -75,7 +69,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
 
         }
-
 
         public IDataReader GetProveedorDespachoCobranzaBYiD(BEProveedorDespachoCobranza entidad)
         {

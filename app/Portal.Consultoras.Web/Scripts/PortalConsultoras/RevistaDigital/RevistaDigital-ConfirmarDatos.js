@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $("a[data-popup-close=PopRDSuscripcion]").on("click", function () {
+        rdAnalyticsModule.CerrarPopUp("ConfirmarDatos");
         window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
     });
 
@@ -62,7 +63,9 @@ function RDConfirmarDatos() {
             return false;
         }
     }
-
+    
+    rdAnalyticsModule.GuardarDatos();
+    
     var confirmarDatosModel = {
         Email: email,
         Celular: celular,
@@ -95,9 +98,9 @@ function RDConfirmarDatosPromise(confirmarDatosModel) {
         async: true
     });
 
-    promise.done(function (response) {
+    promise.done(function(response) {
         d.resolve(response);
-    })
+    });
 
     promise.fail(d.reject);
 
