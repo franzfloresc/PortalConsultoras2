@@ -116,16 +116,18 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-
-                if (productos.Count == 2 && productos.LastOrDefault() != null)
-                    if (!string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
+                if (productos.Count == 2)
+                {
+                    var producto = productos.LastOrDefault();
+                    if (producto != null && !string.IsNullOrEmpty(producto.RegaloImagenUrl))
                     {
                         string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
-                            productos.LastOrDefault().RegaloImagenUrl,
-                            carpetaPais);
-                    }
+                        productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, producto.RegaloImagenUrl, carpetaPais);
+                        
 
+                    }
+                }
+                
                 return Json(new
                 {
                     success = true,
