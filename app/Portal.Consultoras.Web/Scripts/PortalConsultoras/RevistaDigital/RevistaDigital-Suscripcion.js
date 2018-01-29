@@ -255,6 +255,7 @@ function RDDesuscripcion() {
 }
 
 function RDRedireccionarInformacion(seccion) {
+    RDPopupCerrar();
     seccion = seccion || 0;
     rdAnalyticsModule.IrEnterate();
     
