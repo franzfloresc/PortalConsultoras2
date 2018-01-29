@@ -1,6 +1,6 @@
 USE BelcorpPeru_PL50
 GO
-CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
+ALTER PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
 @CampaniaID INT,
@@ -35,10 +35,11 @@ WHEN MATCHED THEN
 		  e.TextoLibre = t.TextoLibre,
 		  e.EsSubCampania = t.EsSubCampania,
 		  e.UsuarioModificacion =  @UsuarioModificacion,
-		  e.FechaModificacion = GETDATE();
+		  e.FechaModificacion = GETDATE(),
+		  e.Ganancia =ISNULL(t.Precio,0) - ISNULL(t.Precio2,0);
  SET @RetornoActualizacion = @@ROWCOUNT  
 ---*---
-INSERT INTO dbo.Estrategia (CUV2, DescripcionCUV2, Precio, Precio2, LimiteVenta, TextoLibre, EsSubCampania, UsuarioCreacion, FechaCreacion, TipoEstrategiaID, CampaniaID, EtiquetaID,EtiquetaID2, Activo, CampaniaIDFin, NumeroPedido, FlagDescripcion, CUV, FlagCEP, FlagCEP2, Cantidad, FlagCantidad, ColorFondo)
+INSERT INTO dbo.Estrategia (CUV2, DescripcionCUV2, Precio, Precio2, LimiteVenta, TextoLibre, EsSubCampania, UsuarioCreacion, FechaCreacion, TipoEstrategiaID, CampaniaID, EtiquetaID,EtiquetaID2, Activo, CampaniaIDFin, NumeroPedido, FlagDescripcion, CUV, FlagCEP, FlagCEP2, Cantidad, FlagCantidad, ColorFondo, Ganancia)
 SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 		  		, tabla.variable.value('DescripcionCUV2[1]', 'VARCHAR(800)') AS 'DescripcionCUV2'
 				, tabla.variable.value('Precio[1]', 'NUMERIC(12,2)') AS 'Precio'
@@ -62,6 +63,7 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 				, null AS 'Cantidad'
 				, 0 AS 'FlagCantidad'
 				, '' AS 'ColorFondo'
+				,ISNULL(tabla.variable.value('Precio[1]', 'NUMERIC(12,2)'),0) -  ISNULL(tabla.variable.value('Precio2[1]', 'NUMERIC(12,2)'),0) AS 'Ganancia'
 	FROM @EstrategiaXML.nodes('/strategy/row') tabla(variable) 
 	INNER JOIN ods.OfertasPersonalizadas op ON op.CUV = tabla.variable.value('CUV2[1]', 'VARCHAR(20)')
 	AND op.AnioCampanaVenta = @CampaniaID and op.TipoPersonalizacion = 'SR'
