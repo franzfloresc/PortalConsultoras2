@@ -79,7 +79,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.SegmentoInternoID, f => f.MapFrom(c => c.SegmentoInternoID == null ? 0 : System.Convert.ToInt32(c.SegmentoInternoID)));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
-                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
+                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
+                .ForMember(t => t.OfertaDelDia, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();

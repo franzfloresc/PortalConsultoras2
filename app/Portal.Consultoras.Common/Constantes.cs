@@ -1639,8 +1639,14 @@ namespace Portal.Consultoras.Common
         public class ProgramaNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
-            public const string ArchivoBannerCupones = "Cupon{0}.jpg";
-            public const string ArchivoBannerPremios = "Premio{0}.jpg";
+            public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
+            public const string ArchivoBannerPremios = "Premio{0}_{1}.jpg";
+
+            public class TipoBanner
+            {
+                public const short BannerCupon = 1;
+                public const short BannerPremio = 2;
+            }
         }
 
         public class Comunicado
@@ -1650,9 +1656,41 @@ namespace Portal.Consultoras.Common
 
         public class GanaMas
         {
-            public const short PaisSinGanaMas = 1;
-            public const short PaisConGanaMasNoSuscrita = 2;
-            public const short PaisConGanaMasSuscrita = 3;
+            public const short PaisSinGND = 1;
+            public const short PaisConGND_SuscritaActiva = 2;
+            public const short PaisConGND_SuscritaNoActiva = 3;
+            public const short PaisConGND_NoSuscritaActiva = 4;
+            public const short PaisConGND_NoSuscritaNoActiva = 5;
+        }
+        public class ValAutoEstado
+        {
+            public const int NoExisteProceso = -1;
+            public const int Programado = 0;
+            public const int EnEjecucion = 1;
+            public const int Finalizado = 2;
+            public const int FaltaEnvioCorreos = 3;
+            public const int Error = 99;
+        }
+        public class ValAutoEstadoDescripcion
+        {
+            public const string NoExisteProceso = "No existen procesos programados.";
+            public const string Programado = "Existen procesos programados por ejecutar.";
+            public const string EnEjecucion = "El proceso de reserva está en ejecución.";
+            public const string Finalizado = "Los procesos programados han sido ejecutados.";
+            public const string FaltaEnvioCorreos = "El proceso de envío de correos está en ejecución.";
+            public const string Error = "Error en la ejecución de los procesos programados.";
+        }
+        public class ValAutoEjecucionResultado
+        {
+            public const string Inicio = "El proceso de PROL Automático ha iniciado.";
+            public const string YaExisteProceso = "El proceso de PROL Automático está en proceso.";
+        }
+        public class ValAutoDetalleEstadoDescripcion
+        {
+            public const string Programado = "Programado";
+            public const string EnEjecucion = "En ejecución";
+            public const string Finalizado = "Terminado";
+            public const string Error = "Error";
         }
     }
 }

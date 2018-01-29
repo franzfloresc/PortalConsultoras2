@@ -94,6 +94,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLCuponConsultora.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
-    <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
     <Compile Include="BLReservaProl.cs" />

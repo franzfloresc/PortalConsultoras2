@@ -8,5 +8,6 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
         BERevistaDigitalSuscripcion Single(BERevistaDigitalSuscripcion entidad);
         BERevistaDigitalSuscripcion SingleActiva(BERevistaDigitalSuscripcion entidad);
         int Suscripcion(BERevistaDigitalSuscripcion entidad);
+        BERevistaDigitalSuscripcion GetLast(BERevistaDigitalSuscripcion entidad);
     }
 }

@@ -1206,11 +1206,11 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
 
-	#region ConfiguracionProgramaNuevasApp
+	    #region ConfiguracionProgramaNuevasApp
         [OperationContract]
-        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         [OperationContract]
-        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
+        bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         #endregion
 
         #region Certificado Digital
