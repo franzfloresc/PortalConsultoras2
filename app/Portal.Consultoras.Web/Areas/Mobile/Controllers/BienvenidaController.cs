@@ -427,7 +427,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else if (revistaDigital.TieneRDI)
                 {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)
