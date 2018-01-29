@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class ValidacionAutomaticaModel
     {
-        public List<BEValidacionAutomatica> ListaValidacionAutomatica { get; set; }
-        public int Proceso { get; set; }
+        public string FechaFacturacion { get; set; }
+        public List<ValidacionAutomaticaDetalleModel> ListaValidacionAutomatica { get; set; }
     }
 }
