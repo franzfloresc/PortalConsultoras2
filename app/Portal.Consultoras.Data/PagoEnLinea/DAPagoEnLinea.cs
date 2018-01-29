@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Data.PagoEnLinea
         public int InsertPagoEnLineaResultadoLog(BEPagoEnLineaResultadoLog entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPagoEnLineaResultadoLog");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, entidad.ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.CodigoConsultora);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, entidad.CampaniaId);
