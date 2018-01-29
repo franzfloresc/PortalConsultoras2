@@ -66,9 +66,9 @@
         margin-top: 0;
     }
 
-        .bc_para_ti-menu ul li:nth-child(2) a {
-            margin-left: 3px;
-            margin-right: 3px;
+        .bc_para_ti-menu ul li:nth-child(2) {
+            border-left: 3px solid transparent;
+            border-right: 3px solid transparent;
         }
 
         .bc_para_ti-menu ul li a {
