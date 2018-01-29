@@ -12,9 +12,9 @@
         {
             try
             {
-                DALogPedidoDDInvalido daLogPedidoDDInvalido = new DALogPedidoDDInvalido(paisID);
+                DALogPedidoDDInvalido daLogPedidoDdInvalido = new DALogPedidoDDInvalido(paisID);
 
-                daLogPedidoDDInvalido.InsLogPedidoDDInvalido(beLogPedidoDDInvalido);
+                daLogPedidoDdInvalido.InsLogPedidoDDInvalido(beLogPedidoDDInvalido);
 
                 return true;
             }
@@ -26,23 +26,23 @@
 
         public IList<BELogPedidoDDInvalido> SelectLogPedidosInvalidos(int paisID, DateTime fechaRegistro)
         {
-            DALogPedidoDDInvalido daLogPedidoDDInvalido = new DALogPedidoDDInvalido(paisID);
-            IList<BELogPedidoDDInvalido> listBELogPedidoDDInvalido = new List<BELogPedidoDDInvalido>();
+            DALogPedidoDDInvalido daLogPedidoDdInvalido = new DALogPedidoDDInvalido(paisID);
+            IList<BELogPedidoDDInvalido> listBeLogPedidoDdInvalido = new List<BELogPedidoDDInvalido>();
 
-            using (IDataReader reader = daLogPedidoDDInvalido.SelectLogPedidosInvalidos(fechaRegistro))
+            using (IDataReader reader = daLogPedidoDdInvalido.SelectLogPedidosInvalidos(fechaRegistro))
                 while (reader.Read())
                 {
                     var logPedidoInvalido = new BELogPedidoDDInvalido(reader);
-                    listBELogPedidoDDInvalido.Add(logPedidoInvalido);
+                    listBeLogPedidoDdInvalido.Add(logPedidoInvalido);
                 }
 
-            return listBELogPedidoDDInvalido;
+            return listBeLogPedidoDdInvalido;
         }
 
         public void UpdLogPedidoInvalido(int paisID, DateTime fechaRegistro)
         {
-            DALogPedidoDDInvalido daLogPedidoDDInvalido = new DALogPedidoDDInvalido(paisID);
-            daLogPedidoDDInvalido.UpdLogPedidoInvalido(fechaRegistro);
+            DALogPedidoDDInvalido daLogPedidoDdInvalido = new DALogPedidoDDInvalido(paisID);
+            daLogPedidoDdInvalido.UpdLogPedidoInvalido(fechaRegistro);
         }
     }
 }

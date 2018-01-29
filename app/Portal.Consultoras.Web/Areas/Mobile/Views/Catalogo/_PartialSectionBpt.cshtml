@@ -18,7 +18,7 @@
     urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
 
 }
-<div class="content_revistas_mob">
+<div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
     {
         if (revistaDigital.EsActiva)
@@ -47,10 +47,6 @@
         }
         else
         {
-            if (!Model.TieneGND)
-            {
-                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-            }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
@@ -76,7 +72,6 @@
     }
     else if (revistaDigital.TieneRDR)
     {
-        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
         <hr class="clear" />
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">
@@ -100,9 +95,4 @@
             </div>
         </div>
     }
-    else if (!Model.TieneGND)
-    {
-        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-    }
-    
 </div>

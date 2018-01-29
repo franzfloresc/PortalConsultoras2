@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Portal.Consultoras.Data
 {
@@ -50,26 +45,26 @@ namespace Portal.Consultoras.Data
                 {
                     con2.Open();
 
-                    SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(con2);
-                    oSqlBulkCopy_Cabecera.DestinationTableName = "TmpCabeceraDD";
+                    SqlBulkCopy oSqlBulkCopyCabecera = new SqlBulkCopy(con2);
+                    oSqlBulkCopyCabecera.DestinationTableName = "TmpCabeceraDD";
 
                     // Escribimos los datos en la tabla destino.
-                    oSqlBulkCopy_Cabecera.WriteToServer(reader);
+                    oSqlBulkCopyCabecera.WriteToServer(reader);
 
                     // Cerrar SqlBulkCopy y liberar memoria.
-                    oSqlBulkCopy_Cabecera.Close();
+                    oSqlBulkCopyCabecera.Close();
 
                     // Obtiene el segundo select del DataReader
                     reader.NextResult();
 
-                    SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(con2);
-                    oSqlBulkCopy_Detalle.DestinationTableName = "TmpDetalleDD";
+                    SqlBulkCopy oSqlBulkCopyDetalle = new SqlBulkCopy(con2);
+                    oSqlBulkCopyDetalle.DestinationTableName = "TmpDetalleDD";
 
                     // Escribimos los datos en la tabla destino.
-                    oSqlBulkCopy_Detalle.WriteToServer(reader);
+                    oSqlBulkCopyDetalle.WriteToServer(reader);
 
                     // Cerrar SqlBulkCopy y liberar memoria.
-                    oSqlBulkCopy_Detalle.Close();
+                    oSqlBulkCopyDetalle.Close();
                 }
             }
         }

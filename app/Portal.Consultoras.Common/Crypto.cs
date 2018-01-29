@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Common
             DecryptorTransform = rm.CreateDecryptor(this.Key, this.Vector);
 
             //Used to translate bytes to text and vice versa
-            UTFEncoder = new System.Text.UTF8Encoding();
+            UTFEncoder = new UTF8Encoding();
         }
 
         /// -------------- Two Utility Methods (not used but may be useful) -----------
@@ -122,13 +122,12 @@ namespace Portal.Consultoras.Common
             if (str.Length == 0)
                 throw new Exception("Invalid string value in StrToByteArray");
 
-            byte val;
             byte[] byteArr = new byte[str.Length / 3];
             int i = 0;
             int j = 0;
             do
             {
-                val = byte.Parse(str.Substring(i, 3));
+                var val = byte.Parse(str.Substring(i, 3));
                 byteArr[j++] = val;
                 i += 3;
             }
@@ -141,12 +140,10 @@ namespace Portal.Consultoras.Common
         //      return enc.GetString(byteArr);    
         public string ByteArrToString(byte[] byteArr)
         {
-            byte val;
-
             var txtBuil = new StringBuilder();
             for (int i = 0; i <= byteArr.GetUpperBound(0); i++)
             {
-                val = byteArr[i];
+                var val = byteArr[i];
                 if (val < (byte)10)
                     txtBuil.Append("00" + val.ToString());
                 else if (val < (byte)100)
@@ -160,21 +157,26 @@ namespace Portal.Consultoras.Common
 
         public static string EncryptLogin(string clearText)
         {
-            string EncryptionKey = "MAKV2SPBNI99212";
-            byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(clearText);
+            string encryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                if (encryptor != null)
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        cs.Write(clearBytes, 0, clearBytes.Length);
-                        cs.Close();
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(),
+                            CryptoStreamMode.Write))
+                        {
+                            cs.Write(clearBytes, 0, clearBytes.Length);
+                            cs.Close();
+                        }
+
+                        clearText = Convert.ToBase64String(ms.ToArray());
                     }
-                    clearText = Convert.ToBase64String(ms.ToArray());
                 }
             }
             return clearText;

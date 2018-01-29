@@ -1,9 +1,9 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {

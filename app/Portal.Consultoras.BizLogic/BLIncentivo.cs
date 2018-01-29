@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEIncentivo> SelectIncentivo(int paisID, int campaniaID)
         {
             var lista = new List<BEIncentivo>();
-            var DAIncentivo = new DAIncentivo(paisID);
+            var daIncentivo = new DAIncentivo(paisID);
 
-            using (IDataReader reader = DAIncentivo.SelectIncentivo(paisID, campaniaID))
+            using (IDataReader reader = daIncentivo.SelectIncentivo(paisID, campaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEIncentivo(reader);
@@ -28,20 +24,20 @@ namespace Portal.Consultoras.BizLogic
         
         public void InsertIncentivo(BEIncentivo entidad)
         {
-            var DAIncentivo = new DAIncentivo(entidad.PaisID);
-            DAIncentivo.Insert(entidad);
+            var daIncentivo = new DAIncentivo(entidad.PaisID);
+            daIncentivo.Insert(entidad);
         }
 
         public void UpdateIncentivo(BEIncentivo entidad)
         {
-            var DAIncentivo = new DAIncentivo(entidad.PaisID);
-            DAIncentivo.Update(entidad);
+            var daIncentivo = new DAIncentivo(entidad.PaisID);
+            daIncentivo.Update(entidad);
         }
 
         public void DeleteIncentivo(int paisID, int IncentivoID)
         {
-            var DAIncentivo = new DAIncentivo(paisID);
-            DAIncentivo.Delete(IncentivoID);
+            var daIncentivo = new DAIncentivo(paisID);
+            daIncentivo.Delete(IncentivoID);
         }
     }
 }

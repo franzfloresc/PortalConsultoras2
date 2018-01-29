@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,7 +9,6 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID)
         {
-            IList<BEProcesoPedidoRechazado> listaBEPedidoWebDetalle = new List<BEProcesoPedidoRechazado>();
             var da = new DAProcesoPedidoRechazado(paisID);
             var cant = 0;
             var beEntidad = new BEProcesoPedidoRechazado();

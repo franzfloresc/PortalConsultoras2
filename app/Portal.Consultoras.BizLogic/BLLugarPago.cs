@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +11,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BELugarPago> SelectLugarPago(int paisID)
         {
             var lista = new List<BELugarPago>();
-            var DALugarPago = new DALugarPago(paisID);
+            var daLugarPago = new DALugarPago(paisID);
 
-            using (IDataReader reader = DALugarPago.SelectLugarPago(paisID))
+            using (IDataReader reader = daLugarPago.SelectLugarPago(paisID))
                 while (reader.Read())
                 {
                     var entidad = new BELugarPago(reader);
@@ -29,9 +26,9 @@ namespace Portal.Consultoras.BizLogic
         public BELugarPago GetLugarPagoById(int paisID, int lugarPagoID)
         {
             var entidad = new BELugarPago();
-            var DALugarPago = new DALugarPago(paisID);
+            var daLugarPago = new DALugarPago(paisID);
 
-            using (IDataReader reader = DALugarPago.GetLugarPagoById(lugarPagoID))
+            using (IDataReader reader = daLugarPago.GetLugarPagoById(lugarPagoID))
             if (reader.Read())
             {
                 entidad = new BELugarPago(reader);
@@ -42,20 +39,20 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsertLugarPago(BELugarPago entidad)
         {
-            var DALugarPago = new DALugarPago(entidad.PaisID);
-           return Convert.ToInt32(DALugarPago.Insert(entidad));
+            var daLugarPago = new DALugarPago(entidad.PaisID);
+           return Convert.ToInt32(daLugarPago.Insert(entidad));
         }
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
-            var DALugarPago = new DALugarPago(entidad.PaisID);
-         return DALugarPago.Update(entidad);
+            var daLugarPago = new DALugarPago(entidad.PaisID);
+         return daLugarPago.Update(entidad);
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)
         {
-            var DALugarPago = new DALugarPago(paisID);
-            DALugarPago.Delete(lugarPagoID);
+            var daLugarPago = new DALugarPago(paisID);
+            daLugarPago.Delete(lugarPagoID);
         }
     }
 }

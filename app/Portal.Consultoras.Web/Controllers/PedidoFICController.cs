@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[Constantes.ConstSession.PedidoFIC] = null;
                 ViewBag.ClaseTabla = "tabla2";
-                ViewBag.Pais_ISO = userData.CodigoISO.ToString();
+                ViewBag.Pais_ISO = userData.CodigoISO;
                 ViewBag.PROL = "Guardar";
                 ViewBag.PROLDes = "Guarda los productos que haz ingresado";
                 ViewBag.ModPedido = "display:none;";
@@ -31,36 +31,34 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
                 ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
 
-                List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();
-                olstPedidoFICDetalle = ObtenerPedidoFICDetalle();
+                var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
 
-                PedidoFICDetalleModel PedidoModelo = new PedidoFICDetalleModel();
-                PedidoModelo.PaisID = userData.PaisID;
-                PedidoModelo.ListaDetalle = olstPedidoFICDetalle;
-                PedidoModelo.Simbolo = userData.Simbolo;
-                PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
-                ViewBag.Simbolo = PedidoModelo.Simbolo;
-                ViewBag.Total = PedidoModelo.Total;
+                PedidoFICDetalleModel pedidoModelo = new PedidoFICDetalleModel
+                {
+                    PaisID = userData.PaisID,
+                    ListaDetalle = olstPedidoFicDetalle,
+                    Simbolo = userData.Simbolo,
+                    Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
+                };
+                ViewBag.Simbolo = pedidoModelo.Simbolo;
+                ViewBag.Total = pedidoModelo.Total;
                 ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC;
 
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
-                var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC, "");
+                var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC);
 
                 ViewBag.ImagenUrlOfertaFIC = url;
                 ViewBag.PaisID = userData.PaisID;
 
-                if (olstPedidoFICDetalle.Count != 0)
+                if (olstPedidoFicDetalle.Count != 0 && userData.PedidoID == 0)
                 {
-                    if (userData.PedidoID == 0)
-                    {
-                        userData.PedidoID = olstPedidoFICDetalle[0].PedidoID;
-                        SetUserData(userData);
-                    }
+                    userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
+                    SetUserData(userData);
                 }
 
                 ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
-                return View(PedidoModelo);
+                return View(pedidoModelo);
             }
             catch (FaultException ex)
             {
@@ -74,8 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                PedidoSb2Model model = new PedidoSb2Model();
-                model.CodigoIso = userData.CodigoISO;
+                PedidoSb2Model model = new PedidoSb2Model {CodigoIso = userData.CodigoISO};
                 var listaDetalle = ObtenerPedidoFICDetalle() ?? new List<BEPedidoFICDetalle>();
 
                 decimal total = listaDetalle.Sum(p => p.ImporteTotal);
@@ -148,47 +145,48 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Insert(PedidoDetalleModel model)
         {
             userData.PedidoID = 0;
-            List<BEPedidoFICDetalle> olstPedidoFICDetal = new List<BEPedidoFICDetalle>();
-            olstPedidoFICDetal = ObtenerPedidoFICDetalle();
-            if (olstPedidoFICDetal.Count != 0)
+            var olstPedidoFicDetal = ObtenerPedidoFICDetalle();
+            if (olstPedidoFicDetal.Count != 0)
             {
-                userData.PedidoID = olstPedidoFICDetal[0].PedidoID;
+                userData.PedidoID = olstPedidoFicDetal[0].PedidoID;
                 SetUserData(userData);
             }
 
-            BEPedidoFICDetalle oBEPedidoFICDetalle = new BEPedidoFICDetalle();
-            oBEPedidoFICDetalle.IPUsuario = userData.IPUsuario;
-            oBEPedidoFICDetalle.CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1);
-            oBEPedidoFICDetalle.ConsultoraID = userData.ConsultoraID;
-            oBEPedidoFICDetalle.PaisID = userData.PaisID;
-            oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
-            oBEPedidoFICDetalle.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-            oBEPedidoFICDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-            oBEPedidoFICDetalle.PedidoID = userData.PedidoID;
-            oBEPedidoFICDetalle.OfertaWeb = false;
-            oBEPedidoFICDetalle.IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo);
+            BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
+            {
+                IPUsuario = userData.IPUsuario,
+                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                ConsultoraID = userData.ConsultoraID,
+                PaisID = userData.PaisID,
+                TipoOfertaSisID = model.TipoOfertaSisID,
+                ConfiguracionOfertaID = model.ConfiguracionOfertaID,
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                PedidoID = userData.PedidoID,
+                OfertaWeb = false,
+                IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo)
+            };
 
             if (model.Tipo != 2)
             {
-                oBEPedidoFICDetalle.MarcaID = model.MarcaID;
-                oBEPedidoFICDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
-                oBEPedidoFICDetalle.PrecioUnidad = model.PrecioUnidad;
-                oBEPedidoFICDetalle.CUV = model.CUV;
+                obePedidoFicDetalle.MarcaID = model.MarcaID;
+                obePedidoFicDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                obePedidoFicDetalle.PrecioUnidad = model.PrecioUnidad;
+                obePedidoFicDetalle.CUV = model.CUV;
             }
             else
             {
-                oBEPedidoFICDetalle.MarcaID = model.MarcaIDComplemento;
-                oBEPedidoFICDetalle.Cantidad = 1;
-                oBEPedidoFICDetalle.PrecioUnidad = model.PrecioUnidadComplemento;
-                oBEPedidoFICDetalle.CUV = model.CUVComplemento;
+                obePedidoFicDetalle.MarcaID = model.MarcaIDComplemento;
+                obePedidoFicDetalle.Cantidad = 1;
+                obePedidoFicDetalle.PrecioUnidad = model.PrecioUnidadComplemento;
+                obePedidoFicDetalle.CUV = model.CUVComplemento;
             }
-            oBEPedidoFICDetalle.DescripcionProd = model.DescripcionProd;
-            oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+            obePedidoFicDetalle.DescripcionProd = model.DescripcionProd;
+            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+            obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
 
-            bool ErrorServer;
-            AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
-            if (ErrorServer)
+            bool errorServer;
+            AdministradorPedido(obePedidoFicDetalle, "I", false, out errorServer);
+            if (errorServer)
             {
                 return Json(new
                 {
@@ -207,50 +205,48 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoFICDetalleModel model)
         {
-            string message = string.Empty;
+            BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = model.CampaniaID,
+                PedidoID = model.PedidoID,
+                PedidoDetalleID = model.PedidoDetalleID,
+                Cantidad = Convert.ToInt32(model.Cantidad),
+                PrecioUnidad = model.PrecioUnidad,
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                CUV = model.CUV,
+                TipoOfertaSisID = model.TipoOfertaSisID,
+                Stock = model.Stock,
+                Flag = model.Flag,
+                DescripcionProd = model.DescripcionProd
+            };
+            
+            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+            obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+            bool errorServer;
+            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", false, out errorServer);
 
-            BEPedidoFICDetalle oBEPedidoFICDetalle = new BEPedidoFICDetalle();
-            oBEPedidoFICDetalle.PaisID = userData.PaisID;
-            oBEPedidoFICDetalle.CampaniaID = model.CampaniaID;
-            oBEPedidoFICDetalle.PedidoID = model.PedidoID;
-            oBEPedidoFICDetalle.PedidoDetalleID = model.PedidoDetalleID;
-            oBEPedidoFICDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
-            oBEPedidoFICDetalle.PrecioUnidad = model.PrecioUnidad;
-            oBEPedidoFICDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+            decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+            string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-            oBEPedidoFICDetalle.CUV = model.CUV;
-            oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
-            oBEPedidoFICDetalle.Stock = model.Stock;
-            oBEPedidoFICDetalle.Flag = model.Flag;
-
-            oBEPedidoFICDetalle.DescripcionProd = model.DescripcionProd;
-            oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
-            bool ErrorServer;
-            var olstPedidoWebDetalle = AdministradorPedido(oBEPedidoFICDetalle, "U", false, out ErrorServer);
-
-            decimal Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-            string formatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
-
-            decimal totalCliente = 0;
-            string Total_Cliente = "";
+            string totalCliente = "";
             if (model.ClienteID_ != "-1")
             {
                 olstPedidoWebDetalle = (from item in olstPedidoWebDetalle
                                         where item.ClienteID == Convert.ToInt16(model.ClienteID_)
                                         select item).ToList();
-                totalCliente = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                Total_Cliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
+                var tCliente = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                totalCliente = Util.DecimalToStringFormat(tCliente, userData.CodigoISO);
             }
 
-            message = ErrorServer ? "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente." : "El registro ha sido actualizado de manera exitosa.";
+            var message = errorServer ? "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente." : "El registro ha sido actualizado de manera exitosa.";
 
             return Json(new
             {
-                success = !ErrorServer,
-                Total = Total,
+                success = !errorServer,
+                Total = total,
                 FormatoTotal = formatoTotal,
-                TotalCliente = Total_Cliente,
+                TotalCliente = totalCliente,
                 ClienteID_ = model.ClienteID_,
                 Simbolo = userData.Simbolo,
                 message = message,
@@ -261,16 +257,18 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad)
         {
-            BEPedidoFICDetalle obe = new BEPedidoFICDetalle();
-            obe.PaisID = userData.PaisID;
-            obe.CampaniaID = CampaniaID;
-            obe.PedidoID = PedidoID;
-            obe.PedidoDetalleID = PedidoDetalleID;
-            obe.TipoOfertaSisID = TipoOfertaSisID;
-            obe.CUV = CUV;
-            obe.Cantidad = Cantidad;
+            BEPedidoFICDetalle obe = new BEPedidoFICDetalle
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = CampaniaID,
+                PedidoID = PedidoID,
+                PedidoDetalleID = PedidoDetalleID,
+                TipoOfertaSisID = TipoOfertaSisID,
+                CUV = CUV,
+                Cantidad = Cantidad
+            };
 
-            string mensaje = string.Empty;
+            string mensaje;
             if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 return Json(new
@@ -280,9 +278,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            bool ErrorServer = false;
-            AdministradorPedido(obe, "D", false, out ErrorServer);
-            if (ErrorServer)
+            bool errorServer;
+            AdministradorPedido(obe, "D", false, out errorServer);
+            if (errorServer)
             {
                 return Json(new
                 {
@@ -301,32 +299,32 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult DeleteAll()
         {
-            bool ErrorServer = false;
-            bool EliminacionMasiva = false;
+            bool errorServer = false;
             string message = string.Empty;
 
             try
             {
+                bool eliminacionMasiva;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);
+                    eliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);
                 }
-                if (!EliminacionMasiva)
+                if (!eliminacionMasiva)
                 {
-                    ErrorServer = true;
+                    errorServer = true;
                     message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
                 }
 
             }
             catch
             {
-                ErrorServer = true;
+                errorServer = true;
                 message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             }
 
             return Json(new
             {
-                success = !ErrorServer,
+                success = !errorServer,
                 message = message,
                 extra = ""
             });
@@ -337,21 +335,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int IsInsert;
+                ServicePedido.BEPedidoWeb obePedidoWeb = new ServicePedido.BEPedidoWeb
+                {
+                    CampaniaID = userData.CampaniaID,
+                    ConsultoraID = userData.ConsultoraID,
+                    PaisID = userData.PaisID,
+                    IPUsuario = userData.IPUsuario,
+                    CodigoUsuarioCreacion = userData.CodigoUsuario
+                };
+
+                int isInsert;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
-                    oBEPedidoWeb.CampaniaID = userData.CampaniaID;
-                    oBEPedidoWeb.ConsultoraID = userData.ConsultoraID;
-                    oBEPedidoWeb.PaisID = userData.PaisID;
-                    oBEPedidoWeb.IPUsuario = userData.IPUsuario;
-                    oBEPedidoWeb.CodigoUsuarioCreacion = userData.CodigoUsuario;
-                    IsInsert = sv.GetOfertaFICToInsert(oBEPedidoWeb);
+                    isInsert = sv.GetOfertaFICToInsert(obePedidoWeb);
                 }
 
-                object jsonData = null;
-
-                jsonData = new
+                object jsonData = new
                 {
                     success = true,
                     message = "Los registros han sido ingresados satisfactoriamente.",
@@ -389,10 +388,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult AutocompleteByProductoCUV(string term)
         {
-            List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
+                List<BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
@@ -433,10 +432,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult FindByCUV(PedidoDetalleModel model)
         {
-            List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
+                List<BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
@@ -478,10 +477,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult AutocompleteByProductoDescripcion(string term)
         {
-            List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
+                List<BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 2, 5, true).ToList();
@@ -528,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
 
-            var list = new List<BEPedidoFICDetalle>();
+            List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 list = sv.SelectFICByCampania(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.ConsultoraID, userData.NombreConsultora).ToList();
@@ -537,11 +536,11 @@ namespace Portal.Consultoras.Web.Controllers
             return list;
         }
 
-        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle oBEPedidoFICDetalle, string TipoAdm, bool Reservado, out bool ErrorServer)
+        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, bool reservado, out bool errorServer)
         {
+            errorServer = false;
             List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
 
-            BEPedidoFICDetalle obe = null;
             try
             {
                 if (Session[Constantes.ConstSession.PedidoFIC] == null)
@@ -554,57 +553,58 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
 
-                if (TipoAdm == "I")
+                if (tipoAdm == "I")
                 {
-                    int Cantidad;
-                    short Result = ValidarInsercion(olstTempListado, oBEPedidoFICDetalle, out Cantidad);
-                    if (Result != 0)
+                    int cantidad;
+                    short result = ValidarInsercion(olstTempListado, obePedidoFicDetalle, out cantidad);
+                    if (result != 0)
                     {
-                        TipoAdm = "U";
-                        oBEPedidoFICDetalle.Stock = oBEPedidoFICDetalle.Cantidad;
-                        oBEPedidoFICDetalle.Cantidad += Cantidad;
-                        oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-                        oBEPedidoFICDetalle.PedidoDetalleID = Result;
-                        oBEPedidoFICDetalle.Flag = 2;
+                        tipoAdm = "U";
+                        obePedidoFicDetalle.Stock = obePedidoFicDetalle.Cantidad;
+                        obePedidoFicDetalle.Cantidad += cantidad;
+                        obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+                        obePedidoFicDetalle.PedidoDetalleID = result;
+                        obePedidoFicDetalle.Flag = 2;
                     }
                 }
                 else
                 {
-                    if (TipoAdm == "I_S")
+                    if (tipoAdm == "I_S")
                     {
-                        int Cantidad;
-                        bool Eliminacion;
-                        short PedidoDetalleID;
-                        short Result = ValidarInsercionSession(olstTempListado, oBEPedidoFICDetalle, out Cantidad, out Eliminacion, out PedidoDetalleID);
-                        if (Result != 0)
+                        int cantidad;
+                        bool eliminacion;
+                        short pedidoDetalleId;
+                        short result = ValidarInsercionSession(olstTempListado, obePedidoFicDetalle, out cantidad, out eliminacion, out pedidoDetalleId);
+                        if (result != 0)
                         {
-                            TipoAdm = "U_S";
-                            if (Eliminacion)
-                                oBEPedidoFICDetalle.EliminadoTemporal = false;
+                            tipoAdm = "U_S";
+                            if (eliminacion)
+                                obePedidoFicDetalle.EliminadoTemporal = false;
                             else
-                                oBEPedidoFICDetalle.Cantidad += Cantidad;
+                                obePedidoFicDetalle.Cantidad += cantidad;
 
-                            oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-                            oBEPedidoFICDetalle.PedidoDetalleID = Result;
+                            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+                            obePedidoFicDetalle.PedidoDetalleID = result;
                         }
                     }
                 }
 
-                int TotalClientes = CalcularTotalCliente(olstTempListado, oBEPedidoFICDetalle, TipoAdm == "D" || TipoAdm == "D_S" ? oBEPedidoFICDetalle.PedidoDetalleID : (short)0, TipoAdm);
-                decimal TotalImporte = CalcularTotalImporte(olstTempListado, oBEPedidoFICDetalle, TipoAdm == "I" || TipoAdm == "I_S" ? (short)0 : oBEPedidoFICDetalle.PedidoDetalleID, TipoAdm);
-                oBEPedidoFICDetalle.ImporteTotalPedido = TotalImporte;
-                oBEPedidoFICDetalle.Clientes = TotalClientes;
+                int totalClientes = CalcularTotalCliente(olstTempListado, obePedidoFicDetalle, tipoAdm == "D" || tipoAdm == "D_S" ? obePedidoFicDetalle.PedidoDetalleID : (short)0, tipoAdm);
+                decimal totalImporte = CalcularTotalImporte(olstTempListado, obePedidoFicDetalle, tipoAdm == "I" || tipoAdm == "I_S" ? (short)0 : obePedidoFicDetalle.PedidoDetalleID, tipoAdm);
+                obePedidoFicDetalle.ImporteTotalPedido = totalImporte;
+                obePedidoFicDetalle.Clientes = totalClientes;
 
-                switch (TipoAdm)
+                switch (tipoAdm)
                 {
                     case "I":
+                        BEPedidoFICDetalle obe;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            obe = sv.InsertFIC(oBEPedidoFICDetalle);
+                            obe = sv.InsertFIC(obePedidoFicDetalle);
                         }
-                        obe.ImporteTotal = oBEPedidoFICDetalle.ImporteTotal;
-                        obe.DescripcionProd = oBEPedidoFICDetalle.DescripcionProd;
-                        obe.Nombre = oBEPedidoFICDetalle.Nombre;
+                        obe.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                        obe.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                        obe.Nombre = obePedidoFicDetalle.Nombre;
 
                         if (userData.PedidoID == 0)
                         {
@@ -619,52 +619,52 @@ namespace Portal.Consultoras.Web.Controllers
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            sv.UpdPedidoFICDetalle(oBEPedidoFICDetalle);
+                            sv.UpdPedidoFICDetalle(obePedidoFicDetalle);
                         }
 
-                        olstTempListado.Where(p => p.PedidoDetalleID == oBEPedidoFICDetalle.PedidoDetalleID)
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
                             .Update(p =>
                             {
-                                p.Cantidad = oBEPedidoFICDetalle.Cantidad;
-                                p.ImporteTotal = oBEPedidoFICDetalle.ImporteTotal;
-                                p.ClienteID = oBEPedidoFICDetalle.ClienteID;
-                                p.DescripcionProd = oBEPedidoFICDetalle.DescripcionProd;
-                                p.Nombre = oBEPedidoFICDetalle.Nombre;
+                                p.Cantidad = obePedidoFicDetalle.Cantidad;
+                                p.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                                p.ClienteID = obePedidoFicDetalle.ClienteID;
+                                p.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                                p.Nombre = obePedidoFicDetalle.Nombre;
                             });
 
                         break;
                     case "D":
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            sv.DelPedidoFICDetalle(oBEPedidoFICDetalle);
+                            sv.DelPedidoFICDetalle(obePedidoFicDetalle);
                         }
-                        olstTempListado.RemoveAll(p => p.PedidoDetalleID == oBEPedidoFICDetalle.PedidoDetalleID);
+                        olstTempListado.RemoveAll(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID);
                         break;
                     case "I_S":
-                        oBEPedidoFICDetalle.PedidoDetalleID = Convert.ToInt16((1000 + DateTime.Now.Second + DateTime.Now.Millisecond).ToString());
-                        oBEPedidoFICDetalle.EstadoItem = 1;
-                        oBEPedidoFICDetalle.CUVNuevo = true;
-                        oBEPedidoFICDetalle.ClaseFila = "f3";
-                        olstTempListado.Add(oBEPedidoFICDetalle);
+                        obePedidoFicDetalle.PedidoDetalleID = Convert.ToInt16((1000 + DateTime.Now.Second + DateTime.Now.Millisecond).ToString());
+                        obePedidoFicDetalle.EstadoItem = 1;
+                        obePedidoFicDetalle.CUVNuevo = true;
+                        obePedidoFicDetalle.ClaseFila = "f3";
+                        olstTempListado.Add(obePedidoFicDetalle);
                         break;
                     case "U_S":
-                        olstTempListado.Where(p => p.PedidoDetalleID == oBEPedidoFICDetalle.PedidoDetalleID)
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
                             .Update(p =>
                             {
-                                p.Cantidad = oBEPedidoFICDetalle.Cantidad;
-                                p.ImporteTotal = oBEPedidoFICDetalle.ImporteTotal;
-                                p.ClienteID = oBEPedidoFICDetalle.ClienteID;
-                                p.DescripcionProd = oBEPedidoFICDetalle.DescripcionProd;
-                                p.Nombre = oBEPedidoFICDetalle.Nombre;
+                                p.Cantidad = obePedidoFicDetalle.Cantidad;
+                                p.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                                p.ClienteID = obePedidoFicDetalle.ClienteID;
+                                p.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                                p.Nombre = obePedidoFicDetalle.Nombre;
                                 p.EstadoItem = 2;
                                 p.ClaseFila = "f3";
-                                p.Stock = oBEPedidoFICDetalle.Stock;
-                                p.Flag = oBEPedidoFICDetalle.Flag;
-                                p.EliminadoTemporal = oBEPedidoFICDetalle.EliminadoTemporal;
+                                p.Stock = obePedidoFicDetalle.Stock;
+                                p.Flag = obePedidoFicDetalle.Flag;
+                                p.EliminadoTemporal = obePedidoFicDetalle.EliminadoTemporal;
                             });
                         break;
                     case "D_S":
-                        olstTempListado.Where(p => p.PedidoDetalleID == oBEPedidoFICDetalle.PedidoDetalleID)
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
                             .Update(p =>
                             {
                                 p.EstadoItem = 3;
@@ -676,66 +676,66 @@ namespace Portal.Consultoras.Web.Controllers
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
                 Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
 
-                ErrorServer = false;
+                errorServer = false;
             }
             catch
             {
                 if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
-                ErrorServer = true;
+                errorServer = true;
             }
 
             return olstTempListado;
         }
 
-        private int CalcularTotalCliente(List<BEPedidoFICDetalle> Pedido, BEPedidoFICDetalle ItemPedido, short PedidoDetalleID, string Adm)
+        private int CalcularTotalCliente(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, short pedidoDetalleId, string adm)
         {
-            List<BEPedidoFICDetalle> Temp = new List<BEPedidoFICDetalle>(Pedido);
-            if (PedidoDetalleID == 0)
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            if (pedidoDetalleId == 0)
             {
-                if (Adm == "I" || Adm == "I_S")
-                    Temp.Add(ItemPedido);
+                if (adm == "I" || adm == "I_S")
+                    temp.Add(itemPedido);
                 else
-                    Temp.Where(p => p.PedidoDetalleID == ItemPedido.PedidoDetalleID).Update(p => p.ClienteID = ItemPedido.ClienteID);
+                    temp.Where(p => p.PedidoDetalleID == itemPedido.PedidoDetalleID).Update(p => p.ClienteID = itemPedido.ClienteID);
 
             }
             else
-                Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
+                temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
 
-            return Temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+            return temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
         }
 
-        private decimal CalcularTotalImporte(List<BEPedidoFICDetalle> Pedido, BEPedidoFICDetalle ItemPedido, short PedidoDetalleID, string Adm)
+        private decimal CalcularTotalImporte(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, short pedidoDetalleId, string adm)
         {
-            List<BEPedidoFICDetalle> Temp = new List<BEPedidoFICDetalle>(Pedido);
-            if (PedidoDetalleID == 0)
-                Temp.Add(ItemPedido);
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            if (pedidoDetalleId == 0)
+                temp.Add(itemPedido);
             else
-                Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
-            return Temp.Sum(p => p.ImporteTotal) + (Adm == "U" || Adm == "U_S" ? ItemPedido.ImporteTotal : 0);
+                temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+            return temp.Sum(p => p.ImporteTotal) + (adm == "U" || adm == "U_S" ? itemPedido.ImporteTotal : 0);
         }
 
-        private short ValidarInsercion(List<BEPedidoFICDetalle> Pedido, BEPedidoFICDetalle ItemPedido, out int Cantidad)
+        private short ValidarInsercion(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, out int cantidad)
         {
-            List<BEPedidoFICDetalle> Temp = new List<BEPedidoFICDetalle>(Pedido);
-            BEPedidoFICDetalle obe = Temp.FirstOrDefault(p => p.ClienteID == ItemPedido.ClienteID && p.CUV == ItemPedido.CUV);
-            Cantidad = obe != null ? obe.Cantidad : 0;
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            BEPedidoFICDetalle obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
+            cantidad = obe != null ? obe.Cantidad : 0;
             return obe != null ? obe.PedidoDetalleID : (short)0;
         }
 
-        private short ValidarInsercionSession(List<BEPedidoFICDetalle> Pedido, BEPedidoFICDetalle ItemPedido, out int Cantidad, out bool Eliminacion, out short PedidoDetalleID)
+        private short ValidarInsercionSession(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, out int cantidad, out bool eliminacion, out short pedidoDetalleId)
         {
-            List<BEPedidoFICDetalle> Temp = new List<BEPedidoFICDetalle>(Pedido);
-            BEPedidoFICDetalle obe = Temp.FirstOrDefault(p => p.ClienteID == ItemPedido.ClienteID && p.CUV == ItemPedido.CUV);
-            Cantidad = obe != null ? obe.Cantidad : 0;
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            BEPedidoFICDetalle obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
+            cantidad = obe != null ? obe.Cantidad : 0;
             if (obe != null)
             {
-                Eliminacion = obe.EliminadoTemporal;
-                PedidoDetalleID = obe.PedidoDetalleID;
+                eliminacion = obe.EliminadoTemporal;
+                pedidoDetalleId = obe.PedidoDetalleID;
             }
             else
             {
-                PedidoDetalleID = (short)0;
-                Eliminacion = false;
+                pedidoDetalleId = (short)0;
+                eliminacion = false;
             }
 
             return obe != null ? obe.PedidoDetalleID : (short)0;

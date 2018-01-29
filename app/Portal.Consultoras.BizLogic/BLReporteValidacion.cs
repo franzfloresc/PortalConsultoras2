@@ -1,11 +1,7 @@
-﻿﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,10 +10,10 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             var reporteValidaciones = new List<BEReporteValidacion>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
             if (tipoEstrategia == 4)
             {
-                using (IDataReader reader = DAReporteValidacion.GetReporteValidacion(campaniaID))
+                using (IDataReader reader = daReporteValidacion.GetReporteValidacion(campaniaID))
                 {
                     while (reader.Read())
                     {
@@ -28,7 +24,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if (tipoEstrategia == 7)
             {
-                using (IDataReader reader = DAReporteValidacion.GetReporteValidacionODD(campaniaID))
+                using (IDataReader reader = daReporteValidacion.GetReporteValidacionODD(campaniaID))
                 {
                     while (reader.Read())
                     {
@@ -44,9 +40,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRCampania>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRCampania(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRCampania(campaniaID))
             {
                 while (reader.Read())
                 {
@@ -61,9 +57,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRPersonalizacion>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRPersonalizacion(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRPersonalizacion(campaniaID))
             {
                 while (reader.Read())
                 {
@@ -78,9 +74,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSROferta>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSROferta(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSROferta(campaniaID))
             {
                 while (reader.Read())
                 {
@@ -95,9 +91,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRComponentes>();
-            var DAReporteValidacion = new DAReporteValidacion(paisID);
+            var daReporteValidacion = new DAReporteValidacion(paisID);
 
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacionSRComponentes(campaniaID))
+            using (IDataReader reader = daReporteValidacion.GetReporteValidacionSRComponentes(campaniaID))
             {
                 while (reader.Read())
                 {

@@ -83,6 +83,8 @@ namespace Portal.Consultoras.Web.Models
         public int BloquearProductosSugeridos { get; set; }
         public bool SubscripcionAutomaticaAVirtualCoach { get; set; }
 
+        public bool BloqueoProductoDigital { get; set; }
+
         public bool EsSuscritaInactiva()
         {
             return TieneRDC && EsSuscrita && !EsActiva;

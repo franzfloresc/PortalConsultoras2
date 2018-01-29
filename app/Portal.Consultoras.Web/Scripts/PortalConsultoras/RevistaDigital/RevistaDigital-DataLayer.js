@@ -6,7 +6,6 @@
 
 // Primer Dígito -- Plataforma
 // 1: Desktop                   2: Mobile
-
 // Segundo Dígito -- Pantalla
 // 1: Home                      2: Pedido
 // 3: Liquidacion               4: Catalogo Personalizado
@@ -59,7 +58,9 @@ var rdAnalyticsModule = (function () {
         pedido: "Pedido",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
-        pedidoMobile: "Mobile Pedido"
+        pedidoMobile: "Mobile Pedido",
+        enterate: "Enterate",
+        confirmarDatos: "ConfirmarDatos"
     },
     _text = {
         noDisponible: "NO DISPONIBLE",
@@ -87,7 +88,11 @@ var rdAnalyticsModule = (function () {
         banner: "Banner",
         popup: "Home pop-up - 1",
         notAvailable: "(not available)",
-        contenedor: "Contendor"
+        contenedor: "Contendor",
+        enterate: "Click en botón - Entérate aquí",
+        cerrarPopup: "Cerrar popup",
+        suscribete: "Suscríbete gratis aquí",
+        guardarDatos: "Click en botón - Guardar datos"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -96,7 +101,6 @@ var rdAnalyticsModule = (function () {
         verMas: "Ver más ofertas",
         verTodas: "Ver todas mis ofertas",
         clickBoton: "Click Botón",
-        cerrarPopup: "Cerrar popup",
         clickCancelar: "Click Link Cancelar Suscripción",
         cancelarInscripcion: "Cancelar inscripción",
         suscripcionExitosa: "Suscripción Exitosa",
@@ -107,6 +111,8 @@ var rdAnalyticsModule = (function () {
         ordenar: "Ordenar",
         filtrar: "Filtrar por marca",
         borrar: "Borrar Filtros",
+        popupEnterate: "Popup Entérate aquí",
+        popupSuscripcion: "Popup Suscripción"
     },
     _tabCode = {
         comprar: "1",
@@ -122,19 +128,22 @@ var rdAnalyticsModule = (function () {
     _filterCode = {
         precio: "precio",
         marca: "marca"
+    },
+    _category = {
+        ganaMas: "Gana Más"
     }
 
 
-    function _virtualEventPush(category, action, label) {
+    var _virtualEventPush = function(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
             "category": category,
             "action": action,
             "label": label
         });
-    }
+    };
 
-    function _promotionClickPush(name, position, creative) {
+    var _promotionClickPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionClick,
             "ecommerce": {
@@ -151,7 +160,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _promotionViewPush(name, position, creative) {
+    var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionView,
             "ecommerce": {
@@ -168,7 +177,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _addToCartPush(list, estrategia) {
+    var _addToCartPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.addToCart,
             "ecommerce": {
@@ -191,7 +200,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _productClickPush(list, estrategia) {
+    var _productClickPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.productClick,
             "ecommerce": {
@@ -212,7 +221,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _socialEventPush(socialNetwork, socialAction, socialUrl) {
+    var _socialEventPush = function (socialNetwork, socialAction, socialUrl) {
         dataLayer.push({
             'event': _event.socialEvent,
             'socialNetwork': socialNetwork,
@@ -415,20 +424,22 @@ var rdAnalyticsModule = (function () {
 
     function CompartirProducto(tipo, url, name) {
         try {
-            var label = name + " - " + url;
+            var label = url;
+            if(name !== "")
+                label = name + " - " + url;
             tipo = tipo.toString();
             switch (tipo) {
                 case _socialCode.facebook:
                     _socialEventPush(_text.facebook, _action.facebook, url);
                     break;
                 case _socialCode.whatsapp:
-                    _virtualEventPush(_text.epm, _action.whatsapp, label);
+                    _virtualEventPush(_category.ganaMas, _action.whatsapp, label);
                     break;
                 case _socialCode.youtubeStart:
-                    _virtualEventPush(_text.epm, _action.inicioVideo, label);
+                    _virtualEventPush(_category.ganaMas, _action.inicioVideo, label);
                     break;
                 case _socialCode.youtubeEnd:
-                    _virtualEventPush(_text.epm, _action.finVideo, label);
+                    _virtualEventPush(_category.ganaMas, _action.finVideo, label);
                     break;
             }
         } catch (e) {
@@ -445,12 +456,29 @@ var rdAnalyticsModule = (function () {
     }
 
     function Inscripcion() {
-        _promotionClickPush(_text.roInscribirme, _text.popup, _text.banner);
+        _promotionClickPush(_category.ganaMas, _action.clickBoton, _text.suscribete);
 
     }
 
-    function CerrarPopUp(tipoBanner) {
-        _virtualEventPush(_text.ro, _action.cerrarPopup, tipoBanner);
+    function CerrarPopUp(tipo) {
+        try {
+            var action = "";
+            switch (tipo) {
+                case _seccionWeb.enterate:
+                    action = _action.popupEnterate;
+                    break;
+                case _seccionWeb.confirmarDatos:
+                    action = _action.popupSuscripcion;
+                    break;
+            }
+            _virtualEventPush(_category.ganaMas, action, _text.cerrarPopup);
+        } catch (e) {
+            console.log(_text.exception + e);
+        }
+    }
+    
+    function GuardarDatos() {
+        _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
     function IrCancelarSuscripcion() {
@@ -464,6 +492,11 @@ var rdAnalyticsModule = (function () {
     function ContendorSection(titulo) {
         _virtualEventPush(_text.contenedor + " - Home", titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
     }
+    
+    function IrEnterate() {
+        _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
+    }
+    
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
@@ -480,6 +513,8 @@ var rdAnalyticsModule = (function () {
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
         Access: Access,
-        ContendorSection: ContendorSection
+        ContendorSection: ContendorSection,
+        IrEnterate: IrEnterate,
+        GuardarDatos: GuardarDatos
     };
 })();

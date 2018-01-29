@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Portal.Consultoras.Data
 {
@@ -126,51 +120,47 @@ namespace Portal.Consultoras.Data
 
         private void InsLogPedidoDescargaDetalle(DataSet dsPedidos)
         {
-            DataTable dtPedidosDetalle = null;
-
             if (dsPedidos != null)
             {
-                dtPedidosDetalle = dsPedidos.Tables[1];
+                var dtPedidosDetalle = dsPedidos.Tables[1];
 
                 if (dtPedidosDetalle.Rows.Count > 0)
                 {
-                    SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(Context.Database.ConnectionString);
-                    oSqlBulkCopy_Detalle.DestinationTableName = "LogCargaPedidoDetalle";
+                    SqlBulkCopy oSqlBulkCopyDetalle = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyDetalle.DestinationTableName = "LogCargaPedidoDetalle";
 
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("LogNroLote", "NroLote");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("PedidoID", "PedidoID");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("CodigoVenta", "CUV");
-                    oSqlBulkCopy_Detalle.ColumnMappings.Add("Cantidad", "Cantidad");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("CodigoVenta", "CUV");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("Cantidad", "Cantidad");
 
-                    oSqlBulkCopy_Detalle.WriteToServer(dtPedidosDetalle);
-                    oSqlBulkCopy_Detalle.Close();
+                    oSqlBulkCopyDetalle.WriteToServer(dtPedidosDetalle);
+                    oSqlBulkCopyDetalle.Close();
                 }
             }
         }
 
         private void InsLogPedidoDescarga(DataSet dsPedidos)
         {
-            DataTable dtPedidosCabecera = null;
-
             if (dsPedidos != null)
             {
-                dtPedidosCabecera = dsPedidos.Tables[0];
+                var dtPedidosCabecera = dsPedidos.Tables[0];
 
                 if (dtPedidosCabecera.Rows.Count != 0)
                 {
-                    SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(Context.Database.ConnectionString);
-                    oSqlBulkCopy_Cabecera.DestinationTableName = "LogCargaPedido";
+                    SqlBulkCopy oSqlBulkCopyCabecera = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyCabecera.DestinationTableName = "LogCargaPedido";
 
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogNroLote", "NroLote");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("PedidoID", "PedidoID");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("Origen", "Origen");
-                    oSqlBulkCopy_Cabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogFechaFacturacion", "FechaFacturacion");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("Origen", "Origen");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
 
-                    oSqlBulkCopy_Cabecera.WriteToServer(dtPedidosCabecera);
-                    oSqlBulkCopy_Cabecera.Close();
+                    oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
+                    oSqlBulkCopyCabecera.Close();
 
                     InsLogPedidoDescargaDetalle(dsPedidos);
                 }
@@ -860,10 +850,9 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID ", DbType.Int32, CampaniaID);
                 return Convert.ToInt32(Context.ExecuteScalar(command));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 1;
-                throw ex;
             }
 
         }
