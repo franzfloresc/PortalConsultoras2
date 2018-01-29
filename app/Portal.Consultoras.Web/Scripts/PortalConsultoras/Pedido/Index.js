@@ -267,16 +267,7 @@ $(document).ready(function () {
             EjecutarPROL();
         }
     });
-    $("body").on("mouseenter", ".info_copy", function () {
-        var mar = $(this).parent().parent() || '0';
-        mar = mar === '0' ? mar : mar.parent();
-        mar = mar === '0' ? mar : $.trim(mar.css("margin-top")).replace("px", "");
-        var pos = $(this).position();
-        $(this).parent().parent().find("div.msj_info").show();
-    });
-    $("body").on("mouseleave", ".info_copy", function () {
-        $(this).parent().parent().find("div.msj_info").hide();
-    });
+
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
         _idPed = idPed;
