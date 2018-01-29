@@ -27,6 +27,8 @@ namespace Portal.Consultoras.Entities
         public string CodigoZona { get; set; }
         [DataMember]
         public string CodigoRegion { get; set; }
+        [DataMember]
+        public string CodigoNivel { get; set; }
 
         public BEConfiguracionProgramaNuevas() { }
 
