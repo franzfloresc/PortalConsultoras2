@@ -857,7 +857,7 @@
 }
 
 .mensaje_felicitacion_por_pago_exitoso,
-.mensaje_felicitacion_por_pago_rechazado
+.mensaje_pago_rechazado
 {
     margin-top:8px;
     margin-bottom:0;
@@ -868,7 +868,7 @@
     line-height:10px;
 }
 
-.mensaje_felicitacion_por_pago_rechazado{
+.mensaje_pago_rechazado{
     text-align:center;
 }
 
