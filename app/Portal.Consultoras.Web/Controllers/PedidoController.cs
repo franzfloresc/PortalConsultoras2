@@ -3609,14 +3609,7 @@ namespace Portal.Consultoras.Web.Controllers
             var Codigos = new StringBuilder();
             Codigos.Append(separador);
 
-            foreach (var item in listPedidoWebDetalle)
-            {
-                if (item.TieneVariedad == 1)
-                {
-                    Codigos.Append(item.CodigoProducto + separador);
-                }
-
-            }
+            listPedidoWebDetalle.Where(x => x.TieneVariedad == 1).ToList().ForEach(x => Codigos.Append(x.CodigoProducto + separador));
 
             string joinCuv = Codigos.ToString();
 
@@ -3624,7 +3617,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
-            var listaAppCatalogo = new List<Producto>();
+            List<Producto> listaAppCatalogo = null;
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, joinCuv, numeroCampanias).ToList();
@@ -3634,24 +3627,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in listaAppCatalogo)
                 {
-                    foreach (var item2 in listPedidoWebDetalle)
-                    {
-                        if(item.CodigoSap == item2.CodigoProducto)
-                        {
-                            if (IsMobile())
-                            {
-                                item2.DescripcionProd = item.NombreComercial;
-                            }
-                            else
-                            {
-                                item2.DescripcionCortadaProd = item.NombreComercial;
-                            }
-                            continue;
-                        }
-                    }
+                    if (IsMobile())
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = item.NombreComercial;
+                    else
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = item.NombreComercial;
                 }
             }
-
 
             return listPedidoWebDetalle;
         }
