@@ -96,7 +96,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
                             estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
 
-                            var fechaFormatted = item.Fecha.HasValue ? item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString() : "";
+                            var fechaFormatted = item.Fecha.HasValue 
+                                ? item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
+                                    ? item.Fecha.Value.ToString("dd/MM/yyyy") 
+                                    : item.Fecha.Value.ToString() 
+                                : "";
 
                             switch (fechaFormatted)
                             {

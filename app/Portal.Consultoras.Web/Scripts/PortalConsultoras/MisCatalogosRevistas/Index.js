@@ -660,7 +660,7 @@ function RevistaMostrar(accion, btn) {
 
     rCampSelect = aCamRev[rCampSelectI] || "";
 
-    $("#numero_campania").text(rCampSelect); //EMP
+    $("#numero_campania").text(rCampSelect);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
@@ -671,6 +671,8 @@ function RevistaMostrar(accion, btn) {
 
     waitingDialog({ title: "Cargando Imagen" });
     MostrarRevistaCorrecta(rCampSelect);
+
+    $("#contentRevista [data-accion] img").show();
 
     $("#contentRevista > span[data-accion] img").show();
     if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
