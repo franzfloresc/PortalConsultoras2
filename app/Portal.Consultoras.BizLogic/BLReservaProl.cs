@@ -759,12 +759,9 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
-                if (input.EstadoSimplificacionCUV)
+                if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
                 {
-                    if (pedidoDetalle.IndicadorOfertaCUV)
-                    {
-                        indicadorOfertaCuv = true;
-                    }
+                    indicadorOfertaCuv = true;
                 }
                 mailBody.Append("</table>");
             }

@@ -21,9 +21,7 @@ function mostrarImagenPortadaRevista(codigoCampania) {
             $("#imgPortadaRevista").attr("src", urlImagen);
         }
 
-        if (imggndnueva.indexOf(imgfake) != -1)
-
-        {
+        if (imggndnueva.indexOf(imgfake) != -1) {
             var alturaimggnd = $('.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img').height();
             var alturacontenedorgnd = alturaimggnd + 30;
             var alturanrognd = $('.desplegablegnd .gndcontenido .nrognd').height();
@@ -33,7 +31,7 @@ function mostrarImagenPortadaRevista(codigoCampania) {
             $('.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd').css("height", alturaimggnd);
 
             var alturacontenedorgndpura = $('.desplegablegnd .gndcontenido .contenedorgnd').height();
-            var esconderparaanimaciongnd = alturacontenedorgnd;
+            var esconderparaanimaciongnd = alturacontenedorgnd + 1;
             $('.desplegablegnd').css("bottom", -esconderparaanimaciongnd);
 
             var contadorgnddesktop = 1;
@@ -44,7 +42,7 @@ function mostrarImagenPortadaRevista(codigoCampania) {
                         bottom: '0'
                     });
                     $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(0deg)');
-                    
+
                     contadorgnddesktop = 0;
                 } else {
                     contadorgnddesktop = 1;
@@ -57,10 +55,6 @@ function mostrarImagenPortadaRevista(codigoCampania) {
         }
 
     });
-
-    
-
-
 }
 
 
