@@ -16,11 +16,12 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetNotificacionesConsultora(long ConsultoraId, int indicadorBloqueoCDR)
+        public IDataReader GetNotificacionesConsultora(long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultora");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
+            Context.Database.AddInParameter(command, "@ShowPayOnline", DbType.Boolean, tienePagoEnLinea);
 
             return Context.ExecuteReader(command);
         }

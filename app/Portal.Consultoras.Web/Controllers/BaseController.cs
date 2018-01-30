@@ -4532,6 +4532,7 @@ namespace Portal.Consultoras.Web.Controllers
             bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
             bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
             bePagoEnLinea.CampaniaId = userData.CampaniaID;
+            bePagoEnLinea.FechaVencimiento = userData.FechaLimPago;
             bePagoEnLinea.TipoTarjeta = "VISA";
             bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
             bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
@@ -4574,6 +4575,11 @@ namespace Portal.Consultoras.Web.Controllers
             bePagoEnLinea.UsuarioCreacion = userData.CodigoUsuario;
 
             return bePagoEnLinea;
+        }
+
+        public string ObtenerTemplatePagoEnLinea()
+        {
+            return "";
         }
 
         #endregion

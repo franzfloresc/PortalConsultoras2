@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.PagoEnLinea;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,26 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         {
             var dataAccess = new DAPagoEnLinea(paisId);
             dataAccess.UpdateMontoDeudaConsultora(codigoConsultora, montoDeuda);
+        }
+
+        public BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId)
+        {
+            BEPagoEnLineaResultadoLog entidad = null;
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (IDataReader reader = DAPagoEnLinea.ObtenerPagoEnLineaById(pagoEnLineaResultadoLogId))
+                if (reader.Read())
+                {
+                    entidad = new BEPagoEnLineaResultadoLog(reader);
+                }
+            return entidad;
+
+        }
+
+        public void UpdateVisualizado(int paisId, int pagoEnLineaResultadoLogId)
+        {
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+            DAPagoEnLinea.UpdateVisualizado(pagoEnLineaResultadoLogId);
         }
     }
 }

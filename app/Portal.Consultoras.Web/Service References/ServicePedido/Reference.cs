@@ -6727,6 +6727,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaTransaccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaVencimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IdGuidExternoTransaccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6806,9 +6809,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool VisualizadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int XabcField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7076,6 +7076,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaTransaccionField.Equals(value) != true)) {
                     this.FechaTransaccionField = value;
                     this.RaisePropertyChanged("FechaTransaccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaVencimiento {
+            get {
+                return this.FechaVencimientoField;
+            }
+            set {
+                if ((this.FechaVencimientoField.Equals(value) != true)) {
+                    this.FechaVencimientoField = value;
+                    this.RaisePropertyChanged("FechaVencimiento");
                 }
             }
         }
@@ -7427,19 +7440,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.VisualizadoField.Equals(value) != true)) {
                     this.VisualizadoField = value;
                     this.RaisePropertyChanged("Visualizado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Xabc {
-            get {
-                return this.XabcField;
-            }
-            set {
-                if ((this.XabcField.Equals(value) != true)) {
-                    this.XabcField = value;
-                    this.RaisePropertyChanged("Xabc");
                 }
             }
         }
@@ -33628,6 +33628,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora", ReplyAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultoraResponse")]
         System.Threading.Tasks.Task UpdateMontoDeudaConsultoraAsync(int paisId, string codigoConsultora, decimal montoDeuda);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByIdResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerPagoEnLineaByIdAsync(int paisId, int pagoEnLineaResultadoLogId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom", ReplyAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse")]
         int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
         
@@ -36078,6 +36084,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task UpdateMontoDeudaConsultoraAsync(int paisId, string codigoConsultora, decimal montoDeuda) {
             return base.Channel.UpdateMontoDeudaConsultoraAsync(paisId, codigoConsultora, montoDeuda);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId) {
+            return base.Channel.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerPagoEnLineaByIdAsync(int paisId, int pagoEnLineaResultadoLogId) {
+            return base.Channel.ObtenerPagoEnLineaByIdAsync(paisId, pagoEnLineaResultadoLogId);
         }
         
         public int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity) {

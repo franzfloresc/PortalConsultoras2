@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             NotificacionesModel model = new NotificacionesModel();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
             model.ListaNotificaciones = olstNotificaciones;
             return View(model);
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
+                olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea).ToList();
             }
 
             model.ListaNotificaciones = olstNotificaciones;
@@ -81,6 +81,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case 8:
                             sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
+                            break;
+                        case 9:
+                            sv.UpdNotificacionPagoEnLineaVisualizacion(paisId, Convert.ToInt32(ProcesoId));
                             break;
                         default:
                             sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
