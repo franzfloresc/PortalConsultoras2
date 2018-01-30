@@ -26,6 +26,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 using WebGrease.Css.Extensions;
 
@@ -567,7 +568,10 @@ namespace Portal.Consultoras.Web.Controllers
                         return Redirect(decodedUrl);
                     }
 
-                    return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
+                    if ((usuario.ConsultoraNueva == 1 || usuario.ConsultoraNueva == 7) && EsAndroid())
+                        return RedirectToAction("Index", "DescargarApp", new { area = "Mobile" });
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
                 }
 
                 if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
@@ -3215,5 +3219,12 @@ namespace Portal.Consultoras.Web.Controllers
             return lstFiltersFAV;
         }
         #endregion
+
+        private bool EsAndroid()
+        {
+            string uAg = Request.ServerVariables["HTTP_USER_AGENT"];
+            var regEx = new Regex(@"android", RegexOptions.IgnoreCase);
+            return regEx.IsMatch(uAg);
+        }
     }
 }
