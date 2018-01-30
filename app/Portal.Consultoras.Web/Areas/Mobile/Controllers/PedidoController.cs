@@ -734,6 +734,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
 
                 }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
+
+                }
             }
             catch (Exception ex)
             {

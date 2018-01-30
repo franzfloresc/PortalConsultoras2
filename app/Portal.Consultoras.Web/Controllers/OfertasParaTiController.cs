@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new EstrategiaOutModel();
             try
             {
-                var codAgrupa = revistaDigital.TieneRDR ||
+                var codAgrupa = revistaDigital.TieneRDR || 
                     (revistaDigital.TieneRDC && revistaDigital.EsActiva) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
