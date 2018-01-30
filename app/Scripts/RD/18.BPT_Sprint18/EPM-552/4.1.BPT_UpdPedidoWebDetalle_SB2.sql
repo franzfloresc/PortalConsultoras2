@@ -1,4 +1,6 @@
 
+GO
+
 ALTER PROCEDURE [dbo].[UpdPedidoWebDetalle_SB2]
 	@CampaniaID INT,
 	@PedidoID INT,
@@ -49,3 +51,5 @@ BEGIN
 		AND	PedidoID = @PedidoID
 		AND	PedidoDetalleID = @PedidoDetalleID;
 END
+
+GO

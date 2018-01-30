@@ -1,4 +1,4 @@
-
+GO
 ALTER PROCEDURE [dbo].[InsPedidoWebDetalle_SB2]
 	@CampaniaID int,
 	@ConsultoraID int,
@@ -66,3 +66,4 @@ BEGIN
 	END
 
 END
+GO
