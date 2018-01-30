@@ -27,14 +27,14 @@
 }
 
 <div class="contenedor_vista_descargar_app">
-    <a href="" class="btn_cerrar_vista_descargar_app" title="Cerrar">
+    <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="btn_cerrar_vista_descargar_app" title="Cerrar">
         <img src="@Url.Content("~/Content/Images/boton-cerrar-vista-descargar-app.svg")" alt="Cerrar">
     </a>
     <h1 class="titulo_descargar_app">
         Tu negocio es más fácil con el <span class="nombre_app"></span>
     </h1>
     <p class="info_descarga">Descárgalo y disfruta de sus beneficios</p>
-    <button type="button" class="btn_descargar_app">¡Descárgalo ahora!</button>
+    <button type="button" class="btn_descargar_app" onclick="window.open('@ViewBag.Url')">¡Descárgalo ahora!</button>
     <div class="imagen_descargar_app_e_ir_a_version_web">
         <div class="img_vista_descargar_app">
             @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
@@ -47,7 +47,7 @@
             }
         </div>
         <div class="alternativa_version_web">
-            Todavía no, <a href="#" class="enlace_ir_version_web" title="Ir a la versión web">ir a la versión web</a>
+            Todavía no, <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_ir_version_web" title="Ir a la versión web">ir a la versión web</a>
         </div>
     </div>
 </div>

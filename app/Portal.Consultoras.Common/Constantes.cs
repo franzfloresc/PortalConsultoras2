@@ -1652,6 +1652,8 @@ namespace Portal.Consultoras.Common
         public class Comunicado
         {
             public const string AppConsultora = "App Consultora";
+            public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
+            public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
         }
 
         public class GanaMas
