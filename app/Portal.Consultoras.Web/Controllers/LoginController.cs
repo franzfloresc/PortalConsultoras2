@@ -2531,6 +2531,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario,
                         StringComparison.OrdinalIgnoreCase) != 0)
                 {
+                    TempData["LimpiarLocalStorage"] = true;
                     Session.Clear();
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
