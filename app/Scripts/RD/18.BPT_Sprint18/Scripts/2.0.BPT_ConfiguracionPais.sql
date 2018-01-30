@@ -16,17 +16,17 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		1, 201801,
+		0, 201801,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
 		(select max(MobileOrdenBPT) + 1 from ConfiguracionPais), 
-		'', '',
-		'', '',
-		'', '',
-		'', '',
-		'', '',
-		'', null)
+		null, null,
+		null, null,
+		null, null,
+		'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
+		'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null)
 
 	update ConfiguracionPais
 	set 
