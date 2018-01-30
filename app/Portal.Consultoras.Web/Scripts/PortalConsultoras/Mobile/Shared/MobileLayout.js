@@ -3,8 +3,8 @@
     LayoutHeader();
 
     var ventanaChat = null;
-    
-    OcultarChatEm();
+
+    OcultarChatEmtelco();
 
     SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -352,11 +352,13 @@ function loadBannerLP20() {
     }
 }
 
-function OcultarChatEm() {
+function OcultarChatEmtelco() {
     var url = window.location.href.toLowerCase().split('/');
     var urlPedido = url[url.length - 1];
 
-    if ((urlPedido !== 'pedido' && !(window.location.href.toLowerCase().indexOf('pedido/detalle') > 0))) {
+    if ((urlPedido !== 'pedido' &&
+        urlPedido !== 'pagoenlinea' &&
+        !(window.location.href.toLowerCase().indexOf('pedido/detalle') > 0))) {
         $(".CMXD-help").show();
     }
 }
