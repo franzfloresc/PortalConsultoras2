@@ -29,6 +29,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Portal.Consultoras.Common.MagickNet;
 using System.IO;
+using System.Web.Configuration;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1692,8 +1693,12 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
                         userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
                     {
-                        obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
-                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                        if (PaisesFraccionKit.Contains(userData.CodigoISO))
+                        {
+                            obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
+                            obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
+                        }
                     }                        
                     else
                         obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
