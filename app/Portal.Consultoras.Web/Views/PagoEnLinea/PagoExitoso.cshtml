@@ -27,13 +27,19 @@
         <!-- VISTA PAGO EXITOSO -->
 
         <div class="pago_exitoso">
-            <h3 class="titulo_pago_exitoso">Pago exitoso</h3>
+            <h3 class="titulo_pago_exitoso">
+                <span class="icono_pago_exitoso"></span>
+                <span>Pago exitoso</span>
+            </h3>
             <div class="col_izq">
                 <p class="mensaje_felicitacion_por_pago_exitoso">
                     Muy bien Valeria <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
                 </p>
-                <p class="info_saldo_pendiente">
-                    Adelantaste tu pago, ahora sólo te queda un saldo de <span class="tipo_moneda_pais">S/</span><span class="monto_a_pagar">500.00</span>
+                <p class="info_constancia_pago_exitoso">
+                    Te enviamos una constancia de pago a tu correo o puedes revisarla <a href="" class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>.
+                </p>
+                <p class="info_horarios_efectivos_pagos">
+                    Los pagos realizados después de las 10:00 p.m. serán efectivos al día siguiente.
                 </p>
             </div>
             <div class="col_der">
@@ -42,6 +48,10 @@
                         Resumen del pago
                     </h3>
                     <div class="resumen_pago">
+                        <div class="num_operacion">
+                            <span>N° de operación :</span>
+                            <span>0000000123</span>
+                        </div>
                         <div class="monto_pagado">
                             <span>Monto:</span>
                             <span>500.00</span>
@@ -76,104 +86,7 @@
 
     <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
-    @*<div class="EstadoCuenta">
-            <div class="content_left_pagos">
-                <form class="formulario_actualizar_datos">
-                    <div class="datos_consultora">
-                        <div class="datos_consultora_textos">
-                            <div class="datos_cod_usuario">
-                                <span>Tu Código de usuario:</span>
-                                <span id="codigoUsuario">@ViewBag.CodigoConsultoraDL</span>
-                            </div>
-                            <div class="datos_nombre_usuario">
-                                <span>Tu Nombre completo:</span>
-                                <span id="nombresUsuario">@ViewBag.NombreCompleto</span>
-                            </div>
-                            <div class="datos_nombre_usuario">
-                                <span>Vencimiento del pago:</span>
-                                <span id="nombreGerenteZonal">@ViewBag.FechaVencimiento</span>
-                            </div>
-                            <div class="datos_nombre_usuario">
-                                <span>Pago total:</span>
-                                <span id="monedaPagoTotal" class="lblMoneda">@ViewBag.Simbolo</span>
-                                <span id="pagoTotal">@ViewBag.SaldoActual</span>
-                            </div>
-                            <div class="datos_nombre_usuario">
-                                <span>Pago parcial:</span>
-                                <span id="monedaPagoParcial" class="lblMoneda">@ViewBag.Simbolo</span>
-                                <span id="monedaPagoParcial" class="lblMoneda">
-                                    <input type="text" name="txtPagoParcial" id="txtPagoParcial" />
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="content_derecha_pagos">
-            <div class="resumen_pagos">
-                <div class="titulo_detalle_pago_img" style="float: none; display: inline-block; vertical-align: middle; margin-left: -11px; ">
-                </div>
-                <div style="display:inline-block; vertical-align:middle">
-                    RESUMEN<b> DE PAGO</b>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;@ViewBag.Simbolo</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;Saldo a Pagar</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;Comisión()</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;Total a Pagar</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;Saldo Restante<br />al @DateTime.Today.ToShortDateString()</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>*@
-    @*<div style="clear:both;"></div>
-        <div>
-            <div>
-                <input type="checkbox" name="chkAceptoTerminos" id="chkAceptoTerminos" />
-                <span id="textoAceptoTerminos">He leído y acepto los terminos y condiciones</span>
-            </div>
-            <div>
-                <textarea name="areaTerminosCondiciones" id="areaTerminosCondiciones" cols="20" rows="2"></textarea>
-                <input type="text" name="txtTerminosCondiciones" id="txtTerminosCondiciones" />
-            </div>
-        </div>
-        <div style="clear:both;">
-            <div></div>
-            <div>*@
-    @*<a class="pagar_btn" id="btnPagar">PAGAR</a>*@
-    @*<form id="formBoton" action="@Url.Action("PagoEnLinea", "PagoEnLinea")" method="post" runat="server">
-                    <script id="javascriptBoton" src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
-                            data-sessiontoken='@ViewBag.SessionToken'
-                            data-merchantid='@ViewBag.MerchantId'
-                            data-merchantlogo='@ViewBag.MerchantLogo'
-                            data-formbuttoncolor='@ViewBag.ButtonColor'
-                            data-purchasenumber='@ViewBag.PurchaseNumber'
-                            data-amount='@ViewBag.SaldoActual'></script>
-                </form>
-            </div>
-        </div>*@
-</div>
+ </div>
 
 @section scripts{
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
