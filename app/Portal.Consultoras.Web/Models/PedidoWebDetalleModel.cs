@@ -150,5 +150,9 @@ namespace Portal.Consultoras.Web.Models
         public int CodigoCatalago { get; set; }
 
         public bool FlagNueva { get; set; }
+
+        public int TieneVariedad { get; set; }
+
+        public string CodigoProducto { get; set; }
     }
 }

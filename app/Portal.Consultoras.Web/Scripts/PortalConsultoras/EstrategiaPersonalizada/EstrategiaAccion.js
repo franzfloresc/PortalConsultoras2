@@ -47,7 +47,6 @@ function EstrategiaObtenerObjHtmlLanding(objInput) {
 function VerDetalleEstrategia(e) {
 
     AbrirLoad();
-
     var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
@@ -169,7 +168,6 @@ function EstrategiaVerDetallePackNueva(estrategia) {
 }
 
 function EstrategiaVerDetalleGeneral(estrategia) {
-
     estrategia.Posicion = 1;
     estrategia.CodigoVariante = $.trim(estrategia.CodigoVariante);
 

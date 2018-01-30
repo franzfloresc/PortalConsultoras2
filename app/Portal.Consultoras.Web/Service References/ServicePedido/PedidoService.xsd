@@ -606,6 +606,7 @@
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="Clientes" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCatalago" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
@@ -655,6 +656,7 @@
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />
