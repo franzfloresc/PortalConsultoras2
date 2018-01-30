@@ -5,6 +5,16 @@
 }
 
 @section styles{
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/descargar-app.css")" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/descargar-app.css")" rel="stylesheet" />
+    }
+
     <style>
         header, footer {
             display: none;
@@ -27,7 +37,7 @@
     <button type="button" class="btn_descargar_app">¡Descárgalo ahora!</button>
     <div class="imagen_descargar_app_e_ir_a_version_web">
         <div class="img_vista_descargar_app">
-            @if (ViewBag.EsPaisEsika == "1")
+            @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
             {
                 <img src="@Url.Content("~/Content/Images/Esika/img-descarga-app.png")" alt="Descargar App" />
             }
