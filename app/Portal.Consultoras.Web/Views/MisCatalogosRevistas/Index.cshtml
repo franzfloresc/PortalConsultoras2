@@ -71,7 +71,7 @@
             })
         }
         
-        @if (Model.TieneSeccionRD)
+        @if (Model.TieneSeccionRD || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
         }

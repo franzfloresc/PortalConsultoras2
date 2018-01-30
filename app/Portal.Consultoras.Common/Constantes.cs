@@ -1052,6 +1052,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
@@ -1060,6 +1061,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string OfertaFinalCrossSellingGanaMas = "OFCGM";
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
@@ -1164,6 +1166,24 @@ namespace Portal.Consultoras.Common
                 public const string DRDRLandingBanner = "DRDRLandingBanner";
                 public const string MRDRLandingBanner = "MRDRLandingBanner";
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
+            }
+
+            public static class RDI
+            {
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string DBienvenidaIntriga = "DBienvenidaIntriga";
+                public const string MBienvenidaIntriga = "MBienvenidaIntriga";
+                public const string LogoComercial = "LogoComercial";
+                public const string LogoComercialFondo = "LogoComercialFondo";
+                public const string NombreComercial= "NombreComercial";
+                public const string DCatalogoIntriga = "DCatalogoIntriga";
+                public const string MCatalogoIntriga = "MCatalogoIntriga";
+                public const string DPedidoIntriga = "DPedidoIntriga";
+                public const string MPedidoIntriga = "MPedidoIntriga";
+
+
+                public const string DLandingBannerRdi = "DLandingBannerRdi";
+                public const string MLandingBannerRdi = "MLandingBannerRdi";
             }
 
         }
