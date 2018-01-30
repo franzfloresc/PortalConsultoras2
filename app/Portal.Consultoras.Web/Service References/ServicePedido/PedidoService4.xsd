@@ -9,7 +9,7 @@
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoTienda" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="CsiCodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CsiImporteComercio" type="xs:decimal" />
       <xs:element minOccurs="0" name="CsiMensaje" nillable="true" type="xs:string" />
@@ -49,6 +49,7 @@
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Visualizado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Xabc" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPagoEnLineaResultadoLog" nillable="true" type="tns:BEPagoEnLineaResultadoLog" />

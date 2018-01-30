@@ -10810,7 +10810,7 @@
       <soap:address location="http://localhost:41615/PedidoService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IPedidoService" binding="tns:BasicHttpsBinding_IPedidoService">
-      <soap:address location="https://localhost:44353/PedidoService.svc" />
+      <soap:address location="https://localhost:44392/PedidoService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

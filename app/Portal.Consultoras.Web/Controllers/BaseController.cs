@@ -4528,6 +4528,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
 
+            bePagoEnLinea.ConsultoraId = userData.ConsultoraID;
             bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
             bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
             bePagoEnLinea.CampaniaId = userData.CampaniaID;

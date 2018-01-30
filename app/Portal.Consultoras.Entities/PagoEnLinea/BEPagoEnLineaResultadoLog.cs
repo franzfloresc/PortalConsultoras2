@@ -14,6 +14,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
     public class BEPagoEnLineaResultadoLog
     {
         [DataMember]
+        public int Xabc { get; set; }
+        [DataMember]
         public int PagoEnLineaResultadoLogId { get; set; }
         [DataMember]
         public long ConsultoraId { get; set; }

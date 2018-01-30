@@ -6688,7 +6688,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoTiendaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ConsultoraIdField;
+        private long ConsultoraIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CsiCodigoProgramaField;
@@ -6807,6 +6807,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool VisualizadoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int XabcField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -6909,7 +6912,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ConsultoraId {
+        public long ConsultoraId {
             get {
                 return this.ConsultoraIdField;
             }
@@ -7424,6 +7427,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.VisualizadoField.Equals(value) != true)) {
                     this.VisualizadoField = value;
                     this.RaisePropertyChanged("Visualizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Xabc {
+            get {
+                return this.XabcField;
+            }
+            set {
+                if ((this.XabcField.Equals(value) != true)) {
+                    this.XabcField = value;
+                    this.RaisePropertyChanged("Xabc");
                 }
             }
         }
