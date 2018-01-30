@@ -1655,6 +1655,13 @@ namespace Portal.Consultoras.Common
             public const short PaisConGND_SuscritaNoActiva = 3;
             public const short PaisConGND_NoSuscritaActiva = 4;
             public const short PaisConGND_NoSuscritaNoActiva = 5;
+
+            public class Banner
+            {
+                public const string CarpetaPais = "AppConsultora/{0}";
+                public const string ImagenSuscrita = "Gana+Suscrita.png";
+                public const string ImagenNoSuscrita = "Gana+NoSuscrita.png";
+            }
         }
         public class ValAutoEstado
         {
