@@ -358,30 +358,31 @@ function OfertaCargarScroll() {
 
     if (campaniaId <= 0) return false;
 
+    var filtroCamp = filtroCampania[OfertaObtenerIndLocal(campaniaId)];
+    if (filtroCamp == undefined) filtroCamp = Clone(filtroIni);
+    
     footerH += $("footer").innerHeight() || 0;
     if (footerH >= $(document).height()) {
-
-        var filtroCamp = filtroCampania[OfertaObtenerIndLocal(campaniaId)];
-        if (filtroCamp == undefined) filtroCamp = Clone(filtroIni);
 
         if ((filtroCamp.CantMostrados < filtroCamp.CantTotal && !filtroCamp.IsLoad) || filtroCamp.CantTotal == -1) {
             document.body.scrollTop = $(window).scrollTop();
             OfertaObtenerProductos();
         }
-
-        if (filtroCamp.CantMostrados === filtroCamp.CantTotal) {
-            
-            if ($(window).scrollTop() + $(window).height() >= $(document).height() - $("footer").height()) {
-                $('.desplegablegnd').css("visibility", "hidden");
-                $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "none");
-            }
-            else {
-                $('.desplegablegnd').css("visibility", "visible");
-                $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "block");
-
-            }
+    }
+    
+    if (filtroCamp.CantMostrados === cantTotalMostrar) {
+        console.log("===");
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - $("footer").height()) {
+            console.log("hidden");
+            $('.desplegablegnd').css("visibility", "hidden");
+            $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "none");
+        }
+        else {
+            console.log("visible");
+            $('.desplegablegnd').css("visibility", "visible");
+            $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "block");
 
         }
-    }
 
+    }
 }
