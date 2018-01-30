@@ -105,7 +105,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -145,7 +145,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -312,7 +332,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -352,7 +372,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -519,7 +559,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -559,7 +599,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -726,7 +786,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -766,7 +826,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -933,7 +1013,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -973,7 +1053,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -1140,7 +1240,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -1180,7 +1280,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -1347,7 +1467,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -1387,7 +1507,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -1554,7 +1694,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -1594,7 +1734,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -1761,7 +1921,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -1801,7 +1961,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -1968,7 +2148,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -2008,7 +2188,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -2175,7 +2375,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -2215,7 +2415,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -2382,7 +2602,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -2422,7 +2642,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
@@ -2589,7 +2829,7 @@ BEGIN
 		pwd.CampaniaID = @CampaniaID
 		AND pwd.ConsultoraID = @ConsultoraID 
 		AND pwd.CUVPadre IS NULL
-		
+
 	DECLARE @Estrategia AS TABLE(
 		EstrategiaID int,
 		TipoEstrategiaID int,
@@ -2629,7 +2869,27 @@ BEGIN
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
 	WHERE TE.FlagActivo = 1
-	
+	UNION
+	SELECT EP.EstrategiaProductoId,
+		E.TipoEstrategiaID,
+		E.Activo,
+		E.CampaniaID,
+		E.CampaniaIDFin,
+		EP.CUV,
+		E.Numeropedido,
+		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.EsOfertaIndependiente,
+		TE.FlagNueva,
+		TE.NombreComercial AS DescripcionTipoEstrategia,
+		TE.Codigo AS TipoEstrategiaCodigo,
+		TE.CodigoPrograma
+	FROM dbo.EstrategiaProducto EP 
+	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
+	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
+	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
+		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	WHERE TE.FlagActivo = 1 
+
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
