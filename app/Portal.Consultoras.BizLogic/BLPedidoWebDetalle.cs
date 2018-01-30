@@ -139,8 +139,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            TransactionOptions oTransactionOptions = new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
 
             try
             {
@@ -239,8 +238,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
             BEPedidoWebDetalle detalleTemp = new BEPedidoWebDetalle { Cantidad = 0 };
 
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            TransactionOptions oTransactionOptions = new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
 
             try
             {

@@ -505,24 +505,6 @@ function AgregarProductoCatalogoPersonalizado(item) {
         return false;
     }
 
-    var model = {
-        TipoOfertaSisID: tipoOfertaSisID,
-        ConfiguracionOfertaID: configuracionOfertaID,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        MarcaID: marcaID,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidad,
-        CUV: cuv,
-        Tipo: tipo,
-        DescripcionProd: descripcionProd,
-        Pagina: pagina,
-        DescripcionCategoria: descripcionCategoria,
-        DescripcionMarca: descripcionMarca,
-        DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    };
-
     if (tipoOrigen == '3') {
         var imagenProducto = $('#imagenAnimacion>img', item);
 
@@ -553,18 +535,30 @@ function AgregarProductoCatalogoPersonalizado(item) {
         }
     }
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
+    var model = {
+        CUV: cuv,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidad,
+        OrigenPedidoWeb: OrigenPedidoWeb,
+        MarcaID: marcaID,
+        DescripcionProd: descripcionProd,
+        TipoOfertaSisID: tipoOfertaSisID,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        ConfiguracionOfertaID: configuracionOfertaID
+    };
+
+    AgregarProducto(model, function () { $(divPadre).find(".product-add").show(); });
     //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
 
-function AgregarProducto(url, item, otraFunct) {
+function AgregarProducto(item, otraFunct) {
 
     DialogLoadingAbrir();
     tieneMicroefecto = true;
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/' + url,
+        url: baseUrl + 'Pedido/PedidoInsertar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -825,23 +819,6 @@ function AgregarProductoOfertaRevista(btn) {
     }
 
     var cuvAdd = tipoCUV == 'pack' ? $(btn).attr("data-cuvadd") : $(hidden).find(".hdItemCuv").val();
-    var model = {
-        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
-        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
-        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
-        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidadAdd,
-        CUV: cuvAdd,
-        Tipo: $(hidden).find(".hdItemTipo").val(),
-        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
-        Pagina: $(hidden).find(".hdItemPagina").val(),
-        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
-        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
-        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
-        EsSugerido: false,
-        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
-    };
 
     var imagenProducto = $('#imagenAnimacion>img', item);
 
@@ -871,7 +848,20 @@ function AgregarProductoOfertaRevista(btn) {
         });
     }
 
-    AgregarProducto('Insert', model, function () {
+
+    var model = {
+        CUV: cuvAdd,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidadAdd,
+        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val()
+    };
+
+    AgregarProducto(model, function () {
         $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
         //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();

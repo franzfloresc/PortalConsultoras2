@@ -1254,6 +1254,7 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
+    alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({
@@ -1278,9 +1279,7 @@ function InsertarProducto(model, asyncX) {
 
             CloseLoading();
 
-            setTimeout(function () {
-
-            }, 2000);
+            setTimeout(function () {}, 2000);
 
             ActualizarGanancia(data.DataBarra);
 
