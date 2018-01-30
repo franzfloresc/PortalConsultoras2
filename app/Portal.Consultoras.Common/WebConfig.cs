@@ -17,7 +17,13 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
             }
         }
-
+        public static string WebTrackingConfirmacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? "";
+            }
+        }
         #endregion
     }
 }
