@@ -921,6 +921,11 @@ function Enmascarar_Numero(pNumCelular){
 
 function ProcesaEnvioEmail() {
     var paisId = $("#cboPaisCambioClave").val(); 
+    
+    if (nroIntentosCo >= 3) {
+        alert("Puede utilizar el envío de correos hasta 2 intentos. Intente con otra opción.");
+        return false;
+    }
 
     var parametros = {
         paisId: paisId,
@@ -983,6 +988,11 @@ function ProcesaEnvioSMS() {
     $("#6Digito").val("");
 
     var paisId = $("#cboPaisCambioClave").val();
+    
+    if (nroIntentosSms >= 3) {
+        alert("Puede utilizar el envío de SMS hasta 2 intentos. Intente con otra opción.");
+        return false;
+    }
 
     var parametros = {
         paisID: paisId,
@@ -1357,10 +1367,13 @@ function ObtenerCodigoSms(CodIngresado)
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
-            if (response.success) {
-                clearTimeout(t);
-                $("#popup2").hide();                
-                window.open(response.url); 
+            if (response.success) {                
+                           
+                $("#popup2").hide(); 
+                OcultarContenidoPopup
+                window.open(response.url);
+                clearTimeout(t); 
+                
             } else {
                 $(".codigoInvalido").show();
             }
@@ -1376,10 +1389,11 @@ function ObtenerCodigoSms(CodIngresado)
 
 function Regresar() {
     clearTimeout(t);
+    $("#divPopupIntentosCorreo").hide();
+    $("#divPopupIntentosSMS").hide()
     $("#popup2").hide();
     $("#popupRestaurarClave").show();
 }
-
 
 function TiempoSMS(tempo) {
     $("#spnMin").html("01");
