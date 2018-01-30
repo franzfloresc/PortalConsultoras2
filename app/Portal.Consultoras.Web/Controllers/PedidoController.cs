@@ -3655,20 +3655,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.TieneVariedad == 1)
                 {
                     Codigos.Append(item.CodigoProducto + separador);
-
-                    //using (ProductoServiceClient svc = new ProductoServiceClient())
-                    //{
-                    //    var listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, item.CodigoProducto, numeroCampanias).ToList();
-
-                    //    if (IsMobile())
-                    //    {
-                    //        item.DescripcionProd = listaAppCatalogo[0].NombreComercial;
-                    //    }
-                    //    else
-                    //    {
-                    //        item.DescripcionCortadaProd = listaAppCatalogo[0].NombreComercial;
-                    //    }
-                    //}
                 }
 
             }
