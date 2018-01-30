@@ -2224,7 +2224,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else if (!reservaProl)
             {
@@ -2233,7 +2232,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else if (!userData.PROLSinStock)
             {
@@ -2242,7 +2240,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (diaActual <= userData.FechaInicioCampania) model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                 else if (userData.CodigoISO == "BO") model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
                 else model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                return;
             }
             else
             {
@@ -2250,8 +2247,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
 
         }
 
@@ -3418,7 +3413,6 @@ namespace Portal.Consultoras.Web.Controllers
             bool flagkit = false;
 
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
-
             if (!userData.EsConsultoraNueva)
             {
                 /* Kit de nuevas para segundo y tercer pedido*/
@@ -3443,68 +3437,66 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                     return;
                 }
-            }
+            }            
+            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
             
+            using (var sv = new PedidoServiceClient())
             {
-                using (var sv = new PedidoServiceClient())
+                try
                 {
-                    try
+                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                    if (obeConfiguracionProgramaNuevas == null)
                     {
-                        var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-
-                        if (obeConfiguracionProgramaNuevas == null)
-                        {
-                            Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                            return;
-                        }
-
-                        Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
-                        if (!flagkit) //Kit en 2 y 3 pedido
-                            if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
-
-                        var listaTempListado = ObtenerPedidoWebDetalle();
-
-                        var det = new BEPedidoWebDetalle();
-                        if (listaTempListado != null)
-                            det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
-
-                        if (det.PedidoDetalleID > 0) return;
-
-                        List<BEProducto> olstProducto;                    
-                        using (var svOds = new ODSServiceClient())
-                        {
-                            olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
-                        }
-
-                        if (olstProducto.Count > 0)
-                        {
-                            var producto = olstProducto[0];
-                            var model = new PedidoSb2Model
-                            {
-                                TipoOfertaSisID = 0,
-                                ConfiguracionOfertaID = 0,
-                                IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim(),
-                                MarcaID = producto.MarcaID,
-                                Cantidad = "1",
-                                PrecioUnidad = producto.PrecioCatalogo,
-                                CUV = obeConfiguracionProgramaNuevas.CUVKit,
-                                Tipo = 0,
-                                DescripcionProd = producto.Descripcion,
-                                Pagina = "0",
-                                DescripcionEstrategia = "",
-                                EsSugerido = false,
-                                EsKitNueva = true
-                            };
-
-                            Insert(model);
-                        }
+                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                        return;
                     }
-                    catch (Exception ex)
+
+                    Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
+                    if (!flagkit) //Kit en 2 y 3 pedido
+                        if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+
+                    var listaTempListado = ObtenerPedidoWebDetalle();
+
+                    var det = new BEPedidoWebDetalle();
+                    if (listaTempListado != null)
+                        det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
+
+                    if (det.PedidoDetalleID > 0) return;
+
+                    List<BEProducto> olstProducto;                    
+                    using (var svOds = new ODSServiceClient())
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        sv.Abort();
+                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
                     }
-                }              
+
+                    if (olstProducto.Count > 0)
+                    {
+                        var producto = olstProducto[0];
+                        var model = new PedidoSb2Model
+                        {
+                            TipoOfertaSisID = 0,
+                            ConfiguracionOfertaID = 0,
+                            IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString().Trim(),
+                            MarcaID = producto.MarcaID,
+                            Cantidad = "1",
+                            PrecioUnidad = producto.PrecioCatalogo,
+                            CUV = obeConfiguracionProgramaNuevas.CUVKit,
+                            Tipo = 0,
+                            DescripcionProd = producto.Descripcion,
+                            Pagina = "0",
+                            DescripcionEstrategia = "",
+                            EsSugerido = false,
+                            EsKitNueva = true
+                        };
+
+                        Insert(model);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                    sv.Abort();
+                }
             }
         }
 

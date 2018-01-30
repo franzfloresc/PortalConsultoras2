@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
         }
-
+        
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
             try
@@ -398,7 +398,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
                 mensaje = "Ocurrió un error al intentar validar si puede modificar su pedido.";
-                return false;
+                return true;
             }
         }
 
@@ -2358,11 +2358,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
-
-        protected JsonResult ErrorJson(string message)
-        {
-            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
         }
 
         public string GetUrlCompartirFB()
