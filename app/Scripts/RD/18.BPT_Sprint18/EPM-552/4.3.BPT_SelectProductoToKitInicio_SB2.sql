@@ -1,4 +1,4 @@
-
+GO
 ALTER PROCEDURE dbo.SelectProductoToKitInicio_SB2
 	@CampaniaID			int,
 	@Cuv				varchar(100),
@@ -47,3 +47,4 @@ BEGIN
 	SET NOCOUNT OFF;
 END
 
+GO

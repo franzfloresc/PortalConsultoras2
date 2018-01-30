@@ -1,4 +1,4 @@
-
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasOfertaWeb]
 	@CampaniaID INT,
 	@ZonaID INT
@@ -56,3 +56,4 @@ SET NOCOUNT OFF
 END
 
 
+GO

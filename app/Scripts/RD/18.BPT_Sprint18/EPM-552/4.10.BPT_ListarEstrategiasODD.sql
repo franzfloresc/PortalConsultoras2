@@ -1,4 +1,4 @@
-
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasODD]
 (
 	@CodCampania INT
@@ -70,3 +70,4 @@ WHERE e.Activo = 1
 	AND DATEDIFF(dd, GETDATE(), DATEADD(dd, op.DiaInicio, CAST(@FechaInicioFact AS DATE))) = 0
 	AND TE.Codigo = '009'
 
+GO
