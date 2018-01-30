@@ -105,14 +105,16 @@
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-
-        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
-            new ViewDataDictionary {
-            { "TieneGnd", Model.TieneGND },
-            { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
-        })
+        @if (Model.TieneSeccionRevista)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
+                new ViewDataDictionary {
+                { "TieneGnd", Model.TieneGND },
+                { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
+            })
+        }
         
-        @if (!Model.TieneGND || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
+        @if (Model.TieneSeccionRD || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
         }

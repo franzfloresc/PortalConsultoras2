@@ -456,101 +456,181 @@ img.icono-submenu-tabs {
 }
 
 /* viñeta gnd */
-.revistagnd {
+.desplegablegnd{
 position: fixed;
-z-index: 90;
-width: 81.5%;
+bottom:0;
+width:100%;
+}
+.desplegablegnd .gndcontenido{
+margin:auto;
+width:80%;
+border: 1px solid #00000014;
+}
+.desplegablegnd .gndcontenido .nrognd{
+background: black;
+color:white;
+text-align: center;
+padding: 13.5px 15px
+}
+.desplegablegnd .gndcontenido .nrognd > div{
+
+}
+.desplegablegnd .gndcontenido .nrognd .numeritognd{
+text-align: left;
+width:50%;
+display: inline-block;
+font-size: 11px;
+letter-spacing: 2px;
+}
+.desplegablegnd .gndcontenido .nrognd .flechitagnd{
+text-align: right;
+width:50%;
+display: inline-block;
+}
+.desplegablegnd .gndcontenido .nrognd .flechitagnd img{
+width:15px;
+height: 15px;
+writing-mode: horizontal-tb;
+transform: rotate(180deg);
+position: relative;
+top: -1px;
+
+}
+.desplegablegnd .gndcontenido .contenedorgnd{
+padding: 15px;
+text-align: center;
+background: white;
+}
+.desplegablegnd .gndcontenido .contenedorgnd > div{
+display: inline-block;
+
+}
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
+float: left;
+width:45%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img{
+width:100%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd{
+float: right;
+width:50%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd{
+display: table;
+width:100%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd{
+display: table-cell;
+vertical-align: middle;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
+display: block;
+width:100%;
+font-size: 15px;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+display: block;
 margin: auto;
 text-align: center;
-/* right: 1px; */
-left: 50%;
-transform: translate(-50%, 0);
-}
-.revistagnd .nrorevista {
-background: black;
-color: white;
-padding: 8px;
-}
-.revistagnd .nrorevista .nro {
-float: left;
-font-size: 11px;
-letter-spacing: 1px;
-position: relative;
-top: 3px;
-padding-left: 10px;
-}
-.revistagnd .nrorevista .vineta {
-    float: right;
-    padding-right: 25px;
-    writing-mode: horizontal-tb;
-    transform: rotate(90deg);
-    position: relative;
-    top: 12px;
-}
-.revistagnd .nrorevista .vineta img {
-width: 20px;
-border: 1px solid white;
-padding: 5px;
-position: relative;
-}
-.revistagnd .contrevistagnd {
-padding: 20px;
-background: white;
-border: 1px solid #00000017;
-border-bottom: 0;
-}
-.revistagnd .contrevistagnd .imgrevista{
-float:left;
-width:41%;
-}
-.revistagnd .contrevistagnd .imgrevista img{
-    width:100%;
-}
-    .revistagnd .contrevistagnd .inforevista {
-        float: right;
-        width: 59%;
-        word-wrap: break-word;
-        display: table;
-        padding-top: 12%;
-    }
-        .revistagnd .contrevistagnd .inforevista .continforevista {
-            display: table-cell;
-            vertical-align: middle;
-            padding-left: 20px;
-        }
-.revistagnd .contrevistagnd .inforevista a {
-display: block;
+width: 65%;
 border: 1px solid black;
-width: 70%;
-margin: auto;
-padding: 5px 10px;
-font-size: 11px;
+font-size: 12px;
+letter-spacing: 1px;
+padding: 10px 15px;
+color: black;
+margin-top: 10px;
 transition:.3s;
 }
-.revistagnd .contrevistagnd .inforevista a:hover{
-background:black;
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a:hover{
+background: black;
 color:white;
 }
-@media (max-width:494px){
-    .revistagnd .contrevistagnd .inforevista {
-        padding-top: calc(8% - 4%);
-    }
+@media (max-width: 512px){
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
+width:40%;
 }
-@media (max-width:360px) {
-    .revistagnd .contrevistagnd .imgrevista{
-        width:35%;
-    }
-    .revistagnd .contrevistagnd .inforevista{
-        width:65%;
-    }
-    .revistagnd .contrevistagnd{
-        padding:13px;
-    }
-    .revistagnd .contrevistagnd .inforevista{
-        padding-top:0;
-    }
-    .revistagnd .contrevistagnd .inforevista .continforevista p{
-        margin-bottom:3px;
-    }
+.desplegablegnd .gndcontenido .contenedorgnd .infognd{
+    width:60%;
+    padding-left:5%;
 }
-/*fin viñeta gnd*/
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+    margin-top:0;
+    padding: 5px 15px;
+}
+
+}
+@media (max-width: 469px){
+.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
+width:35%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd{
+    width:65%;
+    padding-left:5%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
+    margin-bottom:5px;
+}
+}
+@media (max-width: 435px){
+.desplegablegnd .gndcontenido{
+width:85%;
+}
+}
+@media (max-width: 409px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 10px;
+}
+.desplegablegnd .gndcontenido{
+width:90%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 4%;
+}
+}
+@media (max-width: 400px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 9px;
+}
+.desplegablegnd .gndcontenido{
+width:95%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 3%;
+}
+}
+@media (max-width: 409px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 10px;
+}
+.desplegablegnd .gndcontenido{
+width:90%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 4%;
+}
+}
+@media (max-width: 400px){
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
+font-size: 9px;
+}
+.desplegablegnd .gndcontenido{
+width:95%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    padding-left: 3%;
+}
+.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
+    font-size:12px;
+}
+}
+@media (max-width: 350px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+    width: 40%;
+}
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+    width: 60%;
+    padding-left: 2.5%;
+}
+}
+    /*fin viñeta gnd*/

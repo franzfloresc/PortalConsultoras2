@@ -62,14 +62,16 @@
     <!-- FIN CATALOGO -->
 
     <div class="expoferta_revista">
-      
-        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
+        @if (Model.TieneSeccionRevista)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
             new ViewDataDictionary {
                 { "TieneGnd", Model.TieneGND },
                 { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
             })
+        }
         
-        @if (!Model.TieneGND || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
+        @if (Model.TieneSeccionRD || Model.PartialSectionBpt.RevistaDigital.TieneRDI)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
         }

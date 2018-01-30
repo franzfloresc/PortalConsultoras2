@@ -281,7 +281,12 @@ function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     filtroCampania[indCampania].response = response;
     filtroCampania[indCampania].IsLoad = false;
     OfertaArmarEstrategias(response);
+
+    /*$(OfertaArmarEstrategias).ajaxComplete(function (event, request, settings) {
+        alert('complete');
+    });*/
     return true;
+    
 }
 
 function OfertaObtenerIndLocal(campId) {
@@ -362,6 +367,20 @@ function OfertaCargarScroll() {
         if ((filtroCamp.CantMostrados < filtroCamp.CantTotal && !filtroCamp.IsLoad) || filtroCamp.CantTotal == -1) {
             document.body.scrollTop = $(window).scrollTop();
             OfertaObtenerProductos();
+        }
+
+        if (filtroCamp.CantMostrados === filtroCamp.CantTotal) {
+            
+            if ($(window).scrollTop() + $(window).height() >= $(document).height() - $("footer").height()) {
+                $('.desplegablegnd').css("visibility", "hidden");
+                $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "none");
+            }
+            else {
+                $('.desplegablegnd').css("visibility", "visible");
+                $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "block");
+
+            }
+
         }
     }
 

@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
+                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
                 TieneGND = userData.TieneGND
             };
 
@@ -575,14 +577,10 @@ namespace Portal.Consultoras.Web.Controllers
                 partial.RevistaDigital = revistaDigital;
                 partial.TieneGND = userData.TieneGND;
 
-                var tieneGnd = userData.TieneGND;
-
                 if (revistaDigital.TieneRDC)
                 {
                     if (revistaDigital.EsActiva)
                     {
-                        if (!tieneGnd)
-                        {
                             if (revistaDigital.EsSuscrita)
                             {
                                 partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
@@ -591,12 +589,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
                             }
-                        }
                     }
                     else
                     {
-                        if (!tieneGnd)
-                        {
                             if (revistaDigital.EsSuscrita)
                             {
                                 partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
@@ -605,10 +600,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
                             }
-                        }
                     }
                 }
-                else if (revistaDigital.TieneRDR && !tieneGnd)
+                else if (revistaDigital.TieneRDR)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();   
                 }

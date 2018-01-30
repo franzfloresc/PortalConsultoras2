@@ -55,24 +55,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
         
-        private DataTable productoTabla(BEProductoFaltante[] students)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("CampaniaID", typeof(string));
-            dt.Columns.Add("CUV", typeof(string));
-            dt.Columns.Add("ZonaID", typeof(string));
-            dt.Columns.Add("Zona", typeof(string));
-            dt.Columns.Add("FaltanteUltimoMinuto", typeof(string));
-            dt.Columns["CampaniaID"].ColumnMapping = MappingType.Attribute;
-
-            foreach (BEProductoFaltante s in students)
-            {
-                dt.Rows.Add(s.CampaniaID, s.CUV, s.ZonaID, s.Zona, s.FaltanteUltimoMinuto);
-            }
-            return dt;
-
-        }
-
         public int DelProductoFaltante(BEProductoFaltante prod, out bool Deleted)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltante");
