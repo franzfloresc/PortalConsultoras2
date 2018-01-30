@@ -308,6 +308,12 @@
   <wsdl:message name="IPedidoService_UpdateMontoDeudaConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontoDeudaConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaById" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_RemoverOfertaShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoverOfertaShowRoom" />
   </wsdl:message>
@@ -2525,6 +2531,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" message="tns:IPedidoService_UpdateMontoDeudaConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultoraResponse" message="tns:IPedidoService_UpdateMontoDeudaConsultora_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" message="tns:IPedidoService_ObtenerPagoEnLineaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByIdResponse" message="tns:IPedidoService_ObtenerPagoEnLineaById_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RemoverOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom" message="tns:IPedidoService_RemoverOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse" message="tns:IPedidoService_RemoverOfertaShowRoom_OutputMessage" />
@@ -4277,6 +4287,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMontoDeudaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7737,6 +7756,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMontoDeudaConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

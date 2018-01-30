@@ -22,6 +22,7 @@
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaTransaccion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaVencimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IdGuidExternoTransaccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdGuidTransaccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdTokenUsuario" nillable="true" type="xs:string" />
@@ -49,7 +50,6 @@
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Visualizado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Xabc" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPagoEnLineaResultadoLog" nillable="true" type="tns:BEPagoEnLineaResultadoLog" />

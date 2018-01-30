@@ -1234,6 +1234,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateMontoDeudaConsultora(int paisId, string codigoConsultora, decimal montoDeuda);
 
+        [OperationContract]
+        BEPagoEnLineaResultadoLog ObtenerPagoEnLineaById(int paisId, int pagoEnLineaResultadoLogId);
+
         #endregion
     }
 }

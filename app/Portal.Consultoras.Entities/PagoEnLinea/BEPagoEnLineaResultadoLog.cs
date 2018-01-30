@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
     public class BEPagoEnLineaResultadoLog
     {
         [DataMember]
-        public int Xabc { get; set; }
-        [DataMember]
         public int PagoEnLineaResultadoLogId { get; set; }
         [DataMember]
         public long ConsultoraId { get; set; }
@@ -25,6 +23,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         public string NumeroDocumento { get; set; }
         [DataMember]
         public int CampaniaId { get; set; }
+        [DataMember]
+        public DateTime FechaVencimiento { get; set; }
         [DataMember]
         public decimal MontoPago { get; set; }
         [DataMember]
@@ -122,6 +122,8 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
                 NumeroDocumento = DbConvert.ToString(datarec["NumeroDocumento"]);
             if (DataRecord.HasColumn(datarec, "CampaniaId") && datarec["CampaniaId"] != DBNull.Value)
                 CampaniaId = DbConvert.ToInt32(datarec["CampaniaId"]);
+            if (DataRecord.HasColumn(datarec, "FechaVencimiento") && datarec["FechaVencimiento"] != DBNull.Value)
+                FechaVencimiento = DbConvert.ToDateTime(datarec["FechaVencimiento"]);            
             if (DataRecord.HasColumn(datarec, "MontoPago") && datarec["MontoPago"] != DBNull.Value)
                 MontoPago = DbConvert.ToDecimal(datarec["MontoPago"]);
             if (DataRecord.HasColumn(datarec, "MontoGastosAdministrativos") && datarec["MontoGastosAdministrativos"] != DBNull.Value)

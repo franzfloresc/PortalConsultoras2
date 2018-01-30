@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
@@ -300,10 +301,10 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdUsuarioDD(usuario);
         }
 
-        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var BLNotificaciones = new BLNotificaciones();
-            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
+            return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
 
         public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
@@ -579,7 +580,13 @@ namespace Portal.Consultoras.Service
             var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
             bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
         }
-        
+
+        public void UpdNotificacionPagoEnLineaVisualizacion(int paisId, int procesoId)
+        {
+            var bLPagoEnLinea = new BLPagoEnLinea();
+            bLPagoEnLinea.UpdateVisualizado(paisId, procesoId);
+        }
+
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var BLUsuario = new BLUsuario();

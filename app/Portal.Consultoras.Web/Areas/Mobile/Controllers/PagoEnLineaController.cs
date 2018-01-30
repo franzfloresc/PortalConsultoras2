@@ -96,17 +96,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
+                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;                
 
                 sessionManager.SetDatosPagoVisa(null);
 
+                int pagoEnLineaResultadoLogId = 0;
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
-                    ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
+                    pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
                 }                
 
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
-                {                   
+                {
+                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;        
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                     model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
@@ -125,6 +127,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     userData.MontoDeuda = model.SaldoPendiente;
                     sessionManager.SetUserData(userData);
 
+                    //if (!string.IsNullOrEmpty(userData.EMail))
+                    //{
+                    //    string template = ObtenerTemplatePagoEnLinea();
+                    //    Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
+                    //}
+
                     return View("PagoExitoso", model);
                 }
                 else
@@ -142,6 +150,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View("PagoRechazado", model);
-        }
+        }        
     }
 }

@@ -20,10 +20,12 @@ namespace Portal.Consultoras.Data.PagoEnLinea
         public int InsertPagoEnLineaResultadoLog(BEPagoEnLineaResultadoLog entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertPagoEnLineaResultadoLog");
+            Context.Database.AddOutParameter(command, "@PagoEnLineaResultadoLogId", DbType.Int32, 4);
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, entidad.ConsultoraId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.CodigoConsultora);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, entidad.CampaniaId);
+            Context.Database.AddInParameter(command, "@FechaVencimiento", DbType.DateTime, entidad.FechaVencimiento);
             Context.Database.AddInParameter(command, "@MontoPago", DbType.Decimal, entidad.MontoPago);
             Context.Database.AddInParameter(command, "@MontoGastosAdministrativos", DbType.Decimal, entidad.MontoGastosAdministrativos);
             Context.Database.AddInParameter(command, "@TipoTarjeta", DbType.AnsiString, entidad.TipoTarjeta);
@@ -62,7 +64,9 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@OrigenTarjeta", DbType.AnsiString, entidad.OrigenTarjeta);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entidad.UsuarioCreacion);
 
-            return Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
+
+            return Convert.ToInt32(command.Parameters["@PagoEnLineaResultadoLogId"].Value);
         }
 
         public string ObtenerTokenTarjetaGuardadaByConsultora(string codigoConsultora)
@@ -78,6 +82,22 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMontoDeudaConsultora");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
             Context.Database.AddInParameter(command, "@MontoDeuda", DbType.Decimal, montoDeuda);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader ObtenerPagoEnLineaById(int pagoEnLineaResultadoLogId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaById");
+            Context.Database.AddInParameter(command, "@PagoEnLineaResultadoLogId", DbType.Int32, pagoEnLineaResultadoLogId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public void UpdateVisualizado(int pagoEnLineaResultadoLogId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdatePagoEnLineaVisualizado");
+            Context.Database.AddInParameter(command, "@PagoEnLineaResultadoLogId", DbType.Int32, pagoEnLineaResultadoLogId);
 
             Context.ExecuteNonQuery(command);
         }
