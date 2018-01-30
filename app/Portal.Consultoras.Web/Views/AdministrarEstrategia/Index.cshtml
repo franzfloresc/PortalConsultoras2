@@ -443,6 +443,7 @@
     var _toastHelper = ToastHelper();
 
     jQuery(document).ready(function () {
+        $("#btnActualizarTonos").hide();
         fnGrilla();
         IniDialog();
 
@@ -661,12 +662,14 @@
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
+            $("#btnActualizarTonos").hide();
             
             if (aux2.in(Codigo.OfertaParaTi, Codigo.OfertaDelDia, Codigo.LosMasVendidos, Codigo.Lanzamiento,
                         Codigo.OfertasParaMi, Codigo.PackAltoDesembolso, Codigo.GuiaDeNegocio)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
+                $("#btnActualizarTonos").hide();
             }
 
             SeleccionarTipoOferta();
