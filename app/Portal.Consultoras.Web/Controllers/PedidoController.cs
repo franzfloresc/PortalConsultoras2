@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-            var model = new PedidoSb2Model();
+                var model = new PedidoSb2Model();
 
             try
             {
@@ -3626,6 +3626,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
                 pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73));
 
+                pedidoWebDetalleModel = ModificarNombreProductoParaTonos(pedidoWebDetalleModel);
+
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
                 model.TotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
@@ -3687,6 +3689,74 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Parametria Oferta Final
+
+        private List<PedidoWebDetalleModel> ModificarNombreProductoParaTonos(List<PedidoWebDetalleModel> listPedidoWebDetalle)
+        {
+            var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+            string separador = "|";
+            var Codigos = new StringBuilder();
+            Codigos.Append(separador);
+
+            foreach (var item in listPedidoWebDetalle)
+            {
+                if (item.TieneVariedad == 1)
+                {
+                    Codigos.Append(item.CodigoProducto + separador);
+
+                    //using (ProductoServiceClient svc = new ProductoServiceClient())
+                    //{
+                    //    var listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, item.CodigoProducto, numeroCampanias).ToList();
+
+                    //    if (IsMobile())
+                    //    {
+                    //        item.DescripcionProd = listaAppCatalogo[0].NombreComercial;
+                    //    }
+                    //    else
+                    //    {
+                    //        item.DescripcionCortadaProd = listaAppCatalogo[0].NombreComercial;
+                    //    }
+                    //}
+                }
+
+            }
+
+            string joinCuv = Codigos.ToString();
+
+            if (joinCuv == separador) return listPedidoWebDetalle;
+
+            joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
+
+            var listaAppCatalogo = new List<Producto>();
+            using (ProductoServiceClient svc = new ProductoServiceClient())
+            {
+                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, joinCuv, numeroCampanias).ToList();
+            }
+
+            if (listaAppCatalogo.Count > 0)
+            {
+                foreach (var item in listaAppCatalogo)
+                {
+                    foreach (var item2 in listPedidoWebDetalle)
+                    {
+                        if(item.CodigoSap == item2.CodigoProducto)
+                        {
+                            if (IsMobile())
+                            {
+                                item2.DescripcionProd = item.NombreComercial;
+                            }
+                            else
+                            {
+                                item2.DescripcionCortadaProd = item.NombreComercial;
+                            }
+                            continue;
+                        }
+                    }
+                }
+            }
+
+
+            return listPedidoWebDetalle;
+        }
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {

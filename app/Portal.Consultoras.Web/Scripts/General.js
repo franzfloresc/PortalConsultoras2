@@ -357,7 +357,6 @@ jQuery(document).ready(function () {
 
     }
     SetHandlebars = function (idTemplate, data, idHtml) {
-
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 

@@ -10362,12 +10362,6 @@ a {
     float: left;
 }
 
-.btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
-    color: #b9b9b9;
-}
-
 .btn_agregar_ficha_producto {
     width: 50%;
     height: 48px;
@@ -10380,6 +10374,12 @@ a {
     text-align: center;
     line-height: 47px;
     background: black;
+}
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 
 .btn_compartir_ofertas {
