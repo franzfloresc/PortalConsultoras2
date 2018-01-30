@@ -24,7 +24,9 @@ namespace Portal.Consultoras.Common
                 ip = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
             }
 
-            if (!string.IsNullOrWhiteSpace(ip) && ip.IndexOf(":") > 0)
+            var indOf = ip.IndexOf(":");
+
+            if (!string.IsNullOrWhiteSpace(ip) && indOf > 0)
             {
                 ip = ip.Substring(0, ip.IndexOf(":") - 1);
             }

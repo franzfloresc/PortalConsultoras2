@@ -184,12 +184,12 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Ocurrió un error al cargar los datos de la grilla");
+                return ErrorJson("Ocurrió un error al cargar los datos de la grilla", true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Ocurrió un error al cargar los datos de la grilla");
+                return ErrorJson("Ocurrió un error al cargar los datos de la grilla", true);
             }
         }
 
@@ -212,12 +212,12 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Hubo un problema con el servicio, intente nuevamente");
+                return ErrorJson("Hubo un problema con el servicio, intente nuevamente", true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Hubo un problema con el servicio, intente nuevamente");
+                return ErrorJson("Hubo un problema con el servicio, intente nuevamente", true);
             }
         }
     }

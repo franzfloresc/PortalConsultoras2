@@ -528,7 +528,7 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region OfertaDelDia 
-            // no tulizan estas variables, todo estos estan en la logica en ofertaDelDia.js
+            // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
             public const int OfertaDelDiaDesktopHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
@@ -1146,13 +1146,6 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                //public const string DInformativoSuscrita = "DInformativoSuscrita";
-                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                //public const string MInformativoSuscrita = "MInformativoSuscrita";
-                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
-
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
 
@@ -1652,6 +1645,37 @@ namespace Portal.Consultoras.Common
         public class Comunicado
         {
             public const string AppConsultora = "App Consultora";
+        }
+
+        public class ValAutoEstado
+        {
+            public const int NoExisteProceso = -1;
+            public const int Programado = 0;
+            public const int EnEjecucion = 1;
+            public const int Finalizado = 2;
+            public const int FaltaEnvioCorreos = 3;
+            public const int Error = 99;
+        }
+        public class ValAutoEstadoDescripcion
+        {
+            public const string NoExisteProceso = "No existen procesos programados.";
+            public const string Programado = "Existen procesos programados por ejecutar.";
+            public const string EnEjecucion = "El proceso de reserva está en ejecución.";
+            public const string Finalizado = "Los procesos programados han sido ejecutados.";
+            public const string FaltaEnvioCorreos = "El proceso de envío de correos está en ejecución.";
+            public const string Error = "Error en la ejecución de los procesos programados.";
+        }
+        public class ValAutoEjecucionResultado
+        {
+            public const string Inicio = "El proceso de PROL Automático ha iniciado.";
+            public const string YaExisteProceso = "El proceso de PROL Automático está en proceso.";
+        }
+        public class ValAutoDetalleEstadoDescripcion
+        {
+            public const string Programado = "Programado";
+            public const string EnEjecucion = "En ejecución";
+            public const string Finalizado = "Terminado";
+            public const string Error = "Error";
         }
     }
 }
