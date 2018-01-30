@@ -23,7 +23,8 @@ namespace Portal.Consultoras.Common
             {
                 Directory.CreateDirectory(path);
             }
-            
+
+            // Add headers if file don't exists
             if (!File.Exists(Path.Combine(path, fileName)))
             {
                 sw = new StreamWriter(Path.Combine(path, fileName), true, Encoding.UTF8);
@@ -55,7 +56,21 @@ namespace Portal.Consultoras.Common
             log.Exception = exception;
             log.StackTrace = stackTrace;
             log.LogDate = DateTime.Now;
-            
+
+            //var dbEntityException = string.Empty;
+            //if (ex.GetType() == typeof(DbEntityValidationException))
+            //{
+            //    var dbException = (DbEntityValidationException)ex;
+            //    foreach (var eve in dbException.EntityValidationErrors)
+            //    {
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            dbEntityException += string.Format("Property name: {0} - Message: {1}", ve.PropertyName, ve.ErrorMessage);
+            //        }
+            //    }
+            //    log.DBEntityException = dbEntityException;
+            //}
+
             return log;
         }
 

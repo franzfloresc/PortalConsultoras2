@@ -1,22 +1,22 @@
 ﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
-using Portal.Consultoras.Entities.Framework;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Portal.Consultoras.BizLogic.Cliente;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Service
 {
     public class ClienteService : IClienteService
     {
-        private readonly BLCliente BLCliente;
-        private readonly BLPedidoWeb BLPedidoWeb;
-        private readonly BLPedidoWebDetalle BLPedidoWebDetalle;
-        private readonly BLPedidoWebAnteriores BLPedidoWebAnteriores;
+        private BLCliente BLCliente;
+        private BLPedidoWeb BLPedidoWeb;
+        private BLPedidoWebDetalle BLPedidoWebDetalle;
+        private BLPedidoWebAnteriores BLPedidoWebAnteriores;
         private readonly INotasBusinessLogic _notasBusinessLogic;
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
         private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;

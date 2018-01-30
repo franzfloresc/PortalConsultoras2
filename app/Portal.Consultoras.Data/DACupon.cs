@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ListarCuponesPorCampania(int paisId, int campaniaId)
         {
+            try
+            {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponesPorCampania"))
                 {
                     Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
@@ -40,6 +42,8 @@ namespace Portal.Consultoras.Data
 
                     return Context.ExecuteReader(command);
                 }
+            }
+            catch (Exception ex) { throw ex; }
         }
     }
 }

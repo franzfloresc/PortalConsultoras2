@@ -1,18 +1,21 @@
-﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.ServiceContracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.ServiceContracts;
 
 namespace Portal.Consultoras.Service
 {
     public class ODSService : IODSService
     {
-        private readonly BLProducto BLProducto;
-        private readonly BLMensajeCUV BLMensajeCUV;
-        private readonly BLConsultora BLConsultora;
-        private readonly BLTipoMeta BLTipoMeta;
-        private readonly BLUbigeo BLUbigeo;
+        private BLProducto BLProducto;
+        private BLMensajeCUV BLMensajeCUV;
+        private BLConsultora BLConsultora;
+        private BLTipoMeta BLTipoMeta;
+        private BLUbigeo BLUbigeo;
 
         public ODSService()
         {
@@ -55,44 +58,44 @@ namespace Portal.Consultoras.Service
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
         {
-            var blConsultora = new BLConsultora();
-            return blConsultora.SelectConsultoraCodigo(paisID, regionID, zonaID, codigo, rowCount);
+            var BLConsultora = new BLConsultora();
+            return BLConsultora.SelectConsultoraCodigo(paisID, regionID, zonaID, codigo, rowCount);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo_A(int paisID, string codigo, int rowCount)
         {
-            var blConsultora = new BLConsultora();
-            return blConsultora.SelectConsultoraCodigo(paisID, codigo, rowCount);
+            var BLConsultora = new BLConsultora();
+            return BLConsultora.SelectConsultoraCodigo(paisID, codigo, rowCount);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraByCodigo(int paisID, string codigo)
         {
-            var blConsultora = new BLConsultora();
-            return blConsultora.SelectConsultoraCodigo(paisID, codigo);
+            var BLConsultora = new BLConsultora();
+            return BLConsultora.SelectConsultoraCodigo(paisID, codigo);
         }
 
         public IList<BEConsultora> SelectConsultoraByID(int paisID, Int64 ConsultoraID)
         {
-            var blConsultora = new BLConsultora();
-            return blConsultora.SelectConsultoraByID(paisID, ConsultoraID);
+            var BLConsultora = new BLConsultora();
+            return BLConsultora.SelectConsultoraByID(paisID, ConsultoraID);
         }
 
         public void LoadConsultoraCodigo(int paisID)
         {
-            var blConsultora = new BLConsultora();
-            blConsultora.LoadConsultoraCodigo(paisID);
+            var BLConsultora = new BLConsultora();
+            BLConsultora.LoadConsultoraCodigo(paisID);
         }
 
         public IList<BEComprobantePercepcion> SelectComprobantePercepcion(int paisID, long ConsultoraID)
         {
-            var blComprobantePercepcion = new BLComprobantePercepcion();
-            return blComprobantePercepcion.SelectComprobantePercepcion(paisID, ConsultoraID);
+            var BLComprobantePercepcion = new BLComprobantePercepcion();
+            return BLComprobantePercepcion.SelectComprobantePercepcion(paisID, ConsultoraID);
         }
 
         public IList<BEComprobantePercepcionDetalle> SelectComprobantePercepcionDetalle(int paisID, int IdComprobantePercepcion)
         {
-            var blComprobantePercepcion = new BLComprobantePercepcion();
-            return blComprobantePercepcion.SelectComprobantePercepcionDetalle(paisID, IdComprobantePercepcion);
+            var BLComprobantePercepcion = new BLComprobantePercepcion();
+            return BLComprobantePercepcion.SelectComprobantePercepcionDetalle(paisID, IdComprobantePercepcion);
         }
 
         public decimal GetSaldoActualConsultora(int paisID, string Codigo)
@@ -220,8 +223,8 @@ namespace Portal.Consultoras.Service
 
         public IList<BEProducto> GetValidarCUVMisPedidos(int PaisID, int Campania, string InputCUV, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona)
         {
-            var blMisPedidos = new BLConsultoraOnline();
-            return blMisPedidos.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
+            var BLMisPedidos = new BLConsultoraOnline();
+            return BLMisPedidos.GetValidarCUVMisPedidos(PaisID, Campania, InputCUV, RegionID, ZonaID, CodigoRegion, CodigoZona);
         }
 
         #endregion

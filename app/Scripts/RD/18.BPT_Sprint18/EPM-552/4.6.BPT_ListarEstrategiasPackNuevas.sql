@@ -1,4 +1,4 @@
-
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -79,3 +79,4 @@ SET NOCOUNT ON;
 SET NOCOUNT OFF
 END
 
+GO

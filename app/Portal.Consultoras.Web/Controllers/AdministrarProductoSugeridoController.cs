@@ -410,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
                 }
-
+                //listaEstrategias = listaEstrategias.Take(5).ToList();
                 var cuvNoGenerados = "";
                 var cuvNoExistentes = "";
 

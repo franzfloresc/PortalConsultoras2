@@ -26,7 +26,11 @@ namespace Portal.Consultoras.BizLogic
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
             BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
-                        
+            
+            //var tablaLogDatos = new BLTablaLogicaDatos();
+            //List<BETablaLogicaDatos> tablalogicaDatos = tablaLogDatos.GetTablaLogicaDatos(paisID, 56);
+            //String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
+            
             String emailOculto = string.Empty;
             if (consultoraSolicitudCliente != null)
             {
@@ -71,7 +75,7 @@ namespace Portal.Consultoras.BizLogic
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("<tr>");
                     mensajeCorreo.AppendLine("<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-
+                    //mensajeCorreo.AppendLine(String.Format("<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
                     mensajeCorreo.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
                     mensajeCorreo.AppendLine("</td>");
                     mensajeCorreo.AppendLine("</tr>");

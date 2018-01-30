@@ -12,6 +12,7 @@ namespace Portal.Consultoras.BizLogic
     {
         private static readonly string ALPHABET = "abcdefghijklmnopqrstuvwxyzáéíóúñ'";
         private static readonly string REGEXP = string.Format("[{0}]+", ALPHABET.Replace("'", "\\'"));
+        //private static readonly string REGEXP = "[a-záéíóúñ\\']+";
                 
         private void GetTokens(List<string> listTexto, Action<string> loadTokens)
         {
@@ -39,6 +40,8 @@ namespace Portal.Consultoras.BizLogic
 
             return true;
         }
+
+        //====================================================================================================
 
         public Dictionary<string,long> GetDictionaryPalabraConteo(string paisISO, int campaniaID)
         {

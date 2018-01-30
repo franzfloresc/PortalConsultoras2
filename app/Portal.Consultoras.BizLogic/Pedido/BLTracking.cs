@@ -291,11 +291,7 @@ namespace Portal.Consultoras.BizLogic
 
                     foreach (var itemDet in lstDetalle)
                     {
-                        itemDet.FechaFormatted = (itemDet.Fecha.HasValue 
-                            ? (itemDet.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
-                                ? itemDet.Fecha.Value.ToString("dd/MM/yyyy") 
-                                : itemDet.Fecha.Value.ToString())
-                            : string.Empty);
+                        itemDet.FechaFormatted = (itemDet.Fecha.HasValue ? (itemDet.Fecha.Value.TimeOfDay.TotalHours == 0 ? itemDet.Fecha.Value.ToString("dd/MM/yyyy") : itemDet.Fecha.Value.ToString()) : string.Empty);
 
                         switch (itemDet.FechaFormatted)
                         {
@@ -310,11 +306,7 @@ namespace Portal.Consultoras.BizLogic
                                 var novedad = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
                                 if (novedad != null)
                                 {
-                                    itemDet.FechaFormatted = (novedad.FechaNovedad.HasValue 
-                                        ? (novedad.FechaNovedad.Value.TimeOfDay.TotalHours.Equals(0)
-                                            ? novedad.FechaNovedad.Value.ToString("dd/MM/yyyy")
-                                            : novedad.FechaNovedad.Value.ToString()) 
-                                        : string.Empty);
+                                    itemDet.FechaFormatted = (novedad.FechaNovedad.HasValue ? (novedad.FechaNovedad.Value.TimeOfDay.TotalHours == 0 ? novedad.FechaNovedad.Value.ToString("dd/MM/yyyy") : novedad.FechaNovedad.Value.ToString()) : string.Empty);
                                     itemDet.Fecha = novedad.FechaNovedad.Value;
                                 }
                                 break;

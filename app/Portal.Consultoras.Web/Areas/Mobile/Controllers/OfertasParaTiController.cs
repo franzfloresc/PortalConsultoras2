@@ -119,7 +119,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
                 case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
                 case Enumeradores.PantallaOrigenPedidoWeb.General:
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 default:
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }

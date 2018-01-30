@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
                 TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
-                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
+                TieneSeccionRevista = revistaDigital.TieneRDC && !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
             };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);

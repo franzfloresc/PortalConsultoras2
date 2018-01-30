@@ -528,7 +528,7 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region OfertaDelDia 
-            // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
+            // no tulizan estas variables, todo estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
             public const int OfertaDelDiaDesktopHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
@@ -1146,6 +1146,13 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
+                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
+                //public const string DInformativoSuscrita = "DInformativoSuscrita";
+                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
+                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
+                //public const string MInformativoSuscrita = "MInformativoSuscrita";
+                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
+
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
 

@@ -9,7 +9,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLBanner
     {
-        private readonly DABanner DABanner;
+        private DABanner DABanner;
 
         public BLBanner()
         {

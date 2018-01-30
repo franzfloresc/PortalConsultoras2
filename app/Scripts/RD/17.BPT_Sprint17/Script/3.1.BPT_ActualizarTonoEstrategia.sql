@@ -1,4 +1,4 @@
-USE BelcorpPeru
+USE BelcorpPeru_BPT
 GO
 
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'ActualizarTonoEstrategias') AND type IN ( N'P', N'PC' ) ) 

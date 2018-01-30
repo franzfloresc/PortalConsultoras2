@@ -23,14 +23,10 @@ namespace Portal.Consultoras.Common
             {
                 ip = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
             }
-            
-            if (!string.IsNullOrWhiteSpace(ip))
+
+            if (!string.IsNullOrWhiteSpace(ip) && ip.IndexOf(":") > 0)
             {
-                var indOf = ip.IndexOf(":");
-                if (indOf > 0)
-                {
-                    ip = ip.Substring(0, ip.IndexOf(":") - 1);
-                }
+                ip = ip.Substring(0, ip.IndexOf(":") - 1);
             }
             return ip;
         }

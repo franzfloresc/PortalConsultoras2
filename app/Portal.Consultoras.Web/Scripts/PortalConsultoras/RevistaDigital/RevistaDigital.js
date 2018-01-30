@@ -319,9 +319,9 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     if (response.listaPerdio != undefined) {
-        var divPredio = $("#divOfertaProductosPerdio");
-        if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
+        if (response.listaPerdio.length > 0) {
             modeloTemp.lista = response.listaPerdio;
+            var divPredio = $("#divOfertaProductosPerdio");
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
         }

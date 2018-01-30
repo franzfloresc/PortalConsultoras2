@@ -68,7 +68,7 @@ BEGIN
 		PWD.ImporteTotal,
 		PWD.CUV,
 		PWD.EsKitNueva,
-		COALESCE(MC.Descripcion, OP.Descripcion, PD.Descripcion, PC.Descripcion) AS DescripcionProd, -- FALTA
+		COALESCE(MC.Descripcion, OP.Descripcion, PD.Descripcion, PC.Descripcion) AS DescripcionProd,
 		C.Nombre AS ClienteNombre,
 		PWD.OfertaWeb,
 		PC.IndicadorMontoMinimo,
@@ -79,7 +79,7 @@ BEGIN
 		M.Descripcion AS MarcaDescripcion,
 		'NO DISPONIBLE' AS Categoria, 
 		'' AS DescripcionEstrategia,
-		0 AS TipoEstrategiaID,
+		PWD.TipoEstrategiaID,
 		PC.IndicadorOferta AS IndicadorOfertaCUV, 
 		0 AS FlagConsultoraOnline,
 		PW.DescuentoProl,
@@ -120,34 +120,35 @@ BEGIN
 		DescripcionTipoEstrategia varchar(200),
 		TipoEstrategiaCodigo varchar(100),
 		CodigoPrograma varchar(3),
-		PRIMARY KEY (EstrategiaID)
+		PRIMARY KEY (CUV2)
 	)
 
 	INSERT INTO @Estrategia
 	SELECT DISTINCT
 		E.EstrategiaID,
-		E.TipoEstrategiaID,
+		COALESCE(TEP.TipoEstrategiaID, TE.TipoEstrategiaID),
 		E.Activo,
 		E.CampaniaID,
 		E.CampaniaIDFin,
 		E.CUV2,
 		E.Numeropedido,
-		E.DescripcionCUV2 AS DescripcionEstrategia,
+		E.DescripcionCUV2,
 		E.EsOfertaIndependiente,
-		TE.FlagNueva,
-		TE.NombreComercial AS DescripcionTipoEstrategia,
-		TE.Codigo AS TipoEstrategiaCodigo,
-		TE.CodigoPrograma
+		COALESCE(TEP.FlagNueva, TE.FlagNueva),
+		COALESCE(TEP.NombreComercial, TE.NombreComercial),
+		COALESCE(TEP.Codigo, TE.Codigo),
+		COALESCE(TEP.CodigoPrograma, TE.CodigoPrograma)
 	FROM dbo.Estrategia E WITH (NOLOCK)
 	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
 	INNER JOIN @PedidoDetalle PWD ON 
 		PWD.CampaniaID BETWEEN E.CampaniaID AND CASE WHEN E.CampaniaIDFin = 0 THEN E.CampaniaID ELSE E.CampaniaIDFin END
 		AND E.CUV2 = PWD.CUV
 		AND E.Activo = 1
+	LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID 
 	WHERE TE.FlagActivo = 1
 	UNION
 	SELECT EP.EstrategiaProductoId,
-		E.TipoEstrategiaID,
+		COALESCE(TEP.TipoEstrategiaID, TE.TipoEstrategiaID),
 		E.Activo,
 		E.CampaniaID,
 		E.CampaniaIDFin,
@@ -155,15 +156,16 @@ BEGIN
 		E.Numeropedido,
 		E.DescripcionCUV2 AS DescripcionEstrategia,
 		E.EsOfertaIndependiente,
-		TE.FlagNueva,
-		TE.NombreComercial AS DescripcionTipoEstrategia,
-		TE.Codigo AS TipoEstrategiaCodigo,
-		TE.CodigoPrograma
+		COALESCE(TEP.FlagNueva, TE.FlagNueva),
+		COALESCE(TEP.NombreComercial, TE.NombreComercial),
+		COALESCE(TEP.Codigo, TE.Codigo),
+		COALESCE(TEP.CodigoPrograma, TE.CodigoPrograma)
 	FROM dbo.EstrategiaProducto EP 
 	INNER JOIN dbo.Estrategia E WITH (NOLOCK) ON EP.EstrategiaID = E.EstrategiaID
 	INNER JOIN TipoEstrategia TE WITH (NOLOCK) ON TE.TipoEstrategiaID = E.TipoEstrategiaID 
 	INNER JOIN @PedidoDetalle PWD ON PWD.CampaniaID = EP.Campania
 		AND EP.CUV = PWD.CUV  and EP.CUV2 != PWD.CUV
+	LEFT JOIN TipoEstrategia TEP WITH (NOLOCK) ON TEP.TipoEstrategiaID = PWD.TipoEstrategiaID 
 	WHERE TE.FlagActivo = 1 
 
 	IF @CodigoPrograma IS NOT NULL
@@ -171,9 +173,7 @@ BEGIN
 		DELETE FROM @Estrategia 
 		WHERE 
 			isnull(CodigoPrograma,'') <> '' 
-			AND
-			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
-			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
+			AND Numeropedido <> @NumeroPedido
 	END
 
 	SELECT 
@@ -196,14 +196,8 @@ BEGIN
 		ISNULL(PWD.ConfiguracionOfertaID, 0) ConfiguracionOfertaID,
 		ISNULL(PWD.TipoOfertaSisID,0) TipoOfertaSisID,
 		ISNULL(PWD.TipoPedido, 'W') TipoPedido,
-		EST.DescripcionTipoEstrategia AS DescripcionOferta,
 		PWD.MarcaDescripcion AS DescripcionLarga,
 		'NO DISPONIBLE' AS Categoria, 
-		EST.DescripcionTipoEstrategia AS DescripcionEstrategia,
-		CASE 
-			WHEN EST.FlagNueva = 1 AND @CodigoPrograma IS NOT NULL THEN 1
-			ELSE 0 
-		END AS FlagNueva, 
 		PWD.IndicadorOfertaCUV, 
 		PWD.FlagConsultoraOnline,
 		PWD.DescuentoProl,
@@ -214,13 +208,20 @@ BEGIN
 		PWD.EsBackOrder,
 		PWD.AceptoBackOrder,
 		PWD.CodigoCatalago,
+
+		EST.DescripcionTipoEstrategia AS DescripcionOferta,
+		EST.DescripcionTipoEstrategia AS DescripcionEstrategia,
+		CASE 
+			WHEN EST.FlagNueva = 1 AND @CodigoPrograma IS NOT NULL THEN 1
+			ELSE 0 
+		END AS FlagNueva, 
 		EST.TipoEstrategiaCodigo,
 		EST.EsOfertaIndependiente,
 		EST.EstrategiaID,
 		EST.TipoEstrategiaID,
 		EST.Numeropedido
 	FROM @PedidoDetalle PWD
-	LEFT JOIN @Estrategia EST ON EST.CUV2 = PWD.CUV
+		LEFT JOIN @Estrategia EST ON EST.CUV2 = PWD.CUV
 	ORDER BY PWD.OrdenPedidoWD DESC, PWD.PedidoDetalleID DESC
 END
 GO

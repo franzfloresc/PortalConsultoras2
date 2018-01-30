@@ -91,28 +91,27 @@ namespace Portal.Consultoras.Common
         {
             try
             {
-                if (fileName == "")
-                    return true;
-
-                if (File.Exists(path))
+                if (fileName != "")
                 {
-                    var inputStream = new FileStream(path, FileMode.Open);
-                    using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
+                    if (File.Exists(path))
                     {
-                        var request = new PutObjectRequest
+                        var inputStream = new FileStream(path, FileMode.Open);
+                        using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
                         {
-                            BucketName = ConfigS3.BUCKET_NAME,
-                            Key = ConfigS3.ROOT_DIRECTORY + "/" + 
-                                    ((carpetaPais != "") ? carpetaPais + "/" : "") +
-                                    fileName,
-                            InputStream = inputStream
-                        };
-                        if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
-                        client.PutObject(request);
+                            var request = new PutObjectRequest
+                            {
+                                BucketName = ConfigS3.BUCKET_NAME,
+                                Key = ConfigS3.ROOT_DIRECTORY + "/" + 
+                                      ((carpetaPais != "") ? carpetaPais + "/" : "") +
+                                      fileName,
+                                InputStream = inputStream
+                            };
+                            if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
+                            client.PutObject(request);
+                        }
+                        if (EliminarArchivo) File.Delete(path);
                     }
-                    if (EliminarArchivo) File.Delete(path);
                 }
-                
                 return true;
             }
             catch

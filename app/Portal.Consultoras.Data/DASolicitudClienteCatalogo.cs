@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Data
         public int InsSolicitudClienteCatalogo(string codigoConsultora, string asuntoNotificacion, string detalleNotificacion, string campania, string correoCliente, string nombreCliente, DateTime fechaRegistro, string telefono, string direccionCliente, bool parametroEsDocumento)
         {
             int result = -1;
+            try
+            {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsSolicitudClienteCatalogo"))
                 {
                     Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
@@ -30,6 +32,8 @@ namespace Portal.Consultoras.Data
 
                     result = Int32.Parse(Context.ExecuteScalar(command).ToString());
                 }
+            }
+            catch (Exception) { }
             return result;
         }
 

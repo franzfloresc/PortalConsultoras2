@@ -1,18 +1,20 @@
 ﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.BizLogic.Mobile;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Mobile;
+using System;
+using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {
     public class SeguridadService : ISeguridadService
     {
-        private readonly BLRol BLRol;
-        private readonly BLPermiso BLPermiso;
-        private readonly BLMenuMobile BLMenuMobile;
-        private readonly BLApp _blApp;
+        private BLRol BLRol;
+        private BLPermiso BLPermiso;
+        private BLMenuMobile BLMenuMobile;
+        private BLApp _blApp;
 
         public SeguridadService()
         {

@@ -9,7 +9,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLFormularioDato
     {
-        private readonly DAFormularioDato DAFormularioDato;
+        private DAFormularioDato DAFormularioDato;
 
         public BLFormularioDato()
         {

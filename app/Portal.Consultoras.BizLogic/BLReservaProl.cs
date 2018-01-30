@@ -276,7 +276,7 @@ namespace Portal.Consultoras.BizLogic
                 else resultado = GetObservacionesPROL(input, listPedidoWebDetalle);
                 resultado.PedidoID = input.PedidoID;
 
-                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
+                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado, listPedidoWebDetalle);
                 if (input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return resultado;
             }
@@ -668,7 +668,7 @@ namespace Portal.Consultoras.BizLogic
             return montoEnviar;
         }
 
-        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
+        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             if (!resultado.Reserva || resultado.Informativas || input.Email.IsNullOrEmptyTrim()) return false;
             try
@@ -759,9 +759,12 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
-                if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
+                if (input.EstadoSimplificacionCUV)
                 {
-                    indicadorOfertaCuv = true;
+                    if (pedidoDetalle.IndicadorOfertaCUV)
+                    {
+                        indicadorOfertaCuv = true;
+                    }
                 }
                 mailBody.Append("</table>");
             }

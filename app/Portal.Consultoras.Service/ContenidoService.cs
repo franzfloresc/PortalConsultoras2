@@ -1,19 +1,23 @@
-﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.ServiceContracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
+using System.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
     public class ContenidoService : IContenidoService
     {
-        private readonly BLNavidadConsultora _BLNavidadConsultora;
-        private readonly BLItemCarruselInicio _BLItemCarruselInicio;
-        private readonly BLMailing _BLMailing;
+        private BLNavidadConsultora _BLNavidadConsultora;
+        private BLItemCarruselInicio _BLItemCarruselInicio;
 
+        private BLMailing _BLMailing;
 		public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();

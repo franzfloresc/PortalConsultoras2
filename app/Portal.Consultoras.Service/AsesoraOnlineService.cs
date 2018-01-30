@@ -1,7 +1,7 @@
-﻿using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.ServiceContracts;
 using Portal.Consultoras.Entities.AsesoraOnline;
-using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Service
 {
