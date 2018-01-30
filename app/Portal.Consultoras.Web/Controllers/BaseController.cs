@@ -431,33 +431,35 @@ namespace Portal.Consultoras.Web.Controllers
             resul = false;
             try
             {
-                if (userData.TieneValidacionMontoMaximo)
+                if (!userData.TieneValidacionMontoMaximo)
+                    return mensaje;
+
+                if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00))
+                    return mensaje;
+
+               
+                var listaProducto = ObtenerPedidoWebDetalle();
+
+                var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
+                var dTotalPedido = Convert.ToDecimal(totalPedido);
+                decimal descuentoProl = 0;
+
+                if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
                 {
-                    if (userData.MontoMaximo != Convert.ToDecimal(9999999999.00))
-                    {
-                        var listaProducto = ObtenerPedidoWebDetalle();
-
-                        var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
-                        var dTotalPedido = Convert.ToDecimal(totalPedido);
-                        decimal descuentoProl = 0;
-
-                        if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
-                        {
-                            resul = true;
-                        }
-
-                        if (listaProducto.Any())
-                            descuentoProl = listaProducto[0].DescuentoProl;
-
-                        var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
-                        if (montoActual > userData.MontoMaximo)
-                        {
-                            var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
-                            mensaje += "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString();
-                            mensaje += ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
-                        }
-                    }
+                    resul = true;
                 }
+
+                if (listaProducto.Any())
+                    descuentoProl = listaProducto[0].DescuentoProl;
+
+                var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
+                if (montoActual > userData.MontoMaximo)
+                {
+                    var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
+                    mensaje = "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString()
+                            + ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
+                }
+                
             }
             catch (Exception ex)
             {
@@ -1315,7 +1317,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Precio2 = fichaProducto.Precio2,
                     PrecioTachado = fichaProducto.PrecioTachado,
                     PrecioVenta = fichaProducto.PrecioString,
-                    //prodModel.ClaseBloqueada = (fichaProducto.CampaniaID > 0 && fichaProducto.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";
+
                     ProductoPerdio = false,
                     TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
                     FlagNueva = fichaProducto.FlagNueva,
@@ -3892,25 +3894,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return "";
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
-
-            #region LOG CASO NULL
-            //if (keyvalor == null)
-            //{
-            //    // Validar si el key es dinamico no generar log, ejem KEY = Name_PAis_Campania
-            //    var sinLog = key.StartsWith(Constantes.ConfiguracionManager.DES_UBIGEO)
-            //        || key.StartsWith(Constantes.ConfiguracionManager.FechaChat)
-            //        || key.StartsWith(Constantes.ConfiguracionManager.TokenAtento)
-            //        || key.StartsWith(Constantes.ConfiguracionManager.RevistaPiloto_Zonas)
-            //        || key.StartsWith(Constantes.ConfiguracionManager.Contrato_ActualizarDatos)
-            //        || key.StartsWith(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_);
-            //    if (!sinLog)
-            //        LogManager.LogManager.LogErrorWebServicesBus(new Exception(), 
-            //            userData.CodigoConsultora, 
-            //            userData.CodigoISO, 
-            //            "BaseController.GetConfiguracionManager el key " + key + " no existe");
-            //}
-            #endregion
-
+            
             return Util.Trim(keyvalor);
         }
 
@@ -4243,7 +4227,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
             ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
-            ViewBag.EsMobile = 1;//EPD-1780
+            ViewBag.EsMobile = 1;
 
             ViewBag.FotoPerfil = userData.FotoPerfil;
 

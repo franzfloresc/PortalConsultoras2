@@ -647,7 +647,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
             mensaje.AppendLine("<td colspan=\"7\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>");
+
             mensaje.AppendLine("</td>");
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
@@ -780,7 +780,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
             mensaje.AppendLine("<td colspan=\"6\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>    ");
+
             mensaje.AppendLine("</td>");
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
