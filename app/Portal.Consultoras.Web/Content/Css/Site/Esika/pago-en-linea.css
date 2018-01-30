@@ -901,6 +901,11 @@
     margin-bottom:16px;
 }
 
+.num_operacion,
+.total_monto_pagado{
+    font-size:13px;
+}
+
 .pago_exitoso .col_der,
 .titulo_resumen_pago_exitoso,
 .num_operacion,
