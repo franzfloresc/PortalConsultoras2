@@ -1019,12 +1019,11 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(user.CodigoISO, id);
             }
 
-            var belcorpResponde = new BelcorpRespondeBE();
-
-            using (var osv = new BelcorpPaisServiceClient())
-            {
-                belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
-            }
+            //var belcorpResponde = new BelcorpRespondeBE();
+            //using (var osv = new BelcorpPaisServiceClient())
+            //{
+            //    belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
+            //}
 
             solicitudPostulante.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPais(user.CodigoISO,
                 solicitudPostulante.NumeroDocumento);

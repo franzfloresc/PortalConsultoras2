@@ -3543,7 +3543,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
-                    if (!BuilTituloBannerRD(ref config))
+                    var valBool = BuilTituloBannerRD(ref config);
+                    if (!valBool)
                         continue;
                 }
                 SepararPipe(ref config);
