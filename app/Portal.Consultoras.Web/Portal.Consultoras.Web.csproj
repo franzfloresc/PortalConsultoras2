@@ -1310,6 +1310,7 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\icono-mailing-pago-exitoso.png" />
     <Content Include="Content\Images\Esika\loading_circle.gif" />
     <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
     <Content Include="Content\Images\Esika\icono-pago-desactivado.svg" />
@@ -1323,6 +1324,7 @@
     <Content Include="Content\Images\Esika\precarga-pago-en-linea.svg" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
+    <Content Include="Content\Images\icono-celebracion-pago-exitoso.png" />
     <Content Include="Content\Images\icono-pago-seguro.svg" />
     <Content Include="Content\Images\icono-paso-completado.svg" />
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
@@ -3300,6 +3302,9 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
+    <Content Include="Content\Template\mailing_pago_en_linea_notificacion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Template\mailing_mensaje_express.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

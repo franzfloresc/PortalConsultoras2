@@ -44,11 +44,15 @@
 .contenedor_cta,
 .redireccion_proveedor_de_pago,
 .titulo_pago_exitoso,
+.titulo_pago_rechazado,
 .resumen_pago_exitoso,
 .titulo_resumen_pago_exitoso,
 .resumen_pago,
 .resumen_pago > div,
-.num_operacion
+.num_operacion,
+.pago_exitoso,
+.pago_rechazado,
+.mensaje_pago_rechazado
 {
     display:block;
 }
@@ -82,6 +86,7 @@
 .monto_saldo_pendiente > div,
 .fecha_vencimiento_saldo_pendiente > div,
 .titulo_pago_exitoso span:last-child,
+.titulo_pago_rechazado span:last-child,
 .icono_pago_exitoso,
 .icono_pago_rechazado,
 .enlace_ir_a_notificaciones
@@ -720,11 +725,30 @@
 
 }
 
-.titulo_pago_exitoso{
+.titulo_pago_exitoso,
+.titulo_pago_rechazado
+{
     margin-top:19px;
-    margin-bottom:26px;
     padding-bottom:13px;
     border-bottom:1px solid #B5B5B5;
+}
+
+.titulo_pago_exitoso{
+    margin-bottom:30px;
+}
+
+.titulo_pago_rechazado{
+    margin-bottom:17px;
+}
+
+.titulo_pago_exitoso span:last-child,
+.titulo_pago_rechazado span:last-child
+{
+    font-family:'Lato';
+    font-size:17px;
+    font-weight:bold!important;
+    color:#000;
+    text-transform:uppercase;
 }
 
 .icono_pago_exitoso,
@@ -745,24 +769,24 @@
 .icono_pago_rechazado:before
 {
     color:#e81c36;
+    font-weight: bold;
+    z-index: 1;
 }
 
 .icono_pago_exitoso:before{
     content: '\e90e';
     font-size: 11px;
-    font-weight: bold;
     position: absolute;
-    top: 4px;
+    top: 4.5px;
     left: 3px;
-    z-index: 1;
 }
 
-.titulo_pago_exitoso span:last-child{
-    font-family:'Lato';
-    font-size:17px;
-    font-weight:bold!important;
-    color:#000;
-    text-transform:uppercase;
+.icono_pago_rechazado:before{
+    content: '\e913';
+    font-size: 17px;
+    position: relative;
+    top: -5px;
+    left: 0.3px;
 }
 
 .pago_exitoso .col_izq,
@@ -805,7 +829,8 @@
 .mensaje_felicitacion_por_pago_exitoso,
 .info_saldo_pendiente,
 .info_constancia_pago_exitoso,
-.info_horarios_efectivos_pagos
+.info_horarios_efectivos_pagos,
+.mensaje_pago_rechazado
 {
     font-size: 12.5px;
     letter-spacing: 0.4px;
@@ -876,6 +901,11 @@
     margin-bottom:16px;
 }
 
+.num_operacion,
+.total_monto_pagado{
+    font-size:13px;
+}
+
 .pago_exitoso .col_der,
 .titulo_resumen_pago_exitoso,
 .num_operacion,
@@ -916,7 +946,6 @@
     margin-bottom:11px;
     font-weight:900;
 }
-
 
 .monto_saldo_pendiente div:last-child{
     margin-bottom:-1.15px;
