@@ -1260,7 +1260,7 @@ namespace Portal.Consultoras.Service
 
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
-            new BLConsultoraDigitales().GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+            BLConsultoraDigitales.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
         }
 
         public BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
