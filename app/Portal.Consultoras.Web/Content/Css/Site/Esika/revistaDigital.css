@@ -1817,7 +1817,7 @@
             padding-top: 0;
             padding-bottom: 0;
             line-height: 46px;
-            padding:1;
+            padding: 1;
         }
 
     .content_tabs_bpt hr {
@@ -3126,40 +3126,45 @@
     }
 
     .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {
-            width: 50%;
-            float: left;
-            padding: 0 15px;
-        }
-        .como-funciona .caja-club-izquierda img{
-            width:288px;     
+        width: 50%;
+        float: left;
+        padding: 0 15px;
+    }
+
+        .como-funciona .caja-club-izquierda img {
+            width: 288px;
             float: right;
         }
-            .como-funciona .caja-club-derecha p {
-                font-weight: bold;
-                font-size: 13px;
-                letter-spacing: 0.5px;
-                display: block;
-                text-align: left;
-                margin-bottom: 5px;
+
+        .como-funciona .caja-club-derecha p {
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        .como-funciona .caja-club-derecha span {
+            display: block;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-align: left;
+            color: #909090;
+        }
+
+            .como-funciona .caja-club-derecha span b {
+                color: black;
             }
-            .como-funciona .caja-club-derecha span {
-                display: block;
-                font-size: 13px;
-                letter-spacing: 0.5px;
-                text-align: left;
-                color: #909090;
-            }
-            .como-funciona .caja-club-derecha span b{
-                color:black;
-            }
-            .como-funciona .caja-club-derecha hr {
-                background: #e81c36;
-                margin-top: 15px;
-                margin-bottom: 15px;
-                border: none;
-                height: 1px;
-                width: 138px;
-            }
+
+        .como-funciona .caja-club-derecha hr {
+            background: #e81c36;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border: none;
+            height: 1px;
+            width: 138px;
+        }
 
 .suscribete {
 }
@@ -3328,31 +3333,36 @@
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
 }
-.popup_confirmacion_datos .contenido-table-datos{
-display:table;
-height:432px;
-width: 100%;
+
+.popup_confirmacion_datos .contenido-table-datos {
+    display: table;
+    height: 432px;
+    width: 100%;
 }
-.popup_confirmacion_datos .contenido-table-datos .cont-datos{
-vertical-align:middle;
-display:table-cell;
-}
+
+    .popup_confirmacion_datos .contenido-table-datos .cont-datos {
+        vertical-align: middle;
+        display: table-cell;
+    }
+
 .popup_confirmacion_datos {
-background: white;
-padding: 0px 40px;
-max-width: 432px;
-max-height:432px;
-top:57%;
+    background: white;
+    padding: 0px 40px;
+    max-width: 432px;
+    max-height: 432px;
+    top: 57%;
 }
-.popup_confirmacion_datos p.felicidades {
-display: block;
-font-size: 13px;
-font-weight: bolder;
-margin-bottom: 0;
-letter-spacing: 1px;
-text-align:center;
-}
-.popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+
+    .popup_confirmacion_datos p.felicidades {
+        display: block;
+        font-size: 13px;
+        font-weight: bolder;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
         background: url('/Content/Images/Esika/loading_circle.gif');
         width: 50px;
         height: 50px;
@@ -3362,93 +3372,94 @@ text-align:center;
         background-repeat: no-repeat;
         background-position: center;
     }
-.popup_confirmacion_datos p.estasganando {
-display: block;
-text-align: center;
-font-size: 28px;
-font-weight: bolder;
-letter-spacing: 1px;
-color: #e81c36;
-margin-bottom: 20px;
-}
 
-.popup_confirmacion_datos span.confirmanos {
-display: block;
-text-align: center;
-letter-spacing: 0.5px;
-font-size: 13px;
-margin-bottom: 20px;
-line-height: 16px;
-}
+    .popup_confirmacion_datos p.estasganando {
+        display: block;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        color: #e81c36;
+        margin-bottom: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos button {
-background: #e0e0e0;
-letter-spacing: 1px;
-color: white;
-border: none;
-font-size: 17px;
-text-align: center;
-display: block;
-font-weight: bolder;
-width: 100%;
-/* padding: 15px 50px; */
-/* margin-top: 5px; */
-/* margin-bottom: 20px; */
-width: 280px;
-margin: auto;
-height: 50px;
-margin-bottom: 20px;
-margin-top: 20px;
-}
+    .popup_confirmacion_datos span.confirmanos {
+        display: block;
+        text-align: center;
+        letter-spacing: 0.5px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 16px;
+    }
 
-.popup_confirmacion_datos .form-datos {
-margin-bottom: opx;
-}
-.popup_confirmacion_datos .form-datos .input {
-margin-bottom: 15px;
-}
-.popup_confirmacion_datos .form-datos .input:last-child{
-margin-bottom:0;
-}
-.popup_confirmacion_datos .form-datos .input img {
-display: inline;
-position: absolute;
-padding: 0px 10px;
-/* width: 20px; */
-margin-top: 14px;
-/* width: 20px; */
-}
-.popup_confirmacion_datos .form-datos .input img.phone {
-margin-top: 10px;
-margin-left: 4px;
-}
-.popup_confirmacion_datos .form-datos .input img.info {
-display: block;
-padding: 0px;
-margin-top: 4px;
-border: none;
-background: none;
-width: 20px;
-height: 20px;
-}
-.popup_confirmacion_datos .form-datos .input input {
-display: inline;
-padding: 12px 40px;
-width: 100%;
-border: 1px solid #e0e0e0;
-height: 40px;
-}
+    .popup_confirmacion_datos .form-datos button {
+        background: #e0e0e0;
+        letter-spacing: 1px;
+        color: white;
+        border: none;
+        font-size: 17px;
+        text-align: center;
+        display: block;
+        font-weight: bolder;
+        width: 100%;
+        width: 280px;
+        margin: auto;
+        height: 50px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos .input span {
-text-align: left;
-display: block;
-/* padding: 12pt 27px; */
-width: 100%;
-padding-left: 30px;
-color: #808080;
-line-height: 13px;
-font-size: 11px;
-} 
+    .popup_confirmacion_datos .form-datos {
+        margin-bottom: opx;
+    }
+
+        .popup_confirmacion_datos .form-datos .input {
+            margin-bottom: 15px;
+        }
+
+            .popup_confirmacion_datos .form-datos .input:last-child {
+                margin-bottom: 0;
+            }
+
+            .popup_confirmacion_datos .form-datos .input img {
+                display: inline;
+                position: absolute;
+                padding: 0px 10px;
+                margin-top: 14px;
+            }
+
+                .popup_confirmacion_datos .form-datos .input img.phone {
+                    margin-top: 10px;
+                    margin-left: 4px;
+                }
+
+                .popup_confirmacion_datos .form-datos .input img.info {
+                    display: block;
+                    padding: 0px;
+                    margin-top: 4px;
+                    border: none;
+                    background: none;
+                    width: 20px;
+                    height: 20px;
+                }
+
+            .popup_confirmacion_datos .form-datos .input input {
+                display: inline;
+                padding: 12px 40px;
+                width: 100%;
+                border: 1px solid #e0e0e0;
+                height: 40px;
+            }
+
+            .popup_confirmacion_datos .form-datos .input span {
+                text-align: left;
+                display: block;
+                width: 100%;
+                padding-left: 30px;
+                color: #808080;
+                line-height: 13px;
+                font-size: 11px;
+            }
 /* FIN CONFIRMACIÓN DE DATOS */
 
 /* DESPEGABLE LATERAL GND */
@@ -3458,83 +3469,86 @@ font-size: 11px;
     display: table;
     height: 100vh;
     top: 6px;
+}
+
+    .desplegablegnd .gndcontenido {
+        display: table-cell;
+        vertical-align: middle;
     }
-  .desplegablegnd .gndcontenido{
-  	display: table-cell;
-  	vertical-align: middle;
-  }
-  .desplegablegnd .gndcontenido .gnd{
-  	background: white;
-  	box-shadow: 0px 1px 20px 1px #00000021;
-  }
-  .desplegablegnd .gndcontenido .gnd span.gndcerrar{
-  	background: black;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-    display: block;
-    cursor: pointer;
-    text-align: center;
-    color: white;
-    font-size: 11px;
-    height: 235px;
-    letter-spacing: 2px;
-    padding: 10px 5px;
-    float: left;
-  }
-  .desplegablegnd #imgPortadaRevista{
-      
-  }
-  .desplegablegnd .gndcontenido .gnd .gndbloque{
-  	height: 235px;
-    background: white;
-    float: left;
-    width: 120px;
-    border: 1px solid #0000001f;
-    border-left: 0;
-  }
-  .desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd{
-  	  writing-mode: horizontal-tb;
-    transform: rotate(90deg);
-    display: inline-block;
-    margin-top: 10px;
-    width: 12px;
-    /* position: relative; */
-    height: 12px;
 
-  }
-  .desplegablegnd .gndcontenido .gnd .gndbloque img{
-  	width: 100%;
-    display: block;
-    margin: auto;
-    padding: 15px 10px 5px;
-    overflow: hidden;
-    height: 110px;
-  }
-  .desplegablegnd .gndcontenido .gnd .gndbloque p{
-  	display: block;
-    text-align: center;
-    padding: 10px 5px 5px 10px;
-    font-size: 11px;
-    margin-bottom: 5px;
-    letter-spacing: .5px;
+        .desplegablegnd .gndcontenido .gnd {
+            background: white;
+            box-shadow: 0px 1px 20px 1px #00000021;
+        }
 
-  }
-  .desplegablegnd .gndcontenido .gnd .gndbloque a{
-  	color: black;
-    text-align: center;
-    display: block;
-    border: 1px solid black;
-    padding: 5px 10px;
-    width: 80%;
-    margin: auto;
-    font-size: 9px;
-    margin-bottom: 15px;
-    transition: .3s;
-    letter-spacing: 1px;
-  }
-  .desplegablegnd .gndcontenido .gnd .gndbloque a:hover{
-  	background: black;
-  	color:white;
-  	text-decoration: none;
-  }
+            .desplegablegnd .gndcontenido .gnd span.gndcerrar {
+                background: black;
+                writing-mode: vertical-lr;
+                transform: rotate(180deg);
+                display: block;
+                cursor: pointer;
+                text-align: center;
+                color: white;
+                font-size: 11px;
+                height: 235px;
+                letter-spacing: 2px;
+                padding: 10px 5px;
+                float: left;
+            }
+
+    .desplegablegnd .gndcontenido .gnd .gndbloque {
+        height: 235px;
+        background: white;
+        float: left;
+        width: 120px;
+        border: 1px solid #0000001f;
+        border-left: 0;
+    }
+
+    .desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd {
+        writing-mode: horizontal-tb;
+        transform: rotate(90deg);
+        display: inline-block;
+        margin-top: 10px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .desplegablegnd .gndcontenido .gnd .gndbloque img {
+        width: 100%;
+        display: block;
+        margin: auto;
+        padding: 15px 10px 5px;
+        overflow: hidden;
+        height: 110px;
+    }
+
+    .desplegablegnd .gndcontenido .gnd .gndbloque p {
+        display: block;
+        text-align: center;
+        padding: 10px 5px 5px 10px;
+        font-size: 11px;
+        margin-bottom: 5px;
+        letter-spacing: .5px;
+    }
+
+    .desplegablegnd .gndcontenido .gnd .gndbloque a {
+        color: black;
+        text-align: center;
+        display: block;
+        border: 1px solid black;
+        padding: 5px 10px;
+        width: 80%;
+        margin: auto;
+        font-size: 9px;
+        margin-bottom: 15px;
+        transition: .3s;
+        letter-spacing: 1px;
+    }
+
+        .desplegablegnd .gndcontenido .gnd .gndbloque a:hover {
+            background: black;
+            color: white;
+            text-decoration: none;
+        }
 /* FIN DEPEGABLE */

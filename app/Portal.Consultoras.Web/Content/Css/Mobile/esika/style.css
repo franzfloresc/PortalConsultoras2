@@ -6404,36 +6404,40 @@ body {
     .content_revistas_mobile img {
         width: 100%;
     }
+
 .contrevista p {
-font-size: 13px;
-font-weight: normal;
-font-style: normal;
-font-stretch: normal;
-line-height: normal;
-letter-spacing: 0.3px;
-display: block;
-text-align: center;
-width: 200px;
-margin: auto;
-margin-top: -30px;
-margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+    margin-top: -30px;
+    margin-bottom: 15px;
 }
+
 .contrevista a {
-width: 200px;
-/* height: 30px; */
-padding: 8px;
-margin: auto;
-display: block;
-border: solid 1px #000000;
-transition: .3s;
-margin-bottom: 30px;
-text-align: center;
-transition: .3s;
+    width: 200px;
+    /* height: 30px; */
+    padding: 8px;
+    margin: auto;
+    display: block;
+    border: solid 1px #000000;
+    transition: .3s;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: .3s;
 }
-.contrevista a:hover{
-background:black;
-color:white;
-}
+
+    .contrevista a:hover {
+        background: black;
+        color: white;
+    }
+
 .previous_revistas_mobile, .next_revistas_mobile {
     width: 14px;
     height: 34px;
@@ -14126,33 +14130,39 @@ a {
 
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
-background: #e81c36 !important;
+    background: #e81c36 !important;
 }
-.popup_confirmacion_datos .estructura_confirmar_datos{
-box-shadow: none !important;
-background: white;
+
+.popup_confirmacion_datos .estructura_confirmar_datos {
+    box-shadow: none !important;
+    background: white;
 }
-.popup_confirmacion_datos .contenido-table-datos{
-display:table;
-height:432px;
-width: 100%;
+
+.popup_confirmacion_datos .contenido-table-datos {
+    display: table;
+    height: 432px;
+    width: 100%;
 }
-.popup_confirmacion_datos .contenido-table-datos .cont-datos{
-vertical-align:middle;
-display:table-cell;
-}
+
+    .popup_confirmacion_datos .contenido-table-datos .cont-datos {
+        vertical-align: middle;
+        display: table-cell;
+    }
+
 .popup_confirmacion_datos {
-padding: 0px 40px;
+    padding: 0px 40px;
 }
-.popup_confirmacion_datos p.felicidades {
-display: block;
-font-size: 17px;
-font-weight: bolder;
-margin-bottom: 0;
-letter-spacing: 1px;
-text-align: center;
-color: black;
-}
+
+    .popup_confirmacion_datos p.felicidades {
+        display: block;
+        font-size: 17px;
+        font-weight: bolder;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+        text-align: center;
+        color: black;
+    }
+
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
         background: url(../../../Images/Esika/loading_circle.gif);
         height: 50px;
@@ -14163,112 +14173,123 @@ color: black;
         background-repeat: no-repeat;
         background-position: center;
     }
-.popup_confirmacion_datos p.estasganando {
-display: block;
-text-align: center;
-font-size: 17px;
-font-weight: bolder;
-letter-spacing: 1px;
-color: #e81c36;
-margin-bottom: 20px;
-}
 
-.popup_confirmacion_datos span.confirmanos {
-display: block;
-text-align: center;
-letter-spacing: 0.5px;
-font-size: 11px;
-margin-bottom: 15px;
-line-height: 13px;
-color: black;
-text-transform: initial;
-}
+    .popup_confirmacion_datos p.estasganando {
+        display: block;
+        text-align: center;
+        font-size: 17px;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        color: #e81c36;
+        margin-bottom: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos button {
-background: #e0e0e0;
-letter-spacing: 1px;
-color: white;
-border: none;
-font-size: 13px;
-text-align: center;
-display: block;
-font-weight: bolder;
-width: 100%;
-/* padding: 15px 50px; */
-/* margin-top: 5px; */
-/* margin-bottom: 20px; */
-width: 240px;
-margin: auto;
-height: 45px;
-margin-bottom: 20px;
-margin-top: 20px;
-}
+    .popup_confirmacion_datos span.confirmanos {
+        display: block;
+        text-align: center;
+        letter-spacing: 0.5px;
+        font-size: 11px;
+        margin-bottom: 15px;
+        line-height: 13px;
+        color: black;
+        text-transform: initial;
+    }
 
-.popup_confirmacion_datos .form-datos {
-margin-bottom: opx;
-}
-.popup_confirmacion_datos .form-datos .input {
-margin-bottom: 15px;
-}
-.popup_confirmacion_datos .form-datos .input:last-child{
-margin-bottom:0;
-}
-.popup_confirmacion_datos .form-datos .input img {
-display: inline;
-position: absolute;
-padding: 0px 10px;
-/* width: 20px; */
-margin-top: 14px;
-/* width: 20px; */
-}
-.popup_confirmacion_datos .form-datos .input img.phone {
-margin-top: 10px;
-margin-left: 4px;
-}
-.popup_confirmacion_datos .form-datos .input img.info {
-display: block;
-padding: 0px;
-margin-top: 4px;
-border: none;
-background: none;
-width: 20px;
-height: 20px;
-}
-.popup_confirmacion_datos .form-datos .input input {
-display: inline;
-padding: 12px 40px;
-width: 100%;
-border: 1px solid #e0e0e0;
-height: 40px;
-color: black;
-letter-spacing: 0.5px;
-}
+    .popup_confirmacion_datos .form-datos button {
+        background: #e0e0e0;
+        letter-spacing: 1px;
+        color: white;
+        border: none;
+        font-size: 13px;
+        text-align: center;
+        display: block;
+        font-weight: bolder;
+        width: 100%;
+        /* padding: 15px 50px; */
+        /* margin-top: 5px; */
+        /* margin-bottom: 20px; */
+        width: 240px;
+        margin: auto;
+        height: 45px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos .input span {
-text-align: left;
-display: block;
-/* padding: 12pt 27px; */
-width: 100%;
-padding-left: 30px;
-color: #808080;
-line-height: 13px;
-font-size: 11px;
-text-transform: initial;
-letter-spacing: 0.5px;
-}
+    .popup_confirmacion_datos .form-datos {
+        margin-bottom: opx;
+    }
+
+        .popup_confirmacion_datos .form-datos .input {
+            margin-bottom: 15px;
+        }
+
+            .popup_confirmacion_datos .form-datos .input:last-child {
+                margin-bottom: 0;
+            }
+
+            .popup_confirmacion_datos .form-datos .input img {
+                display: inline;
+                position: absolute;
+                padding: 0px 10px;
+                /* width: 20px; */
+                margin-top: 14px;
+                /* width: 20px; */
+            }
+
+                .popup_confirmacion_datos .form-datos .input img.phone {
+                    margin-top: 10px;
+                    margin-left: 4px;
+                }
+
+                .popup_confirmacion_datos .form-datos .input img.info {
+                    display: block;
+                    padding: 0px;
+                    margin-top: 4px;
+                    border: none;
+                    background: none;
+                    width: 20px;
+                    height: 20px;
+                }
+
+            .popup_confirmacion_datos .form-datos .input input {
+                display: inline;
+                padding: 12px 40px;
+                width: 100%;
+                border: 1px solid #e0e0e0;
+                height: 40px;
+                color: black;
+                letter-spacing: 0.5px;
+            }
+
+            .popup_confirmacion_datos .form-datos .input span {
+                text-align: left;
+                display: block;
+                /* padding: 12pt 27px; */
+                width: 100%;
+                padding-left: 30px;
+                color: #808080;
+                line-height: 13px;
+                font-size: 11px;
+                text-transform: initial;
+                letter-spacing: 0.5px;
+            }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
-} 
+}
+
 .activar_boton_popup_confirma_datos {
     background: #e81c36 !important;
 }
-@media (max-width:400px){
+
+@media (max-width:400px) {
     .popup_confirmacion_datos {
         padding: 0px 15px !important;
     }
-    .popup_confirmacion_datos .centrar-vertical-contenido{
-    padding:25px;
-}
+
+        .popup_confirmacion_datos .centrar-vertical-contenido {
+            padding: 25px;
+        }
 }
 /* */
 
