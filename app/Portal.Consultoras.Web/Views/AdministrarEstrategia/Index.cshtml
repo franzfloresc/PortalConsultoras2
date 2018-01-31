@@ -2432,7 +2432,6 @@
     }
 
     function ShowActionsProductos(cellvalue, options, rowObject) {
-        debugger;
         if (rowObject[10] == "1")
         {
             var id = rowObject[0];
@@ -3212,9 +3211,6 @@
                     if (jQuery.trim($('#txtNombreProductoDetalle').val()) == "")
                         vMessage += "- Debe ingresar la el nombre del Producto.\n";
 
-                    if (jQuery.trim($('#txtDescripcion1Detalle').val()) == "")
-                        vMessage += "- Debe ingresar la descripcion del Producto.\n";
-
                     if (vMessage != "") {
                         alert(vMessage);
                         return false;
@@ -3451,6 +3447,7 @@
         //$("#txtDescripcion3Detalle").val("");
         //$("#txtMarcaProductoDetalle").val("");
         $("#txtPrecioOfertaDetalle").val("0");
+        $("#chkActivoOfertaDetalle").attr("checked", false);
 
         $("#ddlMarcaProductoDetalle").val("0");
         $('#imgProductoDetalle').attr('src', imagenProductoVacio);
