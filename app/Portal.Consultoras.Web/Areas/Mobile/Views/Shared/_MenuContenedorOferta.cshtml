@@ -14,7 +14,7 @@
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 
-<div id="seccion-menu-mobile" >
+<div id="seccion-menu-mobile">
     <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
         <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
             @if (Util.Trim(menuActivo.ConfiguracionPais.MobileLogoBanner) != "")
@@ -52,16 +52,21 @@
                                 <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display: none;">
                                 <span>C-@menuActivo.CampaniaX0ConFormato</span>
                             </a>
-                        </li><li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
-                                 onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas", new {area = "Mobile"})')">
-                            <a class="@classMenuX1">
-                                <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
-                                <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display: none;">
-                                <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display: none;">
-                                <span>V-@menuActivo.CampaniaX1ConFormato</span>
-                            </a>
-                        </li><li data-campania="0" data-codigo="3"
-                                 onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital", new {area = "Mobile"})')">
+                        </li>
+                        @if (!ViewBag.TieneRDI)
+                        {
+                            <li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
+                                onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })')">
+                                <a class="@classMenuX1">
+                                    <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
+                                    <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display: none;">
+                                    <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display: none;">
+                                    <span>V-@menuActivo.CampaniaX1ConFormato</span>
+                                </a>
+                            </li>
+                        }
+                        <li data-campania="0" data-codigo="3"
+                            onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital", new {area = "Mobile"})')">
                             <a class="@classMenuInfo">
                                 <span>SABER MÁS</span>
                             </a>
@@ -85,9 +90,9 @@
                                 <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu">
                                     @if (!string.IsNullOrEmpty(menuhijo.Logo))
                                     {
-                                    <span class="opcion_home_vistaOfertas">
-                                        <img src="@menuhijo.Logo" alt="Inicio" class="icono-submenu-tabs" style="display: inline !important;" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu"/>
-                                    </span>
+                                        <span class="opcion_home_vistaOfertas">
+                                            <img src="@menuhijo.Logo" alt="Inicio" class="icono-submenu-tabs" style="display: inline !important;" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu" />
+                                        </span>
                                     }
                                     else
                                     {
@@ -101,5 +106,5 @@
             </div>
         }
     </div>
-   
+
 </div>
