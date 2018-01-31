@@ -47,19 +47,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
 
-        public JsonResult GuardarDatosPago(PagoEnLineaModel model)
-        {
-            model.CodigoIso = userData.CodigoISO;
-            model.Simbolo = userData.Simbolo;
+        //public JsonResult GuardarDatosPago(PagoEnLineaModel model)
+        //{
+        //    model.CodigoIso = userData.CodigoISO;
+        //    model.Simbolo = userData.Simbolo;
 
-            sessionManager.SetDatosPagoVisa(model);
+        //    sessionManager.SetDatosPagoVisa(model);
 
-            return Json(new
-            {
-                success = true,
-                message = "OK"
-            });
-        }
+        //    return Json(new
+        //    {
+        //        success = true,
+        //        message = "OK"
+        //    });
+        //}
 
         public ActionResult PagoVisa()
         {
@@ -91,12 +91,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string accessKeyId = model.PagoVisaModel.AccessKeyId; /*Colocar aquí el accessKeyId*/
                 string secretAccessKey = model.PagoVisaModel.SecretAccessKey; /*Colocar aquí el secretAccessKey*/
 
-                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);                
+                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;                
+                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
 
                 sessionManager.SetDatosPagoVisa(null);
 
@@ -104,11 +104,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
-                }                
+                }
 
                 if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
                 {
-                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;        
+                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
                     model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                     model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
                     model.FechaVencimiento = userData.FechaLimPago;
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                 {
                     return View("PagoRechazado", model);
-                }                
+                }
             }
             catch (FaultException ex)
             {
@@ -150,6 +150,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View("PagoRechazado", model);
-        }        
+        }
     }
 }

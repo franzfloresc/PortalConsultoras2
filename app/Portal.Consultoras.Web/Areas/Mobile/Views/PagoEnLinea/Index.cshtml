@@ -147,9 +147,7 @@
                 </div>
             </div>
 
-            <!-- CALL TO ACTION PAGO EN LÍNEA -->
-            <input type="hidden" id="hdMontoDeudaConGastos" value="@Model.MontoDeudaConGastos" />
-            <input type="hidden" id="hdMontoDeudaConGastosString" value="@Model.MontoDeudaConGastosString" />
+            <!-- CALL TO ACTION PAGO EN LÍNEA -->            
             <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
                 <span>
                     Continuar
@@ -206,10 +204,11 @@
 
 <!-- FIN - POPUP DE TÉRMINOS Y CONDICIONES -->
 
-@section scripts{
+@section scripts{    
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
     <script type="text/javascript">
-        var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';
-        var rutaPagoVisa = "@Url.Action("PagoVisa","PagoEnLinea")";
+        var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea", new { area = "" })';
+        var rutaPagoVisa = '@Url.Action("PagoVisa","PagoEnLinea", new { area = "Mobile" })';
+        var tipoOrigenPantalla = 2;
     </script>
 }

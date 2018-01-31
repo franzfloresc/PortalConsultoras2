@@ -1,0 +1,120 @@
+﻿@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
+@{
+    ViewBag.Title = "Pago en Línea";
+}
+
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+}
+
+<!-- Titulo -->
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp content_belcorp_misPedidos">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>PAGO EN LÍNEA</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<!-- Fin - titulo-->
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
+
+    <div class="proceso_de_pago_en_linea">
+        <div class="cantidad_pasos_proceso_pago">
+
+            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
+
+            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <!-- VISTA SELECCIÓN DE MONTO A PAGAR -->
+
+        <div class="vista_confirmacion_pago">
+            <h3 class="titulo_seleccion_monto_a_pagar">Confirma el monto final</h3>
+            <div class="resumen_pago">
+                <div class="monto_pagado">
+                    <span>Monto :</span>
+                    <span>@Model.Simbolo @Model.MontoDeudaString</span>
+                </div>
+                <div class="monto_gastos_administrativos">
+                    <span>Gastos administrativos (@Model.PorcentajeGastosAdministrativos%) :</span>
+                    <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
+                </div>
+                <div class="total_monto_pagado">
+                    <span>Total pagado :</span>
+                    <span>@Model.Simbolo @Model.MontoDeudaConGastosString</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN - VISTA SELECCIÓN DE MONTO A PAGAR -->
+        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
+
+        <div class="contenedor_info_pago_seguro_y_ctas mt-27">
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
+
+        <div style="text-align: center; padding: 10px;">
+            <form id="formBoton2" action="@Url.Action("PagoVisaResultado2","PagoEnLinea")" method="post">
+                @*<script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                        data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                        data-buttonsize="LARGE"></script>*@
+                <script id="javascriptBoton" src="https://static-content.vnforapps.com/v1/js/checkout.js?qa=true" data-sessiontoken="D7C9C3F6-2F6E-423C-AFB4-30141B1E8963" data-merchantid="148009103" data-merchantlogo="http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/Logo_Esika.png" data-formbuttoncolor="#e81c36" data-purchasenumber="509" data-amount="10.30" data-recurrence="FALSE" data-recurrencetype="" data-recurrencefrequency="" data-recurrenceamount="0.00" data-usertoken="" data-buttonsize="LARGE"></script>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @*var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+
+            var boton = $("button[type='submit']")[0];
+            $(boton).css("background", colorBoton);
+            $(boton).css("width", "100%");
+            $(boton).css("font-family", "Lato");
+            $(boton).css("border-radius", "0%");
+            $(boton).css("letter-spacing", "0.5px");
+            //$(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
+            $(boton).html("PAGA CON VISA");*@
+        });
+    </script>
+}
