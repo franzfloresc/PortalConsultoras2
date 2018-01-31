@@ -3622,15 +3622,22 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, joinCuv, numeroCampanias).ToList();
             }
-
+            string DescripcionProd = "";
             if (listaAppCatalogo.Count > 0)
             {
                 foreach (var item in listaAppCatalogo)
                 {
                     if (IsMobile())
-                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = item.NombreComercial;
+                    {
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = DescripcionProd;
+                    }
                     else
-                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = item.NombreComercial;
+                    {
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = DescripcionProd;
+                    }
+                        
                 }
             }
 
