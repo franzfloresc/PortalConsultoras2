@@ -2293,6 +2293,10 @@ div#tab_revistasdigital_mobile {
     background: #f5f5f5;
 }
 
+.como-funciona .contenedor-mobile-fix{
+    margin-bottom:0px !important;
+}
+
     .como-funciona .arrow {
         display: block;
         margin: auto;
