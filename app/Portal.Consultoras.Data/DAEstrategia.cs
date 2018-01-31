@@ -193,7 +193,16 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EliminarEstrategia"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                result = Context.ExecuteNonQuery(command);
+            }
+            return result;
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             int result;

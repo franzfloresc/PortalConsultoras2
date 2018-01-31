@@ -60,8 +60,9 @@ namespace Portal.Consultoras.BizLogic
         {
             var dAConfiguracionOfertasHome = new DAConfiguracionOfertasHome(entidad.PaisID);
             dAConfiguracionOfertasHome.Update(entidad);
+            CacheManager<BEConfiguracionOfertasHome>.RemoveData(entidad.PaisID, ECacheItem.SeccionConfiguracionOfertasHome, entidad.CampaniaID.ToString());
         }
-        
+
         public IList<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
         {
             IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId,
@@ -90,7 +91,7 @@ namespace Portal.Consultoras.BizLogic
 
                 CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
             }
-            
+
             return lista;
         }
 
