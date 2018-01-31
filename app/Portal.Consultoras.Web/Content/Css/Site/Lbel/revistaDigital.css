@@ -2935,6 +2935,10 @@
         margin-bottom: 50px;
     }
 
+    .gana-mas .caja-gana-mas-rdi {
+        min-height: 245px;
+    }
+
     .gana-mas .caja-gana-mas {
         width: 31.3%;
         margin-left: 1%;
