@@ -4,8 +4,6 @@ using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -21,25 +19,29 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     string query = Convert.ToString(Request.QueryString["comparte"]);
                     string[] words = query.Split('-');
-                    int ImagenId = Convert.ToInt32(words[0]);
-                    int PaisId = Convert.ToInt32(words[1]);
+                    int imagenId = Convert.ToInt32(words[0]);
+                    int paisId = Convert.ToInt32(words[1]);
 
-                    if (ImagenId != 0 && PaisId != 0)
+                    if (imagenId != 0 && paisId != 0)
                     {
                         NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-                        List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
-                        BENavidadConsultora registro = new BENavidadConsultora();
+                        List<BENavidadConsultora> resultado;
+                        BENavidadConsultora parametro = new BENavidadConsultora
+                        {
+                            PaisId = paisId,
+                            ImagenId = imagenId
+                        };
                         using (ContenidoServiceClient servicio = new ContenidoServiceClient())
                         {
-                            BENavidadConsultora parametro = new BENavidadConsultora();
-                            parametro.PaisId = PaisId;
-                            parametro.ImagenId = ImagenId;
                             resultado = servicio.SeleccionarNavidadConsultora(parametro).ToList();
                         }
                         var carpetaPais = Globals.UrlNavidadConsultora;
-                        registro = resultado.FirstOrDefault();
-                        modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg, "");
-                        modelo.ImagenId = registro.ImagenId;
+                        var registro = resultado.FirstOrDefault();
+                        if (registro != null)
+                        {
+                            modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
+                            modelo.ImagenId = registro.ImagenId;
+                        }
 
                         HtmlMeta metaImage = new HtmlMeta();
                         metaImage.Attributes.Add("property", "og:image");

@@ -802,28 +802,27 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             var values = inputLine.Split('|');
-                            if (values.Length > 1)
-                            {
-                                if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
-                                {
-                                    var ent = new BEShowRoomOferta
-                                    {
-                                        ISOPais = values[0].Trim().Replace("\"", ""),
-                                        CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
-                                        CUV = values[2].Trim().Replace("\"", ""),
-                                        Stock = int.Parse(values[3].Trim().Replace("\"", "")),
-                                        PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
-                                        UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
-                                        Descripcion = values[6].Trim().Replace("\"", ""),
-                                        CodigoCategoria = values[7].Trim().Replace("\"", ""),
-                                        TipNegocio = values[8].Trim().Replace("\"", ""),
-                                        EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
-                                    };
 
-                                    if (ent.Stock >= 0)
-                                        lstStock.Add(ent);
-                                }
-                            }
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[1].Trim()) || !IsNumeric(values[3].Trim())) continue;
+
+                            var ent = new BEShowRoomOferta
+                            {
+                                ISOPais = values[0].Trim().Replace("\"", ""),
+                                CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
+                                CUV = values[2].Trim().Replace("\"", ""),
+                                Stock = int.Parse(values[3].Trim().Replace("\"", "")),
+                                PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
+                                UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
+                                Descripcion = values[6].Trim().Replace("\"", ""),
+                                CodigoCategoria = values[7].Trim().Replace("\"", ""),
+                                TipNegocio = values[8].Trim().Replace("\"", ""),
+                                EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
+                            };
+
+                            if (ent.Stock >= 0)
+                                lstStock.Add(ent);
                         }
                     }
 

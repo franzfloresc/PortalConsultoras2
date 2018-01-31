@@ -12,14 +12,12 @@ namespace Portal.Consultoras.Service
         private readonly BLRol BLRol;
         private readonly BLPermiso BLPermiso;
         private readonly BLMenuMobile BLMenuMobile;
-        private readonly BLApp _blApp;
 
         public SeguridadService()
         {
             BLRol = new BLRol();
             BLPermiso = new BLPermiso();
             BLMenuMobile = new BLMenuMobile();
-            _blApp = new BLApp();
         }
 
         #region Roles
@@ -27,6 +25,7 @@ namespace Portal.Consultoras.Service
         {
             BLRol.InsRol(rol);
         }
+
         public int InsUsuarioRol(BEUsuarioRol BEUsuarioRol)
         {
             return BLRol.InsUsuarioRol(BEUsuarioRol);

@@ -14,44 +14,44 @@ namespace Portal.Consultoras.Web.WebPages
         {
             string parametros = Request.QueryString["parametros"];
             string param = Util.DesencriptarQueryString(parametros);
-            string[] lst = param.Split(new char[] { ';' });
+            string[] lst = param.Split(';');
 
             ddlPais.Items.Add(new ListItem(lst[13]));
-            int PaisISO = int.Parse(lst[0]);
-            string FechaSolicitud = lst[1];
+            int paisIso = int.Parse(lst[0]);
+            string fechaSolicitud = lst[1];
             ddlZonas.Items.Add(new ListItem(lst[12]));
-            string Seccion = lst[3];
-            string NumDocumento = lst[4];
-            string EstadoPedido = lst[5];
+            string seccion = lst[3];
+            string numDocumento = lst[4];
+            string estadoPedido = lst[5];
             string sortname = lst[7];
             string sortorder = lst[8];
-            string CodZona = lst[12];
-            string TipoSolicitud = lst[14];
+            string codZona = lst[12];
+            string tipoSolicitud = lst[14];
             lblNombrePais.Text = lst[11];
             imgBandera.ImageUrl = "../Content/Banderas/" + lst[10];
             imgLogoResponde.ImageUrl = "../Content/Images/logo_responde_" + lst[10];
-            txtDocumento.Text = NumDocumento;
-            txtSeccion.Text = Seccion;
-            txtFechaSolicitud.Text = FechaSolicitud;
-            ddlEstadoSolicitud.SelectedValue = EstadoPedido;
+            txtDocumento.Text = numDocumento;
+            txtSeccion.Text = seccion;
+            txtFechaSolicitud.Text = fechaSolicitud;
+            ddlEstadoSolicitud.SelectedValue = estadoPedido;
 
-            List<BESolicitudCredito> lstDetalle = new List<BESolicitudCredito>();
+            List<BESolicitudCredito> lstDetalle;
 
             using (SACServiceClient srv = new SACServiceClient())
             {
                 Nullable<DateTime> fecha = null;
-                if (!string.IsNullOrEmpty(FechaSolicitud))
-                    fecha = Convert.ToDateTime(FechaSolicitud);
+                if (!string.IsNullOrEmpty(fechaSolicitud))
+                    fecha = Convert.ToDateTime(fechaSolicitud);
 
                 BESolicitudCredito solicitud = new BESolicitudCredito()
                 {
-                    PaisID = PaisISO,
+                    PaisID = paisIso,
                     FechaCreacion = fecha,
-                    CodigoZona = CodZona,
-                    CodigoTerritorio = Seccion,
-                    NumeroDocumento = NumDocumento,
-                    CodigoLote = int.Parse(EstadoPedido),
-                    TipoSolicitud = TipoSolicitud,
+                    CodigoZona = codZona,
+                    CodigoTerritorio = seccion,
+                    NumeroDocumento = numDocumento,
+                    CodigoLote = int.Parse(estadoPedido),
+                    TipoSolicitud = tipoSolicitud,
                     CodigoConsultora = null
                 };
                 lstDetalle = srv.GetSolicitudCreditos(solicitud).ToList();
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.WebPages
             sb.Append("<tbody>");
             foreach (var item in items)
             {
-                if (PaisISO == 12)
+                if (paisIso == 12)
                 {
                     sb.Append("<tr>");
                     sb.Append("<td>" + item.CodigoZona + "</td>");

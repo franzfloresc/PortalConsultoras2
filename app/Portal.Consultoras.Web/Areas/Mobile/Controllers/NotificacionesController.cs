@@ -152,9 +152,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             using (var service = new SACServiceClient())
             {
-                var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
-                var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
+                //var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
+                //var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
+                //var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
 
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 

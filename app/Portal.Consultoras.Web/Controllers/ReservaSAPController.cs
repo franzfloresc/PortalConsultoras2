@@ -15,10 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = string.Empty;
-                if (FechaGeneracion.ToShortDateString() == "01/01/0001")
-                    mensaje += "La Fecha de Generación no tiene el formato correcto, verifique yyyy/MM/dd. \n";
-
                 ServicePROLArchivoReserva.Respuesta[] respuesta;
 
                 using (ServicePROLArchivoReserva.ReservaPedidos reserva = new ServicePROLArchivoReserva.ReservaPedidos())

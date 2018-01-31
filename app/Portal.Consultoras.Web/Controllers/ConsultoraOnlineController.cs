@@ -695,10 +695,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MisPedidosModel();
 
-            int pagAeux;
             if (Pagina != null)
+            {
+                int pagAeux;
                 if (int.TryParse(Pagina, out pagAeux))
-                    Pagina = (int.Parse(Pagina) - 1).ToString();
+                    Pagina = (pagAeux - 1).ToString();
+
+            }
 
             if (Pagina == null)
             {
@@ -991,7 +994,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int) TempData["indiceActualPagina"];
             indiceUltimaPagina = (int) TempData["indiceUltimaPagina"];
-            if (Pagina.Equals("<<")) indiceActualPagina = 0;
+            if (Pagina.Equals("<<"))
+                indiceActualPagina = 0;
             else
             {
                 if (Pagina.Equals("<"))
@@ -1011,8 +1015,9 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             int pagAeux;
                             if (int.TryParse(Pagina, out pagAeux))
-                                Pagina = (int.Parse(Pagina) - 1).ToString();
-                            indiceActualPagina = int.Parse(Pagina);
+                            {
+                                indiceActualPagina = pagAeux - 1;
+                            }
                         }
                     }
                 }
