@@ -2290,6 +2290,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
+                    if (arrayHeader.Length != 7)
+                    {
+                        throw new ArgumentException("Los títulos de las columnas están incompletos.");
+                    }
                     if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsStrategyShowroom.CUV))
                     {
                         columnObservation = Constantes.ColumnsStrategyShowroom.CUV;
@@ -2320,6 +2324,11 @@ namespace Portal.Consultoras.Web.Controllers
                         columnObservation = Constantes.ColumnsStrategyShowroom.IsSubcampaign;
                         errorColumn = true;
                     }
+                    else if (!arrayHeader[(int)Constantes.ColumnsStrategyShowroom.Position.OfferStatus].ToLower().Equals(Constantes.ColumnsStrategyShowroom.OfferStatus))
+                    {
+                        columnObservation = Constantes.ColumnsStrategyShowroom.OfferStatus;
+                        errorColumn = true;
+                    }
                     if (errorColumn)
                     {
                         throw new ArgumentException(string.Format("Verificar los títulos de las columnas del archivo. <br /> Referencia: La observación se encontró en la columna '{0}'", columnObservation));
@@ -2331,9 +2340,9 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 6)
+                            if (arrayRows.Length != 7)
                             {
-                                throw new ArgumentException(string.Format("Verificar la información del archivo. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                                throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
                             strategyEntityList.Add(new BEEstrategia
@@ -2343,7 +2352,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 LimiteVenta = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.AllowedUnits]),
                                 DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
                                 TextoLibre = arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
-                                EsSubCampania = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.IsSubcampaign])
+                                EsSubCampania = int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.IsSubcampaign]),
+                                Activo= int.Parse(arrayRows[(int)Constantes.ColumnsStrategyShowroom.Position.OfferStatus])
                             });
                         }
                     }
@@ -2380,7 +2390,8 @@ namespace Portal.Consultoras.Web.Controllers
                                  new XElement("Precio2", strategy.Precio2),
                                  new XElement("LimiteVenta", strategy.LimiteVenta),
                                  new XElement("TextoLibre", strategy.TextoLibre),
-                                 new XElement("EsSubCampania", strategy.EsSubCampania)
+                                 new XElement("EsSubCampania", strategy.EsSubCampania),
+                                 new XElement("Activo", strategy.Activo)
                                ));
                     using (var service = new PedidoServiceClient())
                     {
