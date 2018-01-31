@@ -25,8 +25,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-        
-         public ActionResult SeleccionTipoPago()
+
+        public ActionResult SeleccionTipoPago()
         {
             return View();
         }
@@ -84,65 +84,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                string sessionToken = model.PagoVisaModel.SessionToken;
-                string merchantId = model.PagoVisaModel.MerchantId;
                 string transactionToken = Request.Form["transactionToken"];
+                bool pagoOk = ProcesarPagoVisa(ref model, transactionToken);
 
-                string accessKeyId = model.PagoVisaModel.AccessKeyId; /*Colocar aquí el accessKeyId*/
-                string secretAccessKey = model.PagoVisaModel.SecretAccessKey; /*Colocar aquí el secretAccessKey*/
-
-                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
-                var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
-
-                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
-                bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
-
-                sessionManager.SetDatosPagoVisa(null);
-
-                int pagoEnLineaResultadoLogId = 0;
-                using (PedidoServiceClient ps = new PedidoServiceClient())
+                if (pagoOk)
                 {
-                    pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
-                }
-
-                if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
-                {
-                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
-                    model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
-                    model.FechaVencimiento = userData.FechaLimPago;
-                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
-
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
-                    {
-                        ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
-                    }
-
-                    var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-                    var mensajeExitoso = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
-
-                    model.MensajeInformacionPagoExitoso = mensajeExitoso;
-
-                    userData.MontoDeuda = model.SaldoPendiente;
-                    sessionManager.SetUserData(userData);
-
-                    //if (!string.IsNullOrEmpty(userData.EMail))
-                    //{
-                    //    string template = ObtenerTemplatePagoEnLinea();
-                    //    Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
-                    //}
-
                     return View("PagoExitoso", model);
                 }
                 else
                 {
                     return View("PagoRechazado", model);
                 }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             catch (Exception ex)
             {

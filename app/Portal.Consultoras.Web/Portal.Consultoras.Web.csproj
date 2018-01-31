@@ -3302,7 +3302,7 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
-    <Content Include="Content\Template\mailing_pago_en_linea_notificacion.html">
+    <Content Include="Content\Template\mailing_pago_en_linea.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Template\mailing_mensaje_express.html">
