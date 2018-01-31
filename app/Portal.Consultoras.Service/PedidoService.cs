@@ -1318,35 +1318,37 @@ namespace Portal.Consultoras.Service
 
         public int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
-            };
-            string paisID = "0";
             try
             {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
+                List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("1", "AR"),
+                    new KeyValuePair<string, string>("2", "BO"),
+                    new KeyValuePair<string, string>("3", "CL"),
+                    new KeyValuePair<string, string>("4", "CO"),
+                    new KeyValuePair<string, string>("5", "CR"),
+                    new KeyValuePair<string, string>("6", "EC"),
+                    new KeyValuePair<string, string>("7", "SV"),
+                    new KeyValuePair<string, string>("8", "GT"),
+                    new KeyValuePair<string, string>("9", "MX"),
+                    new KeyValuePair<string, string>("10", "PA"),
+                    new KeyValuePair<string, string>("11", "PE"),
+                    new KeyValuePair<string, string>("12", "PR"),
+                    new KeyValuePair<string, string>("13", "DO"),
+                    new KeyValuePair<string, string>("14", "VE"),
+                };
+
+                string paisId = (from c in listaPaises
+                    where c.Value == ISO.ToUpper()
+                    select c.Key).SingleOrDefault() ?? "";
+
+                int outVal;
+                return int.TryParse(paisId, out outVal) ? outVal : 0;
             }
             catch (Exception)
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            return int.Parse(paisID);
         }
 
         public BEResultadoSolicitud InsertarSolicitudCliente(string prefijoISO, BEEntradaSolicitudCliente entidadSolicitud)
