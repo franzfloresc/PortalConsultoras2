@@ -970,6 +970,7 @@ namespace Portal.Consultoras.Common
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
             public const string Ofertas = "OFERTAS";
             public const string GuiaNegocio = "GUIANEGOCIO";
+            public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1663,6 +1664,13 @@ namespace Portal.Consultoras.Common
             public const short PaisConGND_SuscritaNoActiva = 3;
             public const short PaisConGND_NoSuscritaActiva = 4;
             public const short PaisConGND_NoSuscritaNoActiva = 5;
+
+            public class Banner
+            {
+                public const string CarpetaPais = "AppConsultora/{0}";
+                public const string ImagenSuscrita = "GanaMasSuscrita.png";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+            }
         }
         public class ValAutoEstado
         {

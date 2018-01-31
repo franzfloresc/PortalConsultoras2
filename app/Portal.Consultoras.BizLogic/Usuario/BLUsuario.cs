@@ -465,6 +465,11 @@ namespace Portal.Consultoras.BizLogic
             usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
 
             usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result;
+            var carpetaPais = string.Format(Constantes.GanaMas.Banner.CarpetaPais, usuario.CodigoISO);
+            if (usuario.RevistaDigitalSuscripcion == Constantes.GanaMas.PaisConGND_SuscritaActiva || usuario.RevistaDigitalSuscripcion == Constantes.GanaMas.PaisConGND_SuscritaNoActiva)
+                usuario.UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, Constantes.GanaMas.Banner.ImagenSuscrita);
+            else if(usuario.RevistaDigitalSuscripcion == Constantes.GanaMas.PaisConGND_NoSuscritaActiva || usuario.RevistaDigitalSuscripcion == Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva)
+                usuario.UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, Constantes.GanaMas.Banner.ImagenNoSuscrita);
 
             return usuario;
         }

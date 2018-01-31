@@ -2636,6 +2636,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("Ofertas", "Index", null);
                     case Constantes.IngresoExternoPagina.GuiaNegocio:
                         return RedirectToUniqueRoute("GuiaNegocio", "Index", null);
+                    case Constantes.IngresoExternoPagina.RevistaDigitalInformacion:
+                        return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
                 }
             }
             catch (Exception ex)
