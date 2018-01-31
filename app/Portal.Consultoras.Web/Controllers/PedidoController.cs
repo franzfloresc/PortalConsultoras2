@@ -3826,18 +3826,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             var limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
-            decimal descuentoprol;
+            var listPedido = ObtenerPedidoWebDetalle();
 
-            try
+            decimal descuentoprol = 0;
+            
+            if (listPedido.Any())
             {
-                descuentoprol = ObtenerPedidoWebDetalle()[0].DescuentoProl;
-            }
-            catch
-            {
-                descuentoprol = 0;
+                descuentoprol = listPedido[0].DescuentoProl;
             }
             
-
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
@@ -3850,8 +3847,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Limite = limiteJetlore,
                 MontoEscala = GetDataBarra().MontoEscala,
                 MontoMinimo = userData.MontoMinimo,
-                MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal) -
-                             (descuentoprol.Equals(null) ? 0 : descuentoprol),
+                MontoTotal = listPedido.Sum(p => p.ImporteTotal) - descuentoprol,
                 TipoOfertaFinal = tipoOfertaFinal,
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,
