@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {

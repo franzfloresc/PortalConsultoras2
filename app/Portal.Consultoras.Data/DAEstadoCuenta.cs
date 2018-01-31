@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -31,10 +27,9 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
                 return Convert.ToString(Context.ExecuteScalar(command));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return "";
-                throw ex;
             }
         }
     }

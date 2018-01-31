@@ -155,7 +155,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
                     txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
-                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + CampaniaId + "</b> es el siguiente :</div> <br /><br />");
                     txtBuil.Append("<table border='1' style='width: 80%;'>");
                     txtBuil.Append("<tr style='color: #FFFFFF'>");
                     txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
@@ -179,10 +179,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         txtBuil.Append("<tr>");
                         txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
-                        txtBuil.Append("" + lst[i].CUV.ToString() + "");
+                        txtBuil.Append("" + lst[i].CUV + "");
                         txtBuil.Append("</td>");
                         txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
-                        txtBuil.Append("" + lst[i].DescripcionProd.ToString() + "");
+                        txtBuil.Append("" + lst[i].DescripcionProd + "");
                         txtBuil.Append("</td>");
                         txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
                         txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var mailBody = txtBuil.ToString();
                     #endregion
 
-                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
+                    Util.EnviarMailMobile("no-responder@somosbelcorp.com", ClientId.Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
                     return Json(new
                     {
@@ -294,14 +294,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 else
                 {
-                    ServicePedido.BEPedidoWeb pedidoWeb = new ServicePedido.BEPedidoWeb();
+                    ServicePedido.BEPedidoWeb pedidoWeb;
                     using (var sv = new ServicePedido.PedidoServiceClient())
                     {
                         pedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID);
                     }
 
                     List<PedidoWebClienteMobilModel> listaClientes = new List<PedidoWebClienteMobilModel>();
-                    List<BEPedidoWebDetalle> lstCabecera = new List<BEPedidoWebDetalle>();
+                    List<BEPedidoWebDetalle> lstCabecera;
                     using (ClienteServiceClient sv = new ClienteServiceClient())
                     {
                         lstCabecera = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID).ToList();
@@ -320,9 +320,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
 
-                    List<BEPedidoWebDetalle> lstDetallesTemp = new List<BEPedidoWebDetalle>();
                     foreach (var item in listaClientes)
                     {
+                        List<BEPedidoWebDetalle> lstDetallesTemp;
                         using (ClienteServiceClient sv = new ClienteServiceClient())
                         {
                             lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(campaniaId), userData.ConsultoraID, item.ClienteID).ToList();
@@ -354,12 +354,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
 
-                    PedidoWebMobilModel pedidoCliente = new PedidoWebMobilModel();
-                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && listaClientes.Any(pedidoWebDetalle =>
-                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
-                            string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
-                        )
-                    );
+                    PedidoWebMobilModel pedidoCliente = new PedidoWebMobilModel
+                    {
+                        TieneDescuentoCuv = userData.EstadoSimplificacionCUV && listaClientes.Any(pedidoWebDetalle =>
+                                                pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
+                                                    string.IsNullOrEmpty(item.ObservacionPROL) &&
+                                                    item.IndicadorOfertaCUV
+                                                )
+                                            )
+                    };
+
                     if (pedidoCliente.TieneDescuentoCuv)
                     {
                         pedidoCliente.Subtotal = pedidoWeb.ImporteTotal;
@@ -387,7 +391,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
                     txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
-                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + campaniaId.ToString() + "</b> es el siguiente :</div> <br /><br />");
+                    txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + campaniaId + "</b> es el siguiente :</div> <br /><br />");
                     txtBuil.Append("<table border='1' style='width: 80%;'>");
                     txtBuil.Append("<tr style='color: #FFFFFF'>");
                     txtBuil.Append("<td style='font-size:11px; width: 347px; font-weight: bold; text-align: center; background-color: #666699;'>");
@@ -417,13 +421,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             txtBuil.Append("<tr>");
                             txtBuil.Append("<td style='font-size:11px; width: 347px; text-align: center;'>");
-                            txtBuil.Append("" + item.Nombre.ToString() + "");
+                            txtBuil.Append("" + item.Nombre + "");
                             txtBuil.Append("</td>");
                             txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
-                            txtBuil.Append("" + item2.CUV.ToString() + "");
+                            txtBuil.Append("" + item2.CUV + "");
                             txtBuil.Append("</td>");
                             txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
-                            txtBuil.Append("" + item2.DescripcionProd.ToString() + "");
+                            txtBuil.Append("" + item2.DescripcionProd + "");
                             txtBuil.Append("</td>");
                             txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
                             txtBuil.Append("" + item2.Cantidad.ToString() + "");

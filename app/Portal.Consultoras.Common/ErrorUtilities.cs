@@ -17,15 +17,15 @@ namespace Portal.Consultoras.Common
         {
             string path = Path.Combine(HttpRuntime.AppDomainAppPath, "Log");
             string fileName = string.Format("{0}.txt", DateTime.Now.ToFileFormattedStringDate());
-            StreamWriter sw = null;
+            StreamWriter sw;
 
-            if (!System.IO.Directory.Exists(path))
+            if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
             // Add headers if file don't exists
-            if (!System.IO.File.Exists(Path.Combine(path, fileName)))
+            if (!File.Exists(Path.Combine(path, fileName)))
             {
                 sw = new StreamWriter(Path.Combine(path, fileName), true, Encoding.UTF8);
                 sw.WriteLine(string.Format("{0}\t{1}\t{2}\t{3}\t{4}",
@@ -44,22 +44,20 @@ namespace Portal.Consultoras.Common
         private static Log getLog(Exception ex)
         {
             var log = new Log();
-            var exception = string.Empty;
-            var stackTrace = string.Empty;
-            var dbEntityException = string.Empty;
 
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
             }
 
-            exception = ex.Message;
-            stackTrace = ex.StackTrace;
+            var exception = ex.Message;
+            var stackTrace = ex.StackTrace;
 
             log.Exception = exception;
             log.StackTrace = stackTrace;
             log.LogDate = DateTime.Now;
 
+            //var dbEntityException = string.Empty;
             //if (ex.GetType() == typeof(DbEntityValidationException))
             //{
             //    var dbException = (DbEntityValidationException)ex;

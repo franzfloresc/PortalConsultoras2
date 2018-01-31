@@ -1,13 +1,12 @@
-﻿using Portal.Consultoras.Entities;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+
 namespace Portal.Consultoras.Data
 {
     public class DASolicitudCliente : DataAccess
@@ -111,9 +110,9 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@TipoUsuario", SqlDbType.Int).Value = entidadSolicitud.TipoUsuario;
             command.Parameters.Add("@UsuarioAppID", SqlDbType.BigInt).Value = entidadSolicitud.UsuarioAppID;
 
-            List<DESolicitudClienteDetalleAppCatalogo> listDEDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
-            if(entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDEDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
-            var detalleSolicitud = new GenericDataReader<DESolicitudClienteDetalleAppCatalogo>(listDEDetalleSolicitud);
+            List<DESolicitudClienteDetalleAppCatalogo> listDeDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
+            if(entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDeDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
+            var detalleSolicitud = new GenericDataReader<DESolicitudClienteDetalleAppCatalogo>(listDeDetalleSolicitud);
             
             var paramSolicitudDetalle = new SqlParameter("@SolicitudDetalle", SqlDbType.Structured);
             paramSolicitudDetalle.TypeName = "dbo.SolicitudDetalleAppCatalogoType";
@@ -303,13 +302,13 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@estado", DbType.Int16, estado);
 
 
-            if (marca == null || marca == string.Empty)
+            if (string.IsNullOrEmpty(marca))
                 Context.Database.AddInParameter(command, "@marca", DbType.String, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@marca", DbType.String, marca);
 
 
-            if (campania == null || campania == string.Empty)
+            if (string.IsNullOrEmpty(campania))
                 Context.Database.AddInParameter(command, "@campania", DbType.String, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@campania", DbType.String, campania);

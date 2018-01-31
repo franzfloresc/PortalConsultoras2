@@ -1,19 +1,15 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
     public class DAConfiguracionTipoProcesoCargaPedidos : DataAccess
     {
-                public DAConfiguracionTipoProcesoCargaPedidos(int paisID)
+        public DAConfiguracionTipoProcesoCargaPedidos(int paisID)
             : base(paisID, EDbSource.Portal)
         {
 
@@ -29,14 +25,14 @@ namespace Portal.Consultoras.Data
 
         public int InsConfiguracionTipoProcesoCargaPedidos(string Usuario, IEnumerable<BEConfiguracionTipoProcesoCargaPedidos> ZonasNuevoPROL)
         {
-            var ZonasNuevoPROLReader = new GenericDataReader<BEConfiguracionTipoProcesoCargaPedidos>(ZonasNuevoPROL);
+            var zonasNuevoProlReader = new GenericDataReader<BEConfiguracionTipoProcesoCargaPedidos>(ZonasNuevoPROL);
 
             var command = new SqlCommand("dbo.InsConfiguracionTipoProcesoCargaPedidos");
             command.CommandType = CommandType.StoredProcedure;
 
             var parameter = new SqlParameter("@ZonasNuevoPROL", SqlDbType.Structured);
             parameter.TypeName = "dbo.ZonaType";
-            parameter.Value = ZonasNuevoPROLReader;
+            parameter.Value = zonasNuevoProlReader;
             command.Parameters.Add(parameter);
             var parameter2 = new SqlParameter("@UsuarioCreacion", SqlDbType.VarChar);
             parameter2.Value = Usuario;

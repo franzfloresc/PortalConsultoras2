@@ -1,11 +1,10 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Common;
-
-using System.Data;
 using System.Collections.Generic;
+using System.Data;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -15,9 +14,9 @@ namespace Portal.Consultoras.BizLogic
         {
             BEConfiguracionProgramaNuevas data = null;
 
-            var BLPais = new BLPais();
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
                 var da = new DAConfiguracionProgramaNuevas(paisID);
                 using (IDataReader reader = da.GetConfiguracionProgramaNuevas(entidad))
@@ -26,16 +25,29 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHConfiguracionProgramaNuevas = new DAHConfiguracionProgramaNuevas();
+                var dahConfiguracionProgramaNuevas = new DAHConfiguracionProgramaNuevas();
 
-                data = DAHConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entidad);
+                data = dahConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entidad);
             }
 
             return data;
         }
 
-        #region ConfiguracionApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
+        {
+            BEConfiguracionProgramaNuevas data = null;
+            var da = new DAConfiguracionProgramaNuevas(paisID);
+            using (IDataReader reader = da.GetConfiguracionProgramaDespuesPrimerPedido(entidad))
+            {
+                if (reader.Read())
+                    data = new BEConfiguracionProgramaNuevas(reader);
+            }
+
+            return data;
+        }
+
+            #region ConfiguracionApp
+            public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
         {
             using (IDataReader reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaNuevasApp(CodigoPrograma))
             {

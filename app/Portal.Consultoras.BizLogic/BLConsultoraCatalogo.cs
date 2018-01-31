@@ -36,42 +36,42 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEConsultoraCatalogo> listaConsultoraCatalogo = new List<BEConsultoraCatalogo>();
             BEConsultoraCatalogo consultoraCatalogo;
-            DAConsultora oDAConsultora = new DAConsultora(paisId);
+            DAConsultora oDaConsultora = new DAConsultora(paisId);
 
             int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisId);
-            BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisId, 12);
-            List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisId, 18);
-            List<BETablaLogicaDatos> tabla_Egresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisId, 19);
+            BLTablaLogicaDatos oBlTablaLogicaDatos = new BLTablaLogicaDatos();
+            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisId, 19);
 
-            using (IDataReader reader = oDAConsultora.GetConsultorasPorTerritorio(paisId, codigoRegion, codigoZona, codigoSeccion, codigoTerritorio))
+            using (IDataReader reader = oDaConsultora.GetConsultorasPorTerritorio(paisId, codigoRegion, codigoZona, codigoSeccion, codigoTerritorio))
             {
                 while (reader.Read()) 
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tablaRetirada, tablaReingresada, tablaEgresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo); 
                 }
             }
             if (listaConsultoraCatalogo.Count > 0) return listaConsultoraCatalogo;
             
-            using (IDataReader reader = oDAConsultora.GetConsultorasPorSeccion(paisId, codigoRegion, codigoZona, codigoSeccion))
+            using (IDataReader reader = oDaConsultora.GetConsultorasPorSeccion(paisId, codigoRegion, codigoZona, codigoSeccion))
             {
                 while (reader.Read())
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tablaRetirada, tablaReingresada, tablaEgresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo);
                 }
             }
             if (listaConsultoraCatalogo.Count > 0) return listaConsultoraCatalogo;
 
-            using (IDataReader reader = oDAConsultora.GetConsultorasPorZona(paisId, codigoRegion, codigoZona))
+            using (IDataReader reader = oDaConsultora.GetConsultorasPorZona(paisId, codigoRegion, codigoZona))
             {
                 while (reader.Read())
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tablaRetirada, tablaReingresada, tablaEgresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo);
                 }
             }
@@ -126,14 +126,14 @@ namespace Portal.Consultoras.BizLogic
         private void SetConsultorasCatalogosEstado(int paisID, List<BEConsultoraCatalogo> consultorasCatalogos)
         {
             int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
-            BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
-            List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
-            List<BETablaLogicaDatos> tabla_Egresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 19);
+            BLTablaLogicaDatos oBlTablaLogicaDatos = new BLTablaLogicaDatos();
+            List<BETablaLogicaDatos> tablaRetirada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
+            List<BETablaLogicaDatos> tablaReingresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
+            List<BETablaLogicaDatos> tablaEgresada = oBlTablaLogicaDatos.GetTablaLogicaDatos(paisID, 19);
 
             foreach (BEConsultoraCatalogo consultoraCatalogo in consultorasCatalogos)
             {
-                consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisID, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisID, nroCampanias, consultoraCatalogo, tablaRetirada, tablaReingresada, tablaEgresada);
             }
         }
 
@@ -149,16 +149,16 @@ namespace Portal.Consultoras.BizLogic
             if (paisID == 11 || paisID == 2 || paisID == 3 || paisID == 8 || paisID == 7 || paisID == 4)
             {
                 //Validamos si el estado es retirada
-                BETablaLogicaDatos Restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
-                if (Restriccion != null)
+                BETablaLogicaDatos restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
+                if (restriccion != null)
                 {
                     if (paisID == 4) return 0; //Caso Colombia
                     return autorizado ? 1 : 0;
                 }
 
                 //Validamos si el estado es reingresada
-                BETablaLogicaDatos Restriccion_reingreso = tabla_Reingresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
-                if (Restriccion_reingreso != null)
+                BETablaLogicaDatos restriccionReingreso = tabla_Reingresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
+                if (restriccionReingreso != null)
                 {
                     if (paisID == 3)
                     {
@@ -175,8 +175,8 @@ namespace Portal.Consultoras.BizLogic
                 else if (paisID == 4) //Caso Colombia
                 {
                     //Egresada o Posible Egreso
-                    BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
-                    if (Restriccion_Egresada != null) return 0;
+                    BETablaLogicaDatos restriccionEgresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
+                    if (restriccionEgresada != null) return 0;
                 }
                 return autorizado ? 1 : 0;
             }
@@ -184,8 +184,8 @@ namespace Portal.Consultoras.BizLogic
             else if (paisID == 5 || paisID == 10 || paisID == 9 || paisID == 12 || paisID == 13 || paisID == 6 || paisID == 1 || paisID == 14)
             {
                 // Validamos si la consultora es retirada
-                BETablaLogicaDatos Restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
-                if (Restriccion != null) return 0; //Validamos el Autoriza Pedido
+                BETablaLogicaDatos restriccion = tabla_Retirada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == consultoraCatalogo.IdEstadoActividad);
+                if (restriccion != null) return 0; //Validamos el Autoriza Pedido
 
                 return autorizado ? 1 : 0; //Validamos el Autoriza Pedido
             }

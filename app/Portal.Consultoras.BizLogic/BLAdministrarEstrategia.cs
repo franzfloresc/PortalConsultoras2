@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,8 +9,8 @@ namespace Portal.Consultoras.BizLogic
         public List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
         {
             var listdDescripcionEstrategias = new List<BEDescripcionEstrategia>();
-            var DAEstrategia = new DAEstrategia(paisId);
-            using (var reader = DAEstrategia.ActualizarDescripcionEstrategia(campaniaId, tipoEstrategiaId, listaDescripcionEstrategias))
+            var daEstrategia = new DAEstrategia(paisId);
+            using (var reader = daEstrategia.ActualizarDescripcionEstrategia(campaniaId, tipoEstrategiaId, listaDescripcionEstrategias))
             {
                 while (reader.Read())
                 {
@@ -23,6 +18,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return listdDescripcionEstrategias;
+        }
+        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
+        {
+            var daEstrategia = new DAEstrategia(paisId);
+            return daEstrategia.ActualizarTonoEstrategia(estrategiaId, codigoEstrategia, tieneVariedad);
         }
     }
 }

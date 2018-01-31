@@ -41,11 +41,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var lstProductoFaltante = Session["ListaProductoFaltantes"] as List<BEProductoFaltante>;
 
+                if (lstProductoFaltante != null)
+                    return Json(new
+                    {
+                        success = true,
+                        lista = lstProductoFaltante.Skip(Cantidad).Take(numeroFilas).ToList(),
+                        total = lstProductoFaltante.Count
+                    });
+
                 return Json(new
                 {
-                    success = true,
-                    lista = lstProductoFaltante.Skip(Cantidad).Take(numeroFilas).ToList(),
-                    total = lstProductoFaltante.Count
+                    success = false,
+                    lista = "",
+                    total = 0
                 });
             }
             catch (Exception ex)

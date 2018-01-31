@@ -93,6 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             };
+
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
 
@@ -106,27 +107,29 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetRegionZonaDiasDuracionCronograma(pais.GetValueOrDefault(), region.GetValueOrDefault(), zona.GetValueOrDefault());
             }
-            JsTreeModel[] tree = lst.Distinct<BEConfiguracionValidacionZona>(new BEConfiguracionValidacionZonaRegionIDComparer()).Select(
-                                    r => new JsTreeModel
-                                    {
-                                        data = r.RegionNombre,
-                                        attr = new JsTreeAttribute
-                                        {
-                                            id = r.RegionID,
-                                            selected = false
-                                        },
-                                        children = lst.Where(i => i.RegionID == r.RegionID).Select(
-                                                        z => new JsTreeModel
-                                                        {
-                                                            data = z.ZonaNombre + " (" + z.DiasDuracionCronograma + ")",
-                                                            attr = new JsTreeAttribute
-                                                            {
-                                                                id = z.ZonaID,
-                                                                selected = false,
-                                                                diasDuracionCronograma = z.DiasDuracionCronograma
-                                                            }
-                                                        }).ToArray()
-                                    }).ToArray();
+
+            JsTreeModel[] tree = lst
+                .Distinct<BEConfiguracionValidacionZona>(new BEConfiguracionValidacionZonaRegionIDComparer()).Select(
+                    r => new JsTreeModel
+                    {
+                        data = r.RegionNombre,
+                        attr = new JsTreeAttribute
+                        {
+                            id = r.RegionID,
+                            selected = false
+                        },
+                        children = lst.Where(i => i.RegionID == r.RegionID).Select(
+                            z => new JsTreeModel
+                            {
+                                data = z.ZonaNombre + " (" + z.DiasDuracionCronograma + ")",
+                                attr = new JsTreeAttribute
+                                {
+                                    id = z.ZonaID,
+                                    selected = false,
+                                    diasDuracionCronograma = z.DiasDuracionCronograma
+                                }
+                            }).ToArray()
+                    }).ToArray();
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
 

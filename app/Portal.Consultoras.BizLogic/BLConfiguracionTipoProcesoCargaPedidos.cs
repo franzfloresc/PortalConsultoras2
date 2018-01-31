@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEConfiguracionTipoProcesoCargaPedidos> GetConfiguracionTipoProcesoCargaPedidos(int PaisID, int TipoPROL)
         {
             var lista = new List<BEConfiguracionTipoProcesoCargaPedidos>();
-            var DAConfiguracionTipoProcesoCargaPedidos = new DAConfiguracionTipoProcesoCargaPedidos(PaisID);
+            var daConfiguracionTipoProcesoCargaPedidos = new DAConfiguracionTipoProcesoCargaPedidos(PaisID);
 
-            using (IDataReader reader = DAConfiguracionTipoProcesoCargaPedidos.GetConfiguracionTipoProcesoCargaPedidos(TipoPROL))
+            using (IDataReader reader = daConfiguracionTipoProcesoCargaPedidos.GetConfiguracionTipoProcesoCargaPedidos(TipoPROL))
                 while (reader.Read())
                 {
                     var entidad = new BEConfiguracionTipoProcesoCargaPedidos(reader);
@@ -28,8 +24,8 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsConfiguracionTipoProcesoCargaPedidos(int PaisID, string Usuario, IList<BEConfiguracionTipoProcesoCargaPedidos> ZonasNuevoPROL)
         {
-            var DAConfiguracionTipoProcesoCargaPedidos = new DAConfiguracionTipoProcesoCargaPedidos(PaisID);
-            return DAConfiguracionTipoProcesoCargaPedidos.InsConfiguracionTipoProcesoCargaPedidos(Usuario, ZonasNuevoPROL);
+            var daConfiguracionTipoProcesoCargaPedidos = new DAConfiguracionTipoProcesoCargaPedidos(PaisID);
+            return daConfiguracionTipoProcesoCargaPedidos.InsConfiguracionTipoProcesoCargaPedidos(Usuario, ZonasNuevoPROL);
         }
     }
 }
