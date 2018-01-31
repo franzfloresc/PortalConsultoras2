@@ -155,6 +155,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
                 case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
                 case Enumeradores.PantallaOrigenPedidoWeb.General:
+                    result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
                 default:
                     result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                     break;
