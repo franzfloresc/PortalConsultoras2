@@ -245,7 +245,10 @@ $(document).ready(function () {
                     $(".icono_clase_control_color_dinamico").css("-webkit-filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
                     $(".icono_clase_control_color_dinamico").css("filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
                     $(".cross_clase_control_color_dinamico").css("background", setColorTexto);
-                    $(".cross_clase_control_color_dinamico").css("background:after", setColorTexto);
+
+                    var styleElemTrick = document.head.appendChild(document.createElement("style"));
+                    styleElemTrick.innerHTML = ".cross_clase_control_color_dinamico:after {background: " + setColorTexto + ";}";
+
                     $(".cross_line_clase_control_color_dinamico").css("background", setColorTexto);
                 }
 
