@@ -2,6 +2,7 @@
 
 var rutaPagoVisa = rutaPagoVisa || '';
 var rutaGuardarDatosPago = rutaGuardarDatosPago || '';
+var tipoOrigenPantalla = tipoOrigenPantalla || 0;
 
 $(document).ready(function () {
     'use strict';
@@ -18,6 +19,7 @@ $(document).ready(function () {
         me.Funciones = {
             InicializarEventos: function () {                
                 $(document).on('click', '.opcion_pago', me.Eventos.SeleccionarTipoPago);
+                $(document).on('click', '.opcionPagoDesktop', me.Eventos.SeleccionarTipoPago);
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
@@ -81,9 +83,13 @@ $(document).ready(function () {
                 e.preventDefault();
 
                 if (!(me.globals.barraActivacion).is('.activado')) {
-                    $('body,html').animate({
-                        scrollTop: $(document).height()
-                    }, 1000);
+
+                    if (tipoOrigenPantalla == 2) {
+                        $('body,html').animate({
+                            scrollTop: $(document).height()
+                        }, 1000);
+                    }
+                    
                     $('.tooltip_terminos_y_condiciones').fadeIn();
 
                     return false;

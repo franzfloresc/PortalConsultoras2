@@ -4647,6 +4647,7 @@
     <Content Include="Views\PagoEnLinea\PagoExitoso.cshtml" />
     <Content Include="Views\PagoEnLinea\ConfirmacionPago.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
+    <Content Include="Views\PagoEnLinea\PagoVisa.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
