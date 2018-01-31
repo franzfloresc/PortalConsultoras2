@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -17,39 +16,38 @@ namespace Portal.Consultoras.Web.WebPages
         {
             if (!Page.IsPostBack)
             {
-                List<BEDatosBelcorp> lista;
-
                 if (Request.QueryString["parametros"] != null)
                 {
                     string[] data = Util.DesencriptarQueryString(Request.QueryString["parametros"].ToString()).Split(';');
-                    string IdComprobantePercepcion = data[0].ToString();
-                    string RUCAgentePerceptor = data[1].ToString();
-                    string NombreAgentePerceptor = data[2].ToString();
-                    string NumeroComprobanteSerie = data[3].ToString();
-                    string FechaEmision = data[4].ToString();
-                    string ImportePercepcion = Convert.ToDecimal(data[5]).ToString("0.00");
-                    int PaisID = Convert.ToInt32(data[6].ToString());
-                    string Simbolo = data[7].ToString();
+                    string idComprobantePercepcion = data[0];
+                    string rucAgentePerceptor = data[1];
+                    string nombreAgentePerceptor = data[2];
+                    string numeroComprobanteSerie = data[3];
+                    string fechaEmision = data[4];
+                    string importePercepcion = Convert.ToDecimal(data[5]).ToString("0.00");
+                    int paisId = Convert.ToInt32(data[6]);
+                    string simbolo = data[7];
 
+                    List<BEDatosBelcorp> lista;
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        lista = sv.GetDatosBelcorp(PaisID).ToList();
+                        lista = sv.GetDatosBelcorp(paisId).ToList();
                     }
 
-                    lblRUCAgentePerceptor.Text = RUCAgentePerceptor;
-                    lblNombreAgentePerceptor.Text = NombreAgentePerceptor;
-                    lblNumeroComprobanteSerie.Text = NumeroComprobanteSerie;
-                    lblFechaEmision.Text = FechaEmision;
-                    lblImportePercepcion.Text = ImportePercepcion;
+                    lblRUCAgentePerceptor.Text = rucAgentePerceptor;
+                    lblNombreAgentePerceptor.Text = nombreAgentePerceptor;
+                    lblNumeroComprobanteSerie.Text = numeroComprobanteSerie;
+                    lblFechaEmision.Text = fechaEmision;
+                    lblImportePercepcion.Text = importePercepcion;
                     lblDireccion.Text = lista[0].Direccion;
                     lblRUC.Text = lista[0].RUC;
                     lblRazonSocial.Text = lista[0].RazonSocial;
-                    lblSimbolo.Text = Simbolo;
+                    lblSimbolo.Text = simbolo;
 
                     List<BEComprobantePercepcionDetalle> lst;
                     using (ODSServiceClient sv = new ODSServiceClient())
                     {
-                        lst = sv.SelectComprobantePercepcionDetalle(PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
+                        lst = sv.SelectComprobantePercepcionDetalle(paisId, Convert.ToInt32(idComprobantePercepcion)).ToList();
                     }
 
                     var sb = new StringBuilder();
