@@ -160,7 +160,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebAnteriores.GetPedidoProductosByCampania(paisID, campaniaID, consultoraID);
         }
 
-
         public IList<BECliente> SelectByNombre(int paisID, long consultoraID, string Nombre)
         {
             return BLCliente.SelectByNombre(paisID, consultoraID, Nombre);

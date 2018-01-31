@@ -1343,7 +1343,8 @@ namespace Portal.Consultoras.Service
                     select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
-                return int.TryParse(paisId, out outVal) ? outVal : 0;
+                int.TryParse(paisId, out outVal);
+                return  outVal;
             }
             catch (Exception)
             {

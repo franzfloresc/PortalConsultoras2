@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Service
             string paisesCodigoDocumento = ConfigurationManager.AppSettings["CONSULTORA_CATALOGO_PAISES_POR_DOCUMENTO"];
             bool parametroEsDocumento = paisesCodigoDocumento.Contains(paisISO.ToUpper());
 
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             var listTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisId, 66);
             BETablaLogicaDatos filtroUbigeo = listTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -59,16 +59,17 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
-                int outVal;
-                int limiteInferior = int.TryParse(longitudUbigeo.Codigo, out outVal) ? int.Parse(longitudUbigeo.Codigo) : 6;
+                int limiteInferior;
+                int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                int factorUbigeo = int.TryParse(configFactorUbigeo.Codigo, out outVal) ? int.Parse(configFactorUbigeo.Codigo) : 3;
+                int factorUbigeo;
+                int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
                 string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                 if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
             }
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -90,7 +91,7 @@ namespace Portal.Consultoras.Service
             BEListaConsultoraCatalogo bEListaConsultoraCatalogo = new BEListaConsultoraCatalogo();
             int idPais = GetPaisID(codigoPais);
 
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -107,11 +108,12 @@ namespace Portal.Consultoras.Service
                 BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
                 if (longitudUbigeo != null)
                 {
-                    int outVal;
-                    int limiteInferior = int.TryParse(longitudUbigeo.Codigo, out outVal) ? int.Parse(longitudUbigeo.Codigo) : 6;
+                    int limiteInferior;
+                    int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                     vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                     BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                    int factorUbigeo = int.TryParse(configFactorUbigeo.Codigo, out outVal) ? int.Parse(configFactorUbigeo.Codigo) : 3;
+                    int factorUbigeo;
+                    int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                     limiteInferior *= factorUbigeo;
                     string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                     if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
@@ -175,7 +177,8 @@ namespace Portal.Consultoras.Service
                           select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
-                return int.TryParse(paisId, out outVal) ? outVal : 0;
+                int.TryParse(paisId, out outVal);
+                return outVal;
             }
             catch (Exception)
             {

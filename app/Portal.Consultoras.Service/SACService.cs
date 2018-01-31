@@ -429,30 +429,30 @@ namespace Portal.Consultoras.Service
 
         public int InsertFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.InsertFactorGanancia(entidad);
+                result = BLFactorGanancia.InsertFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.UpdateFactorGanancia(entidad);
+                result = BLFactorGanancia.UpdateFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)
@@ -572,7 +572,7 @@ namespace Portal.Consultoras.Service
 
         public int InsertLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
                 lintPosicion= BLLugarPago.InsertLugarPago(entidad);
@@ -586,7 +586,7 @@ namespace Portal.Consultoras.Service
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
                 lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
