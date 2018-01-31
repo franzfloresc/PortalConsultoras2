@@ -1399,5 +1399,7 @@ namespace Portal.Consultoras.Entities
         public bool PasoSextoPedido { get; set; }
         [DataMember]
         public short RevistaDigitalSuscripcion { get; set; }
+        [DataMember]
+        public string UrlBannerGanaMas { get; set; }
     }
 }
