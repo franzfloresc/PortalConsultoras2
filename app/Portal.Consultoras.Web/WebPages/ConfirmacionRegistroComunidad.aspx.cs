@@ -16,42 +16,39 @@ namespace Portal.Consultoras.Web.WebPages
         {
             try
             {
-                if (!Page.IsPostBack)
-                {
-                    if (Request.QueryString["data"] != null)
-                    {
-                        //Formato que envia la url: CodigoUsuario;IdPais
-                        string[] query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
+                if (Page.IsPostBack) return;
+                if (Request.QueryString["data"] == null) return;
 
-                        using (ComunidadServiceClient sv = new ComunidadServiceClient())
+                //Formato que envia la url: CodigoUsuario;IdPais
+                string[] query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
+
+                using (ComunidadServiceClient sv = new ComunidadServiceClient())
+                {
+                    if (Convert.ToInt32(query[1]) == 0)
+                    {
+                        sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
                         {
-                            if (Convert.ToInt32(query[1]) == 0)
-                            {
-                                sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
-                                {
-                                    UsuarioId = Convert.ToInt64(query[0]),
-                                    Tipo = Convert.ToInt32(query[1]),
-                                    PaisId = Convert.ToInt32(query[2])
-                                });
-                            }
-                            else
-                            {
-                                sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
-                                {
-                                    UsuarioId = Convert.ToInt64(query[0]),
-                                    Tipo = Convert.ToInt32(query[1]),
-                                    PaisId = Convert.ToInt32(query[2]),
-                                    CodigoUsuarioSB = Convert.ToString(query[3]),
-                                    CodigoConsultoraSB = Convert.ToString(query[4])
-                                });
-                            }
-                        }
-                        hdfUsuario.Value = query[0];
-                        hdfTipo.Value = query[1];
-                        hdfPaisId.Value = query[2];
-                        hdfUsuarioSB.Value = query[3];
+                            UsuarioId = Convert.ToInt64(query[0]),
+                            Tipo = Convert.ToInt32(query[1]),
+                            PaisId = Convert.ToInt32(query[2])
+                        });
+                    }
+                    else
+                    {
+                        sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
+                        {
+                            UsuarioId = Convert.ToInt64(query[0]),
+                            Tipo = Convert.ToInt32(query[1]),
+                            PaisId = Convert.ToInt32(query[2]),
+                            CodigoUsuarioSB = Convert.ToString(query[3]),
+                            CodigoConsultoraSB = Convert.ToString(query[4])
+                        });
                     }
                 }
+                hdfUsuario.Value = query[0];
+                hdfTipo.Value = query[1];
+                hdfPaisId.Value = query[2];
+                hdfUsuarioSB.Value = query[3];
             }
             catch (Exception ex)
             {

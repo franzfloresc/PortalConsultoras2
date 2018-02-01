@@ -710,7 +710,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cdrWebFiltro = new BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
-                    var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault();
+                    var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault();
                     if (cdrWeb == null) return ErrorJson("Error al buscar reclamo.", true);
                     cdrWeb.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWeb.CDRWebID }, cdrWeb.PedidoID);
                     if (TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea, true);
@@ -733,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
                     sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
 
-                    cdrWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault() ?? new BECDRWeb();
+                    cdrWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault() ?? new BECDRWeb();
                     cdrWebMailConfirmacion.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWebMailConfirmacion.CDRWebID }, cdrWebMailConfirmacion.PedidoID);
                     cdrWebMailConfirmacion.CDRWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                     cdrWebMailConfirmacion.CDRWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);

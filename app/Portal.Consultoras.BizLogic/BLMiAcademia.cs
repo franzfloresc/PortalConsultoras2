@@ -68,23 +68,24 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
-                {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
-                    {
-                        try
-                        {
-                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
-                        }
-                    }
+                if (headerFile == null)
+                    return;
 
-                    daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                {
+                    try
+                    {
+                        BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
+                    }
                 }
+
+                daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+                
             }
             catch (Exception ex)
             {

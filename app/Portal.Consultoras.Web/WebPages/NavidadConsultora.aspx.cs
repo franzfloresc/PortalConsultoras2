@@ -13,46 +13,44 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                try
+                if (IsPostBack) return;
+
+                string query = Convert.ToString(Request.QueryString["comparte"]);
+                string[] words = query.Split('-');
+                int imagenId = Convert.ToInt32(words[0]);
+                int paisId = Convert.ToInt32(words[1]);
+
+                if (imagenId == 0 || paisId == 0) return;
+
+                NavidadConsultoraModel modelo = new NavidadConsultoraModel();
+                List<BENavidadConsultora> resultado;
+                BENavidadConsultora parametro = new BENavidadConsultora
                 {
-                    string query = Convert.ToString(Request.QueryString["comparte"]);
-                    string[] words = query.Split('-');
-                    int imagenId = Convert.ToInt32(words[0]);
-                    int paisId = Convert.ToInt32(words[1]);
-
-                    if (imagenId != 0 && paisId != 0)
-                    {
-                        NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-                        List<BENavidadConsultora> resultado;
-                        BENavidadConsultora parametro = new BENavidadConsultora
-                        {
-                            PaisId = paisId,
-                            ImagenId = imagenId
-                        };
-                        using (ContenidoServiceClient servicio = new ContenidoServiceClient())
-                        {
-                            resultado = servicio.SeleccionarNavidadConsultora(parametro).ToList();
-                        }
-                        var carpetaPais = Globals.UrlNavidadConsultora;
-                        var registro = resultado.FirstOrDefault();
-                        if (registro != null)
-                        {
-                            modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
-                            modelo.ImagenId = registro.ImagenId;
-                        }
-
-                        HtmlMeta metaImage = new HtmlMeta();
-                        metaImage.Attributes.Add("property", "og:image");
-                        metaImage.Attributes.Add("content", modelo.UrlImagen);
-                        Header.Controls.Add(metaImage);
-                    }
-                }
-                catch { 
-                
+                    PaisId = paisId,
+                    ImagenId = imagenId
+                };
+                using (ContenidoServiceClient servicio = new ContenidoServiceClient())
+                {
+                    resultado = servicio.SeleccionarNavidadConsultora(parametro).ToList();
                 }
 
+                var carpetaPais = Globals.UrlNavidadConsultora;
+                var registro = resultado.FirstOrDefault();
+                if (registro != null)
+                {
+                    modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
+                    modelo.ImagenId = registro.ImagenId;
+                }
+
+                HtmlMeta metaImage = new HtmlMeta();
+                metaImage.Attributes.Add("property", "og:image");
+                metaImage.Attributes.Add("content", modelo.UrlImagen);
+                Header.Controls.Add(metaImage);
+            }
+            catch
+            {
             }
 
         }

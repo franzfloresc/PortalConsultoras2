@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.WebPages
                 if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
                     esEsika = true;
 
-                if (!(Convert.ToDateTime(fechasolicitud) >= fechaactual))
+                if (Convert.ToDateTime(fechasolicitud) < fechaactual)
                 {
                     txtmarca.Text = esEsika ? "esika" : "lbel";
                     string titulo = "Sesión Expirada";

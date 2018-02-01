@@ -46,12 +46,9 @@ namespace Portal.Consultoras.Web.WebPages
                         if (opcional != "")
                         {
                             var opcionalLista = opcional.Split(',');
-                            if (opcionalLista.Length > 1)
+                            if (opcionalLista.Length > 1 && opcionalLista[0].ToLower() == "urlreturn")
                             {
-                                if (opcionalLista[0].ToLower() == "urlreturn")
-                                {
-                                    urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
-                                }
+                                urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
                             }
                         }
                     }
