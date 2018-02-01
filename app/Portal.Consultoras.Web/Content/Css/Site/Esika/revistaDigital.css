@@ -2402,6 +2402,7 @@
 
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
             animation: bounceRight 1.2s infinite;
+            display: inline;
         }
 
     .banner_pedido_masofertas .btn_diagonal:hover::after {
@@ -2410,9 +2411,10 @@
 
     .banner_pedido_masofertas .btn_diagonal img {
         position: relative;
-        top: 2px;
+        top: 1px;
         margin-left: 5px;
-        height: 15px;
+        height: 12px;
+        width: 8px;
     }
 
 .home_rd1 {
@@ -2452,17 +2454,38 @@
             transition: all .2s ease-in-out;
         }
 
-            .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
+        .home_rd1 .btn_diagonal:hover .rd_arrowright {
                 animation: bounceRight 1.2s infinite;
             }
+        .home_rd1 .btn_diagonal:hover .rd_arrowright_blanco {
+            display: none;
+        }
 
-    .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
+        .home_rd1 .btn_diagonal:hover .rd_arrowright {
+            display: inline;
+        }
+
+
+    .home_rd1 .rd_arrowright {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        display: inline;
+        width: 8px;
+        height: 12px;
+    }
+
+    .home_rd1 .rd_arrowright_blanco {
+        display: none;
         position: absolute;
         right: 16px;
         top: 16px;
         height: 12px;
+        display: inline;
         width: 8px;
+        height: 12px;
     }
+
 
 @media screen and (max-width: 1220px) {
     .home_rd1 .content_belcorp {
@@ -2570,10 +2593,18 @@
     .rd_catalogos .btn_stroke_white {
         background: transparent;
         width: 240px;
-        border: 1px solid white;
         color: white;
         font-size: 13px;
     }
+
+.banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+    display: none;
+}
+
+.banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
+    display: none;
+}
+
 
         .rd_catalogos .btn_stroke_white:hover a {
             color: black;
