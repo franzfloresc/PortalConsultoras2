@@ -484,7 +484,7 @@
 .area_activa_barra_activacion,
 .barra_activacion
 {
-    width:32.52px;
+    width:39px;
 }
 
 .area_activa_barra_activacion{
@@ -494,7 +494,7 @@
 }
 
 .barra_activacion{
-    height:11.79px;
+    height:15px;
     background:rgba(211, 211, 211, 0.44);
     border:1px solid rgba(163, 159, 159, 0.44);
     border-radius: 10px 10px;
@@ -519,9 +519,9 @@
 }
 
 .control_activacion{
-    width: 19px;
-    height: 18px;
-    top: -3.95px;
+    width: 22px;
+    height: 21.5px;
+    top: -4px;
     right: 45%;
     background-color: #bbbbbb;
     /* background-image: url(../../../images/icono-paso-completado.svg); */
@@ -532,7 +532,7 @@
     border-radius: 100%;
     position: absolute;
     font-family: 'somos-belcorp-iconos';
-    font-size: 9px;
+    font-size: 10px;
     padding-top: 4px;
     color: #FFF;
 }
@@ -574,11 +574,11 @@
 }
 
 .descripcion_opcion_activacion{
-    font-size:13px;
-    font-weight:400;
-    margin-bottom:3.5px;
-    letter-spacing:0.2px;
-    color:#000;
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 1.97px;
+    letter-spacing: 0.2px;
+    color: #000;
 }
 
 .ver_terminos_y_condiciones{
