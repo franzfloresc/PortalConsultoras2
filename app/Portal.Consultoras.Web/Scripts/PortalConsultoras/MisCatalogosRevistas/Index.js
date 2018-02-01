@@ -313,7 +313,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-        $(elemItem).attr("data-estado", estado || "0")
+        $(elemItem).attr("data-estado", estado)
 
         var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 

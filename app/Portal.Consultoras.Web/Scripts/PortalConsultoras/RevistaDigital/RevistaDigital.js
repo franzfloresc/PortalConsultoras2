@@ -518,14 +518,17 @@ function RDDetalleObtener() {
 
     if (cuv == "" || campania == "") {
         RDDetalleVolver(campaniaCodigo);
+        return false;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     if (prod == null || prod == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
     if (prod.CUV2 == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
 
     var obj = new Object();

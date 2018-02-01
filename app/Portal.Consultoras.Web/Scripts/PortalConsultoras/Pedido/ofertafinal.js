@@ -79,14 +79,15 @@ $(document).ready(function () {
             EsSugerido: false,
             OrigenPedidoWeb: OrigenPedidoWeb
         };
-        var add = new Object();
+        var add;
         if (tipoOrigen == "1") {
             var add = AgregarProducto('Insert', model, "", false, false);
         }
         else {
             var add = InsertarProducto(model, false);
         }
-        if (!add.success) {
+
+        if (add == null || !add.success) {
             if (tipoOrigen == "1") {
                 CerrarSplash();
             }
@@ -181,7 +182,7 @@ $(document).ready(function () {
             OrigenPedidoWeb: OrigenPedidoWeb
         };
 
-        var add = new Object();
+        var add;
         if (tipoOrigen == "1") {
             var add = AgregarProducto('Insert', model, "", false, false);
         }
@@ -189,7 +190,7 @@ $(document).ready(function () {
             var add = InsertarProducto(model, false);
         }
 
-        if (!add.success) {
+        if (add == null || !add.success) {
             if (tipoOrigen == "1") {
                 CerrarSplash();
             }
@@ -505,7 +506,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         if (ValoresOFR != null) montolimite = minimo;
 
         if (parseFloat(data.total) >= montolimite) {
-            var msj = tipoOrigen == "2" ? "Ahora tu ganancia estimada total es " : "Ahora tu ganancia estimada total es ";
+            var msj = "Ahora tu ganancia estimada total es ";
 
             if (consultoraRegaloPN != 'True')
                 $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>MONTO MÍNIMO!</b>");
@@ -935,7 +936,6 @@ function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, co
 }
 
 function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl) {
-    var productosMostrar = new Array();
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
     var tipoMeta = 0;
@@ -1533,7 +1533,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
 
 function of_google_analytics_product_click(entorno, element, meta) {
     var list;
-    var name, price, brand, id, variant, quantity, position;
+    var name, price, brand, id, variant, position;
 
     list = "Oferta Final - ";
     if (meta == "MM") { list = list + "Pedido Mínimo"; }
@@ -1558,7 +1558,6 @@ function of_google_analytics_product_click(entorno, element, meta) {
     brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
     id = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
     variant = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();
-    quantity = $("#divOfertaFinal").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
     if (variant == "") { variant = "Estándar"; }
 
     dataLayer.push({
@@ -1591,30 +1590,29 @@ function of_google_analytics_cerrar_popup() {
 }
 
 function GetValoresOfertaFinalRegalo(data) {
+    if (!(ofertaFinalAlgoritmo === "OFR" && tipoOrigen === "2")) {
+        return null;
+    }
+
     var total = parseFloat(data.total);
     var minimo = parseFloat($("#hdMontoMinimo").val());
-    var tipo = "MM";
     var meta = 0;
 
     if (ofertaFinalRegalo != null)
         meta = ofertaFinalRegalo.MontoMeta;
-
-    if (ofertaFinalAlgoritmo === "OFR" && tipoOrigen === "2") {
-        if (total >= minimo && minimo > 0 && total > 0) {
-            tipo = "RG";
-            if (total >= meta && meta > 0 && total > 0)
-                tipo = "GM";
-        }
-        else
-            tipo = "MM";
-
-        return {
-            tipo: tipo,
-            minimo: minimo,
-            total: total,
-            meta: meta
-        };
+    
+    var tipo = "MM";
+    if (total >= minimo && minimo > 0 && total > 0) {
+        tipo = "RG";
+        if (total >= meta && meta > 0 && total > 0)
+            tipo = "GM";
     }
-    else
-        return null;
+
+    return {
+        tipo: tipo,
+        minimo: minimo,
+        total: total,
+        meta: meta
+    };
+
 }

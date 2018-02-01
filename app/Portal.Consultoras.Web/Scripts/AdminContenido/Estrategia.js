@@ -513,12 +513,7 @@
                             $("#txtGanancia").val(data.ganancia);
                         }
                         else if (data.wsprecio === 0.0) {
-                            if (data.precio === 0.0) {
-                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            }
-                            else {
-                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                            }
+                            $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
                         }
                         else if (data.wsprecio == -1) {
                             $("#txtPrecio2")[0].disabled = true;

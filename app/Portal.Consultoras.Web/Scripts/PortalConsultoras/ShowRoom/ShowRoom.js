@@ -146,7 +146,6 @@ $(document).ready(function () {
             centerMode: true,
             variableWidth: true,
             slidesToScroll: 1,
-            centerMode: true,
             arrows: false,
             dots: false,
         }).on('swipe', function (event, slick, direction) {
@@ -737,14 +736,7 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
         if (listaShowRoomOferta.length > 0) {
             $.each(listaShowRoomOferta,
                 function (index, value) {
-                    if (value.EsSubCampania == true) {
-                        //if (value.UnidadesPermitidasRestantes > 0) {
-                        lista.push(value);
-                        //}
-                    }
-                    else {
-                        lista.push(value);
-                    }
+                    lista.push(value);
                 });
         }
     }

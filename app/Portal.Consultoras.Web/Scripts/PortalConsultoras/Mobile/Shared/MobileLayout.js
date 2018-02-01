@@ -189,16 +189,9 @@
     if (EstadoActivo === '1') {
         var URLactual = window.location.href;
         var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-        if (urlBienvenida > 0) {
-            //$("#contentmobile").css({ 'margin-top': '0px' });
-        } else {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
     }
     else {
         var URLactual = window.location.href;
-        var urlPagina = URLactual.indexOf("Cliente");
         //$("#contentmobile").css({ 'margin-top': '123px' });
     }
 
@@ -220,23 +213,7 @@
 
     var URLactual = window.location.href;
     var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-    if (urlBienvenida > 0) {
-        if (sesionEsShowRoom) {
-            //$("#contentmobile").css({ 'margin-top': '0px' });
-        } else {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
-    } else {
-        if ($('#flexslidertop ul.slides li').length == 0) {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
-    }
-
-    if (URLactual.indexOf('/g/') > 0) {
-        //$("#contentmobile").css({ 'margin-top': '0px' });
-    }
-
+    
     $(".bannersi").on("click", function () {
 
         var eventId = $("#hdEventoIDShowRoom").val();
@@ -379,8 +356,6 @@ function loadBannerLP20() {
             });
         }
 
-    } else {
-        var url = location.href.toLowerCase();
     }
 
     if ($('#flexslidertop ul.slides li').length > 0) {

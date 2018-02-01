@@ -841,7 +841,7 @@ function InsertarProducto() {
             Cantidad: $("#txtCantidad").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val(),
+            tipoEstrategiaImagen: 2,
             OrigenPedidoWeb: origenPedidoWebMobilePedido
         };
     }

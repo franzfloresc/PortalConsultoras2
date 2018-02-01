@@ -547,7 +547,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog(opcion);
+            closeWaitingDialog();
         }
     } catch (e) {
 
@@ -689,9 +689,9 @@ function checkTimeout(data) {
     var thereIsStillTime = true;
 
     if (data) {
-        var eval = data.responseText ? data.responseText : data;
-        if (jQuery.type(eval) === "string") {
-            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
+        var evalText = data.responseText ? data.responseText : data;
+        if (jQuery.type(evalText) === "string") {
+            if ((evalText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (evalText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (evalText == '"_Logon_"'))
                 thereIsStillTime = false;
         }
 
@@ -740,7 +740,6 @@ function paginadorAccionGenerico(obj) {
     var paginaActualCambio = padre.find("[data-paginacion='page']").val() || 1;
     var rows = padre.find("[data-paginacion='rows'] > option:selected").val() || 0;
     var pageCount = padre.find("[data-paginacion='pageCount']").html() || 0;
-    var recordCount = padre.find("[data-paginacion='recordCount']").html() || 0;
 
     pageCount = parseInt(pageCount, 10);
     paginaActual = parseInt(paginaActual, 10);
@@ -1309,7 +1308,7 @@ function ModificarPedido2(pTipo) {
     }
     else {
         if (_ModificacionPedidoProl === "0")
-            ConfirmarModificar2('');
+            ConfirmarModificar2();
         else
             showDialog("divConfirmValidarPROL");
         return false;
@@ -1499,9 +1498,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
     var detalle = $("[data-odd-tipoventana='detalle']");
     var listaOferta = data == undefined ? null : data;
     var impresions = new Array();
+    var divs = new Array();
 
     if (carrusel.length > 0 && carrusel.is(":visible")) {
-        var divs = new Array();
         var div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
         var div3 = $(carrusel).find("[data-item-position = 2]")[0];
@@ -1557,9 +1556,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
             });
         }
         else if (NameContenedor == "#OfertasDelDiaOfertas") {
-            NameList == "Oferta del día - Detalle Slider";
+            NameList = "Oferta del día - Detalle Slider";
             if (listaOferta.ListaOfertas.length > 1) {
-                NameList == "Oferta del día - Slider Productos";
+                NameList = "Oferta del día - Slider Productos";
                 lstOferta = data.ListaOfertas;
 
                 $.each(lstOferta, function (index, item) {
