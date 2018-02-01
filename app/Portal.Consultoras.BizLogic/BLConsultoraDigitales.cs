@@ -4,12 +4,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraDigitales
     {
-
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
@@ -128,7 +128,7 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row)
         {
-            string line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
             {
                 string item;
@@ -138,9 +138,9 @@ namespace Portal.Consultoras.BizLogic
                     case "CODCONSULTORA": item = row["CodigoConsultora"].ToString(); break;
                     default: item = string.Empty; break;
                 }
-
-                line += item + ",";
+                txtBuil.Append(item + ",");
             }
+            string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
         

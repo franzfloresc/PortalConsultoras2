@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1290,8 +1291,8 @@ namespace Portal.Consultoras.Web.Controllers
             string templateDetalleOperacionFaltantePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltante.html";
             string templateDetalleOperacionFaltanteAbonoPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltanteAbono.html";
             string templateUrlDetalleOperacionTruequePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_trueque.html";
-
-            string htmlDetalle = "";
+            
+            var txtBuil = new StringBuilder();
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
@@ -1321,9 +1322,9 @@ namespace Portal.Consultoras.Web.Controllers
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", simbolo + " " + precio2);
 
                 html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
-                htmlDetalle += html;
+                txtBuil.Append(html);
             }
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", htmlDetalle);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
 
             #endregion
 

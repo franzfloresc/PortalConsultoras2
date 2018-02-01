@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -75,14 +76,12 @@ namespace Portal.Consultoras.Web.WebPages
 
         private string saltoLinea(string[] array)
         {
-            string texto = "";
-
+            var txtBuil = new StringBuilder();
             for (int i = 0; i < array.Length; i++)
             {
-                texto += array[i] + " <br /> ";
+                txtBuil.Append(array[i] + " <br /> ");
             }
-
-            return texto;
+            return txtBuil.ToString();
         }
 
         protected void btnProveedorSiguiente_Click(object sender, EventArgs e)
