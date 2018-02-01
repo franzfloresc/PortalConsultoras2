@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -68,13 +69,15 @@ namespace Portal.Consultoras.Web.WebPages
                     listaDetalle = sv.GetProductosShowRoomDetalle(paisId, idCampaniaFinal, ofertaShowRoom.CUV).ToList();
                 }
 
-                var subTitulo = "";
+                var txtBuil = new StringBuilder();
                 var contadorDetalle = 1;
                 foreach (var detalle in listaDetalle)
                 {
-                    subTitulo += contadorDetalle == listaDetalle.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+                    txtBuil.Append(contadorDetalle == listaDetalle.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ");
                     contadorDetalle++;
                 }
+
+                var subTitulo = txtBuil.ToString();
 
                 HtmlMeta meta1 = new HtmlMeta();
                 meta1.Name = "og:image";

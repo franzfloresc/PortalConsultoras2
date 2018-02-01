@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -318,9 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
         
-
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
@@ -411,9 +410,9 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
                 }
 
-                var cuvNoGenerados = "";
-                var cuvNoExistentes = "";
-
+                var txtBuilNoGenerados = new StringBuilder();
+                var txtBuilNoExistentes = new StringBuilder();
+                
                 foreach (var item in lista)
                 {                    
                     var mensajeError = "";
@@ -434,17 +433,19 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                         mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);                    
                     else
-                        cuvNoExistentes += item.Cuv + ",";
+                        txtBuilNoExistentes.Append(item.Cuv + ",");
 
                     if (mensajeError != "")
-                        cuvNoGenerados += item.Cuv + ",";
+                        txtBuilNoGenerados.Append(item.Cuv + ",");
                 }
 
                 var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                var cuvNoGenerados = txtBuilNoGenerados.ToString();
                 if (cuvNoGenerados != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
                 }
+                var cuvNoExistentes = txtBuilNoExistentes.ToString();
                 if (cuvNoExistentes != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
