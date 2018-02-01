@@ -665,5 +665,19 @@ namespace Portal.Consultoras.Data
                 return result;
             }
         }
+        public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarProductoShowroomMasiva"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
+                Context.Database.AddOutParameter(command, "@RetornoActualizacion", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                List<int> result = new List<int>() { Convert.ToInt32(command.Parameters["@RetornoActualizacion"].Value) };
+                return result;
+            }
+        }
+
     }
 }

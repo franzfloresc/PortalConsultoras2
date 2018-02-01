@@ -632,6 +632,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
 
         [OperationContract]
+        List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
 
         [OperationContract]

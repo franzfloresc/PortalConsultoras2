@@ -695,5 +695,19 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
+
+        public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                List<int> result = DAEstrategia.InsertarProductoShowroomMasiva(entidad);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -1650,7 +1650,7 @@ namespace Portal.Consultoras.Common
         {
             public const string AppConsultora = "App Consultora";
         }
-        public static class ColumnsStrategyShowroom
+        public static class ColumnsSetStrategyShowroom
         {
             public const string CUV = "cuv";
             public const string NormalPrice = "precio normal";
@@ -1661,6 +1661,17 @@ namespace Portal.Consultoras.Common
             public const string OfferStatus = "estado de oferta";
 
             public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 , OfferStatus  = 6};
+        }
+
+        public static class ColumnsProductStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string Order = "posicion";
+            public const string ProductName = "nombre producto";
+            public const string Description = "descripcion";
+            public const string BrandProduct = "marca producto";
+
+            public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
         public class ValAutoEstado

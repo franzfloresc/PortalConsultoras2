@@ -1,4 +1,6 @@
-CREATE PROCEDURE dbo.InsertarEstrategiaMasiva  
+USE BelcorpPeru_PL50
+GO
+ALTER PROCEDURE dbo.InsertarEstrategiaMasiva  
 @EstrategiaXML as XML,  
 @TipoEstrategiaID INT,  
 @CampaniaID INT,  
@@ -38,8 +40,7 @@ WHEN MATCHED THEN
     e.Activo = t.Activo;  
  SET @RetornoActualizacion = @@ROWCOUNT    
 ---*---  
-INSERT INTO dbo.Estrategia (CUV2, DescripcionCUV2, Precio, Precio2, LimiteVenta, TextoLibre, EsSubCampania, UsuarioCreacion, FechaCreacion, TipoEstrategiaID, CampaniaID, EtiquetaID,EtiquetaID2, Activo, CampaniaIDFin, NumeroPedido, FlagDescripcion, CUV, Fl
-agCEP, FlagCEP2, Cantidad, FlagCantidad, ColorFondo, Ganancia)  
+INSERT INTO dbo.Estrategia (CUV2, DescripcionCUV2, Precio, Precio2, LimiteVenta, TextoLibre, EsSubCampania, UsuarioCreacion, FechaCreacion, TipoEstrategiaID, CampaniaID, EtiquetaID,EtiquetaID2, Activo, CampaniaIDFin, NumeroPedido, FlagDescripcion, CUV, FlagCEP, FlagCEP2, Cantidad, FlagCantidad, ColorFondo, Ganancia)  
 SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'  
       , tabla.variable.value('DescripcionCUV2[1]', 'VARCHAR(800)') AS 'DescripcionCUV2'  
     , tabla.variable.value('Precio[1]', 'NUMERIC(12,2)') AS 'Precio'  
