@@ -1,7 +1,4 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
-using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class BarraConsultoraEscalaDescuentoModel
     {

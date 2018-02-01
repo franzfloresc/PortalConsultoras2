@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -15,42 +14,44 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            bool ErrorServicio;
-            string ErrorCode;
-            string ErrorMessage;
+            bool errorServicio;
+            string errorCode;
+            string errorMessage;
 
             RVDigitalModel oRVDigitalModel = new RVDigitalModel();
-            oRVDigitalModel.listaCampania = GetCampaniasRVDigitalWeb(out ErrorServicio, out ErrorCode, out ErrorMessage);
+            oRVDigitalModel.listaCampania = GetCampaniasRVDigitalWeb(out errorServicio, out errorCode, out errorMessage);
 
-            if (ErrorServicio)
+            if (errorServicio)
             {
                 ViewBag.ErrorDescripcion = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             }
             else
             {
-                if (ErrorCode == string.Empty || ErrorCode == "00000")
+                if (errorCode == string.Empty || errorCode == "00000")
                     ViewBag.ErrorDescripcion = string.Empty;
                 else
-                    ViewBag.ErrorDescripcion = ErrorMessage;
+                    ViewBag.ErrorDescripcion = errorMessage;
             }
             return View(oRVDigitalModel);
         }
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            bool ErrorServicio;
-            string ErrorCode;
-            string ErrorMessage;
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
+            bool errorServicio;
+            string errorCode;
+            string errorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
 
             if (!string.IsNullOrEmpty(Campania))
             {
-                lst = GetPDFRVDigitalWeb(Campania, out ErrorServicio, out ErrorCode, out ErrorMessage);
+                lst = GetPDFRVDigitalWeb(Campania, out errorServicio, out errorCode, out errorMessage);
             }
             IEnumerable<RVPRFModel> items = lst;
 
@@ -100,14 +101,14 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public List<CampaniaModel> GetCampaniasRVDigitalWeb(out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
+        public List<CampaniaModel> GetCampaniasRVDigitalWeb(out bool errorServicio, out string errorCode, out string errorMessage)
         {
             UsuarioModel usuario = UserData();
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora) };
             List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
+            errorServicio = false;
+            errorCode = string.Empty;
+            errorMessage = string.Empty;
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -126,16 +127,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 WebResponse responce = request.GetResponse();
                 Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperCampanias st = json_serializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null)
+                if (reader != null)
                 {
-                    if (st.LIS_CampanaResult != null)
+                    StreamReader sReader = new StreamReader(reader);
+                    string outResult = sReader.ReadToEnd();
+                    sReader.Close();
+
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+
+                    WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
+                    if (st != null && st.LIS_CampanaResult != null)
                     {
                         if (st.LIS_CampanaResult.lista != null)
                         {
@@ -148,40 +149,39 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-                                ErrorCode = st.LIS_CampanaResult.errorCode;
-                                ErrorMessage = st.LIS_CampanaResult.errorMessage;
+                                errorCode = st.LIS_CampanaResult.errorCode;
+                                errorMessage = st.LIS_CampanaResult.errorMessage;
                             }
                         }
                         else
                         {
-                            ErrorCode = st.LIS_CampanaResult.errorCode;
-                            ErrorMessage = st.LIS_CampanaResult.errorMessage;
+                            errorCode = st.LIS_CampanaResult.errorCode;
+                            errorMessage = st.LIS_CampanaResult.errorMessage;
                         }
+                        
                     }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
+                errorServicio = true;
             }
+
             if (lstCampaniaModel.Count != 0)
                 return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();
-            else
 
-                return lstCampaniaModel;
-
-
+            return lstCampaniaModel;
         }
 
-        public List<RVPRFModel> GetPDFRVDigitalWeb(string Campania, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
+        public List<RVPRFModel> GetPDFRVDigitalWeb(string campania, out bool errorServicio, out string errorCode, out string errorMessage)
         {
             UsuarioModel usuario = UserData();
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), Campana = Campania };
+            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), Campana = campania };
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
+            errorServicio = false;
+            errorCode = string.Empty;
+            errorMessage = string.Empty;
             try
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -200,16 +200,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 WebResponse responce = request.GetResponse();
                 Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
-                if (st != null)
+                if (reader != null)
                 {
-                    if (st.GET_URLResult != null)
+                    StreamReader sReader = new StreamReader(reader);
+                    string outResult = sReader.ReadToEnd();
+                    sReader.Close();
+
+                    JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
+
+                    WrapperPDFWeb st = jsonSerializer.Deserialize<WrapperPDFWeb>(outResult);
+                    if (st != null && st.GET_URLResult != null)
                     {
                         if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
                         {
@@ -224,17 +224,17 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            ErrorCode = st.GET_URLResult.errorCode;
-                            ErrorMessage = st.GET_URLResult.errorMessage;
+                            errorCode = st.GET_URLResult.errorCode;
+                            errorMessage = st.GET_URLResult.errorMessage;
                         }
-                    }
 
+                    }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
+                errorServicio = true;
             }
 
             return lstRVPRFModel;
@@ -244,23 +244,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = string.IsNullOrEmpty(vBusqueda) 
+                ? lst.Count
+                : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
-            if (string.IsNullOrEmpty(vBusqueda))
-                RecordCount = lst.Count;
-            else
-                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }

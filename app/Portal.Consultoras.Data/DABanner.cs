@@ -1,13 +1,10 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -37,11 +34,7 @@ namespace Portal.Consultoras.Data
 
         public int InsUpdGrupoBanner(BEGrupoBanner grupoBanner)
         {
-            BEGrupoConsultora[] consultoras;
-            if (grupoBanner.Consultoras != null)
-                consultoras = grupoBanner.Consultoras;
-            else
-                consultoras = new BEGrupoConsultora[0];
+            var consultoras = grupoBanner.Consultoras ?? new BEGrupoConsultora[0];
 
             var consultorasReader = new GenericDataReader<BEGrupoConsultora>(consultoras);
 
@@ -77,10 +70,10 @@ namespace Portal.Consultoras.Data
 
             if (banner.Paises != null && banner.Paises.Length > 0)
             {
-                foreach (int paisID in banner.Paises)
+                foreach (int paisId in banner.Paises)
                 {
-                    if (paisID > 0)
-                        dtPaises.Rows.Add(paisID);
+                    if (paisId > 0)
+                        dtPaises.Rows.Add(paisId);
                 }
                 dtPaises.AcceptChanges();
             }
@@ -193,14 +186,14 @@ namespace Portal.Consultoras.Data
 
         public int UpdOrdenNumberBanner(IEnumerable<BEBannerOrden> lstBanners)
         {
-            var BannersReader = new GenericDataReader<BEBannerOrden>(lstBanners);
+            var bannersReader = new GenericDataReader<BEBannerOrden>(lstBanners);
 
             var command = new SqlCommand("dbo.UpdNroOrdenBanners");
             command.CommandType = CommandType.StoredProcedure;
 
             var parameter = new SqlParameter("@BannersOrden", SqlDbType.Structured);
             parameter.TypeName = "dbo.BannerOrdenType";
-            parameter.Value = BannersReader;
+            parameter.Value = bannersReader;
             command.Parameters.Add(parameter);
 
             return Context.ExecuteNonQuery(command);

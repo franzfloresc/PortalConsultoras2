@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -15,13 +11,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEConfiguracionValidacionZona> GetCampaniasActivas(int paisID, int CampaniaID)
         {
             var lista = new List<BEConfiguracionValidacionZona>();
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
 
-            using (IDataReader reader = DAConfiguracionValidacionZona.GetCampaniasActivas(CampaniaID))
+            using (IDataReader reader = daConfiguracionValidacionZona.GetCampaniasActivas(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BEConfiguracionValidacionZona(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEConfiguracionValidacionZona(reader) {PaisID = paisID};
                     lista.Add(entidad);
                 }
 
@@ -30,26 +25,27 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsConfiguracionValidacionZona(BEConfiguracionValidacion ent, List<BEConfiguracionValidacionZona> lista)
         {
-            BEConfiguracionValidacionZona entidad;
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
+            TransactionOptions transactionOptions =
+                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                DAConfiguracionValidacionZona.DelConfiguracionValidacionZona(ent.CampaniaID);
-                DAConfiguracionValidacion.Insert(ent);
+                daConfiguracionValidacionZona.DelConfiguracionValidacionZona(ent.CampaniaID);
+                daConfiguracionValidacion.Insert(ent);
 
                 foreach (var item in lista)
                 {
-                    entidad = new BEConfiguracionValidacionZona();
-                    entidad.PaisID = item.PaisID;
-                    entidad.CampaniaID = ent.CampaniaID;
-                    entidad.ZonaID = item.ZonaID;
-                    entidad.ValidacionActiva = item.ValidacionActiva;
-                    entidad.DiasDuracionCronograma = item.DiasDuracionCronograma;
-                    DAConfiguracionValidacionZona.InsConfiguracionValidacionZona(entidad);
+                    var entidad = new BEConfiguracionValidacionZona
+                    {
+                        PaisID = item.PaisID,
+                        CampaniaID = ent.CampaniaID,
+                        ZonaID = item.ZonaID,
+                        ValidacionActiva = item.ValidacionActiva,
+                        DiasDuracionCronograma = item.DiasDuracionCronograma
+                    };
+                    daConfiguracionValidacionZona.InsConfiguracionValidacionZona(entidad);
                 }
                 transaction.Complete();
             }
@@ -57,26 +53,27 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdConfiguracionValidacionZona(BEConfiguracionValidacion ent, List<BEConfiguracionValidacionZona> lista)
         {
-            BEConfiguracionValidacionZona entidad;
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
+            TransactionOptions transactionOptions =
+                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                DAConfiguracionValidacionZona.DelConfiguracionValidacionZona(ent.CampaniaID);
-                DAConfiguracionValidacion.Update(ent);
+                daConfiguracionValidacionZona.DelConfiguracionValidacionZona(ent.CampaniaID);
+                daConfiguracionValidacion.Update(ent);
 
                 foreach (var item in lista)
                 {
-                    entidad = new BEConfiguracionValidacionZona();
-                    entidad.PaisID = item.PaisID;
-                    entidad.CampaniaID = ent.CampaniaID;
-                    entidad.ZonaID = item.ZonaID;
-                    entidad.ValidacionActiva = item.ValidacionActiva;
-                    entidad.DiasDuracionCronograma = item.DiasDuracionCronograma;
-                    DAConfiguracionValidacionZona.InsConfiguracionValidacionZona(entidad);
+                    var entidad = new BEConfiguracionValidacionZona
+                    {
+                        PaisID = item.PaisID,
+                        CampaniaID = ent.CampaniaID,
+                        ZonaID = item.ZonaID,
+                        ValidacionActiva = item.ValidacionActiva,
+                        DiasDuracionCronograma = item.DiasDuracionCronograma
+                    };
+                    daConfiguracionValidacionZona.InsConfiguracionValidacionZona(entidad);
                 }
                 transaction.Complete();
             }
@@ -84,16 +81,16 @@ namespace Portal.Consultoras.BizLogic
 
         public void DelConfiguracionValidacionZona(int paisID, int CampaniaID)
         {
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
-            DAConfiguracionValidacionZona.DelConfiguracionValidacionZona(CampaniaID);
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
+            daConfiguracionValidacionZona.DelConfiguracionValidacionZona(CampaniaID);
         }
 
         public IList<BEConfiguracionValidacionZona> GetRegionZonaDiasDuracionCronograma(int PaisID, int RegionID, int ZonaID)
         {
             var lista = new List<BEConfiguracionValidacionZona>();
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(PaisID);
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(PaisID);
 
-            using (IDataReader reader = DAConfiguracionValidacionZona.GetRegionZonaDiasDuracionCronograma(RegionID, ZonaID))
+            using (IDataReader reader = daConfiguracionValidacionZona.GetRegionZonaDiasDuracionCronograma(RegionID, ZonaID))
                 while (reader.Read())
                 {
                     var entidad = new BEConfiguracionValidacionZona(reader);
@@ -105,15 +102,15 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdConfiguracionValidacionZonaCronograma(int PaisID, List<BEConfiguracionValidacionZona> listaEntidades)
         {
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(PaisID);
+            TransactionOptions transactionOptions =
+                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(PaisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
                 foreach (var entidad in listaEntidades)
                 {
-                    DAConfiguracionValidacionZona.UpdConfiguracionValidacionZonaCronograma(entidad);
+                    daConfiguracionValidacionZona.UpdConfiguracionValidacionZonaCronograma(entidad);
                 }
                 transaction.Complete();
             }
@@ -122,14 +119,13 @@ namespace Portal.Consultoras.BizLogic
         public BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID)
         {
             BEConfiguracionValidacionZona entidad = null;
-            var DAConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
+            var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(paisID);
 
-            using (IDataReader reader = DAConfiguracionValidacionZona.GetConfiguracionValidacionZona(campaniaID, zonaID))
+            using (IDataReader reader = daConfiguracionValidacionZona.GetConfiguracionValidacionZona(campaniaID, zonaID))
             {
                 if (reader.Read())
                 {
-                    entidad = new BEConfiguracionValidacionZona(reader);
-                    entidad.PaisID = paisID;
+                    entidad = new BEConfiguracionValidacionZona(reader) {PaisID = paisID};
                 }
             }
             return entidad;

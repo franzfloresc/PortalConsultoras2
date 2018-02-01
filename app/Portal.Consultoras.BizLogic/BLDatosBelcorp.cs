@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 
 namespace Portal.Consultoras.BizLogic
@@ -15,9 +11,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEDatosBelcorp> GetDatosBelcorp(int paisID)
         {
             var datos = new List<BEDatosBelcorp>();
-            var DADatosBelcorp = new DADatosBelcorp(paisID);
+            var daDatosBelcorp = new DADatosBelcorp(paisID);
 
-            using (IDataReader reader = DADatosBelcorp.GetDatosBelcorp())
+            using (IDataReader reader = daDatosBelcorp.GetDatosBelcorp())
                 while (reader.Read())
                 {
                     datos.Add(new BEDatosBelcorp(reader));

@@ -17,39 +17,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
-            clienteModel.CampaniaActual = userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
-            clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
+                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
+                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
+                TieneGND = userData.TieneGND
+            };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-
-            var tieneGND = userData.TieneGND;
-            clienteModel.TieneGND = tieneGND;
-            clienteModel.MostrarTab = 
-                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaActiva() && !tieneGND) ||
-                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
-                (revistaDigital.TieneRDR && !tieneGND);
-
-            clienteModel.MostrarRevistaDigital = (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
-                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                (revistaDigital.TieneRDR && !tieneGND);
             
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-            ViewBag.NombreConsultora = userData.Sobrenombre;
 
-            string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
-            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
             var paisesEsika = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).ToLower();
             ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
@@ -93,7 +82,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
-            var url = string.Empty;
+            string url;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
 
             try
@@ -118,7 +107,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string GetStringIssuRevista(string codigoRevista)
         {
-            var stringIssuuRevista = string.Empty;
+            string stringIssuuRevista;
             using (var client = new WebClient())
             {
                 var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);

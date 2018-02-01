@@ -1,10 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
+using Portal.Consultoras.Entities.Framework;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.ServiceContracts
 {
