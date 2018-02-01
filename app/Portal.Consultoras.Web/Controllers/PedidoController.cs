@@ -3538,8 +3538,6 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
                 pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73));
 
-                pedidoWebDetalleModel = ModificarNombreProductoParaTonos(pedidoWebDetalleModel);
-
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
                 model.TotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
@@ -3601,48 +3599,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Parametria Oferta Final
-
-        private List<PedidoWebDetalleModel> ModificarNombreProductoParaTonos(List<PedidoWebDetalleModel> listPedidoWebDetalle)
-        {
-            var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
-            string separador = "|";
-            var Codigos = new StringBuilder();
-            Codigos.Append(separador);
-
-            listPedidoWebDetalle.Where(x => x.TieneVariedad == 1).ToList().ForEach(x => Codigos.Append(x.CodigoProducto + separador));
-
-            string joinCuv = Codigos.ToString();
-
-            if (joinCuv == separador) return listPedidoWebDetalle;
-
-            joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
-
-            List<Producto> listaAppCatalogo = null;
-            using (ProductoServiceClient svc = new ProductoServiceClient())
-            {
-                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, joinCuv, numeroCampanias).ToList();
-            }
-            string DescripcionProd = "";
-            if (listaAppCatalogo.Count > 0)
-            {
-                foreach (var item in listaAppCatalogo)
-                {
-                    if (IsMobile())
-                    {
-                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd.Split('|')[0],"<br/>", item.NombreComercial);
-                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = DescripcionProd;
-                    }
-                    else
-                    {
-                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd.Split('|')[0],"<br/>", item.NombreComercial);
-                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = DescripcionProd;
-                    }
-                        
-                }
-            }
-
-            return listPedidoWebDetalle;
-        }
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {
