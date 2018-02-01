@@ -2527,8 +2527,14 @@
                 animation: bounceRight 1.2s infinite;
             }
 
+            .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
+                position: absolute;
+                right: 16px;
+                top: 15.5px;
+            }
+
     .home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
-        position: absolute;
+        
         right: 16px;
         top: 17px;
         height: 12px;
