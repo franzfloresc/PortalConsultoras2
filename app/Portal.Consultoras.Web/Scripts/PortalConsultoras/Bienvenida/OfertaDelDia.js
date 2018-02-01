@@ -222,7 +222,6 @@ $(document).ready(function () {
                     if (_data.ConfiguracionContenedor.UsarImagenFondo &&
                         _data.ConfiguracionContenedor.ImagenFondo !== "") {
                         $(contenedorOfertas).css('background', 'url("' + _data.ConfiguracionContenedor.ImagenFondo + '")');
-                        $(contenedorOfertas).css('background-size', "100%");
                     } else {
                         $(contenedorOfertas).css('background-color', setColorFondo);
                     }
