@@ -2292,7 +2292,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool errorColumn = false;
                     if (arrayHeader.Length != 7)
                     {
-                        throw new ArgumentException("Los títulos de las columnas están incompletos.");
+                        throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
                     if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.CUV))
                     {
