@@ -9,6 +9,7 @@
         case "PEDREC": TipoOrigen = 6; break;
         case "CDR": TipoOrigen = 7; break;
         case "CDR-CULM": TipoOrigen = 8; break;
+        case "PAYONLINE": TipoOrigen = 9; break;
         default: TipoOrigen = 3; break;
     }
 
@@ -86,11 +87,23 @@
             }
         }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
     }
-    else {
+    else if (TipoOrigen == 9) {
+        $.ajaxSetup({ cache: false });
+        $.get(baseUrl + "Notificaciones/DetallePagoEnLinea?solicitudId=" + ProcesoId).success(function (data) {
+            if (checkTimeout(data)) {
+
+                $('#divListadoObservaciones').html(data);
+                $('#divObservaciones').show();
+                $('.content_left_pagos').hide();
+                CargarCantidadNotificacionesSinLeer();
+                closeWaitingDialog();
+            }
+        }).error(function (jqXHR, textStatus, errorThrown) { closeWaitingDialog(); });
+    } else {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
-                
+
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();

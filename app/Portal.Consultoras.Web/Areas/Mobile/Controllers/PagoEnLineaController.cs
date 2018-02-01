@@ -24,42 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = ObtenerValoresPagoEnLinea();
 
             return View(model);
-        }
-
-        public ActionResult SeleccionTipoPago()
-        {
-            return View();
-        }
-
-        public ActionResult ConfirmacionPago()
-        {
-            return View();
-        }
-
-        //public ActionResult PagoExitoso()
-        //{
-        //    return View();
-        //}
-
-        public ActionResult PagoRechazado()
-        {
-            return View();
-        }
-
-
-        //public JsonResult GuardarDatosPago(PagoEnLineaModel model)
-        //{
-        //    model.CodigoIso = userData.CodigoISO;
-        //    model.Simbolo = userData.Simbolo;
-
-        //    sessionManager.SetDatosPagoVisa(model);
-
-        //    return Json(new
-        //    {
-        //        success = true,
-        //        message = "OK"
-        //    });
-        //}
+        }                
 
         public ActionResult PagoVisa()
         {

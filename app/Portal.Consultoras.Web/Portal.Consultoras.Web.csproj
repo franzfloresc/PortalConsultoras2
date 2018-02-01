@@ -4638,16 +4638,14 @@
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Unete\_Message.cshtml" />
-    <Content Include="Views\PagoEnLinea\PagoEnLinea.cshtml" />
     <Content Include="Views\MisCertificados\Index.cshtml" />
     <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
-    <Content Include="Views\PagoEnLinea\SeleccionTipoPago.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoExitoso.cshtml" />
-    <Content Include="Views\PagoEnLinea\ConfirmacionPago.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoVisa.cshtml" />
+    <Content Include="Views\Notificaciones\DetallePagoEnLinea.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

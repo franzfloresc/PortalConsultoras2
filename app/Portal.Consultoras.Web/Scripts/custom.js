@@ -50,7 +50,7 @@ jQuery(document).ready(function ($) {
 
     (function () {
 
-        if (Modernizr.touch)
+        if (Modernizr.touchevents)
             $('body').addClass('touch-device');
 
     })();

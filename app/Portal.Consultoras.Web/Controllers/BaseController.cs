@@ -4485,9 +4485,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
                 bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
-
-                sessionManager.SetDatosPagoVisa(null);
+                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;                
 
                 int pagoEnLineaResultadoLogId = 0;
                 using (PedidoServiceClient ps = new PedidoServiceClient())
@@ -4535,7 +4533,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            
+
+            sessionManager.SetDatosPagoVisa(null);
+
             return resultado;
         }
 

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -404,6 +406,38 @@ namespace Portal.Consultoras.Web.Controllers
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = listaCdrWebDetalle;
             return PartialView("ListaDetalleCdrCulminado", model);
+        }
+
+        public ActionResult DetallePagoEnLinea(int solicitudId)
+        {
+            var pagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                pagoEnLinea = ps.ObtenerPagoEnLineaById(userData.PaisID, solicitudId);
+            }
+
+            if (!pagoEnLinea.Visualizado)
+            {
+                using (UsuarioServiceClient us = new UsuarioServiceClient())
+                {
+                    us.UpdNotificacionPagoEnLineaVisualizacion(userData.PaisID, solicitudId);
+                }
+            }
+
+            var pagoEnLineaModel = new PagoEnLineaModel();
+            pagoEnLineaModel.CodigoIso = userData.CodigoISO;
+            pagoEnLineaModel.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            pagoEnLineaModel.NumeroOperacion = pagoEnLinea.NumeroOrdenTienda;
+            pagoEnLineaModel.Simbolo = userData.Simbolo;
+            pagoEnLineaModel.MontoDeuda = pagoEnLinea.MontoPago;
+            pagoEnLineaModel.MontoGastosAdministrativosNot = pagoEnLinea.MontoGastosAdministrativos;
+            pagoEnLineaModel.MontoDeudaConGastosNot = pagoEnLinea.ImporteAutorizado;
+
+            pagoEnLineaModel.FechaCreacion = pagoEnLinea.FechaCreacion;
+            pagoEnLineaModel.FechaVencimiento = pagoEnLinea.FechaVencimiento;
+
+            return PartialView("DetallePagoEnLinea", pagoEnLineaModel);
         }
 
         [HttpPost]

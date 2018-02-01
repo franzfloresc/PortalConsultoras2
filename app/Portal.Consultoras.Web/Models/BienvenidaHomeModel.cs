@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.Models
         public bool ShowPopupMisDatos { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
         public PartialSectionBpt PartialSectionBpt { get; set; }
+        public bool TienePagoEnLinea { get; set; }
 
         public BienvenidaHomeModel()
         {
