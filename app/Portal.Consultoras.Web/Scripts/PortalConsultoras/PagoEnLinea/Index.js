@@ -109,7 +109,13 @@ $(document).ready(function () {
                 if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda) <= 0) {
                     AbrirMensaje("El monto a pagar debe ser mayor a cero");
                     return false;
-                }                    
+                }
+
+                var montoTotal = $.trim($("#hdMontoDeuda").val());
+                if (parseFloat(montoDeuda) > parseFloat(montoTotal)) {
+                    AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
+                    return false;
+                }
 
                 var parametros = {
                     MontoDeuda: montoDeuda,
