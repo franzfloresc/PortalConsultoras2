@@ -69,8 +69,8 @@
         var objInput = objPadre.find("[data-cantidad-input]");
 
         var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
-        var actual = objInput.val();
-        actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
+        var actual = objInput.val() || "0";
+        actual = isNaN(actual) ? 0 : parseInt(actual, 10);
 
         actual = actual + agregar;
         actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;

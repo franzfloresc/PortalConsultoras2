@@ -112,7 +112,7 @@ function GetProductoEntidad(id) {
 function UpdateLiquidacionEvento(evento) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 
@@ -157,10 +157,10 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
     else {
 
-        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
+        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val() || "";
         var cantidadAnterior = $('#CantidadTemporal_' + PedidoDetalleID).val();
 
-        if (Cantidad.length == 0 || parseInt(Cantidad) == NaN) {
+        if (Cantidad.length == 0 || isNaN(Cantidad)) {
             messageInfoMalo('Por favor ingrese una cantidad válida.');
             $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
             return false;
@@ -218,10 +218,16 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 }
 
 function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad) {
-    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
-    var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
+    var valCant = $.trim($('#Cantidad_' + PedidoDetalleID).val());
+    var valTemp = $.trim($('#CantidadTemporal_' + PedidoDetalleID).val());
 
-    if (cantidadActual == cantidadAnterior || cantidadActual == NaN || cantidadAnterior == NaN)
+    if (valCant === "" || valTemp === "" || isNaN(cantVal) || isNaN(valTemp)) 
+        return false;
+
+    var cantidadActual = parseInt(valCant);
+    var cantidadAnterior = parseInt(valTemp);
+
+    if (cantidadActual == cantidadAnterior)
         return false;
 
     if ($.trim(cantidadActual).length == 0) {
@@ -390,7 +396,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 

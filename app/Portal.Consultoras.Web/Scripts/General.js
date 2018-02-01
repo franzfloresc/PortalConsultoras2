@@ -406,13 +406,13 @@ jQuery(document).ready(function () {
         formatDecimalPais = formatDecimalPais || new Object();
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : formatDecimalPais.decimalCantidad;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0 );
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
-        var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
+        var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
 
-        decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
+        decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
         var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
