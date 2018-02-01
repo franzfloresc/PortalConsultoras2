@@ -384,10 +384,6 @@ namespace Portal.Consultoras.Entities
                 FlagNueva = row["FlagNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
                 ProgramaNuevoActivado = row["ProgramaNuevoActivado"] == DBNull.Value ? false : Convert.ToBoolean(row["ProgramaNuevoActivado"]);
-            if (DataRecord.HasColumn(row, "TieneVariedad"))
-                TieneVariedad = row["TieneVariedad"] == DBNull.Value ? 0 : Convert.ToInt32(row["TieneVariedad"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = row["CodigoProducto"] == DBNull.Value ?  String.Empty : Convert.ToString(row["CodigoProducto"]);
         }
     }
 
