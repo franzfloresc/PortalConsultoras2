@@ -388,7 +388,6 @@ function AceptarPedido(pedidoId, tipo) {
         if (isOk && detalle.length > 0) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
-            var phone = $(popup).find(key + '-telefono').text();
             var email = $(popup).find(key + '-correo').text();
 
             var cliente = {

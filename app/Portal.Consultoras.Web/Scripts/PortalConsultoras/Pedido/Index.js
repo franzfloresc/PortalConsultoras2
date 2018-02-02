@@ -257,10 +257,6 @@ $(document).ready(function () {
         }
     });
     $("body").on("mouseenter", ".info_copy", function () {
-        var mar = $(this).parent().parent() || '0';
-        mar = mar === '0' ? mar : mar.parent();
-        mar = mar === '0' ? mar : $.trim(mar.css("margin-top")).replace("px", "");
-        var pos = $(this).position();
         $(this).parent().parent().find("div.msj_info").show();
     });
     $("body").on("mouseleave", ".info_copy", function () {
@@ -1233,10 +1229,6 @@ function Tabular(event) {
 }
 
 function PedidoOnSuccess() {
-    var ItemCantidad = $("#txtCantidad").val();
-    var ItemPrecio = $("#hdfPrecioUnidad").val();
-    var descripcion = $('#txtDescripcionProd').val();
-    var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
 
     $("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
@@ -1283,12 +1275,6 @@ function limpiarInputsPedido() {
 }
 
 function PedidoOnSuccessSugerido(model) {
-    if (model != null) {
-        var ItemCantidad = model.Cantidad;
-        var ItemPrecio = model.PrecioUnidad;
-        var descripcion = model.DescripcionProd;
-        var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
-    }
 
     $("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
@@ -1850,7 +1836,6 @@ function CargarAutocomplete() {
 function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
-    var hdfTotal = $('#hdfTotal').val();
 
     $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
@@ -2317,7 +2302,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
 
     var montoDescuento = parseFloat(response.data.MontoDescuento);
-    var montoEscala = parseFloat(response.data.MontoEscala);
     if (montoDescuento > 0) {
         var htmlTexto = "";
         htmlTexto += '<p class="monto_descuento">';
@@ -2581,13 +2565,11 @@ function CalcularTotalPedido(Total, Total_Minimo) {
 }
 
 function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
-    var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
     var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
     var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
-    var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
 
     if (FlagValidacion == "1") {
         if (CantidadAnti == Cantidad)
@@ -2623,10 +2605,6 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
     var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
-    var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
-    var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
-    var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
-    var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
     var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
 
     var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
@@ -2711,10 +2689,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
     var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
-    var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
     var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
     var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
-    var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
     var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
     var ClienteID_ = $('#ddlClientes').val();
 
@@ -2870,10 +2846,8 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
         var CliID = $('#hdfLPCli' + PedidoDetalleID).val();
         var CliDes = $('#txtLPCli' + PedidoDetalleID).val();
-        var CliDesVal = $('#hdfLPCliDes' + PedidoDetalleID).val();
         var Cantidad = $('#txtLPCant' + PedidoDetalleID).val();
         var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
-        var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
         var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
 
         var Flag = 2;
@@ -2965,7 +2939,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 }
 
                                 CerrarSplash();
-                                var item = data.items;
                                 if ($('#txtLPCli' + PedidoDetalleID).val().length == 0) {
                                     $('#hdfLPCliDes' + PedidoDetalleID).val($('#hdfNomConsultora').val());
                                     $('#txtLPCli' + PedidoDetalleID).val($('#hdfNomConsultora').val());

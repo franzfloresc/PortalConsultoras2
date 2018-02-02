@@ -60,7 +60,6 @@ $(document).ready(function () {
 
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
-        var x = $(this);
     });
 
     TagManagerOfertaShowRoom();

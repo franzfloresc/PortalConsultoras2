@@ -1196,7 +1196,7 @@ function CargarBanners() {
                     return false;
                 }
 
-                var delayPrincipal = 0, delaySBaja1 = 0;
+                var delayPrincipal = 0;
                 var count = 0;
                 var Titulo = "";
                 var Posicion = "";
@@ -1230,11 +1230,9 @@ function CargarBanners() {
                             break;
                         case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
                             var trackingText = dataResult.data[count].TituloComentario;
-                            var trackingDesc = dataResult.data[count].TextoComentario;
                             var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
                             $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
-                            delaySBaja1 = dataResult.data[count].TiempoRotacion;
                             promotionsBajos.push({
                                 id: dataResult.data[count].BannerID,
                                 name: dataResult.data[count].Titulo,
@@ -2991,7 +2989,6 @@ function mostrarComunicadosPopup() {
 function centrarComunicadoPopup(ID) {
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
-    var estadoPopup = $("#popupComunicados").css("display");
     $("#" + ID).css({ "width": imagenPopup.width() });
     $("#" + ID).css({ "top": altoPopup });
 }
@@ -3013,16 +3010,11 @@ function clickCerrarComunicado(obj) {
 }
 
 function clickImagenComunicado(obj) {
-    var comunicadoID = $(obj).attr('data-comunicadoid');
-    var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
     var dialogComunicadoID = $(obj).attr('data-id');
 
     $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
-    var vclose = mostrarComunicadosPopup();
-
-    if (vclose) {
-    }
+    mostrarComunicadosPopup();
 }
 
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {

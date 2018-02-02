@@ -478,7 +478,6 @@ $(document).ready(function () {
                 ok = $.trim($(me.Variables.txtPrecioCuv2).html()) != "" ? ok : false;
 
                 var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
-                var formatoMontoMinimo = $(me.Variables.spnMontoMinimoReclamoFormato).html();
                 var montoPedidoTrueque = $(me.Variables.hdImporteTotal2).val();
 
                 //------------------------------------------------------------
@@ -517,9 +516,7 @@ $(document).ready(function () {
                 //------------------------------------------------------------
                 var valorParametria = $(me.Variables.hdParametriaCdr).val();
                 var valorParametriaAbs = $(me.Variables.hdParametriaAbsCdr).val();
-
-                var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
-
+                
                 if (valorParametriaAbs == "1") {
                     var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
                     if (diferencia > parseInt(valorParametria)) {
@@ -659,7 +656,6 @@ $(document).ready(function () {
             EvaluarCUV2: function () {
 
                 if (!me.Funciones.CUV2Cambio()) return false;
-                var cuv = $(me.Variables.txtCuvMobile2).val();
 
                 if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
                 else {
@@ -1477,7 +1473,6 @@ $(document).ready(function () {
                         var formatoFechaCulminado = "";
                         var numeroSolicitud = 0;
                         var formatoCampania = "";
-                        var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
                         if (data.cdrWeb.CDRWebID > 0) {
                             if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
                                 var dateString = data.cdrWeb.FechaCulminado.substr(6);
@@ -1498,8 +1493,6 @@ $(document).ready(function () {
                         $(me.Variables.spnSolicitudFechaCulminado).html(formatoFechaCulminado);
                         $(me.Variables.spnSolicitudNumeroSolicitud).html(numeroSolicitud);
                         $(me.Variables.spnSolicitudCampania).html(formatoCampania);
-                        //if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
-                        //else $("#spnTipoDespacho").show().html(mensajeDespacho);
                         $(me.Variables.divProcesoReclamo).hide();
                         $(me.Variables.divUltimasSolicitudes).hide();
                         $(me.Variables.btnSiguiente4).hide();

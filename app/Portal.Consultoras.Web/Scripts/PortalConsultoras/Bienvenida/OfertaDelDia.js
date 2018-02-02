@@ -551,7 +551,6 @@ $(document).ready(function () {
         var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
-        var flagNueva = itemCampos.find('.flagnueva-odd').val();
         var precio = itemCampos.find('.precio-odd').val();
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();

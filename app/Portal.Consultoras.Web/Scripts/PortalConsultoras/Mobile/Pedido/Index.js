@@ -960,10 +960,6 @@ function VisibleEstrategias(accion) {
 }
 
 function PedidoOnSuccess() {
-    var ItemCantidad = $("#txtCantidad").val();
-    var ItemPrecio = $("#spnPrecio").html();
-    var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
-
     $("#hdfCUV").val("");
     $("#hdfDescripcionProd").val("");
     $("#hdfCUV").val("");

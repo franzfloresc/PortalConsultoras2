@@ -86,7 +86,6 @@ $(document).ready(function () {
 
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
-        var tipo = obj.attr("data-cat");
         obj.find("[type='checkbox']").Checked();
     });
 
@@ -314,9 +313,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado)
-
-        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
-
+        
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
@@ -552,13 +549,9 @@ function CatalogoEnviarEmail() {
         }
         clientes.push(objCorreo);
     }
-
-    // Flags => Considerar a todos los clientes
-    var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
-
+    
     var campActual = getCodigoCampaniaActual();
     var campComparte = campaniaEmail; //$("#hdCampaniaComparte").val();
-    var Tipo = campActual == campComparte ? "1" : "2";
 
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {

@@ -114,7 +114,6 @@ function AceptarPedido(id, tipo) {
 
     if (isOk && detalle.length > 0) {
         var name = $('#sc-nombre').text();
-        var phone = $('#sc-telefono').text();
         var email = $('#sc-correo').text();
 
         var cliente = {

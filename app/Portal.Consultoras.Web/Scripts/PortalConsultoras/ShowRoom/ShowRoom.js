@@ -448,9 +448,6 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
-    var nombreProducto = $(article).find(".DescripcionProd").val();
-    var posicion = $(article).find(".posicionEstrategia").val();
-    var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
     AbrirLoad();
 
@@ -618,7 +615,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
         });
 
-        var htmlDiv = SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
+        SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
         $("#spnCantidadFiltro").html(response.listaNoSubCampania.length);
         $("#spnCantidadTotal").html(response.totalNoSubCampania);
     }
@@ -744,7 +741,6 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
 }
 
 function compraxcompra_promotion_click(cuv, descripcion) {
-    var id = cuv;
     var name = 'Showroom – ' + descripcion;
     dataLayer.push({
         'event': 'promotionClick',
@@ -763,7 +759,6 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 }
 
 function compraxcompra_promotion_click(cuv, descripcion) {
-    var id = cuv;
     var name = 'Showroom – ' + descripcion;
     dataLayer.push({
         'event': 'promotionClick',

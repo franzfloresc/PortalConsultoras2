@@ -1106,8 +1106,7 @@ function mostrarFichaProductoFAV2(cuv) {
 
 function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
-
-        var xcuv = $('#hdCuvFichaProductoFAV').val();
+        
         var result;
         if (tipo == 1) {
             result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == cuv; });
@@ -1265,7 +1264,6 @@ function CargarFiltros() {
                 if (datos.length != 0) {
 
                     $.each(datos, function (i) {
-                        var h = datos[i].Id;
                         if (datos[i].Id == "1") {
                             if (tipoOrigen == 2) {
                                 $('#orderby-price').val(datos[i].Orden);

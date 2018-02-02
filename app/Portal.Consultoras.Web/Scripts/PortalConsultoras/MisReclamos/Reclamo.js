@@ -275,8 +275,6 @@ function EvaluarCUV2() {
 
     if (!CUV2Cambio()) return false;
 
-    var cuv = $("#txtCUV2").val();
-
     if (cuv2PrevVal.length == 5) BuscarCUVCambiar(cuv2PrevVal);
     else {
         $("#txtCUVDescripcion2").val("");
@@ -879,7 +877,6 @@ function ValidarPaso2Trueque() {
     ok = $.trim($("#txtCUVPrecio2").val()) != "" ? ok : false;
 
     var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
-    var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
     var montoPedidoTrueque = $("#hdImporteTotal2").val();
 
     //------------------------------------------------------------
@@ -917,8 +914,6 @@ function ValidarPaso2Trueque() {
     //------------------------------------------------------------
     var valorParametria = $("#hdParametriaCdr").val();
     var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
-
-    var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
 
     if (valorParametriaAbs == "1") {
         var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
