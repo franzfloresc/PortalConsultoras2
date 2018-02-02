@@ -245,13 +245,54 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (revistaDigital.EsSuscrita)
                 return TipoPopUpMostrar;
-            
+
+            if (userData.TieneCupon == 1)
+            {
+                if (userData.CodigoISO == "PE")
+                {
+                    var cupon = ObtenerCuponDesdeServicio();
+                    if (cupon != null)
+                    {
+                        TipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
+
+                        return TipoPopUpMostrar;
+                    }
+                }  
+            }
+
             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
             Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
 
             return TipoPopUpMostrar;
+        }
+
+        private BECuponConsultora ObtenerCuponDesdeServicio()
+        {
+            BECuponConsultora cuponResult;
+            try
+            {
+                var cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID
+                };
+
+                using (var svClient = new PedidoServiceClient())
+                {
+                    cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(userData.PaisID, cuponBe);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                cuponResult = new BECuponConsultora();
+            }
+
+            return cuponResult;
         }
 
         [HttpPost]
