@@ -884,7 +884,7 @@
 
 .resumen_pago{
     border: 1px solid #d2d2d2;
-    padding: 13px 16px 16px;
+    padding: 13px 16px 13px;
 }
 
 .resumen_pago > div {
@@ -926,6 +926,7 @@
 .total_monto_pagado span:first-child
 {
     width:50%;
+    font-size:14px;
     overflow-wrap: break-word;
     vertical-align:top!important;
 }
@@ -944,7 +945,7 @@
 
 .total_monto_pagado{
     padding-top:4px;
-    margin-bottom:11px;
+    margin-bottom:3px;
     font-weight:900;
 }
 
@@ -961,6 +962,21 @@
 .contenedor_btn_pagar_con_visa{
     text-align: right;
     padding: 10px 0 10px;
+}
+
+.contenedor_btn_pagar_con_visa button{
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.contenedor_btn_pagar_con_visa button:hover,
+.contenedor_btn_pagar_con_visa button:focus,
+.contenedor_btn_pagar_con_visa button:active
+{
+    background-color: rgba(232,28,54,0.9)!important;
 }
 
 /* POPUP TÉRMINOS Y CONDICIONES */

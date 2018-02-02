@@ -79,7 +79,8 @@
 .confirmacion_pago,
 .info_constancia_pago_exitoso,
 .info_num_operacion_pago,
-.descripcion_terminos_y_condiciones
+.descripcion_terminos_y_condiciones,
+.contenedor_btn_pagar_con_visa
 {
     display:block;
 }
@@ -519,9 +520,9 @@
 }
 
 .control_activacion{
-    width: 22px;
+    width: 21.5px;
     height: 21.5px;
-    top: -4px;
+    top: -4.5px;
     right: 45%;
     background-color: #bbbbbb;
     /* background-image: url(../../../images/icono-paso-completado.svg); */
@@ -533,7 +534,7 @@
     position: absolute;
     font-family: 'somos-belcorp-iconos';
     font-size: 10px;
-    padding-top: 4px;
+    padding-top: 4.5px;
     color: #FFF;
 }
 
@@ -1002,6 +1003,11 @@
 
 .info_horarios_efectivos_pagos{
     margin-bottom:50px;
+}
+
+.contenedor_btn_pagar_con_visa{
+    text-align: right;
+    padding: 10px 0 10px;
 }
 
 /* POPUP TÉRMINOS Y CONDICIONES */
