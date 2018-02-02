@@ -597,7 +597,7 @@
     position: relative;
     z-index: 1000;
     width: 100%;
-    max-width: 380px;
+    max-width: 308px;
     height: 48px;
     left: 0;
     bottom: 0;
@@ -959,9 +959,12 @@
     line-height:15px!important;
 }
 
-.contenedor_btn_pagar_con_visa{
+.contenedor_btn_pagar_con_visa {
+    margin-top: 19px;
+    margin-bottom: 54px;
+    border-top: 2px solid #e81c36;
+    padding-top: 13px;
     text-align: right;
-    padding: 10px 0 10px;
 }
 
 .contenedor_btn_pagar_con_visa button{
