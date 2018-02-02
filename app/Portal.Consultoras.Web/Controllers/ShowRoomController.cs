@@ -1359,6 +1359,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("No usado")]
         public JsonResult ValidarPriorizacion(int paisId, string codigoOferta, int campaniaId, int orden)
         {
             int flagExiste;
@@ -1375,6 +1376,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migracion de tablas")]
         public JsonResult ObtenerOrdenPriorizacion(int paisId, int configuracionOfertaId, int campaniaId)
         {
             int orden;
