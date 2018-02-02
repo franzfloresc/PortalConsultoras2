@@ -103,5 +103,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMisCertificadosData(List<BEMiCertificado> lista);
 
         List<BEMiCertificado> GetMisCertificadosData();
+
+        void SetFlagLogCargaOfertas(bool habilitarLog);
+
+        bool GetFlagLogCargaOfertas();
     }
 }
