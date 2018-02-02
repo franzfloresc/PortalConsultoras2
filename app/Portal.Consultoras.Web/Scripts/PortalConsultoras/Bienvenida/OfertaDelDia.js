@@ -198,12 +198,7 @@ $(document).ready(function () {
                 RenderOfertaDelDia(_data, contenedorOfertas)
 
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
-
-                ///*Para personalizar el fondo del reloj*/
-                //$(".flip-clock-wrapper .flip").css("box-shadow", "0 2px 5px " + "black");
-                //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
-                //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
-
+                
                 var url = window.location.href.toLowerCase() + "/";
                 url = url.replace("#", "/");
                 if (url.indexOf("/ofertas/") >= 0) {
@@ -551,7 +546,6 @@ $(document).ready(function () {
         var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
-        var flagNueva = itemCampos.find('.flagnueva-odd').val();
         var precio = itemCampos.find('.precio-odd').val();
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();

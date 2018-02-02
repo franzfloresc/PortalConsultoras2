@@ -307,7 +307,6 @@ function InsertarProducto(form) {
         },
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
-                //console.error(xh);
             }
         }
     });
@@ -945,7 +944,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         return false;
     }
 
-    if (parseInt(cant) == NaN) {
+    if (isNaN(cant)) {
         CerrarSplash();
         return false;
     }

@@ -295,8 +295,6 @@ $(document).ready(function () {
                                         'price': $.trim(ficha.PrecioVenta),
                                         'brand': $.trim(ficha.DescripcionMarca),
                                         'id': $.trim(ficha.CUV2),
-                                        //'category': 'Maquillaje > Cuerpo',
-                                        //'variant': 'Fucsia Vibrante',
                                         'quantity': $.trim(cantidad)
                                     }]
                                 }

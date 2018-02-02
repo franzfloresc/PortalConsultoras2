@@ -114,7 +114,6 @@ function AceptarPedido(id, tipo) {
 
     if (isOk && detalle.length > 0) {
         var name = $('#sc-nombre').text();
-        var phone = $('#sc-telefono').text();
         var email = $('#sc-correo').text();
 
         var cliente = {
@@ -147,10 +146,8 @@ function AceptarPedido(id, tipo) {
                         }
 
                         if (response.codigo == 0) {
-                            //$('#popup_pendientes').hide();
                             _pedido = pedido;
 
-                            //showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK, AceptarPedidoRegistraClienteCancel);
                             showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK);
 
                         }
@@ -179,12 +176,9 @@ function AceptarPedidoRegistraClienteOK(obj) {
 }
 
 function AceptarPedidoRegistraClienteCancel(obj) {
-    //console.log(obj);
 }
 
 function ProcesarAceptarPedido(pedido) {
-
-    //console.log(pedido);
 
     waitingDialog({});
     $.ajax({
@@ -247,7 +241,6 @@ function showClienteDetalle(pcliente, pClienteDetalleOK) {
 
             $("#divDetalleCliente").html(data);
             $("#divAgregarCliente").modal("show");
-            //$("#divAgregarCliente").show();
 
             if ($.isFunction(pClienteDetalleOK)) ClienteDetalleOK = pClienteDetalleOK;
         },

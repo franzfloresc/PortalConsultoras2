@@ -69,8 +69,8 @@
         var objInput = objPadre.find("[data-cantidad-input]");
 
         var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
-        var actual = objInput.val();
-        actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
+        var actual = objInput.val() || "0";
+        actual = isNaN(actual) ? 0 : parseInt(actual, 10);
 
         actual = actual + agregar;
         actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;
@@ -114,7 +114,7 @@
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close")); // || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
@@ -174,11 +174,9 @@
             });
         }
 
-        //$('.header_slider').slideUp();
         $('.header_slider').css("display", "none");
         $('.wrapper_resumen_mobile').css("margin-top", "0px");
         $('.content_320').css("margin-top","75px");
-        //$("#contentmobile").css({ 'margin-top': '63px' });
 
         OcultarBannerTop();
     });
@@ -189,17 +187,9 @@
     if (EstadoActivo === '1') {
         var URLactual = window.location.href;
         var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-        if (urlBienvenida > 0) {
-            //$("#contentmobile").css({ 'margin-top': '0px' });
-        } else {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
     }
     else {
         var URLactual = window.location.href;
-        var urlPagina = URLactual.indexOf("Cliente");
-        //$("#contentmobile").css({ 'margin-top': '123px' });
     }
 
     var URLactual = window.location.href;
@@ -210,33 +200,15 @@
     }
 
     if (ocultarBannerTop) {
-        //$('.header_slider').slideUp();
         $('.header_slider').css("display", "none");
         $('.wrapper_resumen_mobile').css("margin-top", "0px");
         $('.content_320').css("margin-top", "75px");
-        //$("#content").css({ 'margin-top': '63px' });
         LayoutHeader();
     }
 
     var URLactual = window.location.href;
     var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-    if (urlBienvenida > 0) {
-        if (sesionEsShowRoom) {
-            //$("#contentmobile").css({ 'margin-top': '0px' });
-        } else {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
-    } else {
-        if ($('#flexslidertop ul.slides li').length == 0) {
-            //$("#contentmobile").css({ 'margin-top': '63px' });
-        }
-    }
-
-    if (URLactual.indexOf('/g/') > 0) {
-        //$("#contentmobile").css({ 'margin-top': '0px' });
-    }
-
+    
     $(".bannersi").on("click", function () {
 
         var eventId = $("#hdEventoIDShowRoom").val();
@@ -364,7 +336,6 @@ function loadBannerLP20() {
     if (typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
     if ($('#flexslider ul.slides li').length > 0) {
-        //$("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
         if ($('#BloqueMobileOfertaDia').length > 0) {
@@ -379,8 +350,6 @@ function loadBannerLP20() {
             });
         }
 
-    } else {
-        var url = location.href.toLowerCase();
     }
 
     if ($('#flexslidertop ul.slides li').length > 0) {
@@ -842,13 +811,8 @@ function messageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
-        //fnAceptar();
     });
 
-    //if ($.isFunction(fnAceptar)) {
-    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
-    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
@@ -1029,7 +993,6 @@ function OcultarBannerTop() {
         cache: false,
         success: function (response) {
             if (response.success) {
-                //ocultarBannerTop = true;
                 LayoutHeader();
             }
         },

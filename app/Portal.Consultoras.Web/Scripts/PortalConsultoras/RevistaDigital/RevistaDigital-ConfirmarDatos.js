@@ -111,7 +111,7 @@ function ValidarTelefono(celular) {
     var resultado = false;
 
     var item = {
-        Telefono: celular //$("#txtCelular").val()
+        Telefono: celular
     };
 
     jQuery.ajax({

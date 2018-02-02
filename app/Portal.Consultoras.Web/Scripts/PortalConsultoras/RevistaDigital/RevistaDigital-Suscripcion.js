@@ -147,7 +147,6 @@ function RDPopupCerrar() {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
@@ -194,7 +193,6 @@ function RDSuscripcion() {
             }
             rdAnalyticsModule.SuscripcionExistosa();
 
-            //
             $("#PopRDSuscripcion").css("display", "block");
 
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style

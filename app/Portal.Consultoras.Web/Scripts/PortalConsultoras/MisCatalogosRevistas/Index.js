@@ -66,7 +66,7 @@ $(document).ready(function () {
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
-        autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
+        autocomplete_url: '',
         'autocomplete': {
             'source': listaCorreo,
             'create': renderItemCliente,
@@ -86,7 +86,6 @@ $(document).ready(function () {
 
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
-        var tipo = obj.attr("data-cat");
         obj.find("[type='checkbox']").Checked();
     });
 
@@ -313,10 +312,8 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-        $(elemItem).attr("data-estado", estado || "0")
-
-        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
-
+        $(elemItem).attr("data-estado", estado)
+        
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
@@ -552,13 +549,9 @@ function CatalogoEnviarEmail() {
         }
         clientes.push(objCorreo);
     }
-
-    // Flags => Considerar a todos los clientes
-    var FlagMarcas = _Flagchklbel + "|" + _Flagchkcyzone + "|" + _Flagchkesika + "|" + _Flagchkfinart;
-
+    
     var campActual = getCodigoCampaniaActual();
-    var campComparte = campaniaEmail; //$("#hdCampaniaComparte").val();
-    var Tipo = campActual == campComparte ? "1" : "2";
+    var campComparte = campaniaEmail;
 
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
@@ -597,7 +590,6 @@ function CatalogoEnviarEmail() {
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        //data: JSON.stringify({ CatalogoClienteModel: EmailsLbel, EmailsCyzone: EmailsCyzone, EmailsEsika: EmailsEsika, EmailsFinart: EmailsFinart, Mensaje: mensaje }),
         data: JSON.stringify({ ListaCatalogosCliente: clientes, Mensaje: mensaje, Campania: campaniaEmail }),
         async: true,
         success: function (data) {
@@ -627,7 +619,7 @@ function CatalogoEnviarEmail() {
 }
 
 function renderItemCliente(event, ui) {
-    var htmlTag = '' //'<div class="foto_usuario_compartir"><img src="' + urlIconoClienteAutoCompletar + '" alt="" /></div>'
+    var htmlTag = ''
         + '<a>'
         + '<div class="content_datos_c">'
         + '<div class="nombre_compartir">{nombre}</div>'

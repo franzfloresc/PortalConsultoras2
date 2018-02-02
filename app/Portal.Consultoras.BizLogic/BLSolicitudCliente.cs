@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
             BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
-                        
+
             String emailOculto = string.Empty;
             if (consultoraSolicitudCliente != null)
             {
@@ -112,9 +112,7 @@ namespace Portal.Consultoras.BizLogic
 
                     Util.EnviarMail("no-responder@somosbelcorp.com", consultoraSolicitudCliente.Email, emailOculto, asunto, mensajeCorreo.ToString(), true, "Consultora Online Belcorp");
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception) { }
             }
         }
 

@@ -40,7 +40,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 FtpConfigurationElement ftpElement;
-                
+
                 string key = PaisISO + "-CONSDIG";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
 
@@ -72,29 +72,29 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar el archivo de descarga de consultora digitales.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (headerFile == null) //Si generó algún archivo continúa
+                    return;
+
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    try
                     {
-                        try
-                        {
-                            var nombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
-                                                                                                       + FechaProceso + ""
-                                                                                                       + PaisISO + ""
-                                                                                                       + Path.GetExtension(ftpElement.Header);
+                        var nombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
+                                                                                                   + FechaProceso + ""
+                                                                                                   + PaisISO + ""
+                                                                                                   + Path.GetExtension(ftpElement.Header);
 
-                            BLFileManager.FtpUploadFile(ftpElement.Address + nombreArchivo,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
-                        }
+                        BLFileManager.FtpUploadFile(ftpElement.Address + nombreArchivo,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
                     }
-
-                    daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
-
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
+                    }
                 }
+
+                daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+
             }
             catch (Exception ex)
             {

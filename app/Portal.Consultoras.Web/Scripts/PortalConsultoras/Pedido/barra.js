@@ -56,8 +56,7 @@ function MostrarBarra(datax, destino) {
     var mn = data.MontoMinimo;
     var tp = data.TippingPoint;
     var mt = data.TotalPedido;
-
-    var salto = "<br>";
+    
     var listaLimite = new Array();
 
     var widthTotal = GetWidthTotalBase();
@@ -92,8 +91,7 @@ function MostrarBarra(datax, destino) {
                 valorStr: data.TippingPointStr
             });
         }
-
-        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);
+        
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
             tipoMensaje: 'MontoMaximo',
