@@ -29,6 +29,7 @@
         <div class="cantidad_pasos_proceso_pago">
 
             <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
+
             <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
             <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
@@ -61,6 +62,7 @@
         </div>
 
         <!-- FIN - VISTA SELECCIÓN DE MONTO A PAGAR -->
+
         <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
         <div class="contenedor_info_pago_seguro_y_ctas mt-27">
@@ -81,7 +83,7 @@
 
         <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
-        <div style="text-align: center; padding: 10px;">
+        <div class="contenedor_btn_pagar_con_visa">
             <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"
@@ -112,6 +114,7 @@
             $(boton).css("font-family", "Lato");
             $(boton).css("border-radius", "0%");
             $(boton).css("letter-spacing", "0.5px");
+            $(boton).css("max-width", "308px");
             //$(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
             $(boton).html("PAGA CON VISA");
         });
