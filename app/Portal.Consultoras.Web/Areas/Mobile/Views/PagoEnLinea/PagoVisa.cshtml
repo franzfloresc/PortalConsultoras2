@@ -51,6 +51,7 @@
         </div>
 
         <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
+
         <!-- VISTA CONFIRMACIÓN PAGO -->
 
         <div class="confirmacion_pago">
@@ -96,7 +97,7 @@
 
         <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
 
-        <div style="text-align: center; padding: 10px;">
+        <div class="contenedor_btn_pagar_con_visa">
             <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"

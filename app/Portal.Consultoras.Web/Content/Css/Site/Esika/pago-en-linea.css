@@ -52,7 +52,8 @@
 .num_operacion,
 .pago_exitoso,
 .pago_rechazado,
-.mensaje_pago_rechazado
+.mensaje_pago_rechazado,
+.contenedor_btn_pagar_con_visa
 {
     display:block;
 }
@@ -432,7 +433,7 @@
 .area_activa_barra_activacion,
 .barra_activacion
 {
-    width:32.52px;
+    width:39px;
 }
 
 .area_activa_barra_activacion{
@@ -442,17 +443,17 @@
 }
 
 .barra_activacion{
-    height:11.79px;
-    background:rgba(211, 211, 211, 0.44);
-    border:1px solid rgba(163, 159, 159, 0.44);
+    height: 13px;
+    background: rgba(211, 211, 211, 0.44);
+    border: 1px solid rgba(163, 159, 159, 0.44);
     border-radius: 10px 10px;
     position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    margin:auto;
-    cursor:pointer;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: pointer;
 }
 
 .barra_activacion,
@@ -467,9 +468,9 @@
 
 .control_activacion{
     width: 19px;
-    height: 18px;
-    top:-4.123px;
-    right: 45%;
+    height: 19px;
+    top: -4px;
+    right: 54%;
     background-color: #bbbbbb;
     background-position: center;
     background-repeat: no-repeat;
@@ -479,7 +480,7 @@
     position: absolute;
     font-family: 'somos-belcorp-iconos';
     font-size: 9px;
-    padding-top: 3.82px;
+    padding-top: 4px;
     color: #FFF;
 }
 
@@ -883,7 +884,7 @@
 
 .resumen_pago{
     border: 1px solid #d2d2d2;
-    padding: 13px 16px 16px;
+    padding: 13px 16px 13px;
 }
 
 .resumen_pago > div {
@@ -925,6 +926,7 @@
 .total_monto_pagado span:first-child
 {
     width:50%;
+    font-size:14px;
     overflow-wrap: break-word;
     vertical-align:top!important;
 }
@@ -943,7 +945,7 @@
 
 .total_monto_pagado{
     padding-top:4px;
-    margin-bottom:11px;
+    margin-bottom:3px;
     font-weight:900;
 }
 
@@ -955,6 +957,26 @@
     font-size:13px;
     font-weight:300;
     line-height:15px!important;
+}
+
+.contenedor_btn_pagar_con_visa{
+    text-align: right;
+    padding: 10px 0 10px;
+}
+
+.contenedor_btn_pagar_con_visa button{
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.contenedor_btn_pagar_con_visa button:hover,
+.contenedor_btn_pagar_con_visa button:focus,
+.contenedor_btn_pagar_con_visa button:active
+{
+    background-color: rgba(232,28,54,0.9)!important;
 }
 
 /* POPUP TÉRMINOS Y CONDICIONES */
