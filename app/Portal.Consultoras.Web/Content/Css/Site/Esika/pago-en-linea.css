@@ -53,7 +53,8 @@
 .pago_exitoso,
 .pago_rechazado,
 .mensaje_pago_rechazado,
-.contenedor_btn_pagar_con_visa
+.contenedor_btn_pagar_con_visa,
+.contenido_terminos_y_condiciones
 {
     display:block;
 }
@@ -1001,8 +1002,8 @@
 
 .popup_terminos_y_condiciones{
     width: 100%;
-    max-width: 600px;
-    max-height: 289px;
+    max-width: 613px;
+    max-height: 405px;
     height: auto;
     background-color: #FFF;
     margin: auto;
@@ -1011,7 +1012,7 @@
     left: 0;
     right: 0;
     position: absolute;
-    padding: 33px 24px 26px 24px;
+    padding: 33px 27px 26px 30px;
 }
 
 .cerrar_popup_terminos_y_condiciones{
@@ -1045,10 +1046,17 @@
     font-weight:400!important;
 }
 
+.contenido_terminos_y_condiciones{
+    height: 234px;
+    position: relative;
+    overflow: auto;
+    margin-bottom: 12px;
+}
+
 .descripcion_terminos_y_condiciones{
     font-size:13px;
     line-height:17px;
-    margin-bottom:40px;
+    margin-bottom:20px;
 }
 
 .popup_terminos_y_condiciones .aceptar_terminos_y_condiciones{
