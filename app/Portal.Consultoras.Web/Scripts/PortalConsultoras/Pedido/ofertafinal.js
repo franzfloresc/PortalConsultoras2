@@ -252,7 +252,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-next-' + aux).remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
-    //$('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     totalProductosOF = cumpleOferta.productosMostrar.length;
@@ -428,7 +427,6 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         }
         if (tipoOrigen == '1') {
             $(container).show();
-            //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
         }
 
         if (tipoOrigen == 1) {
@@ -499,9 +497,6 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     }
 
     if (tipoMeta == "MM") {
-        //var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
-        //var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total")
-        //var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
         var montolimite = parseFloat(metaMonto) + parseFloat(metaTotal);
         if (ValoresOFR != null) montolimite = minimo;
 
@@ -537,7 +532,6 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                         $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal);
 
                     $('#msjOfertaFinal').css('margin-bottom', '0');
-                    //if (tipoOrigen == 2) $('#div-regalo-pn').css('padding-top', '20px');
                 }
                 $('#msjOfertaFinal').show();
             }
@@ -668,15 +662,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         if (tipoOrigen == "1") {
             $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
         }
-        //if (consultoraRegaloPN == 'True')
-        //    $("#msjOfertaFinal span").html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
-        //else
-        //    $("#msjOfertaFinal span").html("Monto total: " + simbolo + " " + data.formatoTotal);
         agregoOfertaFinal = 1;
     }
     else {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
-        //var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
@@ -860,14 +849,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
         }
 
-        //$('#msg-regalo-pn').html(mensaje);
-        //$('#msg-regalo-pn2').html(mensaje);   // mobile
-        //$('#div-regalo-pn').show();
-
         $('#txt-disclaimer-pn').html(disclaimer);
         $('#txt-disclaimer-pn').show();
-
-        //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
 
@@ -956,7 +939,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
         resultado = false;
 
         if (tipoPopupMostrar == 1) { // supero MM
-            //resultado = codigoMensajeProl == "00";
+
             if (codigoMensajeProl == '00') {
                 resultado = true;
             }
@@ -982,7 +965,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
         if (resultado == true) {
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            //bug EPD-2365
+
             if (productoOfertaFinal.lista.length != 0) {
                 tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
                 if (esOfertaFinalRegalo) {
@@ -1141,8 +1124,6 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
 
     $.each(listaProductos, function (index, value) {
         var producto = {};
-        //producto['CampaniaID'] = viewBagCampaniaActual;
-        //producto['CodigoConsultora'] = viewBagCondigoConsultora;
         producto['CUV'] = value.CUV;
         producto['Cantidad'] = 0;
         producto['TipoOfertaFinal'] = value.TipoMeta;
@@ -1288,7 +1269,6 @@ function of_google_analytics_producto_impresion(origen, meta, lista) {
     if (origen == 2) {
         var impresion;
         var item;
-        //item 1
         item = lista[0];
         if (item.DescripcionEstrategia == "")
             item.DescripcionEstrategia = "Estándar";
@@ -1415,7 +1395,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
         if (ubic == "detail") {
             origen = "Popup Oferta Final - Detalle";
             name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
-            //*****************logica de la pagina para el precio***************************
+
             var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
             var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
             var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
@@ -1425,7 +1405,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             else {
                 price = precio_catalogo_string
             }
-            //******************************
+
             brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
             id = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".CUV").val();
             variant = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".DescripcionEstrategia").val();
@@ -1450,7 +1430,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
         if (ubic == "list") {
             origen = "Popup Oferta Final - Listado";
             name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
-            //*****************logica de la pagina para el precio***************************
+
             var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
             var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
             var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
@@ -1460,12 +1440,11 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             else {
                 price = precio_catalogo_string
             }
-            //******************************
+
             brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
             id = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
             variant = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();
             quantity = $("#divOfertaFinal").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
-            //quantity = $("#divOfertaFinal").find("[data-input='cantidad']").val();
             if (variant == "") { variant = "Estándar"; }
             product = {
                 name: name,
@@ -1484,7 +1463,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
         if (ubic == "detail") {
             origen = "Popup Oferta Final - Detalle";
             name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
-            //*****************logica de la pagina para el precio***************************
+
             var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
             var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
             var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
@@ -1494,7 +1473,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta) {
             else {
                 price = precio_catalogo_string
             }
-            //******************************
+
             brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
             id = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".CUV").val();
             variant = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".DescripcionEstrategia").val();
@@ -1544,7 +1523,7 @@ function of_google_analytics_product_click(entorno, element, meta) {
 
     origen = "Popup Oferta Final - Listado";
     name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
-    //*****************logica de la pagina para el precio***************************
+
     var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
     var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
     var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
@@ -1554,7 +1533,7 @@ function of_google_analytics_product_click(entorno, element, meta) {
     else {
         price = precio_catalogo_string
     }
-    //******************************
+
     brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
     id = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
     variant = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();

@@ -119,7 +119,6 @@ $(document).ready(function () {
 });
 
 function Inicializar() {
-    //IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
@@ -554,7 +553,6 @@ function AgregarProductoCatalogoPersonalizado(item) {
     }
 
     AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
-    //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
 }
 
 function AgregarProducto(url, item, otraFunct) {
@@ -572,7 +570,6 @@ function AgregarProducto(url, item, otraFunct) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    //ActualizarGanancia(data.DataBarra);
                     if (tipoOrigen == '3') {
                         MostrarBarra(data, '1');
                     }
@@ -873,10 +870,8 @@ function AgregarProductoOfertaRevista(btn) {
 
     AgregarProducto('Insert', model, function () {
         $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
-        //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();
     });
-    //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
 
 function agregarProductoAlCarrito(o) {
@@ -910,10 +905,6 @@ function agregarProductoAlCarrito(o) {
         $(this).animate({
             'top': carrito.offset().top,
             'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
         }, 150, 'swing', function () {
             $(this).remove();
         });
@@ -972,7 +963,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!data.pedidoReservado || mostrarAlerta == true) {
                 if (mostrarAlerta == true) {
                     DialogLoadingCerrar();
-                    //DialogMensaje(data.message);
                     AbrirPopupPedidoReservado(data.message, tipoOrigen);
                 }
                 return false;
@@ -1135,7 +1125,6 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".rsWARutaImagen").val(obj.ImagenProductoSugerido);
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Nombre").val(obj.Descripcion);
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".ProductoDescripcion").val(obj.DescripcionComercial);
-            //$('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Volumen").val(obj.Volumen);
         }
     }
 }

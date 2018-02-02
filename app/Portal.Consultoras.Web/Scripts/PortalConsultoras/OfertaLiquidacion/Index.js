@@ -372,8 +372,6 @@ function ValidarCargaOfertasLiquidacion() {
     cargandoRegistros = true;
 
     waitingDialog();
-    /*** EPD-1682 La consultora podra visualizar las liquidaciones cuando su pedido este reservado***/
-    //ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
     CargarOfertasLiquidacion();
 }
 function CargarOfertasLiquidacion() {
@@ -421,16 +419,6 @@ function ArmarCarouselLiquidaciones(data) {
         };
         arrayOfertas.push(itemOferta);
     });
-
-    /* 
-    EPD-1871
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayOfertas
-        }
-    })
-    */
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
@@ -611,7 +599,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
                     AbrirPopupPedidoReservado(data.message, "1");
-                    //AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }

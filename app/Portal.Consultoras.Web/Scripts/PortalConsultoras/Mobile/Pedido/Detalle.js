@@ -693,7 +693,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         ClienteID: CliID,
         Cantidad: Cantidad,
         PrecioUnidad: PrecioUnidad,
-        //ClienteDescripcion: CliDes,
         Nombre: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
@@ -882,7 +881,6 @@ function EjecutarServicioPROL() {
                     mensaje_ = data.mensaje;
                 }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                //console.error(data);
             }
         }
     })
@@ -903,7 +901,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1") {
-                    EnviarCorreoPedidoReservado(); //EPD-2378
+                    EnviarCorreoPedidoReservado();
                 }
                 RespuestaEjecutarServicioPROL(response, false);
             }
@@ -928,8 +926,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
-
-    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -986,7 +982,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     return true;
                 }
 
-                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278 POPUP
+                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
                 if (estaRechazado == "2") {
                     cerrarMensajeEstadoPedido();
                 }
@@ -1344,7 +1340,7 @@ function MostrarMensajeProl(data) {
                 return true;
             }
 
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
+            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
             setTimeout(function () {
                 document.location = urlPedidoValidado;
             }, 2000);

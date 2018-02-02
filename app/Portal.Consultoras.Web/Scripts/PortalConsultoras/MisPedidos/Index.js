@@ -274,7 +274,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
         rows: rows || 10,
         CampaniaId: camp,
         cliente: $("#divGrilla").find("select[data-cliente]").val() || -1,
-        estado: tipo, // "f"
+        estado: tipo,
         pedidoId: pedidoId
     };
     $("#divContenidofacturado").empty();
@@ -309,11 +309,9 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
 
                 // en caso de facturados tenga, poner fuera del if else
                 $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
-                //$("#divGrilla").find("select[data-cliente]").append(new Option(data.NombreConsultora, 0));
                 $.each(data.listaCliente, function (item, cliente) {
                     $("#divGrilla").find("select[data-cliente]").append(new Option(cliente.Nombre, cliente.ClienteID));
                 });
-                //$("#divGrilla").find("select[data-cliente]").append($("#ddlClientes").html());
                 $("#divGrilla").find("select[data-cliente]").val(dataAjax.cliente);
             }
             else if (tipo == "f") {
@@ -336,7 +334,6 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                //alert_msg(data.message);
             }
             closeWaitingDialog();
         }
@@ -377,7 +374,6 @@ function CargarDetalleIngresado(camp, page, rows) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                //alert_msg(data.message);
             }
             closeWaitingDialog();
         }
@@ -432,7 +428,6 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                //alert_msg(data.message);
             }
             closeWaitingDialog();
         }

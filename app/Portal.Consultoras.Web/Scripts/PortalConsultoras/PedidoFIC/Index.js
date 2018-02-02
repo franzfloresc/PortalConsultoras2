@@ -307,7 +307,6 @@ function InsertarProducto(form) {
         },
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
-                //console.error(xh);
             }
         }
     });

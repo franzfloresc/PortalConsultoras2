@@ -66,7 +66,7 @@ $(document).ready(function () {
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
-        autocomplete_url: '', //baseUrl + 'MisCatalogosRevistas/AutocompleteCorreo'
+        autocomplete_url: '',
         'autocomplete': {
             'source': listaCorreo,
             'create': renderItemCliente,
@@ -551,7 +551,7 @@ function CatalogoEnviarEmail() {
     }
     
     var campActual = getCodigoCampaniaActual();
-    var campComparte = campaniaEmail; //$("#hdCampaniaComparte").val();
+    var campComparte = campaniaEmail;
 
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
@@ -590,7 +590,6 @@ function CatalogoEnviarEmail() {
         url: baseUrl + 'MisCatalogosRevistas/EnviarEmail',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        //data: JSON.stringify({ CatalogoClienteModel: EmailsLbel, EmailsCyzone: EmailsCyzone, EmailsEsika: EmailsEsika, EmailsFinart: EmailsFinart, Mensaje: mensaje }),
         data: JSON.stringify({ ListaCatalogosCliente: clientes, Mensaje: mensaje, Campania: campaniaEmail }),
         async: true,
         success: function (data) {
@@ -620,7 +619,7 @@ function CatalogoEnviarEmail() {
 }
 
 function renderItemCliente(event, ui) {
-    var htmlTag = '' //'<div class="foto_usuario_compartir"><img src="' + urlIconoClienteAutoCompletar + '" alt="" /></div>'
+    var htmlTag = ''
         + '<a>'
         + '<div class="content_datos_c">'
         + '<div class="nombre_compartir">{nombre}</div>'

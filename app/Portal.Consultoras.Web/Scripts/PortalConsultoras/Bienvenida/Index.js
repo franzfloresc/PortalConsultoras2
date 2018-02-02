@@ -80,7 +80,6 @@ $(document).ready(function () {
         });
     });
 
-    ////EDP-1564
     $('.contenedor_fondo_popup').click(function (e) {
         if (!$(e.target).closest('.popup_actualizarMisDatos').length) {
             if ($('#popupActualizarMisDatos').is(':visible')) {
@@ -108,8 +107,6 @@ $(document).ready(function () {
         }
     });
 
-    //Fin EDP-1564
-
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -130,10 +127,10 @@ $(document).ready(function () {
             }
 
             if ($('#popupActualizarMisDatos').is(':visible')) {
-                CerrarPopupActualizacionDatos(); //EDP-1564
+                CerrarPopupActualizacionDatos();
                 PopupCerrar('popupActualizarMisDatos');
             }
-            //EPD-1564
+
             if ($('#popupMisDatos').is(':visible')) {
                 if (showPopupMisDatos == '1') {
                     dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
@@ -145,7 +142,6 @@ $(document).ready(function () {
             if ($('#popupConfirmacionDatos').is(':visible')) {
                 $('#dialog_AgregasteUnidades').hide();
             }
-            // Fin EPD-1564
             if ($('#popupActualizarMisDatosMexico').is(':visible')) {
                 PopupCerrar('popupActualizarMisDatosMexico');
             }
@@ -464,7 +460,6 @@ $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
 
-/*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
@@ -495,7 +490,6 @@ function limitarMinimo(contenido, caracteres, a) {
 }
 
 function CargarCamara() {
-    //https://github.com/jhuckaby/webcamjs
     Webcam.set({
         width: 300,
         height: 300,
@@ -773,15 +767,7 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
+    
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
     } else {
@@ -804,11 +790,11 @@ function HidePopupTonosTallas() {
 };
 function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('#CUV').attr("value", $("option:selected", ddlTonoTalla).attr("value"));
-    $(ddlTonoTalla).parents('#divTonosTallas').find("#PrecioOferta").attr("value", $("option:selected", ddlTonoTalla).attr("precio-real")); //2024
-    $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla")); //2024
+    $(ddlTonoTalla).parents('#divTonosTallas').find("#PrecioOferta").attr("value", $("option:selected", ddlTonoTalla).attr("precio-real"));
+    $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla"));
 
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
-    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
+    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
 };
 
 function alert_unidadesAgregadas(message, exito) {
@@ -825,13 +811,6 @@ function alert_unidadesAgregadas(message, exito) {
 }
 
 function CargarCarouselLiquidaciones() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
@@ -1680,17 +1659,7 @@ function ActualizarMD() {
             alert('El formato del celular no es correcto.');
             return false;
         }
-
-        /*
-        if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-            if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                alert('Número de celular tiene formato incorrecto.');
-                $('#txtCelularMD').focus();
-                return false;
-            }
-        }
-        */
-
+        
         if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
             var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
             if (!MinCaracterOtroTelefono) {
@@ -1816,13 +1785,6 @@ function DownloadAttachContratoActualizarDatos() {
 }
 
 function CargarMisCursos() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $(window).scroll(function () {
         if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
@@ -2226,7 +2188,6 @@ function AceptarContrato() {
 
                 PopupCerrar('popupAceptacionContrato');
                 if (viewBagCambioClave == 0) {
-                    //EPD - 2121
                     PopupMostrar('popupActualizarMisDatos');
                 }
             }
@@ -2577,14 +2538,6 @@ function CrearPopShow() {
     // 18/07/2017 => AlanAupe => cbNoMostrarPopupShowRoom => no existe en todo el portal
     // En desktop se llama solo en "switch (TipoPopUpMostrar)" y En mobile no se llama
     // el metod ShowRoom/UpdatePopupShowRoom solo se llama en CrearPopShow();
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     var noMostrarShowRoom = true;
 
@@ -3125,7 +3078,7 @@ function ValidarTelefono(celular) {
     var resultado = false;
 
     var item = {
-        Telefono: celular //$("#txtCelular").val()
+        Telefono: celular
     };
 
     jQuery.ajax({

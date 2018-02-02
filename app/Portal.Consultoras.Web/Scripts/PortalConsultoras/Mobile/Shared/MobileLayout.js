@@ -114,7 +114,7 @@
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close")); // || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
@@ -174,11 +174,9 @@
             });
         }
 
-        //$('.header_slider').slideUp();
         $('.header_slider').css("display", "none");
         $('.wrapper_resumen_mobile').css("margin-top", "0px");
         $('.content_320').css("margin-top","75px");
-        //$("#contentmobile").css({ 'margin-top': '63px' });
 
         OcultarBannerTop();
     });
@@ -192,7 +190,6 @@
     }
     else {
         var URLactual = window.location.href;
-        //$("#contentmobile").css({ 'margin-top': '123px' });
     }
 
     var URLactual = window.location.href;
@@ -203,11 +200,9 @@
     }
 
     if (ocultarBannerTop) {
-        //$('.header_slider').slideUp();
         $('.header_slider').css("display", "none");
         $('.wrapper_resumen_mobile').css("margin-top", "0px");
         $('.content_320').css("margin-top", "75px");
-        //$("#content").css({ 'margin-top': '63px' });
         LayoutHeader();
     }
 
@@ -341,7 +336,6 @@ function loadBannerLP20() {
     if (typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
     if ($('#flexslider ul.slides li').length > 0) {
-        //$("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
         if ($('#BloqueMobileOfertaDia').length > 0) {
@@ -817,13 +811,8 @@ function messageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
-        //fnAceptar();
     });
 
-    //if ($.isFunction(fnAceptar)) {
-    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
-    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
@@ -1004,7 +993,6 @@ function OcultarBannerTop() {
         cache: false,
         success: function (response) {
             if (response.success) {
-                //ocultarBannerTop = true;
                 LayoutHeader();
             }
         },

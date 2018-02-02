@@ -329,8 +329,7 @@ jQuery(document).ready(function () {
         if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
             return false;
         }
-
-        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
 
@@ -790,7 +789,6 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
@@ -1277,10 +1275,8 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                     AbrirMensaje(response.message);
                 }
             }
-            //CerrarLoad();
         },
         error: function (response, error) {
-            //CloseLoading();
             if (checkTimeout(response)) {
                 console.log(response);
             }
@@ -1774,7 +1770,6 @@ function GuardarIndicadorPedidoAutentico() {
     }
 }
 
-/*** EPD-2378 ***/
 function EnviarCorreoPedidoReservado() {
     jQuery.ajax({
         type: 'POST',
@@ -1789,8 +1784,6 @@ function EnviarCorreoPedidoReservado() {
         }
     });
 }
-/*** Fin EPD-2378 ***/
-
 
 function AbrirPopupFade(ident) {
     $(ident).fadeIn();

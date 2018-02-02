@@ -436,7 +436,6 @@ function AceptarPedido(pedidoId, tipo) {
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
-    //console.log(obj);
 
     if (obj != null && _pedido !== null) {
         _pedido.ClienteId = obj.ClienteID;
@@ -446,11 +445,9 @@ function AceptarPedidoRegistraClienteOK(obj) {
 }
 
 function AceptarPedidoRegistraClienteCancel(obj) {
-    //console.log(obj);
 }
 
 function ProcesarAceptarPedido(pedido) {
-    //console.log(pedido);
 
     waitingDialog({});
     $.ajax({

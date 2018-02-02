@@ -97,13 +97,7 @@ $(document).ready(function () {
                     $("#hdnClienteID_").val(cliente.ClienteID);
                     $("#txtClienteDescripcion").val(cliente.Nombre);
                     $("#hdfClienteDescripcion").val(cliente.Nombre);
-
-                    //dataLayer.push({
-                    //    'event': 'virtualEvent',
-                    //    'category': 'Clientes',
-                    //    'action': 'Agregar',
-                    //    'label': 'Satisfactorio'
-                    //});
+                    
                 });
             }
             else {
@@ -119,13 +113,7 @@ $(document).ready(function () {
                     $("#hdnClienteID_").val(cliente.ClienteID);
                     $("#txtClienteDescripcion").val(cliente.Nombre);
                     $("#hdfClienteDescripcion").val(cliente.Nombre);
-
-                    //dataLayer.push({
-                    //    'event': 'virtualEvent',
-                    //    'category': 'Clientes',
-                    //    'action': 'Agregar',
-                    //    'label': 'Satisfactorio'
-                    //});
+                    
                 });
             }
 
@@ -481,7 +469,7 @@ function CargarDetallePedido(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            if (checkTimeout(response)) { //EPD-1780
+            if (checkTimeout(response)) {
                 var data = response.data;
 
                 ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
@@ -771,7 +759,7 @@ function ValidarStockEstrategia() {
     }
 
     var cantidadSol = $("#txtCantidad").val();
-    var pprecio = $("#txtPrecioR").val(); //EPD-2337
+    var pprecio = $("#txtPrecioR").val();
 
     var param = {
         MarcaID: 0,
@@ -875,7 +863,6 @@ function InsertarProducto(form) {
         },
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
-                //console.error(xh);
             }
         }
     });
@@ -1196,12 +1183,6 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
                     $("#hdnClienteID_").val(cliente.ClienteID);
                     $("#txtClienteDescripcion").val(cliente.Nombre);
                     $("#hdfClienteDescripcion").val(cliente.Nombre);
-                    //dataLayer.push({
-                    //    'event': 'virtualEvent',
-                    //    'category': 'Clientes',
-                    //    'action': 'Agregar',
-                    //    'label': 'Satisfactorio'
-                    //});
                 };
             }
 
@@ -1723,14 +1704,6 @@ function Ignorar(tipo) {
 
 function HorarioRestringido(mostrarAlerta) {
 
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return true;
-        }
-    }
-    */
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -1802,14 +1775,7 @@ function CargarAutocomplete() {
 
                             currentInputEdit.blur();
 
-                            //dataLayer.push({
-                            //    'event': 'virtualEvent',
-                            //    'category': 'Clientes',
-                            //    'action': 'Agregar',
-                            //    'label': 'Satisfactorio'
-                            //});
                         }, function () {
-                            //if (currentInputEdit != null) currentInputEdit.focus();
                             CargarDetallePedido();
                         });
                     }
@@ -1841,7 +1807,6 @@ function CalcularTotal() {
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
         position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
     });
-    //CargarResumenCampaniaHeader();
 }
 
 function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
@@ -2053,7 +2018,6 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 }
 
 function EjecutarPROL() {
-    // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
     if (ReservadoOEnHorarioRestringido(true)) {
         return false;
     }
@@ -2100,22 +2064,22 @@ function EjecutarServicioPROL() {
                             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                             if (cumpleOferta.resultado) {
                                 esPedidoValidado = response.data.ProlSinStock != true;
-                                FlagEnviarCorreo = true; //EPD-2378
+                                FlagEnviarCorreo = true;
                             } else {
                                 if (response.data.ProlSinStock == true) {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
+                                    $('#dialog_divReservaSatisfactoria').show();
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
                                         location.href = baseUrl + 'Pedido/PedidoValidado';
                                     }, 3000);
-                                    /*** EPD-2378 ***/
+
                                     if (!FlagEnviarCorreo && response.flagCorreo == '1')
                                         EnviarCorreoPedidoReservado();
-                                    /*** ***/
+
                                     return false;
                                 }
                             }
@@ -2186,7 +2150,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1")
-                    EnviarCorreoPedidoReservado(); //EPD-2378
+                    EnviarCorreoPedidoReservado();
                 RespuestaEjecutarServicioPROL(response, false);
                 MostrarMensajeProl(response);
             }
@@ -2561,7 +2525,6 @@ function CalcularTotalPedido(Total, Total_Minimo) {
         $('#hdfTotal').val(parseFloat(Total).toFixed(2));
         $("#spPedidoWebAcumulado").text(vbSimbolo + " " + parseFloat(Total).toFixed(2));
     }
-    //CargarResumenCampaniaHeader();
 }
 
 function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
@@ -2778,10 +2741,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#pCantidadProductosPedido").html(totalUnidades);
 
             MostrarBarra(data);
-            //CargarResumenCampaniaHeader();
             if (data.modificoBackOrder) {
                 showDialog('divBackOrderModificado');
-                //CargarDetallePedido();
             }
 
             CargarDetallePedido();
@@ -3347,19 +3308,6 @@ function CambioPagina(obj) {
     if (rpt.page == undefined) {
         return false;
     }
-
-    /*
-    EPD-1871
-    var accion = obj.attr("data-paginacion");
-    if (accion === "back" || accion === "next") {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ir a página',
-            'label': 'Pág. ' + rpt.page
-        });
-    }
-    */
 
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;

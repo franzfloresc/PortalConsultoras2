@@ -220,18 +220,6 @@
     }
 
     function _pintarEstrellasCarrusel(item) {
-        //var xdiv = "#star-" + item.EstrategiaID.toString();
-        //var rating = '';
-        //rating = item.PromValorizado.toString() + '%';
-        //$(xdiv).rateYo({
-        //    rating: rating,
-        //    numStars: 5,
-        //    precision: 2,
-        //    minValue: 1,
-        //    maxValue: 5,
-        //    starWidth: "17px",
-        //    readOnly: true
-        //});
         _pintarEstrellas(item);
     }
 

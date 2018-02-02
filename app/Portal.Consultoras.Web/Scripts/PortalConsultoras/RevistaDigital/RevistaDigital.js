@@ -314,7 +314,6 @@ function OfertaArmarEstrategias(response) {
     /*Logica para agregar atributos para el EfectoLazy*/
     EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
-    //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
