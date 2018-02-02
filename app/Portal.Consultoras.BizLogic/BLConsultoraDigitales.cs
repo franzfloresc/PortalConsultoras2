@@ -71,10 +71,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar el archivo de descarga de consultora digitales.", ex);
                 }
-
-                if (headerFile == null) //Si generó algún archivo continúa
-                    return;
-
+                
                 if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
                     try

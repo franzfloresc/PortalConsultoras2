@@ -68,9 +68,6 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile == null)
-                    return;
-
                 if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
                     try
