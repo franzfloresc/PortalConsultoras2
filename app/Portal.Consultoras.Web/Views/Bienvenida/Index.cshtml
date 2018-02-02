@@ -164,7 +164,15 @@
 
         @if (Model.TienePagoEnLinea)
         {
-            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" 
+               href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+            if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
+            {
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" 
+                   href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
+                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+            }
         }
         else
         {
