@@ -1497,28 +1497,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
                 BloqueoProductosCatalogo(ref productos);
+
+                BloqueoProductosDigitales(ref productos);
+
                 if (!productos.Any())
                 {
                     productosModel.Add(GetProductoNoExiste());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
-
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
-
-                var codigoEstrategia = Util.Trim(producto.TipoEstrategiaCodigo);
-                if (BloqueoProductosRevistaDigital(codigoEstrategia))
-                {
-                    productosModel.Add(GetProductoInscribeteEnRevistaDigital());
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
                 
-                BloqueoProductosDigitales(ref productos);
-                if (!productos.Any())
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
-
                 var cuvCredito = ValidarCUVCreditoPorCUVRegular(model, userModel);
                 if (cuvCredito.IdMensaje == CUV_NO_TIENE_CREDITO)
                 {
@@ -1526,7 +1513,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1667,32 +1654,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
         }
-
-        private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
-        {
-            return (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
-                   && !revistaDigital.TieneRDR
-                   && !revistaDigital.TieneRDC;
-        }
-
+        
         private ProductoModel GetProductoNoExiste()
         {
             return new ProductoModel()
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
-                TieneSugerido = 0
-            };
-        }
-
-        private ProductoModel GetProductoInscribeteEnRevistaDigital()
-        {
-            return new ProductoModel()
-            {
-                MarcaID = 0,
-                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
                 TieneSugerido = 0
             };
         }
