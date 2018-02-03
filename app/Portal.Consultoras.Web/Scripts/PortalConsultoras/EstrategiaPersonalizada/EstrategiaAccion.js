@@ -45,7 +45,7 @@ function EstrategiaObtenerObjHtmlLanding(objInput) {
 }
 
 function VerDetalleEstrategia(e) {
-
+    debugger;//CangahualaMarquez
     AbrirLoad();
 
     var estrategia = EstrategiaObtenerObj(e);
@@ -169,7 +169,7 @@ function EstrategiaVerDetallePackNueva(estrategia) {
 }
 
 function EstrategiaVerDetalleGeneral(estrategia) {
-
+    debugger;//CangahualaMarquez
     estrategia.Posicion = 1;
     estrategia.CodigoVariante = $.trim(estrategia.CodigoVariante);
 
@@ -311,6 +311,7 @@ function EstrategiaGuardarTemporal(obj) {
 }
 
 function EstrategiaCargarCuv(cuv) {
+    debugger;//CangahualaMarquez
     AbrirLoad();
     var detalle = new Array();
     $.ajax({
