@@ -4515,7 +4515,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.MontoDeuda = model.SaldoPendiente;
                     sessionManager.SetUserData(userData);
 
-                    userData.EMail = "jave.carlos@gmail.com";
+                    //userData.EMail = "tucorreo@gmail.com";
                     if (!string.IsNullOrEmpty(userData.EMail))
                     {
                         string template = ObtenerTemplatePagoEnLinea(model);
