@@ -89,5 +89,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ObtenerIncentivosConsultoraEstrategia(string CodigoConsultora, int CodigoCampania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosConsultoraEstrategia");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
+            return Context.ExecuteReader(command);
+        }
     }
 }
