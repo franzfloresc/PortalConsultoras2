@@ -12561,15 +12561,38 @@ a {
     }
 }
 
+@media (max-width: 374px) {
+    .texto_cupon_monto {
+        font-size: 9px !important;
+    }
+}
+
+.contenedor_cupon {
+    text-align: center;
+    position: relative;
+    height: 51px;
+}
+
+.background_cupon {
+    height: 51px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #000;
+    width: 50%;
+    z-index: 1;
+}
+
 .contenedorCuponInfo.content_cupon_pedido .contenedor-texto-agregar {
     display: inline-block;
 }
 
 .content_pedido_cupon_monto {
-    width: 100%;
     height: 51px;
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    background: #fff;
 }
 
 .icono_cupon_monto {
