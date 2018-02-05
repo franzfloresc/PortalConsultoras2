@@ -683,6 +683,8 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 item.Clase = "oculto";
                             }
+                        }
+                    }
                 }
 
             });

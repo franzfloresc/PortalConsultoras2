@@ -175,8 +175,8 @@ namespace Portal.Consultoras.Service
                           where c.Value == ISO.ToUpper()
                           select c.Key).SingleOrDefault();
                 
-                if (paisId != null)
-                    return int.Parse(paisId);
+                if (paisID != null)
+                    return int.Parse(paisID);
                 else
                     return 0;
             }
@@ -184,11 +184,6 @@ namespace Portal.Consultoras.Service
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            if (paisID != null)
-            {
-                return int.Parse(paisID);
-            }
-            else return 0;
         }
 
         public int InsLogClienteRegistraConsultoraCatalogo(string PaisISO, int consultoraId, string codigoConsultora,
