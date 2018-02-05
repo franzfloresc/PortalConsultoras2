@@ -429,7 +429,6 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 error: function (response, error) {
                     if (checkTimeout(response)) {
                         CerrarLoad();
-                        console.log(response);
                     }
                 }
             });
@@ -492,7 +491,6 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
         error: function (response, error) {
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         }
     });

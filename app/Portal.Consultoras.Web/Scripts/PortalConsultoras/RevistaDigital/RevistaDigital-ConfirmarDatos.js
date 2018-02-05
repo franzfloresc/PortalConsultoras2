@@ -131,7 +131,6 @@ function ValidarTelefono(celular) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 

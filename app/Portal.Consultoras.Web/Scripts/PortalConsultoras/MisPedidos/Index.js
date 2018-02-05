@@ -333,8 +333,6 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
 
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-            }
             closeWaitingDialog();
         }
     });
@@ -373,8 +371,6 @@ function CargarDetalleIngresado(camp, page, rows) {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-            }
             closeWaitingDialog();
         }
     });
@@ -427,8 +423,6 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-            }
             closeWaitingDialog();
         }
     });

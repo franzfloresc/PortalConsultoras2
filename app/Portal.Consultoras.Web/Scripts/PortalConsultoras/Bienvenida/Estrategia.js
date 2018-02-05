@@ -772,7 +772,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             $(objInput).parents("[data-item]").find("[data-input='cantidad']").val(1);
         },
         error: function (data, error) {
-            alert(datos.data.message);
             CerrarLoad();
         }
     });
@@ -1195,9 +1194,6 @@ function GuardarProductoTemporal(obj) {
         error: function (response, error) {
             CerrarLoad();
             localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
         }
     });
 

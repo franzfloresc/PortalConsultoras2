@@ -531,11 +531,7 @@ function CargarDetallePedido(page, rows) {
                 }
             }
         },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-
-            }
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -581,10 +577,8 @@ function UpdateUsuarioTutoriales() {
         data: JSON.stringify(item),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        },
-        error: function (data) {
-        }
+        success: function (data) { },
+        error: function (data) { }
     });
     return true;
 }
@@ -861,10 +855,7 @@ function InsertarProducto(form) {
                 CerrarSplash();
             }
         },
-        error: function (response, x, xh, xhr) {
-            if (checkTimeout(response)) {
-            }
-        }
+        error: function (response, x, xh, xhr) { }
     });
 }
 function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
@@ -932,8 +923,6 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-            }
         }
     });
 }
@@ -1191,7 +1180,6 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         },
         error: function (xhr, ajaxOptions, error) {
             CerrarSplash();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
             flagClienteDetalle = false;
         }
     });
@@ -1342,8 +1330,6 @@ function BuscarByCUV(CUV) {
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
                     location.href = baseUrl + "Login/SesionExpirada";
-                } else {
-                    AbrirMensaje(data.message);
                 }
             }
         }
@@ -1513,8 +1499,6 @@ function ObtenerProductosSugeridos(CUV) {
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
                     location.href = baseUrl + "Login/SesionExpirada";
-                } else {
-                    AbrirMensaje(data.message);
                 }
             }
         }
@@ -1687,11 +1671,7 @@ function IngresoFAD(producto) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -1724,11 +1704,7 @@ function HorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
-        }
+        error: function (data, error) { }
     });
     return horarioRestringido;
 }
@@ -2133,8 +2109,6 @@ function EjecutarServicioPROL() {
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-            }
         }
     });
 }
@@ -2157,7 +2131,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         },
         error: function (data, error) {
             CerrarSplash();
-            checkTimeout(data);
         }
     });
 }
@@ -2423,7 +2396,6 @@ function EliminarPedido() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
                 CerrarSplash();
             }
         }
@@ -2639,9 +2611,6 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }
@@ -2755,9 +2724,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }
@@ -2937,9 +2903,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             },
                             error: function (data, error) {
                                 CerrarSplash();
-                                if (checkTimeout(data)) {
-                                    AbrirMensaje(data.message);
-                                }
                             }
                         });
                     }
@@ -3111,7 +3074,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                                 error: function (data, error) {
                                     if (checkTimeout(data)) {
                                         CerrarSplash();
-                                        AbrirMensaje(data.message);
                                     }
                                 }
                             });
@@ -3557,7 +3519,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         },
         error: function (error, x) {
-            console.log(error, x);
             AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });

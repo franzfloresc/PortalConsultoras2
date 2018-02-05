@@ -535,9 +535,6 @@ function CatalogoEnviarEmail() {
         error: function (data, error) {
             CloseLoading();
             $('#CompartirCorreoMobile').hide();
-            if (checkTimeout(data)) {
-                console.log('ERROR');
-            }
         }
     });
 

@@ -1048,11 +1048,7 @@ function ObtenerOfertaFinalRegalo() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.log(error);
-            }
-        }
+        error: function (data, error) { }
     });
 
     return regalo;
@@ -1076,11 +1072,7 @@ function InsertarOfertaFinalRegalo() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.log(error);
-            }
-        }
+        error: function (data, error) { }
     });
 
     return isOk;
@@ -1206,9 +1198,7 @@ function GetRegaloProgramaNuevas() {
                 console.log(response.message);
             }
         },
-        error: function (data, error) {
-            console.log(error);
-        }
+        error: function (data, error) { }
     });
 
     return obj;

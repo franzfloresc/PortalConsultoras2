@@ -98,7 +98,6 @@ function CargarDetallePercepcion(obj) {
                     },
                     error: function (dataDetalle) {
                         closeWaitingDialog();
-                        if (checkTimeout(dataDetalle)) { }
                     }
                 });
             };

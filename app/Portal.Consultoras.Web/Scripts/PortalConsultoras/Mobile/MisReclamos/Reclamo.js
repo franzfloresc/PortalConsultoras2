@@ -719,7 +719,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },
@@ -758,7 +757,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },
@@ -832,8 +830,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (data, error) {
-                        CloseLoading();
-                        if (checkTimeout(data)) { }
+                        CloseLoading()
                     }
                 });
 
@@ -1055,9 +1052,7 @@ $(document).ready(function () {
 
                         $(me.Variables.hdCdrWebDatos_Ssic).val(cdrWebDatos.Valor);
                     },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) { }
-                    }
+                    error: function (data, error) { }
                 });
             },
 
@@ -1094,7 +1089,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
 
@@ -1137,9 +1131,7 @@ $(document).ready(function () {
 
                         $(me.Variables.spnMensajeTenerEnCuentaCambio).html(data.descripcionTenerEnCuenta);
                     },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) { }
-                    }
+                    error: function (data, error) { }
                 });
             },
 
@@ -1171,8 +1163,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) {
-                        }
                     }
                 });
             },
@@ -1220,7 +1210,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },
@@ -1260,7 +1249,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },
@@ -1297,10 +1285,7 @@ $(document).ready(function () {
                         $(me.Variables.hdParametriaCdr).val(parametria.ValorParametria);
                         $(me.Variables.hdParametriaAbsCdr).val(parametriaAbs.ValorParametria);
                     },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) {
-                        }
-                    }
+                    error: function (data, error) { }
                 });
             },
 
@@ -1337,7 +1322,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
 
@@ -1361,9 +1345,7 @@ $(document).ready(function () {
                         else
                             resultado = data.success;
                     },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) { }
-                    }
+                    error: function (data, error) { }
                 });
                 return resultado;
             },
@@ -1478,7 +1460,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },
@@ -1501,7 +1482,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        checkTimeout(data);
                     }
                 });
                 return resultado;
@@ -1566,7 +1546,6 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         CloseLoading();
-                        if (checkTimeout(data)) { }
                     }
                 });
             },

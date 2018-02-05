@@ -297,9 +297,6 @@ function EstrategiaGuardarTemporal(obj) {
         error: function (response, error) {
             CerrarLoad();
             localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
         }
     });
 
@@ -318,9 +315,7 @@ function EstrategiaCargarCuv(cuv) {
         success: function (data) {
             detalle = data || new Array();
         },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        error: function (error, x) { }
     });
     CerrarLoad();
     return detalle;
@@ -541,7 +536,6 @@ function EstrategiaAgregar(event, popup, limite) {
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
-            console.log(data, error);
             CerrarLoad();
         }
     });

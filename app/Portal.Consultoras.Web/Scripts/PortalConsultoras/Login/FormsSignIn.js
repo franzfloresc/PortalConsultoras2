@@ -809,14 +809,8 @@ function saveLog(ISO, usuario, mensaje) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
         async: true,
-        success: function (response) {
-            if (response.success) {
-
-            }
-        },
-        error: function (response) {
-            console.log(response);
-        }
+        success: function (response) { },
+        error: function (response) { }
     });
 }
 

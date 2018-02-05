@@ -534,10 +534,7 @@ function CortarFoto() {
                     }
                 }
             },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                }
-            },
+            error: function (data, error) { },
             complete: closeWaitingDialog
         });
     });
@@ -574,10 +571,7 @@ function SubirFoto() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-            }
-        },
+        error: function (data, error) { },
         complete: closeWaitingDialog
     });
 }
@@ -745,8 +739,7 @@ function UpdateUsuarioTutoriales(tipo) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
         },
-        error: function (data) {
-        }
+        error: function (data) { }
     });
 }
 
@@ -1093,7 +1086,6 @@ function AgregarProductoLiquidacion(contenedor) {
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
-                                AbrirMensaje(data.message);
                                 closeWaitingDialog();
                                 HidePopupTonosTallas();
                             }
@@ -1538,9 +1530,7 @@ function CargarMisDatos() {
                 closeWaitingDialog();
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) { }
-        }
+        error: function (data, error) { }
     });
 };
 function CambiarContrasenia() {
@@ -1955,14 +1945,6 @@ function ActualizarDatos() {
             if (checkTimeout(data)) {
                 result = false;
                 closeWaitingDialog();
-                if (data.message && data.message != "" && data.message != null) {
-                    var aMensaje = data.message.split("-");
-                    var mensajeHtml = "";
-                    $.each(aMensaje, function (i, v) {
-                        mensajeHtml += v + "<br/>"
-                    });
-                    alert(mensajeHtml);
-                }
                 PopupCerrar('popupActualizarMisDatos');
             }
         }
@@ -2000,7 +1982,6 @@ function CerrarPopupActualizacionDatos() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 PopupCerrar('popupActualizarMisDatos');
-                alert(data.message);
             }
         }
     });
@@ -2149,7 +2130,6 @@ function ActualizarDatosMexico() {
                 if (checkTimeout(data)) {
                     Result = false;
                     closeWaitingDialog();
-                    $('#aviso').html(data.message);
                 }
             }
         });
@@ -2381,7 +2361,6 @@ function RechazarInvitacionFlex() {
             if (checkTimeout(data)) {
                 PopupCerrar('popupInvitaionFlexipago');
                 closeWaitingDialog();
-                alert(data.message);
             }
         }
     });
@@ -2474,8 +2453,6 @@ function AgregarSuenio() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 alert_msgPedidoBanner("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
-                async: false,
-                        closeWaitingDialog();
             }
         }
     });
@@ -2689,7 +2666,6 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         error: function (response, error) {
             if (checkTimeout(response)) {
                 closeWaitingDialog();
-
             }
         }
     });
@@ -3098,7 +3074,6 @@ function ValidarTelefono(celular) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -3166,7 +3141,6 @@ function SRPopupCerrar(tipo) {
             CerrarPopup("#PopShowroomIntriga");
         },
         error: function (data, error) {
-            console.log(data, error);
             CerrarLoad();
             CerrarPopup("#PopShowroomVenta");
             CerrarPopup("#PopShowroomIntriga");
