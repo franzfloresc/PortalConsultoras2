@@ -369,16 +369,13 @@ function OfertaCargarScroll() {
             OfertaObtenerProductos();
         }
     }
-    
-    if (filtroCamp.CantMostrados === cantTotalMostrar) {
-        console.log("===");
+
+    if (filtroCamp.CantMostrados > 0 && filtroCamp.CantMostrados === cantTotalMostrar) {
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - $("footer").height()) {
-            console.log("hidden");
             $('.desplegablegnd').css("visibility", "hidden");
             $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "none");
         }
         else {
-            console.log("visible");
             $('.desplegablegnd').css("visibility", "visible");
             $('.desplegablegnd .gndcontenido .gnd .gndbloque a').css("display", "block");
 
