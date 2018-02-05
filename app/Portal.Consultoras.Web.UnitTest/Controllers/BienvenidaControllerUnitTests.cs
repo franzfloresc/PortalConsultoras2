@@ -302,7 +302,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new BienvenidaController(logManager.Object);
                 var revistaDigitalModel = new RevistaDigitalModel
                 {
-                    TieneRDR = true,
+                    TieneRDI = true,
                     ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel> { }
                 };
 
