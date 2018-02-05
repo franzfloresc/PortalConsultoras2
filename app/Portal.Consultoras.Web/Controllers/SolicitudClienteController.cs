@@ -163,13 +163,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(Paginacion))
+                Paginacion = Util.Trim(Paginacion);
+                int outVal;
+                int.TryParse(Paginacion, out outVal);
+                
+                if (page == 1 && outVal > 0)
                 {
-                    if (page == 1 && int.Parse(Paginacion) > 0)
-                    {
-                        page = int.Parse(Paginacion);
-                    }
+                    page = outVal;
                 }
+                
                 List<BESolicitudCliente> lst;
 
                 if (Consulta == "1")

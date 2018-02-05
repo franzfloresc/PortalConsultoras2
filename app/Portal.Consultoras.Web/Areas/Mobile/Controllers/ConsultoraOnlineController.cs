@@ -105,13 +105,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult Inscripcion(ClienteContactaConsultoraModel model)
         {
             var userData = UserData();
-            var consultoraAfiliar = new ClienteContactaConsultoraModel
-            {
-                Email = model.Email,
-                Celular = model.Celular,
-                Telefono = model.Telefono,
-                NombreCompleto = model.Nombres
-            };
 
             if (ModelState.IsValid)
             {
@@ -482,7 +475,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
-                    var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
+                    //var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
 
                     var refresh = new List<BEMisPedidos>();
                     foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)

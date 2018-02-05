@@ -60,7 +60,6 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.SelectAllTerritorios(paisID);
         }
 
-
         public IList<BETerritorio> SelectTerritorioByCodigo(int paisID, string codigo, int rowCount)
         {
             return BLZonificacion.SelectTerritorio(paisID, codigo, rowCount);

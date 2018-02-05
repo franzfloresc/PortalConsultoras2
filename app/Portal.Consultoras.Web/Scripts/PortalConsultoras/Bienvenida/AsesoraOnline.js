@@ -68,12 +68,10 @@
             });
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion';
         });
-        //$("#quiero-tips-ofertas").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion');
         $("#ver-mas-informacion").on("click", function () {
             _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "Ver más Información");
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen);
         });
-        //$("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
         $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);
         $("#no-volver-mostrar-mensaje").on("click", function () {
             _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "No volver a ver este mensaje");

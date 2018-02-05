@@ -850,24 +850,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lstModel;
         }
-
-        private string GetDescripcionMenuMobileCatalogos(int paisId)
-        {
-            var descripcionMenuCatalogos = string.Empty;
-
-            IList<BETablaLogicaDatos> revistaDigitalTablaLogica;
-            using (var sacServiceClient = new SACServiceClient())
-            {
-                revistaDigitalTablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
-            }
-            if (revistaDigitalTablaLogica != null && revistaDigitalTablaLogica.Any())
-            {
-                descripcionMenuCatalogos = revistaDigitalTablaLogica.First().Codigo;
-            }
-
-            return descripcionMenuCatalogos;
-        }
-
+        
         private void SetConsultoraOnlineViewBag(UsuarioModel userData)
         {
             userData.ConsultoraOnlineMenuResumen = userData.ConsultoraOnlineMenuResumen ?? new ConsultoraOnlineMenuResumenModel();
@@ -1104,9 +1087,13 @@ namespace Portal.Consultoras.Web.Controllers
                     ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
                 }
 
-                if (ipAddress != null && ipAddress.IndexOf(":") > 0)
+                if (ipAddress != null)
                 {
-                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                    var indOf = ipAddress.IndexOf(":");
+                    if (indOf > 0)
+                    {
+                        ipAddress = ipAddress.Substring(0, indOf - 1);
+                    }
                 }
 
                 return ipAddress;
@@ -3555,7 +3542,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
-                    if (!BuilTituloBannerRD(ref config))
+                    var valBool = BuilTituloBannerRD(ref config);
+                    if (!valBool)
                         continue;
                 }
                 SepararPipe(ref config);
@@ -4020,7 +4008,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SegmentoAnalytics = userData.Segmento != null && userData.Segmento != ""
                 ? (string.IsNullOrEmpty(userData.Segmento) ? string.Empty : userData.Segmento.ToString().Trim())
                 : "(not available)";
-            ViewBag.esConsultoraLiderAnalytics = userData.esConsultoraLider == true ? "Socia" : userData.RolDescripcion;
+            ViewBag.esConsultoraLiderAnalytics = userData.esConsultoraLider ? "Socia" : userData.RolDescripcion;
             ViewBag.SeccionAnalytics = userData.SeccionAnalytics != null && userData.SeccionAnalytics != "" ? userData.SeccionAnalytics : "(not available)";
             ViewBag.CodigoConsultoraDL = userData.CodigoConsultora != null && userData.CodigoConsultora != "" ? userData.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";

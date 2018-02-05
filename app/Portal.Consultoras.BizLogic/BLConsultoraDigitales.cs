@@ -4,12 +4,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraDigitales
     {
-
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
@@ -72,30 +72,27 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar el archivo de descarga de consultora digitales.", ex);
                 }
-
-                if (headerFile != null) //Si generó algún archivo continúa
+                
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    try
                     {
-                        try
-                        {
-                            var nombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
-                                                                                                       + FechaProceso + ""
-                                                                                                       + PaisISO + ""
-                                                                                                       + Path.GetExtension(ftpElement.Header);
+                        var nombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
+                                                                                                   + FechaProceso + ""
+                                                                                                   + PaisISO + ""
+                                                                                                   + Path.GetExtension(ftpElement.Header);
 
-                            BLFileManager.FtpUploadFile(ftpElement.Address + nombreArchivo,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
-                        }
+                        BLFileManager.FtpUploadFile(ftpElement.Address + nombreArchivo,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
                     }
-
-                    daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
-
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
+                    }
                 }
+
+                daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+
             }
             catch (Exception ex)
             {
@@ -129,7 +126,7 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row, string PaisISO)
         {
-            string line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
             {
                 string item;
@@ -139,9 +136,9 @@ namespace Portal.Consultoras.BizLogic
                     case "CODCONSULTORA": item = row["CodigoConsultora"].ToString(); break;
                     default: item = string.Empty; break;
                 }
-
-                line += item + ",";
+                txtBuil.Append(item + ",");
             }
+            string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
 

@@ -202,20 +202,20 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static string CadenaAleatoria()
         {
-            string strValue = "";
-            Random objAleatorio = new Random();
             try
             {
+                var txtBuil = new StringBuilder();
+                Random objAleatorio = new Random();
                 for (int i = 0; i < 8; i++)
                 {
-                    strValue = strValue + objAleatorio.Next(0, 10).ToString();
+                    txtBuil.Append(objAleatorio.Next(0, 10).ToString());
                 }
+                return txtBuil.ToString();
             }
             catch (Exception)
             {
                 return "";
             }
-            return strValue;
         }
 
         /// <summary>

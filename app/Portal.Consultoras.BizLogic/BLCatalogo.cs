@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
@@ -222,16 +223,16 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaFieldsInSearchIssuu(List<BECatalogoRevista> listCatalogoRevista, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
-            var queryString = "";
+            var txtBuil = new StringBuilder();
             for (int i = 0; i < listCatalogoRevista.Count; i++)
             {
-                queryString += "docname:" + listCatalogoRevista[i].CodigoIssuu;
-                if (i < listCatalogoRevista.Count - 1) queryString += "+OR+";
-                else queryString += "&jsonCallback=?";
+                txtBuil.Append("docname:" + listCatalogoRevista[i].CodigoIssuu);
+                if (i < listCatalogoRevista.Count - 1) txtBuil.Append("+OR+");
+                else txtBuil.Append("&jsonCallback=?");
             }
 
             string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            var url = urlIssuuSearch + queryString;
+            var url = urlIssuuSearch + txtBuil.ToString();
             string response = "";
             using (var wc = new WebClient())
             {

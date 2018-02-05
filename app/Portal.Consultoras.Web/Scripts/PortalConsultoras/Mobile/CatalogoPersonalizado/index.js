@@ -7,7 +7,7 @@ function CompartirFacebookSWR(Catalogo, btn) {
         'label': Catalogo,
         'value': 0
     });
-    var u = btn; // $(btn).parents("[data-cat='" + Catalogo + "']").find("#txtUrl" + Catalogo).val();
+    var u = btn;
 
     var popWwidth = 570;
     var popHeight = 420;

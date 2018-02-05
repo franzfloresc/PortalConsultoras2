@@ -88,14 +88,15 @@ namespace Portal.Consultoras.Common
 
         public static string GetExceptionMessage(Exception exception)
         {
-            string message = string.Empty, separadorExcepciones = string.Empty;
+            var txtBuil = new StringBuilder();
+            string separadorExcepciones = string.Empty;
             while (exception != null)
             {
-                message += separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").";
+                txtBuil.Append(separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").");
                 separadorExcepciones = Environment.NewLine + Environment.NewLine;
                 exception = exception.InnerException;
             }
-            return message;
+            return txtBuil.ToString();
         }
     }
 

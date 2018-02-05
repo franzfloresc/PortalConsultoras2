@@ -112,7 +112,7 @@ function GetProductoEntidad(id) {
 function UpdateLiquidacionEvento(evento) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 
@@ -157,10 +157,10 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
     else {
 
-        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
+        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val() || "";
         var cantidadAnterior = $('#CantidadTemporal_' + PedidoDetalleID).val();
 
-        if (Cantidad.length == 0 || parseInt(Cantidad) == NaN) {
+        if (Cantidad.length == 0 || isNaN(Cantidad)) {
             messageInfoMalo('Por favor ingrese una cantidad válida.');
             $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
             return false;
@@ -218,10 +218,16 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 }
 
 function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad) {
-    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
-    var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
+    var valCant = $.trim($('#Cantidad_' + PedidoDetalleID).val());
+    var valTemp = $.trim($('#CantidadTemporal_' + PedidoDetalleID).val());
 
-    if (cantidadActual == cantidadAnterior || cantidadActual == NaN || cantidadAnterior == NaN)
+    if (valCant === "" || valTemp === "" || isNaN(cantVal) || isNaN(valTemp)) 
+        return false;
+
+    var cantidadActual = parseInt(valCant);
+    var cantidadAnterior = parseInt(valTemp);
+
+    if (cantidadActual == cantidadAnterior)
         return false;
 
     if ($.trim(cantidadActual).length == 0) {
@@ -390,7 +396,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 
@@ -687,7 +693,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         ClienteID: CliID,
         Cantidad: Cantidad,
         PrecioUnidad: PrecioUnidad,
-        //ClienteDescripcion: CliDes,
         Nombre: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
@@ -876,7 +881,6 @@ function EjecutarServicioPROL() {
                     mensaje_ = data.mensaje;
                 }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                //console.error(data);
             }
         }
     })
@@ -897,7 +901,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1") {
-                    EnviarCorreoPedidoReservado(); //EPD-2378
+                    EnviarCorreoPedidoReservado();
                 }
                 RespuestaEjecutarServicioPROL(response, false);
             }
@@ -922,8 +926,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
-
-    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -980,7 +982,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     return true;
                 }
 
-                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278 POPUP
+                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
                 if (estaRechazado == "2") {
                     cerrarMensajeEstadoPedido();
                 }
@@ -1337,7 +1339,7 @@ function MostrarMensajeProl(data) {
                 return true;
             }
 
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
+            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
             setTimeout(function () {
                 document.location = urlPedidoValidado;
             }, 2000);

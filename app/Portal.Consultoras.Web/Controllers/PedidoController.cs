@@ -3697,28 +3697,7 @@ namespace Portal.Consultoras.Web.Controllers
             var Codigos = new StringBuilder();
             Codigos.Append(separador);
 
-            foreach (var item in listPedidoWebDetalle)
-            {
-                if (item.TieneVariedad == 1)
-                {
-                    Codigos.Append(item.CodigoProducto + separador);
-
-                    //using (ProductoServiceClient svc = new ProductoServiceClient())
-                    //{
-                    //    var listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, item.CodigoProducto, numeroCampanias).ToList();
-
-                    //    if (IsMobile())
-                    //    {
-                    //        item.DescripcionProd = listaAppCatalogo[0].NombreComercial;
-                    //    }
-                    //    else
-                    //    {
-                    //        item.DescripcionCortadaProd = listaAppCatalogo[0].NombreComercial;
-                    //    }
-                    //}
-                }
-
-            }
+            listPedidoWebDetalle.Where(x => x.TieneVariedad == 1).ToList().ForEach(x => Codigos.Append(x.CodigoProducto + separador));
 
             string joinCuv = Codigos.ToString();
 
@@ -3726,34 +3705,29 @@ namespace Portal.Consultoras.Web.Controllers
 
             joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
-            var listaAppCatalogo = new List<Producto>();
+            List<Producto> listaAppCatalogo = null;
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, joinCuv, numeroCampanias).ToList();
             }
-
+            string DescripcionProd = "";
             if (listaAppCatalogo.Count > 0)
             {
                 foreach (var item in listaAppCatalogo)
                 {
-                    foreach (var item2 in listPedidoWebDetalle)
+                    if (IsMobile())
                     {
-                        if(item.CodigoSap == item2.CodigoProducto)
-                        {
-                            if (IsMobile())
-                            {
-                                item2.DescripcionProd = item.NombreComercial;
-                            }
-                            else
-                            {
-                                item2.DescripcionCortadaProd = item.NombreComercial;
-                            }
-                            continue;
-                        }
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = DescripcionProd;
                     }
+                    else
+                    {
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = DescripcionProd;
+                    }
+                        
                 }
             }
-
 
             return listPedidoWebDetalle;
         }
@@ -3988,17 +3962,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             var limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
-            decimal descuentoprol;
+            var listPedido = ObtenerPedidoWebDetalle();
 
-            try
+            decimal descuentoprol = 0;
+            
+            if (listPedido.Any())
             {
-                descuentoprol = ObtenerPedidoWebDetalle()[0].DescuentoProl;
+                descuentoprol = listPedido[0].DescuentoProl;
             }
-            catch
-            {
-                descuentoprol = 0;
-            }
-
 
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
@@ -4012,8 +3983,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Limite = limiteJetlore,
                 MontoEscala = GetDataBarra().MontoEscala,
                 MontoMinimo = userData.MontoMinimo,
-                MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal) -
-                             (descuentoprol.Equals(null) ? 0 : descuentoprol),
+                MontoTotal = listPedido.Sum(p => p.ImporteTotal) - descuentoprol,
                 TipoOfertaFinal = tipoOfertaFinal,
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,

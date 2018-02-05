@@ -279,6 +279,8 @@ namespace Portal.Consultoras.Common
             public const string MisCertificadosData = "MisCertificadosData";
 
             public const string GuiaNegocio = "GuiaNegocio";
+
+            public const string HabilidarLogCargaOferta = "HabilidarLogCargaOferta";
         }
 
         public static class ConfiguracionManager
@@ -1312,6 +1314,7 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             public const short CodigoRevistaFisica = 132;
+            public const short Palanca = 133;
             public const int ValoresImagenesResize = 121;
         }
 

@@ -158,7 +158,6 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
         console.log(e);
         CerrarLoad();
     }
-    //window.location = url;
 }
 
 function EstrategiaVerDetallePackNueva(estrategia) {
@@ -183,7 +182,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
         if (estrategia.Detalle.length > 0) {
             $.each(estrategia.Detalle, function (i, item) {
                 item.Hermanos = item.Hermanos || new Array();
-                //item.CUVSelect = i == 0 ? item.CUV : "";
                 item.CUVSelect = "";
                 item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
                 item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";
@@ -195,7 +193,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
                     $.each(item.Hermanos, function (i, itemH) {
                         itemH.CUVSelect = "";
                     });
-                    //item.CUVSelect = item.Hermanos[0].CUV;
                     item.ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
                     item.NombreBulkSelect = item.Hermanos[0].NombreBulk;
 
@@ -209,7 +206,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
                     btnDesabled = 1;
                 }
             });
-            //estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
             estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
             estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
         }
@@ -382,8 +378,6 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var agregoAlCarro = false;
     if (!isMobile()) {
-        //agregarProductoAlCarrito(objInput);
-        //agregoAlCarro = true;
         estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
         $('#OfertaTipoNuevo').val(estrategia.FlagNueva);
     }
@@ -465,11 +459,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 ActualizarGanancia(data.DataBarra);
             }
             else {
-                /*Inicializar en 1*/
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
                 $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
                 $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
-                /*Fin inicializar en 1*/
 
                 CargarResumenCampaniaHeader(true);
             }

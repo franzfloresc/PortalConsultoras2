@@ -17,21 +17,21 @@ namespace Portal.Consultoras.Service
 
             if (string.IsNullOrEmpty(paisISO)) throw new Exception("El parámetro PaisISO no puede ser vacio.");
             if (string.IsNullOrEmpty(codigoConsultora)) throw new Exception("El parámetro CodigoConsultora no puede ser vacio.");
-            int paisID = GetPaisID(paisISO);
-            if (paisID == 0) throw new Exception("El parámetro PaisISO no es válido");
+            int paisId = GetPaisID(paisISO);
+            if (paisId == 0) throw new Exception("El parámetro PaisISO no es válido");
 
             #endregion
 
             string paisesCodigoDocumento = ConfigurationManager.AppSettings["CONSULTORA_CATALOGO_PAISES_POR_DOCUMENTO"];
             bool parametroEsDocumento = paisesCodigoDocumento.Contains(paisISO.ToUpper());
 
-            int tipoFiltroUbigeo = 1;
-            var listTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisID, 66);
+            int tipoFiltroUbigeo;
+            var listTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisId, 66);
             BETablaLogicaDatos filtroUbigeo = listTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
             BLConsultoraCatalogo consultoraCatalogo = new BLConsultoraCatalogo();
-            BEConsultoraCatalogo result = consultoraCatalogo.GetConsultoraCatalogo(paisID, codigoConsultora, parametroEsDocumento, tipoFiltroUbigeo);
+            BEConsultoraCatalogo result = consultoraCatalogo.GetConsultoraCatalogo(paisId, codigoConsultora, parametroEsDocumento, tipoFiltroUbigeo);
             result.Pais = paisISO;
             return result;
         }
@@ -40,11 +40,11 @@ namespace Portal.Consultoras.Service
         {
             string paisesCodigoDocumento = ConfigurationManager.AppSettings["SOLICITUD_CLIENTE_CATALOGO_PAISES_POR_DOCUMENTO"];
             bool parametroEsDocumento = paisesCodigoDocumento.Contains(PaisISO.ToUpper());
-            int PaisID = GetPaisID(PaisISO);
+            int paisId = GetPaisID(PaisISO);
 
             BLSolicitudClienteCatalogo oSolicitudClienteCatalogo = new BLSolicitudClienteCatalogo();
-            int Result = oSolicitudClienteCatalogo.InsSolicitudClienteCatalogo(PaisID, CodigoConsultora, AsuntoNotificacion, DetalleNotificacion, Campania, CorreoCliente, NombreCliente, Telefono, DireccionCliente, parametroEsDocumento);
-            return Result;
+            int result = oSolicitudClienteCatalogo.InsSolicitudClienteCatalogo(paisId, CodigoConsultora, AsuntoNotificacion, DetalleNotificacion, Campania, CorreoCliente, NombreCliente, Telefono, DireccionCliente, parametroEsDocumento);
+            return result;
         }
 
         public BEListaConsultoraCatalogo GetConsultorasCatalogosPorUbigeo(string codigoPais, string codigoUbigeo, int marcaId)
@@ -59,17 +59,17 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
-                int limiteInferior = 6;
+                int limiteInferior;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                int factorUbigeo = 3;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
+                int factorUbigeo;
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
-                string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
+                string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
             }
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Service
             BEListaConsultoraCatalogo bEListaConsultoraCatalogo = new BEListaConsultoraCatalogo();
             int idPais = GetPaisID(codigoPais);
 
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             List<BETablaLogicaDatos> vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -108,15 +108,14 @@ namespace Portal.Consultoras.Service
                 BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
                 if (longitudUbigeo != null)
                 {
-                    int limiteInferior = 6;
-                    int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                    int factorUbigeo = 3;
+                    int outVal;
+                    int limiteInferior = int.TryParse(longitudUbigeo.Codigo, out outVal) ? int.Parse(longitudUbigeo.Codigo) : 6;
                     vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                     BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                    int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
+                    int factorUbigeo = int.TryParse(configFactorUbigeo.Codigo, out outVal) ? int.Parse(configFactorUbigeo.Codigo) : 3;
                     limiteInferior *= factorUbigeo;
-                    string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                    if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
+                    string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                    if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
                 }
 
                 bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
@@ -175,6 +174,11 @@ namespace Portal.Consultoras.Service
                 paisID = (from c in listaPaises
                           where c.Value == ISO.ToUpper()
                           select c.Key).SingleOrDefault();
+                
+                if (paisId != null)
+                    return int.Parse(paisId);
+                else
+                    return 0;
             }
             catch (Exception)
             {
@@ -192,13 +196,13 @@ namespace Portal.Consultoras.Service
             string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente,
             string telefonoCliente, int nuevaConsultora)
         {
-            int PaisID = GetPaisID(PaisISO);
+            int paisId = GetPaisID(PaisISO);
 
             BLConsultoraCatalogo oConsultoraCatalogo = new BLConsultoraCatalogo();
-            int Result = oConsultoraCatalogo.InsLogClienteRegistraConsultoraCatalogo(PaisID, consultoraId, codigoConsultora, campaniaId,
+            int result = oConsultoraCatalogo.InsLogClienteRegistraConsultoraCatalogo(paisId, consultoraId, codigoConsultora, campaniaId,
                     tipoBusqueda, conoceConsultora, codigoDispositivo, soDispotivivo, unidadGeo1, unidadGeo2, unidadGeo3,
                     nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
-            return Result;
+            return result;
         }
     }
 }

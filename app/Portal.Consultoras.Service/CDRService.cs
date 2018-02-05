@@ -93,7 +93,6 @@ namespace Portal.Consultoras.Service
             return BLCDRWebMotivoOperacion.GetCDRWebMotivoOperacion(PaisID, entity);
         }
 
-
         public int InsCDRWebDescripcion(int PaisID, BECDRWebDescripcion entity)
         {
             return BLCDRWebDescripcion.InsCDRWebDescripcion(PaisID, entity);
@@ -158,7 +157,6 @@ namespace Portal.Consultoras.Service
         {
             return BLCDRWeb.GetCDRWebDetalleReporte(PaisID, entity);
         }
-
 
         public BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity)
         {
