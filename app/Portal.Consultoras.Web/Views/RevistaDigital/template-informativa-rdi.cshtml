@@ -1,0 +1,170 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
+@{
+    ViewBag.Title = "CLUB GANA+";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
+}
+
+
+<div class="gana-mas">
+    <div class="contenedor-suscripcion" style="text-align: center;">
+        <div class="logo"></div>
+        <p class="sblogo">
+            OFERTAS A TU MEDIDA, SEGÚN LO QUE SIEMPRE PIDES <br />¡Y MUCHO MÁS!
+        </p>
+        <div class="caja-gana-mas caja-gana-mas-rdi pack-medida">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    PACKS A TU MEDIDA
+                </p>
+                <span class="txt-bloque">
+                    Tendrás ofertas de tus productos favoritos, más ganadoras que las de tu guía impresa.
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-uno">
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="caja-gana-mas caja-gana-mas-rdi codigos">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    SIN CÓDIGOS
+                </p>
+                <span class="txt-bloque">
+                    No vas a tener que digitar códigos, todo será más rápido. <br>
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-dos">
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="caja-gana-mas caja-gana-mas-rdi tips">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    TIPS PARA GANAR
+                </p>
+                <span class="txt-bloque">
+                    Recibirás en tu celular y/o en tu correo electrónico tips para vender ¡mucho más! <br>
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-tres">
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="como-funciona">
+    <div class="contenedor-suscripcion">
+        <div class="arrow-down"></div>
+        <p class="como-funciona-txt">
+            ¿CÓMO FUNCIONA?
+        </p>
+        <div class="caja-texto">
+            <span class="nro">-</span>
+            <span class="txt">
+                Te suscribes en la campaña que desees.
+            </span>
+            <div class="clear"></div>
+            <span class="nro">-</span>
+            <span class="txt">
+                En la siguiente campaña, <b>dejarás de recibir la guía impresa.</b> ¡ y podrás disfrutar de ser parte del Club Gana+!
+            </span>
+            <div class="clear"></div>
+        </div>
+        <div class="caja-img">
+            <div class="visual-funcionamiento"></div>
+        </div>
+        <div class="clear"></div>
+        <span class="txt recuerda-txt">
+            PODRÁS CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+        </span>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+@*<div class="preguntas-frecuentes-cont-sus">
+    <div class="contenedor-mobile-fix">
+        <span class="titulo-p-frecuente">PREGUNTAS FRECUENTES</span>
+        <ul class="preg-frecuentes">
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Cuál es diferencia entre GANA+ y Club GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
+                            Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
+                        </span>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
+                            Recuerda que puedes suscribirte nuevamente cuando desees.
+                        </span>
+                    </li>
+
+                </ul>
+            </li>
+            <div style="clear:both;"></div>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.
+                        </span>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Las ofertas del Club Gana+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Al seleccionar “Club Gana+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
+                        </span>
+                    </li>
+
+                </ul>
+            </li>
+            <div style="clear:both;"></div>
+        </ul>
+        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+    </div>
+</div>*@
+
+@section scripts{
+    @*<script src="https://www.youtube.com/player_api"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>*@
+    <script type="text/javascript">
+        var done = false;
+        var player;
+        @*var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';*@
+        var tipoOrigenPantalla = 1;
+        @*var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';*@
+        @*var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';*@
+        var isScroll = false;
+        @*var videoKey = '@Model.Video';*@
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
+}
+
+

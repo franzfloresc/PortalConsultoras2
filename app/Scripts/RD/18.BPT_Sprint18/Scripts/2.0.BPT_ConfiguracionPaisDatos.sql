@@ -300,3 +300,61 @@ begin
 	,1
 	)
 end	
+
+declare @DLandingBannerIntrigaCodigo varchar(100) = 'DLandingBannerIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @DLandingBannerIntrigaCodigo)
+begin
+	print('Insertando  DLandingBannerIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@DLandingBannerIntrigaCodigo
+	,0
+	,'¡Pronto podrás suscribirte al Club Gana+!'
+	,'un nuevo espacio online exclusivo para ti'
+	,null
+	,'Desktop Banner Landing Productos Comprar y Revisar, Revista Digital Intriga'
+	,1
+	)
+end	
+
+declare @MLandingBannerIntrigaCodigo varchar(100) = 'MLandingBannerIntriga'
+if not exists (	select *
+				from ConfiguracionPaisDatos cpd
+				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
+				and cpd.codigo = @MLandingBannerIntrigaCodigo)
+begin
+	print('Insertando  MPedidoIntriga a RDI')
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	)
+	values(
+	@RevistaDigitalIntricaId
+	,@MLandingBannerIntrigaCodigo
+	,0
+	,'¡Pronto podrás suscribirte al Club Gana+!'
+	,null
+	,null
+	,'Mobile Banner Landing Productos Comprar y Revisar, Revista Digital Intriga'
+	,1
+	)
+end	

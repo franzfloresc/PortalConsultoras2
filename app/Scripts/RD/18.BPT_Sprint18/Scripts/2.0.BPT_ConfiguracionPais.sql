@@ -24,8 +24,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
+		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
 		null, null)
 
 	update ConfiguracionPais

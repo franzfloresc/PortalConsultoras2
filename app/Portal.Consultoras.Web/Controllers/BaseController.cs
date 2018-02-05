@@ -3330,7 +3330,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             menuActivo.ConfiguracionPais = configMenu;
-            if (revistaDigital.TieneRDC)
+            if (revistaDigital.TieneRDC || revistaDigital.TieneRDI)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -3553,7 +3553,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // Menú inicio
-            if (listaMenu.Any() && (revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+            if (listaMenu.Any() && (revistaDigital.TieneRDI || revistaDigital.TieneRDR || revistaDigital.TieneRDC))
             {
                 listaMenu.ForEach(m =>
                 {
@@ -3576,6 +3576,11 @@ namespace Portal.Consultoras.Web.Controllers
                             m.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                         }
                     }
+                    if (m.Codigo == Constantes.ConfiguracionPais.Inicio)
+                    {
+                        BuilTituloBannerRD(ref m);
+                    }
+
                 });
 
             }
@@ -3666,6 +3671,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
                 codigoMobile = Constantes.ConfiguracionPaisDatos.RDR.MRDRLandingBanner;
+                confi.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                confi.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+            }
+            else if (revistaDigital.TieneRDI)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RDI.DLandingBannerIntriga;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RDI.MLandingBannerIntriga;
                 confi.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                 confi.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
             }
@@ -4201,6 +4213,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            ViewBag.TieneRDI = revistaDigital.TieneRDI;
             ViewBag.MenuContenedorActivo = GetMenuActivo();
             ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
