@@ -34,7 +34,7 @@ BEGIN
 				)
 	END
 
-	SELECT @UnidadesPermitidas = isnull(op.LimiteVenta, 0)
+	SELECT @UnidadesPermitidas = isnull(e.LimiteVenta, 0)
 	FROM dbo.Estrategia e
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID

@@ -1,4 +1,4 @@
-/*TODO: confirmar campos ssi*/
+
 GO
 
 IF (OBJECT_ID('ShowRoom.GetShowRoomOfertaById', 'P') IS NULL)
@@ -16,28 +16,22 @@ BEGIN
 
 	SELECT e.EstrategiaID AS OfertaShowRoomID
 		,c.CampaniaID
-		,e.CUV2 AS CUV
-		--,ves.TipoOfertaSisID
-		--,ves.ConfiguracionOfertaID
+		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
 		,e.PrecioPublico AS PrecioValorizado
-		,e.Cantidad AS Stock
-		--,StockInicial
+		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
-		,e.Activo AS FlagHabilitarProducto
-		--,DescripcionLegal
+		,e.Activo AS FlagHabilitarProducto		
 		,e.UsuarioCreacion AS UsuarioRegistro
 		,e.FechaCreacion AS FechaRegistro
 		,UsuarioModificacion
 		,FechaModificacion
 		,e.ImagenMiniaturaURL AS ImagenMini
-		,Orden
-		--,CodigoCategoria
+		,Orden		
 		,e.TextoLibre AS TipNegocio
 		,e.Precio2 AS PrecioOferta
 	FROM dbo.Estrategia e
-	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo
-	--LEFT JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
+	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END

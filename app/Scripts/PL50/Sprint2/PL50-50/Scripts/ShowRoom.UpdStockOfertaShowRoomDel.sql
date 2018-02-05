@@ -5,7 +5,6 @@ IF (OBJECT_ID('ShowRoom.UpdStockOfertaShowRoomDel', 'P') IS NULL)
 GO
 --
 ALTER PROCEDURE ShowRoom.UpdStockOfertaShowRoomDel 
---@TipoOfertaSisID INT
 	@CampaniaID INT
 	,@CUV VARCHAR(20)
 	,@Stock INT
@@ -22,5 +21,4 @@ BEGIN
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
-		--AND o.TipoOfertaSisID = @TipoOfertaSisID
 END

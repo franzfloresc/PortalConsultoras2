@@ -7,7 +7,6 @@ GO
 
 --
 ALTER PROCEDURE ShowRoom.UpdStockOfertaShowRoomUpd 
--- @TipoOfertaSisID INT
 	@CampaniaID INT
 	,@CUV VARCHAR(20)
 	,@Stock INT
@@ -28,7 +27,6 @@ BEGIN
 		INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 		WHERE c.Codigo = @CampaniaID
 			AND e.CUV2 = @CUVPadre
-			--AND o.TipoOfertaSisID = @TipoOfertaSisID
 	END
 	ELSE
 	BEGIN
@@ -36,7 +34,7 @@ BEGIN
 		UPDATE dbo.Estrategia
 		SET Cantidad -= @Stock
 		FROM dbo.Estrategia e
-		INNER JOIN ods.campania c ON c.CampaniaID = o.CampaniaID
+		INNER JOIN ods.campania c ON  e.CampaniaID = c.Codigo
 		INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 		WHERE c.Codigo = @CampaniaID
 			AND e.CUV2 = @CUVPadre

@@ -75,6 +75,7 @@ namespace Portal.Consultoras.BizLogic
             return reporteValidaciones;
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSROferta>();
@@ -92,6 +93,7 @@ namespace Portal.Consultoras.BizLogic
             return reporteValidaciones;
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
             var reporteValidaciones = new List<BEReporteValidacionSRComponentes>();

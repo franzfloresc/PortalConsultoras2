@@ -1,6 +1,3 @@
-
-GO
-
 IF (OBJECT_ID('ShowRoom.GetProductosShowRoomDetalle', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE ShowRoom.GetProductosShowRoomDetalle AS SET NOCOUNT ON;')
 GO
