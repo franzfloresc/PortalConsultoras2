@@ -1063,7 +1063,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
+                    message =  "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
