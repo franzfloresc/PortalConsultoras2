@@ -99,6 +99,7 @@
     <Compile Include="AreasMobile\Mobile\OfertasParaTiUnitTests.cs" />
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
+    <Compile Include="Controllers\BienvenidaControllerUnitTests.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
