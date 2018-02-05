@@ -1737,7 +1737,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GestionaPostulante()
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", null);
+            var nombreRol = UserData().RolDescripcion;
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
         }
 
