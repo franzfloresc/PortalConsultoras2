@@ -230,7 +230,7 @@ namespace Portal.Consultoras.BizLogic
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
-                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.ConsultoraID.ToString());
+                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
                     if (estrategias == null || !estrategias.Any())
                     {
                         estrategias = new List<BEEstrategia>();
@@ -239,7 +239,7 @@ namespace Portal.Consultoras.BizLogic
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
 
-                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.ConsultoraID.ToString(), estrategias);
+                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString(), estrategias);
                     }
 
                     break;
