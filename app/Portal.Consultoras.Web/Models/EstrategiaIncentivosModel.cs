@@ -11,5 +11,6 @@
         public string CodigoSAP { get; set; }
         public bool Activo { get; set; }
         public string ImageUrl { get; set; }
+        public int Orden { get; set; }
     }
 }
