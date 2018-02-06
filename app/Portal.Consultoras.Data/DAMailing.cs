@@ -1,12 +1,8 @@
 ﻿using Portal.Consultoras.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -120,6 +116,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToDateTime(Context.ExecuteScalar(command));
 
         }
+
         public IDataReader GetPlantillasPais(int PaisID) {
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPlantillasPais");
@@ -128,9 +125,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
 
         }
-
-
-
+        
         public IDataReader ObtenerCorreoEmisor(int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerCorreoEmisor");

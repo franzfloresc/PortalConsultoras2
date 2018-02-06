@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
@@ -27,8 +28,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.Common.MagickNet;
-using System.IO;
+using System.Web.Configuration;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
+        protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
 
@@ -71,13 +72,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (userData == null)
                 {
-                    string URLSignOut = ObtenerUrlCerrarSesion();
+                    string urlSignOut = ObtenerUrlCerrarSesion();
 
-                    filterContext.Result = new RedirectResult(URLSignOut);
+                    filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
 
-                revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
+                revistaDigital = sessionManager.GetRevistaDigital();
+                guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())
                 {
@@ -432,9 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (userData.TieneValidacionMontoMaximo)
                 {
-                    if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00))
-                        mensaje = "";
-                    else
+                    if (userData.MontoMaximo != Convert.ToDecimal(9999999999.00))
                     {
                         var listaProducto = ObtenerPedidoWebDetalle();
 
@@ -451,9 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
                             descuentoProl = listaProducto[0].DescuentoProl;
 
                         var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
-                        if (montoActual <= userData.MontoMaximo)
-                            mensaje = "";
-                        else
+                        if (montoActual > userData.MontoMaximo)
                         {
                             var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
                             mensaje += "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString();
@@ -654,7 +652,9 @@ namespace Portal.Consultoras.Web.Controllers
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
             var tieneEventoFestivoData = sessionManager.GetEventoFestivoDataModel() != null &&
-                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null;
+                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null &&
+                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas.Any();
+
             if (!tieneRevistaDigital)
             {
                 urlImagen = GetDefaultGifMenuOfertas();
@@ -751,13 +751,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
-            if (userData.TieneGND && lstMenuMobileModel.Any(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas))
-            {
-                var menu = lstMenuMobileModel.First(x => x.MenuMobileID == Constantes.MenuMobileId.CatalogosYRevistas);
-                menu.Descripcion = GetDescripcionMenuMobileCatalogos(userData.PaisID) ?? menu.Descripcion;
-            }
-
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
@@ -852,14 +845,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var descripcionMenuCatalogos = string.Empty;
 
-            IList<BETablaLogicaDatos> revistaDigitalTaablaLogica;
+            IList<BETablaLogicaDatos> revistaDigitalTablaLogica;
             using (var sacServiceClient = new SACServiceClient())
             {
-                revistaDigitalTaablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
+                revistaDigitalTablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
             }
-            if (revistaDigitalTaablaLogica != null && revistaDigitalTaablaLogica.Any())
+            if (revistaDigitalTablaLogica != null && revistaDigitalTablaLogica.Any())
             {
-                descripcionMenuCatalogos = revistaDigitalTaablaLogica.First().Codigo;
+                descripcionMenuCatalogos = revistaDigitalTablaLogica.First().Codigo;
             }
 
             return descripcionMenuCatalogos;
@@ -1656,18 +1649,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ConfigurationManager.AppSettings[key];
         }
 
-        protected BEGrid SetGrid(string sidx, string sord, int page, int rows)
-        {
-            BEGrid grid = new BEGrid
-            {
-                PageSize = rows <= 0 ? 10 : rows,
-                CurrentPage = page <= 0 ? 1 : page,
-                SortColumn = sidx ?? "",
-                SortOrder = sord ?? "asc"
-            };
-            return grid;
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";
@@ -1688,7 +1669,19 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 using (var sv = new PedidoServiceClient())
                 {
-                    obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                    {
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                        if (PaisesFraccionKit.Contains(userData.CodigoISO))
+                        {
+                            obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
+                            obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
+                        }
+                    }                        
+                    else
+                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
                 }
 
                 Session[constSession] = obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
@@ -3220,7 +3213,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida && !revistaDigital.TieneRDR) return false;
 
-            titulo = revistaDigital.TieneRDC ? "OFERTAS CLUB GANA+" : revistaDigital.TieneRDR ? "OFERTAS GANA+" : "";
+            titulo = revistaDigital.TieneRDC
+                ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
+                    ? "OFERTAS CLUB GANA+"
+                    : "OFERTAS GANA+"
+                : revistaDigital.TieneRDR ? "OFERTAS GANA+" : "";
+
             subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
 
             if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
@@ -3899,8 +3897,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string GetConfiguracionManager(string key)
         {
             key = Util.Trim(key);
-            if (key == "")
-                return "";
+            if (key == "") return "";
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
-using System.Configuration;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Common;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -18,11 +9,10 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual)
         {
-
-            var DAPedidoReporteLider = new DAPedidoReporteLider(paisID);
+            var daPedidoReporteLider = new DAPedidoReporteLider(paisID);
             var entidad = new BEPedidoReporteLiderIndicador();
 
-            using (IDataReader reader = DAPedidoReporteLider.GetPedidosReporteLiderIndicador(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
+            using (IDataReader reader = daPedidoReporteLider.GetPedidosReporteLiderIndicador(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
                 while (reader.Read())
                 {
                     entidad = new BEPedidoReporteLiderIndicador(reader);
@@ -30,12 +20,13 @@ namespace Portal.Consultoras.BizLogic
 
             return entidad;
         }
+
         public IList<BEPedidoReporteLiderListado> GetPedidosReporteLiderPedidosValidados(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual)
         {
             var listado = new List<BEPedidoReporteLiderListado>();
-            var DAPedidoReporteLider = new DAPedidoReporteLider(paisID);
+            var daPedidoReporteLider = new DAPedidoReporteLider(paisID);
 
-            using (IDataReader reader = DAPedidoReporteLider.GetPedidosReporteLiderPedidosValidados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
+            using (IDataReader reader = daPedidoReporteLider.GetPedidosReporteLiderPedidosValidados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoReporteLiderListado(reader);
@@ -48,9 +39,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoReporteLiderListado> GetPedidosReporteLiderPedidosNoValidados(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual)
         {
             var listado = new List<BEPedidoReporteLiderListado>();
-            var DAPedidoReporteLider = new DAPedidoReporteLider(paisID);
+            var daPedidoReporteLider = new DAPedidoReporteLider(paisID);
 
-            using (IDataReader reader = DAPedidoReporteLider.GetPedidosReporteLiderPedidosNoValidados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
+            using (IDataReader reader = daPedidoReporteLider.GetPedidosReporteLiderPedidosNoValidados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoReporteLiderListado(reader);
@@ -63,9 +54,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoReporteLiderListado> GetPedidosReporteLiderPedidosRechazados(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual)
         {
             var listado = new List<BEPedidoReporteLiderListado>();
-            var DAPedidoReporteLider = new DAPedidoReporteLider(paisID);
+            var daPedidoReporteLider = new DAPedidoReporteLider(paisID);
 
-            using (IDataReader reader = DAPedidoReporteLider.GetPedidosReporteLiderPedidosRechazados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
+            using (IDataReader reader = daPedidoReporteLider.GetPedidosReporteLiderPedidosRechazados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoReporteLiderListado(reader);
@@ -78,9 +69,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoReporteLiderListado> GetPedidosReporteLiderPedidosFacturados(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual)
         {
             var listado = new List<BEPedidoReporteLiderListado>();
-            var DAPedidoReporteLider = new DAPedidoReporteLider(paisID);
+            var daPedidoReporteLider = new DAPedidoReporteLider(paisID);
 
-            using (IDataReader reader = DAPedidoReporteLider.GetPedidosReporteLiderPedidosFacturados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
+            using (IDataReader reader = daPedidoReporteLider.GetPedidosReporteLiderPedidosFacturados(ConsultoraLiderID, CodigoPais, CodigoCampaniaActual))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoReporteLiderListado(reader);

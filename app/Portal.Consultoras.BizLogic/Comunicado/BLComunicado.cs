@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Comunicado;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Common;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,19 +12,19 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEComunicado GetComunicadoByConsultora(int paisID, string CodigoConsultora)
         {
-            BEComunicado oBEComunicado = null;
-            var DAComunicado = new DAComunicado(paisID);
+            BEComunicado oBeComunicado;
+            var daComunicado = new DAComunicado(paisID);
 
-            using (IDataReader reader = DAComunicado.GetComunicadoByConsultora(CodigoConsultora))
-                oBEComunicado = reader.MapToObject<BEComunicado>();
+            using (IDataReader reader = daComunicado.GetComunicadoByConsultora(CodigoConsultora))
+                oBeComunicado = reader.MapToObject<BEComunicado>();
 
-            return oBEComunicado;
+            return oBeComunicado;
         }
 
         public void UpdComunicadoByConsultora(int paisID, string CodigoConsultora)
         {
-            var DAComunicado = new DAComunicado(paisID);
-            DAComunicado.UpdComunicadoByConsultora(CodigoConsultora);
+            var daComunicado = new DAComunicado(paisID);
+            daComunicado.UpdComunicadoByConsultora(CodigoConsultora);
         }
 
         /**GR 1209 Obtener comunicado configurable en la tabla */
@@ -38,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEComunicado> ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo)
         {
-            var lstComunicado = new List<BEComunicado>();
+            List<BEComunicado> lstComunicado;
             var lstComunicadoVista = new List<BEComunicadoVista>();
 
             using (var reader = new DAComunicado(paisID).ObtenerComunicadoPorConsultora(CodigoConsultora, TipoDispositivo))
@@ -59,15 +58,15 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-            DAComunicado DAComunicado = new DAComunicado(PaisID);
-            DAComunicado.InsertarComunicadoVisualizado(CodigoConsultora, ComunicadoID);
+            DAComunicado daComunicado = new DAComunicado(PaisID);
+            daComunicado.InsertarComunicadoVisualizado(CodigoConsultora, ComunicadoID);
 
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
         {
-            DAComunicado DAComunicado = new DAComunicado(PaisId);
-            DAComunicado.InsertarDonacionConsultora(CodigoISO, CodigoConsultora, Campania, IPUsuario);
+            DAComunicado daComunicado = new DAComunicado(PaisId);
+            daComunicado.InsertarDonacionConsultora(CodigoISO, CodigoConsultora, Campania, IPUsuario);
         }
     }
 }

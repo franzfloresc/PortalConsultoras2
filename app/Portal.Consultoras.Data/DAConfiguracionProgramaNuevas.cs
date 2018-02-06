@@ -1,9 +1,8 @@
 ﻿using Portal.Consultoras.Entities;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Data;
 using System.Data.Common;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Data
 {
@@ -25,6 +24,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetConfiguracionProgramaDespuesPrimerPedido(BEConfiguracionProgramaNuevas entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2");
+            Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+
+            return Context.ExecuteReader(command);
+        }
+
         #region ConfiguracionApp
         public IDataReader GetConfiguracionProgramaNuevasApp(string CodigoPrograma)
         {
@@ -37,7 +47,7 @@ namespace Portal.Consultoras.Data
         }
         public string InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            string result = string.Empty;
+            string result;
 
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))
             {

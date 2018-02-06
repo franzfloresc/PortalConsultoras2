@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -18,8 +16,8 @@ namespace Portal.Consultoras.BizLogic
             if (consultorasCodigo == null)
             {
                 consultorasCodigo = new List<BEConsultoraCodigo>();
-                var DAConsultora = new DAConsultora(paisID);
-                using (IDataReader reader = DAConsultora.GetConsultoraCodigo())
+                var daConsultora = new DAConsultora(paisID);
+                using (IDataReader reader = daConsultora.GetConsultoraCodigo())
                     while (reader.Read())
                     {
                         consultorasCodigo.Add(new BEConsultoraCodigo(reader));
@@ -54,8 +52,8 @@ namespace Portal.Consultoras.BizLogic
 
         public decimal GetSaldoActualConsultora(int paisID, string Codigo)
         {
-            var DAConsultora = new DAConsultora(paisID);
-            return DAConsultora.GetSaldoActualConsultora(Codigo);
+            var daConsultora = new DAConsultora(paisID);
+            return daConsultora.GetSaldoActualConsultora(Codigo);
         }
 
         public IList<BEConsultoraCodigo> SelectConsultoraCodigo(int paisID, int regionID, int zonaID, string codigo, int rowCount)
@@ -63,22 +61,22 @@ namespace Portal.Consultoras.BizLogic
             List<BEConsultoraCodigo> consultorasCodigo = SelectConsultoraCodigo(paisID);
             var selConsultorasCodigo = new List<BEConsultoraCodigo>();
 
-            int regionFinID, zonaFinID;
+            int regionFinId, zonaFinId;
             if (regionID > 0)
             {
-                regionFinID = regionID;
-                zonaFinID = zonaID > 0 ? zonaID : int.MaxValue;
+                regionFinId = regionID;
+                zonaFinId = zonaID > 0 ? zonaID : int.MaxValue;
             }
             else
             {
-                regionFinID = int.MaxValue;
-                zonaFinID = int.MaxValue;
+                regionFinId = int.MaxValue;
+                zonaFinId = int.MaxValue;
             }
 
             foreach (BEConsultoraCodigo consultoraCodigo in consultorasCodigo)
             {
-                if (consultoraCodigo.RegionID >= regionID && consultoraCodigo.RegionID <= regionFinID
-                    && consultoraCodigo.ZonaID >= zonaID && consultoraCodigo.ZonaID <= zonaFinID
+                if (consultoraCodigo.RegionID >= regionID && consultoraCodigo.RegionID <= regionFinId
+                    && consultoraCodigo.ZonaID >= zonaID && consultoraCodigo.ZonaID <= zonaFinId
                     && consultoraCodigo.Codigo.Contains(codigo))
                 {
                     selConsultorasCodigo.Add(consultoraCodigo);
@@ -93,8 +91,8 @@ namespace Portal.Consultoras.BizLogic
         public List<BEConsultora> SelectConsultoraByID(int paisID, Int64 ConsultoraID)
         {
             List<BEConsultora> consultora = new List<BEConsultora>();
-            var DAConsultora = new DAConsultora(paisID);
-            using (IDataReader reader = DAConsultora.GetConsultoraById(ConsultoraID))
+            var daConsultora = new DAConsultora(paisID);
+            using (IDataReader reader = daConsultora.GetConsultoraById(ConsultoraID))
                 while (reader.Read())
                 {
                     consultora.Add(new BEConsultora(reader));
@@ -135,10 +133,10 @@ namespace Portal.Consultoras.BizLogic
             BEConsultoraDD beConsultora = null;
             BEConfiguracionCampania configuracion = null;
 
-            var DAConsultora = new DAConsultora(paisID);
-            var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
+            var daConsultora = new DAConsultora(paisID);
+            var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
 
-            using (IDataReader reader = DAConsultora.GetConsultoraByCodigo(codigo, codigoZona, numeroDocumento))
+            using (IDataReader reader = daConsultora.GetConsultoraByCodigo(codigo, codigoZona, numeroDocumento))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
@@ -154,7 +152,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (beConsultora.ConsultoraID != 0)
                 {
-                    using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaZona(paisID, beConsultora.ZonaID, beConsultora.RegionID, beConsultora.ConsultoraID))
+                    using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampaniaZona(paisID, beConsultora.ZonaID, beConsultora.RegionID, beConsultora.ConsultoraID))
                         if (reader.Read())
                             configuracion = new BEConfiguracionCampania(reader);
 
@@ -171,10 +169,10 @@ namespace Portal.Consultoras.BizLogic
         {
             BEConsultoraDD beConsultora = null;
 
-            var DAConsultora = new DAConsultora(paisID);
-            var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
+            var daConsultora = new DAConsultora(paisID);
+            var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
 
-            using (IDataReader reader = DAConsultora.GetConsultoraByCodigo(codigo))
+            using (IDataReader reader = daConsultora.GetConsultoraByCodigo(codigo))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
                 if (reader.Read())
@@ -189,7 +187,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (beConsultora.ConsultoraID != 0)
                 {
-                    using (IDataReader reader = DAConfiguracionCampania.GetCampaniaByConsultoraHabilitarPedido(paisID, beConsultora.ZonaID, beConsultora.ConsultoraID))
+                    using (IDataReader reader = daConfiguracionCampania.GetCampaniaByConsultoraHabilitarPedido(paisID, beConsultora.ZonaID, beConsultora.ConsultoraID))
                         if (reader.Read())
                         {
                             beConsultora.CampaniaID = reader.IsDBNull(reader.GetOrdinal("CampaniaID")) ? 0 : reader.GetInt32(reader.GetOrdinal("CampaniaID"));
@@ -202,8 +200,8 @@ namespace Portal.Consultoras.BizLogic
 
         public long GetConsultoraIdByCodigo(int paisID, string CodigoConsultora)
         {
-            var DAConsultora = new DAConsultora(paisID);
-            return DAConsultora.GetConsultoraIdByCodigo(CodigoConsultora);
+            var daConsultora = new DAConsultora(paisID);
+            return daConsultora.GetConsultoraIdByCodigo(CodigoConsultora);
         }
 
         public BEConsultoraDatoSAC GetConsultoraDatoSAC(string paisID, string codigoConsultora, string documento)
@@ -212,9 +210,9 @@ namespace Portal.Consultoras.BizLogic
             if (string.IsNullOrEmpty(codigoConsultora) && string.IsNullOrEmpty(documento)) return null;
 
             BEConsultoraDatoSAC beConsultora = null;
-            var DAConsultora = new DAConsultora(Convert.ToInt32(paisID));
+            var daConsultora = new DAConsultora(Convert.ToInt32(paisID));
 
-            using (IDataReader reader = DAConsultora.GetConsultoraDatoSAC(paisID, codigoConsultora, documento))
+            using (IDataReader reader = daConsultora.GetConsultoraDatoSAC(paisID, codigoConsultora, documento))
             {
                 if (reader.Read())
                 {
@@ -230,9 +228,9 @@ namespace Portal.Consultoras.BizLogic
             if (string.IsNullOrEmpty(codigoConsultora)) return null;
 
             BEConsultoraEstadoSAC beConsultora = null;
-            var DAConsultora = new DAConsultora(Convert.ToInt32(paisID));
+            var daConsultora = new DAConsultora(Convert.ToInt32(paisID));
 
-            using (IDataReader reader = DAConsultora.GetConsultoraEstadoSAC(paisID, codigoConsultora))
+            using (IDataReader reader = daConsultora.GetConsultoraEstadoSAC(paisID, codigoConsultora))
             {
                 if (reader.Read())
                 {
@@ -265,7 +263,7 @@ namespace Portal.Consultoras.BizLogic
         public BEConsultoraCUV GetConsultoraCUVRegular(int paisID, int campaniaID, string CUVRegular)
         {
 
-            BEConsultoraCUV beConsultoraCVU = new BEConsultoraCUV();
+            BEConsultoraCUV beConsultoraCvu = new BEConsultoraCUV();
             var daConsultora = new DAConsultora(paisID);
 
             using (IDataReader reader = daConsultora.GetConsultoraCUVRegular(campaniaID, CUVRegular))
@@ -274,17 +272,17 @@ namespace Portal.Consultoras.BizLogic
 
                 if (reader.Read())
                 {
-                    beConsultoraCVU = new BEConsultoraCUV(reader, columns);
+                    beConsultoraCvu = new BEConsultoraCUV(reader, columns);
                 }
             }
 
-            return beConsultoraCVU;
+            return beConsultoraCvu;
         }
 
         public BEConsultoraCUV GetConsultoraCUVCredito(int paisID, int campaniaID, string CUVCredito)
         {
 
-            BEConsultoraCUV beConsultoraCVU = new BEConsultoraCUV();
+            BEConsultoraCUV beConsultoraCvu = new BEConsultoraCUV();
             var daConsultora = new DAConsultora(paisID);
 
             using (IDataReader reader = daConsultora.GetConsultoraCUVCredito(campaniaID, CUVCredito))
@@ -293,27 +291,26 @@ namespace Portal.Consultoras.BizLogic
 
                 if (reader.Read())
                 {
-                    beConsultoraCVU = new BEConsultoraCUV(reader, columns);
+                    beConsultoraCvu = new BEConsultoraCUV(reader, columns);
                 }
             }
 
-            return beConsultoraCVU;
+            return beConsultoraCvu;
         }
 
 
         public List<BEConsultora> GetConsultorasPorUbigeo(int paisId, string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
         {
-            var vConsultora = new BEConsultora();
             var vListaConsultora = new List<BEConsultora>();
 
             if (paisId > 0)
             {
-                var DAConsultora = new DAConsultora(paisId);
-                using (IDataReader reader = DAConsultora.GetConsultorasPorUbigeo(paisId, codigoUbigeo, campania, marcaId, tipoFiltroUbigeo))
+                var daConsultora = new DAConsultora(paisId);
+                using (IDataReader reader = daConsultora.GetConsultorasPorUbigeo(paisId, codigoUbigeo, campania, marcaId, tipoFiltroUbigeo))
                 {
                     while (reader.Read())
                     {
-                        vConsultora = new BEConsultora(reader);
+                        var vConsultora = new BEConsultora(reader);
                         vListaConsultora.Add(vConsultora);
                     }
                 }

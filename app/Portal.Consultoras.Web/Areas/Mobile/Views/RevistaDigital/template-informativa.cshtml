@@ -261,25 +261,24 @@ else
 
 <a href="javascript: RDSuscripcion();" class="btn-suscribete-video">SUSCRÍBETE GRATIS AQUÍ</a>
 
-<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
-<script src="https://www.youtube.com/player_api"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
-
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-confirmacion-datos.cshtml")
 
 @section scripts{
-
+    <script src="https://www.youtube.com/player_api"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript">
-    var PosBannerMenu;
-    var player; // create youtube player
-    var videoKey = '@Model.Video';
-    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-    var tipoOrigenPantalla = 1;
-    var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
-    var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-    var isScroll = false;
-    var estaSuscrita = '@Model.EsSuscrita';
+        var done = false;
+        var PosBannerMenu;
+        var player; // create youtube player
+        var videoKey = '@Model.Video';
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var isScroll = false;
+        var estaSuscrita = '@Model.EsSuscrita';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
 }
+

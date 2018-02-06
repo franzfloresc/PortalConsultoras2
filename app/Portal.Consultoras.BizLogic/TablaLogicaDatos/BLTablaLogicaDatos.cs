@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -9,17 +9,17 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short TablaLogicaID)
         {
-            List<BETablaLogicaDatos> TablaLogicaDatos = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> tablaLogicaDatos = new List<BETablaLogicaDatos>();
 
-            var DATablaLogicaDatos = new DATablaLogicaDatos(paisID);
-            using (IDataReader reader = DATablaLogicaDatos.GetTablaLogicaDatos(TablaLogicaID))
+            var daTablaLogicaDatos = new DATablaLogicaDatos(paisID);
+            using (IDataReader reader = daTablaLogicaDatos.GetTablaLogicaDatos(TablaLogicaID))
             {
                 while (reader.Read())
                 {
-                    TablaLogicaDatos.Add(new BETablaLogicaDatos(reader));
+                    tablaLogicaDatos.Add(new BETablaLogicaDatos(reader));
                 }
             }
-            return TablaLogicaDatos;
+            return tablaLogicaDatos;
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using System.Transactions;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -15,9 +11,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEParticipantesDemandaAnticipada> GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora)
         {
             var lista = new List<BEParticipantesDemandaAnticipada>();
-            var DAParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(PaisID);
+            var daParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(PaisID);
 
-            using (IDataReader reader = DAParticipantesDemandaAnticipada.GetParticipantesConfiguracionConsultoraDA(CodigoCampania, CodigoConsultora))
+            using (IDataReader reader = daParticipantesDemandaAnticipada.GetParticipantesConfiguracionConsultoraDA(CodigoCampania, CodigoConsultora))
                 while (reader.Read())
                 {
                     var entidad = new BEParticipantesDemandaAnticipada(reader);
@@ -29,16 +25,16 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsParticipantesDemandaAnticipada(int paisID, BEParticipantesDemandaAnticipada participantesDemandaAnticipada)
         {
-            var DAParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(paisID);
-            return DAParticipantesDemandaAnticipada.InsParticipantesDemandaAnticipada(participantesDemandaAnticipada);
+            var daParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(paisID);
+            return daParticipantesDemandaAnticipada.InsParticipantesDemandaAnticipada(participantesDemandaAnticipada);
         }
 
         public BEParticipantesDemandaAnticipada GetConsultoraByCodigo(int paisID, string CodigoConsultora)
         {
             BEParticipantesDemandaAnticipada list = null;
 
-            var DAParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(paisID);
-            using (IDataReader reader = DAParticipantesDemandaAnticipada.GetConsultoraByCodigo(CodigoConsultora))
+            var daParticipantesDemandaAnticipada = new DAParticipantesDemandaAnticipada(paisID);
+            using (IDataReader reader = daParticipantesDemandaAnticipada.GetConsultoraByCodigo(CodigoConsultora))
                 while (reader.Read())
                 {
                     list = new BEParticipantesDemandaAnticipada()
