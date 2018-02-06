@@ -1621,7 +1621,6 @@
 .btn_stroke_white {
     background: transparent;
     width: 260px;
-    border: 1px solid white;
     color: white;
     font-size: 13px;
 }
@@ -2399,7 +2398,14 @@
         color: white;
         transition: all .2s ease-in-out;
     }
-
+        .banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+            
+            display: none;
+        }
+        .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
+           
+            display: none;
+        }
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
             animation: bounceRight 1.2s infinite;
             display: inline;
@@ -2454,24 +2460,28 @@
             transition: all .2s ease-in-out;
         }
 
-        .home_rd1 .btn_diagonal:hover .rd_arrowright {
+            .home_rd1 .btn_diagonal:hover .rd_arrowright {
                 animation: bounceRight 1.2s infinite;
+                
             }
         .home_rd1 .btn_diagonal:hover .rd_arrowright_blanco {
             display: none;
         }
-
         .home_rd1 .btn_diagonal:hover .rd_arrowright {
             display: inline;
-        }
-
+        } 
 
     .home_rd1 .rd_arrowright {
         position: absolute;
         right: 16px;
         top: 16px;
+        height: 12px;
         display: inline;
         width: 8px;
+        height: 12px;
+    }
+    .home_rd1 .rd_arrowright_blanco {
+        display: none;
         height: 12px;
     }
 

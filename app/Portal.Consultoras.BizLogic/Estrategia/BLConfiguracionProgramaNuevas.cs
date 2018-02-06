@@ -33,8 +33,21 @@ namespace Portal.Consultoras.BizLogic
             return data;
         }
 
-        #region ConfiguracionApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
+        {
+            BEConfiguracionProgramaNuevas data = null;
+            var da = new DAConfiguracionProgramaNuevas(paisID);
+            using (IDataReader reader = da.GetConfiguracionProgramaDespuesPrimerPedido(entidad))
+            {
+                if (reader.Read())
+                    data = new BEConfiguracionProgramaNuevas(reader);
+            }
+
+            return data;
+        }
+
+            #region ConfiguracionApp
+            public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
         {
             using (IDataReader reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaNuevasApp(CodigoPrograma))
             {

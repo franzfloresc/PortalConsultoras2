@@ -26819,6 +26819,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     color: #000;
 }
 
+    
+
     .contenedor_item_descripcion span {
         display: block;
         overflow: hidden;
@@ -26827,6 +26829,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         -webkit-box-orient: vertical;
         min-height: 60px;
     }
+
+
+
+        .contenedor_item_descripcion span::after {
+            content: '..';
+        }
 
         .contenedor_item_descripcion span::after {
             content: '..';
@@ -26861,7 +26869,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
     .contenedor_item_descripcion a {
-        width: 50%;
+        width: 60%;
     }
 }
 /* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */

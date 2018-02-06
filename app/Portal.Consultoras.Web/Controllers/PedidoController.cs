@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-                var model = new PedidoSb2Model();
+            var model = new PedidoSb2Model();
 
             try
             {
@@ -1597,28 +1597,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
                 BloqueoProductosCatalogo(ref productos);
-                if (!productos.Any())
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
-
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
-
-                var codigoEstrategia = Util.Trim(producto.TipoEstrategiaCodigo);
-                if (BloqueoProductosRevistaDigital(codigoEstrategia))
-                {
-                    productosModel.Add(GetProductoInscribeteEnRevistaDigital());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
 
                 BloqueoProductosDigitales(ref productos);
+
                 if (!productos.Any())
                 {
                     productosModel.Add(GetProductoNoExiste());
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
-
+                
                 var cuvCredito = ValidarCUVCreditoPorCUVRegular(model, userModel);
                 if (cuvCredito.IdMensaje == CUV_NO_TIENE_CREDITO)
                 {
@@ -1626,7 +1613,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1731,25 +1718,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
-
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva)
-            {
-                beProductos = beProductos
-                    .Where(prod =>
-                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                        )
-                    )
-                    .ToList();
-            }
-
+            
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod =>
-                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                         )
@@ -1778,34 +1752,15 @@ namespace Portal.Consultoras.Web.Controllers
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                     .ToList();
             }
-
+            
         }
-
-        private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
-        {
-            return (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
-                   && !revistaDigital.TieneRDR
-                   && !revistaDigital.TieneRDC;
-        }
-
+        
         private ProductoModel GetProductoNoExiste()
         {
             return new ProductoModel()
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
-                TieneSugerido = 0
-            };
-        }
-
-        private ProductoModel GetProductoInscribeteEnRevistaDigital()
-        {
-            return new ProductoModel()
-            {
-                MarcaID = 0,
-                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
                 TieneSugerido = 0
             };
         }
@@ -2693,13 +2648,17 @@ namespace Portal.Consultoras.Web.Controllers
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
                 };
 
-                if (pedidoModelo.ListaDetalle.Any())
-                {
-                    var grid = SetGrid(sidx, sord, page, rows);
-                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalle);
+                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoModelo.ListaDetalleFormato = pedidoWebDetalleModel;
 
-                    pedidoModelo.ListaDetalle = pedidoModelo.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
-                    pedidoModelo.ListaDetalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
+                if (pedidoModelo.ListaDetalleFormato.Any())
+                {
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
+                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalleFormato);
+
+                    pedidoModelo.ListaDetalleFormato = pedidoModelo.ListaDetalleFormato.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                    pedidoModelo.ListaDetalleFormato.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
 
                     pedidoModelo.Registros = grid.PageSize.ToString();
                     pedidoModelo.RegistrosTotal = pag.RecordCount.ToString();
@@ -3088,11 +3047,14 @@ namespace Portal.Consultoras.Web.Controllers
                 obePedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 var quitoCantBackOrder = false;
-                if (tipoAdm == "U" && obePedidoWebDetalle.PedidoDetalleID != 0)
+                if (tipoAdm == "U"
+                    && obePedidoWebDetalle.PedidoDetalleID != 0)
                 {
                     var oldPedidoWebDetalle = olstTempListado.FirstOrDefault(x => x.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID) ?? new BEPedidoWebDetalle();
 
-                    if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
+                    if (oldPedidoWebDetalle.AceptoBackOrder
+                        && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad
+                        )
                     {
                         quitoCantBackOrder = true;
                     }
@@ -3440,7 +3402,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 success = true,
-                data = (List<BEBannerPedido>)null
+                data = (List<BEBannerPedido>) null
             });
         }
 
@@ -3507,41 +3469,63 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         private void AgregarKitNuevas()
-        {
-
+        {                
             try
             {
+            
+            bool flagkit = false;
 
-                if (Session["ConfiguracionProgramaNuevas"] != null) return;
+            if (Session["ConfiguracionProgramaNuevas"] != null) return;
+            if (!userData.EsConsultoraNueva)
+            {
+                /* Kit de nuevas para segundo y tercer pedido*/
+                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                    userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                {
+                    var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
 
-                if (!userData.EsConsultoraNueva)
+                    if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                    {
+                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                        return;
+                    }
+
+                    flagkit = true;
+                }
+                /****************/
+
+                if (!flagkit)
                 {
                     Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                     return;
                 }
-                if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
+            }            
+            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
+            
+            
+                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                    if (obeConfiguracionProgramaNuevas == null)
+                    {
+                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                        return;
+                    }
 
-                var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                    Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
+                    if (!flagkit) //Kit en 2 y 3 pedido
+                        if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
-                if (obeConfiguracionProgramaNuevas == null)
-                {
-                    Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                    return;
-                }
-
-                if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
-
-                var listaTempListado = ObtenerPedidoWebDetalle();
+                    var listaTempListado = ObtenerPedidoWebDetalle();
 
                 var det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
 
                 if (det.PedidoDetalleID > 0) return;
 
-                List<BEProducto> olstProducto;
-                using (var svOds = new ODSServiceClient())
-                {
-                    olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
-                }
+                    List<BEProducto> olstProducto;                    
+                    using (var svOds = new ODSServiceClient())
+                    {
+                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
+                    }
 
                 if (olstProducto.Count > 0)
                 {
@@ -3647,7 +3631,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
                     SetUserData(userData);
 
-                    var grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
 
                     model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();

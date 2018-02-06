@@ -26797,7 +26797,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         min-height: 60px;
     }
 
+    
+
         .contenedor_item_descripcion span::after {
+           
             content: ' ..';
         }
 

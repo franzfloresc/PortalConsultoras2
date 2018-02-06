@@ -257,7 +257,7 @@ function CargarListado(page, rows) {
 
                     var data = response.data;
 
-                    var html = ArmarListado(data.ListaDetalle);
+                    var html = ArmarListado(data.ListaDetalleFormato);
                     $('#divListadoPedido').html(html);
 
                     var htmlPaginador = ArmarListadoPaginador(data);
