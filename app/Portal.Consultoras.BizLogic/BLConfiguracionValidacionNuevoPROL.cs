@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEConfiguracionValidacionNuevoPROL> GetConfiguracionValidacionNuevoPROL(int PaisID, int TipoPROL)
         {
             var lista = new List<BEConfiguracionValidacionNuevoPROL>();
-            var DAConfiguracionValidacionNuevoPROL = new DAConfiguracionValidacionNuevoPROL(PaisID);
+            var daConfiguracionValidacionNuevoProl = new DAConfiguracionValidacionNuevoPROL(PaisID);
 
-            using (IDataReader reader = DAConfiguracionValidacionNuevoPROL.GetConfiguracionValidacionNuevoPROL(TipoPROL))
+            using (IDataReader reader = daConfiguracionValidacionNuevoProl.GetConfiguracionValidacionNuevoPROL(TipoPROL))
                 while (reader.Read())
                 {
                     var entidad = new BEConfiguracionValidacionNuevoPROL(reader);
@@ -28,8 +24,8 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsConfiguracionValidacionNuevoPROL(int PaisID, string Usuario, IList<BEConfiguracionValidacionNuevoPROL> ZonasNuevoPROL)
         {
-            var DAConfiguracionValidacionNuevoPROL = new DAConfiguracionValidacionNuevoPROL(PaisID);
-            return DAConfiguracionValidacionNuevoPROL.InsConfiguracionValidacionNuevoPROL(Usuario, ZonasNuevoPROL);
+            var daConfiguracionValidacionNuevoProl = new DAConfiguracionValidacionNuevoPROL(PaisID);
+            return daConfiguracionValidacionNuevoProl.InsConfiguracionValidacionNuevoPROL(Usuario, ZonasNuevoPROL);
         }
     }
 }

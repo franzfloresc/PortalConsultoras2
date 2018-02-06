@@ -11795,6 +11795,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia", ReplyAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[]> ActualizarDescripcionEstrategiaAsync(int paisId, int campaniaId, int tipoEstrategiaId, Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] listaDescripcionEstrategias);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarTonoEstrategia", ReplyAction="http://tempuri.org/ISACService/ActualizarTonoEstrategiaResponse")]
+        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ActualizarTonoEstrategia", ReplyAction="http://tempuri.org/ISACService/ActualizarTonoEstrategiaResponse")]
+        System.Threading.Tasks.Task<int> ActualizarTonoEstrategiaAsync(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -13019,6 +13025,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[]> ActualizarDescripcionEstrategiaAsync(int paisId, int campaniaId, int tipoEstrategiaId, Portal.Consultoras.Web.ServiceSAC.BEDescripcionEstrategia[] listaDescripcionEstrategias) {
             return base.Channel.ActualizarDescripcionEstrategiaAsync(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
+        }
+        
+        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad) {
+            return base.Channel.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarTonoEstrategiaAsync(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad) {
+            return base.Channel.ActualizarTonoEstrategiaAsync(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {

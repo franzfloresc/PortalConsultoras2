@@ -1,13 +1,13 @@
-using System;
-using System.Web.Mvc;
-using System.ServiceModel;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
-using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -66,8 +66,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = service.GetMisPedidosIngresados(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-                    var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
+                    var totalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {
@@ -116,8 +116,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = service.GetMisPedidosFacturados(userData.PaisID, userData.ConsultoraID, campaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-                    var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
+                    var totalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {

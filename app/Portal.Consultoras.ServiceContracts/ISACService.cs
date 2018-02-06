@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using System.Data;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Mobile;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -685,10 +685,13 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
         #endregion
 
-        #region DescripcionEstrategia
+        #region Estrategia
         [OperationContract]
-        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId,
-            List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, 
+                int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+
+        [OperationContract]
+        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
         #endregion
     }
 }

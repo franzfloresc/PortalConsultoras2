@@ -11,8 +11,8 @@
         {
             List<BETipoMeta> listaTipoMeta = new List<BETipoMeta>();
 
-            var DATipoMeta = new DATipoMeta(paisID);
-            using (IDataReader reader = DATipoMeta.GetTipoMeta())
+            var daTipoMeta = new DATipoMeta(paisID);
+            using (IDataReader reader = daTipoMeta.GetTipoMeta())
             {
                 while (reader.Read())
                 {

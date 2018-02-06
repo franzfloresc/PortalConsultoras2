@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
                 bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
                 string message = resultado.Split('|')[2];
-                int Cantidad = int.Parse(resultado.Split('|')[3]);
+                int cantidad = int.Parse(resultado.Split('|')[3]);
 
                 if (!seActualizoMisDatos)
                 {
@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         success = false,
                         message,
-                        Cantidad,
+                        Cantidad = cantidad,
                         extra = string.Empty
                     });
                 }

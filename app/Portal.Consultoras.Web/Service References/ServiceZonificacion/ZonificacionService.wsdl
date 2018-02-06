@@ -858,7 +858,7 @@
       <soap:address location="http://localhost:41615/ZonificacionService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IZonificacionService" binding="tns:BasicHttpsBinding_IZonificacionService">
-      <soap:address location="https://localhost:44353/ZonificacionService.svc" />
+      <soap:address location="https://localhost:44392/ZonificacionService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

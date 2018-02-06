@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,23 +9,17 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertEtiqueta(BEEtiqueta entidad)
         {
-            try
-            {
-                var DAEtiqueta = new DAEtiqueta(entidad.PaisID);
-                int result = DAEtiqueta.Insert(entidad);
+                var daEtiqueta = new DAEtiqueta(entidad.PaisID);
+                int result = daEtiqueta.Insert(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEEtiqueta> GetEtiquetas(BEEtiqueta entidad)
         {
-            try
-            {
                 List<BEEtiqueta> listaEtiquetas = new List<BEEtiqueta>();
 
-                var DAEtiqueta = new DAEtiqueta(entidad.PaisID);
-                using (IDataReader reader = DAEtiqueta.GetEtiquetas(entidad))
+                var daEtiqueta = new DAEtiqueta(entidad.PaisID);
+                using (IDataReader reader = daEtiqueta.GetEtiquetas(entidad))
                 {
                     while (reader.Read())
                     {
@@ -37,8 +27,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaEtiquetas;
-            }
-            catch (Exception) { throw; }
         }
     }
 }

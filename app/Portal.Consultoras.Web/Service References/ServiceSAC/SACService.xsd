@@ -329,6 +329,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ActualizarTonoEstrategia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="estrategiaId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoEstrategia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tieneVariedad" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarTonoEstrategiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarTonoEstrategiaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UpdateBelcorpNoticia">
     <xs:complexType>
       <xs:sequence>

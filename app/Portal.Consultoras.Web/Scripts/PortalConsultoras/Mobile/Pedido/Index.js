@@ -667,7 +667,7 @@ function ObtenerProductosSugeridos(CUV) {
 }
 function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
-    $("#txtCodigoProducto").trigger("keyup")
+    $("#txtCodigoProducto").trigger("keyup");
 }
 function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
     ShowLoading();

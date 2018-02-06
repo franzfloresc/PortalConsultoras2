@@ -550,7 +550,7 @@
       <soap:address location="http://localhost:41615/SeguridadService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ISeguridadService" binding="tns:BasicHttpsBinding_ISeguridadService">
-      <soap:address location="https://localhost:44300/SeguridadService.svc" />
+      <soap:address location="https://localhost:44392/SeguridadService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -4,7 +4,6 @@
     using Entities;
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
     public class BLLogEnvioCorreo
     {
@@ -13,11 +12,11 @@
             try
             {
                 DALogCabeceraEnvioCorreo daLogCabeceraEnvioCorreo = new DALogCabeceraEnvioCorreo(paisID);
-                int CabeceraID = daLogCabeceraEnvioCorreo.InsLogCabeceraEnvioCorreo(beLogCabeceraEnvioCorreo);
+                int cabeceraId = daLogCabeceraEnvioCorreo.InsLogCabeceraEnvioCorreo(beLogCabeceraEnvioCorreo);
                 DALogDetalleEnvioCorreo daLogDetalleEnvioCorreo = new DALogDetalleEnvioCorreo(paisID);
                 foreach (BELogDetalleEnvioCorreo beLogDetalleEnvioCorreo in listLogDetalleEnvioCorreo)
                 {
-                    daLogDetalleEnvioCorreo.InsLogDetalleEnvioCorreo(CabeceraID, beLogDetalleEnvioCorreo);
+                    daLogDetalleEnvioCorreo.InsLogDetalleEnvioCorreo(cabeceraId, beLogDetalleEnvioCorreo);
                 }
                 return true;
             }
