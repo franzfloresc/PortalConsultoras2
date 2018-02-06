@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using System;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
