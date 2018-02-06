@@ -93,8 +93,7 @@ namespace Portal.Consultoras.BizLogic
                         pedidowebdetalle.CodigoUsuarioModificacion);
 
                     if (pedidowebdetalle.TipoOfertaSisID == Common.Constantes.ConfiguracionOferta.ShowRoom)
-                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(
-                            Common.Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID,
+                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(pedidowebdetalle.CampaniaID,
                             pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
                     if (pedidowebdetalle.TipoOfertaSisID ==
@@ -156,7 +155,7 @@ namespace Portal.Consultoras.BizLogic
                     switch (pedidowebdetalle.TipoOfertaSisID)
                     {
                         case Constantes.ConfiguracionOferta.ShowRoom:
-                            new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
+                            new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockActualizar(pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                             break;
                         case Constantes.ConfiguracionOferta.Liquidacion:
                         case Constantes.ConfiguracionOferta.Accesorizate:
@@ -277,7 +276,7 @@ namespace Portal.Consultoras.BizLogic
                     if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockEliminar(Constantes.ConfiguracionOferta.Liquidacion, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                     if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
-                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockEliminar(Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockEliminar(pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {

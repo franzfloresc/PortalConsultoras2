@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSROferta(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOferta");
@@ -55,6 +56,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSRComponentes(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentes");
