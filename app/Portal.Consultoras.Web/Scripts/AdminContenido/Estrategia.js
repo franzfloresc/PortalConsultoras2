@@ -341,17 +341,17 @@ var Estrategia = function (config) {
             return data;
         }
     };
-
+    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
+        var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
+        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
+    };
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
         waitingDialog({});
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     };
 
-    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
-        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
-    };
+   
 
     var _obtenerImagenesByCodigoSAPSuccess = function (editData, recargarPaginacion) {
         return function (data, textStatus, jqXHR) {
@@ -410,6 +410,11 @@ var Estrategia = function (config) {
         _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
+
+    var _limpiarCamposLanzamiento = function(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    };
     var _clearFields = function () {
 
         $("#hdnCodigoSAP").val("")
@@ -462,10 +467,7 @@ var Estrategia = function (config) {
 
     };
 
-    var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
-        $("#nombre-" + nombreCampo).val("");
-        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
-    };
+    
 
     var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
         $("#nombre-" + nombreCampo).val(valor);

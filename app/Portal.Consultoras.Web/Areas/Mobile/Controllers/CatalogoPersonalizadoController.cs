@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -55,7 +54,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if( !listaProductoModel.Any((x => x.CUV == model.CUVFP)))
                 return RedirectToAction("Index");
 
-            var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP);
+            var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP) ?? new ProductoModel();
 
             if (productoModel.EsMaquillaje && productoModel.Hermanos == null)
             {

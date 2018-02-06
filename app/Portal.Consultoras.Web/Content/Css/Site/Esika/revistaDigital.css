@@ -1616,7 +1616,6 @@
 .btn_stroke_white {
     background: transparent;
     width: 260px;
-    border: 1px solid white;
     color: white;
     font-size: 13px;
 }
@@ -1817,6 +1816,7 @@
             padding-top: 0;
             padding-bottom: 0;
             line-height: 46px;
+            padding:1;
         }
 
     .content_tabs_bpt hr {
@@ -2393,9 +2393,17 @@
         color: white;
         transition: all .2s ease-in-out;
     }
-
+        .banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+            
+            display: none;
+        }
+        .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
+           
+            display: none;
+        }
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
             animation: bounceRight 1.2s infinite;
+            display:inline;
         }
 
     .banner_pedido_masofertas .btn_diagonal:hover::after {
@@ -2404,9 +2412,10 @@
 
     .banner_pedido_masofertas .btn_diagonal img {
         position: relative;
-        top: 2px;
+        top: 1px;
         margin-left: 5px;
-        height: 15px;
+        height: 12px;
+        width: 8px;
     }
 
 .home_rd1 {
@@ -2446,16 +2455,35 @@
             transition: all .2s ease-in-out;
         }
 
-            .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
+            .home_rd1 .btn_diagonal:hover .rd_arrowright {
                 animation: bounceRight 1.2s infinite;
+                
             }
+        .home_rd1 .btn_diagonal:hover .rd_arrowright_blanco {
+            display: none;
+        }
+        .home_rd1 .btn_diagonal:hover .rd_arrowright {
+            display: inline;
+        } 
 
-    .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
+    .home_rd1 .rd_arrowright {
         position: absolute;
         right: 16px;
         top: 16px;
         height: 12px;
+        display: inline;
         width: 8px;
+        height: 12px;
+    }
+    .home_rd1 .rd_arrowright_blanco {
+        display: none;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        height: 12px;
+        display: inline;
+        width: 8px;
+        height: 12px;
     }
 
 @media screen and (max-width: 1220px) {
@@ -3449,3 +3477,91 @@ line-height: 13px;
 font-size: 11px;
 } 
 /* FIN CONFIRMACIÓN DE DATOS */
+
+/* DESPEGABLE LATERAL GND */
+.desplegablegnd {
+    position: fixed;
+    right: 0px;
+    display: table;
+    height: 100vh;
+    top: 6px;
+    }
+  .desplegablegnd .gndcontenido{
+  	display: table-cell;
+  	vertical-align: middle;
+  }
+  .desplegablegnd .gndcontenido .gnd{
+  	background: white;
+  	box-shadow: 0px 1px 20px 1px #00000021;
+  }
+  .desplegablegnd .gndcontenido .gnd span.gndcerrar{
+  	background: black;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    font-size: 11px;
+    height: 235px;
+    letter-spacing: 2px;
+    padding: 10px 5px;
+    float: left;
+  }
+  .desplegablegnd #imgPortadaRevista{
+      
+  }
+  .desplegablegnd .gndcontenido .gnd .gndbloque{
+  	height: 235px;
+    background: white;
+    float: left;
+    width: 120px;
+    border: 1px solid #0000001f;
+    border-left: 0;
+  }
+  .desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd{
+  	  writing-mode: horizontal-tb;
+    transform: rotate(90deg);
+    display: inline-block;
+    margin-top: 10px;
+    width: 12px;
+    /* position: relative; */
+    height: 12px;
+
+  }
+  .desplegablegnd .gndcontenido .gnd .gndbloque img{
+  	width: 100%;
+    display: block;
+    margin: auto;
+    padding: 15px 10px 5px;
+    overflow: hidden;
+    height: 110px;
+  }
+  .desplegablegnd .gndcontenido .gnd .gndbloque p{
+  	display: block;
+    text-align: center;
+    padding: 10px 5px 5px 10px;
+    font-size: 11px;
+    margin-bottom: 5px;
+    letter-spacing: .5px;
+
+  }
+  .desplegablegnd .gndcontenido .gnd .gndbloque a{
+  	color: black;
+    text-align: center;
+    display: block;
+    border: 1px solid black;
+    padding: 5px 10px;
+    width: 80%;
+    margin: auto;
+    font-size: 9px;
+    margin-bottom: 15px;
+    transition: .3s;
+    letter-spacing: 1px;
+  }
+  .desplegablegnd .gndcontenido .gnd .gndbloque a:hover{
+  	background: black;
+  	color:white;
+  	text-decoration: none;
+  }
+/* FIN DEPEGABLE */

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ObtenerDetalleProducto(EstrategiaPedidoModel item)
         {
-            Portal.Consultoras.Web.Controllers.EstrategiaProductoController controllerDesktop = new Web.Controllers.EstrategiaProductoController();
+            Web.Controllers.EstrategiaProductoController controllerDesktop = new Web.Controllers.EstrategiaProductoController();
             return controllerDesktop.ObtenerDetalleProducto(item);
         }
 

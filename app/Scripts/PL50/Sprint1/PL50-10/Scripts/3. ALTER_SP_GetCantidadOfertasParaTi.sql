@@ -1,9 +1,4 @@
-USE [BelcorpPeru_PL50]
-GO
-/****** Object:  StoredProcedure [dbo].[GetCantidadOfertasParaTi]    Script Date: 17/01/2018 14:38:30 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+USE BelcorpPeru_PL50
 GO
 
 ALTER PROCEDURE [dbo].[GetCantidadOfertasParaTi]

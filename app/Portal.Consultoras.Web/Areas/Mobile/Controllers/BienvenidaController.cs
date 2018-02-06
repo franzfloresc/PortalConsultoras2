@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
@@ -124,7 +123,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string ObtenerSaludo()
         {
-            var saludo = string.Empty;
+            string saludo;
             if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 saludo = ViewBag.MensajeCumpleanos;
@@ -143,8 +142,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string ObtenerNombreConsultora()
         {
-            var nombreConsultora = string.Empty;
-            nombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            var nombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             int j = nombreConsultora.Trim().IndexOf(' ');
             if (j >= 0)
                 nombreConsultora = nombreConsultora.Substring(0, j).Trim();
@@ -199,84 +197,120 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
-            int activacionAppCatalogoWhastUp;
-            if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))
-            {
-                activacionAppCatalogoWhastUp = 1;
-            }
-            else
-            {
-                activacionAppCatalogoWhastUp = 0;
-            }
+            var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
             return activacionAppCatalogoWhastUp;
         }
 
         private string ObtenerNombreConsultoraFav()
         {
-            var nombreConsultoraFAV = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            nombreConsultoraFAV = Util.SubStr(nombreConsultoraFAV, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFAV.ToLower(), 1);
-            return nombreConsultoraFAV;
+            var nombreConsultoraFav = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+            nombreConsultoraFav = Util.SubStr(nombreConsultoraFav, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFav.ToLower(), 1);
+            return nombreConsultoraFav;
         }
 
         private int ObtenerTipoPopUpMostrar()
         {
-            var TipoPopUpMostrar = 0;
+            var tipoPopUpMostrar = 0;
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
-                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
 
-                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
-                    TipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                    tipoPopUpMostrar = 0;
 
-                return TipoPopUpMostrar;
+                return tipoPopUpMostrar;
+            }
+
+            if (userData.TieneCupon == 1)
+            {
+                if (userData.CodigoISO == "PE")
+                {
+                    var cupon = ObtenerCuponDesdeServicio();
+                    if (cupon != null)
+                    {
+                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+
+                        return tipoPopUpMostrar;
+                    }
+                }
             }
 
             // debe tener la misma logica que desktop
 
             #region Revista Digital
             if (!revistaDigital.TieneRDS)
-                return TipoPopUpMostrar;
+                return tipoPopUpMostrar;
 
             if (revistaDigital.NoVolverMostrar)
-                return TipoPopUpMostrar;
+                return tipoPopUpMostrar;
 
             if (revistaDigital.EsSuscrita)
-                return TipoPopUpMostrar;
-            
-            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                return tipoPopUpMostrar;
+
+            tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
-            Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
+            Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
-            return TipoPopUpMostrar;
+            return tipoPopUpMostrar;
+        }
+
+        private BECuponConsultora ObtenerCuponDesdeServicio()
+        {
+            BECuponConsultora cuponResult;
+            try
+            {
+                var cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID
+                };
+
+                using (var svClient = new PedidoServiceClient())
+                {
+                    cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(userData.PaisID, cuponBe);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                cuponResult = new BECuponConsultora();
+            }
+
+            return cuponResult;
         }
 
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
             bool validar = false;
-            string mensajeFechaDA = null;
-            UsuarioModel userData = this.UserData();
+            string mensajeFechaDa = null;
 
             if (userData.EsquemaDAConsultora && userData.EsZonaDemAnti == 1)
             {
-                int consultoraDA = 0;
+                BEConfiguracionConsultoraDA configuracionConsultoraDa = new BEConfiguracionConsultoraDA
+                {
+                    CampaniaID = Convert.ToString(userData.CampaniaID),
+                    ConsultoraID = Convert.ToInt32(userData.ConsultoraID),
+                    ZonaID = userData.ZonaID
+                };
+
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                    configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
-                    configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
-                    configuracionConsultoraDA.ZonaID = userData.ZonaID;
-
-                    consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
-                    if (consultoraDA == 0)
+                    var consultoraDa = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDa);
+                    if (consultoraDa == 0)
                     {
                         BECronograma cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
-                        DateTime fechaDA = ((DateTime)cronograma.FechaInicioWeb) + userData.HoraCierreZonaDemAntiCierre;
-                        mensajeFechaDA = fechaDA.ToString(@"dddd dd \de MMMM (hh:mm tt)");
+                        if (cronograma != null && cronograma.FechaInicioWeb != null)
+                        {
+                            DateTime fechaDa = ((DateTime)cronograma.FechaInicioWeb) + userData.HoraCierreZonaDemAntiCierre;
+                            mensajeFechaDa = fechaDa.ToString(@"dddd dd \de MMMM (hh:mm tt)");
+                        }
 
                         validar = true;
                     }
@@ -284,7 +318,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             }
 
-            return Json(new { success = validar, mensajeFechaDA = mensajeFechaDA });
+            return Json(new { success = validar, mensajeFechaDA = mensajeFechaDa });
         }
 
         /// <summary>
@@ -359,15 +393,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public JsonResult ObtenerComunicadosPopUps()
         {
-            BEComunicado oComunicados = null;
-
             try
             {
+                BEComunicado oComunicados;
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
                     lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
-                    if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+                    oComunicados = lstComunicados.FirstOrDefault();
                 }
 
                 return Json(new

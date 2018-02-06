@@ -6404,7 +6404,36 @@ body {
     .content_revistas_mobile img {
         width: 100%;
     }
-
+.contrevista p {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 0.3px;
+display: block;
+text-align: center;
+width: 200px;
+margin: auto;
+margin-top: -30px;
+margin-bottom: 15px;
+}
+.contrevista a {
+width: 200px;
+/* height: 30px; */
+padding: 8px;
+margin: auto;
+display: block;
+border: solid 1px #000000;
+transition: .3s;
+margin-bottom: 30px;
+text-align: center;
+transition: .3s;
+}
+.contrevista a:hover{
+background:black;
+color:white;
+}
 .previous_revistas_mobile, .next_revistas_mobile {
     width: 14px;
     height: 34px;
@@ -7333,6 +7362,10 @@ input[type='checkbox']:checked + span:after {
     left: 0;
     overflow-x: hidden;
     z-index: 1001;
+}
+
+#flexslider .flex-viewport {
+    height: 190px;
 }
 
 .flexsliderTutorialMobile {
@@ -11059,7 +11092,11 @@ a {
 }
 
 .content_banner_new_showroom img {
+    height: 190px;
     display: block;
+    object-fit: cover;
+    object-position: center;
+    width: 100vw;
 }
 
 .titulo_mensaje_landing {
@@ -12551,6 +12588,80 @@ a {
     .texto_cupon {
         width: 260px;
     }
+}
+
+@media (max-width: 374px) {
+    .texto_cupon_monto {
+        font-size: 9px !important;
+    }
+}
+
+.contenedor_cupon {
+    text-align: center;
+    position: relative;
+    height: 51px;
+}
+
+.background_cupon {
+    height: 51px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #000;
+    width: 50%;
+    z-index: 1;
+}
+
+.contenedorCuponInfo.content_cupon_pedido .contenedor-texto-agregar {
+    display: inline-block;
+}
+
+.content_pedido_cupon_monto {
+    height: 51px;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+}
+
+.icono_cupon_monto {
+    display: block !important;
+    float: left;
+    width: 85px;
+    height: 51px;
+    font-family: 'LAto';
+    font-size: 12px;
+    background: black;
+    position: relative;
+    text-align: right;
+    padding-right: 13px;
+    padding-top: 5px;
+}
+
+    .icono_cupon_monto img {
+        width: 120%;
+    }
+
+    .icono_cupon_monto::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: -23px;
+        z-index: 100;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 51px 0 0 23px;
+        border-color: transparent transparent transparent #000000;
+    }
+
+.texto_cupon_monto {
+    text-align: left;
+    font-size: 12px;
+    font-family: 'LAto';
+    float: left;
+    margin-left: 38px;
+    line-height: 1.17;
 }
 
 .link_cupon_home {

@@ -1,9 +1,4 @@
-USE [BelcorpColombia_PL50]
-GO
-/****** Object:  StoredProcedure [dbo].[InsertEstrategiaOfertaParaTi]    Script Date: 17/01/2018 14:35:55 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+USE BelcorpPeru_PL50
 GO
 
 ALTER PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
@@ -74,6 +69,12 @@ BEGIN
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
 		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+	END
+
+	IF @TipoEstrategia = 30
+	BEGIN
+		SELECT @TipoEstrategiaID = TipoEstrategiaID 
+		FROM TipoEstrategia WHERE Codigo = '030'
 	END
 	
 	INSERT INTO Estrategia

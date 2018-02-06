@@ -1,10 +1,6 @@
-USE [BelcorpPeru_PL50]
+USE BelcorpPeru_PL50
 GO
-/****** Object:  StoredProcedure [dbo].[InsertEstrategiaProducto]    Script Date: 16/01/2018 17:53:16 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	@Retorno int output
 	,@EstrategiaProductoId int 
@@ -24,6 +20,8 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
 	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
 	,@MarcaId tinyint
 AS
 begin
@@ -55,6 +53,8 @@ begin
 					,CodigoErrorObs
 					,FactorCuadre
 					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
 					,MarcaId
 				)VALUES(
 					@EstrategiaId
@@ -73,6 +73,8 @@ begin
 					,@CodigoErrorObs
 					,@FactorCuadre
 					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
 					,@MarcaId
 				)
 	
@@ -96,6 +98,8 @@ begin
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
 					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
 					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe

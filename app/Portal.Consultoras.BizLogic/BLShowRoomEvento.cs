@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -17,9 +14,9 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
         {
             BEShowRoomEvento entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomEventoByCampaniaID(campaniaID))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomEventoByCampaniaID(campaniaID))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomEvento(reader);
@@ -31,17 +28,19 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var DAShowRoomEvento = new DAShowRoomEvento(paisID);
+                var daShowRoomEvento = new DAShowRoomEvento(paisID);
                 int resultado;
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    resultado = DAShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
+                    resultado = daShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
 
                     string formatoPerfiles = Util.GetPaisISO(paisID) + "_" + beShowRoomEvento.CampaniaID + "_Perfil";
-                    DAShowRoomEvento.InsertarShowRoomPerfil(beShowRoomEvento.NumeroPerfiles, formatoPerfiles, resultado);
+                    daShowRoomEvento.InsertarShowRoomPerfil(beShowRoomEvento.NumeroPerfiles, formatoPerfiles, resultado);
 
                     oTransactionScope.Complete();
                 }
@@ -56,8 +55,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
         {
-            var DAShowRoomEvento = new DAShowRoomEvento(paisID);
-            DAShowRoomEvento.UpdateShowRoomEvento(beShowRoomEvento);
+            var daShowRoomEvento = new DAShowRoomEvento(paisID);
+            daShowRoomEvento.UpdateShowRoomEvento(beShowRoomEvento);
         }
 
         public int CargarMasivaConsultora(int paisID, List<BEShowRoomEventoConsultora> listaConsultora)
@@ -93,18 +92,18 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             BEShowRoomEventoConsultora entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
             if(!tienePersonalizacion)
             {
-                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
+                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomEventoConsultora(reader);
                 }
             }else
             {
-                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
+                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
                 if (reader.Read())
                 {
                      entidad = new BEShowRoomEventoConsultora(reader);
@@ -116,8 +115,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)
         {
-            var DAShowRoomEvento = new DAShowRoomEvento(paisID);
-            DAShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
+            var daShowRoomEvento = new DAShowRoomEvento(paisID);
+            daShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
         }
 
         public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
@@ -197,16 +196,9 @@ namespace Portal.Consultoras.BizLogic
 
         public int CantidadPedidoByConsultoraShowRoom(BEOfertaProducto entidad)
         {
-            try
-            {
                 var dataAccess = new DAShowRoomEvento(entidad.PaisID);
                 int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
                 return result;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         public int GetStockOfertaShowRoom(int paisID, int CampaniaID, string CUV)
@@ -227,8 +219,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dataAccess = new DAShowRoomEvento(paisID);
                 int resultado;
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
@@ -359,9 +353,9 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
         {
             BEShowRoomOferta entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomOfertaById(ofertaShowRoomID))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomOfertaById(ofertaShowRoomID))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomOferta(reader);
@@ -441,9 +435,9 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
         {
             BEShowRoomCategoria entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+            var daPedidoWeb = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomCategoriaById(categoriaId))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomCategoriaById(categoriaId))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomCategoria(reader);
@@ -462,8 +456,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var dataAccess = new DAShowRoomEvento(paisId);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
@@ -500,9 +496,9 @@ namespace Portal.Consultoras.BizLogic
         public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {
             var lst = new List<BEShowRoomOferta>();
-            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+            var daPedidoWeb = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra(EventoID, CampaniaID))
+            using (IDataReader reader = daPedidoWeb.GetProductosCompraPorCompra(EventoID, CampaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEShowRoomOferta(reader);
