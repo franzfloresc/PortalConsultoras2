@@ -769,6 +769,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoId)
         {
@@ -932,6 +933,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarDescripcionSetsMasivo(HttpPostedFileBase flDescripcionSets, int hdCargaDescripcionSetsEventoId, int hdCargaDescripcionSetsCampaniaId)
         {
@@ -1189,6 +1191,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int paisId, int campaniaId)
         {
             if (ModelState.IsValid)
@@ -1359,6 +1362,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public JsonResult ValidarPriorizacion(int paisId, string codigoOferta, int campaniaId, int orden)
         {
             int flagExiste;
@@ -1375,6 +1379,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migracion de tablas")]
         public JsonResult ObtenerOrdenPriorizacion(int paisId, int configuracionOfertaId, int campaniaId)
         {
             int orden;
@@ -1390,6 +1395,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult InsertOrUpdateOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1435,6 +1441,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult DeshabilitarOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1477,6 +1484,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult RemoverOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1889,16 +1897,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult InsertOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
         public JsonResult InsertOfertaShowRoomDetalle(EstrategiaProductoModel model)
         {
             try
             {
-                //BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
                 var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
-
-                //entidad.UsuarioCreacion = userData.CodigoConsultora;
-                //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
@@ -1921,13 +1925,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!existe)
                 {
                     var entidadx = new BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
-                    //var respuestaServiceCdr = new List<RptProductoEstrategia>();
                     var respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidadx);
 
                     if (respuestaServiceCdr.Any())
                     {
-                        //entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
-                        //entidad.TieneVariedad = TieneVariedad(entidad.CodigoEstrategia, entidad.CUV1);
                         var objProd = respuestaServiceCdr.Where(x => x.cuv == entidad.CUV).FirstOrDefault();
                         if (objProd != null)
                         {
@@ -1944,7 +1945,6 @@ namespace Portal.Consultoras.Web.Controllers
  
                             using (var sv = new PedidoServiceClient())
                             {
-                                //sv.InsOfertaShowRoomDetalle(userData.PaisID, entidad);
                                 sv.InsertarEstrategiaProducto(entidad);
                             }
 
@@ -2033,23 +2033,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult UpdateOfertaShowRoomDetalle(ShowRoomOfertaDetalleModel model)
         public JsonResult UpdateOfertaShowRoomDetalle(EstrategiaProductoModel model)
         {
             try
             {
-                //BEShowRoomOfertaDetalle entidad = Mapper.Map<ShowRoomOfertaDetalleModel, BEShowRoomOfertaDetalle>(model);
                 var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
-
-                //entidad.UsuarioModificacion = userData.CodigoConsultora;
-                //entidad.Imagen = GuardarImagenAmazon(model.Imagen, model.ImagenAnterior, userData.PaisID);
+                
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    //sv.UpdOfertaShowRoomDetalle(userData.PaisID, entidad);
                     sv.ActualizarEstrategiaProducto(entidad);
                 }
 
@@ -2083,17 +2078,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult EliminarOfertaShowRoomDetalle(int ofertaShowRoomDetalleId, int campaniaId, string cuv)
         public JsonResult EliminarOfertaShowRoomDetalle(int estrategiaId, string cuv)
         {
             try
             {
-                //var beShowRoomOfertaDetalle = new BEShowRoomOfertaDetalle
-                //{
-                //    OfertaShowRoomDetalleID = ofertaShowRoomDetalleId,
-                //    CampaniaID = campaniaId,
-                //    CUV = cuv
-                //};
                 var entidad = new BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
@@ -2103,7 +2091,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    //sv.EliminarOfertaShowRoomDetalle(userData.PaisID, beShowRoomOfertaDetalle);
                     sv.EliminarEstrategiaProducto(entidad);
                 }
 
@@ -2137,14 +2124,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult EliminarOfertaShowRoomDetalleAll(int campaniaId, string cuv)
         public JsonResult EliminarOfertaShowRoomDetalleAll(int estrategiaId)
         {
             try
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    //sv.EliminarOfertaShowRoomDetalleAll(userData.PaisID, campaniaId, cuv);
                     sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId);
                 }
 
@@ -2177,6 +2162,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult GetShowRoomPerfilOfertaCuvs(int campaniaId, int eventoId, int perfilId)
         {

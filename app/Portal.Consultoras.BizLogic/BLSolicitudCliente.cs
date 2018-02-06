@@ -346,7 +346,7 @@ namespace Portal.Consultoras.BizLogic
                                 switch (detalle.TipoOfertaSisID)
                                 {
                                     case Constantes.ConfiguracionOferta.ShowRoom:
-                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
                                         break;
                                     case Constantes.ConfiguracionOferta.Liquidacion:
                                     case Constantes.ConfiguracionOferta.Accesorizate:
@@ -361,7 +361,7 @@ namespace Portal.Consultoras.BizLogic
                                 switch (detalle.TipoOfertaSisID)
                                 {
                                     case Constantes.ConfiguracionOferta.ShowRoom:
-                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
                                         break;
                                     case Constantes.ConfiguracionOferta.Liquidacion:
                                     case Constantes.ConfiguracionOferta.Accesorizate:
