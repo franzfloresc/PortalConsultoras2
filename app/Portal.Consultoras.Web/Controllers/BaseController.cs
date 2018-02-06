@@ -3844,11 +3844,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public object GetSession(string nameSession)
-        {
-            return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
-        }
-
         public List<ConfiguracionPaisModel> ListConfiguracionPais()
         {
             return sessionManager.GetConfiguracionesPaisModel() ??
