@@ -1,1 +1,3 @@
-# Portal Consultoras 2.18.
+# Portal Consultoras 2.19.
+
+Historias EMP-592
