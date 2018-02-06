@@ -1507,7 +1507,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosRevistaDigital");
+                    "LoginController.ConfiguracionPaisDatosRevistaDigitalReducida");
             }
 
             return revistaDigitalModel;
@@ -1596,6 +1596,8 @@ namespace Portal.Consultoras.Web.Controllers
                                              Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
+
+            revistaDigitalModel.BloqueoProductoDigital = revistaDigitalModel.BloqueoProductoDigital || !revistaDigitalModel.EsActiva;
 
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
 
