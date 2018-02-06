@@ -5,6 +5,7 @@ var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
+var cantTotalMostrar = 0;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -288,7 +289,7 @@ function OfertaArmarEstrategias(response) {
     response.Consultora = usuarioNombre.toUpperCase();
 
     response.Mobile = isMobile();
-    var cantProdFiltros = response.cantidadTotal;
+    cantTotalMostrar = response.cantidadTotal;
     OfertaObtenerIndLocal(response.CampaniaID);
     if (filtroCampania[indCampania] != undefined) {
 
@@ -299,7 +300,7 @@ function OfertaArmarEstrategias(response) {
 
         var listado = RDFiltrarLista(response);
 
-        cantProdFiltros = listado.length;
+        cantTotalMostrar = listado.length;
 
         $.each(listado, function (ind, prod) {
             prod.Posicion = ind + 1;
@@ -335,7 +336,7 @@ function OfertaArmarEstrategias(response) {
     EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
     //ResizeBoxContnet();
-    divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
+    divProd.find("#spnCantidadFiltro").html(cantTotalMostrar);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     if (response.listaPerdio != undefined) {

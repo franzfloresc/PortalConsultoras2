@@ -603,6 +603,7 @@
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
+    <Compile Include="Models\FiltroReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
     <Compile Include="Models\ReporteValidacionModel.cs" />
     <Compile Include="Models\ReporteValidacionSRModel.cs" />

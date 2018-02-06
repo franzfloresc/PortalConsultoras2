@@ -28,6 +28,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.Configuration;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1659,18 +1660,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ConfigurationManager.AppSettings[key];
         }
 
-        protected BEGrid SetGrid(string sidx, string sord, int page, int rows)
-        {
-            BEGrid grid = new BEGrid
-            {
-                PageSize = rows <= 0 ? 10 : rows,
-                CurrentPage = page <= 0 ? 1 : page,
-                SortColumn = sidx ?? "",
-                SortOrder = sord ?? "asc"
-            };
-            return grid;
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";
@@ -1691,7 +1680,19 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 using (var sv = new PedidoServiceClient())
                 {
-                    obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                    {
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                        if (PaisesFraccionKit.Contains(userData.CodigoISO))
+                        {
+                            obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
+                            obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
+                        }
+                    }                        
+                    else
+                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
                 }
 
                 Session[constSession] = obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
@@ -3900,8 +3901,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string GetConfiguracionManager(string key)
         {
             key = Util.Trim(key);
-            if (key == "")
-                return "";
+            if (key == "") return "";
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
