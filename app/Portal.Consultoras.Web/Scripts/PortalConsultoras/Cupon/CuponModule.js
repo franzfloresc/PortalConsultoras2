@@ -85,7 +85,7 @@
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
-        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
+        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true" || parameters.paisISO == 'PE');
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
         setting.CampaniaActual = parameters.campaniaActual;
