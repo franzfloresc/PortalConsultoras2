@@ -1897,9 +1897,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                var entidad = new BEConfiguracionProgramaNuevasApp()
+                {
+                    PaisID = UserData().PaisID,
+                    CodigoPrograma = CodigoPrograma,
+                };
+
                 using (var sv = new PedidoServiceClient())
                 {
-                    var resultado = await sv.GetConfiguracionProgramaNuevasAppAsync(userData.PaisID, CodigoPrograma);
+                    var resultado = await sv.GetConfiguracionProgramaNuevasAppAsync(entidad);
                     lst = resultado.ToList();
                 }
 
@@ -1928,19 +1934,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad =
-                    Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
+                var resultado = false;
+                var entidad = Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
+                entidad.PaisID = UserData().PaisID;
 
-                string resultado;
                 using (var sv = new PedidoServiceClient())
                 {
-                    resultado = await sv.InsConfiguracionProgramaNuevasAppAsync(userData.PaisID, entidad);
+                    resultado = await sv.InsConfiguracionProgramaNuevasAppAsync(entidad);
                 }
 
                 return Json(new
                 {
-                    success = string.IsNullOrEmpty(resultado),
-                    message = string.IsNullOrEmpty(resultado) ? "Se grabó con éxito los datos." : resultado
+                    success = resultado,
+                    message = resultado ? "Se grabó con éxito los datos." : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1963,9 +1969,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ProgramaNuevasBannerActualizar(int tipoBanner, string codigoPrograma, string codigoNivel)
+        public async Task<JsonResult> ProgramaNuevasBannerActualizar(int tipoBanner, string codigoPrograma, string codigoNivel)
         {
-
             try
             {
                 var nombreArchivo = Request["qqfile"];
@@ -1977,20 +1982,36 @@ namespace Portal.Consultoras.Web.Controllers
                 var newfilename = string.Empty;
                 switch (tipoBanner)
                 {
-                    case 1:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
+                    case Constantes.ProgramaNuevas.TipoBanner.BannerCupon:
+                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma, FileManager.RandomString());
                         break;
-                    case 2:
-                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
+                    case Constantes.ProgramaNuevas.TipoBanner.BannerPremio:
+                        newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma, FileManager.RandomString());
                         break;
                 }
 
-                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreArchivo), carpetaPais, newfilename);
+                var result = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreArchivo), carpetaPais, newfilename);
+                if (result)
+                {
+                    var entidad = new BEConfiguracionProgramaNuevasApp()
+                    {
+                        PaisID = UserData().PaisID,
+                        CodigoPrograma = codigoPrograma,
+                        CodigoNivel = codigoNivel,
+                        ArchivoBannerCupon = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerCupon ? newfilename : null),
+                        ArchivoBannerPremio = (tipoBanner == Constantes.ProgramaNuevas.TipoBanner.BannerPremio ? newfilename : null),
+                    };
+
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        result = await sv.InsConfiguracionProgramaNuevasAppAsync(entidad);
+                    }
+                }
 
                 return Json(new
                 {
-                    success = true,
-                    extra = ConfigS3.GetUrlFileS3(carpetaPais, newfilename)
+                    success = result,
+                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2006,14 +2027,32 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult ProgramaNuevasBannerObtener(string codigoPrograma, string codigoNivel)
+        public async Task<JsonResult> ProgramaNuevasBannerObtener(string codigoPrograma, string codigoNivel)
         {
             try
             {
-                var carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO,
-                    Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
-                var filenameCupon = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
-                var filenamePremio = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
+                string filenameCupon = string.Empty;
+                string filenamePremio = string.Empty;
+                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+
+                var entidad = new BEConfiguracionProgramaNuevasApp()
+                {
+                    PaisID = UserData().PaisID,
+                    CodigoPrograma = codigoPrograma,
+                    CodigoNivel = codigoNivel
+                };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    var resultado = await sv.GetConfiguracionProgramaNuevasAppAsync(entidad);
+                    entidad = resultado.FirstOrDefault();
+                }
+
+                if (entidad != null)
+                {
+                    filenameCupon = entidad.ArchivoBannerCupon;
+                    filenamePremio = entidad.ArchivoBannerPremio;
+                }
 
                 var data = new
                 {

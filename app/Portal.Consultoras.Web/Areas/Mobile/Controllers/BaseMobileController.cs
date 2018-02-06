@@ -295,7 +295,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (Session["BannerApp"] == null)
             {
-                using (SACServiceClient sac = new SACServiceClient())
+                using (var sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
                     Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
@@ -303,8 +303,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var oComunicados = (BEComunicado)Session["BannerApp"];
-            //var consultoraNueva = UserData().ConsultoraNueva;
-            //if (oComunicados != null && (consultoraNueva == 1 || consultoraNueva == 7))
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;

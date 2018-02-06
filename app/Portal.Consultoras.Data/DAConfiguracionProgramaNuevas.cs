@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities;
-using System;
 using System.Data;
 using System.Data.Common;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
@@ -36,32 +35,31 @@ namespace Portal.Consultoras.Data
         }
 
         #region ConfiguracionApp
-        public IDataReader GetConfiguracionProgramaNuevasApp(string CodigoPrograma)
+        public IDataReader GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevasApp"))
             {
-                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
 
                 return Context.ExecuteReader(command);
             }
         }
-        public string InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            string result;
-
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))
             {
-                Context.Database.AddInParameter(command, "@ConfiguracionProgramaNuevasAppID", DbType.Int32, entidad.ConfiguracionProgramaNuevasAppID);
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
                 Context.Database.AddInParameter(command, "@TextoCupon", DbType.String, entidad.TextoCupon);
                 Context.Database.AddInParameter(command, "@TextoCuponIndependiente", DbType.String, entidad.TextoCuponIndependiente);
-                Context.Database.AddOutParameter(command, "@MensajeValidacion", DbType.String, 200);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+                Context.Database.AddInParameter(command, "@ArchivoBannerCupon", DbType.String, entidad.ArchivoBannerCupon);
+                Context.Database.AddInParameter(command, "@ArchivoBannerPremio", DbType.String, entidad.ArchivoBannerPremio);
 
                 Context.ExecuteNonQuery(command);
 
-                result = Convert.ToString(command.Parameters["@MensajeValidacion"].Value);
+                return true;
             }
-            return result;
         }
         #endregion
     }
