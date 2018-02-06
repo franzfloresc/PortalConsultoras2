@@ -3399,7 +3399,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 success = true,
-                data = (List<BEBannerPedido>) null
+                data = (List<BEBannerPedido>)null
             });
         }
 
@@ -3696,15 +3696,15 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (IsMobile())
                     {
-                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd.Split('|')[0], "<br/>", item.NombreComercial);
                         listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionProd = DescripcionProd;
                     }
                     else
                     {
-                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd.Split('|')[0],"<br/>", item.NombreComercial);
+                        DescripcionProd = String.Concat(listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd.Split('|')[0], "<br/>", item.NombreComercial);
                         listPedidoWebDetalle.First(x => x.CodigoProducto == item.CodigoSap).DescripcionCortadaProd = DescripcionProd;
                     }
-                        
+
                 }
             }
 
@@ -3944,7 +3944,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listPedido = ObtenerPedidoWebDetalle();
 
             decimal descuentoprol = 0;
-            
+
             if (listPedido.Any())
             {
                 descuentoprol = listPedido[0].DescuentoProl;
@@ -4416,7 +4416,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 estrategia.Cantidad = estrategia.LimiteVenta;
             }
-            else            {
+            else
+            {
                 descripcion = estrategia.DescripcionCUV2;
             }
 
