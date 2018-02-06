@@ -181,6 +181,11 @@ namespace Portal.Consultoras.Common
             public const int Reactivada = 8;
         }
 
+        public static class ConsecutivoNuevaConsultora
+        {
+            public const int Consecutivo3 = 2;
+        }
+
         public static class TipoEstrategia
         {
             public const int CrossSelling = 1;
@@ -279,6 +284,12 @@ namespace Portal.Consultoras.Common
             public const string MisCertificadosData = "MisCertificadosData";
 
             public const string GuiaNegocio = "GuiaNegocio";
+            
+            public const string PedidoWebDDConf = "PedidoWebDDConf";
+            public const string PedidoWebDD = "PedidoWebDD";
+            public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
+            public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
+            public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
         }
 
         public static class ConfiguracionManager
@@ -1045,6 +1056,9 @@ namespace Portal.Consultoras.Common
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
+            public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
+            public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
+            public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
         }
 
         public static class ConfiguracionPais
@@ -1631,8 +1645,6 @@ namespace Portal.Consultoras.Common
         {
             public const string Mensaje = "Nos es grato comunicarte que hemos podido recuperar productos de la anterior campaña con el precio original. " +
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
-            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
-            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
 
         public class ProgramaNuevas

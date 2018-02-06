@@ -1,3 +1,3 @@
-# Portal Consultoras 2.17
-BPT-Release-2.18.0
-Inicio del Sprint 18
+# Portal Consultoras 2.18:
+BPT-Release-2.18.1
+Nivelacion QAS pase 05/12/2018
