@@ -67,10 +67,8 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Menus App
-
         [OperationContract]
-        IList<BEMenuApp> GetMenuApp(int paisiD);
-
+        IList<BEMenuApp> GetMenuApp(BEMenuApp menuApp);
         #endregion
     }
 }
