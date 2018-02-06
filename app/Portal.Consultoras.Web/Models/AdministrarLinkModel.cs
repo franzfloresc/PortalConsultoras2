@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServiceSeguridad;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceSeguridad;
 
 namespace Portal.Consultoras.Web.Models
 {

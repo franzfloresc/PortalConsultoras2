@@ -1731,6 +1731,11 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entity);
         }
 
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entity)
+        {
+            return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaDespuesPrimerPedido(paisID, entity);
+        }
+
         #endregion
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
@@ -2106,9 +2111,9 @@ namespace Portal.Consultoras.Service
         {
             return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
         }
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID, estrategia);
         }
 
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)

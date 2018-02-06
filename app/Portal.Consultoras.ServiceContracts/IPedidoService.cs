@@ -1,16 +1,15 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
-using Portal.Consultoras.Entities.Pedido;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.CargaMasiva;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -939,6 +938,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
 
+        [OperationContract]
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+
         #endregion
 
         [OperationContract]
@@ -1145,7 +1147,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia);
         [OperationContract]
         List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
         #endregion

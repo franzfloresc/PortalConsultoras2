@@ -4,7 +4,6 @@
     using System;
     using System.Data;
     using System.Data.Common;
-    using System.Runtime.Remoting.Contexts;
 
     public class DASolicitudCredito : DataAccess
     {

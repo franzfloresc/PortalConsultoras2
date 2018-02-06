@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Infraestructure;
-using System.Web.Mvc.Html;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Helpers
 {

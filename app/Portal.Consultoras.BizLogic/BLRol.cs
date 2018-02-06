@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,39 +9,40 @@ namespace Portal.Consultoras.BizLogic
     {
         public void InsRol(BERol rol)
         {
-            var DARol = new DARol(rol.PaisID);
-            DARol.InsRol(rol);
+            var daRol = new DARol(rol.PaisID);
+            daRol.InsRol(rol);
         }
+
         public int InsUsuarioRol(BEUsuarioRol BEUsuarioRol)
         {
-            var DARol = new DARol(BEUsuarioRol.paisID);
-            return DARol.InsUsuarioRol(BEUsuarioRol);
+            var daRol = new DARol(BEUsuarioRol.paisID);
+            return daRol.InsUsuarioRol(BEUsuarioRol);
         }
 
         public void UpdRol(BERol rol)
         {
-            var DARol = new DARol(rol.PaisID);
-            DARol.UpdRol(rol);
+            var daRol = new DARol(rol.PaisID);
+            daRol.UpdRol(rol);
         }
 
         public int DelRol(int paisID, int RolID)
         {
-            var DARol = new DARol(paisID);
-            return DARol.DelRol(RolID);
+            var daRol = new DARol(paisID);
+            return daRol.DelRol(RolID);
         }
 
         public int VerifyRolByDescripcion(BERol rol)
         {
-            var DARol = new DARol(rol.PaisID);
-            return DARol.VerifyRolByDescripcion(rol);
+            var daRol = new DARol(rol.PaisID);
+            return daRol.VerifyRolByDescripcion(rol);
         }
 
         public IList<BERol> GetRoles(int paisID)
         {
             var roles = new List<BERol>();
-            var DARol = new DARol(paisID);
+            var daRol = new DARol(paisID);
 
-            using (IDataReader reader = DARol.GetAllRols())
+            using (IDataReader reader = daRol.GetAllRols())
                 while (reader.Read())
                 {
                     var rol = new BERol(reader);
@@ -57,9 +54,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BERol> GetRolesBySistema(int paisID, int sistema)
         {
             var roles = new List<BERol>();
-            var DARol = new DARol(paisID);
+            var daRol = new DARol(paisID);
 
-            using (IDataReader reader = DARol.GetAllRolsBySistema(sistema))
+            using (IDataReader reader = daRol.GetAllRolsBySistema(sistema))
                 while (reader.Read())
                 {
                     var rol = new BERol(reader);
