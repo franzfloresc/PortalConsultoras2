@@ -109,6 +109,9 @@ function onScrollDown(event) {
 
 // when video ends
 function onPlayerStateChange(event) {
+    if (typeof estaSuscrita == "undefined")
+        return false;
+
     if (event.data === 0 && estaSuscrita === "False") {
         $("a.btn-suscribete-video").animate({
             bottom: "0%"
