@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -107,5 +108,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetFlagLogCargaOfertas(bool habilitarLog);
 
         bool GetFlagLogCargaOfertas();
+
+        void SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo);
+
+        MenuContenedorModel GetMenuContenedorActivo();
     }
 }

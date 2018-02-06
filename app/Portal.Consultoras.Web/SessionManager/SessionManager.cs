@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -278,6 +279,16 @@ namespace Portal.Consultoras.Web.SessionManager
         public bool GetFlagLogCargaOfertas()
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
+        }
+
+        void ISessionManager.SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo] = menuContenedorActivo;
+        }
+
+        MenuContenedorModel ISessionManager.GetMenuContenedorActivo()
+        {
+            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
         }
     }
 }

@@ -3336,7 +3336,7 @@ namespace Portal.Consultoras.Web.Controllers
                 menuActivo.CampaniaX0 = userData.CampaniaID;
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
             }
-            Session[Constantes.ConstSession.MenuContenedorActivo] = menuActivo;
+            sessionManager.SetMenuContenedorActivo(menuActivo);
             return menuActivo;
         }
 
@@ -3878,8 +3878,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public MenuContenedorModel GetSessionMenuActivo()
         {
-            return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
-                   new MenuContenedorModel();
+            return sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
         }
 
         #endregion
