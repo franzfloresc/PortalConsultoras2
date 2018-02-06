@@ -18,6 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+        public BienvenidaController()
+        {
+
+        }
+
         public BienvenidaController(ILogManager logManager)
         {
             this.logManager = logManager;

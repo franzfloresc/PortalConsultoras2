@@ -2455,12 +2455,11 @@
             display: none !important;
         }
 
-.btn_stroke:hover {
-    border: none !important;
+        .btn_stroke:hover {
+            border: none !important;
 }
             .btn_diagonal:hover a .rd_arrowright, .btn_diagonal:hover a .rd_arrowright_blanco {
-                animation: bounceRight 1.2s infinite;
-            }
+        }
 
             .btn_diagonal:hover .rd_arrowright{
                 display:none !important;

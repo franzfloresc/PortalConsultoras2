@@ -26869,7 +26869,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
     .contenedor_item_descripcion a {
-        width: 60%;
+        width: 50%;
     }
 }
 /* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */
