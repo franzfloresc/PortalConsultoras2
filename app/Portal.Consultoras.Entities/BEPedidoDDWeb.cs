@@ -79,6 +79,11 @@ namespace Portal.Consultoras.Entities
         public int EsRechazado { get; set; }
         [DataMember]
         public string DocumentoIdentidad { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroInicio { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroFin { get; set; }
+
         public BEPedidoDDWeb()
         { }
 
