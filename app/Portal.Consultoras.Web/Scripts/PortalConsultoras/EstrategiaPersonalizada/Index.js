@@ -141,9 +141,7 @@ function SeccionCargarProductos(objConsulta) {
                 }
             }
         },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        error: function (error, x) { }
     });
 }
 
@@ -339,12 +337,8 @@ function UpdateSessionState(codigo, campaniaId) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
-        success: function (data) {
-            console.log(data.estado);
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        success: function (data) { },
+        error: function (error, x) { }
     });
 }
 

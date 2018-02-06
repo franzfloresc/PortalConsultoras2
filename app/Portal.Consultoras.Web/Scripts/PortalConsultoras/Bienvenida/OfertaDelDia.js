@@ -99,9 +99,7 @@ $(document).ready(function () {
                 $('body').css({ 'overflow-y': 'auto' });
 
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
     }
 
@@ -233,9 +231,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         if (!seAtacharonEventosOdd) {
@@ -700,9 +696,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         return ok;
@@ -792,9 +786,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         return qty;

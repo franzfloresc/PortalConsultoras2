@@ -338,7 +338,6 @@ $(document).ready(function () {
 
                     },
                     error: function (data, error) {
-                        console.log(data);
                         me.Funciones.CloseLoading();
                     }
                 });

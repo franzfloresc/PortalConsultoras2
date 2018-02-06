@@ -289,8 +289,7 @@ function deleteFilters() {
                 alert('Error al borrar los filtros');
             }
         },
-        complete: function () {
-        }
+        complete: function () { }
     });
     LinkCargarCatalogoToScroll();
 }
@@ -1011,7 +1010,6 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.log(error);
                 DialogMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
@@ -1073,14 +1071,8 @@ function mostrarFichaProductoFAV2(cuv) {
                 }
             }
         },
-        error: function (data, err) {
-            if (checkTimeout(data)) {
-                console.log(err);
-            }
-        },
-        complete: function () {
-
-        }
+        error: function (data, err) { },
+        complete: function () { }
     });
 }
 
@@ -1322,11 +1314,7 @@ function CargarFiltros() {
                 }
             }
         },
-        error: function (data, err) {
-            if (checkTimeout(data)) {
-                console.log(err);
-            }
-        },
+        error: function (data, err) { },
         complete: function () {
             DialogLoadingCerrar();
             cargandoRegistros = false;

@@ -288,9 +288,7 @@ function CargarDetallePedido(page, rows) {
                 MostrarBarra(response);
             }
         },
-        error: function (response, error) {
-            checkTimeout(response);
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -343,7 +341,6 @@ function showClienteDetalle(pcliente) {
         },
         error: function (xhr, ajaxOptions, error) {
             CloseLoading();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
@@ -375,10 +372,8 @@ function UpdateUsuarioTutoriales() {
         data: JSON.stringify(item),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        },
-        error: function (data) {
-        }
+        success: function (data) { },
+        error: function (data) { }
     });
     return true;
 }
@@ -449,8 +444,6 @@ function BuscarByCUV(cuv) {
 
                 if (data.message == "" || data.message === undefined) {
                     location.href = urlSesionExperirada;
-                } else {
-                    console.error(data);
                 }
             }
         }
@@ -538,11 +531,7 @@ function IngresoFAD(producto) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data);
-            }
-        }
+        error: function (data, error) { }
     });
 };
 function ObtenerEstrategiaCoincidente(cuv) {
@@ -611,8 +600,6 @@ function ObtenerProductosSugeridos(CUV) {
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
                     location.href = baseUrl + "Login/SesionExpirada";
-                } else {
-                    AbrirMensaje(data.message);
                 }
             }
         }
@@ -676,9 +663,6 @@ function InsertarProductoSugerido(model) {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data);
-            }
         }
     });
 };
@@ -732,7 +716,6 @@ function AgregarProductoListado() {
             if (checkTimeout(data)) {
                 $("#btnAgregarProducto").show();
                 $("#btnAgregarProducto").removeAttr("disabled");
-                console.error(data);
             }
         }
     });
@@ -871,9 +854,6 @@ function InsertarProducto() {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                console.error(data);
-            }
         }
     });
 

@@ -45,7 +45,6 @@ $("#CUV").keyup(function () {
             },
             error: function (data, error) {
                 closeWaitingDialog();
-                alert(data.message);
             }
         });
     }
@@ -269,7 +268,6 @@ $("#btnGuardar").click(function (e) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 });

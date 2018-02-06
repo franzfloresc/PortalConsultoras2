@@ -210,9 +210,6 @@ $(document).ready(function () {
                                 },
                                 error: function (data, error) {
                                     closeWaitingDialog();
-                                    if (checkTimeout(data)) {
-                                        AbrirMensaje(data.message);
-                                    }
                                 }
                             });
 
@@ -335,9 +332,6 @@ $(document).ready(function () {
                                 },
                                 error: function (data, error) {
                                     closeWaitingDialog();
-                                    if (checkTimeout(data)) {
-                                        AbrirMensaje(data.message);
-                                    }
                                 }
                             });
 
@@ -388,11 +382,7 @@ function CargarOfertasLiquidacion() {
                 offsetRegistros += cantidadRegistros;
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.log(error);
-            }
-        },
+        error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
             cargandoRegistros = false;

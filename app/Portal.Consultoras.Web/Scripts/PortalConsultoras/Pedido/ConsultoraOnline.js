@@ -427,9 +427,7 @@ function AceptarPedido(pedidoId, tipo) {
                         }
                     }
                 },
-                error: function (response) {
-                    console.log(response)
-                }
+                error: function (response) { }
             });
         }
     }

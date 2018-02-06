@@ -401,7 +401,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         },
         error: function (error) {
-            console.log(error);
             AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
@@ -535,7 +534,6 @@ function ValidarCorreoComunidad(tipo) {
                     if (checkTimeout(data)) {
                         CloseLoading();
                         CloseComunidad();
-                        messageInfo(data.message);
 
                         dataLayer.push({
                             'event': 'virtualEvent',
@@ -629,7 +627,6 @@ function ValidarCorreoComunidad(tipo) {
 
                         CloseLoading();
                         CloseComunidad();
-                        messageInfo(data.message);
                     }
                 }
             });
@@ -870,11 +867,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -898,11 +891,7 @@ function CargarCantidadNotificacionesSinLeer() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -932,11 +921,7 @@ function CargarCantidadPedidosConsultoraOnline() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -996,7 +981,7 @@ function OcultarBannerTop() {
                 LayoutHeader();
             }
         },
-        error: function (err) { console.log(err); }
+        error: function (err) { }
     });
 }
 
@@ -1112,7 +1097,7 @@ function OcultarBannerApp() {
         success: function (response) {
             if (response.success) LayoutHeader();
         },
-        error: function (err) { console.log(err); }
+        error: function (err) { }
     });
 }
 function getMobileOperatingSystem() {

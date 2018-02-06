@@ -43,7 +43,6 @@
                 }
             },
             error: function (data, error) {
-                alert(data.message);
                 _hidePopup();
             }
         });

@@ -269,11 +269,7 @@ function CargarListado(page, rows) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 

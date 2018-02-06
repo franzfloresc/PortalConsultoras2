@@ -441,7 +441,6 @@ function closeCompraPorCompra() {
         error: function (response, error) {
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         }
     });

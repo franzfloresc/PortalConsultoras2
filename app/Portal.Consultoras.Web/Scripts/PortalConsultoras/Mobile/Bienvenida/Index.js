@@ -303,10 +303,7 @@ function UpdateUsuarioTutorialMobile() {
                 viewBagVioTutorial = data.result;
             }
         },
-        error: function (data) {
-            if (checkTimeout(data)) {
-            }
-        }
+        error: function (data) { }
     });
 };
 
@@ -358,7 +355,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                console.log(error);
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }

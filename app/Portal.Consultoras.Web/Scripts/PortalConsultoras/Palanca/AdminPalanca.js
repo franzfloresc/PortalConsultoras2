@@ -94,9 +94,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#UrlMenu").attr("disabled", "disabled");
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 
@@ -135,9 +133,7 @@ function ModificarOfertas(idOfertasHome) {
                 $(".hide-configuration").hide();
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 function IniDialogs() {
@@ -203,7 +199,6 @@ function IniDialogs() {
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 
@@ -303,7 +298,6 @@ function IniDialogs() {
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 

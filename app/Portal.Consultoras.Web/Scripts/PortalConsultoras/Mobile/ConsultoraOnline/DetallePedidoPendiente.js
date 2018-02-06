@@ -158,9 +158,7 @@ function AceptarPedido(id, tipo) {
                     }
                 }
             },
-            error: function (response) {
-                console.log(response)
-            }
+            error: function (response) { }
         });
     }
 }
@@ -246,7 +244,6 @@ function showClienteDetalle(pcliente, pClienteDetalleOK) {
         },
         error: function (xhr, ajaxOptions, error) {
             CloseLoading();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
@@ -291,7 +288,6 @@ function HorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                AbrirMensaje(data.message);
             }
         }
     });

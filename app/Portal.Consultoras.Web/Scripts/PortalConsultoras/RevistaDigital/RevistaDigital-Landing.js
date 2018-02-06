@@ -253,7 +253,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
             divProd.find("#divOfertaProductosLoad").hide();
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         }
     });

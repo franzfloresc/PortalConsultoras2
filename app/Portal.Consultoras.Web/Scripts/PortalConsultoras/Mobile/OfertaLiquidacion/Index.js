@@ -258,7 +258,6 @@ function AgregarOfertaProducto(article) {
                             error: function (response, error) {
                                 if (checkTimeout(response)) {
                                     CloseLoading();
-                                    console.log(response);
                                 }
                             }
                         });
@@ -285,11 +284,7 @@ function HorarioRestringido() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                window.messageInfo(data.message);
-            }
-        }
+        error: function (data, error) { }
     });
     return horarioRestringido;
 }
@@ -309,11 +304,7 @@ function ActualizarCantidadTotalPedido() {
                 }
             }
         },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
+        error: function (response, error) { }
     });
 }
 function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, posicion) {

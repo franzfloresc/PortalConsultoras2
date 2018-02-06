@@ -100,11 +100,7 @@ function CargarListaCliente(page, rows) {
 
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -157,7 +153,6 @@ function showClienteDetalle(fila) {
         },
         error: function (xhr, ajaxOptions, error) {
             CerrarSplash();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
