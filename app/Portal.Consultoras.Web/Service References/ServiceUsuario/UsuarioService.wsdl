@@ -94,12 +94,6 @@
   <wsdl:message name="IUsuarioService_RegistrarUsuarioPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarUsuarioPostulanteResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_RecuperarContrasenia_InputMessage">
-    <wsdl:part name="parameters" element="tns:RecuperarContrasenia" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarMisDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarMisDatos" />
   </wsdl:message>
@@ -759,10 +753,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" message="tns:IUsuarioService_RegistrarUsuarioPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse" message="tns:IUsuarioService_RegistrarUsuarioPostulante_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ActualizarMisDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatos" message="tns:IUsuarioService_ActualizarMisDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatosResponse" message="tns:IUsuarioService_ActualizarMisDatos_OutputMessage" />
@@ -1261,15 +1251,6 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarUsuarioPostulante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2291,15 +2272,6 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarUsuarioPostulante">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

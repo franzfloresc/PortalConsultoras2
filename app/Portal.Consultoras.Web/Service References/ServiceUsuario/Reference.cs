@@ -8788,12 +8788,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse")]
         System.Threading.Tasks.Task<int> RegistrarUsuarioPostulanteAsync(string paisISO, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse")]
-        string RecuperarContrasenia(int paisId, string correo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse")]
-        System.Threading.Tasks.Task<string> RecuperarContraseniaAsync(int paisId, string correo);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarMisDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarMisDatosResponse")]
         string ActualizarMisDatos(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string CorreoAnterior);
         
@@ -9536,14 +9530,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> RegistrarUsuarioPostulanteAsync(string paisISO, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioPostulante entidad) {
             return base.Channel.RegistrarUsuarioPostulanteAsync(paisISO, entidad);
-        }
-        
-        public string RecuperarContrasenia(int paisId, string correo) {
-            return base.Channel.RecuperarContrasenia(paisId, correo);
-        }
-        
-        public System.Threading.Tasks.Task<string> RecuperarContraseniaAsync(int paisId, string correo) {
-            return base.Channel.RecuperarContraseniaAsync(paisId, correo);
         }
         
         public string ActualizarMisDatos(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string CorreoAnterior) {
