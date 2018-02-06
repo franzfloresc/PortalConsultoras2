@@ -1,9 +1,4 @@
-USE [BelcorpColombia_PL50]
-GO
-/****** Object:  StoredProcedure [dbo].[GetOfertasParaTiByTipoConfigurado]    Script Date: 17/01/2018 14:42:12 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+USE BelcorpPeru_PL50
 GO
 
 ALTER PROCEDURE [dbo].[GetOfertasParaTiByTipoConfigurado]
@@ -33,6 +28,7 @@ BEGIN
 		WHEN '007' THEN 'OPM'
 		WHEN '008' THEN 'PAD'
 		WHEN '010' THEN 'GND'
+		WHEN '030' THEN 'SR'
 		ELSE 'OPT'
 	END;
 
@@ -72,7 +68,7 @@ BEGIN
 			p.AnoCampania = @CampaniaID
 			
 		INSERT INTO @tablaResultado
-		SELECT
+		SELECT TOP 5
 			CUV,'',0,'',0,0,'',0
 		FROM @tablaCuvsOPT WHERE CUV not in (
 			SELECT CUV FROM ods.ProductoComercial WHERE AnoCampania = @CampaniaID
@@ -139,7 +135,7 @@ BEGIN
 			t.CampaniaID = @CampaniaID
 			and e.CUV2 is null
 	END
-	SELECT * FROM @tablaResultado WHERE Id in (
+	SELECT TOP 5 * FROM @tablaResultado WHERE Id in (
 		SELECT min(id) FROM @tablaResultado
 		group by CUV2
 	)

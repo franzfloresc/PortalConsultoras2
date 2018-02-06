@@ -1,33 +1,12 @@
 
 
-USE BelcorpColombia_PL50
-GO
-ALTER TABLE dbo.EstrategiaProducto ADD NombreProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD Descripcion1 VARCHAR (255)
-ALTER TABLE dbo.EstrategiaProducto ADD ImagenProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD IdMarca TINYINT DEFAULT 0
-ALTER TABLE dbo.EstrategiaProducto ADD Activo BIT DEFAULT 0
-
-GO
-
-
-USE BelcorpMexico_PL50
-GO
-ALTER TABLE dbo.EstrategiaProducto ADD NombreProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD Descripcion1 VARCHAR (255)
-ALTER TABLE dbo.EstrategiaProducto ADD ImagenProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD IdMarca TINYINT DEFAULT 0
-ALTER TABLE dbo.EstrategiaProducto ADD Activo BIT DEFAULT 0
-
-GO
-
-
 USE BelcorpPeru_PL50
 GO
-ALTER TABLE dbo.EstrategiaProducto ADD NombreProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD Descripcion1 VARCHAR (255)
-ALTER TABLE dbo.EstrategiaProducto ADD ImagenProducto VARCHAR (150)
-ALTER TABLE dbo.EstrategiaProducto ADD IdMarca TINYINT DEFAULT 0
-ALTER TABLE dbo.EstrategiaProducto ADD Activo BIT DEFAULT 0
 
-GO
+IF NOT EXISTS(SELECT 1 FROM sys.columns
+		WHERE Name = N'Activo' AND OBJECT_ID = OBJECT_ID(N'EstrategiaProducto'))
+BEGIN
+
+	ALTER TABLE EstrategiaProducto
+	ADD Activo BIT DEFAULT 0;
+END

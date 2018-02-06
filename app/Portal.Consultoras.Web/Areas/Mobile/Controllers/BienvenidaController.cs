@@ -234,18 +234,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return TipoPopUpMostrar;
             }
 
-            // debe tener la misma logica que desktop
-
-            #region Revista Digital
-            if (!revistaDigital.TieneRDS)
-                return TipoPopUpMostrar;
-
-            if (revistaDigital.NoVolverMostrar)
-                return TipoPopUpMostrar;
-
-            if (revistaDigital.EsSuscrita)
-                return TipoPopUpMostrar;
-
             if (userData.TieneCupon == 1)
             {
                 if (userData.CodigoISO == "PE")
@@ -258,8 +246,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         return TipoPopUpMostrar;
                     }
-                }  
+                }
             }
+
+            // debe tener la misma logica que desktop
+
+            #region Revista Digital
+            if (!revistaDigital.TieneRDS)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.NoVolverMostrar)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.EsSuscrita)
+                return TipoPopUpMostrar;
 
             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion

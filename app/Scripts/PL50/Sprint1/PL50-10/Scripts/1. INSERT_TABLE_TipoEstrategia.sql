@@ -1,8 +1,8 @@
 
-use BelcorpPeru_PL50
-go
+USE BelcorpPeru_PL50
+GO
 
-insert into TipoEstrategia (
+INSERT INTO TipoEstrategia (
 	DescripcionEstrategia, ImagenEstrategia, Orden, 
 	FlagActivo, UsuarioRegistro, FechaRegistro, 
 	flagNueva, flagRecoProduc, flagRecoPerfil, 
@@ -10,11 +10,11 @@ insert into TipoEstrategia (
 	MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, FlagValidarImagen, 
 	PesoMaximoImagen
 	) 
-values(
+VALUES(
 	'ShowRoom', '', 14,
-	1, 'ADMCONTENIDO', getdate(), 
+	1, 'ADMCONTENIDO', GETDATE(), 
 	0,0,1,
-	'',0,'022',
+	'',0,'030',
 	0,'',0,
 	0
 	)

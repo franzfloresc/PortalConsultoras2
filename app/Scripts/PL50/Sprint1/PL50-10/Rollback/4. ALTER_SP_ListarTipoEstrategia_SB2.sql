@@ -1,10 +1,6 @@
-USE [BelcorpColombia_PL50]
+USE BelcorpPeru_PL50
 GO
-/****** Object:  StoredProcedure [dbo].[ListarTipoEstrategia_SB2]    Script Date: 17/01/2018 14:33:54 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+
 ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
