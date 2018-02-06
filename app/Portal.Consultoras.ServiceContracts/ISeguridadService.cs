@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Mobile;
 using System.Collections.Generic;
 using System.ServiceModel;
 

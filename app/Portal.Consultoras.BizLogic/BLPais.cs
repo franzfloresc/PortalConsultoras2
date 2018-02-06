@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Data;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,9 +8,9 @@ namespace Portal.Consultoras.BizLogic
     {
         public bool EsPaisHana(int paisId)
         {
-            var DAPais = new DAPais(paisId);
+            var daPais = new DAPais(paisId);
             bool tieneHana = false;
-            using (IDataReader reader = DAPais.EsPaisHana(paisId))
+            using (IDataReader reader = daPais.EsPaisHana(paisId))
                 if (reader.Read())
                 {
                     tieneHana = Convert.ToBoolean(reader["TieneHana"]);

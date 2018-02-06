@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -755,7 +755,7 @@ namespace Portal.Consultoras.Data
 
         public int UpdUsuarioFotoPerfil(string codigoUsuario, string fotoPerfil)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioFotoPerfil");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioFotoPerfil");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, fotoPerfil);
 

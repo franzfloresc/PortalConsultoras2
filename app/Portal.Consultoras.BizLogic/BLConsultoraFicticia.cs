@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,16 +10,16 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsConsultoraFicticia(BEConsultoraFicticia BEConsultoraFicticia)
         {
-            var DAConsultoraFicticia = new DAConsultoraFicticia(BEConsultoraFicticia.PaisID);
-            return DAConsultoraFicticia.InsConsultoraFicticia(BEConsultoraFicticia);
+            var daConsultoraFicticia = new DAConsultoraFicticia(BEConsultoraFicticia.PaisID);
+            return daConsultoraFicticia.InsConsultoraFicticia(BEConsultoraFicticia);
         }
 
         public IList<BEConsultoraFicticia> SelectConsultoraFicticia(int paisID, string CodigoUsuario, string NombreCompleto)
         {
             List<BEConsultoraFicticia> consultorasFicticias = new List<BEConsultoraFicticia>();
 
-            var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            using (IDataReader reader = DAConsultoraFicticia.GetConsultoraFicticia(paisID, CodigoUsuario, NombreCompleto))
+            var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
+            using (IDataReader reader = daConsultoraFicticia.GetConsultoraFicticia(paisID, CodigoUsuario, NombreCompleto))
                 while (reader.Read())
                 {
                     consultorasFicticias.Add(new BEConsultoraFicticia(reader));
@@ -32,26 +29,26 @@ namespace Portal.Consultoras.BizLogic
 
         public int DelConsultoraFicticia(int paisID, string CodigoConsultora)
         { 
-            var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            return DAConsultoraFicticia.DelConsultoraFicticia(CodigoConsultora);
+            var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
+            return daConsultoraFicticia.DelConsultoraFicticia(CodigoConsultora);
         }
 
         public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave)
         { 
-            var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            return DAConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, ConsultoraID, Clave);
+            var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
+            return daConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, ConsultoraID, Clave);
         }
 
         public string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario)
         {
-            var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            return DAConsultoraFicticia.GetCodigoConsultoraAsociada(CodigoUsuario);
+            var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
+            return daConsultoraFicticia.GetCodigoConsultoraAsociada(CodigoUsuario);
         }
 
         public string GetNombreConsultoraAsociada(int paisID, string CodigoUsuario)
         {
-            var DAConsultoraFicticia = new DAConsultoraFicticia(paisID);
-            return DAConsultoraFicticia.GetNombreConsultoraAsociada(CodigoUsuario);
+            var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
+            return daConsultoraFicticia.GetNombreConsultoraAsociada(CodigoUsuario);
         }
     }
 }
