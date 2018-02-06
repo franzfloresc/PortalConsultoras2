@@ -820,7 +820,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         }
 
-                        BEGrid grid = SetGrid(sidx, sord, page, rows);
+                        BEGrid grid = new BEGrid(sidx, sord, page, rows);
                         BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
 
                         model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize)
@@ -947,7 +947,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.ListaDetalle = olstMisPedidosDet;
 
-                    BEGrid grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
 
                     model.ListaDetalle = model.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize)

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenSource.Library.DataAccess;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Data
 {

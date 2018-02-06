@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Common;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -27,12 +26,12 @@ namespace Portal.Consultoras.BizLogic
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
             BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
-            var TablaLogDatos = new BLTablaLogicaDatos();
-            List<BETablaLogicaDatos> tablalogicaDatos = TablaLogDatos.GetTablaLogicaDatos(paisID, 56);
-
+            
+            //var tablaLogDatos = new BLTablaLogicaDatos();
+            //List<BETablaLogicaDatos> tablalogicaDatos = tablaLogDatos.GetTablaLogicaDatos(paisID, 56);
+            //String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
+            
             String emailOculto = string.Empty;
-            String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
-
             if (consultoraSolicitudCliente != null)
             {
                 try
@@ -115,7 +114,7 @@ namespace Portal.Consultoras.BizLogic
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("</table>");
 
-                    Common.Util.EnviarMail("no-responder@somosbelcorp.com", consultoraSolicitudCliente.Email, emailOculto, asunto, mensajeCorreo.ToString(), true, "Consultora Online Belcorp");
+                    Util.EnviarMail("no-responder@somosbelcorp.com", consultoraSolicitudCliente.Email, emailOculto, asunto, mensajeCorreo.ToString(), true, "Consultora Online Belcorp");
                 }
                 catch (Exception)
                 {
@@ -130,12 +129,12 @@ namespace Portal.Consultoras.BizLogic
             BEResultadoSolicitud resultado = null;
             try
             {
-                var DASolicitudCliente = new DASolicitudCliente(paisID);
-                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = null;
-                if (entidadSolicitud.DetalleSolicitud == null) listaSolicitudDetalle = new List<BESolicitudClienteDetalle>().ToList();
-                else listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud.ToList();
+                var daSolicitudCliente = new DASolicitudCliente(paisID);
+                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud == null 
+                    ? new List<BESolicitudClienteDetalle>().ToList() 
+                    : entidadSolicitud.DetalleSolicitud.ToList();
 
-                using (IDataReader reader = DASolicitudCliente.InsertarSolicitudCliente(entidadSolicitud, listaSolicitudDetalle))
+                using (IDataReader reader = daSolicitudCliente.InsertarSolicitudCliente(entidadSolicitud, listaSolicitudDetalle))
                 {
                     while (reader.Read())
                     {
@@ -149,7 +148,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = new BEResultadoSolicitud(0, ex.Message.ToString());
+                resultado = new BEResultadoSolicitud(0, ex.Message);
                 return resultado;
             }
         }
@@ -159,8 +158,8 @@ namespace Portal.Consultoras.BizLogic
             BEResultadoSolicitud resultado = null;
             try
             {
-                var DASolicitudCliente = new DASolicitudCliente(paisID);
-                using (IDataReader reader = DASolicitudCliente.InsertarSolicitudClienteAppCliente(entidadSolicitud))
+                var daSolicitudCliente = new DASolicitudCliente(paisID);
+                using (IDataReader reader = daSolicitudCliente.InsertarSolicitudClienteAppCliente(entidadSolicitud))
                 {
                     while (reader.Read()) { resultado = new BEResultadoSolicitud(reader); }
                 }
@@ -168,7 +167,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = new BEResultadoSolicitud(0, ex.Message.ToString());
+                resultado = new BEResultadoSolicitud(0, ex.Message);
                 return resultado;
             }
         }
@@ -176,9 +175,9 @@ namespace Portal.Consultoras.BizLogic
         public BESolicitudCliente GetSolicitudClienteBySolicitudId(int paisID, long solicitudClienteId)
         {
             BESolicitudCliente solicitudCliente = null;
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
 
-            using (IDataReader reader = DASolicitudCliente.GetSolicitudClienteBySolicitudId(solicitudClienteId))
+            using (IDataReader reader = daSolicitudCliente.GetSolicitudClienteBySolicitudId(solicitudClienteId))
             {
                 while (reader.Read())
                 {
@@ -192,8 +191,8 @@ namespace Portal.Consultoras.BizLogic
         public BESolicitudCliente GetSolicitudClienteWithoutMarcaBySolicitudId(int paisID, long solicitudClienteId)
         {
             BESolicitudCliente solicitudCliente = null;
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            using (IDataReader reader = DASolicitudCliente.GetSolicitudClienteWithoutMarcaBySolicitudId(solicitudClienteId))
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            using (IDataReader reader = daSolicitudCliente.GetSolicitudClienteWithoutMarcaBySolicitudId(solicitudClienteId))
             {
                 while (reader.Read()) { solicitudCliente = new BESolicitudCliente(reader); }
             }
@@ -203,9 +202,9 @@ namespace Portal.Consultoras.BizLogic
         public List<BESolicitudClienteDetalle> GetSolicitudClienteDetalleBySolicitudId(int paisID, long solicitudClienteId)
         {
             List<BESolicitudClienteDetalle> solicitudClientes = new List<BESolicitudClienteDetalle>();
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
 
-            using (IDataReader reader = DASolicitudCliente.GetSolicitudClienteDetalleBySolicitudId(solicitudClienteId))
+            using (IDataReader reader = daSolicitudCliente.GetSolicitudClienteDetalleBySolicitudId(solicitudClienteId))
             {
                 while (reader.Read())
                 {
@@ -219,9 +218,9 @@ namespace Portal.Consultoras.BizLogic
         public BEConsultoraSolicitudCliente GetConsultoraSolicitudCliente(int paisID, int consultoraid, string codigo, int marcaId)
         {
             BEConsultoraSolicitudCliente consultorasolicitudCliente = null;
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
 
-            using (IDataReader reader = DASolicitudCliente.GetConsultoraSolicitudCliente(consultoraid, codigo, marcaId))
+            using (IDataReader reader = daSolicitudCliente.GetConsultoraSolicitudCliente(consultoraid, codigo, marcaId))
             {
                 while (reader.Read())
                 {
@@ -234,34 +233,34 @@ namespace Portal.Consultoras.BizLogic
 
         public void EnviarEmail(string From, String To, String CCO, String Subject, String Message, bool isHTML)
         {
-            Common.Util.EnviarMail(From, To, CCO, Subject, Message, isHTML);
+            Util.EnviarMail(From, To, CCO, Subject, Message, isHTML);
         }
 
 
         public void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.UpdSolicitudCliente(entidadSolicitud.SolicitudClienteID, entidadSolicitud.Estado, entidadSolicitud.MensajeaCliente, entidadSolicitud.UsuarioModificacion);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudCliente(entidadSolicitud.SolicitudClienteID, entidadSolicitud.Estado, entidadSolicitud.MensajeaCliente, entidadSolicitud.UsuarioModificacion);
         }
 
         public void UpdSolicitudClienteDetalle(int paisID, BESolicitudClienteDetalle entidadSolicitudDet)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.UpdSolicitudClienteDetalle(entidadSolicitudDet.SolicitudClienteDetalleID, entidadSolicitudDet.TipoAtencion, entidadSolicitudDet.PedidoWebID, entidadSolicitudDet.PedidoWebDetalleID);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudClienteDetalle(entidadSolicitudDet.SolicitudClienteDetalleID, entidadSolicitudDet.TipoAtencion, entidadSolicitudDet.PedidoWebID, entidadSolicitudDet.PedidoWebDetalleID);
         }
 
         public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.RechazarSolicitudCliente(solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.RechazarSolicitudCliente(solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             BESolicitudNuevaConsultora consultoraReasignada = null;
 
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            using (IDataReader reader = DASolicitudCliente.ReasignarSolicitudCliente(solicitudId, codigoUbigeo, campania, paisID, marcaId, opcionRechazo, razonMotivoRechazo))
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            using (IDataReader reader = daSolicitudCliente.ReasignarSolicitudCliente(solicitudId, codigoUbigeo, campania, paisID, marcaId, opcionRechazo, razonMotivoRechazo))
             {
                 while (reader.Read())
                 {
@@ -274,8 +273,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.CancelarSolicitudCliente(solicitudId, opcionCancelacion, razonMotivoCancelacion);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.CancelarSolicitudCliente(solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
 
         public string CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
@@ -310,13 +309,15 @@ namespace Portal.Consultoras.BizLogic
 
                 #endregion
 
-                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
-                bePedidoWebDetalleParametros.PaisId = paisID;
-                bePedidoWebDetalleParametros.CampaniaId = campaniaID;
-                bePedidoWebDetalleParametros.ConsultoraId = consultoraID;
-                bePedidoWebDetalleParametros.Consultora = "";
-                bePedidoWebDetalleParametros.CodigoPrograma = codigoPrograma;
-                bePedidoWebDetalleParametros.NumeroPedido = numeroPedido;
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = paisID,
+                    CampaniaId = campaniaID,
+                    ConsultoraId = consultoraID,
+                    Consultora = "",
+                    CodigoPrograma = codigoPrograma,
+                    NumeroPedido = numeroPedido
+                };
 
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();
@@ -325,14 +326,13 @@ namespace Portal.Consultoras.BizLogic
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
-                    if (listDetallesClienteOnline != null && listDetallesClienteOnline.Count > 0 && olstPedidoWebDetalle != null && olstPedidoWebDetalle.Count > 0)
+                    if (listDetallesClienteOnline.Count > 0 && olstPedidoWebDetalle.Count > 0)
                     {
                         int pedidoId = olstPedidoWebDetalle.First().PedidoID;
 
-                        BEPedidoWebDetalle detalle;
                         foreach (var item in listDetallesClienteOnline)
                         {
-                            detalle = olstPedidoWebDetalle.FirstOrDefault(d => d.PedidoID == item.PedidoWebID && d.PedidoDetalleID == item.PedidoWebDetalleID);
+                            var detalle = olstPedidoWebDetalle.FirstOrDefault(d => d.PedidoID == item.PedidoWebID && d.PedidoDetalleID == item.PedidoWebDetalleID);
                             if (detalle == null) continue;
 
                             if (detalle.Cantidad > item.Cantidad)
@@ -345,11 +345,11 @@ namespace Portal.Consultoras.BizLogic
                                 dAPedidoWebDetalle.UpdPedidoWebDetalle(detalle);
                                 switch (detalle.TipoOfertaSisID)
                                 {
-                                    case Common.Constantes.ConfiguracionOferta.ShowRoom:
+                                    case Constantes.ConfiguracionOferta.ShowRoom:
                                         new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
                                         break;
-                                    case Common.Constantes.ConfiguracionOferta.Liquidacion:
-                                    case Common.Constantes.ConfiguracionOferta.Accesorizate:
+                                    case Constantes.ConfiguracionOferta.Liquidacion:
+                                    case Constantes.ConfiguracionOferta.Accesorizate:
                                         new DAOfertaProducto(paisID).UpdOfertaProductoStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
                                         break;
                                 }
@@ -360,11 +360,11 @@ namespace Portal.Consultoras.BizLogic
                                 dAPedidoWebDetalle.DelPedidoWebDetalle(detalle.CampaniaID, detalle.PedidoID, detalle.PedidoDetalleID, detalle.TipoOfertaSisID, "");
                                 switch (detalle.TipoOfertaSisID)
                                 {
-                                    case Common.Constantes.ConfiguracionOferta.ShowRoom:
+                                    case Constantes.ConfiguracionOferta.ShowRoom:
                                         new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
                                         break;
-                                    case Common.Constantes.ConfiguracionOferta.Liquidacion:
-                                    case Common.Constantes.ConfiguracionOferta.Accesorizate:
+                                    case Constantes.ConfiguracionOferta.Liquidacion:
+                                    case Constantes.ConfiguracionOferta.Accesorizate:
                                         new DAOfertaProducto(paisID).UpdOfertaProductoStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
                                         break;
                                 }
@@ -394,9 +394,9 @@ namespace Portal.Consultoras.BizLogic
             {
                 motivosRechazos = new List<BEMotivoSolicitud>();
 
-                var DASolicitudCliente = new DASolicitudCliente(paisID);
+                var daSolicitudCliente = new DASolicitudCliente(paisID);
 
-                using (IDataReader reader = DASolicitudCliente.GetMotivosRechazo())
+                using (IDataReader reader = daSolicitudCliente.GetMotivosRechazo())
                 {
                     while (reader.Read()) motivosRechazos.Add(new BEMotivoSolicitud(reader));
                 }
@@ -407,14 +407,14 @@ namespace Portal.Consultoras.BizLogic
 
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            return DASolicitudCliente.EnviarSolicitudClienteaGZ(entidadSolicitudCliente);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            return daSolicitudCliente.EnviarSolicitudClienteaGZ(entidadSolicitudCliente);
         }
         public List<BESolicitudCliente> BuscarSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var listaSolicitudes = new List<BESolicitudCliente>();
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            using (IDataReader reader = DASolicitudCliente.BuscarSolicitudAnuladasRechazadas(entidadSolicitudCliente))
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            using (IDataReader reader = daSolicitudCliente.BuscarSolicitudAnuladasRechazadas(entidadSolicitudCliente))
             {
                 while (reader.Read())
                 {
@@ -426,12 +426,12 @@ namespace Portal.Consultoras.BizLogic
         }
         public BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
 
             var resultadoSolicitudCliente = new BESolicitudCliente();
             var listaDetalleSolicitudCliente = new List<BESolicitudClienteDetalle>();
 
-            using (IDataReader reader = DASolicitudCliente.CabeceraSolicitudAnuladasRechazadas(entidadSolicitudCliente))
+            using (IDataReader reader = daSolicitudCliente.CabeceraSolicitudAnuladasRechazadas(entidadSolicitudCliente))
             {
                 while (reader.Read())
                 {
@@ -439,7 +439,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            using (IDataReader reader = DASolicitudCliente.DetalleSolicitudAnuladasRechazadas(entidadSolicitudCliente))
+            using (IDataReader reader = daSolicitudCliente.DetalleSolicitudAnuladasRechazadas(entidadSolicitudCliente))
             {
                 while (reader.Read())
                 {
@@ -447,28 +447,25 @@ namespace Portal.Consultoras.BizLogic
                     listaDetalleSolicitudCliente.Add(solicitudClienteDetalle);
                 }
             }
-
-            if (resultadoSolicitudCliente != null)
-            {
-                resultadoSolicitudCliente.DetalleSolicitud = listaDetalleSolicitudCliente;
-            }
+            
+            resultadoSolicitudCliente.DetalleSolicitud = listaDetalleSolicitudCliente;
 
             return resultadoSolicitudCliente;
         }
 
         public List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID)
         {
-            var EstadoSolicitudCliente = new List<BEEstadoSolicitudCliente>();
-            var DASolicitudCliente = new DASolicitudCliente(paisID);
-            using (IDataReader reader = DASolicitudCliente.GetEstadoSolicitudCliente())
+            var estadoSolicitudCliente = new List<BEEstadoSolicitudCliente>();
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            using (IDataReader reader = daSolicitudCliente.GetEstadoSolicitudCliente())
             {
                 while (reader.Read())
                 {
                     var solicitud = new BEEstadoSolicitudCliente(reader);
-                    EstadoSolicitudCliente.Add(solicitud);
+                    estadoSolicitudCliente.Add(solicitud);
                 }
             }
-            return EstadoSolicitudCliente;
+            return estadoSolicitudCliente;
 
         }
 
@@ -491,8 +488,8 @@ namespace Portal.Consultoras.BizLogic
         public List<BEReportePedidos> GetReportePedidos(DateTime FechaIni, DateTime FechaFin, int estado, string marca, string campania, int paisID)
         {
             List<BEReportePedidos> listaReportePedidos = new List<BEReportePedidos>();
-            DASolicitudCliente DASolicitudCliente = new DASolicitudCliente(paisID);
-            using (IDataReader reader = DASolicitudCliente.ReportePedidos(FechaIni, FechaFin, estado, marca, campania))
+            DASolicitudCliente daSolicitudCliente = new DASolicitudCliente(paisID);
+            using (IDataReader reader = daSolicitudCliente.ReportePedidos(FechaIni, FechaFin, estado, marca, campania))
             {
                 while (reader.Read())
                 {
@@ -508,17 +505,17 @@ namespace Portal.Consultoras.BizLogic
 
         public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(int paisID, long consultoraID, string dispositivoID, int tipoUsuario, int campania)
         {
-            BEResultadoMisPedidosAppCatalogo resultado = null;
+            BEResultadoMisPedidosAppCatalogo resultado;
             try
             {
                 resultado = new BEResultadoMisPedidosAppCatalogo(false, "OK");
-                var DAMisPedidos = new DAConsultoraOnline(paisID);
+                var daMisPedidos = new DAConsultoraOnline(paisID);
                 var misPedidos = new List<BEMisPedidosAppCatalogo>();
 
                 IDataReader reader;
                 
-                if(tipoUsuario == 1) reader = DAMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
-                else reader = DAMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
+                if(tipoUsuario == 1) reader = daMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
+                else reader = daMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
 
                 using (reader)
                 {
@@ -533,22 +530,22 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = new BEResultadoMisPedidosAppCatalogo(true, ex.Message.ToString());
+                resultado = new BEResultadoMisPedidosAppCatalogo(true, ex.Message);
                 return resultado;
             }
         }
 
         public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalle(int PaisID, long PedidoID)
         {
-            BEResultadoPedidoDetalleAppCatalogo resultado = null;
+            BEResultadoPedidoDetalleAppCatalogo resultado;
             try
             {
                 resultado = new BEResultadoPedidoDetalleAppCatalogo(false, "OK");
                 
-                var DAMisPedidos = new DAConsultoraOnline(PaisID);
+                var daMisPedidos = new DAConsultoraOnline(PaisID);
                 var miPedidoDetalles = new List<BEMisPedidosDetalleAppCatalogo>();
 
-                using (IDataReader reader = DAMisPedidos.GetDetallePedidoAppCatalogo(PedidoID))
+                using (IDataReader reader = daMisPedidos.GetDetallePedidoAppCatalogo(PedidoID))
                 {
                     while (reader.Read())
                     {
@@ -561,7 +558,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = new BEResultadoPedidoDetalleAppCatalogo(true, ex.Message.ToString());
+                resultado = new BEResultadoPedidoDetalleAppCatalogo(true, ex.Message);
                 return resultado;
             }
         }

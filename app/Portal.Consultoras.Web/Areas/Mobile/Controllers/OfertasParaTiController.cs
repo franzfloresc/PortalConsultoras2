@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RenderDetalle(id, origen);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
             }
@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla, int origenPedidoWeb)
         {
-            var result = string.Empty;
+            string result;
 
             switch (origenPantalla)
             {
