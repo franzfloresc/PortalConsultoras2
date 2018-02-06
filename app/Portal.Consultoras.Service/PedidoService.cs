@@ -1731,6 +1731,11 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entity);
         }
 
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entity)
+        {
+            return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaDespuesPrimerPedido(paisID, entity);
+        }
+
         #endregion
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)

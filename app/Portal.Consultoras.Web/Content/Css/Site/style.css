@@ -1277,6 +1277,22 @@ ul.tabs {
     margin: 0 0 5px 0;
     padding: 0 0 5px 0;
 }
+    .div-3 .fieldset-2 {
+        float: left;
+        border: 2px solid #cfcfcf;
+        padding: 5px 0px 11px 0px;
+        width: 50%;
+        margin: 0px 9px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
+        .div-3 .fieldset-2 > legend {
+            padding: 0px 5px;
+            margin-left: 7px;
+            color: #702789;
+            font-size: 13px;
+        }
 
 /*1747 - Estrategias*/
 .treeview_est_content {

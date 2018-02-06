@@ -1598,7 +1598,7 @@
     width: 260px;
     left: 50%;
     margin-left: -130px;
-    border: 1px solid black;
+    box-shadow: inset 0px 0px 0px 1px black;
     color: black;
     font-size: 13px;
 }
@@ -2404,9 +2404,10 @@
 
     .banner_pedido_masofertas .btn_diagonal img {
         position: relative;
-        top: 2px;
+        top: 1.5px;
         margin-left: 5px;
-        height: 15px;
+        width: 8px;
+        height: 12px;
     }
 
 .home_rd1 {
@@ -2445,15 +2446,29 @@
             color: white;
             transition: all .2s ease-in-out;
         }
+        .home_rd1 .btn_diagonal .rd_arrowright_blanco {
+            display: none !important;
+        }
 
-            .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
+.btn_stroke:hover {
+    border: none !important;
+}
+            .btn_diagonal:hover a .rd_arrowright, .btn_diagonal:hover a .rd_arrowright_blanco {
                 animation: bounceRight 1.2s infinite;
             }
+
+            .btn_diagonal:hover .rd_arrowright{
+                display:none !important;
+            }
+            
+        .btn_diagonal:hover .rd_arrowright_blanco {
+            display: inline !important;
+        }
 
     .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
         position: absolute;
         right: 16px;
-        top: 16px;
+        top: 17px;
         height: 12px;
         width: 8px;
     }
@@ -2510,7 +2525,7 @@
     .home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
         position: absolute;
         right: 16px;
-        top: 16px;
+        top: 17px;
         height: 12px;
         width: 8px;
     }
