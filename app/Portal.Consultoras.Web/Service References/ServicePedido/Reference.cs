@@ -1831,6 +1831,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoBannerCuponField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoBannerPremioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1900,6 +1906,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoBannerCupon {
+            get {
+                return this.ArchivoBannerCuponField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoBannerCuponField, value) != true)) {
+                    this.ArchivoBannerCuponField = value;
+                    this.RaisePropertyChanged("ArchivoBannerCupon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoBannerPremio {
+            get {
+                return this.ArchivoBannerPremioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoBannerPremioField, value) != true)) {
+                    this.ArchivoBannerPremioField = value;
+                    this.RaisePropertyChanged("ArchivoBannerPremio");
+                }
             }
         }
         
@@ -2226,6 +2258,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NumeroPremioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEIncentivoPremio[] PremiosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PuntosExigidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2373,6 +2408,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NumeroPremioField, value) != true)) {
                     this.NumeroPremioField = value;
                     this.RaisePropertyChanged("NumeroPremio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEIncentivoPremio[] Premios {
+            get {
+                return this.PremiosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PremiosField, value) != true)) {
+                    this.PremiosField = value;
+                    this.RaisePropertyChanged("Premios");
                 }
             }
         }
@@ -2550,6 +2598,131 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.PremiosProgramaNuevasField, value) != true)) {
                     this.PremiosProgramaNuevasField = value;
                     this.RaisePropertyChanged("PremiosProgramaNuevas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEIncentivoPremio", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEIncentivoPremio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConcursoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoPremioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionPremioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenPremioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPremioField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConcurso {
+            get {
+                return this.CodigoConcursoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConcursoField, value) != true)) {
+                    this.CodigoConcursoField = value;
+                    this.RaisePropertyChanged("CodigoConcurso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoNivel {
+            get {
+                return this.CodigoNivelField;
+            }
+            set {
+                if ((this.CodigoNivelField.Equals(value) != true)) {
+                    this.CodigoNivelField = value;
+                    this.RaisePropertyChanged("CodigoNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPremio {
+            get {
+                return this.CodigoPremioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoPremioField, value) != true)) {
+                    this.CodigoPremioField = value;
+                    this.RaisePropertyChanged("CodigoPremio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionPremio {
+            get {
+                return this.DescripcionPremioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionPremioField, value) != true)) {
+                    this.DescripcionPremioField = value;
+                    this.RaisePropertyChanged("DescripcionPremio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenPremio {
+            get {
+                return this.ImagenPremioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenPremioField, value) != true)) {
+                    this.ImagenPremioField = value;
+                    this.RaisePropertyChanged("ImagenPremio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPremio {
+            get {
+                return this.NumeroPremioField;
+            }
+            set {
+                if ((this.NumeroPremioField.Equals(value) != true)) {
+                    this.NumeroPremioField = value;
+                    this.RaisePropertyChanged("NumeroPremio");
                 }
             }
         }
@@ -6566,10 +6739,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoBannerCuponField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoBannerPremioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoNivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionProgramaNuevasAppIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TextoCuponField;
@@ -6584,6 +6769,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoBannerCupon {
+            get {
+                return this.ArchivoBannerCuponField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoBannerCuponField, value) != true)) {
+                    this.ArchivoBannerCuponField = value;
+                    this.RaisePropertyChanged("ArchivoBannerCupon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoBannerPremio {
+            get {
+                return this.ArchivoBannerPremioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoBannerPremioField, value) != true)) {
+                    this.ArchivoBannerPremioField = value;
+                    this.RaisePropertyChanged("ArchivoBannerPremio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoNivel {
+            get {
+                return this.CodigoNivelField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
+                    this.CodigoNivelField = value;
+                    this.RaisePropertyChanged("CodigoNivel");
+                }
             }
         }
         
@@ -6609,6 +6833,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConfiguracionProgramaNuevasAppIDField.Equals(value) != true)) {
                     this.ConfiguracionProgramaNuevasAppIDField = value;
                     this.RaisePropertyChanged("ConfiguracionProgramaNuevasAppID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
@@ -17262,6 +17499,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int RegionIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short RevistaDigitalSuscripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RolField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -17338,6 +17578,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlBannerGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
@@ -19142,6 +19385,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public short RevistaDigitalSuscripcion {
+            get {
+                return this.RevistaDigitalSuscripcionField;
+            }
+            set {
+                if ((this.RevistaDigitalSuscripcionField.Equals(value) != true)) {
+                    this.RevistaDigitalSuscripcionField = value;
+                    this.RaisePropertyChanged("RevistaDigitalSuscripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Rol {
             get {
                 return this.RolField;
@@ -19475,6 +19731,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TipoUsuarioField.Equals(value) != true)) {
                     this.TipoUsuarioField = value;
                     this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlBannerGanaMas {
+            get {
+                return this.UrlBannerGanaMasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlBannerGanaMasField, value) != true)) {
+                    this.UrlBannerGanaMasField = value;
+                    this.RaisePropertyChanged("UrlBannerGanaMas");
                 }
             }
         }
@@ -32732,10 +33001,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ListConcursosByCampaniaAsync(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultoraResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
+        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerIncentivosConsultoraAsync(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerIncentivosConsultoraAsync(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerIncentivosHistorico", ReplyAction="http://tempuri.org/IPedidoService/ObtenerIncentivosHistoricoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
@@ -32842,16 +33111,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task UpdateMostradoProductosPrecargadosAsync(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[] GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[] GetConfiguracionProgramaNuevasApp(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[]> GetConfiguracionProgramaNuevasAppAsync(int paisID, string CodigoPrograma);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[]> GetConfiguracionProgramaNuevasAppAsync(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasAppResponse")]
-        string InsConfiguracionProgramaNuevasApp(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
+        bool InsConfiguracionProgramaNuevasApp(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasAppResponse")]
-        System.Threading.Tasks.Task<string> InsConfiguracionProgramaNuevasAppAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
+        System.Threading.Tasks.Task<bool> InsConfiguracionProgramaNuevasAppAsync(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivas", ReplyAction="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivasResponse")]
         bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
@@ -35135,12 +35404,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ListConcursosByCampaniaAsync(paisId, codigoCampaniaActual, codigoCampania, tipoConcurso, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID) {
-            return base.Channel.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
+        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia) {
+            return base.Channel.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID, estrategia);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerIncentivosConsultoraAsync(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID) {
-            return base.Channel.ObtenerIncentivosConsultoraAsync(paisID, codigoConsultora, codigoCampania, ConsultoraID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerIncentivosConsultoraAsync(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia) {
+            return base.Channel.ObtenerIncentivosConsultoraAsync(paisID, codigoConsultora, codigoCampania, ConsultoraID, estrategia);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania) {
@@ -35271,20 +35540,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdateMostradoProductosPrecargadosAsync(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[] GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma) {
-            return base.Channel.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[] GetConfiguracionProgramaNuevasApp(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
+            return base.Channel.GetConfiguracionProgramaNuevasApp(entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[]> GetConfiguracionProgramaNuevasAppAsync(int paisID, string CodigoPrograma) {
-            return base.Channel.GetConfiguracionProgramaNuevasAppAsync(paisID, CodigoPrograma);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp[]> GetConfiguracionProgramaNuevasAppAsync(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
+            return base.Channel.GetConfiguracionProgramaNuevasAppAsync(entidad);
         }
         
-        public string InsConfiguracionProgramaNuevasApp(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
-            return base.Channel.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+        public bool InsConfiguracionProgramaNuevasApp(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
+            return base.Channel.InsConfiguracionProgramaNuevasApp(entidad);
         }
         
-        public System.Threading.Tasks.Task<string> InsConfiguracionProgramaNuevasAppAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
-            return base.Channel.InsConfiguracionProgramaNuevasAppAsync(paisID, entidad);
+        public System.Threading.Tasks.Task<bool> InsConfiguracionProgramaNuevasAppAsync(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
+            return base.Channel.InsConfiguracionProgramaNuevasAppAsync(entidad);
         }
         
         public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId) {
