@@ -231,10 +231,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var cupon = ObtenerCuponDesdeServicio();
                     if (cupon != null)
                     {
-                        TipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
-                        Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
+                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
-                        return TipoPopUpMostrar;
+                        return tipoPopUpMostrar;
                     }
                 }
             }
