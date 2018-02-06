@@ -1,3 +1,2 @@
-# Portal Consultoras 2.17
-BPT-Release-2.18.0
+# Portal Consultoras 2.18
 Inicio del Sprint 18
