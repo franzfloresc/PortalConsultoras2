@@ -1,5 +1,8 @@
 USE BelcorpPeru_PL50
 GO
+  IF OBJECT_ID('dbo.InsertarProductoShowroomMasiva', 'P') IS NOT NULL
+	DROP PROC dbo.InsertarProductoShowroomMasiva
+GO
 CREATE PROCEDURE dbo.InsertarProductoShowroomMasiva
 @EstrategiaXML as XML,
 @CampaniaID INT,

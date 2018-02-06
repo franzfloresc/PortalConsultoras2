@@ -1,6 +1,9 @@
 USE BelcorpPeru_PL50
 GO
-ALTER PROCEDURE dbo.InsertarEstrategiaMasiva  
+  IF OBJECT_ID('dbo.InsertarEstrategiaMasiva', 'P') IS NOT NULL
+	DROP PROC dbo.InsertarEstrategiaMasiva
+GO
+CREATE PROCEDURE dbo.InsertarEstrategiaMasiva  
 @EstrategiaXML as XML,  
 @TipoEstrategiaID INT,  
 @CampaniaID INT,  
