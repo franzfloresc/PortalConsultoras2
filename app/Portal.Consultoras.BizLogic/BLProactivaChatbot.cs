@@ -140,9 +140,9 @@ namespace Portal.Consultoras.BizLogic
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
-                    int paisID = Util.GetPaisID(resultado.PaisISO);
+                    int paisId = Util.GetPaisID(resultado.PaisISO);
 
-                    new DABotmakerApiLog(paisID).Insert(resultado);
+                    new DABotmakerApiLog(paisId).Insert(resultado);
 
                     transaction.Complete();
                 }

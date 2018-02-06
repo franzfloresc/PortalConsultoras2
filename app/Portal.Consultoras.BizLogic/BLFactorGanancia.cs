@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -17,9 +14,9 @@ namespace Portal.Consultoras.BizLogic
             if (lista == null)
             {
                 lista = new List<BEFactorGanancia>();
-                var DAFactorGanancia = new DAFactorGanancia(PaisID);
+                var daFactorGanancia = new DAFactorGanancia(PaisID);
 
-                using (IDataReader reader = DAFactorGanancia.SelectFactorGanancia())
+                using (IDataReader reader = daFactorGanancia.SelectFactorGanancia())
                     while (reader.Read())
                     {
                         var entidad = new BEFactorGanancia(reader);
@@ -33,9 +30,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEFactorGanancia> SelectFactorGananciaAdministrador(int PaisID)
         {
             var lista = new List<BEFactorGanancia>();
-            var DAFactorGanancia = new DAFactorGanancia(PaisID);
+            var daFactorGanancia = new DAFactorGanancia(PaisID);
 
-            using (IDataReader reader = DAFactorGanancia.SelectFactorGanancia())
+            using (IDataReader reader = daFactorGanancia.SelectFactorGanancia())
                 while (reader.Read())
                 {
                     var entidad = new BEFactorGanancia(reader);
@@ -49,13 +46,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEFactorGanancia> GetFactorGananciaById(int paisID)
         {
             var lista = new List<BEFactorGanancia>();
-            var DAFactorGanancia = new DAFactorGanancia(paisID);
+            var daFactorGanancia = new DAFactorGanancia(paisID);
 
-            using (IDataReader reader = DAFactorGanancia.GetFactorGananciaById(paisID))
+            using (IDataReader reader = daFactorGanancia.GetFactorGananciaById(paisID))
                 while (reader.Read())
                 {
-                    var entidad = new BEFactorGanancia(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEFactorGanancia(reader) {PaisID = paisID};
                     lista.Add(entidad);
                 }
 
@@ -64,79 +60,79 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsertFactorGanancia(BEFactorGanancia entidad)
         {
-            var DAFactorGanancia = new DAFactorGanancia(entidad.PaisID);
-            int RangoValido = DAFactorGanancia.GetFactorGananciaValidar(0, entidad.RangoMinimo, entidad.RangoMaximo);
+            var daFactorGanancia = new DAFactorGanancia(entidad.PaisID);
+            int rangoValido = daFactorGanancia.GetFactorGananciaValidar(0, entidad.RangoMinimo, entidad.RangoMaximo);
 
-            if (RangoValido == 0)
+            if (rangoValido == 0)
             {
-                DAFactorGanancia.Insert(entidad);
+                daFactorGanancia.Insert(entidad);
                 CacheManager<BEFactorGanancia>.RemoveData(entidad.PaisID, ECacheItem.FactorGanancia);
             }
 
-            return RangoValido;  
+            return rangoValido;  
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
         {
-            var DAFactorGanancia = new DAFactorGanancia(entidad.PaisID);
-            int RangoValido = DAFactorGanancia.GetFactorGananciaValidar(entidad.FactorGananciaID, entidad.RangoMinimo, entidad.RangoMaximo);
+            var daFactorGanancia = new DAFactorGanancia(entidad.PaisID);
+            int rangoValido = daFactorGanancia.GetFactorGananciaValidar(entidad.FactorGananciaID, entidad.RangoMinimo, entidad.RangoMaximo);
 
-            if (RangoValido == 0)
+            if (rangoValido == 0)
             {
-                DAFactorGanancia.Update(entidad);
+                daFactorGanancia.Update(entidad);
                 CacheManager<BEFactorGanancia>.RemoveData(entidad.PaisID, ECacheItem.FactorGanancia);
             }
 
-            return RangoValido;  
+            return rangoValido;  
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)
         {
-            var DAFactorGanancia = new DAFactorGanancia(paisID);
-            DAFactorGanancia.Delete(factorGananciaID);
+            var daFactorGanancia = new DAFactorGanancia(paisID);
+            daFactorGanancia.Delete(factorGananciaID);
             CacheManager<BEFactorGanancia>.RemoveData(paisID, ECacheItem.FactorGanancia);
         }
 
         public BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID)
         {
-            BEFactorGanancia oBEFactorGanancia = null;
+            BEFactorGanancia obeFactorGanancia = null;
 
             IList<BEFactorGanancia> lista = SelectFactorGanancia(paisID);
             if (lista.Count != 0)
             {
-                oBEFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
-                if (oBEFactorGanancia != null)
+                obeFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
+                if (obeFactorGanancia != null)
                 {
-                    int Escala = oBEFactorGanancia.Escala;
-                    oBEFactorGanancia = lista.FirstOrDefault(p => p.Escala == Escala + 1);
+                    int escala = obeFactorGanancia.Escala;
+                    obeFactorGanancia = lista.FirstOrDefault(p => p.Escala == escala + 1);
                 }
             }
-            return oBEFactorGanancia;
+            return obeFactorGanancia;
         }
 
         public BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID)
         {
-            BEFactorGanancia oBEFactorGanancia = null;
+            BEFactorGanancia obeFactorGanancia = null;
 
             IList<BEFactorGanancia> lista = SelectFactorGanancia(paisID);
             if (lista.Count != 0)
             {
-                oBEFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
-                if (oBEFactorGanancia == null)
+                obeFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
+                if (obeFactorGanancia == null)
                 {
-                    int Escala = lista.Max(p => p.Escala);
-                    oBEFactorGanancia = lista.FirstOrDefault(p => p.Escala == Escala);
+                    int escala = lista.Max(p => p.Escala);
+                    obeFactorGanancia = lista.FirstOrDefault(p => p.Escala == escala);
                 }
             }
-            return oBEFactorGanancia;
+            return obeFactorGanancia;
         }
 
         public IList<BEFactorGanancia> GetFactorGananciaByPaisRango(decimal monto, int paisID)
         {
             var lista = new List<BEFactorGanancia>();
-            var DAFactorGanancia = new DAFactorGanancia(paisID);
+            var daFactorGanancia = new DAFactorGanancia(paisID);
 
-            using (IDataReader reader = DAFactorGanancia.GetFactorGananciaByPaisRango(monto, paisID))
+            using (IDataReader reader = daFactorGanancia.GetFactorGananciaByPaisRango(monto, paisID))
                 while (reader.Read())
                 {
                     var entidad = new BEFactorGanancia(reader);
@@ -148,9 +144,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoWebDetalleDescuento> GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(int paisID, int campaniaId, int pedidoId)
         {
             var lista = new List<BEPedidoWebDetalleDescuento>();
-            var DAFactorGanancia = new DAFactorGanancia(paisID);
+            var daFactorGanancia = new DAFactorGanancia(paisID);
 
-            using (IDataReader reader = DAFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(campaniaId, pedidoId))
+            using (IDataReader reader = daFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(campaniaId, pedidoId))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoWebDetalleDescuento(reader);
@@ -161,8 +157,8 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdatePedidoWebEstimadoGanancia(int paisID, int campaniaId, int pedidoId, decimal estimadoGanancia)
         {
-            var DAFactorGanancia = new DAFactorGanancia(paisID);
-            DAFactorGanancia.UpdatePedidoWebEstimadoGanancia(campaniaId, pedidoId, estimadoGanancia);
+            var daFactorGanancia = new DAFactorGanancia(paisID);
+            daFactorGanancia.UpdatePedidoWebEstimadoGanancia(campaniaId, pedidoId, estimadoGanancia);
         }
     }
 }

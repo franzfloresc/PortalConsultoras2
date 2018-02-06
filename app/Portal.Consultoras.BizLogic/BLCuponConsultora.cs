@@ -13,9 +13,9 @@ namespace Portal.Consultoras.BizLogic
         public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisID, BECuponConsultora cuponConsultora)
         {
             BECuponConsultora entidad = null;
-            var DACuponConsultora = new DACuponConsultora(paisID);
+            var daCuponConsultora = new DACuponConsultora(paisID);
 
-            using (IDataReader reader = DACuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(cuponConsultora))
+            using (IDataReader reader = daCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(cuponConsultora))
                 if (reader.Read())
                 {
                     entidad = new BECuponConsultora(reader);
@@ -25,34 +25,34 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
         {
-            var DACuponConsultora = new DACuponConsultora(paisId);
-            DACuponConsultora.UpdateCuponConsultoraEstadoCupon(cuponConsultora);
+            var daCuponConsultora = new DACuponConsultora(paisId);
+            daCuponConsultora.UpdateCuponConsultoraEstadoCupon(cuponConsultora);
         }
 
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
         {
-            var DACuponConsultora = new DACuponConsultora(paisId);
-            DACuponConsultora.UpdateCuponConsultoraEnvioCorreo(cuponConsultora);
+            var daCuponConsultora = new DACuponConsultora(paisId);
+            daCuponConsultora.UpdateCuponConsultoraEnvioCorreo(cuponConsultora);
         }
 
         public void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora)
         {
-            var DACuponConsultora = new DACuponConsultora(paisId);
-            DACuponConsultora.CrearCuponConsultora(cuponConsultora);
+            var daCuponConsultora = new DACuponConsultora(paisId);
+            daCuponConsultora.CrearCuponConsultora(cuponConsultora);
         }
 
         public void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora)
         {
-            var DACuponConsultora = new DACuponConsultora(paisId);
-            DACuponConsultora.ActualizarCuponConsultora(cuponConsultora);
+            var daCuponConsultora = new DACuponConsultora(paisId);
+            daCuponConsultora.ActualizarCuponConsultora(cuponConsultora);
         }
 
         public List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId)
         {
             List<BECuponConsultora> listaCuponConsultoras = new List<BECuponConsultora>();
-            var DACuponConsultora = new DACuponConsultora(paisId);
+            var daCuponConsultora = new DACuponConsultora(paisId);
 
-            using (IDataReader reader = DACuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId))
+            using (IDataReader reader = daCuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId))
             {
                 while (reader.Read())
                 {
@@ -70,9 +70,9 @@ namespace Portal.Consultoras.BizLogic
             TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead };
             using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                var DACuponConsultora = new DACuponConsultora(paisId);
+                var daCuponConsultora = new DACuponConsultora(paisId);
 
-                DACuponConsultora.InsertarCuponConsultorasXML(cuponId, campaniaId, xml);
+                daCuponConsultora.InsertarCuponConsultorasXML(cuponId, campaniaId, xml);
                 transactionScope.Complete();
             }
         }

@@ -1565,30 +1565,27 @@
                         <label>CLIENTE ONLINE</label>
                     </span>
                     {{else}}
-                    {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                    {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-                    {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>OFERTA LIQUIDACIÓN</label>
-                    </span>
-                    {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>OFERTA FLEXIPLAGO</label>
-                    </span>
-                    {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>PRE-VENTA DIGITAL</label>
-                    </span>
-                    {{else}}
-                    {{#IsNullOrEmpty DescripcionOferta '!='}}
-                    <span class="texto_pedidos_ofertas">
-                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTA LIQUIDACIÓN</label>
+                        </span>
+                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTA FLEXIPLAGO</label>
+                        </span>
+                        {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTAS ESPECIALES GANA+</label>
+                        </span>
                         {{else}}
-                        <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
-                        {{/iff}}
-                    </span>
-                    {{/IsNullOrEmpty}}
-                    {{/if_eq}}
+                            {{#IsNullOrEmpty DescripcionOferta '!='}}
+                            <span class="texto_pedidos_ofertas">
+                                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+                            </span>
+                            {{/IsNullOrEmpty}}
+                        {{/if_eq}}
                     {{/if_eq}}
 
                     {{#if_eq TipoPedido 'M'}}

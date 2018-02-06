@@ -33,7 +33,6 @@ namespace Portal.Consultoras.Data
             }
         }
 
-
         public IDataReader GetEstrategiaDetalle(int idEstrategiaDetalle)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaDetalle"))
@@ -487,7 +486,10 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
                 Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);
-                Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
+                if (fechaInicioFact == default(DateTime))
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, DBNull.Value);
+                else
+                    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
                 return Context.ExecuteReader(command);
             }
         }
@@ -502,6 +504,21 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@EstrategiasDesactivas", DbType.String, EstrategiasDesactivas);
 
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
+            }
+            return result;
+        }
+
+        public int ActualizarTonoEstrategia(int EstrategiaId, string CodigoEstrategia, int TieneVariedad)
+        {
+            int result;
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizarTonoEstrategias"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, EstrategiaId);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, CodigoEstrategia);
+                Context.Database.AddInParameter(command, "@TieneVariedad", DbType.String, TieneVariedad);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
             }
             return result;
         }

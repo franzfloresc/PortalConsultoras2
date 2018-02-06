@@ -1,5 +1,5 @@
-﻿using System;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models.Layout
 {
