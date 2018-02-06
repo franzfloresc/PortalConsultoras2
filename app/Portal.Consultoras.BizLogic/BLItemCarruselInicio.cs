@@ -1,25 +1,21 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLItemCarruselInicio // Modificación TiSmart 2014/12/12 - 2014/12/17
+    public class BLItemCarruselInicio
     {
         public IList<BEItemCarruselInicio> GetItemCarruselInicio(int paisID)
         {
             IList<BEItemCarruselInicio> items = (IList<BEItemCarruselInicio>)CacheManager<BEItemCarruselInicio>.GetData(paisID, ECacheItem.ItemsCarruselInicio);
             if (items == null || items.Count == 0)
             {
-                var DAItemCarruselInicio = new DAItemCarruselInicio(paisID);
+                var daItemCarruselInicio = new DAItemCarruselInicio(paisID);
                 items = new List<BEItemCarruselInicio>();
 
-                using (IDataReader reader = DAItemCarruselInicio.GetItemsCarruselInicio())
+                using (IDataReader reader = daItemCarruselInicio.GetItemsCarruselInicio())
                 {
                     while (reader.Read())
                     {

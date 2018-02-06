@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+
 namespace Portal.Consultoras.BizLogic
 {
     public class BLProveedorDespachoCobranza
@@ -13,9 +11,9 @@ namespace Portal.Consultoras.BizLogic
         public List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranza(int paisID)
         {
             var lista = new List<BEProveedorDespachoCobranza>();
-            var DAProveedor = new DAProveedorDespachoCobranza(paisID);
+            var daProveedor = new DAProveedorDespachoCobranza(paisID);
 
-            using (IDataReader reader = DAProveedor.GetProveedorDespachoCobranza())
+            using (IDataReader reader = daProveedor.GetProveedorDespachoCobranza())
             {
                 while (reader.Read())
                 {
@@ -29,9 +27,9 @@ namespace Portal.Consultoras.BizLogic
         public List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaMnto(int paisID, BEProveedorDespachoCobranza entidad)
         {
             var lista = new List<BEProveedorDespachoCobranza>();
-            var DAProveedor = new DAProveedorDespachoCobranza(paisID);
+            var daProveedor = new DAProveedorDespachoCobranza(paisID);
 
-            using (IDataReader reader = DAProveedor.GetProveedorDespachoCobranzaMnto(entidad))
+            using (IDataReader reader = daProveedor.GetProveedorDespachoCobranzaMnto(entidad))
             {
                 while (reader.Read())
                 {
@@ -43,29 +41,29 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity)
-            {
+        {
             var lista = new List<BEProveedorDespachoCobranza>();
-                var DAProveedor = new DAProveedorDespachoCobranza(paisID);
+            var daProveedor = new DAProveedorDespachoCobranza(paisID);
 
-            using (IDataReader reader = DAProveedor.GetProveedorDespachoCobranzaBYiD(entity))
+            using (IDataReader reader = daProveedor.GetProveedorDespachoCobranzaBYiD(entity))
             {
-                    while (reader.Read())
-                    {
-                        var entidad = new BEProveedorDespachoCobranza(reader);
-                        lista.Add(entidad);
-                    }
+                while (reader.Read())
+                {
+                    var entidad = new BEProveedorDespachoCobranza(reader);
+                    lista.Add(entidad);
+                }
+
                 CacheManager<BEProveedorDespachoCobranza>.AddData(paisID, ECacheItem.ProveedorDespachoCobranza, lista);
             }
+
             return lista.ToList();
         }
 
-
         public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID)
         {
-            var DAProveedor = new DAProveedorDespachoCobranza(paisID);
-            return DAProveedor.DelProveedorDespachoCobranza(ProveedorDespachoCobanzaID);
+            var daProveedor = new DAProveedorDespachoCobranza(paisID);
+            return daProveedor.DelProveedorDespachoCobranza(ProveedorDespachoCobanzaID);
         }
-
 
         public void UpdProveedorDespachoCobranzaCabecera(int paisID, BEProveedorDespachoCobranza entidad)
         {

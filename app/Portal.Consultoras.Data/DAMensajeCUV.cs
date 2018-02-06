@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -63,9 +57,8 @@ namespace Portal.Consultoras.Data
                 mensaje = dr.GetString(0);
             }
 
-            BEMensajeCUV BEMensajeCUV = new BEMensajeCUV();
-            BEMensajeCUV.Mensaje = mensaje;
-            return BEMensajeCUV;
+            BEMensajeCUV beMensajeCuv = new BEMensajeCUV {Mensaje = mensaje};
+            return beMensajeCuv;
         }
 
     }

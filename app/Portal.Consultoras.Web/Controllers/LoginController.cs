@@ -1054,9 +1054,9 @@ namespace Portal.Consultoras.Web.Controllers
                             if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                                 throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
-                            var revistaDigitalModel = new RevistaDigitalModel();
+                            var guiaNegocio = new GuiaNegocioModel();
+                            var revistaDigitalModel = new RevistaDigitalModel {NoVolverMostrar = true};
                             var ofertaFinalModel = new OfertaFinalModel();
-                            revistaDigitalModel.NoVolverMostrar = true;
 
                             var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                             if (configuracionesPaisModels.Any())
@@ -1067,17 +1067,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     switch (c.Codigo)
                                     {
-                                        //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                         case Constantes.ConfiguracionPais.RevistaDigital:
                                             revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, 
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
+
                                             ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
-                                                usuarioModel.Sobrenombre);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
                                             revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                             break;
+
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                             if (revistaDigitalModel.TieneRDC)
                                                 break;
@@ -1086,13 +1086,15 @@ namespace Portal.Consultoras.Web.Controllers
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
-                                                usuarioModel.Sobrenombre);
+
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
                                             revistaDigitalModel.TieneRDR = true;
                                             break;
+
                                         case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                             usuarioModel.TieneValidacionMontoMaximo = c.Estado;
                                             break;
+
                                         case Constantes.ConfiguracionPais.OfertaFinalTradicional:
                                         case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
                                         case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
@@ -1105,8 +1107,25 @@ namespace Portal.Consultoras.Web.Controllers
                                             }
 
                                             break;
+
                                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                                            guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
+                                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                                    .ToList());
+                                            guiaNegocio.TieneGND = true;
                                             usuarioModel.TieneGND = true;
+                                            break;
+
+                                        case Constantes.ConfiguracionPais.OfertaDelDia:
+                                            usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, listaPaisDatos
+                                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                                .ToList());
+                                            break;
+                                            
+                                        case Constantes.ConfiguracionPais.OfertasParaTi:
+                                            usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, listaPaisDatos
+                                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                                .ToList());
                                             break;
                                     }
 
@@ -1119,6 +1138,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.CampaniaMasUno =
                                     Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1,usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+                                sessionManager.SetGuiaNegocio(guiaNegocio);
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                                 sessionManager.SetOfertaFinalModel(ofertaFinalModel);
@@ -1131,6 +1151,7 @@ namespace Portal.Consultoras.Web.Controllers
                             logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora,
                                 usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
+                            sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
                             sessionManager.SetRevistaDigital(new RevistaDigitalModel());
                             sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
                             sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
@@ -1683,6 +1704,9 @@ namespace Portal.Consultoras.Web.Controllers
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
                 if (value1 != null) revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = value1.Valor1 == "1";
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
@@ -1695,6 +1719,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos =
@@ -1740,10 +1765,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (value1 != null)
                     revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos =
@@ -1753,7 +1782,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosRevistaDigital");
+                    "LoginController.ConfiguracionPaisDatosRevistaDigitalReducida");
             }
 
             return revistaDigitalModel;
@@ -1843,6 +1872,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            revistaDigitalModel.BloqueoProductoDigital = revistaDigitalModel.BloqueoProductoDigital || !revistaDigitalModel.EsActiva;
+
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
 
             #region DiasAntesFacturaHoy - NoVolverMostrar
@@ -1880,6 +1911,81 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        private GuiaNegocioModel ConfiguracionPaisDatosGuiaNegocio(List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            var modelo = new GuiaNegocioModel();
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any())
+                    return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                    "LoginController.ConfiguracionPaisDatosGuiaNegocio");
+            }
+
+            return modelo;
+        }
+
+        private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            {
+                modelo = modelo ?? new OfertaDelDiaModel();
+                if (listaDatos == null || !listaDatos.Any())
+                    return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                    "LoginController.ConfiguracionPaisDatosOfertaDelDia");
+            }
+
+            return modelo;
+
+        }
+
+        private UsuarioModel ConfiguracionPaisDatosUsuario(UsuarioModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any())
+                    return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.OptBloqueoProductoDigital = value1.Valor1 == "1";
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                    "LoginController.ConfiguracionPaisDatosUsuario");
+            }
+
+            return modelo;
+
+        }
 
         private string GetRegaloProgramaNuevasFlag()
         {

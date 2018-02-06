@@ -202,12 +202,11 @@ namespace Portal.Consultoras.Data
                 parListPalabra.Value = new GenericDataReader<DEPalabra>(listProducto.Select(p => new DEPalabra { Palabra = p.CUV }));
                 dbCommand.Parameters.Add(parListPalabra);
 
-                BEProducto producto = null;
                 using (var reader = Context.ExecuteReader(dbCommand))
                 {
                     while (reader.Read())
                     {
-                        producto = listProducto.First(p => p.CUV == Convert.ToString(reader["CUV"]));
+                        var producto = listProducto.First(p => p.CUV == Convert.ToString(reader["CUV"]));
                         producto.TieneStock = Convert.ToBoolean(reader["TieneStock"]);
                     }
                 }
@@ -235,31 +234,6 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(dbCommand);
             }
         }
-
-        private static DataTable ConvertListProductoToDataTable(List<BEProducto> listProducto)
-        {
-            var table = new DataTable();
-            table.Columns.Add("Palabra", typeof(string));
-            foreach (var producto in listProducto)
-            {
-                DataRow row = table.NewRow();
-                row["Palabra"] = producto.CUV;
-                table.Rows.Add(row);
-            }
-            return table;
-        }
-
-        private static DataTable ConvertListPalabraToDataTable(List<string> listPalabra)
-        {
-            var table = new DataTable();
-            table.Columns.Add("Palabra", typeof(string));
-            foreach (string palabra in listPalabra)
-            {
-                DataRow row = table.NewRow();
-                row["Palabra"] = palabra;
-                table.Rows.Add(row);
-            }
-            return table;
-        }
+        
     }
 }

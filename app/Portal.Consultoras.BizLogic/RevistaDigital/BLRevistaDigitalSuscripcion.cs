@@ -14,10 +14,12 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
         {
             try
             {
-                var retorno = 0;
+                int retorno;
                 var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     retorno = da.Suscripcion(entidad);
@@ -37,10 +39,12 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
         {
             try
             {
-                var retorno = 0;
+                int retorno;
                 var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     retorno = da.Desuscripcion(entidad);

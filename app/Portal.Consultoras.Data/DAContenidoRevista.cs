@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {

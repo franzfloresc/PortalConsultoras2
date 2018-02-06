@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
