@@ -676,12 +676,6 @@ namespace Portal.Consultoras.Service
             return BLUsuario.InsUsuarioPostulante(paisID, paisISO, entidad);
         }
 
-        public string RecuperarContrasenia(int paisId, string textoRecuperacion)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
-        }
-
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {
             var BLUsuario = new BLUsuario();

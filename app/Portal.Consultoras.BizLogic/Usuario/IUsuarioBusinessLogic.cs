@@ -55,7 +55,6 @@ namespace Portal.Consultoras.BizLogic
         BEUsuario ObtenerDatosPorUsuario(int PaisID, string CodigoUsuario);
         List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
-        string RecuperarContrasenia(int paisId, string correo);
         BEUsuario Select(int paisID, string codigoUsuario);
         List<BEUsuarioCorreo> SelectByEmail(string Email, int paisID);
         List<BEUsuario> SelectByNombre(int paisID, string NombreUsuario);

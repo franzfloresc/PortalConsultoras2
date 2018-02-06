@@ -1401,46 +1401,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }
-
-        public string RecuperarContrasenia(int paisId, string textoRecuperacion)
-        {
-            //string resultado = string.Empty;
-            //string urlportal = string.Empty;
-            //string v_correo = string.Empty;
-            //string v_codigousuario = string.Empty;
-            //string v_nombre = string.Empty;
-            //string v_clave = string.Empty;
-            //List<BEUsuarioCorreo> lst = null;
-
-            //try
-            //{
-            //    urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-            //    lst = new List<BEUsuarioCorreo>();
-            //    lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
-
-            //    v_codigousuario = lst[0].CodigoUsuario;
-            //    v_nombre = lst[0].Nombre.Trim().Split(' ').First();
-            //    v_clave = lst[0].Clave;
-
-            //    if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0)
-            //    {
-            //        resultado = "0" + "|" + "2";
-            //    }
-            //    else
-            //    {
-            //        resultado = "1" + "|" + "4" + "|" + lst[0].Correo + "|" + v_nombre + "|" + v_clave + "|" + v_codigousuario + "|" + urlportal + "|" + lst[0].Celular;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    resultado = "0" + "|" + "6" + "|" + ex.Message;
-            //    LogManager.SaveLog(ex, string.Empty, string.Empty);
-            //}
-
-            //return resultado;
-            return "";
-        }        
+        }      
 
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {

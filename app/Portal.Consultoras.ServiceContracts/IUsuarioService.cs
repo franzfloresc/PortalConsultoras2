@@ -286,9 +286,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
-        
-        [OperationContract]
-        string RecuperarContrasenia(int paisId, string correo);
 
         [OperationContract]
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
