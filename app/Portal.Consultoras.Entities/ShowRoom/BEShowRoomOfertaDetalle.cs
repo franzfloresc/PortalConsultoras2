@@ -1,8 +1,9 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
+using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -62,6 +63,12 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public string MarcaProducto { get; set; }
 
+        [DataMember]
+        public string CodigoEstrategia { get; set; }
+
+        [DataMember]
+        public List<BEShowRoomTono> Tonos { get; set; }
+
         public BEShowRoomOfertaDetalle(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomDetalleID") && row["OfertaShowRoomDetalleID"] != DBNull.Value)
@@ -96,6 +103,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 Posicion = Convert.ToInt32(row["Posicion"]);
             if (DataRecord.HasColumn(row, "MarcaProducto") && row["MarcaProducto"] != DBNull.Value)
                 MarcaProducto = Convert.ToString(row["MarcaProducto"]);
+            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
         }
     }
 }
