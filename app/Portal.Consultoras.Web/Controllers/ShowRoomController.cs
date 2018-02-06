@@ -2519,26 +2519,24 @@ namespace Portal.Consultoras.Web.Controllers
                                      && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
                 }
-                if (model.Ordenamiento != null)
+                if (model.Ordenamiento != null && model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
                 {
-                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
+                    switch (model.Ordenamiento.Valor)
                     {
-                        switch (model.Ordenamiento.Valor)
-                        {
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
-                                break;
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
-                                break;
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
-                                break;
-                            default:
-                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
-                                break;
-                        }
+                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
+                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            break;
+                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
+                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
+                            break;
+                        case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
+                            listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
+                            break;
+                        default:
+                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            break;
                     }
+                    
                 }
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 

@@ -10,9 +10,9 @@
         {
             BEConfiguracionCampania configuracion = null;
 
-            var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
+            var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
 
-            using (IDataReader reader = DAConfiguracionCampania.GetCampaniaActualByZona(codigoZona))
+            using (IDataReader reader = daConfiguracionCampania.GetCampaniaActualByZona(codigoZona))
                 if (reader.Read())
                 {
                     configuracion = new BEConfiguracionCampania(reader);

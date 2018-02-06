@@ -3,7 +3,7 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -76,15 +76,29 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))
                 .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
                 .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL))
-                .ForMember(t => t.SegmentoInternoID, f => f.MapFrom(c => c.SegmentoInternoID == null ? 0 : System.Convert.ToInt32(c.SegmentoInternoID)));
+                .ForMember(t => t.SegmentoInternoID, f => f.MapFrom(c => c.SegmentoInternoID == null ? 0 : Convert.ToInt32(c.SegmentoInternoID)));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
-                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
+                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
+                .ForMember(t => t.OfertaDelDia, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
             Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 
+            Mapper.CreateMap<FiltroReportePedidoDDWebModel, BEPedidoDDWeb>()
+                .ForMember(t => t.paisID, f => f.MapFrom(c => Convert.ToInt32(c.PaisID)))
+                .ForMember(t => t.paisISO, f => f.MapFrom(c => c.CodigoISO))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => Convert.ToInt32(c.Campania)))
+                .ForMember(t => t.RegionCodigo, f => f.MapFrom(c => c.RegionID))
+                .ForMember(t => t.ZonaCodigo, f => f.MapFrom(c => c.ZonaID))
+                .ForMember(t => t.Origen, f => f.MapFrom(c => Convert.ToInt32(c.Origen)))
+                .ForMember(t => t.ConsultoraCodigo, f => f.MapFrom(c => string.IsNullOrEmpty(c.Consultora) || c.Consultora == "0" ? string.Empty : c.Consultora))
+                .ForMember(t => t.EstadoValidacion, f => f.MapFrom(c => Convert.ToInt32(c.EstadoValidacion)))
+                .ForMember(t => t.EsRechazado, f => f.MapFrom(c => Convert.ToInt32(c.EsRechazado)))
+                .ForMember(t => t.FechaRegistroInicio, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaInicio) ? (DateTime?)null : DateTime.Parse(c.FechaInicio)))
+                .ForMember(t => t.FechaRegistroFin, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaFin) ? (DateTime?)null : DateTime.Parse(c.FechaFin)));
+                
             Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))

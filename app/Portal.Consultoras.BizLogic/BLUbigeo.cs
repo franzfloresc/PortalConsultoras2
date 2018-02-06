@@ -2,9 +2,8 @@
 {
     using Data;
     using Entities;
-    using System.Data;
     using System.Collections.Generic;
-    using System;
+    using System.Data;
     using System.Linq;
 
     public class BLUbigeo
@@ -12,9 +11,9 @@
         public BEUbigeo GetUbigeoPorCodigoTerritorio(int paisID, string codigoZona, string codigoTerritorio)
         {
             var ubigeo = new BEUbigeo();
-            var DAUbigeo = new DAUbigeo(paisID);
+            var daUbigeo = new DAUbigeo(paisID);
 
-            using (IDataReader reader = DAUbigeo.GetUbigeoPorCodigoTerritorio(codigoZona, codigoTerritorio))
+            using (IDataReader reader = daUbigeo.GetUbigeoPorCodigoTerritorio(codigoZona, codigoTerritorio))
                 if (reader.Read())
                 {
                     ubigeo = new BEUbigeo(reader);
@@ -24,9 +23,9 @@
         public BEUbigeo GetUbigeoPorCodigoUbigeo(int paisID, string codigoUbigeo)
         {
             var ubigeo = new BEUbigeo();
-            var DAUbigeo = new DAUbigeo(paisID);
+            var daUbigeo = new DAUbigeo(paisID);
 
-            using (IDataReader reader = DAUbigeo.GetUbigeoPorCodigoUbigeo(codigoUbigeo))
+            using (IDataReader reader = daUbigeo.GetUbigeoPorCodigoUbigeo(codigoUbigeo))
                 if (reader.Read())
                 {
                     ubigeo = new BEUbigeo(reader);
@@ -35,15 +34,14 @@
         }
         public List<BEUnidadGeografica> GetUnidadesGeograficasPorNivel(int paisID, int nivel,string codigoPadre)
         {
-            var vUnidadGeografica = new BEUnidadGeografica();
             var vListaUnidadGeografica = new List<BEUnidadGeografica>();          
                 if (paisID > 0)
                 {               
-                    var DAUbigeo = new DAUbigeo(paisID, 1);
-                    using (IDataReader reader = DAUbigeo.GetUbigeosPorNivel(nivel, codigoPadre))
+                    var daUbigeo = new DAUbigeo(paisID, 1);
+                    using (IDataReader reader = daUbigeo.GetUbigeosPorNivel(nivel, codigoPadre))
                     while (reader.Read())
                     {
-                        vUnidadGeografica = new BEUnidadGeografica(reader);
+                        var vUnidadGeografica = new BEUnidadGeografica(reader);
                         vListaUnidadGeografica.Add(vUnidadGeografica);
                     }
                 }
@@ -51,16 +49,15 @@
         }
         
         public List<BEUnidadGeografica> GetUbigeosPorPais(int paisID)
-        { 
-            BEUnidadGeografica vUnidadGeografica = new BEUnidadGeografica();
+        {
             List<BEUnidadGeografica> vListaUnidadGeografica = new List<BEUnidadGeografica>();
 
-            DAUbigeo DAUbigeo = new DAUbigeo(paisID,1);                
-            using (IDataReader reader = DAUbigeo.GetUbigeosPorPais())
+            DAUbigeo daUbigeo = new DAUbigeo(paisID,1);                
+            using (IDataReader reader = daUbigeo.GetUbigeosPorPais())
             {
                 while (reader.Read())
                 {
-                    vUnidadGeografica = new BEUnidadGeografica(reader);
+                    var vUnidadGeografica = new BEUnidadGeografica(reader);
                     vListaUnidadGeografica.Add(vUnidadGeografica);
                 }
             }
@@ -70,14 +67,12 @@
         public List<BEUnidadGeografica> ArmarArbol(int nivel, List<BEUnidadGeografica> source, List<BEUnidadGeografica> parent)
         {
             var resultado = new List<BEUnidadGeografica>();
-            int nivelActual;
-            var hijos = new List<BEUnidadGeografica>();
             foreach (var item in parent)
             {
-                nivelActual = item.NivelUbigeo;
+                var nivelActual = item.NivelUbigeo;
                 if (nivelActual == nivel)
                 {
-                    hijos = ObtenerHijos(nivelActual, source, item.CodigoUbigeo);
+                    var hijos = ObtenerHijos(nivelActual, source, item.CodigoUbigeo);
                     if (hijos.Count > 0)
                     {
                         item.Ubigeo = ArmarArbol(nivel + 1, source, hijos);
@@ -91,9 +86,9 @@
 
         public List<BEUnidadGeografica> ObtenerHijos(int nivel, List<BEUnidadGeografica> source, string CodigoUbigeo)
         {
-            string Codigo = CodigoUbigeo.Substring(0, nivel * 6);             
-            var ListaHijos = source.Where(r => r.CodigoUbigeo.Substring(0, nivel * 6) == Codigo).ToList();
-            return ListaHijos;
+            string codigo = CodigoUbigeo.Substring(0, nivel * 6);             
+            var listaHijos = source.Where(r => r.CodigoUbigeo.Substring(0, nivel * 6) == codigo).ToList();
+            return listaHijos;
         }
     
     }   

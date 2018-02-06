@@ -18,14 +18,16 @@ namespace Portal.Consultoras.BizLogic
         {
             var listPalabraInvalida = new BLPalabraInvalida().GetAll().ToList();
 
-            string token;
             foreach (var texto in listTexto)
             {
                 var matches = Regex.Matches(texto.Trim().ToLower(), REGEXP).GetEnumerator();
                 while (matches.MoveNext())
                 {
-                    token = matches.Current.ToString();
-                    if (EsPalabraValida(listPalabraInvalida, token)) loadTokens(token);
+                    if (matches.Current != null)
+                    {
+                        var token = matches.Current.ToString();
+                        if (EsPalabraValida(listPalabraInvalida, token)) loadTokens(token);
+                    }
                 }
             }
         }
@@ -43,13 +45,13 @@ namespace Portal.Consultoras.BizLogic
 
         public Dictionary<string,long> GetDictionaryPalabraConteo(string paisISO, int campaniaID)
         {
-            int paisID = Util.GetPaisID(paisISO);
-            var dictionaryPalabraConteo = CacheManager<Dictionary<string, long>>.GetDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString());
+            int paisId = Util.GetPaisID(paisISO);
+            var dictionaryPalabraConteo = CacheManager<Dictionary<string, long>>.GetDataElement(paisId, ECacheItem.ProductoPalabra, campaniaID.ToString());
             if (dictionaryPalabraConteo == null || dictionaryPalabraConteo.Count == 0)
             {
-                var dAProductoPalabra = new DAProductoPalabra(paisID);
+                var dAProductoPalabra = new DAProductoPalabra(paisId);
                 dictionaryPalabraConteo = dAProductoPalabra.GetByCampaniaID(campaniaID);
-                CacheManager<Dictionary<string, long>>.AddDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1,1,0,0));
+                CacheManager<Dictionary<string, long>>.AddDataElement(paisId, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1,1,0,0));
             }
             return dictionaryPalabraConteo;
         }
@@ -79,12 +81,11 @@ namespace Portal.Consultoras.BizLogic
         public Dictionary<string, long> GetDictionaryCandidatoConteoFromPalabra(string paisISO, int campaniaID, string palabra, int iteracion, int count)
         {
             HashSet<string> listPalabra = new HashSet<string> { palabra };
-            Dictionary<string, long> dictionaryPalabraConteoExistente;
             for (int i = 0; i <= iteracion; i++)
             {
                 if (i > 0) listPalabra = GenerarListParecida(listPalabra);
 
-                dictionaryPalabraConteoExistente = GetDictionaryPalabraConteoExistente(paisISO, campaniaID, listPalabra);
+                var dictionaryPalabraConteoExistente = GetDictionaryPalabraConteoExistente(paisISO, campaniaID, listPalabra);
                 if (dictionaryPalabraConteoExistente.Count > 0) return dictionaryPalabraConteoExistente.TakeOrderedByValue(count, true);
             }
             return new Dictionary<string, long> { { palabra, 0 } };
@@ -92,12 +93,11 @@ namespace Portal.Consultoras.BizLogic
         public List<string> GetListCandidatoFromPalabra(string paisISO, int campaniaID, string palabra, int iteracion, int count)
         {
             HashSet<string> listPalabra = new HashSet<string> { palabra };
-            Dictionary<string, long> dictionaryPalabraConteoExistente;
             for (int i = 0; i <= iteracion; i++)
             {
                 if (i > 0) listPalabra = GenerarListParecida(listPalabra);
 
-                dictionaryPalabraConteoExistente = GetDictionaryPalabraConteoExistente(paisISO, campaniaID, listPalabra);
+                var dictionaryPalabraConteoExistente = GetDictionaryPalabraConteoExistente(paisISO, campaniaID, listPalabra);
                 if (dictionaryPalabraConteoExistente.Count > 0) return dictionaryPalabraConteoExistente.TakeListOrderedByValue(count, true);
             }
             return new List<string> { palabra };
@@ -165,12 +165,11 @@ namespace Portal.Consultoras.BizLogic
 
         private void LimitDictionaryPalabraListCandidato(Dictionary<string, List<string>> dictionaryPalabraListCandidato, int limitMerge)
         {
-            int index, count;
             var dictionaryCountLimit = GetDictionaryCountLimit(dictionaryPalabraListCandidato.ToDictionary(plc => plc.Key, plc => plc.Value.Count), limitMerge);
             foreach (var palabraListCandidato in dictionaryPalabraListCandidato)
             {
-                index = dictionaryCountLimit[palabraListCandidato.Key];
-                count = palabraListCandidato.Value.Count - index;
+                var index = dictionaryCountLimit[palabraListCandidato.Key];
+                var count = palabraListCandidato.Value.Count - index;
                 palabraListCandidato.Value.RemoveRange(index, count);
             }
         }
@@ -178,11 +177,10 @@ namespace Portal.Consultoras.BizLogic
         {
             var dictionaryIterator = dictionaryCount.ToDictionary(dc => dc.Key, dc => new BETuplaEditable<int, int, int>(1, 1, dc.Value)).ToList();
             long mergeCount = 1;
-            bool cambioIterator;
 
             while (mergeCount <= limitMerge)
             {
-                cambioIterator = false;
+                var cambioIterator = false;
                 foreach (var iterator in dictionaryIterator)
                 {
                     iterator.Value.Item1 = iterator.Value.Item2;

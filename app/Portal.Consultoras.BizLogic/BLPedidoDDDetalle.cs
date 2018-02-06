@@ -9,38 +9,38 @@
     {
         public IList<BEPedidoDDDetalle> GetPedidoDDDetalleByPedidoID(int paisID, int campaniaID, int pedidoID)
         {
-            IList<BEPedidoDDDetalle> listaBEPedidoDDDetalle = new List<BEPedidoDDDetalle>();
-            DAPedidoDDDetalle daPedidoDDDetalle = new DAPedidoDDDetalle(paisID);
+            IList<BEPedidoDDDetalle> listaBePedidoDdDetalle = new List<BEPedidoDDDetalle>();
+            DAPedidoDDDetalle daPedidoDdDetalle = new DAPedidoDDDetalle(paisID);
 
-            using (IDataReader reader = daPedidoDDDetalle.GetPedidoDDDetalleByPedidoID(campaniaID, pedidoID))
+            using (IDataReader reader = daPedidoDdDetalle.GetPedidoDDDetalleByPedidoID(campaniaID, pedidoID))
                 while (reader.Read())
                 {
-                    BEPedidoDDDetalle bePedidoDDDetalle = new BEPedidoDDDetalle(reader);
-                    listaBEPedidoDDDetalle.Add(bePedidoDDDetalle);
+                    BEPedidoDDDetalle bePedidoDdDetalle = new BEPedidoDDDetalle(reader);
+                    listaBePedidoDdDetalle.Add(bePedidoDdDetalle);
                 }
 
-            return listaBEPedidoDDDetalle;
+            return listaBePedidoDdDetalle;
         }
 
         public void InsPedidoDetalleDD(int paisID, BEPedidoDDDetalle bePedidoDDDetalle)
         {
-            DAPedidoDDDetalle daPedidoDDDetalle = new DAPedidoDDDetalle(paisID);
+            DAPedidoDDDetalle daPedidoDdDetalle = new DAPedidoDDDetalle(paisID);
 
-            daPedidoDDDetalle.InsPedidoDetalleDD(bePedidoDDDetalle);
+            daPedidoDdDetalle.InsPedidoDetalleDD(bePedidoDDDetalle);
         }
 
         public void UpdPedidoDetalleDD(int paisID, BEPedidoDDDetalle bePedidoDDDetalle)
         {
-            DAPedidoDDDetalle daPedidoDDDetalle = new DAPedidoDDDetalle(paisID);
+            DAPedidoDDDetalle daPedidoDdDetalle = new DAPedidoDDDetalle(paisID);
 
-            daPedidoDDDetalle.UpdPedidoDetalleDD(bePedidoDDDetalle);
+            daPedidoDdDetalle.UpdPedidoDetalleDD(bePedidoDDDetalle);
         }
 
         public void DelPedidoDetalleDD(int paisID, BEPedidoDDDetalle bePedidoDDDetalle)
         {
-            DAPedidoDDDetalle daPedidoDDDetalle = new DAPedidoDDDetalle(paisID);
+            DAPedidoDDDetalle daPedidoDdDetalle = new DAPedidoDDDetalle(paisID);
 
-            daPedidoDDDetalle.DelPedidoDetalleDD(bePedidoDDDetalle);
+            daPedidoDdDetalle.DelPedidoDetalleDD(bePedidoDDDetalle);
         }
     }
 }
