@@ -1605,7 +1605,7 @@ namespace Portal.Consultoras.Web.Controllers
                     productosModel.Add(GetProductoNoExiste());
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var cuvCredito = ValidarCUVCreditoPorCUVRegular(model, userModel);
                 if (cuvCredito.IdMensaje == CUV_NO_TIENE_CREDITO)
                 {
@@ -1718,7 +1718,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
-            
+
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
@@ -1752,9 +1752,9 @@ namespace Portal.Consultoras.Web.Controllers
                     .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                     .ToList();
             }
-            
+
         }
-        
+
         private ProductoModel GetProductoNoExiste()
         {
             return new ProductoModel()
@@ -3047,14 +3047,11 @@ namespace Portal.Consultoras.Web.Controllers
                 obePedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
                 var quitoCantBackOrder = false;
-                if (tipoAdm == "U"
-                    && obePedidoWebDetalle.PedidoDetalleID != 0)
+                if (tipoAdm == "U" && obePedidoWebDetalle.PedidoDetalleID != 0)
                 {
                     var oldPedidoWebDetalle = olstTempListado.FirstOrDefault(x => x.PedidoDetalleID == obePedidoWebDetalle.PedidoDetalleID) ?? new BEPedidoWebDetalle();
 
-                    if (oldPedidoWebDetalle.AceptoBackOrder
-                        && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad
-                        )
+                    if (oldPedidoWebDetalle.AceptoBackOrder && obePedidoWebDetalle.Cantidad < oldPedidoWebDetalle.Cantidad)
                     {
                         quitoCantBackOrder = true;
                     }
@@ -3469,63 +3466,61 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         private void AgregarKitNuevas()
-        {                
+        {
+
             try
             {
-            
-            bool flagkit = false;
+                bool flagkit = false;
 
-            if (Session["ConfiguracionProgramaNuevas"] != null) return;
-            if (!userData.EsConsultoraNueva)
-            {
-                /* Kit de nuevas para segundo y tercer pedido*/
-                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                    userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                if (Session["ConfiguracionProgramaNuevas"] != null) return;
+
+                if (!userData.EsConsultoraNueva)
                 {
-                    var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+                    /* Kit de nuevas para segundo y tercer pedido*/
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                    {
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
 
-                    if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                        if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                        {
+                            Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                            return;
+                        }
+
+                        flagkit = true;
+                    }
+
+                    if (!flagkit)
                     {
                         Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                         return;
                     }
-
-                    flagkit = true;
                 }
-                /****************/
+                if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
-                if (!flagkit)
+                var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+
+                if (obeConfiguracionProgramaNuevas == null)
                 {
                     Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                     return;
                 }
-            }            
-            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-            
-            
-                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-                    if (obeConfiguracionProgramaNuevas == null)
-                    {
-                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                        return;
-                    }
+                if (!flagkit) //Kit en 2 y 3 pedido
+                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
-                    Session["ConfiguracionProgramaNuevas"] = obeConfiguracionProgramaNuevas;
-                    if (!flagkit) //Kit en 2 y 3 pedido
-                        if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
-
-                    var listaTempListado = ObtenerPedidoWebDetalle();
+                var listaTempListado = ObtenerPedidoWebDetalle();
 
                 var det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
 
                 if (det.PedidoDetalleID > 0) return;
 
-                    List<BEProducto> olstProducto;                    
-                    using (var svOds = new ODSServiceClient())
-                    {
-                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
-                    }
+                List<BEProducto> olstProducto;
+                using (var svOds = new ODSServiceClient())
+                {
+                    olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
+                }
 
                 if (olstProducto.Count > 0)
                 {
@@ -4415,10 +4410,14 @@ namespace Portal.Consultoras.Web.Controllers
         private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model)
         {
             #region Validar Stock Estrategia
-            var descripcion = estrategia.DescripcionCUV2;
+            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1)
             {
                 estrategia.Cantidad = estrategia.LimiteVenta;
+            }
+            else            {
+                descripcion = estrategia.DescripcionCUV2;
             }
 
             var resul = false;
