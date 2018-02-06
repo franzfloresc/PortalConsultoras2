@@ -964,21 +964,12 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static BEPager PaginadorGenerico<T>(BEGrid item, List<T> lst)
         {
-            BEPager pag = new BEPager();
-
-            int recordCount = lst.Count;
             item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
 
-            int pageCount = recordCount / item.PageSize;
-            pageCount = pageCount < 1 ? 1 : pageCount;
-            pageCount += recordCount > (pageCount * item.PageSize) ? 1 : 0;
-
-            pag.RecordCount = recordCount;
-            pag.PageCount = pageCount;
-
-            int currentPage = item.CurrentPage;
-            pag.CurrentPage = currentPage > pageCount ? pageCount : currentPage;
-
+            BEPager pag = new BEPager();
+            pag.RecordCount = lst.Count;
+            pag.PageCount = ((pag.RecordCount - 1) / item.PageSize) + 1;
+            pag.CurrentPage = item.CurrentPage > pag.PageCount ? pag.PageCount : item.CurrentPage;
             return pag;
         }
 

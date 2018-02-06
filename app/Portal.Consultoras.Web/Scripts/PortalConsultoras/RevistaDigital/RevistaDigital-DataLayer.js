@@ -448,7 +448,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function SuscripcionExistosa() {
-        _virtualEventPush(_text.epm, _action.suscripcionExitosa, _text.notAvailable);
+        _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
     }
 
     function MostrarPopup() {
@@ -456,7 +456,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function Inscripcion() {
-        _promotionClickPush(_category.ganaMas, _action.clickBoton, _text.suscribete);
+        _virtualEventPush(_category.ganaMas, _action.clickBoton, _text.suscribete);
 
     }
 

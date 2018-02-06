@@ -1597,22 +1597,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
                 BloqueoProductosCatalogo(ref productos);
-                if (!productos.Any())
-                {
-                    productosModel.Add(GetProductoNoExiste());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
-
-                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
-
-                var codigoEstrategia = Util.Trim(producto.TipoEstrategiaCodigo);
-                if (BloqueoProductosRevistaDigital(codigoEstrategia))
-                {
-                    productosModel.Add(GetProductoInscribeteEnRevistaDigital());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
 
                 BloqueoProductosDigitales(ref productos);
+
                 if (!productos.Any())
                 {
                     productosModel.Add(GetProductoNoExiste());
@@ -1626,7 +1613,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
+                var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new BEProducto();
 
                 var estrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new BEEstrategia();
@@ -1732,24 +1719,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (beProductos == null) return;
             if (!beProductos.Any()) return;
 
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva)
-            {
-                beProductos = beProductos
-                    .Where(prod =>
-                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                        )
-                    )
-                    .ToList();
-            }
-
             if (revistaDigital.BloqueoProductoDigital)
             {
                 beProductos = beProductos
                     .Where(prod =>
-                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                          || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                        !(prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                           || prod.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                         )
@@ -1781,31 +1755,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private bool BloqueoProductosRevistaDigital(string codigoEstrategia)
-        {
-            return (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
-                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
-                   && !revistaDigital.TieneRDR
-                   && !revistaDigital.TieneRDC;
-        }
-
         private ProductoModel GetProductoNoExiste()
         {
             return new ProductoModel()
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
-                TieneSugerido = 0
-            };
-        }
-
-        private ProductoModel GetProductoInscribeteEnRevistaDigital()
-        {
-            return new ProductoModel()
-            {
-                MarcaID = 0,
-                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
                 TieneSugerido = 0
             };
         }
@@ -2693,13 +2648,17 @@ namespace Portal.Consultoras.Web.Controllers
                     Total_Minimo = Util.DecimalToStringFormat(totalMinimoPedido, userData.CodigoISO)
                 };
 
-                if (pedidoModelo.ListaDetalle.Any())
-                {
-                    var grid = SetGrid(sidx, sord, page, rows);
-                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalle);
+                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(pedidoModelo.ListaDetalle);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoModelo.ListaDetalleFormato = pedidoWebDetalleModel;
 
-                    pedidoModelo.ListaDetalle = pedidoModelo.ListaDetalle.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
-                    pedidoModelo.ListaDetalle.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
+                if (pedidoModelo.ListaDetalleFormato.Any())
+                {
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
+                    var pag = Util.PaginadorGenerico(grid, pedidoModelo.ListaDetalleFormato);
+
+                    pedidoModelo.ListaDetalleFormato = pedidoModelo.ListaDetalleFormato.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                    pedidoModelo.ListaDetalleFormato.Update(detalle => { if (string.IsNullOrEmpty(detalle.Nombre)) detalle.Nombre = userData.NombreConsultora; });
 
                     pedidoModelo.Registros = grid.PageSize.ToString();
                     pedidoModelo.RegistrosTotal = pag.RecordCount.ToString();
@@ -3511,13 +3470,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                bool flagkit = false;
 
                 if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
                 if (!userData.EsConsultoraNueva)
                 {
-                    Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                    return;
+                    /* Kit de nuevas para segundo y tercer pedido*/
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                    {
+                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
+
+                        if (!PaisesFraccionKit.Contains(userData.CodigoISO))
+                        {
+                            Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                            return;
+                        }
+
+                        flagkit = true;
+                    }
+
+                    if (!flagkit)
+                    {
+                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
+                        return;
+                    }
                 }
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
@@ -3529,7 +3508,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
+                if (!flagkit) //Kit en 2 y 3 pedido
+                    if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
                 var listaTempListado = ObtenerPedidoWebDetalle();
 
@@ -3645,7 +3625,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
                     SetUserData(userData);
 
-                    var grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
 
                     model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
@@ -4391,10 +4371,14 @@ namespace Portal.Consultoras.Web.Controllers
         private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, PedidoCrudModel model)
         {
             #region Validar Stock Estrategia
-            var descripcion = estrategia.DescripcionCUV2;
+            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            var descripcion = ofertas[0];
             if (estrategia.FlagNueva == 1)
             {
                 estrategia.Cantidad = estrategia.LimiteVenta;
+            }
+            else            {
+                descripcion = estrategia.DescripcionCUV2;
             }
 
             var resul = false;
