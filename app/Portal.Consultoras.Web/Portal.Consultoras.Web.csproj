@@ -212,6 +212,7 @@
     <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\DescargarAppController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
@@ -1216,6 +1217,7 @@
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\cdr.css" />
     <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
+    <Content Include="Content\Css\Mobile\esika\descargar-app.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\misDatos.css" />
@@ -1234,6 +1236,7 @@
     <Content Include="Content\Css\Mobile\jquery.tag-editor.css" />
     <Content Include="Content\Css\Mobile\lbel\cdr.css" />
     <Content Include="Content\Css\Mobile\lbel\Contenedor.css" />
+    <Content Include="Content\Css\Mobile\lbel\descargar-app.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
@@ -1288,6 +1291,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\boton-cerrar-vista-descargar-app.svg" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
     <Content Include="Content\Images\close-icon.svg" />
@@ -1300,6 +1304,7 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\img-descarga-app.png" />
     <Content Include="Content\Images\Esika\loading_circle.gif" />
     <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
@@ -1322,6 +1327,7 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Lbel\img-descarga-app.png" />
     <Content Include="Content\Images\Lbel\loading_circle.gif" />
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
@@ -3745,6 +3751,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
+    <Content Include="Areas\Mobile\Views\DescargarApp\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
