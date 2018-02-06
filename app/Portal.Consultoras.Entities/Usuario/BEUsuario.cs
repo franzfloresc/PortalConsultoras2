@@ -1080,6 +1080,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string NumeroDocumento { get; set; }
         [DataMember]
+        [Column("Seccion")]
         public string Seccion { get; set; }
         [DataMember]
         public string Zona { get; set; }

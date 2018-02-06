@@ -646,7 +646,9 @@ namespace Portal.Consultoras.BizLogic
                 Detalle = new BEConfiguracionPaisDetalle() {
                     PaisID = usuario.PaisID,
                     CodigoRegion = usuario.CodigorRegion,
-                    CodigoZona = usuario.CodigoZona
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoSeccion = usuario.Seccion,
+                    CodigoConsultora = usuario.CodigoConsultora
                 }
             };
 
