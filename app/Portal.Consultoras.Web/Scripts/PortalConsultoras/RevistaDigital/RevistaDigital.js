@@ -121,8 +121,9 @@ $(document).ready(function () {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
             $('html, body').animate({
-                scrollTop: $('#divTopFiltros').position().top - 60
+                scrollTop: topFiltros - 60
             }, 1000, 'swing');
         }
     });
@@ -196,12 +197,12 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('[data-listado-campania=' + idCamapania + ']');
-    if (top.length > 0) {
-        top = top.position().top;
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
+    if (topListado.length > 0) {
+        topListado = (top.position() || {}).top || 0;
 
         $('html, body').animate({
-            scrollTop: top - 70
+            scrollTop: topListado - 70
         }, 1000, 'swing');
     }
 }
