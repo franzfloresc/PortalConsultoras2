@@ -5518,6 +5518,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ClaveField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoEntranteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5604,6 +5607,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ClaveField, value) != true)) {
                     this.ClaveField = value;
                     this.RaisePropertyChanged("Clave");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoEntrante {
+            get {
+                return this.CodigoEntranteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoEntranteField, value) != true)) {
+                    this.CodigoEntranteField = value;
+                    this.RaisePropertyChanged("CodigoEntrante");
                 }
             }
         }

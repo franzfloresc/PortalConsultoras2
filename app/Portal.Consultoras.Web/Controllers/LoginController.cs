@@ -2471,7 +2471,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    codigoSms = sv.GetCodigoSMS(paisID, pRestaurar.CodigoUsuario, Origen);
+                    codigoSms = sv.GetCodigoSMS(paisID, pRestaurar.CodigoEntrante, Origen);
                 }
 
                 if (codigoSms == Codigoingresado)

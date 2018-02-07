@@ -14,6 +14,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -35,41 +44,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -89,6 +63,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -110,41 +93,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -164,6 +112,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -185,41 +142,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -239,6 +161,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -260,41 +191,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -314,6 +210,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -335,41 +240,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -389,6 +259,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -410,41 +289,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -464,6 +308,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -485,41 +338,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -539,6 +357,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -560,41 +387,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -614,6 +406,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -635,41 +436,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -689,6 +455,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -710,41 +485,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -764,6 +504,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -785,41 +534,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -839,6 +553,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -860,41 +583,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 
@@ -914,6 +602,15 @@ CREATE PROC InsCodigoSMS
 )
 AS
 BEGIN
+	
+	DECLARE @Cantidad int = 0
+	SELECT @Cantidad = count(*) from CodigoSMS
+	IF (@Cantidad >= 500)
+	BEGIN
+		DELETE FROM CodigoSMS
+		DBCC CHECKIDENT (CodigoSMS, RESEED, 0);
+	END
+
 	/*** Verificando si la consultora ya tiene un codigo generado ***/
 	IF NOT EXISTS (select 1 from [dbo].[CodigoSMS] where Origen = @Origen and CodigoConsultora = @CodigoConsultora)
 	BEGIN
@@ -935,41 +632,6 @@ BEGIN
 			  ,FechaGeneracion = GETDATE()
 		 WHERE Origen = @Origen and CodigoConsultora = @CodigoConsultora
 	END
-END
-GO
-
-IF EXISTS(select 1 from sys.objects where type = 'P' and name = 'InsLogEnvioSMS')
-BEGIN
-	DROP PROC InsLogEnvioSMS
-END
-GO
-CREATE PROC InsLogEnvioSMS
-(
-@Origen varchar(30),
-@CodigoConsultora varchar(20),
-@MensajeEnviado varchar(180),
-@MensajeRespuesta varchar(180)
-)
-AS
-
-BEGIN 
-	insert into [dbo].[LogEnvioSMS]
-	(
-		[Origen],
-		[CodigoConsultora],
-		[MensajeEnviado],
-		[MensajeRespuesta],
-		[FechaEnvio]
-	)
-	values
-	(
-		@Origen,
-		@CodigoConsultora,
-		@MensajeEnviado,
-		@MensajeRespuesta,
-		GETDATE()
-	)
-
 END
 GO
 

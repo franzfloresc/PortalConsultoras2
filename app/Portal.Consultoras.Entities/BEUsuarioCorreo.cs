@@ -12,6 +12,9 @@ namespace Portal.Consultoras.Entities
         public int Cantidad { get; set; }
 
         [DataMember]
+        public string CodigoEntrante { get; set; }
+
+        [DataMember]
         public string CodigoUsuario { get; set; }
 
         [DataMember]
@@ -66,6 +69,8 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
+            if (DataRecord.HasColumn(row, "CodigoEntrante"))
+                CodigoEntrante = Convert.ToString(row["CodigoEntrante"]);
             if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             if (DataRecord.HasColumn(row, "CodigoISO"))

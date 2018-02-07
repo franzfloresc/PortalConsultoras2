@@ -6,6 +6,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -17,7 +18,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -29,6 +30,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -40,7 +42,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -52,6 +54,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -63,7 +66,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -75,6 +78,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -86,7 +90,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -98,6 +102,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -109,7 +114,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -121,6 +126,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -132,7 +138,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -144,6 +150,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -155,7 +162,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -167,6 +174,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -178,7 +186,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -190,6 +198,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -201,7 +210,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -213,6 +222,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -224,7 +234,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -236,6 +246,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -247,7 +258,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -259,6 +270,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -270,7 +282,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
@@ -282,6 +294,7 @@ BEGIN
 	DROP PROC GetCodigoSMS
 END
 GO
+
 CREATE PROC GetCodigoSMS 
 (
 @CodigoConsultora varchar(20),
@@ -293,7 +306,7 @@ BEGIN
 		CodigoGenerado AS CodigoSms
 	FROM [dbo].[CodigoSMS]
 	WHERE [CodigoConsultora] = @CodigoConsultora
-	and [Origen] = @Origen
+	and Lower(Origen) = lower(@Origen)
 END
 GO
 
