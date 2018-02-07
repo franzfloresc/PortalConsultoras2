@@ -7320,6 +7320,7 @@ img {
         position: absolute;
         top: 3px;
         width: 8px;
+        z-index: 0;
     }
 
 .cross_line {
