@@ -240,7 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
                 string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
 
-                if (!GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
+                if (!GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
                     urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
                     urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
