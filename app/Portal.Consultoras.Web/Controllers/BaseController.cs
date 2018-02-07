@@ -3379,7 +3379,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
         {
             var menuActivo = GetSessionMenuActivo();
-            var listMenu = BuildMenuContenedor();
+            var listMenu = BuildMenuContenedor(revistaDigital);
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
 
             if (menuActivo.CampaniaId == userData.CampaniaID && !sessionManager.GetTieneLan())
