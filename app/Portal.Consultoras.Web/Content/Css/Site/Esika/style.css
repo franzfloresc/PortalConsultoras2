@@ -32048,6 +32048,21 @@ h1#penmostreo .campana {
     height: 100px;
     margin: 0 auto;
     background-size: cover;
+    position: relative;
+}
+
+.content_oferta_dia_img {
+    height: 100px;
+    position: absolute;
+    width: 172px;
+}
+
+.derecha_img {
+    right: -172px;
+}
+
+.izquierda_img {
+    left: -172px;
 }
 
 .reloj_oferta {
