@@ -120,13 +120,13 @@ BEGIN
 		DescripcionTipoEstrategia varchar(200),
 		TipoEstrategiaCodigo varchar(100),
 		CodigoPrograma varchar(3),
-		PRIMARY KEY (CUV2)
+		PRIMARY KEY (EstrategiaID)
 	)
 
 	INSERT INTO @Estrategia
 	SELECT DISTINCT
 		E.EstrategiaID,
-		COALESCE(TEP.TipoEstrategiaID, TE.TipoEstrategiaID),
+		TE.TipoEstrategiaID,
 		E.Activo,
 		E.CampaniaID,
 		E.CampaniaIDFin,
@@ -148,7 +148,7 @@ BEGIN
 	WHERE TE.FlagActivo = 1
 	UNION
 	SELECT EP.EstrategiaProductoId,
-		COALESCE(TEP.TipoEstrategiaID, TE.TipoEstrategiaID),
+		TE.TipoEstrategiaID,
 		E.Activo,
 		E.CampaniaID,
 		E.CampaniaIDFin,
@@ -221,7 +221,7 @@ BEGIN
 		EST.TipoEstrategiaID,
 		EST.Numeropedido
 	FROM @PedidoDetalle PWD
-		LEFT JOIN @Estrategia EST ON EST.CUV2 = PWD.CUV
+		LEFT JOIN @Estrategia EST ON EST.CUV2 = PWD.CUV and PWD.TipoEstrategiaID = EST.TipoEstrategiaID
 	ORDER BY PWD.OrdenPedidoWD DESC, PWD.PedidoDetalleID DESC
 END
 GO
