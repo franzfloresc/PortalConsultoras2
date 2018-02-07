@@ -602,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            ofertaShowRoomModelo.Hermanos = listaHermanos;
+            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
             /*TONOS-FIN*/
 
             return ofertaShowRoomModelo;
