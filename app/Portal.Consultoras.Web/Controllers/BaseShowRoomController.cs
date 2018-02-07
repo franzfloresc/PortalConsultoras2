@@ -469,6 +469,36 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel { ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>() };
 
+            if (idOferta <= 0) return ofertaShowRoomModelo;
+
+            var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
+
+            ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
+
+            if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
+
+            ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
+            ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? "/Content/Images/showroom/no_disponible.png" : ofertaShowRoomModelo.ImagenProducto;
+
+            List<BEShowRoomOfertaDetalle> listaDetalle;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, ofertaShowRoomModelo.CUV).ToList();
+            }
+
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
+
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
+
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            ofertaShowRoomModelo.ListaDetalleOfertaShowRoom.Update(p =>
+            {
+                p.Imagen = string.IsNullOrEmpty(p.Imagen)
+                    ? "/Content/Images/showroom/no_disponible.png"
+                    : ConfigS3.GetUrlFileS3(carpetaPais, p.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO);
+            });
+
+            /*TONOS-INI*/
             #region Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto
             List<BEEstrategiaProducto> listEstrategiaProductos = new List<BEEstrategiaProducto>();
             EstrategiaPedidoModel estrategia = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = 15144 };//*Dato en duro - CangahualaMarquez
@@ -516,10 +546,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaHermanosX = new List<ProductoModel>();
                 listEstrategiaProductos = listEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
                 listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
-
                 var idPk = 1;
                 listaHermanos.ForEach(h => h.ID = idPk++);
-
                 idPk = 0;
                 foreach (var item in listEstrategiaProductos)
                 {
@@ -531,7 +559,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
                     }
-
                     prod.Orden = item.Orden;
                     prod.Grupo = item.Grupo;
                     prod.PrecioCatalogo = item.Precio;
@@ -543,9 +570,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaHermanosX.Add(prod);
                     idPk = prod.ID;
                 }
-
                 listaHermanos = listaHermanosX;
-
                 if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
                 {
                     listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
@@ -571,81 +596,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                             hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
                         }
-
                         listaHermanosR.Add(hermano);
                     }
-
                     listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
                 }
-
             }
             #endregion
-
-
-
-
-            /////**********HISTORICO DEL CODIGO**************/////////
-            //if (idOferta <= 0) return ofertaShowRoomModelo;
-            //var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-            //ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
-            //if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
-            //ofertaShowRoomModelo.ImagenProducto = Util.Trim(ofertaShowRoomModelo.ImagenProducto);
-            //ofertaShowRoomModelo.ImagenProducto = ofertaShowRoomModelo.ImagenProducto == "" ? "/Content/Images/showroom/no_disponible.png" : ofertaShowRoomModelo.ImagenProducto;
-            ////Obtener productos de Set
-            //List<BEShowRoomOfertaDetalle> listaDetalle;
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, ofertaShowRoomModelo.CUV).ToList();
-            //}
-            ///************************************************/
-            //List<BEEstrategiaProducto> listaProducto = new List<BEEstrategiaProducto>();
-
-            //foreach (BEShowRoomOfertaDetalle productoShowroom in listaDetalle)
-            //{
-            //    BEEstrategiaProducto producto = new BEEstrategiaProducto
-            //    {
-            //        CUV = productoShowroom.CUV,
-            //        SAP = productoShowroom.SAP,
-            //        Grupo= productoShowroom.Grupo,
-            //        Orden= 1,
-            //        Precio=100,
-            //        Digitable=1,
-            //        Cantidad=1
-            //    };
-            //    listaProducto.Add(producto);
-            //}
-            /*******/
-          
-
-            
-
-            
-
-        
-
-           
             ofertaShowRoomModelo.Hermanos = listaHermanos;
-
-            /************************************************/
-            //ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
-            //ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = ofertaShowRoomModelo.ListaDetalleOfertaShowRoom ?? new List<ShowRoomOfertaDetalleModel>();
-            //var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            //ofertaShowRoomModelo.ListaDetalleOfertaShowRoom.Update(p =>
-            //{
-            //    p.Imagen = string.IsNullOrEmpty(p.Imagen)
-            //        ? "/Content/Images/showroom/no_disponible.png"
-            //        : ConfigS3.GetUrlFileS3(carpetaPais, p.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO);
-            //});
-       
-
-
-
-     
+            /*TONOS-FIN*/
 
             return ofertaShowRoomModelo;
 
         }
-
         public List<ShowRoomOfertaModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<ShowRoomOfertaModel>();

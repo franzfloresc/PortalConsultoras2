@@ -69,16 +69,8 @@
                     {
                         <span class="brand">@detalle.DescripcionMarca</span>
                     }*@
-                    <div class="content_detalle_set_showroom">
-                        @*<div class="content_imagen_individual">
-                            <img src="@detalle.Imagen">
-                        </div>*@
-                        @*<div class="content_descripcion_set">
-                            <span class="product_name">@detalle.DescripcionComercial</span>
-                            <span class="price">@detalle.DescripcionCategoria</span>
-                            <span class="price">@detalle.DescripcionCategoria</span>
-                            <span class="price" style="margin-bottom: 8px;">@detalle.DescripcionCategoria</span>
-                        </div>*@
+                    <div class="content_detalle_set_showroom_cangahualaMarquez">
+                       
                         <hr class="clear">
                         @*@if (Model.CodigoEstrategia != "")
                         {*@
@@ -131,8 +123,8 @@
                                     var claseItem3 = "2003" == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
                                     if (Model.Hermanos != null && Model.Hermanos.Any())
                                     {
-                                        <div class="titulo_contenido">CONTENIDO</div>
-                                        <div class="@claseItem">
+ 
+                                    <div class="@claseItem">
                                             @foreach (var Hermano in Model.Hermanos)
                                             {
                                                 if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
@@ -140,18 +132,25 @@
                                                     continue;
                                                 }
                                                 <div>
-                                                    <div class="@claseItem3" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                                    <div class="@claseItem3 content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                                         <div style="display: none;">
                                                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                                         </div>
-                                                        <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                                        <div class="content_imagen_individual">
+                                                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200063985 prints_20171250774_01_putjnuccpc.png">@*@detalle.Imagen*@
+                                                        </div>
+                                                        <div  class="content_descripcion_set">
                                                             @if (@Hermano.Cantidad > 0)
                                                             {
                                                                 <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
                                                             }
-                                                            <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                            <span class="product_name" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                            <span class="price">Prints colonia spray femenina 30ml@*@detalle.DescripcionCategoria*@</span>
+                                                            <span class="price">@*@detalle.DescripcionCategoria*@</span>
+                                                            <span class="price" style="margin-bottom: 8px;">@*@detalle.DescripcionCategoria*@</span>
                                                         </div>
+                                                        <hr class="clear">
                                                         @if (Hermano.Digitable == 1)
                                                         {
                                                             <div class="content_tonos_producto">
@@ -186,7 +185,7 @@
                                 }
                             </div>
                         @*}*@
-                        <hr class="clear">
+                   
                     </div>
                 </div>
             </div>
