@@ -469,7 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ShowRoomOfertaModel ofertaShowRoomModelo = new ShowRoomOfertaModel { ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>() };
 
-            #region "Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto"
+            #region Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto
             List<BEEstrategiaProducto> listEstrategiaProductos = new List<BEEstrategiaProducto>();
             EstrategiaPedidoModel estrategia = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = 15144 };//*Dato en duro - CangahualaMarquez
             using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -477,7 +477,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listEstrategiaProductos = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategia)).ToList();
             }
             #endregion
-            #region "Obtener tonos de AppCatalogo con el servicio svc.ObtenerProductosPorCampaniasBySap"
+            #region Obtener tonos de AppCatalogo con el servicio svc.ObtenerProductosPorCampaniasBySap
             StringBuilder listaCodigosSAP = new StringBuilder();
             string separador = "|";
             listaCodigosSAP.Append(separador);
@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (!listaAppCatalogo.Any()) return ofertaShowRoomModelo;
             #endregion
-            #region "algoritmo para relacionar productos con tonos"
+            #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
             string codigoVariante = "2003";//*Dato en duro - CangahualaMarquez
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
