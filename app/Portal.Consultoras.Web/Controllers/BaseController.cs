@@ -2425,7 +2425,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToLower();
             codigoConfig = Util.Trim(codigoConfig);
 
-            var listaConfigPais = ListConfiguracionPais();
+            var listaConfigPais = GetConfiguracionesPaisModel();
             ConfiguracionPaisModel existe;
 
             if (codigoConfig != "" && codigo == "")
@@ -3416,7 +3416,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaMenu = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
             if (listaMenu.Any()) return listaMenu;
 
-            var lista = ListConfiguracionPais();
+            var lista = GetConfiguracionesPaisModel();
             if (!lista.Any()) return listaMenu;
 
             listaMenu = new List<ConfiguracionPaisModel>();
@@ -3843,16 +3843,15 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public List<ConfiguracionPaisModel> ListConfiguracionPais()
+        public List<ConfiguracionPaisModel> GetConfiguracionesPaisModel()
         {
-            return sessionManager.GetConfiguracionesPaisModel() ??
-                   new List<ConfiguracionPaisModel>();
+            return sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
         }
 
         public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
         {
             codigo = Util.Trim(codigo).ToUpper();
-            var listado = ListConfiguracionPais();
+            var listado = GetConfiguracionesPaisModel();
             var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
 
             return entidad;
@@ -4167,7 +4166,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
                 ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
-                var configuracionPaisOdd = ListConfiguracionPais().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+                var configuracionPaisOdd = GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
             }
