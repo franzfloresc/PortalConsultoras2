@@ -613,7 +613,7 @@
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
-    <Compile Include="Models\RevistaDigitalPopup.cs" />
+    <Compile Include="Models\RevistaDigitalPopupModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
