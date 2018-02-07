@@ -3594,10 +3594,10 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> lista)
+        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
         {
-            var listaMenu = new List<ConfiguracionPaisModel>();
-            foreach (var configuracionPais in lista)
+            var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
+            foreach (var configuracionPais in menuContenedor)
             {
                 ConfiguracionPaisModel config;
                 switch (configuracionPais.Codigo)
@@ -3607,24 +3607,31 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "/Ofertas/Revisar";
                         config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
+                        menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "#";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
+                        menuContenedorBloqueado.Add(config);
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/RevistaDigital/Revisar";
                         config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
+                        menuContenedorBloqueado.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.HerramientaVenta:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/HerramientaVenta/Revisar";
+                        config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        menuContenedorBloqueado.Add(config);
                         break;
                 }
             }
-            return listaMenu;
+            return menuContenedorBloqueado;
         }
 
         private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
