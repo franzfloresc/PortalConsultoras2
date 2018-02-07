@@ -35839,19 +35839,19 @@ h1#penmostreo .campana {
         margin-bottom:15px;
     }
 
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 17px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 280px;
-        margin: auto;
-        line-height: normal;
-        
-    }
+.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    margin-bottom: 0;
+    display: block;
+    width: 280px;
+    margin: auto;
+    line-height: normal;
+    margin-bottom: 5px;
+}
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
         font-size: 24px;
