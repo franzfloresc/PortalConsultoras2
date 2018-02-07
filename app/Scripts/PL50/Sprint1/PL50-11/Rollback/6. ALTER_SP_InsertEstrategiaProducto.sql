@@ -20,6 +20,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -49,6 +53,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -65,6 +73,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -86,10 +98,14 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
 
 GO
 
@@ -114,6 +130,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -143,6 +163,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -159,6 +183,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -180,10 +208,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpColombia
@@ -207,6 +240,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -236,6 +273,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -252,6 +293,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -273,10 +318,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpCostaRica
@@ -300,6 +350,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -329,6 +383,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -345,6 +403,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -366,10 +428,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpDominicana
@@ -393,6 +460,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -422,6 +493,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -438,6 +513,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -459,10 +538,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpEcuador
@@ -486,6 +570,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -515,6 +603,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -531,6 +623,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -552,10 +648,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpGuatemala
@@ -579,6 +680,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -608,6 +713,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -624,6 +733,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -645,10 +758,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpMexico
@@ -672,6 +790,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -701,6 +823,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -717,6 +843,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -738,10 +868,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpPanama
@@ -765,6 +900,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -794,6 +933,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -810,6 +953,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -831,10 +978,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpPeru
@@ -858,6 +1010,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -887,6 +1043,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -903,6 +1063,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -924,10 +1088,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpPuertoRico
@@ -951,6 +1120,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -980,6 +1153,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -996,6 +1173,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -1017,10 +1198,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpSalvador
@@ -1044,6 +1230,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -1073,6 +1263,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -1089,6 +1283,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -1110,10 +1308,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 USE BelcorpVenezuela
@@ -1137,6 +1340,10 @@ ALTER PROCEDURE [dbo].[InsertEstrategiaProducto]
 	,@CodigoError nvarchar(100)
 	,@CodigoErrorObs nvarchar(4000)
 	,@FactorCuadre INT
+	,@NombreProducto nvarchar(150)
+	,@Descripcion1 nvarchar(255)
+	,@ImagenProducto nvarchar(150)
+	,@MarcaId tinyint
 AS
 begin
 	
@@ -1166,6 +1373,10 @@ begin
 					,CodigoError
 					,CodigoErrorObs
 					,FactorCuadre
+					,NombreProducto
+					,Descripcion1,
+					,ImagenProducto,
+					,MarcaId
 				)VALUES(
 					@EstrategiaId
 					,@Campania
@@ -1182,6 +1393,10 @@ begin
 					,@CodigoError
 					,@CodigoErrorObs
 					,@FactorCuadre
+					,@NombreProducto
+					,@Descripcion1,
+					,@ImagenProducto,
+					,@MarcaId
 				)
 	
 				set @Retorno = @@IDENTITY
@@ -1203,11 +1418,15 @@ begin
 					,CodigoError = @CodigoError
 					,CodigoErrorObs = @CodigoErrorObs
 					,FactorCuadre = @FactorCuadre
+					,NombreProducto = @NombreProducto
+					,Descripcion1 = @Descripcion1
+					,ImagenProducto = @ImagenProducto
+					,MarcaId = @MarcaId
 			where EstrategiaProductoId = @existe
 			set @Retorno = @existe
 		end
-end
+	end
+
 GO
 
 
-	
