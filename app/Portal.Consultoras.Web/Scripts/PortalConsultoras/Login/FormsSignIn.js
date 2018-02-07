@@ -166,6 +166,10 @@ $(document).ready(function () {
     Inicializar();
 
     $('#frmLogin').on('submit', function (e) {
+        if ($('#popupRestaurarClave').is(':visible')) {
+            return false;
+        }       
+
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
@@ -354,7 +358,7 @@ $(document).ready(function () {
             return false;
         }
         else if (charCode == 13){            
-            RecuperarClave();
+            RecuperarClave("1");
             return false;
         }
     });
