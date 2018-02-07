@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44356</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -1310,6 +1310,8 @@
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
+    <Content Include="Content\Images\etiqueta-club-ganamás-blanco-independiente.png" />
+    <Content Include="Content\Images\etiqueta-club-ganamás-dorado-independiente.png" />
     <Content Include="Content\Images\expand-button.png" />
     <Content Include="Content\Images\flecha-hacia-abajo.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
