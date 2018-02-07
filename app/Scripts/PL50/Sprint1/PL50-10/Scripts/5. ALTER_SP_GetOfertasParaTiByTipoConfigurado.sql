@@ -68,7 +68,7 @@ BEGIN
 			p.AnoCampania = @CampaniaID
 			
 		INSERT INTO @tablaResultado
-		SELECT TOP 5
+		SELECT
 			CUV,'',0,'',0,0,'',0
 		FROM @tablaCuvsOPT WHERE CUV not in (
 			SELECT CUV FROM ods.ProductoComercial WHERE AnoCampania = @CampaniaID
@@ -135,7 +135,7 @@ BEGIN
 			t.CampaniaID = @CampaniaID
 			and e.CUV2 is null
 	END
-	SELECT TOP 5 * FROM @tablaResultado WHERE Id in (
+	SELECT * FROM @tablaResultado WHERE Id in (
 		SELECT min(id) FROM @tablaResultado
 		group by CUV2
 	)
