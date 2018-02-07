@@ -733,22 +733,3 @@ function onYouTubeIframeAPIReady(playerId) {
         playerVars: { rel: 0 }
     });
 };
-
-function CuponPopupCerrar() {
-    //AbrirLoad();
-    $('#Cupon3').hide();
-
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Cupon/PopupCerrar',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            //CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
-        },
-        error: function (data, error) {
-            //CerrarLoad();
-        }
-    });
-}

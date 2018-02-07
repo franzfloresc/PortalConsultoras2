@@ -611,6 +611,7 @@
                 $(elements.ContenedorCuponConocelo).hide();
                 if (setting.PaisISO == "PE") {
                     $('[data-cupon-info-opt]').hide();
+                    $('#cupon-pedido-mobile').show();
                 }
                 finishLoadCuponContenedorInfo = true;
             }
