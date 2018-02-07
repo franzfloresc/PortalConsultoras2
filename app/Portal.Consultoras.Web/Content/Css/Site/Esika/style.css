@@ -20165,6 +20165,10 @@ label.checkpop.c_on {
     box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
 }
 
+.content_item_carrusel_width_ODD {
+    width: 260px;
+}
+
 .content_item_carrusel_ofertaFinal {
     position: relative;
     float: left;
