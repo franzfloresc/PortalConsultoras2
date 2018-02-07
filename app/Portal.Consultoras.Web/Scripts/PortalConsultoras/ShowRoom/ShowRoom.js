@@ -269,7 +269,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    debugger;
     $('body').on('click', '[data-tono-change]', function (e) {
         var accion = $(this).attr("data-tono-change");
 
