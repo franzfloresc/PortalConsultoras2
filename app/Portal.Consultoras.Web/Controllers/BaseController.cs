@@ -3413,19 +3413,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> BuildMenuContenedor()
         {
-            var listaMenu = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
-            if (listaMenu.Any()) return listaMenu;
+            var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
+            var configuracionesPais = GetConfiguracionesPaisModel();
 
-            var lista = GetConfiguracionesPaisModel();
-            if (!lista.Any()) return listaMenu;
+            if (menuContenedor.Any() || !configuracionesPais.Any())
+                return menuContenedor;
 
-            listaMenu = new List<ConfiguracionPaisModel>();
-            lista = lista.Where(c => c.TienePerfil).ToList();
+            menuContenedor = new List<ConfiguracionPaisModel>();
+            configuracionesPais = configuracionesPais.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            var paisCarpeta = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO) ? "Esika" : "Lbel";
-
-            foreach (var confiModel in lista)
+            var paisCarpeta = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            foreach (var confiModel in configuracionesPais)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
                 confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
@@ -3549,13 +3547,13 @@ namespace Portal.Consultoras.Web.Controllers
                 SepararPipe(ref config);
                 RemplazarTagNombreConfiguracion(ref config);
 
-                listaMenu.Add(config);
+                menuContenedor.Add(config);
             }
 
             // Menú inicio
-            if (listaMenu.Any() && (revistaDigital.TieneRDI || revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+            if (menuContenedor.Any() && (revistaDigital.TieneRDI || revistaDigital.TieneRDR || revistaDigital.TieneRDC))
             {
-                listaMenu.ForEach(m =>
+                menuContenedor.ForEach(m =>
                 {
                     if (m.Codigo == Constantes.ConfiguracionPais.InicioRD
                         || m.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
@@ -3585,15 +3583,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
-            listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
+            menuContenedor.AddRange(BuildMenuContenedorBloqueado(menuContenedor));
 
             var isMob = IsMobile();
-            listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                ? isMob ? listaMenu.OrderBy(m => m.MobileOrdenBPT).ToList() : listaMenu.OrderBy(m => m.OrdenBpt).ToList()
-                : isMob ? listaMenu.OrderBy(m => m.MobileOrden).ToList() : listaMenu.OrderBy(m => m.Orden).ToList();
+            menuContenedor = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
+                ? isMob ? menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList() : menuContenedor.OrderBy(m => m.OrdenBpt).ToList()
+                : isMob ? menuContenedor.OrderBy(m => m.MobileOrden).ToList() : menuContenedor.OrderBy(m => m.Orden).ToList();
 
-            sessionManager.SetMenuContenedor(listaMenu);
-            return listaMenu;
+            sessionManager.SetMenuContenedor(menuContenedor);
+            return menuContenedor;
         }
 
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> lista)
