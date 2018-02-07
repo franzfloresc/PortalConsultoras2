@@ -2943,25 +2943,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (menuActivo.CampaniaId <= 0)
                 menuActivo.CampaniaId = userData.CampaniaID;
 
-            var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
 
-            List<BEConfiguracionOfertasHome> listaEntidad;
-
-            if (Session[sessionNombre] != null)
+            var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
+            if(listaEntidad == null)
             {
-                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[sessionNombre];
-            }
-            else
-            {
-                #region  Obtenido de la cache de Amazon
-
-                using (var sv = new SACServiceClient())
-                {
-                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
-                }
-                #endregion
-
-                Session[sessionNombre] = listaEntidad;
+                listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
+                sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
             }
 
             if (menuActivo.CampaniaId > userData.CampaniaID)
@@ -3133,6 +3120,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             return modelo.OrderBy(s => s.Orden).ToList();
 
+        }
+
+        public virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+        {
+            List<BEConfiguracionOfertasHome> configuracionesOfertasHomes;
+
+            using (var sv = new SACServiceClient())
+            {
+                configuracionesOfertasHomes = sv.ListarSeccionConfiguracionOfertasHome(paidId, campaniaId).ToList();
+            }
+
+            return configuracionesOfertasHomes;
         }
 
         private void ConfiguracionSeccionShowRoom(ref ConfiguracionSeccionHomeModel seccion)
