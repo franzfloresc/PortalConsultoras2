@@ -1,24 +1,30 @@
 
 
-USE BelcorpPeru_PL50
+USE BelcorpBolivia
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
 GO
 
 CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
-@EstrategiaId int
-,@CUV2 nvarchar(20)
-,@Precio money
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
 --,@PrecioValorizado money
-,@NombreProducto nvarchar(150)
-,@Descripcion1 nvarchar(255)
-,@ImagenProducto nvarchar(150)
-,@IdMarca tinyint
-,@Activo tinyint
-,@UsuarioModificacion nvarchar(30)
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
 AS
-begin
-
-	update EstrategiaProducto
-	set  --Campania = @Campania
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
 		--,CUV = @CUV
 		--,CUV2 = @CUV2
 		Precio = @Precio
@@ -29,8 +35,487 @@ begin
 		,IdMarca = @IdMarca
 		,Activo = @Activo
 		,UsuarioModificacion = @UsuarioModificacion
-		,FechaModificacion = getdate()
-	where EstrategiaId = @EstrategiaId and CUV2 = @CUV2
-		
-end
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpChile
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpColombia
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpCostaRica
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpDominicana
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpEcuador
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpGuatemala
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpMexico
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpPanama
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpPeru
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpPuertoRico
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpSalvador
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
+GO
+
+USE BelcorpVenezuela
+GO
+
+IF EXISTS(SELECT 1 FROM sys.procedures 
+          WHERE Name = 'UpdateEstrategiaProducto')
+BEGIN
+	DROP PROCEDURE dbo.UpdateEstrategiaProducto 
+END
+GO
+
+CREATE PROCEDURE [dbo].[UpdateEstrategiaProducto]
+@EstrategiaId INT
+,@CUV2 VARCHAR(20)
+,@Precio MONEY
+--,@PrecioValorizado money
+,@NombreProducto VARCHAR(150)
+,@Descripcion1 VARCHAR(255)
+,@ImagenProducto VARCHAR(150)
+,@IdMarca TINYINT
+,@Activo TINYINT
+,@UsuarioModificacion VARCHAR(30)
+AS
+BEGIN
+	UPDATE EstrategiaProducto
+	SET  --Campania = @Campania
+		--,CUV = @CUV
+		--,CUV2 = @CUV2
+		Precio = @Precio
+		--,PrecioValorizado = @PrecioValorizado
+		,NombreProducto = @NombreProducto
+		,Descripcion1 = @Descripcion1
+		,ImagenProducto = @ImagenProducto
+		,IdMarca = @IdMarca
+		,Activo = @Activo
+		,UsuarioModificacion = @UsuarioModificacion
+		,FechaModificacion = GETDATE()
+	WHERE EstrategiaId = @EstrategiaId AND CUV2 = @CUV2
+END
 GO
