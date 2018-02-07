@@ -3217,7 +3217,7 @@ namespace Portal.Consultoras.Web.Controllers
         public MenuContenedorModel GetMenuActivo()
         {
             var path = Request.Path;
-            var listMenu = BuildMenuContenedor();
+            var listMenu = BuildMenuContenedor(revistaDigital);
 
             path = path.ToLower().Replace("/mobile", "");
 
@@ -3411,7 +3411,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listMenu;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedor()
+        public List<ConfiguracionPaisModel> BuildMenuContenedor(RevistaDigitalModel revistaDigital)
         {
             var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
             var configuracionesPais = GetConfiguracionesPaisModel();
@@ -3590,76 +3590,10 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
-        {
-            var esMobile = IsMobile();
-            bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
-
-            if (tieneRevistaDigital && esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList();
-            }
-            if (tieneRevistaDigital && !esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.OrdenBpt).ToList();
-            }
-            if (!tieneRevistaDigital && esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrden).ToList();
-
-            }
-            if (!tieneRevistaDigital && !esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.Orden).ToList();
-            }
-
-            return menuContenedor;
-        }
-
-        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
-        {
-            var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
-            foreach (var configuracionPais in menuContenedor)
-            {
-                ConfiguracionPaisModel config;
-                switch (configuracionPais.Codigo)
-                {
-                    case Constantes.ConfiguracionPais.InicioRD:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/Ofertas/Revisar";
-                        config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        menuContenedorBloqueado.Add(config);
-                        break;
-                    case Constantes.ConfiguracionPais.Lanzamiento:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "#";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        menuContenedorBloqueado.Add(config);
-                        break;
-                    case Constantes.ConfiguracionPais.RevistaDigital:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/RevistaDigital/Revisar";
-                        config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        menuContenedorBloqueado.Add(config);
-                        break;
-                    case Constantes.ConfiguracionPais.HerramientaVenta:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/HerramientaVenta/Revisar";
-                        config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        menuContenedorBloqueado.Add(config);
-                        break;
-                }
-            }
-            return menuContenedorBloqueado;
-        }
-
         private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
         {
-            var codigo = "";
-            var codigoMobile = "";
+            var codigo = string.Empty;
+            var codigoMobile = string.Empty;
 
             if (revistaDigital.TieneRDC)
             {
@@ -3724,6 +3658,74 @@ namespace Portal.Consultoras.Web.Controllers
             return true;
 
         }
+
+        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
+        {
+            var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
+            foreach (var configuracionPais in menuContenedor)
+            {
+                ConfiguracionPaisModel config;
+                switch (configuracionPais.Codigo)
+                {
+                    case Constantes.ConfiguracionPais.InicioRD:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/Ofertas/Revisar";
+                        config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        menuContenedorBloqueado.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "#";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        menuContenedorBloqueado.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/RevistaDigital/Revisar";
+                        config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        menuContenedorBloqueado.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.HerramientaVenta:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/HerramientaVenta/Revisar";
+                        config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        menuContenedorBloqueado.Add(config);
+                        break;
+                }
+            }
+            return menuContenedorBloqueado;
+        }
+
+        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        {
+            var esMobile = IsMobile();
+            bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
+
+            if (tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList();
+            }
+            if (tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.OrdenBpt).ToList();
+            }
+            if (!tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrden).ToList();
+
+            }
+            if (!tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.Orden).ToList();
+            }
+
+            return menuContenedor;
+        }
+
+
         #endregion
 
         #region RD
