@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetRevistaDigital(revistaDigital);
             userData.MenuMobile = null;
             userData.Menu = null;
-                Session[Constantes.ConstSession.MenuContenedor] = null;
+            sessionManager.SetMenuContenedor(null);
             SetUserData(userData);
 
             return "";

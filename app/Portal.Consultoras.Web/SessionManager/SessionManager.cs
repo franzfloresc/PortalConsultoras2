@@ -290,5 +290,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
         }
+
+        void ISessionManager.SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor] = menuContenedor;
+        }
+
+        List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor ()
+        {
+            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+        }
     }
 }

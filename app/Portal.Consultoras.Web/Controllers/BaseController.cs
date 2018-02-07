@@ -3413,8 +3413,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> BuildMenuContenedor()
         {
-            var listaMenu = (List<ConfiguracionPaisModel>)Session[Constantes.ConstSession.MenuContenedor]
-                            ?? new List<ConfiguracionPaisModel>();
+            var listaMenu = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
             if (listaMenu.Any()) return listaMenu;
 
             var lista = ListConfiguracionPais();
@@ -3593,7 +3592,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? isMob ? listaMenu.OrderBy(m => m.MobileOrdenBPT).ToList() : listaMenu.OrderBy(m => m.OrdenBpt).ToList()
                 : isMob ? listaMenu.OrderBy(m => m.MobileOrden).ToList() : listaMenu.OrderBy(m => m.Orden).ToList();
 
-            Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
+            sessionManager.SetMenuContenedor(listaMenu);
             return listaMenu;
         }
 

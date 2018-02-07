@@ -112,5 +112,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo);
 
         MenuContenedorModel GetMenuContenedorActivo();
+
+        void SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor);
+
+        List<ConfiguracionPaisModel> GetMenuContenedor();
     }
 }
