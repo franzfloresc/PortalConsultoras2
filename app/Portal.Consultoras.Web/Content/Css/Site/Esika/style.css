@@ -7398,6 +7398,7 @@ img {
         position: absolute;
         top: 3px;
         width: 8px;
+        z-index: 0;
     }
 
 .cross_line {
@@ -20163,6 +20164,10 @@ label.checkpop.c_on {
     -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
     box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+}
+
+.content_item_carrusel_width_ODD {
+    width: 260px;
 }
 
 .content_item_carrusel_ofertaFinal {
