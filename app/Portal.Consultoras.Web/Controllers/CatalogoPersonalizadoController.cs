@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
@@ -277,8 +278,9 @@ namespace Portal.Consultoras.Web.Controllers
                         if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
                         {
                             if (!(lstFilters[i].Id == "4" 
-                                && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) 
-                                && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo)))
+                                && Convert.ToDouble(lstFilters[i].Valor1).Equals(Convert.ToDouble(precioMinimo))
+                                && Convert.ToDouble(lstFilters[i].Valor2).Equals(Convert.ToDouble(precioMaximo))
+                                ))
                             {
                                 flt += v1.Split(',').Length;
                             }

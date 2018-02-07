@@ -2,11 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Portal.Consultoras.Common.MagickNet
 {
@@ -41,7 +37,7 @@ namespace Portal.Consultoras.Common.MagickNet
         {
             var resultado = true;
 
-            string soloImagen = Path.GetFileName(rutaImagenOriginal);
+            string soloImagen = Path.GetFileName(rutaImagenOriginal) ?? "";
 
             var rutaImagenResize = rutaImagenOriginal.Clone().ToString();
             rutaImagenResize = rutaImagenResize.Replace(soloImagen, nombreImagenGuardar);

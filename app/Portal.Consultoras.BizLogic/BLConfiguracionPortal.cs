@@ -1,14 +1,9 @@
 ﻿namespace Portal.Consultoras.BizLogic
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Data;
-    using Portal.Consultoras.Entities;
     using Portal.Consultoras.Data;
-    using System.Transactions;
+    using Portal.Consultoras.Entities;
+    using System.Collections.Generic;
+    using System.Data;
 
     public class BLConfiguracionPortal
     {
@@ -16,9 +11,9 @@
         public BEConfiguracionPortal ObtenerConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal)
         {
             BEConfiguracionPortal beConfiguracionPortal = null;
-            var daDAConfiguracionPortal = new DAConfiguracionPortal(beoConfiguracionPortal.PaisID);
+            var daDaConfiguracionPortal = new DAConfiguracionPortal(beoConfiguracionPortal.PaisID);
 
-            using (IDataReader reader = daDAConfiguracionPortal.ObtenerConfiguracionPortal(beoConfiguracionPortal.PaisID))
+            using (IDataReader reader = daDaConfiguracionPortal.ObtenerConfiguracionPortal(beoConfiguracionPortal.PaisID))
                 if (reader.Read())
                 {
                     beConfiguracionPortal = new BEConfiguracionPortal(reader);
@@ -29,17 +24,17 @@
 
         public int ActualizarConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal)
         {
-            var daDAConfiguracionPortal = new DAConfiguracionPortal(beoConfiguracionPortal.PaisID);
+            var daDaConfiguracionPortal = new DAConfiguracionPortal(beoConfiguracionPortal.PaisID);
 
-            return daDAConfiguracionPortal.ActualizarConfiguracionPortal(beoConfiguracionPortal);
+            return daDaConfiguracionPortal.ActualizarConfiguracionPortal(beoConfiguracionPortal);
         }
 
         public IList<BEConfiguracionPortal> GetConfiguracionPortal(int paisID)
         {
             var lista = new List<BEConfiguracionPortal>();
-            var DAConfiguracionPortal = new DAConfiguracionPortal(paisID);
+            var daConfiguracionPortal = new DAConfiguracionPortal(paisID);
 
-            using (IDataReader reader = DAConfiguracionPortal.ObtenerConfiguracionPortal(paisID))
+            using (IDataReader reader = daConfiguracionPortal.ObtenerConfiguracionPortal(paisID))
                 while (reader.Read())
                 {
                     var entidad = new BEConfiguracionPortal(reader);
@@ -51,17 +46,17 @@
 
         public List<BEConfiguracionPackNuevas> ObtenerConfiguracionPackNuevas(int paisID, string CodigoPrograma)
         {
-            List<BEConfiguracionPackNuevas> ConfiguracionesPackNuevas = new List<BEConfiguracionPackNuevas>();
+            List<BEConfiguracionPackNuevas> configuracionesPackNuevas = new List<BEConfiguracionPackNuevas>();
             DAConfiguracionPortal da = new DAConfiguracionPortal(paisID);
             using (IDataReader reader = da.ObtenerConfiguracionPackNueva(CodigoPrograma))
             {
                 while (reader.Read())
                 {
                     BEConfiguracionPackNuevas entidad = new BEConfiguracionPackNuevas(reader);
-                    ConfiguracionesPackNuevas.Add(entidad);
+                    configuracionesPackNuevas.Add(entidad);
                 }
             }
-            return ConfiguracionesPackNuevas;
+            return configuracionesPackNuevas;
         }
 
     }

@@ -97,6 +97,10 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
+        
+        /// <summary>
+        /// Codigo Campaña
+        /// </summary>
         public int CampaniaID { get; set; }
 
         public string CampaniaAnio
@@ -297,6 +301,7 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public bool OptBloqueoProductoDigital { get; set; }
         public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }

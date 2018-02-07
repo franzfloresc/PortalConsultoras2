@@ -21372,7 +21372,50 @@ body {
     margin-bottom: 70px;
     overflow: hidden;
 }
-
+.revista_content {
+display: inline-block;
+margin-bottom: 70px;
+overflow: hidden;
+background: #ecebf0;
+width: 100%;
+padding-bottom: 35px;
+}
+.revista_content .revista_content2{
+text-align:center;
+}
+.revista_content .revista_content2 div{
+display:inline-block;
+}
+.revista_content .revista_content2 .revistatxt {
+display: table;
+height: 203px;
+margin-left: 50px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista{
+display:table-cell;
+vertical-align:middle;
+}
+.revista_content .revista_content2 .revistatxt .contrevista p {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 0.3px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a {
+width: 173px;
+/* height: 30px; */
+padding: 8px;
+margin: auto;
+display: block;
+border: solid 1px #000000;
+transition:.3s;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a:hover{
+background:black;
+color:white;
+}
 .arrow_revista {
     margin-top: 60px;
     margin-right: 20px;
@@ -26764,10 +26807,19 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
     .contenedor_item_descripcion span {
         display: block;
-        margin-bottom: 3%;
-        line-height: 19px;
-        height: 55px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        min-height: 60px;
     }
+
+    
+
+        .contenedor_item_descripcion span::after {
+           
+            content: ' ..';
+        }
 
     .contenedor_item_descripcion a {
         display: block;
@@ -26775,6 +26827,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         color: #e81c36;
         text-transform: uppercase;
         font-weight: 700;
+        margin-top:10px;
     }
 
         .contenedor_item_descripcion a:hover {
@@ -26796,7 +26849,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
     .contenedor_item_descripcion a {
-        width: 42%;
+        width: 50%;
     }
 }
 
@@ -34462,7 +34515,7 @@ h1#penmostreo .campana {
 
 .content_pedido_cupon_monto {
     width: 100%;
-    height: 40px;
+    height: 51px;
     border-bottom: 1px solid black;
     margin-bottom: 10px;
 }
@@ -34471,7 +34524,7 @@ h1#penmostreo .campana {
     display: block !important;
     float: left;
     width: 85px;
-    height: 40px;
+    height: 51px;
     font-family: 'LAto';
     font-size: 12px;
     background: black;
@@ -34482,7 +34535,7 @@ h1#penmostreo .campana {
 }
 
     .icono_cupon_monto img {
-        width: 87%;
+        width: 120%;
     }
 
     .icono_cupon_monto::before {
@@ -34494,7 +34547,7 @@ h1#penmostreo .campana {
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 40px 0 0 23px;
+        border-width: 51px 0 0 23px;
         border-color: transparent transparent transparent #000000;
     }
 
@@ -34504,7 +34557,7 @@ h1#penmostreo .campana {
     font-family: 'LAto';
     float: left;
     margin-left: 38px;
-    line-height: 13px;
+    line-height: 1.17;
 }
 
 .content_cupon {
@@ -34707,6 +34760,20 @@ h1#penmostreo .campana {
     .info_recuerda_cupon:last-child {
         border-right: 0;
     }
+
+.info_recuerda_cupon_ganaste {
+    display: inline-table;
+    float: none;
+    width: 40%;
+}
+
+.info_recuerda_cupon_line {
+    border: solid 1.5px rgba(149, 145, 146, 0.57);
+    display: inline-table;
+    height: 61.1px;
+    opacity: 0.2;
+    width: 1.5px;
+}
 
 .SubHeader {
     background: #f9f9f9;

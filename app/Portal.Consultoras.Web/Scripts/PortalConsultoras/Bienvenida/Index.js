@@ -3373,6 +3373,7 @@ function onYouTubeIframeAPIReady(playerId) {
     player = new YT.Player("divPlayer", {
         width: "100%",
         videoId: videoIdMostrar,
+        enablejsapi: 1,
         playerVars: { rel: 0 },
         events: {
             'onStateChange': onPlayerStateChange
@@ -3390,4 +3391,23 @@ function onPlayerStateChange(event) {
             'label': 'SomosBelcorp.com ¡se renueva para ti!'
         });
     }
+}
+
+function CuponPopupCerrar() {
+    //AbrirLoad();
+    $('#Cupon3').hide();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cupon/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            //CerrarLoad();
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            //CerrarLoad();
+        }
+    });
 }

@@ -1,10 +1,6 @@
-﻿﻿using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -47,6 +43,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSROferta(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOferta");
@@ -55,6 +52,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSRComponentes(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentes");
