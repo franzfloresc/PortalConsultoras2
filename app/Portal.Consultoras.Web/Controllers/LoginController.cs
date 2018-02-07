@@ -1177,13 +1177,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (usuarioModel== null)
                     throw new ArgumentNullException("usuarioModel", "No puede ser nulo");
-
-
+                
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
                 var guiaNegocio = new GuiaNegocioModel();
-                var revistaDigitalModel = new RevistaDigitalModel { NoVolverMostrar = true };
+                var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
 
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
@@ -1401,14 +1400,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (revistaDigitalModel == null)
                     throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
-
-                if (listaDatos == null)
-                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
-
-                if (paisIso == null)
-                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
-
-                if (!listaDatos.Any())
+                
+                paisIso = Util.Trim(paisIso);
+                if (listaDatos == null || !listaDatos.Any() || paisIso == "")
                     return revistaDigitalModel;
 
                 var value1 = listaDatos.FirstOrDefault(d =>

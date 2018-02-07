@@ -494,6 +494,50 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult PopupDatos()
+        {
+            try
+            {
+                if (!revistaDigital.TieneRDC || revistaDigital.NoVolverMostrar || revistaDigital.EsSuscrita)
+                {
+                    return Json(new
+                    {
+                        success = false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                var modelo = new RevistaDigitalPopupModel
+                {
+                    Mensaje1 = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.Mensaje1),
+                    Mensaje1Color = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.Mensaje1Color),
+                    Mensaje2 = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.Mensaje2),
+                    Mensaje2Color = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.Mensaje2Color),
+                    ImagenEtiqueta = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.ImagenEtiqueta),
+                    ImagenPublicidad = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.ImagenPublicidad),
+                    BotonColorFondo = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.BotonColorFondo),
+                    BotonColorTexto = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.BotonColorTexto),
+                    BotonTexto = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.BotonTexto),
+                    FondoColor = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.FondoColor),
+                    FondoColorMarco = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.FondoColorMarco)
+                };
+
+                return Json(new
+                {
+                    success = true,
+                    modelo
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
         public JsonResult ActualizarDatos(MisDatosModel model)
         {
             try

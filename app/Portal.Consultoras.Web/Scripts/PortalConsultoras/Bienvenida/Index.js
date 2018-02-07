@@ -3008,14 +3008,14 @@ function PopupMostrarPrioridad() {
 }
 function PopupMostrar(idPopup) {
     var id = "";
-    if (typeof (idPopup) == "string")
+    if (typeof (idPopup) === "string")
         id = "#" + $.trim(idPopup);
 
-    if (id == "") return false;
+    if (id === "") return false;
 
     $(id).attr("data-popup-activo", "1");
     var padreComun = $(id).parent().attr("id");
-    if (padreComun == "fondoComunPopUp") {
+    if (padreComun === "fondoComunPopUp") {
         if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
             $("#fondoComunPopUp").show();
         }
@@ -3215,8 +3215,7 @@ function MostrarPopupInicial() {
             ObtenerComunicadosPopup();
             break;
         case popupRevistaDigitalSuscripcion:
-            PopupMostrar('PopRDSuscripcion');
-            rdAnalyticsModule.MostrarPopup();
+            rdPopup.MostrarPopup();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();

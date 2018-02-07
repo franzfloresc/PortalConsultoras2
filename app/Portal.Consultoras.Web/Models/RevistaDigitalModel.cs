@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -16,6 +15,7 @@ namespace Portal.Consultoras.Web.Models
             EstadoRdcAnalytics = "(not available)";
             
             BloquearRevistaImpresaGeneral = null;
+            NoVolverMostrar = true;
         }
 
         public int ConfiguracionPaisID { get; set; }

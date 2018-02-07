@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44356</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -613,6 +613,7 @@
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
+    <Compile Include="Models\RevistaDigitalPopup.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -3445,6 +3446,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SuscripcionPopup.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
