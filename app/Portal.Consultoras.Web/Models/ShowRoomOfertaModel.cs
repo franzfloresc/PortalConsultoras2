@@ -107,6 +107,6 @@ namespace Portal.Consultoras.Web.Models
         public int Posicion { get; set; }
         public string UrlDetalle { get; set; }
 
-        public List<ProductoModel> Hermanos { get; set; }
+        public List<ProductoModel> ProductoTonos { get; set; }
     }
 }
