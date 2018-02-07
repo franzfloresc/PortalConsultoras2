@@ -12,13 +12,13 @@ namespace Portal.Consultoras.BizLogic
         {
             var lista = new List<BEEstadoCuenta>();
 
-            var BLPais = new BLPais();
+            var blPais = new BLPais();
 
-            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!blPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                var DAEstadoCuenta = new DAEstadoCuenta(PaisId);
+                var daEstadoCuenta = new DAEstadoCuenta(PaisId);
 
-                using (IDataReader reader = DAEstadoCuenta.GetEstadoCuentaConsultora(consultoraId))
+                using (IDataReader reader = daEstadoCuenta.GetEstadoCuentaConsultora(consultoraId))
                 {
                     while (reader.Read())
                     {
@@ -30,9 +30,9 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAEstadoCuenta = new DAHEstadoCuenta();
+                var daEstadoCuenta = new DAHEstadoCuenta();
 
-                lista = DAEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
+                lista = daEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
             }
 
             return lista;
@@ -40,8 +40,8 @@ namespace Portal.Consultoras.BizLogic
 
         public string GetDeudaActualConsultora(int PaisId, long consultoraId)
         {
-            var DAEstadoCuenta = new DAEstadoCuenta(PaisId);
-            return DAEstadoCuenta.GetDeudaActualConsultora(consultoraId);
+            var daEstadoCuenta = new DAEstadoCuenta(PaisId);
+            return daEstadoCuenta.GetDeudaActualConsultora(consultoraId);
         }
     }
 }

@@ -27,12 +27,12 @@ namespace Portal.Consultoras.Web.Controllers
             return View(participantesConsultora);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
@@ -47,11 +47,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, CodigoConsultora);
             }
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEParticipantesDemandaAnticipada> items = lst;
 
             #region Sort Section
@@ -129,10 +131,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            if (string.IsNullOrEmpty(vBusqueda))
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-            else
-                items = items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = string.IsNullOrEmpty(vBusqueda) 
+                ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize) 
+                : items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Paginador(grid, vBusqueda);
 
@@ -176,34 +177,33 @@ namespace Portal.Consultoras.Web.Controllers
             int idgenerado = 0;
             try
             {
-                string id_ = Request.Form["TxtEditId"];
-                string ZonaID = Request.Form["TxtZonaID"];
-                string ConsultoraID = Request.Form["TxtConsultoraID"];
-                string CodigoCampania = Request.Form["TxtCodigoCampania"];
-                string Fecha = Request.Form["TxtFecha"];
-                string TipoConfiguracion = Request.Form["TxtTipoConfiguracion"];
-                string CodigoUsuario = UserData().CodigoUsuario;
+                string id = Request.Form["TxtEditId"];
+                string zonaId = Request.Form["TxtZonaID"];
+                string consultoraId = Request.Form["TxtConsultoraID"];
+                string codigoCampania = Request.Form["TxtCodigoCampania"];
+                string fecha = Request.Form["TxtFecha"];
+                string tipoConfiguracion = Request.Form["TxtTipoConfiguracion"];
+                string codigoUsuario = UserData().CodigoUsuario;
 
 
-                BEParticipantesDemandaAnticipada obj = null;
-                obj = new BEParticipantesDemandaAnticipada();
+                var obj = new BEParticipantesDemandaAnticipada();
 
-                if (!string.IsNullOrEmpty(id_)) obj.ConfiguracionConsultoraDAID = int.Parse(id_);
+                if (!string.IsNullOrEmpty(id)) obj.ConfiguracionConsultoraDAID = int.Parse(id);
 
-                obj.ZonaID = Convert.ToInt32(ZonaID);
-                obj.ConsultoraID = Convert.ToInt32(ConsultoraID);
-                obj.CodigoCampania = CodigoCampania;
+                obj.ZonaID = Convert.ToInt32(zonaId);
+                obj.ConsultoraID = Convert.ToInt32(consultoraId);
+                obj.CodigoCampania = codigoCampania;
 
-                if (Fecha != "")
+                if (fecha != "")
                 {
-                    obj.Fecha = Convert.ToDateTime(Fecha);
+                    obj.Fecha = Convert.ToDateTime(fecha);
                 }
 
-                obj.TipoConfiguracion = Convert.ToByte(TipoConfiguracion);
-                obj.CodigoUsuario = CodigoUsuario;
+                obj.TipoConfiguracion = Convert.ToByte(tipoConfiguracion);
+                obj.CodigoUsuario = codigoUsuario;
 
                 int validar = 0;
-                if (!(id_ == ""))
+                if (id != "")
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
@@ -214,16 +214,19 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                    configuracionConsultoraDA.ZonaID = Convert.ToInt32(ZonaID);
-                    configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(ConsultoraID);
-                    configuracionConsultoraDA.CampaniaID = Convert.ToString(CodigoCampania);
-                    configuracionConsultoraDA.TipoConfiguracion = Convert.ToByte(TipoConfiguracion);
-                    configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario);
+                    BEConfiguracionConsultoraDA configuracionConsultoraDa =
+                        new BEConfiguracionConsultoraDA
+                        {
+                            ZonaID = Convert.ToInt32(zonaId),
+                            ConsultoraID = Convert.ToInt32(consultoraId),
+                            CampaniaID = Convert.ToString(codigoCampania),
+                            TipoConfiguracion = Convert.ToByte(tipoConfiguracion),
+                            CodigoUsuario = Convert.ToString(UserData().CodigoUsuario)
+                        };
                     using (SACServiceClient sv = new SACServiceClient())
                     {
 
-                        validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
+                        validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDa);
 
                     }
                 }
@@ -297,33 +300,28 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(vacio, JsonRequestBehavior.AllowGet);
         }
 
-        public BEPager Paginador(BEGrid item, string CodigoCampania)
+        public BEPager Paginador(BEGrid item, string codigoCampania)
         {
             List<BEParticipantesDemandaAnticipada> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, UserData().CodigoConsultora).ToList();
+                lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, codigoCampania, UserData().CodigoConsultora).ToList();
             }
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = string.IsNullOrEmpty(codigoCampania) ? lst.Count : lst.Count(p => p.Fecha.ToString().Contains(codigoCampania.ToUpper()));
 
-            if (string.IsNullOrEmpty(CodigoCampania))
-                RecordCount = lst.Count;
-            else
-                RecordCount = lst.Count(p => p.Fecha.ToString().Contains(CodigoCampania.ToUpper()));
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -336,16 +334,18 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetParticipantesConfiguracionConsultoraDA(UserData().PaisID, CodigoCampania, "").ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Campaña", "CodigoCampania");
-            dic.Add("Código Zona", "CodigoZona");
-            dic.Add("Código Consultora", "CodigoConsultora");
-            dic.Add("Nombre Completo", "NombreCompleto");
-            dic.Add("Aceptó Participar?", "AceptoParticipar");
-            dic.Add("Monto Pedido Web", "ImporteTotal");
-            dic.Add("Fecha Creación", "FechaFormato");
-            dic.Add("Fecha Modificación", "FechaModificadaFormato");
-            dic.Add("Codigo Usuario", "CodigoUsuario");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Campaña", "CodigoCampania"},
+                {"Código Zona", "CodigoZona"},
+                {"Código Consultora", "CodigoConsultora"},
+                {"Nombre Completo", "NombreCompleto"},
+                {"Aceptó Participar?", "AceptoParticipar"},
+                {"Monto Pedido Web", "ImporteTotal"},
+                {"Fecha Creación", "FechaFormato"},
+                {"Fecha Modificación", "FechaModificadaFormato"},
+                {"Codigo Usuario", "CodigoUsuario"}
+            };
             Util.ExportToExcel<BEParticipantesDemandaAnticipada>("ParticipantesDemandaAnticipadaExcel", lst.ToList(), dic);
             return View();
         }

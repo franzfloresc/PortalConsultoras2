@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {

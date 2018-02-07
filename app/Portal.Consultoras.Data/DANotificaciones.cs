@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -81,9 +77,9 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@Fechafact", DbType.Date, Fechafact);
-            var Result = Convert.ToString(Context.ExecuteScalar(command));
+            var result = Convert.ToString(Context.ExecuteScalar(command));
 
-            return Result;
+            return result;
         }
     }
 }

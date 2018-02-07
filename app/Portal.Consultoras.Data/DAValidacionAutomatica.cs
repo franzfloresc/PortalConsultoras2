@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -117,15 +114,15 @@ namespace Portal.Consultoras.Data
             {
                 while (oReader.Read())
                 {
-                    BEPedidoWebDetalle oBEPedidoDetallePROL = new BEPedidoWebDetalle();
-                    oBEPedidoDetallePROL.PedidoDetalleID = Convert.ToInt16(oReader["PedidoDetalleID"]);
-                    oBEPedidoDetallePROL.CUV = Convert.ToString(oReader["CUV"]);
-                    oBEPedidoDetallePROL.Cantidad = Convert.ToInt32(oReader["Cantidad"]);
-                    oBEPedidoDetallePROL.PrecioUnidad = Convert.ToDecimal(oReader["PrecioUnidad"]);
-                    oBEPedidoDetallePROL.TipoOfertaSisID = Convert.ToInt32(oReader["TipoOfertaSisID"]);
-                    oBEPedidoDetallePROL.ImporteTotal = Convert.ToDecimal(oReader["ImporteTotal"]);
-                    oBEPedidoDetallePROL.FechaCreacion = Convert.ToDateTime(oReader["FechaCreacion"]);
-                    olstPedidoDetallePROL.Add(oBEPedidoDetallePROL);
+                    BEPedidoWebDetalle obePedidoDetalleProl = new BEPedidoWebDetalle();
+                    obePedidoDetalleProl.PedidoDetalleID = Convert.ToInt16(oReader["PedidoDetalleID"]);
+                    obePedidoDetalleProl.CUV = Convert.ToString(oReader["CUV"]);
+                    obePedidoDetalleProl.Cantidad = Convert.ToInt32(oReader["Cantidad"]);
+                    obePedidoDetalleProl.PrecioUnidad = Convert.ToDecimal(oReader["PrecioUnidad"]);
+                    obePedidoDetalleProl.TipoOfertaSisID = Convert.ToInt32(oReader["TipoOfertaSisID"]);
+                    obePedidoDetalleProl.ImporteTotal = Convert.ToDecimal(oReader["ImporteTotal"]);
+                    obePedidoDetalleProl.FechaCreacion = Convert.ToDateTime(oReader["FechaCreacion"]);
+                    olstPedidoDetallePROL.Add(obePedidoDetalleProl);
                 }
             }
             return olstPedidoDetallePROL;

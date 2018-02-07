@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             try
             {
-                var result = false;
+                bool result;
                 using (var sv = new ContenidoServiceClient())
                 {
                     result = sv.ExistePagoPendiente(userData.PaisID, monto, nroTarjeta, DateTime.Now);

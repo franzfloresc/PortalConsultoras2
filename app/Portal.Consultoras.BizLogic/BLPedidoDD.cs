@@ -13,19 +13,19 @@
     {
         public BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
         {
-            BEPedidoDD bePedidoDD = null;
-            DAPedidoDD daPedidoDD = new DAPedidoDD(paisID);
+            BEPedidoDD bePedidoDd = null;
+            DAPedidoDD daPedidoDd = new DAPedidoDD(paisID);
 
-            using (IDataReader reader = daPedidoDD.GetPedidoDDByCampaniaConsultora(campaniaID, consultoraID))
+            using (IDataReader reader = daPedidoDd.GetPedidoDDByCampaniaConsultora(campaniaID, consultoraID))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
                 if (reader.Read())
                 {
-                    bePedidoDD = new BEPedidoDD(reader, columns);
+                    bePedidoDd = new BEPedidoDD(reader, columns);
                 }
             }
-            return bePedidoDD;
+            return bePedidoDd;
         }
 
         public void HabiliatPedidoIndividual(int paisID, int campaniaID, long consultoraID, string usuarioDigitador, bool indicadoEnviado)
@@ -33,83 +33,89 @@
             BLPedidoWeb blPedidoWeb = new BLPedidoWeb();
 
             BEPedidoWeb bePedidoWeb = blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
-            BEPedidoDD bePedidoDD = GetPedidoDDByCampaniaConsultora(paisID, campaniaID, consultoraID);
+            BEPedidoDD bePedidoDd = GetPedidoDDByCampaniaConsultora(paisID, campaniaID, consultoraID);
 
             if (bePedidoWeb != null)
             {
-                if (bePedidoDD != null)
+                if (bePedidoDd != null)
                 {
-                    BLPedidoDDDetalle blPedidoDDDetalle = new BLPedidoDDDetalle();
+                    BLPedidoDDDetalle blPedidoDdDetalle = new BLPedidoDDDetalle();
                     BLPedidoWebDetalle blPedidoWebDetalle = new BLPedidoWebDetalle();
 
-                    IList<BEPedidoDDDetalle> listaBEPedidoDDDetalle = blPedidoDDDetalle.GetPedidoDDDetalleByPedidoID(paisID, campaniaID, bePedidoDD.PedidoID);
-                    IList<BEPedidoWebDetalle> listaBEPedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, campaniaID, bePedidoWeb.PedidoID);
+                    IList<BEPedidoDDDetalle> listaBePedidoDdDetalle = blPedidoDdDetalle.GetPedidoDDDetalleByPedidoID(paisID, campaniaID, bePedidoDd.PedidoID);
+                    IList<BEPedidoWebDetalle> listaBePedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, campaniaID, bePedidoWeb.PedidoID);
 
-                    bePedidoDD.IndicadorActivo = true;
-                    bePedidoDD.IndicadorEnviado = indicadoEnviado;
-                    bePedidoDD.CodigoUsuarioModificacion = usuarioDigitador;
-                    bePedidoDD.PedidoDDDetalle = new List<BEPedidoDDDetalle>(listaBEPedidoDDDetalle);
+                    bePedidoDd.IndicadorActivo = true;
+                    bePedidoDd.IndicadorEnviado = indicadoEnviado;
+                    bePedidoDd.CodigoUsuarioModificacion = usuarioDigitador;
+                    bePedidoDd.PedidoDDDetalle = new List<BEPedidoDDDetalle>(listaBePedidoDdDetalle);
 
-                    foreach (var detalleWeb in listaBEPedidoWebDetalle)
+                    foreach (var detalleWeb in listaBePedidoWebDetalle)
                     {
-                        var bePedidoDDDetalle = bePedidoDD.PedidoDDDetalle.FirstOrDefault(p => p.CUV.CompareTo(detalleWeb.CUV) == 0);
-                        if (bePedidoDDDetalle == null)
+                        var bePedidoDdDetalle = bePedidoDd.PedidoDDDetalle.FirstOrDefault(p => p.CUV.CompareTo(detalleWeb.CUV) == 0);
+                        if (bePedidoDdDetalle == null)
                         {
-                            bePedidoDDDetalle = new BEPedidoDDDetalle();
-                            bePedidoDDDetalle.CampaniaID = campaniaID;
-                            bePedidoDDDetalle.ConsultoraID = consultoraID;
-                            bePedidoDDDetalle.Cantidad = detalleWeb.Cantidad;
-                            bePedidoDDDetalle.CUV = detalleWeb.CUV;
-                            bePedidoDDDetalle.IndicadorActivo = true;
-                            bePedidoDDDetalle.CodigoUsuarioCreacion = usuarioDigitador;
+                            bePedidoDdDetalle = new BEPedidoDDDetalle
+                            {
+                                CampaniaID = campaniaID,
+                                ConsultoraID = consultoraID,
+                                Cantidad = detalleWeb.Cantidad,
+                                CUV = detalleWeb.CUV,
+                                IndicadorActivo = true,
+                                CodigoUsuarioCreacion = usuarioDigitador
+                            };
 
-                            bePedidoDD.PedidoDDDetalle.Add(bePedidoDDDetalle);
+                            bePedidoDd.PedidoDDDetalle.Add(bePedidoDdDetalle);
                         }
                         else
                         {
-                            bePedidoDDDetalle.Cantidad += detalleWeb.Cantidad;
-                            bePedidoDDDetalle.CodigoUsuarioModificacion = usuarioDigitador;
+                            bePedidoDdDetalle.Cantidad += detalleWeb.Cantidad;
+                            bePedidoDdDetalle.CodigoUsuarioModificacion = usuarioDigitador;
                         }
                     }
 
-                    UpdPedidoDD(bePedidoDD);
+                    UpdPedidoDD(bePedidoDd);
                 }
                 else
                 {
                     BLPedidoWebDetalle blPedidoWebDetalle = new BLPedidoWebDetalle();
-                    IList<BEPedidoWebDetalle> listaBEPedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, campaniaID, bePedidoWeb.PedidoID);
+                    IList<BEPedidoWebDetalle> listaBePedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, campaniaID, bePedidoWeb.PedidoID);
 
-                    bePedidoDD = new BEPedidoDD();
-                    bePedidoDD.PaisID = paisID;
-                    bePedidoDD.CampaniaID = campaniaID;
-                    bePedidoDD.ConsultoraID = consultoraID;
-                    bePedidoDD.IndicadorEnviado = indicadoEnviado;
-                    bePedidoDD.IPUsuario = "0.0.0.0";
-                    bePedidoDD.NumeroClientes = bePedidoWeb.Clientes;
-                    bePedidoDD.CodigoUsuarioCreacion = usuarioDigitador;
-                    bePedidoDD.PedidoDDDetalle = new List<BEPedidoDDDetalle>();
-
-                    foreach (var detalleWeb in listaBEPedidoWebDetalle)
+                    bePedidoDd = new BEPedidoDD
                     {
-                        BEPedidoDDDetalle bePedidoDDDetalle = new BEPedidoDDDetalle();
-                        bePedidoDDDetalle.CampaniaID = campaniaID;
-                        bePedidoDDDetalle.ConsultoraID = consultoraID;
-                        bePedidoDDDetalle.Cantidad = detalleWeb.Cantidad;
-                        bePedidoDDDetalle.CUV = detalleWeb.CUV;
-                        bePedidoDDDetalle.CodigoUsuarioCreacion = usuarioDigitador;
+                        PaisID = paisID,
+                        CampaniaID = campaniaID,
+                        ConsultoraID = consultoraID,
+                        IndicadorEnviado = indicadoEnviado,
+                        IPUsuario = "0.0.0.0",
+                        NumeroClientes = bePedidoWeb.Clientes,
+                        CodigoUsuarioCreacion = usuarioDigitador,
+                        PedidoDDDetalle = new List<BEPedidoDDDetalle>()
+                    };
 
-                        bePedidoDD.PedidoDDDetalle.Add(bePedidoDDDetalle);
+                    foreach (var detalleWeb in listaBePedidoWebDetalle)
+                    {
+                        BEPedidoDDDetalle bePedidoDdDetalle = new BEPedidoDDDetalle
+                        {
+                            CampaniaID = campaniaID,
+                            ConsultoraID = consultoraID,
+                            Cantidad = detalleWeb.Cantidad,
+                            CUV = detalleWeb.CUV,
+                            CodigoUsuarioCreacion = usuarioDigitador
+                        };
+
+                        bePedidoDd.PedidoDDDetalle.Add(bePedidoDdDetalle);
                     }
 
-                    InsPedidoDD(bePedidoDD);
+                    InsPedidoDD(bePedidoDd);
                 }
             }
             else
             {
-                if (bePedidoDD != null)
+                if (bePedidoDd != null)
                 {
-                    bePedidoDD.IndicadorEnviado = !indicadoEnviado;
-                    UpdPedidoDDIndicadoEnviado(bePedidoDD);
+                    bePedidoDd.IndicadorEnviado = !indicadoEnviado;
+                    UpdPedidoDDIndicadoEnviado(bePedidoDd);
                 }
                 else
                 {
@@ -126,54 +132,59 @@
             foreach (var info in infoConsultoras)
             {
                 var datos = info.Split(';');
-                var consultoraID = datos[0];
+                var consultoraId = datos[0];
                 var consultoraCodigo = datos[1];
-                var campaniaID = datos[2];
-                var DigitadorCodigo = datos[3];
+                var campaniaId = datos[2];
+                var digitadorCodigo = datos[3];
 
-                BEPedidoDD bePedidoDD = GetPedidoDDByCampaniaConsultoraHabilitarPedido(paisID, Convert.ToInt32(campaniaID), Convert.ToInt32(consultoraID));
+                BEPedidoDD bePedidoDd = GetPedidoDDByCampaniaConsultoraHabilitarPedido(paisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraId));
 
-                if (bePedidoDD != null)
+                if (bePedidoDd != null)
                 {
-                    bePedidoDD.IndicadorEnviado = false;
-                    bePedidoDD.CodigoUsuarioModificacion = DigitadorCodigo;
+                    bePedidoDd.IndicadorEnviado = false;
+                    bePedidoDd.CodigoUsuarioModificacion = digitadorCodigo;
 
-                    UpdPedidoDDIndicadoEnviado(bePedidoDD);
+                    UpdPedidoDDIndicadoEnviado(bePedidoDd);
                     consultorasProcesadas.Add(consultoraCodigo);
                 }
                 else
                 {
                     BLPedidoWeb blPedidoWeb = new BLPedidoWeb();
-                    BEPedidoWeb bePedidoWeb = blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, Convert.ToInt32(campaniaID), Convert.ToInt32(consultoraID));
+                    BEPedidoWeb bePedidoWeb = blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, Convert.ToInt32(campaniaId), Convert.ToInt32(consultoraId));
 
                     if (bePedidoWeb != null)
                     {
                         BLPedidoWebDetalle blPedidoWebDetalle = new BLPedidoWebDetalle();
-                        IList<BEPedidoWebDetalle> listaBEPedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, bePedidoWeb.CampaniaID, bePedidoWeb.PedidoID);
+                        IList<BEPedidoWebDetalle> listaBePedidoWebDetalle = blPedidoWebDetalle.GetPedidoWebDetalleByPedidoID(paisID, bePedidoWeb.CampaniaID, bePedidoWeb.PedidoID);
 
-                        bePedidoDD = new BEPedidoDD();
-                        bePedidoDD.PaisID = paisID;
-                        bePedidoDD.CampaniaID = bePedidoWeb.CampaniaID;
-                        bePedidoDD.ConsultoraID = bePedidoWeb.ConsultoraID;
-                        bePedidoDD.IndicadorEnviado = false;
-                        bePedidoDD.IPUsuario = "0.0.0.0";
-                        bePedidoDD.NumeroClientes = bePedidoWeb.Clientes;
-                        bePedidoDD.CodigoUsuarioCreacion = DigitadorCodigo;
-                        bePedidoDD.PedidoDDDetalle = new List<BEPedidoDDDetalle>();
-
-                        foreach (var detalleWeb in listaBEPedidoWebDetalle)
+                        bePedidoDd = new BEPedidoDD
                         {
-                            BEPedidoDDDetalle bePedidoDDDetalle = new BEPedidoDDDetalle();
-                            bePedidoDDDetalle.CampaniaID = bePedidoWeb.CampaniaID;
-                            bePedidoDDDetalle.ConsultoraID = bePedidoWeb.ConsultoraID;
-                            bePedidoDDDetalle.Cantidad = detalleWeb.Cantidad;
-                            bePedidoDDDetalle.CUV = detalleWeb.CUV;
-                            bePedidoDDDetalle.CodigoUsuarioCreacion = DigitadorCodigo;
+                            PaisID = paisID,
+                            CampaniaID = bePedidoWeb.CampaniaID,
+                            ConsultoraID = bePedidoWeb.ConsultoraID,
+                            IndicadorEnviado = false,
+                            IPUsuario = "0.0.0.0",
+                            NumeroClientes = bePedidoWeb.Clientes,
+                            CodigoUsuarioCreacion = digitadorCodigo,
+                            PedidoDDDetalle = new List<BEPedidoDDDetalle>()
+                        };
 
-                            bePedidoDD.PedidoDDDetalle.Add(bePedidoDDDetalle);
+                        foreach (var detalleWeb in listaBePedidoWebDetalle)
+                        {
+                            BEPedidoDDDetalle bePedidoDdDetalle =
+                                new BEPedidoDDDetalle
+                                {
+                                    CampaniaID = bePedidoWeb.CampaniaID,
+                                    ConsultoraID = bePedidoWeb.ConsultoraID,
+                                    Cantidad = detalleWeb.Cantidad,
+                                    CUV = detalleWeb.CUV,
+                                    CodigoUsuarioCreacion = digitadorCodigo
+                                };
+
+                            bePedidoDd.PedidoDDDetalle.Add(bePedidoDdDetalle);
                         }
 
-                        InsPedidoDD(bePedidoDD);
+                        InsPedidoDD(bePedidoDd);
                         consultorasProcesadas.Add(consultoraCodigo);
                     }
                     else
@@ -193,21 +204,23 @@
         {
             try
             {
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    DAPedidoDD daPedidoDD = new DAPedidoDD(bePedidoDD.PaisID);
+                    DAPedidoDD daPedidoDd = new DAPedidoDD(bePedidoDD.PaisID);
 
-                    int pedidoID = daPedidoDD.InsPedidoDD(bePedidoDD);
+                    int pedidoId = daPedidoDd.InsPedidoDD(bePedidoDD);
 
-                    BLPedidoDDDetalle blPedidoDDDetalle = new BLPedidoDDDetalle();
+                    BLPedidoDDDetalle blPedidoDdDetalle = new BLPedidoDDDetalle();
 
-                    foreach (var detalleDD in bePedidoDD.PedidoDDDetalle)
+                    foreach (var detalleDd in bePedidoDD.PedidoDDDetalle)
                     {
-                        detalleDD.PedidoID = pedidoID;
-                        blPedidoDDDetalle.InsPedidoDetalleDD(bePedidoDD.PaisID, detalleDD);
+                        detalleDd.PedidoID = pedidoId;
+                        blPedidoDdDetalle.InsPedidoDetalleDD(bePedidoDD.PaisID, detalleDd);
                     }
 
                     oTransactionScope.Complete();
@@ -223,32 +236,34 @@
         {
             try
             {
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    DAPedidoDD daPedidoDD = new DAPedidoDD(bePedidoDD.PaisID);
-                    daPedidoDD.UpdPedidoDD(bePedidoDD);
+                    DAPedidoDD daPedidoDd = new DAPedidoDD(bePedidoDD.PaisID);
+                    daPedidoDd.UpdPedidoDD(bePedidoDD);
 
-                    BLPedidoDDDetalle blPedidoDDDetalle = new BLPedidoDDDetalle();
+                    BLPedidoDDDetalle blPedidoDdDetalle = new BLPedidoDDDetalle();
                     //Obtenemos la lista de detalles historicos del pedido
-                    IList<BEPedidoDDDetalle> detallesHist = blPedidoDDDetalle.GetPedidoDDDetalleByPedidoID(bePedidoDD.PaisID, bePedidoDD.CampaniaID, bePedidoDD.PedidoID);
-                    foreach (var detalleDD in bePedidoDD.PedidoDDDetalle)
+                    IList<BEPedidoDDDetalle> detallesHist = blPedidoDdDetalle.GetPedidoDDDetalleByPedidoID(bePedidoDD.PaisID, bePedidoDD.CampaniaID, bePedidoDD.PedidoID);
+                    foreach (var detalleDd in bePedidoDD.PedidoDDDetalle)
                     {
-                        detalleDD.PedidoID = bePedidoDD.PedidoID;
+                        detalleDd.PedidoID = bePedidoDD.PedidoID;
                         //Buscamos si el detalle ya existe en el detalle historico del pedido, y actualizamos sus datos
-                        foreach (var detalleDDHist in detallesHist)
+                        foreach (var detalleDdHist in detallesHist)
                         {
-                            if (detalleDDHist.CUV == detalleDD.CUV && detalleDDHist.IndicadorActivo)
+                            if (detalleDdHist.CUV == detalleDd.CUV && detalleDdHist.IndicadorActivo)
                             {
-                                detalleDD.Cantidad += detalleDDHist.Cantidad;
-                                detalleDD.IndicadorActivo = detalleDDHist.IndicadorActivo;
-                                detalleDD.PedidoDetalleID = detalleDDHist.PedidoDetalleID;
+                                detalleDd.Cantidad += detalleDdHist.Cantidad;
+                                detalleDd.IndicadorActivo = detalleDdHist.IndicadorActivo;
+                                detalleDd.PedidoDetalleID = detalleDdHist.PedidoDetalleID;
                                 break;
                             }
                         }
-                        blPedidoDDDetalle.UpdPedidoDetalleDD(bePedidoDD.PaisID, detalleDD);
+                        blPedidoDdDetalle.UpdPedidoDetalleDD(bePedidoDD.PaisID, detalleDd);
                     }
 
                     oTransactionScope.Complete();
@@ -262,9 +277,9 @@
 
         public void UpdPedidoDDIndicadoEnviado(BEPedidoDD bePedidoDD)
         {
-            DAPedidoDD daPedidoDD = new DAPedidoDD(bePedidoDD.PaisID);
+            DAPedidoDD daPedidoDd = new DAPedidoDD(bePedidoDD.PaisID);
 
-            daPedidoDD.UpdIndicadoEnviado(bePedidoDD);
+            daPedidoDd.UpdIndicadoEnviado(bePedidoDD);
         }
 
         public IList<BEPedidoDD> GetPedidosIngresados(int paisID, string codigoUsuario, DateTime fechaIngreso, string codigoConsultora, int campaniaID, string codigoZona, bool indicadorActivo)
@@ -273,9 +288,9 @@
             if (string.IsNullOrEmpty(codigoUsuario) && fechaIngreso == DateTime.MinValue && string.IsNullOrEmpty(codigoConsultora) && string.IsNullOrEmpty(codigoZona) && campaniaID == 0)
                 return pedidosIngresados;
 
-            var daPedidoDD = new DAPedidoDD(paisID);
+            var daPedidoDd = new DAPedidoDD(paisID);
 
-            using (IDataReader reader = daPedidoDD.GetPedidosIngresados(codigoUsuario, fechaIngreso, codigoConsultora, campaniaID, codigoZona, indicadorActivo))
+            using (IDataReader reader = daPedidoDd.GetPedidosIngresados(codigoUsuario, fechaIngreso, codigoConsultora, campaniaID, codigoZona, indicadorActivo))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
@@ -289,8 +304,8 @@
 
         public void AnularPedido(int paisID, int campaniaID, int pedidoID)
         {
-            var daPedidoDD = new DAPedidoDD(paisID);
-            daPedidoDD.AnularPedido(campaniaID, pedidoID);
+            var daPedidoDd = new DAPedidoDD(paisID);
+            daPedidoDd.AnularPedido(campaniaID, pedidoID);
         }
 
         public bool VerificarAsistenciaCompartamos(int paisID, int campaniaID, long consultoraID)
@@ -298,8 +313,8 @@
             bool resultado;
             try
             {
-                var daPedidoDD = new DAPedidoDD(paisID);
-                resultado = daPedidoDD.VerificarAsistenciaCompartamos(campaniaID, consultoraID);
+                var daPedidoDd = new DAPedidoDD(paisID);
+                resultado = daPedidoDd.VerificarAsistenciaCompartamos(campaniaID, consultoraID);
             }
             catch (Exception)
             {
@@ -311,10 +326,9 @@
 
         public int ValidarCuvDescargado(int paisID, int anioCampania, string codigoVenta, string codigoConsultora)
         {
-            int resultado;
-            resultado = 0;
-            var DAPedidoDD = new DAPedidoDD(paisID);
-            using (IDataReader reader = DAPedidoDD.ValidarCuvDescargado(anioCampania, codigoVenta, codigoConsultora))
+            var resultado = 0;
+            var daPedidoDd = new DAPedidoDD(paisID);
+            using (IDataReader reader = daPedidoDd.ValidarCuvDescargado(anioCampania, codigoVenta, codigoConsultora))
                 while (reader.Read())
                 {
                     resultado = Convert.ToInt32(reader[0]);
@@ -326,8 +340,8 @@
         {
             try
             {
-                var daPedidoDD = new DAPedidoDD(paisID);
-                daPedidoDD.RegistrarAsistenciaCompartamos(beAsistenciaCompartamos);
+                var daPedidoDd = new DAPedidoDD(paisID);
+                daPedidoDd.RegistrarAsistenciaCompartamos(beAsistenciaCompartamos);
             }
             catch (Exception ex)
             {
@@ -337,19 +351,19 @@
 
         public BEPedidoDD GetPedidoDDByCampaniaConsultoraHabilitarPedido(int paisID, int campaniaID, long consultoraID)
         {
-            BEPedidoDD bePedidoDD = null;
-            DAPedidoDD daPedidoDD = new DAPedidoDD(paisID);
+            BEPedidoDD bePedidoDd = null;
+            DAPedidoDD daPedidoDd = new DAPedidoDD(paisID);
 
-            using (IDataReader reader = daPedidoDD.GetPedidoDDByCampaniaConsultoraHabilitarPedido(campaniaID, consultoraID))
+            using (IDataReader reader = daPedidoDd.GetPedidoDDByCampaniaConsultoraHabilitarPedido(campaniaID, consultoraID))
             {
                 var columns = ((IDataRecord)reader).GetAllNames();
 
                 if (reader.Read())
                 {
-                    bePedidoDD = new BEPedidoDD(reader, columns);
+                    bePedidoDd = new BEPedidoDD(reader, columns);
                 }
             }
-            return bePedidoDD;
+            return bePedidoDd;
         }
 
         public IList<string> HabilitaPedidoMultipleInformacionConsultoras(int paisID, IDictionary<string, string> listaConsultoras)

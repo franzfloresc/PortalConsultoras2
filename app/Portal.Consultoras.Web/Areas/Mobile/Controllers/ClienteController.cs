@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
-                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList() ?? new List<BEClienteDB>();
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
                 }
 
                 var itemResponse = response.FirstOrDefault() ?? new BEClienteDB();
@@ -156,20 +156,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             try
             {
-                bool rslt = false;
+                bool rslt;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     rslt = sv.Delete(userData.PaisID, userData.ConsultoraID, clienteId);
                 }
-                string Mensaje = string.Empty;
-                Mensaje = rslt
+
+                var mensaje = rslt
                     ? "Se eliminó satisfactoriamente el registro."
                     : "No es posible eliminar al cliente dado que se encuentra asociado a un pedido.";
 
                 return Json(new
                 {
                     success = rslt,
-                    message = Mensaje,
+                    message = mensaje,
                     extra = ""
                 });
 

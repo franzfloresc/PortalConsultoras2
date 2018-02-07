@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -13,37 +9,24 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertOferta(BEOferta entidad)
         {
-            try
-            {
-                var DAOferta = new DAOferta(entidad.PaisID);
-                int result = DAOferta.Insert(entidad);
+                var daOferta = new DAOferta(entidad.PaisID);
+                int result = daOferta.Insert(entidad);
                 return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         public int DeleteOferta(BEOferta entidad)
         {
-            try
-            {
-                var DAOferta = new DAOferta(entidad.PaisID);
-                int result = DAOferta.Delete(entidad);
+                var daOferta = new DAOferta(entidad.PaisID);
+                int result = daOferta.Delete(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEOferta> GetOfertas(BEOferta entidad)
         {
-            try
-            {
                 List<BEOferta> listaOfertas = new List<BEOferta>();
 
-                var DAOferta = new DAOferta(entidad.PaisID);
-                using (IDataReader reader = DAOferta.GetOferta(entidad))
+                var daOferta = new DAOferta(entidad.PaisID);
+                using (IDataReader reader = daOferta.GetOferta(entidad))
                 {
                     while (reader.Read())
                     {
@@ -51,8 +34,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaOfertas;
-            }
-            catch (Exception) { throw; }
         }
     }
 }
