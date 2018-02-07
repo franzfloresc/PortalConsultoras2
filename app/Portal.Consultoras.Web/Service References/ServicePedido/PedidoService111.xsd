@@ -88,12 +88,14 @@
       <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreSet" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaShowRoomDetalleID" type="xs:int" />
       <xs:element minOccurs="0" name="Posicion" type="xs:int" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tonos" nillable="true" type="tns:ArrayOfBEShowRoomTono" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />

@@ -14231,6 +14231,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14247,6 +14250,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PosicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEShowRoomTono[] TonosField;
@@ -14372,6 +14378,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Grupo {
+            get {
+                return this.GrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GrupoField, value) != true)) {
+                    this.GrupoField = value;
+                    this.RaisePropertyChanged("Grupo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Imagen {
             get {
                 return this.ImagenField;
@@ -14445,6 +14464,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PosicionField.Equals(value) != true)) {
                     this.PosicionField = value;
                     this.RaisePropertyChanged("Posicion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SAP {
+            get {
+                return this.SAPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SAPField, value) != true)) {
+                    this.SAPField = value;
+                    this.RaisePropertyChanged("SAP");
                 }
             }
         }
@@ -18718,7 +18750,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short DigitableField;
+        private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
@@ -18893,7 +18925,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public short Digitable {
+        public int Digitable {
             get {
                 return this.DigitableField;
             }

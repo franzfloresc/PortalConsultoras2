@@ -69,6 +69,12 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public List<BEShowRoomTono> Tonos { get; set; }
 
+        [DataMember]
+        public string SAP { get; set; }
+
+         [DataMember]
+        public string Grupo { get; set; }
+
         public BEShowRoomOfertaDetalle(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomDetalleID") && row["OfertaShowRoomDetalleID"] != DBNull.Value)
@@ -105,6 +111,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 MarcaProducto = Convert.ToString(row["MarcaProducto"]);
             if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
                 CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
+            if (DataRecord.HasColumn(row, "SAP") && row["SAP"] != DBNull.Value)
+                SAP = Convert.ToString(row["SAP"]);
+            if (DataRecord.HasColumn(row, "Grupo") && row["Grupo"] != DBNull.Value)
+                Grupo = Convert.ToString(row["Grupo"]);
+
         }
     }
 }
