@@ -154,7 +154,7 @@ BEGIN
 		E.CampaniaIDFin,
 		EP.CUV,
 		E.Numeropedido,
-		E.DescripcionCUV2 AS DescripcionEstrategia,
+		null AS DescripcionEstrategia,
 		E.EsOfertaIndependiente,
 		COALESCE(TEP.FlagNueva, TE.FlagNueva),
 		COALESCE(TEP.NombreComercial, TE.NombreComercial),
