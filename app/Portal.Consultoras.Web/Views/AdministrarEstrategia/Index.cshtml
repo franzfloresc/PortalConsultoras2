@@ -1576,9 +1576,6 @@
 
         $("#btnNuevoMasivo").click(function () {
             if (ValidarMasivo()) {
-                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
-                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
-                    estrategiaId !== 12 && estrategiaId !== 30) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
                 $("#divMasivoPaso3").hide();
@@ -1599,27 +1596,23 @@
 
         $("#btnDescripcionMasivo").click(function () {
             if (ValidarMasivo()) {
-                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
-                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
-                    estrategiaId !== 12 && estrategiaId != 22 && estrategiaId !== 30) {
-                    if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == Codigo.CodigoShowRoom) {
-                        $("#ui-id-10").text('Carga masiva de Showroom');
-                    } else {
-                        $("#ui-id-10").text('Carga masiva de descripciones de Estrategias');
-                    }
-                    $("#divDescMasivoPaso1").show();
-                    $("#divDescMasivoPaso2").hide();
-                    if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == Codigo.CodigoShowRoom) {
-                        $("#seccionFormatoArchivoShowroon").show();
-                        $("#seccionFormatoArchivoGeneral").hide();
-                $("#seccionFormatoArchivoProductoShowroon").hide();
-                    } else {
-                        $("#seccionFormatoArchivoGeneral").show();
-                        $("#seccionFormatoArchivoShowroon").hide();
-                $("#seccionFormatoArchivoProductoShowroon").hide();
-                    }
-                    showDialog("DialogDescMasivo");
+                if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == Codigo.CodigoShowRoom) {
+                    $("#ui-id-10").text('Carga masiva de Showroom');
+                } else {
+                    $("#ui-id-10").text('Carga masiva de descripciones de Estrategias');
                 }
+                $("#divDescMasivoPaso1").show();
+                $("#divDescMasivoPaso2").hide();
+                if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == Codigo.CodigoShowRoom) {
+                    $("#seccionFormatoArchivoShowroon").show();
+                    $("#seccionFormatoArchivoGeneral").hide();
+                $("#seccionFormatoArchivoProductoShowroon").hide();
+                } else {
+                    $("#seccionFormatoArchivoGeneral").show();
+                    $("#seccionFormatoArchivoShowroon").hide();
+                $("#seccionFormatoArchivoProductoShowroon").hide();
+                }
+                showDialog("DialogDescMasivo");
             }
         });
 
