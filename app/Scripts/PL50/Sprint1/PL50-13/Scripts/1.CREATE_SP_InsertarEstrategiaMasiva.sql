@@ -1,15 +1,13 @@
 ﻿USE BelcorpPeru
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -85,18 +83,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpBolivia
+USE BelcorpBolivia
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -172,18 +168,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpChile
+USE BelcorpChile
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -259,18 +253,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpColombia
+USE BelcorpColombia
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -346,18 +338,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpCostaRica
+USE BelcorpCostaRica
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -433,18 +423,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpDominicana
+USE BelcorpDominicana
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -520,18 +508,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpEcuador
+USE BelcorpEcuador
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -607,18 +593,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpGuatemala
+USE BelcorpGuatemala
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -694,18 +678,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpMexico
+USE BelcorpMexico
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -781,18 +763,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpPanama
+USE BelcorpPanama
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -868,18 +848,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpPuertoRico
+USE BelcorpPuertoRico
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -955,18 +933,16 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
 
  GO
 
- USE BelcorpSalvador
+USE BelcorpSalvador
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,
@@ -1041,18 +1017,17 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
  SET @RetornoInsercion = @@ROWCOUNT  
 
  GO
- USE BelcorpVenezuela
+
+USE BelcorpVenezuela
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'InsertarEstrategiaMasiva')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
+	DROP PROCEDURE dbo.InsertarEstrategiaMasiva 
 END
 GO
+
 CREATE PROCEDURE dbo.InsertarEstrategiaMasiva
 @EstrategiaXML as XML,
 @TipoEstrategiaID INT,

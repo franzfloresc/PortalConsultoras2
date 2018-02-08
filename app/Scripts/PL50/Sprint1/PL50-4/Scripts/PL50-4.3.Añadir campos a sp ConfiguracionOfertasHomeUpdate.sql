@@ -1558,7 +1558,7 @@ ELSE
 END
 GO
 
-USE BelcorpPeruVenezuela
+USE BelcorpVenezuela
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
