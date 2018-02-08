@@ -2041,7 +2041,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
+
+            var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+            model.ConfiguracionContenedor = configOdd;
             return model;
+        }
+
+        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
+        {
+            ConfiguracionSeccionHomeModel configuracionModel;
+
+            switch (codigoEstrategia)
+            {
+                case Constantes.ConfiguracionPais.OfertaDelDia:
+                    configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
+                    break;
+                default:
+                    return null;
+            }
+
+            return configuracionModel;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -2481,10 +2500,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            var url = HttpContext.Request.UrlReferrer != null ?
-                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() :
-                Util.Trim(HttpContext.Request.FilePath).ToLower();
-            url = url.Replace("#", "/") + "/";
+            var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+
+            var urlReferrer = HttpContext.Request.UrlReferrer != null ?
+                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
+                Util.Trim(HttpContext.Request.FilePath);
+
+            url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+
             return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
@@ -3029,7 +3052,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isBpt ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
-                    ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
+                    ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
+                    UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
+                    ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),
+                    ColorTexto = isMobile ? entConf.MobileColorTexto : entConf.DesktopColorTexto,
                     Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,

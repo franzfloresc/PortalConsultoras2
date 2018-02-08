@@ -213,6 +213,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="factor_cuadre" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="codigo_error" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="obs_error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="idmarca" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="ObtenerPrecioEstrategia">
