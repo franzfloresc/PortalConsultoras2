@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44356</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -3304,7 +3304,7 @@
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
-    <Content Include="Scripts\AdminContenido\Estrategia.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
