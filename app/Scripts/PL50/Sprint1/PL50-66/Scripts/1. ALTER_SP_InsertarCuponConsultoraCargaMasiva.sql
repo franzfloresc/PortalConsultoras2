@@ -1,5 +1,5 @@
 
-USE BelcorpPeru_PL50
+USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
