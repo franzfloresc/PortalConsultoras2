@@ -691,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region codigo_estrategia y variedad
 
-                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
+                if (entidad.EstrategiaID == 0 && entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
                     (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
