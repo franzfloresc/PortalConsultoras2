@@ -740,9 +740,10 @@
         PackAltoDesembolso: 11,
         OfertaDelDia: 7,
         GuiaDeNegocio : 12,
-        LosMasVendidos: 20
+        LosMasVendidos: 20,
+        CodigoShowRoom: 30
     }
-    
+
     var _toastHelper = ToastHelper();
 
     // SHOWROOM-INICIO
@@ -1616,7 +1617,7 @@
             }
         });
 
-        
+
         $("#btnCancelarDescMasivo1").click(function () {
             HideDialog("DialogDescMasivo");
         });
@@ -2452,7 +2453,7 @@
             }
         });
     }
-    
+
     function ShowImage(cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, '');
@@ -3177,7 +3178,7 @@
                 }
             }
         });
-        
+
          $('#DialogActualizarTono').dialog({
             autoOpen: false,
             resizable: false,
@@ -3187,7 +3188,7 @@
             draggable: false,
             title: "Resultado de actualización de tonos."
         });
-        
+
         $('#DialogTonoActualizada').dialog({
             autoOpen: false,
             resizable: false,
@@ -3361,7 +3362,7 @@
                     sortorder: "asc",
                     viewrecords: true,
                     hoverrows: false,
-                    caption: ""   
+                    caption: ""
                 });
                 createGridUpdated(data.listActualizado);
                 createGridNotUpdated(data.listNoActualizado);
@@ -3432,11 +3433,11 @@
             sortorder: "asc",
             viewrecords: true,
             hoverrows: false,
-            caption: "",           
+            caption: "",
             beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
         });
     }
-    
+
     function ValidarMasivo() {
         if ($("#ddlPais").val() == "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
@@ -3451,15 +3452,15 @@
             return false;
         } else {
             var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-            if (!estrategiaId.in(Id.OfertaParaTi, Id.GuiaDeNegocio, Id.LosMasVendidos, Id.Lanzamiento, 
-                Id.OfertasParaMi, Id.PackAltoDesembolso, Id.OfertaDelDia)) {
+            if (!estrategiaId.in(Id.OfertaParaTi, Id.GuiaDeNegocio, Id.LosMasVendidos, Id.Lanzamiento,
+                Id.OfertasParaMi, Id.PackAltoDesembolso, Id.OfertaDelDia, Id.CodigoShowRoom)) {
                 _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                 return false;
             }
         }
         return true;
     }
-    
+
     function ActualizarTonos() {
         waitingDialog({});
         var params = {
@@ -3480,7 +3481,7 @@
                 var gridJson = { page: 1, total: 2, records: 10, rows: [
                     { Descripcion: "CUVs Actualizados", Cantidad: data.listActualizado.length + " <a href='#' onclick=showDialog(\'DialogTonoActualizada\')> Ver </a>"}
                 ]};
- 
+
                 $("#listActualizarTono").empty().jqGrid({
                     datatype: 'jsonstring',
                     datastr: gridJson,
@@ -3502,7 +3503,7 @@
                     sortorder: "asc",
                     viewrecords: true,
                     hoverrows: false,
-                    caption: ""  
+                    caption: ""
                 });
                 createGridTonoUpdated(data.listActualizado);
                 _toastHelper.success(data.message);
@@ -3515,7 +3516,7 @@
             }
         });
     }
-    
+
     function createGridTonoUpdated(list) {
         var gridJson = { page: 1, total: 2, records: 10, rows: list };
         $("#listTonoActualizada").jqGrid("GridUnload");
