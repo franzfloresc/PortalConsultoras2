@@ -691,34 +691,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
         }
 
-        //[TestClass]
-        //public class ObtenerPedidoWeb : Base
-        //{
-        //    [TestMethod]
-        //    public void ObtenerPedidoWeb_WhenIsInvoke_ReturnsANotNullEntity()
-        //    {
-        //        var controller = new BaseController(sessionManager.Object);
-
-        //        var pedido = controller.ObtenerPedidoWeb();
-
-        //        Assert.IsNotNull(pedido);
-        //    }
-        //}
-
-        //[TestClass]
-        //public class ObtenerPedidoWebDetalle : Base
-        //{
-        //    [TestMethod]
-        //    public void ObtenerPedidoWebDetalle_WhenIsInvoke_AlwaysReturnANotNullList()
-        //    {
-        //        var controller = new BaseController(sessionManager.Object);
-
-        //        var detallesPedidoWeb = controller.ObtenerPedidoWebDetalle();
-
-        //        Assert.IsNotNull(detallesPedidoWeb);
-        //    }
-        //}
-
         [TestClass]
         public class ObtenerConfiguracionSeccion : Base
         {
@@ -740,7 +712,48 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                    It.Is<string>(s => s.Contains("BaseController.ObtenerConfiguracionSeccion"))),
                    Times.AtLeastOnce);
             }
-        }
 
+            class BaseControllerStub01 : BaseController
+            {
+                public BaseControllerStub01(ISessionManager sessionManager,ILogManager logManager) : base(sessionManager,logManager)
+                {
+                    //
+                }
+
+                public override bool IsMobile()
+                {
+                    return false;
+                }
+
+                public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+                {
+                    return new List<BEConfiguracionOfertasHome>
+                    {
+                        new BEConfiguracionOfertasHome
+                        {
+                            ConfiguracionPaisID=0,
+                            ConfiguracionPais = new BEConfiguracionPais
+                            {
+                                ConfiguracionPaisID =0,
+                                Codigo = "",
+                                Excluyente = false
+                            },                            
+                        }
+                    };
+                }
+            }
+            [TestMethod]
+            public void ObtenerConfiguracionSeccion_SeccionNoPerteneceANingunaConfiguracionPais_NoSeDevuelve()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseControllerStub01(sessionManager.Object, logManager.Object);
+                var revistaDigital = new RevistaDigitalModel { };
+
+                var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(0, result.Count);
+            }
+        }
     }
 }

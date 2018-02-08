@@ -2983,14 +2983,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #region Pre Validacion
 
-                    if (entConf.ConfiguracionPais.Codigo != "")
-                    {
-                        var configPis = ConfiguracionPaisObtener(entConf.ConfiguracionPais.Codigo);
-                        if (!configPis.Excluyente && configPis.ConfiguracionPaisID <= 0)
-                        {
-                            continue;
-                        }
-                    }
+                    if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais))
+                        continue;
 
                     if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
@@ -3135,6 +3129,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return modelo;
+        }
+
+        private bool SeccionTieneConfiguracionPais(ServiceSAC.BEConfiguracionPais configuracionPais)
+        {
+            var result = false;
+
+            result = configuracionPais != null && configuracionPais.ConfiguracionPaisID>0 && !string.IsNullOrWhiteSpace(configuracionPais.Codigo);
+
+            return result;
         }
 
         public virtual List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
@@ -3892,14 +3895,6 @@ namespace Portal.Consultoras.Web.Controllers
             return sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
         }
 
-        public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
-        {
-            codigo = Util.Trim(codigo).ToUpper();
-            var listado = GetConfiguracionesPaisModel();
-            var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
-
-            return entidad;
-        }
         public EventoFestivoDataModel GetEventoFestivoData()
         {
             return sessionManager.GetEventoFestivoDataModel() ??
