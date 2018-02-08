@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44356</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -1325,6 +1325,7 @@
     <Content Include="Content\Images\Lbel\loading_circle.gif" />
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\rd_arrowright_rmorado.png" />
     <Content Include="Content\Images\Lbel\scroll-down-icon-lbel.svg" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
