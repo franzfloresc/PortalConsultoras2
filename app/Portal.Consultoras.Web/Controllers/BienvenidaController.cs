@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
+                model.PartialSectionBpt = GetPartialSectionBptModel();
 
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
@@ -2303,16 +2303,16 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public virtual PartialSectionBpt GetPartialSectionBptModel(RevistaDigitalModel revistaDigital)
+        public virtual PartialSectionBpt GetPartialSectionBptModel()
         {
             var partial = new PartialSectionBpt();
 
             try
             {
                 if(revistaDigital == null)
-                {
                     return partial;
-                }
+                
+                partial.RevistaDigital = revistaDigital;
 
                 if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)
                 {
@@ -2330,24 +2330,22 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva);
                 }
-
-                if (revistaDigital.TieneRDR)
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
+                }
+                else if (revistaDigital.TieneRDR)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
                 }
 
-                if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
-                }
-
-                partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, "LoginController.GetPartialSectionBptModel");
             }
 
+            partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
         }
     }
