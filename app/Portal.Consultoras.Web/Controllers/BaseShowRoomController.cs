@@ -603,6 +603,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
             ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            ofertaShowRoomModelo.CodigoEstrategia = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
+                                                    
             /*TONOS-FIN*/
 
             return ofertaShowRoomModelo;

@@ -65,16 +65,14 @@
                     <div class="content_detalle_set_showroom_cangahualaMarquez">
                        
                         <hr class="clear">
-                        @*@if (Model.CodigoEstrategia != "")
-                        {*@
-                        @*@Model.CodigoVariante*@
-                            <div data-estrategia="2003">
-                                @*Model.CodigoVariante*@
-                                @if ("2003" == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                    {
-                        if ((Model.ProductoTonos.Any()))
+                        @if (Model.CodigoProducto != "")
                         {
-                                    //Pendiente btnDesabled = 1;
+                            <div data-estrategia="@Model.CodigoEstrategia">
+                               @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+                                {
+                                    if ((Model.ProductoTonos.Any()))
+                                    {
+                                        //Pendiente btnDesabled = 1;
                                         <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
                                             <div class="tono_select_opt">
                                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
@@ -110,13 +108,13 @@
                                         </div>
                                     }
                                 }
-                                else if ("2003" == Constantes.TipoEstrategiaSet.CompuestaFija || "2003" == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                                else if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || @Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                                 {
-                                    var claseItem = "2003" == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
-                                    var claseItem3 = "2003" == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                                    var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                                    var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
                                     if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
                                     {
- 
+
                                     <div class="@claseItem">
                                             @foreach (var Hermano in Model.ProductoTonos)
                                             {
@@ -130,23 +128,20 @@
                                                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                                         </div>
-                                                        @*detalle.MarcaProducto*@
-                                                        @if ("CangahualaMarquez" != "")
+                                                        @if (@Hermano.DescripcionMarca != "")
                                                         {
-                                                            <span class="brand">CY°ZONE</span>@*@detalle.MarcaProducto*@
+                                                            <span class="brand">@Hermano.DescripcionMarca</span>
                                                         }
                                                         <div class="content_imagen_individual">
-                                                            <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200063985 prints_20171250774_01_putjnuccpc.png">@*@detalle.Imagen*@
+                                                            <img src="@Hermano.Imagen">
                                                         </div>
                                                        <div  class="content_descripcion_set">
                                                             @if (@Hermano.Cantidad > 0)
                                                             {
                                                                 <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
                                                             }
-                                                            <span class="product_name" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                                                            <span class="price">Prints colonia spray femenina 30ml@*@detalle.Descripcion1*@</span>
-                                                            <span class="price">Prints colonia spray femenina 40ml@*@detalle.Descripcion3*@</span>
-                                                            <span class="price" style="margin-bottom: 8px;">Prints colonia spray femenina 50ml@*@detalle.Descripcion2*@</span>
+                                                            <span class="product_name" data-tono-cuv-producto="@Hermano.CUV" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                            <span class="price">@Hermano.DescripcionComercial</span>
                                                         </div>
                                                         <hr class="clear">
                                                         @if (Hermano.Digitable == 1)
@@ -161,7 +156,7 @@
                                                                     <div class="content_tonos_select" style="display:none;">
                                                                         @foreach (var Tono in Hermano.Hermanos)
                                                                         {
-                                                                           //Pendiente btnDesabled = 1;
+                                                                            //Pendiente btnDesabled = 1;
                                                                             <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
                                                                                 <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
                                                                                 <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
@@ -182,6 +177,7 @@
 
                                 }
                             </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -267,8 +263,6 @@
                     <a href="#" class="variant" style="background-color: #CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
                 </div>
             </div>
-
-        }
     </div>
 </div>
 

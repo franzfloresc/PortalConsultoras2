@@ -108,5 +108,7 @@ namespace Portal.Consultoras.Web.Models
         public string UrlDetalle { get; set; }
 
         public List<ProductoModel> ProductoTonos { get; set; }
+
+        public string CodigoEstrategia { get; set; }
     }
 }
