@@ -4580,7 +4580,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (revistaDigital.TieneRDI)
                 {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

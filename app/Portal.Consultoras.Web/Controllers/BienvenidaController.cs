@@ -2309,7 +2309,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                partial.RevistaDigital = revistaDigital ?? throw new ArgumentNullException("revistaDigital", "no puede ser nulo.");
+                if(revistaDigital == null)
+                {
+                    return partial;
+                }
 
                 if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)
                 {

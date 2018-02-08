@@ -1188,13 +1188,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                 if (configuracionesPaisModels.Any())
                 {
-#if DEBUG
-
-                    var rd = configuracionesPaisModels.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
-                    if (rd != null && configuracionesPaisModels.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigitalIntriga))
-                        configuracionesPaisModels.Remove(rd);
-
-#endif
                     var listaPaisDatos = GetConfiguracionPaisDatos(usuarioModel);
 
                     foreach (var c in configuracionesPaisModels)
