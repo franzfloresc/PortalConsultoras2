@@ -123,5 +123,10 @@ namespace Portal.Consultoras.Web.Models
             }
             return EsActiva ? DLogoComercialFondoActiva : EsSuscrita ? DLogoComercialFondoActiva : DLogoComercialFondoNoActiva;
         }
+
+        public bool TieneRevistaDigital()
+        {
+            return TieneRDC || TieneRDR;
+        }
     }
 }

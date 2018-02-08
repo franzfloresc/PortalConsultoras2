@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.Web.ServiceSeguridad;
+using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.LogManager;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -21,18 +24,20 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         public class Base
         {
             protected Mock<ISessionManager> sessionManager;
+            protected Mock<ILogManager> logManager;
 
             [TestInitialize]
             public void Test_Initialize()
             {
                 sessionManager = new Mock<ISessionManager>();
-
+                logManager = new Mock<ILogManager>();
             }
 
             [TestCleanup]
             public void Test_Cleanup()
             {
                 sessionManager = null;
+                logManager = null;
             }
         }
 
@@ -713,6 +718,29 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         //        Assert.IsNotNull(detallesPedidoWeb);
         //    }
         //}
+
+        [TestClass]
+        public class ObtenerConfiguracionSeccion : Base
+        {
+            [TestMethod]
+            public void ObtenerConfiguracionSeccion_RevistaDigitalEsNulo_EscribeEnLogYDevuelveListaVacia()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseController(sessionManager.Object,logManager.Object);
+                RevistaDigitalModel revistaDigital = null;
+
+                var result = controller.ObtenerConfiguracionSeccion(revistaDigital);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(0, result.Count);
+                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                   It.Is<Exception>(e => e.Message.Contains("revistaDigital") && e.Message.Contains("no puede ser nulo")),
+                   It.IsAny<string>(),
+                   It.IsAny<string>(),
+                   It.Is<string>(s => s.Contains("BaseController.ObtenerConfiguracionSeccion"))),
+                   Times.AtLeastOnce);
+            }
+        }
 
     }
 }

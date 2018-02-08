@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System.Collections.Generic;
 
@@ -116,5 +117,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor);
 
         List<ConfiguracionPaisModel> GetMenuContenedor();
+
+        void SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor);
+
+        List<BEConfiguracionOfertasHome> GetSeccionesContenedor(int campaniaId);
     }
 }

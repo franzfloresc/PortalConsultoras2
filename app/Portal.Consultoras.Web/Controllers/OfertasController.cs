@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
                 
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
 

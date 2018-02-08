@@ -2712,15 +2712,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool HabilitarLogCargaOfertas(int paisId)
         {
-            BETablaLogicaDatos[] listDatos;
-            using (var svc = new SACServiceClient())
+            bool result = false;
+
+            try
             {
-                listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
-                
+                BETablaLogicaDatos[] listDatos;
+                using (var svc = new SACServiceClient())
+                {
+                    listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
+
+                }
+                if (!listDatos.Any()) return result;
+                var first = listDatos.FirstOrDefault();
+                result = first != null && first.Codigo.Equals("1");
             }
-            if (!listDatos.Any()) return false;
-            var first = listDatos.FirstOrDefault();
-            return first != null && first.Codigo.Equals("1");
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.HabilitarLogCargaOfertas");
+            }
+            
+
+            return result;
         }
     }
 }

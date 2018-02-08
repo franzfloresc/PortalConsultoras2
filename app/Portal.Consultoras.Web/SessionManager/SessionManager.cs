@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System.Collections.Generic;
 using System.Web;
@@ -299,6 +300,18 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor ()
         {
             return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+        }
+
+        void ISessionManager.SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            HttpContext.Current.Session[seccionesXCampaniaSessionKey] = seccionesContenedor;
+        }
+
+        List<BEConfiguracionOfertasHome> ISessionManager.GetSeccionesContenedor(int campaniaId)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            return (List<BEConfiguracionOfertasHome>)(HttpContext.Current.Session[seccionesXCampaniaSessionKey]);
         }
     }
 }
