@@ -216,6 +216,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
+            public const string ShowRoom = "030";
         }
 
         public static class ConstSession
@@ -283,6 +284,8 @@ namespace Portal.Consultoras.Common
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
 
+            //ODD
+            public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
             public const string GuiaNegocio = "GuiaNegocio";
             
             public const string PedidoWebDDConf = "PedidoWebDDConf";
@@ -1666,6 +1669,17 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+        }
+        public static class ColumnsStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string NormalPrice = "precio normal";
+            public const string AllowedUnits = "unidades permitidas";
+            public const string NameSet = "nombre de set";
+            public const string IsSubcampaign = "essubcampania";
+            public const string BusinessTip = "tip negocio";
+
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
         }
 
         public class GanaMas

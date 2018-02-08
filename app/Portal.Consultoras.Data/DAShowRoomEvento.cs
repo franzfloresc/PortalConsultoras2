@@ -491,6 +491,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int EliminarEstrategiaProductoAll(int estrategiaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteEstrategiaProductoAll");
+            Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, estrategiaID);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+
         public IDataReader GetShowRoomPerfiles(int eventoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomPerfiles");
