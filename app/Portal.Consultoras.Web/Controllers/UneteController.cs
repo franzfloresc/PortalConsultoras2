@@ -1615,7 +1615,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult EditarDireccionManualmente(EditarDireccionManualmenteModel model)
         {
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmente", model);
-            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTAR UBICACION", "EDITAR DIRECCION MANUALMENTE");
+            RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "CONSULTAR UBICACION", "EDITAR DIRECCION MANUALMENTE");
             return PartialView("_EditarDireccionManualmente");
         }
 
