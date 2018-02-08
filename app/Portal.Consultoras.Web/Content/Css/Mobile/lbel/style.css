@@ -8027,6 +8027,7 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #613c87;
+    text-transform: uppercase;
 }
 
 .text-danger {
