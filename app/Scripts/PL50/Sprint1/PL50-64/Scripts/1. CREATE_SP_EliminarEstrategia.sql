@@ -1,13 +1,10 @@
 ﻿USE BelcorpPeru
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
 
@@ -27,16 +24,13 @@ GO
 USE BelcorpBolivia
 GO
 
--- check exists SP
+
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -54,16 +48,12 @@ GO
 USE BelcorpChile
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -77,20 +67,15 @@ END
 
 GO
 
-
 USE BelcorpColombia
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -108,16 +93,12 @@ GO
 USE BelcorpCostaRica
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -135,16 +116,12 @@ GO
 USE BelcorpDominicana
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -162,16 +139,12 @@ GO
 USE BelcorpEcuador
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -189,13 +162,10 @@ GO
 USE BelcorpGuatemala
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
 
@@ -216,16 +186,12 @@ GO
 USE BelcorpMexico
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -243,16 +209,12 @@ GO
 USE BelcorpPanama
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT
@@ -270,13 +232,10 @@ GO
 USE BelcorpPuertoRico
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
 
@@ -297,13 +256,10 @@ GO
 USE BelcorpSalvador
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
 
@@ -324,16 +280,12 @@ GO
 USE BelcorpVenezuela
 GO
 
--- check exists SP
 IF EXISTS(SELECT 1 FROM sys.procedures 
           WHERE Name = 'EliminarEstrategia')
 BEGIN
-    PRINT 'Stored Procedure Exists'
-  
-  DROP PROCEDURE dbo.EliminarEstrategia 
+	DROP PROCEDURE dbo.EliminarEstrategia 
 END
 GO
-
 
 CREATE PROCEDURE dbo.EliminarEstrategia  
  @EstrategiaID INT

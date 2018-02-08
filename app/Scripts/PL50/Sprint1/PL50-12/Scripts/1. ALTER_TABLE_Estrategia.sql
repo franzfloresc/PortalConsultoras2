@@ -93,7 +93,7 @@ END
 
 GO
 
-USE BelcorpDomnicana
+USE BelcorpDominicana
 GO
 
 IF NOT EXISTS(SELECT 1 FROM sys.columns

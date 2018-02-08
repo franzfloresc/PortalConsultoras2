@@ -52,7 +52,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -154,7 +154,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -256,7 +256,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -358,7 +358,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -460,7 +460,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -562,7 +562,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -664,7 +664,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -766,7 +766,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -868,7 +868,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -970,7 +970,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -1072,7 +1072,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -1174,7 +1174,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
@@ -1276,7 +1276,7 @@ begin
 				,CodigoErrorObs
 				,FactorCuadre
 				,NombreProducto
-				,MarcaId
+				,IdMarca
 			)VALUES(
 				@EstrategiaId
 				,@Campania
