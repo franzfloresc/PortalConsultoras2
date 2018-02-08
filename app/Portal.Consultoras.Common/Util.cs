@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -3036,6 +3037,32 @@ namespace Portal.Consultoras.Common
             ruta = ruta.Replace(soloImagen, soloImagen + rutaNombreExtension);
 
             return ruta;
+        }
+
+        public static string ColorFormato(string colorStr, string defecto = "")
+        {
+            var transparent = "transparent";
+            colorStr = Trim(colorStr);
+            defecto = Trim(defecto);
+            if (colorStr == "") return defecto;
+            if (colorStr.ToLower() == transparent) return colorStr;
+
+            #region Formato #ABC #AABBCC
+            var parte = colorStr[0] == '#' ? SubStr(colorStr, 1) : colorStr;
+            
+            if (parte.Length == 6 || parte.Length == 3)
+            {
+                string pattern = @"([0-9|A-F]{6})|([0-9|A-F]{3})";
+                Match match = Regex.Match(parte.ToUpper(), pattern);
+                if (match.Success)
+                    return colorStr[0] == '#' ? colorStr : ("#" + colorStr);
+
+                if (colorStr[0] == '#')
+                    return defecto;
+            }
+            #endregion
+
+            return colorStr == "" ? defecto : colorStr;
         }
     }
 

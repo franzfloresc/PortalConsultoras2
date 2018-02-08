@@ -3215,7 +3215,7 @@ function MostrarPopupInicial() {
             ObtenerComunicadosPopup();
             break;
         case popupRevistaDigitalSuscripcion:
-            rdPopup.MostrarPopup();
+            rdPopup.Mostrar();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();

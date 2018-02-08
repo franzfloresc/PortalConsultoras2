@@ -8,11 +8,10 @@
     }
 
     var _url = {
-        urlPopupDatos: baseUrl + 'RevistaDigital/PopupDatos'
-    };
-
-    var _elements = {
-
+        urlPopupDatos: baseUrl + 'RevistaDigital/PopupDatos',
+        urlPopupCerrar: baseUrl + 'RevistaDigital/PopupCerrar',
+        urlPopupNoMostrar: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
+        urlInformacion: "/RevistaDigital/Informacion"
     };
 
     var _setting = {
@@ -23,9 +22,42 @@
         SetHandlebars(_constants.PopupSuscripcionTemplate, modelo, _constants.PopupSuscripcionId);
     };
 
+    var _PopupCerrar = function (tipo) {
+
+        AbrirLoad();
+        _setting.NoVolverMostrar = true;
+        tipo = $.trim(tipo);
+        var urlAjax = "";
+        if (tipo == 1) {
+            rdAnalyticsModule.CerrarPopUp("Enterate");
+            urlAjax = _url.urlPopupCerrar;
+        }
+        else if (tipo == 2) {
+            urlAjax = _url.urlPopupNoMostrar;
+        }
+        
+        if (urlAjax == "") {
+            CerrarLoad();
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: urlAjax,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                CerrarLoad();
+            },
+            error: function (data, error) {
+                CerrarLoad();
+            }
+        });
+    };
+
     var MostrarPopup = function () {
 
-        if (typeof PopupMostrar === "undefined" || _setting.NoVolverMostrar) {
+        if ((typeof PopupMostrar === "undefined" && typeof AbrirPopupFade == "undefined") || _setting.NoVolverMostrar) {
             return false;
         }
 
@@ -42,7 +74,12 @@
                 }
                 _setting.NoVolverMostrar = true;
                 _popupCrear(data.modelo);
-                PopupMostrar(_constants.PopupSuscripcion);
+                if (isMobile()) {
+                    AbrirPopupFade(_constants.PopupSuscripcionId);
+                }
+                else {
+                    PopupMostrar(_constants.PopupSuscripcion);
+                }
                 if (rdAnalyticsModule) {
                     rdAnalyticsModule.MostrarPopup();
                 }
@@ -53,8 +90,25 @@
         });
     };
     
+    var RedireccionarInformacion = function (tipo) {
+        _PopupCerrar(1);
+        tipo = tipo || 0;
+        rdAnalyticsModule.IrEnterate();
+
+        var url = (isMobile() ? "/Mobile" : "") + _url.urlInformacion;
+        if (tipo == 2) url += "?tipo=" + tipo;
+        var urlLocal = $.trim(window.location).toLowerCase() + "/";
+        window.location = url;
+        if (urlLocal.indexOf(_url.urlInformacion.toLowerCase() + "/") >= 0) {
+            window.location.reload();
+        }
+    };
+
     return {
-        MostrarPopup: MostrarPopup
+        Mostrar: MostrarPopup,
+        Cerrar: function () { _PopupCerrar(1); },
+        NoMostrar: function () { _PopupCerrar(2); },
+        RedireccionarInformacion: RedireccionarInformacion
     };
 
 })();

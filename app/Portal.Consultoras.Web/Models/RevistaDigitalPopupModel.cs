@@ -6,9 +6,8 @@ namespace Portal.Consultoras.Web.Models
     public class RevistaDigitalPopupModel
     {
         public string Mensaje1 { get; set; }
-        public string Mensaje1Color { get; set; }
         public string Mensaje2 { get; set; }
-        public string Mensaje2Color { get; set; }
+        public string MensajeColor { get; set; }
         public string ImagenEtiqueta { get; set; }
         public string ImagenPublicidad { get; set; }
         public string BotonColorFondo { get; set; }

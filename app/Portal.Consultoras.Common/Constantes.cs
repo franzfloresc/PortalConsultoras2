@@ -1174,17 +1174,16 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region PopupSuscripcion
-                public const string Mensaje1 = "Mensaje1";
-                public const string Mensaje1Color = "Mensaje1Color";
-                public const string Mensaje2 = "Mensaje2";
-                public const string Mensaje2Color = "Mensaje2Color";
-                public const string ImagenEtiqueta = "ImagenEtiqueta";
-                public const string ImagenPublicidad = "ImagenPublicidad";
-                public const string BotonColorFondo = "BotonColorFondo";
-                public const string BotonColorTexto = "BotonColorTexto";
-                public const string BotonTexto = "BotonTexto";
-                public const string FondoColor = "FondoColor";
-                public const string FondoColorMarco = "FondoColorMarco";
+                public const string PopupMensaje1 = "PopupMensaje1";
+                public const string PopupMensaje2 = "PopupMensaje2";
+                public const string PopupMensajeColor = "PopupMensajeColor";
+                public const string PopupImagenEtiqueta = "PopupImagenEtiqueta";
+                public const string PopupImagenPublicidad = "PopupImagenPublicidad";
+                public const string PopupBotonColorFondo = "PopupBotonColorFondo";
+                public const string PopupBotonColorTexto = "PopupBotonColorTexto";
+                public const string PopupBotonTexto = "PopupBotonTexto";
+                public const string PopupFondoColor = "PopupFondoColor";
+                public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
             }
