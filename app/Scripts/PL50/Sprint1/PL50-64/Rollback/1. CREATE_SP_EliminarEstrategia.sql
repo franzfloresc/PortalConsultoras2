@@ -1,65 +1,78 @@
 USE BelcorpPeru 
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpBolivia
+USE BelcorpBolivia
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpChile 
+USE BelcorpChile 
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpColombia
+USE BelcorpColombia
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpCostaRica
+USE BelcorpCostaRica
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpDominicana
+USE BelcorpDominicana
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpEcuador
+USE BelcorpEcuador
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpGuatemala
+USE BelcorpGuatemala
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpMexico
+USE BelcorpMexico
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpPanama
+USE BelcorpPanama
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpPuertoRico
+USE BelcorpPuertoRico
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpSalvador
+USE BelcorpSalvador
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
- USE BelcorpVenezuela
+USE BelcorpVenezuela
 GO
+
 DROP PROCEDURE dbo.EliminarEstrategia  
 go 
  
