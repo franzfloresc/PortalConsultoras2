@@ -1481,8 +1481,14 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ProcesarParametro(GestionValidacionesParameter model)
         {
             model.CodigoISO = CodigoISO;
-            var response = PostHTMLSACUnete("ProcesarParametro", model);
-            return Json(response == "true", JsonRequestBehavior.AllowGet);
+            bool resultado;
+            model.ListaZonasTelefonicasActivas = model.ListaZonasTelefonicasActivas ?? new List<HojaInscripcionBelcorpPais.ParametroUneteBE>();
+            model.ListaZonasTelefonicasInactivas = model.ListaZonasTelefonicasInactivas ?? new List<HojaInscripcionBelcorpPais.ParametroUneteBE>();
+            using (var sv = new BelcorpPaisServiceClient())
+            {
+                resultado = sv.ActualizarValidacionesUnete(model.CodigoISO, model);
+            }
+            return Json(resultado, JsonRequestBehavior.AllowGet);
 
         }
 
