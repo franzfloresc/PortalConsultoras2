@@ -1,5 +1,5 @@
 
-USE BelcorpPeru_PL50
+USE BelcorpPeru
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebByFechaFacturacion_SB2] --'2015-10-19',1,1
