@@ -195,7 +195,7 @@ BEGIN
 END
 GO
 
-USE BelcorpDomincana
+USE BelcorpDominicana
 GO
 
 IF COL_LENGTH('ConfiguracionOfertasHome', 'DesktopColorFondo') IS NOT NULL
