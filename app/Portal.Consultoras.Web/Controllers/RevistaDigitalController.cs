@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
+                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
+                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
