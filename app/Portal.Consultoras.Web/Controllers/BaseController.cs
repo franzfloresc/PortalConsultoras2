@@ -2268,7 +2268,47 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
+        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla,string accion)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                var data = new
+                {
+                    FechaRegistro = "",
+                    Pais = userData.CodigoISO,
+                    Rol = userData.RolDescripcion,
+                    Usuario = userData.CodigoUsuario,
+                    Pantalla  = pantalla,
+                    Accion =  accion,
+                    SolicitudId = solicitudId
+                };
 
+
+                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+
+        }
         #endregion
 
         #region Notificaciones
