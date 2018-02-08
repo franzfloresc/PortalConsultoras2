@@ -215,7 +215,8 @@ $(document).ready(function () {
                 if (_data.ConfiguracionContenedor.ColorTexto !== "") {
                     setColorTexto = _data.ConfiguracionContenedor.ColorTexto;
                 }
-   
+
+                
                 var url = window.location.href.toLowerCase() + "/";
                 url = url.replace("#", "/");
                 if (url.indexOf("/ofertas/") >= 0) {
@@ -228,12 +229,11 @@ $(document).ready(function () {
                 }
                 else {
                     $('#banner-odd .izquierda_img img').attr('src',   _data.ImagenFondo1  );
-                    $('#banner-odd .derecha_img img').attr('src',  _data.ImagenFondo1 );
+                    $('#banner-odd .derecha_img img').attr('src', _data.ImagenFondo1);
+                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
                 }
 
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
-
-                $(contenedorOfertas).css('background-color', _data.ColorFondo1);
 
                 $(contenedorOfertas).show();
 
