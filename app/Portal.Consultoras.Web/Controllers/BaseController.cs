@@ -22,11 +22,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Web.Configuration;
 
@@ -380,7 +383,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "";
                 if (userData == null)
                 {
-                    mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
+                    mensaje = "Su sessión expiró, por favor vuelva a loguearse.";
                     sessionManager.SetUserData(null);
                     HttpContext.Session.Clear();
                     HttpContext.Session.Abandon();
@@ -2038,7 +2041,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
+
+            var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+            model.ConfiguracionContenedor = configOdd;
             return model;
+        }
+
+        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
+        {
+            ConfiguracionSeccionHomeModel configuracionModel;
+
+            switch (codigoEstrategia)
+            {
+                case Constantes.ConfiguracionPais.OfertaDelDia:
+                    configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
+                    break;
+                default:
+                    return null;
+            }
+
+            return configuracionModel;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -2478,10 +2500,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            var url = HttpContext.Request.UrlReferrer != null ?
-                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() :
-                Util.Trim(HttpContext.Request.FilePath).ToLower();
-            url = url.Replace("#", "/") + "/";
+            var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+
+            var urlReferrer = HttpContext.Request.UrlReferrer != null ?
+                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
+                Util.Trim(HttpContext.Request.FilePath);
+
+            url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+
             return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
@@ -3026,7 +3052,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isBpt ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
-                    ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
+                    ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
+                    UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
+                    ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),
+                    ColorTexto = isMobile ? entConf.MobileColorTexto : entConf.DesktopColorTexto,
                     Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
@@ -4322,6 +4351,108 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
+        protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)
+        {
+            string errorMessage;
+            return GetListPaqueteDocumentario(codigoConsultora, campania, numeroPedido, out errorMessage);
+        }
+        protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido, out string errorMessage)
+        {
+            errorMessage = string.Empty;
 
+            var lstRVPRFModel = new List<RVPRFModel>();
+            try
+            {
+                var input = new {
+                    Pais = userData.CodigoISO,
+                    Tipo = "1",
+                    CodigoConsultora = codigoConsultora,
+                    Campana = campania,
+                    NumeroPedido = numeroPedido
+                };
+                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                var wrapper = ConsumirServicio<WrapperPDFWeb>(input, urlService);
+
+                var result = (wrapper ?? new WrapperPDFWeb()).GET_URLResult;
+                if (result != null)
+                {
+                    if (result.errorCode != "00000" && result.errorMessage != "OK") errorMessage = result.errorMessage;
+                    
+                    if(string.IsNullOrEmpty(errorMessage) &&  result.objeto != null)
+                    {
+                        lstRVPRFModel = result.objeto.Select(item => new RVPRFModel
+                        {
+                            Nombre = "Paquete Documentario",
+                            FechaFacturacion = item.fechaFacturacion,
+                            Ruta = Convert.ToString(item.url)
+                        }).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ConsumirServicio;
+            }
+            return lstRVPRFModel;
+        }
+
+        protected List<CampaniaModel> GetListCampaniaPaqueteDocumentario(string codigoConsultora, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            var lstCampaniaModel = new List<CampaniaModel>();
+            try
+            {
+                var input = new {
+                    Pais = userData.CodigoISO,
+                    Tipo = "1",
+                    CodigoConsultora = codigoConsultora
+                };
+                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
+                var wrapper = ConsumirServicio<WrapperCampanias>(input, urlService);
+
+                var result = (wrapper ?? new WrapperCampanias()).LIS_CampanaResult;
+                if (result != null)
+                {
+                    if (result.errorCode != string.Empty && result.errorCode != "00000") errorMessage = result.errorMessage;
+
+                    if (string.IsNullOrEmpty(errorMessage) && result.lista != null)
+                    {
+                        lstCampaniaModel = result.lista.Select(p => p.campana).Distinct()
+                            .Select(s => new CampaniaModel() { CampaniaID = Convert.ToInt32(s), Codigo = s })
+                            .OrderBy(c => c.CampaniaID).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                errorMessage = Constantes.MensajesError.PaqueteDocumentario_ConsumirServicio;
+            }
+            return lstCampaniaModel;
+        }
+
+        private T ConsumirServicio<T>(object input, string metodo)
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+            WebRequest request = WebRequest.Create(metodo);
+            request.Method = "POST";
+            request.ContentType = "application/json; charset=utf-8";
+
+            string inputJson = serializer.Serialize(input);
+            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            {
+                writer.Write(inputJson);
+            }
+
+            string outputJson;
+            using (StreamReader reader = new StreamReader(request.GetResponse().GetResponseStream()))
+            {
+                outputJson = reader.ReadToEnd();
+            }            
+            return serializer.Deserialize<T>(outputJson);
+        }
     }
 }
