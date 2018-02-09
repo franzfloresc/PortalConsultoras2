@@ -1309,7 +1309,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ProductoPerdio = false,
                     TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
                     FlagNueva = fichaProducto.FlagNueva,
-                    IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
+                    IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim() && (p.TipoEstrategiaID == fichaProducto.TipoEstrategiaID || p.TipoEstrategiaID == 0)),
                     ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>(),
                     ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>(),
                     TextoLibre = Util.Trim(fichaProducto.TextoLibre),
@@ -1347,7 +1347,7 @@ namespace Portal.Consultoras.Web.Controllers
             listaProductoModel.ForEach(ficha =>
             {
                 ficha.ClaseBloqueada = ficha.CampaniaID > 0 && ficha.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";
-                ficha.IsAgregado = listaPedido.Any(p => p.CUV == ficha.CUV2.Trim());
+                ficha.IsAgregado = listaPedido.Any(p => p.CUV == ficha.CUV2.Trim() && (p.TipoEstrategiaID == ficha.TipoEstrategiaID || p.TipoEstrategiaID == 0));
                 ficha.DescripcionResumen = "";
                 ficha.DescripcionDetalle = "";
                 if (ficha.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
@@ -1421,7 +1421,7 @@ namespace Portal.Consultoras.Web.Controllers
                 fichaProductoModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
+                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2 && (p.TipoEstrategiaID == fichaProductoModelo.TipoEstrategiaID || p.TipoEstrategiaID == 0));
 
                 if (fichaProductoModelo.CodigoVariante == "")
                     return fichaProductoModelo;
@@ -2030,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 oferta.Position = posicion++;
                 oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
-                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
+                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2 && (d.TipoEstrategiaID == oferta.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
 
                 if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
                     oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;

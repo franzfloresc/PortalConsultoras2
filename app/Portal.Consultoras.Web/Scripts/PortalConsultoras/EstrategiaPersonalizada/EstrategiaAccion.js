@@ -540,8 +540,8 @@ function EstrategiaAgregar(event, popup, limite) {
                 $('#popupDetalleCarousel_packNuevas').hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.cuv, true);
-            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.cuv, params.TipoEstrategiaID, true);
+            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.cuv, params.TipoEstrategiaID, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

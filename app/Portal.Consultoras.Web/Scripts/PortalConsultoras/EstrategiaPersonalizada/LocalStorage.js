@@ -48,20 +48,19 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     return new Object();
 }
 
-function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
+function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
     var ok = false;
     try {
         tipo = $.trim(tipo);
         cuv = $.trim(cuv);
+        
+        if (tipo === "" || cuv === "" || valor == undefined) {
+            return false;
+        }
 
-        if (tipo == "" || tipo == undefined) {
-            return false;
-        }
-        if (cuv == "" || cuv == undefined) {
-            return false;
-        }
-        if (valor == undefined) {
-            return false;
+        tipoEstrategiaId = parseInt(tipoEstrategiaId)
+        if (isNaN(tipoEstrategiaId)) {
+            tipoEstrategiaId = 0;
         }
 
         if (tipo == "rd") {
@@ -71,7 +70,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
                 var lista = "ListaRD";
                 var indCampania = indCampania || 0;
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
+                ok = ActualizarLocalStorageIsAgregado(cuvx, tipoEstrategiaId, valor, lista, indCampania);
             });
         }
 
@@ -82,7 +81,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
                 var lista = "GNDLista";
                 var indCampania = indCampania || 0;
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
+                ok = ActualizarLocalStorageIsAgregado(cuvx, tipoEstrategiaId, valor, lista, indCampania);
             });
         }
     } catch (e) {
@@ -91,7 +90,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     return ok;
 }
 
-function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
+function ActualizarLocalStorageIsAgregado(cuv, tipoEstrategiaId, valor, lista, indCampania) {
     var ok = false;
 
     var valLocalStorage = localStorage.getItem(lista + campaniaCodigo);
@@ -99,10 +98,10 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     if (valLocalStorage != null) {
         var data = JSON.parse(valLocalStorage);
 
-        ok = actualizarIsAgregado(data.response.listaLan, cuv, valor);
+        ok = actualizarIsAgregado(data.response.listaLan, cuv, tipoEstrategiaId,  valor);
 
         if (!ok || cuv == "todo") {
-            ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+            ok = actualizarIsAgregado(data.response.lista, cuv, tipoEstrategiaId, valor);
         }
 
         if (ok) {
@@ -113,12 +112,12 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     return ok;
 }
 
-function actualizarIsAgregado(lista, cuv, valor) {
+function actualizarIsAgregado(lista, cuv, tipoEstrategiaId, valor) {
     var ok = false;
 
     if (lista !== undefined) {
         $.each(lista, function (index, item) {
-            if (item.CUV2 == cuv || cuv == "todo") {
+            if ((item.CUV2 == cuv && item.TipoEstrategiaID == tipoEstrategiaId) || cuv == "todo") {
                 item.IsAgregado = valor;
                 ok = true;
                 if (cuv != "todo") {

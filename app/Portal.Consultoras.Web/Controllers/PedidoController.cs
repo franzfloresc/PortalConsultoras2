@@ -1033,7 +1033,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = pedidoEliminado.CUV,
                         Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
                         DescripcionMarca = pedidoEliminado.DescripcionLarga,
-                        DescripcionOferta = pedidoEliminado.DescripcionOferta
+                        DescripcionOferta = pedidoEliminado.DescripcionOferta,
+                        TipoEstrategiaID = pedidoEliminado.TipoEstrategiaID
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 });
@@ -4377,7 +4378,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 estrategia.Cantidad = estrategia.LimiteVenta;
             }
-            else            {
+            else
+            {
                 descripcion = estrategia.DescripcionCUV2;
             }
 

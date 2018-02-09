@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2);
+                estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2 && (p.TipoEstrategiaID == estrategiaModelo.TipoEstrategiaID || p.TipoEstrategiaID == 0));
 
                 if (estrategiaModelo.CodigoVariante == "")
                     return estrategiaModelo;
@@ -426,7 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
             listaProductoModel.ForEach(estrategia =>
             {
                 estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";
-                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim() && (p.TipoEstrategiaID == estrategia.TipoEstrategiaID || p.TipoEstrategiaID == 0));
                 estrategia.DescripcionResumen = "";
                 estrategia.DescripcionDetalle = "";
                 estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
@@ -554,7 +554,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.ProductoPerdio = tipo == 1;
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
-                prodModel.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                prodModel.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim() && (p.TipoEstrategiaID == estrategia.TipoEstrategiaID || p.TipoEstrategiaID == 0));
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
