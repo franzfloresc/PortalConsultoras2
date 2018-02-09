@@ -1279,7 +1279,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
                             case Constantes.ConfiguracionPais.HerramientasVentas:
-                                herramientasVentaModel = null;
+                                herramientasVentaModel.TieneHV = true;
                                 break;
                         }
                     }

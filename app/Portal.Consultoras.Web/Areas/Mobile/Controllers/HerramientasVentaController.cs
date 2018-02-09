@@ -175,7 +175,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                if (herramientasVentaModel==null || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -189,11 +189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
-                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                    : revistaDigital.TieneRDC && revistaDigital.EsActiva
-                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : "";
+                var palanca = Constantes.TipoEstrategiaCodigo.HerramientaVentas;
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
