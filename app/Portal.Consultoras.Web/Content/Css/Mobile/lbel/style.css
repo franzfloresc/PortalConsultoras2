@@ -14349,3 +14349,9 @@ span.icon-advertencia {
         }
 }
 /* FIN NUEVO POPUP SUSCRIBIRSE */
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}

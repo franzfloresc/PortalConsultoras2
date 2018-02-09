@@ -533,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-            string codigoVariante = "2001";// listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
+            string codigoVariante = "2003";// listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 listaHermanos.ForEach(h =>

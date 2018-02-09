@@ -316,7 +316,7 @@ $(document).ready(function () {
         });
 
         if (btnActivar) {
-            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+            $('#btnAgregalo').removeClass('btn_desactivado_general');
         }
 
     });
