@@ -39,6 +39,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpMexico
 GO
 
@@ -76,6 +78,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpColombia
 GO
@@ -115,6 +119,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpVenezuela
 GO
 
@@ -152,6 +158,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpSalvador
 GO
@@ -191,6 +199,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpPuertoRico
 GO
 
@@ -228,6 +238,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpPanama
 GO
@@ -267,6 +279,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpGuatemala
 GO
 
@@ -304,6 +318,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpEcuador
 GO
@@ -343,6 +359,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpDominicana
 GO
 
@@ -380,6 +398,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpCostaRica
 GO
@@ -419,6 +439,8 @@ BEGIN
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
 
+GO
+
 USE BelcorpChile
 GO
 
@@ -456,6 +478,8 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
 USE BelcorpBolivia
 GO
