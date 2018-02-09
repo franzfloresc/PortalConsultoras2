@@ -989,6 +989,8 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
+    menuModule.Resize();
+
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
 
@@ -1058,6 +1060,7 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
+    menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {

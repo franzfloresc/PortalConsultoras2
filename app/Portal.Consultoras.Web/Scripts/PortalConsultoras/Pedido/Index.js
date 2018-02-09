@@ -50,7 +50,6 @@ $(document).ready(function () {
 
     AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
-    LayoutMenu();
 
     $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial();
