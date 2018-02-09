@@ -1088,7 +1088,7 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
-            public const string HerramientasVentas = "HV";
+            public const string HerramientasVenta = "HV";
         }
 
         public static class ConfiguracionPaisDatos
