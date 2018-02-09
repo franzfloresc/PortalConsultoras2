@@ -503,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
             /*TONOS-INI*/
             #region Obtener productos de tabla dbo.EstrategiaProducto con el servicio svc.GetEstrategiaProducto
             List<BEEstrategiaProducto> listEstrategiaProductos = new List<BEEstrategiaProducto>();
-            EstrategiaPedidoModel estrategia = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = 15144 };//*Dato en duro - CangahualaMarquez
+            EstrategiaPedidoModel estrategia = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = idOferta };
             using (PedidoServiceClient svc = new PedidoServiceClient())
             {
                 listEstrategiaProductos = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategia)).ToList();
@@ -533,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-            string codigoVariante = "2003";// listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
+            string codigoVariante = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();//"2003"
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 listaHermanos.ForEach(h =>
