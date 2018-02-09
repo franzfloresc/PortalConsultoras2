@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
+        protected HerramientasVentaModel herramientasVentaModel;
         protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
@@ -86,6 +87,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 revistaDigital = sessionManager.GetRevistaDigital();
+                herramientasVentaModel = sessionManager.GetHerramientasVenta();
+
                 guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())

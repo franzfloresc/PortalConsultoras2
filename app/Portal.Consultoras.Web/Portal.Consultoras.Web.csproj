@@ -219,7 +219,7 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\HerramientasVenta.cs" />
+    <Compile Include="Areas\Mobile\Controllers\HerramientasVentaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
@@ -614,6 +614,7 @@
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
+    <Compile Include="Models\HerramientasVentaModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />

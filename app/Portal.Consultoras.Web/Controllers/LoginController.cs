@@ -1185,6 +1185,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel { NoVolverMostrar = true };
                 var ofertaFinalModel = new OfertaFinalModel();
+                var herramientasVentaModel = new HerramientasVentaModel();
 
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                 if (configuracionesPaisModels.Any())
@@ -1277,6 +1278,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (c.Estado)
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
+                            case Constantes.ConfiguracionPais.HerramientasVentas:
+                                herramientasVentaModel = null;
+                                break;
                         }
                     }
 
@@ -1290,6 +1294,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
                     sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
+                    sessionManager.SetHerramientasVenta(herramientasVentaModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);

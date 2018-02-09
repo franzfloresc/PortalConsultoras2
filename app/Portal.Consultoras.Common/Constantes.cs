@@ -270,6 +270,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
+            public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
 
             public const string EventoFestivo = "EventoFestivo";

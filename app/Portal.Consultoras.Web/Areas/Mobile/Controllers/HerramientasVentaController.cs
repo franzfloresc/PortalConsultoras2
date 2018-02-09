@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -163,6 +166,70 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     success = false,
                     message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
                     extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult HVObtenerProductos(BusquedaProductoModel model)
+        {
+            try
+            {
+                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                ViewBag.EsMobile = model.IsMobile ? 2 : 1;
+
+                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : revistaDigital.TieneRDC && revistaDigital.EsActiva
+                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                        : "";
+
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                var cantidadTotal = listModel.Count;
+
+                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
+                if (TieneProductosPerdio(model.CampaniaID))
+                {
+                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+
+                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel,
+                    listaPerdio = listPerdio,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidadTotal,
+                    campaniaId = model.CampaniaID
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
                 });
             }
         }
