@@ -33,6 +33,7 @@ using System.Web.Configuration;
 using Portal.Consultoras.Common.PagoEnLinea;
 using System.Net;
 using System.ServiceModel;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {

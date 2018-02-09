@@ -35,10 +35,11 @@ $(document).ready(function () {
 
                 var esPagoTotal = $("#rbPagoTotal").is(':checked');
 
-                if (esPagoTotal) {                    
-                    $("#spnMontoGastosAdministrativos").html($("#hdMontoGastosAdministrativosString").val());                    
+                if (esPagoTotal) {
+                    $("#spnMontoGastosAdministrativos").html($("#hdMontoGastosAdministrativosString").val());
+                    $("#txtMontoParcial").val("");
                 } else {
-                    $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(0));                    
+                    $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(0));
                 }
             },
             MostrarTooltipAceptarTerminosYCondiciones: function(){
@@ -82,6 +83,26 @@ $(document).ready(function () {
             PagarConVisaPaso1: function (e) {
                 e.preventDefault();
 
+                var montoDeuda = 0;
+                var esPagoTotal = $("#rbPagoTotal").is(':checked');
+
+                if (esPagoTotal) {
+                    montoDeuda = $.trim($("#hdMontoDeuda").val());
+                } else {
+                    montoDeuda = $.trim($("#txtMontoParcial").val());
+                }
+
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda) <= 0) {
+                    AbrirMensaje("El monto a pagar debe ser mayor a cero");
+                    return false;
+                }
+
+                var montoTotal = $.trim($("#hdMontoDeuda").val());
+                if (parseFloat(montoDeuda) > parseFloat(montoTotal)) {
+                    AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
+                    return false;
+                }
+
                 if (!(me.globals.barraActivacion).is('.activado')) {
 
                     if (tipoOrigenPantalla == 2) {
@@ -95,26 +116,6 @@ $(document).ready(function () {
                     return false;
                 } else {
                     $('.tooltip_terminos_y_condiciones').fadeOut();
-                }                
-
-                var montoDeuda = 0;
-                var esPagoTotal = $("#rbPagoTotal").is(':checked');
-
-                if(esPagoTotal){
-                    montoDeuda = $.trim($("#hdMontoDeuda").val());
-                }else{
-                    montoDeuda = $.trim($("#txtMontoParcial").val());
-                }
-
-                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda) <= 0) {
-                    AbrirMensaje("El monto a pagar debe ser mayor a cero");
-                    return false;
-                }
-
-                var montoTotal = $.trim($("#hdMontoDeuda").val());
-                if (parseFloat(montoDeuda) > parseFloat(montoTotal)) {
-                    AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
-                    return false;
                 }
 
                 var parametros = {

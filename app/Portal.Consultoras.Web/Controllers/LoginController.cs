@@ -855,11 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.LogoLideres = usuario.LogoLideres;
                     usuarioModel.IndicadorContrato = usuario.IndicadorContrato;
                     usuarioModel.FechaFinFIC = usuario.FechaFinFIC;
-                    usuarioModel.MenuNotificaciones = 1;
-
-                    if (usuarioModel.MenuNotificaciones == 1 &&
-                        usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        usuarioModel.TieneNotificaciones = TieneNotificaciones(usuario);
+                    usuarioModel.MenuNotificaciones = 1;                    
 
                     usuarioModel.NuevoPROL = usuario.NuevoPROL;
                     usuarioModel.ZonaNuevoPROL = usuario.ZonaNuevoPROL;
@@ -1143,6 +1139,9 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
+
+                            if (usuarioModel.MenuNotificaciones == 1 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                usuarioModel.TieneNotificaciones = TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea);
                         }
                         catch (Exception ex)
                         {
@@ -1870,13 +1869,13 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private int TieneNotificaciones(ServiceUsuario.BEUsuario obeUsuario)
+        private int TieneNotificaciones(ServiceUsuario.BEUsuario obeUsuario, bool tienePagoEnLinea)
         {
             int tiene;
             using (var sv = new UsuarioServiceClient())
             {
                 tiene = sv.GetNotificacionesSinLeer(obeUsuario.PaisID, obeUsuario.ConsultoraID,
-                    obeUsuario.IndicadorBloqueoCDR);
+                    obeUsuario.IndicadorBloqueoCDR, tienePagoEnLinea);
             }
 
             return tiene;

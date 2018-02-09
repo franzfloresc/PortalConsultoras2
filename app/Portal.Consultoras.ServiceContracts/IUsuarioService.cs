@@ -154,7 +154,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
-        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
 
         [OperationContract]
         IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);

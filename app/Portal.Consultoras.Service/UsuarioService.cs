@@ -307,10 +307,10 @@ namespace Portal.Consultoras.Service
             return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
 
-        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             var BLNotificaciones = new BLNotificaciones();
-            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }       
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)

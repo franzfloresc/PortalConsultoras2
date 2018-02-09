@@ -22,11 +22,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         
-        public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesSinLeer");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
+            Context.Database.AddInParameter(command, "@ShowPayOnline", DbType.Boolean, tienePagoEnLinea);
             object obj = Context.ExecuteScalar(command);
             int cantidad = Convert.ToInt32(obj);
             return cantidad;

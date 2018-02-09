@@ -8882,10 +8882,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse")]
-        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse")]
-        System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalleResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
@@ -9735,12 +9735,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetNotificacionesConsultoraAsync(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
-        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
-            return base.Channel.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
+            return base.Channel.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
-        public System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
-            return base.Channel.GetNotificacionesSinLeerAsync(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        public System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR, bool tienePagoEnLinea) {
+            return base.Channel.GetNotificacionesSinLeerAsync(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {

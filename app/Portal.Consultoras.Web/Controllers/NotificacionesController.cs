@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
+                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR, userData.TienePagoEnLinea);
                     }
 
                     Session["fechaGetNotificacionesSinLeer"] = DateTime.Now.Ticks;
