@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>41615</IISExpressSSLPort>
+    <IISExpressSSLPort>44361</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -432,6 +432,7 @@
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
@@ -610,6 +611,7 @@
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
+    <Compile Include="Models\FiltroReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
     <Compile Include="Models\ReporteValidacionModel.cs" />
     <Compile Include="Models\ReporteValidacionSRModel.cs" />
@@ -1323,6 +1325,8 @@
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Esika\precarga-pago-en-linea.svg" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
+    <Content Include="Content\Images\expand-button.png" />
+    <Content Include="Content\Images\flecha-hacia-abajo.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
     <Content Include="Content\Images\icono-celebracion-pago-exitoso.png" />
     <Content Include="Content\Images\icono-pago-seguro.svg" />
@@ -3411,6 +3415,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -3419,6 +3424,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
@@ -3767,6 +3773,7 @@
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.woff" />
@@ -4550,7 +4557,6 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo5.cshtml" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\MisReclamos\Reclamo.cshtml" />
-    <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\Notificaciones\ListaDetalleCdr.cshtml" />
     <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService1.xsd">
       <SubType>Designer</SubType>
@@ -4644,6 +4650,8 @@
     <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
+    <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoExitoso.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoVisa.cshtml" />

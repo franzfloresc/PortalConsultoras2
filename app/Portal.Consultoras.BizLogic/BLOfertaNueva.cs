@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -38,8 +34,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
-
-
+        
         public IList<BEOfertaNueva> GetProductosOfertaConsultoraNueva(int paisID, int CampaniaID, int consultoraid)
         {
             var lst = new List<BEOfertaNueva>();
@@ -62,8 +57,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = dataAccess.GetDescripcionPackByCUV(CUV, CampaniaCodigo))
                 while (reader.Read())
                 {
-                    entity = new BEOfertaNueva(reader);
-                    entity.PaisID = paisID;
+                    entity = new BEOfertaNueva(reader) {PaisID = paisID};
                 }
             return entity;
         }
@@ -109,6 +103,7 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAOfertaNueva(oBe.PaisID);
             return dataAccess.DelOfertasNuevas(oBe, ConfiguracionOfertaId);
         }
+
         public int UpdEstadoPacksOfertasNueva(int PaisID, int idconsultora, string CodigoConsultora, int campania)
         {
             var dataAccess = new DAOfertaNueva(PaisID);

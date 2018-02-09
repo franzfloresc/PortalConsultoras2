@@ -9,30 +9,30 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertarNavidadConsultora(BENavidadConsultora entidad)
         {
-            var _DANavidadConsultora = new DANavidadConsultora(entidad.PaisId);
-            var aviso = _DANavidadConsultora.InsertarNavidadConsultora(entidad);
+            var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
+            var aviso = daNavidadConsultora.InsertarNavidadConsultora(entidad);
             return aviso;
         }
 
         public void EditarNavidadConsultora(BENavidadConsultora entidad)
         {
-            var _DANavidadConsultora = new DANavidadConsultora(entidad.PaisId);
-            _DANavidadConsultora.EditarNavidadConsultora(entidad);
+            var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
+            daNavidadConsultora.EditarNavidadConsultora(entidad);
             
         }
 
         public void EliminarNavidadConsultora(BENavidadConsultora entidad)
         {
-            var _DANavidadConsultora = new DANavidadConsultora(entidad.PaisId);
-            _DANavidadConsultora.EliminarNavidadConsultora(entidad);
+            var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
+            daNavidadConsultora.EliminarNavidadConsultora(entidad);
         }
 
         public List<BENavidadConsultora> BuscarNavidadConsultora(BENavidadConsultora entidad)
         {
-            var _DANavidadConsultora = new DANavidadConsultora(entidad.PaisId);
+            var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
             List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
 
-            using (IDataReader reader = _DANavidadConsultora.BuscarNavidadConsultora(entidad))
+            using (IDataReader reader = daNavidadConsultora.BuscarNavidadConsultora(entidad))
                 while (reader.Read())
                 {
                     resultado.Add(new BENavidadConsultora(reader));
@@ -42,10 +42,10 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BENavidadConsultora> SeleccionarNavidadConsultora(BENavidadConsultora entidad)
         {
-            var _DANavidadConsultora = new DANavidadConsultora(entidad.PaisId);
+            var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
             List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
 
-            using (IDataReader reader = _DANavidadConsultora.SeleccionarNavidadConsultora(entidad))
+            using (IDataReader reader = daNavidadConsultora.SeleccionarNavidadConsultora(entidad))
                 while (reader.Read())
                 {
                     resultado.Add(new BENavidadConsultora(reader));

@@ -1,11 +1,6 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
-using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
 
 namespace Portal.Consultoras.Data
 {

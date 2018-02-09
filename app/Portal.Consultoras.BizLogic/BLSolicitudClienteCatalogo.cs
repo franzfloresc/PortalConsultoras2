@@ -15,15 +15,15 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdNotificacionSolicitudClienteCatalogoVisualizacion(int PaisID, long SolicitudClienteCatalogoId)
         {
-            DASolicitudClienteCatalogo DASolicitudClienteCatalogo = new DASolicitudClienteCatalogo(PaisID);
-            DASolicitudClienteCatalogo.UpdNotificacionSolicitudClienteCatalogoVisualizacion(SolicitudClienteCatalogoId);
+            DASolicitudClienteCatalogo daSolicitudClienteCatalogo = new DASolicitudClienteCatalogo(PaisID);
+            daSolicitudClienteCatalogo.UpdNotificacionSolicitudClienteCatalogoVisualizacion(SolicitudClienteCatalogoId);
         }
 
         public BENotificacionesDetalleCatalogo ObtenerDetalleNotificacionCatalogo(int PaisID, long SolicitudClienteCatalagoId)
         {
-            DASolicitudClienteCatalogo DASolicitudClienteCatalogo = new DASolicitudClienteCatalogo(PaisID);
+            DASolicitudClienteCatalogo daSolicitudClienteCatalogo = new DASolicitudClienteCatalogo(PaisID);
 
-            IDataReader reader = DASolicitudClienteCatalogo.ObtenerDetalleNotificacionCatalogo(SolicitudClienteCatalagoId);
+            IDataReader reader = daSolicitudClienteCatalogo.ObtenerDetalleNotificacionCatalogo(SolicitudClienteCatalagoId);
             reader.Read();
 
             BENotificacionesDetalleCatalogo entidad = new BENotificacionesDetalleCatalogo(reader);

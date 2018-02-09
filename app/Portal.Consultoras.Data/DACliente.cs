@@ -126,7 +126,6 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-
         public int UndoCliente(long ConsultoraID, int ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UndoChangesCliente");
@@ -171,7 +170,7 @@ namespace Portal.Consultoras.Data
                         if (!int.TryParse(value, out identity))
                         {
                             throw new ArgumentException("No se pudo convertir el valor a int" + reader);
-                        };
+                        }
                     }
                 }
             }
@@ -232,7 +231,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-
         public int RecordatorioInsertar(BEClienteRecordatorio recordatorio)
         {
             int identity = 0;
@@ -254,7 +252,7 @@ namespace Portal.Consultoras.Data
                         if (!int.TryParse(value, out identity))
                         {
                             throw new ArgumentException("No se pudo convertir el valor a int" + reader);
-                        };
+                        }
                     }
                 }
             }
@@ -273,7 +271,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
 
         public bool RecordatorioActualizar(BEClienteRecordatorio recordatorio)
         {
@@ -381,7 +378,7 @@ namespace Portal.Consultoras.Data
                         if (!long.TryParse(value, out identity))
                         {
                             throw new ArgumentException("No se pudo convertir el valor a short" + reader);
-                        };
+                        }
                     }
                 }
             }

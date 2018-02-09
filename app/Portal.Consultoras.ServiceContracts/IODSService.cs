@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.ServiceContracts
 {

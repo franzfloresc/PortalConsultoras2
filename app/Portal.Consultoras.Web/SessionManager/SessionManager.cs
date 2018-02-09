@@ -3,11 +3,9 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using System.Collections.Generic;
+using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -111,6 +109,16 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
+        }
+
+        void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modeloGnd)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio] = modeloGnd;
+        }
+
+        GuiaNegocioModel ISessionManager.GetGuiaNegocio()
+        {
+            return ((GuiaNegocioModel)HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio]) ?? new GuiaNegocioModel();
         }
 
         void ISessionManager.SetIsContrato(int isContrato)

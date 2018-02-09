@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
@@ -17,9 +13,9 @@ namespace Portal.Consultoras.BizLogic
             IList<BEPermiso> permisos = (IList<BEPermiso>)CacheManager<BEPermiso>.GetData(paisID, ECacheItem.MenuGeneralSB2, rolID.ToString());
             if (permisos == null || permisos.Count == 0)
             {
-                var DAPermiso = new DAPermiso(paisID);
+                var daPermiso = new DAPermiso(paisID);
                 permisos = new List<BEPermiso>();
-                using (IDataReader reader = DAPermiso.GetPermisosByRol(rolID))
+                using (IDataReader reader = daPermiso.GetPermisosByRol(rolID))
                     while (reader.Read())
                     {
                         var entidad = new BEPermiso(reader);
@@ -38,9 +34,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPermiso> GetPermisosByRolAdministrador(int paisID, int rolID)
         {
 
-            var DAPermiso = new DAPermiso(paisID);
+            var daPermiso = new DAPermiso(paisID);
             var permisos = new List<BEPermiso>();
-            using (IDataReader reader = DAPermiso.GetPermisosByRol(rolID))
+            using (IDataReader reader = daPermiso.GetPermisosByRol(rolID))
                 while (reader.Read())
                 {
                     var entidad = new BEPermiso(reader);
@@ -53,9 +49,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPermiso> GetAllPermisosCheckByRol(int paisID, int rolID)
         {
             var permisos = new List<BEPermiso>();
-            var DAPermiso = new DAPermiso(paisID);
+            var daPermiso = new DAPermiso(paisID);
 
-            using (IDataReader reader = DAPermiso.GetAllPermisosCheckByRol(rolID))
+            using (IDataReader reader = daPermiso.GetAllPermisosCheckByRol(rolID))
                 while (reader.Read())
                 {
                     var permiso = new BEPermiso(reader);
@@ -66,8 +62,8 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsPermisosByRolMasiv(int paisID, int RolID, string Permisos)
         {
-            var DAPermiso = new DAPermiso(paisID);
-            return DAPermiso.InsPermisosByRolMasiv(RolID, Permisos);
+            var daPermiso = new DAPermiso(paisID);
+            return daPermiso.InsPermisosByRolMasiv(RolID, Permisos);
         }
 
         public void InsPermiso(BEPermiso entidad)
@@ -100,9 +96,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPermiso> GetPermisosByRolConsulta(int paisID, int rolID, string posicion)
         {
             var permisos = new List<BEPermiso>();
-            var DAPermiso = new DAPermiso(paisID);
+            var daPermiso = new DAPermiso(paisID);
 
-            using (IDataReader reader = DAPermiso.GetPermisosByRolConsulta(rolID, posicion))
+            using (IDataReader reader = daPermiso.GetPermisosByRolConsulta(rolID, posicion))
                 while (reader.Read())
                 {
                     var permiso = new BEPermiso(reader);
@@ -114,9 +110,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPermiso> GetPermisosPadreBySistema(int paisID, int sistema)
         {
             var permisos = new List<BEPermiso>();
-            var DAPermiso = new DAPermiso(paisID);
+            var daPermiso = new DAPermiso(paisID);
 
-            using (IDataReader reader = DAPermiso.GetPermisosPadreBySistema(sistema))
+            using (IDataReader reader = daPermiso.GetPermisosPadreBySistema(sistema))
                 while (reader.Read())
                 {
                     var permiso = new BEPermiso(reader);

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
+﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -44,6 +40,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
         RevistaDigitalModel GetRevistaDigital();
+
+        void SetGuiaNegocio(GuiaNegocioModel modeloGnd);
+
+        GuiaNegocioModel GetGuiaNegocio();
 
         void SetIsContrato(int isContrato);
 
