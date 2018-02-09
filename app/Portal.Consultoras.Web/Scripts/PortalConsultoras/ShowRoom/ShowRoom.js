@@ -2,7 +2,6 @@
 Escritorio  => 1: Index    | 11: Detalle Oferta
 Mobile      => 2: Index    | 21: Detalle Oferta
 */
-var cangahuala = "Marquez";
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var origenPedidoWeb = origenPedidoWeb || 0;
 var origenPedidoWebTactica = origenPedidoWebTactica || 0;

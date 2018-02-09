@@ -438,22 +438,24 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
             modelo.FBRuta = GetUrlCompartirFB();
-            modelo.FBMensaje = ""; 
+            modelo.FBMensaje = "";
 
-            modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
-            var nombreMarca = "";
-            modelo.ListaDetalleOfertaShowRoom.Update(d =>
+            if (modelo.ListaDetalleOfertaShowRoom != null)
             {
-                d.MarcaProducto = d.MarcaProducto == nombreMarca
-                    ? "" :
-                    d.MarcaProducto;
-                nombreMarca = d.MarcaProducto == ""
-                    ? nombreMarca
-                    : d.MarcaProducto == nombreMarca
+                modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
+                var nombreMarca = "";
+                modelo.ListaDetalleOfertaShowRoom.Update(d =>
+                {
+                    d.MarcaProducto = d.MarcaProducto == nombreMarca
+                        ? "" :
+                        d.MarcaProducto;
+                    nombreMarca = d.MarcaProducto == ""
                         ? nombreMarca
-                        : d.MarcaProducto;
-            });
-
+                        : d.MarcaProducto == nombreMarca
+                            ? nombreMarca
+                            : d.MarcaProducto;
+                });
+            }
             bool esMovil = Request.Browser.IsMobileDevice;
             var tipoAplicacion = esMovil
                     ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
@@ -531,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-            string codigoVariante = "2003";//*Dato en duro - CangahualaMarquez
+            string codigoVariante = "2001";// listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 listaHermanos.ForEach(h =>
@@ -603,7 +605,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
             ofertaShowRoomModelo.ProductoTonos = listaHermanos;
-            ofertaShowRoomModelo.CodigoEstrategia = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();
+            ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
                                                     
             /*TONOS-FIN*/
 

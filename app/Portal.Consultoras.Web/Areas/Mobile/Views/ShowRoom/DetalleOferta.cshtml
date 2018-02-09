@@ -62,17 +62,20 @@
     <div class="item_product">
             <div class="description_item">
                 <div class="detail">
-                    <div class="content_detalle_set_showroom_cangahualaMarquez">
-                       
+                    <div class="content_detalle_set_showroom">
+                       @{
+                           var btnDesabled = 0;
+                           var btnDesabledClass = "";
+                       }
                         <hr class="clear">
                         @if (Model.CodigoProducto != "")
                         {
                             <div data-estrategia="@Model.CodigoEstrategia">
                                @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                                {
-                                    if ((Model.ProductoTonos.Any()))
-                                    {
-                                        //Pendiente btnDesabled = 1;
+                               {
+                                   if ((Model.ProductoTonos.Any()))
+                                   {
+                                        btnDesabled = 1;
                                         <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
                                             <div class="tono_select_opt">
                                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
@@ -114,7 +117,6 @@
                                     var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
                                     if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
                                     {
-
                                     <div class="@claseItem">
                                             @foreach (var Hermano in Model.ProductoTonos)
                                             {
@@ -156,7 +158,7 @@
                                                                     <div class="content_tonos_select" style="display:none;">
                                                                         @foreach (var Tono in Hermano.Hermanos)
                                                                         {
-                                                                            //Pendiente btnDesabled = 1;
+                                                                            btnDesabled = 1;
                                                                             <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
                                                                                 <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
                                                                                 <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
@@ -429,7 +431,11 @@
             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
             <a class=" cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
         </div>
-        <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
+        @if (btnDesabled == 1)
+        {
+            btnDesabledClass = "btn_desactivado_general";
+        }
+        <a class="btn_agregar_ficha_producto @btnDesabledClass" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
         <hr class="clear">
     </div>
 </div>
