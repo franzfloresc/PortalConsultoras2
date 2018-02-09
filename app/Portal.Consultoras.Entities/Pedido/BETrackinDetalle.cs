@@ -11,6 +11,9 @@ namespace Portal.Consultoras.Entities.Pedido
         [Column("Campana")]
         public int Campana { get; set; }
         [DataMember]
+        [Column("NumeroPedido")]
+        public string NumeroPedido { get; set; }
+        [DataMember]
         [Column("Etapa")]
         public int Etapa { get; set; }
         [DataMember]

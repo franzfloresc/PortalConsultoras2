@@ -643,11 +643,16 @@ namespace Portal.Consultoras.BizLogic
 
             var configPais = new BEConfiguracionPais()
             {
-                Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada,
-                Detalle = new BEConfiguracionPaisDetalle() { PaisID = usuario.PaisID }
+                Detalle = new BEConfiguracionPaisDetalle() {
+                    PaisID = usuario.PaisID,
+                    CodigoRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoSeccion = usuario.Seccion,
+                    CodigoConsultora = usuario.CodigoConsultora
+                }
             };
 
-            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais);
+            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais).Where(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
 
             if (lstCnfigPais.Any())
             {
@@ -668,9 +673,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
                     {
-                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
-                        else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                        if(oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                        else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
                     }
+                }
+                else
+                {
+                    resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
                 }
             }
 

@@ -3042,7 +3042,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
             if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return ofertasDelDiaModel;
-            if (!esAppMobile) return ofertasDelDiaModel;
 
             try
             {

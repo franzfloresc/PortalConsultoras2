@@ -81,8 +81,8 @@ $(document).ready(function () {
 
         CargarCarouselMasVendidos('mobile');
     }
-
-    CargarPopupsConsultora();
+    
+    if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -100,7 +100,7 @@ $(document).ready(function () {
         });
     });
 
-    ObtenerComunicadosPopup();
+    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 });
 $(window).load(function () {
