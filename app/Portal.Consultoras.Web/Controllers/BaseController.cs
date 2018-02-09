@@ -3142,7 +3142,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var result = false;
 
-            result = configuracionPais != null && configuracionPais.ConfiguracionPaisID>0 && !string.IsNullOrWhiteSpace(configuracionPais.Codigo);
+            result = configuracionPais != null && configuracionPais.ConfiguracionPaisID>=0 && !string.IsNullOrWhiteSpace(configuracionPais.Codigo);
 
             return result;
         }
