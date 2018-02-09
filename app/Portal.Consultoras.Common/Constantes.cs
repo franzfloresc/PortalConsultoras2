@@ -217,6 +217,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string HerramientasDeVenta = "011";
             public const string Incentivos = "022";
+            public const string HerramientaVentas = "011";
         }
 
         public static class ConstSession
@@ -693,6 +694,10 @@ namespace Portal.Consultoras.Common
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileLandingPopup = 2812;
             #endregion
+
+            #region Herramienta de Ventas
+            public const int HerramientasVentasDesktopContenedor = 9999;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -1083,7 +1088,7 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
-            public const string HerramientaVenta = "HV";
+            public const string HerramientasVentas = "HV";
         }
 
         public static class ConfiguracionPaisDatos

@@ -2970,7 +2970,7 @@ namespace Portal.Consultoras.Web.Controllers
                     => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientaVenta).ToList();
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVentas).ToList();
                 }
 
                 var isMobile = IsMobile();
@@ -3075,6 +3075,10 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             if (!userData.TieneOfertaDelDia)
                                 continue;
+                            break;
+                        case Constantes.ConfiguracionPais.HerramientasVentas:
+                            seccion.UrlObtenerProductos = isMobile ? string.Empty : "HerramientasVentas/ObtenerProductos";
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor;
                             break;
                     }
                     #endregion
@@ -3705,7 +3709,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                         menuContenedorBloqueado.Add(config);
                         break;
-                    case Constantes.ConfiguracionPais.HerramientaVenta:
+                    case Constantes.ConfiguracionPais.HerramientasVentas:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/HerramientaVenta/Revisar";
                         config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";

@@ -754,6 +754,139 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.IsNotNull(result);
                 Assert.AreEqual(0, result.Count);
             }
+
+            class BaseControllerStub02 : BaseController
+            {
+                public BaseControllerStub02(ISessionManager sessionManager, ILogManager logManager) : base(sessionManager, logManager)
+                {
+                    //
+                }
+
+                public override bool IsMobile()
+                {
+                    return false;
+                }
+
+                public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+                {
+                    return new List<BEConfiguracionOfertasHome>
+                    {
+                        new BEConfiguracionOfertasHome
+                        {
+                            ConfiguracionPaisID=18,
+                            ConfiguracionPais = new BEConfiguracionPais
+                            {
+                                ConfiguracionPaisID =18,
+                                Codigo = "HV",
+                                Excluyente = false
+                            },
+                            CampaniaID = 201801,
+                            UrlSeccion = "HerramientaVentas/Index",
+                            //
+                            DesktopOrden = 9,
+                            DesktopImagenFondo = "PE_20171045539_xfwrimsvol_Desktop.png",
+                            DesktopTitulo = "Titulo Herramienta Venta - Desktop",
+                            DesktopSubTitulo = "SubTitulo Herramienta Venta - Desktop",
+                            DesktopTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado,
+                            DesktopTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientaVentas,
+                            DesktopCantidadProductos = 3                            
+                        }
+                    };
+                }
+            }
+            [TestMethod]
+            public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasDesktop_SeDevuelveSeccionConfigurada()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseControllerStub02(sessionManager.Object, logManager.Object);
+                var revistaDigital = new RevistaDigitalModel { };
+
+                var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual("HV", result.Codigo);
+                Assert.AreEqual(9, result.Orden);
+                Assert.AreEqual("PE_20171045539_xfwrimsvol_Desktop.png", result.ImagenFondo);
+                Assert.AreEqual("Titulo Herramienta Venta - Desktop", result.Titulo);
+                Assert.AreEqual("SubTitulo Herramienta Venta - Desktop", result.SubTitulo);
+                Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado, result.TipoPresentacion);
+                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientaVentas, result.TipoEstrategia);
+                Assert.AreEqual(3, result.CantidadMostrar);
+                Assert.AreEqual("/HerramientaVentas/Index", result.UrlLandig);
+                Assert.AreEqual(true, result.VerMas);
+                //
+                Assert.AreEqual(false, string.IsNullOrEmpty(result.UrlObtenerProductos));
+                Assert.AreEqual(Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor, result.OrigenPedido);
+                //
+                Assert.AreEqual("seccion-simple-centrado", result.TemplatePresentacion);
+                Assert.AreEqual("#producto-landing-template", result.TemplateProducto);
+            }
+
+            class BaseControllerStub03 : BaseController
+            {
+                public BaseControllerStub03(ISessionManager sessionManager, ILogManager logManager) : base(sessionManager, logManager)
+                {
+                    //
+                }
+
+                public override bool IsMobile()
+                {
+                    return true;
+                }
+
+                public override List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+                {
+                    return new List<BEConfiguracionOfertasHome>
+                    {
+                        new BEConfiguracionOfertasHome
+                        {
+                            ConfiguracionPaisID=18,
+                            ConfiguracionPais = new BEConfiguracionPais
+                            {
+                                ConfiguracionPaisID =18,
+                                Codigo = "HV",
+                                Excluyente = false
+                            },
+                            CampaniaID = 201801,
+                            UrlSeccion = "HerramientaVentas/Index",                            
+                            //
+                            MobileOrden = 99,
+                            MobileImagenFondo = "PE_20171045539_xfwrimsvol_Mobile.png",
+                            MobileTitulo = "Titulo Herramienta Venta - Mobile",
+                            MobileSubTitulo = "SubTitulo Herramienta Venta - Mobile",
+                            MobileTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.Banners,
+                            MobileTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientaVentas,
+                        }
+                    };
+                }
+            }
+            [TestMethod]
+            public void ObtenerConfiguracionSeccion_SeObtieneSeccionHerramientaVentasMobile_SeDevuelveSeccionConfigurada()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedorActivo()).Returns(new MenuContenedorModel { });
+                var controller = new BaseControllerStub03(sessionManager.Object, logManager.Object);
+                var revistaDigital = new RevistaDigitalModel { };
+
+                var result = controller.ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual("HV", result.Codigo);
+                Assert.AreEqual(99, result.Orden);
+                Assert.AreEqual("PE_20171045539_xfwrimsvol_Mobile.png", result.ImagenFondo);
+                Assert.AreEqual("Titulo Herramienta Venta - Mobile", result.Titulo);
+                Assert.AreEqual("SubTitulo Herramienta Venta - Mobile", result.SubTitulo);
+                Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.Banners, result.TipoPresentacion);
+                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientaVentas, result.TipoEstrategia);
+                Assert.AreEqual(0, result.CantidadMostrar);
+                Assert.AreEqual("/Mobile/HerramientaVentas/Index", result.UrlLandig);
+                Assert.AreEqual(true, result.VerMas);
+                //
+                Assert.AreEqual(true, string.IsNullOrEmpty(result.UrlObtenerProductos));
+                Assert.AreEqual(0, result.OrigenPedido);
+                //
+                Assert.AreEqual("seccion-banner", result.TemplatePresentacion);
+                Assert.AreEqual("", result.TemplateProducto);
+            }
         }
     }
 }
