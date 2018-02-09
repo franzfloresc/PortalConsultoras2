@@ -552,9 +552,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (Request.IsAjaxRequest())
                     {
-                        var urlx = (Url.IsLocalUrl(decodedUrl))
-                            ? decodedUrl
-                            : Url.Action("Index", "Bienvenida", new {area = "Mobile"});
+                        string urlx = string.Empty;
+
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            urlx = decodedUrl;
+                        }
+                        else
+                        {
+                            if ((usuario.ConsultoraNueva == 1 || usuario.ConsultoraNueva == 7) && EsAndroid())
+                                urlx = Url.Action("Index", "DescargarApp", new { area = "Mobile" });
+                            else
+                                urlx = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                        }
+
                         return Json(new
                         {
                             success = true,
