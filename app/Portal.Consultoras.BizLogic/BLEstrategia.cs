@@ -203,7 +203,7 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     break;
-                case Constantes.TipoEstrategiaCodigo.HerramientasDeVenta:
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
                     using (var reader = daEstrategia.GetEstrategiaHerramientasVenta(entidad))
                     {
                         while (reader.Read()) estrategias.Add(new BEEstrategia(reader));

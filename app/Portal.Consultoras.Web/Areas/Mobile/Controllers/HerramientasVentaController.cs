@@ -189,30 +189,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = Constantes.TipoEstrategiaCodigo.HerramientaVentas;
+                var palanca = Constantes.TipoEstrategiaCodigo.HerramientasVenta;
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
-                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta).ToList();
 
                 var cantidadTotal = listModel.Count;
 
-                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
-                if (TieneProductosPerdio(model.CampaniaID))
-                {
-                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
-                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-
-                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                }
 
                 return Json(new
                 {
                     success = true,
                     lista = listModel,
-                    listaPerdio = listPerdio,
+                    listaPerdio = new List<EstrategiaPersonalizadaModel>(),
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID

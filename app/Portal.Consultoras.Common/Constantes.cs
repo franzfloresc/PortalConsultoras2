@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
-            public const string HerramientaVentas = "011";
+            public const string HerramientasVenta = "011";
         }
 
         public static class ConstSession
