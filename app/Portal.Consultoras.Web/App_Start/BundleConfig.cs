@@ -436,6 +436,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/HerramientasVenta-Landing").Include(
+                "~/Scripts/PortalConsultoras/RevistaDigital/HerramientasVenta.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/HerramientasVenta-Landing.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
