@@ -26,9 +26,8 @@
                 <div class="banner_pedido_masofertas">
                     <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                     <div class="btn_red">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                             VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
                         </a>
                     </div>
                 </div>
@@ -54,9 +53,8 @@
                 <div class="banner_pedido_masofertas">
                     <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                     <div class="btn_red">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                             VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
                         </a>
                     </div>
                 </div>
@@ -64,41 +62,13 @@
         </div>
         <hr class="clear" />
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                  new ViewDataDictionary {
-{ "Source", 2 },
-{ "NombreConsultora", ViewBag.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                  });
+                new ViewDataDictionary {
+                    { "Source", 2 },
+                    { "NombreConsultora", ViewBag.NombreConsultora },
+                    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                    { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                });
     }
-}
-else if (revistaDigital.TieneRDR)
-{
-    <div class="mob_home_bpt">
-        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@urlLogo" class="small" alt="">
-                </div>
-                <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                <div class="btn_red">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
-                        VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")" alt="">
-                    </a>
-                </div>
-            </div>
-            <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                     data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
-                    <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" alt="" /><br /></div>
-                </div>
-            </div>
-        </div>
-    </div>
 }
 else if (revistaDigital.TieneRDI)
 {
@@ -113,9 +83,8 @@ else if (revistaDigital.TieneRDI)
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 <div class="btn_red">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                    <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                         VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/Lbel/rd_arrowright_rmorado.png")">
                     </a>
                 </div>
             </div>
@@ -123,20 +92,47 @@ else if (revistaDigital.TieneRDI)
     </div>
     <hr class="clear" />
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-              new ViewDataDictionary {
-    { "Source", 2 },
-    { "NombreConsultora", ViewBag.NombreConsultora },
-    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-    { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                  });
+        new ViewDataDictionary {
+            { "Source", 2 },
+            { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+            { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+        });
+}
+else if (revistaDigital.TieneRDR)
+{
+    <div class="mob_home_bpt">
+        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+            <div class="cabecera_pedido_rd">
+                <div class="rd_logo">
+                    <img src="@urlLogo" class="small" alt="">
+                </div>
+                <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+            </div>
+            <div class="banner_pedido_masofertas">
+                <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                <div class="btn_red">
+                    <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                        VER TODAS MIS OFERTAS
+                    </a>
+                </div>
+            </div>
+            <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                     data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
+                    <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" alt="" /><br /></div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-        new ViewDataDictionary {
-{ "Source", 1 },
-{ "NombreConsultora", ViewBag.NombreConsultora },
-{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-        });
+            new ViewDataDictionary {
+                { "Source", 1 },
+                { "NombreConsultora", ViewBag.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+            });
 }
