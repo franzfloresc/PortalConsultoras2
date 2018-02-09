@@ -290,6 +290,7 @@
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
