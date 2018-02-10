@@ -72,6 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
                     sessionManager.SetTieneRdr(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
+                    sessionManager.SetTieneRdr(false);
                 return Json(new
                 {
                     estado = "Ok"

@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, 0, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
+                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
                 int cantidadTotal = listModel.Count;
                 int cantidad = cantidadTotal < model.Limite?cantidadTotal:model.Limite;
