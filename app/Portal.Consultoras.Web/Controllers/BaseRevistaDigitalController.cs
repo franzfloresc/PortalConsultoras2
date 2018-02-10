@@ -115,6 +115,8 @@ namespace Portal.Consultoras.Web.Controllers
             
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
+
+            ViewBag.TieneHV = true;
             return PartialView("template-landing", model);
         }
 

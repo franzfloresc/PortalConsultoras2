@@ -788,7 +788,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                             DesktopTitulo = "Titulo Herramienta Venta - Desktop",
                             DesktopSubTitulo = "SubTitulo Herramienta Venta - Desktop",
                             DesktopTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado,
-                            DesktopTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientaVentas,
+                            DesktopTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
                             DesktopCantidadProductos = 3                            
                         }
                     };
@@ -810,7 +810,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("Titulo Herramienta Venta - Desktop", result.Titulo);
                 Assert.AreEqual("SubTitulo Herramienta Venta - Desktop", result.SubTitulo);
                 Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado, result.TipoPresentacion);
-                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientaVentas, result.TipoEstrategia);
+                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientasVenta, result.TipoEstrategia);
                 Assert.AreEqual(3, result.CantidadMostrar);
                 Assert.AreEqual("/HerramientaVentas/Index", result.UrlLandig);
                 Assert.AreEqual(true, result.VerMas);
@@ -855,7 +855,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                             MobileTitulo = "Titulo Herramienta Venta - Mobile",
                             MobileSubTitulo = "SubTitulo Herramienta Venta - Mobile",
                             MobileTipoPresentacion = Constantes.ConfiguracionSeccion.TipoPresentacion.Banners,
-                            MobileTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientaVentas,
+                            MobileTipoEstrategia = Constantes.TipoEstrategiaCodigo.HerramientasVenta,
                         }
                     };
                 }
@@ -876,7 +876,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("Titulo Herramienta Venta - Mobile", result.Titulo);
                 Assert.AreEqual("SubTitulo Herramienta Venta - Mobile", result.SubTitulo);
                 Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.Banners, result.TipoPresentacion);
-                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientaVentas, result.TipoEstrategia);
+                Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientasVenta, result.TipoEstrategia);
                 Assert.AreEqual(0, result.CantidadMostrar);
                 Assert.AreEqual("/Mobile/HerramientaVentas/Index", result.UrlLandig);
                 Assert.AreEqual(true, result.VerMas);

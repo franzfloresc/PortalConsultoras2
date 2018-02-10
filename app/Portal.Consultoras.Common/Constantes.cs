@@ -1630,6 +1630,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+            public const string HerramientasVentaIndex = "/herramientasventa/index";
+            public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
+            public const string HerramientasVentaComprar = "/herramientasventa/comprar";
         }
 
         public static class TipoVistaEstrategia

@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile" });
             }
             catch (Exception ex)
             {
@@ -175,7 +175,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (herramientasVentaModel==null || EsCampaniaFalsa(model.CampaniaID))
+                if (herramientasVenta==null || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {

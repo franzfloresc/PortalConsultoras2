@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
-        protected HerramientasVentaModel herramientasVentaModel;
+        protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 revistaDigital = sessionManager.GetRevistaDigital();
-                herramientasVentaModel = sessionManager.GetHerramientasVenta();
+                herramientasVenta = sessionManager.GetHerramientasVenta();
 
                 guiaNegocio = sessionManager.GetGuiaNegocio();
 
@@ -3336,6 +3336,15 @@ namespace Portal.Consultoras.Web.Controllers
                         ? Constantes.OrigenPantallaWeb.MGuiaNegocio
                         : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
+                case Constantes.UrlMenuContenedor.HerramientasVentaIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    break;
+                case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    break;
+                case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    break;
             }
 
             var configMenu = listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
@@ -4252,6 +4261,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
+            ViewBag.TieneHV = false;
             ViewBag.MenuContenedorActivo = GetMenuActivo();
             ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
