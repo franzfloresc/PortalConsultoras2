@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Common
             s_html += "<a href='http://www.lbel.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
-            s_html += "<a href='http://www.cyzone.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
+            s_html += "<a href='http://www.cyzone.com/'><img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
             s_html += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<a href=\"http://www.lbel.com/\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt =\"Logo L'bel\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 15%; text-align: left; border-right: 1px solid #FFF;\">");
-            sBuilder.Append("<a href=\"http://www.cyzone.com/\" ><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/qZf6NJ5d9D75LCO/logo-cyzone.png\" alt =\"Logo Cyzone\"/></a>");
+            sBuilder.Append("<a href=\"http://www.cyzone.com/\" ><img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt =\"Logo Cyzone\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 15%; font-family:'Calibri'; font-weight: 400; font-size:13px; color:#FFF; vertical-align:middle;\">");
             sBuilder.Append("<a href=\"https://www.facebook.com/SomosBelcorpOficial?fref=ts\" style=\"text-decoration: none\">");
