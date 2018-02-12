@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model.PartialSectionBpt = GetPartialSectionBptModel();
+                model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
 
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
@@ -2303,7 +2303,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public virtual PartialSectionBpt GetPartialSectionBptModel()
+        public virtual PartialSectionBpt GetPartialSectionBptModel(RevistaDigitalModel revistaDigital)
         {
             var partial = new PartialSectionBpt();
 
