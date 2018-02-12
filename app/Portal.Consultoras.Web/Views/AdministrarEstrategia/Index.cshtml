@@ -1596,6 +1596,8 @@
         });
 
         $("#btnDescripcionMasivo").click(function () {
+            $("#hdTipoCargaShowroom").val("SetShowroom");
+            $("#fileDescMasivo").val("");
             if (ValidarMasivo()) {
                 if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == Codigo.CodigoShowRoom) {
                     $("#ui-id-10").text('Carga masiva de Showroom');
