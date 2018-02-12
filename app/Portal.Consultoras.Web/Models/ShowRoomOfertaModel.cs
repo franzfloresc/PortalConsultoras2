@@ -110,5 +110,7 @@ namespace Portal.Consultoras.Web.Models
         public List<ProductoModel> ProductoTonos { get; set; }
 
         public string CodigoEstrategia { get; set; }
+
+        public int EstrategiaId { get; set; }
     }
 }
