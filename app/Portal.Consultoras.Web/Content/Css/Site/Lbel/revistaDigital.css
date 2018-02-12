@@ -1616,7 +1616,6 @@
 .btn_stroke_white {
     background: transparent;
     width: 260px;
-    border: 1px solid white;
     color: white;
     font-size: 13px;
 }
@@ -3155,7 +3154,7 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
+            background: url('/Content/Images/Lbel/visual-de-funcionamiento.png');
             width: 250px;
             height: 278px;
             background-repeat: no-repeat;
