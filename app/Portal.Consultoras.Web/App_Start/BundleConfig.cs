@@ -507,6 +507,25 @@ namespace Portal.Consultoras.Web
 
             #endregion
 
+            #region HerramientasVenta
+
+            bundles.Add(new ScriptBundle("~/bundles/HerramientasVenta-Landing").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js"
+            ));
+
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+            ));
+
+            #endregion
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

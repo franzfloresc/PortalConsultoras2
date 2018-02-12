@@ -1,0 +1,112 @@
+﻿
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.HerramientasVentaLandingModel
+@{
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    var idBorrar = "borrar" + Model.CampaniaID;
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/HerramientasVenta-Landing")
+}
+
+
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
+    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
+
+        <div id="orderby-filter" style="padding: 0px 2%;">
+            <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                <div class="rd-seccion2" style=" padding 0px 0%; height:auto;">
+                    <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                        <div class="rd-cantidad">
+                            Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
+                        </div>
+                        <div class="rd-filtro-limpiar">
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
+                        @if (Model.FiltersByBrand.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                @foreach (var item in Model.FiltersByBrand)
+                                {
+                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                }
+                            </select>
+                        }
+                        @if (Model.FiltersBySorting.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                @foreach (var item1 in Model.FiltersBySorting)
+                                {
+                                    <option value="@item1.Codigo">@item1.Descripcion</option>
+                                }
+                            </select>
+                        }
+
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="RDListado" data-content-item="@Model.CampaniaID"
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVDesktopLanding"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp">
+
+            <div id="divOfertaProductos" style="text-align: center;"></div>
+            <div id="no-productos" class="seccion-no-productos">
+                Próximamente encontrarás aquí las mejores ofertas que te harán ganar más y obtener más ingresos.<br />
+                ¡Vuelve pronto!
+            </div>
+            <hr class="clear" />
+        </div>
+    </div>
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
+    <hr class="clear" />
+</div>
+
+<hr class="clear" />
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var tipoOrigenPantalla = 1;
+    var urlOfertaCargarProductos = '@Url.Action("ObtenerProductos", "HerramientasVenta")';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVDesktopLanding';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var tipoOrigenEstrategia = 1;
+    var CantidadFilas = @Model.CantidadFilas;
+    var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+    var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+    var lsListaRD = "HVLista";
+    var campaniaId = @Model.CampaniaID;
+    //
+    var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+    var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+    var RevistaCodigoIssuu = {
+        '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
+        '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
+        '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+    };
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/HerramientasVenta-Landing")
+}

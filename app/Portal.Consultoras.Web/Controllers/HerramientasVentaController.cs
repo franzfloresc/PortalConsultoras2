@@ -8,11 +8,23 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class HerramientasVentaController : BaseEstrategiaController
+    public class HerramientasVentaController : BaseHerramientasVentaController
     {
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                //if (GNDValidarAcceso())
+                //{
+                    return ViewLanding();
+                //}
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         [HttpPost]
