@@ -21,7 +21,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <div class="titulo_mobile hideTituloMobileDetalleOferta">
-    @{  
+    @{
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
@@ -34,47 +34,48 @@
 <div class="pestana_lbel hideTituloMobileDetalleOferta"></div>
 
 <div class="content_room_product_sheet content_detalle_s">
-@if (mobileConfiguracion.MostrarBotonAtras)
-{
-    <a href="@Request.UrlReferrer" class="btn_volver_detalle_oferta" title="Volver">
-        <span class="icono_flecha_volver">
-            <img src="@Url.Content("~/Content/Images/mobile/flecha-volver-detalle.svg")" alt="Volver" />
-        </span>
-        <span class="texto_enlace_volver_detalle">VOLVER</span>
-    </a>
-}
+    @if (mobileConfiguracion.MostrarBotonAtras)
+    {
+        <a href="@Request.UrlReferrer" class="btn_volver_detalle_oferta" title="Volver">
+            <span class="icono_flecha_volver">
+                <img src="@Url.Content("~/Content/Images/mobile/flecha-volver-detalle.svg")" alt="Volver" />
+            </span>
+            <span class="texto_enlace_volver_detalle">VOLVER</span>
+        </a>
+    }
 
-<div class="product_sheet_image" data-img="" style="background: url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
+    <div class="product_sheet_image" data-img="" style="background: url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
 
-    <img src="@Model.ImagenProducto" width="236" style="margin-top: 20px;">
-</div>
-<div class="wrapper_resumen_mobile" style="margin-top: 10px;">
-    <h1>@Model.Descripcion</h1>
-    <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion"/>
-    <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca"/>
-    <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta"/>
-    <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID"/>
-    <div class="price_product">
-        <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
-        <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
-        <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
+        <img src="@Model.ImagenProducto" width="236" style="margin-top: 20px;">
     </div>
-    <div class="item_product">
-            <div class="description_item">
-                <div class="detail">
-                    <div class="content_detalle_set_showroom">
-                       @{
-                           var btnDesabled = 0;
-                           var btnDesabledClass = "";
-                       }
+    <div class="wrapper_resumen_mobile" style="margin-top: 10px;">
+        <h1>@Model.Descripcion</h1>
+        <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion" />
+        <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca" />
+        <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta" />
+        <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID" />
+        <div class="price_product">
+            <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
+            <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
+            <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
+        </div>
+        <div class="item_product">
+            <div class="description_item" data-item>
+                <div class="detail detailItem">
+                    <div class="content_detalle_set_showroom" >
+                        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
+                        @{
+                            var btnDesabled = 0;
+                            var btnDesabledClass = "";
+                        }
                         <hr class="clear">
                         @if (Model.CodigoProducto != "")
                         {
                             <div data-estrategia="@Model.CodigoEstrategia">
-                               @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                               {
-                                   if ((Model.ProductoTonos.Any()))
-                                   {
+                                @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+                                {
+                                    if ((Model.ProductoTonos.Any()))
+                                    {
                                         btnDesabled = 1;
                                         <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
                                             <div class="tono_select_opt">
@@ -117,7 +118,7 @@
                                     var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
                                     if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
                                     {
-                                    <div class="@claseItem">
+                                        <div class="@claseItem">
                                             @foreach (var Hermano in Model.ProductoTonos)
                                             {
                                                 if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
@@ -137,7 +138,7 @@
                                                         <div class="content_imagen_individual">
                                                             <img src="@Hermano.Imagen">
                                                         </div>
-                                                       <div  class="content_descripcion_set">
+                                                        <div class="content_descripcion_set">
                                                             @if (@Hermano.Cantidad > 0)
                                                             {
                                                                 <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
@@ -265,154 +266,156 @@
                     <a href="#" class="variant" style="background-color: #CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
                 </div>
             </div>
+        </div>
     </div>
-</div>
 
-@if (Model.TieneCompraXcompra)
-{
-    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    @if (Model.TieneCompraXcompra)
     {
-        <div style="max-width: 250px; margin: 0 auto;">
-            <div class="box_promotions">
-                <div class="titulo_compra_carrusel">PROMOCIÓN</div>
-                <div class="content_compra_carrusel">
-                    @{ var posicionCpc = 1; }
-                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                    {
-                        var descripcion = item.Descripcion;
-                        if (descripcion != null && descripcion.Length > 41)
+        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+        {
+            <div style="max-width: 250px; margin: 0 auto;">
+                <div class="box_promotions">
+                    <div class="titulo_compra_carrusel">PROMOCIÓN</div>
+                    <div class="content_compra_carrusel">
+                        @{ var posicionCpc = 1; }
+                        @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                         {
-                            descripcion = descripcion.Substring(0, 40) + " ...";
-                        }
-                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
-                            <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
-                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta"/>
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
-                            </div>
-                            <div class="nombre_producto_pop_compra">@descripcion</div>
-                            <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioOferta</div>
-                            <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
-                            <div class="content_imagen_carrusel_compra">
-                                @if (item.ImagenProducto != "")
-                                {
-                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
-                                }
-                                else
-                                {
-                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
-                                }
-                            </div>
-                            <div style="height: 50px;">
-                                <div class="texto_banner_compra" style="text-align: center">
-                                    <span>@Model.TextoCondicionCompraCpc</span>
+                            var descripcion = item.Descripcion;
+                            if (descripcion != null && descripcion.Length > 41)
+                            {
+                                descripcion = descripcion.Substring(0, 40) + " ...";
+                            }
+                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                                <div data-campos="">
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                    <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
+                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                                 </div>
+                                <div class="nombre_producto_pop_compra">@descripcion</div>
+                                <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
+                                <div class="content_imagen_carrusel_compra">
+                                    @if (item.ImagenProducto != "")
+                                    {
+                                        <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
+                                    }
+                                    else
+                                    {
+                                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
+                                    }
+                                </div>
+                                <div style="height: 50px;">
+                                    <div class="texto_banner_compra" style="text-align: center">
+                                        <span>@Model.TextoCondicionCompraCpc</span>
+                                    </div>
+                                </div>
+
+                                <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
                             </div>
-
-                            <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
-                        </div>
-                        {
-                            posicionCpc++;
+                            {
+                                posicionCpc++;
+                            }
                         }
-                    }
-                </div>
-            </div>
-        </div>
-
-    }
-}
-
-
-<div class="other_consultants">
-    <div class="oc_title">
-        <b>VER MÁS SETS</b> EXCLUSIVOS PARA TI
-    </div>
-    <div class="content_carrusel_intriga" id="divEstrategias">
-        @{ var posicionx = 0; }
-        <div class="variable-width">
-            @foreach (var oferta in Model.ListaOfertaShowRoom)
-            {
-                var descripcion = oferta.Descripcion;
-                if (descripcion != null && descripcion.Length > 41)
-                {
-                    descripcion = descripcion.Substring(0, 40) + " ...";
-                }
-
-                posicionx++;
-                <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
-                    <div data-campos="" style="display: none;">
-                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
-                        <input type="hidden" class="valorCuv" value="@oferta.CUV"/>
-                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID"/>
-                        <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta"/>
-                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID"/>
-                        <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion"/>
-                        <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
-                        <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
                     </div>
-                    <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area = "Mobile"})" class="slider_item_content">
-                        <div data-img="">
-                            <img src="@oferta.ImagenProducto" data-img-lazy="1"/>
-                        </div>
-                        <span class="title">@descripcion</span>
-                        <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
-                        <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
-                    </a>
                 </div>
-            }
-        </div>
-        <div class="content_orden_carrusel" data-posicion-set="">
-            <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
-            <div class="linea_separadora_mobile" style="margin-top: -7px;"></div>
-            <div class="orden_flecha"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha"/>
             </div>
-            <div class="orden_flecha" style="right: 0;"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha"/>
+
+        }
+    }
+
+
+    <div class="other_consultants">
+        <div class="oc_title">
+            <b>VER MÁS SETS</b> EXCLUSIVOS PARA TI
+        </div>
+        <div class="content_carrusel_intriga" id="divEstrategias">
+            @{ var posicionx = 0; }
+            <div class="variable-width">
+                @foreach (var oferta in Model.ListaOfertaShowRoom)
+                {
+                    var descripcion = oferta.Descripcion;
+                    if (descripcion != null && descripcion.Length > 41)
+                    {
+                        descripcion = descripcion.Substring(0, 40) + " ...";
+                    }
+
+                    posicionx++;
+                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
+                        <div data-campos="" style="display: none;">
+                            <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                            <input type="hidden" class="valorCuv" value="@oferta.CUV" />
+                            <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
+                            <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
+                            <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
+                            <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion" />
+                            <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
+                            <input type="hidden" class="posicionEstrategia" value="@posicionx" />
+                        </div>
+                        <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area = "Mobile"})" class="slider_item_content">
+                            <div data-img="">
+                                <img src="@oferta.ImagenProducto" data-img-lazy="1" />
+                            </div>
+                            <span class="title">@descripcion</span>
+                            <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                            <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
+                        </a>
+                    </div>
+                }
             </div>
+            <div class="content_orden_carrusel" data-posicion-set="">
+                <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
+                <div class="linea_separadora_mobile" style="margin-top: -7px;"></div>
+                <div class="orden_flecha">
+                    <img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha" />
+                </div>
+                <div class="orden_flecha" style="right: 0;">
+                    <img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha" />
+                </div>
+            </div>
+
+
         </div>
 
-
     </div>
-
-</div>
-@if (!string.IsNullOrEmpty(Model.TipNegocio))
-{
-    <div class="business_tips">
-        <h3 class="title">tip de negocio</h3>
-        <div class="content">@Model.TipNegocio</div>
-    </div>
-}
-<div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
-    <div data-compartir-campos="" style="display: none;">
-        <input type="hidden" class="CUV" value="@Model.CUV"/>
-        <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje"/>
-        <input type="hidden" class="rsFBRuta" value="@Model.FBRuta"/>
-        <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
-        <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
-        <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
-        <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
-        <input type="hidden" class="Nombre" value="@Model.Descripcion"/>
-        <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
-        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
-        <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
-        <input type="hidden" class="Palanca" value="SR"/>
-    </div>
-    @if (mobileConfiguracion.MostrarBotonAtras)
+    @if (!string.IsNullOrEmpty(Model.TipNegocio))
     {
-        <div class="title">Comparte este producto con tus clientes:</div>
-        <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png">
-            </a>
+        <div class="business_tips">
+            <h3 class="title">tip de negocio</h3>
+            <div class="content">@Model.TipNegocio</div>
         </div>
     }
-</div>
+    <div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+        <div data-compartir-campos="" style="display: none;">
+            <input type="hidden" class="CUV" value="@Model.CUV" />
+            <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
+            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
+            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
+            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
+            <input type="hidden" class="Palanca" value="SR" />
+        </div>
+        @if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <div class="title">Comparte este producto con tus clientes:</div>
+            <div class="content_redes_ficha">
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png">
+                </a>
+            </div>
+        }
+    </div>
 </div>
 <div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
     <div data-campos="" style="display:none;">
@@ -435,7 +438,7 @@
         {
             btnDesabledClass = "btn_desactivado_general";
         }
-        <a id="btnAgregalo" class="btn_agregar_ficha_producto @btnDesabledClass" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
+        <a id="btnAgregalo" class="btn_agregar_ficha_producto @btnDesabledClass" @*data-btn-agregar-sr=""*@  onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
         <hr class="clear">
     </div>
 </div>
@@ -478,11 +481,11 @@
                             <div class="content_imagen_carrusel_compra">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1"/>
+                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                 }
                                 else
                                 {
-                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
+                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
                                 }
                             </div>
                             <div style="height: 130px;">
@@ -508,8 +511,8 @@
                         }
                     }
                 </div>
-                            }
-                        }
+            }
+        }
         <div class="legal_footer_compra">
             @Model.TextoDescripcionLegalCpc
         </div>
@@ -528,3 +531,330 @@
         var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPageCarrusel';
     </script>
 }
+
+
+<script type="text/javascript">
+ 
+
+
+
+    var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
+    var _campania = "";
+
+    function EstrategiaAgregar(event, popup, limite) {
+       
+        var estrategia = EstrategiaObtenerObj(event);
+
+        // var objInput = $(event.target);
+        var objInput = $('.detailItem');
+
+        //origenPedidoWebEstrategia =
+        //    $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        //    || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        //    || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        //    || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        //    || origenPedidoWebEstrategia;
+        origenPedidoWebEstrategia = origenPedidoWeb;
+
+        //var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html") || _campania;
+        //popup = popup || false;
+
+        if (EstrategiaValidarBloqueada(objInput, estrategia)) {
+            try {
+                rdAnalyticsModule.AgregarProductoDeshabilitado(
+                    origenPedidoWebEstrategia, campania, (estrategia.DescripcionResumen +
+                        " " +
+                        estrategia.DescripcionCortada).trim(), popup);
+            } catch (e) { console.log(e) }
+            return false;
+        }
+
+        if (EstrategiaValidarSeleccionTono(objInput)) {
+            return false;
+        }
+
+        //limite = limite || 0;
+        //var cantidad = (limite > 0) ? limite
+        //    : (
+        //        $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
+        //        || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
+        //        || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val()
+        //    );
+
+        //if (!$.isNumeric(cantidad)) {
+        //    AbrirMensajeEstrategia("Ingrese un valor numérico.");
+        //    $('.liquidacion_rango_cantidad_pedido').val(1);
+        //    CerrarLoad();
+        //    return false;
+        //}
+        //if (parseInt(cantidad) <= 0) {
+        //    AbrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
+        //    $('.liquidacion_rango_cantidad_pedido').val(1);
+        //    CerrarLoad();
+        //    return false;
+        //}
+        //  estrategia.Cantidad = cantidad;
+
+        //var agregoAlCarro = false;
+        //if (!isMobile()) {
+        //    //agregarProductoAlCarrito(objInput);
+        //    //agregoAlCarro = true;
+        //    estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
+        //    $('#OfertaTipoNuevo').val(estrategia.FlagNueva);
+        //}
+
+        //AbrirLoad();
+
+        //var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+        //divAgregado = $(itemClone).find(".agregado.product-add");
+
+        var cuvs = "";
+        var CodigoVariante = '@Model.CodigoEstrategia';
+        if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
+            var listaCuvs = $(objInput).parents("[data-item]").find("[data-tono][data-tono-select]");
+            if (listaCuvs.length > 0) {
+                $.each(listaCuvs, function (i, item) {
+                    var cuv = $(item).attr("data-tono-select");
+                    if (cuv != "") {
+                        cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
+                        if (CodigoVariante == "2003") {
+                            cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_MarcaID").val();
+                            cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_PrecioCatalogo").val();
+                        }
+                    }
+                });
+            }
+        }
+
+        //if (!origenPedidoWebEstrategia) {
+        //    origenPedidoWebEstrategia =
+        //        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        //        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        //        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        //        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        //        || origenPedidoWebEstrategia;
+        //}
+        //var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+
+        var cantidad = $('#txtCantidad').val();
+        
+        var params = ({
+            listaCuvTonos: $.trim(cuvs),
+            // cuv: $.trim(estrategia.CUV2),
+            EstrategiaID: $.trim(estrategia.EstrategiaId),// 15144,// $.trim(estrategia.EstrategiaId),
+            FlagNueva: "0",
+            Cantidad: $.trim(cantidad),
+            OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
+            ClienteID_: '-1',
+            tipoEstrategiaImagen: 3
+        });
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Pedido/AgregarProducto',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+
+                window.location = '/Mobile/Pedido/Detalle';
+                return true;
+
+                if (!checkTimeout(data)) {
+                    CerrarLoad();
+                    return false;
+                }
+
+                if (data.success === false) {
+                    AbrirMensajeEstrategia(data.message);
+                    CerrarLoad();
+                    return false;
+                }
+
+                if (!isMobile() && !agregoAlCarro) {
+                    agregarProductoAlCarrito(objInput);
+                    agregoAlCarro = true;
+                }
+
+                AbrirLoad();
+
+                if (divAgregado != null) {
+                    $(divAgregado).show();
+                }
+                if (isMobile()) {
+                    ActualizarGanancia(data.DataBarra);
+                }
+                else {
+                    /*Inicializar en 1*/
+                    $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
+                    $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
+                    $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
+                    /*Fin inicializar en 1*/
+
+                    CargarResumenCampaniaHeader(true);
+                }
+
+                var cuv = estrategia.CUV2;
+
+                if (tipoOrigenEstrategia == 1) {
+                    if (typeof MostrarBarra != "undefined")
+                        MostrarBarra(data, '1');
+
+                    if (typeof ActualizarGanancia != "undefined")
+                        ActualizarGanancia(data.DataBarra);
+
+                    if (typeof CargarCarouselEstrategias != "undefined")
+                        CargarCarouselEstrategias(cuv);
+
+                    if (typeof tieneMasVendidos != "undefined") {
+                        if (tieneMasVendidos === 1) {
+                            if (typeof CargarCarouselMasVendidos != "undefined")
+                                CargarCarouselMasVendidos('desktop');
+                        }
+                    }
+                }
+                else if (tipoOrigenEstrategia == 11) {
+
+                    $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
+
+
+                    cierreCarouselEstrategias();
+                    CargarCarouselEstrategias(cuv);
+                    HideDialog("divVistaPrevia");
+
+                    tieneMicroefecto = true;
+
+                    CargarDetallePedido();
+                    MostrarBarra(data);
+                }
+                else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
+                    if (tipoOrigenEstrategia == 262) {
+                        origenRetorno = $.trim(origenRetorno);
+                        if (origenRetorno != "") {
+                            window.location = origenRetorno;
+                        }
+                    }
+                    else if (tipoOrigenEstrategia != 272) {
+                        CargarCarouselEstrategias(cuv);
+
+                        if (tieneMasVendidos === 1) {
+                            CargarCarouselMasVendidos('mobile');
+                        }
+                    }
+                }
+
+                try {
+                    if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+                        rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
+                    } else {
+                        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    }
+                    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                } catch (e) { console.log(e); }
+
+                CerrarLoad();
+                if (popup) {
+                    CerrarPopup('#popupDetalleCarousel_lanzamiento');
+                    $('#popupDetalleCarousel_packNuevas').hide();
+                }
+
+                ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
+                ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
+
+                ProcesarActualizacionMostrarContenedorCupon();
+
+                if (belcorp.estrategia.applyChanges)
+                    belcorp.estrategia.applyChanges("onProductoAgregado", data);
+            },
+            error: function (data, error) {
+                console.log(data, error);
+                CerrarLoad();
+            }
+        });
+
+    }
+
+
+    function EstrategiaValidarSeleccionTono(objInput) {
+        var attrClass = $.trim($('#tbnAgregarProducto').attr("class"));
+        if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+            setTimeout(function () {
+                $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+            }, 500);
+            return true;
+        }
+        return false;
+    }
+
+    function EstrategiaObtenerObj(e) {
+
+        var objHtmlEvent = $(e.target);
+        if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+        var objHtml = $('.detailItem').parents("[data-item]");
+        var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
+        var estrategia = (objAux != "") ? JSON.parse(objAux) : {};
+        return estrategia;
+    }
+
+
+
+
+
+    function EstrategiaValidarBloqueada(objInput, estrategia) {
+        if ($.trim($(objInput).attr("data-bloqueada")) == "") {
+            return false;
+        }
+
+        if (isMobile()) {
+            EstrategiaVerDetalleMobile(estrategia);
+            return true;
+        }
+
+        var divMensaje = $("#divMensajeBloqueada");
+        if (divMensaje.length > 0) {
+            var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+            if (itemClone.length > 0) {
+                divMensaje.find("[data-item-html]").html(itemClone.html());
+                divMensaje = divMensaje.find("[data-item-html]");
+                divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+                divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
+                divMensaje.find('[data-item-tag="body"]').css("float", "none");
+                divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
+                divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
+                divMensaje.find('[data-item-tag="body"]').attr("class", "");
+                divMensaje.find('[data-item-tag="agregar"]').remove();
+                divMensaje.find('[data-item-tag="fotofondo"]').remove();
+                divMensaje.find('[data-item-tag="verdetalle"]').remove();
+                divMensaje.find('[data-item-accion="verdetalle"]').remove();
+                divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
+            }
+            $(".contenedor_popup_detalleCarousel").hide();
+            $("#divMensajeBloqueada").show();
+        }
+        return true;
+    }
+
+
+    function EstrategiaObtenerObjHtmlLanding(objInput) {
+        var itemClone = $(objInput).parents("[data-item]");
+        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+        if (cuvClone != "") {
+            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length === 0 && cuvClone != "") {
+            itemClone = $("body").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length > 1) {
+            itemClone = $(itemClone.get(0));
+        }
+
+        return itemClone;
+    }
+
+
+
+</script>
