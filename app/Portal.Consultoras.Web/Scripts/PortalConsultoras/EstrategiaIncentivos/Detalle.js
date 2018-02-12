@@ -228,7 +228,7 @@ $("#btnGuardar").click(function (e) {
         Cantidad: "0",
         FlagCantidad: "0",
         Zona: "",
-        Orden: "0",
+        Orden: $.trim($("#Orden").val()),
         ColorFondo: "",
         FlagEstrella: "0",
         CodigoTipoEstrategia: "022",
@@ -246,7 +246,8 @@ $("#btnGuardar").click(function (e) {
         PrecioAnt: "",
         EsOfertaIndependiente: "0",
         Ganancia: "0",
-        CodigoConcurso: $.trim($("#CodigoConcurso").val())
+        CodigoConcurso: $.trim($("#CodigoConcurso").val()),
+        RutaImagenCompleta: rutaImagen
     };
 
     waitingDialog({});

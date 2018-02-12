@@ -503,7 +503,6 @@ ul.type-6 li {
 
 .button {
     display: inline-block;
-    margin-bottom: 1.5em;
     padding: 8px 13px;
     outline: none;
     color: #fff;
@@ -990,11 +989,28 @@ ul.tabs {
     padding: 0;
 }
 
+.wrap_cab_plan50 {
+    border: 2px solid #dfeaec;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin: 40px auto 5px auto;
+    position: relative;
+    width: 75%;
+    min-width: 960px;
+}
+
 .filtros {
     width: 100%;
     height: auto;
     display: block;
     padding: 10px 0 0 0;
+}
+
+.filtros_plan50 {
+    display: block;
+    height: auto;
+    width: 100%;
 }
 
 .filtros2 {
@@ -1005,6 +1021,13 @@ ul.tabs {
     padding: 10px 0 0 0;
 }
 
+.filtros2_plan50 {
+    display: block;
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+}
+
 .elements {
     width: 940px;
     height: auto;
@@ -1013,6 +1036,16 @@ ul.tabs {
     margin: 0 auto 0 auto;
     padding: 50px 0 7px;
     position: relative;
+}
+
+.elements_plan50 {
+    display: block;
+    height: auto;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    padding: 15px 10px 0px 30px;
+    position: relative;
+    width: auto;
 }
 
 .elements_percepcion {
@@ -1074,17 +1107,45 @@ ul.tabs {
 }
 
 .addlist_tab input {
-    width: 100px;
+    /*width: 100px;
     height: 40px;
     line-height: 40px;
     padding: 0;
     margin: 0 10px 0 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    background: url(../../Images/buscar.png) 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
+    float: left;*/
+    background: #3a9ee0;
+    background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -ms-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -o-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: linear-gradient(to bottom, #3a9ee0, #4a94c2);
+    border: 0;
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #fff;
     float: left;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0 5px 0 0;
+    min-width: 100px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
 }
+
+    .div-3 .addlist_tab input:hover {
+        background: #6bc6ff;
+        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+        text-decoration: none;
+    }
 
 .deletelist_tab input {
     width: 100px;
@@ -1558,7 +1619,30 @@ ul.tabs {
     border: 0;
     text-align: left;
 }
-
+.div-3 .titG3 {
+    float: left;
+    width: 120px;
+    height: auto;
+    padding: 9px;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
+.div-3 .titG4 {
+    float: left;
+    width: 127px;
+    height: auto;
+    padding: 9px;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+}
 .div-3 .titX {
     float: left;
     width: 125px;
@@ -2466,41 +2550,94 @@ ul.tabs {
     }
 
 .div-3 .input_search input {
-    float: left;
+    /*float: left;
     width: 100px;
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    background: url(../../Images/buscar.png) 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
+    border: 0;*/
+    background: #3a9ee0;
+    background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -ms-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -o-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: linear-gradient(to bottom, #3a9ee0, #4a94c2);
     border: 0;
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #fff;
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0 5px 0 0;
+    min-width: 100px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
 }
 
     .div-3 .input_search input:hover {
-        float: left;
+        /*float: left;
         width: 100px;
         height: 40px;
         line-height: 40px;
         padding: 0;
-        background: url('../../Images/buscar.png') 0 0 no-repeat;
+        background: url(../../Images/buscar.png) 0 0 no-repeat;
         color: #fff;
         font-size: 14px;
-        border: 0;
+        border: 0;*/
+        background: #6bc6ff;
+        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+        text-decoration: none;
     }
 
 .div-3 .input_horizontal input {
-    float: left;
+    /*float: left;
     width: 100px;
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
+    background: url(../../Images/buscar.png) 0 0 no-repeat;
     color: #fff;
     font-size: 14px;
     border: 0;
-    margin-right: 5px;
+    margin-right: 5px;*/
+    background: #3a9ee0;
+    background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -ms-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -o-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: linear-gradient(to bottom, #3a9ee0, #4a94c2);
+    border: 0;
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #fff;
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0 5px 0 0;
+    min-width: 100px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
 }
+
+    .div-3 .input_horizontal input:hover {
+        background: #6bc6ff;
+        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+        text-decoration: none;
+    }
 
 .div-3 .input_add2 input {
     float: right;
@@ -2660,17 +2797,45 @@ ul.tabs {
 }
 
 .div-3 .input_modifica_pedido input {
-    float: left;
-    width: 140px;
-    height: 37px;
-    line-height: 37px;
-    padding: 0;
+    /*float: left;.input_modifica_pedido
+    width: auto;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px 0 10px;
     background: url('../../Images/btn_modifica_pedido.png') 0 0 no-repeat;
     color: #fff;
-    font-size: 15px;
+    font-size: 14px;
     border: 0;
-    margin: 0 0 0 0;
+    margin: 0 5px 0 0;*/
+    background: #3a9ee0;
+    background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -ms-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -o-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: linear-gradient(to bottom, #3a9ee0, #4a94c2);
+    border: 0;
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #fff;
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0 5px 0 0;
+    min-width: 100px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
 }
+
+    .div-3 .input_modifica_pedido input:hover {
+        background: #6bc6ff;
+        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+        text-decoration: none;
+    }
 
 .div-3 .input_modifica_pedido a {
     color: #702789;
@@ -3353,12 +3518,29 @@ select.ui-pg-selbox {
     background: #fff;
 }
 
+.wrap_plan50 {
+    border: 2px solid #dfeaec;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+    margin: 10px auto 5px auto;
+    position: relative;
+    width: 75%;
+    min-width: 960px;
+}
+
 #slider {
     width: 980px;
 }
 
 .container {
     margin: 0 auto;
+    width: 940px;
+}
+
+.container_plan50 {
+    margin: 0 auto 0 auto;
+    padding: 15px 10px 15px 0;
     width: 940px;
 }
 
@@ -7236,14 +7418,14 @@ table.falsa {
     }
 
 .border-wrapper {
-    padding: 5px;
-    overflow: hidden;
     background: #fff;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     border: solid 1px #d0d0d0;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    behavior: url('../../../../Content/Css/Pie/PIE.htc');
+    overflow: hidden;
+    padding: 5px;
     position: relative;
 }
 
@@ -9917,7 +10099,7 @@ ul.tabs-nav li.active {
 }
 
 .qq-upload-button {
-    background: url('../../Images/buscar.png') no-repeat scroll 0 0 transparent;
+    /*background: url('../../Images/buscar.png') no-repeat scroll 0 0 transparent;
     border: 0 none;
     color: #fff;
     float: left;
@@ -9927,22 +10109,49 @@ ul.tabs-nav li.active {
     padding: 0;
     width: 100px;
     cursor: pointer;
-    text-align: center;
+    text-align: center;*/
+    background: #3a9ee0;
+    background-image: -webkit-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -moz-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -ms-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: -o-linear-gradient(top, #3a9ee0, #4a94c2);
+    background-image: linear-gradient(to bottom, #3a9ee0, #4a94c2);
+    border: 0;
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    margin: 0 5px 0 0;
+    /*min-width: 100px;*/
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
 }
 
-.qq-upload-button-hover {
-    float: left;
-    width: 100px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    background: url('../../Images/buscar.png') 0 0 no-repeat;
-    color: #fff;
-    font-size: 13px;
-    border: 0;
-    cursor: pointer;
-    text-align: center;
-}
+    .qq-upload-button-hover {
+        /*float: left;
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0;
+        background: url('../../Images/buscar.png') 0 0 no-repeat;
+        color: #fff;
+        font-size: 13px;
+        border: 0;
+        cursor: pointer;
+        text-align: center;*/
+        background: #6bc6ff;
+        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+        cursor: pointer;
+        text-decoration: none;
+    }
 
 .qq-upload-button-focus {
     outline: 1px dotted black;

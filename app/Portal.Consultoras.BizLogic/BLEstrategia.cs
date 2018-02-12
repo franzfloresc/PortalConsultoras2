@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -136,7 +137,16 @@ namespace Portal.Consultoras.BizLogic
                 int result = daEstrategia.DeshabilitarEstrategia(entidad);
                 return result;
         }
-
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = DAEstrategia.EliminarEstrategia(entidad);
+                return result;
+            }
+            catch (Exception) { throw; }
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
                 var daEstrategia = new DAEstrategia(entidad.PaisID);
@@ -599,5 +609,19 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                List<int> result = DAEstrategia.InsertarEstrategiaMasiva(entidad);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

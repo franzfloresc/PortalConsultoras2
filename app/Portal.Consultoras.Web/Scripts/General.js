@@ -278,6 +278,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena).string;
             });
 
+            Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen.replace(/'/g, "\\'");
+                return new Handlebars.SafeString(textoOrigen);
+            });
+
             Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
                 cadena = cadena || "";
                 var listCade = cadena.split(separador);
@@ -1956,5 +1961,24 @@ function EstablecerAccionLazyImagenAll(nombreAtributo) {
 
     $(nombreAtributo).lazy({
         delay: 0
+    });
+}
+
+function CuponPopupCerrar() {
+    //AbrirLoad();
+    $('#Cupon3').hide();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cupon/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            //CerrarLoad();
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            //CerrarLoad();
+        }
     });
 }
