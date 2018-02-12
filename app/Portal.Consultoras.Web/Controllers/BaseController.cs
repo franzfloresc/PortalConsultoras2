@@ -3337,13 +3337,13 @@ namespace Portal.Consultoras.Web.Controllers
                         : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVentas;
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
             }
 
