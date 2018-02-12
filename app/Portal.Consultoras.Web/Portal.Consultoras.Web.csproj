@@ -283,6 +283,7 @@
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
+    <Compile Include="Controllers\BaseHerramientasVentaController.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
@@ -612,6 +614,7 @@
     <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
+    <Compile Include="Models\HerramientasVentaLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
     <Compile Include="Models\HerramientasVentaModel.cs" />
@@ -4622,6 +4625,7 @@
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
+    <Content Include="Views\HerramientasVenta\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4945,6 +4949,7 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\App\" />
+    <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />

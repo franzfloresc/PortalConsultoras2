@@ -697,6 +697,10 @@ namespace Portal.Consultoras.Common
 
             #region Herramienta de Ventas
             public const int HerramientasVentasDesktopContenedor = 9999;
+            public const int HVDesktopLanding = 9998;
+            public const int HVDesktopLandingPopUp = 9997;
+            public const int HVMobileLanding = 9996;
+            public const int HVDMobileLandingPopup = 9995;
             #endregion
         }
 
@@ -1088,7 +1092,7 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
-            public const string HerramientasVentas = "HV";
+            public const string HerramientasVenta = "HV";
         }
 
         public static class ConfiguracionPaisDatos

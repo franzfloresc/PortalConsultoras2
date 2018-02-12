@@ -1278,7 +1278,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (c.Estado)
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
-                            case Constantes.ConfiguracionPais.HerramientasVentas:
+                            case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
                                 break;
                         }

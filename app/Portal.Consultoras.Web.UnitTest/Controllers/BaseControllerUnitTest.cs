@@ -781,7 +781,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                                 Excluyente = false
                             },
                             CampaniaID = 201801,
-                            UrlSeccion = "HerramientaVentas/Index",
+                            UrlSeccion = "HerramientasVenta/Index",
                             //
                             DesktopOrden = 9,
                             DesktopImagenFondo = "PE_20171045539_xfwrimsvol_Desktop.png",
@@ -812,10 +812,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado, result.TipoPresentacion);
                 Assert.AreEqual(Constantes.TipoEstrategiaCodigo.HerramientasVenta, result.TipoEstrategia);
                 Assert.AreEqual(3, result.CantidadMostrar);
-                Assert.AreEqual("/HerramientaVentas/Index", result.UrlLandig);
+                Assert.AreEqual("/HerramientasVenta/Index", result.UrlLandig);
                 Assert.AreEqual(true, result.VerMas);
                 //
-                Assert.AreEqual(false, string.IsNullOrEmpty(result.UrlObtenerProductos));
+                Assert.AreEqual("HerramientasVenta/ObtenerProductos", result.UrlObtenerProductos);
                 Assert.AreEqual(Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor, result.OrigenPedido);
                 //
                 Assert.AreEqual("seccion-simple-centrado", result.TemplatePresentacion);
