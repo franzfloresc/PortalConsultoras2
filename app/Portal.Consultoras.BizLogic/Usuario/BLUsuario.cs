@@ -5,6 +5,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.Cupon;
 
 using System;
 using System.Collections.Generic;
@@ -22,22 +23,26 @@ namespace Portal.Consultoras.BizLogic
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
         private readonly IConfiguracionPaisBusinessLogic _configuracionPaisBusinessLogic;
+        private readonly ICuponConsultoraBusinessLogic _cuponConsultoraBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(), 
                                     new BLConsultoraConcurso(), 
                                     new BLRevistaDigitalSuscripcion(), 
-                                    new BLConfiguracionPais())
+                                    new BLConfiguracionPais(),
+                                    new BLCuponConsultora())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, 
                         IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
                         IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic,
-                        IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic)
+                        IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic,
+                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
             _configuracionPaisBusinessLogic = configuracionPaisBusinessLogic;
+            _cuponConsultoraBusinessLogic = cuponConsultoraBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -430,6 +435,7 @@ namespace Portal.Consultoras.BizLogic
             var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
             var incentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
             var revistaDigitalSuscripcionTask = Task.Run(() => this.GetRevistaDigitalSuscripcion(usuario));
+            var cuponTask = Task.Run(() => this.GetCupon(usuario));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -440,7 +446,8 @@ namespace Portal.Consultoras.BizLogic
                             consultoraAniversarioTask,
                             consultoraCumpleanioTask,
                             incentivosConcursosTask,
-                            revistaDigitalSuscripcionTask);
+                            revistaDigitalSuscripcionTask,
+                            cuponTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -467,6 +474,10 @@ namespace Portal.Consultoras.BizLogic
 
             usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 2 ? Convert.ToInt16(revistaDigitalSuscripcionTask.Result[0]) : Constantes.GanaMas.PaisSinGND;
             usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 2 ? revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+
+            usuario.CuponEstado = cuponTask.Result.EstadoCupon;
+            usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
+            usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
 
             return usuario;
         }
@@ -699,6 +710,31 @@ namespace Portal.Consultoras.BizLogic
             lst.Add(UrlBannerGanaMas);
 
             return lst;
+        }
+
+        private BECuponConsultora GetCupon(BEUsuario usuario)
+        {
+            decimal MontoMaximoDescuento = 0;
+
+            var oRequest = new BECuponConsultora()
+            {
+                CodigoConsultora = usuario.CodigoConsultora,
+                CampaniaId = usuario.CampaniaID
+            };
+
+            var oResponse = _cuponConsultoraBusinessLogic.GetCuponConsultoraByCodigoConsultoraCampaniaId(usuario.PaisID, oRequest);
+            if (oResponse != null)
+            {
+                var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.MontoLimiteCupon);
+                var result = lst.Where(x => x.Codigo == usuario.CampaniaID.ToString()).FirstOrDefault();
+                if (result != null)
+                {
+                    decimal.TryParse(result.Descripcion, out MontoMaximoDescuento);
+                    oResponse.MontoMaximoDescuento = MontoMaximoDescuento;
+                }
+            }
+
+            return oResponse ?? new BECuponConsultora();
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)
