@@ -1366,24 +1366,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            var productoEstrategias = new List<RptProductoEstrategia>();
-
-                            if (tono)
-                            {
-                                opt.CampaniaID = campaniaId;
-                                productoEstrategias = EstrategiaProductoObtenerServicio(opt);
-
-                                if (productoEstrategias.Any())
-                                {
-                                    opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                                    opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
-                                }
-                            }
-
-                            EstrategiaProductoInsertar(productoEstrategias, opt);
-
+                            
                             if (habilitarNemotecnico)
                             {
+                                var productoEstrategias = new List<RptProductoEstrategia>();
+                                if (tono)
+                                {
+                                    opt.CampaniaID = campaniaId;
+                                    productoEstrategias = EstrategiaProductoObtenerServicio(opt);
+
+                                    if (productoEstrategias.Any())
+                                    {
+                                        opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
+                                        opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
+                                    }
+                                }
+                                //EstrategiaProductoInsertar(productoEstrategias, opt);
                                 #region habilitarNemotecnico
 
                                 var nemotecnicosLista = new List<string>();
