@@ -587,8 +587,7 @@ $(document).ready(function () {
             TipoEstrategiaImagen: teImagenMostrar || 0,
             
             Descripcion: descripcion,
-            TipoOferta: tipoEstrategiaID,
-            tipoEstrategiaImagen: teImagenMostrar || 0
+            TipoOferta: tipoEstrategiaID
         };
 
         jQuery.ajax({
