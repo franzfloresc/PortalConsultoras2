@@ -36,9 +36,10 @@ namespace Portal.Consultoras.Web.CustomFilters
                 {
                     var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(IdentifierKey);
                     var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
-                    if (originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) > 0)
+                    var origiIndex = originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase);
+                    if (origiIndex > 0)
                     {
-                        var urlGuid = originalString.Substring(originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) + RoutePrefix.Length, 36);
+                        var urlGuid = originalString.Substring(origiIndex + RoutePrefix.Length, 36);
                         guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
                     }
 

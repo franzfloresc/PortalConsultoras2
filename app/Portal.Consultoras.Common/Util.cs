@@ -202,20 +202,20 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static string CadenaAleatoria()
         {
-            string strValue = "";
-            Random objAleatorio = new Random();
             try
             {
+                var txtBuil = new StringBuilder();
+                Random objAleatorio = new Random();
                 for (int i = 0; i < 8; i++)
                 {
-                    strValue = strValue + objAleatorio.Next(0, 10).ToString();
+                    txtBuil.Append(objAleatorio.Next(0, 10).ToString());
                 }
+                return txtBuil.ToString();
             }
             catch (Exception)
             {
                 return "";
             }
-            return strValue;
         }
 
         /// <summary>
@@ -236,7 +236,6 @@ namespace Portal.Consultoras.Common
         /// <param name="isHTML">Flag que indica si es HTML o no</param>
         /// <param name="Tags">Tag del elemento</param>
         /// <returns></returns>
-        /// 
         public static bool EnviarMailMobile(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))

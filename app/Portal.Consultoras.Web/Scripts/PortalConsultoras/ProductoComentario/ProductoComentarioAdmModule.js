@@ -351,7 +351,6 @@ var productoComentarioAdmModule = (function () {
         setting.imagenEnableUrl = parameters.imagenEnableUrl;
         setting.imagenDisableUrl = parameters.imagenDisableUrl;
         setting.actualizarEstadoProductoComentarioUrl = parameters.actualizarEstadoProductoComentarioUrl;
-        //
         _bindEvents();
     };
 

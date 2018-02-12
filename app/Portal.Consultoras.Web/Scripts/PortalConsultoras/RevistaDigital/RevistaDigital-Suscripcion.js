@@ -28,11 +28,8 @@ $(document).ready(function () {
             page.stop().animate({ scrollTop: ScrollUser(anchor, alto) }, 1000);
 
         });
-        var offS = $(".como-funciona").offset();
-        var anchor_offset = 0;
-        if (offS != undefined) {
-            var anchor_offset = offS.top;
-        }
+        var offS = $(".como-funciona").offset() || {};
+        var anchor_offset = offS.top || 0;
 
         $(window).on("scroll", function () {
             if ($(window).scrollTop() > anchor_offset) {
@@ -102,8 +99,7 @@ $(document).ready(function () {
 function onScrollDown(event) {
     $(window).scroll(function () {
         var windowHeight = $(window).scrollTop();
-        var contenido2 = $("#saber-mas-uno").offset();
-        contenido2 = contenido2.top;
+        var contenido2 = ($("#saber-mas-uno").offset() || {}).top || 0;
 
         if (windowHeight >= contenido2) {
             event.target.pauseVideo();
@@ -113,6 +109,9 @@ function onScrollDown(event) {
 
 // when video ends
 function onPlayerStateChange(event) {
+    if (typeof estaSuscrita == "undefined")
+        return false;
+
     if (event.data === 0 && estaSuscrita === "False") {
         $("a.btn-suscribete-video").animate({
             bottom: "0%"
@@ -129,11 +128,12 @@ function onPlayerStateChange(event) {
 }
 
 function ScrollUser(anchor, alto) {
-
-    if ($("#seccion-fixed-menu").position.top > 0)
+    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
+    if (topMenu > 0)
         alto = alto + $("#seccion-fixed-menu").height() + 10;
 
-    return jQuery(anchor).offset().top - alto;
+    alto = (jQuery(anchor).offset() || {}).top - alto;
+    return alto;
 }
 
 function RDPopupCerrar() {
@@ -147,7 +147,6 @@ function RDPopupCerrar() {
         contentType: "application/json; charset=utf-8",
         success: function (data) {
             CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
@@ -194,7 +193,6 @@ function RDSuscripcion() {
             }
             rdAnalyticsModule.SuscripcionExistosa();
 
-            //
             $("#PopRDSuscripcion").css("display", "block");
 
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style

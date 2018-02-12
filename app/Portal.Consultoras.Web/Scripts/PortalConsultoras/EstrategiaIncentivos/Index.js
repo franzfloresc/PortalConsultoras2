@@ -161,7 +161,6 @@ function fnDeshabilitar(rowId) {
             closeWaitingDialog();
         },
         error: function (data, error) {
-            alert(data.message);
             closeWaitingDialog();
         }
     });
@@ -209,7 +208,6 @@ function fnMantenedor(rowId) {
         },
         error: function (xhr, ajaxOptions, error) {
             closeWaitingDialog();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }

@@ -122,7 +122,6 @@ var menuModule = (function () {
         if (st > lastScrollTop) {
             //fix the menu 
             if (st > seccionMenuMobileHeight) {
-                //$(elementos.seccionMenuMobile).show();
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }

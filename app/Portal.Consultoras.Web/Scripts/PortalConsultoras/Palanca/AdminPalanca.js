@@ -27,7 +27,6 @@ jQuery(document).ready(function () {
     $.jgrid.extend({
         Editar: Modificar,
         EditarOfertas: ModificarOfertas,
-        //Eliminar: estrategiaObj.eliminar
     });
 
     $("body").on("change", "#cbDesktopCantidadTodos", function () {
@@ -95,9 +94,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#UrlMenu").attr("disabled", "disabled");
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 
@@ -136,9 +133,7 @@ function ModificarOfertas(idOfertasHome) {
                 $(".hide-configuration").hide();
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 function IniDialogs() {
@@ -164,7 +159,6 @@ function IniDialogs() {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
                     Excluyente: $("input[name='Excluyente']:checked").val(),
-                    //Descripcion : $("#Descripcion").val(),
                     Estado: $("#Estado").is(':checked'),
                     Logo: $("#nombre-icono").val(),
                     Orden: $("#Orden").val(),
@@ -205,7 +199,6 @@ function IniDialogs() {
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 
@@ -305,7 +298,6 @@ function IniDialogs() {
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 
@@ -361,28 +353,16 @@ function UpdateGrillaPalanca() {
                 formatter: ShowActions
             }
         ],
-        //jsonReader:
-        //{
-        //    root: "rows",
-        //    page: "page",
-        //    total: "total",
-        //    records: "records",
-        //    repeatitems: true,
-        //    cell: "cell",
-        //    id: "id"
-        //},
         pager: false,
         loadtext: 'Cargando datos...',
         recordtext: "{0} - {1} de {2} Registros",
         emptyrecords: 'No hay resultados',
         rowNum: 100,
         scrollOffset: 0,
-        //rowList: [10, 20, 30, 40, 50],
         sortname: 'Orden',
         sortorder: 'asc',
         height: 'auto',
         width: 930,
-        //pgtext: 'Pág: {0} de {1}',
         altRows: true,
         altclass: 'jQGridAltRowClass',
         pgbuttons: false,

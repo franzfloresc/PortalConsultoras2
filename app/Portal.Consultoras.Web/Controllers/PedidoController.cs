@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-                var model = new PedidoSb2Model();
+            var model = new PedidoSb2Model();
 
             try
             {
@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                var model = new PedidoSb2Model { Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal) };
+                var model = new PedidoSb2Model {Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal)};
 
                 if (ClienteID != "-1")
                 {
@@ -913,7 +913,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
                 Cantidad = Convert.ToInt32(model.Cantidad),
                 PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short) 0 : Convert.ToInt16(model.ClienteID),
                 CUV = model.CUV,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 Stock = model.Stock,
@@ -2334,7 +2334,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = item.PedidoDetalleID,
                         Cantidad = Convert.ToInt32(item.Cantidad),
                         PrecioUnidad = item.PrecioUnidad,
-                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : item.ClienteID
+                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short) 0 : item.ClienteID
                     };
                     obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
                     olstPedidos.Add(obePedidoWebDetalle);
@@ -3899,18 +3899,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             var limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
-            decimal descuentoprol;
+            var listPedido = ObtenerPedidoWebDetalle();
 
-            try
+            decimal descuentoprol = 0;
+            
+            if (listPedido.Any())
             {
-                descuentoprol = ObtenerPedidoWebDetalle()[0].DescuentoProl;
+                descuentoprol = listPedido[0].DescuentoProl;
             }
-            catch
-            {
-                descuentoprol = 0;
-            }
-
-
+            
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
@@ -3923,8 +3920,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Limite = limiteJetlore,
                 MontoEscala = GetDataBarra().MontoEscala,
                 MontoMinimo = userData.MontoMinimo,
-                MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal) -
-                             (descuentoprol.Equals(null) ? 0 : descuentoprol),
+                MontoTotal = listPedido.Sum(p => p.ImporteTotal) - descuentoprol,
                 TipoOfertaFinal = tipoOfertaFinal,
                 TipoProductoMostrar = tipoProductoMostrar,
                 Algoritmo = ofertaFinal.Algoritmo,

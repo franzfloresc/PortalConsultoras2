@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaZonas = lstZonas
             }, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult ObtenterCampanias(int PaisID)
         {
             PaisID = UserData().PaisID;
@@ -90,6 +92,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult ActualizarLog(string CampaniaCodigo, string codigos, string Tipo, string FechaFacturacion, string FechaReFacturacion)
         {
             try
@@ -99,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     UsuarioModel usuarioModel = sessionManager.GetUserData();
 
-                    BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];
+                    //BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];
                     DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(usuarioModel.DiasDuracionCronograma - 1);
 
                     lst = sv.UpdLogActualizacionFacturacion(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario).ToList();
@@ -639,7 +642,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult MigrarAnticipado(string CampaniaID, string ZonaID)
         {
@@ -727,8 +729,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-
         [HttpPost]
         public JsonResult InsConfiguracionConsultoraDA(int tipoConfiguracion)
         {
@@ -760,7 +760,6 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
         }
-
 
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
