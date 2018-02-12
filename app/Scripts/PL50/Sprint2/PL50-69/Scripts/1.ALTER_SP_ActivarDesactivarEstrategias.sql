@@ -1,4 +1,4 @@
-USE BelcorpPeru_pl50
+USE Belcorpcolombia_pl50
 GO
 
 IF (OBJECT_ID('dbo.ActivarDesactivarEstrategias', 'P') IS NULL)
@@ -15,12 +15,13 @@ BEGIN
 	SET NOCOUNT ON	
 	
 	DECLARE @resultado int = 0
-	DECLARE @TipoEstrategiaCod nvarchar(10)
+	DECLARE @TipoEstrategia nvarchar(90)
 	
-	select @TipoEstrategiaCod=TipoEstrategia.codigo from estrategia inner join TipoEstrategia on estrategia.Tipoestrategiaid =  TipoEstrategia.Tipoestrategiaid
-	where TipoEstrategia.DescripcionEstrategia ='ShowRoom'  
-	and  estrategiaID IN (SELECT splitdata FROM dbo.fnSplitString(@EstrategiasDesactivas,',') union SELECT splitdata FROM dbo.fnSplitString(@EstrategiasActivas,','))
+	select @TipoEstrategia=TipoEstrategia.DescripcionEstrategia from estrategia inner join TipoEstrategia on estrategia.Tipoestrategiaid =  TipoEstrategia.Tipoestrategiaid
+	where  
+	   estrategiaID IN (SELECT splitdata FROM dbo.fnSplitString(@EstrategiasDesactivas,',') union SELECT splitdata FROM dbo.fnSplitString(@EstrategiasActivas,','))
 			
+ 
  
 
 		SELECT DISTINCT   E.EstrategiaID
@@ -44,7 +45,7 @@ BEGIN
 	WHERE EA.splitdata NOT IN (SELECT EstrategiaID FROM #ESTRATEGIASNOACTIVAS)
 
  
- if(@TipoEstrategiaCod!='022')
+ if(@TipoEstrategia!='ShowRoom')
  begin 
  
 		-- Activar
