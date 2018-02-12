@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
             Int32 numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
             using (ProductoServiceClient svc = new ProductoServiceClient())
             {
-                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, 201802, listaDeCUV, numeroCampanias).ToList();//*Dato en duro - CangahualaMarquez
+                listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, userData.CampaniaID, listaDeCUV, numeroCampanias).ToList();
             }
             if (!listaAppCatalogo.Any()) return ofertaShowRoomModelo;
             #endregion
@@ -561,6 +561,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
                     }
+                    prod.NombreComercial = item.NombreProducto;
+                    prod.Descripcion = item.Descripcion1;
                     prod.Orden = item.Orden;
                     prod.Grupo = item.Grupo;
                     prod.PrecioCatalogo = item.Precio;
