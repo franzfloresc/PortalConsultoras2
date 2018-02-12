@@ -1,5 +1,4 @@
-﻿@using System.Configuration
-@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
 
@@ -11,8 +10,6 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
-
-
 
 <div id="saber-mas-uno"></div>
 <div class="bloques-gana-mas gana-mas">
@@ -108,19 +105,12 @@
 
 
 @section scripts{
-    @*<script src="https://www.youtube.com/player_api"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>*@
     <script type="text/javascript">
         var done = false;
         var PosBannerMenu;
         var player; // create youtube player
-        @*var videoKey = '@Model.Video';*@
-        @*var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';*@
         var tipoOrigenPantalla = 1;
-        @*var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';*@
-        @*var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';*@
         var isScroll = false;
-        @*var estaSuscrita = '@Model.EsSuscrita';*@
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
