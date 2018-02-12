@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
-            var model = new PedidoSb2Model();
+                var model = new PedidoSb2Model();
 
             try
             {

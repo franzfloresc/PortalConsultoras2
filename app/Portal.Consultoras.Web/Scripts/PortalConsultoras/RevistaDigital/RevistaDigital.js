@@ -537,7 +537,7 @@ function RDDetalleObtener() {
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.Posicion = ind + 1;
-        tem.TipoAccionAgregar = 2;
+        //tem.TipoAccionAgregar = 2; Comentado por KC. para activar la experiencia de tonos en el detalle
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
