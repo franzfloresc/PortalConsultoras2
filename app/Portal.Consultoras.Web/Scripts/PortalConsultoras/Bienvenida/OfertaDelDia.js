@@ -458,6 +458,7 @@ $(document).ready(function () {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
             CUV: itemCampos.find('.cuv2-odd').val(),
             PrecioUnidad: itemCampos.find('.precio-odd').val(),
+            TipoEstrategiaID: itemCampos.find('.tipoestrategia-id-odd').val(),
             Descripcion: itemCampos.find('.nombre-odd').val(),
             Cantidad: cantidad,
             IndicadorMontoMinimo: itemCampos.find('.indmonto-min-odd').val(),
