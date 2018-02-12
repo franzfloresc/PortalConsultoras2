@@ -458,6 +458,7 @@ $(document).ready(function () {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
             CUV: itemCampos.find('.cuv2-odd').val(),
             PrecioUnidad: itemCampos.find('.precio-odd').val(),
+            TipoEstrategiaID: itemCampos.find('.tipoestrategia-id-odd').val(),
             Descripcion: itemCampos.find('.nombre-odd').val(),
             Cantidad: cantidad,
             IndicadorMontoMinimo: itemCampos.find('.indmonto-min-odd').val(),
@@ -574,18 +575,21 @@ $(document).ready(function () {
             }
         }
 
-        var obj = ({
-            MarcaID: marcaID,
+        var obj = {
             CUV: cuv2,
-            PrecioUnidad: precio,
-            Descripcion: descripcion,
             Cantidad: cantidad,
+            PrecioUnidad: precio,
+            TipoEstrategiaID: tipoEstrategiaID,
+            OrigenPedidoWeb: origenPedidoWeb,
+            MarcaID: marcaID,
+            DescripcionProd: descripcion,
             IndicadorMontoMinimo: indMontoMinimo,
-            TipoOferta: tipoEstrategiaID,
             ClienteID_: '-1',
-            tipoEstrategiaImagen: teImagenMostrar || 0,
-            OrigenPedidoWeb: origenPedidoWeb
-        });
+            TipoEstrategiaImagen: teImagenMostrar || 0,
+            
+            Descripcion: descripcion,
+            TipoOferta: tipoEstrategiaID
+        };
 
         jQuery.ajax({
             type: 'POST',
@@ -600,9 +604,10 @@ $(document).ready(function () {
                     closeWaitingDialog();
                     return false;
                 }
+
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProductoZE',
+                    url: baseUrl + props.UrlAgregarProducto,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(obj),
@@ -746,21 +751,7 @@ $(document).ready(function () {
 
         return d.promise();
     }
-
-    function ResolverPromiseValidarStockEstrategia(response) {
-        if (!response.result) {
-            AbrirMensaje(response.message);
-            CerrarLoad();
-            return false;
-        } else {
-            var promiseAgregarProducto = AgregarProducto(producto);
-            $.when(promiseAgregarProducto).then(
-                ResolverPromiseAgregarProducto(response),
-                ResolverPromiseAgregarProductoError(response)
-             );
-        }
-    }
-
+    
     function ResolverPromiseAgregarProducto(response) {
         if (!checkTimeout(response)) {
             CerrarLoad();

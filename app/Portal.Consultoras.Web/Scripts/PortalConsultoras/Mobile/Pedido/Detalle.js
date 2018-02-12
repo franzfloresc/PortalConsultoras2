@@ -461,8 +461,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
 
-                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("rd", data.data.CUV, data.data.TipoEstrategiaID, false);
+                ActualizarLocalStorageAgregado("gn", data.data.CUV, data.data.TipoEstrategiaID, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -602,8 +602,8 @@ function PedidoDetalleEliminarTodo() {
             });
             messageDelete("Se eliminaron todos productos del pedido.");
 
-            ActualizarLocalStorageAgregado("rd", "todo", false);
-            ActualizarLocalStorageAgregado("gn", "todo", false);
+            ActualizarLocalStorageAgregado("rd", "todo", 0, false);
+            ActualizarLocalStorageAgregado("gn", "todo", 0, false);
 
             location.reload();
 
@@ -1254,6 +1254,7 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
+    alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({
@@ -1278,9 +1279,7 @@ function InsertarProducto(model, asyncX) {
 
             CloseLoading();
 
-            setTimeout(function () {
-
-            }, 2000);
+            setTimeout(function () {}, 2000);
 
             ActualizarGanancia(data.DataBarra);
 

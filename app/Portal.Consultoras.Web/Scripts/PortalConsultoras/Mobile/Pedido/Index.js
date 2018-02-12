@@ -182,11 +182,6 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
-        //var cliente = $.trim($("#txtClienteNombre").val());
-        //if (cliente == "") {
-        //    AbrirMensaje("Seleccione un cliente.");
-        //    return false;
-        //}
 
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
@@ -201,21 +196,7 @@ $(document).ready(function () {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
-
-        //var clienteValido = true;
-        //if ($("#ddlClientes").val() != "0") {
-        //    $.each(lstClientes, function (ind, cli) {
-        //        if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
-        //            AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
-        //                showClienteDetalle(cli);
-        //            });
-        //            clienteValido = false;
-        //            return false;
-        //        }
-        //    });
-        //}
-        //if (!clienteValido) return false;
-
+        
         AgregarProductoListado();
     });
 
@@ -236,6 +217,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdSugeridoDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdTipoEstrategiaID").val();
         var OrigenPedidoWeb = MobilePedidoSugerido;
 
         if (!isInt(cantidad)) {
@@ -252,23 +234,20 @@ $(document).ready(function () {
         }
 
         var model = {
-            TipoOfertaSisID: tipoOfertaSisID,
-            ConfiguracionOfertaID: configuracionOfertaID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            MarcaID: marcaID,
+            CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
-            CUV: cuv,
-            Tipo: tipo,
+            TipoEstrategiaID: parseInt(tipoEstrategiaId),
+            OrigenPedidoWeb: OrigenPedidoWeb,
+            MarcaID: marcaID,
             DescripcionProd: descripcionProd,
-            Pagina: pagina,
-            DescripcionCategoria: descripcionCategoria,
-            DescripcionMarca: descripcionMarca,
-            DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: true,
-            OrigenPedidoWeb: OrigenPedidoWeb
+            TipoOfertaSisID: tipoOfertaSisID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            EsSugerido: true
         };
-        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
+
+        InsertarProductoSugerido(model);
     });
 
     $("#linkAgregarCliente").on("click", function () {
@@ -669,7 +648,8 @@ function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup");
 }
-function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
+
+function InsertarProductoSugerido(model) {
     ShowLoading();
     if (ReservadoOEnHorarioRestringido()) {
         CloseLoading();
@@ -681,16 +661,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
         url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({
-            MarcaID: marcaID,
-            CUV: cuv,
-            PrecioUnidad: precioUnidad,
-            Descripcion: descripcion,
-            Cantidad: cantidad,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            TipoOferta: tipoOferta,
-            OrigenPedidoWeb: OrigenPedidoWeb
-        }),
+        data: JSON.stringify(model),
         async: true,
         cache: false,
         success: function (data) {
@@ -796,7 +767,7 @@ function AgregarProductoListado() {
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
-    var model;
+    var model = {};
     if ($("#hdTipoOfertaSisID").val() === "0") {
         $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());
     }
@@ -805,44 +776,32 @@ function InsertarProducto() {
         if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
 
         model = {
-            Tipo: 1,
-            CUVComplemento: "",
-            MarcaIDComplemento: 0,
-            PrecioUnidadComplemento: 0,
-            IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
-            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
-            Registros: "",
-            RegistrosDe: "",
-            RegistrosTotal: "",
-            Pagina: "",
-            PaginaDe: "",
-            ClienteID_: "",
-            DescripcionEstrategia: "",
-            DescripcionLarga: "",
             CUV: $("#hdfCUV").val(),
-            MarcaID: $("#hdfMarcaID").val(),
-            PrecioUnidad: $("#hdfPrecioUnidad").val(),
-            DescripcionProd: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            PrecioUnidad: $("#hdfPrecioUnidad").val(),
+            TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             OrigenPedidoWeb: origenPedidoWebMobilePedido,
-            //ClienteID: $("#ddlClientes").val(),
-            //ClienteDescripcion: $("#ddlClientes option:selected").text()
+            MarcaID: $("#hdfMarcaID").val(),
+            DescripcionProd: $("#divNombreProducto").html(),
+            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
+            IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
+            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
             ClienteID: $("#txtClienteId").val(),
             ClienteDescripcion: $("#txtClienteNombre").val()
         };
 
     } else {
         model = {
-            MarcaID: $("#hdfMarcaID").val(),
             CUV: $("#hdfCUV").val(),
-            PrecioUnidad: $("#hdfPrecioUnidad").val(),
-            Descripcion: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            PrecioUnidad: $("#hdfPrecioUnidad").val(),
+            TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido,
+            MarcaID: $("#hdfMarcaID").val(),
+            DescripcionProd: $("#divNombreProducto").html(),
+            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val(),
-            OrigenPedidoWeb: origenPedidoWebMobilePedido
+            TipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
         };
     }
 

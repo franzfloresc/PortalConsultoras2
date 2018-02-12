@@ -957,18 +957,22 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
 
-    var param = ({
-        MarcaID: marcaID,
+    var param = {
         CUV: cuv,
-        PrecioUnidad: precio,
-        Descripcion: descripcion,
         Cantidad: cantidad,
+        PrecioUnidad: precio,
+        TipoEstrategiaID: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        OrigenPedidoWeb: OrigenPedidoWeb,
+        MarcaID: marcaID,
+        DescripcionProd: descripcion,
         IndicadorMontoMinimo: indicadorMontoMinimo,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    });
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+
+        Descripcion: descripcion,
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+    };
 
     jQuery.ajax({
         type: 'POST',
@@ -1065,8 +1069,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             HidePopupEstrategiasEspeciales();
                         }
 
-                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
-                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        ActualizarLocalStorageAgregado("rd", param.CUV, param.TipoEstrategiaID, true);
+                        ActualizarLocalStorageAgregado("gn", param.CUV, param.TipoEstrategiaID, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },

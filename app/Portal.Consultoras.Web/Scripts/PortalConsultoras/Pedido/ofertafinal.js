@@ -33,9 +33,8 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
-        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
-
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
         if (!isInt(cantidad)) {
@@ -63,25 +62,21 @@ $(document).ready(function () {
         }
 
         var model = {
-            TipoOfertaSisID: tipoOfertaSisID,
-            ConfiguracionOfertaID: configuracionOfertaID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            MarcaID: marcaID,
+            CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
-            CUV: cuv,
-            Tipo: tipo,
+            TipoEstrategiaID: tipoEstrategiaId,
+            OrigenPedidoWeb: OrigenPedidoWeb,
+            MarcaID: marcaID,
             DescripcionProd: descripcionProd,
-            Pagina: pagina,
-            DescripcionCategoria: descripcionCategoria,
-            DescripcionMarca: descripcionMarca,
-            DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: false,
-            OrigenPedidoWeb: OrigenPedidoWeb
+            TipoOfertaSisID: tipoOfertaSisID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            ConfiguracionOfertaID: configuracionOfertaID
         };
+
         var add = new Object();
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('Insert', model, "", false, false);
+            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
             var add = InsertarProducto(model, false);
@@ -137,6 +132,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdOfertaFinalDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
 
         if (!isInt(cantidad)) {
@@ -164,26 +160,21 @@ $(document).ready(function () {
         }
 
         var model = {
-            TipoOfertaSisID: tipoOfertaSisID,
-            ConfiguracionOfertaID: configuracionOfertaID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            MarcaID: marcaID,
+            CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
-            CUV: cuv,
-            Tipo: tipo,
+            TipoEstrategiaID: tipoEstrategiaId,
+            OrigenPedidoWeb: OrigenPedidoWeb,
+            MarcaID: marcaID,
             DescripcionProd: descripcionProd,
-            Pagina: pagina,
-            DescripcionCategoria: descripcionCategoria,
-            DescripcionMarca: descripcionMarca,
-            DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: false,
-            OrigenPedidoWeb: OrigenPedidoWeb
+            TipoOfertaSisID: tipoOfertaSisID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            ConfiguracionOfertaID: configuracionOfertaID
         };
 
         var add = new Object();
         if (tipoOrigen == "1") {
-            var add = AgregarProducto('Insert', model, "", false, false);
+            var add = AgregarProducto('PedidoInsertar', model, "", false, false);
         }
         else {
             var add = InsertarProducto(model, false);

@@ -423,20 +423,20 @@ function EstrategiaAgregar(event, popup, limite) {
     }
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
-    var params = ({
-        listaCuvTonos: $.trim(cuvs),
-        cuv: $.trim(estrategia.CUV2),
-        EstrategiaID: $.trim(estrategia.EstrategiaID),
-        FlagNueva: $.trim(estrategia.FlagNueva),
+    var params = {
+        CuvTonos: $.trim(cuvs),
+        CUV: $.trim(estrategia.CUV2),
         Cantidad: $.trim(cantidad),
+        TipoEstrategiaID: estrategia.TipoEstrategiaID,
+        EstrategiaID: $.trim(estrategia.EstrategiaID),
         OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
-        ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
-    });
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        FlagNueva: $.trim(estrategia.FlagNueva)
+    };
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/AgregarProducto',
+        url: baseUrl + 'Pedido/PedidoAgregarProducto',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(params),
@@ -540,8 +540,8 @@ function EstrategiaAgregar(event, popup, limite) {
                 $('#popupDetalleCarousel_packNuevas').hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
-            ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, params.TipoEstrategiaID, true);
+            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, params.TipoEstrategiaID, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 
