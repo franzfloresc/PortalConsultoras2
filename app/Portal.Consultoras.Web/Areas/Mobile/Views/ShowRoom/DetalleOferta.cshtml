@@ -62,7 +62,7 @@
         <div class="item_product">
             <div class="description_item" data-item>
                 <div class="detail detailItem">
-                    <div class="content_detalle_set_showroom" >
+                    <div class="" >
                         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
                         @{
                             var btnDesabled = 0;
@@ -77,7 +77,7 @@
                                     if ((Model.ProductoTonos.Any()))
                                     {
                                         btnDesabled = 1;
-                                        <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1">
+                                        <div class="content_tonos_producto content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="1">
                                             <div class="tono_select_opt">
                                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
                                                     <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
@@ -144,7 +144,7 @@
                                                                 <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
                                                             }
                                                             <span class="product_name" data-tono-cuv-producto="@Hermano.CUV" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                                                            <span class="price">@Hermano.DescripcionComercial</span>
+                                                            <span class="price">@Hermano.Descripcion</span>@*DescripcionComercial*@
                                                         </div>
                                                         <hr class="clear">
                                                         @if (Hermano.Digitable == 1)
