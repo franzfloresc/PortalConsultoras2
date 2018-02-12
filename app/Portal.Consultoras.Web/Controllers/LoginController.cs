@@ -1249,6 +1249,7 @@ namespace Portal.Consultoras.Web.Controllers
                         usuarioModel.EsLebel = true;
                     }
 
+                    sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
                     sessionManager.SetTieneOpt(true);
@@ -2580,6 +2581,19 @@ namespace Portal.Consultoras.Web.Controllers
             return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
+        }
+
+        private bool HabilitarLogCargaOfertas(int paisId)
+        {
+            BETablaLogicaDatos[] listDatos;
+            using (var svc = new SACServiceClient())
+            {
+                listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
+                
+            }
+            if (!listDatos.Any()) return false;
+            var first = listDatos.FirstOrDefault();
+            return first != null && first.Codigo.Equals("1");
         }
     }
 }

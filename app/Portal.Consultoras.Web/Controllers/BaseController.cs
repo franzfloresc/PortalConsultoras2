@@ -841,23 +841,6 @@ namespace Portal.Consultoras.Web.Controllers
             return lstModel;
         }
 
-        private string GetDescripcionMenuMobileCatalogos(int paisId)
-        {
-            var descripcionMenuCatalogos = string.Empty;
-
-            IList<BETablaLogicaDatos> revistaDigitalTablaLogica;
-            using (var sacServiceClient = new SACServiceClient())
-            {
-                revistaDigitalTablaLogica = sacServiceClient.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.RevistaDigital);
-            }
-            if (revistaDigitalTablaLogica != null && revistaDigitalTablaLogica.Any())
-            {
-                descripcionMenuCatalogos = revistaDigitalTablaLogica.First().Codigo;
-            }
-
-            return descripcionMenuCatalogos;
-        }
-
         private void SetConsultoraOnlineViewBag(UsuarioModel userData)
         {
             userData.ConsultoraOnlineMenuResumen = userData.ConsultoraOnlineMenuResumen ?? new ConsultoraOnlineMenuResumenModel();
