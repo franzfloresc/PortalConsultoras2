@@ -577,7 +577,7 @@
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    height: 395px;
+    max-height: 415px;
 }
 
 .detalle_set_banner_ofertas_fix {
