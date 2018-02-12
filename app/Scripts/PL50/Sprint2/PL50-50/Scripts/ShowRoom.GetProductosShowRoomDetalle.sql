@@ -27,11 +27,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpMexico
 GO
@@ -61,11 +64,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpColombia
 GO
@@ -95,11 +101,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpVenezuela
 GO
@@ -129,11 +138,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpSalvador
 GO
@@ -163,11 +175,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpPuertoRico
 GO
@@ -197,11 +212,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpPanama
 GO
@@ -231,11 +249,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpGuatemala
 GO
@@ -265,11 +286,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpEcuador
 GO
@@ -299,11 +323,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpDominicana
 GO
@@ -333,11 +360,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpCostaRica
 GO
@@ -367,11 +397,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpChile
 GO
@@ -401,11 +434,14 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
 
 USE BelcorpBolivia
 GO
@@ -435,9 +471,13 @@ BEGIN
 		,e.FechaModificacion
 		,e.UsuarioModificacion
 		,e.Orden as Posicion
-		,e.IdMarca as MarcaProducto
+		,m.Descripcion as MarcaProducto
 	FROM EstrategiaProducto e
+	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
 		AND CUV = @CUV
 END
+
+GO
+
 
