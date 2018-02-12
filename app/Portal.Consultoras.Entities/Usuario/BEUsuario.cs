@@ -1402,5 +1402,11 @@ namespace Portal.Consultoras.Entities
         public short RevistaDigitalSuscripcion { get; set; }
         [DataMember]
         public string UrlBannerGanaMas { get; set; }
+        [DataMember]
+        public int CuponEstado { get; set; }
+        [DataMember]
+        public decimal CuponPctDescuento { get; set; }
+        [DataMember]
+        public decimal CuponMontoMaxDscto { get; set; }
     }
 }

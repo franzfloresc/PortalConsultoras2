@@ -1303,6 +1303,7 @@ namespace Portal.Consultoras.Common
             public const short CodigoRevistaFisica = 132;
             public const int ValoresImagenesResize = 121;
             public const short ExtensionBannerGanaMasApp = 136;
+            public const short MontoLimiteCupon = 103;
         }
 
         public struct MensajesCDRExpress
