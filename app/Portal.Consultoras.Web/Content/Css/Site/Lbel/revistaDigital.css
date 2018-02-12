@@ -1616,7 +1616,6 @@
 .btn_stroke_white {
     background: transparent;
     width: 260px;
-    border: 1px solid white;
     color: white;
     font-size: 13px;
 }
