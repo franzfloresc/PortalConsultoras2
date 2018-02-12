@@ -686,6 +686,17 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            if (revistaDigital.TieneRDI)
+            {
+                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                if (tieneEventoFestivoData)
+                {
+                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+                }
+
+            }
+
             return urlImagen;
         }
 
@@ -2098,6 +2109,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected string GetRevistaCodigoIssuu(string campania)
         {
             string codigo = null;
+            string nroCampania = string.Empty;
+            string anioCampania = string.Empty;
 
             var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
             var esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
@@ -2105,7 +2118,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
             codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
-            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+
+            if (campania.Length >= 6)
+                nroCampania = campania.Substring(4, 2);
+            if (campania.Length >= 6)
+                anioCampania = campania.Substring(0, 4);
+            return string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania);
         }
 
         protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
@@ -3309,7 +3327,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             menuActivo.ConfiguracionPais = configMenu;
-            if (revistaDigital.TieneRDC)
+            if (revistaDigital.TieneRDC || revistaDigital.TieneRDI)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -3531,7 +3549,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // Menú inicio
-            if (listaMenu.Any() && (revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+            if (listaMenu.Any() && (revistaDigital.TieneRDI || revistaDigital.TieneRDR || revistaDigital.TieneRDC))
             {
                 listaMenu.ForEach(m =>
                 {
@@ -3554,6 +3572,11 @@ namespace Portal.Consultoras.Web.Controllers
                             m.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                         }
                     }
+                    if (m.Codigo == Constantes.ConfiguracionPais.Inicio)
+                    {
+                        BuilTituloBannerRD(ref m);
+                    }
+
                 });
 
             }
@@ -3644,6 +3667,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 codigo = Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
                 codigoMobile = Constantes.ConfiguracionPaisDatos.RDR.MRDRLandingBanner;
+                confi.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                confi.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+            }
+            else if (revistaDigital.TieneRDI)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RDI.DLandingBannerIntriga;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RDI.MLandingBannerIntriga;
                 confi.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                 confi.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
             }
@@ -4178,6 +4208,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            ViewBag.TieneRDI = revistaDigital.TieneRDI;
             ViewBag.MenuContenedorActivo = GetMenuActivo();
             ViewBag.MenuContenedor = ObtenerMenuContenedor();
 

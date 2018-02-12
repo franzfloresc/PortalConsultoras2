@@ -66,9 +66,6 @@ $(document).ready(function () {
         }
     });
 
-
-    /* fin popup validar datos 2017 */
-
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");

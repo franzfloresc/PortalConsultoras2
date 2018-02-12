@@ -7777,6 +7777,7 @@ ul.type-6 li {
 
 .color_marca {
     color: #613c87;
+    text-transform: uppercase;
 }
 
 .red_texto {
@@ -26836,6 +26837,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
             content: '..';
         }
 
+        .contenedor_item_descripcion span::after {
+            content: '..';
+        }
+
+
     .contenedor_item_descripcion a {
         display: block;
         min-width: 33%;
@@ -26864,7 +26870,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
     .contenedor_item_descripcion a {
-        width: 60%;
+        width: 50%;
     }
 }
 /* CARGA CIRCULAR PARA PANTALLA BIENVENIDA */

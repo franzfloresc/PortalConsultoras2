@@ -1581,7 +1581,12 @@
 }
 
 .btn_diagonal:hover .rd_arrowright_blanco {
-    display: block;
+    visibility: initial !important;
+    animation: bounceRight 1.2s infinite;
+    width: 8px;
+    height: 12px;
+    top: 1px;
+    display: inline-block;
 }
 
 .btn_diagonal a {
@@ -2311,6 +2316,7 @@
     height: auto;
     box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .cabecera_pedido_rd {
@@ -2403,7 +2409,7 @@
         }
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
             animation: bounceRight 1.2s infinite;
-            display:inline;
+            display: inline;
         }
 
     .banner_pedido_masofertas .btn_diagonal:hover::after {
@@ -2455,7 +2461,7 @@
             transition: all .2s ease-in-out;
         }
 
-            .home_rd1 .btn_diagonal:hover .rd_arrowright {
+        .home_rd1 .btn_diagonal:hover .rd_arrowright {
                 animation: bounceRight 1.2s infinite;
                 
             }
@@ -2465,16 +2471,24 @@
         .home_rd1 .btn_diagonal:hover .rd_arrowright {
             display: inline;
         } 
+        .home_rd1 .btn_diagonal:hover .rd_arrowright_blanco {
+            display: none;
+        }
+
+        .home_rd1 .btn_diagonal:hover .rd_arrowright {
+            display: inline;
+        }
+
 
     .home_rd1 .rd_arrowright {
         position: absolute;
         right: 16px;
         top: 16px;
-        height: 12px;
         display: inline;
         width: 8px;
         height: 12px;
     }
+
     .home_rd1 .rd_arrowright_blanco {
         display: none;
         position: absolute;
@@ -2485,6 +2499,7 @@
         width: 8px;
         height: 12px;
     }
+
 
 @media screen and (max-width: 1220px) {
     .home_rd1 .content_belcorp {
@@ -2535,10 +2550,16 @@
                 animation: bounceRight 1.2s infinite;
             }
 
+            .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
+                position: absolute;
+                right: 16px;
+                top: 15.5px;
+            }
+
     .home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
         position: absolute;
         right: 16px;
-        top: 16px;
+        top: 15.5px;
         height: 12px;
         width: 8px;
     }
@@ -2592,10 +2613,18 @@
     .rd_catalogos .btn_stroke_white {
         background: transparent;
         width: 240px;
-        border: 1px solid white;
         color: white;
         font-size: 13px;
     }
+
+.banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+    display: none;
+}
+
+.banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro {
+    display: none;
+}
+
 
         .rd_catalogos .btn_stroke_white:hover a {
             color: black;
@@ -2963,6 +2992,9 @@
         margin-bottom: 50px;
     }
 
+    .gana-mas .caja-gana-mas-rdi {
+        min-height: 245px;
+    }
     .gana-mas .caja-gana-mas {
         width: 31.3%;
         margin-left: 1%;
@@ -3061,7 +3093,7 @@
 .como-funciona {
     background: #f5f5f5;
     padding-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     height: 330px;
 }
 
@@ -3111,6 +3143,9 @@
             font-size: 15px;
             padding-left: 2%;
         }
+         .como-funciona .caja-texto span.txt b{
+             display:block;
+         }
 
     .como-funciona .caja-img {
         width: 40%;
@@ -3148,8 +3183,10 @@
         font-weight: 700;
         letter-spacing: .5px !important;
         text-transform: uppercase;
-        margin-left: -8px;
-        font-weight: 700;
+        font-weight: 900;
+        display: block;
+        word-wrap: break-word;
+        margin-left: 20px;
     }
 
     .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {

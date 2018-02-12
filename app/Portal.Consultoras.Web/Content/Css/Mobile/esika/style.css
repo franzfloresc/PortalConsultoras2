@@ -8068,6 +8068,7 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #e81c36;
+    text-transform: uppercase;
 }
 
 .btn_borde_black {

@@ -7845,6 +7845,7 @@ ul.type-6 li {
 
 .color_marca {
     color: #e81c36;
+    text-transform: uppercase;
 }
 
 .red_texto {
@@ -26788,8 +26789,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         min-height: 60px;
     }
 
-    
-
         .contenedor_item_descripcion span::after {
            
             content: ' ..';
@@ -26801,7 +26800,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         color: #e81c36;
         text-transform: uppercase;
         font-weight: 700;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
         .contenedor_item_descripcion a:hover {

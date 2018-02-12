@@ -1,6 +1,9 @@
 ﻿$(function () {
 
     LayoutHeader();
+    if (typeof menuModule !== "undefined") {
+        menuModule.Resize();
+    }
 
     var ventanaChat = null;
 
