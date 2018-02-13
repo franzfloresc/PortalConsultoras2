@@ -3265,7 +3265,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = BuildMenuContenedor(revistaDigital);
+            var menuContenedor = BuildMenuContenedor(userData,revistaDigital);
             menuActivo.ConfiguracionPais = GetConfiguracionPaisBy(menuContenedor, menuActivo, userData);
             return menuActivo;
         }
@@ -3468,7 +3468,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario)
         {
-            var menuContenedor = BuildMenuContenedor(revistaDigital);
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital);
 
             menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
 
@@ -3500,7 +3500,7 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedor(RevistaDigitalModel revistaDigital)
+        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
             var configuracionesPais = GetConfiguracionesPaisModel();
@@ -3515,11 +3515,12 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confiModel in configuracionesPais)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
+                confiModel.CampaniaId = userData.CampaniaID;
+                //
                 confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
                 confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
                 confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
                 confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
-                confiModel.CampaniaId = userData.CampaniaID;
 
                 switch (confiModel.Codigo)
                 {
