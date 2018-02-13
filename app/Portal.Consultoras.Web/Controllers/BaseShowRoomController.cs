@@ -534,6 +534,13 @@ namespace Portal.Consultoras.Web.Controllers
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
             string codigoVariante = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();//"2003"
+
+            foreach (ProductoModel producto in listaHermanos)
+            {
+                BEEstrategiaProducto estrategiaProducto = listEstrategiaProductos.Where(p => p.CUV == producto.CUV).FirstOrDefault();
+                producto.Digitable = estrategiaProducto.Digitable;
+            }
+
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 listaHermanos.ForEach(h =>
@@ -541,7 +548,7 @@ namespace Portal.Consultoras.Web.Controllers
                     h.CUV = Util.Trim(h.CUV);
                     h.FactorCuadre = 1;
                 });
-                listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                listaHermanos = listaHermanos.Where(m => m.Digitable != 0).OrderBy(h => h.Orden).ToList();
             }
             if (codigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || codigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
             {
