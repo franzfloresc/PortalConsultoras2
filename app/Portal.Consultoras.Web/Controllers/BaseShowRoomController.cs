@@ -511,9 +511,9 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
             #region Obtener tonos de AppCatalogo con el servicio svc.ObtenerProductosPorCampaniasBySap
             StringBuilder listaCodigosSAP = new StringBuilder();
-            string separador = "|";
+            const string separador = "|";
             listaCodigosSAP.Append(separador);
-            foreach (BEEstrategiaProducto producto in listEstrategiaProductos)
+            foreach (BEEstrategiaProducto producto in listEstrategiaProductos.Where(producto => producto != null))
             {
                 producto.SAP = Util.Trim(producto.SAP);
                 if (producto.SAP != "" && !listaCodigosSAP.ToString().Contains(separador + producto.SAP + separador))
@@ -534,13 +534,12 @@ namespace Portal.Consultoras.Web.Controllers
             #region Algoritmo para relacionar productos con tonos
             List<ProductoModel> listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
             string codigoVariante = listEstrategiaProductos.Select(o => o.CodigoEstrategia).FirstOrDefault().ToString();//"2003"
-
             foreach (ProductoModel producto in listaHermanos)
             {
-                BEEstrategiaProducto estrategiaProducto = listEstrategiaProductos.Where(p => p.CUV == producto.CUV).FirstOrDefault();
+                BEEstrategiaProducto estrategiaProducto = listEstrategiaProductos.FirstOrDefault(p => p.CUV == producto.CUV);
+                if (estrategiaProducto == null) continue;
                 producto.Digitable = estrategiaProducto.Digitable;
             }
-
             if (codigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
                 listaHermanos.ForEach(h =>

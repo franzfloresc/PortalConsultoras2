@@ -78,8 +78,9 @@ BEGIN
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
+GO
 USE BelcorpMexico
 GO
 
@@ -161,6 +162,7 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
 USE BelcorpColombia
 GO
 
@@ -241,6 +243,8 @@ BEGIN
 			)
 	ORDER BY e.Orden
 END
+
+GO
 
 USE BelcorpVenezuela
 GO
@@ -323,6 +327,8 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
+
 USE BelcorpSalvador
 GO
 
@@ -403,6 +409,8 @@ BEGIN
 			)
 	ORDER BY e.Orden
 END
+
+GO
 
 USE BelcorpPuertoRico
 GO
@@ -485,6 +493,8 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
+
 USE BelcorpPanama
 GO
 
@@ -565,6 +575,8 @@ BEGIN
 			)
 	ORDER BY e.Orden
 END
+
+GO
 
 USE BelcorpGuatemala
 GO
@@ -647,6 +659,8 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
+
 USE BelcorpEcuador
 GO
 
@@ -727,6 +741,8 @@ BEGIN
 			)
 	ORDER BY e.Orden
 END
+
+GO
 
 USE BelcorpDominicana
 GO
@@ -809,6 +825,8 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
+
 USE BelcorpCostaRica
 GO
 
@@ -890,6 +908,8 @@ BEGIN
 	ORDER BY e.Orden
 END
 
+GO
+
 USE BelcorpChile
 GO
 
@@ -970,6 +990,8 @@ BEGIN
 			)
 	ORDER BY e.Orden
 END
+
+GO
 
 USE BelcorpBolivia
 GO
