@@ -3081,6 +3081,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = isMobile ? string.Empty : "HerramientasVenta/ObtenerProductos";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor;
                             break;
                     }
@@ -3618,6 +3619,25 @@ namespace Portal.Consultoras.Web.Controllers
                             continue;
 
                         confiModel.UrlMenu = "GuiaNegocio";
+                        break;
+                    case Constantes.ConfiguracionPais.HerramientasVenta:
+                        if(revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
+                        {
+                            confiModel.DesktopLogoBanner = revistaDigital.DLogoComercialFondoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+                        {
+                            confiModel.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
+                        {
+                            confiModel.MobileLogoBanner = revistaDigital.MLogoComercialFondoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+                        {
+                            confiModel.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                        }
+                        
                         break;
                 }
 

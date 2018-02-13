@@ -223,7 +223,6 @@ function SeccionMostrarProductos(data) {
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidad);
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
         } else {

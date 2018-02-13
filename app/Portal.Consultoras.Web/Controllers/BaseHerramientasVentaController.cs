@@ -8,6 +8,50 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseHerramientasVentaController : BaseEstrategiaController
     {
+
+        public ActionResult ViewLanding(int tipo)
+        {
+            var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
+
+            var model = new HerramientasVentaLandingModel();
+
+            model.CampaniaID = id;
+            model.IsMobile = IsMobile();
+
+            model.FiltersBySorting = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido,
+                    Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor,
+                    Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
+                },
+                new BETablaLogicaDatos
+                {
+                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor,
+                    Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
+                }
+            };
+
+            model.FiltersByBrand = new List<BETablaLogicaDatos>
+            {
+                new BETablaLogicaDatos {Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA"},
+                new BETablaLogicaDatos {Codigo = "CYZONE", Descripcion = "CYZONE"},
+                new BETablaLogicaDatos {Codigo = "ÉSIKA", Descripcion = "ÉSIKA"},
+                new BETablaLogicaDatos {Codigo = "LBEL", Descripcion = "LBEL"}
+            };
+
+            model.Success = true;
+            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
+            model.CantidadFilas = 10;
+
+            return PartialView("template-landing", model);
+        }
+
         public virtual ActionResult ViewLanding()
         {
 
