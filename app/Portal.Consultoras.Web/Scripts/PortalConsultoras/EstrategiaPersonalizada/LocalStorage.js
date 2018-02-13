@@ -48,7 +48,7 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     return new Object();
 }
 
-function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
+function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     var ok = false;
     try {
         tipo = $.trim(tipo);
@@ -58,11 +58,6 @@ function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
             return false;
         }
 
-        tipoEstrategiaId = parseInt(tipoEstrategiaId)
-        if (isNaN(tipoEstrategiaId)) {
-            tipoEstrategiaId = 0;
-        }
-
         if (tipo == "rd") {
             var listaCuv = cuv.split('|');
             $.each(listaCuv, function (ind, cuvItem) {
@@ -70,7 +65,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
                 var lista = "ListaRD";
                 var indCampania = indCampania || 0;
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, tipoEstrategiaId, valor, lista, indCampania);
+                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
             });
         }
 
@@ -81,7 +76,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
                 var lista = "GNDLista";
                 var indCampania = indCampania || 0;
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, tipoEstrategiaId, valor, lista, indCampania);
+                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
             });
         }
     } catch (e) {
@@ -90,7 +85,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, tipoEstrategiaId, valor) {
     return ok;
 }
 
-function ActualizarLocalStorageIsAgregado(cuv, tipoEstrategiaId, valor, lista, indCampania) {
+function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     var ok = false;
 
     var valLocalStorage = localStorage.getItem(lista + campaniaCodigo);
@@ -98,10 +93,10 @@ function ActualizarLocalStorageIsAgregado(cuv, tipoEstrategiaId, valor, lista, i
     if (valLocalStorage != null) {
         var data = JSON.parse(valLocalStorage);
 
-        ok = actualizarIsAgregado(data.response.listaLan, cuv, tipoEstrategiaId,  valor);
+        ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
 
         if (!ok || cuv == "todo") {
-            ok = actualizarIsAgregado(data.response.lista, cuv, tipoEstrategiaId, valor);
+            ok = actualizarIsAgregado(data.response.lista, cuv, valor);
         }
 
         if (ok) {
@@ -112,13 +107,19 @@ function ActualizarLocalStorageIsAgregado(cuv, tipoEstrategiaId, valor, lista, i
     return ok;
 }
 
-function actualizarIsAgregado(lista, cuv, tipoEstrategiaId, valor) {
+function actualizarIsAgregado(lista, cuv, valor) {
     var ok = false;
 
     if (lista !== undefined) {
         $.each(lista, function (index, item) {
-            if ((item.CUV2 == cuv && item.TipoEstrategiaID == tipoEstrategiaId) || cuv == "todo") {
-                item.IsAgregado = valor;
+            if (item.CUV2 == cuv || cuv == "todo") {
+                if (item.ClaseBloqueada !== "" && valor === true) {
+                    item.IsAgregado = false;
+                }
+                else {
+                    item.IsAgregado = valor;
+                }
+
                 ok = true;
                 if (cuv != "todo") {
                     return false;

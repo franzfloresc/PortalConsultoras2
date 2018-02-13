@@ -1948,8 +1948,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             window.OfertaDelDia.CargarODDEscritorio();
             ProcesarActualizacionMostrarContenedorCupon();
 
-            ActualizarLocalStorageAgregado("rd", data.data.CUV, data.data.TipoEstrategiaID, false);
-            ActualizarLocalStorageAgregado("gn", data.data.CUV, data.data.TipoEstrategiaID, false);
+            ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2473,8 +2473,8 @@ function EliminarPedido() {
             MostrarBarra(data);
             CerrarSplash();
 
-            ActualizarLocalStorageAgregado("rd", "todo", 0, false);
-            ActualizarLocalStorageAgregado("gn", "todo", 0, false);
+            ActualizarLocalStorageAgregado("rd", "todo", false);
+            ActualizarLocalStorageAgregado("gn", "todo", false);
             location.href = baseUrl + 'Pedido/Index';
         },
         error: function (data, error) {

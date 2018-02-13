@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV && (p.TipoEstrategiaID.ToString() == c.TipoEstrategiaID || p.TipoEstrategiaID == 0)));
+                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
                 var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
