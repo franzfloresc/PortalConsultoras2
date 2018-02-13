@@ -102,6 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
                     }
                 }
+
                 if (!listEstrategia.Any() && sessionManager.GetFlagLogCargaOfertas() &&
                     tipo != Constantes.TipoEstrategiaCodigo.OfertaWeb &&
                     tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)

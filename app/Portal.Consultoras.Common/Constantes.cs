@@ -1318,7 +1318,7 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             public const short CodigoRevistaFisica = 132;
-            public const short Palanca = 133;
+            public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
         }
 
