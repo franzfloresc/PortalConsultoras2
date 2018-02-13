@@ -3415,8 +3415,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Util.Trim(Request.QueryString[key]);
         }
 
-
-
         private ConfiguracionPaisModel GetConfiguracionPaisBy(List<ConfiguracionPaisModel> menuContenedor, MenuContenedorModel menuActivo, UsuarioModel userData)
         {
             var configuracionPaisMenu = menuContenedor.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
@@ -3465,6 +3463,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return codigo;
         }
+
+
 
         public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
         {
