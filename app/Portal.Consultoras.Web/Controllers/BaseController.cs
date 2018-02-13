@@ -3466,40 +3466,38 @@ namespace Portal.Consultoras.Web.Controllers
 
 
 
-        public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
+        public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario)
         {
-            var menuActivo = GetSessionMenuActivo();
-            var listMenu = BuildMenuContenedor(revistaDigital);
-            listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
+            var menuContenedor = BuildMenuContenedor(revistaDigital);
 
-            if (menuActivo.CampaniaId == userData.CampaniaID && !sessionManager.GetTieneLan())
+            menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
+
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneLan())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
             }
-            if (menuActivo.CampaniaId != userData.CampaniaID && !sessionManager.GetTieneLanX1())
+            if (campaniaIdMenuActivo != campaniaIdUsuario && !sessionManager.GetTieneLanX1())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
             }
             if (!sessionManager.GetTieneOpt())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
             }
-            if (menuActivo.CampaniaId == userData.CampaniaID &&
-                !sessionManager.GetTieneOpm())
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneOpm())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
-            if (menuActivo.CampaniaId != userData.CampaniaID &&
-                !sessionManager.GetTieneOpmX1())
+            if (campaniaIdMenuActivo != campaniaIdUsuario && !sessionManager.GetTieneOpmX1())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
-            if (menuActivo.CampaniaId == userData.CampaniaID &&
-              !sessionManager.GetTieneRdr())
+            if (campaniaIdMenuActivo == campaniaIdUsuario &&!sessionManager.GetTieneRdr())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
             }
-            return listMenu;
+
+            return menuContenedor;
         }
 
         public List<ConfiguracionPaisModel> BuildMenuContenedor(RevistaDigitalModel revistaDigital)
@@ -4319,8 +4317,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
             ViewBag.TieneHV = false;
-            ViewBag.MenuContenedorActivo = GetMenuActivo(userData, revistaDigital);
-            ViewBag.MenuContenedor = ObtenerMenuContenedor();
+            var menuActivo = GetMenuActivo(userData, revistaDigital);
+            ViewBag.MenuContenedorActivo = menuActivo;
+            ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
 
             ViewBag.MenuMobile = BuildMenuMobile(userData, revistaDigital);
             ViewBag.Permiso = BuildMenu(userData, revistaDigital);
