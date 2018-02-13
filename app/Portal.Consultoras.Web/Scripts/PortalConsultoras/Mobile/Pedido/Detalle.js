@@ -464,8 +464,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
 
-                ActualizarLocalStorageAgregado("rd", data.data.CUV, data.data.TipoEstrategiaID, false);
-                ActualizarLocalStorageAgregado("gn", data.data.CUV, data.data.TipoEstrategiaID, false);
+                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -601,8 +601,8 @@ function PedidoDetalleEliminarTodo() {
             });
             messageDelete("Se eliminaron todos productos del pedido.");
 
-            ActualizarLocalStorageAgregado("rd", "todo", 0, false);
-            ActualizarLocalStorageAgregado("gn", "todo", 0, false);
+            ActualizarLocalStorageAgregado("rd", "todo", false);
+            ActualizarLocalStorageAgregado("gn", "todo", false);
 
             location.reload();
 

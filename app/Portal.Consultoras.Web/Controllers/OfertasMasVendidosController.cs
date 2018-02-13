@@ -54,14 +54,14 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         for (int i = 0; i <= model.Lista.Count - 1; i++)
                         {
-                            model.Lista[i].IsAgregado = listaPedido.Any(p => p.CUV == model.Lista[i].CUV2.Trim() && (p.TipoEstrategiaID == model.Lista[i].TipoEstrategiaID || p.TipoEstrategiaID == 0));
+                            model.Lista[i].IsAgregado = listaPedido.Any(p => p.CUV == model.Lista[i].CUV2.Trim());
                             model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
                             model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
                         }
                     }
                     if (model.Item != null)
                     {
-                        model.Item.IsAgregado = listaPedido.Any(p => p.CUV == model.Item.CUV2.Trim() && (p.TipoEstrategiaID == model.Item.TipoEstrategiaID || p.TipoEstrategiaID == 0));
+                        model.Item.IsAgregado = listaPedido.Any(p => p.CUV == model.Item.CUV2.Trim());
                         model.Item.PrecioTachado = Util.DecimalToStringFormat(model.Item.Precio, userData.CodigoISO);
                         model.Item.GananciaString = Util.DecimalToStringFormat(model.Item.Ganancia, userData.CodigoISO);
                     }
