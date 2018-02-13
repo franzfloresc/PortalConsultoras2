@@ -92,13 +92,13 @@ $(document).ready(function () {
                     montoDeuda = $.trim($("#txtMontoParcial").val());
                 }
 
-                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda) <= 0) {
-                    AbrirMensaje("El monto a pagar debe ser mayor a cero");
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < 0.50) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
                     return false;
                 }
 
                 var montoTotal = $.trim($("#hdMontoDeuda").val());
-                if (parseFloat(montoDeuda) > parseFloat(montoTotal)) {
+                if (parseFloat(montoDeuda).toFixed(2) > parseFloat(montoTotal)) {
                     AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
                     return false;
                 }
@@ -119,7 +119,7 @@ $(document).ready(function () {
                 }
 
                 var parametros = {
-                    MontoDeuda: montoDeuda,
+                    MontoDeuda: parseFloat(montoDeuda).toFixed(2),
                     PorcentajeGastosAdministrativos: $("#spnPorcentajeGastosAdministrativos").html()
                 };
 
