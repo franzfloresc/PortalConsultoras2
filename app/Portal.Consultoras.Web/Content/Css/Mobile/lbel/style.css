@@ -11610,7 +11610,7 @@ span.icon-advertencia {
 
 .btn_volver_detalle_oferta {
     display: block;
-    position: absolute;
+    position: relative;
     top: 21px;
     left: 20px;
     z-index: 20;
