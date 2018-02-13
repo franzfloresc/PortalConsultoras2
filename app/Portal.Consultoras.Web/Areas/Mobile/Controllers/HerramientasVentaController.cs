@@ -311,6 +311,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
+        public enum Priority
+        {
+            Label = 1,
+            Esika = 2,
+            Cyzone = 3
+        }
+
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
@@ -336,6 +343,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta).ToList();
+
+                listModel = listModel.OrderBy(x => (String)Enum.Parse(typeof(Priority), x.DescripcionMarca, true)).ToList();
                 
                 var cantidadTotal = listModel.Count;
 
