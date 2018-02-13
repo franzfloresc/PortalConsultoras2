@@ -543,6 +543,11 @@
 
     function EstrategiaAgregar(event, popup, limite) {
         
+        if ($('#btnAgregalo').hasClass('btn_desactivado_general')) {
+            return false;
+        }
+
+        debugger;
 
         var padre = $('#btnAgregalo').parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
@@ -553,10 +558,7 @@
             return false;
         }
 
-        if ($('#btnAgregalo').hasClass('btn_desactivado_general'))
-        {
-            return false;
-        }        
+              
        
         var estrategia = EstrategiaObtenerObj(event);
 
@@ -594,6 +596,8 @@
             return false;
         }
 
+        AbrirLoad();
+
         //limite = limite || 0;
         //var cantidad = (limite > 0) ? limite
         //    : (
@@ -602,19 +606,19 @@
         //        || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val()
         //    );
 
-        //if (!$.isNumeric(cantidad)) {
-        //    AbrirMensajeEstrategia("Ingrese un valor numérico.");
-        //    $('.liquidacion_rango_cantidad_pedido').val(1);
-        //    CerrarLoad();
-        //    return false;
-        //}
-        //if (parseInt(cantidad) <= 0) {
-        //    AbrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
-        //    $('.liquidacion_rango_cantidad_pedido').val(1);
-        //    CerrarLoad();
-        //    return false;
-        //}
-        //  estrategia.Cantidad = cantidad;
+        if (!$.isNumeric(cantidad)) {
+            AbrirMensaje("Ingrese un valor numérico.");
+            $('.liquidacion_rango_cantidad_pedido').val(1);
+            CerrarLoad();
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            AbrirMensaje("La cantidad debe ser mayor a cero.");
+            $('.liquidacion_rango_cantidad_pedido').val(1);
+            CerrarLoad();
+            return false;
+        }
+         estrategia.Cantidad = cantidad;
 
         //var agregoAlCarro = false;
         //if (!isMobile()) {
@@ -624,10 +628,8 @@
         //    $('#OfertaTipoNuevo').val(estrategia.FlagNueva);
         //}
 
-        //AbrirLoad();
-
-        //var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
-        //divAgregado = $(itemClone).find(".agregado.product-add");
+       
+     
 
         var cuvs = "";
         var CodigoVariante = '@Model.CodigoEstrategia';
@@ -669,7 +671,7 @@
             ClienteID_: '-1',
             tipoEstrategiaImagen: 3
         });
-        AbrirLoad();
+    
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'Pedido/AgregarProducto',
@@ -679,9 +681,7 @@
             async: true,
             success: function (data) {
                 
-                //window.location = '/Mobile/Pedido/Detalle';
-                //return true;
-
+               
 
 
                 CerrarLoad();
@@ -708,113 +708,7 @@
                     AbrirPopupPedidoReservado(response.message, tipoOrigenPantalla);
                 }
                 window.location = '/Mobile/Pedido/Detalle';
-
-
-                //if (!checkTimeout(data)) {
-                //    CerrarLoad();
-                //    return false;
-                //}
-
-                //if (data.success === false) {
-                //    AbrirMensajeEstrategia(data.message);
-                //    CerrarLoad();
-                //    return false;
-                //}
-
-                //if (!isMobile() && !agregoAlCarro) {
-                //    agregarProductoAlCarrito(objInput);
-                //    agregoAlCarro = true;
-                //}
-
-                //AbrirLoad();
-
-                //if (divAgregado != null) {
-                //    $(divAgregado).show();
-                //}
-                //if (isMobile()) {
-                //    ActualizarGanancia(data.DataBarra);
-                //}
-                //else {
-                //    /*Inicializar en 1*/
-                //    $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
-                //    $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
-                //    $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
-                //    /*Fin inicializar en 1*/
-
-                //    CargarResumenCampaniaHeader(true);
-                //}
-
-                //var cuv = estrategia.CUV2;
-
-                //if (tipoOrigenEstrategia == 1) {
-                //    if (typeof MostrarBarra != "undefined")
-                //        MostrarBarra(data, '1');
-
-                //    if (typeof ActualizarGanancia != "undefined")
-                //        ActualizarGanancia(data.DataBarra);
-
-                //    if (typeof CargarCarouselEstrategias != "undefined")
-                //        CargarCarouselEstrategias(cuv);
-
-                //    if (typeof tieneMasVendidos != "undefined") {
-                //        if (tieneMasVendidos === 1) {
-                //            if (typeof CargarCarouselMasVendidos != "undefined")
-                //                CargarCarouselMasVendidos('desktop');
-                //        }
-                //    }
-                //}
-                //else if (tipoOrigenEstrategia == 11) {
-
-                //    $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
-
-
-                //    cierreCarouselEstrategias();
-                //    CargarCarouselEstrategias(cuv);
-                //    HideDialog("divVistaPrevia");
-
-                //    tieneMicroefecto = true;
-
-                //    CargarDetallePedido();
-                //    MostrarBarra(data);
-                //}
-                //else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
-                //    if (tipoOrigenEstrategia == 262) {
-                //        origenRetorno = $.trim(origenRetorno);
-                //        if (origenRetorno != "") {
-                //            window.location = origenRetorno;
-                //        }
-                //    }
-                //    else if (tipoOrigenEstrategia != 272) {
-                //        CargarCarouselEstrategias(cuv);
-
-                //        if (tieneMasVendidos === 1) {
-                //            CargarCarouselMasVendidos('mobile');
-                //        }
-                //    }
-                //}
-
-                //try {
-                //    if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                //        rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
-                //    } else {
-                //        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
-                //    }
-                //    TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                //} catch (e) { console.log(e); }
-
-                //CerrarLoad();
-                //if (popup) {
-                //    CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                //    $('#popupDetalleCarousel_packNuevas').hide();
-                //}
-
-                //ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
-                //ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
-
-                //ProcesarActualizacionMostrarContenedorCupon();
-
-                //if (belcorp.estrategia.applyChanges)
-                //    belcorp.estrategia.applyChanges("onProductoAgregado", data);
+     
             },
             error: function (data, error) {
                 console.log(data, error);
@@ -887,23 +781,7 @@
         return true;
     }
 
-
-    function EstrategiaObtenerObjHtmlLanding(objInput) {
-        var itemClone = $(objInput).parents("[data-item]");
-        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-        if (cuvClone != "") {
-            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length === 0 && cuvClone != "") {
-            itemClone = $("body").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length > 1) {
-            itemClone = $(itemClone.get(0));
-        }
-
-        return itemClone;
-    }
-
-
+ 
+ 
 
 </script>
