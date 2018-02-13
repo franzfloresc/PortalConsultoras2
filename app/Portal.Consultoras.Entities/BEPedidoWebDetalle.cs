@@ -156,12 +156,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ProgramaNuevoActivado { get; set; }
 
-        [DataMember]
-        public int TieneVariedad { get; set; }
-
-        [DataMember]
-        public string CodigoProducto { get; set; }
-
         public BEPedidoWebDetalle()
         { }
 
