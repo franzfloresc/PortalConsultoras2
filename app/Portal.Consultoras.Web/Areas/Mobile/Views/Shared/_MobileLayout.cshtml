@@ -408,6 +408,10 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 window.OfertaDelDia.CargarODD();
+
+                $("div[id^='content_oferta_dia_mobile']").click(function () {
+                        document.location.href = urlOfertaDelDiaMobile;
+                });
             });
         </script>
     }

@@ -226,6 +226,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
+            if (userData.TieneCupon == 1)
+            {
+                if (userData.CodigoISO == "PE")
+                {
+                    var cupon = ObtenerCuponDesdeServicio();
+                    if (cupon != null)
+                    {
+                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+
+                        return tipoPopUpMostrar;
+                    }
+                }
+            }
+
             // debe tener la misma logica que desktop
 
             #region Revista Digital
@@ -237,13 +252,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (revistaDigital.EsSuscrita)
                 return tipoPopUpMostrar;
-            
+
             tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
             Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
             return tipoPopUpMostrar;
+        }
+
+        private BECuponConsultora ObtenerCuponDesdeServicio()
+        {
+            BECuponConsultora cuponResult;
+            try
+            {
+                var cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID
+                };
+
+                using (var svClient = new PedidoServiceClient())
+                {
+                    cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(userData.PaisID, cuponBe);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                cuponResult = new BECuponConsultora();
+            }
+
+            return cuponResult;
         }
 
         [HttpPost]

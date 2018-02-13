@@ -42,6 +42,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaDelDia { get; set; }
         public int Orden { get; set; }
         public List<OfertaDelDiaModel> ListaOfertas { get; set; }
+        public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public string PrecioOfertaFormat
         {
             get
