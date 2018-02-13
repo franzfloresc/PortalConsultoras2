@@ -74,7 +74,7 @@
         Ambiente: '',
         TieneCupon: false,
         CumpleMostrarContenedorCupon: false,
-        TieneOfertasPlan20: false,
+        TieneOfertasPlan20: false
     };
 
     var userModel = {
@@ -85,7 +85,7 @@
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
-        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
+        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true" || parameters.paisISO == 'PE');
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
         setting.CampaniaActual = parameters.campaniaActual;
@@ -285,6 +285,10 @@
             } else {
                 $(elements.ContenedorPadreCupon).hide();
             }
+        }
+
+        if (setting.PaisISO == "PE") {
+            $('[data-cupon-info-opt]').hide();
         }
     }
 
@@ -509,7 +513,12 @@
         var campania = setting.CampaniaActual.substring(4);
 
         $(elements.ContenedorTituloGanaste).empty();
-        $(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        if (setting.PaisISO == "PE") {
+            $(elements.ContenedorTituloGanaste).append("¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        }
+        else {
+            $(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        }
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
@@ -519,6 +528,10 @@
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
+
+        if (setting.PaisISO == "PE") {
+            $('[data-cupon-ganaste-condicion2]').hide();
+        }
     }
 
     var mostrarPopupGana = function () {
@@ -555,7 +568,12 @@
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
+                        if (setting.PaisISO == 'PE') {
+                            mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
+                        }
+                        else {
+                            mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
+                        }
                     }
                 }
                 else {
@@ -591,6 +609,10 @@
                 });
 
                 $(elements.ContenedorCuponConocelo).hide();
+                if (setting.PaisISO == "PE") {
+                    $('[data-cupon-info-opt]').hide();
+                    $('#cupon-pedido-mobile').show();
+                }
                 finishLoadCuponContenedorInfo = true;
             }
         }, function (xhr, status, error) { });
@@ -639,7 +661,7 @@
                     keepAsking = false;
                 }
             }
-        }, 2000);
+        }, 1000);
     }
 
     var mostrarPopupGanaDesdeGestorDePopups = function () {

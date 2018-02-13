@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -627,6 +628,9 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
+        List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
@@ -634,7 +638,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int DeshabilitarEstrategia(BEEstrategia entidad);
-
+        [OperationContract]
+        int EliminarEstrategia(BEEstrategia entidad);
         [OperationContract]
         int EliminarTallaColor(BETallaColor entidad);
 
@@ -854,6 +859,9 @@ namespace Portal.Consultoras.ServiceContracts
         int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
+        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID);
+
+        [OperationContract]
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
 
         [OperationContract]
@@ -1017,6 +1025,12 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
 
         [OperationContract]
+        int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
 
         [OperationContract]
@@ -1147,7 +1161,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia);
         [OperationContract]
         List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
         #endregion
@@ -1208,11 +1222,11 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
 
-	#region ConfiguracionProgramaNuevasApp
+	    #region ConfiguracionProgramaNuevasApp
         [OperationContract]
-        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         [OperationContract]
-        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
+        bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         #endregion
 
         #region Certificado Digital
@@ -1223,6 +1237,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
 
         #endregion
+
 
     }
 }

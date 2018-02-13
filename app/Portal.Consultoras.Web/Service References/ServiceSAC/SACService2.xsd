@@ -153,6 +153,8 @@
           <xs:element minOccurs="0" name="ConfiguracionPaisID" type="xs:int" />
           <xs:element minOccurs="0" name="DesktopActivo" type="xs:boolean" />
           <xs:element minOccurs="0" name="DesktopCantidadProductos" type="xs:int" />
+          <xs:element minOccurs="0" name="DesktopColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesktopColorTexto" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopImagenFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopOrden" type="xs:int" />
           <xs:element minOccurs="0" name="DesktopOrdenBpt" type="xs:int" />
@@ -160,8 +162,11 @@
           <xs:element minOccurs="0" name="DesktopTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopTipoPresentacion" type="xs:int" />
           <xs:element minOccurs="0" name="DesktopTitulo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesktopUsarImagenFondo" type="xs:boolean" />
           <xs:element minOccurs="0" name="MobileActivo" type="xs:boolean" />
           <xs:element minOccurs="0" name="MobileCantidadProductos" type="xs:int" />
+          <xs:element minOccurs="0" name="MobileColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileColorTexto" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileImagenFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileOrden" type="xs:int" />
           <xs:element minOccurs="0" name="MobileOrdenBpt" type="xs:int" />
@@ -169,6 +174,7 @@
           <xs:element minOccurs="0" name="MobileTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTipoPresentacion" type="xs:int" />
           <xs:element minOccurs="0" name="MobileTitulo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileUsarImagenFondo" type="xs:boolean" />
           <xs:element minOccurs="0" name="UrlSeccion" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
