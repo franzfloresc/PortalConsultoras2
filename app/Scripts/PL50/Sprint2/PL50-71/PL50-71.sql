@@ -158,7 +158,7 @@ BEGIN
 			,FechaModificacion
 			,OfertaShowRoomID
 			)
-		SELECT TOP 1 EstrategiaID
+		SELECT EstrategiaID
 			,TipoEstrategiaID
 			,CampaniaID
 			,CUV2
@@ -306,7 +306,7 @@ BEGIN
 			,FechaModificacion
 			,OfertaShowRoomDetalleID
 			)
-		SELECT TOP 1 EstrategiaProductoId
+		SELECT EstrategiaProductoId
 			,EstrategiaId
 			,Campania
 			,CUV
