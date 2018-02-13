@@ -40,6 +40,13 @@
         color: #b52e36;
     }
 
+.bc_ofertasDelDiaOfertas {
+    background-repeat: no-repeat;
+    background-position: center center !important;
+    min-height: 500px;
+    vertical-align: middle;
+}
+
 .logo {
     width: auto;
     height: 96px;

@@ -224,6 +224,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return tipoPopUpMostrar;
             }
 
+            if (userData.TieneCupon == 1)
+            {
+                if (userData.CodigoISO == "PE")
+                {
+                    var cupon = ObtenerCuponDesdeServicio();
+                    if (cupon != null)
+                    {
+                        tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+
+                        return tipoPopUpMostrar;
+                    }
+                }
+            }
+
             // debe tener la misma logica que desktop
 
             #region Revista Digital
@@ -235,13 +250,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (revistaDigital.EsSuscrita)
                 return tipoPopUpMostrar;
-            
+
             tipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
             #endregion
 
             Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
 
             return tipoPopUpMostrar;
+        }
+
+        private BECuponConsultora ObtenerCuponDesdeServicio()
+        {
+            BECuponConsultora cuponResult;
+            try
+            {
+                var cuponBe = new BECuponConsultora
+                {
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaId = userData.CampaniaID
+                };
+
+                using (var svClient = new PedidoServiceClient())
+                {
+                    cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(userData.PaisID, cuponBe);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                cuponResult = new BECuponConsultora();
+            }
+
+            return cuponResult;
         }
 
         [HttpPost]
@@ -352,14 +393,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public JsonResult ObtenerComunicadosPopUps()
         {
+            BEComunicado oComunicados = null;
+
             try
             {
-                BEComunicado oComunicados;
-                using (SACServiceClient sac = new SACServiceClient())
+                using (var sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
-                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
-                    oComunicados = lstComunicados.FirstOrDefault();
+                    lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                    if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 
                 return Json(new

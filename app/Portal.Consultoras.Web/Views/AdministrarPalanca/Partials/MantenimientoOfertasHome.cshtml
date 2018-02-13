@@ -47,14 +47,35 @@
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <div class="div-3" >
+            <div class="div-3">
                 <div class="titG">¿Activar?</div>
                 <div class="titG">
                     @Html.CheckBoxFor(m => m.DesktopActivo)
                 </div>
             </div>
+
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG" style="padding-bottom: 0;">Color Fondo:
+                    <h6>(#F421E7)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopColorFondo, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG">Usar Imagen Como Fondo: </div>
+                <div class="titG">
+                    @Html.CheckBoxFor(m => m.DesktopUsarImagenFondo)
+                </div>
+            </div>
+
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
-                <div class="titG">Imagen Fondo:</div>
+                <div class="titG">
+                    Imagen Fondo:
+                    <h6 class="hide-config-image-odd">(1920x500 pixeles)</h6>
+                </div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-fondo-desktop" })
                     <div id="img-fondo-desktop" style="display: inline-block;vertical-align: middle;"></div>
@@ -64,18 +85,27 @@
                 </div>
             </div>
             
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG" style="padding-bottom: 0;">Color Texto:
+                    <h6>(#F421E7)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopColorTexto, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopOrden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopOrdenBpt, new { @style = "width: 312px;" })
                 </div>
@@ -83,7 +113,7 @@
 
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Título:</div>
-                <br />  
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.DesktopTitulo, new { @style = "width: 312px;" })
                 </div>
@@ -119,14 +149,14 @@
                 <div class="div-3">
                     <div class="borde_redondeado checkBox">
                         @foreach (var estrategia in Model.ListaTipoEstrategia)
-                        {
-                            if (!string.IsNullOrEmpty(estrategia.Codigo))
-                            {
-                                bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                {
+                    if (!string.IsNullOrEmpty(estrategia.Codigo))
+                    {
+                        bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
                         <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
                         <label>@estrategia.Descripcion</label><br />
-                            }
-                        }
+            }
+        }
                     </div>
                 </div>
             </div>
@@ -138,8 +168,29 @@
                     @Html.CheckBoxFor(m => m.MobileActivo)
                 </div>
             </div>
+
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG" style="padding-bottom: 0;">Color Fondo:
+                    <h6>(#F421E7)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileColorFondo, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG">Usar Imagen Como Fondo: </div>
+                <div class="titG">
+                    @Html.CheckBoxFor(m => m.MobileUsarImagenFondo)
+                </div>
+            </div>
+
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
-                <div class="titG">Imagen Fondo:</div>
+                <div class="titG">
+                    Imagen Fondo:
+                    <h6 class="hide-config-image-odd">(1024x190 pixeles)</h6>
+                </div>
                 <div style="display: inline-block;">
                     @Html.HiddenFor(m => m.MobileImagenFondo, new { id = "nombre-fondo-mobile" })
                     <div id="img-fondo-mobile" style="display: inline-block;vertical-align: middle;"></div>
@@ -149,17 +200,27 @@
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">Orden:</div>    
-                <br />  
+            <div class="div-3 hide-config-image-odd">
+                <div class="titG" style="padding-bottom: 0;">Color Texto:
+                    <h6>(#F421E7)</h6>
+                </div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileColorTexto, new { @maxlength = "7", @size = 7 })
+                </div>
+            </div>
+
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Orden:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrden, new { @style = "width: 312px;" })
                 </div>
             </div>
 
-			<div class="div-3">
-                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>    
-                <br />  
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">OrdenBPT:</div>
+                <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
                 </div>
@@ -180,11 +241,11 @@
             <div class="div-3">
                 <div class="titG">Cantidad:</div>
                 <div class="titG borde_redondeado" style="width: 50px;">
-                    @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style= "width: 50px;" })
+                    @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style = "width: 50px;" })
                 </div>
                 <div class="titG" style="width: 100px; display: inline-block;">
-                    Todos <input type="checkbox" id="cbMobileCantidadTodos" 
-                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;"/>
+                    Todos <input type="checkbox" id="cbMobileCantidadTodos"
+                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
             
@@ -203,14 +264,14 @@
                 <div class="div-3">
                     <div class="borde_redondeado">
                         @foreach (var estrategia in Model.ListaTipoEstrategia)
-                        {
-                            if (!string.IsNullOrEmpty(estrategia.Codigo))
-                            {
-                                bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                {
+                    if (!string.IsNullOrEmpty(estrategia.Codigo))
+                    {
+                        bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
                         <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
                         <label>@estrategia.Descripcion</label> <br />
-                            }
-                        }
+            }
+        }
                     </div>
                 </div>
             </div>

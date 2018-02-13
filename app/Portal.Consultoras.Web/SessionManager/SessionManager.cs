@@ -4,6 +4,8 @@ using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System.Collections.Generic;
+
+using System;
 using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
@@ -270,7 +272,27 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
         }
 
-        public void SetFlagLogCargaOfertas(bool habilitarLog)
+        void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
+        {
+            HttpContext.Current.Session["ListFiltersFAV"] = lista;
+        }
+
+        List<ServiceSAC.BETablaLogicaDatos> ISessionManager.GetListFiltersFAV()
+        {
+            return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
+        }
+
+        void ISessionManager.SetStartSession(DateTime fecha)
+        {
+            HttpContext.Current.Session["StartSession"] = fecha;
+        }
+
+        DateTime ISessionManager.GetStartSession()
+        {
+            return (DateTime)HttpContext.Current.Session["StartSession"];
+        }
+        
+         public void SetFlagLogCargaOfertas(bool habilitarLog)
         {
             HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] = habilitarLog;
         }
@@ -279,5 +301,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
         }
+
     }
 }
