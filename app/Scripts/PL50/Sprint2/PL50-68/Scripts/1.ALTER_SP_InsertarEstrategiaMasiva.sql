@@ -1,4 +1,4 @@
-USE BelcorpPeru_PL50
+USE BelcorpMexico_PL50
 GO
   IF OBJECT_ID('dbo.InsertarEstrategiaMasiva', 'P') IS NOT NULL
 	DROP PROC dbo.InsertarEstrategiaMasiva
@@ -57,7 +57,7 @@ SELECT DISTINCT  tabla.variable.value('CUV2[1]', 'VARCHAR(20)') AS 'CUV2'
     , @CampaniaID AS 'CampaniaID'  
     , 0 AS 'EtiquetaID'  
     , 0 AS 'EtiquetaID2'  
-    , 0 AS 'Activo'  
+    , tabla.variable.value('Activo[1]', 'BIT') AS 'Activo'  
     , 0 AS 'CampaniaIDFin'  
     , 0 AS 'NumeroPedido'  
     , 1 AS 'FlagDescripcion'  
