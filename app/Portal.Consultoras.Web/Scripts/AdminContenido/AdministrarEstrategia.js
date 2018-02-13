@@ -20,6 +20,8 @@
         urlConsultarCuvTipoConfigurado: config.urlConsultarCuvTipoConfigurado,
         urlConsultarCuvTipoConfiguradoTemporal: config.urlConsultarCuvTipoConfiguradoTemporal,
         urlDeshabilitarEstrategia: config.urlDeshabilitarEstrategia,
+        urlImageLanzamientoUpload: config.urlImageLanzamientoUpload,
+        urlUploadCvs: config.UploadCvs
     };
 
     var _variables = {
@@ -593,7 +595,7 @@
         var uploader = new qq.FileUploader({
             allowedExtensions: ["jpg", "png", "jpeg"],
             element: document.getElementById(divId),
-            action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+            action: _config.urlImageLanzamientoUpload,
             onComplete: function(id, fileName, responseJSON) {
                 if (checkTimeout(responseJSON)) {
                     if (responseJSON.success) {
@@ -1221,7 +1223,7 @@
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
 
         $.ajax({
-            url: '@Url.Action("UploadCvs", "AdministrarEstrategia")',
+            url: _config.urlUploadCvs,
             type: "POST",
             dataType: "JSON",
             data: formData,
@@ -1607,13 +1609,13 @@
             return false;
         } else {
             var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-            if (!estrategiaId.in(Id.OfertaParaTi,
-                Id.GuiaDeNegocio,
-                Id.LosMasVendidos,
-                Id.Lanzamiento,
-                Id.OfertasParaMi,
-                Id.PackAltoDesembolso,
-                Id.OfertaDelDia)) {
+            if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
+                _idEstrategia.GuiaDeNegocio,
+                _idEstrategia.LosMasVendidos,
+                _idEstrategia.Lanzamiento,
+                _idEstrategia.OfertasParaMi,
+                _idEstrategia.PackAltoDesembolso,
+                _idEstrategia.OfertaDelDia)) {
                 _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                 return false;
             }
@@ -1772,7 +1774,7 @@
             buttons:
             {
                 "Guardar": function() {
-
+                    waitingDialog({});
                     if ($("#mensajeErrorCUV").val() != "") {
                         _toastHelper.error($("#mensajeErrorCUV").val());
                         return false;
@@ -1838,7 +1840,7 @@
                         return false;
                     }
 
-                    if (imagen == "") {
+                    if (_variables.imagen == "") {
                         _toastHelper.error("Seleccione una imagen a mostrar.");
                         return false;
                     }
@@ -1872,7 +1874,7 @@
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
                     var EstrategiaID = 0;
-                    if (!isNuevo)
+                    if (!_variables.isNuevo)
                         EstrategiaID = $("#hdEstrategiaID").val();
 
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
@@ -1974,7 +1976,7 @@
                         data: JSON.stringify(params),
                         async: true,
                         success: function(data) {
-
+                            closeWaitingDialog();
                             if (data.success) {
                                 _toastHelper.success(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
@@ -1984,7 +1986,8 @@
                                 _toastHelper.error(data.message);
                             }
                         },
-                        error: function(data, error) {
+                        error: function (data, error) {
+                            closeWaitingDialog();
                             _toastHelper.error(data.message);
                         }
                     });
