@@ -262,6 +262,15 @@ namespace Portal.Consultoras.Entities
         [Column("TipoConcurso")]
         public string TipoConcurso { get; set; }
 
+
+        [DataMember]
+        [Column("ImagenMiniaturaURL")]
+        public string ImagenMiniaturaURL { get; set; }
+
+        [DataMember]
+        [Column("EsSubCampania")]
+        public int EsSubCampania { get; set; }
+
         public BEEstrategia()
         { }
 
@@ -542,6 +551,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenMiniaturaURL"))
+                ImagenMiniaturaURL = row["ImagenMiniaturaURL"].ToString();
+
+            if (DataRecord.HasColumn(row, "EsSubCampania"))
+                EsSubCampania = Convert.ToInt32(row["EsSubCampania"]);
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

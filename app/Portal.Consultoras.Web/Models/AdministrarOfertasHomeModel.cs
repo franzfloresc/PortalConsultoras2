@@ -11,8 +11,14 @@ namespace Portal.Consultoras.Web.Models
 
         public int DesktopOrden { get; set; }
         public int MobileOrden { get; set; }
+        public string DesktopColorFondo { get; set; }
+        public string MobileColorFondo { get; set; }
+        public bool DesktopUsarImagenFondo { get; set; }
+        public bool MobileUsarImagenFondo { get; set; }
         public string DesktopImagenFondo { get; set; }
         public string MobileImagenFondo { get; set; }
+        public string DesktopColorTexto { get; set; }
+        public string MobileColorTexto { get; set; }
         public string DesktopTitulo { get; set; }
         public string MobileTitulo { get; set; }
         public string DesktopSubTitulo { get; set; }

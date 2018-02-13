@@ -10,11 +10,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using sc = Portal.Consultoras.Web.ServiceCliente;
 using SC = Portal.Consultoras.Web.ServiceCliente;
 
@@ -45,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPedidoFacturados.Update(x =>
                     {
-                        x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID);
+                        x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID.ToString(), x.NumeroPedido.ToString());
                         x.ImporteTotal = x.ImporteTotal - x.DescuentoProl;
                         x.ImporteCredito = x.ImporteTotal - x.Flete;
                     });
@@ -248,70 +246,10 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        public string ObtenerRutaPaqueteDocumentario(int campaniaId)
+        public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var complain = new RVDWebCampaniasParam
-            {
-                Pais = userData.CodigoISO,
-                Tipo = "1",
-                CodigoConsultora = ((userData.UsuarioPrueba == 1) ? userData.ConsultoraAsociada : userData.CodigoConsultora),
-                Campana = campaniaId.ToString()
-            };
-            List<RVPRFModel> lstRvprfModel = new List<RVPRFModel>();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string output = serializer.Serialize(complain);
-
-            string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
-            Uri uri = new Uri(strUri);
-            WebRequest request = WebRequest.Create(uri);
-            request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-            {
-                writer.Write(output);
-            }
-
-            WebResponse responce = request.GetResponse();
-            Stream reader = responce.GetResponseStream();
-            if (reader != null)
-            {
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-
-                WrapperPDFWeb st = jsonSerializer.Deserialize<WrapperPDFWeb>(outResult);
-
-                if (st != null
-                    && st.GET_URLResult != null
-                    && (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
-                    && st.GET_URLResult.objeto != null
-                    && st.GET_URLResult.objeto.Count != 0
-                )
-                {
-                    foreach (var item in st.GET_URLResult.objeto)
-                    {
-                        lstRvprfModel.Add(new RVPRFModel()
-                        {
-                            Nombre = "Paquete Documentario",
-                            FechaFacturacion = item.fechaFacturacion,
-                            Ruta = Convert.ToString(item.url)
-                        });
-                    }
-                }
-            }
-
-            string resultado = "";
-
-            if (lstRvprfModel.Count > 0)
-            {
-                resultado = lstRvprfModel[0].Ruta;
-            }
-
-            return resultado;
+            var lstRVPRFModel = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
+            return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 
         public string ObtenerFormatoFecha(DateTime fecha)
