@@ -29,10 +29,28 @@ namespace Portal.Consultoras.Entities
         public int MobileOrdenBpt { get; set; }
 
         [DataMember]
+        public string DesktopColorFondo { get; set; }
+
+        [DataMember]
+        public string MobileColorFondo { get; set; }
+
+        [DataMember]
+        public bool DesktopUsarImagenFondo { get; set; }
+
+        [DataMember]
+        public bool MobileUsarImagenFondo { get; set; }
+
+        [DataMember]
         public string DesktopImagenFondo { get; set; }
 
         [DataMember]
         public string MobileImagenFondo { get; set; }
+
+        [DataMember]
+        public string DesktopColorTexto { get; set; }
+
+        [DataMember]
+        public string MobileColorTexto { get; set; }
 
         [DataMember]
         public string DesktopTitulo { get; set; }
@@ -85,8 +103,16 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("DesktopOrdenBpt")) DesktopOrdenBpt = Convert.ToInt32(row["DesktopOrdenBpt"]);
             if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
             if (row.HasColumn("MobileOrdenBpt")) MobileOrdenBpt = Convert.ToInt32(row["MobileOrdenBpt"]);
+            if (row.HasColumn("DesktopColorFondo")) DesktopColorFondo = Convert.ToString(row["DesktopColorFondo"]);
+            if (row.HasColumn("MobileColorFondo")) MobileColorFondo = Convert.ToString(row["MobileColorFondo"]);
+            if (row.HasColumn("DesktopActivo")) DesktopActivo = Convert.ToBoolean(row["DesktopActivo"]);
+            if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
+            if (row.HasColumn("DesktopUsarImagenFondo")) DesktopUsarImagenFondo = Convert.ToBoolean(row["DesktopUsarImagenFondo"]);
+            if (row.HasColumn("MobileUsarImagenFondo")) MobileUsarImagenFondo = Convert.ToBoolean(row["MobileUsarImagenFondo"]);
             if (row.HasColumn("DesktopImagenFondo")) DesktopImagenFondo = Convert.ToString(row["DesktopImagenFondo"]);
             if (row.HasColumn("MobileImagenFondo")) MobileImagenFondo = Convert.ToString(row["MobileImagenFondo"]);
+            if (row.HasColumn("DesktopColorTexto")) DesktopColorTexto = Convert.ToString(row["DesktopColorTexto"]);
+            if (row.HasColumn("MobileColorTexto")) MobileColorTexto = Convert.ToString(row["MobileColorTexto"]);
             if (row.HasColumn("DesktopTitulo")) DesktopTitulo = Convert.ToString(row["DesktopTitulo"]);
             if (row.HasColumn("MobileTitulo")) MobileTitulo = Convert.ToString(row["MobileTitulo"]);
             if (row.HasColumn("DesktopSubTitulo")) DesktopSubTitulo = Convert.ToString(row["DesktopSubTitulo"]);

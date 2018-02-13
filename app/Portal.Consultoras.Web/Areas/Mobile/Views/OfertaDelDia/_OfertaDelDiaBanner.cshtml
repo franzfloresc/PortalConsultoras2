@@ -1,54 +1,77 @@
-﻿@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+﻿@using Portal.Consultoras.Web.Models;
+@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+
 <style>
     .flip-clock-wrapper .flip{
-        box-shadow: 0 2px 5px @Model.ColorFondo1 !important;
+        box-shadow: 0 2px 5px @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) !important;
     }
     .flip-clock-wrapper ul li a div div.inn {
-        text-shadow: 0 1px 2px @Model.ColorFondo1 !important;
-        background-color: @Model.ColorFondo1 !important;
+        text-shadow: 0 1px 2px @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) !important;
+        background-color: @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) !important;
+        @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "color:" + Model.ConfiguracionContenedor.ColorTexto + ";")
+    }
+
+    .flip-clock-dot {
+        @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "background:" + Model.ConfiguracionContenedor.ColorTexto + ";")
     }
 </style>
-<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bloqueOfertaDia_vistaOfertas" style="background-color:@Model.ColorFondo1; height:190px;">
-    <div style="width:290px; margin:0 auto;" id="content_oferta_dia_mobile">
-        <div class="solo_hoy_mobile">
-            <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy" />
-        </div>
-        <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
+@{
+    var estiloFondo = "";
 
-        <div class="imagen_set_oferta_mobile">
-            <img src="@Model.ImagenBanner" alt="" id="img-banner-odd" />
-        </div>
+    if (Model.ConfiguracionContenedor.UsarImagenFondo && !string.IsNullOrEmpty(Model.ConfiguracionContenedor.ImagenFondo))
+    {
+        estiloFondo = "background: url(" + Model.ConfiguracionContenedor.ImagenFondo + ");";
+    }
+    else
+    {
+        estiloFondo = "background-color:" + (string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) + ";";
+    }
+}
 
 
-        <div class="float_left" style="width:50%; margin-left:3%;">
-            <div class="nombre_set_oferta_mobile">@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
-            @if (Model.ListaOfertas != null)
-            {
-                if (Model.ListaOfertas.Count > 1)
+    <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo">
+        <div style="width:290px; margin:0 auto;" id="content_oferta_dia_mobile">
+            <div class="solo_hoy_mobile">
+                <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy" />
+            </div>
+            <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
+
+            <div class="imagen_set_oferta_mobile">
+                <img src="@Model.ImagenBanner" alt="" id="img-banner-odd" />
+            </div>
+
+
+            <div class="float_left" style="width:50%; margin-left:3%;">
+                <div class="nombre_set_oferta_mobile" @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
+                @if (Model.ListaOfertas != null)
                 {
-                    <a class="btn_compralo_ahora" href="javascript:;">VER OFERTAS</a>
+                    if (Model.ListaOfertas.Count > 1)
+                    {
+                        <a class="btn_compralo_ahora" href="#"
+                           @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>VER OFERTAS</a>
+                    }
+                    else
+                    {
+                        <a class="btn_compralo_ahora" href="#"
+                           @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>VER OFERTA</a>
+                    }
                 }
-                else
-                {
-                    <a class="btn_compralo_ahora" href="javascript:;">VER OFERTA</a>
-                }
-            }
-        </div>
-        <hr class="clear" />
-        <div  style="display:none;" id="banner-odd-mobile">
-            <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
-            <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
-            <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
-            <input type="hidden" id="limite-venta-odd" value="@Model.LimiteVenta" />
-            <input type="hidden" id="flagnueva-odd" value="@Model.FlagNueva" />
-            <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
-            <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
-            <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
-            <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />
-            <input type="hidden" id="estrategia-id-odd" value="@Model.EstrategiaID" />
-            <input type="hidden" id="marca-descripcion-odd" value="@Model.DescripcionMarca" />
-            <input type="hidden" id="tipoestrategia-descripcion-odd" value="@Model.TipoEstrategiaDescripcion" />
-        </div>
+            </div>
+            <hr class="clear" />
+            <div style="display:none;" id="banner-odd-mobile">
+                <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
+                <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
+                <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
+                <input type="hidden" id="limite-venta-odd" value="@Model.LimiteVenta" />
+                <input type="hidden" id="flagnueva-odd" value="@Model.FlagNueva" />
+                <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
+                <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
+                <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
+                <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />
+                <input type="hidden" id="estrategia-id-odd" value="@Model.EstrategiaID" />
+                <input type="hidden" id="marca-descripcion-odd" value="@Model.DescripcionMarca" />
+                <input type="hidden" id="tipoestrategia-descripcion-odd" value="@Model.TipoEstrategiaDescripcion" />
+            </div>
 
+        </div>
     </div>
-</div>

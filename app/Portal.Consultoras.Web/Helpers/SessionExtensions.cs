@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Helpers
         {
             var sessionKeys = session.Keys;
             var guid = Guid.Empty;
-
+            
             foreach (string key in sessionKeys)
             {
                 if (key.Contains(name))
