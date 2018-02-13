@@ -9,7 +9,7 @@ dbo.ListarEstrategiasOfertaWeb 201710, ''
 BEGIN
 SET NOCOUNT ON;
 	
-	SELECT
+	SELECT distinct
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,

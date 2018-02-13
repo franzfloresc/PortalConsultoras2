@@ -32,7 +32,8 @@ IF @cant = 0
 	FROM TablaLogicaDatos
 	WHERE TablaLogicaDatosID = 10001
 
-SELECT e.EstrategiaID
+SELECT distinct
+	 e.EstrategiaID
 	,e.CodigoEstrategia
 	,e.CUV2
 	,e.DescripcionCUV2
