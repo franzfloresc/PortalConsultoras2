@@ -16,6 +16,7 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -1125,6 +1126,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().DeshabilitarEstrategia(entidad);
         }
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            return new BLEstrategia().EliminarEstrategia(entidad);
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().EliminarTallaColor(entidad);
@@ -1593,6 +1598,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+        }
+
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
         {
             return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
@@ -1880,6 +1890,16 @@ namespace Portal.Consultoras.Service
         public int InsertarEstrategiaProducto(BEEstrategiaProducto entidad)
         {
             return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
+        }
+
+        public int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().UpdateEstrategiaProducto(entidad);
+        }
+
+        public bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().DeleteEstrategiaProducto(entidad);
         }
 
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
@@ -2230,5 +2250,12 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         #endregion
+
+
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
+        }
+
     }
 }

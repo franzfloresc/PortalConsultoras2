@@ -3,6 +3,7 @@ node {
         ws("workspace/${env.JOB_NAME}") {
             stage('Start') {
                 notifyBuild('STARTED')
+                hygieiaBuildPublishStep buildStatus: 'InProgress'
             }
             stage('Clean') {
                 step([$class: 'WsCleanup'])
@@ -41,9 +42,11 @@ node {
     }
     catch(error) {
         currentBuild.result = 'FAILURE'
+        hygieiaBuildPublishStep buildStatus: 'Failure'
     }
     stage('Finish') {
         notifyBuild(currentBuild.result)
+        hygieiaBuildPublishStep buildStatus: 'Success'
     }
 }
 

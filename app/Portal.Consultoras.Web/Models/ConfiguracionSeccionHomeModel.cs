@@ -12,7 +12,10 @@ namespace Portal.Consultoras.Web.Models
         
         public bool IsMobile { get; set; }
         public int Orden { get; set; }
+        public string ColorFondo { get; set; }
+        public bool UsarImagenFondo { get; set; }
         public string ImagenFondo { get; set; }
+        public string ColorTexto { get; set; }
         public string Titulo { get; set; }
         public string TituloBtnAnalytics { get; set; }
         public string SubTitulo { get; set; }
