@@ -292,7 +292,6 @@
                                 var data = new FormData();
                                 for (var x = 0; x < files.length; x++) {
                                     data.append(files[x].type, files[x]);
-                                    console.log(files[x]);
                                 }
                                 ShowLoading();
                                 $.ajax({
@@ -303,7 +302,6 @@
                                     data: data,
                                     success: function (data) {
                                         CloseLoading();
-                                        console.log(data.mensaje);
 
                                         var decha = new Date();
                                         $("#divInicialesConsultora").hide();
@@ -312,10 +310,6 @@
                                     },
                                     error: function (xhr, status, p3, p4) {
                                         CloseLoading();
-                                        var err = "Error " + " " + status + " " + p3 + " " + p4;
-                                        if (xhr.responseText && xhr.responseText[0] == "{")
-                                            err = JSON.parse(xhr.responseText).Message;
-                                        console.log(err);
                                     }
                                 });
                             } else {
@@ -383,7 +377,6 @@
                 success: function (data) {
                     CloseLoading();
                     if (data.success == true) {
-                        console.log(data.message);
 
                         if (data.model.Email != data.model.CorreoAnterior) {
                             $('#EmailPopup').html(data.model.Email);

@@ -33,7 +33,7 @@ $(document).ready(function () {
 
                         return false;
                     }
-                    console.log('Proceder con el registro');
+
                     window.location.href = urlReclamo;
                 });
 

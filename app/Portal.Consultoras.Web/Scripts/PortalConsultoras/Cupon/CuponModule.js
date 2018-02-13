@@ -327,12 +327,9 @@
                         mostrarContenedorCuponPorPagina();
                     }
                 }
-            } else {
-                console.log('CuponModule.js - method name: obtenerCupon - ' + response.message);
             }
-        }, function (xhr, status, error) {
-            console.log(xhr.responseText);
-        });
+
+        }, function (xhr, status, error) { });
     }
 
     var activarCuponPromise = function (model) {

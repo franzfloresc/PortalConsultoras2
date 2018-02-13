@@ -201,7 +201,6 @@ function RDSuscripcion() {
         },
         function (xhr, status, error) {
             CerrarLoad();
-            console.log(xhr.responseText);
         }
     );
 }

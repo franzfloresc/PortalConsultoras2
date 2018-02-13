@@ -147,7 +147,7 @@
         } else {
 
             ventanaChat = open('', 'ventanaChat');
-            console.log(ventanaChat.location);
+
             if (ventanaChat.location == "about:blank") {
                 URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
                 ventanaChat = open(URL, 'ventanaChat');
@@ -863,11 +863,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                     $('.num-menu-shop').removeClass('microefecto_color');
                     setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
                 }
-
-                data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
+                
             }
         },
         error: function (data, error) { }
@@ -887,11 +883,7 @@ function CargarCantidadNotificacionesSinLeer() {
                     $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
                     $("#divNotificacionesSinLeer").show();
                 }
-
-                data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
+                
             }
         },
         error: function (data, error) { }
@@ -916,11 +908,6 @@ function CargarCantidadPedidosConsultoraOnline() {
                     $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
                     $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
                     $("#divAlertaPedidosOnline").show();
-                }
-
-                data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
                 }
             }
         },

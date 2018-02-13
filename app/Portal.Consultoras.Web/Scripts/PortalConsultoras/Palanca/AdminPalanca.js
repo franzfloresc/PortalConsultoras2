@@ -200,7 +200,6 @@ function IniDialogs() {
                             UpdateGrillaPalanca();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
-                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {
@@ -390,7 +389,6 @@ function IniDialogs() {
                             UpdateGrillaOfertas();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
-                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {

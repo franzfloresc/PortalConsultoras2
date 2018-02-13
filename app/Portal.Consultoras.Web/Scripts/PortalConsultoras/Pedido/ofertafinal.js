@@ -1184,9 +1184,6 @@ function GetRegaloProgramaNuevas() {
             if (response.success) {
                 obj = response.data;
             }
-            else {
-                console.log(response.message);
-            }
         },
         error: function (data, error) { }
     });

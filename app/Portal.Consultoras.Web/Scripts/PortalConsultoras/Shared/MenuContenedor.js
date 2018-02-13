@@ -256,7 +256,7 @@ var menuModule = (function () {
         window.location.href = url;
     }
     function tabResize() {
-        console.log("tabResize");
+
         var listaMenu = $(elementos.menu1Li);
         if (listaMenu.length === 0)
             return false;

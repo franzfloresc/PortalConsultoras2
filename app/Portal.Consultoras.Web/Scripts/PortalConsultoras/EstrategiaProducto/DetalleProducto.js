@@ -151,8 +151,6 @@
                         else {
                             OcultarPanelMasVendidos();
                         }
-                    } else {
-                        console.log(response.menssage);
                     }
                 }
             });
@@ -347,8 +345,6 @@
                         model.Lista = _actualizarListaStorate(model.Lista, item);
                         set_local_storage(model, "data_mas_vendidos");
                         location.href = setting.urlDetalleProducto;
-                    } else {
-                        console.log(verDetalleResponse.menssage);
                     }
                 }
             });
