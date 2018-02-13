@@ -284,8 +284,9 @@ namespace Portal.Consultoras.Common
             public const string MisCertificadosData = "MisCertificadosData";
 
             public const string GuiaNegocio = "GuiaNegocio";
-            public const string PedidoWebDDConf = "PedidoWebDDConf";
             public const string HabilidarLogCargaOferta = "HabilidarLogCargaOferta";
+
+            public const string PedidoWebDDConf = "PedidoWebDDConf";
             public const string PedidoWebDD = "PedidoWebDD";
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
