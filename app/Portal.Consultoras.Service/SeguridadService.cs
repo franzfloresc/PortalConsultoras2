@@ -1,11 +1,9 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Mobile;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System.Collections.Generic;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.Mobile;
-using System;
-using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {

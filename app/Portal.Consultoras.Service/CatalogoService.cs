@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Service
 
             BEListaConsultoraCatalogo bEListaConsultoraCatalogo = new BEListaConsultoraCatalogo();
             bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo(idPais, codigoUbigeo, marcaId, tipoFiltroUbigeo);
-            bEListaConsultoraCatalogo.NumeroRegistros = bEListaConsultoraCatalogo.ConsultorasCatalogos.Count();
+            bEListaConsultoraCatalogo.NumeroRegistros = bEListaConsultoraCatalogo.ConsultorasCatalogos.Count;
             bEListaConsultoraCatalogo.ConsultorasCatalogos.Update(x => x.Pais = codigoPais);
             return bEListaConsultoraCatalogo;
         }
@@ -108,11 +108,12 @@ namespace Portal.Consultoras.Service
                 BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
                 if (longitudUbigeo != null)
                 {
-                    int outVal;
-                    int limiteInferior = int.TryParse(longitudUbigeo.Codigo, out outVal) ? int.Parse(longitudUbigeo.Codigo) : 6;
+                    int limiteInferior;
+                    int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                     vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                     BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                    int factorUbigeo = int.TryParse(configFactorUbigeo.Codigo, out outVal) ? int.Parse(configFactorUbigeo.Codigo) : 3;
+                    int factorUbigeo;
+                    int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                     limiteInferior *= factorUbigeo;
                     string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                     if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
@@ -121,7 +122,7 @@ namespace Portal.Consultoras.Service
                 bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
             }
 
-            bEListaConsultoraCatalogo.NumeroRegistros = bEListaConsultoraCatalogo.ConsultorasCatalogos.Count();
+            bEListaConsultoraCatalogo.NumeroRegistros = bEListaConsultoraCatalogo.ConsultorasCatalogos.Count;
             if (bEListaConsultoraCatalogo.NumeroRegistros > 10) bEListaConsultoraCatalogo.ConsultorasCatalogos = null;
             else bEListaConsultoraCatalogo.ConsultorasCatalogos.Update(x => x.Pais = codigoPais);
             return bEListaConsultoraCatalogo;
@@ -151,6 +152,8 @@ namespace Portal.Consultoras.Service
 
         public int GetPaisID(string ISO)
         {
+            try
+            {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
             {
                 new KeyValuePair<string, string>("1", "AR"),
@@ -168,22 +171,20 @@ namespace Portal.Consultoras.Service
                 new KeyValuePair<string, string>("13", "DO"),
                 new KeyValuePair<string, string>("14", "VE"),
             };
-            string paisID = "0";
-            try
-            {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
                 
-                if (paisID != null)
-                    return int.Parse(paisID);
-                else
-                    return 0;
+                string paisId = (from c in listaPaises
+                          where c.Value == ISO.ToUpper()
+                          select c.Key).SingleOrDefault() ?? "";
+                
+                int outVal;
+                int.TryParse(paisId, out outVal);
+                return outVal;
             }
             catch (Exception)
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
+            
         }
 
         public int InsLogClienteRegistraConsultoraCatalogo(string PaisISO, int consultoraId, string codigoConsultora,

@@ -41,7 +41,6 @@ namespace Portal.Consultoras.BizLogic
 
                 FtpConfigurationElement ftpElement;
 
-                Guid fileGuid = Guid.NewGuid();
                 string key = PaisISO + "-CONSDIG";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
 
@@ -50,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     ftpElement = ftpSection.FtpConfigurations[key];
-                    headerFile = FormatFile(PaisISO, ftpElement.Header, FechaProceso, fileGuid);
+                    headerFile = FormatFile(PaisISO, ftpElement.Header, FechaProceso);
                     nombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
                     using (var streamWriter = new StreamWriter(headerFile))
@@ -59,7 +58,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             foreach (DataRow row in dtCursoLider.Rows)
                             {
-                                streamWriter.WriteLine(HeaderLine(headerTemplate, row, PaisISO));
+                                streamWriter.WriteLine(HeaderLine(headerTemplate, row));
                             }
                         }
                         else
@@ -115,16 +114,16 @@ namespace Portal.Consultoras.BizLogic
             return template;
         }
 
-        private string FormatFile(string PaisISO, string fileName, string FechaProceso, Guid fileGuid)
+        private string FormatFile(string paisISO, string fileName, string fechaProceso)
         {
              return ConfigurationManager.AppSettings["OrderDownloadPath"]
                  + Path.GetFileNameWithoutExtension(fileName) + ""
-                 + FechaProceso + ""
-                 + PaisISO + ""
+                 + fechaProceso + ""
+                 + paisISO + ""
                  + Path.GetExtension(fileName);
         }
 
-        private string HeaderLine(TemplateField[] template, DataRow row, string PaisISO)
+        private string HeaderLine(TemplateField[] template, DataRow row)
         {
             var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
@@ -141,9 +140,6 @@ namespace Portal.Consultoras.BizLogic
             string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
-
-
-
 
     }
 }

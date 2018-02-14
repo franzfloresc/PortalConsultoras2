@@ -2399,9 +2399,6 @@ namespace Portal.Consultoras.Web.Controllers
                         ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
                         ImagenBanner = oferta.FotoProducto01,
                         ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count),
-                //se usará mas adelante small y medium
-                //oddModel.ImagenBannerSmall = Util.GenerarRutaImagenResize(oferta.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                //oddModel.ImagenBannerMedium = Util.GenerarRutaImagenResize(oferta.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                         ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"),
                             model.CodigoISO),
                         ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
