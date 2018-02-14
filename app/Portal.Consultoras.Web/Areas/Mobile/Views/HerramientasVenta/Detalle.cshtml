@@ -271,7 +271,7 @@
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
+        var urlRetorno = '@ViewBag.OrigenUrl';
         </script>
 
         @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")

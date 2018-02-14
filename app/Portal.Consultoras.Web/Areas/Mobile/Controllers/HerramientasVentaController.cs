@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var pantallaString = Util.SubStr(
                 origen.ToString(),
                 Constantes.OrigenPedidoWeb.Campos.PANTALLA_INICIO,
-                Constantes.OrigenPedidoWeb.Campos.PANTALLA_TAMANO
+                2
                 );
 
             var pantalla = Enumeradores.PantallaOrigenPedidoWeb.Default;
