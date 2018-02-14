@@ -1857,10 +1857,15 @@ div#tab_revistasdigital_mobile {
         color: black;
         margin: 0 auto;
         width: 100%;
-        overflow: hidden;
-        height: 35px;
         margin-top: 6px;
         font-weight: 900;
+        /* hide text if it more than N lines  */
+        overflow: hidden;
+        /* for set '...' in absolute position */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow:ellipsis;
+        -webkit-box-orient: vertical;
     }
 
 .producto_precio_bpt {
