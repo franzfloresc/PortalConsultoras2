@@ -10435,10 +10435,9 @@ span.icon-advertencia {
 
 .imagen_set_oferta_mobile {
     float: right;
-    width: 47%;
-    margin-top: 9px;
+    width: 34%;
+    margin: -7px 20px 0 0;
     text-align: center;
-    margin-top: -7px;
 }
 
     .imagen_set_oferta_mobile img {
