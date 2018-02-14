@@ -94,25 +94,121 @@
                 </div>
                 <hr class="clear" />
                 <div class="titulo_separador">CONTENIDO</div>
-                @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
+                @{
+                    var btnDesabled = 0;
+                    var btnDesabledClass = "";
+                }
+                <hr class="clear">
+                @if (Model.CodigoProducto != "")
                 {
-                    <div>
-                        @if (detalle.MarcaProducto != "")
+                    <div data-estrategia="@Model.CodigoEstrategia">
+                        @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
                         {
-                            <div class="nombre_marca_set">@detalle.MarcaProducto</div>
+                            if ((Model.ProductoTonos.Any()))
+                            {
+                                btnDesabled = 1;
+                                <div class="content_tonos_producto content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="1">
+                                    <div class="tono_select_opt">
+                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                                            <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                            <hr class="clear" />
+                                        </div>
+                                        <div class="content_tonos_select" style="display:none;">
+                                            @foreach (var Hermano in Model.ProductoTonos)
+                                            {
+                                                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
+                                                    <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
+                                                    <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
+                                                    <hr class="clear" />
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr class="clear">
+                                    <div data-tono-div="">
+                                        @foreach (var Hermano in Model.ProductoTonos)
+                                        {
+                                            <div style="display: none;">
+                                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                            </div>
+                                                    <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                                        <img src="@Hermano.ImagenBulk" alt="">
+                                                    </div>
+                                        }
+                                    </div>
+                                    <hr class="clear">
+                                </div>
+                            }
                         }
-                        <div class="content_detalle_showroom">
-                            <div class="content_imagen_individual">
-                                <img src="@detalle.Imagen" style="width: 100%;">
-                            </div>
-                            <div class="nombre_set_individual">
-                                @detalle.NombreProducto
-                                <span class="detalle_set_showroom">@detalle.Descripcion1</span>
-                                <span class="detalle_set_showroom">@detalle.Descripcion3</span>
-                            </div>
-                            <div class="precio_regular_set">@detalle.Descripcion2</div>
+                        else if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || @Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                        {
+                            var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                            var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                            if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
+                            {
+                                <div class="@claseItem">
+                                    @foreach (var Hermano in Model.ProductoTonos)
+                                    {
+                                        if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
+                                        {
+                                            continue;
+                                        }
+                                        <div>
+                                            <div class="@claseItem3 content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                                <div style="display: none;">
+                                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                                </div>
+                                                @if (@Hermano.DescripcionMarca != "")
+                                                {
+                                                    <span class="brand">@Hermano.DescripcionMarca</span>
+                                                }
+                                                <div class="content_imagen_individual">
+                                                    <img src="@Hermano.Imagen">
+                                                </div>
+                                                <div class="content_descripcion_set">
+                                                    @if (@Hermano.Cantidad > 0)
+                                                    {
+                                                        <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                                    }
+                                                    <span class="product_name" data-tono-cuv-producto="@Hermano.CUV" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                    <span class="price">@Hermano.Descripcion</span>@*DescripcionComercial*@
+                                                </div>
+                                                <hr class="clear">
+                                                @if (Hermano.Digitable == 1)
+                                                {
+                                                    <div class="content_tonos_producto">
+                                                        <div class="tono_select_opt">
+                                                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                                <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                                <hr class="clear" />
+                                                            </div>
+                                                            <div class="content_tonos_select" style="display:none;">
+                                                                @foreach (var Tono in Hermano.Hermanos)
+                                                                {
+                                                                    btnDesabled = 1;
+                                                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                                        <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                                        <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                                                        <hr class="clear" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <hr class="clear">
+                                                    </div>
+                                                }
+                                                <hr class="clear" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
 
-                        </div>
+                        }
                     </div>
                 }
                 <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>
