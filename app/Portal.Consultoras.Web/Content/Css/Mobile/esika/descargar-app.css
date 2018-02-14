@@ -1,0 +1,338 @@
+﻿
+body, html{
+    height:100%;
+}
+
+body{
+	background-color:#e81c36;
+}
+
+.contenedor_vista_descargar_app,
+.btn_cerrar_vista_descargar_app,
+.btn_cerrar_vista_descargar_app img,
+.imagen_descargar_app_e_ir_a_version_web,
+.img_vista_descargar_app img,
+.alternativa_version_web
+{
+	display:block;
+	width:100%;
+}
+
+.contenedor_vista_descargar_app{
+	height:100vh;
+	background:#e81c36;
+	padding-top:44px;
+	position:relative;
+}
+
+.btn_cerrar_vista_descargar_app{
+	width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btn_cerrar_vista_descargar_app img{
+	width: 41%;
+    height: auto;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;height:auto;
+}
+
+.titulo_descargar_app,
+.info_descarga
+{
+	display:block;
+	width: 95.315%;
+	max-width:305px;
+	text-align:center;
+	font-weight:400;
+	color:#FFF;
+	letter-spacing:0.2px;
+}
+
+.titulo_descargar_app{
+	margin:0 auto;
+	font-size:18px;
+	text-transform:uppercase;
+	line-height:26px;
+}
+
+.nombre_app{
+	font-size:21px;
+	font-weight:900;
+}
+
+.nombre_app:before{
+    content:"App \00C9sika Conmigo";
+}
+
+.info_descarga{
+    margin: 6px auto 14px auto;
+    font-size: 17px;
+}
+
+.btn_descargar_app{
+	display:block;
+	margin: 0 auto 15px auto;
+	width:67.5%;
+	max-width:240px;
+	height:55px;
+	background:#000;
+	color:#FFF;
+	text-align:center;
+	border:2px solid #FFF;
+	text-transform:uppercase;
+	font-family:'Lato';
+	font-size:14px;
+	font-weight:900;
+	letter-spacing:0.49px;
+	position:relative;
+	z-index:2;
+}
+
+.imagen_descargar_app_e_ir_a_version_web{
+	position:absolute;
+	bottom:0;
+	z-index:1;
+	height: calc(100% - 213px);
+}
+
+.img_vista_descargar_app{
+	display: block;
+    height: 90%;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(0px + 59px);
+}
+
+.img_vista_descargar_app img{
+    height: 100%;
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -16px;
+}
+
+.alternativa_version_web{
+	background:#FFF;
+	height:59px;
+	text-align:center;
+	padding:19px;
+	font-size:16px;
+	font-weight:400;
+	position: absolute;
+    bottom: 0;
+}
+
+.enlace_ir_version_web{
+	color:#000;
+	text-decoration:underline;
+}
+
+.enlace_ir_version_web:hover,
+.enlace_ir_version_web:focus,
+.enlace_ir_version_web:active
+{
+	color:#000;
+}
+
+@media screen and (min-width:1024px) and (orientation:portrait){
+
+	.contenedor_vista_descargar_app{
+		padding-top:74px;
+	}
+
+	.btn_cerrar_vista_descargar_app{
+		width: 74px;
+    	height: 74px;
+	}
+
+	.btn_cerrar_vista_descargar_app img{
+		width:52%;
+	}
+
+	.titulo_descargar_app,
+	.info_descarga
+	{
+		max-width:704px;
+	}
+
+	.titulo_descargar_app{
+		font-size: 39px;
+    	line-height: 56px;
+	}
+
+	.nombre_app {
+	    font-size: 44px;
+	    font-weight: 900;
+	}
+
+	.info_descarga{
+		margin: 11px auto 28px auto;
+		font-size: 35px;
+	}
+
+	.btn_descargar_app{
+		max-width: 531px;
+    	height: 105px;
+    	font-size: 31px;
+	}
+
+	.imagen_descargar_app_e_ir_a_version_web{
+		height: calc(100% - 402px);
+	}
+
+	.img_vista_descargar_app{
+		bottom: calc(0px + 123px);
+	}
+
+	.img_vista_descargar_app img{
+		left: -46px;
+	}
+
+	.alternativa_version_web{
+	    height: 123px;
+	    padding: 40px;
+	    font-size: 33px;
+	}
+
+}
+
+@media screen and (min-width:768px) and (max-width:1023px) and (orientation:portrait){
+
+	.contenedor_vista_descargar_app{
+		padding-top:67px;
+	}
+
+	.btn_cerrar_vista_descargar_app{
+		width: 65px;
+    	height: 65px;
+	}
+
+	.btn_cerrar_vista_descargar_app img{
+		width:46%;
+	}
+
+	.titulo_descargar_app,
+	.info_descarga
+	{
+		max-width:600px;
+	}
+
+	.titulo_descargar_app{
+		font-size: 31px;
+    	line-height: 43px;
+	}
+
+	.nombre_app {
+	    font-size: 36px;
+	    font-weight: 900;
+	}
+
+	.info_descarga{
+		margin: 11px auto 28px auto;
+		font-size: 29px;
+	}
+
+	.btn_descargar_app{
+		max-width: 472px;
+    	height: 86px;
+    	font-size: 27px;
+	}
+
+	.imagen_descargar_app_e_ir_a_version_web{
+		height: calc(100% - 373px);
+	}
+
+	.img_vista_descargar_app{
+		bottom: calc(0px + 103px);
+	}
+
+	.img_vista_descargar_app img{
+		left: -37px;
+	}
+
+	.alternativa_version_web{
+	    height: 103px;
+    	padding: 33px;
+    	font-size: 27px;
+	}
+
+}
+
+@media screen and (min-width:320px) and (max-height:480px) and (orientation:portrait){
+
+    .titulo_descargar_app{
+        font-size:16px;
+        line-height:23px;
+    }
+
+    .nombre_app{
+        font-size:19px;
+    }
+
+    .info_descarga{
+        margin: 6px auto 13px auto;
+        font-size: 15px;
+    }
+
+    .btn_descargar_app{
+        height:47px;
+        font-size:13px;
+    }
+
+    .imagen_descargar_app_e_ir_a_version_web{
+        height: calc(100% - 191px);
+    }
+
+	.img_vista_descargar_app{
+		height:85%;
+        bottom: calc(0px + 48px);
+	}
+
+	.img_vista_descargar_app img{
+	    left: -13px;
+	}
+
+    .alternativa_version_web{
+        height:48px;
+        padding:14px;
+        font-size:14px;
+    }
+
+}
+
+@media screen and (max-height:767px) and (orientation:landscape){
+
+	.imagen_descargar_app_e_ir_a_version_web,
+	.img_vista_descargar_app,
+	.alternativa_version_web
+	{
+		position:relative;
+	}
+
+	.imagen_descargar_app_e_ir_a_version_web{
+		width: 100%;
+    	height: auto;
+	}
+
+	.img_vista_descargar_app{
+		width: 100%;
+    	max-width: 345px;
+    	bottom:0;
+	}
+
+	.img_vista_descargar_app img {
+	    height: auto;
+	    width: 100%;
+	}
+
+}

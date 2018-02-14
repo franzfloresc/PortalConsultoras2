@@ -17,7 +17,7 @@ SET NOCOUNT ON;
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
 
-	SELECT
+	SELECT distinct
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,

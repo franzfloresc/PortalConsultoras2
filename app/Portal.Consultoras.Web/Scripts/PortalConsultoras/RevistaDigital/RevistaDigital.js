@@ -66,29 +66,6 @@ $(document).ready(function () {
         }
     });
 
-    /* redimensionar menu de 3 a 2 tabs / si es RD => 3 tabs / si no => 2*/
-
-    if (isMobile()) {
-        var total_op_menu = $(".bc_para_ti-menu ul li").size();
-
-        if (total_op_menu < 3) {
-            $('.bc_para_ti-menu ul li').css("width", "50%");
-            $('.bc_para_ti-menu ul li:nth-child(2)').css("border-left", "none");
-            $('.bc_para_ti-menu ul li:nth-child(2)').css("border-right", "none");
-        }
-    }
-    else {
-        var total_op_menu = $(".bc_menu_estrategia .op_menu-horizontal ul li").size();
-
-        if (total_op_menu < 3) {
-            $('.bc_menu_estrategia .op_menu-horizontal ul li').css("width", "50%");
-            $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-left", "none");
-            $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-right", "none");
-        }
-    }
-
-    /* fin popup validar datos 2017 */
-
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
@@ -141,8 +118,9 @@ $(document).ready(function () {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
             $('html, body').animate({
-                scrollTop: $('#divTopFiltros').position().top - 60
+                scrollTop: topFiltros - 60
             }, 1000, 'swing');
         }
     });
@@ -216,12 +194,12 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('[data-listado-campania=' + idCamapania + ']');
-    if (top.length > 0) {
-        top = top.position().top;
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
+    if (topListado.length > 0) {
+        topListado = (top.position() || {}).top || 0;
 
         $('html, body').animate({
-            scrollTop: top - 70
+            scrollTop: topListado - 70
         }, 1000, 'swing');
     }
 }

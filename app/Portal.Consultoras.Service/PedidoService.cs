@@ -1125,6 +1125,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().DeshabilitarEstrategia(entidad);
         }
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            return new BLEstrategia().EliminarEstrategia(entidad);
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().EliminarTallaColor(entidad);
@@ -1596,6 +1600,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+        }
+
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
         {
             return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
@@ -1885,6 +1894,16 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
         }
 
+        public int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().UpdateEstrategiaProducto(entidad);
+        }
+
+        public bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().DeleteEstrategiaProducto(entidad);
+        }
+
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
@@ -2114,9 +2133,9 @@ namespace Portal.Consultoras.Service
         {
             return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
         }
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID, estrategia);
         }
 
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
@@ -2212,13 +2231,13 @@ namespace Portal.Consultoras.Service
         #endregion  
         
         #region ConfiguracionProgramaNuevasApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(entidad);
         }
-        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(entidad);
         }
         #endregion
 
@@ -2233,5 +2252,12 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         #endregion
+
+
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
+        }
+
     }
 }

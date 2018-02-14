@@ -517,7 +517,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
-                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== "undefined") {
+                        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    }
                 }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             } catch (e) { console.log(e); }
@@ -528,8 +530,8 @@ function EstrategiaAgregar(event, popup, limite) {
                 $('#popupDetalleCarousel_packNuevas').hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.cuv, true);
-            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

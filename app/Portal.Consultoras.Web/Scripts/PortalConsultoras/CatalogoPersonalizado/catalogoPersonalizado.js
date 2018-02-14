@@ -1066,9 +1066,6 @@ function mostrarFichaProductoFAV2(cuv) {
 
                     closeWaitingDialog();
                 }
-                else {
-                    console.log(response.message);
-                }
             }
         },
         error: function (data, err) { },

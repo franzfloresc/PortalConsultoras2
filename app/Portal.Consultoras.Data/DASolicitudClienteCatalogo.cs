@@ -38,18 +38,15 @@ namespace Portal.Consultoras.Data
 
         public void UpdNotificacionSolicitudClienteCatalogoVisualizacion(long SolicitudClienteCatalogoId)
         {
-            DbCommand command =
-                Context.Database.GetStoredProcCommand("dbo.UpdNotificacionSolicitudClienteCatalogoVisualizacion");
-            Context.Database.AddInParameter(command, "@SolicitudClienteCatalogoId", DbType.Int64,
-                SolicitudClienteCatalogoId);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdNotificacionSolicitudClienteCatalogoVisualizacion");
+            Context.Database.AddInParameter(command, "@SolicitudClienteCatalogoId", DbType.Int64, SolicitudClienteCatalogoId);
             Context.ExecuteNonQuery(command);
         }
 
         public IDataReader ObtenerDetalleNotificacionCatalogo(long SolicitudClienteCatalogoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerDetalleNotificacionCatalogo");
-            Context.Database.AddInParameter(command, "@SolicitudClienteCatalogoId", DbType.Int64,
-                SolicitudClienteCatalogoId);
+            Context.Database.AddInParameter(command, "@SolicitudClienteCatalogoId", DbType.Int64, SolicitudClienteCatalogoId);
 
             return Context.ExecuteReader(command);
         }

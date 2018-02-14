@@ -4,7 +4,9 @@ using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+
 using System.Collections.Generic;
+using System;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -111,6 +113,7 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BEMiCertificado> GetMisCertificadosData();
 
         void SetFlagLogCargaOfertas(bool habilitarLog);
+        void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
 
         bool GetFlagLogCargaOfertas();
 
@@ -125,5 +128,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor);
 
         List<BEConfiguracionOfertasHome> GetSeccionesContenedor(int campaniaId);
+        List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
+
+        void SetStartSession(DateTime StartSession);
+
+        DateTime GetStartSession();
     }
 }

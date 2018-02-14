@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    ViewBag.MostrarOfertaDelDia =
+                ViewBag.MostrarOfertaDelDia =
                         !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
                         && userData.TieneOfertaDelDia 
                         && ofertaDelDia != null 
@@ -295,7 +295,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (Session["BannerApp"] == null)
             {
-                using (SACServiceClient sac = new SACServiceClient())
+                using (var sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
                     Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
