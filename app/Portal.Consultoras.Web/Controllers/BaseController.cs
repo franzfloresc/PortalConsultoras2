@@ -88,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
-
                 guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())
@@ -3240,7 +3239,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region MenuContenedor
-        public MenuContenedorModel GetMenuActivo(UsuarioModel userData,RevistaDigitalModel revistaDigital)
+        public MenuContenedorModel GetMenuActivo(UsuarioModel userData,RevistaDigitalModel revistaDigital,HerramientasVentaModel herramientasVenta)
         {
             var contenedorPath = GetContenedorRequestPath();
 
@@ -3249,7 +3248,7 @@ namespace Portal.Consultoras.Web.Controllers
             menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath);
             menuActivo = UpdateConfiguracionPais(menuActivo, userData, revistaDigital);
 
-            if (revistaDigital.TieneRDC)
+            if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -3346,6 +3345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
+                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
@@ -4338,7 +4338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
             ViewBag.TieneHV = false;
-            var menuActivo = GetMenuActivo(userData, revistaDigital);
+            var menuActivo = GetMenuActivo(userData, revistaDigital,herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
 
