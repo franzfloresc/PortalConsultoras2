@@ -31,6 +31,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+                listModel = listModel
+                    .OrderByDescending(x => x.MarcaID == Constantes.Marca.Esika)
+                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.LBel)
+                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.Cyzone)
+                    .ToList();
                 int cantidadTotal = listModel.Count;
 
                 return Json(new
