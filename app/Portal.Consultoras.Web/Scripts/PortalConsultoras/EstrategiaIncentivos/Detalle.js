@@ -189,17 +189,22 @@ $("#btnGuardar").click(function (e) {
         $("#DescripcionCUV").focus()
         return;
     }
+    if ($("#Orden").val() <= 0) {
+        alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+        $("#Orden").focus();
+        return;
+    }
 
     var rutaImagen = $("#imgSeleccionada").attr("src");
     var imagenCorrecta = true;
     var imagenSeleccionada = "";
     if (rutaImagen == null || rutaImagen == "" || rutaImagen == rutaImagenVacia) imagenCorrecta = false;
-    if ($("#Activo").is(":checked")) {
+    //if ($("#Activo").is(":checked")) {
         if (!imagenCorrecta) {
             alert("Seleccione una imagen a mostrar.");
             return;
         }
-    }
+    //}
     if (imagenCorrecta) imagenSeleccionada = rutaImagen.substr(rutaImagen.lastIndexOf("/") + 1);
 
     var Mensaje = "";
