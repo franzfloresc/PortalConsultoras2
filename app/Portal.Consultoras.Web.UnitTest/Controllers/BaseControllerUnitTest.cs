@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_PropertyClaseLogoSBInUserDataIsNotNull_SetValueInViewBag()
+            public void BuildMenu_PropiedadClaseLogoSBInUserDataNoEsNula_ActualizaViewBag()
             {
                 var controller = new BaseControllerStub00(/*sessionManager.Object*/);
                 var userData = new UsuarioModel { ClaseLogoSB = "ClaseLogoSB" };
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_TienePermisoContenedorOfertasGetUrl_MenuOfertasEsSoloImagenTrueYDevuelreUrl()
+            public void BuildMenu_TienePermisoContenedorOfertasYUrlImagenMenuOfertasNoEsNula_MenuOfertasEsSoloImagenTrueYDevuelreUrl()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                 var controller = new BaseControllerStub03(sessionManager.Object);

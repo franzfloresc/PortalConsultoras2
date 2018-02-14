@@ -30,18 +30,159 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle(string cuv, int campaniaId)
+        public ActionResult Detalle(int id, int origen)
         {
             try
             {
-                return DetalleModel(cuv, campaniaId);
+                return RenderDetalle(id, origen);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+        }
+
+        public virtual ActionResult RenderDetalle(int id, int origen)
+        {
+            var modelo = EstrategiaGetDetalle(id);
+            var origenPantalla = GetPantallaOrigenPedidoWeb(origen);
+
+            if (modelo == null || modelo.EstrategiaID <= 0)
+                return GetRedirectTo(origenPantalla);
+
+            ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
+            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+
+            ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
+            return View(modelo);
+        }
+
+        public virtual ActionResult GetRedirectTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla)
+        {
+            switch (origenPantalla)
+            {
+                case Enumeradores.PantallaOrigenPedidoWeb.Default:
+                    return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                case Enumeradores.PantallaOrigenPedidoWeb.Home:
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                case Enumeradores.PantallaOrigenPedidoWeb.Pedido:
+                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+                case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
+                    return RedirectToAction("Index", "GuiaNegocio", new { area = "Mobile" });
+                case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
+                case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:
+                case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
+                case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
+                case Enumeradores.PantallaOrigenPedidoWeb.General:
+                default:
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            }
+        }
+
+        public virtual Enumeradores.PantallaOrigenPedidoWeb GetPantallaOrigenPedidoWeb(int origen)
+        {
+            var pantallaString = Util.SubStr(
+                origen.ToString(),
+                Constantes.OrigenPedidoWeb.Campos.PANTALLA_INICIO,
+                Constantes.OrigenPedidoWeb.Campos.PANTALLA_TAMANO
+                );
+
+            var pantalla = Enumeradores.PantallaOrigenPedidoWeb.Default;
+
+            Enum.TryParse<Enumeradores.PantallaOrigenPedidoWeb>(pantallaString, out pantalla);
+
+            return pantalla;
+        }
+
+        public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla, int origenPedidoWeb)
+        {
+            string result;
+
+            switch (origenPantalla)
+            {
+                case Enumeradores.PantallaOrigenPedidoWeb.Default:
+                    result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.Home:
+                    result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.Pedido:
+                    result = Url.Action("Index", "Pedido", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
+                    result = Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
+                    result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
+                    if (origenPedidoWeb == Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor)
+                    {
+                        result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    }
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
+                case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:
+                case Enumeradores.PantallaOrigenPedidoWeb.ShowRoom:
+                case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
+                case Enumeradores.PantallaOrigenPedidoWeb.General:
+                    result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
+                default:
+                    result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
+            }
+
+            return result;
+        }
+
+        public virtual int GetOrigenPedidoWebDetalle(int origenPantalla)
+        {
+            var result = 0;
+
+            switch (origenPantalla)
+            {
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobile:
+                    result = Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
+                    break;
+            }
+
+            result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
+
+            return result;
         }
 
         public ActionResult Informacion(string tipo)
@@ -63,7 +204,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return ViewLandingHV(1);
             }
             catch (Exception ex)
             {
@@ -77,7 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(2);
+                return ViewLandingHV(2);
             }
             catch (Exception ex)
             {
@@ -170,6 +311,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
+        public enum Priority
+        {
+            Label = 1,
+            Esika = 2,
+            Cyzone = 3
+        }
+
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
@@ -196,6 +344,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta).ToList();
 
+                listModel = listModel.OrderBy(x => (String)Enum.Parse(typeof(Priority), x.DescripcionMarca, true)).ToList();
+                
                 var cantidadTotal = listModel.Count;
 
 

@@ -191,7 +191,7 @@ function SeccionMostrarProductos(data) {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
-    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT || data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
@@ -219,6 +219,15 @@ function SeccionMostrarProductos(data) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+        }
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
+        if (data.lista !== undefined && data.lista.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+        } else {
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     }
 

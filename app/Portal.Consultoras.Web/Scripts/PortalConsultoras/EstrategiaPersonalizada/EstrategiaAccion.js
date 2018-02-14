@@ -121,7 +121,9 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
     }
     origen = $.trim(origen) || 0;
     var id = estrategia.EstrategiaID;
-    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
+    var route = TieneHV ? "/HerramientasVenta/Detalle?id=" : "/OfertasParaTi/Detalle?id=";
+    //var route = "/HerramientasVenta/Detalle?id=";
+    var url = getMobilePrefixUrl() + route + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
     try {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
@@ -436,6 +438,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             if (data.success === false) {
                 AbrirMensajeEstrategia(data.message);
+                $("#txtCantidad").val(1);
                 CerrarLoad();
                 return false;
             }

@@ -8,11 +8,20 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class HerramientasVentaController : BaseEstrategiaController
+    public class HerramientasVentaController : BaseHerramientasVentaController
     {
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                return RedirectToAction("Index", "Ofertas");
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "HerramientasVentaController.Index");
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         [HttpPost]
@@ -22,9 +31,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, Constantes.TipoEstrategiaCodigo.HerramientasVenta);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
+
+                listModel = listModel
+                    .OrderByDescending(x => x.MarcaID == Constantes.Marca.Esika)
+                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.LBel)
+                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.Cyzone)
+                    .ToList();
                 int cantidadTotal = listModel.Count;
-                int cantidad = cantidadTotal < model.Limite?cantidadTotal:model.Limite;
-                if (model.Limite > 0) listModel = listModel.Take(model.Limite).ToList();
 
                 return Json(new
                 {
@@ -32,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = listModel,
                     campaniaId = model.CampaniaID,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad,
+                    cantidad = cantidadTotal,
                     codigo = Constantes.ConfiguracionPais.HerramientasVenta
                 });
             }
@@ -46,6 +59,34 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "HerramientasVentaController.Comprar");
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "HerramientasVentaController.Revisar");
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
         }
     }
 }
