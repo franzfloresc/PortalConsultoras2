@@ -9,7 +9,7 @@
         getImagesByNemotecnico: config.getImagesByNemotecnico,
         expValidacionNemotecnico: config.expValidacionNemotecnico,
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction,
-        tipoEstrategiaIncentivosProgramaNuevas: config.TipoEstrategiaIncentivosProgramaNueva,
+        tipoEstrategiaIncentivosProgramaNuevas: config.tipoEstrategiaIncentivosProgramaNuevas,
         rutaImagenVacia: config.rutaImagenVacia,
         urlActivarDesactivarEstrategias: config.urlActivarDesactivarEstrategias,
         rutaImagenEdit: config.rutaImagenEdit,
@@ -21,7 +21,27 @@
         urlConsultarCuvTipoConfiguradoTemporal: config.urlConsultarCuvTipoConfiguradoTemporal,
         urlDeshabilitarEstrategia: config.urlDeshabilitarEstrategia,
         urlImageLanzamientoUpload: config.urlImageLanzamientoUpload,
-        urlUploadCvs: config.UploadCvs
+        urlUploadCvs: config.urlUploadCvs,
+        rutaImagenDisable: config.rutaImagenDisable,
+        urlEliminarEstrategia: config.urlEliminarEstrategia,
+        urlConsultarShowRoom: config.urlConsultarShowRoom,
+        urlGetShowRoomNiveles: config.urlGetShowRoomNiveles,
+        urlGetShowRoomPersonalizacionNivel: config.urlGetShowRoomPersonalizacionNivel,
+        urlGuardarPersonalizacionNivelShowRoom: config.urlGuardarPersonalizacionNivelShowRoom,
+        urlImageMatrizUpload: config.urlImageMatrizUpload,
+        urlDeshabilitarShowRoomEvento: config.urlDeshabilitarShowRoomEvento,
+        urlEliminarShowRoomEvento: config.urlEliminarShowRoomEvento,
+        urlGuardarShowRoom: config.urlGuardarShowRoom, 
+        urlConsultarOfertaShowRoomDetalle: config.urlConsultarOfertaShowRoomDetalle, 
+        urlEliminarOfertaShowRoomDetalleAll: config.urlEliminarOfertaShowRoomDetalleAll,
+        urlEliminarOfertaShowRoomDetalle: config.urlEliminarOfertaShowRoomDetalle,
+        urlInsertOfertaShowRoomDetalle: config.urlInsertOfertaShowRoomDetalle,
+        urlUpdateOfertaShowRoomDetalle: config.urlUpdateOfertaShowRoomDetalle, 
+        rutaImagenTemporal: config.rutaImagenTemporal, 
+        imagenEdit: config.imagenEdit, 
+        imagenDeshabilitar: config.imagenDeshabilitar, 
+        imagenEliminar: config.imagenEliminar, 
+        imagenProductoVacio: config.imagenProductoVacio 
     };
 
     var _variables = {
@@ -29,7 +49,8 @@
         cantidadPrecargar: 0,
         cantidadPrecargar2: 0,
         imagen: "",
-        isVistaPreviaOpened: false
+        isVistaPreviaOpened: false,
+        paisNombre: ""
     }
 
     var _codigoEstrategia = {
@@ -43,7 +64,7 @@
         GuiaDeNegocio: "010",
         LosMasVendidos: "020",
         HerramientaVenta: "011",
-        CodigoShowRoom: "030"
+        ShowRoom: "030"
         
     }
     var _idEstrategia = {
@@ -57,7 +78,7 @@
         GuiaDeNegocio: 12,
         LosMasVendidos: 20,
         HerramientaVenta: 13,
-        CodigoShowRoom: 30
+        ShowRoom: 30
     }
 
     var _editData = {};
@@ -401,6 +422,19 @@
             $("#hdNumeroPedido").val(data.NumeroPedido);
             $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
 
+            if (data.ImagenMiniaturaURL == "") {
+                $("#imgMiniSeleccionada").attr('src', _config.rutaImagenVacia);
+                $("#hdImagenMiniaturaURLAnterior").val('');
+            } else {
+                $("#imgMiniSeleccionada").attr('src', data.ImagenMiniaturaURL);
+                $("#hdImagenMiniaturaURLAnterior").val(data.ImagenMiniaturaURL.replace(/^.*[\\\/]/, ''));
+            }
+            if (data.EsSubCampania == 1) {
+                $('#chkEsSubCampania').attr('checked', true);
+            } else {
+                $('#chkEsSubCampania').removeAttr('checked');
+            }
+            
             $("#divInformacionAdicionalEstrategiaContenido").hide();
 
             $("#divImagenEstrategia").css("color", "white");
@@ -444,7 +478,7 @@
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#hdEstrategiaCodigo").val();
 
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
@@ -458,7 +492,7 @@
                 $("#txt2-estrella").show();
             }
 
-            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
                 $("#ddlEtiqueta1").children("option").hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -511,7 +545,11 @@
             $("#txtPrecioPublico").val(data.PrecioPublico);
             $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
-
+            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == "030") {
+                _vistaNuevoProductoShowroon();
+            } else {
+                _vistaNuevoProductoGeneral();
+            }
             return data;
         };
     };
@@ -703,22 +741,34 @@
 
     var _showActions = function(cellvalue, options, rowObject) {
 
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" +
-            rowObject[0] +
-            "',event);\" >" +
-            "<img src='" +
-            _config.rutaImagenEdit +
-            "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var id = rowObject[0];
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
+        var disable = "";
         if (rowObject[10] == "1") {
-            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" +
-                rowObject[0] +
-                "',event);\" >" +
-                "<img src='" +
-                _config.rutaImagenDelete +
-                "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
-        return Des;
+        var remove = "";
+        if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+            remove += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Eliminar Estrategia' title='Eliminar Estrategia' border='0' /></a>";
+        }
+
+        return edit + disable + remove;
     }
+    
+    var _showActionsProductos = function (cellvalue, options, rowObject) {
+        if (rowObject[10] == "1") {
+            var id = rowObject[0];
+            var campaniaId = $("#ddlCampania").val();
+            var cuv = rowObject[5];
+
+            var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
+
+            return edit + remove;
+        }
+        return "";
+    }
+    
     var _showActionsVer1 = function(cellvalue, options, rowObject) {
         var text;
 
@@ -926,6 +976,9 @@
 
         $("#imgSeleccionada").attr("src", _config.rutaImagenVacia);
         $("#imgZonaEstrategia").attr("src", _config.rutaImagenVacia);
+        $('#imgMiniSeleccionada').attr("src", _config.rutaImagenVacia);
+        $("#hdImagenMiniaturaURLAnterior").val('');
+        $('#chkEsSubCampania').removeAttr('checked');
 
         $("#divImagenEstrategiaContenido").show();
         $("#divInformacionAdicionalEstrategiaContenido").hide();
@@ -1372,10 +1425,15 @@
         }
         return true;
     }
-    var _fnGrilla = function() {
+    var _fnGrilla = function () {
+        $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+        
+        var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : ""
+        var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
+        
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
@@ -1396,10 +1454,12 @@
                 codigo == "005" ||
                 codigo == "007" ||
                 codigo == "008" ||
-                codigo == "010"),
+                codigo == "010" ||
+                codigo == _codigoEstrategia.ShowRoom),
+            multiselectWidth: 35,
             colNames: [
-                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta",
-                "Código SAP", "ImagenURL", "Foto", "", "EsOfertaIndependiente"
+                "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
+                "Foto", colNameActions, "Productos", "EsOfertaIndependiente"
             ],
             colModel: [
                 {
@@ -1487,12 +1547,23 @@
                 {
                     name: "Activo",
                     index: "Activo",
-                    width: 30,
+                    width: 60,
                     align: "center",
                     editable: true,
                     resizable: false,
                     sortable: false,
                     formatter: _showActions
+                },
+                {
+                    name: "Activo",
+                    index: "Activo",
+                    width: 60,
+                    align: "center",
+                    editable: true,
+                    resizable: false,
+                    sortable: false,
+                    hidden: hideColProducts,
+                    formatter: _showActionsProductos
                 },
                 {
                     name: "EsOfertaIndependiente",
@@ -1538,12 +1609,16 @@
                 }
             }
         });
+        
         jQuery("#list").jqGrid("navGrid",
             "#pager",
             { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == "4" || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010") {
+        if (tipo == "4" || codigo == "005" || codigo == "007" ||
+            codigo == "008" || codigo == "010" || codigo == _codigoEstrategia.ShowRoom) {
             $("#list").jqGrid("hideCol", ["Orden"]);
         }
+        
+        $("<span style=\"position: absolute;margin-top: 10px;\">(*)</span>").prependTo("#jqgh_list_cb");
     }
 
     var _buscarNemotecnico = function() {
@@ -1619,7 +1694,8 @@
                 _idEstrategia.Lanzamiento,
                 _idEstrategia.OfertasParaMi,
                 _idEstrategia.PackAltoDesembolso,
-                _idEstrategia.OfertaDelDia)) {
+                _idEstrategia.OfertaDelDia,
+                _idEstrategia.ShowRoom)) {
                 _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                 return false;
             }
@@ -1762,6 +1838,743 @@
         jQuery("#listTC").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
     }
 
+    // SHOWROOM-INICIO
+    var _limpiarDatos = function () {
+        $("#chkHabilitarOferta").removeAttr("checked");
+        $("#chkEsSubCampania").removeAttr("checked");
+    }
+
+    var _limpiarDatosEventoShowRoomDetalle = function () {
+        $("#hdEstrategiaProductoID").val("0");
+        $("#txtCUVProductoDetalle").val("");
+        $("#txtNombreProductoDetalle").val("");
+        $("#txtDescripcion1Detalle").val("");
+
+        $("#txtPrecioOfertaDetalle").val("0");
+        $("#chkActivoOfertaDetalle").attr("checked", false);
+
+        $("#ddlMarcaProductoDetalle").val("0");
+        $("#imgProductoDetalle").attr("src", _config.imagenProductoVacio);
+        $("#hdImagenDetalle").val("");
+        $("#hdImagenDetalleAnterior").val("");
+    }
+    
+    var _limpiarDatosEventoShowRoom = function () {
+        $("#txtEventoNombre").val("");
+        $("#txtEventoTema").val("");
+        $("#txtEventoDiasAntes").val("");
+        $("#txtEventoDiasDespues").val("");
+        $("#txtEventoRutaShowRoomPopup").val("");
+        $("#txtEventoRutaShowRoomBannerLateral").val("");
+
+        $("#divPopupWebFondo").html("");
+        $("#divPopupVentaImagenSet").html("");
+        $("#divPopupWebImagenSet").html("");
+        $("#divPopupTagLateralVentaImagenSet").html("");
+        $("#divCabeceraPaginaProductos").html("");
+        $("#divPestaniaNombreShowRoom").html("");
+        $("#divPopupImagenPreventaDigital").html("");
+
+        $("#chkEventoTieneSubCampania, #chkEventocompraXcompra").attr("checked", false);
+    }
+    
+    var _cargarNiveles = function () {
+        jQuery.ajax({
+            type: "POST",
+            url: _config.urlGetShowRoomNiveles,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        $("#cbNivelEvento").empty();
+
+                        if (response.data == "") {
+                            $("#divPersonalizacion").css("display", "none");
+                        } else {
+                            var listaNiveles = response.data || new Array();
+
+                            $("#cbNivelEvento").append('<option value="">-- Seleccionar --</option>');
+
+                            $.each(listaNiveles, function (index, value) {
+                                var html = '<option value="' + value.NivelId + '">' + value.Descripcion + "</option>";
+
+                                $("#cbNivelEvento").append(html);
+                            });
+
+                            $("#divPersonalizacion").css("display", "");
+                        }
+                    } else {
+                        $("#divPersonalizacion").css("display", "none");
+                        //alert_msg(response.message);
+                        alert(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    //alert_msg(response.message);
+                    alert(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+    
+    var _cargarImagenes = function(showroomEvento) {
+        if (showroomEvento.Imagen1 != "") {
+            $("#divPopupWebFondo").html("");
+            var htmlImagen1 = '<img src="' + showroomEvento.Imagen1 + '" alt="PopupWebFondo" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebFondo").html(htmlImagen1);
+        }
+        $("#hdImagen1").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ""));
+        $("#hdImagen1Anterior").val(showroomEvento.Imagen1.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.ImagenVentaSetPopup != "") {
+            $("#divPopupVentaImagenSet").html("");
+            var htmlImagen2 = '<img src="' + showroomEvento.ImagenVentaSetPopup + '" alt="PopupVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupVentaImagenSet").html(htmlImagen2);
+        }
+        $("#hdImagenVentaSetPopup").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ""));
+        $("#hdImagenVentaSetPopupAnterior").val(showroomEvento.ImagenVentaSetPopup.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.Imagen2 != "") {
+            $("#divPopupWebImagenSet").html("");
+            var htmlImagen3 = '<img src="' + showroomEvento.Imagen2 + '" alt="Imagen2" style="width: 75px; height: 50px;" />';
+            $("#divPopupWebImagenSet").html(htmlImagen3);
+        }
+        $("#hdImagen2").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ""));
+        $("#hdImagen2Anterior").val(showroomEvento.Imagen2.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.ImagenVentaTagLateral != "") {
+            $("#divPopupTagLateralVentaImagenSet").html("");
+            var htmlImagen4 = '<img src="' + showroomEvento.ImagenVentaTagLateral + '" alt="PopupTagLateralVentaImagenSet" style="width: 75px; height: 50px;" />';
+            $("#divPopupTagLateralVentaImagenSet").html(htmlImagen4);
+        }
+        $("#hdImagenVentaTagLateral").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ""));
+        $("#hdImagenVentaTagLateralAnterior").val(showroomEvento.ImagenVentaTagLateral.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.ImagenCabeceraProducto != "") {
+            $("#divCabeceraPaginaProductos").html("");
+            var htmlImagen5 = '<img src="' + showroomEvento.ImagenCabeceraProducto + '" alt="CabeceraPaginaProductos" style="width: 75px; height: 50px;" />';
+            $("#divCabeceraPaginaProductos").html(htmlImagen5);
+        }
+        $("#hdImagenCabeceraProducto").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ""));
+        $("#hdImagenCabeceraProductoAnterior").val(showroomEvento.ImagenCabeceraProducto.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.ImagenPestaniaShowRoom != "") {
+            $("#divPestaniaNombreShowRoom").html("");
+            var htmlImagen6 = '<img src="' + showroomEvento.ImagenPestaniaShowRoom + '" alt="PestaniaNombreShowRoom" style="width: 75px; height: 50px;" />';
+            $("#divPestaniaNombreShowRoom").html(htmlImagen6);
+        }
+        $("#hdImagenPestaniaShowRoom").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ""));
+        $("#hdImagenPestaniaShowRoomAnterior").val(showroomEvento.ImagenPestaniaShowRoom.replace(/^.*[\\\/]/, ""));
+
+        if (showroomEvento.ImagenPreventaDigital != "") {
+            $("#divPopupImagenPreventaDigital").html("");
+            var htmlImagen7 = '<img src="' + showroomEvento.ImagenPreventaDigital + '" alt="PopupImagenPreventaDigital" style="width: 75px; height: 50px;" />';
+            $("#divPopupImagenPreventaDigital").html(htmlImagen7);
+        }
+        $("#hdImagenPreventaDigital").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ""));
+        $("#hdImagenPreventaDigitalAnterior").val(showroomEvento.ImagenPreventaDigital.replace(/^.*[\\\/]/, ""));
+    }
+    
+    var _showActionsEvento = function(cellvalue, options, rowObject) {
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "','" + rowObject.Estado + "','" + rowObject.TieneCategoria + "','" + rowObject.TieneCompraXcompra + "','" + rowObject.TieneSubCampania + "', " + rowObject.TienePersonalizacion + ");\" >" + "<img src='" + _config.imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject.CampaniaID + "');\" >" + "<img src='" + _config.imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
+
+        var resultado = edit;
+
+        if (rowObject.Estado == "1")
+            resultado += del;
+
+        if (rowObject.Estado == "1")
+            resultado += remove;
+
+        $("#hdEventoID").val(options.rowId);
+        //Carga de Consultoras
+        $("#hdCargaEventoID").val(options.rowId);
+        $("#hdCargaCampaniaID").val(rowObject.CampaniaID);
+        //Carga de Stock
+        $("#hdCargaStockEventoID").val(options.rowId);
+        //Carga de Descripcion de Sets
+        $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
+        $("#hdCargaDescripcionSetsCampaniaID").val(rowObject.CampaniaID);
+        //Carga de Productos Compra por Compra
+        $("#hdCargarProductoCpcEventoID").val(options.rowId);
+        $("#hdCargarProductoCpcCampaniaID").val(rowObject.CampaniaID);
+
+        return resultado;
+    }
+
+    var _fnGrillaEvento = function() {
+        jQuery("#listEvento").jqGrid({
+            url: _config.urlConsultarShowRoom,
+            hidegrid: false,
+            datatype: "json",
+            postData: ({
+                PaisID: function () { return $("#ddlPais").val(); },
+                CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            }),
+            mtype: "GET",
+            contentType: "application/json; charset=utf-8",
+            colNames: ["EventoID", "Nombre", "Tema", "Dias Antes Fact.", "Dias Despues Fact.", "Personalización", "# Perfiles", "Imagen1", "Imagen2", "ImagenCabeceraProducto", "ImagenVentaSetPopup", "ImagenVentaTagLateral", "ImagenPestaniaShowRoom", "ImagenPreventaDigital", ""],
+            colModel: [
+                { name: "id", width: 50, editable: true, resizable: false },
+                { name: "Nombre", width: 80, editable: true, resizable: false },
+                { name: "Tema", width: 80, editable: true, resizable: false },
+                { name: "DiasAntes", width: 50, editable: true, resizable: false },
+                { name: "DiasDespues", width: 50, editable: true, resizable: false },
+                {
+                    name: "TienePersonalizacion", width: 50, editable: true, resizable: false, formatter: function (cellvalue) {
+                        return cellvalue == true ? "Activa" : "Inactiva";
+                    }
+                },
+                { name: "NumeroPerfiles", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "Imagen1", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "Imagen2", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "ImagenCabeceraProducto", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "ImagenVentaSetPopup", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "ImagenVentaTagLateral", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "ImagenPestaniaShowRoom", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "ImagenPreventaDigital", width: 65, editable: true, resizable: false, hidden: true },
+                { name: "Options", width: 60, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsEvento }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                cell: "",
+                id: "id"
+            },
+            pager: jQuery("#pagerEvento"),
+            loadtext: "Cargando datos...",
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: "No hay resultados",
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: "Nombre",
+            sortorder: "asc",
+            viewrecords: true,
+            multiselect: false,
+            height: "auto",
+            width: 930,
+            pgtext: "Pág: {0} de {1}",
+            altRows: true,
+            altclass: "jQGridAltRowClass",
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                var cantidadRegistros = jQuery("#listEvento").jqGrid("getGridParam", "reccount");
+                if (cantidadRegistros <= 0) {
+                    $("#hdEventoID").val("0");
+                    //Carga de Consultora
+                    $("#hdCargaEventoID").val("0");
+                    $("#hdCargaCampaniaID").val("");
+                    //Carga de Stock
+                    $("#hdCargaStockEventoID").val("0");
+                    //Carga de Descripcion de Sets
+                    $("#hdCargaDescripcionSetsEventoID").val("0");
+                    $("#hdCargaDescripcionSetsCampaniaID").val("");
+                    //Carga de Productos Compra por Compra
+                    $("#hdCargarProductoCpcEventoID").val("0");
+                    $("#hdCargarProductoCpcCampaniaID").val("");
+
+                    $("#divShowRoomEventoNuevo").css("display", "");
+                    //$("#divCargaArchivos").css("display", "none");
+                    //$("#divOfertasShowRoom").css("display", "none");
+                } else {
+                    $("#divShowRoomEventoNuevo").css("display", "none");
+                    //$("#divCargaArchivos").css("display", "");
+
+                    // Listar Productos ShowRoom
+                    fnGrilla();
+
+                    var showroomEvento = jQuery("#listEvento").jqGrid("getRowData")[0];
+                    _cargarImagenes(showroomEvento);
+
+                    _cargarNiveles();
+                    //CargarCategorias();
+
+                    //fnGrilla();
+
+                    //if (showroomEvento.TienePersonalizacion && showroomEvento.TienePersonalizacion == 'Activa') {
+                    //$("#divPerfilOfertaShowRoom").hide();
+                    //}
+
+                    //$("#divOfertasShowRoom").css("display", "");
+                }
+            }
+        });
+        jQuery("#listEvento").jqGrid("navGrid", "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listEvento").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+    }
+
+    var _cargarEventoShowRoom = function() {
+        $("#divPersonalizacion").css("display", "none");
+        _limpiarDatosEventoShowRoom();
+
+        var msjex = "";
+        if ($("#ddlPais").val() == "")
+            msjex += " - Debe seleccionar un País .\n";
+        if ($("#ddlCampania").val() == "")
+            msjex += " - Debe seleccionar un Campania .\n";
+
+        if (msjex == "") {
+            //paisNombre = $("#ddlPais option:selected").text();
+            //paisID = $("#ddlPais").val();
+
+            _fnGrillaEvento();
+
+            $("#divShowRoomEvento").css("display", "");
+        }
+        else {
+            alert(msjex);
+            return false;
+        }
+    };
+
+    var _limpiarDatosShowRoomDetalle = function() {
+        $("#txtPaisDetalle").val("");
+        $("#txtCampaniaDetalle").val("");
+        $("#txtCUVDetalle").val("");
+        $("#txtDescripcionDetalle").val("");
+        $("#txtPrecioValorizadoDetalle").val("");
+    }
+
+   
+    
+    
+    
+    var _guardarShowRoomEvento = function() {
+        var eventoID = $("#hdEventoID").val();
+        var campaniaID = $("#txtEventoCampaniaID").val();
+        var nombre = $("#txtEventoNombre").val();
+        var tema = $("#txtEventoTema").val();
+        var diasAntes = $("#txtEventoDiasAntes").val();
+        var diasDespues = $("#txtEventoDiasDespues").val();
+        //var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
+        var numeroPerfiles = 0;
+        var estado = $("#chkEventoEstado").is(":checked");
+        //var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
+        var tieneCategoria = 0;
+        var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
+        var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
+        //var tienePersonalizacion = $("#chkEventoTienePersonalizacion").is(":checked");
+        var tienePersonalizacion = true;
+
+        var showRoom = {
+            EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
+            CampaniaID: campaniaID,
+            Nombre: nombre,
+            Tema: tema,
+            DiasAntes: parseInt(diasAntes),
+            DiasDespues: parseInt(diasDespues),
+            NumeroPerfiles: parseInt(numeroPerfiles),
+            Estado: estado,
+            TieneCategoria: tieneCategoria,
+            TieneCompraXcompra: tieneCompraXcompra,
+            TieneSubCampania: tieneSubCampania,
+            TienePersonalizacion: tienePersonalizacion
+        };
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: "POST",
+            url: _config.urlGuardarShowRoom,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(showRoom),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        closeWaitingDialog();
+                        var id = response.data;
+
+                        if ($("#hdEventoID").val() == "0")
+                            fnGrilla();
+
+                        $("#hdEventoID").val(id);
+                        //Cargar de Consultoras
+                        $("#hdCargaEventoID").val(id);
+                        $("#hdCargaCampaniaID").val(campaniaID);
+                        //Carga de Stock
+                        $("#hdCargaStockEventoID").val(id);
+                        //Carga de Descripcion de Sets
+                        $("#hdCargaDescripcionSetsEventoID").val(id);
+                        $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);
+                        //Carga de Productos Compra por Compra
+                        $("#hdCargarProductoCpcEventoID").val(id);
+                        $("#hdCargarProductoCpcCampaniaID").val(campaniaID);
+
+                        HideDialog("DialogDatosShowRoom");
+                        jQuery("#listEvento").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+                        //alert_msg(response.message);
+                        alert(response.message);
+                    } else {
+                        //alert_msg(response.message);
+                        alert(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    //alert_msg(response.message);
+                    alert(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
+
+    var _insertarImagenPersonalizacion = function(personalizacionId) {
+        var elementoPadre = $('.div-3[data-idpersonalizacion="' + personalizacionId + '"]');
+        var elementoAgregarImagen = $(elementoPadre).find(".fpPopupImagenPersonalizacion")[0];
+        var elementoDivVerImagen = $(elementoPadre).find(".divPopupImagenPersonalizacion")[0];
+        var elementoHiddenValor = $(elementoPadre).find(".hdValor")[0];
+        $.ajaxSetup({ cache: false });
+        var uploader = new qq.FileUploader({
+            allowedExtensions: ["jpg", "png", "jpeg", "gif"],
+            element: elementoAgregarImagen,
+            action: _config.urlImageMatrizUpload,
+            onComplete: function (id, fileName, responseJSON) {
+                if (checkTimeout(responseJSON)) {
+                    $(".qq-upload-list").css("display", "none");
+                    if (responseJSON.success) {
+                        var rutaImagen = _config.rutaImagenTemporal + responseJSON.name;
+
+                        $(elementoHiddenValor).val(responseJSON.name);
+
+                        var html = '<img  alt="" src="' + rutaImagen + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                        $(elementoDivVerImagen).html(html);
+                    } else {
+                        alert(responseJSON.message);
+                    }
+                }
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+        });
+    }
+
+    var _registrarShowRoomPersonalizacionNivel = function(eventoId, nivelId) {
+        var lista = $("#DialogPersonalizacionDetalle .div-3[data-idpersonalizacion]");
+        var array = new Array();
+
+        $.each(lista, function (index, value) {
+            var personalizacionNivelId = $(value).find(".hdPersonalizacionNivelId").val();
+            var personalizacionId = $(value).attr("data-idpersonalizacion");
+            var atributo = $(value).find(".hdAtributo").val();
+
+            var valor = "";
+            var esImagen = false;
+            var tipoAtributo = $(value).find(".hdTipoAtributo").val();
+
+            if (tipoAtributo == "IMAGEN") {
+                valor = $(value).find(".hdValor").val();
+                esImagen = true;
+            } else {
+                valor = $(value).find(".txtAtributoPersonalizacion").val();
+            }
+
+            var item = {
+                PersonalizacionNivelId: personalizacionNivelId,
+                PersonalizacionId: personalizacionId,
+                EventoId: eventoId,
+                NivelId: nivelId,
+                CategoriaId: 0,
+                Atributo: atributo,
+                Valor: valor,
+                ValorAnterior: $(value).find(".hdValorAnterior").val(),
+                EsImagen: esImagen
+            };
+
+            array.push(item);
+        });
+
+        jQuery.ajax({
+            type: "POST",
+            url: _config.urlGuardarPersonalizacionNivelShowRoom,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(array),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+
+                        HideDialog("DialogPersonalizacionDetalle");
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    var _fnGrillaOfertaShowRoomDetalle = function(campaniaId, cuv, estrategiaId) {
+        $("#listShowRoomDetalle").jqGrid("clearGridData");
+
+        var parametros = {
+            //campaniaId: campaniaId,
+            //cuv: cuv,
+            estrategiaId: estrategiaId
+        };
+
+        $("#listShowRoomDetalle").setGridParam({ postData: parametros });
+        $("#hdEstrategiaID").val(estrategiaId);
+
+        jQuery("#listShowRoomDetalle").jqGrid({
+            url: _config.urlConsultarOfertaShowRoomDetalle,
+            hidegrid: false,
+            datatype: "json",
+            postData: (parametros),
+            mtype: "GET",
+            contentType: "application/json; charset=utf-8",
+            //colNames: ['OfertaShowRoomDetalleID', 'CampaniaID', 'CUV', 'Nombre', 'Descripcion1', 'Descripcion2', 'Descripcion3', 'MarcaProducto', 'Foto', ''],
+            colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion1", "Foto", "Marca", "", "", "", ""],
+            /*
+            colModel: [
+                { name: 'OfertaShowRoomDetalleID', index: 'OfertaShowRoomDetalleID', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'CampaniaID', index: 'CampaniaID', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'CUV', index: 'CUV', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion2', index: 'Descripcion2', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },
+                { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
+                { name: 'MarcaProducto', index: 'MarcaProducto', width: 80, editable: true, resizable: false, hidden: true },
+                { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsDetalle }
+            ],
+            */
+            colModel: [
+                { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "Campania", index: "Campania", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "CUV", index: "CUV", width: 50, editable: true, resizable: false, hidden: false },
+                { name: "NombreProducto", index: "NombreProducto", width: 80, editable: true, resizable: false },
+                { name: "Descripcion1", index: "Descripcion1", width: 80, editable: true, resizable: false },
+                { name: "ImagenProducto", index: "ImagenProducto", width: 60, editable: true, resizable: false, sortable: false, align: "center", formatter: _showImageDetalle },
+                { name: "IdMarca", index: "IdMarca", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "Precio", index: "Precio", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "PrecioValorizado", index: "PrecioValorizado", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "Activo", index: "Activo", width: 50, editable: true, resizable: false, hidden: true },
+                { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery("#pagerShowRoomDetalle"),
+            loadtext: "Cargando datos...",
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: "No hay resultados",
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: "Nombre",
+            sortorder: "asc",
+            viewrecords: true,
+            multiselect: false,
+            height: "auto",
+            width: 840,
+            pgtext: "Pág: {0} de {1}",
+            altRows: true,
+            altclass: "jQGridAltRowClass",
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+            }
+        });
+        jQuery("#listShowRoomDetalle").jqGrid("navGrid", "#pagerShowRoomDetalle", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listShowRoomDetalle").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+    }
+
+    var _showImageDetalle = function(cellvalue, options, rowObject) {
+        var image = "";
+        if (rowObject[6] != "") {
+            image = '<img src="' + rowObject[6] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+        } else {
+            image = '<img src="' + _config.imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
+        }
+        return image;
+    }
+
+    var _showActionsDetalle = function(cellvalue, options, rowObject) {
+        var id = rowObject[0];
+        var estrategiaId = rowObject[1];
+        //var campaniaId = rowObject[2];
+        var cuv = rowObject[3];
+        var imagen = rowObject[6];
+
+        //var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EditarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "','" + imagen + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Productos Oferta Show Room Detalle' title='Editar Productos Oferta Show Room Detalle' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EditarProductoDetalle('" + id + "','" + imagen + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Producto' title='Editar Producto' border='0' /></a>";
+        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room Detalle' title='Eliminar Productos Oferta Show Room Detalle' border='0' /></a>";
+        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + estrategiaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room Detalle' title='Eliminar Productos Oferta Show Room Detalle' border='0' /></a>";
+        var remove = "";
+
+        if (rowObject[10] == "1") {
+            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + estrategiaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Producto' title='Deshabilitar Producto' border='0' /></a>";
+        }
+
+        return edit + remove;
+    }
+
+    var _registrarOfertaShowRoomDetalle = function() {
+        var accion;
+
+        //if ($("#hdOfertaShowRoomDetalleID").val() == "0")
+        if ($("#hdEstrategiaProductoID").val() == "0")
+            accion = _config.urlInsertOfertaShowRoomDetalle;
+        else
+            accion = _config.urlUpdateOfertaShowRoomDetalle;
+
+        var isActive = ($("#chkActivoOfertaDetalle").val()) ? "1" : "0";
+
+        var item = {
+            //OfertaShowRoomDetalleID: $("#hdOfertaShowRoomDetalleID").val(),
+            EstrategiaProductoID: $("#hdEstrategiaProductoID").val(),
+            EstrategiaID: $("#hdEstrategiaID").val(),
+            Campania: $("#txtCampaniaDetalle").val(),
+            CUV2: $("#txtCUVDetalle").val(),
+            CUV: $("#txtCUVProductoDetalle").val(),
+            Precio: $("#txtPrecioOfertaDetalle").val(),
+            NombreProducto: $("#txtNombreProductoDetalle").val(),
+            Descripcion1: $("#txtDescripcion1Detalle").val(),
+            //Descripcion2: $("#txtDescripcion2Detalle").val(),
+            //Descripcion3: $("#txtDescripcion3Detalle").val(),
+            IdMarca: $("#ddlMarcaProductoDetalle").val(),
+            //Imagen: $("#hdImagenDetalle").val(),
+            Activo: isActive,
+            ImagenProducto: $("#hdImagenDetalle").val(),
+            ImagenAnterior: $("#hdImagenDetalleAnterior").val()
+        };
+
+        console.log(item);
+
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: "POST",
+            url: accion,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        alert(data.message);
+                        HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                        _limpiarDatos();
+                        jQuery("#listShowRoomDetalle").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+                }
+            }
+        });
+    }
+
+    
+    var _vistaNuevoProductoShowroon = function() {
+        $("#seccionTallaColor").hide();
+        $("#seccionOfertaUltimoMinuto").hide();
+        $("#seccionImagenMiniatura").show();
+        $("#seccionEsSubCampania").show();
+        $("#lblMensaje").text("Tip de Negocio:");
+    }
+
+    var _vistaNuevoProductoGeneral = function() {
+        $("#seccionEsSubCampania").hide();
+        $("#seccionImagenMiniatura").hide();
+        $("#seccionTallaColor").show();
+        $("#seccionOfertaUltimoMinuto").show();
+        $("#lblMensaje").text("Mensaje Adicional:");
+    }
+
+    var _uploadFileStrategyShowroom = function() {
+        waitingDialog({});
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fileDescMasivo").files.length;
+        if (totalFiles <= 0) {
+            _toastHelper.error("Seleccione al menos un archivo.");
+            closeWaitingDialog();
+            return false;
+        }
+
+        formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
+        formData.append("Pais", $("#ddlPais").val());
+        formData.append("CampaniaId", $("#ddlCampania").val());
+        formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
+
+        $.ajax({
+            url: '@Url.Action("UploadFileStrategyShowroom", "AdministrarEstrategia")',
+            type: "POST",
+            dataType: "JSON",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#listCargaDescMasiva").jqGrid("GridUnload");
+                var mensaje = "";
+                if (data.listActualizado == 0 && data.listInsertado == 0) {
+                    mensaje = 'No se realizó ninguna actualización ni inserción (Verificar que los CUVs existan en la tabla "ods.OfertasPersonalizadas").';
+                }
+                else {
+                    mensaje = "El procedimiento culmino con éxito, <br /> - Se actualizaron " + data.listActualizado + " Set(s) <br /> - Se insertaron " + data.listInsertado + " Set(s)";
+                }
+                closeWaitingDialog();
+                $("#estadoCargaMasiva").css("color", "black");
+                $("#estadoCargaMasiva").html(mensaje);
+                $("#divDescMasivoPaso1").fadeOut(function () {
+                    $("#divDescMasivoPaso2").fadeIn();
+                });
+
+            },
+            error: function (data) {
+                $("#estadoCargaMasiva").css("color", "red");
+                $("#estadoCargaMasiva").html(data.statusText);
+                $("#divDescMasivoPaso1").fadeOut(function () {
+                    $("#divDescMasivoPaso2").fadeIn();
+                });
+                closeWaitingDialog();
+            }
+        });
+    }
+    // SHOWROOM-FIN
+    
     // Binding events dialogs 
     var _iniDialog = function() {
         $("#DialogAdministracionEstrategia").dialog({
@@ -1856,7 +2669,8 @@
                         aux2 !== 9 &&
                         aux2 !== 10 &&
                         aux2 !== 11 &&
-                        aux2 !== 12) {
+                        aux2 !== 12 &&
+                        aux2 !== 30) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             _toastHelper.error("Ingrese un orden para mostrar.");
                             return false;
@@ -1927,7 +2741,9 @@
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
                     var ganancia = $("#txtGanancia").val();
                     var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
-
+                    var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
+                    var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
+                    
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1970,7 +2786,10 @@
                         PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
                         EsOfertaIndependiente: esOfertaIndependiente,
                         Ganancia: ganancia,
-                        RutaImagenCompleta: imagenEstrategiaProducto
+                        RutaImagenCompleta: imagenEstrategiaProducto,
+                        ImagenMiniaturaURL: ImagenMiniaturaURL,
+                        ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
+                        EsSubCampania: EsSubCampania
                     };
                     jQuery.ajax({
                         type: "POST",
@@ -2265,6 +3084,146 @@
             draggable: false,
             title: "Lista de CUVs actualizados."
         });
+        
+        // SHOWROOM-INICIO
+        $("#DialogDatosShowRoom").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Carga de Evento ShowRoom",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($("#txtEventoNombre").val()) == "")
+                        vMessage += "- Debe ingresar el Nombre del Evento.\n";
+                    if (jQuery.trim($("#txtEventoTema").val()) == "")
+                        vMessage += "- Debe ingresar el Tema del Evento.\n";
+                    if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                    if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
+                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                    if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
+                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                    if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
+                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
+                    //if (jQuery.trim($('#txtEventoNumeroPerfiles').val()) == "")
+                    //    vMessage += "- Debe ingresar la cantidad de perfiles.\n";
+                    //if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
+                    //    vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
+                    //if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
+                    //    vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    } else {
+                        _guardarShowRoomEvento();
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#DialogPersonalizacionDetalle").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Detalle de Personalizacion por Nivel",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+
+                    var eventoId = $("#hdEventoID").val();
+                    var nivelId = $("#cbNivelEvento").val();
+
+                    if (eventoId == "")
+                        vMessage += "- Debe seleccionar el evento.\n";
+
+                    if (nivelId == "")
+                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        _registrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $("#DialogRegistroOfertaShowRoomDetalle").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 900,
+            draggable: true,
+            title: "Edición de Productos"
+            //buttons:
+            //{
+            //    "Guardar": function () {
+            //        alert("hola");
+            //    },
+            //    "Cancelar": function () {
+            //        $(this).dialog('close');
+            //    }
+            //}
+        });
+
+        $("#DialogRegistroOfertaShowRoomDetalleEditar").dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 800,
+            draggable: true,
+            title: "Registro / Edición de Productos",
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
+                        vMessage += "- Debe ingresar el CUV del Producto.\n";
+
+                    if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
+                        vMessage += "- Seleccione una marca del Producto.\n";
+
+                    if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
+                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        return false;
+                    }
+                    else {
+                        _registrarOfertaShowRoomDetalle();
+                    }
+                    return false;
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        // SHOWROOM-FIN
     }
     var _eventos = {
         clickNuevo : function() {
@@ -2315,11 +3274,14 @@
             $("#mensajeErrorCUV").val("");
             $("#mensajeErrorCUV2").val("");
             $(".checksPedidosAsociados").html("");
+            $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
+            $("#hdImagenMiniaturaURLAnterior").val("");
+            $("#chkEsSubCampania").removeAttr("checked");
 
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == _codigoEstrategia.ShowRoom) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
@@ -2340,7 +3302,7 @@
                 $("#ddlEtiqueta1").children("option[data-id='4']").show();
 
                 $("#hdnEtiqueta1").val("4");
-            } else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            } else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == _codigoEstrategia.ShowRoom) {
 
                 $("#hdnEtiqueta1").val("1");
                 $("#hdnEtiqueta2").val("3");
@@ -2392,6 +3354,12 @@
             else
                 $("#divPrecioValorizado").html("Precio Valorizado");
 
+            if (aux2 == _codigoEstrategia.CodigoShowRoom) {
+                _vistaNuevoProductoShowroon();
+            } else {
+                _vistaNuevoProductoGeneral();
+            }
+            
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
             return true;
@@ -2440,7 +3408,34 @@
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdTipoConsulta").val("1");
             $("#hdEstrategiaCodigo").val($("#ddlTipoEstrategia option:selected").data("codigo"));
-            _fnGrilla();
+            $("#list").html("");
+            $("#divShowRoomEvento").hide();
+            $("#divShowRoomEventoNuevo").hide();
+            $("#divPersonalizacion").hide();
+            $("#divSeccionProductos").hide();
+
+            _variables.paisNombre = $("#ddlPais option:selected").text();
+            var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+            if (codigo === _codigoEstrategia.ShowRoom) {
+                _cargarEventoShowRoom();
+            }
+            else {
+                _fnGrilla();
+            }
+
+            if (codigo == _codigoEstrategia.OfertaParaTi ||
+                codigo == _codigoEstrategia.OfertaDelDia ||
+                codigo == _codigoEstrategia.Lanzamiento ||
+                codigo == _codigoEstrategia.OfertasParaMi ||
+                codigo == _codigoEstrategia.PackAltoDesembolso ||
+                codigo == _codigoEstrategia.GuiaDeNegocio ||
+                codigo == _codigoEstrategia.LosMasVendidos ||
+                codigo == _codigoEstrategia.ShowRoom) {
+                $("#mensajeActivarDesactivar").show();
+            } else {
+                $("#mensajeActivarDesactivar").hide();
+            }
+            
             return true;
         },
         clickBuscarNemotencnico: function() {
@@ -2504,8 +3499,23 @@
         },
         clickDescripcionMasivo: function() {
             if (_validarMasivo()) {
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") === _codigoEstrategia.ShowRoom) {
+                    $("#ui-id-10").text("Carga masiva de Showroom");
+                } else {
+                    $("#ui-id-10").text("Carga masiva de descripciones de Estrategias");
+                }
+                
                 $("#divDescMasivoPaso1").show();
                 $("#divDescMasivoPaso2").hide();
+                
+                if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+                    $("#seccionFormatoArchivoShowroon").show();
+                    $("#seccionFormatoArchivoGeneral").hide();
+                } else {
+                    $("#seccionFormatoArchivoGeneral").show();
+                    $("#seccionFormatoArchivoShowroon").hide();
+                }
+                
                 showDialog("DialogDescMasivo");
             }
         },
@@ -2515,7 +3525,13 @@
         clickAceptarDescMasivo1: function() {
             $("#divDescMasivoPaso1").show();
             $("#divDescMasivoPaso2").hide();
-            _uploadFileCvs();
+            $("#estadoCargaMasiva").text("");
+            if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
+                _uploadFileStrategyShowroom();
+            } else {
+                _uploadFileCvs();
+            }
+            
         },
         clickActualizarTonos: function() {
             if (_validarMasivo()) _actualizarTonos();
@@ -2708,7 +3724,165 @@
             _variables.isVistaPreviaOpened = true;
             showDialog("divVistaPrevia");
         },
+        clickBuscarPersonalizacionNivel: function() {
+            var eventoId = $("#hdEventoID").val();
+            var nivelId = $("#cbNivelEvento").val();
 
+            if (eventoId == undefined || eventoId == 0) {
+                alert("Evento no se puedo identificar");
+                return false;
+            }
+
+            if (nivelId == undefined || nivelId == 0) {
+                alert("Debe seleccionar un Nivel");
+                return false;
+            }
+
+            var item = { eventoId: eventoId, nivelId: nivelId };
+
+            waitingDialog({ title: "Procesando" });
+            jQuery.ajax({
+                type: "POST",
+                url: _config.urlGetShowRoomPersonalizacionNivel,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(item),
+                async: true,
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        if (response.success) {
+                            closeWaitingDialog();
+
+                            $("#divPersonalizacionDetalleDesktop").html("");
+                            $("#divPersonalizacionDetalleMobile").html("");
+                            var listaPersonalizacion = response.listaPersonalizacion;
+
+                            var listaPersonalizacionDesktop = listaPersonalizacion.Find("TipoAplicacion", "Desktop");
+                            var listaPersonalizacionMobile = listaPersonalizacion.Find("TipoAplicacion", "Mobile");
+
+                            $.each(listaPersonalizacionMobile, function (index, value) {
+                                var htmlPersonalizacion = "";
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == "IMAGEN" ? value.Valor.replace(/^.*[\\\/]/, "") : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == "IMAGEN") {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + "</div>";
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += "</div>";
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + "</div>";
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
+                                    htmlPersonalizacion += "</div>";
+                                }
+
+                                htmlPersonalizacion += "</div>";
+
+                                $("#divPersonalizacionDetalleMobile").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == "IMAGEN") {
+                                    _insertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            $.each(listaPersonalizacionDesktop, function (index, value) {
+                                var htmlPersonalizacion = "";
+                                htmlPersonalizacion += '<div class="div-3" data-idpersonalizacion="' + value.PersonalizacionId + '">';
+                                htmlPersonalizacion += '<input type="hidden" class="hdPersonalizacionNivelId" value="' + value.PersonalizacionNivelId + '"/>';
+
+                                var valor = value.TipoAtributo == "IMAGEN" ? value.Valor.replace(/^.*[\\\/]/, "") : value.Valor;
+                                htmlPersonalizacion += '<input type="hidden" class="hdValor" value="' + valor + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdValorAnterior" value="' + valor + '"/>';
+
+                                htmlPersonalizacion += '<input type="hidden" class="hdAtributo" value="' + value.Atributo + '"/>';
+                                htmlPersonalizacion += '<input type="hidden" class="hdTipoAtributo" value="' + value.TipoAtributo + '"/>';
+
+                                if (value.TipoAtributo == "IMAGEN") {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px; margin-top: 15px;">' + value.TextoAyuda + "</div>";
+                                    htmlPersonalizacion += '<div class="titC" style="padding: 0; width: 230px;">';
+                                    htmlPersonalizacion += '<div class="input_search">';
+                                    htmlPersonalizacion += '<div class="fpPopupImagenPersonalizacion">';
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += '<div class="divPopupImagenPersonalizacion" style="width: 100px; height: 60px; float: right;">';
+
+                                    if (value.PersonalizacionNivelId != 0 && value.Valor != "") {
+                                        htmlPersonalizacion += '<img  alt="" src="' + value.Valor + '" style="width: auto; height: 60px; max-width: 300px !important;"/>';
+                                    }
+
+                                    htmlPersonalizacion += "</div>";
+                                    htmlPersonalizacion += "</div>";
+                                } else {
+
+                                    htmlPersonalizacion += '<div class="titC" style="width: 250px;">' + value.TextoAyuda + "</div>";
+                                    htmlPersonalizacion += '<div class="selectP2 borde_redondeado" style="width: 400px;">';
+                                    htmlPersonalizacion += '<input type="text" class="txtAtributoPersonalizacion" value="' + value.Valor + '" style="width: 400px;"/>';
+                                    htmlPersonalizacion += "</div>";
+                                }
+
+                                htmlPersonalizacion += "</div>";
+
+                                $("#divPersonalizacionDetalleDesktop").append(htmlPersonalizacion);
+
+                                if (value.TipoAtributo == "IMAGEN") {
+                                    _insertarImagenPersonalizacion(value.PersonalizacionId);
+                                }
+                            });
+
+                            showDialog("DialogPersonalizacionDetalle");
+                        } else {
+                            closeWaitingDialog();
+                        }
+                    }
+                },
+                error: function (response, error) {
+                    if (checkTimeout(response)) {
+                        //alert_msg(response.message);
+                        alert(response.message);
+                        closeWaitingDialog();
+                    }
+                }
+            });
+        },
+        clickNuevoShowRoom: function () {
+            _limpiarDatosEventoShowRoom();
+            $("#txtEventoPaisID").val(_variables.paisNombre);
+            $("#txtEventoCampaniaID").val($("#ddlCampania").val());
+
+            $("#divEventoEstado").css("display", "none");
+
+            showDialog("DialogDatosShowRoom");
+        },
+        clickNuevoDetalle: function () {
+            _limpiarDatosEventoShowRoomDetalle();
+
+            $("#txtCUVProductoDetalle").attr("readonly", false);
+            $("#txtPrecioOfertaDetalle").attr("readonly", false);
+
+            showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
+        },
+        
         changeTipoEstrategia: function() {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
             $("#btnActivarDesactivar").hide();
@@ -2722,11 +3896,19 @@
                 _codigoEstrategia.Lanzamiento,
                 _codigoEstrategia.OfertasParaMi,
                 _codigoEstrategia.PackAltoDesembolso,
-                _codigoEstrategia.GuiaDeNegocio)) {
+                _codigoEstrategia.GuiaDeNegocio,
+                _codigoEstrategia.ShowRoom)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
                 $("#btnActualizarTonos").show();
+                
+                if (aux2 === _codigoEstrategia.ShowRoom) {
+                    $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
+                }
+                else {
+                    $("#btnDescripcionMasivo").val("Descrip. Masivo");
+                }
             }
 
             _seleccionarTipoOferta();
@@ -2940,7 +4122,10 @@
        $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
        $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
        $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
-        
+       $("body").on("click", "#btnBuscarPersonalizacionNivel", _eventos.clickBuscarPersonalizacionNivel);
+       $("body").on("click", "#btnNuevoShowRoom", _eventos.clickNuevoShowRoom);
+       $("body").on("click", "#btnNuevoDetalle", _eventos.clickNuevoDetalle);
+       $("body").on("click", "#imgMiniSeleccionada", _eventos.clickImgSeleccionada);
 
        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico",_eventos.clickBuscarNemotencnico);
        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
@@ -2956,6 +4141,7 @@
        $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
        $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
        $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
+        
     }
 
     
@@ -3034,6 +4220,38 @@
         return false;
     }
     
+    function Remover(id, event) {
+        event.preventDefault();
+        event.stopPropagation();
+        var elimina = confirm('¿Está seguro que desea eliminar el set seleccionado?');
+        if (!elimina){
+            return false;
+        }
+        if (id) {
+            waitingDialog({});
+            $("#hdEstrategiaID").val(id);
+            var params = { EstrategiaID: $("#hdEstrategiaID").val() };
+            jQuery.ajax({
+                type: 'POST',
+                url: _config.urlEliminarEstrategia,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    alert(data.message);
+                    fnGrilla();
+                    closeWaitingDialog();
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+        }
+        return false;
+    }
+    
     function ActualizarParNemotecnico(val) {
         _config.habilitarNemotecnico = val;
         _matrizFileUploader.actualizarParNemotecnico(val);
@@ -3044,7 +4262,7 @@
     }
    
     function EditarEvento(ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania, tienePersonalizacion) {
-        $("#txtEventoPaisID").val(paisNombre);
+        $("#txtEventoPaisID").val(_variables.paisNombre);
         $("#txtEventoCampaniaID").val(campaniaID);
         $("#txtEventoNombre").val(jQuery("#listEvento").jqGrid("getCell", ID, "Nombre"));
         $("#txtEventoTema").val(jQuery("#listEvento").jqGrid("getCell", ID, "Tema"));
@@ -3116,7 +4334,7 @@
         waitingDialog({});
         jQuery.ajax({
             type: "POST",
-            url: urlEliminarShowRoomEvento,
+            url: _config.urlEliminarShowRoomEvento,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(item),
@@ -3128,7 +4346,7 @@
                     if (data.success == true) {
                         $("#divCargaArchivos").css("display", "none");
                         $("#divOfertasShowRoom").css("display", "none");
-                        LimpiarDatosEventoShowRoom();
+                        _limpiarDatosEventoShowRoom();
                         alert(data.message);
                         jQuery("#listEvento").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
                     } else
@@ -3146,9 +4364,9 @@
     }
     
     function EditarProducto(ID, CampaniaID, CUV) {
-        LimpiarDatosShowRoomDetalle();
+        _limpiarDatosShowRoomDetalle();
 
-        $("#txtPaisDetalle").val(paisNombre);
+        $("#txtPaisDetalle").val(_variables.paisNombre);
         $("#txtCampaniaDetalle").val(CampaniaID);
         //$("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
         $("#txtCUVDetalle").val(CUV);
@@ -3159,7 +4377,7 @@
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
-        fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
+        _fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
     }
     
     function EliminarProducto(EstrategiaID) {
@@ -3178,7 +4396,7 @@
         waitingDialog({});
         jQuery.ajax({
             type: "POST",
-            url: urlEliminarOfertaShowRoomDetalleAll,
+            url: _config.urlEliminarOfertaShowRoomDetalleAll,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(item),
@@ -3230,13 +4448,13 @@
             } else {
                 $("#hdImagenDetalle").val("");
                 $("#hdImagenDetalleAnterior").val("");
-                $("#imgProductoDetalle").attr("src", imagenProductoVacio);
+                $("#imgProductoDetalle").attr("src", _config.imagenProductoVacio);
             }
         }
         else {
             $("#hdImagenDetalle").val("");
             $("#hdImagenDetalleAnterior").val("");
-            $("#imgProductoDetalle").attr("src", imagenProductoVacio);
+            $("#imgProductoDetalle").attr("src", _config.imagenProductoVacio);
         }
 
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
@@ -3259,7 +4477,7 @@
         waitingDialog({});
         jQuery.ajax({
             type: "POST",
-            url: urlEliminarOfertaShowRoomDetalle,
+            url: _config.urlEliminarOfertaShowRoomDetalle,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(item),
@@ -3306,15 +4524,14 @@
             $("#matriz-busqueda-nemotecnico").hide();
         }
     
-        $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
-        $("#hdImagenMiniaturaURLAnterior").val("");
-        $("#chkEsSubCampania").removeAttr("checked");
+        
     }
     
     return {
         Inicializar: Inicializar,
         Editar: Editar,
         Deshabilitar: Deshabilitar,
+        Remover: Remover,
         VerCuvsTipo: VerCuvsTipo,
         VerCuvsTipo2: VerCuvsTipo2,
         ActualizarParNemotecnico: ActualizarParNemotecnico,
