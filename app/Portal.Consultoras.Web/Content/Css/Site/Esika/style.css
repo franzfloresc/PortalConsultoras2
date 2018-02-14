@@ -32118,11 +32118,10 @@ h1#penmostreo .campana {
 }
 
 .producto_set {
-    width: 130px;
+    width: 90px;
     height: auto;
     float: left;
-    margin-left: 25px;
-    margin-top: 12px;
+    margin: 12px 0 0 25px;
     text-align: center;
 }
 
@@ -32287,11 +32286,11 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 46%;
+    width: 34%;
     height: auto;
     float: left;
     text-align: center;
-    margin-top: 25px;
+    margin: 25px 65px 0 0;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32771,7 +32770,7 @@ h1#penmostreo .campana {
 
 .compartir_redes_ficha {
     margin-top: 30px;
-    padding-left: 64px;
+    padding-left: 25px;
 }
 
 .texto_compartelo {
