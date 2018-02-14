@@ -24,7 +24,7 @@ function fnGrilla() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ["", "#", "Cod. Concurso", "Campaña Inicio", "Campaña Fin", "Tipo Concurso", "CUV", "Descripción", "Código SAP", "Imagen", "Activo", "", "", "", ""],
+        colNames: ["", "#", "Cod. Concurso", "Campaña Inicio", "Campaña Fin", "Tipo Concurso", "CUV", "Descripción", "Código SAP", "Imagen", "Activo", "", "", "", "", "Orden"],
         colModel: [
             { name: 'EstrategiaID', index: 'EstrategiaID', hidden: true },
             { name: 'ID', index: 'ID', width: 50, sortable: false, align: 'center' },
@@ -41,6 +41,7 @@ function fnGrilla() {
             { name: 'Eliminar', index: 'Eliminar', width: 30, align: 'center', sortable: false, formatter: ShowActionsDelete },
             { name: 'ImagenURL', index: 'ImagenURL', hidden: true },
             { name: 'TipoConcurso', index: 'TipoConcurso', hidden: true },
+            { name: 'Orden', index: 'Orden', hidden: true },
         ],
         jsonReader:
         {
@@ -191,6 +192,7 @@ function fnMantenedor(rowId) {
         Estrategia.CodigoSAP = rowData.CodigoProducto;
         Estrategia.CodigoConcurso = rowData.CodigoConcurso;
         Estrategia.TipoConcurso = rowData.TipoConcurso;
+        Estrategia.Orden = rowData.Orden;
     }
 
     $.ajax({
