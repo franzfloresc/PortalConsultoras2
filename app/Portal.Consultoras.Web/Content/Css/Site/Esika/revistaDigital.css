@@ -577,7 +577,7 @@
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    height: 395px;
+    max-height: 415px;
 }
 
 .detalle_set_banner_ofertas_fix {
@@ -2316,6 +2316,7 @@
     height: auto;
     box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .cabecera_pedido_rd {
@@ -3182,7 +3183,7 @@
         font-weight: 700;
         letter-spacing: .5px !important;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 900;
         display: block;
         word-wrap: break-word;
         margin-left: 20px;

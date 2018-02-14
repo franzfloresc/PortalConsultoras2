@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CantidadFilas = 10;
 
             ViewBag.TieneHV = true;
-
+            ViewBag.OrigenPedidoWeb = tipo == 1 ? Constantes.OrigenPedidoWeb.HerramientasVentaMobileLandingComprar : Constantes.OrigenPedidoWeb.HerramientasVentaMobileLandingRevisar;
             return PartialView("template-landing", model);
         }
 

@@ -20,6 +20,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CUV { get; set; }
         [DataMember]
+        public string CodigoEstrategia { get; set; }
+        [DataMember]
         public string Grupo { get; set; }
         [DataMember]
         public int Orden { get; set; }
@@ -34,15 +36,32 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioValorizado { get; set; }
         [DataMember]
-        public int Digitable { get; set; }
-        [DataMember]
-        public string CodigoEstrategia { get; set; }
+        public Int16 Digitable { get; set; }
         [DataMember]
         public string CodigoError { get; set; }
         [DataMember]
         public string CodigoErrorObs { get; set; }
         [DataMember]
         public int FactorCuadre { get; set; }
+
+        [DataMember]
+        public string NombreProducto { get; set; }
+        [DataMember]
+        public string Descripcion1 { get; set; }
+        [DataMember]
+        public string ImagenProducto { get; set; }
+        [DataMember]
+        public int IdMarca { get; set; }
+        [DataMember]
+        public string NombreMarca { get; set; }
+        [DataMember]
+        public Int16 Activo { get; set; }
+
+        [DataMember]
+        public string UsuarioCreacion { get; set; }
+        [DataMember]
+        public string UsuarioModificacion { get; set; }
+
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -57,11 +76,24 @@ namespace Portal.Consultoras.Entities
             Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
             Precio = DataRecord.GetColumn<decimal>(row, "Precio");
             PrecioValorizado = DataRecord.GetColumn<decimal>(row, "PrecioValorizado");
-            Digitable = DataRecord.GetColumn<int>(row, "Digitable");
+            //Digitable = DataRecord.GetColumn<int>(row, "Digitable");
             CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
             FactorCuadre = DataRecord.GetColumn<int>(row, "FactorCuadre");
+
+            NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
+            Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
+            ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
+            //IdMarca = DataRecord.GetColumn<int>(row, "IdMarca");
+
+            if (DataRecord.HasColumn(row, "IdMarca")) IdMarca = Convert.ToInt16(row["IdMarca"]);
+
+            if (DataRecord.HasColumn(row, "Activo")) Activo = Convert.ToInt16(row["Activo"]);
+
+            if(DataRecord.HasColumn(row, "Digitable")) Digitable = Convert.ToInt16(row["Digitable"]);
+
+            NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
     }
 }

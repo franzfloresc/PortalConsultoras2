@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -12,6 +13,17 @@ namespace Portal.Consultoras.BizLogic
                 var da = new DAEstrategiaProducto(entidad.PaisID);
                 int result = da.InsertEstrategiaProducto(entidad);
                 return result;
+        }
+
+        public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            try
+            {
+                var DA = new DAEstrategiaProducto(entidad.PaisID);
+                int result = DA.UpdateEstrategiaProducto(entidad);
+                return result;
+            }
+            catch (Exception) { throw; }
         }
 
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
@@ -27,6 +39,14 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return lista;
+        }
+
+        public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            var DA = new DAEstrategiaProducto(entidad.PaisID);
+
+            var result = DA.DeleteEstrategiaProducto(entidad);
+            return result;
         }
     }
 }

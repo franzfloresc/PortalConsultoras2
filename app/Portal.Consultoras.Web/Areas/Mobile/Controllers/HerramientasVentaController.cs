@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var pantallaString = Util.SubStr(
                 origen.ToString(),
                 Constantes.OrigenPedidoWeb.Campos.PANTALLA_INICIO,
-                Constantes.OrigenPedidoWeb.Campos.PANTALLA_TAMANO
+                2
                 );
 
             var pantalla = Enumeradores.PantallaOrigenPedidoWeb.Default;
@@ -129,6 +129,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.OfertaParaTi:
                 case Enumeradores.PantallaOrigenPedidoWeb.General:
                     result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaComprar:
+                    result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaRevisar:
+                    result = Url.Action("Revisar", "HerramientasVenta", new { area = "Mobile" });
                     break;
                 default:
                     result = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
@@ -313,8 +319,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public enum Priority
         {
-            Label = 1,
             Esika = 2,
+            Lbel = 1,
             Cyzone = 3
         }
 
@@ -344,7 +350,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta).ToList();
 
-                listModel = listModel.OrderBy(x => (String)Enum.Parse(typeof(Priority), x.DescripcionMarca, true)).ToList();
+                var defaultOrder = new List<int> { 2, 1, 3 };
+
+                listModel = listModel.OrderBy(x =>
+                                            {
+                                                var index = defaultOrder.IndexOf(x.MarcaID);
+                                                return index == -1 ? int.MaxValue : index;
+                                            }).ToList();
                 
                 var cantidadTotal = listModel.Count;
 

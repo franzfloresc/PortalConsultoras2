@@ -577,7 +577,7 @@
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    height: 395px;
+    max-height: 415px;
 }
 
 .detalle_set_banner_ofertas_fix {
@@ -1616,7 +1616,6 @@
 .btn_stroke_white {
     background: transparent;
     width: 260px;
-    border: 1px solid white;
     color: white;
     font-size: 13px;
 }
@@ -2311,6 +2310,7 @@
     height: auto;
     box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .cabecera_pedido_rd {
@@ -2398,13 +2398,23 @@
             animation: bounceRight 1.2s infinite;
         }
 
+        .banner_pedido_masofertas a .rd_arrowright{
+            display:none;
+        }
+
     .banner_pedido_masofertas .btn_diagonal:hover::after {
         transform: translateY(40%) translateX(-100%) rotate(-75deg);
+    }
+    .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowrightnegro{
+        display:none;
+    }
+    .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright{
+        display:inline !important;
     }
 
     .banner_pedido_masofertas .btn_diagonal img {
         position: relative;
-        top: 1.5px;
+        top: 1px;
         width: 8px;
         height: 12px;
         margin-left: 5px;
@@ -2472,7 +2482,7 @@
     .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
         position: absolute;
         right: 16px;
-        top: 17px;
+        top: 16px;
         height: 12px;
         width: 8px;
     }
@@ -2547,11 +2557,11 @@
             }
 
     .home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
-        
         right: 16px;
         top: 17px;
         height: 12px;
         width: 8px;
+        position: absolute;
     }
 
 @media screen and (max-width: 1220px) {
@@ -3144,7 +3154,7 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
+            background: url('/Content/Images/Lbel/visual-de-funcionamiento.png');
             width: 250px;
             height: 278px;
             background-repeat: no-repeat;
@@ -3163,11 +3173,11 @@
     }
 
     .como-funciona span.recuerda-txt {
-        color: #e81c36;
+        color: #613c87;
         font-weight: 700;
         letter-spacing: .5px !important;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 900;
         display: block;
         word-wrap: break-word;
         margin-left: 20px;

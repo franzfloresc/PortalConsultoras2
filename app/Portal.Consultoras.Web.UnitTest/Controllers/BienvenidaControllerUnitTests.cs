@@ -41,22 +41,22 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class GetPartialSectionBptModel : Base
         {
-            [TestMethod]
-            public void GetPartialSectionBptModel_RevistaDigitalModelEsNulo_EscribeEnLog()
-            {
-                var controller = new BienvenidaController(logManager.Object);
+            //[TestMethod]
+            //public void GetPartialSectionBptModel_RevistaDigitalModelEsNulo_EscribeEnLog()
+            //{
+            //    var controller = new BienvenidaController(logManager.Object);
                 
 
-                var result = controller.GetPartialSectionBptModel(null);
+            //    var result = controller.GetPartialSectionBptModel(null);
 
-                Assert.IsNotNull(result);
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("revistaDigital") && e.Message.Contains("no puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.GetPartialSectionBptModel"))),
-                    Times.AtLeastOnce);
-            }
+            //    Assert.IsNotNull(result);
+            //    logManager.Verify(x => x.LogErrorWebServicesBusWrap(
+            //        It.Is<Exception>(e => e.Message.Contains("revistaDigital") && e.Message.Contains("no puede ser nulo")),
+            //        It.IsAny<string>(),
+            //        It.IsAny<string>(),
+            //        It.Is<string>(s => s.Contains("LoginController.GetPartialSectionBptModel"))),
+            //        Times.AtLeastOnce);
+            //}
 
 
 

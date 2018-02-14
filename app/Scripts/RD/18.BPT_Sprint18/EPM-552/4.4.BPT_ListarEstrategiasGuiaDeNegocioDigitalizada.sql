@@ -43,7 +43,7 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
-		SELECT
+		SELECT distinct
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
