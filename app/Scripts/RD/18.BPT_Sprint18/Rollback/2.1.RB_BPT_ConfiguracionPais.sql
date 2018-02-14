@@ -1,21 +1,19 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -33,21 +31,19 @@ GO
 USE BelcorpMexico
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -65,21 +61,19 @@ GO
 USE BelcorpColombia
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -97,21 +91,19 @@ GO
 USE BelcorpVenezuela
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -129,21 +121,19 @@ GO
 USE BelcorpSalvador
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -161,21 +151,19 @@ GO
 USE BelcorpPuertoRico
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -193,21 +181,19 @@ GO
 USE BelcorpPanama
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -225,21 +211,19 @@ GO
 USE BelcorpGuatemala
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -257,21 +241,19 @@ GO
 USE BelcorpEcuador
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -289,21 +271,19 @@ GO
 USE BelcorpDominicana
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -321,21 +301,19 @@ GO
 USE BelcorpCostaRica
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -353,21 +331,19 @@ GO
 USE BelcorpChile
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'
@@ -385,21 +361,19 @@ GO
 USE BelcorpBolivia
 GO
 
-print(DB_NAME())
+GO
 
 IF EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
 	begin transaction [t1]
 
 	begin try
-		print('Elimando registros de ConfiguracionPaisDatos relacionados a RDI')
 		delete cpd
 		from ConfiguracionPaisDatos cpd
 			join ConfiguracionPais cp 
 			on cp.ConfiguracionPaisID = cpd.ConfiguracionPaisID
 			and cp.Codigo = 'RDI'
 		
-		print('Elimando registro RDI de ConfiguracionPais ')
 		delete 
 		from ConfiguracionPais
 		where Codigo = 'RDI'

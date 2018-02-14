@@ -1,10 +1,10 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-PRINT('BelcorpPeru')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Inactivo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -17,7 +17,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 0,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -25,74 +25,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
-		null, null)
-END
-GO
-
-USE BelcorpCostaRica
-GO
-
-PRINT('BelcorpCostaRica')
-IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
-BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Inactivo')
-	insert into ConfiguracionPais (
-		Codigo, Excluyente, Descripcion, Estado, 
-		TienePerfil, DesdeCampania, 
-		Orden, MobileOrden, OrdenBpt, MobileOrdenBPT,
-		DesktopTituloMenu, MobileTituloMenu,
-		DesktopTituloBanner, MobileTituloBanner,
-		DesktopSubTituloBanner, MobileSubTituloBanner,
-		DesktopFondoBanner, MobileFondoBanner,
-		DesktopLogoBanner, MobileLogoBanner,
-		UrlMenu, Logo)	
-	values (
-		'RDI', 0, 'Revista Digital Intriga', 0,
-		0, 201801,
-		(select max(Orden) + 1 from ConfiguracionPais), 
-		(select max(MobileOrden) + 1 from ConfiguracionPais), 
-		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
-		(select max(MobileOrdenBPT) + 1 from ConfiguracionPais), 
 		null, null,
 		null, null,
-		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
-		null, null)
-END
-GO
-
-USE BelcorpChile
-GO
-
-PRINT('BelcorpChile')
-IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
-BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Inactivo')
-	insert into ConfiguracionPais (
-		Codigo, Excluyente, Descripcion, Estado, 
-		TienePerfil, DesdeCampania, 
-		Orden, MobileOrden, OrdenBpt, MobileOrdenBPT,
-		DesktopTituloMenu, MobileTituloMenu,
-		DesktopTituloBanner, MobileTituloBanner,
-		DesktopSubTituloBanner, MobileSubTituloBanner,
-		DesktopFondoBanner, MobileFondoBanner,
-		DesktopLogoBanner, MobileLogoBanner,
-		UrlMenu, Logo)	
-	values (
-		'RDI', 0, 'Revista Digital Intriga', 0,
-		0, 201801,
-		(select max(Orden) + 1 from ConfiguracionPais), 
-		(select max(MobileOrden) + 1 from ConfiguracionPais), 
-		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
-		(select max(MobileOrdenBPT) + 1 from ConfiguracionPais), 
-		null, null,
-		null, null,
-		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
 		null, null)
 END
 GO
@@ -100,10 +34,10 @@ GO
 USE BelcorpMexico
 GO
 
-PRINT('BelcorpMexico')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -116,7 +50,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -124,8 +58,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -133,10 +67,10 @@ GO
 USE BelcorpColombia
 GO
 
-PRINT('BelcorpColombia')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -149,7 +83,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -157,8 +91,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -166,10 +100,10 @@ GO
 USE BelcorpVenezuela
 GO
 
-PRINT('BelcorpVenezuela')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -182,7 +116,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -190,8 +124,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -199,10 +133,10 @@ GO
 USE BelcorpSalvador
 GO
 
-PRINT('BelcorpSalvador')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -215,7 +149,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -223,8 +157,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -232,10 +166,10 @@ GO
 USE BelcorpPuertoRico
 GO
 
-PRINT('BelcorpPuertoRico')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -248,7 +182,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -256,8 +190,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -265,10 +199,10 @@ GO
 USE BelcorpPanama
 GO
 
-PRINT('BelcorpPanama')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -281,7 +215,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -289,8 +223,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -298,10 +232,10 @@ GO
 USE BelcorpGuatemala
 GO
 
-PRINT('BelcorpGuatemala')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -314,7 +248,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -322,8 +256,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -331,10 +265,10 @@ GO
 USE BelcorpEcuador
 GO
 
-PRINT('BelcorpEcuador')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -347,7 +281,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -355,8 +289,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -364,10 +298,10 @@ GO
 USE BelcorpDominicana
 GO
 
-PRINT('BelcorpDominicana')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -380,7 +314,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -388,8 +322,74 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
+		null, null)
+END
+GO
+
+USE BelcorpCostaRica
+GO
+
+GO
+
+IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
+BEGIN
+	insert into ConfiguracionPais (
+		Codigo, Excluyente, Descripcion, Estado, 
+		TienePerfil, DesdeCampania, 
+		Orden, MobileOrden, OrdenBpt, MobileOrdenBPT,
+		DesktopTituloMenu, MobileTituloMenu,
+		DesktopTituloBanner, MobileTituloBanner,
+		DesktopSubTituloBanner, MobileSubTituloBanner,
+		DesktopFondoBanner, MobileFondoBanner,
+		DesktopLogoBanner, MobileLogoBanner,
+		UrlMenu, Logo)	
+	values (
+		'RDI', 0, 'Revista Digital Intriga', 0,
+		0, 201804,
+		(select max(Orden) + 1 from ConfiguracionPais), 
+		(select max(MobileOrden) + 1 from ConfiguracionPais), 
+		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
+		(select max(MobileOrdenBPT) + 1 from ConfiguracionPais), 
+		null, null,
+		null, null,
+		null, null,
+		null, null,
+		null, null,
+		null, null)
+END
+GO
+
+USE BelcorpChile
+GO
+
+GO
+
+IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
+BEGIN
+	insert into ConfiguracionPais (
+		Codigo, Excluyente, Descripcion, Estado, 
+		TienePerfil, DesdeCampania, 
+		Orden, MobileOrden, OrdenBpt, MobileOrdenBPT,
+		DesktopTituloMenu, MobileTituloMenu,
+		DesktopTituloBanner, MobileTituloBanner,
+		DesktopSubTituloBanner, MobileSubTituloBanner,
+		DesktopFondoBanner, MobileFondoBanner,
+		DesktopLogoBanner, MobileLogoBanner,
+		UrlMenu, Logo)	
+	values (
+		'RDI', 0, 'Revista Digital Intriga', 0,
+		0, 201804,
+		(select max(Orden) + 1 from ConfiguracionPais), 
+		(select max(MobileOrden) + 1 from ConfiguracionPais), 
+		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
+		(select max(MobileOrdenBPT) + 1 from ConfiguracionPais), 
+		null, null,
+		null, null,
+		null, null,
+		null, null,
+		null, null,
 		null, null)
 END
 GO
@@ -397,10 +397,10 @@ GO
 USE BelcorpBolivia
 GO
 
-PRINT('BelcorpBolivia')
+GO
+
 IF NOT EXISTS (SELECT 1 FROM CONFIGURACIONPAIS WHERE CODIGO = 'RDI')
 BEGIN
-	PRINT('insertando RDI en ConfiguracionPais con estado Activo')
 	insert into ConfiguracionPais (
 		Codigo, Excluyente, Descripcion, Estado, 
 		TienePerfil, DesdeCampania, 
@@ -413,7 +413,7 @@ BEGIN
 		UrlMenu, Logo)	
 	values (
 		'RDI', 0, 'Revista Digital Intriga', 1,
-		0, 201801,
+		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
 		(select max(OrdenBpt) + 1 from ConfiguracionPais), 
@@ -421,8 +421,8 @@ BEGIN
 		null, null,
 		null, null,
 		null, null,
-		null, null,--'rdi-banner-epm-desktop.png', 'rdi-banner-epm-mobile.png',
-		null, null,--'rdi-logo-epm-desktop.png', 'rdi-logo-epm-mobile.png',
+		null, null,
+		null, null,
 		null, null)
 END
 GO

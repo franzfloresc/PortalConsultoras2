@@ -1,7 +1,7 @@
 ﻿USE BelcorpPeru
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -17,7 +17,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -46,7 +46,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -75,7 +74,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -104,7 +103,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -133,7 +131,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -162,7 +159,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -191,7 +187,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -220,7 +215,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -249,7 +243,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -278,7 +271,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -307,7 +299,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -336,7 +327,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -364,7 +354,7 @@ GO
 USE BelcorpMexico
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -380,7 +370,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -409,7 +399,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -438,7 +427,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -467,7 +456,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -496,7 +484,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -525,7 +512,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -554,7 +540,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -583,7 +568,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -612,7 +596,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -641,7 +624,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -670,7 +652,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -699,7 +680,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -727,7 +707,7 @@ GO
 USE BelcorpColombia
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -743,7 +723,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -772,7 +752,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -801,7 +780,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -830,7 +809,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -859,7 +837,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -888,7 +865,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -917,7 +893,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -946,7 +921,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -975,7 +949,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1004,7 +977,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1033,7 +1005,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1062,7 +1033,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1090,7 +1060,7 @@ GO
 USE BelcorpVenezuela
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -1106,7 +1076,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1135,7 +1105,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1164,7 +1133,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1193,7 +1162,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1222,7 +1190,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1251,7 +1218,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1280,7 +1246,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1309,7 +1274,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1338,7 +1302,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1367,7 +1330,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1396,7 +1358,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1425,7 +1386,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1453,7 +1413,7 @@ GO
 USE BelcorpSalvador
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -1469,7 +1429,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1498,7 +1458,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1527,7 +1486,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1556,7 +1515,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1585,7 +1543,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1614,7 +1571,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1643,7 +1599,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1672,7 +1627,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1701,7 +1655,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1730,7 +1683,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1759,7 +1711,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1788,7 +1739,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1816,7 +1766,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -1832,7 +1782,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1861,7 +1811,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1890,7 +1839,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1919,7 +1868,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1948,7 +1896,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -1977,7 +1924,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2006,7 +1952,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2035,7 +1980,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2064,7 +2008,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2093,7 +2036,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2122,7 +2064,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2151,7 +2092,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2179,7 +2119,7 @@ GO
 USE BelcorpPanama
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -2195,7 +2135,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2224,7 +2164,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2253,7 +2192,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2282,7 +2221,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2311,7 +2249,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2340,7 +2277,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2369,7 +2305,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2398,7 +2333,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2427,7 +2361,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2456,7 +2389,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2485,7 +2417,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2514,7 +2445,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2542,7 +2472,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -2558,7 +2488,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2587,7 +2517,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2616,7 +2545,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2645,7 +2574,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2674,7 +2602,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2703,7 +2630,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2732,7 +2658,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2761,7 +2686,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2790,7 +2714,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2819,7 +2742,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2848,7 +2770,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2877,7 +2798,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2905,7 +2825,7 @@ GO
 USE BelcorpEcuador
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -2921,7 +2841,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2950,7 +2870,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -2979,7 +2898,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3008,7 +2927,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3037,7 +2955,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3066,7 +2983,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3095,7 +3011,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3124,7 +3039,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3153,7 +3067,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3182,7 +3095,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3211,7 +3123,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3240,7 +3151,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3268,7 +3178,7 @@ GO
 USE BelcorpDominicana
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -3284,7 +3194,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3313,7 +3223,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3342,7 +3251,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3371,7 +3280,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3400,7 +3308,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3429,7 +3336,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3458,7 +3364,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3487,7 +3392,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3516,7 +3420,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3545,7 +3448,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3574,7 +3476,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3603,7 +3504,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3631,7 +3531,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -3647,7 +3547,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3676,7 +3576,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3705,7 +3604,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3734,7 +3633,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3763,7 +3661,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3792,7 +3689,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3821,7 +3717,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3850,7 +3745,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3879,7 +3773,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3908,7 +3801,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3937,7 +3829,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3966,7 +3857,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -3994,7 +3884,7 @@ GO
 USE BelcorpChile
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -4010,7 +3900,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4039,7 +3929,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4068,7 +3957,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4097,7 +3986,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4126,7 +4014,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4155,7 +4042,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4184,7 +4070,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4213,7 +4098,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4242,7 +4126,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4271,7 +4154,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4300,7 +4182,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4329,7 +4210,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4357,7 +4237,7 @@ GO
 USE BelcorpBolivia
 GO
 
-print (DB_NAME())
+GO
 
 declare @RevistaDigitalIntricaId int = 0
 declare @RevistaDigitalIntricaCodigo varchar(30) = 'RDI'
@@ -4373,7 +4253,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoMenuOfertasCodigo)
 begin
-	print('Insertando  LogoMenuOfertas a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4402,7 +4282,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  DBienvenidaIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4431,7 +4310,7 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MBienvenidaIntrigaCodigo)
 begin
-	print('Insertando  MBienvenidaIntriga a RDI')
+
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4460,7 +4339,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialCodigo)
 begin
-	print('Insertando  LogoComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4489,7 +4367,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @LogoComercialFondoCodigo)
 begin
-	print('Insertando  LogoComercialFondo a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4518,7 +4395,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @NombreComercialCodigo)
 begin
-	print('Insertando  NombreComercial a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4547,7 +4423,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DCatalogoIntrigaCodigo)
 begin
-	print('Insertando  DCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4576,7 +4451,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MCatalogoIntrigaCodigo)
 begin
-	print('Insertando  MCatalogoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4605,7 +4479,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DPedidoIntrigaCodigo)
 begin
-	print('Insertando  DPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4634,7 +4507,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MPedidoIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4663,7 +4535,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @DLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  DLandingBannerIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
@@ -4692,7 +4563,6 @@ if not exists (	select *
 				where cpd.ConfiguracionPaisID = @RevistaDigitalIntricaId
 				and cpd.codigo = @MLandingBannerIntrigaCodigo)
 begin
-	print('Insertando  MPedidoIntriga a RDI')
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
 	,Codigo
