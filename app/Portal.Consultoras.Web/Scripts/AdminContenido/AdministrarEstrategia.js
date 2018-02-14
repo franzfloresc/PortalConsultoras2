@@ -812,7 +812,15 @@
 
         return text;
     }
-    var _showImage = function(cellvalue, options, rowObject) {
+
+    var _showActionsTC = function(cellvalue, options, rowObject) {
+        var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
+        if ($.trim(rowObject[1]) != $.trim($("#txtCUV2").val())) {
+            Des += "<a href='javascript:;' onclick=\"return Eliminar('" + rowObject[0] + "');\" >" + "<img src='" + _config.rutaImagenDelete + "' alt='Quitar Talla/Color' title='Quitar Talla/Color' border='0' /></a>";
+        }
+        return Des;
+    }
+    var _showImage = function (cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, "");
         image = '<img src="' +
@@ -955,8 +963,8 @@
     }
     var _clearFields = function() {
 
-        $("#hdnCodigoSAP").val("")
-        $("#mensajeErrorCUV").val("")
+        $("#hdnCodigoSAP").val("");
+        $("#mensajeErrorCUV").val("");
         $("#mensajeErrorCUV2").val("");
         $(".checksPedidosAsociados").html("");
 
@@ -1167,7 +1175,7 @@
             colNames: ["CUV", "Descripción"],
             colModel: [
                 { name: "CUV2", index: "CUV", width: 10, editable: true, resizable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false },
+                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false }
             ],
             jsonReader:
             {
@@ -1226,7 +1234,7 @@
             colNames: ["CUV", "Descripción"],
             colModel: [
                 { name: "CUV2", index: "CUV", width: 10, editable: true, resizable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false },
+                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false }
             ],
             jsonReader:
             {
@@ -1430,8 +1438,8 @@
         $("#list").jqGrid("GridUnload");
         var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-        
-        var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : ""
+
+        var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
         
         jQuery("#list").jqGrid({
@@ -1797,7 +1805,7 @@
                     resizable: false,
                     hidden: false,
                     align: "center",
-                    formatter: ShowActionsTC
+                    formatter: _showActionsTC
                 },
                 { name: "IDAux", index: "IDAux", width: 0, editable: true, resizable: false, hidden: true }
             ],

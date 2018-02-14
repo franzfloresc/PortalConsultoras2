@@ -1511,8 +1511,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
-                                            ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
+                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
+                                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
                                                 usuarioModel.Sobrenombre);
                                             revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                             break;
@@ -1524,7 +1524,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
-                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel,
+                                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
                                                 usuarioModel.Sobrenombre);
                                             revistaDigitalModel.TieneRDR = true;
                                             break;
@@ -3236,21 +3236,27 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(), "LoginController.GetOfertaDelDiaModel");
             }
             return ofertasDelDiaModel;
-        }        private async Task<List<BEEstrategia>> ObtenerOfertasDelDiaAsync(UsuarioModel model)
+        }
+
+        private async Task<List<BEEstrategia>> ObtenerOfertasDelDiaAsync(UsuarioModel model)
         {
             using (var svc = new PedidoServiceClient())
             {
                 var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
                 return lst.ToList();
             }
-        }        private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDiaAsync(UsuarioModel model)
+        }
+
+        private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDiaAsync(UsuarioModel model)
         {
             using (var svc = new SACServiceClient())
             {
                 var lst = await svc.GetTablaLogicaDatosAsync(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
                 return lst.ToList();
             }
-        }        private async Task<TimeSpan> CountdownODDAsync(UsuarioModel model)
+        }
+
+        private async Task<TimeSpan> CountdownODDAsync(UsuarioModel model)
         {
             DateTime hoy;
             DateTime d2;
@@ -3425,7 +3431,9 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetEventoFestivoDataModel(new EventoFestivoDataModel());
             }
             return eventoFestivoDataModel;
-        }        private async Task<List<EventoFestivoModel>> ObtenerEventoFestivoAsync(int paisID, string Alcance, int Campania)
+        }
+
+        private async Task<List<EventoFestivoModel>> ObtenerEventoFestivoAsync(int paisID, string Alcance, int Campania)
         {
             var lst = new List<BEEventoFestivo>();
             try
