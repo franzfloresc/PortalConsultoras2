@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Entities
             Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
             Precio = DataRecord.GetColumn<decimal>(row, "Precio");
             PrecioValorizado = DataRecord.GetColumn<decimal>(row, "PrecioValorizado");
-            Digitable = DataRecord.GetColumn<Int16>(row, "Digitable");
+            //Digitable = DataRecord.GetColumn<int>(row, "Digitable");
             CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
@@ -90,6 +90,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "IdMarca")) IdMarca = Convert.ToInt16(row["IdMarca"]);
 
             if (DataRecord.HasColumn(row, "Activo")) Activo = Convert.ToInt16(row["Activo"]);
+
+            if(DataRecord.HasColumn(row, "Digitable")) Digitable = Convert.ToInt16(row["Digitable"]);
 
             NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
