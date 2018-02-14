@@ -45,7 +45,7 @@ BEGIN
 		--OrigenPedidoWeb = @OrigenPedidoWeb,
 		EsBackOrder = CASE WHEN ISNULL(EsBackOrder,0) = 1 THEN 1 ELSE 0 END,
 		AceptoBackOrder = CASE WHEN ISNULL(AceptoBackOrder,0) = 1 THEN 1 ELSE 0 END,
-		TipoEstrategiaID = @TipoEstrategiaID
+		TipoEstrategiaID = CASE WHEN @TipoEstrategiaID = 0 THEN TipoEstrategiaID ELSE @TipoEstrategiaID END
 	WHERE
 		CampaniaID = @CampaniaID
 		AND	PedidoID = @PedidoID

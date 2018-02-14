@@ -278,7 +278,7 @@ $(document).ready(function () {
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-                        console.log(data);
+
                         if (!checkTimeout(data)) {
                             me.Funciones.CloseLoading();
                             return false;

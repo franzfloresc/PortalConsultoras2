@@ -118,7 +118,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool tieneOfertasPlan20 = TieneOfertasPlan20();
+                bool tieneOfertasPlan20 = false;
+                if (userData.CodigoISO == "PE")
+                    tieneOfertasPlan20 = true;
+                else
+                    tieneOfertasPlan20 = TieneOfertasPlan20();
+                
                 return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -308,6 +313,29 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.Celular = entidad.Celular;
                 SetUserData(userData);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult PopupCerrar()
+        {
+            try
+            {
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

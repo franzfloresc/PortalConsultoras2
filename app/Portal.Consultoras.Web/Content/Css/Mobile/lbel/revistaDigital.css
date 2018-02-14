@@ -1182,6 +1182,26 @@ div#tab_revistasdigital_mobile {
     height: 20px;
 }
 
+
+.rd_arrowright {
+    position: relative;
+    width: 8px;
+    top: -1px;
+    left: 5px;
+}
+
+    .rd_arrowright:after {
+        background-image: url('../../../Images/Lbel/rd_arrowright_morado.png');
+        background-repeat: no-repeat;
+        background-size: 6px 10px;
+        display: inline-block;
+        width: 6px;
+        height: 10px;
+        content: '';
+        margin-left: 8px;
+        margin-top: 4px;
+    }
+
 .rd_ver_mas .arrow_rigth {
     width: 8px;
     height: 12px;
@@ -1985,13 +2005,6 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         letter-spacing: .5px;
     }
-
-.rd_arrowright {
-    position: relative;
-    width: 8px;
-    top: -2px;
-    left: 5px;
-}
 
 .btn_black_solid a, .btn_white_stroke a {
     background-color: black;

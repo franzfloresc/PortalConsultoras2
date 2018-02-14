@@ -371,5 +371,7 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaHoy { get; set; }
 
         public string FotoPerfil { get; set; }
+
+        public string CodigoUsuarioHost { get; set; }
     }
 }

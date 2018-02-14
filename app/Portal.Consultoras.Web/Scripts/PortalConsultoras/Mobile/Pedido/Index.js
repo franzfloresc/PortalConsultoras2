@@ -758,7 +758,7 @@ function InsertarProducto() {
             DescripcionProd: $("#divNombreProducto").html(),
             TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
+            TipoEstrategiaImagen: 2
         };
     }
 

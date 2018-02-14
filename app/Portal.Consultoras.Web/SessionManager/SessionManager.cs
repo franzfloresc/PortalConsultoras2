@@ -6,6 +6,8 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System.Collections.Generic;
+
+using System;
 using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
@@ -322,6 +324,26 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
             return (List<BEConfiguracionOfertasHome>)(HttpContext.Current.Session[seccionesXCampaniaSessionKey]);
+        }
+        
+        void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
+        {
+            HttpContext.Current.Session["ListFiltersFAV"] = lista;
+        }
+
+        List<ServiceSAC.BETablaLogicaDatos> ISessionManager.GetListFiltersFAV()
+        {
+            return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
+        }
+
+        void ISessionManager.SetStartSession(DateTime fecha)
+        {
+            HttpContext.Current.Session["StartSession"] = fecha;
+        }
+
+        DateTime ISessionManager.GetStartSession()
+        {
+            return (DateTime)HttpContext.Current.Session["StartSession"];
         }
     }
 }

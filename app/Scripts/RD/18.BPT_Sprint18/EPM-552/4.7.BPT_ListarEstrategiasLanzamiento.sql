@@ -73,7 +73,7 @@ SET NOCOUNT ON;
 		and (rtrim(fa.CodigoZona) = @CodigoZona or fa.CodigoZona IS NULL)
 		
 	INSERT INTO #TEMPORAL
-	SELECT
+	SELECT distinct
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -132,7 +132,7 @@ SET NOCOUNT ON;
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
 		INSERT INTO #TEMPORAL
-		SELECT
+		SELECT distinct
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
