@@ -128,9 +128,6 @@ var obtenerModelMasVendidos = function () {
                         model = response.data;
                         set_local_storage(model, "data_mas_vendidos");
                     }
-                    else {
-                        console.log(response.message);
-                    }
                 }
             });
     }
@@ -214,8 +211,6 @@ function ArmarCarouselMasVendidos(data) {
                     PintarEstrellas(data.Lista);
                     PintarRecomendaciones(data.Lista);
                     PintarPrecioTachado(data.Lista);
-                } else {
-                    console.log(response.menssage);
                 }
             }
         });

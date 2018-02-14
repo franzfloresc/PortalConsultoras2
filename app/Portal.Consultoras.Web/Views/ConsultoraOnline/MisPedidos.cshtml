@@ -162,9 +162,6 @@
 
                             $('#modal_cancelar_pedido').fuzemodal('close');
                         }
-                        else {
-                            console.log(data.message);
-                        }
                     }
                 },
                 error: function (data, error) {
@@ -329,8 +326,6 @@
                     $('#' + panelTarget).html(imgAceptado);
                     cell.parent().html(htmlCancelContent);
 
-                } else {
-                    console.log('Error al invocar /ConsultoraOnline/AceptarPedido');
                 }
             });
 

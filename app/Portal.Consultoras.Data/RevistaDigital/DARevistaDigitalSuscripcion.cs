@@ -71,5 +71,13 @@ namespace Portal.Consultoras.Data.RevistaDigital
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetLast(BERevistaDigitalSuscripcion entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.RevistaDigitalSuscripcion_GetLast");
+            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.CodigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

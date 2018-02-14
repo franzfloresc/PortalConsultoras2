@@ -36,9 +36,8 @@
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
                         <div class="btn_red">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
@@ -60,40 +59,14 @@
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
                         <div class="btn_red">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         }
-    }
-    else if (revistaDigital.TieneRDR)
-    {
-        <hr class="clear" />
-        <div id="tab_revistasdigital_mobile">
-            <div class="contenedor_seccionRevistaDigital">
-                <div class="seccionRevistaDigital_logo_marca">
-                    <img src="@urlLogo" alt="Club Gana+" class="small"/>
-                </div>
-                <div class="clear"></div>
-                <div class="contenido_seccionRevistaDigital">
-                    <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
-                    <span>@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
-                </div>
-                <div class="clear"></div>
-                <div class="revistadigital contenedor_botonVerMasOfertas">
-                    <div class="boxoffer" style="cursor: pointer; position: relative !important;"
-                            onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
-                        <div class="fondo_boton"></div>
-                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-                    </div>
-                    <br /><br />
-                </div>
-            </div>
-        </div>
     }
     else if (revistaDigital.TieneRDI)
     {
@@ -110,11 +83,35 @@
                         @Html.Raw(configuracionPaisDatosModel.Valor2)
                     </div>
                     <div class="btn_red">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
+                        <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
                             VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (revistaDigital.TieneRDR)
+    {
+        <hr class="clear" />
+        <div id="tab_revistasdigital_mobile">
+            <div class="contenedor_seccionRevistaDigital">
+                <div class="seccionRevistaDigital_logo_marca">
+                    <img src="@urlLogo" alt="Club Gana+" class="small" />
+                </div>
+                <div class="clear"></div>
+                <div class="contenido_seccionRevistaDigital">
+                    <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
+                    <span>@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
+                </div>
+                <div class="clear"></div>
+                <div class="revistadigital contenedor_botonVerMasOfertas">
+                    <div class="boxoffer" style="cursor: pointer; position: relative !important;"
+                         onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                        <div class="fondo_boton"></div>
+                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                    </div>
+                    <br /><br />
                 </div>
             </div>
         </div>

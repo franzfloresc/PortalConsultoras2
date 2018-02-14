@@ -1,51 +1,49 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.Entities.Pedido;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.CargaMasiva;
-using Portal.Consultoras.Common;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
     public class PedidoService : IPedidoService
     {
-        private BLPedidoWebDetalle BLPedidoWebDetalle;
-        private BLPedidoWeb BLPedidoWeb;
-        private BLPedidoReporteLider BLPedidoReporteLider;
-        private BLOfertaNueva BLOfertaNueva;
-        private BLPedidoFICDetalle BLPedidoFICDetalle;
-        private BLTracking BLTracking;
-        private BLCuv oBLCUV;
-        private BLSegmentoPlaneamiento oBLSegmentoPlaneamiento;
-        private BLPedidoDD BLPedidoDD;
-        private BLLogPedidoDDInvalido BLLogPedidoDDInvalido;
-        private BLPedidoDDDetalle BLPedidoDDDetalle;
-        private BLValidacionAutomatica BLValidacionAutomatica;
-        private BLShowRoomEvento BLShowRoomEvento;
-        private BLProductoSugerido BLProductoSugerido;
-        private BLConfiguracionProgramaNuevas BLConfiguracionProgramaNuevas;
-        private BLEscalaDescuento BLEscalaDescuento;
-        private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
-        private BLMensajeMetaConsultora BLMensajeMetaConsultora;
-        private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
-        private BLCupon BLCupon;
-        private BLEstrategia blEstrategia;        
-        private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
-        private BLCuponConsultora BLCuponConsultora;
-        private BLFichaProducto blFichaProducto;
-
+        private readonly BLPedidoWebDetalle BLPedidoWebDetalle;
+        private readonly BLPedidoWeb BLPedidoWeb;
+        private readonly BLPedidoReporteLider BLPedidoReporteLider;
+        private readonly BLOfertaNueva BLOfertaNueva;
+        private readonly BLPedidoFICDetalle BLPedidoFICDetalle;
+        private readonly BLTracking BLTracking;
+        private readonly BLCuv oBLCUV;
+        private readonly BLSegmentoPlaneamiento oBLSegmentoPlaneamiento;
+        private readonly BLPedidoDD BLPedidoDD;
+        private readonly BLLogPedidoDDInvalido BLLogPedidoDDInvalido;
+        private readonly BLPedidoDDDetalle BLPedidoDDDetalle;
+        private readonly BLValidacionAutomatica BLValidacionAutomatica;
+        private readonly BLShowRoomEvento BLShowRoomEvento;
+        private readonly BLProductoSugerido BLProductoSugerido;
+        private readonly BLConfiguracionProgramaNuevas BLConfiguracionProgramaNuevas;
+        private readonly BLEscalaDescuento BLEscalaDescuento;
+        private readonly BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
+        private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
+        private readonly BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private readonly BLCupon BLCupon;
+        private readonly BLEstrategia blEstrategia;        
+        private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private readonly BLCuponConsultora BLCuponConsultora;
+        private readonly BLFichaProducto blFichaProducto;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
@@ -1125,6 +1123,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().DeshabilitarEstrategia(entidad);
         }
+        public int EliminarEstrategia(BEEstrategia entidad)
+        {
+            return new BLEstrategia().EliminarEstrategia(entidad);
+        }
         public int EliminarTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().EliminarTallaColor(entidad);
@@ -1596,6 +1598,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+        }
+
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
         {
             return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
@@ -1885,6 +1892,16 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
         }
 
+        public int ActualizarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().UpdateEstrategiaProducto(entidad);
+        }
+
+        public bool EliminarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().DeleteEstrategiaProducto(entidad);
+        }
+
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
@@ -2114,9 +2131,9 @@ namespace Portal.Consultoras.Service
         {
             return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
         }
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID, bool estrategia)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID, estrategia);
         }
 
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
@@ -2212,13 +2229,13 @@ namespace Portal.Consultoras.Service
         #endregion  
         
         #region ConfiguracionProgramaNuevasApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(entidad);
         }
-        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
-            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(entidad);
         }
         #endregion
 
@@ -2233,5 +2250,12 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         #endregion
+
+
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
+        }
+
     }
 }

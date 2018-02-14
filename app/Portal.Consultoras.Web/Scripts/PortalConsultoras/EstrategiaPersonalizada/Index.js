@@ -148,7 +148,6 @@ function SeccionCargarProductos(objConsulta) {
 function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
     if (htmlSeccion.length !== 1) {
-        console.log(data.Seccion);
         return false;
     }
 
@@ -166,7 +165,6 @@ function SeccionMostrarProductos(data) {
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if (data.Seccion.TemplateProducto === "") {
-        console.log(data.Seccion);
         return false;
     }
 

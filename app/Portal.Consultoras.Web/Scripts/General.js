@@ -278,6 +278,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena).string;
             });
 
+            Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen.replace(/'/g, "\\'");
+                return new Handlebars.SafeString(textoOrigen);
+            });
+
             Handlebars.registerHelper('Split', function (cadena, separador, pos, opts) {
                 cadena = cadena || "";
                 var listCade = cadena.split(separador);
@@ -914,8 +919,8 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
+            success: function (result) { },
+            error: function (x, xh, xhr) { }
         });
     }
 }
@@ -985,6 +990,8 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
+    menuModule.Resize();
+
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
 
@@ -1054,6 +1061,7 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
+    menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -1119,9 +1127,7 @@ function cerrarMensajePostulante() {
                 LayoutHeader();
             }
         },
-        error: function (response) {
-            console.log(response);
-        }
+        error: function (response) { }
     });
 }
 
@@ -1182,12 +1188,10 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     id = $.trim(id);
     if (id == "0" || id == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
         return false;
     }
     ruta = $.trim(ruta);
     if (ruta == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
         return false;
     }
 
@@ -1275,11 +1279,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                 }
             }
         },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -1733,9 +1733,7 @@ function GuardarIndicadorPedidoAutentico() {
                             localStorage.setItem('SBTokenPedido', response.message);
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             } else {
 
@@ -1760,9 +1758,7 @@ function GuardarIndicadorPedidoAutentico() {
                             }
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             }
         }
@@ -1865,10 +1861,6 @@ Object.defineProperty(Object.prototype, "in", {
 });
 var registerEvent = function (eventName) {
     var self = this;
-    if (self[eventName]) {
-        console.log("event already exists");
-    }
-
     self[eventName] = self[eventName] || {};
     self[eventName].callBacks = [];
     self[eventName].subscribe = function (cb) {
@@ -1876,8 +1868,7 @@ var registerEvent = function (eventName) {
             self[eventName].callBacks.push(cb);
             return;
         }
-
-        console.log("invalid callback " + cb);
+        
     }
 
     self.subscribe = function (event, cb) {
@@ -1887,8 +1878,6 @@ var registerEvent = function (eventName) {
                 return;
             }
         }
-
-        console.log("no event exists " + event);
     }
 
     self.applyChanges = function (event, args) {
@@ -1947,5 +1936,24 @@ function EstablecerAccionLazyImagenAll(nombreAtributo) {
 
     $(nombreAtributo).lazy({
         delay: 0
+    });
+}
+
+function CuponPopupCerrar() {
+    //AbrirLoad();
+    $('#Cupon3').hide();
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Cupon/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            //CerrarLoad();
+            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+        },
+        error: function (data, error) {
+            //CerrarLoad();
+        }
     });
 }
