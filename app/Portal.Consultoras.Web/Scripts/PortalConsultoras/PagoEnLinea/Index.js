@@ -26,6 +26,12 @@ $(document).ready(function () {
                 $(document).on('click', '.btn_continuar', me.Eventos.MostrarTooltipAceptarTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
+            },
+            InicializarAcciones: function () {
+                me.globals.barraActivacion.toggleClass('activado');
+                me.globals.barraActivacion.attr('data-estado', 1);
+                //$('.tooltip_terminos_y_condiciones').fadeOut();
+                //$("#divTooltipTerminosCondiciones").hide();
             }
         },
         me.Eventos = {
@@ -143,6 +149,7 @@ $(document).ready(function () {
         },
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
+            me.Funciones.InicializarAcciones();
         }
     }
 

@@ -48,7 +48,7 @@
                 Te enviamos una constancia de pago a tu correo o puedes revisarla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>
             </p>            
             <div class="resumen_pago_exitoso">
-                <h3 class="titulo_resumen_pago_exitoso">
+                <h3 class="titulo_resumen_pago_exitoso" style="text-align: center;">
                     Resumen del pago
                 </h3>
                 <div class="resumen_pago">
@@ -94,5 +94,15 @@
 </div>
 
 @section scripts{    
-
+    <script type="text/javascript">
+        //var timeCloseRain = 60000;
+        var esMobile = true;
+        var listaIconoLluvia = new Array();
+        listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
+        listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
+        //listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-tiras.svg")';
+        listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
+    </script>    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
 }

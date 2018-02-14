@@ -1,14 +1,28 @@
 var fallingObjects = new Array();
+var listaIconoLluvia = listaIconoLluvia || null;
+var esMobile = esMobile || false;
 
 var closeImagenRain = 0;    //si es 0 se mostrara,
-var timeCloseRain = 30000;   //tiempo de visualización del efecto
+var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efecto
 
-var numObjects = 8,
+var numObjects = 100,
 	waft = 50,
-	fallSpeed = 4,
+	fallSpeed = 20,
 	wind = 0;
-newObject(iconoLluvia, 22, 22);
-newObject(iconoLluvia, 35, 35);
+
+var heightIcon = esMobile ? 7 : 15;
+var widthIcon = esMobile ? 7 : 15;
+
+if (listaIconoLluvia != null) {
+    var par = 0;
+    $.each(listaIconoLluvia, function (index, value) {
+        newObject(value, heightIcon, widthIcon);
+    });
+}
+else {
+    newObject(iconoLluvia, heightIcon, widthIcon);
+    newObject(iconoLluvia, heightIcon, widthIcon);
+}
 
 var objects = new Array(),
 	winOffset = 0,
@@ -30,7 +44,7 @@ function newObject(url, height, width) {
 }
 
 function winSize() {
-    winWidthSR = (moz) ? window.innerWidth - 180 : document.body.clientWidth - 180;
+    winWidthSR = (moz) ? window.innerWidth - 20 : document.body.clientWidth - 20;
     winHeightSR = (moz) ? window.innerHeight - 200 : document.body.clientHeight - 200;
 }
 
@@ -64,7 +78,7 @@ function fall() {
     }
 
     if (closeImagenRain == 0) {
-        setTimeout("fall()", 30);
+        setTimeout("fall()", 15);
         $("img[id^='fO']").show();
     }
 }

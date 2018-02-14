@@ -206,6 +206,7 @@
     position:relative;
     border:1px solid #D2D2D2;
     height:59px;
+    background: #f7f7f7;
 }
 
 .metodo_pago_seleccionado,
@@ -1068,3 +1069,16 @@
 }
 
 /* FIN POPUP TÉRMINOS Y CONDICIONES */
+
+.btn_paso_anterior_pago_en_linea {
+    float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/zFJxJW4h2OAqKmU/group-9.png') no-repeat;
+    background-position: 0 8px;
+}

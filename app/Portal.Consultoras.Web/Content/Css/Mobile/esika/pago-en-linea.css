@@ -246,9 +246,10 @@
     margin-bottom:29px;
 }
 
-.metodo_pago_seleccionado{
-    position:relative;
-    border:1px solid #D2D2D2;
+.metodo_pago_seleccionado {
+    position: relative;
+    border: 1px solid #D2D2D2;
+    background: #f7f7f7;
 }
 
 .metodo_pago_seleccionado,
@@ -867,6 +868,10 @@
     color:#a18328;
     text-transform:uppercase;
     line-height:10px;
+}
+
+.mensaje_felicitacion_por_pago_exitoso{
+    text-align: center;
 }
 
 .mensaje_pago_rechazado{

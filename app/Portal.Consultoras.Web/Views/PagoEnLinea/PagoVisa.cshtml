@@ -84,6 +84,7 @@
         <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA (OCULTAR CUANDO LA VISTA PAGO EXITOSO ESTÉ ACTIVA) -->
 
         <div class="contenedor_btn_pagar_con_visa">
+            <a class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index","PagoEnLinea")">REGRESAR</a>
             <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
                         data-sessiontoken="@Model.PagoVisaModel.SessionToken"

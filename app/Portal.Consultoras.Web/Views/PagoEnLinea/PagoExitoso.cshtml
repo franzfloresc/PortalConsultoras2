@@ -92,5 +92,15 @@
  </div>
 
 @section scripts{
+    <script type="text/javascript">
+        //var timeCloseRain = 60000;
+        var listaIconoLluvia = new Array();
 
+        listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
+        listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
+        listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
+        //listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-tiras.svg")';
+        listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
 }
