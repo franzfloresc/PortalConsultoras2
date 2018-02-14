@@ -127,6 +127,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpMexico
 GO
 
@@ -252,6 +254,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpColombia
 GO
@@ -379,6 +383,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpVenezuela
 GO
 
@@ -504,6 +510,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpSalvador
 GO
@@ -631,6 +639,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpPuertoRico
 GO
 
@@ -756,6 +766,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpPanama
 GO
@@ -883,6 +895,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpGuatemala
 GO
 
@@ -1008,6 +1022,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpEcuador
 GO
@@ -1135,6 +1151,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpDominicana
 GO
 
@@ -1260,6 +1278,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpCostaRica
 GO
@@ -1387,6 +1407,8 @@ BEGIN
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
 
+GO
+
 USE BelcorpChile
 GO
 
@@ -1512,6 +1534,8 @@ BEGIN
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@TextoBusqueda, iif(@Criterio = 1, p.CUV, coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion))) > 0;
 END
+
+GO
 
 USE BelcorpBolivia
 GO

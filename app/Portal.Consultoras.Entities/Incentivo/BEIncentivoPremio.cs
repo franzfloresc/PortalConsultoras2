@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Entities
         [Column("NumeroPremio")]
         [DataMember]
         public int NumeroPremio { get; set; }
+        [DataMember]
+        [Column("ImagenPremio")]
+        public string ImagenPremio { get; set; }
 
         public BEIncentivoPremio()
         {

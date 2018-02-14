@@ -27,6 +27,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpMexico
 GO
 
@@ -52,6 +54,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpColombia
 GO
@@ -79,6 +83,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpVenezuela
 GO
 
@@ -104,6 +110,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpSalvador
 GO
@@ -131,6 +139,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpPuertoRico
 GO
 
@@ -156,6 +166,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpPanama
 GO
@@ -183,6 +195,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpGuatemala
 GO
 
@@ -208,6 +222,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpEcuador
 GO
@@ -235,6 +251,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpDominicana
 GO
 
@@ -260,6 +278,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpCostaRica
 GO
@@ -287,6 +307,8 @@ BEGIN
 		AND e.CUV2 = @CUVPadre
 END
 
+GO
+
 USE BelcorpChile
 GO
 
@@ -312,6 +334,8 @@ BEGIN
 	WHERE c.Codigo = @CampaniaID
 		AND e.CUV2 = @CUVPadre
 END
+
+GO
 
 USE BelcorpBolivia
 GO
