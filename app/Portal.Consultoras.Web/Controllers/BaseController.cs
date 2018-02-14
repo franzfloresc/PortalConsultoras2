@@ -88,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
-
                 guiaNegocio = sessionManager.GetGuiaNegocio();
 
                 if (Request.IsAjaxRequest())
@@ -3081,6 +3080,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = isMobile ? string.Empty : "HerramientasVenta/ObtenerProductos";
+                            seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor;
                             break;
                     }
@@ -3239,7 +3239,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region MenuContenedor
-        public MenuContenedorModel GetMenuActivo(UsuarioModel userData,RevistaDigitalModel revistaDigital)
+        public MenuContenedorModel GetMenuActivo(UsuarioModel userData,RevistaDigitalModel revistaDigital,HerramientasVentaModel herramientasVenta)
         {
             var contenedorPath = GetContenedorRequestPath();
 
@@ -3248,7 +3248,7 @@ namespace Portal.Consultoras.Web.Controllers
             menuActivo = UpdateCodigoCampaniaIdOrigenByContenedorPath(menuActivo, contenedorPath);
             menuActivo = UpdateConfiguracionPais(menuActivo, userData, revistaDigital);
 
-            if (revistaDigital.TieneRDC)
+            if (revistaDigital.TieneRDC || herramientasVenta.TieneHV)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -3265,7 +3265,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private MenuContenedorModel UpdateConfiguracionPais(MenuContenedorModel menuActivo, UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = BuildMenuContenedor(revistaDigital);
+            var menuContenedor = BuildMenuContenedor(userData,revistaDigital);
             menuActivo.ConfiguracionPais = GetConfiguracionPaisBy(menuContenedor, menuActivo, userData);
             return menuActivo;
         }
@@ -3345,6 +3345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaRevisar:
+                    menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
                     break;
                 case Constantes.UrlMenuContenedor.HerramientasVentaComprar:
@@ -3415,8 +3416,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Util.Trim(Request.QueryString[key]);
         }
 
-
-
         private ConfiguracionPaisModel GetConfiguracionPaisBy(List<ConfiguracionPaisModel> menuContenedor, MenuContenedorModel menuActivo, UsuarioModel userData)
         {
             var configuracionPaisMenu = menuContenedor.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
@@ -3466,43 +3465,43 @@ namespace Portal.Consultoras.Web.Controllers
             return codigo;
         }
 
-        public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
-        {
-            var menuActivo = GetSessionMenuActivo();
-            var listMenu = BuildMenuContenedor(revistaDigital);
-            listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
 
-            if (menuActivo.CampaniaId == userData.CampaniaID && !sessionManager.GetTieneLan())
+
+        public List<ConfiguracionPaisModel> GetMenuContenedorByMenuActivoCampania(int campaniaIdMenuActivo, int campaniaIdUsuario)
+        {
+            var menuContenedor = BuildMenuContenedor(userData, revistaDigital);
+
+            menuContenedor = menuContenedor.Where(e => e.CampaniaId == campaniaIdMenuActivo).ToList();
+
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneLan())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
             }
-            if (menuActivo.CampaniaId != userData.CampaniaID && !sessionManager.GetTieneLanX1())
+            if (campaniaIdMenuActivo != campaniaIdUsuario && !sessionManager.GetTieneLanX1())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
             }
             if (!sessionManager.GetTieneOpt())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
             }
-            if (menuActivo.CampaniaId == userData.CampaniaID &&
-                !sessionManager.GetTieneOpm())
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneOpm())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
-            if (menuActivo.CampaniaId != userData.CampaniaID &&
-                !sessionManager.GetTieneOpmX1())
+            if (campaniaIdMenuActivo != campaniaIdUsuario && !sessionManager.GetTieneOpmX1())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
-            if (menuActivo.CampaniaId == userData.CampaniaID &&
-              !sessionManager.GetTieneRdr())
+            if (campaniaIdMenuActivo == campaniaIdUsuario &&!sessionManager.GetTieneRdr())
             {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
             }
-            return listMenu;
+
+            return menuContenedor;
         }
 
-        public List<ConfiguracionPaisModel> BuildMenuContenedor(RevistaDigitalModel revistaDigital)
+        public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
             var configuracionesPais = GetConfiguracionesPaisModel();
@@ -3517,11 +3516,12 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confiModel in configuracionesPais)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
+                confiModel.CampaniaId = userData.CampaniaID;
+                //
                 confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
                 confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
                 confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
                 confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
-                confiModel.CampaniaId = userData.CampaniaID;
 
                 switch (confiModel.Codigo)
                 {
@@ -3619,6 +3619,25 @@ namespace Portal.Consultoras.Web.Controllers
                             continue;
 
                         confiModel.UrlMenu = "GuiaNegocio";
+                        break;
+                    case Constantes.ConfiguracionPais.HerramientasVenta:
+                        if(revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
+                        {
+                            confiModel.DesktopLogoBanner = revistaDigital.DLogoComercialFondoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+                        {
+                            confiModel.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
+                        {
+                            confiModel.MobileLogoBanner = revistaDigital.MLogoComercialFondoActiva;
+                        }
+                        if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+                        {
+                            confiModel.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                        }
+                        
                         break;
                 }
 
@@ -3780,8 +3799,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/HerramientaVenta/Revisar";
-                        config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";
+                        config.UrlMenu = "/HerramientasVenta/Revisar";
+                        config.UrlMenuMobile = "/Mobile/HerramientasVenta/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                         menuContenedorBloqueado.Add(config);
                         break;
@@ -4319,8 +4338,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
             ViewBag.TieneHV = false;
-            ViewBag.MenuContenedorActivo = GetMenuActivo(userData, revistaDigital);
-            ViewBag.MenuContenedor = ObtenerMenuContenedor();
+            var menuActivo = GetMenuActivo(userData, revistaDigital,herramientasVenta);
+            ViewBag.MenuContenedorActivo = menuActivo;
+            ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
 
             ViewBag.MenuMobile = BuildMenuMobile(userData, revistaDigital);
             ViewBag.Permiso = BuildMenu(userData, revistaDigital);

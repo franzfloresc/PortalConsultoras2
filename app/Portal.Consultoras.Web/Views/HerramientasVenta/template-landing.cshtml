@@ -11,15 +11,15 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/HerramientasVenta-Landing")
 }
 
-
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVDesktopLanding"
-     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp" >
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
 
         <div id="orderby-filter" style="padding: 0px 2%;">
             <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                <div class="rd-seccion2" style=" padding 0px 0%; height:auto;">
+                <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
                     <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
                         <div class="rd-cantidad">
                             Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
@@ -56,7 +56,6 @@
             </div>
         </div>
 
-
         <div id="RDListado" data-content-item="@Model.CampaniaID"
              data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.HVDesktopLanding"
              data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp">
@@ -83,6 +82,8 @@
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 <div class="flecha_scroll">
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>

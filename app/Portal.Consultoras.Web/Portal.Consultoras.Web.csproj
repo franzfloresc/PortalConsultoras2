@@ -4626,6 +4626,7 @@
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Views\HerramientasVenta\Index.cshtml" />
+    <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
