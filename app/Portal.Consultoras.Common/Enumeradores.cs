@@ -294,7 +294,9 @@
             OfertaParaTi = 6,
             RevistaDigital = 7,
             GuiaNegocioDigital = 8,
-            General = 9
+            General = 9,
+            HerramientasVentaComprar = 10,
+            HerramientasVentaRevisar = 11
         }
 
     }
