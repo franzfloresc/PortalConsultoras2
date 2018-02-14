@@ -47,7 +47,6 @@ $(document).ready(function () {
     });
 
     $('#salvavidaTutorial').show();
-    LayoutMenu();
 
     $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
@@ -3310,3 +3309,4 @@ function onPlayerStateChange(event) {
         });
     }
 }
+

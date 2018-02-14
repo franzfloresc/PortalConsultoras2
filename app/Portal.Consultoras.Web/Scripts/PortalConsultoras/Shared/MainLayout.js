@@ -47,6 +47,12 @@ $(document).ready(function () {
             if ($('[data-popup-main]').is(':visible')) {
                 var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                 FuncionEjecutar(functionHide);
+
+                if ($('#Cupon3').is(':visible')) {
+                    CuponPopupCerrar();
+                    return;
+                }
+
                 CerrarPopup('[data-popup-main]');
             }
 

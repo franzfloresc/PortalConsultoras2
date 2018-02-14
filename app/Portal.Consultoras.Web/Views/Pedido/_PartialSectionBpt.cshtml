@@ -67,13 +67,45 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-                      new ViewDataDictionary {
-    { "Source", 2 },
-    { "NombreConsultora", revistaDigital.NombreConsultora },
-    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-    { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                      });
+                           new ViewDataDictionary {
+{ "Source", 2 },
+{ "NombreConsultora", revistaDigital.NombreConsultora },
+{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+{ "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+                           });
     }
+}
+else if (revistaDigital.TieneRDI)
+{
+    <!-- PASE PEDIDO NO INSCRITAS C-11 -->
+    <div class="banner_pedido_rd">
+        <div class="cabecera_pedido_rd">
+            <div class="rd_logo">
+                <img src="@urlLogo" alt="" class="small">
+            </div>
+            <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+        </div>
+        <div class="banner_pedido_masofertas">
+            <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+            <div class="btn_diagonal btn_stroke">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
+                    VER TODAS MIS OFERTAS
+                    <img class="rd_arrowrightnegro" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+    @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
+                      new ViewDataDictionary {
+{ "Source", 2 },
+{ "NombreConsultora", revistaDigital.NombreConsultora },
+{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+{ "NombrePalanca", revistaDigital.NombreComercialNoActiva }
+                      });
 }
 else if (revistaDigital.TieneRDR)
 {
@@ -112,45 +144,13 @@ else if (revistaDigital.TieneRDR)
         </div>
     </div>
 }
-else if (revistaDigital.TieneRDI)
-{
-    <!-- PASE PEDIDO NO INSCRITAS C-11 -->
-    <div class="banner_pedido_rd">
-        <div class="cabecera_pedido_rd">
-            <div class="rd_logo">
-                <img src="@urlLogo" alt="" class="small">
-            </div>
-            <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-        </div>
-        <div class="banner_pedido_masofertas">
-            <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-            <div class="btn_diagonal btn_stroke">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
-                    VER TODAS MIS OFERTAS
-                    <img class="rd_arrowrightnegro" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="clear"></div>
-    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-    @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-                  new ViewDataDictionary {
-    { "Source", 2 },
-    { "NombreConsultora", revistaDigital.NombreConsultora },
-    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-    { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                  });
-}
 else
 {
     @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary {
+                new ViewDataDictionary {
 { "Source", 1 },
 { "NombreConsultora", ViewBag.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
 { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-            });
+                });
 }

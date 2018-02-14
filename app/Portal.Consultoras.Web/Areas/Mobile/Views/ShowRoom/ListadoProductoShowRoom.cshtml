@@ -354,7 +354,6 @@
                                     error: function(response, error) {
                                         if (checkTimeout(response)) {
                                             CloseLoading();
-                                            console.log(response);
                                         }
                                     }
                                 });
@@ -383,7 +382,6 @@
                 },
                 error: function(response, error) {
                     if (checkTimeout(response)) {
-                        console.log(response);
                     }
                 }
             });

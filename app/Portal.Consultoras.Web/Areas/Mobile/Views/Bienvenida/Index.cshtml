@@ -798,6 +798,8 @@
         var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
+        var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
+
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 

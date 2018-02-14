@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                var model = new PedidoSb2Model { Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal) };
+                var model = new PedidoSb2Model {Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal)};
 
                 if (ClienteID != "-1")
                 {
@@ -913,7 +913,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
                 Cantidad = Convert.ToInt32(model.Cantidad),
                 PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short) 0 : Convert.ToInt16(model.ClienteID),
                 CUV = model.CUV,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 Stock = model.Stock,
@@ -1033,7 +1033,8 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = pedidoEliminado.CUV,
                         Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
                         DescripcionMarca = pedidoEliminado.DescripcionLarga,
-                        DescripcionOferta = pedidoEliminado.DescripcionOferta
+                        DescripcionOferta = pedidoEliminado.DescripcionOferta,
+                        TipoEstrategiaID = pedidoEliminado.TipoEstrategiaID
                     },
                     cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 });
@@ -2333,7 +2334,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = item.PedidoDetalleID,
                         Cantidad = Convert.ToInt32(item.Cantidad),
                         PrecioUnidad = item.PrecioUnidad,
-                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : item.ClienteID
+                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short) 0 : item.ClienteID
                     };
                     obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
                     olstPedidos.Add(obePedidoWebDetalle);
@@ -3507,6 +3508,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                     return;
                 }
+
                 if (!flagkit) //Kit en 2 y 3 pedido
                     if (obeConfiguracionProgramaNuevas.IndProgObli != "1") return;
 
@@ -3905,7 +3907,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 descuentoprol = listPedido[0].DescuentoProl;
             }
-
+            
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
@@ -4640,13 +4642,13 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DPedidoIntriga) ?? new ConfiguracionPaisDatosModel();
+                }
                 else if (revistaDigital.TieneRDR)
                 {
                     partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
-                }
-                else if (revistaDigital.TieneRDI)
-                {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

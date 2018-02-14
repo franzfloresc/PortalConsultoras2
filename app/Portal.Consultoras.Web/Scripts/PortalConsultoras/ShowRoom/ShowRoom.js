@@ -308,7 +308,6 @@ function CargarProductosShowRoom(busquedaModel) {
             }
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         });
 
@@ -614,7 +613,6 @@ function CargarShowroomMobile(busquedaModel) {
             }
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         });
 }

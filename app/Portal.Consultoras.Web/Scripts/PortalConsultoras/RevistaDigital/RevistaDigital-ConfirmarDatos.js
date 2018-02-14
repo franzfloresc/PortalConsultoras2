@@ -80,7 +80,6 @@ function RDConfirmarDatos() {
         },
         function (xhr, status, error) {
             CerrarLoad();
-            console.log(xhr.responseText);
         }
     );
 } 

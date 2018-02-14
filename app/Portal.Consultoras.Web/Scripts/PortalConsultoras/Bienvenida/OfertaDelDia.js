@@ -193,28 +193,57 @@ $(document).ready(function () {
 
                 var _data = response.data;
 
-                RenderOfertaDelDia(_data, contenedorOfertas)
+                RenderOfertaDelDia(_data, contenedorOfertas);
 
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
                 
+
+                var setColorFondo = _data.ColorFondo1;
+                var setColorTexto = "";
+
+                if (_data.ConfiguracionContenedor.ColorFondo !== "") {
+                    setColorFondo = _data.ConfiguracionContenedor.ColorFondo;
+                }
+
+                if (_data.ConfiguracionContenedor.ColorTexto !== "") {
+                    setColorTexto = _data.ConfiguracionContenedor.ColorTexto;
+                }
+
+
                 var url = window.location.href.toLowerCase() + "/";
                 url = url.replace("#", "/");
                 if (url.indexOf("/ofertas/") >= 0) {
-                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
+                    if (_data.ConfiguracionContenedor.UsarImagenFondo &&
+                        _data.ConfiguracionContenedor.ImagenFondo !== "") {
+                        $(contenedorOfertas).css('background', 'url("' + _data.ConfiguracionContenedor.ImagenFondo + '")');
+                    } else {
+                        $(contenedorOfertas).css('background-color', setColorFondo);
+                    }
                 }
                 else {
-                    $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                    $('#banner-odd .izquierda_img img').attr('src', _data.ImagenFondo1);
+                    $('#banner-odd .derecha_img img').attr('src', _data.ImagenFondo1);
+                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
                 }
 
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
-
-                $('#banner-odd').css('background-color', _data.ColorFondo1);
-                $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
 
                 $(contenedorOfertas).show();
 
                 ConfigurarCarruselProductos(contenedorOfertas, _data.CantidadProductos);
                 ConfigurarCarruselDetalleProductos(contenedorOfertas, _data.CantidadProductos);
+                if (setColorTexto !== "") {
+                    $(".clase_control_color_dinamico").css("color", setColorTexto);
+                    $(".clase_control_color_dinamico").css("border-color", setColorTexto);
+                    $(".icono_clase_control_color_dinamico").css("-webkit-filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
+                    $(".icono_clase_control_color_dinamico").css("filter", "opacity(.5) drop-shadow(0 0 0 " + setColorTexto + ")");
+                    $(".cross_clase_control_color_dinamico").css("background", setColorTexto);
+
+                    var styleElemTrick = document.head.appendChild(document.createElement("style"));
+                    styleElemTrick.innerHTML = ".cross_clase_control_color_dinamico:after {background: " + setColorTexto + ";}";
+
+                    $(".cross_line_clase_control_color_dinamico").css("background", setColorTexto);
+                }
 
                 $('#PopOfertaDia').hide();
 
@@ -310,8 +339,8 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 autoplay: false,
                 speed: 260,
-                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                 odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
             });
@@ -337,8 +366,8 @@ $(document).ready(function () {
                 slidesToScroll: 1,
                 autoplay: false,
                 speed: 260,
-                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
             });
             $('#divOddCarruselDetalle').slick('slickGoTo', 0);
         }
@@ -449,6 +478,7 @@ $(document).ready(function () {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
             CUV: itemCampos.find('.cuv2-odd').val(),
             PrecioUnidad: itemCampos.find('.precio-odd').val(),
+            TipoEstrategiaID: itemCampos.find('.tipoestrategia-id-odd').val(),
             Descripcion: itemCampos.find('.nombre-odd').val(),
             Cantidad: cantidad,
             IndicadorMontoMinimo: itemCampos.find('.indmonto-min-odd').val(),
@@ -577,8 +607,7 @@ $(document).ready(function () {
             TipoEstrategiaImagen: teImagenMostrar || 0,
             
             Descripcion: descripcion,
-            TipoOferta: tipoEstrategiaID,
-            tipoEstrategiaImagen: teImagenMostrar || 0
+            TipoOferta: tipoEstrategiaID
         };
 
         jQuery.ajax({
@@ -869,7 +898,7 @@ $(document).ready(function () {
                 }
             }
         });
-        
+
         document.location.href = urlOfertaDelDiaMobile;
     });
 

@@ -309,20 +309,23 @@ function AgregarProductoAlCarrito(padre) {
 
     $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
+    var imgProdOffSet = imagenProducto.offset() || {};
+    var carritoffSet = carrito.offset() || {};
+
     $(".transicion").css({
         'height': imagenProducto.css("height"),
         'width': imagenProducto.css("width"),
-        'top': imagenProducto.offset().top,
-        'left': imagenProducto.offset().left,
+        'top': imgProdOffSet.top,
+        'left': imgProdOffSet.left,
     }).animate({
-        'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
+        'top': carritoffSet.top - 60,
+        'left': carritoffSet.left + 100,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
         'opacity': 0.5
     }, 450, 'swing', function () {
         $(this).animate({
-            'top': carrito.offset().top,
+            'top': carritoffSet.top,
             'opacity': 0
         }, 150, 'swing', function () {
             $(this).remove();
