@@ -246,13 +246,25 @@
     }
 </div>
 
-@if ((Model.ClaseBloqueada ?? "") != "")
+@*@if ((Model.ClaseBloqueada ?? "") != "")
 {
     @Html.Action("MensajeBloqueado", "RevistaDigital")
-}
-
-@section scripts{
-    <script type="text/javascript">
+}*@
+<div class="row" id="idMensajeBloqueado">
+    <div class="rd_producto_bloqueado" style="margin: 0 14px;">
+        <div class="rd_producto_bloqueado_tit">
+            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />
+            A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.
+        </div>
+        <a href="javascript: RDPageInformativa();">
+            CONOCE TODO SOBRE CLUB GANA+
+            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" height="12" />
+        </a>
+    </div>
+</div>
+   
+    @section scripts{
+        <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
@@ -260,8 +272,8 @@
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
-    </script>
-    
-    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
+        </script>
 
-}
+        @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
+
+    }

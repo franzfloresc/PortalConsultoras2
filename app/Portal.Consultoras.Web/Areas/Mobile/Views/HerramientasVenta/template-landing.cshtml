@@ -71,7 +71,7 @@
         <div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile ">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@ViewBag.OrigenPedidoWeb"
                      data-content-item="@Model.CampaniaID"
                      class="ofertaProductoslanding flex-container"
                      style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
@@ -112,16 +112,17 @@
 <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
+        var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = "Mobile"})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var origenPedidoWebEstrategia = '@ViewBag.OrigenPedidoWeb';
         var tipoOrigenEstrategia = 27;
         var CantidadFilas = @Model.CantidadFilas;
         var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
+        var lsListaRD = "ListaHV";
         var campaniaId = @Model.CampaniaID;
         var TieneHV = @(ViewBag.TieneHV.ToString().ToLower());
 </script>

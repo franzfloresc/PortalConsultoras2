@@ -567,6 +567,8 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
             public const int RevistaDigitalMobileLandingPopUp = 2712;
+            public const int HerramientasVentaMobileLandingComprar = 2713;
+            public const int HerramientasVentaMobileLandingRevisar = 2714;
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
