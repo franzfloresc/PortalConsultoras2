@@ -202,13 +202,11 @@ namespace Portal.Consultoras.BizLogic
         {
             var line = string.Empty;
 
-            if (row.Table.Columns.Contains("REGISTROS"))
-            {
+            if (!row.Table.Columns.Contains("REGISTROS"))
+                return line;
+            
                 if (row["REGISTROS"] != DBNull.Value)
-                {
                     line = row["REGISTROS"].ToString();
-                }
-            }
 
             return line;
         }

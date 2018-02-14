@@ -402,27 +402,21 @@
             }
             catch (Exception ex)
             {
-                if (paisConSolicitudCredito)
-                {
-                    if (numeroLote > 0)
+                if (paisConSolicitudCredito && numeroLote > 0)
                     {
                         string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
                         string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                         daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
                         MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
-                }
 
-                if (paisConFlexipago)
-                {
-                    if (numeroLoteConsuFlex > 0)
+                if (paisConFlexipago && numeroLoteConsuFlex > 0)
                     {
                         string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
                         string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                         daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
                         MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
-                }
                 throw;
             }
 

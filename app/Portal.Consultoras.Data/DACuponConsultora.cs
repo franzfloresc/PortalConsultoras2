@@ -15,19 +15,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetCuponConsultoraByCodigoConsultoraCampaniaId(BECuponConsultora cuponConsultora)
         {
-            try
-            {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId"))
                 {
                     Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, cuponConsultora.CodigoConsultora);
                     Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, cuponConsultora.CampaniaId);
                     return Context.ExecuteReader(command);
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            
         }
 
         public void UpdateCuponConsultoraEstadoCupon(BECuponConsultora cuponConsultora)
@@ -77,8 +71,6 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ListarCuponConsultorasPorCupon(int paisId, int cuponId)
         {
-            try
-            {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponConsultorasPorCuponId"))
                 {
                     Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
@@ -87,13 +79,9 @@ namespace Portal.Consultoras.Data
                     return Context.ExecuteReader(command);
                 }
             }
-            catch (Exception ex) { throw ex; }
-        }
 
         public int InsertarCuponConsultorasXML(int cuponId, int campaniaId, string xml)
         {
-            try
-            {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarCuponConsultoraCargaMasiva"))
                 {
                     Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
@@ -103,7 +91,5 @@ namespace Portal.Consultoras.Data
                     return Context.ExecuteNonQuery(command);
                 }
             }
-            catch (Exception ex) { throw ex; }
-        }
     }
 }

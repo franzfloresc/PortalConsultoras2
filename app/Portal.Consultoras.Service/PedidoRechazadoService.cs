@@ -1,8 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.BizLogic.Pedido;
-
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service

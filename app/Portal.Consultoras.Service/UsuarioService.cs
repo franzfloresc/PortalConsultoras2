@@ -3,7 +3,6 @@ using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;

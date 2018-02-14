@@ -85,7 +85,7 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
-            List<BECatalogoRevista> listCatalogoRevista = _catalogosRevistas;
+            List<BECatalogoRevista> listCatalogoRevista;
 
             try
             {

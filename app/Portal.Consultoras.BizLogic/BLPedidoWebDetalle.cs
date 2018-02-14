@@ -305,31 +305,6 @@ namespace Portal.Consultoras.BizLogic
                     pedidoWebDetalle.Add(entidad);
                 }
 
-            #region Eliminar si es de OPT o OPM            
-
-            //var listaCuvDuplicado = pedidoWebDetalle.GroupBy(p => new { p.CUV , p.ClienteID } ).Select(i => new { CUV = i.Key.CUV, ClienteId = i.Key.ClienteID, Cantidad = i.Count() });
-            //listaCuvDuplicado = listaCuvDuplicado.Where(p => p.Cantidad > 1).ToList();
-
-            //foreach (var item in listaCuvDuplicado)
-            //{
-            //    BEPedidoWebDetalle pedidoDuplicado;
-            //    if (bePedidoWebDetalleParametros.EsBpt)
-            //    {
-            //        pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-            //    }
-            //    else
-            //    {
-            //        pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
-            //    }
-
-            //    if (pedidoDuplicado != null)
-            //    {
-            //        pedidoWebDetalle.Remove(pedidoDuplicado);
-            //    }
-            //}
-
-            #endregion
-
             #region ConsultoraOnline
 
             var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);

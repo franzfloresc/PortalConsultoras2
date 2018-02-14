@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Service
 {
     public class ZonificacionService : IZonificacionService
     {
-        private BLZonificacion BLZonificacion;
+        private readonly BLZonificacion BLZonificacion;
 
         public ZonificacionService()
         {

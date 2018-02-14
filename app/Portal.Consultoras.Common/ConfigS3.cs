@@ -91,8 +91,9 @@ namespace Portal.Consultoras.Common
         {
             try
             {
-                if (fileName != "")
-                {
+                if (fileName == "")
+                    return true;
+
                     if (File.Exists(path))
                     {
                         var inputStream = new FileStream(path, FileMode.Open);
@@ -111,7 +112,7 @@ namespace Portal.Consultoras.Common
                         }
                         if (EliminarArchivo) File.Delete(path);
                     }
-                }
+                
                 return true;
             }
             catch

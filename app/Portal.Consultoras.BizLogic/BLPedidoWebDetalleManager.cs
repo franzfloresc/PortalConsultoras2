@@ -331,9 +331,7 @@ namespace Portal.Consultoras.BizLogic
                 if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));
 
                 var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, codigosConcursos);
-                if (lista != null)
-                {
-                    if (lista.Count > 0)
+                if (lista != null && lista.Count > 0)
                     {
                         var datos = lista[0];
 
@@ -347,7 +345,7 @@ namespace Portal.Consultoras.BizLogic
                             puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
                             puntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
                         }
-                    }
+                    
                 }
 
                 var bePedidoWeb = new BEPedidoWeb

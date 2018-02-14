@@ -237,7 +237,6 @@ namespace Portal.Consultoras.Common
         /// <param name="isHTML">Flag que indica si es HTML o no</param>
         /// <param name="Tags">Tag del elemento</param>
         /// <returns></returns>
-        /// 
         public static bool EnviarMailMobile(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))

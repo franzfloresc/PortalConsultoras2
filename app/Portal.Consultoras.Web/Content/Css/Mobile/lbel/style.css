@@ -14210,8 +14210,6 @@ span.icon-advertencia {
     }
 }
 
-
-
 .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
     position: absolute;
     margin-left: 29px;
@@ -14252,7 +14250,6 @@ span.icon-advertencia {
     text-align: center;
     margin: auto;
 }
-
 
 @media (max-width: 1024px) {
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {

@@ -526,7 +526,6 @@ namespace Portal.Consultoras.Web.Controllers
                     hidden = true
                 }
             };
-            // colModel.Add(new Model { name = "Archivo", index = "Archivo", width = 150, key = false, sortable = false });
 
             using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
             {
@@ -682,6 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 item.Clase = "oculto";
+
                             }
                         }
                     }
