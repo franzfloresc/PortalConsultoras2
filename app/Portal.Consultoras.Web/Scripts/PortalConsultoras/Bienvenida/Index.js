@@ -1515,6 +1515,7 @@ function CargarMisDatos() {
                 var temp = data.lista;
                 $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
                 $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
+                $('#hdn_CodigoUsuarioReal').val(temp.CodigoUsuarioReal);
                 $('#hdn_CorreoMD').val(temp.EMail);
                 $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
@@ -1665,7 +1666,7 @@ function ActualizarMD() {
     waitingDialog({});
 
     var item = {
-        CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+        CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
         EMail: $.trim(jQuery('#txtEMailMD').val()),
         Telefono: jQuery('#txtTelefonoMD').val(),
         TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
