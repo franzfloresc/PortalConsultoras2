@@ -3870,7 +3870,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region RD
-        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        public virtual MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
 
