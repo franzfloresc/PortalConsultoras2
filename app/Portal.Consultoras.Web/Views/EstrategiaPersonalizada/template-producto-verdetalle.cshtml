@@ -32,15 +32,17 @@
                         <img id="fav_imagen_prod" src="{{FotoProducto01}}">
                     </div>
                 </div>
+                {{#iff TipoEstrategiaID '!=' '3027'}}
                 <div class="compartir_redes_ficha compartir_redes_ficha_fix">
                     <div class="texto_compartelo texto_compartelo_fix">
                         Compártelo con tus clientes
                     </div>
                     <a class="btn_compartir_facebook_ficha btn_compartir_facebook_ficha_fix" href="javascript: void(0);" data-compartir="FB">
-                        <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
+                        <img src="@Url.Content(" ~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
                     <hr class="clear">
                 </div>
+                {{/iff}}
             </div>
             <div class="content_right_ficha content_right_ficha_fix">
                 <div class="etiqueta_descripcion_fix">
@@ -52,6 +54,7 @@
                              {{#iff CodigoVariante '==' ''}} style="font-size:22px; line-height:30px;" {{/iff}}>
                             {{DescripcionCompleta}}
                         </div>
+                {{/iff}}
                     </div>
                     <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
                         <div class="precio_ficha_producto">
