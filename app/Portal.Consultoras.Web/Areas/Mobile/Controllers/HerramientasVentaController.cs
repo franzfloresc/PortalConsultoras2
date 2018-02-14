@@ -368,7 +368,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     listaPerdio = new List<EstrategiaPersonalizadaModel>(),
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID
+                    campaniaId = model.CampaniaID,
+                    codigo = Constantes.ConfiguracionPais.HerramientasVenta
                 });
             }
             catch (Exception ex)
