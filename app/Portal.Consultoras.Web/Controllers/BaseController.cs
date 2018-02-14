@@ -3799,8 +3799,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/HerramientaVenta/Revisar";
-                        config.UrlMenuMobile = "/Mobile/HerramientaVenta/Revisar";
+                        config.UrlMenu = "/HerramientasVenta/Revisar";
+                        config.UrlMenuMobile = "/Mobile/HerramientasVenta/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                         menuContenedorBloqueado.Add(config);
                         break;
