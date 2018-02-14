@@ -2062,7 +2062,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (codigoEstrategia)
             {
                 case Constantes.ConfiguracionPais.OfertaDelDia:
-                    configuracionModel = ObtenerConfiguracionSeccion().FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
+                    configuracionModel = ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
                     break;
                 default:
                     return null;
@@ -3051,7 +3051,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
-                    Orden = isBpt ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                    Orden = revistaDigital.TieneRevistaDigital() ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
                     UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
                     ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),

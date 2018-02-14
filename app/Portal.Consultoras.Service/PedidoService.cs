@@ -16,6 +16,7 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
