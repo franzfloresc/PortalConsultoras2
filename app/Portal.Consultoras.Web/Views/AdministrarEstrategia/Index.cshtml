@@ -747,11 +747,11 @@
     var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
     var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
     var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
-    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalle";
-    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll';
-    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
-    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
-    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
+    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalleNew";
+    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAllNew';
+    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleNew';
+    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalleNew';
+    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalleNew';
     var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
     var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
     var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
@@ -1265,7 +1265,6 @@
             $("#hdTipoConsulta").val("1");
             $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
 
-            //kaka
             $("#list").html("");
             $("#divShowRoomEvento").hide();
             $("#divShowRoomEventoNuevo").hide();
