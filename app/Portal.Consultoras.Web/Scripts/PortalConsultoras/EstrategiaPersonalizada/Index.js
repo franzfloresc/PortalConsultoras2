@@ -152,12 +152,11 @@ function SeccionCargarProductos(objConsulta) {
 }
 
 function SeccionMostrarProductos(data) {
-
     if (isMobile()) {
         if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
             if (data.cantidadTotal == 0) {
                 $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeOut();
                 $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
                 UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
                 return false;
