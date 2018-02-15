@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
         {
             using (IDataReader reader = new DACuponConsultora(paisID).GetCuponConsultoraByCodigoConsultoraCampaniaId(cuponConsultora))
             {
-                return reader.MapToObject<BECuponConsultora>();
+                return reader.MapToObject<BECuponConsultora>(true);
             }
         }
 
