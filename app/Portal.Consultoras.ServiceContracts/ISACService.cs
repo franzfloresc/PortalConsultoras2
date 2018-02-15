@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -685,6 +686,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        #endregion
+
+        #region UpSelling
+
+        IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
+
+        UpSelling UpSellingInsertarActualizar(int paisId, UpSelling upSelling);
+
+        void UpSellingEliminar(int paisId, int upSellingId);
+
         #endregion
     }
 }

@@ -7,6 +7,10 @@ using System.Reflection;
 
 namespace Portal.Consultoras.Common
 {
+    /// <summary>
+    /// Utils for map
+    /// more info: https://www.red-gate.com/simple-talk/dotnet/.net-framework/a-defense-of-reflection-in-.net/
+    /// </summary>
     public static class MapUtil
     {
         /// <summary>
