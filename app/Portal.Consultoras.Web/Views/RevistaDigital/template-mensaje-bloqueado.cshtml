@@ -1,6 +1,9 @@
 ﻿
 @model Portal.Consultoras.Web.Models.MensajeProductoBloqueadoModel
-<div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: none;">
+@{ 
+    var divid = @Model.divId ?? "divMensajeBloqueada";
+}
+<div class="Content_general_pop_up" id="@divid" style="display: none;">
     <div class="popup_rd_bloqueado">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">

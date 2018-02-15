@@ -9,6 +9,7 @@ namespace Portal.Consultoras.Web.Models
         {
             MensajeTieneDudas = true;
         }
+        public string divId { get; set; }
         public bool MensajeIconoSuperior { get; set; }
         public bool BtnInscribirse { get; set; }
         public string MensajeTitulo { get; set; }

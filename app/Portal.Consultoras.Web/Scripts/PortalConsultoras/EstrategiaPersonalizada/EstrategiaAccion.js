@@ -562,6 +562,12 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
     }
 
     var divMensaje = $("#divMensajeBloqueada");
+
+    if (estrategia.CodigoEstrategia == '011' && isPagina('ofertas') && !isMobile())  {
+        divMensaje = $("#divHVMensajeBloqueada");
+        divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
+    }
+
     if (divMensaje.length > 0) {
         var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
         if (itemClone.length > 0) {

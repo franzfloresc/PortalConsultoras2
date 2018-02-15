@@ -52,32 +52,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-landing", model);
         }
 
-        public virtual ActionResult ViewLanding()
-        {
-
-            ViewBag.NombreConsultora = userData.Sobrenombre;
-            //
-            ViewBag.CampaniaActual = userData.CampaniaID.ToString();
-            ViewBag.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
-            ViewBag.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
-            //
-            ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(ViewBag.CampaniaActual);
-            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(ViewBag.CampaniaAnterior);
-            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(ViewBag.CampaniaSiguiente);
-
-            var model = new HerramientasVentaLandingModel
-            {
-                CampaniaID = userData.CampaniaID,
-                IsMobile = IsMobile(),
-                FiltersBySorting = GetFiltersBySorting(),
-                FiltersByBrand = GetFiltersByBrand(),
-                Success = true,
-                CantidadFilas = 10
-            };
-
-            return PartialView("Index", model);
-        }
-
         public List<BETablaLogicaDatos> GetFiltersBySorting()
         {
             var filtersBySorting = new List<BETablaLogicaDatos>
@@ -123,15 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public override MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
-            var model = new MensajeProductoBloqueadoModel();
-
-            model.IsMobile = IsMobile();
-            model.MensajeIconoSuperior = true;
-            model.MensajeTitulo = "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    ";
-            model.BtnInscribirse = false;
-            model.MensajeTieneDudas = false;
-
-            return model;
+            return HVMensajeProductoBloqueado();
         }
     }
 }

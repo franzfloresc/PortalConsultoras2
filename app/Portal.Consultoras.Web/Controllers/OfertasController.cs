@@ -42,7 +42,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
+
                 };
 
                 return View("Index", modelo);
