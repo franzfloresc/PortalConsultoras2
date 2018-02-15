@@ -218,7 +218,11 @@
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
+                @if (btnDesabled == 1)
+                {
+                    btnDesabledClass = "btn_desactivado_general";
+                }
+                <a id="btnAgregalo" class="boton_Agregalo_home btn_aregar_set @btnDesabledClass" data-btn-agregar-sr="">AGRÉGALO</a>
             </div>
             @if (Model.TieneCompraXcompra)
             {
