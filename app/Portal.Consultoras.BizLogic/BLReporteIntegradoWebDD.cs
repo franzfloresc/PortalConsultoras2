@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.IO;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -63,6 +64,7 @@ namespace Portal.Consultoras.BizLogic
 
             return obeInformacion;
         }
+
         private TemplateField[] ParseTemplate(string templateText)
         {
             string[] parts = templateText.Split(';');
@@ -73,6 +75,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return template;
         }
+
         private string FormatFile(string fileName, DateTime date)
         {
             return ConfigurationManager.AppSettings["OrderDownloadPath"]
@@ -80,16 +83,16 @@ namespace Portal.Consultoras.BizLogic
                 + date.ToString("ddMMyyhhmmss") 
                 + Path.GetExtension(fileName);
         }
+
         private string FormatLine(DataRow row)
         {
-            string line = string.Empty;
-
+            var txtBuil = new StringBuilder();
             foreach (var item in row.ItemArray)
             {
-                line += Convert.ToString(item) + ";";
+                txtBuil.Append(Convert.ToString(item) + ";");
             }
-
-            return line.Substring(0, line.Length - 1);
+            string line = txtBuil.ToString();
+            return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
     }
 }

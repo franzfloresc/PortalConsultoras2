@@ -41,7 +41,6 @@
         $('body').css({ 'overflow-y': 'scroll' });
         $('#PopCompra').hide();
     });
-    //TagManagerOfertaShowRoom(); 
 
     $("#btnCerrarPedido").click(function () {
         $("#divMensajeProductoAgregado").modal("hide");
@@ -80,7 +79,6 @@
         $('#div-delete-filters').hide();
         $('#orderby-filter').show();
         $('#divProductosShowRoom').show();
-        //$('body').css({ 'overflow-x': 'auto' });
         $('body').css({ 'overflow-y': 'auto' });
 
         ObtenerProductosShowRoom();
@@ -187,7 +185,6 @@ function filterShowRoomMobile() {
     };
 
     return busquedaModel;
-    //CargarProductosShowRoom(busquedaModel);
 }
 
 function CargarFiltroRangoPrecio() {
@@ -199,7 +196,6 @@ function CargarFiltroRangoPrecio() {
 
     var mPremin = parseFloat(precioMin);
     var mPremax = parseFloat(precioMax);
-    //$('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
 
     var rr = [];
     rr.push(mPremin);
@@ -339,8 +335,6 @@ function showCustomFilters() {
     $('#orderby-filter').hide();
     $('#divProductosShowRoom').hide();
     $('#custom-filters').show();
-
-    //UnlinkCargarCatalogoToScroll();
 }
 
 function deleteFilters() {
@@ -358,7 +352,6 @@ function deleteFilters() {
     });
 
     $('#divProductosShowRoom').show();
-    //$('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow-y': 'auto' });
     var busquedaModel = null;
     var ordenamiento = null;
@@ -384,12 +377,10 @@ function showOrderbyFilter() {
     $('#div-delete-filters').hide();
     $('#orderby-filter').show();
     $('#divProductosShowRoom').show();
-    //$('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow-y': 'auto' });
 }
 
 function OcultarSliderMobile() {
-    //processFilterCatalogoPersonalizado();
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();

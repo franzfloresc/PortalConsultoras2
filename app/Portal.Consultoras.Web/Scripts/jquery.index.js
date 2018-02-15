@@ -14,18 +14,14 @@ $(document).ready(function() {
         desfase = ($(window).width() - 1280) / 2;
         if ($(window).width() > 1280) {
             if (submenuLeft + submenu.width() < 1280) {
-                //submenu.css({ 'left': (submenuLeft > desfase) ? submenuLeft : 0 });
                 submenu.css({ 'left': 0 });
-                //console.log('left', submenuLeft + submenu.width(), submenuLeft, submenu.width(), desfase);
             }
             else {
                 submenu.css({ 'right': desfase });//, 'left': 'auto' });
-                //console.log('right');
             }
         }
         else {
             submenu.css({ 'left': 0 });
-            //console.log('left minor 1280');
         }
         $("#white_bg_for_menu").css('width', desfase);
 

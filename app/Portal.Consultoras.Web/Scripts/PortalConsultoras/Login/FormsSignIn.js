@@ -42,8 +42,6 @@ $(document).ready(function () {
     $('#ddlPais2').val(isoPais);
     ayudaLogin2();
     
-    //$('#cboPaisCambioClave').val(isoPais);
-
     if (avisoASP == 1) {
         $('#AvisoASP').hide();
     }
@@ -66,7 +64,6 @@ $(document).ready(function () {
     }
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
-        //$('#cargarBandera2').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
     }    
 
     _gaq.push(['_trackPageview', '/Somosbelcorp/Login']);
@@ -104,7 +101,6 @@ $(document).ready(function () {
         }
 
         ayudaLogin2();
-        //AsignarHojaEstilos();
     });
 
     $("#box-pop-up").hide();
@@ -204,7 +200,6 @@ $(document).ready(function () {
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
-                //ValidarAutenticacion();
                 $('#txtContrasenia').focus();
             }
             else {
@@ -218,7 +213,6 @@ $(document).ready(function () {
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
-                //ValidarAutenticacion();
                 $('#txtContrasenia2').focus();
                 return false;
             }
@@ -233,7 +227,6 @@ $(document).ready(function () {
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
-                //ValidarAutenticacion();
                 $('#btnLogin').focus();
             }
         });
@@ -242,7 +235,6 @@ $(document).ready(function () {
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
-                //ValidarAutenticacion();
                 $('#btnLogin2').focus();
                 login2();
                 return false;
@@ -708,7 +700,6 @@ function login2() {
     }
 
     if (!valid) {
-        //e.preventDefault();
         return false;
     }
 
@@ -717,16 +708,10 @@ function login2() {
     $('#txtContrasenia').val(Contrasenia);
 
     $('#HdePaisID').val(PaisID);
-    //preventClick(2, true);
-
-    //$('.content_pop_login').hide();
-    //$('#btnLoginFB').prop('disabled', true);
 
     waitingDialog();
 
-    //$('#frmLogin').submit();
     var form = $('#frmLogin');
-    //var token = $('input[name="__RequestVerificationToken"]', form).val();
     var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
 
     $.ajax({
@@ -736,7 +721,6 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            //console.log(response);
 
             if (response.success) {
                 if (response.redirectTo !== "") {
@@ -745,7 +729,6 @@ function login2() {
                 }
             }
             else {
-                //console.log(response);
                 closeWaitingDialog();
                 var errorMessage = "Mensaje: " + response.message;
                 $('#ErrorTextLabel2').html(errorMessage);
@@ -759,11 +742,9 @@ function login2() {
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
-                //preventClick(2, false);
             }
         },
         error: function (response) {
-            //console.log(response);
             closeWaitingDialog();
 
             if (typeof usuarioValidado !== 'undefined') {
@@ -774,7 +755,6 @@ function login2() {
 
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
-            //preventClick(2, false);
 
         }
     });
@@ -783,7 +763,6 @@ function login2() {
 function closePopupAsociarLoginExt() {
     preventClick(1, false);
 
-    //$('.content_pop_login').hide();
     $('#popupAsociarUsuarioExt').hide();
 }
 
@@ -803,7 +782,7 @@ function preventClick(opt, value) {
 }
 
 function resizeNameUserExt() {
-    var w = $(window).width();  //1366,1093
+    var w = $(window).width();
     var ml = 8;
     if (w <= 1093) ml = 16;
     var fname = $('#hdeNameUserExt').val();
@@ -830,17 +809,11 @@ function saveLog(ISO, usuario, mensaje) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
         async: true,
-        success: function (response) {
-            if (response.success) {
-
-            }
-        },
-        error: function (response) {
-            console.log(response);
-        }
+        success: function (response) { },
+        error: function (response) { }
     });
 }
-/*HD-817*/
+
 function Fondofestivo(id) {
     if ($("body").hasClass("fondo_festivo")) {
         var ruta = $("#" + id).val();

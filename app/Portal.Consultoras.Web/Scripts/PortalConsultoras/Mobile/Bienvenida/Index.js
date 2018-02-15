@@ -107,13 +107,6 @@ $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
 function CrearPopShow() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $("#btnCerrarPopShowroom").click(function () {
         $("#PopShowroom").modal("hide");
@@ -310,10 +303,7 @@ function UpdateUsuarioTutorialMobile() {
                 viewBagVioTutorial = data.result;
             }
         },
-        error: function (data) {
-            if (checkTimeout(data)) {
-            }
-        }
+        error: function (data) { }
     });
 };
 
@@ -354,7 +344,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    //messageInfo(data.message);
                     AbrirPopupPedidoReservado(data.message, '2');
                 }
                 else fnRedireccionar();
@@ -366,7 +355,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                console.log(error);
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
@@ -530,7 +518,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
-        //CERRAR
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'App Consultora',
@@ -540,8 +527,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $(window).resize(function (e) {
-        //var w_width = $(window).width() - 50;
-        //var w_height = $(window).height() - 150;
         var w_width = 326;
         var w_height = 418;
 
@@ -561,7 +546,6 @@ function ObtenerComunicadosPopup() {
 
         window.open($(this).attr("urlAccion"));
 
-        //CLICK
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
