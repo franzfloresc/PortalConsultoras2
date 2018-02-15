@@ -329,7 +329,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (herramientasVenta==null || EsCampaniaFalsa(model.CampaniaID))
+                if (herramientasVenta==null || herramientasVenta.TieneHV==false || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
