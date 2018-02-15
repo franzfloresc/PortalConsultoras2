@@ -160,47 +160,53 @@
                                                     <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                                 </div>
-                                                @if (@Hermano.DescripcionMarca != "")
-                                                {
-                                                    <span class="brand">@Hermano.DescripcionMarca</span>
-                                                }
-                                                <div class="content_imagen_individual">
-                                                    <img src="@Hermano.Imagen" style="width: 100%;" alt="@Hermano.NombreComercial">
+                                                <div class="nombre_marca_set">
+                                                    @if (@Hermano.DescripcionMarca != "")
+                                                    {
+                                                        <span class="brand">@Hermano.DescripcionMarca</span>
+                                                    }
                                                 </div>
-                                                <div class="content_descripcion_set">
+                                                <div class="content_detalle_showroom">
+                                                    <div class="content_imagen_individual">
+                                                        <img src="@Hermano.Imagen" style="width: 100%;" alt="@Hermano.NombreComercial">
+                                                    </div>
                                                     @if (@Hermano.Cantidad > 0)
                                                     {
                                                         <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
                                                     }
-                                                    <span class="product_name" data-tono-cuv-producto="@Hermano.CUV" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                                                    <span class="price">@Hermano.Descripcion</span>@*DescripcionComercial*@
-                                                </div>
-                                                <hr class="clear">
-                                                @if (Hermano.Digitable == 1)
-                                                {
-                                                    <div class="content_right_ficha" style="width:50%;">
-                                                        <div class="tono_select_opt">
-                                                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                                                <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                                                <hr class="clear" />
-                                                            </div>
-                                                            <div class="content_tonos_select" style="width:102%;">
-                                                                @foreach (var Tono in Hermano.Hermanos)
-                                                                {
-                                                                    btnDesabled = 1;
-                                                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                                                        <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
-                                                                        <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
-                                                                        <hr class="clear" />
-                                                                    </div>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                        <hr class="clear">
+                                                    <div class="nombre_set_individual">
+                                                        <span data-tono-cuv-producto="@Hermano.CUV" data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                                        <span class="detalle_set_showroom">@Hermano.Descripcion</span>@*DescripcionComercial*@
+                                                        <span class="detalle_set_showroom"></span>
                                                     </div>
-                                                }
-                                                <hr class="clear" />
+                                                    @if (Hermano.Digitable == 1)
+                                                    {
+                                                        <div class="tonos_set_individual">
+                                                            <div class="tono_select_opt">
+                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                                    <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                                    <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                                    <hr class="clear" />
+                                                                </div>
+                                                                <div class="content_tonos_select" style="width:102%;">
+                                                                    @foreach (var Tono in Hermano.Hermanos)
+                                                                    {
+                                                                        btnDesabled = 1;
+                                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                                            <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                                            <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                                                            <hr class="clear" />
+                                                                        </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <hr class="clear">
+                                                        </div>
+                                                    }
+                                                    <hr class="clear" />
+                                                </div>
+                                                <div class="precio_regular_set"></div>
+                                                <hr class="clear">
                                             </div>
                                         </div>
                                     }
