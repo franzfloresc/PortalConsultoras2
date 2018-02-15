@@ -463,8 +463,18 @@ namespace Portal.Consultoras.Web.Controllers
                         if (userData.TieneCupon == 1)
                         {
                             var cupon = ObtenerCuponDesdeServicio();
-                            if (cupon != null && cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
-                                tipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
+                            if (cupon != null)
+                            {
+                                if (userData.CodigoISO == "PE")
+                                {
+                                    tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                                }
+                                else
+                                {
+                                    if (cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
+                                        tipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
+                                }
+                            }
                         }
                         break;
 

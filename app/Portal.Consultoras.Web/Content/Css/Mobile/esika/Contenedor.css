@@ -170,18 +170,6 @@ section {
     color: #b52e36;
 }
 
-.bc_plantilla-banner {
-    width: 100%;
-    display: inline-block;
-    background-position: center center !important;
-    background-size: cover !important;
-    height: 190px;
-}
-
-    .bc_plantilla-banner img {
-        width: 100%;
-    }
-
 .bc_plantilla-producto-promocion {
     height: auto;
     background-repeat: no-repeat !important;
