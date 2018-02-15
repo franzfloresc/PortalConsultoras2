@@ -155,24 +155,24 @@ GO
 /*** INSERT HORARIO CHAT EMTELCO ***/
 DECLARE @HorarioId int = 0
 insert into Horario(Codigo,Resumen,PrimerDiaSemana,HoraISO,HoraIncluyente)
-values('ChatEmtelco','Lunes a Viernes: 08:00 a 20:00 y Sábados: 08:00 a 18:00',1,0,1)
+values('ChatEmtelco','Lunes a Viernes: 08:00 a 21:00 y Sábados: 08:00 a 17:00',1,0,1)
 SET @HorarioId = SCOPE_IDENTITY()
 /*** INSERT HORARIO DETALLE CHAT EMTELCO ***/
 insert into HorarioDetalle(HorarioId,DiaSemanaInicio,DiaSemanaFin,HoraInicio,HoraFin)
 values 
-	(@HorarioId,1,5,'08:00','20:00'),
-	(@HorarioId,6,6,'08:00','18:00')
+	(@HorarioId,1,5,'08:00','21:00'),
+	(@HorarioId,6,6,'08:00','17:00')
 GO
 
 /*** INSERT HORARIO BELCORP RESPONDE ***/
 DECLARE @HorarioId int = 0
 INSERT INTO Horario (Codigo, Resumen, PrimerDiaSemana, HoraISO, HoraIncluyente)
-VALUES ('BelcorpResponde', 'Lunes a Viernes: 08:00 a 20:00 y Sábados: 08:00 a 18:00', 1, 0, 1)
+VALUES ('BelcorpResponde', 'Lunes a Viernes: 08:00 a 21:00 y Sábados: 08:00 a 17:00', 1, 0, 1)
 SET @HorarioId = SCOPE_IDENTITY()
 /*** INSERT HORARIO DETALLE BELCORP RESPONDE ***/
 INSERT INTO HorarioDetalle (HorarioId, DiaSemanaInicio, DiaSemanaFin, HoraInicio, HoraFin)
-VALUES (@HorarioId, 1, 5, '08:00:00.0000000', '20:00:00.0000000'),
-	   (@HorarioId, 6, 6, '08:00:00.0000000', '18:00:00.0000000')
+VALUES (@HorarioId, 1, 5, '08:00:00.0000000', '21:00:00.0000000'),
+	   (@HorarioId, 6, 6, '08:00:00.0000000', '17:00:00.0000000')
 GO
 
 USE BelcorpVenezuela
@@ -686,23 +686,23 @@ GO
 /*** INSERT HORARIO CHAT EMTELCO ***/
 DECLARE @HorarioId int = 0
 insert into Horario(Codigo,Resumen,PrimerDiaSemana,HoraISO,HoraIncluyente)
-values('ChatEmtelco','Lunes a Viernes: 08:00 a 20:00 y Sábados: 08:00 a 18:00',1,0,1)
+values('ChatEmtelco','Lunes a Viernes: 08:00 a 21:00 y Sábados: 08:00 a 18:00',1,0,1)
 SET @HorarioId = SCOPE_IDENTITY()
 /*** INSERT HORARIO DETALLE CHAT EMTELCO ***/
 insert into HorarioDetalle(HorarioId,DiaSemanaInicio,DiaSemanaFin,HoraInicio,HoraFin)
 values 
-	(@HorarioId,1,5,'08:00','20:00'),
+	(@HorarioId,1,5,'08:00','21:00'),
 	(@HorarioId,6,6,'08:00','18:00')
 GO
 
 /*** INSERT HORARIO BELCORP RESPONDE ***/
 DECLARE @HorarioId int = 0
 INSERT INTO Horario (Codigo, Resumen, PrimerDiaSemana, HoraISO, HoraIncluyente)
-VALUES ('BelcorpResponde', 'Lunes a Viernes: 08:00 a 20:00 y Sábados: 08:00 a 18:00', 1, 0, 1)
+VALUES ('BelcorpResponde', 'Lunes a Viernes: 08:00 a 21:00 y Sábados: 08:00 a 18:00', 1, 0, 1)
 SET @HorarioId = SCOPE_IDENTITY()
 /*** INSERT HORARIO DETALLE BELCORP RESPONDE ***/
 INSERT INTO HorarioDetalle (HorarioId, DiaSemanaInicio, DiaSemanaFin, HoraInicio, HoraFin)
-VALUES (@HorarioId, 1, 5, '08:00:00.0000000', '20:00:00.0000000'),
+VALUES (@HorarioId, 1, 5, '08:00:00.0000000', '21:00:00.0000000'),
 	   (@HorarioId, 6, 6, '08:00:00.0000000', '18:00:00.0000000')
 GO
 
