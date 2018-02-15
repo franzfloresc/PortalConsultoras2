@@ -324,11 +324,11 @@ $(document).ready(function () {
         RecuperarClave("1");
         
         if (nroIntentosCo >= 2) {
-            alert("Ya utilizó sus 2 intentos de envío de correo. Intente con otra opción.");
+            setTimeout(function () { alert("Ya utilizó sus 2 intentos de envío de correo. Intente con otra opción."); }, 1000);
         }
 
         if (nroIntentosSms >= 2) {
-            alert("Ya utilizó sus 2 intentos de envío de SMS. Intente con otra opción.");
+            setTimeout(function () { alert("Ya utilizó sus 2 intentos de envío de SMS. Intente con otra opción."); }, 1000);            
         }
     });
 
@@ -1058,6 +1058,7 @@ function ProcesaEnvioSMS() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
+                setTimeout(function () { alert("No se ha podido enviar el SMS.") }, 1000);                
             }
         }
     });
@@ -1390,13 +1391,15 @@ function Regresar() {
     if (nroIntentosCo >= 2) {
         BloqueaOpcionCorreo();
         $("#vermasopciones1").show();
-        alert("Ya utilizó sus 2 intentos de envío de correo. Intente con otra opción.");
+        
+        setTimeout(function () { alert("Ya utilizó sus 2 intentos de envío de correo. Intente con otra opción."); }, 1000);
     }    
 
     if (nroIntentosSms >= 2) {
         BloqueaOpcionSms();
         $("#vermasopciones1").show();
-        alert("Ya utilizó sus 2 intentos de envío de SMS. Intente con otra opción.");
+
+        setTimeout(function () { alert("Ya utilizó sus 2 intentos de envío de SMS. Intente con otra opción."); }, 1000);        
     }
 }
 
