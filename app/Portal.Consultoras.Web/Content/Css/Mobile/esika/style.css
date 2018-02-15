@@ -14376,6 +14376,64 @@ a {
     background: #e81c36 !important;
 }
 
+.contenedor_circulos {
+    display: none;
+    position: absolute;
+    z-index: 500;
+    left: 23px;
+    top: 6px;
+}
+
+.circulo-1, .circulo-2, .circulo-3 {
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    background: #e81c36;
+    z-index: 500;
+}
+
+.circulo-1.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-2.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-3.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
 @media (max-width:400px) {
     .popup_confirmacion_datos {
         padding: 0px 15px !important;
