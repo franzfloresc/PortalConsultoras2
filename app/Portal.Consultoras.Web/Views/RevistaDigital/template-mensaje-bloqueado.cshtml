@@ -19,7 +19,10 @@
                 <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDPageInformativa()">SUSCRÍBETE</a></div>
             </div>
         }
-        <div class="popup_text">¿TIENES DUDAS?</div>
-        <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">CONOCE TODO SOBRE CLUB GANA+</a>
+        @if (Model.MensajeTieneDudas)
+        {
+            <div class="popup_text">¿TIENES DUDAS?</div>
+            <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">CONOCE TODO SOBRE CLUB GANA+</a>
+        }
     </div>
 </div>

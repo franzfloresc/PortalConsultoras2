@@ -101,7 +101,6 @@ namespace Portal.Consultoras.Web.Controllers
             return filtersBySorting;
         }
 
-
         public List<BETablaLogicaDatos> GetFiltersByBrand()
         {
             var filterByBrand = new List<BETablaLogicaDatos>
@@ -120,6 +119,19 @@ namespace Portal.Consultoras.Web.Controllers
                 new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL"}
             };
             return filterByBrand;
+        }
+
+        public override MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        {
+            var model = new MensajeProductoBloqueadoModel();
+
+            model.IsMobile = IsMobile();
+            model.MensajeIconoSuperior = true;
+            model.MensajeTitulo = "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    ";
+            model.BtnInscribirse = false;
+            model.MensajeTieneDudas = false;
+
+            return model;
         }
     }
 }

@@ -454,7 +454,13 @@ function EstrategiaAgregar(event, popup, limite) {
                 $(divAgregado).show();
             }
             if (isMobile()) {
+                
                 ActualizarGanancia(data.DataBarra);
+
+                $(".contenedor_circulos").fadeIn();
+                setTimeout(function () {
+                    $(".contenedor_circulos").fadeOut();
+                }, 2700);
             }
             else {
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
