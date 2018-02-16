@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             await Task.Run(() => LoadConsultorasCache(11));
-            var listaCampanias = DropDowListCampanias(11);
+            //var listaCampanias = DropDowListCampanias(11);
 
             var oCuvAutomaticoModel = new CuvAutomaticoModel()
             {

@@ -1,10 +1,8 @@
 ﻿
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
     if (ControllerName == "ShowRoom") {
-        var pEventoID = $("#hdEventoIDShowRoom").val();
         var pEventoIDVenta = $("#hdEventoIDShowRoomVenta").val();
         if (ActionName == "Index") {
-            var container = $('#PopShowroomVenta');
             var pnombreedescripcion = $("#spnShowRoomEventoVenta").val();
             var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcionVenta").val();
 
@@ -24,7 +22,6 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
 
         }
         if (ActionName == "Intriga") {
-            var container = $('#PopShowroomIntriga');
             var pnombreedescripcion = $("#spnShowRoomEvento").val();
             var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcion").val();
 

@@ -546,7 +546,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
                 closeWaitingDialog();
             }
         });
@@ -609,7 +608,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCuponConsultoras).jqGrid('getGridParam', 'reccount');
                 $(elements.contenedorGrillaCuponConsultoras).show();
                 closeWaitingDialog();
             }

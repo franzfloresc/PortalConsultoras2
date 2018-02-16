@@ -45,7 +45,6 @@ $("#CUV").keyup(function () {
             },
             error: function (data, error) {
                 closeWaitingDialog();
-                alert(data.message);
             }
         });
     }
@@ -206,9 +205,7 @@ $("#btnGuardar").click(function (e) {
         }
     //}
     if (imagenCorrecta) imagenSeleccionada = rutaImagen.substr(rutaImagen.lastIndexOf("/") + 1);
-
-    var Mensaje = "";
-
+    
     var params = {
         EstrategiaID: $("#EstrategiaID").val(),
         TipoEstrategiaID: $("#hdnTipoEstrategiaID").val(),
@@ -228,8 +225,8 @@ $("#btnGuardar").click(function (e) {
         EtiquetaID2: "0",
         Precio2: "0",
         FlagCEP2: (CUV != "") ? "1" : "0",
-        TextoLibre: Mensaje,
-        FlagTextoLibre: (Mensaje != "") ? "1" : "0",
+        TextoLibre: "",
+        FlagTextoLibre: "0",
         Cantidad: "0",
         FlagCantidad: "0",
         Zona: "",
@@ -277,7 +274,6 @@ $("#btnGuardar").click(function (e) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 });

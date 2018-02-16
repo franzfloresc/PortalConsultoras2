@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using EasyCallback;
+﻿using EasyCallback;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
+using System;
+using System.Collections.Generic;
+using System.Web.Script.Serialization;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -31,16 +28,16 @@ namespace Portal.Consultoras.Web.WebPages
 
                         hdfUsuarioId.Value = query[0];
 
-                        int Codigo = 0;
+                        int codigo;
                         using (ComunidadServiceClient sv = new ComunidadServiceClient())
                         {
-                            Codigo = sv.GetValidacionCambioContrasenia(new BEUsuarioComunidad()
+                            codigo = sv.GetValidacionCambioContrasenia(new BEUsuarioComunidad()
                             {
                                 UsuarioId = Convert.ToInt64(query[0]),
                             });
                         }
 
-                        switch (Codigo)
+                        switch (codigo)
                         {
                             case 0:
 

@@ -47,7 +47,6 @@ function EstrategiaObtenerObjHtmlLanding(objInput) {
 function VerDetalleEstrategia(e) {
 
     AbrirLoad();
-
     var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
@@ -159,7 +158,6 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
         console.log(e);
         CerrarLoad();
     }
-    //window.location = url;
 }
 
 function EstrategiaVerDetallePackNueva(estrategia) {
@@ -169,7 +167,6 @@ function EstrategiaVerDetallePackNueva(estrategia) {
 }
 
 function EstrategiaVerDetalleGeneral(estrategia) {
-
     estrategia.Posicion = 1;
     estrategia.CodigoVariante = $.trim(estrategia.CodigoVariante);
 
@@ -185,7 +182,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
         if (estrategia.Detalle.length > 0) {
             $.each(estrategia.Detalle, function (i, item) {
                 item.Hermanos = item.Hermanos || new Array();
-                //item.CUVSelect = i == 0 ? item.CUV : "";
                 item.CUVSelect = "";
                 item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
                 item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";
@@ -197,7 +193,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
                     $.each(item.Hermanos, function (i, itemH) {
                         itemH.CUVSelect = "";
                     });
-                    //item.CUVSelect = item.Hermanos[0].CUV;
                     item.ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
                     item.NombreBulkSelect = item.Hermanos[0].NombreBulk;
 
@@ -211,7 +206,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
                     btnDesabled = 1;
                 }
             });
-            //estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
             estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
             estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
         }
@@ -301,9 +295,6 @@ function EstrategiaGuardarTemporal(obj) {
         error: function (response, error) {
             CerrarLoad();
             localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
         }
     });
 
@@ -322,9 +313,7 @@ function EstrategiaCargarCuv(cuv) {
         success: function (data) {
             detalle = data || new Array();
         },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        error: function (error, x) { }
     });
     CerrarLoad();
     return detalle;
@@ -384,8 +373,6 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var agregoAlCarro = false;
     if (!isMobile()) {
-        //agregarProductoAlCarrito(objInput);
-        //agregoAlCarro = true;
         estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
         $('#OfertaTipoNuevo').val(estrategia.FlagNueva);
     }
@@ -423,20 +410,20 @@ function EstrategiaAgregar(event, popup, limite) {
     }
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
-    var params = ({
-        listaCuvTonos: $.trim(cuvs),
-        cuv: $.trim(estrategia.CUV2),
-        EstrategiaID: $.trim(estrategia.EstrategiaID),
-        FlagNueva: $.trim(estrategia.FlagNueva),
+    var params = {
+        CuvTonos: $.trim(cuvs),
+        CUV: $.trim(estrategia.CUV2),
         Cantidad: $.trim(cantidad),
+        TipoEstrategiaID: estrategia.TipoEstrategiaID,
+        EstrategiaID: $.trim(estrategia.EstrategiaID),
         OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
-        ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
-    });
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+        FlagNueva: $.trim(estrategia.FlagNueva)
+    };
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/AgregarProducto',
+        url: baseUrl + 'Pedido/PedidoAgregarProducto',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(params),
@@ -467,11 +454,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 ActualizarGanancia(data.DataBarra);
             }
             else {
-                /*Inicializar en 1*/
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
                 $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
                 $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
-                /*Fin inicializar en 1*/
 
                 CargarResumenCampaniaHeader(true);
             }
@@ -529,7 +514,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
-                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== "undefined") {
+                        TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                    }
                 }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             } catch (e) { console.log(e); }
@@ -540,8 +527,8 @@ function EstrategiaAgregar(event, popup, limite) {
                 $('#popupDetalleCarousel_packNuevas').hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
-            ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 
@@ -549,7 +536,6 @@ function EstrategiaAgregar(event, popup, limite) {
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
-            console.log(data, error);
             CerrarLoad();
         }
     });

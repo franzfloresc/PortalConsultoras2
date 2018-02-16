@@ -695,10 +695,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MisPedidosModel();
 
-            int pagAeux;
             if (Pagina != null)
+            {
+                int pagAeux;
                 if (int.TryParse(Pagina, out pagAeux))
-                    Pagina = (int.Parse(Pagina) - 1).ToString();
+                    Pagina = (pagAeux - 1).ToString();
+
+            }
 
             if (Pagina == null)
             {
@@ -991,7 +994,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int) TempData["indiceActualPagina"];
             indiceUltimaPagina = (int) TempData["indiceUltimaPagina"];
-            if (Pagina.Equals("<<")) indiceActualPagina = 0;
+            if (Pagina.Equals("<<"))
+                indiceActualPagina = 0;
             else
             {
                 if (Pagina.Equals("<"))
@@ -1011,8 +1015,9 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             int pagAeux;
                             if (int.TryParse(Pagina, out pagAeux))
-                                Pagina = (int.Parse(Pagina) - 1).ToString();
-                            indiceActualPagina = int.Parse(Pagina);
+                            {
+                                indiceActualPagina = pagAeux - 1;
+                            }
                         }
                     }
                 }
@@ -2117,7 +2122,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje.AppendLine("	<tr>");
             mensaje.AppendLine(
                 "		<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-            //mensaje.AppendLine(String.Format("			<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
+            
             mensaje.AppendLine(String.Format(
                 "			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>",
                 contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));

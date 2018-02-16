@@ -19,9 +19,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private const string CodigoISO = "BR";
         private const string paisNombre = "brasil";
-        private const int NroCampanias = 18;
-
-
+        //private const int NroCampanias = 18;
+        
         public ActionResult Index(string ID = "")
         {
 
