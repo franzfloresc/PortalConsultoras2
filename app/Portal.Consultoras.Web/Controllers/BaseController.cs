@@ -4168,6 +4168,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
             ViewBag.NombreC = userData.PrimerNombre;
             ViewBag.ApellidoC = userData.PrimerApellido;
+            ViewBag.CorreoC = userData.EMail;
             ViewBag.Lider = userData.Lider;
             ViewBag.PortalLideres = userData.PortalLideres;
             ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
@@ -4175,6 +4176,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.OfertaFinal = userData.OfertaFinal;
             ViewBag.CatalogoPersonalizado = userData.CatalogoPersonalizado;
             ViewBag.Simbolo = userData.Simbolo;
+            ViewBag.ConsultoraId = userData.ConsultoraID;
+            ViewBag.CodigoUsuario = userData.CodigoUsuario;
 
             string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(userData.CodigoISO) ? "1" : "0";
