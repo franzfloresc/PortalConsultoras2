@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Glosa { get; set; }
         public string MontoStr { get; set; }
         public string FechaUltimoMovimiento { set; get; }
+        public string FechaUltimoMovimientoFormatDiaMes { get; set; }
         public List<EstadoCuentaDetalleMobilModel> ListaEstadoCuentaDetalle { get; set; }
     }
 }

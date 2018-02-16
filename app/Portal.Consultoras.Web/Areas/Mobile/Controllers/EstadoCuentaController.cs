@@ -33,8 +33,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             Glosa = item.Glosa,
                             FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
-                            TipoMovimiento = item.Abono > 0 ? Constantes.EstadoCuentaTipoMovimiento.Abono :
-                                item.Cargo > 0 ? Constantes.EstadoCuentaTipoMovimiento.Cargo : 0,
+                            FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(item.Fecha),
+                            TipoMovimiento = item.Abono > 0
+                                ? Constantes.EstadoCuentaTipoMovimiento.Abono
+                                : item.Cargo > 0
+                                    ? Constantes.EstadoCuentaTipoMovimiento.Cargo
+                                    : 0,
                             MontoStr = Util.DecimalToStringFormat(item.Abono > 0 ? item.Abono : item.Cargo, userData.CodigoISO),
                             Fecha = item.Fecha
                         });
@@ -53,6 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (ultimoMovimiento != null)
                     {
                         model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
+                        model.FechaUltimoMovimientoFormatDiaMes = ultimoMovimiento.FechaVencimientoFormatDiaMes;
                         model.Glosa = ultimoMovimiento.Glosa;
                         model.MontoStr = ultimoMovimiento.MontoStr;
                     }
@@ -221,6 +226,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             return cadena;
+        }
+
+        private string ObtenerFormatoDiaMes(DateTime fecha)
+        {
+            string resultado = "";
+
+            var nombreMes = Util.NombreMes(fecha.Month);
+
+            resultado = fecha.Day + " " + nombreMes;
+
+            return resultado;
         }
 
         #endregion

@@ -32,27 +32,12 @@ else
     <div class="pestana_lbel"></div>
 </div>
 
-@*<div class="block-success" style="margin-top:0;padding-top:15px; background:white">
-        <div class="text-center">
-            MONTO TOTAL A PAGAR <br />
-            <div class="text-lg">
-                @Model.Simbolo @Model.MontoPagarStr
-            </div>
-            <br />
-
-            FECHA DE VENCIMIENTO <br />
-            <div class="text-lg">
-                @Model.FechaVencimiento
-            </div>
-        </div>
-    </div>*@
-
-@*<div class="header-icon upper">
+    @*<div class="header-icon upper">
         <img src="@Url.Content("~/Content/Images/mobile/img-icon/icon-tarjeta.png")" alt="Tarjeta" class="" width="65" height="65" />
         <span class="pcolor">Último pago recibido</span>
-    </div>
+    </div>*@
 
-    <div class="col-xs-12">
+    @*<div class="col-xs-12">
         <div id="ultimoEstadoCuenta" style="display:none;">
             <ul class="lista-movimientos">
                 <li>
@@ -110,12 +95,12 @@ else
             Mi deuda actual es
         </div>
         <div class="monto_deuda_actual">
-            <div class="tipo_moneda_pais">S/</div>
-            <div class="monto_pago_deuda_actual">500.00</div>
+            <div class="tipo_moneda_pais">@Model.Simbolo</div>
+            <div class="monto_pago_deuda_actual">@Model.MontoPagarStr</div>
         </div>
         <div class="fecha_vencimiento_deuda_actual">
             <span>Vencimiento :</span>
-            <span>31/11</span>
+            <span>@Model.FechaVencimiento</span>
         </div>
         <button type="button" class="btn_paga_en_linea_con_credito_visa">
             Paga en línea con visa
@@ -124,7 +109,7 @@ else
 
     <div class="ultimo_pago_recibido">
         <span>Último pago recibido</span>
-        <span>20 de Enero</span>
+        <span>@Model.FechaUltimoMovimientoFormatDiaMes</span>
     </div>
     <p class="info_horarios_efectivos_pagos mb-32">
         Los pagos realizados después de las 10 p.m podrás verlos al día siguiente.
@@ -136,95 +121,40 @@ else
             <div class="barra_titulo_movimientos_estado_cuenta"></div>
         </div>
         <div class="grilla_detalle_movimientos_estado_de_cuenta">
-            <div class="fila_grilla_detalle_movimiento">
-                <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
-                    5 Oct
-                </div>
-                <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    <div class="tipo_movimiento">
-                        Abono
+            @foreach (var item in Model.ListaEstadoCuentaDetalle)
+            {
+                <div class="fila_grilla_detalle_movimiento">
+                    <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
+                        @item.FechaVencimientoFormatDiaMes
                     </div>
-                    <div class="descripcion_tipo_movimiento">
-                        Banco de crédito de ...
-                    </div>
-                </div>
-                <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                    <span class="tipo_moneda_pais">-S/</span>
-                    <span class="monto_movimiento">249.00</span>
-                </div>
-            </div>
-            <div class="fila_grilla_detalle_movimiento">
-                <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
-                    1 Oct
-                </div>
-                <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    <div class="tipo_movimiento">
-                        Percepción
-                    </div>
-                    <div class="descripcion_tipo_movimiento">
-                        Pedido
-                    </div>
-                </div>
-                <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                    <span class="tipo_moneda_pais">S/</span>
-                    <span class="monto_movimiento">2.00</span>
-                </div>
-            </div>
-            <div class="fila_grilla_detalle_movimiento">
-                <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
-                    1 Oct
-                </div>
-                <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    <div class="tipo_movimiento">
-                        Pedido
-                    </div>
-                    <div class="descripcion_tipo_movimiento">
+                    <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
+                    @if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
+                    {
+                        <div class="tipo_movimiento">
+                            Abono
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tipo_movimiento">
+                            Pedido
+                        </div>
+                    }
                         
-                    </div>
-                </div>
-                <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                    <span class="tipo_moneda_pais">S/</span>
-                    <span class="monto_movimiento">247.00</span>
-                </div>
-            </div>
-            <div class="fila_grilla_detalle_movimiento">
-                <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
-                    1 Oct
-                </div>
-                <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    <div class="tipo_movimiento">
-                        Abono
-                    </div>
                     <div class="descripcion_tipo_movimiento">
-                        C201711 AB - Anulac ...
+                        @item.Glosa
+                    </div>
+                    </div>
+                    <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
+                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                        <span class="monto_movimiento">@item.MontoStr</span>
                     </div>
                 </div>
-                <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                    <span class="tipo_moneda_pais">-S/</span>
-                    <span class="monto_movimiento">652.00</span>
-                </div>
-            </div>
-            <div class="fila_grilla_detalle_movimiento">
-                <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
-                    14 Set
-                </div>
-                <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    <div class="tipo_movimiento">
-                        Pedido
-                    </div>
-                    <div class="descripcion_tipo_movimiento">
-                        
-                    </div>
-                </div>
-                <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                    <span class="tipo_moneda_pais">S/</span>
-                    <span class="monto_movimiento">552.00</span>
-                </div>
-            </div>
+            }
         </div>
     </div>
 
-    <a href="" class="enlace_enviar_detalle_a_correo" title="Enviar detalle a mi correo">
+    <a href="javascript:;" class="enlace_enviar_detalle_a_correo" title="Enviar detalle a mi correo" onclick="EnviarCorreoConsultora();">
         <span class="icono_enlace_enviar_detalle_a_correo">
             <img src="@Url.Content("~/Content/Images/icono_enviar_detalle_correo.svg")" alt="Enviar detalle a correo" />
         </span>
