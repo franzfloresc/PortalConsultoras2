@@ -17,7 +17,7 @@ else
     <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/estado-cuenta.css")">
 }
 
-<div class="titulo_mobile">
+<div class="titulo_mobile nombre_vista">
     @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
@@ -102,9 +102,9 @@ else
             <span>Vencimiento :</span>
             <span>@Model.FechaVencimiento</span>
         </div>
-        <button type="button" class="btn_paga_en_linea_con_credito_visa">
+        <a href="" class="btn_paga_en_linea_con_credito_visa">
             Paga en línea con visa
-        </button>
+        </a>
     </div>
 
     <div class="ultimo_pago_recibido">
