@@ -1288,6 +1288,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
+                                
+                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,
+                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList()); 
                                 break;
                         }
                     }
@@ -1779,6 +1782,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return revistaDigitalModel;
+        }
+
+        public virtual HerramientasVentaModel ConfiguracionPaisHerramientasVenta(HerramientasVentaModel herramientasVentaModel, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            herramientasVentaModel.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            return herramientasVentaModel;
         }
 
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)

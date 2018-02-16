@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class HerramientasVentaController : BaseRevistaDigitalController
+    public class HerramientasVentaController : BaseHerramientasVentaController
     {
         public ActionResult Index()
         {
@@ -190,21 +190,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }
-
-        public ActionResult Informacion(string tipo)
-        {
-            try
-            {
-                ViewBag.TipoLayout = tipo;
-                return IndexModel();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return RedirectToAction("Index", "Bienvenida");
-        }
+        
 
         public ActionResult Comprar()
         {
@@ -316,14 +302,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
-
-        public enum Priority
-        {
-            Esika = 2,
-            Lbel = 1,
-            Cyzone = 3
-        }
-
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {

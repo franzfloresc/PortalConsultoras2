@@ -9,6 +9,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public HerramientasVentaModel()
         {
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             TieneHV = false;
         }
 
@@ -16,6 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public int BloquearDiasAntesFacturar { get; set; }
         public bool TieneHV { get; set; }
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
 
         public bool TieneHerramientasVenta()
         {

@@ -3852,6 +3852,7 @@
     <Content Include="emt_chat\scss\_screen-reader.scss" />
     <Content Include="emt_chat\scss\_stacked.scss" />
     <Content Include="emt_chat\scss\_variables.scss" />
+    <Content Include="Areas\Mobile\Views\HerramientasVenta\template-mensaje-bloqueado.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

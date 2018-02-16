@@ -4610,9 +4610,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.divId = "divHVMensajeBloqueada";
             model.IsMobile = IsMobile();
             model.MensajeIconoSuperior = true;
-            model.MensajeTitulo = "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    ";
             model.BtnInscribirse = false;
             model.MensajeTieneDudas = false;
+
+            string codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.HV.MPopupBloqueado : Constantes.ConfiguracionPaisDatos.HV.DPopupBloqueado;
+            var dato = herramientasVenta.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            model.MensajeTitulo = dato == null ? "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    Prueba" : Util.Trim(dato.Valor1);
 
             return model;
         }
