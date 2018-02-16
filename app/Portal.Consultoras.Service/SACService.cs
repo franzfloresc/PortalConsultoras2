@@ -1408,10 +1408,10 @@ namespace Portal.Consultoras.Service
 
         public UpSelling UpSellingInsertarActualizar(int paisId, UpSelling upSelling)
         {
-            var _upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
 
             var model = upSelling.UpSellingId == default(int)
-                ? _upSellingBusinessLogic.Insertar(upSelling) : _upSellingBusinessLogic.Actualizar(upSelling);
+                ? upSellingBusinessLogic.Insertar(upSelling) : upSellingBusinessLogic.Actualizar(upSelling);
 
             return model;
         }

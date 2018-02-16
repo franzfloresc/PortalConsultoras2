@@ -51,7 +51,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,COALESCE(e.Precio2, pc.PrecioCatalogo) AS PrecioOferta
 		,e.Cantidad AS Stock
 		,e.ImagenURL AS ImagenProducto

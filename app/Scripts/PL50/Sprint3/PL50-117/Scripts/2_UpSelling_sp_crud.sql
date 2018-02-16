@@ -7,7 +7,9 @@ IF EXISTS (
 	DROP PROCEDURE [dbo].UpSelling_Select
 GO
 
-CREATE PROCEDURE [dbo].UpSelling_Select (@CodigoCampana INT = NULL)
+CREATE PROCEDURE [dbo].UpSelling_Select (
+@UpSellingId INT = NULL
+,@CodigoCampana VARCHAR(6) = NULL)
 AS
 SET NOCOUNT ON;
 
@@ -24,10 +26,8 @@ SELECT UpSellingId
 	,UsuarioModicacion
 	,FechaModificacion
 FROM UpSelling
-WHERE (
-		@CodigoCampana IS NULL
-		OR (CodigoCampana = @CodigoCampana)
-		)
+WHERE (@UpSellingId IS NULL OR UpSellingId = @UpSellingId)
+	AND (@CodigoCampana IS NULL OR CodigoCampana = @CodigoCampana)
 GO
 
 IF EXISTS (
@@ -40,7 +40,7 @@ IF EXISTS (
 GO
 
 CREATE PROCEDURE [dbo].UpSelling_Insert (
-	@CodigoCampana INT
+	@CodigoCampana VARCHAR(6)
 	,@MontoMeta DECIMAL(21, 4)
 	,@TextoMeta1 VARCHAR(250)
 	,@TextoMeta2 VARCHAR(250)
@@ -108,7 +108,7 @@ IF EXISTS (
 GO
 
 CREATE PROCEDURE [dbo].UpSelling_Update (
-	@CodigoCampana INT
+	@CodigoCampana VARCHAR(6)
 	,@MontoMeta DECIMAL(21, 4)
 	,@TextoMeta1 VARCHAR(250)
 	,@TextoMeta2 VARCHAR(250)

@@ -20,7 +20,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         
         public IEnumerable<UpSelling> Obtener(string codigoCampana, bool incluirDetalle)
         {
-            var upSellings = _upSellingDataAccess.Obtener(codigoCampana);
+            var upSellings = _upSellingDataAccess.Obtener(null, codigoCampana);
             if (upSellings != null && incluirDetalle)
             {
                 upSellings.ForEach(upSelling =>
@@ -68,8 +68,8 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
             if (upSelling != null)
             {
-                _upSellingDataAccess.Eliminar(upSellingId);
                 EliminarDetalle(upSelling.Regalos.Select(upSellingDetalle => upSellingDetalle.UpSellingDetalleId));
+                _upSellingDataAccess.Eliminar(upSellingId);
             }
         }
 

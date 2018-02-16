@@ -19,60 +19,148 @@ namespace Portal.Consultoras.Data.Estrategia
 
         //todo: complete access
 
-        public IEnumerable<UpSelling> Obtener(string codigoCampana)
+        /// <summary>
+        /// No stored procedure created yet
+        /// </summary>
+        /// <param name="upSellingId"></param>
+        /// <returns></returns>
+        public UpSelling Obtener(int? upSellingId)
+        {
+            var upSellings = Obtener(upSellingId, null);
+
+            return upSellings.FirstOrDefault();
+        }
+
+        public IEnumerable<UpSelling> Obtener(int? upSellingId, string codigoCampana)
         {
             using (var command = Context.Database.GetStoredProcCommand(StoredProcedureUpSellingObtener))
             {
-                Context.Database.AddInParameter(command, "@codigoCampana", DbType.AnsiString, codigoCampana);
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
+                Context.Database.AddInParameter(command, "@codigoCampana", DbType.String, codigoCampana);
 
                 var reader = Context.ExecuteReader(command);
                 return reader.MapToCollection<UpSelling>();
             }
         }
 
-        public IEnumerable<UpSellingDetalle> ObtenerDetalle(int upSellingId)
+        public UpSelling Insertar(UpSelling upSelling)
         {
-            throw new NotImplementedException();
-        }
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSelling_Insert"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoCampana", DbType.Int32, upSelling.CodigoCampana);
+                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, upSelling.MontoMeta);
+                Context.Database.AddInParameter(command, "@TextoMeta1", DbType.String, upSelling.TextoMeta);
+                Context.Database.AddInParameter(command, "@TextoMeta2", DbType.String, upSelling.TextoMetaSecundario);
+                Context.Database.AddInParameter(command, "@TextoGanaste1", DbType.String, upSelling.TextoGanaste);
+                Context.Database.AddInParameter(command, "@TextoGanaste2", DbType.String, upSelling.TextoGanasteSecundario);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, upSelling.Activo);
+                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, upSelling.UsuarioCreacion);
+                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, upSelling.FechaCreacion);
+                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, upSelling.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
 
-        public UpSellingDetalle InsertarDetalle(UpSellingDetalle regalo)
-        {
-            throw new NotImplementedException();
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSelling>();
+            }
         }
 
         public UpSelling Actualizar(UpSelling upSelling)
         {
-            throw new NotImplementedException();
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSelling_Update"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoCampana", DbType.Int32, upSelling.CodigoCampana);
+                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, upSelling.MontoMeta);
+                Context.Database.AddInParameter(command, "@TextoMeta1", DbType.String, upSelling.TextoMeta);
+                Context.Database.AddInParameter(command, "@TextoMeta2", DbType.String, upSelling.TextoMetaSecundario);
+                Context.Database.AddInParameter(command, "@TextoGanaste1", DbType.String, upSelling.TextoGanaste);
+                Context.Database.AddInParameter(command, "@TextoGanaste2", DbType.String, upSelling.TextoGanasteSecundario);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, upSelling.Activo);
+                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, upSelling.UsuarioCreacion);
+                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, upSelling.FechaCreacion);
+                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, upSelling.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSelling.UpSellingId);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSelling>();
+            }
         }
+
+        public int Eliminar(int upSellingId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("DBO.UpSelling_Delete"))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
+                var reader = Context.ExecuteReader(command);
+                return reader.RecordsAffected;
+            }
+        }
+
+        public IEnumerable<UpSellingDetalle> ObtenerDetalle(int upSellingId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand(""))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToCollection<UpSellingDetalle>();
+            }
+        }
+
+        public UpSellingDetalle InsertarDetalle(UpSellingDetalle regalo)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Insert"))
+            {
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@Nombre", DbType.String, regalo.Nombre);
+                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, regalo.Descripcion);
+                Context.Database.AddInParameter(command, "@Imagen", DbType.String, regalo.Imagen);
+                Context.Database.AddInParameter(command, "@Stock", DbType.Int32, regalo.Stock);
+                Context.Database.AddInParameter(command, "@Orden", DbType.Int32, regalo.Orden);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, regalo.Activo);
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, regalo.UsuarioCreacion);
+                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, regalo.FechaCreacion);
+                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, regalo.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSellingDetalle>();
+            }
+        }
+
 
         public UpSellingDetalle ActualizarDetalle(UpSellingDetalle regalo)
         {
-            throw new NotImplementedException();
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Update"))
+            {
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@Nombre", DbType.String, regalo.Nombre);
+                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, regalo.Descripcion);
+                Context.Database.AddInParameter(command, "@Imagen", DbType.String, regalo.Imagen);
+                Context.Database.AddInParameter(command, "@Stock", DbType.Int32, regalo.Stock);
+                Context.Database.AddInParameter(command, "@Orden", DbType.Int32, regalo.Orden);
+                Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, regalo.Activo);
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, regalo.UsuarioCreacion);
+                Context.Database.AddInParameter(command, "@FechaCreacion", DbType.DateTime, regalo.FechaCreacion);
+                Context.Database.AddInParameter(command, "@UsuarioModicacion", DbType.String, regalo.UsuarioModicacion);
+                Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
+                Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, regalo.UpSellingDetalleId);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSellingDetalle>();
+            }
         }
 
-        public UpSelling Insertar(UpSelling upSelling)
+        public int EliminarDetalle(int upSellingDetalleId)
         {
-            throw new NotImplementedException();
-        }
-
-        public void EliminarDetalle(int upSellingDetalleId)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// No stored procedure created yet
-        /// </summary>
-        /// <param name="upSellingId"></param>
-        /// <returns></returns>
-        public UpSelling Obtener(int upSellingId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Eliminar(int upSellingId)
-        {
-            throw new NotImplementedException();
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Delete"))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, upSellingDetalleId);
+                var reader = Context.ExecuteReader(command);
+                return reader.RecordsAffected;
+            }
         }
     }
 }

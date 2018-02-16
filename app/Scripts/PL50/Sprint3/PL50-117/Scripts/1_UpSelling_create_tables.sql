@@ -22,7 +22,7 @@ GO
 
 CREATE TABLE UpSelling (
 	UpSellingId INT NOT NULL identity PRIMARY KEY
-	,CodigoCampana INT NOT NULL
+	,CodigoCampana VARCHAR(6) NOT NULL
 	,MontoMeta DECIMAL(21, 4) NOT NULL
 	,TextoMeta1 VARCHAR(250) NOT NULL
 	,TextoMeta2 VARCHAR(250) NULL
