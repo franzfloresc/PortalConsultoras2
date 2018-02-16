@@ -89,7 +89,11 @@
             {
                 <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
             }
-            <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+
+
+            <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
+            
+            
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 if (Model.PrecioNiveles != null)
@@ -97,7 +101,7 @@
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
                     {
-            <div class="precio_para_ti_048"><b>@item</b></div>
+            <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
                     }       
                 }
             }
