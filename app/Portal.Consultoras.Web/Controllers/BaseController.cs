@@ -4602,5 +4602,19 @@ namespace Portal.Consultoras.Web.Controllers
             }            
             return serializer.Deserialize<T>(outputJson);
         }
+
+        protected MensajeProductoBloqueadoModel HVMensajeProductoBloqueado()
+        {
+            var model = new MensajeProductoBloqueadoModel();
+
+            model.divId = "divHVMensajeBloqueada";
+            model.IsMobile = IsMobile();
+            model.MensajeIconoSuperior = true;
+            model.MensajeTitulo = "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    ";
+            model.BtnInscribirse = false;
+            model.MensajeTieneDudas = false;
+
+            return model;
+        }
     }
 }
