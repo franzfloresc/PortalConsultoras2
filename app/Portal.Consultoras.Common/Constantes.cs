@@ -1223,6 +1223,14 @@ namespace Portal.Consultoras.Common
                 public const string MLandingBannerIntriga = "MLandingBannerIntriga";
             }
 
+            public static class HV
+            {
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueado = "DPopupBloqueado";
+                public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
+            }
+
         }
 
         public static class ConfiguracionSeccion

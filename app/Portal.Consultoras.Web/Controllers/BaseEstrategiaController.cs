@@ -607,6 +607,10 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
                     prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
                 }
+                if(estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                {
+                    prodModel.PrecioNiveles = estrategia.Niveles!=null?estrategia.Niveles:String.Empty;
+                }
                 listaRetorno.Add(prodModel);
             });
 

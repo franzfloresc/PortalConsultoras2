@@ -61,5 +61,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsOfertaIndependiente { get; set; }
         public string ImagenOfertaIndependiente { get; set; }
         public bool MostrarImgOfertaIndependiente { get; set; }
+        public string PrecioNiveles { get; set; }
     }
 }
