@@ -3365,7 +3365,7 @@
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
-    <Content Include="Scripts\AdminContenido\Estrategia.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />

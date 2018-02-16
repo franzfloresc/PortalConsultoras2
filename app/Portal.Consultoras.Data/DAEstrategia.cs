@@ -353,14 +353,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
-        public int GetCantidadOfertasParaTi(int campaniaId, int tipoConfigurado, int estrategiaId)
+        public int GetCantidadOfertasParaTi(int campaniaId, int tipoConfigurado, string codigoEstrategia)
         {
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadOfertasParaTi"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
-                Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, estrategiaId);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, codigoEstrategia);
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;

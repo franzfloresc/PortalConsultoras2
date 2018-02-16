@@ -352,10 +352,10 @@ namespace Portal.Consultoras.BizLogic
             return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
 
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
         {
                 var daEstrategia = new DAEstrategia(paisId);
-                int result = daEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, estrategiaId);
+                int result = daEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, codigoEstrategia);
                 return result;
         }
 

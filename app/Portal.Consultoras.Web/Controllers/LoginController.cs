@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -13,7 +12,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,13 +19,12 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-
 using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1185,7 +1182,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (usuarioModel == null)
                     throw new ArgumentNullException("usuarioModel", "No puede ser nulo");
-                
+
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
@@ -1499,8 +1496,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
-                                            ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
-                                            FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
+                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
+                                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
                                                 usuarioModel.Sobrenombre);
                                             revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                             break;
@@ -1512,7 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                 listaPaisDatos
                                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                                     .ToList(), usuarioModel.CodigoISO);
-                                            FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
+                                            revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel,
                                                 usuarioModel.Sobrenombre);
                                             revistaDigitalModel.TieneRDR = true;
                                             break;
@@ -1665,7 +1662,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (revistaDigitalModel == null)
                     throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
-                
+
                 paisIso = Util.Trim(paisIso);
                 if (listaDatos == null || !listaDatos.Any() || paisIso == "")
                     return revistaDigitalModel;
