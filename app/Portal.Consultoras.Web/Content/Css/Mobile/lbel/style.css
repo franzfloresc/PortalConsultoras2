@@ -10416,7 +10416,6 @@ span.icon-advertencia {
 .nombre_set_oferta_mobile {
     font-family: 'Lato';
     font-size: 11.5px;
-    margin-top: 4%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10435,12 +10434,13 @@ span.icon-advertencia {
 .imagen_set_oferta_mobile {
     float: right;
     width: 34%;
-    margin: -7px 20px 0 0;
+    margin: 9px 20px 0 0;
     text-align: center;
 }
 
     .imagen_set_oferta_mobile img {
         width: 90%;
+        margin-top: -7px;
     }
 
 .btn_cerrar_oferta_mobile {
