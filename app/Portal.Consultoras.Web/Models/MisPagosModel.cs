@@ -15,5 +15,6 @@
         public string RutaChile { get; set; }
         public string MostrarFE { get; set; }
         public string PestanhaInicial { get; set; }
+        public bool TienePagoEnLinea { get; set; }
     }
 }

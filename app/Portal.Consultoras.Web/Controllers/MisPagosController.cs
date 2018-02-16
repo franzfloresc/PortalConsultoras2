@@ -45,8 +45,9 @@ namespace Portal.Consultoras.Web.Controllers
                 CorreoConsultora = userData.EMail,
                 FechaVencimiento = fechaVencimiento,
                 MontoPagar = montoPagar,
-                PestanhaInicial = pestanhaInicial ?? ""
-            };
+                PestanhaInicial = pestanhaInicial ?? "",
+                TienePagoEnLinea = userData.TienePagoEnLinea
+        };
 
             List<string> pestanhaMisPagosAll = new List<string> {
                 Constantes.PestanhasMisPagos.EstadoCuenta,
