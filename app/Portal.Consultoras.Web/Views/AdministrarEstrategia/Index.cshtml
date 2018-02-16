@@ -686,12 +686,6 @@
     var adminEstrategiaModule;
     var _toastHelper = ToastHelper();
 
-    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalleNew";
-    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAllNew';
-    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleNew';
-    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalleNew';
-    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalleNew';
-
     jQuery(document).ready(function () {
         adminEstrategiaModule = AdministrarEstrategia({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
@@ -727,11 +721,11 @@
             urlDeshabilitarShowRoomEvento: baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento',
             urlEliminarShowRoomEvento: baseUrl + 'ShowRoom/EliminarShowRoomEvento',
             urlGuardarShowRoom: baseUrl + 'ShowRoom/GuardarShowRoom',
-            urlConsultarOfertaShowRoomDetalle: baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalle",
-            urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll',
-            urlEliminarOfertaShowRoomDetalle: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle',
-            urlInsertOfertaShowRoomDetalle: baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle',
-            urlUpdateOfertaShowRoomDetalle: baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle',
+            urlConsultarOfertaShowRoomDetalle: baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalleNew",
+            urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAllNew',
+            urlEliminarOfertaShowRoomDetalle: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleNew',
+            urlInsertOfertaShowRoomDetalle: baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalleNew',
+            urlUpdateOfertaShowRoomDetalle: baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalleNew',
             rutaImagenTemporal: '@Url.Content("~/Content/Temporales/")',
             imagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
             imagenDeshabilitar: '@Url.Content("~/Content/Images/NotAllowed.png")',
