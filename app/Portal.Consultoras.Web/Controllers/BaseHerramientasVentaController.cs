@@ -96,10 +96,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             model.Success = true;
-            //var dato = ObtenerPerdio(model.CampaniaID);
-            //model.ProductosPerdio = dato.Estado;
-            //model.PerdioTitulo = dato.Valor1;
-            //model.PerdioSubTitulo = dato.Valor2;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
