@@ -995,7 +995,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
        
         [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
         List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);

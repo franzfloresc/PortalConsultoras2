@@ -685,7 +685,7 @@
 <script type="text/javascript">
     var adminEstrategiaModule;
     var _toastHelper = ToastHelper();
-    
+
 
     jQuery(document).ready(function () {
         adminEstrategiaModule = AdministrarEstrategia({
@@ -731,7 +731,8 @@
             imagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
             imagenDeshabilitar: '@Url.Content("~/Content/Images/NotAllowed.png")',
             imagenEliminar: '@Url.Content("~/Content/Images/delete.png")',
-            imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")'
+            imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
+            urlUploadFileStrategyShowroom: '@Url.Action("UploadFileStrategyShowroom", "AdministrarEstrategia")'
             // SHOWROOM-FIN
         });
         adminEstrategiaModule.Inicializar();
@@ -748,7 +749,7 @@
             EditarProductoDetalle: adminEstrategiaModule.EditarProductoDetalle,
             EliminarProductoDetalle: adminEstrategiaModule.EliminarProductoDetalle
         });
-            
+
     });
 
     $(document).keydown(function (e) {
@@ -757,7 +758,7 @@
         }
     });
 
-    
+
 
 
 </script>

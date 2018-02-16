@@ -1220,7 +1220,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID,
-            int EstrategiaID)
+            string CodigoEstrategia)
         {
             if (ModelState.IsValid)
             {
@@ -1233,9 +1233,9 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var ps = new PedidoServiceClient())
                     {
                         cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID,
-                            int.Parse(CampaniaID), 1, EstrategiaID);
+                            int.Parse(CampaniaID), 1, CodigoEstrategia);
                         cantidadEstrategiasSinConfigurar =
-                            ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, EstrategiaID);
+                            ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, CodigoEstrategia);
                     }
                 }
                 catch (Exception ex)
@@ -1388,8 +1388,8 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
+                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
 
                     foreach (var opt in listBeEstrategias)
                     {
@@ -1425,24 +1425,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            var productoEstrategias = new List<RptProductoEstrategia>();
-
-                            if (tono)
-                            {
-                                opt.CampaniaID = campaniaId;
-                                productoEstrategias = EstrategiaProductoObtenerServicio(opt);
-
-                                if (productoEstrategias.Any())
-                                {
-                                    opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                                    opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
-                                }
-                            }
-
-                            EstrategiaProductoInsertar(productoEstrategias, opt);
-
                             if (habilitarNemotecnico)
                             {
+                                var productoEstrategias = new List<RptProductoEstrategia>();
+
+                                if (tono)
+                                {
+                                    opt.CampaniaID = campaniaId;
+                                    productoEstrategias = EstrategiaProductoObtenerServicio(opt);
+
+                                    if (productoEstrategias.Any())
+                                    {
+                                        opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
+                                        opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
+                                    }
+                                }
+
                                 #region habilitarNemotecnico
 
                                 var nemotecnicosLista = new List<string>();

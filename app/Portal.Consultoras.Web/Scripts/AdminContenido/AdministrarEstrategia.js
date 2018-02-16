@@ -41,7 +41,8 @@
         imagenEdit: config.imagenEdit, 
         imagenDeshabilitar: config.imagenDeshabilitar, 
         imagenEliminar: config.imagenEliminar, 
-        imagenProductoVacio: config.imagenProductoVacio 
+        imagenProductoVacio: config.imagenProductoVacio,
+        urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom
     };
 
     var _variables = {
@@ -1020,7 +1021,7 @@
             datatype: "json",
             postData: ({
                 CampaniaID: $("#ddlCampania").val(),
-                EstrategiaID: $("#ddlTipoEstrategia").find(":selected").data("id")
+                CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -1463,7 +1464,8 @@
                 codigo == "007" ||
                 codigo == "008" ||
                 codigo == "010" ||
-                codigo == _codigoEstrategia.ShowRoom),
+                codigo == _codigoEstrategia.ShowRoom ||
+                codigo == _codigoEstrategia.HerramientaVenta),
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
@@ -1622,7 +1624,7 @@
             "#pager",
             { edit: false, add: false, refresh: false, del: false, search: false });
         if (tipo == "4" || codigo == "005" || codigo == "007" ||
-            codigo == "008" || codigo == "010" || codigo == _codigoEstrategia.ShowRoom) {
+            codigo == "008" || codigo == "010" || codigo == _codigoEstrategia.ShowRoom || codigo == _codigoEstrategia.HerramientaVenta) {
             $("#list").jqGrid("hideCol", ["Orden"]);
         }
         
@@ -1683,15 +1685,15 @@
         });
     }
     var _validarMasivo = function() {
-        if ($("#ddlPais").val() == "") {
+        if ($("#ddlPais").val() === "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
             return false;
         }
-        if ($("#ddlCampania").val() == "") {
+        if ($("#ddlCampania").val() === "") {
             _toastHelper.error("Debe seleccionar la Campaña, verifique.");
             return false;
         }
-        if ($("#ddlTipoEstrategia").val() == "") {
+        if ($("#ddlTipoEstrategia").val() === "") {
             _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
             return false;
         } else {
@@ -1703,7 +1705,8 @@
                 _idEstrategia.OfertasParaMi,
                 _idEstrategia.PackAltoDesembolso,
                 _idEstrategia.OfertaDelDia,
-                _idEstrategia.ShowRoom)) {
+                _idEstrategia.ShowRoom,
+                _idEstrategia.HerramientaVenta)) {
                 _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                 return false;
             }
@@ -2129,12 +2132,12 @@
         _limpiarDatosEventoShowRoom();
 
         var msjex = "";
-        if ($("#ddlPais").val() == "")
+        if ($("#ddlPais").val() === "")
             msjex += " - Debe seleccionar un País .\n";
-        if ($("#ddlCampania").val() == "")
+        if ($("#ddlCampania").val() === "")
             msjex += " - Debe seleccionar un Campania .\n";
 
-        if (msjex == "") {
+        if (msjex === "") {
             //paisNombre = $("#ddlPais option:selected").text();
             //paisID = $("#ddlPais").val();
 
@@ -2156,10 +2159,6 @@
         $("#txtPrecioValorizadoDetalle").val("");
     }
 
-   
-    
-    
-    
     var _guardarShowRoomEvento = function() {
         var eventoID = $("#hdEventoID").val();
         var campaniaID = $("#txtEventoCampaniaID").val();
@@ -2167,14 +2166,11 @@
         var tema = $("#txtEventoTema").val();
         var diasAntes = $("#txtEventoDiasAntes").val();
         var diasDespues = $("#txtEventoDiasDespues").val();
-        //var numeroPerfiles = $("#txtEventoNumeroPerfiles").val();
         var numeroPerfiles = 0;
         var estado = $("#chkEventoEstado").is(":checked");
-        //var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
         var tieneCategoria = 0;
         var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
         var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
-        //var tienePersonalizacion = $("#chkEventoTienePersonalizacion").is(":checked");
         var tienePersonalizacion = true;
 
         var showRoom = {
@@ -2434,14 +2430,10 @@
     var _showActionsDetalle = function(cellvalue, options, rowObject) {
         var id = rowObject[0];
         var estrategiaId = rowObject[1];
-        //var campaniaId = rowObject[2];
         var cuv = rowObject[3];
         var imagen = rowObject[6];
 
-        //var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EditarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "','" + imagen + "');\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Productos Oferta Show Room Detalle' title='Editar Productos Oferta Show Room Detalle' border='0' /></a>";
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EditarProductoDetalle('" + id + "','" + imagen + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Producto' title='Editar Producto' border='0' /></a>";
-        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room Detalle' title='Eliminar Productos Oferta Show Room Detalle' border='0' /></a>";
-        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + estrategiaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room Detalle' title='Eliminar Productos Oferta Show Room Detalle' border='0' /></a>";
         var remove = "";
 
         if (rowObject[10] == "1") {
@@ -2454,7 +2446,6 @@
     var _registrarOfertaShowRoomDetalle = function() {
         var accion;
 
-        //if ($("#hdOfertaShowRoomDetalleID").val() == "0")
         if ($("#hdEstrategiaProductoID").val() == "0")
             accion = _config.urlInsertOfertaShowRoomDetalle;
         else
@@ -2548,7 +2539,7 @@
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
 
         $.ajax({
-            url: '@Url.Action("UploadFileStrategyShowroom", "AdministrarEstrategia")',
+            url: _config.urlUploadFileStrategyShowroom,
             type: "POST",
             dataType: "JSON",
             data: formData,
@@ -2599,7 +2590,7 @@
             buttons:
             {
                 "Guardar": function() {
-                    waitingDialog({});
+                   
                     if ($("#mensajeErrorCUV").val() != "") {
                         _toastHelper.error($("#mensajeErrorCUV").val());
                         return false;
@@ -2678,6 +2669,7 @@
                         aux2 !== 10 &&
                         aux2 !== 11 &&
                         aux2 !== 12 &&
+                        aux2 !== 13 &&
                         aux2 !== 30) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             _toastHelper.error("Ingrese un orden para mostrar.");
@@ -3905,7 +3897,8 @@
                 _codigoEstrategia.OfertasParaMi,
                 _codigoEstrategia.PackAltoDesembolso,
                 _codigoEstrategia.GuiaDeNegocio,
-                _codigoEstrategia.ShowRoom)) {
+                _codigoEstrategia.ShowRoom,
+                _codigoEstrategia.HerramientaVenta)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
@@ -4113,43 +4106,43 @@
     var _bindingEvents = function(){
         $("body").on("click", "#btnNuevo", _eventos.clickNuevo);
         $("body").on("click", "#btnBuscar", _eventos.clickBuscar);
-       $("body").on("click", "#btnActivarDesactivar", _eventos.clickActivarDesactivar);
-       $("body").on("click", ".chk-estrategia-imagen", _eventos.clickClassEstrategiaImagen);
-       $("body").on("click", ".activar-desactivar", _eventos.clickClassActivarDesactivar);
-       $("body").on("click", "#btnNuevoMasivo", _eventos.clickNuevoMasivo);
-       $("body").on("click", "#btnDescripcionMasivo", _eventos.clickDescripcionMasivo);
-       $("body").on("click", "#btnCancelarDescMasivo1", _eventos.clickCancelarDescMasivo1);
-       $("body").on("click", "#btnAceptarDescMasivo1", _eventos.clickAceptarDescMasivo1);
-       $("body").on("click", "#btnActualizarTonos", _eventos.clickActualizarTonos);
-       $("body").on("click", "#btnAceptarMasivo1", _eventos.clickAceptarMasivo1);
-       $("body").on("click", "#btnAceptarMasivo2", _eventos.clickAceptarMasivo2);
-       $("body").on("click", "#btnCancelarMasivo1", _eventos.clickCancelarMasivo1);
-       $("body").on("click", "#btnCancelarMasivo2", _eventos.clickCancelarMasivo2);
-       $("body").on("click", "#btnAceptarMasivo3", _eventos.clickAceptarMasivo3);
-       $("body").on("click", "#btnCargaMasivaImagenes", _eventos.clickCargaMasivaImagenes);
-       $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
-       $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
-       $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
-       $("body").on("click", "#btnBuscarPersonalizacionNivel", _eventos.clickBuscarPersonalizacionNivel);
-       $("body").on("click", "#btnNuevoShowRoom", _eventos.clickNuevoShowRoom);
-       $("body").on("click", "#btnNuevoDetalle", _eventos.clickNuevoDetalle);
-       $("body").on("click", "#imgMiniSeleccionada", _eventos.clickImgSeleccionada);
+        $("body").on("click", "#btnActivarDesactivar", _eventos.clickActivarDesactivar);
+        $("body").on("click", ".chk-estrategia-imagen", _eventos.clickClassEstrategiaImagen);
+        $("body").on("click", ".activar-desactivar", _eventos.clickClassActivarDesactivar);
+        $("body").on("click", "#btnNuevoMasivo", _eventos.clickNuevoMasivo);
+        $("body").on("click", "#btnDescripcionMasivo", _eventos.clickDescripcionMasivo);
+        $("body").on("click", "#btnCancelarDescMasivo1", _eventos.clickCancelarDescMasivo1);
+        $("body").on("click", "#btnAceptarDescMasivo1", _eventos.clickAceptarDescMasivo1);
+        $("body").on("click", "#btnActualizarTonos", _eventos.clickActualizarTonos);
+        $("body").on("click", "#btnAceptarMasivo1", _eventos.clickAceptarMasivo1);
+        $("body").on("click", "#btnAceptarMasivo2", _eventos.clickAceptarMasivo2);
+        $("body").on("click", "#btnCancelarMasivo1", _eventos.clickCancelarMasivo1);
+        $("body").on("click", "#btnCancelarMasivo2", _eventos.clickCancelarMasivo2);
+        $("body").on("click", "#btnAceptarMasivo3", _eventos.clickAceptarMasivo3);
+        $("body").on("click", "#btnCargaMasivaImagenes", _eventos.clickCargaMasivaImagenes);
+        $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
+        $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
+        $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
+        $("body").on("click", "#btnBuscarPersonalizacionNivel", _eventos.clickBuscarPersonalizacionNivel);
+        $("body").on("click", "#btnNuevoShowRoom", _eventos.clickNuevoShowRoom);
+        $("body").on("click", "#btnNuevoDetalle", _eventos.clickNuevoDetalle);
+        $("body").on("click", "#imgMiniSeleccionada", _eventos.clickImgSeleccionada);
 
-       $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico",_eventos.clickBuscarNemotencnico);
-       $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
-       $(".chkImagenProducto").on("click", _eventos.clickChkImagenProducto);
-       $("#imgSeleccionada").on("click", _eventos.clickImgSeleccionada);
-       $("#matriz-comercial-images").on("click", ".img-matriz-preview", _eventos.clickImgSeleccionada);
-       $("#matriz-comercial-images").on("click", ".chkImagenProducto", _eventos.clickChkImagenProducto);
-       $("#divImagenEstrategia").on("click", _eventos.clickImagenEstrategia);
-       $("#divInformacionAdicionalEstrategia").on("click", _eventos.clickInformacionAdicionalEstrategia);
+        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico",_eventos.clickBuscarNemotencnico);
+        $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
+        $(".chkImagenProducto").on("click", _eventos.clickChkImagenProducto);
+        $("#imgSeleccionada").on("click", _eventos.clickImgSeleccionada);
+        $("#matriz-comercial-images").on("click", ".img-matriz-preview", _eventos.clickImgSeleccionada);
+        $("#matriz-comercial-images").on("click", ".chkImagenProducto", _eventos.clickChkImagenProducto);
+        $("#divImagenEstrategia").on("click", _eventos.clickImagenEstrategia);
+        $("#divInformacionAdicionalEstrategia").on("click", _eventos.clickInformacionAdicionalEstrategia);
         
-       $("body").on("chage", "#ddlTipoEstrategia", _eventos.changeTipoEstrategia);
-       $("body").on("change", "#ddlPais", _eventos.changePais);
-       $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
-       $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
-       $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
+        $("body").on("change", "#ddlTipoEstrategia", _eventos.changeTipoEstrategia);
+        $("body").on("change", "#ddlPais", _eventos.changePais);
         
+        $("body").on("keyup", "#txtCUV", _eventos.keyUpCuv);
+        $("body").on("keyup", "#txtCUVTC", _eventos.keyUpCuvTc);
+        $("body").on("keyup", "#txtCUV2", _eventos.keyUpCuv2);
     }
 
     
