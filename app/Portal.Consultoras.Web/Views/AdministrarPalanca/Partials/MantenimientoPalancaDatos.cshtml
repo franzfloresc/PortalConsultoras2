@@ -1,0 +1,34 @@
+﻿@model Portal.Consultoras.Web.Models.AdministrarComponenteModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+
+
+    @foreach (var dato in Model.ListaDatos)
+    {
+        switch (dato.TipoDato)
+        {
+            case "img":
+                <div class="div-3">
+                    <div class="titG">@dato.TxtLabel:</div>
+                    <div>
+                        <div id="img-desktop-fondo-banner"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' class="img-matriz-preview2">
+                        </div>
+                    </div>
+                </div>
+                break;
+            case "txt":
+                <div class="div-3">
+                    <div class="titG">@dato.TxtLabel:</div>
+                    <div class="selectP2 borde_redondeado">
+                        <input type="text" id="@dato.Dato.ConfiguracionPaisID-@dato.Dato.Codigo" name="@dato.Dato.Codigo" value="@dato.Dato.Valor1" maxlength="800" />
+                    </div>
+                </div>
+                break;
+        }
+    }
+
+
+

@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Common
         /// </summary>
         /// <param name="dataReader"></param>
         /// <returns></returns>
-        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader) where TSource : class, new()
+        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader, bool ignoreAttrib = false) where TSource : class, new()
         {
             var businessEntityType = typeof(TSource);
             var entities = new List<TSource>();
@@ -24,6 +24,12 @@ namespace Portal.Consultoras.Common
 
             foreach (var propertyInfo in properties)
             {
+                if (ignoreAttrib)
+                {
+                    propertiesToMap[propertyInfo.Name.ToUpper()] = propertyInfo;
+                    continue;
+                }
+
                 var columnName = GetColunmName(propertyInfo);
                 if (!string.IsNullOrEmpty(columnName))
                 {

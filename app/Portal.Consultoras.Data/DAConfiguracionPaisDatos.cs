@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListConfiguracionPaisDatos");
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
-
             Context.Database.AddInParameter(command, "Codigo", DbType.String, entity.ConfiguracionPais.Codigo);
             Context.Database.AddInParameter(command, "CodigoRegion", DbType.String, entity.ConfiguracionPais.Detalle.CodigoRegion);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.ConfiguracionPais.Detalle.CodigoZona);
@@ -27,6 +26,28 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
+        public IDataReader GetListComponente(BEConfiguracionPaisDatos entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListConfiguracionPaisComponente");
+            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "PalancaCodigo", DbType.String, entity.ConfiguracionPais.Codigo);
+            Context.Database.AddInParameter(command, "Componente", DbType.String, entity.Componente);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetListComponenteDatos(BEConfiguracionPaisDatos entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListConfiguracionPaisComponenteDatos");
+            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "PalancaCodigo", DbType.String, entity.ConfiguracionPais.Codigo);
+            Context.Database.AddInParameter(command, "Componente", DbType.String, entity.Componente);
+
+            return Context.ExecuteReader(command);
+
+        }
     }
 }

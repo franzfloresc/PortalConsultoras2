@@ -11,6 +11,8 @@ var _tipopresentacion = {
     odd: "6"
 }
 jQuery(document).ready(function () {
+    admPalancaDatos.ini();
+
     UpdateGrillaOfertas();
     UpdateGrillaPalanca();
     IniDialogs();

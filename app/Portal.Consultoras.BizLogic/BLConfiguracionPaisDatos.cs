@@ -18,10 +18,47 @@ namespace Portal.Consultoras.BizLogic
                 var da = new DAConfiguracionPaisDatos(entidad.PaisID);
                 using (IDataReader reader = da.GetList(entidad))
                 {
-                    while (reader.Read())
-                    {
-                        lista.Add(new BEConfiguracionPaisDatos(reader));
-                    }
+                    lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", entidad.PaisID.ToString());
+                lista = new List<BEConfiguracionPaisDatos>();
+            }
+            return lista;
+        }
+
+        public List<BEConfiguracionPaisDatos> GetListComponente(BEConfiguracionPaisDatos entidad)
+        {
+            var lista = new List<BEConfiguracionPaisDatos>();
+
+            try
+            {
+                var da = new DAConfiguracionPaisDatos(entidad.PaisID);
+                using (IDataReader reader = da.GetListComponente(entidad))
+                {
+                    lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", entidad.PaisID.ToString());
+                lista = new List<BEConfiguracionPaisDatos>();
+            }
+            return lista;
+        }
+
+        public List<BEConfiguracionPaisDatos> GetListComponenteDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var lista = new List<BEConfiguracionPaisDatos>();
+
+            try
+            {
+                var da = new DAConfiguracionPaisDatos(entidad.PaisID);
+                using (IDataReader reader = da.GetListComponenteDatos(entidad))
+                {
+                    lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
                 }
             }
             catch (Exception ex)

@@ -76,6 +76,18 @@
   <wsdl:message name="IUsuarioService_GetConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPaisResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisComponente_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisComponente" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisComponente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisComponenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisComponenteDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisComponenteDatos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisComponenteDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisComponenteDatosResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ValidarConfiguracionPaisDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarConfiguracionPaisDetalle" />
   </wsdl:message>
@@ -717,6 +729,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPais" message="tns:IUsuarioService_GetConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisResponse" message="tns:IUsuarioService_GetConfiguracionPais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente" message="tns:IUsuarioService_GetConfiguracionPaisComponente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteResponse" message="tns:IUsuarioService_GetConfiguracionPaisComponente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponenteDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos" message="tns:IUsuarioService_GetConfiguracionPaisComponenteDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse" message="tns:IUsuarioService_GetConfiguracionPaisComponenteDatos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarConfiguracionPaisDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle" message="tns:IUsuarioService_ValidarConfiguracionPaisDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalleResponse" message="tns:IUsuarioService_ValidarConfiguracionPaisDetalle_OutputMessage" />
@@ -1184,6 +1204,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponente">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponenteDatos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2169,6 +2207,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponente">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisComponenteDatos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
