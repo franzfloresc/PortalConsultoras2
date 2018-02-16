@@ -30,61 +30,7 @@ else
 <div class="fondo_f2f2f2" style="border-bottom:0; background:white;">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
-</div>
-
-    @*<div class="header-icon upper">
-        <img src="@Url.Content("~/Content/Images/mobile/img-icon/icon-tarjeta.png")" alt="Tarjeta" class="" width="65" height="65" />
-        <span class="pcolor">Último pago recibido</span>
-    </div>*@
-
-    @*<div class="col-xs-12">
-        <div id="ultimoEstadoCuenta" style="display:none;">
-            <ul class="lista-movimientos">
-                <li>
-                    <b>@Model.Glosa</b>
-                    <br />
-                    <span>@Model.FechaUltimoMovimiento</span>
-                    <span class="pull-right color_belcorp">@Model.Simbolo @Model.MontoStr</span>
-                </li>
-            </ul>
-
-            <a href="javascript:;" class="btn_ver_pedido_reservado" onclick="return MostrarOcultarListaEstado();">
-                <i id="iconCollpase" class="icon-lg icon-angle-down"></i> Ver listado de movimientos
-            </a>
-            <br />
-        </div>
-        <div id="listaEstadoCuenta" style="display: none;">
-            <ul class="lista-movimientos">
-                @foreach (var item in Model.ListaEstadoCuentaDetalle)
-                {
-                    <li>
-                        <div class="mb-10" style="font-size: 14px;"><b>@item.Glosa </b></div>
-                        <div style="font-size: 14px;">
-                            <span>@item.FechaVencimiento</span>
-                            @if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
-                            {
-                                <span class="inline-center" style="margin-left: 20px;">Abono</span>
-                                <span class="pull-right"><strong>@Model.Simbolo @item.MontoStr</strong></span>
-                            }
-                            else
-                            {
-                                <span class="inline-center" style="margin-left: 20px;">Pedido</span>
-                                <span class="pull-right text-danger"><strong>@Model.Simbolo @item.MontoStr</strong></span>
-                            }
-                        </div>
-                    </li>
-                }
-            </ul>
-            <br />
-            <div class="row">
-                <a href="javascript:;" class="btn_editar_pedido" onclick="EnviarCorreoConsultora();">
-                    Enviar listado a mi correo
-                </a>
-            </div>
-
-            @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
-        </div>
-    </div>*@
+</div>   
 
 <!-- NUEVA VISTA ESTADO DE CUENTA -->
 
@@ -102,7 +48,7 @@ else
             <span>Vencimiento :</span>
             <span>@Model.FechaVencimiento</span>
         </div>
-        <a href="" class="btn_paga_en_linea_con_credito_visa">
+        <a href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_en_linea_con_credito_visa">
             Paga en línea con visa
         </a>
     </div>
@@ -123,30 +69,37 @@ else
         <div class="grilla_detalle_movimientos_estado_de_cuenta">
             @foreach (var item in Model.ListaEstadoCuentaDetalle)
             {
-                <div class="fila_grilla_detalle_movimiento">
+                var estiloGris = "";
+                var tipoMovimiento = "";
+                var signo = "";
+
+                if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
+                {
+                    tipoMovimiento = "Abono";
+                    signo = "-";
+                }
+                else
+                {
+                    tipoMovimiento = "Pedido";
+                    estiloGris = "fila_gris_detalle_movimiento";
+                }
+                
+                <div class="fila_grilla_detalle_movimiento @estiloGris">
                     <div class="col_grilla_detalle_movimientos fecha_movimiento_estado_de_cuenta">
                         @item.FechaVencimientoFormatDiaMes
                     </div>
                     <div class="col_grilla_detalle_movimientos descripcion_movimiento_estado_de_cuenta">
-                    @if (item.TipoMovimiento == Constantes.EstadoCuentaTipoMovimiento.Abono)
-                    {
-                        <div class="tipo_movimiento">
-                            Abono
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="tipo_movimiento">
-                            Pedido
-                        </div>
-                    }
+                    
+                    <div class="tipo_movimiento">
+                        @tipoMovimiento
+                    </div>
                         
                     <div class="descripcion_tipo_movimiento">
                         @item.Glosa
                     </div>
                     </div>
                     <div class="col_grilla_detalle_movimientos monto_movimiento_estado_de_cuenta">
-                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                        <span class="tipo_moneda_pais">@signo @Model.Simbolo</span>
                         <span class="monto_movimiento">@item.MontoStr</span>
                     </div>
                 </div>
@@ -160,7 +113,7 @@ else
         </span>
         <span>Enviar detalle a mi correo</span>
     </a>
-
+    @Html.Hidden("hdn_Correo", Model.CorreoConsultora)
 </div>
 
 <!-- FIN - NUEVA VISTA ESTADO DE CUENTA -->

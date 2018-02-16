@@ -7,7 +7,7 @@ var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efec
 
 var numObjects = 100,
 	waft = 50,
-	fallSpeed = 20,
+	fallSpeed = 15,
 	wind = 0;
 
 var heightIcon = esMobile ? 7 : 15;
