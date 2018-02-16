@@ -108,6 +108,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
+
+                model.ConsultoraNuevaBannerAppMostrar = ((UserData().ConsultoraNueva == 1 || UserData().ConsultoraNueva == 7) && EsAndroid());
             }
             catch (FaultException ex)
             {

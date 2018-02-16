@@ -1080,6 +1080,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string NumeroDocumento { get; set; }
         [DataMember]
+        [Column("Seccion")]
         public string Seccion { get; set; }
         [DataMember]
         public string Zona { get; set; }
@@ -1401,5 +1402,11 @@ namespace Portal.Consultoras.Entities
         public short RevistaDigitalSuscripcion { get; set; }
         [DataMember]
         public string UrlBannerGanaMas { get; set; }
+        [DataMember]
+        public int CuponEstado { get; set; }
+        [DataMember]
+        public decimal CuponPctDescuento { get; set; }
+        [DataMember]
+        public decimal CuponMontoMaxDscto { get; set; }
     }
 }
