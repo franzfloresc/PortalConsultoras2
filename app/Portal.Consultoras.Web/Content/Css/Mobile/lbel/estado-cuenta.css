@@ -1,0 +1,188 @@
+﻿
+/* VISTA ESTADO DE CUENTA */
+
+.mb-32{
+    margin-bottom:32px!important;
+}
+
+.vista_estado_de_cuenta,
+.deuda_actual_estado_cuenta,
+.texto_mi_deuda_actual,
+.monto_deuda_actual,
+.btn_paga_en_linea_con_credito_visa,
+.fecha_vencimiento_deuda_actual,
+.texto_pago_en_linea span,
+.ultimo_pago_recibido,
+.info_horarios_efectivos_pagos,
+.contenedor_detalle_movimientos_estado_de_cuenta,
+.titulo_movimientos_estado_cuenta,
+.grilla_detalle_movimientos_estado_de_cuenta,
+.fila_grilla_detalle_movimiento,
+.tipo_movimiento,
+.descripcion_tipo_movimiento,
+.enlace_enviar_detalle_a_correo
+{
+    display:block;
+}
+
+.tipo_moneda_pais,
+.monto_pago_deuda_actual,
+.fecha_vencimiento_deuda_actual span,
+.ultimo_pago_recibido span,
+.col_grilla_detalle_movimientos,
+.monto_movimiento,
+.icono_enlace_enviar_detalle_a_correo,
+.enlace_enviar_detalle_a_correo span
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.vista_estado_de_cuenta{
+    padding-left:14px;
+    padding-right:14px;
+    padding-top: 5px;
+    padding-bottom: 22px;
+    color:#000;
+}
+
+.deuda_actual_estado_cuenta{
+    text-align:center;
+    font-size:13px;
+}
+
+.texto_mi_deuda_actual{
+    letter-spacing:0.3px;
+    text-transform:uppercase;
+    margin-bottom:-1px;
+}
+
+.monto_deuda_actual,
+.fecha_vencimiento_deuda_actual
+{
+    font-weight:300;
+}
+
+.monto_deuda_actual{
+    margin-bottom:-3px;
+}
+
+.monto_deuda_actual .tipo_moneda_pais{
+    font-size: 20px;
+    margin-top: 8px;
+    margin-right: 2px;
+}
+
+.monto_pago_deuda_actual{
+    font-size:34px;
+}
+
+.fecha_vencimiento_deuda_actual{
+    margin-bottom:15px;
+}
+
+.btn_paga_en_linea_con_credito_visa{
+    width: 100%;
+    border:none;
+    height: 48px;
+    margin-bottom: 14px;
+    background: #642f80;
+    color:#FFF;
+    font-weight:bold;
+    font-size:14px;
+    letter-spacing:0.3px;
+}
+
+.ultimo_pago_recibido span:first-child,
+.titulo_movimientos_estado_cuenta,
+.tipo_movimiento,
+.btn_paga_en_linea_con_credito_visa,
+.enlace_enviar_detalle_a_correo
+{
+    text-transform:uppercase;
+}
+
+.texto_pago_en_linea span:first-child{
+    font-weight:bold;
+}
+
+.info_horarios_efectivos_pagos{
+    font-size:12px;
+}
+
+.ultimo_pago_recibido{
+    font-size:12px;
+    font-weight:bold;
+    color:#A2841B;
+}
+
+.titulo_movimientos_estado_cuenta {
+    letter-spacing: 0.2px;
+    font-weight: bold;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.barra_titulo_movimientos_estado_cuenta{
+    width:124px;
+    height:2.7px;
+    background-color:#642f80;
+    position:absolute;
+    left:0;
+    bottom:0;
+}
+
+.grilla_detalle_movimientos_estado_de_cuenta{
+    margin-bottom:18px;
+}
+
+.fila_grilla_detalle_movimiento {
+    border-top: 1px solid #d5d5d5;
+    padding-top: 10px;
+    padding-bottom: 9.7px;
+    box-sizing: border-box;
+}
+
+.grilla_detalle_movimientos_estado_de_cuenta > div:last-child{
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.col_grilla_detalle_movimientos {
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.fecha_movimiento_estado_de_cuenta,
+.descripcion_movimiento_estado_de_cuenta
+{
+    text-align:left;
+}
+
+.fecha_movimiento_estado_de_cuenta {
+    width: 16%;
+    border-right: 1px solid #000;
+}
+
+.descripcion_movimiento_estado_de_cuenta {
+    width: 50%;
+    padding: 0 9px;
+}
+
+.monto_movimiento_estado_de_cuenta {
+    width: 32%;
+    text-align:right;
+}
+
+.enlace_enviar_detalle_a_correo{
+    text-align: center;
+    font-size: 12px;
+    height: 45px;
+    line-height: 45px;
+}
+
+.icono_enlace_enviar_detalle_a_correo{
+    margin-bottom:2px;
+    margin-right:5px;
+}
+
+/* FIN - ESTADO DE CUENTA */
