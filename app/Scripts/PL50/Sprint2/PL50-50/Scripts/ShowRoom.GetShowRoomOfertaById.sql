@@ -1,6 +1,3 @@
-
-GO
-
 USE BelcorpPeru
 GO
 
@@ -21,7 +18,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -61,7 +58,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -101,7 +98,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -141,7 +138,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -181,7 +178,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -221,7 +218,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -261,7 +258,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -301,7 +298,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -341,7 +338,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -381,7 +378,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -421,7 +418,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -461,7 +458,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -501,7 +498,7 @@ BEGIN
 		,c.CampaniaID
 		,e.CUV2 AS CUV		
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,e.Cantidad AS Stock		
 		,e.ImagenURL AS ImagenProducto
 		,e.LimiteVenta AS UnidadesPermitidas
@@ -518,4 +515,6 @@ BEGIN
 	INNER JOIN ods.campania c ON e.CampaniaID = c.Codigo	
 	WHERE e.EstrategiaID = @OfertaShowRoomID
 END
+
+GO
 
