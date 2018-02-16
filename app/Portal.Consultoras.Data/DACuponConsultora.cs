@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Data
 
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
 
         public int InsertarCuponConsultorasXML(int cuponId, int campaniaId, string xml)
         {
@@ -90,6 +90,6 @@ namespace Portal.Consultoras.Data
 
                     return Context.ExecuteNonQuery(command);
                 }
-        }
+            }
     }
 }

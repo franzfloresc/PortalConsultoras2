@@ -7,7 +7,7 @@
 @model BienvenidaModel
 
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     Model.RevistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     var urlDomain = Util.GetUrlHost(Request);
@@ -22,10 +22,10 @@
             background: #FFF !important;
         }
 
-        .bloqueOfertaDia_vistaOfertas{
-            width:100%;
-            box-shadow:none;
-            margin:0;
+        .bloqueOfertaDia_vistaOfertas {
+            width: 100%;
+            box-shadow: none;
+            margin: 0;
         }
     </style>
     @Styles.Render("~/bundles/Css/Site/CcsBienvenida")
@@ -35,11 +35,11 @@
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
             </ul>
         </div>
 
@@ -54,14 +54,14 @@
     <div class="contenedor-tutorial-esika">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
                 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
                 {
-                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial=""/></li>
+                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial="" /></li>
                 }
             </ul>
         </div>
@@ -285,7 +285,7 @@
 
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
-    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <!--FIN CARRUSEL-->
 
@@ -342,7 +342,7 @@
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
-            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home=""/></div>
+            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
@@ -358,7 +358,7 @@
         <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
             <div class="content_banner_fav">
                 <div class="content_imagen_banner_fav">
-                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home=""/>
+                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
                 </div>
                 <div class="texto_fav_banner">
                     @ViewBag.NombreConsultoraFAV, estos son los
@@ -388,7 +388,7 @@
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
         <div class="imagen_catalogo video_esika">
-            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home=""/>
+            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
         </div>
     </a>
     <hr class="clear" />
@@ -404,7 +404,7 @@
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home=""/>
+                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
             </a>
         </div>
         <hr class="clear" />
@@ -649,28 +649,7 @@
 <!--POP UP REVISTA DIGITAL-->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main="" 
-         style="display:none; font-family: 'Lato' !important;" 
-         data-popup-function-hide="RDPopupCerrar()">
-        <div class="content_pop_up_intriga" data-popup-body="">
-            <div class="contenido-popup-nuevo-2017">
-                <div class="centrar-estructura">
-                    <div class="centrar-vertical-contenido">
-                        <p class="primer-texto">
-                            DILE ADIÓS A
-                            LOS CÓDIGOS…
-                        </p>
-                        <p class="segundo-texto">
-                            ¡DILE SÍ A
-                            OFERTAS <span class="flashit">GANA +</span> !
-                        </p>
-                        <a href="javascript: RDRedireccionarInformacion(0);" class="btn-popup">ENTÉRATE AQUÍ</a>
-                    </div>
-                    <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
@@ -823,5 +802,5 @@
 
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
-   
+
 }

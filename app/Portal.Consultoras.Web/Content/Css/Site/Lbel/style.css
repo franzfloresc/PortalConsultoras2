@@ -35815,6 +35815,16 @@ h1#penmostreo .campana {
         margin-bottom: 35px;
     }
 
+    .contenido-popup-nuevo-2017 .cerrargndtxt{
+
+        margin-top: 20px;
+    font-size: 11px;
+    letter-spacing: .5px;
+    color: #9E9E9E;
+    text-decoration: underline;
+
+    }
+
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
         background: #613c87;
         color: white;

@@ -19,6 +19,6 @@ namespace Portal.Consultoras.Data
                     Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
     }
 }

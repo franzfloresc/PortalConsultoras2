@@ -62,8 +62,8 @@ namespace Portal.Consultoras.Web.Controllers
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
-                UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
+                UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
+                UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
                 Origen = revistaDigital.SuscripcionEfectiva.Origen
             };
                         
@@ -199,10 +199,18 @@ namespace Portal.Consultoras.Web.Controllers
             return video;
         }
 
-        private string Getvalor1Dato(string codigo)
+        public string GetValorDato(string codigo, int valor = 1)
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            return Util.Trim(dato.Valor1);
+            var valorDato = "";
+            switch (valor)
+            {
+                case 1: valorDato = dato.Valor1; break;
+                case 2: valorDato = dato.Valor2; break;
+                case 3: valorDato = dato.Valor3; break;
+                default: valorDato = dato.Valor1; break;
+            }
+            return Util.Trim(valorDato);
         }
         
     }

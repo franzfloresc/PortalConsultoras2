@@ -140,6 +140,6 @@ namespace Portal.Consultoras.BizLogic
             string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
-        
+
     }
 }

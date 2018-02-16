@@ -75,11 +75,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!string.IsNullOrEmpty(paisId))
                 {
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
-                    }
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
+                    campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
                 }
+            }
             }
             catch (FaultException ex)
             {
@@ -128,8 +128,8 @@ namespace Portal.Consultoras.Web.Controllers
                         
 
                     }
-                }
-                
+                    }
+
                 return Json(new
                 {
                     success = true,

@@ -282,10 +282,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private void AjustarConcursoAnterior(BEConsultoraConcurso concurso)
-        { 
+        {
             // Alcanzo todos los niveles, quitar los premios para no acumulativos..
             if (!concurso.IndicadorPremioAcumulativo && !concurso.Premios.Any(p => p.PuntajeMinimo > concurso.PuntajeTotal))
-            {
+                {
                     concurso.Premios.RemoveAll(p => p.NumeroNivel < concurso.NivelAlcanzado);
                     concurso.Premios = new List<BEPremio>{
                         new BEPremio

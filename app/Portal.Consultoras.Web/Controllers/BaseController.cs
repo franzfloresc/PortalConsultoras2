@@ -442,24 +442,24 @@ namespace Portal.Consultoras.Web.Controllers
                     return mensaje;
 
                
-                var listaProducto = ObtenerPedidoWebDetalle();
+                        var listaProducto = ObtenerPedidoWebDetalle();
 
-                var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
-                var dTotalPedido = Convert.ToDecimal(totalPedido);
-                decimal descuentoProl = 0;
+                        var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
+                        var dTotalPedido = Convert.ToDecimal(totalPedido);
+                        decimal descuentoProl = 0;
 
-                if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
-                {
-                    resul = true;
-                }
+                        if (dTotalPedido > userData.MontoMaximo && cantidad < 0)
+                        {
+                            resul = true;
+                        }
 
-                if (listaProducto.Any())
-                    descuentoProl = listaProducto[0].DescuentoProl;
+                        if (listaProducto.Any())
+                            descuentoProl = listaProducto[0].DescuentoProl;
 
-                var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
-                if (montoActual > userData.MontoMaximo)
-                {
-                    var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
+                        var montoActual = (montoCuv * cantidad) + (dTotalPedido - descuentoProl);
+                        if (montoActual > userData.MontoMaximo)
+                        {
+                            var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
                     mensaje = "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString()
                             + ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
                 }
@@ -3925,7 +3925,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (key == "") return "";
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
-            
+
             return Util.Trim(keyvalor);
         }
 

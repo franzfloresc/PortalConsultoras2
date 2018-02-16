@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Data
                     Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
 
         public int InsertShowRoomEvento(BEShowRoomEvento showRoomEvento)
         {
@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Data
                     Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
 
         public IDataReader GetShowRoomConsultoraPersonalizacion(int campaniaID, string codigoConsultora)
         {
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Data
                     Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int campaniaID, string codigoConsultora, bool mostrarPopup)
         {
@@ -348,7 +348,7 @@ namespace Portal.Consultoras.Data
                     result = Convert.ToInt32(Context.ExecuteScalar(command).ToString());
                 }
                 return result;
-        }
+            }
 
         public int GetStockOfertaShowRoom(int campaniaID, string cuv)
         {

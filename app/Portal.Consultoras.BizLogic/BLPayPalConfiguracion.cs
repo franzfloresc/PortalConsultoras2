@@ -205,9 +205,9 @@ namespace Portal.Consultoras.BizLogic
             if (!row.Table.Columns.Contains("REGISTROS"))
                 return line;
             
-            if (row["REGISTROS"] != DBNull.Value)
-                line = row["REGISTROS"].ToString();
-            
+                if (row["REGISTROS"] != DBNull.Value)
+                    line = row["REGISTROS"].ToString();
+
             return line;
         }
 

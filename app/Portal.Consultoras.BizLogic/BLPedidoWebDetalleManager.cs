@@ -332,7 +332,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, codigosConcursos);
                 if (lista != null && lista.Count > 0)
-                {
+                    {
                         var datos = lista[0];
 
                         decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);

@@ -760,9 +760,9 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.Append(rowPrecioUnitario);
 
                 if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
-                {
-                    indicadorOfertaCuv = true;
-                }
+                    {
+                        indicadorOfertaCuv = true;
+                    }
                 mailBody.Append("</table>");
             }
             mailBody.Append("</tr></td></tr>");

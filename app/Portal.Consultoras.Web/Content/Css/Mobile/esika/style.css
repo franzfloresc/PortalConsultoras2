@@ -14121,7 +14121,7 @@ a {
         }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 28px;
+                font-size: 17px;
                 letter-spacing: 1px;
                 text-align: center;
                 color: white;
@@ -14130,25 +14130,58 @@ a {
                 display: block;
                 width: 250px;
                 margin: auto;
-                line-height: 30px;
-                margin-bottom: 15px;
+                margin-bottom: 5px;
             }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 30px;
+                font-size: 24px;
                 letter-spacing: 1px;
-                line-height: 35px;
                 text-align: center;
                 color: white;
                 font-weight: 700;
                 margin-top: 10px;
                 letter-spacing: 1px;
-                margin-bottom: 36px;
                 display: block;
                 width: 250px;
                 margin: auto;
-                margin-bottom: 35px;
+                margin-bottom: 20px;
             }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
+                float: left;
+                top: 0;
+                WIDTH: 100%;
+                LEFT: 0;
+                text-align: left;
+                margin: -9.5% 5% 0% -14.5px;
+            }
+
+            .contenido-popup-nuevo-2017 .cerrargndtxt{
+
+                    margin-top: 20px;
+                font-size: 11px;
+                letter-spacing: .5px;
+                color: #9E9E9E;
+                text-decoration: underline;
+
+                }
+
+                .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img{
+                    display:block;
+                    margin:auto;
+                    text-align:center;
+                    height:160px;
+                    margin-bottom:15px;
+                }
+    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+        position: absolute;
+        margin-top: -15px;
+        margin-left: -15px;
+        width: 64px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus img {
+        width: 100%;
+    }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
                 background: #e81c36;
@@ -14175,7 +14208,7 @@ a {
         }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 28px;
+                font-size: 17px;
                 letter-spacing: 1px;
                 text-align: center;
                 color: white;
@@ -14184,24 +14217,19 @@ a {
                 display: block;
                 width: 250px !important;
                 margin: auto;
-                line-height: 30px;
-                margin-bottom: 15px;
             }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 30px;
+                font-size: 24px;
                 letter-spacing: 1px;
-                line-height: 35px;
                 text-align: center;
                 color: white;
                 font-weight: 700;
-                margin-top: 10px;
-                letter-spacing: 1px;
                 margin-bottom: 36px;
                 display: block;
                 width: 250px !important;
                 margin: auto;
-                margin-bottom: 35px;
+                margin-bottom: 20px;
             }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
@@ -14220,6 +14248,15 @@ a {
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
                 color: white;
+            }
+
+            @media (max-width:400px){
+                .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+                    position: absolute;
+                    margin-top: 5px;
+                    margin-left: 5px;
+                    width: 64px;
+                }
             }
 
 /* POP UP ACTUALIZA DATOS*/
@@ -14422,11 +14459,11 @@ a {
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 24px;
+    font-size: 17px;
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
@@ -14458,16 +14495,17 @@ a {
 
 @media (max-width: 1024px) {
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 24px;
+        font-size: 17px;
+        margin-bottom: 5px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 26px;
+        font-size: 24px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
         font-size: 13px;
-        padding: 14.5px 0;
+        padding: 13.5px 0;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {

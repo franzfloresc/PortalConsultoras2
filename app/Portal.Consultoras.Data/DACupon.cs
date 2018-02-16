@@ -40,6 +40,6 @@ namespace Portal.Consultoras.Data
 
                     return Context.ExecuteReader(command);
                 }
-        }
+            }
     }
 }
