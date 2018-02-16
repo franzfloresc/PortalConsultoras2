@@ -1340,6 +1340,7 @@
     <Content Include="Content\Images\icono-paso-completado.svg" />
     <Content Include="Content\Images\icono-tarjeta-blanco.svg" />
     <Content Include="Content\Images\icono-tarjeta.svg" />
+    <Content Include="Content\Images\icono_enviar_detalle_correo.svg" />
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
