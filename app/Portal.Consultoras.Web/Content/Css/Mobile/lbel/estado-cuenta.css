@@ -38,6 +38,25 @@
     vertical-align:middle;
 }
 
+.nombre_vista{
+    position:relative;
+    overflow: unset;
+}
+
+.nombre_vista:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-top-color: #000;
+	border-width: 10px;
+    margin-left: -10px;
+}
+
 .vista_estado_de_cuenta{
     padding-left:14px;
     padding-right:14px;
@@ -83,8 +102,8 @@
 
 .btn_paga_en_linea_con_credito_visa{
     width: 100%;
-    border:none;
     height: 48px;
+    line-height:48px;
     margin-bottom: 14px;
     background: #642f80;
     color:#FFF;
@@ -143,6 +162,10 @@
     box-sizing: border-box;
 }
 
+.fila_gris_detalle_movimiento{
+    color:#8A8A8A;
+}
+
 .grilla_detalle_movimientos_estado_de_cuenta > div:last-child{
     border-bottom: 1px solid #d5d5d5;
 }
@@ -161,6 +184,10 @@
 .fecha_movimiento_estado_de_cuenta {
     width: 16%;
     border-right: 1px solid #000;
+}
+
+.fila_grilla_detalle_movimiento .fecha_movimiento_estado_de_cuenta{
+    border-right: 1px solid #8A8A8A;
 }
 
 .descripcion_movimiento_estado_de_cuenta {
