@@ -222,6 +222,10 @@ $(document).ready(function () {
         AgregarOfertaShowRoom(article, cantidad);
         e.preventDefault();
         (this).blur();
+        $(".contenedor_circulos").fadeIn();
+        setTimeout(function () {
+            $(".contenedor_circulos").fadeOut();
+        }, 2700);
     });
 
     $("body").on("click", "[data-btn-agregar-cpc]", function (e) {
