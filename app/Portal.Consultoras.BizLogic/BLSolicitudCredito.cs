@@ -512,18 +512,12 @@
 
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
-            var colonias = new List<BETablaLogicaDatos>();
             var daSolicitud = new DASolicitudCredito(paisID);
 
             using (IDataReader reader = daSolicitud.ListarColoniasByTerritorio(codigo))
             {
-                while (reader.Read())
-                {
-                    var solicitud = new BETablaLogicaDatos(reader);
-                    colonias.Add(solicitud);
-                }
+                return reader.MapToCollection<BETablaLogicaDatos>();
             }
-            return colonias;
         }
 
         public string ValidarNumeroRFC(int paisID, string numeroRFC)
