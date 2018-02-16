@@ -97,6 +97,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         TipoRechazoAdicional = 31,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TipoVia = 32,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        TipoVivienda = 33,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -6311,9 +6317,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoTemplate", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoSV))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoGT))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoPA))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoGT))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoSV))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoCR))]
     public partial class UbigeoTemplate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -6438,21 +6444,21 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoSV", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoPA", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
     [System.SerializableAttribute()]
-    public partial class UbigeoSV : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
+    public partial class UbigeoPA : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CANTON_CENTRO_POBLADOField;
+        private string CORREGIMIENTOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DEPARTAMENTOField;
+        private string DISTRITOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MUNICIPIOField;
+        private string PROVINCIAField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string BARRIO_COLONIA_URBANIZACION_REFERENCIAS {
@@ -6468,40 +6474,40 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CANTON_CENTRO_POBLADO {
+        public string CORREGIMIENTO {
             get {
-                return this.CANTON_CENTRO_POBLADOField;
+                return this.CORREGIMIENTOField;
             }
             set {
-                if ((object.ReferenceEquals(this.CANTON_CENTRO_POBLADOField, value) != true)) {
-                    this.CANTON_CENTRO_POBLADOField = value;
-                    this.RaisePropertyChanged("CANTON_CENTRO_POBLADO");
+                if ((object.ReferenceEquals(this.CORREGIMIENTOField, value) != true)) {
+                    this.CORREGIMIENTOField = value;
+                    this.RaisePropertyChanged("CORREGIMIENTO");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DEPARTAMENTO {
+        public string DISTRITO {
             get {
-                return this.DEPARTAMENTOField;
+                return this.DISTRITOField;
             }
             set {
-                if ((object.ReferenceEquals(this.DEPARTAMENTOField, value) != true)) {
-                    this.DEPARTAMENTOField = value;
-                    this.RaisePropertyChanged("DEPARTAMENTO");
+                if ((object.ReferenceEquals(this.DISTRITOField, value) != true)) {
+                    this.DISTRITOField = value;
+                    this.RaisePropertyChanged("DISTRITO");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MUNICIPIO {
+        public string PROVINCIA {
             get {
-                return this.MUNICIPIOField;
+                return this.PROVINCIAField;
             }
             set {
-                if ((object.ReferenceEquals(this.MUNICIPIOField, value) != true)) {
-                    this.MUNICIPIOField = value;
-                    this.RaisePropertyChanged("MUNICIPIO");
+                if ((object.ReferenceEquals(this.PROVINCIAField, value) != true)) {
+                    this.PROVINCIAField = value;
+                    this.RaisePropertyChanged("PROVINCIA");
                 }
             }
         }
@@ -6596,21 +6602,21 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoPA", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoSV", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
     [System.SerializableAttribute()]
-    public partial class UbigeoPA : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
+    public partial class UbigeoSV : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BARRIO_COLONIA_URBANIZACION_REFERENCIASField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CORREGIMIENTOField;
+        private string CANTON_CENTRO_POBLADOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DISTRITOField;
+        private string DEPARTAMENTOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PROVINCIAField;
+        private string MUNICIPIOField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string BARRIO_COLONIA_URBANIZACION_REFERENCIAS {
@@ -6626,40 +6632,40 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CORREGIMIENTO {
+        public string CANTON_CENTRO_POBLADO {
             get {
-                return this.CORREGIMIENTOField;
+                return this.CANTON_CENTRO_POBLADOField;
             }
             set {
-                if ((object.ReferenceEquals(this.CORREGIMIENTOField, value) != true)) {
-                    this.CORREGIMIENTOField = value;
-                    this.RaisePropertyChanged("CORREGIMIENTO");
+                if ((object.ReferenceEquals(this.CANTON_CENTRO_POBLADOField, value) != true)) {
+                    this.CANTON_CENTRO_POBLADOField = value;
+                    this.RaisePropertyChanged("CANTON_CENTRO_POBLADO");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DISTRITO {
+        public string DEPARTAMENTO {
             get {
-                return this.DISTRITOField;
+                return this.DEPARTAMENTOField;
             }
             set {
-                if ((object.ReferenceEquals(this.DISTRITOField, value) != true)) {
-                    this.DISTRITOField = value;
-                    this.RaisePropertyChanged("DISTRITO");
+                if ((object.ReferenceEquals(this.DEPARTAMENTOField, value) != true)) {
+                    this.DEPARTAMENTOField = value;
+                    this.RaisePropertyChanged("DEPARTAMENTO");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PROVINCIA {
+        public string MUNICIPIO {
             get {
-                return this.PROVINCIAField;
+                return this.MUNICIPIOField;
             }
             set {
-                if ((object.ReferenceEquals(this.PROVINCIAField, value) != true)) {
-                    this.PROVINCIAField = value;
-                    this.RaisePropertyChanged("PROVINCIA");
+                if ((object.ReferenceEquals(this.MUNICIPIOField, value) != true)) {
+                    this.MUNICIPIOField = value;
+                    this.RaisePropertyChanged("MUNICIPIO");
                 }
             }
         }
@@ -10875,10 +10881,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<int> ValidarCodigoVerificacionSolicitudPostulanteAsync(string codigoIso, Portal.Consultoras.Web.ServiceUnete.CodigoVerificacionSolicitudPostulanteBE model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo", ReplyAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse")]
-        string[] ObtenerListaAutocompletarUbigeo(string codigoIso, string texto);
+        Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerListaAutocompletarUbigeo(string codigoIso, string texto);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo", ReplyAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse")]
-        System.Threading.Tasks.Task<string[]> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -11388,11 +11394,11 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ValidarCodigoVerificacionSolicitudPostulanteAsync(codigoIso, model);
         }
         
-        public string[] ObtenerListaAutocompletarUbigeo(string codigoIso, string texto) {
+        public Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection ObtenerListaAutocompletarUbigeo(string codigoIso, string texto) {
             return base.Channel.ObtenerListaAutocompletarUbigeo(codigoIso, texto);
         }
         
-        public System.Threading.Tasks.Task<string[]> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ParametroUneteCollection> ObtenerListaAutocompletarUbigeoAsync(string codigoIso, string texto) {
             return base.Channel.ObtenerListaAutocompletarUbigeoAsync(codigoIso, texto);
         }
     }
