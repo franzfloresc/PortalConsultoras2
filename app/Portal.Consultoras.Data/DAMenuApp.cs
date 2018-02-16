@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, menuApp.CodigoZona);
             Context.Database.AddInParameter(command, "@CodigoSeccion", DbType.String, menuApp.CodigoSeccion);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, menuApp.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@VersionMenu", DbType.Int16, menuApp.VersionMenu);
             return Context.ExecuteReader(command);
         }
     }
