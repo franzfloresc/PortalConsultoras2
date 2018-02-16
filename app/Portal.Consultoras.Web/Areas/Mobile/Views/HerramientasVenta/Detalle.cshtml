@@ -246,18 +246,18 @@
     }
 </div>
 
-@if ((Model.ClaseBloqueada ?? "") != "")
+@*@if ((Model.ClaseBloqueada ?? "") != "")
 {
     @Html.Action("MensajeBloqueado", "RevistaDigital")
-}
-@*<div class="row" id="idMensajeBloqueado">
+}*@
+<div class="row" id="idMensajeBloqueado">
     <div class="rd_producto_bloqueado" style="margin: 0 14px;">
         <div class="rd_producto_bloqueado_tit">
             <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />
             A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.
         </div>
     </div>
-</div>*@
+</div>
    
     @section scripts{
         <script type="text/javascript">
