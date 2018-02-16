@@ -10502,6 +10502,18 @@ a {
         margin-top: -7px;
     }
 
+.imagen_set_oferta_mobile2 {
+    width: 14%;
+    height: auto;
+    float: right;
+    text-align: center;
+    margin: 8px 30px 0 0;
+}
+
+    .imagen_set_oferta_mobile2 img {
+        width: 100%;
+    }
+
 .btn_cerrar_oferta_mobile {
     position: absolute;
     font-family: 'Lato';
@@ -11043,8 +11055,6 @@ a {
     background: black;
     width: 100%;
     overflow: hidden;
-    padding-top: 14px;
-    padding-bottom: 13px;
     height: 60px;
     position: relative;
 }
@@ -11071,14 +11081,13 @@ a {
 .solo_hoy_mobile2 {
     width: 129px;
     height: 34px;
-    position: relative;
-    top: -9px;
+    position: absolute;
+    top: 4px;
 }
 
     .solo_hoy_mobile2 img {
-        width: 77%;
+        width: 88%;
         object-fit: cover;
-        height: 19px;
         object-position: 100%;
     }
 
@@ -12457,7 +12466,7 @@ a {
     margin-top: 7px !important;
     display: block;
     position: absolute;
-    top: 11px;
+    top: 26px;
     left: 67px;
     font-family: 'Lato';
     color: #fff;
