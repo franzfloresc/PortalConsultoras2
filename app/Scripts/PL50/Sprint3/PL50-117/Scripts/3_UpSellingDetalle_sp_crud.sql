@@ -134,24 +134,7 @@ CREATE PROCEDURE [dbo].UpSellingDetalle_Update (
 	,@UsuarioCreacion VARCHAR(150)
 	,@FechaCreacion DATETIME
 	,@UsuarioModicacion VARCHAR(150)
-	,@FechaModificacion DATETIME
-	,@Original_UpSellingDetalleId INT
-	,@Original_CUV VARCHAR(50)
-	,@Original_Nombre VARCHAR(250)
-	,@IsNull_Descripcion INT
-	,@Original_Descripcion VARCHAR(500)
-	,@IsNull_Imagen INT
-	,@Original_Imagen VARCHAR(400)
-	,@Original_Stock INT
-	,@Original_Orden INT
-	,@Original_Activo BIT
-	,@Original_UpSellingId INT
-	,@Original_UsuarioCreacion VARCHAR(150)
-	,@Original_FechaCreacion DATETIME
-	,@IsNull_UsuarioModicacion INT
-	,@Original_UsuarioModicacion VARCHAR(150)
-	,@IsNull_FechaModificacion INT
-	,@Original_FechaModificacion DATETIME
+	,@FechaModificacion DATETIME	
 	,@UpSellingDetalleId INT
 	)
 AS
@@ -170,45 +153,7 @@ SET [CUV] = @CUV
 	,[FechaCreacion] = @FechaCreacion
 	,[UsuarioModicacion] = @UsuarioModicacion
 	,[FechaModificacion] = @FechaModificacion
-WHERE (
-		([UpSellingDetalleId] = @Original_UpSellingDetalleId)
-		AND ([CUV] = @Original_CUV)
-		AND ([Nombre] = @Original_Nombre)
-		AND (
-			(
-				@IsNull_Descripcion = 1
-				AND [Descripcion] IS NULL
-				)
-			OR ([Descripcion] = @Original_Descripcion)
-			)
-		AND (
-			(
-				@IsNull_Imagen = 1
-				AND [Imagen] IS NULL
-				)
-			OR ([Imagen] = @Original_Imagen)
-			)
-		AND ([Stock] = @Original_Stock)
-		AND ([Orden] = @Original_Orden)
-		AND ([Activo] = @Original_Activo)
-		AND ([UpSellingId] = @Original_UpSellingId)
-		AND ([UsuarioCreacion] = @Original_UsuarioCreacion)
-		AND ([FechaCreacion] = @Original_FechaCreacion)
-		AND (
-			(
-				@IsNull_UsuarioModicacion = 1
-				AND [UsuarioModicacion] IS NULL
-				)
-			OR ([UsuarioModicacion] = @Original_UsuarioModicacion)
-			)
-		AND (
-			(
-				@IsNull_FechaModificacion = 1
-				AND [FechaModificacion] IS NULL
-				)
-			OR ([FechaModificacion] = @Original_FechaModificacion)
-			)
-		);
+WHERE ([UpSellingDetalleId] = @UpSellingDetalleId);
 
 SELECT UpSellingDetalleId
 	,CUV
@@ -237,68 +182,14 @@ IF EXISTS (
 GO
 
 CREATE PROCEDURE [dbo].UpSellingDetalle_Delete (
-	@Original_UpSellingDetalleId INT
-	,@Original_CUV VARCHAR(50)
-	,@Original_Nombre VARCHAR(250)
-	,@IsNull_Descripcion INT
-	,@Original_Descripcion VARCHAR(500)
-	,@IsNull_Imagen INT
-	,@Original_Imagen VARCHAR(400)
-	,@Original_Stock INT
-	,@Original_Orden INT
-	,@Original_Activo BIT
-	,@Original_UpSellingId INT
-	,@Original_UsuarioCreacion VARCHAR(150)
-	,@Original_FechaCreacion DATETIME
-	,@IsNull_UsuarioModicacion INT
-	,@Original_UsuarioModicacion VARCHAR(150)
-	,@IsNull_FechaModificacion INT
-	,@Original_FechaModificacion DATETIME
+	@UpSellingDetalleId INT
 	)
 AS
 SET NOCOUNT OFF;
 
 DELETE
 FROM [UpSellingDetalle]
-WHERE (
-		([UpSellingDetalleId] = @Original_UpSellingDetalleId)
-		AND ([CUV] = @Original_CUV)
-		AND ([Nombre] = @Original_Nombre)
-		AND (
-			(
-				@IsNull_Descripcion = 1
-				AND [Descripcion] IS NULL
-				)
-			OR ([Descripcion] = @Original_Descripcion)
-			)
-		AND (
-			(
-				@IsNull_Imagen = 1
-				AND [Imagen] IS NULL
-				)
-			OR ([Imagen] = @Original_Imagen)
-			)
-		AND ([Stock] = @Original_Stock)
-		AND ([Orden] = @Original_Orden)
-		AND ([Activo] = @Original_Activo)
-		AND ([UpSellingId] = @Original_UpSellingId)
-		AND ([UsuarioCreacion] = @Original_UsuarioCreacion)
-		AND ([FechaCreacion] = @Original_FechaCreacion)
-		AND (
-			(
-				@IsNull_UsuarioModicacion = 1
-				AND [UsuarioModicacion] IS NULL
-				)
-			OR ([UsuarioModicacion] = @Original_UsuarioModicacion)
-			)
-		AND (
-			(
-				@IsNull_FechaModificacion = 1
-				AND [FechaModificacion] IS NULL
-				)
-			OR ([FechaModificacion] = @Original_FechaModificacion)
-			)
-		)
+WHERE ([UpSellingDetalleId] = @UpSellingDetalleId)
 GO
 
 

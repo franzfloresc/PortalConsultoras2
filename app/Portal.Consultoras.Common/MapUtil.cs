@@ -17,8 +17,9 @@ namespace Portal.Consultoras.Common
         /// Map only fields decorated with ColumnAttribute, otherwise ignore
         /// </summary>
         /// <param name="dataReader"></param>
+        /// <param name="closeReaderFinishing"></param>
         /// <returns></returns>
-        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader) where TSource : class, new()
+        public static List<TSource> MapToCollection<TSource>(this IDataReader dataReader, bool closeReaderFinishing = false) where TSource : class, new()
         {
             var businessEntityType = typeof(TSource);
             var entities = new List<TSource>();
@@ -60,12 +61,15 @@ namespace Portal.Consultoras.Common
                 entities.Add(newObject);
             }
 
+            if (closeReaderFinishing && !dataReader.IsClosed)
+                dataReader.Close();
+
             return entities;
         }
 
-        public static TSource MapToObject<TSource>(this IDataReader dataReader) where TSource : class, new()
+        public static TSource MapToObject<TSource>(this IDataReader dataReader, bool closeReaderFinishing = false) where TSource : class, new()
         {
-            return MapToCollection<TSource>(dataReader).FirstOrDefault() ?? new TSource();
+            return MapToCollection<TSource>(dataReader, closeReaderFinishing).FirstOrDefault() ?? new TSource();
         }
 
         private static string GetColunmName(PropertyInfo property)

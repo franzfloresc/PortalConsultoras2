@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Entities.Estrategia
     /// <summary>
     /// Regalos
     /// </summary>
+    [System.Diagnostics.DebuggerStepThrough]
     [DataContract]
     public class UpSellingDetalle : Auditoria
     {
@@ -48,6 +49,10 @@ namespace Portal.Consultoras.Entities.Estrategia
 
         [DataMember]
         [Column("UpSellingId")]
-        public string UpSellingId { get; set; }
+        public int UpSellingId { get; set; }
+
+        [DataMember]
+        [Column("StockActual")]
+        public int StockActual { get; set; }
     }
 }

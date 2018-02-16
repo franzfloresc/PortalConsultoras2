@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Entities.Estrategia
 
         [DataMember]
         [Column("CodigoCampana")]
-        public int CodigoCampana { get; set; }
+        public string CodigoCampana { get; set; }
 
         [DataMember]
         [Column("MontoMeta")]
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Entities.Estrategia
         public bool Activo { get; set; }
 
         [DataMember]
-        [NotMapped]
+        //[NotMapped]
         public List<UpSellingDetalle> Regalos { get; set; }
     }
 }

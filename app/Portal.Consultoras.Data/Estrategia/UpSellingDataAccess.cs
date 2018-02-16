@@ -12,8 +12,6 @@ namespace Portal.Consultoras.Data.Estrategia
 {
     public class UpSellingDataAccess : DataAccess
     {
-        private const string StoredProcedureUpSellingObtener = "dbo.UpSelling_Select";
-
         public UpSellingDataAccess(int paisId) : base(paisId, EDbSource.Portal)
         { }
 
@@ -33,13 +31,15 @@ namespace Portal.Consultoras.Data.Estrategia
 
         public IEnumerable<UpSelling> Obtener(int? upSellingId, string codigoCampana)
         {
-            using (var command = Context.Database.GetStoredProcCommand(StoredProcedureUpSellingObtener))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSelling_Select"))
             {
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
                 Context.Database.AddInParameter(command, "@codigoCampana", DbType.String, codigoCampana);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToCollection<UpSelling>();
+
+                var data = reader.MapToCollection<UpSelling>(true);
+                return data;
             }
         }
 
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSelling>();
+                return reader.MapToObject<UpSelling>(true);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSelling.UpSellingId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSelling>();
+                return reader.MapToObject<UpSelling>(true);
             }
         }
 
@@ -96,14 +96,14 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
-        public IEnumerable<UpSellingDetalle> ObtenerDetalle(int upSellingId)
+        public List<UpSellingDetalle> ObtenerDetalle(int upSellingId)
         {
-            using (var command = Context.Database.GetStoredProcCommand(""))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Select"))
             {
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToCollection<UpSellingDetalle>();
+                return reader.MapToCollection<UpSellingDetalle>(true);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSellingDetalle>();
+                return reader.MapToObject<UpSellingDetalle>(true);
             }
         }
 
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, regalo.UpSellingDetalleId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSellingDetalle>();
+                return reader.MapToObject<UpSellingDetalle>(true);
             }
         }
 
