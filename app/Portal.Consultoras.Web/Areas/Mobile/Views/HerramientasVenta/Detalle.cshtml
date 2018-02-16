@@ -75,9 +75,9 @@
         <div class="content_oferta_guia_negocio">
             <div class="btn-volver-fix-detalle">
                 @if (mobileConfiguracion.MostrarBotonAtras)
-                {
-                    <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
-                }
+        {
+            <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
+}
             </div>
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@Model.FotoProductoMedium" alt="PRODUCTO" class="imagen_producto">
@@ -86,24 +86,25 @@
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
             @if (Model.Precio > 0)
-            {
-                <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
-            }
+    {
+        <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
+}
 
-
-            <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
-            
-            
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
+            <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div>
                 if (Model.PrecioNiveles != null)
                 {
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
                     {
-            <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
-                    }       
+                        <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
+                    }
                 }
+            }
+            else
+            {
+                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
             }
             @if (Model.Ganancia > 0)
             {
@@ -265,14 +266,6 @@ if (Model.Hermanos != null && Model.Hermanos.Any())
 {
     @Html.Action("MensajeBloqueado", "HerramientasVenta")
 }
-@*<div class="row" id="idMensajeBloqueado">
-    <div class="rd_producto_bloqueado" style="margin: 0 14px;">
-        <div class="rd_producto_bloqueado_tit">
-            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />
-            A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.
-        </div>
-    </div>
-</div>*@
    
     @section scripts{
         <script type="text/javascript">
