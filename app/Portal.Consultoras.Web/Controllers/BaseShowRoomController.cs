@@ -236,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
                     x.CodigoISO = userData.CodigoISO;
                     x.Simbolo = userData.Simbolo;
                     x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
+                    x.TipoAccionAgregar = 2;
                 });
                 return listadoOfertasTodasModel;
             }
@@ -306,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
 
-            var listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
+            List<ShowRoomOfertaModel> listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
             listadoOfertasTodasModel1.Update(x =>
             {
                 x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
@@ -314,6 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
                 x.UrlCompartir = GetUrlCompartirFB();
+                x.TipoAccionAgregar = 2;
             });
             return listadoOfertasTodasModel1;
         }
