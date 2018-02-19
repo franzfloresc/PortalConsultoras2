@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -25,8 +26,8 @@ namespace Portal.Consultoras.BizLogic
         public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
         {
             BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
-            var DAEstrategia = new DAEstrategia(paisID);
-            using (IDataReader reader = DAEstrategia.GetEstrategiaDetalle(estrategiaID))
+            var daEstrategia = new DAEstrategia(paisID);
+            using (IDataReader reader = daEstrategia.GetEstrategiaDetalle(estrategiaID))
             {
                 if (reader.Read())
                 {
@@ -38,12 +39,10 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
         {
-            try
-            {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.FiltrarEstrategia(entidad))
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = daEstrategia.FiltrarEstrategia(entidad))
                 {
                     while (reader.Read())
                     {
@@ -67,18 +66,14 @@ namespace Portal.Consultoras.BizLogic
                     estrategia.ImgHomeMobile = estrategiaDetalle.ImgHomeMobile;
                 }
                 return listaEstrategias;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
         {
-            try
-            {
                 List<BEMatrizComercialImagen> listaImagenes = new List<BEMatrizComercialImagen>();
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros))
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = daEstrategia.GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros))
                 {
                     while (reader.Read())
                     {
@@ -86,17 +81,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaImagenes;
-            }
-            catch (Exception) { throw; }
         } 
 
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
-            try
-            {
                 var listaTallaColor = new List<BETallaColor>();
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetTallaColor(entidad))
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = daEstrategia.GetTallaColor(entidad))
                 {
                     while (reader.Read())
                     {
@@ -104,29 +95,21 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaTallaColor;
-            }
-            catch (Exception) { throw; }
         }
 
         public int InsertTallaColorCUV(BETallaColor entidad)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.InsertTallaColorCUV(entidad);
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = daEstrategia.InsertTallaColorCUV(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEEstrategia> GetOfertaByCUV(BEEstrategia entidad)
         {
-            try
-            {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetOfertaByCUV(entidad))
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = daEstrategia.GetOfertaByCUV(entidad))
                 {
                     while (reader.Read())
                     {
@@ -134,61 +117,48 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaEstrategias;
-            }
-            catch (Exception) { throw; }
         }
 
         public int InsertEstrategia(BEEstrategia entidad)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.InsertEstrategia(entidad);
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = daEstrategia.InsertEstrategia(entidad);
                 if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                 {
-                    BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
-                    estrategiaDetalle.EstrategiaID = result;
-                    DAEstrategia.InsertEstrategiaDetalle(estrategiaDetalle);
+                    BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad) {EstrategiaID = result};
+                    daEstrategia.InsertEstrategiaDetalle(estrategiaDetalle);
                 }
                 return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         public int DeshabilitarEstrategia(BEEstrategia entidad)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.DeshabilitarEstrategia(entidad);
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = daEstrategia.DeshabilitarEstrategia(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
-
-        public int EliminarTallaColor(BETallaColor entidad)
+        public int EliminarEstrategia(BEEstrategia entidad)
         {
             try
             {
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.EliminarTallaColor(entidad);
+                int result = DAEstrategia.EliminarEstrategia(entidad);
                 return result;
             }
             catch (Exception) { throw; }
+        }
+        public int EliminarTallaColor(BETallaColor entidad)
+        {
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = daEstrategia.EliminarTallaColor(entidad);
+                return result;
         }
 
         public int ValidarCUVsRecomendados(BEEstrategia entidad)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                int result = DAEstrategia.ValidarCUVsRecomendados(entidad);
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                int result = daEstrategia.ValidarCUVsRecomendados(entidad);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
@@ -230,7 +200,7 @@ namespace Portal.Consultoras.BizLogic
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
-                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
+                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
                     if (estrategias == null || !estrategias.Any())
                     {
                         estrategias = new List<BEEstrategia>();
@@ -239,7 +209,7 @@ namespace Portal.Consultoras.BizLogic
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
 
-                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, estrategias);
+                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString(), estrategias);
                     }
 
                     break;
@@ -332,7 +302,7 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.FotoProductoSmall = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                estrategia.FotoProductoMedium = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium); ;
+                estrategia.FotoProductoMedium = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
@@ -341,12 +311,10 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
-            try
-            {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.FiltrarEstrategiaPedido(entidad))
+                var daEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = daEstrategia.FiltrarEstrategiaPedido(entidad))
                 {
                     while (reader.Read())
                     {
@@ -354,22 +322,20 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaEstrategias;
-            }
-            catch (Exception) { throw; }
         }
 
         public string ValidarStockEstrategia(BEEstrategia entidad)
         {
-            var DAEstrategia = new DAEstrategia(entidad.PaisID);
-            return DAEstrategia.ValidarStockEstrategia(entidad);
+            var daEstrategia = new DAEstrategia(entidad.PaisID);
+            return daEstrategia.ValidarStockEstrategia(entidad);
         }
 
         public IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID)
         {
             var lista = new List<BEConfiguracionValidacionZE>();
-            var DAEstrategia = new DAEstrategia(PaisID);
+            var daEstrategia = new DAEstrategia(PaisID);
 
-            using (IDataReader reader = DAEstrategia.GetRegionZonaZE(RegionID, ZonaID))
+            using (IDataReader reader = daEstrategia.GetRegionZonaZE(RegionID, ZonaID))
                 while (reader.Read())
                 {
                     var entidad = new BEConfiguracionValidacionZE(reader);
@@ -381,31 +347,24 @@ namespace Portal.Consultoras.BizLogic
         
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
-            var imagen = string.Empty;
-            var DAEstrategia = new DAEstrategia(paisID);
+            var daEstrategia = new DAEstrategia(paisID);
 
-            return DAEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
+            return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
 
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(paisId);
-                int result = DAEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, estrategiaId);
+                var daEstrategia = new DAEstrategia(paisId);
+                int result = daEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, estrategiaId);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
-            try
-            {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
-                var DAEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
                 {
                     while (reader.Read())
                     {
@@ -413,35 +372,27 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaEstrategias;
-            }
-            catch (Exception) { throw; }
         }
 
         public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
         {
-            var DAEstrategia = new DAEstrategia(paisId);
-            return DAEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario);
+            var daEstrategia = new DAEstrategia(paisId);
+            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario);
         }
 
         public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(paisId);
-                int result = DAEstrategia.GetCantidadOfertasParaTiTemporal(campaniaId, tipoConfigurado);
+                var daEstrategia = new DAEstrategia(paisId);
+                int result = daEstrategia.GetCantidadOfertasParaTiTemporal(campaniaId, tipoConfigurado);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado)
         {
-            try
-            {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
-                var DAEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado))
+                var daEstrategia = new DAEstrategia(paisId);
+                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado))
                 {
                     while (reader.Read())
                     {
@@ -449,25 +400,19 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
                 return listaEstrategias;
-            }
-            catch (Exception) { throw; }
         }
 
         public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
         {
-            try
-            {
-                var DAEstrategia = new DAEstrategia(paisId);
-                int result = DAEstrategia.DeleteEstrategiaTemporal(campaniaId);
+                var daEstrategia = new DAEstrategia(paisId);
+                int result = daEstrategia.DeleteEstrategiaTemporal(campaniaId);
                 return result;
-            }
-            catch (Exception) { throw; }
         }
 
         public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
-            var DAEstrategia = new DAEstrategia(paisId);
-            return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
+            var daEstrategia = new DAEstrategia(paisId);
+            return daEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
         }
 
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
@@ -497,8 +442,8 @@ namespace Portal.Consultoras.BizLogic
 
         public int ActivarDesactivarEstrategias(int paisID, String UsuarioModificacion, String EstrategiasActivas, String EstrategiasDesactivas)
         {
-            var DAEstrategia = new DAEstrategia(paisID);
-            return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
+            var daEstrategia = new DAEstrategia(paisID);
+            return daEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
         }
 
         #region Producto Comentario
@@ -507,8 +452,8 @@ namespace Portal.Consultoras.BizLogic
         {
             int result;
             var daEstrategia = new DAEstrategia(paisID);
-            var oTransactionOptions = new TransactionOptions();
-            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+            var oTransactionOptions =
+                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
 
             try
             {
@@ -516,9 +461,11 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (entidad.ProdComentarioId == 0)
                     {
-                        BEProductoComentario oProdComentario = new BEProductoComentario();
-                        oProdComentario.CodigoSap = entidad.CodigoSap;
-                        oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
+                        BEProductoComentario oProdComentario = new BEProductoComentario
+                        {
+                            CodigoSap = entidad.CodigoSap,
+                            CodigoGenerico = entidad.CodigoGenerico
+                        };
                         entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
                     }
 
@@ -602,19 +549,10 @@ namespace Portal.Consultoras.BizLogic
 
         public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
-            int result;
             var daEstrategia = new DAEstrategia(paisID);
-
-            try
-            {
-                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioId, entidad.ProdComentarioDetalleId, entidad.Estado);
-            }
-
-            catch (Exception)
-            {
-                throw;
-            }
-
+            
+            var result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioId, entidad.ProdComentarioDetalleId, entidad.Estado);
+   
             return result;
         }
 
@@ -671,5 +609,19 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
+        {
+            try
+            {
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                List<int> result = DAEstrategia.InsertarEstrategiaMasiva(entidad);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

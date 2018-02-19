@@ -7382,6 +7382,33 @@ img {
     -ms-interpolation-mode: bicubic;
 }
 
+.cross {
+    background: #fff;
+    height: 8px;
+    margin: 5px 5px 7px 9px;
+    position: relative;
+    width: 2px;
+}
+
+    .cross:after {
+        background: #fff;
+        content: "";
+        height: 2px;
+        left: -3px;
+        position: absolute;
+        top: 3px;
+        width: 8px;
+        z-index: 0;
+    }
+
+.cross_line {
+    background: #fff;
+    height: 2px;
+    margin: 8px 5px 8px 8px;
+    position: relative;
+    width: 6px;
+}
+
 hr {
     clear: both;
     margin: 5px 0 5px 0;
@@ -20134,9 +20161,13 @@ label.checkpop.c_on {
     margin-right: 7%;
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+}
+
+.content_item_carrusel_width_ODD {
+    width: 260px;
 }
 
 .content_item_carrusel_ofertaFinal {
@@ -21346,7 +21377,50 @@ body {
     margin-bottom: 70px;
     overflow: hidden;
 }
-
+.revista_content {
+display: inline-block;
+margin-bottom: 70px;
+overflow: hidden;
+background: #ecebf0;
+width: 100%;
+padding-bottom: 35px;
+}
+.revista_content .revista_content2{
+text-align:center;
+}
+.revista_content .revista_content2 div{
+display:inline-block;
+}
+.revista_content .revista_content2 .revistatxt {
+display: table;
+height: 203px;
+margin-left: 50px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista{
+display:table-cell;
+vertical-align:middle;
+}
+.revista_content .revista_content2 .revistatxt .contrevista p {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 0.3px;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a {
+width: 173px;
+/* height: 30px; */
+padding: 8px;
+margin: auto;
+display: block;
+border: solid 1px #000000;
+transition:.3s;
+}
+.revista_content .revista_content2 .revistatxt .contrevista a:hover{
+background:black;
+color:white;
+}
 .arrow_revista {
     margin-top: 60px;
     margin-right: 20px;
@@ -26738,10 +26812,19 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
     .contenedor_item_descripcion span {
         display: block;
-        margin-bottom: 3%;
-        line-height: 19px;
-        height: 55px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        min-height: 60px;
     }
+
+    
+
+        .contenedor_item_descripcion span::after {
+           
+            content: ' ..';
+        }
 
     .contenedor_item_descripcion a {
         display: block;
@@ -26749,6 +26832,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         color: #e81c36;
         text-transform: uppercase;
         font-weight: 700;
+        margin-top:10px;
     }
 
         .contenedor_item_descripcion a:hover {
@@ -26770,7 +26854,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
     .contenedor_item_descripcion a {
-        width: 42%;
+        width: 50%;
     }
 }
 
@@ -31969,6 +32053,21 @@ h1#penmostreo .campana {
     height: 100px;
     margin: 0 auto;
     background-size: cover;
+    position: relative;
+}
+
+.content_oferta_dia_img {
+    height: 100px;
+    position: absolute;
+    width: 172px;
+}
+
+.derecha_img {
+    right: -172px;
+}
+
+.izquierda_img {
+    left: -172px;
 }
 
 .reloj_oferta {
@@ -32142,7 +32241,7 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 500px;
     margin: auto, auto;
-    background: #000;
+    /*background: #000;*/
     padding: 10px 0;
 }
 
@@ -32264,9 +32363,21 @@ h1#penmostreo .campana {
     width: 90%;
     margin: 0 auto;
     overflow: hidden;
+    padding-bottom: 10px;
 }
 
 .right_set_hoy {
+/*    width: 45%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 20px;
+    font-family: 'Lato';
+    border: 1px solid rgba(0, 0, 0, .03);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0 15px 13px -8px rgba(236,236,236,1)*/
     float: left;
     width: 49%;
     margin-right: 5%;
@@ -32285,7 +32396,7 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    border: 1px solid white;
+    /*border: 1px solid white;*/
 }
 /*POP UP GENERALES*/
 .Content_general_pop_up {
@@ -34125,7 +34236,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 15px;
     margin-top: 10px;
-    color: white;
+    color: black;
     height: 39px;
     overflow: hidden;
     text-align: center;
@@ -34134,7 +34245,7 @@ h1#penmostreo .campana {
 .valorizado_carrusel_ODD {
     font-family: 'Lato';
     font-size: 11px;
-    color: white;
+    color: black;
     text-align: center;
 }
 
@@ -34144,7 +34255,7 @@ h1#penmostreo .campana {
 .precio_carrusel_ODD {
     font-family: 'Lato';
     font-size: 22px;
-    color: white;
+    color: black;
     font-weight: 700;
     text-align: center;
     margin-bottom: 14px;
@@ -34424,7 +34535,7 @@ h1#penmostreo .campana {
 
 .content_pedido_cupon_monto {
     width: 100%;
-    height: 40px;
+    height: 51px;
     border-bottom: 1px solid black;
     margin-bottom: 10px;
 }
@@ -34433,7 +34544,7 @@ h1#penmostreo .campana {
     display: block !important;
     float: left;
     width: 85px;
-    height: 40px;
+    height: 51px;
     font-family: 'LAto';
     font-size: 12px;
     background: black;
@@ -34444,7 +34555,7 @@ h1#penmostreo .campana {
 }
 
     .icono_cupon_monto img {
-        width: 87%;
+        width: 120%;
     }
 
     .icono_cupon_monto::before {
@@ -34456,7 +34567,7 @@ h1#penmostreo .campana {
         width: 0;
         height: 0;
         border-style: solid;
-        border-width: 40px 0 0 23px;
+        border-width: 51px 0 0 23px;
         border-color: transparent transparent transparent #000000;
     }
 
@@ -34466,7 +34577,7 @@ h1#penmostreo .campana {
     font-family: 'LAto';
     float: left;
     margin-left: 38px;
-    line-height: 13px;
+    line-height: 1.17;
 }
 
 .content_cupon {
@@ -34474,7 +34585,7 @@ h1#penmostreo .campana {
     height: 280px;
     position: relative;
     top: 50%;
-    margin: 20% auto auto auto;
+    margin: 13% auto auto auto;
     background: url('../../../Images/PL20/fondo_cupon1.png') no-repeat;
 }
 
@@ -34669,6 +34780,20 @@ h1#penmostreo .campana {
     .info_recuerda_cupon:last-child {
         border-right: 0;
     }
+
+.info_recuerda_cupon_ganaste {
+    display: inline-table;
+    float: none;
+    width: 40%;
+}
+
+.info_recuerda_cupon_line {
+    border: solid 1.5px rgba(149, 145, 146, 0.57);
+    display: inline-table;
+    height: 61.1px;
+    opacity: 0.2;
+    width: 1.5px;
+}
 
 .SubHeader {
     background: #f9f9f9;

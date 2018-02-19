@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UrlBannerCuponesProgramaNuevas" xml:space="preserve">
-    <value>{0}AppConsultora/{1}/ProgramaNuevas/{2}/Cupon{3}.jpg</value>
+    <value>{0}AppConsultora/{1}/ProgramaNuevas/{2}/{3}</value>
   </data>
   <data name="UrlBannerPremiosProgramaNuevas" xml:space="preserve">
-    <value>{0}AppConsultora/{1}/ProgramaNuevas/{2}/Premio{3}.jpg</value>
+    <value>{0}AppConsultora/{1}/ProgramaNuevas/{2}/{3}</value>
   </data>
   <data name="UrlImagenCUV" xml:space="preserve">
     <value>{0}Matriz/{1}/{2}</value>

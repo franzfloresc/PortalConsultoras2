@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,8 +11,7 @@ namespace Portal.Consultoras.Data.Hana
     {
         public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisId, string codigoConsultora)
         {
-            var listBE = new List<BEPedidoWeb>();
-            var listaHana = new List<PedidoHana>();
+            var listBe = new List<BEPedidoWeb>();
 
             try
             {
@@ -27,7 +23,7 @@ namespace Portal.Consultoras.Data.Hana
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
-                listaHana = JsonConvert.DeserializeObject<List<PedidoHana>>(responseFromServer);
+                var listaHana = JsonConvert.DeserializeObject<List<PedidoHana>>(responseFromServer);
 
                 foreach (var pedidoHana in listaHana)
                 {
@@ -52,15 +48,15 @@ namespace Portal.Consultoras.Data.Hana
                     bePedidoWeb.CanalIngreso = pedidoHana.origen;
                     bePedidoWeb.CantidadProductos = pedidoHana.NUMUNIDATEN;
 
-                    listBE.Add(bePedidoWeb);
+                    listBe.Add(bePedidoWeb);
                 }
             }
             catch (Exception)
             {
-                listBE = new List<BEPedidoWeb>();
+                listBe = new List<BEPedidoWeb>();
             }
 
-            return listBE;
+            return listBe;
         }
     }
 }

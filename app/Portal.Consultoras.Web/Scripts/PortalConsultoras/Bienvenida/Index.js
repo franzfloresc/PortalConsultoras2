@@ -3373,6 +3373,7 @@ function onYouTubeIframeAPIReady(playerId) {
     player = new YT.Player("divPlayer", {
         width: "100%",
         videoId: videoIdMostrar,
+        enablejsapi: 1,
         playerVars: { rel: 0 },
         events: {
             'onStateChange': onPlayerStateChange
@@ -3391,3 +3392,4 @@ function onPlayerStateChange(event) {
         });
     }
 }
+

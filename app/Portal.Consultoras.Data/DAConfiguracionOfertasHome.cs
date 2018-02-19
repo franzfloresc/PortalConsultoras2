@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -58,6 +52,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "UrlSeccion", DbType.String, entity.UrlSeccion);
             Context.Database.AddInParameter(command, "DesktopOrdenBpt", DbType.String, entity.DesktopOrdenBpt);
             Context.Database.AddInParameter(command, "MobileOrdenBpt", DbType.String, entity.MobileOrdenBpt);
+            Context.Database.AddInParameter(command, "DesktopColorFondo", DbType.String, entity.DesktopColorFondo);
+            Context.Database.AddInParameter(command, "MobileColorFondo", DbType.String, entity.MobileColorFondo);
+            Context.Database.AddInParameter(command, "DesktopUsarImagenFondo", DbType.Boolean, entity.DesktopUsarImagenFondo);
+            Context.Database.AddInParameter(command, "MobileUsarImagenFondo", DbType.Boolean, entity.MobileUsarImagenFondo);
+            Context.Database.AddInParameter(command, "DesktopColorTexto", DbType.String, entity.DesktopColorTexto);
+            Context.Database.AddInParameter(command, "MobileColorTexto", DbType.String, entity.MobileColorTexto);
             return Context.ExecuteReader(command);
         }
 

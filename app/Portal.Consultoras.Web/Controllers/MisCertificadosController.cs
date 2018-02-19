@@ -1,22 +1,18 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Web;
-using System.Web.Mvc;
-
-using System.IO;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.tool.xml;
-using iTextSharp.text.html.simpleparser;
-using AutoMapper;
-using System.Globalization;
 using System.Configuration;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -125,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.Ecuador:
                     nombre = "Certificado Comercial";
 
-                    bool tieneCampaniaConsecutivas = false;
+                    bool tieneCampaniaConsecutivas;
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
@@ -169,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var tipo = Convert.ToInt16(id);
 
                     var listaData = sessionManager.GetMisCertificadosData() ?? new List<BEMiCertificado>();
-                    BEMiCertificado beMiCertificado = null;
+                    BEMiCertificado beMiCertificado;
                     var existsData = false;
 
                     if (listaData.Any())
@@ -261,11 +257,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     bool partial = false)
         {
             // first find the ViewEngine for this view
-            ViewEngineResult viewEngineResult = null;
-            if (partial)
-                viewEngineResult = ViewEngines.Engines.FindPartialView(context, viewPath);
-            else
-                viewEngineResult = ViewEngines.Engines.FindView(context, viewPath, null);
+            var viewEngineResult = partial 
+                ? ViewEngines.Engines.FindPartialView(context, viewPath) 
+                : ViewEngines.Engines.FindView(context, viewPath, null);
 
             if (viewEngineResult == null)
                 throw new FileNotFoundException("View cannot be found.");
@@ -274,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
             var view = viewEngineResult.View;
             context.Controller.ViewData.Model = model;
 
-            string result = null;
+            string result;
 
             using (var sw = new StringWriter())
             {

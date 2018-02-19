@@ -25,8 +25,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Session["fechaGetNotificacionesSinLeer"] = null;
             Session["cantidadGetNotificacionesSinLeer"] = null;
 
-            var model = new NotificacionesModel();
-            model.ListaNotificaciones = ObtenerNotificaciones();
+            var model = new NotificacionesModel {ListaNotificaciones = ObtenerNotificaciones()};
             return View(model);
         }
 
@@ -44,22 +43,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 int horasReasignacion = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo);
                 string horaEjecucionDefault = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5602).Codigo;
-                DateTime FechaEjecucion = beSolicitudCliente.FechaSolicitud.AddHours(horasReasignacion);
-                var HoraEjecucionDefecto = TimeSpan.ParseExact(horaEjecucionDefault, "g", null);
+                DateTime fechaEjecucion = beSolicitudCliente.FechaSolicitud.AddHours(horasReasignacion);
+                var horaEjecucionDefecto = TimeSpan.ParseExact(horaEjecucionDefault, "g", null);
 
-                if (FechaEjecucion.Hour > HoraEjecucionDefecto.Hours)
+                if (fechaEjecucion.Hour > horaEjecucionDefecto.Hours)
                 {
-                    FechaEjecucion = FechaEjecucion.AddDays(1);
-                    FechaEjecucion = FechaEjecucion.Date + HoraEjecucionDefecto;
+                    fechaEjecucion = fechaEjecucion.AddDays(1);
+                    fechaEjecucion = fechaEjecucion.Date + horaEjecucionDefecto;
                 }
 
-                model.Asunto = notificacion.Asunto;
+                if (notificacion != null) model.Asunto = notificacion.Asunto;
                 model.ConsultoraID = beSolicitudCliente.CodigoConsultora;
                 model.Estado = beSolicitudCliente.Estado;
                 model.SolicitudClienteId = SolicitudId;
-                model.FechaEjecucion = FechaEjecucion;
+                model.FechaEjecucion = fechaEjecucion;
                 model.MarcaID = beSolicitudCliente.MarcaID;
-                model.FechaDescripcion = FechaEjecucion.Day + " de " + NombreMes(FechaEjecucion.Month);
+                model.FechaDescripcion = fechaEjecucion.Day + " de " + NombreMes(fechaEjecucion.Month);
                 model.TelefonoCliente = beSolicitudCliente.Telefono;
                 model.NombreCliente = beSolicitudCliente.NombreCompleto;
                 model.EmailCliente = beSolicitudCliente.Email;
@@ -87,23 +86,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (var service = new SACServiceClient())
                 {
-                    var beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
-                    beSolicitudCliente.SolicitudClienteID = SolicitudId;
-                    beSolicitudCliente.CodigoConsultora = ConsultoraID.ToString();
-                    beSolicitudCliente.MensajeaCliente = MensajeaCliente;
-                    beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
-                    beSolicitudCliente.Estado = "A";
+                    var beSolicitudCliente = new ServiceSAC.BESolicitudCliente
+                    {
+                        SolicitudClienteID = SolicitudId,
+                        CodigoConsultora = ConsultoraID.ToString(),
+                        MensajeaCliente = MensajeaCliente,
+                        UsuarioModificacion = UserData().CodigoUsuario,
+                        Estado = "A"
+                    };
                     service.UpdSolicitudCliente(userData.PaisID, beSolicitudCliente);
                 }
 
                 using (var service = new ClienteServiceClient())
                 {
-                    var beCliente = new ServiceCliente.BECliente();
-                    beCliente.ConsultoraID = ConsultoraID;
-                    beCliente.eMail = emailCliente;
-                    beCliente.Nombre = NombreCliente;
-                    beCliente.PaisID = UserData().PaisID;
-                    beCliente.Activo = true;
+                    var beCliente = new ServiceCliente.BECliente
+                    {
+                        ConsultoraID = ConsultoraID,
+                        eMail = emailCliente,
+                        Nombre = NombreCliente,
+                        PaisID = UserData().PaisID,
+                        Activo = true
+                    };
                     service.Insert(beCliente);
 
                 }
@@ -147,7 +150,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult RechazarSolicitud(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania, int MarcaId)
         {
             var userData = UserData();
-
             using (var service = new SACServiceClient())
             {
                 var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
@@ -210,8 +212,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             var notificaciones = ObtenerNotificaciones();
             var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
-            var lstObservaciones = new List<BENotificacionesDetalle>();
-            var lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
+            List<BENotificacionesDetalle> lstObservaciones;
+            List<BENotificacionesDetallePedido> lstObservacionesPedido;
             var model = new NotificacionesMobileModel();
 
             using (var service = new UsuarioServiceClient())
@@ -219,12 +221,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, ProcesoId, TipoOrigen).ToList();
                 lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, ProcesoId, TipoOrigen).ToList();
             }
-            model.Asunto = notificacion.Asunto;
-            model.Campania = notificacion.CampaniaId;
-            model.estado = notificacion.Estado;
-            model.Observaciones = notificacion.Observaciones;
-            model.FechaFacturacion = notificacion.FechaFacturacion;
-            model.FacturaHoy = notificacion.FacturaHoy;
+
+            if (notificacion != null)
+            {
+                model.Asunto = notificacion.Asunto;
+                model.Campania = notificacion.CampaniaId;
+                model.estado = notificacion.Estado;
+                model.Observaciones = notificacion.Observaciones;
+                model.FechaFacturacion = notificacion.FechaFacturacion;
+                model.FacturaHoy = notificacion.FacturaHoy;
+            }
+
             model.ListaNotificacionesDetalle = lstObservaciones;
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
             model.NombreConsultora = userData.NombreConsultora;
@@ -251,13 +258,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             var notificaciones = ObtenerNotificaciones();
             var notificacion = notificaciones.FirstOrDefault(p => p.ProcesoId == ProcesoId);
-            var lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
+            List<BENotificacionesDetallePedido> lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
             var model = new NotificacionesMobileModel();
 
-            long ValStockId = Int64.Parse(notificacion.Observaciones);
-            using (var service = new UsuarioServiceClient())
+            if (notificacion != null)
             {
-                lstObservacionesPedido = service.GetValidacionStockProductos(userData.PaisID, userData.ConsultoraID, ValStockId).ToList();
+                long valStockId = Int64.Parse(notificacion.Observaciones);
+                using (var service = new UsuarioServiceClient())
+                {
+                    lstObservacionesPedido = service.GetValidacionStockProductos(userData.PaisID, userData.ConsultoraID, valStockId).ToList();
+                }
             }
 
             foreach (var item in lstObservacionesPedido)
@@ -272,8 +282,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            model.Asunto = notificacion.Asunto;
-            model.FechaFacturacion = notificacion.FechaHoraValidación;
+            if (notificacion != null)
+            {
+                model.Asunto = notificacion.Asunto;
+                model.FechaFacturacion = notificacion.FechaHoraValidación;
+            }
 
             model.ListaNotificacionesDetalle = new List<BENotificacionesDetalle>();
             model.ListaNotificacionesDetallePedido = lstObservacionesPedido;
@@ -297,9 +310,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.NotificacionDetalleCatalogo = sv.ObtenerDetalleNotificacion(userData.PaisID, SolicitudId);
             }
 
-            ViewBag.Asunto = notificacion.Asunto;
-            ViewBag.Campania = notificacion.CampaniaId;
-            ViewBag.FechaEjecucion = notificacion.FechaHoraValidación;
+            if (notificacion != null)
+            {
+                ViewBag.Asunto = notificacion.Asunto;
+                ViewBag.Campania = notificacion.CampaniaId;
+                ViewBag.FechaEjecucion = notificacion.FechaHoraValidación;
+            }
+
             ViewBag.Simbolo = userData.Simbolo;
 
             return View("DetalleSolicitudClienteCatalogo", model);
@@ -308,14 +325,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
+            List<BELogGPRValidacion> logsGprValidacion;
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
+                logsGprValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
 
-            CargarMensajesNotificacionesGPR(model, LogsGPRValidacion);
+            CargarMensajesNotificacionesGPR(model, logsGprValidacion);
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             model.CampaniaDescripcion = userData.CampaniaID.ToString();
             
@@ -334,12 +351,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (Proceso == "CDR")
                     {
                         logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
-                        listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
+                        listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList();
                     }
                     else if (Proceso == "CDR-CULM")
                     {
                         cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);
-                        listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, solicitudId).ToList() ?? new List<BECDRWebDetalle>();
+                        listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, solicitudId).ToList();
                     }
                 }
 
@@ -367,7 +384,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private List<BENotificaciones> ObtenerNotificaciones()
         {
             var userData = UserData();
-            var list = new List<BENotificaciones>();
+            List<BENotificaciones> list;
             using (var sv = new UsuarioServiceClient())
             {
                 list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();

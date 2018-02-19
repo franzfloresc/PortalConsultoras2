@@ -7,7 +7,7 @@
         <div class="div-3">
             <div class="titG"><span class="required">(*)</span>Cod. concurso:</div>
             <div class="selectA" style="width:150px">
-                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "3" })
+                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "6" })
             </div>
         </div>
         <div class="div-3">
@@ -42,6 +42,10 @@
         </div>
         <br />
         <div class="div-3">
+            <div class="titG"><span class="required">(*)</span>Orden:</div>
+            <div class="selectA" style="width:100px">
+                @Html.TextBoxFor(model => model.Orden, new { autocomplete = "off", maxlength = "3" })
+            </div>
             <div class="titG">Imagen:</div>
             <div>
                 <div class="pdr_modal borde_redondeado">

@@ -297,6 +297,7 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public bool OptBloqueoProductoDigital { get; set; }
         public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
@@ -370,5 +371,7 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaHoy { get; set; }
 
         public string FotoPerfil { get; set; }
+
+        public string CodigoUsuarioHost { get; set; }
     }
 }

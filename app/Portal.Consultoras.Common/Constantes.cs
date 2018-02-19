@@ -181,6 +181,11 @@ namespace Portal.Consultoras.Common
             public const int Reactivada = 8;
         }
 
+        public static class ConsecutivoNuevaConsultora
+        {
+            public const int Consecutivo3 = 2;
+        }
+
         public static class TipoEstrategia
         {
             public const int CrossSelling = 1;
@@ -211,6 +216,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
+            public const string ShowRoom = "030";
         }
 
         public static class ConstSession
@@ -277,6 +283,16 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
+
+            //ODD
+            public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
+            public const string GuiaNegocio = "GuiaNegocio";
+            
+            public const string PedidoWebDDConf = "PedidoWebDDConf";
+            public const string PedidoWebDD = "PedidoWebDD";
+            public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
+            public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
+            public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
         }
 
         public static class ConfiguracionManager
@@ -359,8 +375,6 @@ namespace Portal.Consultoras.Common
             public const string PaisesCatalogoUnificado = "PaisesCatalogoUnificado";
             public const string WS_RV_Campanias_NEW = "WS_RV_Campanias_NEW";
             public const string WS_RV_PDF_NEW = "WS_RV_PDF_NEW";
-            public const string WS_RV_Campanias = "WS_RV_Campanias";
-            public const string WS_RV_PDF = "WS_RV_PDF";
             public const string ExpresionValidacionNemotecnico = "ExpresionValidacionNemotecnico";
             public const string URL_DUPLACYZONE = "URL_DUPLACYZONE";
             public const string WebTrackingConfirmacion = "WebTrackingConfirmacion";
@@ -398,7 +412,9 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito -- Pantalla
             // A: Contenedor Home           B: Contenedor Home Revisar
             // C: Landing EPM               D: Landing EPM Revisar
-            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+            // E: Landing ShowRoom          F: Landing ShowRoom Intriga
+            // G: Revista Digital Info      H: Revista Digital Detalle
+            // I: Guia de Negocio
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 0: Principal                 1: OPT
@@ -524,7 +540,7 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region OfertaDelDia 
-            // no tulizan estas variables, todo estos estan en la logica en ofertaDelDia.js
+            // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
             public const int OfertaDelDiaDesktopHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
@@ -743,7 +759,7 @@ namespace Portal.Consultoras.Common
             public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
-            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span>Chat en Línea</span>.";
         }
 
         public static class CodigoOperacionCDR
@@ -969,6 +985,8 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SHOWROOM";
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
             public const string Ofertas = "OFERTAS";
+            public const string GuiaNegocio = "GUIANEGOCIO";
+            public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
         }
 
         public static class EstadoCuentaTipoMovimiento
@@ -1041,6 +1059,10 @@ namespace Portal.Consultoras.Common
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
+            public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
+            public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
+            public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
+            public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
         }
 
         public static class ConfiguracionPais
@@ -1065,6 +1087,8 @@ namespace Portal.Consultoras.Common
 
         public static class ConfiguracionPaisDatos
         {
+            public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+
             public static class RD
             {
                 #region Data de Cabecera
@@ -1140,15 +1164,9 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                //public const string DInformativoSuscrita = "DInformativoSuscrita";
-                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                //public const string MInformativoSuscrita = "MInformativoSuscrita";
-                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
-
                 public const string InformativoVideo = "InformativoVideo";
                 #endregion
+
             }
 
             public static class RDR
@@ -1631,22 +1649,54 @@ namespace Portal.Consultoras.Common
         {
             public const string Mensaje = "Nos es grato comunicarte que hemos podido recuperar productos de la anterior campaña con el precio original. " +
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
-            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
-            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
 
         public class ProgramaNuevas
         {
             public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
-            public const string ArchivoBannerCupones = "Cupon{0}.jpg";
-            public const string ArchivoBannerPremios = "Premio{0}.jpg";
+            public const string ArchivoBannerCupones = "Cupon{0}_{1}.jpg";
+            public const string ArchivoBannerPremios = "Premio{0}_{1}.jpg";
+
+            public class TipoBanner
+            {
+                public const short BannerCupon = 1;
+                public const short BannerPremio = 2;
+            }
         }
 
         public class Comunicado
         {
             public const string AppConsultora = "App Consultora";
+            public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
+            public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+        }
+        public static class ColumnsStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string NormalPrice = "precio normal";
+            public const string AllowedUnits = "unidades permitidas";
+            public const string NameSet = "nombre de set";
+            public const string IsSubcampaign = "essubcampania";
+            public const string BusinessTip = "tip negocio";
+
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
         }
 
+        public class GanaMas
+        {
+            public const short PaisSinGND = 1;
+            public const short PaisConGND_SuscritaActiva = 2;
+            public const short PaisConGND_SuscritaNoActiva = 3;
+            public const short PaisConGND_NoSuscritaActiva = 4;
+            public const short PaisConGND_NoSuscritaNoActiva = 5;
+
+            public class Banner
+            {
+                public const string CarpetaPais = "AppConsultora/{0}";
+                public const string ImagenSuscrita = "GanaMasSuscrita.png";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+            }
+        }
         public class ValAutoEstado
         {
             public const int NoExisteProceso = -1;

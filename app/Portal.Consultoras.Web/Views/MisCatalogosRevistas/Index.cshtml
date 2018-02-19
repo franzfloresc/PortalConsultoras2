@@ -1,12 +1,13 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
+
+@section styles{
+    <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
+}
+
 @{
     var title = "Catálogos y Revistas";
-    if (Model.TieneGND)
-    {
-        title = "Catálogos";
-    }
     ViewBag.Title = title;
 
 }
@@ -24,7 +25,7 @@
         <div class="fondo_negro_lateral"></div>
         <div class="titulo_interiores">MIS <span>@title</span></div>
     </div>
-    <hr class="clear" />    
+    <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp">
@@ -43,7 +44,7 @@
             <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
             <hr class="clear" />
         </div>
-        
+
         <div id="xHtmlItemCatalogo" style="display: none;">
             <div class="tipoClase" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
                 <div class="item1_catalogo" data-tipo="content">
@@ -61,7 +62,20 @@
     <!-- FIN CATALOGO -->
 
     <div class="expoferta_revista">
-        @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
+        @if (Model.TieneSeccionRevista)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",
+            new ViewDataDictionary {
+                { "TieneGnd", Model.TieneGND },
+                { "EsConsultoraNueva", ViewBag.EsConsultoraNueva}
+            })
+        }
+        
+        @if (Model.TieneSeccionRD)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
+        }
+
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
@@ -70,7 +84,7 @@
             <div class="revista_content" id="contenedorExpofertaMCR" style="display: none;">
                 <div style="text-align: center; font-family: 'lato'; font-size: 16pt; color: black; letter-spacing: 0.25px; font-weight: 700; margin-top: 48px; margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
                 <div id="catalogoExpoferta" class="revista_carrusel">
-                    <img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" />
+                    <img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")"/>
                 </div>
             </div>
         }
@@ -156,19 +170,17 @@
 
 <div style="display: none;">
     @using (Html.BeginForm("MiRevista", "MisCatalogosRevistas", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
-{
-    <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
-}
+    {
+        <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
+    }
 </div>
-@section styles{
-    <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
-}
 @section scripts{
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
-    <script type="text/javascript" id="js-ready-Catalogo">        
+    <script type="text/javascript" id="js-ready-Catalogo">
+
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
-        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;        
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
         var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';

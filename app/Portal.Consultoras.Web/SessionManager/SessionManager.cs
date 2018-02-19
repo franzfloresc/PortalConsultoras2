@@ -2,11 +2,11 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using System.Collections.Generic;
+
+using System;
+using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -110,6 +110,16 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
+        }
+
+        void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modeloGnd)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio] = modeloGnd;
+        }
+
+        GuiaNegocioModel ISessionManager.GetGuiaNegocio()
+        {
+            return ((GuiaNegocioModel)HttpContext.Current.Session[Constantes.ConstSession.GuiaNegocio]) ?? new GuiaNegocioModel();
         }
 
         void ISessionManager.SetIsContrato(int isContrato)
@@ -262,5 +272,24 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
         }
 
+        void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
+        {
+            HttpContext.Current.Session["ListFiltersFAV"] = lista;
+        }
+
+        List<ServiceSAC.BETablaLogicaDatos> ISessionManager.GetListFiltersFAV()
+        {
+            return (List<ServiceSAC.BETablaLogicaDatos>)HttpContext.Current.Session["ListFiltersFAV"];
+        }
+
+        void ISessionManager.SetStartSession(DateTime fecha)
+        {
+            HttpContext.Current.Session["StartSession"] = fecha;
+        }
+
+        DateTime ISessionManager.GetStartSession()
+        {
+            return (DateTime)HttpContext.Current.Session["StartSession"];
+        }
     }
 }

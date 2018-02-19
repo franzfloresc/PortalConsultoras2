@@ -78,8 +78,7 @@
             <ul class="subnavegador">
             @foreach (var menuhijo in menuList)
             {
-                var claseActivo = "";
-                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
                 <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                     data-codigo="@menuhijo.Codigo"
                     data-es-ancla="@menuhijo.EsAncla"

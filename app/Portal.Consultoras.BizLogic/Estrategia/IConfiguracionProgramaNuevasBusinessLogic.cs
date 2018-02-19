@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -9,8 +9,8 @@ namespace Portal.Consultoras.BizLogic
         BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
 
         #region ConfiguracionApp
-        List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
-        string InsConfiguracionProgramaNuevasApp(int paisID, BEConfiguracionProgramaNuevasApp entidad);
+        List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);
+        bool InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);
         #endregion
     }
 }

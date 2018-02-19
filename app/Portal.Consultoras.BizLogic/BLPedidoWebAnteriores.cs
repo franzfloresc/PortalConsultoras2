@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,13 +10,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
         {
             var pedidoWeb = new List<BEPedidoWeb>();
-            var DAPedidoWeb = new DAPedidoWebAnteriores(paisID);
+            var daPedidoWeb = new DAPedidoWebAnteriores(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetPedidosWebAnterioresByConsultora(consultoraID))
+            using (IDataReader reader = daPedidoWeb.GetPedidosWebAnterioresByConsultora(consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWeb(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEPedidoWeb(reader) {PaisID = paisID};
                     pedidoWeb.Add(entidad);
                 }
 
@@ -30,13 +25,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoWebDetalle> GetPedidoProductosByCampania(int paisID, int campaniaID, long consultoraID)
         {
             var pedidoWeb = new List<BEPedidoWebDetalle>();
-            var DAPedidoWeb = new DAPedidoWebAnteriores(paisID);
+            var daPedidoWeb = new DAPedidoWebAnteriores(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetPedidoProductosByCampania(campaniaID, consultoraID))
+            using (IDataReader reader = daPedidoWeb.GetPedidoProductosByCampania(campaniaID, consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWebDetalle(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEPedidoWebDetalle(reader) {PaisID = paisID};
                     pedidoWeb.Add(entidad);
                 }
 

@@ -157,12 +157,15 @@ namespace Portal.Consultoras.BizLogic
         /// /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <returns></returns>
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID,
+            bool estrategia)
         {
             var incentivos = new List<BEIncentivoConcurso>();
 
             incentivos.AddRange(this.ObtenerIncentivosProgramaNuevasConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID));
-            incentivos.AddRange(this.ObtenerIncentivosPuntosConsultora(paisID, codigoConsultora, codigoCampania));
+
+            if(estrategia) incentivos.AddRange(this.ObtenerIncentivosConsultoraEstrategia(paisID, codigoConsultora, codigoCampania));
+            else incentivos.AddRange(this.ObtenerIncentivosPuntosConsultora(paisID, codigoConsultora, codigoCampania));
 
             return incentivos;
         }
@@ -413,10 +416,50 @@ namespace Portal.Consultoras.BizLogic
                 {
                     item.NivelesProgramaNuevas = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
 
-                    if (incentivosPremios.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
-                        item.UrlBannerPremiosProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerPremiosProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
-                    if (incentivosCupon.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
-                        item.UrlBannerCuponesProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerCuponesProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
+                    if (incentivosPremios.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas) && !string.IsNullOrEmpty(item.ArchivoBannerPremio))
+                        item.UrlBannerPremiosProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerPremiosProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.ArchivoBannerPremio);
+                    if (incentivosCupon.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas) && !string.IsNullOrEmpty(item.ArchivoBannerCupon))
+                        item.UrlBannerCuponesProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerCuponesProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.ArchivoBannerCupon);
+                }
+            }
+
+            return incentivosConcursos;
+        }
+
+        private List<BEIncentivoConcurso> ObtenerIncentivosConsultoraEstrategia(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            List<BEIncentivoConcurso> incentivosConcursos;
+            var incentivosNivel = new List<BEIncentivoNivel>();
+            var incentivosPremios = new List<BEIncentivoPremio>();
+            string paisISO = Util.GetPaisISO(paisID);
+
+            var DAConcurso = new DAConcurso(paisID);
+
+            DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
+            
+            using (var reader = DAConcurso.ObtenerIncentivosConsultoraEstrategia(codigoConsultora, codigoCampania))
+            {
+                incentivosConcursos = reader.MapToCollection<BEIncentivoConcurso>();
+
+                if (reader.NextResult())
+                {
+                    incentivosNivel = reader.MapToCollection<BEIncentivoNivel>();
+
+                    if (reader.NextResult())
+                    {
+                        incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
+                        incentivosPremios.Update(x => x.ImagenPremio = (string.IsNullOrEmpty(x.ImagenPremio) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigS3.GetUrlS3(string.Empty), paisISO, x.ImagenPremio)));
+                    }
+
+                    foreach (var item in incentivosNivel)
+                    {
+                        item.Premios = incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).ToList();
+                    }
+                }
+
+                foreach (var item in incentivosConcursos)
+                {
+                    item.Niveles = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
 

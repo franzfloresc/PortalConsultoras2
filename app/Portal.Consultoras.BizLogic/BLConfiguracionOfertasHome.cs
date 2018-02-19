@@ -1,9 +1,9 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -60,12 +60,14 @@ namespace Portal.Consultoras.BizLogic
         {
             var dAConfiguracionOfertasHome = new DAConfiguracionOfertasHome(entidad.PaisID);
             dAConfiguracionOfertasHome.Update(entidad);
+            CacheManager<BEConfiguracionOfertasHome>.RemoveData(entidad.PaisID, ECacheItem.SeccionConfiguracionOfertasHome, entidad.CampaniaID.ToString());
         }
-        
+
         public IList<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
         {
-            IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId,
-                ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString());
+            IList<BEConfiguracionOfertasHome> lista = new List<BEConfiguracionOfertasHome>();
+            //CacheManager<BEConfiguracionOfertasHome>.GetData(paisId,
+            //ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString());
 
             if (lista == null || lista.Count == 0)
             {
@@ -88,9 +90,9 @@ namespace Portal.Consultoras.BizLogic
                     lista = new List<BEConfiguracionOfertasHome>();
                 }
 
-                CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
+                //CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
             }
-            
+
             return lista;
         }
 

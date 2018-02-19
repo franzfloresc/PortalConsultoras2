@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
-using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
-using System.Configuration;
-using Portal.Consultoras.Common;
-using System.Collections;
+﻿using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -18,8 +6,8 @@ namespace Portal.Consultoras.BizLogic
     {
         public int AceptarContratoAceptacion(int paisID,long consultoraid, string codigoConsultora)
         {
-            var DAContratoAceptacion = new DAContratoAceptacion(paisID);
-            return DAContratoAceptacion.AceptarContratoAceptacion(consultoraid,codigoConsultora);
+            var daContratoAceptacion = new DAContratoAceptacion(paisID);
+            return daContratoAceptacion.AceptarContratoAceptacion(consultoraid,codigoConsultora);
         }
     }
 }
