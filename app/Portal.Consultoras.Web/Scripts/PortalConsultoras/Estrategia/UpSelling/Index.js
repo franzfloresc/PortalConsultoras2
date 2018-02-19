@@ -2,8 +2,8 @@
 belcorp.estrategias = belcorp.estrategias || {}
 belcorp.estrategias.upselling = belcorp.estrategias.upselling || {}
 
-belcorp.estrategias.upselling.settings = function (settings) {
-    var settings = settings;
+belcorp.estrategias.upselling.initialize = function (config) {
+    var settings = config;
     var self = this;
 
     self.init = function () {
@@ -21,12 +21,12 @@ belcorp.estrategias.upselling.settings = function (settings) {
         });
     }
 
-    self.ini();
+    self.init();
 
     function fnGrilla() {
         $("#" + settings.idGrilla).jqGrid("GridUnload");
 
-        jQuery("#list").jqGrid({
+        jQuery("#" + settings.idGrilla).jqGrid({
             url: settings.urlUpSellingObtener,
             hidegrid: false,
             datatype: 'json',
@@ -45,20 +45,11 @@ belcorp.estrategias.upselling.settings = function (settings) {
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', hidden: true },
                 { name: 'ID', index: 'ID', width: 50, sortable: false, align: 'center' },
-                { name: 'CodigoConcurso', index: 'CodigoConcurso', width: 80, sortable: false, align: 'center' },
-                { name: 'CampaniaID', index: 'CampaniaID', width: 80, sortable: false, align: 'center' },
-                { name: 'CampaniaIDFin', index: 'CampaniaIDFin', width: 80, sortable: false, align: 'center' },
-                { name: 'TipoConcurso', index: 'TipoConcurso', width: 100, sortable: false, align: 'center', formatter: ShowDescripcionTipoConcurso },
-                { name: 'CUV2', index: 'CUV2', width: 100, sortable: false, align: 'center' },
-                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 150, hidden: false, sortable: false },
-                { name: 'CodigoProducto', index: 'CodigoProducto', align: 'center', width: 100, sortable: false },
-                { name: 'Imagen', index: 'Imagen', width: 100, align: 'center', sortable: false, formatter: ShowImage },
-                { name: 'Activo', index: 'Activo', hidden: true },
-                { name: 'Editar', index: 'Editar', width: 30, align: 'center', sortable: false, formatter: ShowActionsEdit },
-                { name: 'Eliminar', index: 'Eliminar', width: 30, align: 'center', sortable: false, formatter: ShowActionsDelete },
-                { name: 'ImagenURL', index: 'ImagenURL', hidden: true },
-                { name: 'TipoConcurso', index: 'TipoConcurso', hidden: true },
-                { name: 'Orden', index: 'Orden', hidden: true },
+                { name: 'Pais', index: 'Pais', width: 80, sortable: false, align: 'center' },
+                { name: 'Campania', index: 'CodigoCampana', width: 80, sortable: false, align: 'center' },
+                { name: 'Meta', index: 'Meta', width: 80, sortable: false, align: 'center' },
+                { name: 'Activo', index: 'Activo', width: 100, sortable: false, align: 'center'},
+                { name: 'Opciones', index: 'Opciones', hidden: true }
             ],
             jsonReader:
             {
@@ -85,10 +76,10 @@ belcorp.estrategias.upselling.settings = function (settings) {
             altRows: false,
             onCellSelect: function (rowId, iCol, content, event) {
                 if (iCol == 11) fnMantenedor(rowId);
-                else if (iCol == 12) fnDeshabilitar(rowId)
+                else if (iCol == 12) fnDeshabilitar(rowId);
             }
         });
-        jQuery("#list").jqGrid('navGrid', "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#" + settings.idGrilla).jqGrid('navGrid', "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
     }
 
     function ShowDescripcionTipoConcurso(cellvalue, options, rowObject) {
