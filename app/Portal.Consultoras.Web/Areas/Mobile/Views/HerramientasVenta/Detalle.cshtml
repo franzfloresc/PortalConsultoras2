@@ -74,10 +74,10 @@
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="content_oferta_guia_negocio">
             <div class="btn-volver-fix-detalle">
-                @if (mobileConfiguracion.MostrarBotonAtras)
-        {
+            @if (mobileConfiguracion.MostrarBotonAtras)
+            {
             <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
-}
+            }
             </div>
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@Model.FotoProductoMedium" alt="PRODUCTO" class="imagen_producto">
@@ -87,22 +87,32 @@
 
             @if (Model.Precio > 0)
             {
-                <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
+                    <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
             }
 
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
-            <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div>
                 if (String.IsNullOrEmpty(Model.PrecioNiveles))
                 {
-                        <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
                 }
                 else
                 {
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
+                    var cont = 0;
                     foreach (var item in PrecioNiveles)
                     {
-                            <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
+                        if (cont == 0)
+                        {
+                                <div class="precio_para_ti_048">
+                                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>@item</b>
+                                </div>
+                        }
+                        else
+                        {
+                                <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
+                        }
+                        cont++;
                     }
                 }
             }
