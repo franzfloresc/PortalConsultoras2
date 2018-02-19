@@ -270,6 +270,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
+        
+        [DataMember]
+        [Column("Niveles")]
+        public string Niveles { get; set; }
 
         public BEEstrategia()
         { }
@@ -540,6 +544,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PromValorizado"))
                 PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
+            if (DataRecord.HasColumn(row, "Niveles"))
+                Niveles = Convert.ToString(row["Niveles"]);
+
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
 
@@ -621,5 +628,6 @@ namespace Portal.Consultoras.Entities
         public int TieneVariedad { get; set; }
         public decimal PrecioPublico { get; set; }
         public decimal Ganancia { get; set; }
+        public string Niveles { get; set; }
     }
 }

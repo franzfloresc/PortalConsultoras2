@@ -724,6 +724,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool MostrarImgOfertaIndependienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NivelesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumeroPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1670,6 +1673,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.MostrarImgOfertaIndependienteField.Equals(value) != true)) {
                     this.MostrarImgOfertaIndependienteField = value;
                     this.RaisePropertyChanged("MostrarImgOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Niveles {
+            get {
+                return this.NivelesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NivelesField, value) != true)) {
+                    this.NivelesField = value;
+                    this.RaisePropertyChanged("Niveles");
                 }
             }
         }

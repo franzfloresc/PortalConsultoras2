@@ -136,6 +136,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, entidad.CodigoConcurso);
                 Context.Database.AddInParameter(command, "@ImagenMiniaturaURL", DbType.String, entidad.ImagenMiniaturaURL);
                 Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Int32, entidad.EsSubCampania);
+                Context.Database.AddInParameter(command, "@Niveles", DbType.Int32, entidad.Niveles);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -395,7 +396,8 @@ namespace Portal.Consultoras.Data
                 CodigoEstrategia = item.CodigoEstrategia,
                 TieneVariedad = item.TieneVariedad,
                 PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia
+                Ganancia = item.Ganancia,
+                Niveles = item.Niveles
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -460,7 +462,8 @@ namespace Portal.Consultoras.Data
                 TieneVariedad = item.TieneVariedad,
                 CodigoEstrategia = item.CodigoEstrategia,
                 PrecioPublico = item.PrecioPublico,
-                Ganancia = item.Ganancia
+                Ganancia = item.Ganancia,
+                Niveles = item.Niveles
             }).ToList();
 
             var command =

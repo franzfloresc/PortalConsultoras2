@@ -549,12 +549,14 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "OK";
 
                 decimal wspreciopack, ganancia;
+                string niveles;
 
                 using (var svs = new WsGestionWeb())
                 {
                     var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
                     wspreciopack = preciosEstrategia.montotal;
                     ganancia = preciosEstrategia.montoganacia;
+                    niveles = "X4-3.25|X5-4.28";
                 }
 
                 descripcion = lst[0].DescripcionCUV2;
@@ -575,7 +577,8 @@ namespace Portal.Consultoras.Web.Controllers
                     enMatrizComercial,
                     idMatrizComercial,
                     ganancia = ganancia.ToString("F2"),
-                    extra = ""
+                    extra = "",
+                    niveles
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1395,8 +1398,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         #region precioOferta
 
-                        decimal precioOferta;
-                        decimal ganancia = 0;
+                        decimal precioOferta, ganancia = 0;
+                        string niveles = "X4-3.25|X5-4.5";
                         try
                         {
                             using (var svs = new WsGestionWeb())
@@ -1405,6 +1408,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     campaniaId.ToString());
                                 precioOferta = preciosEstrategia.montotal;
                                 ganancia = preciosEstrategia.montoganacia;
+                                niveles = "X4-3.25|X5-4.5";
                             }
                         }
                         catch (Exception ex)
@@ -1420,7 +1424,7 @@ namespace Portal.Consultoras.Web.Controllers
                             opt.Precio = precioOferta + ganancia;
                             opt.Ganancia = ganancia;
                         }
-
+                        opt.Niveles = niveles;
                         #endregion
 
                         try
