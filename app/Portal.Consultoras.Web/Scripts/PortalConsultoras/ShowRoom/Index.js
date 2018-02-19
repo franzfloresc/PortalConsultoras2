@@ -1,6 +1,5 @@
 ﻿var listatipo = "";
 var rangoPrecios = 0;
-//var busquedaModel = null;
 
 $(document).ready(function () {
     $("#VerOfertaEspecial").on("click", function () {
@@ -9,7 +8,6 @@ $(document).ready(function () {
 
         $('#content_set_especial_header').hide();
         $('#BajarOfertaEspecial').show();
-        //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
 
         $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
@@ -37,7 +35,6 @@ $(document).ready(function () {
         $('#content_set_especial_header').show();
         $('#BajarOfertaEspecial').hide();
 
-        //$('.promocion_especial_header').css("background", "#fff");
         $('.content_set_oferta_especial').slideUp();
 
     });
@@ -60,7 +57,6 @@ $(document).ready(function () {
 
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
-        var x = $(this);
     });
 
     TagManagerOfertaShowRoom();
@@ -311,9 +307,6 @@ function CargarFiltroRangoPrecio() {
         width: h,
         showLabels: true,
         isRange: true,
-        //onstatechange: function () {
-
-        //},
         ondragend: function (myvalue) {
             rangoPrecios = myvalue;
             $(".slider-container").addClass("disabledbutton");
@@ -335,7 +328,6 @@ function CargarFiltroRangoPrecio() {
         }
     });
 
-    //$('.slider-container').css('width', '200');
 }
 
 function filterShowRoomDesktop() {
@@ -449,7 +441,6 @@ function closeCompraPorCompra() {
         error: function (response, error) {
             if (checkTimeout(response)) {
                 CerrarLoad();
-                console.log(response);
             }
         }
     });

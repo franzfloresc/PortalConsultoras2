@@ -146,7 +146,6 @@
         });
 
         $(document).on("click", elements.BtnEnviarNuevamente, function () {
-            //AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
             var model = {
                 eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
                 celular: $(elements.TxtCelular).val().trim()
@@ -155,7 +154,6 @@
 
             confirmacionPromise.then(function (response) {
                 if (response.success) {
-                    //AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
                 } else {
                     AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                 }
@@ -241,8 +239,6 @@
             $.when(cuponPromise, correoGanastePromise)
                 .then(function (cuponResponse, correoResponse) {
                     if (cuponResponse.success && correoResponse.success) {
-                        //AbrirMensaje(cuponResponse.message, "CUPÓN");
-                        //AbrirMensaje(correoResponse.message, "CUPÓN");
                         obtenerCupon();
                     }
                 });
@@ -304,11 +300,9 @@
                     $(this).show();
                 }
                 else if (existeContenedorTextoMobile) {
-                    //if (existeContenedorTextoMobile) {
                     $(this).find('div.texto_cupon').empty();
                     $(this).find('div.texto_cupon').append(mensaje);
                     $(this).show();
-                    //}
                 } else {
                     $(this).empty();
                     $(this).append(mensaje);
@@ -333,12 +327,9 @@
                         mostrarContenedorCuponPorPagina();
                     }
                 }
-            } else {
-                console.log('CuponModule.js - method name: obtenerCupon - ' + response.message);
             }
-        }, function (xhr, status, error) {
-            console.log(xhr.responseText);
-        });
+
+        }, function (xhr, status, error) { });
     }
 
     var activarCuponPromise = function (model) {
@@ -460,17 +451,7 @@
         }
 
         if (!esFormatoCorreoValido(emailIngresado)) {
-            //if (emailOriginal == "") {
-            //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
-            //    cantidadErrores++;
-            //}
-            //if (celular == "") {
-            //    mostrarMensajeErrorCelular();
-            //    return false;
-            //}else{
-            //    ocultarMensajeErrorCelular();
-            //}
-
+            
             mostrarMensajeErrorCorreo();
             cantidadErrores++;
         } else {
@@ -594,11 +575,9 @@
                         $(this).show();
                     }
                     else if (existeContenedorTextoMobile) {
-                        //if (existeContenedorTextoMobile) {
                         $(this).find('div.texto_cupon').empty();
                         $(this).find('div.texto_cupon').append(mensaje);
                         $(this).show();
-                        //}
                     } else {
                         $(this).empty();
                         $(this).append(mensaje);

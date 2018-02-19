@@ -14,20 +14,14 @@
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
-{
-   /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */ 
-}
-else
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
 {
     <div class="video-visual">
         <div class="video-container">
             <div id="player"></div>
-            @*<iframe src="@Model.Video&autoplay=1" frameborder="0" allowfullscreen=""></iframe>*@
         </div>
     </div>
 }
-
 
 <div class="gana-mas">
     <div class="contenedor-suscripcion" style="text-align: center;">
@@ -265,6 +259,7 @@ else
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
         var videoKey = '@Model.Video';
+        var estaSuscrita = '@Model.EsSuscrita';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

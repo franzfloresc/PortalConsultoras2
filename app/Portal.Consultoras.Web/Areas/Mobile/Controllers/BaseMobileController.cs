@@ -313,12 +313,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #endregion
-
-        public bool EsAndroid()
-        {
-            string uAg = Request.ServerVariables["HTTP_USER_AGENT"];
-            var regEx = new Regex(@"android", RegexOptions.IgnoreCase);
-            return regEx.IsMatch(uAg);
-        }
     }
 }

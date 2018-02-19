@@ -66,9 +66,6 @@ $(document).ready(function () {
         }
     });
 
-
-    /* fin popup validar datos 2017 */
-
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
@@ -121,8 +118,9 @@ $(document).ready(function () {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
             $('html, body').animate({
-                scrollTop: $('#divTopFiltros').position().top - 60
+                scrollTop: topFiltros - 60
             }, 1000, 'swing');
         }
     });
@@ -196,12 +194,12 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('[data-listado-campania=' + idCamapania + ']');
-    if (top.length > 0) {
-        top = top.position().top;
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
+    if (topListado.length > 0) {
+        topListado = (top.position() || {}).top || 0;
 
         $('html, body').animate({
-            scrollTop: top - 70
+            scrollTop: topListado - 70
         }, 1000, 'swing');
     }
 }
@@ -315,7 +313,6 @@ function OfertaArmarEstrategias(response) {
     /*Logica para agregar atributos para el EfectoLazy*/
     EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
-    //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantTotalMostrar);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
@@ -519,14 +516,17 @@ function RDDetalleObtener() {
 
     if (cuv == "" || campania == "") {
         RDDetalleVolver(campaniaCodigo);
+        return false;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     if (prod == null || prod == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
     if (prod.CUV2 == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
 
     var obj = new Object();
@@ -537,7 +537,7 @@ function RDDetalleObtener() {
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.Posicion = ind + 1;
-        tem.TipoAccionAgregar = 2;
+        //tem.TipoAccionAgregar = 2; Comentado por KC. para activar la experiencia de tonos en el detalle
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");

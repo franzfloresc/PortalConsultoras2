@@ -287,12 +287,15 @@ namespace Portal.Consultoras.Common
             //ODD
             public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
             public const string GuiaNegocio = "GuiaNegocio";
-            
+            public const string HabilidarLogCargaOferta = "HabilidarLogCargaOferta";
+
             public const string PedidoWebDDConf = "PedidoWebDDConf";
             public const string PedidoWebDD = "PedidoWebDD";
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
+
+            public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
         }
 
         public static class ConfiguracionManager
@@ -1070,6 +1073,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
@@ -1078,6 +1082,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string OfertaFinalCrossSellingGanaMas = "OFCGM";
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
@@ -1182,6 +1187,22 @@ namespace Portal.Consultoras.Common
                 public const string DRDRLandingBanner = "DRDRLandingBanner";
                 public const string MRDRLandingBanner = "MRDRLandingBanner";
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
+            }
+
+            public static class RDI
+            {
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string DBienvenidaIntriga = "DBienvenidaIntriga";
+                public const string MBienvenidaIntriga = "MBienvenidaIntriga";
+                public const string LogoComercial = "LogoComercial";
+                public const string LogoComercialFondo = "LogoComercialFondo";
+                public const string NombreComercial= "NombreComercial";
+                public const string DCatalogoIntriga = "DCatalogoIntriga";
+                public const string MCatalogoIntriga = "MCatalogoIntriga";
+                public const string DPedidoIntriga = "DPedidoIntriga";
+                public const string MPedidoIntriga = "MPedidoIntriga";
+                public const string DLandingBannerIntriga = "DLandingBannerIntriga";
+                public const string MLandingBannerIntriga = "MLandingBannerIntriga";
             }
 
         }
@@ -1303,6 +1324,7 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             public const short CodigoRevistaFisica = 132;
+            public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;

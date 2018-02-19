@@ -804,28 +804,27 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             var values = inputLine.Split('|');
-                            if (values.Length > 1)
-                            {
-                                if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
-                                {
-                                    var ent = new BEShowRoomOferta
-                                    {
-                                        ISOPais = values[0].Trim().Replace("\"", ""),
-                                        CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
-                                        CUV = values[2].Trim().Replace("\"", ""),
-                                        Stock = int.Parse(values[3].Trim().Replace("\"", "")),
-                                        PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
-                                        UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
-                                        Descripcion = values[6].Trim().Replace("\"", ""),
-                                        CodigoCategoria = values[7].Trim().Replace("\"", ""),
-                                        TipNegocio = values[8].Trim().Replace("\"", ""),
-                                        EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
-                                    };
 
-                                    if (ent.Stock >= 0)
-                                        lstStock.Add(ent);
-                                }
-                            }
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[1].Trim()) || !IsNumeric(values[3].Trim())) continue;
+
+                            var ent = new BEShowRoomOferta
+                            {
+                                ISOPais = values[0].Trim().Replace("\"", ""),
+                                CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
+                                CUV = values[2].Trim().Replace("\"", ""),
+                                Stock = int.Parse(values[3].Trim().Replace("\"", "")),
+                                PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
+                                UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
+                                Descripcion = values[6].Trim().Replace("\"", ""),
+                                CodigoCategoria = values[7].Trim().Replace("\"", ""),
+                                TipNegocio = values[8].Trim().Replace("\"", ""),
+                                EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
+                            };
+
+                            if (ent.Stock >= 0)
+                                lstStock.Add(ent);
                         }
                     }
 
@@ -1567,88 +1566,16 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
         {
-            try
-            {
-                string mensaje;
-                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                if (noPasa)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje,
-                        extra = ""
-                    });
-                }
-                
-                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-
-                entidad.PaisID = userData.PaisID;
-                entidad.ConsultoraID = userData.ConsultoraID;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                entidad.IPUsuario = userData.IPUsuario;
-
-                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.InsPedidoWebDetalleOferta(entidad);
-                }
-
-                sessionManager.SetPedidoWeb(null);
-                sessionManager.SetDetallesPedido(null);
-
-                UpdPedidoWebMontosPROL();
-
-                var indPedidoAutentico = new BEIndicadorPedidoAutentico
-                {
-                    PedidoID = entidad.PedidoID,
-                    CampaniaID = entidad.CampaniaID,
-                    PedidoDetalleID = entidad.PedidoDetalleID,
-                    IndicadorIPUsuario = GetIPCliente(),
-                    IndicadorFingerprint = "",
-                    IndicadorToken = Session["TokenPedidoAutentico"] != null
-                        ? Session["TokenPedidoAutentico"].ToString()
-                        : ""
-                };
-
-                InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = "",
-                    DataBarra = GetDataBarra()
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
+            return InsertarPedidoWebPortal(model, 1);
         }
 
         [HttpPost]
         public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        {
+            return InsertarPedidoWebPortal(model, 2);
+        }
+
+        private JsonResult InsertarPedidoWebPortal(PedidoDetalleModel model, int tipo)
         {
             try
             {
@@ -1663,20 +1590,27 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                
+
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.ConsultoraID = userData.ConsultoraID;
                 entidad.CampaniaID = userData.CampaniaID;
-                entidad.OfertaWeb = false;
-                entidad.ConfiguracionOfertaID = 0;
-                entidad.TipoOfertaSisID = 0;
-                entidad.SubTipoOfertaSisID = 0;
-                entidad.EsSugerido = false;
-                entidad.EsKitNueva = false;
+                if (tipo == 1)
+                {
+                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                }
+                else if (tipo == 2)
+                {
+                    entidad.TipoOfertaSisID = 0;
+                    entidad.OfertaWeb = false;
+                    entidad.ConfiguracionOfertaID = 0;
+                    entidad.SubTipoOfertaSisID = 0;
+                    entidad.EsSugerido = false;
+                    entidad.EsKitNueva = false;
+                    entidad.EsCompraPorCompra = true;
+                }
                 entidad.IPUsuario = userData.IPUsuario;
-                entidad.EsCompraPorCompra = true;
 
                 entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                 entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;

@@ -1182,6 +1182,25 @@ div#tab_revistasdigital_mobile {
     height: 20px;
 }
 
+.rd_arrowright {
+    position: relative;
+    width: 8px;
+    top: -2px;
+    left: 5px;
+}
+
+    .rd_arrowright:after {
+        background-image: url('../../../Images/Esika/rd_arrowright_red.png');
+        background-repeat: no-repeat;
+        background-size: 6px 10px;
+        display: inline-block;
+        width: 6px;
+        height: 10px;
+        content: '';
+        margin-left: 8px;
+        margin-top: 4px;
+    }
+
 .rd_ver_mas .arrow_rigth {
     width: 8px;
     height: 12px;
@@ -1986,13 +2005,6 @@ div#tab_revistasdigital_mobile {
         letter-spacing: .5px;
     }
 
-.rd_arrowright {
-    position: relative;
-    width: 8px;
-    top: -2px;
-    left: 5px;
-}
-
 .btn_black_solid a, .btn_white_stroke a {
     background-color: black;
     color: white;
@@ -2292,6 +2304,9 @@ div#tab_revistasdigital_mobile {
 .como-funciona {
     background: #f5f5f5;
 }
+.como-funciona .contenedor-mobile-fix{
+    margin-bottom:0px !important;
+}
 
     .como-funciona .arrow {
         display: block;
@@ -2434,6 +2449,8 @@ div#tab_revistasdigital_mobile {
         display: block;
         width: 100%;
         text-align: center;
+        margin-bottom: 10px;
+        margin-top: 30px;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .instrucciones {

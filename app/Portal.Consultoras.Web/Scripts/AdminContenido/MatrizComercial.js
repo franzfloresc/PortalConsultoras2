@@ -72,7 +72,7 @@ var MatrizComercial = function (config) {
                 if (response.success) {
                     _editData.idMatrizComercial = response.idMatrizComercial;
                     if (response.isNewRecord) {
-                        $('#list').trigger('reloadGrid');//refrescar la grilla con id generado
+                        $('#list').trigger('reloadGrid');
                         //regenerar el file-upload-add para que use el id generado
                         $("#file-upload-add").empty();
                         _crearFileUploadAdd(_editData);

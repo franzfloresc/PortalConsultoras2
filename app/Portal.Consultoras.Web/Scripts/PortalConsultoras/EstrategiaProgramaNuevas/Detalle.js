@@ -47,11 +47,7 @@ $("#CUV").keyup(function () {
                         $("#Mensaje").focus();
                     }
                     else if (data.wsprecio === 0.0) {
-                        if (data.precio === 0.0)
-                            $("#Precio").val(parseFloat(data.precio).toFixed(2));
-                        else
-                            $("#Precio").val(parseFloat(data.precio).toFixed(2));
-
+                        $("#Precio").val(parseFloat(data.precio).toFixed(2));
                         $("#Valorizado").focus();
                     }
                     else if (data.wsprecio == -1) {
@@ -74,7 +70,6 @@ $("#CUV").keyup(function () {
             },
             error: function (data, error) {
                 closeWaitingDialog();
-                alert(data.message);
             }
         });
     }
@@ -310,7 +305,6 @@ $("#btnGuardar").click(function (e) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 });

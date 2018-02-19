@@ -22,20 +22,17 @@ var actualizarMatrizCampaniaModule = (function () {
         ddlCampania: '#ddlCampania',
         txtCodVenta: '#txtCodVenta',
         btnBuscar: '#btnBuscar',
-        //
         hdnSap: '#hdnSap',
         hdnIdMatrizComercial: '#hdnIdMatrizComercial',
         hdnIdMatrizComercialImagen: '#hdnIdMatrizComercialImagen',
         txtDescripcion: '#txtDescripcion',
         txtPrecio: '#txtPrecio',
         txtFactorRepeticion: '#txtFactorRepeticion',
-        //
         txtDescripcionNueva: '#txtDescripcionNueva',
         txtPrecioNuevo: '#txtPrecioNuevo',
         txtFactorRepeticionNuevo: '#txtFactorRepeticionNuevo',
         txtRegaloDescripcion: '#txtRegaloDescripcion',
         imgSeleccionada: '#imgSeleccionada',
-        //
         matrizComercial: '#matriz-comercial',
         fileUpload: '#file-upload',
         matrizImagenesPaginacion: '#matriz-imagenes-paginacion',
@@ -43,10 +40,8 @@ var actualizarMatrizCampaniaModule = (function () {
         matrizComercialItemTemplate: '#matriz-comercial-item-template',
         chkImagenProducto: '.chkImagenProducto',
         imgMatrizPreview: '.img-matriz-preview',
-        //
         divVistaPrevia: 'divVistaPrevia',
         imgZonaEstrategia: '#imgZonaEstrategia',
-        //
         btnGrabar: '#btnGrabar',
     }
 
@@ -63,10 +58,8 @@ var actualizarMatrizCampaniaModule = (function () {
         _settings.actualizarMatrizComercialUrl = settings.actualizarMatrizComercialUrl;
         _settings.habilitarNemotecnico = settings.habilitarNemotecnico;
         _settings.getImagesByCodigoSapUrl = settings.getImagesByCodigoSapUrl;
-        //
         _initDialogs();
         _bindEvents();
-        //
         _nemotecnicoComponent = Nemotecnico({
             expresionValidacion: ''
         });
@@ -404,25 +397,21 @@ var actualizarMatrizCampaniaModule = (function () {
 
     var _limpiarFormulario = function () {
         $(_elements.txtCodVenta).val("");
-        //
         $(_elements.hdnSap).val("");
         $(_elements.hdnIdMatrizComercial).val("");
         $(_elements.hdnIdMatrizComercialImagen).val("");
         $(_elements.txtDescripcion).val("");
         $(_elements.txtPrecio).val("");
         $(_elements.txtFactorRepeticion).val("");
-        //
         $(_elements.txtDescripcionNueva).val("");
         $(_elements.txtPrecioNuevo).val("");
         $(_elements.txtFactorRepeticionNuevo).val("");
         $(_elements.txtRegaloDescripcion).val("");
         $(_elements.imgSeleccionada).attr("src", rutaImagenVacia);
-        //
         $(_elements.matrizComercial).hide();
         $(_elements.matrizImagenesPaginacion).empty();
         $(_elements.fileUpload).hide();
         $(_elements.matrizComercialImages).empty();
-        //
         $(_elements.imgZonaEstrategia).attr("src", rutaImagenVacia);
     };
 

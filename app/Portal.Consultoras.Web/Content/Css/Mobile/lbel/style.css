@@ -8031,6 +8031,7 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #613c87;
+    text-transform: uppercase;
 }
 
 .text-danger {
@@ -11466,16 +11467,6 @@ span.icon-advertencia {
     cursor: pointer;
 }
 
-.texto_elige_tono {
-    font-family: 'LAto';
-    font-size: 11px;
-    font-weight: 700;
-    color: #613c87;
-    text-align: center;
-    height: 48px;
-    line-height: 47px;
-}
-
 .tono_por_elegir {
     background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png') no-repeat;
     background-position: 95% 17px;
@@ -11513,13 +11504,13 @@ span.icon-advertencia {
 }
 
 .texto_elige_tono {
-    font-family: 'LAto';
+    font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
     color: #613c87;
     text-align: center;
     height: 48px;
-    line-height: 47px;
+    padding: 15px 0;
 }
 
 .check_intriga:before {

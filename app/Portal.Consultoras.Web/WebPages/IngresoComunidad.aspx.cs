@@ -35,7 +35,6 @@ namespace Portal.Consultoras.Web.WebPages
         public string ValidarUsuario(string data)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
-            int RespuestaComunidad = 0;
             string message = string.Empty;
             string page = string.Empty;
             bool success = false;
@@ -44,16 +43,20 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
+                BEUsuarioComunidad obeUsuarioComunidad = new BEUsuarioComunidad
+                {
+                    CodigoUsuario = datos["CodigoUsuario"].ToString(),
+                    Contrasenia = datos["Contrasenia"].ToString(),
+                    PaisId = Convert.ToInt32(datos["PaisId"].ToString())
+                };
+
+                int respuestaComunidad;
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    BEUsuarioComunidad oBEUsuarioComunidad = new BEUsuarioComunidad();
-                    oBEUsuarioComunidad.CodigoUsuario = datos["CodigoUsuario"].ToString();
-                    oBEUsuarioComunidad.Contrasenia = datos["Contrasenia"].ToString();
-                    oBEUsuarioComunidad.PaisId = Convert.ToInt32(datos["PaisId"].ToString());
-                    RespuestaComunidad = sv.GetUsuarioValidado(oBEUsuarioComunidad);
+                    respuestaComunidad = sv.GetUsuarioValidado(obeUsuarioComunidad);
                 }
 
-                switch (RespuestaComunidad)
+                switch (respuestaComunidad)
                 {
                     case 0:
                         message = "El usuario ingresado no existe.";
@@ -62,7 +65,7 @@ namespace Portal.Consultoras.Web.WebPages
                         message = "La contraseña ingresada no es correcta.";
                         break;
                     case 2:
-                        BEUsuarioComunidad usuario = null;
+                        BEUsuarioComunidad usuario;
                         using (ComunidadServiceClient sv = new ComunidadServiceClient())
                         {
                             usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
@@ -75,13 +78,15 @@ namespace Portal.Consultoras.Web.WebPages
 
                         if (usuario != null)
                         {
-                            string XmlPath = Server.MapPath("~/Key");
-                            string KeyPath = Path.Combine(XmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                            string xmlPath = Server.MapPath("~/Key");
+                            string keyPath = Path.Combine(xmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                            SSOClient.init(KeyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
-                            Hashtable settingsMap = new Hashtable();
-                            settingsMap.Add("profile.name_first", usuario.Nombre);
-                            settingsMap.Add("profile.name_last", usuario.Apellido);
+                            SSOClient.init(keyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                            Hashtable settingsMap = new Hashtable
+                            {
+                                {"profile.name_first", usuario.Nombre},
+                                {"profile.name_last", usuario.Apellido}
+                            };
 
                             if (!string.IsNullOrEmpty(usuario.Rol))
                             {
@@ -132,10 +137,10 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
-                long UniqueId = -1;
+                long uniqueId;
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    UniqueId = sv.InsUsuarioRegistro(new BEUsuarioComunidad()
+                    uniqueId = sv.InsUsuarioRegistro(new BEUsuarioComunidad()
                     {
                         CodigoUsuario = datos["CodigoUsuario"].ToString(),
                         Nombre = datos["Nombre"].ToString(),
@@ -146,12 +151,12 @@ namespace Portal.Consultoras.Web.WebPages
                     });
                 }
 
-                if (UniqueId > 0)
+                if (uniqueId > 0)
                 {
-                    string[] parametros = new string[] { UniqueId.ToString(), "0", datos["PaisId"].ToString() };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    string[] parametros = new string[] { uniqueId.ToString(), "0", datos["PaisId"].ToString() };
+                    string paramQuerystring = Util.EncriptarQueryString(parametros);
 
-                    string pagina_confirmacion = GetUrlHost(Page.Request) + "WebPages/ConfirmacionRegistroComunidad.aspx?data=" + param_querystring;
+                    string paginaConfirmacion = GetUrlHost(Page.Request) + "WebPages/ConfirmacionRegistroComunidad.aspx?data=" + paramQuerystring;
 
                     StringBuilder sb = new StringBuilder();
                     sb.Append("<table width='720' border='0' align='center' cellpadding='0' cellspacing='0'><tr><td valign='top'>");
@@ -170,7 +175,7 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<tr><td height='10' bgcolor='#d3d7db'>&nbsp;</td></tr>");
                     sb.Append("<tr><td bgcolor='#d3d7db' align='center'><font style='FONT-SIZE:14px;' face='Tahoma, Geneva, sans-serif' color='#415261'>&iexcl;Ven a conversar!</font></td></tr>");
                     sb.Append("<tr><td height='35' bgcolor='#d3d7db'>&nbsp;</td></tr>");
-                    sb.Append("<tr><td bgcolor='#d3d7db' align='center'><a href='" + pagina_confirmacion + "'><img src='https://s3.amazonaws.com/somosbelcorp/Comunidad/boton-confirmar.jpg' width='240' height='37'  border='0' style='display:block' alt=''/></a></td></tr>");
+                    sb.Append("<tr><td bgcolor='#d3d7db' align='center'><a href='" + paginaConfirmacion + "'><img src='https://s3.amazonaws.com/somosbelcorp/Comunidad/boton-confirmar.jpg' width='240' height='37'  border='0' style='display:block' alt=''/></a></td></tr>");
                     sb.Append("<tr><td height='30' align='center' bgcolor='#d3d7db'>&nbsp;</td></tr>");
                     sb.Append("<tr><td height='38' colspan='2' bgcolor='#d3d7db'><table width='720' border='0' cellspacing='0' cellpadding='0'><tbody><tr>");
                     sb.Append("<td width='231'>&nbsp;</td>");
@@ -187,7 +192,7 @@ namespace Portal.Consultoras.Web.WebPages
                     {
                         sv.UpdUsuarioCorreoEnviado(new BEUsuarioComunidad()
                         {
-                            UsuarioId = UniqueId,
+                            UsuarioId = uniqueId,
                             Tipo = 0
                         });
                     }
@@ -197,13 +202,11 @@ namespace Portal.Consultoras.Web.WebPages
                         success = true
                     });
                 }
-                else
+
+                return serializer.Serialize(new
                 {
-                    return serializer.Serialize(new
-                    {
-                        success = false
-                    });
-                }
+                    success = false
+                });
 
             }
             catch (Exception ex)
@@ -218,14 +221,14 @@ namespace Portal.Consultoras.Web.WebPages
         }
         public Uri GetUrlHost(HttpRequest request)
         {
-            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
+            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath != null && request.ApplicationPath.Equals("/") ? "/" : (request.ApplicationPath + "/"));
             return new Uri(baseUrl);
         }
 
         [WebMethod]
         public static string ValidarUsuarioIngresado(string usuario)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByCodigo(new BEUsuarioComunidad()
@@ -239,7 +242,7 @@ namespace Portal.Consultoras.Web.WebPages
         [WebMethod]
         public static string ValidarCorreoIngresado(string correo)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByCorreo(new BEUsuarioComunidad()

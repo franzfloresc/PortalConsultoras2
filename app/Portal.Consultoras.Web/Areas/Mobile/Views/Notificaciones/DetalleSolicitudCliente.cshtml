@@ -352,10 +352,6 @@
                             $('#DiagloBotonCancelar').modal('show');
 
                             $.post('@Url.Action("ActualizarEstadoNotificacion", "Notificaciones", new { area = "" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-                                data.mensaje = data.mensaje || "";
-                                if (data.mensaje != '') {
-                                    console.log(data.mensaje);
-                                }
                             });
                         }
                     }
