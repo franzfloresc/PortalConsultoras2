@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
             public const int Nuevo = 1;
             public const int Editar = 2;
             public const int NuevoDatos = 3;
+            public const int Deshabilitar = 4;
         }
 
         public ActionResult Index()
@@ -357,6 +358,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string SaveFileS3(string imagenEstrategia)
         {
+            imagenEstrategia = Util.Trim(imagenEstrategia);
+            if (imagenEstrategia == "")
+                return "";
+
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
@@ -439,6 +444,57 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
+        public JsonResult ComponenteDatosGuardar(List<AdministrarComponenteDatosModel> listaDatos)
+        {
+            try
+            {
+                var listaEntidad = ComponenteDatosFormato(listaDatos);
+                if (listaEntidad == null || !listaEntidad.Any())
+                {
+                    return Json(new { success = false });
+                }
+                int valRespuesta;
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    valRespuesta = sv.ConfiguracionPaisDatosGuardar(userData.PaisID, listaEntidad.ToArray());
+                }
+
+                return Json(new { success = valRespuesta > 0 });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false });
+            }
+        }
+
+        private List<ServiceUsuario.BEConfiguracionPaisDatos> ComponenteDatosFormato(List<AdministrarComponenteDatosModel> listaDatos)
+        {
+            var listaEntidad = new List<ServiceUsuario.BEConfiguracionPaisDatos>();
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any())
+                    return listaEntidad;
+
+                foreach (var admDato in listaDatos)
+                {
+                    if (admDato.TipoDato == "img")
+                    {
+                        admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
+                    }
+                    admDato.Dato.Estado = true;
+                    listaEntidad.Add(Mapper.Map<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>(admDato.Dato));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaEntidad = new List<ServiceUsuario.BEConfiguracionPaisDatos>();
+            }
+            return listaEntidad;
+        }
+
         [HttpPost]
         public JsonResult ComponentePorPalanca(ConfiguracionPaisModel model)
         {
@@ -484,18 +540,42 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                List<ConfiguracionPaisDatosModel> beEntidadesMdel;
-                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
+                if (entidad.Accion == _accion.Deshabilitar)
                 {
-                    var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
-                    beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        //sv.ConfiguracionPaisComponenteDeshabilitar(beEntidad).ToList();
+                    }
+
+                    return PartialView("Partials/MantenimientoProximamente", new AdministrarComponenteModel());
+                }
+
+                if (entidad.Accion != _accion.Nuevo)
+                {
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
+                        if (!beEntidades.Any() && entidad.Accion == _accion.NuevoDatos)
+                        {
+                            beEntidad.CampaniaID = 0;
+                            beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
+                            beEntidades.ForEach(d =>
+                            {
+                                d.CampaniaID = entidad.CampaniaID;
+                                d.Valor1 = "";
+                                d.Valor2 = "";
+                                d.Valor3 = "";
+                            });
+                        }
+                        beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                    }
                 }
 
                 modelo = new AdministrarComponenteModel
                 {
-                    PalancaID = beEntidad.ConfiguracionPaisID,
-                    CampaniaID = beEntidad.CampaniaID,
-                    ConfiguracionPaisComponenteID = entidad.PalancaCodigo + beEntidad.CampaniaID + beEntidad.Componente,
+                    PalancaCodigo = entidad.PalancaCodigo,
+                    CampaniaID = entidad.CampaniaID,
                     Componente = beEntidad.Componente,
                     ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
                     ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel)
@@ -506,25 +586,29 @@ namespace Portal.Consultoras.Web.Controllers
                     return PartialView("Partials/MantenimientoProximamente", modelo);
                 }
 
-                modelo.ListaPalanca = ListarConfiguracionPais();
-                modelo.ListaCampanias = ListCampanias(userData.PaisID);
-                
-                if (entidad.Accion != _accion.Nuevo)
-                {
-                    modelo.ListaCompomente = ComponenteListarService(entidad);
-                }
-
                 if (entidad.Accion == _accion.NuevoDatos)
                 {
                     return PartialView("Partials/MantenimientoPalancaDatos", modelo);
                 }
 
+                modelo.ListaPalanca = ListarConfiguracionPais();
+                modelo.ListaCampanias = ListCampanias(userData.PaisID);
+                if (entidad.Accion != _accion.Nuevo)
+                {
+                    modelo.ListaCompomente = ComponenteListarService(entidad);
+                }
+                
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                modelo = new AdministrarComponenteModel();
-                modelo.ListaDatos = new List<AdministrarComponenteDatosModel>();
+                modelo = new AdministrarComponenteModel
+                {
+                    ListaDatos = new List<AdministrarComponenteDatosModel>(),
+                    ListaPalanca = new List<ConfiguracionPaisModel>(),
+                    ListaCampanias = new List<CampaniaModel>(),
+                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>()
+                };
             }
 
             return PartialView("Partials/MantenimientoPalancaDatosCabecera", modelo);
@@ -586,50 +670,60 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPaisDatos.RD.PopupImagenEtiqueta:
                         admDato.TxtLabel = "Etiqueta del Club (64 x 30)";
                         admDato.TipoDato = "img";
+                        admDato.Orden = 1;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupImagenPublicidad:
                         admDato.TxtLabel = "Imagen/Gif";
                         admDato.TipoDato = "img";
+                        admDato.Orden = 2;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco:
                         admDato.TxtLabel = "Color del borde";
+                        admDato.Orden = 3;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColor:
                         admDato.TxtLabel = "Color del fondo";
+                        admDato.Orden = 4;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1:
                         admDato.TxtLabel = "Mensaje 1";
+                        admDato.Orden = 5;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje2:
                         admDato.TxtLabel = "Mensaje 2";
+                        admDato.Orden = 6;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensajeColor:
                         admDato.TxtLabel = "Color de los Mensajes";
+                        admDato.Orden = 7;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonTexto:
                         admDato.TxtLabel = "Texto botón";
+                        admDato.Orden = 8;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorTexto:
                         admDato.TxtLabel = "Color texto botón";
+                        admDato.Orden = 9;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorFondo:
                         admDato.TxtLabel = "Color botón";
+                        admDato.Orden = 10;
                         break;
 
                 }
 
                 listaEntidad.Add(admDato);
             }
-            return listaEntidad;
+            return listaEntidad.OrderBy(d => d.Orden).ToList();
         }
 
         #endregion

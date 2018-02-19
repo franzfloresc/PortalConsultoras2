@@ -8545,6 +8545,20 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitarRespons" +
+            "e")]
+        bool ConfiguracionPaisComponenteDeshabilitar(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitarRespons" +
+            "e")]
+        System.Threading.Tasks.Task<bool> ConfiguracionPaisComponenteDeshabilitarAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
+        int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
+        System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle", ReplyAction="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalleResponse")]
         bool ValidarConfiguracionPaisDetalle(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad);
         
@@ -9273,6 +9287,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
             return base.Channel.GetConfiguracionPaisComponenteDatosAsync(entidad);
+        }
+        
+        public bool ConfiguracionPaisComponenteDeshabilitar(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.ConfiguracionPaisComponenteDeshabilitar(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ConfiguracionPaisComponenteDeshabilitarAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.ConfiguracionPaisComponenteDeshabilitarAsync(entidad);
+        }
+        
+        public int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
+            return base.Channel.ConfiguracionPaisDatosGuardar(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
+            return base.Channel.ConfiguracionPaisDatosGuardarAsync(paisId, entidad);
         }
         
         public bool ValidarConfiguracionPaisDetalle(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad) {

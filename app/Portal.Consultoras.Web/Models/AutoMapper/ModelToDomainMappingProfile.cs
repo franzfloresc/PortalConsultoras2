@@ -83,6 +83,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
+            Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
             Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 

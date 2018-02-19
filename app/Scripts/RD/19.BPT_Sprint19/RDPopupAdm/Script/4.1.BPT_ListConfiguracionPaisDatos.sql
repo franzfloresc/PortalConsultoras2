@@ -9,6 +9,7 @@ ALTER PROCEDURE dbo.ListConfiguracionPaisDatos
 	,@CodigoConsultora varchar(100) = ''
 AS
 BEGIN
+
 	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 
 	if @ConfiguracionPaisID > 0
@@ -22,6 +23,7 @@ BEGIN
 		  D.ConfiguracionPaisID
 		, D.Codigo
 		, D.CampaniaID
+		, D.Componente
 		, D.Valor1
 		, D.Valor2
 		, D.Valor3
@@ -41,7 +43,23 @@ BEGIN
 				WHERE (C.DesdeCampania <= @CampaniaID OR @CampaniaID = 0)
 		) P
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
+		INNER JOIN (
+			SELECT 
+				Dx.ConfiguracionPaisID
+				, max(Dx.CampaniaID) as CampaniaID
+				, isnull(Dx.Componente, '') as Componente
+				, Dx.Codigo
+			FROM ConfiguracionPaisDatos Dx
+			where Dx.Estado = 1
+				AND (Dx.CampaniaID <= @CampaniaID or @CampaniaID = 0)
+			group by Dx.ConfiguracionPaisID
+				, Dx.Componente
+				, Dx.Codigo
+		) DG
+			ON DG.ConfiguracionPaisID = D.ConfiguracionPaisID
+			AND DG.CampaniaID = D.CampaniaID
+			AND DG.Componente = isnull(D.Componente, '')
+			AND DG.Codigo = D.Codigo
 	where D.Estado = 1
-		AND (D.CampaniaID = @CampaniaID or @CampaniaID = 0)
 
 END

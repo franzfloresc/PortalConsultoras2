@@ -9,7 +9,7 @@ CREATE PROCEDURE dbo.ListConfiguracionPaisComponenteDatos
 	,@PalancaCodigo varchar(100) = ''
 	,@Componente varchar(100) = ''
 AS
--- ListConfiguracionPaisComponenteDatos 0, 0, null, null
+-- ListConfiguracionPaisComponenteDatos 0, 201302, 'RD', 'Popup_Club_Gana+'
 BEGIN
 	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 	SET @ConfiguracionPaisID = ISNULL(@ConfiguracionPaisID, 0)
@@ -44,7 +44,6 @@ BEGIN
 	where (D.CampaniaID = @CampaniaID or @CampaniaID = 0)
 		AND (P.Codigo = @PalancaCodigo OR @PalancaCodigo = '')
 		AND (D.Componente = @Componente OR @Componente = '')
-	--group by P.Codigo, P.Descripcion, D.CampaniaID, D.Componente
 
 END
 

@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Web.Models
         public string ConfiguracionPaisComponenteID { get; set; }
         public int CampaniaID { get; set; }
         public string Componente { get; set; }
-        public int PalancaID { get; set; }
+        public string PalancaCodigo { get; set; }
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<ConfiguracionPaisComponenteModel> ListaCompomente { set; get; }
         public IEnumerable<ConfiguracionPaisModel> ListaPalanca { set; get; }

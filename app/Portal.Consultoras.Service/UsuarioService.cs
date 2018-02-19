@@ -680,6 +680,18 @@ namespace Portal.Consultoras.Service
             return bl.GetListComponenteDatos(entidad);
         }
 
+        public bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisComponenteDeshabilitar(entidad);
+        }
+
+        public int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> listaEntidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisDatosGuardar(paisId, listaEntidad);
+        }
+        
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
             int paisId = GetPaisID(paisISO);
