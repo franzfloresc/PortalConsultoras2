@@ -207,6 +207,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
                     estrategia.Linea = "1px solid #ccc";
                     btnDesabled = 1;
                 }
+
             });
             estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
             estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
@@ -217,6 +218,10 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     }
 
     var popupId = '#popupDetalleCarousel_lanzamiento';
+    estrategia.PrecioNiveles = estrategia.PrecioNiveles || '';
+    if (estrategia.PrecioNiveles != '') {
+        estrategia.lstPrecioNiveles = estrategia.PrecioNiveles.split('|');
+    }
 
     SetHandlebars("#verdetalle-template", estrategia, popupId);
 
