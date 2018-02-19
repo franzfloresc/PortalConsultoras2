@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
 
-                model.ConsultoraNuevaBannerAppMostrar = ((UserData().ConsultoraNueva == 1 || UserData().ConsultoraNueva == 7) && EsAndroid());
+                model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
             catch (FaultException ex)
             {
