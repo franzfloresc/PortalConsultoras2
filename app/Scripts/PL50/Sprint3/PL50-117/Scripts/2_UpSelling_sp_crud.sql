@@ -155,6 +155,7 @@ FROM UpSelling
 WHERE (UpSellingId = @UpSellingId)
 GO
 
+/*DELETE*/
 IF EXISTS (
 		SELECT *
 		FROM sysobjects
@@ -169,18 +170,6 @@ CREATE PROCEDURE [dbo].UpSelling_Delete (
 	)
 AS
 SET NOCOUNT OFF;
-
-IF EXISTS(
-SELECT ud.UpSellingDetalleId
-	,ud.CUV	
-	,ud.UpSellingId
-	,ofi.ConsultoraId
-FROM UpSellingDetalle ud
-INNER JOIN UpSelling u ON ud.UpSellingId = u.UpSellingId
-INNER JOIN OfertaFinalMontoMeta ofi ON ud.CUV = ofi.CUV
-	AND u.CodigoCampana = ofi.CampaniaID
-	)
-THROW 51000, 'Regalo asociado ya a alguna(s) consultora.', 1;  
 
 DELETE
 FROM [UpSelling]

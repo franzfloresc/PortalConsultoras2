@@ -1420,6 +1420,11 @@ namespace Portal.Consultoras.Service
         {
             new UpSellingBusinessLogic(paisId).Eliminar(upSellingId);
         }
+
+        public UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalle(upSellingDetalleId);
+        }
         #endregion
     }
 }

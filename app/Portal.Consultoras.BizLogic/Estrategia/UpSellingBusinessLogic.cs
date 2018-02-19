@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Xml.Serialization;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.Data.Estrategia;
 using Portal.Consultoras.Entities.Estrategia;
@@ -26,7 +28,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 upSellings.ForEach(upSelling =>
                 {
-                    var detalle = _upSellingDataAccess.ObtenerDetalle(upSelling.UpSellingId);
+                    var detalle = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
                     if (detalle != null)
                         upSelling.Regalos.AddRange(detalle);
                 });
@@ -51,26 +53,41 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 if (upSellingOriginal == null)
                     throw new NullReferenceException("UpSelling no encontrado");
 
-                upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalle(upSelling.UpSellingId);
+                upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
                 var entidad = _upSellingDataAccess.Actualizar(upSelling);
                 if (upSelling.Regalos != null)
                 {
                     upSelling.Regalos.ForEach(r =>
                     {
-                        r.UpSellingId = entidad.UpSellingId;
+                        if (r.UpSellingId == 0)
+                            r.UpSellingId = entidad.UpSellingId;
                     });
+
+                    //algun regalo que no pertenzca a UpSelling 
+                    // por UpSellingId y UpSellingDetalleId
+                    if (upSelling.Regalos.Any(r => r.UpSellingId != upSelling.UpSellingId)
+                    || upSelling.Regalos
+                            .Where(r => r.UpSellingDetalleId != 0)
+                            .Select(r => r.UpSellingDetalleId)
+                            .Any(r => !upSellingOriginal.Regalos
+                                .Select(ro => ro.UpSellingDetalleId)
+                                .Contains(r)))
+                        throw new System.ArgumentException("Regalo no perteneciente al UpSelling");
+
                     entidad.Regalos.AddRange(InsertarActualizarDetalle(upSelling.Regalos));
                 }
 
-                var detallesEliminar = from o in upSellingOriginal.Regalos
-                                       where entidad.Regalos.Select(upSellingDetalle => upSellingDetalle.UpSellingDetalleId).Contains(o.UpSellingDetalleId)
-                                       select o.UpSellingDetalleId;
+                //eliminar los que no vayan a actualizarce
+                var detallesEliminar =
+                    from o in upSellingOriginal.Regalos
+                    where entidad.Regalos.Any(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
+                    select o.UpSellingDetalleId;
 
                 var regalosEliminados = EliminarDetalle(detallesEliminar);
 
-                if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
-                    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
+                //if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
+                //    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
 
                 transaction.Complete();
 
@@ -82,6 +99,10 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         {
             using (var transaction = new TransactionScope())
             {
+                var upSellings = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
+                if (upSellings != null && upSellings.Any())
+                    throw new ArgumentOutOfRangeException("Solo se permite 1 Upselling por Campana " + upSelling.CodigoCampana);
+
                 var entidad = _upSellingDataAccess.Insertar(upSelling);
                 if (upSelling.Regalos != null)
                 {
@@ -100,19 +121,22 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
         }
 
-        public void Eliminar(int upSellingId)
+        public int Eliminar(int upSellingId)
         {
             using (var transaction = new TransactionScope())
             {
                 var upSelling = _upSellingDataAccess.Obtener(upSellingId);
 
-                if (upSelling != null)
-                {
-                    EliminarDetalle(upSelling.Regalos.Select(upSellingDetalle => upSellingDetalle.UpSellingDetalleId));
-                    _upSellingDataAccess.Eliminar(upSellingId);
-                }
+                if (upSelling == null)
+                    throw new NullReferenceException("UpSelling no encontrado");
+
+                upSelling.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
+                var rowsDetailAffected = EliminarDetalle(upSelling.Regalos.Select(upSellingDetalle => upSellingDetalle.UpSellingDetalleId));
+                var rowHeaderAffected = _upSellingDataAccess.Eliminar(upSellingId);
+
 
                 transaction.Complete();
+                return rowsDetailAffected + rowHeaderAffected;
             }
         }
 
@@ -139,10 +163,23 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             upSellingDetalleIds.ForEach(upSellingDetalleId =>
             {
                 var result = _upSellingDataAccess.EliminarDetalle(upSellingDetalleId);
+                if (result != 1)
+                    throw new NullReferenceException("Id no encontrado " + upSellingDetalleId);
+
                 counter += result;
             });
 
             return counter;
+        }
+
+        public UpSellingDetalle ObtenerDetalle(int upSellingDetalleId)
+        {
+            var model = _upSellingDataAccess.ObtenerDetalle(upSellingDetalleId);
+
+            if (model == default(UpSellingDetalle))
+                throw new NullReferenceException("Detalle no encontrado");
+
+            return model;
         }
     }
 }

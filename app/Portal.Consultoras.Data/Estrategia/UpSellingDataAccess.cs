@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
-        public List<UpSellingDetalle> ObtenerDetalle(int upSellingId)
+        public List<UpSellingDetalle> ObtenerDetalles(int upSellingId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Select"))
             {
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Data.Estrategia
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Insert"))
             {
-                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.CUV);
                 Context.Database.AddInParameter(command, "@Nombre", DbType.String, regalo.Nombre);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, regalo.Descripcion);
                 Context.Database.AddInParameter(command, "@Imagen", DbType.String, regalo.Imagen);
@@ -129,12 +129,22 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
+        public UpSellingDetalle ObtenerDetalle(int upSellingDetalleId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Select_By_Id"))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, upSellingDetalleId);
+
+                var reader = Context.ExecuteReader(command);
+                return reader.MapToObject<UpSellingDetalle>(true);
+            }
+        }
 
         public UpSellingDetalle ActualizarDetalle(UpSellingDetalle regalo)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.UpSellingDetalle_Update"))
             {
-                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.UpSellingId);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, regalo.CUV);
                 Context.Database.AddInParameter(command, "@Nombre", DbType.String, regalo.Nombre);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, regalo.Descripcion);
                 Context.Database.AddInParameter(command, "@Imagen", DbType.String, regalo.Imagen);
@@ -159,7 +169,12 @@ namespace Portal.Consultoras.Data.Estrategia
             {
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, upSellingDetalleId);
                 var reader = Context.ExecuteReader(command);
-                return reader.RecordsAffected;
+
+                var recordsAffected = reader.RecordsAffected;
+                if (!reader.IsClosed)
+                    reader.Close();
+
+                return recordsAffected;
             }
         }
     }

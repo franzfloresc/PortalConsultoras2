@@ -12,6 +12,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         IEnumerable<UpSelling> Obtener(string codigoCampana, bool incluirDetalle);
         UpSelling Actualizar(UpSelling upSelling);
         UpSelling Insertar(UpSelling upSelling);
-        void Eliminar(int upSellingId);
+        int Eliminar(int upSellingId);
     }
 }

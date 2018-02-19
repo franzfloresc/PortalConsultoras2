@@ -697,6 +697,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpSellingEliminar(int paisId, int upSellingId);
+
+        [OperationContract]
+        UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId);
         #endregion
     }
 }
