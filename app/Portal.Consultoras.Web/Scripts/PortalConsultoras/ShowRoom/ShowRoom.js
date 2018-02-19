@@ -690,7 +690,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
         });
 
-        debugger;
+       
         var htmlDiv = SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
         $("#spnCantidadFiltro").html(response.listaNoSubCampania.length);
         $("#spnCantidadTotal").html(response.totalNoSubCampania);
@@ -867,7 +867,7 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 
 
 function EstrategiaAgregar(event, popup) {
-    debugger;
+   
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
     var cantidad = $(padre).find("[data-input='cantidad']").val();
@@ -909,8 +909,7 @@ function EstrategiaAgregar(event, popup) {
     });
 
     $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
-
-        debugger;
+       
 
         if (ValidarUnidadesPermitidas(data, cantidad)) {
 
