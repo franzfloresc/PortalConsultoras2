@@ -1,0 +1,62 @@
+﻿@model Portal.Consultoras.Web.Models.Estrategia.UpSellingAdminModel
+
+@if (Model.EsPaisEsika)
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+else
+{
+    <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>OFERTA FINAL - REGALOS</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">Pais:</div>
+                <div class="selectA">
+                    @Html.Label(Model.PaisNombre)
+                </div>
+                <div class="titG">Campañas:</div>
+                <div class="selectA">
+                    @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                </div>
+            </div>
+            <br />
+            <div class="div-3">
+                <div class="titG"></div>
+                <input type="button" id="btnBuscar" value="Buscar" />
+                <input type="button" id="btnNuevo" value="Nuevo" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <table id="list"></table>
+        <div id="pager"></div>
+    </div>
+</div>
+<div id="divAgregar"></div>
+
+<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>
+@section scripts{
+<script>
+        jQuery(document).ready(function() {
+            belcorp.estrategias.upselling.initialize({
+                rutaImagenVacia: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
+                rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+                rutaImagenDelete: '@Url.Content("~/Content/Images/Delete.png")',
+                idGrilla: 'list',
+                idPager: 'pager',
+                urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
+                buttonBuscarId: 'btnBuscar',
+                buttonNuevoId: 'btnNuevo'
+            });
+        });
+</script>
+}
