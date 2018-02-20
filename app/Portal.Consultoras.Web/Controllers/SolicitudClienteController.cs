@@ -49,9 +49,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -166,12 +166,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Paginacion = Util.Trim(Paginacion);
                 int outVal;
                 int.TryParse(Paginacion, out outVal);
-                
+
                 if (page == 1 && outVal > 0)
                 {
                     page = outVal;
                 }
-                
+
                 List<BESolicitudCliente> lst;
 
                 if (Consulta == "1")

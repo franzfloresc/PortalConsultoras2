@@ -443,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false });
             }
         }
-        
+
         public JsonResult ComponenteDatosGuardar(List<AdministrarComponenteDatosModel> listaDatos)
         {
             try
@@ -505,7 +505,7 @@ namespace Portal.Consultoras.Web.Controllers
                     PalancaCodigo = model.Codigo,
                 };
                 var listaComponente = ComponenteListarService(compModel);
-                
+
                 return Json(new
                 {
                     success = true,
@@ -597,7 +597,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     modelo.ListaCompomente = ComponenteListarService(entidad);
                 }
-                
+
             }
             catch (Exception ex)
             {

@@ -2319,9 +2319,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if(revistaDigital == null)
+                if (revistaDigital == null)
                     return partial;
-                
+
                 partial.RevistaDigital = revistaDigital;
 
                 if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)

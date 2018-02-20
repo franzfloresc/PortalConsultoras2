@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
-
         public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
@@ -73,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionPackNuevas(userData.PaisID, CodigoPrograma);
             }
-            return Json(new {pedidoAsociado = lst}, JsonRequestBehavior.AllowGet);
+            return Json(new { pedidoAsociado = lst }, JsonRequestBehavior.AllowGet);
         }
 
         private IEnumerable<EtiquetaModel> DropDowListEtiqueta()
@@ -126,9 +125,9 @@ namespace Portal.Consultoras.Web.Controllers
                     Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
 
                 var lista = (from a in lst
-                    where a.FlagActivo == 1
-                          && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
-                    select a);
+                             where a.FlagActivo == 1
+                                   && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
+                             select a);
 
                 return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
@@ -263,11 +262,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.EstrategiaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.EstrategiaID,
+                                   cell = new string[]
+                                   {
                                 a.EstrategiaID.ToString(),
                                 a.Orden.ToString(),
                                 a.ID.ToString(),
@@ -282,8 +281,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.EsOfertaIndependiente.ToString(),
                                 a.FlagValidarImagen.ToString(),
                                 a.PesoMaximoImagen.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -334,11 +333,11 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.ID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.ID,
+                               cell = new string[]
+                               {
                             a.ID.ToString(),
                             a.CUV,
                             a.DescripcionCUV,
@@ -347,8 +346,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.DescripcionTipo,
                             a.DescripcionTallaColor,
                             a.IDAux.ToString()
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -488,12 +487,12 @@ namespace Portal.Consultoras.Web.Controllers
                         }, "text/html");
                 }
                 image.Dispose();
-                return Json(new {success = true, name = Path.GetFileName(path)}, "text/html");
+                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new {success = false, message = "Hubo un error al cargar el archivo, intente nuevamente."},
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." },
                     "text/html");
             }
         }
@@ -754,7 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
 
-                        
+
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -915,7 +914,7 @@ namespace Portal.Consultoras.Web.Controllers
             var totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
             var data = MapImages(lst, paisID);
 
-            return Json(new {imagenes = data, totalRegistros = totalRegistros});
+            return Json(new { imagenes = data, totalRegistros = totalRegistros });
         }
 
         private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
@@ -1289,17 +1288,17 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.Id,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.Id,
+                               cell = new string[]
+                               {
                             a.Id.ToString(),
                             a.Descripcion,
                             a.Valor,
                             a.ValorOpcional
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1346,15 +1345,15 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.CUV2,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.CUV2,
+                               cell = new string[]
+                               {
                             a.CUV2,
                             a.DescripcionCUV2
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1429,7 +1428,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            
+
                             if (habilitarNemotecnico)
                             {
                                 var productoEstrategias = new List<RptProductoEstrategia>();
@@ -1609,17 +1608,17 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.Id,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.Id,
+                               cell = new string[]
+                               {
                             a.Id.ToString(),
                             a.Descripcion,
                             a.Valor,
                             a.ValorOpcional
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1667,15 +1666,15 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.CUV2,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.CUV2,
+                               cell = new string[]
+                               {
                             a.CUV2,
                             a.DescripcionCUV2
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -2388,7 +2387,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-
         [HttpPost]
         public ActionResult UploadFileStrategyShowroom(DescripcionMasivoModel model)
         {
@@ -2490,7 +2488,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
-                    select  new XElement("row",
+                    select new XElement("row",
                                  new XElement("CUV2", strategy.CUV2),
                                  new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
                                  new XElement("Precio", strategy.Precio),
@@ -2508,7 +2506,7 @@ namespace Portal.Consultoras.Web.Controllers
                             CampaniaID = int.Parse(model.CampaniaId),
                             UsuarioCreacion = userData.CodigoUsuarioHost,
                             UsuarioModificacion = userData.CodigoUsuarioHost,
-                            PaisID =Util.GetPaisID(userData.CodigoISO)
+                            PaisID = Util.GetPaisID(userData.CodigoISO)
                         };
                         numberRecords = service.InsertarEstrategiaMasiva(estrategia);
                     }
@@ -2517,7 +2515,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listActualizado = numberRecords[0],
                         listInsertado = numberRecords[1]
                     });
-                   
+
                 }
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "readLine = null");
             }
@@ -2532,7 +2530,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-        
+
         public ActionResult ActualizarTono(string CampaniaID, string TipoEstrategiaID, string CUV)
         {
             try
@@ -2557,7 +2555,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var productoEstrategias = EstrategiaProductoObtenerServicio(estrategia);
 
                     if (!productoEstrategias.Any()) continue;
-                    
+
                     estrategia.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
                     estrategia.TieneVariedad = TieneVariedad(estrategia.CodigoEstrategia, estrategia.CUV2);
                     EstrategiaProductoInsertar(productoEstrategias, estrategia);

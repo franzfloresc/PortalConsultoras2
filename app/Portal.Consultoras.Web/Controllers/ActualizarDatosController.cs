@@ -91,8 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             var cambio = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario, model.ConfirmarClave.ToUpper(), "", userData.CodigoUsuario, EAplicacionOrigen.BienvenidaConsultora);
 
-                            message = cambio 
-                                ? "Los datos han sido actualizados correctamente." 
+                            message = cambio
+                                ? "Los datos han sido actualizados correctamente."
                                 : "Los datos han sido actualizados correctamente.-La contraseña no ha sido modificada, intentelo mas tarde.";
                         }
                         else
@@ -108,8 +108,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
-                                var nomconsultora = String.IsNullOrEmpty(userData.Sobrenombre) 
-                                    ? userData.PrimerNombre 
+                                var nomconsultora = String.IsNullOrEmpty(userData.Sobrenombre)
+                                    ? userData.PrimerNombre
                                     : userData.Sobrenombre;
 
                                 var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, paramQuerystring, tipopais);

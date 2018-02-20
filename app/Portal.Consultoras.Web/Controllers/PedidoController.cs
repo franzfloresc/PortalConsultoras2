@@ -685,7 +685,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
-                var model = new PedidoSb2Model {Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal)};
+                var model = new PedidoSb2Model { Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal) };
 
                 if (ClienteID != "-1")
                 {
@@ -795,7 +795,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoDetalleID = Convert.ToInt16(model.PedidoDetalleID),
                 Cantidad = Convert.ToInt32(model.Cantidad),
                 PrecioUnidad = model.PrecioUnidad,
-                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                ClienteID = string.IsNullOrEmpty(model.Nombre) ? (short)0 : Convert.ToInt16(model.ClienteID),
                 CUV = model.CUV,
                 TipoOfertaSisID = model.TipoOfertaSisID,
                 Stock = model.Stock,
@@ -2216,7 +2216,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoDetalleID = item.PedidoDetalleID,
                         Cantidad = Convert.ToInt32(item.Cantidad),
                         PrecioUnidad = item.PrecioUnidad,
-                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short) 0 : item.ClienteID
+                        ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : item.ClienteID
                     };
                     obePedidoWebDetalle.ImporteTotal = obePedidoWebDetalle.Cantidad * obePedidoWebDetalle.PrecioUnidad;
                     olstPedidos.Add(obePedidoWebDetalle);
@@ -2848,7 +2848,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
 
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
         {
@@ -3784,12 +3783,12 @@ namespace Portal.Consultoras.Web.Controllers
             var listPedido = ObtenerPedidoWebDetalle();
 
             decimal descuentoprol = 0;
-            
+
             if (listPedido.Any())
             {
                 descuentoprol = listPedido[0].DescuentoProl;
             }
-            
+
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {

@@ -11,12 +11,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult IndexModel()
         {
-            if(revistaDigital.TieneRDI)
+            if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
             if (revistaDigital.TieneRDR)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            
+
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
                 Origen = revistaDigital.SuscripcionEfectiva.Origen
             };
-                        
+
             return View("template-informativa", modelo);
         }
 
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
-            
+
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneProductosPerdio = dato.Estado;
             ViewBag.PerdioTitulo = dato.Valor1;
             ViewBag.PerdioSubTitulo = dato.Valor2;
-            
+
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
@@ -213,6 +213,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Util.Trim(valorDato);
         }
-        
+
     }
 }

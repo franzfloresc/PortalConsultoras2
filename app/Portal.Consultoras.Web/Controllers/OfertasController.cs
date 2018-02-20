@@ -19,12 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
-                
+
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
-                
+
                 return View(modelo);
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         [HttpPost]
         public JsonResult ActualizarSession(string codigo, int campaniaId)
         {

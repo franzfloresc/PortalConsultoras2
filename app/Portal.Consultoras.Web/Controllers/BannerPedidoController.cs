@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BannerPedidoController : BaseController
     {
-
         public ActionResult Index()
         {
             try
@@ -49,9 +48,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -79,7 +78,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-
         private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
@@ -90,6 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
+
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lstcampania = DropDowListCampanias(PaisID);
@@ -248,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 }
-                
+
                 BEBannerPedido entidad = Mapper.Map<AdministrarBannerPedidoModel, BEBannerPedido>(model);
 
                 if (model.PaisID == 0)
@@ -340,8 +339,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!lista1.Any())
                     {
                         var lista = (from a in lst
-                                    where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
-                                    select a).ToList();
+                                     where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
+                                     select a).ToList();
 
                         if (lista.Any())
                         {
@@ -484,7 +483,6 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         }
-
 
     }
 }

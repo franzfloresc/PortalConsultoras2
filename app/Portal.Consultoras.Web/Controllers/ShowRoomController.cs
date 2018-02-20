@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -16,8 +17,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
-using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -858,7 +857,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             string messageErrorPrecioCero = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto " +
                                 productoPrecioCero.CUV + " tiene precio oferta Cero";
-                            
+
                             LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", "CUV: " + productoPrecioCero.CUV + " con precio CERO");
 
                             return messageErrorPrecioCero;
@@ -1685,7 +1684,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string soloExtension = nombreImagen.Split('.')[1];
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 nombreImagenFinal = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
-                
+
                 if (nombreImagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
             }
@@ -2429,7 +2428,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
                 }
-                
+
                 var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
 
                 foreach (var item in listaPersonalizacionModel)
@@ -2500,7 +2499,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaFinal.Add(model);
                     }
                 }
-                
+
                 var listaEntidades = Mapper.Map<IList<ShowRoomPersonalizacionNivelModel>, IList<BEShowRoomPersonalizacionNivel>>(listaFinal);
 
                 foreach (var entidad in listaEntidades)
@@ -2683,7 +2682,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -2697,10 +2696,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
-        
+
         #region Comprar desde Página de Oferta
 
         public ActionResult DetalleOfertaCUV(string query)
@@ -2833,7 +2832,7 @@ namespace Portal.Consultoras.Web.Controllers
                             listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                             break;
                     }
-                    
+
                 }
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
@@ -2905,7 +2904,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
-                
+
                 var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
@@ -3302,17 +3301,17 @@ namespace Portal.Consultoras.Web.Controllers
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
                 rows = from a in items
-                select new
-                {
-                    id = a.TipoOfertaID,
-                    cell = new[]
-                    {
+                       select new
+                       {
+                           id = a.TipoOfertaID,
+                           cell = new[]
+                           {
                         a.TipoOfertaID.ToString(),
                         a.Codigo,
                         a.Descripcion,
                         a.Activo.ToString()
                     }
-                }
+                       }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

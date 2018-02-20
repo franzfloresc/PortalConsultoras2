@@ -683,7 +683,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else break;
             }
 
-            MisPedidosModel modelPaginado = new MisPedidosModel {ListaPedidos = listPedidos};
+            MisPedidosModel modelPaginado = new MisPedidosModel { ListaPedidos = listPedidos };
             return (modelPaginado);
         }
 
@@ -736,9 +736,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                objMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
-                indiceActualPagina = (int) TempData["indiceActualPagina"];
-                indiceUltimaPagina = (int) TempData["indiceUltimaPagina"];
+                objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                indiceActualPagina = (int)TempData["indiceActualPagina"];
+                indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
                 if (Pagina.Equals("<<")) indiceActualPagina = 0;
                 else
                 {
@@ -882,7 +882,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                     long pedidoIdAux = Convert.ToInt64(pedidoId);
                     var pedido =
                         consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
@@ -990,10 +990,10 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ObtenerPagina(string Pagina)
         {
             ViewBag.Simbolo = userData.Simbolo;
-            objMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
+            objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
-            indiceActualPagina = (int) TempData["indiceActualPagina"];
-            indiceUltimaPagina = (int) TempData["indiceUltimaPagina"];
+            indiceActualPagina = (int)TempData["indiceActualPagina"];
+            indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
             if (Pagina.Equals("<<"))
                 indiceActualPagina = 0;
             else
@@ -1073,12 +1073,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
+            MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             var pedidoAux =
                 consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedido.PedidoId) ??
                 new BEMisPedidos();
 
-            List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>) Session["objMisPedidosDetalle"];
+            List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
             pedidoAux.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedidoAux.PedidoId).ToArray();
 
             int tipo;
@@ -1132,7 +1132,7 @@ namespace Portal.Consultoras.Web.Controllers
                     refresh.Add(item);
                 }
 
-                MisPedidosModel refreshMisPedidos = new MisPedidosModel {ListaPedidos = refresh};
+                MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
                 Session["objMisPedidos"] = refreshMisPedidos;
 
                 string clienteId;
@@ -1173,7 +1173,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1) // solo para App Catalogos
                 {
-                    List<BEProducto> olstMisProductos = (List<BEProducto>) Session["objMisPedidosDetalleVal"];
+                    List<BEProducto> olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
 
 
                     foreach (var item in pedido.ListaDetalleModel)
@@ -1523,7 +1523,7 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = userData.PaisID,
                     TipoOfertaSisID = model.TipoOfertaSisID,
                     ConfiguracionOfertaID = model.ConfiguracionOfertaID,
-                    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short) 0 : Convert.ToInt16(model.ClienteID),
+                    ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
                     PedidoID = userData.PedidoID,
                     OfertaWeb = model.OfertaWeb,
                     IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo),
@@ -1601,9 +1601,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int totalClientes = CalcularTotalCliente(olstTempListado, obePedidoWebDetalle,
-                    tipoAdm == "D" ? obePedidoWebDetalle.PedidoDetalleID : (short) 0, tipoAdm);
+                    tipoAdm == "D" ? obePedidoWebDetalle.PedidoDetalleID : (short)0, tipoAdm);
                 decimal totalImporte = CalcularTotalImporte(olstTempListado, obePedidoWebDetalle,
-                    tipoAdm == "I" ? (short) 0 : obePedidoWebDetalle.PedidoDetalleID, tipoAdm);
+                    tipoAdm == "I" ? (short)0 : obePedidoWebDetalle.PedidoDetalleID, tipoAdm);
 
                 obePedidoWebDetalle.ImporteTotalPedido = totalImporte;
                 obePedidoWebDetalle.Clientes = totalClientes;
@@ -1739,7 +1739,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
+                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
                 var numIteracionMaximo =
@@ -2010,7 +2010,7 @@ namespace Portal.Consultoras.Web.Controllers
                     refresh.Add(item);
                 }
 
-                MisPedidosModel refreshMisPedidos = new MisPedidosModel {ListaPedidos = refresh};
+                MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
                 Session["objMisPedidos"] = refreshMisPedidos;
             }
 
@@ -2032,7 +2032,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) Session["objMisPedidos"];
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                     sc.CancelarSolicitudCliente(paisId, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = sc.GetSolicitudCliente(paisId, SolicitudId);
@@ -2050,7 +2050,7 @@ namespace Portal.Consultoras.Web.Controllers
                         refresh.Add(item);
                     }
 
-                    MisPedidosModel refreshMisPedidos = new MisPedidosModel {ListaPedidos = refresh};
+                    MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
                     Session["objMisPedidos"] = refreshMisPedidos;
 
                 }
@@ -2122,7 +2122,7 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje.AppendLine("	<tr>");
             mensaje.AppendLine(
                 "		<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-            
+
             mensaje.AppendLine(String.Format(
                 "			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>",
                 contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
@@ -2187,7 +2187,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ClienteContactaConsultoraModel DatoUsuario()
         {
-            var consultoraAfiliar = new ClienteContactaConsultoraModel {NombreConsultora = userData.PrimerNombre};
+            var consultoraAfiliar = new ClienteContactaConsultoraModel { NombreConsultora = userData.PrimerNombre };
 
             ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente;
 
@@ -2216,9 +2216,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 case "AFILIAR":
                     if (esMovil)
-                        return RedirectToAction("Afiliar", "ConsultoraOnline", new {area = "Mobile", data = data});
+                        return RedirectToAction("Afiliar", "ConsultoraOnline", new { area = "Mobile", data = data });
                     else
-                        return RedirectToAction("Afiliar", "ConsultoraOnline", new {data = data});
+                        return RedirectToAction("Afiliar", "ConsultoraOnline", new { data = data });
                 case "MIPERFIL":
                     if (esMovil)
                         return RedirectToAction("MiPerfil", "ConsultoraOnline",
@@ -2281,14 +2281,14 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                 case "SOLICITUDPEDIDO":
                     if (esMovil)
-                        return RedirectToAction("MisPedidos", "ConsultoraOnline", new {area = "Mobile"});
+                        return RedirectToAction("MisPedidos", "ConsultoraOnline", new { area = "Mobile" });
                     else
                         return RedirectToAction("MisPedidos", "ConsultoraOnline");
                 case "ACTUALIZARCORREO":
                     if (esMovil)
-                        return RedirectToAction("MiPerfil", "ConsultoraOnline", new {area = "Mobile", data = data});
+                        return RedirectToAction("MiPerfil", "ConsultoraOnline", new { area = "Mobile", data = data });
                     else
-                        return RedirectToAction("MiPerfil", "ConsultoraOnline", new {data = data});
+                        return RedirectToAction("MiPerfil", "ConsultoraOnline", new { data = data });
             }
 
             return new EmptyResult();

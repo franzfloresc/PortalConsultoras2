@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -9,7 +8,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseHerramientasVentaController : BaseEstrategiaController
     {
-
         public ActionResult ViewLanding(int tipo)
         {
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);

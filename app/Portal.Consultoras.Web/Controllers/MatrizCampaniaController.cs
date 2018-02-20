@@ -9,7 +9,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
@@ -75,11 +74,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!string.IsNullOrEmpty(paisId))
                 {
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                    {
+                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    }
                 }
-            }
             }
             catch (FaultException ex)
             {
@@ -125,10 +124,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                         productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, producto.RegaloImagenUrl, carpetaPais);
-                        
+
 
                     }
-                    }
+                }
 
                 return Json(new
                 {

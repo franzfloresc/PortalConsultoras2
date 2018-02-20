@@ -1284,9 +1284,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
-                                
+
                                 herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,
-                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList()); 
+                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
                                 break;
                         }
                     }
@@ -2942,7 +2942,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
         {
             var route = new RouteValueDictionary(new
@@ -3010,7 +3009,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.HabilitarLogCargaOfertas");
             }
-            
+
 
             return result;
         }
@@ -3122,6 +3121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return usuario;
             }
         }
+
         private async Task<ServiceUsuario.BEUsuario> ActualizarDatosHanaAsync(UsuarioModel model)
         {
             using (var us = new UsuarioServiceClient())
@@ -3129,6 +3129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return await us.GetDatosConsultoraHanaAsync(model.PaisID, model.CodigoUsuario, model.CampaniaID);
             }
         }
+
         private async Task<decimal> GetMontoDeudaAsync(UsuarioModel usuarioModel)
         {
             var montoDeuda = 0.0M;
@@ -3148,6 +3149,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return montoDeuda;
         }
+
         private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipagoAsync(UsuarioModel usuarioModel)
         {
             if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return null;
@@ -3157,6 +3159,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return await svc.GetLineaCreditoFlexipagoAsync(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
             }
         }
+
         private async Task<ServicePedidoRechazado.BEGPRBanner> GetMotivoRechazoAsync(ServiceUsuario.BEUsuario usuario, decimal montoDeuda,
             bool esAppMobile)
         {
@@ -3191,6 +3194,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return gprBanner;
         }
+
         private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModelAsync(UsuarioModel model, ServiceUsuario.BEUsuario usuario,
             bool esAppMobile)
         {
@@ -3285,6 +3289,7 @@ namespace Portal.Consultoras.Web.Controllers
             var t2 = (d2 - hoy);
             return t2;
         }
+
         private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevasAsync(UsuarioModel model)
         {
             ConsultoraRegaloProgramaNuevasModel result = null;
@@ -3334,6 +3339,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return result;
         }
+
         private async Task<List<UsuarioExternoModel>> GetListaLoginExternoAsync(ServiceUsuario.BEUsuario usuario, bool esAppMobile)
         {
             if (esAppMobile) return new List<UsuarioExternoModel>();
@@ -3376,6 +3382,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
         }
+
         private async Task<List<BEConfiguracionPaisDatos>> ConfiguracionPaisDatosAsync(UsuarioModel usuarioModel)
         {
             var listaEntidad = new List<BEConfiguracionPaisDatos>();
@@ -3408,6 +3415,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return listaEntidad;
         }
+
         private async Task<EventoFestivoDataModel> ConfigurarEventoFestivoAsync(UsuarioModel usuarioModel)
         {
             var eventoFestivoDataModel = new EventoFestivoDataModel();
@@ -3457,6 +3465,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
         }
+
         private async Task<List<BEIncentivoConcurso>> ConfigurarIncentivosConcursosAsync(UsuarioModel usuarioModel)
         {
             var lst = new List<BEIncentivoConcurso>();
@@ -3474,6 +3483,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return lst;
         }
+
         private async Task<List<BETablaLogicaDatos>> CargarFiltersFAVAsync(UsuarioModel usuarioModel)
         {
             var lstFiltersFAV = new List<BETablaLogicaDatos>();

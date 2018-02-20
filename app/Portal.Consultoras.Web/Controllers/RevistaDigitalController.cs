@@ -384,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!revistaDigital.EsSuscrita)
                         return "Lo sentimos no se puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", gracias.";
-                    
+
                     if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                     {
                         return "Lo sentimos no puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
@@ -398,7 +398,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (revistaDigital.EsSuscrita)
                         return "Lo sentimos no se puede ejecutar esta acción, gracias.";
-                    
+
                     if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                     {
                         return "Lo sentimos no puede ejecutar esta acción, porque "

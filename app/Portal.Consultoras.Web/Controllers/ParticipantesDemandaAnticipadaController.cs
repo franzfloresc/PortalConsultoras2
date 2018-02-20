@@ -131,8 +131,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            items = string.IsNullOrEmpty(vBusqueda) 
-                ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize) 
+            items = string.IsNullOrEmpty(vBusqueda)
+                ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize)
                 : items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Paginador(grid, vBusqueda);
