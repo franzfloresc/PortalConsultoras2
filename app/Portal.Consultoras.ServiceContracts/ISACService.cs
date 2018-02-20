@@ -693,13 +693,32 @@ namespace Portal.Consultoras.ServiceContracts
         IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
 
         [OperationContract]
-        UpSelling UpSellingInsertarActualizar(int paisId, UpSelling upSelling);
+        UpSelling UpSellingInsertar(int paisId, UpSelling upSelling);
+
+        [OperationContract]
+        UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera);
+
 
         [OperationContract]
         void UpSellingEliminar(int paisId, int upSellingId);
 
+        /// <summary>
+        /// Obtiene la lista de detalles del UpSelling
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingId"></param>
+        /// <returns></returns>
         [OperationContract]
-        UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId);
+        IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene 1 detalle por su UpSellingDetalleId
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingDetalleId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
         #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
     public interface IUpSellingBusinessLogic
     {
         IEnumerable<UpSelling> Obtener(string codigoCampana, bool incluirDetalle);
-        UpSelling Actualizar(UpSelling upSelling);
+        UpSelling Actualizar(UpSelling upSelling, bool soloCabecera);
         UpSelling Insertar(UpSelling upSelling);
         int Eliminar(int upSellingId);
     }
