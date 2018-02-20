@@ -2604,6 +2604,10 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
+                            if (arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd().Length ==0)
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'Nombre de Producto' es obligatorio. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
                             line++;
                             strategyEntityList.Add(new BEEstrategiaProducto
                             {
