@@ -3392,11 +3392,9 @@ namespace Portal.Consultoras.Web.Controllers
         private MenuContenedorModel UpdateCampaniaIdFromQueryString(MenuContenedorModel menuActivo)
         {
             var qsCampaniaId = GetCampaniaIdFromQueryString();
-            if (!string.IsNullOrEmpty(qsCampaniaId) && int.TryParse(qsCampaniaId, out int campaniaid))
-            {
-                menuActivo.CampaniaId = int.Parse(qsCampaniaId);
-            }
-
+            int campaniaid;
+            int.TryParse(Util.Trim(qsCampaniaId), out campaniaid);
+            menuActivo.CampaniaId = campaniaid;
             return menuActivo;
         }
 
