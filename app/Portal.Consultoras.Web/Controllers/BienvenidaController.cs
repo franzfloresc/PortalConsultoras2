@@ -523,7 +523,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sac = new SACServiceClient())
                     {
                         var comunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora,
-                            Constantes.ComunicadoTipoDispositivo.Desktop);
+                            Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
 
                         if (comunicados != null && comunicados.Length > 0)
                         {
@@ -1982,7 +1982,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sac = new SACServiceClient())
             {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, 
+                    Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
 
                 if (tempComunicados != null && tempComunicados.Length > 0)
                 {

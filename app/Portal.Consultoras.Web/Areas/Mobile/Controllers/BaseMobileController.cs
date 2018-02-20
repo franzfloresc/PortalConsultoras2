@@ -299,7 +299,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (var sac = new SACServiceClient())
                 {
-                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
+                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, 
+                        Constantes.ComunicadoTipoDispositivo.Mobile, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
                     Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
                 }
             }

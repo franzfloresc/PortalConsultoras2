@@ -14,7 +14,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             using (var sac = new SACServiceClient())
             {
-                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(userData.PaisID, userData.CodigoConsultora, 
+                    Constantes.ComunicadoTipoDispositivo.Mobile, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
                 var oComunicado = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.BannerDescargarAppNuevas);
                 if (oComunicado != null) ViewBag.Url = oComunicado.DescripcionAccion;
                 else return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
