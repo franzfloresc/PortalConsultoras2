@@ -1,85 +1,88 @@
-﻿belcorp = belcorp || {};
-belcorp.estrategias = belcorp.estrategias || {}
-belcorp.estrategias.upselling = belcorp.estrategias.upselling || {}
+﻿var belcorp = belcorp || {};
+belcorp.estrategias = belcorp.estrategias || {};
+belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
 belcorp.estrategias.upselling.initialize = function (config) {
-    var settings = config;
+    var settings = {
+        rutaImagenVacia: config.rutaImagenVacia,
+        rutaImagenEdit: config.rutaImagenEdit,
+        rutaImagenDelete: config.rutaImagenDelete,
+        idGrilla: config.idGrilla,
+        idPager: config.idPager,
+        urlUpSellingObtener: config.urlUpSellingObtener,
+        buttonBuscarId: config.buttonBuscarId,
+        buttonNuevoId: config.buttonNuevoId,
+        cmbCampanas: config.cmbCampanas
+    };
+
     var self = this;
 
     self.init = function () {
-        fnGrilla();
+        cargarGrilla();
         fnDialog();
 
-        $("#" + settings.buttonBuscarId).on("Click", document.body, function () {
+        $("#" + settings.buttonBuscarId).on("click", document.body, function (e,s) {
             e.preventDefault();
-            buscar();
+            buscar(e,s);
         });
 
-        $("#" + settings.buttonNuevoId).on("Click", document.body, function () {
+        $("#" + settings.buttonNuevoId).on("click", document.body, function (e,s) {
             e.preventDefault();
-            nuevo();
+            nuevo(e,s);
         });
     }
 
     self.init();
 
-    function fnGrilla() {
+    function cargarGrilla() {
         $("#" + settings.idGrilla).jqGrid("GridUnload");
 
         jQuery("#" + settings.idGrilla).jqGrid({
             url: settings.urlUpSellingObtener,
             hidegrid: false,
-            datatype: 'json',
+            datatype: "json",
             postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                CUV: $("#txtCUV").val(),
-                Imagen: $("#ddlTieneImagen").val(),
-                Activo: $("#ddlOfertaActiva").val(),
-                CodigoConcurso: $("#txtCodConcurso").val(),
-                TipoEstrategiaID: $("#hdnTipoEstrategiaID").val()
+                CampaniaID: settings.cmbCampanas.val()
             }),
-            mtype: 'GET',
+            mtype: "GET",
             contentType: "application/json; charset=utf-8",
             multiselect: false,
             colNames: ["", "#", "Pais", "Campaña", "Meta", "Activo", "Opciones"],
             colModel: [
-                { name: 'EstrategiaID', index: 'EstrategiaID', hidden: true },
-                { name: 'ID', index: 'ID', width: 50, sortable: false, align: 'center' },
-                { name: 'Pais', index: 'Pais', width: 80, sortable: false, align: 'center' },
-                { name: 'Campania', index: 'CodigoCampana', width: 80, sortable: false, align: 'center' },
-                { name: 'Meta', index: 'Meta', width: 80, sortable: false, align: 'center' },
-                { name: 'Activo', index: 'Activo', width: 100, sortable: false, align: 'center'},
-                { name: 'Opciones', index: 'Opciones', hidden: true }
+                { name: "", index: "UpSellingId", hidden: true },
+                { name: "ID", index: "UpSellingId", width: 50, sortable: false, align: "center" },
+                { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center" },
+                { name: "CodigoCampana", index: "CodigoCampana", width: 80, sortable: false, align: "center" },
+                { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
+                { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
+                { name: "Opciones", index: "Opciones", hidden: false, align: "center" }
             ],
             jsonReader:
             {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
+                root: "Data",
                 repeatitems: false,
-                id: "EstrategiaID"
+                id: "UpSellingId"
             },
-            pager: jQuery('#pager'),
-            loadtext: 'Cargando datos...',
+            pager: jQuery("#"+settings.idPager),
+            loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: 'No hay resultados',
+            emptyrecords: "No hay resultados",
             rowNum: 10,
             scrollOffset: 0,
             rowList: [10, 20, 30, 40, 50],
-            sortname: 'ID',
-            sortorder: 'asc',
+            sortname: "UpSellingId",
+            sortorder: "asc",
             viewrecords: true,
-            height: 'auto',
+            height: "auto",
             width: 930,
-            pgtext: 'Pág: {0} de {1}',
+            pgtext: "Pág: {0} de {1}",
             altRows: false,
             onCellSelect: function (rowId, iCol, content, event) {
                 if (iCol == 11) fnMantenedor(rowId);
                 else if (iCol == 12) fnDeshabilitar(rowId);
             }
         });
-        jQuery("#" + settings.idGrilla).jqGrid('navGrid', "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#" + settings.idGrilla).jqGrid("navGrid", "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
     }
 
     function ShowDescripcionTipoConcurso(cellvalue, options, rowObject) {
@@ -90,7 +93,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function ShowActionsEdit(cellvalue, options, rowObject) {
-        var Des = "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' style='cursor:pointer' /></a>";
+        var Des = "<img src=\"" + rutaImagenEdit + "\" alt=Editar Estrategia\" title=\"Editar Estrategia\" border=\"0\" style=\"cursor:pointer\" /></a>";
         return Des;
     }
 
@@ -102,18 +105,18 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
     function ShowImage(cellvalue, options, rowObject) {
         var image = $.trim(rowObject.ImagenURL);
-        var filename = image.replace(/^.*[\\\/]/, '');
-        image = '<img src="' + (filename != "" ? image : rutaImagenVacia) + '" alt="" width="70px" height="60px" title="" border="0" />';
+        var filename = image.replace(/^.*[\\\/]/, "");
+        image = "<img src='" + (filename != "" ? image : rutaImagenVacia) + "' alt='' width='70px' height='60px' title='' border='0' />";
         return image;
     }
 
-    function buscar() {
-        if ($("#ddlCampania").val() == "") {
+    function buscar(e, s) {
+        if (settings.cmbCampanas.val() === "") {
             alert("Debe seleccionar la Campaña, verifique.");
-            return false;
+            return;
         }
 
-        fnGrilla();
+        cargarGrilla();
     }
 
     function nuevo() {
@@ -126,8 +129,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function fnDialog() {
-        $('#divAgregar').dialog({
-            position: ['center', 20],
+        $("#divAgregar").dialog({
+            position: ["center", 20],
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -142,10 +145,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function fnDeshabilitar(rowId) {
-        var elimina = confirm('¿ Esta seguro que desea deshabilitar la estrategia seleccionada?');
+        var elimina = confirm("¿ Esta seguro que desea deshabilitar la estrategia seleccionada?");
         if (!elimina) return;
 
-        var rowData = $("#list").jqGrid('getRowData', rowId);
+        var rowData = $("#list").jqGrid("getRowData", rowId);
         var params = {
             EstrategiaID: rowData.EstrategiaID
         };
@@ -153,15 +156,15 @@ belcorp.estrategias.upselling.initialize = function (config) {
         waitingDialog({});
 
         jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'AdministrarEstrategia/DeshabilitarEstrategia',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
+            type: "POST",
+            url: baseUrl + "AdministrarEstrategia/DeshabilitarEstrategia",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
                 alert(data.message);
-                fnGrilla();
+                cargarGrilla();
                 closeWaitingDialog();
             },
             error: function (data, error) {
@@ -183,7 +186,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             Estrategia.ImageUrl = rutaImagenVacia;
         }
         else {
-            var rowData = $("#list").jqGrid('getRowData', rowId);
+            var rowData = $("#list").jqGrid("getRowData", rowId);
 
             Estrategia.EstrategiaID = rowData.EstrategiaID;
             Estrategia.CampaniaInicio = rowData.CampaniaID;
@@ -199,8 +202,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         $.ajax({
-            type: 'GET',
-            dataType: 'html',
+            type: "GET",
+            dataType: "html",
             cache: false,
             url: url,
             data: Estrategia,
@@ -214,7 +217,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             },
             error: function (xhr, ajaxOptions, error) {
                 closeWaitingDialog();
-                alert('Error: ' + xhr.status + " - " + xhr.responseText);
+                alert("Error: " + xhr.status + " - " + xhr.responseText);
             }
         });
     }

@@ -431,9 +431,11 @@
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\Common\ResultModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -4074,6 +4076,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService8.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />

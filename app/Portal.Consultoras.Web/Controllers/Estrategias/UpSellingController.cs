@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
 
@@ -14,15 +15,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     public class UpSellingController : BaseController
     {
         private readonly ZonificacionProvider _zonificacionProvider;
+        private readonly UpSellingProvider _upSellingProvider;
 
         public UpSellingController()
         {
+            _upSellingProvider = new UpSellingProvider();
             _zonificacionProvider = new ZonificacionProvider();
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var campanas = _zonificacionProvider.ObtenerCampanias(userData.PaisID);
+            var campanas = await _zonificacionProvider.ObtenerCampanias(userData.PaisID);
             var model = new UpSellingAdminModel()
             {
                 PaisIso = userData.CodigoISO,
@@ -34,9 +37,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return View(model);
         }
 
-        public JsonResult Obtener(string codigoCampana)
+        [HttpGet]
+        public async Task<JsonResult> Obtener(string codigoCampana)
         {
-            return Json(new { a = 'b' });
+            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
+            return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
     }
 }
