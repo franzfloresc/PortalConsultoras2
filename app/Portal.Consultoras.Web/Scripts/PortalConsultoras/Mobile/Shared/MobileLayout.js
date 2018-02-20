@@ -3,7 +3,6 @@
     LayoutHeader();
 
     var ventanaChat = null;
-
     OcultarChatEmtelco();
 
     SetFormatDecimalPais(formatDecimalPaisMain);
