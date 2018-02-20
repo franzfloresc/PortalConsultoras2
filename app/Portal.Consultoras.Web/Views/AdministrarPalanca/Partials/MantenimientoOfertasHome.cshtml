@@ -149,14 +149,14 @@
                 <div class="div-3">
                     <div class="borde_redondeado checkBox">
                         @foreach (var estrategia in Model.ListaTipoEstrategia)
-                {
-                    if (!string.IsNullOrEmpty(estrategia.Codigo))
-                    {
-                        bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
-                        <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
-                        <label>@estrategia.Descripcion</label><br />
-            }
-        }
+                        {
+                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                            {
+                                bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                <label>@estrategia.Descripcion</label><br />
+                            }
+                        }
                     </div>
                 </div>
             </div>

@@ -15,6 +15,14 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarPalancaController : BaseController
     {
+        private static class _accion
+        {
+            public const int Nuevo = 1;
+            public const int Editar = 2;
+            public const int NuevoDatos = 3;
+            public const int Deshabilitar = 4;
+        }
+
         public ActionResult Index()
         {
             var model = new AdministrarPalancaModel();
@@ -29,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return View(model);
             }
         }
@@ -39,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarPalancaModel model;
             using (var sv = new SACServiceClient())
             {
-                var beConfiguracionPais = sv.GetConfiguracionPais(UserData().PaisID, idConfiguracionPais);
+                var beConfiguracionPais = sv.GetConfiguracionPais(userData.PaisID, idConfiguracionPais);
                 model = Mapper.Map<BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
@@ -64,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new SACServiceClient())
                 {
-                    var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(UserData().PaisID, idOfertasHome);
+                    var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(userData.PaisID, idOfertasHome);
                     model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
@@ -84,18 +92,18 @@ namespace Portal.Consultoras.Web.Controllers
                 var data = new
                 {
                     rows = from a in list
-                    select new
-                    {
-                        id = a.ConfiguracionPaisID,
-                        cell = new string[]
-                        {
-                            a.ConfiguracionPaisID.ToString(),
-                            a.Orden.ToString(),
-                            a.Codigo,
-                            a.Descripcion,
-                            a.Estado.ToString()
-                        }
-                    }
+                           select new
+                           {
+                               id = a.ConfiguracionPaisID,
+                               cell = new string[]
+                               {
+                                    a.ConfiguracionPaisID.ToString(),
+                                    a.Orden.ToString(),
+                                    a.Codigo,
+                                    a.Descripcion,
+                                    a.Estado.ToString()
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -131,18 +139,18 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.ConfiguracionOfertasHomeID,
-                        cell = new string[]
-                        {
-                            a.ConfiguracionOfertasHomeID.ToString(),
-                            a.DesktopOrden.ToString(),
-                            a.CampaniaID.ToString(),
-                            a.ConfiguracionPais.Descripcion,
-                            a.DesktopTitulo
-                        }
-                    }
+                           select new
+                           {
+                               id = a.ConfiguracionOfertasHomeID,
+                               cell = new string[]
+                               {
+                                    a.ConfiguracionOfertasHomeID.ToString(),
+                                    a.DesktopOrden.ToString(),
+                                    a.CampaniaID.ToString(),
+                                    a.ConfiguracionPais.Descripcion,
+                                    a.DesktopTitulo
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -217,24 +225,23 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()
         {
             List<BEConfiguracionPais> lst;
             using (var sv = new SACServiceClient())
             {
-                lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
+                lst = sv.ListConfiguracionPais(userData.PaisID, true).ToList();
             }
             return Mapper.Map<IList<BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
         }
-
 
         private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome(int campaniaId = 0)
         {
             List<BEConfiguracionOfertasHome> lst;
             using (var sv = new SACServiceClient())
             {
-                lst = sv.ListConfiguracionOfertasHome(UserData().PaisID, campaniaId).ToList();
+                lst = sv.ListConfiguracionOfertasHome(userData.PaisID, campaniaId).ToList();
             }
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
@@ -256,14 +263,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
             }
 
             var lista = from a in lst
                         where a.FlagActivo == 1
                         select a;
-            
+
             return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
         }
 
@@ -291,7 +298,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionPais entidad;
                 using (var sv = new SACServiceClient())
                 {
-                    entidad = sv.GetConfiguracionPais(UserData().PaisID, model.ConfiguracionPaisID);
+                    entidad = sv.GetConfiguracionPais(userData.PaisID, model.ConfiguracionPaisID);
                 }
 
                 if (!string.IsNullOrEmpty(model.DesktopFondoBanner) &&
@@ -329,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionOfertasHome entidad;
                 using (var sv = new SACServiceClient())
                 {
-                    entidad = sv.GetConfiguracionOfertasHome(UserData().PaisID, model.ConfiguracionOfertasHomeID);
+                    entidad = sv.GetConfiguracionOfertasHome(userData.PaisID, model.ConfiguracionOfertasHomeID);
                 }
 
                 if (!string.IsNullOrEmpty(model.DesktopImagenFondo) &&
@@ -348,14 +355,377 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+
         private string SaveFileS3(string imagenEstrategia)
         {
+            imagenEstrategia = Util.Trim(imagenEstrategia);
+            if (imagenEstrategia == "")
+                return "";
+
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-            var newfilename = UserData().CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            var newfilename = userData.CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }
+
+        #region Service
+
+        private IEnumerable<ConfiguracionPaisComponenteModel> ComponenteListarService(ConfiguracionPaisComponenteModel paisComp)
+        {
+            List<ConfiguracionPaisComponenteModel> listaEntidad;
+
+            try
+            {
+                paisComp = paisComp ?? new ConfiguracionPaisComponenteModel();
+                var entidad = new ServiceUsuario.BEConfiguracionPaisDatos
+                {
+                    PaisID = userData.PaisID,
+                    ConfiguracionPaisID = paisComp.ConfiguracionPaisID,
+                    CampaniaID = paisComp.CampaniaID,
+                    Componente = paisComp.Codigo,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Codigo = paisComp.PalancaCodigo
+                    }
+                };
+
+                List<ServiceUsuario.BEConfiguracionPaisDatos> listaDatos;
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    listaDatos = sv.GetConfiguracionPaisComponente(entidad).ToList();
+                }
+
+                listaEntidad = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisComponenteModel>>(listaDatos);
+            }
+            catch (Exception ex)
+            {
+                listaEntidad = new List<ConfiguracionPaisComponenteModel>();
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.PaisID.ToString(),
+                    "AdministrarPalancaController.ListarConfiguracionPaisDatos");
+            }
+
+            return listaEntidad;
+        }
+
+        #endregion
+
+        #region ConfiguracionPaisComponenteDatos
+
+        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows)
+        {
+            try
+            {
+                var list = ComponenteListarService(null);
+                var data = new
+                {
+                    rows = from a in list
+                           select new
+                           {
+                               id = a.ConfiguracionPaisComponenteID,
+                               cell = new string[]
+                                {
+                                    a.ConfiguracionPaisID.ToString(),
+                                    a.CampaniaID.ToString(),
+                                    a.PalancaCodigo,
+                                    a.Descripcion,
+                                    a.Codigo,
+                                    a.Nombre
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false });
+            }
+        }
+        
+        public JsonResult ComponenteDatosGuardar(List<AdministrarComponenteDatosModel> listaDatos)
+        {
+            try
+            {
+                var listaEntidad = ComponenteDatosFormato(listaDatos);
+                if (listaEntidad == null || !listaEntidad.Any())
+                {
+                    return Json(new { success = false });
+                }
+                int valRespuesta;
+                using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                {
+                    valRespuesta = sv.ConfiguracionPaisDatosGuardar(userData.PaisID, listaEntidad.ToArray());
+                }
+
+                return Json(new { success = valRespuesta > 0 });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false });
+            }
+        }
+
+        private List<ServiceUsuario.BEConfiguracionPaisDatos> ComponenteDatosFormato(List<AdministrarComponenteDatosModel> listaDatos)
+        {
+            var listaEntidad = new List<ServiceUsuario.BEConfiguracionPaisDatos>();
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any())
+                    return listaEntidad;
+
+                foreach (var admDato in listaDatos)
+                {
+                    if (admDato.TipoDato == "img")
+                    {
+                        admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
+                    }
+                    admDato.Dato.Estado = true;
+                    listaEntidad.Add(Mapper.Map<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>(admDato.Dato));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaEntidad = new List<ServiceUsuario.BEConfiguracionPaisDatos>();
+            }
+            return listaEntidad;
+        }
+
+        [HttpPost]
+        public JsonResult ComponentePorPalanca(ConfiguracionPaisModel model)
+        {
+            try
+            {
+                var compModel = new ConfiguracionPaisComponenteModel
+                {
+                    PalancaCodigo = model.Codigo,
+                };
+                var listaComponente = ComponenteListarService(compModel);
+                
+                return Json(new
+                {
+                    success = true,
+                    ListaComponente = listaComponente,
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                });
+            }
+        }
+
+        public ActionResult ComponenteObtenerViewDatos(ConfiguracionPaisComponenteModel entidad)
+        {
+            AdministrarComponenteModel modelo;
+
+            try
+            {
+                var beEntidad = new ServiceUsuario.BEConfiguracionPaisDatos
+                {
+                    PaisID = userData.PaisID,
+                    ConfiguracionPaisID = entidad.ConfiguracionPaisID,
+                    CampaniaID = entidad.CampaniaID,
+                    Componente = entidad.Codigo,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Codigo = entidad.PalancaCodigo
+                    }
+                };
+
+                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
+                if (entidad.Accion == _accion.Deshabilitar)
+                {
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        //sv.ConfiguracionPaisComponenteDeshabilitar(beEntidad).ToList();
+                    }
+
+                    return PartialView("Partials/MantenimientoProximamente", new AdministrarComponenteModel());
+                }
+
+                if (entidad.Accion != _accion.Nuevo)
+                {
+                    using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                    {
+                        var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
+                        if (!beEntidades.Any() && entidad.Accion == _accion.NuevoDatos)
+                        {
+                            beEntidad.CampaniaID = 0;
+                            beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
+                            beEntidades.ForEach(d =>
+                            {
+                                d.CampaniaID = entidad.CampaniaID;
+                                d.Valor1 = "";
+                                d.Valor2 = "";
+                                d.Valor3 = "";
+                            });
+                        }
+                        beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                    }
+                }
+
+                modelo = new AdministrarComponenteModel
+                {
+                    PalancaCodigo = entidad.PalancaCodigo,
+                    CampaniaID = entidad.CampaniaID,
+                    Componente = beEntidad.Componente,
+                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
+                    ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel)
+                };
+
+                if (!modelo.ListaDatos.Any() && entidad.Accion == _accion.Editar)
+                {
+                    return PartialView("Partials/MantenimientoProximamente", modelo);
+                }
+
+                if (entidad.Accion == _accion.NuevoDatos)
+                {
+                    return PartialView("Partials/MantenimientoPalancaDatos", modelo);
+                }
+
+                modelo.ListaPalanca = ListarConfiguracionPais();
+                modelo.ListaCampanias = ListCampanias(userData.PaisID);
+                if (entidad.Accion != _accion.Nuevo)
+                {
+                    modelo.ListaCompomente = ComponenteListarService(entidad);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                modelo = new AdministrarComponenteModel
+                {
+                    ListaDatos = new List<AdministrarComponenteDatosModel>(),
+                    ListaPalanca = new List<ConfiguracionPaisModel>(),
+                    ListaCampanias = new List<CampaniaModel>(),
+                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>()
+                };
+            }
+
+            return PartialView("Partials/MantenimientoPalancaDatosCabecera", modelo);
+        }
+
+        private List<AdministrarComponenteDatosModel> ComponenteDatosFormato(ConfiguracionPaisComponenteModel entidad, List<ConfiguracionPaisDatosModel> listaDatos)
+        {
+            var listaEntidad = new List<AdministrarComponenteDatosModel>();
+
+            switch (entidad.PalancaCodigo)
+            {
+                case Constantes.ConfiguracionPais.RevistaDigital:
+                    listaEntidad = ComponenteDatosFormatoRD(listaDatos, entidad.Accion == _accion.Nuevo);
+                    break;
+            }
+
+            return listaEntidad;
+        }
+
+        private List<AdministrarComponenteDatosModel> ComponenteDatosFormatoRD(List<ConfiguracionPaisDatosModel> listaDatos, bool vacio)
+        {
+            var listaEntidad = new List<AdministrarComponenteDatosModel>();
+            var listaComponente = listaDatos.GroupBy(d => d.Componente).Select(dr => dr.First());
+            foreach (var compo in listaComponente)
+            {
+                switch (compo.Componente)
+                {
+                    case Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas:
+                        listaEntidad.AddRange(ComponenteDatosFormatoRDPopup(listaDatos, vacio));
+                        break;
+                }
+
+            }
+            return listaEntidad;
+        }
+
+        private List<AdministrarComponenteDatosModel> ComponenteDatosFormatoRDPopup(List<ConfiguracionPaisDatosModel> listaDatos, bool vacio)
+        {
+            var listaEntidad = new List<AdministrarComponenteDatosModel>();
+            foreach (var iDato in listaDatos)
+            {
+                var admDato = new AdministrarComponenteDatosModel
+                {
+                    Dato = iDato,
+                    TipoDato = "txt"
+                };
+
+                if (vacio)
+                {
+                    admDato.Dato.CampaniaID = 0;
+                    admDato.Dato.Valor1 = "";
+                    admDato.Dato.Valor2 = "";
+                    admDato.Dato.Valor3 = "";
+                    admDato.Dato.Estado = false;
+                }
+
+                switch (iDato.Codigo)
+                {
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupImagenEtiqueta:
+                        admDato.TxtLabel = "Etiqueta del Club (64 x 30)";
+                        admDato.TipoDato = "img";
+                        admDato.Orden = 1;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupImagenPublicidad:
+                        admDato.TxtLabel = "Imagen/Gif";
+                        admDato.TipoDato = "img";
+                        admDato.Orden = 2;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco:
+                        admDato.TxtLabel = "Color del borde";
+                        admDato.Orden = 3;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColor:
+                        admDato.TxtLabel = "Color del fondo";
+                        admDato.Orden = 4;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1:
+                        admDato.TxtLabel = "Mensaje 1";
+                        admDato.Orden = 5;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje2:
+                        admDato.TxtLabel = "Mensaje 2";
+                        admDato.Orden = 6;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupMensajeColor:
+                        admDato.TxtLabel = "Color de los Mensajes";
+                        admDato.Orden = 7;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupBotonTexto:
+                        admDato.TxtLabel = "Texto botón";
+                        admDato.Orden = 8;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorTexto:
+                        admDato.TxtLabel = "Color texto botón";
+                        admDato.Orden = 9;
+                        break;
+
+                    case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorFondo:
+                        admDato.TxtLabel = "Color botón";
+                        admDato.Orden = 10;
+                        break;
+
+                }
+
+                listaEntidad.Add(admDato);
+            }
+            return listaEntidad.OrderBy(d => d.Orden).ToList();
+        }
+
+        #endregion
     }
 }

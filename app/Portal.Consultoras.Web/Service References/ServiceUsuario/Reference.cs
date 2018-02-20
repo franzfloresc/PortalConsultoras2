@@ -399,6 +399,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ComponenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais ConfiguracionPaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -441,6 +444,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
                     this.CodigoField = value;
                     this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Componente {
+            get {
+                return this.ComponenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ComponenteField, value) != true)) {
+                    this.ComponenteField = value;
+                    this.RaisePropertyChanged("Componente");
                 }
             }
         }
@@ -1670,6 +1686,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int RegionIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short RevistaDigitalSuscripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RolField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1746,6 +1765,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlBannerGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UsuarioPruebaField;
@@ -3550,6 +3572,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public short RevistaDigitalSuscripcion {
+            get {
+                return this.RevistaDigitalSuscripcionField;
+            }
+            set {
+                if ((this.RevistaDigitalSuscripcionField.Equals(value) != true)) {
+                    this.RevistaDigitalSuscripcionField = value;
+                    this.RaisePropertyChanged("RevistaDigitalSuscripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Rol {
             get {
                 return this.RolField;
@@ -3883,6 +3918,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TipoUsuarioField.Equals(value) != true)) {
                     this.TipoUsuarioField = value;
                     this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlBannerGanaMas {
+            get {
+                return this.UrlBannerGanaMasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlBannerGanaMasField, value) != true)) {
+                    this.UrlBannerGanaMasField = value;
+                    this.RaisePropertyChanged("UrlBannerGanaMas");
                 }
             }
         }
@@ -8485,6 +8533,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPais", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[]> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponente", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatos", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisComponenteDatosResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitarRespons" +
+            "e")]
+        bool ConfiguracionPaisComponenteDeshabilitar(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisComponenteDeshabilitarRespons" +
+            "e")]
+        System.Threading.Tasks.Task<bool> ConfiguracionPaisComponenteDeshabilitarAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
+        int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardar", ReplyAction="http://tempuri.org/IUsuarioService/ConfiguracionPaisDatosGuardarResponse")]
+        System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle", ReplyAction="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalleResponse")]
         bool ValidarConfiguracionPaisDetalle(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad);
         
@@ -9197,6 +9271,38 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais[]> GetConfiguracionPaisAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais entidad) {
             return base.Channel.GetConfiguracionPaisAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponente(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisComponente(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisComponenteAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] GetConfiguracionPaisComponenteDatos(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisComponenteDatos(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[]> GetConfiguracionPaisComponenteDatosAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.GetConfiguracionPaisComponenteDatosAsync(entidad);
+        }
+        
+        public bool ConfiguracionPaisComponenteDeshabilitar(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.ConfiguracionPaisComponenteDeshabilitar(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ConfiguracionPaisComponenteDeshabilitarAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos entidad) {
+            return base.Channel.ConfiguracionPaisComponenteDeshabilitarAsync(entidad);
+        }
+        
+        public int ConfiguracionPaisDatosGuardar(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
+            return base.Channel.ConfiguracionPaisDatosGuardar(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> ConfiguracionPaisDatosGuardarAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos[] entidad) {
+            return base.Channel.ConfiguracionPaisDatosGuardarAsync(paisId, entidad);
         }
         
         public bool ValidarConfiguracionPaisDetalle(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle entidad) {
