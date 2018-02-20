@@ -176,11 +176,17 @@
   <wsdl:message name="ISACService_UpSellingObtener_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpSellingObtenerResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_UpSellingInsertarActualizar_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpSellingInsertarActualizar" />
+  <wsdl:message name="ISACService_UpSellingInsertar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertar" />
   </wsdl:message>
-  <wsdl:message name="ISACService_UpSellingInsertarActualizar_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpSellingInsertarActualizarResponse" />
+  <wsdl:message name="ISACService_UpSellingInsertar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingInsertarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingActualizar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingActualizar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpSellingActualizar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpSellingActualizarResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpSellingEliminar_InputMessage">
     <wsdl:part name="parameters" element="tns:UpSellingEliminar" />
@@ -1313,9 +1319,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtener" message="tns:ISACService_UpSellingObtener_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerResponse" message="tns:ISACService_UpSellingObtener_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpSellingInsertarActualizar">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarActualizar" message="tns:ISACService_UpSellingInsertarActualizar_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarActualizarResponse" message="tns:ISACService_UpSellingInsertarActualizar_OutputMessage" />
+    <wsdl:operation name="UpSellingInsertar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertar" message="tns:ISACService_UpSellingInsertar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingInsertarResponse" message="tns:ISACService_UpSellingInsertar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingActualizar" message="tns:ISACService_UpSellingActualizar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingActualizarResponse" message="tns:ISACService_UpSellingActualizar_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpSellingEliminar">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingEliminar" message="tns:ISACService_UpSellingEliminar_InputMessage" />
@@ -2219,8 +2229,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpSellingInsertarActualizar">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarActualizar" style="document" />
+    <wsdl:operation name="UpSellingInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingActualizar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3996,8 +4015,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpSellingInsertarActualizar">
-      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertarActualizar" style="document" />
+    <wsdl:operation name="UpSellingInsertar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpSellingActualizar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingActualizar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -172,12 +172,25 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     self.desactivar = function (upSellingId) {
-        debugger;
-        var another = this;
-        alert(upSellingId);
         //confirmar desactivacion
         //llamar a la funcion de editra con el flac desactivado
         //todo: en los servicios agregar un actualizar solo cabecera
+        var upSellingModel = getRowData(settings.idGrilla, upSellingId);
+        var textoActivar = upSellingModel.Activar ? "Activar" : "Desactivar";
+        textoActivar += " para la campaña " + upSellingModel.CodigoCampana;
+
+        if (confirm("Confirma " + textoActivar)) {
+            upSellingActualizarCabeceraPromise(upSellingModel)
+                .then(function (result) {
+
+                }, function (err) {
+                    self.fail(err);
+                })
+                .done(function () {
+                    closeWaitingDialog();
+                });
+        }
+
     }
 
     self.fail = function (err) {
@@ -202,6 +215,18 @@ belcorp.estrategias.upselling.initialize = function (config) {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(upsellingId),
+            async: true
+        });
+    }
+
+
+    function upSellingActualizarCabeceraPromise(upSellingModel) {
+        return jQuery.ajax({
+            type: "POST",
+            url: baseUrl + settings.urlUpSellingActualizarCabecera,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(upSellingModel),
             async: true
         });
     }

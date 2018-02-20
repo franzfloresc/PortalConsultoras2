@@ -12169,11 +12169,17 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingObtener", ReplyAction="http://tempuri.org/ISACService/UpSellingObtenerResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling[]> UpSellingObtenerAsync(int paisId, string codigoCampana, bool incluirDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingInsertarActualizar", ReplyAction="http://tempuri.org/ISACService/UpSellingInsertarActualizarResponse")]
-        Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingInsertarActualizar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingInsertar", ReplyAction="http://tempuri.org/ISACService/UpSellingInsertarResponse")]
+        Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingInsertar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingInsertarActualizar", ReplyAction="http://tempuri.org/ISACService/UpSellingInsertarActualizarResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingInsertarActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingInsertar", ReplyAction="http://tempuri.org/ISACService/UpSellingInsertarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingInsertarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingActualizar", ReplyAction="http://tempuri.org/ISACService/UpSellingActualizarResponse")]
+        Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingActualizar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling, bool soloCabecera);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingActualizar", ReplyAction="http://tempuri.org/ISACService/UpSellingActualizarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling, bool soloCabecera);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingEliminar", ReplyAction="http://tempuri.org/ISACService/UpSellingEliminarResponse")]
         void UpSellingEliminar(int paisId, int upSellingId);
@@ -13427,12 +13433,20 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpSellingObtenerAsync(paisId, codigoCampana, incluirDetalle);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingInsertarActualizar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling) {
-            return base.Channel.UpSellingInsertarActualizar(paisId, upSelling);
+        public Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingInsertar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling) {
+            return base.Channel.UpSellingInsertar(paisId, upSelling);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingInsertarActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling) {
-            return base.Channel.UpSellingInsertarActualizarAsync(paisId, upSelling);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingInsertarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling) {
+            return base.Channel.UpSellingInsertarAsync(paisId, upSelling);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.UpSelling UpSellingActualizar(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling, bool soloCabecera) {
+            return base.Channel.UpSellingActualizar(paisId, upSelling, soloCabecera);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSelling> UpSellingActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceSAC.UpSelling upSelling, bool soloCabecera) {
+            return base.Channel.UpSellingActualizarAsync(paisId, upSelling, soloCabecera);
         }
         
         public void UpSellingEliminar(int paisId, int upSellingId) {
