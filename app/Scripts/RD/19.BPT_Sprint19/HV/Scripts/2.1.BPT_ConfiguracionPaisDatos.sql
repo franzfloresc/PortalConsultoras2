@@ -1,8 +1,16 @@
 USE BelcorpPeru
 GO
 
+declare @HerramientasVentaId int = 0
+declare @HerramientasVentaCodigo varchar(30) = 'HV'
+
+select 
+@HerramientasVentaId = cp.ConfiguracionPaisID
+from ConfiguracionPais cp
+where cp.Codigo = @HerramientasVentaCodigo;
+
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
-	WHERE ConfiguracionPaisID = 18 AND  Codigo = 'MPopupBloqueado')
+	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'MPopupBloqueado')
 BEGIN
 	
 	insert into [ConfiguracionPaisDatos] values
