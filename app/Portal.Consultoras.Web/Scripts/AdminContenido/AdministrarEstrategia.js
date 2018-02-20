@@ -2743,6 +2743,7 @@
                     var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
                     var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
                     var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
+                    var niveles = $("#hdNiveles").val() || "";
                     
                     var params = {
                         EstrategiaID: EstrategiaID,
@@ -2789,7 +2790,8 @@
                         RutaImagenCompleta: imagenEstrategiaProducto,
                         ImagenMiniaturaURL: ImagenMiniaturaURL,
                         ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
-                        EsSubCampania: EsSubCampania
+                        EsSubCampania: EsSubCampania,
+                        Niveles: niveles
                     };
                     jQuery.ajax({
                         type: "POST",

@@ -35,6 +35,7 @@ ALTER PROCEDURE dbo.InsertarEstrategia_SB2
 @CodigoConcurso VARCHAR(6) = NULL,
 @ImagenMiniaturaURL VARCHAR (800) = NULL,
 @EsSubCampania BIT = 0,
+@Niveles VARCHAR(255) = NULL,
 @Retorno INT OUT
 AS  
 BEGIN  
@@ -75,7 +76,7 @@ BEGIN
    FROM dbo.Etiqueta (NOLOCK)  
    WHERE Descripcion LIKE '%PRECIO CAT%'  
   END  
-  ELSE IF @CodigoTipoEstrategia in ('005', '007', '008', '010')  
+  ELSE IF @CodigoTipoEstrategia in ('005', '007', '008', '010', '011')  
   BEGIN  
    SET @EtiquetaID = 1  
   END  
@@ -158,7 +159,8 @@ BEGIN
     CodigoPrograma,  
     CodigoConcurso,
 	ImagenMiniaturaURL,
-	EsSubCampania
+	EsSubCampania,
+	Niveles
    )  
    VALUES   
    (  
@@ -196,7 +198,8 @@ BEGIN
     @CodigoPrograma,  
     @CodigoConcurso,
 	@ImagenMiniaturaURL,
-	@EsSubCampania
+	@EsSubCampania,
+	@Niveles
    )  
   
    SET @Retorno = @@IDENTITY  
@@ -231,14 +234,13 @@ BEGIN
     FechaModificacion = GETDATE(),  
     ColorFondo   = @ColorFondo,   
     FlagEstrella  = @FlagEstrella,  
-    CodigoEstrategia = @CodigoEstrategia,  
-    TieneVariedad  = @TieneVariedad,  
     EsOfertaIndependiente = @EsOfertaIndependiente,  
     Ganancia = @Ganancia,  
     CodigoPrograma = @CodigoPrograma,  
     CodigoConcurso = @CodigoConcurso,
 	ImagenMiniaturaURL = @ImagenMiniaturaURL,
-	EsSubCampania =@EsSubCampania
+	EsSubCampania =  @EsSubCampania,
+	Niveles = @Niveles
    WHERE EstrategiaID = @EstrategiaID  
       
    SET @Retorno = @EstrategiaID  
