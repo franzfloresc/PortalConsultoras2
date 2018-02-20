@@ -1406,14 +1406,19 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).Obtener(codigoCampana, incluirDetalle);
         }
 
-        public UpSelling UpSellingInsertarActualizar(int paisId, UpSelling upSelling)
+        public UpSelling UpSellingInsertar(int paisId, UpSelling upSelling)
         {
             var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
 
-            var model = upSelling.UpSellingId == default(int)
-                ? upSellingBusinessLogic.Insertar(upSelling) : upSellingBusinessLogic.Actualizar(upSelling);
+            if (upSelling.UpSellingId != default(int))
+                throw new ArgumentException("UpSellingId debe ser 0 para insertar");
 
-            return model;
+            return upSellingBusinessLogic.Insertar(upSelling);
+        }
+
+        public UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera)
+        {
+            return new UpSellingBusinessLogic(paisId).Actualizar(upSelling, soloCabecera);
         }
 
         public void UpSellingEliminar(int paisId, int upSellingId)
@@ -1430,7 +1435,7 @@ namespace Portal.Consultoras.Service
         {
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
-        
+
         #endregion
     }
 }

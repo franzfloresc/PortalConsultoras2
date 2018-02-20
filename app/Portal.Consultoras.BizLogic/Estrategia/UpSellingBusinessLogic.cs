@@ -38,14 +38,14 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         }
 
         /// <summary>
-        /// todo: transactional
+        /// Actualiza el upselling y sus detalles
         /// </summary>
-        /// <param name="paisId"></param>
         /// <param name="upSelling"></param>
+        /// <param name="soloCabecera">true si solo sea desea actualizar el upSelling y no los detalles</param>
         /// <exception cref="NullReferenceException">Id no encontrado</exception>
         /// <exception cref="ArgumentException">UpSelling detalle no perteneciente</exception>
         /// <returns></returns>
-        public UpSelling Actualizar(UpSelling upSelling)
+        public UpSelling Actualizar(UpSelling upSelling, bool soloCabecera)
         {
             using (var transaction = new TransactionScope())
             {
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
                 var entidad = _upSellingDataAccess.Actualizar(upSelling);
-                if (upSelling.Regalos != null)
+                if (upSelling.Regalos != null && soloCabecera)
                 {
                     upSelling.Regalos.ForEach(r =>
                     {
@@ -76,18 +76,17 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                         throw new System.ArgumentException("Regalo no perteneciente al UpSelling");
 
                     entidad.Regalos.AddRange(InsertarActualizarDetalle(upSelling.Regalos));
+
+                    //eliminar los que no vayan a actualizarce
+                    var detallesEliminar =
+                        from o in upSellingOriginal.Regalos
+                        where entidad.Regalos.Any(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
+                        select o.UpSellingDetalleId;
+
+                    EliminarDetalle(detallesEliminar);
+                    //if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
+                    //    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
                 }
-
-                //eliminar los que no vayan a actualizarce
-                var detallesEliminar =
-                    from o in upSellingOriginal.Regalos
-                    where entidad.Regalos.Any(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
-                    select o.UpSellingDetalleId;
-
-                var regalosEliminados = EliminarDetalle(detallesEliminar);
-
-                //if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
-                //    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
 
                 transaction.Complete();
 

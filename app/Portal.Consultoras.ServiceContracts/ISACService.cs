@@ -693,7 +693,11 @@ namespace Portal.Consultoras.ServiceContracts
         IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
 
         [OperationContract]
-        UpSelling UpSellingInsertarActualizar(int paisId, UpSelling upSelling);
+        UpSelling UpSellingInsertar(int paisId, UpSelling upSelling);
+
+        [OperationContract]
+        UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera);
+
 
         [OperationContract]
         void UpSellingEliminar(int paisId, int upSellingId);
