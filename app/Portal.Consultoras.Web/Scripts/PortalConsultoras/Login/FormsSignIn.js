@@ -393,23 +393,36 @@ $(document).ready(function () {
 
 ////////////
 function Construir_EnlacexDispositivo(Modo) {
-    var v_urlbase = $("#hd_CONTEXTO_BASE").val();
-    var paisId = $("#cboPaisCambioClave").val();
-    var codigoUsuario = $("#hdCodigoConsultora").val();
-    var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp + 
-        "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario + "&emt_type=1";
-
-    var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
     
-    if (Modo == 2){
-        if (!DeshabilitarBotonCorreo)
-        {
-            if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
-            if (v_IsMovilDevice == "1") $(".lk_chat").prop("href", v_url);
-            $(".lk_chat").css("text-decoration", "none");
-            $(".lk_chat").css("color", "black");
-        }
-    }
+    // New Chat
+    emt_client_type = '1';
+    emt_country = 'PE';
+    emt_email_address = 'freddyramirez@belcorp.biz';
+    emt_first_name = 'Freddy';
+    emt_id = '036097272';
+    emt_type = '1';
+    // New Chat -->
+
+    $("#btn_init").trigger("click");
+
+
+    //var v_urlbase = $("#hd_CONTEXTO_BASE").val();
+    //var paisId = $("#cboPaisCambioClave").val();
+    //var codigoUsuario = $("#hdCodigoConsultora").val();
+    //var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp + 
+    //    "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario + "&emt_type=1";
+
+    //var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
+    
+    //if (Modo == 2){
+    //    if (!DeshabilitarBotonCorreo)
+    //    {
+    //        if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+    //        if (v_IsMovilDevice == "1") $(".lk_chat").prop("href", v_url);
+    //        $(".lk_chat").css("text-decoration", "none");
+    //        $(".lk_chat").css("color", "black");
+    //    }
+    //}
 }
 
 function Inicializar()
@@ -1438,6 +1451,7 @@ function CerrarPopup2() {
 
     clearTimeout(t);
     $('#popup2').hide();
+    $('.CMXD-btn-help').hide();
 }
 
 function BloqueaOpcionCorreo() {
