@@ -43,5 +43,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerRegalos(int upSellingId)
+        {
+            var upSelling = await _upSellingProvider.ObtenerRegalos(userData.PaisID, upSellingId);
+
+            return Json(ResultModel<UpSellingModel>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
+        }
     }
 }

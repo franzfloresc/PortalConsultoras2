@@ -12181,11 +12181,17 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingEliminar", ReplyAction="http://tempuri.org/ISACService/UpSellingEliminarResponse")]
         System.Threading.Tasks.Task UpSellingEliminarAsync(int paisId, int upSellingId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingObtenerDetalle", ReplyAction="http://tempuri.org/ISACService/UpSellingObtenerDetalleResponse")]
-        Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingDetallesObtener", ReplyAction="http://tempuri.org/ISACService/UpSellingDetallesObtenerResponse")]
+        Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle[] UpSellingDetallesObtener(int paisId, int upSellingId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingObtenerDetalle", ReplyAction="http://tempuri.org/ISACService/UpSellingObtenerDetalleResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle> UpSellingObtenerDetalleAsync(int paisId, int upSellingDetalleId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingDetallesObtener", ReplyAction="http://tempuri.org/ISACService/UpSellingDetallesObtenerResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle[]> UpSellingDetallesObtenerAsync(int paisId, int upSellingId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingDetalleObtener", ReplyAction="http://tempuri.org/ISACService/UpSellingDetalleObtenerResponse")]
+        Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpSellingDetalleObtener", ReplyAction="http://tempuri.org/ISACService/UpSellingDetalleObtenerResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle> UpSellingDetalleObtenerAsync(int paisId, int upSellingDetalleId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
@@ -13437,12 +13443,20 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.UpSellingEliminarAsync(paisId, upSellingId);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId) {
-            return base.Channel.UpSellingObtenerDetalle(paisId, upSellingDetalleId);
+        public Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle[] UpSellingDetallesObtener(int paisId, int upSellingId) {
+            return base.Channel.UpSellingDetallesObtener(paisId, upSellingId);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle> UpSellingObtenerDetalleAsync(int paisId, int upSellingDetalleId) {
-            return base.Channel.UpSellingObtenerDetalleAsync(paisId, upSellingDetalleId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle[]> UpSellingDetallesObtenerAsync(int paisId, int upSellingId) {
+            return base.Channel.UpSellingDetallesObtenerAsync(paisId, upSellingId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId) {
+            return base.Channel.UpSellingDetalleObtener(paisId, upSellingDetalleId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.UpSellingDetalle> UpSellingDetalleObtenerAsync(int paisId, int upSellingDetalleId) {
+            return base.Channel.UpSellingDetalleObtenerAsync(paisId, upSellingDetalleId);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {

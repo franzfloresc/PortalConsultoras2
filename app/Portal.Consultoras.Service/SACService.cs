@@ -1421,10 +1421,16 @@ namespace Portal.Consultoras.Service
             new UpSellingBusinessLogic(paisId).Eliminar(upSellingId);
         }
 
-        public UpSellingDetalle UpSellingObtenerDetalle(int paisId, int upSellingDetalleId)
+        public UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId)
         {
             return new UpSellingBusinessLogic(paisId).ObtenerDetalle(upSellingDetalleId);
         }
+
+        public IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
+        }
+        
         #endregion
     }
 }

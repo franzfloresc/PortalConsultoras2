@@ -15,24 +15,25 @@ belcorp.estrategias.upselling.initialize = function (config) {
         cmbCampanas: config.cmbCampanas
     };
 
+    registerEvent.call(this, "onUpSellingEdit");
+    registerEvent.call(this, "onUpSellingDelete");
+    registerEvent.call(this, "onUpSellingDesactivar");
+
     var self = this;
 
     self.init = function () {
+        $("#" + settings.buttonBuscarId).on("click", document.body, buscar);
+        $("#" + settings.buttonNuevoId).on("click", document.body, nuevo);
+
+        self.subscribe("onUpSellingEdit", self.editar);
+        self.subscribe("onUpSellingDelete", self.eliminar);
+        self.subscribe("onUpSellingDesactivar", self.desactivar);
+
         cargarGrilla();
         fnDialog();
-
-        $("#" + settings.buttonBuscarId).on("click", document.body, function (e,s) {
-            e.preventDefault();
-            buscar(e,s);
-        });
-
-        $("#" + settings.buttonNuevoId).on("click", document.body, function (e,s) {
-            e.preventDefault();
-            nuevo(e,s);
-        });
     }
 
-    self.init();
+    self.currentUpSelling = {};
 
     function cargarGrilla() {
         $("#" + settings.idGrilla).jqGrid("GridUnload");
@@ -47,15 +48,14 @@ belcorp.estrategias.upselling.initialize = function (config) {
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             multiselect: false,
-            colNames: ["", "#", "Pais", "Campaña", "Meta", "Activo", "Opciones"],
+            colNames: ["#", "Pais", "Campaña", "Meta", "Activo", "Opciones"],
             colModel: [
-                { name: "", index: "UpSellingId", hidden: true },
                 { name: "ID", index: "UpSellingId", width: 50, sortable: false, align: "center" },
                 { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center" },
                 { name: "CodigoCampana", index: "CodigoCampana", width: 80, sortable: false, align: "center" },
                 { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
                 { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
-                { name: "Opciones", index: "Opciones", hidden: false, align: "center" }
+                { name: "Options", width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: optionButtons },
             ],
             jsonReader:
             {
@@ -63,7 +63,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 repeatitems: false,
                 id: "UpSellingId"
             },
-            pager: jQuery("#"+settings.idPager),
+            pager: jQuery("#" + settings.idPager),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: "No hay resultados",
@@ -76,31 +76,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
             height: "auto",
             width: 930,
             pgtext: "Pág: {0} de {1}",
-            altRows: false,
-            onCellSelect: function (rowId, iCol, content, event) {
-                if (iCol == 11) fnMantenedor(rowId);
-                else if (iCol == 12) fnDeshabilitar(rowId);
-            }
+            altRows: false
         });
         jQuery("#" + settings.idGrilla).jqGrid("navGrid", "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
-    }
-
-    function ShowDescripcionTipoConcurso(cellvalue, options, rowObject) {
-        var descripcion = "";
-        if (rowObject.TipoConcurso == "X") descripcion = "RxP";
-        else if (rowObject.TipoConcurso == "K") descripcion = "Constancia";
-        return descripcion;
-    }
-
-    function ShowActionsEdit(cellvalue, options, rowObject) {
-        var Des = "<img src=\"" + rutaImagenEdit + "\" alt=Editar Estrategia\" title=\"Editar Estrategia\" border=\"0\" style=\"cursor:pointer\" /></a>";
-        return Des;
-    }
-
-    function ShowActionsDelete(cellvalue, options, rowObject) {
-        var Des = "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' style='cursor:pointer' /></a>";
-        if (rowObject.Activo == 0) Des = "";
-        return Des;
     }
 
     function ShowImage(cellvalue, options, rowObject) {
@@ -128,97 +106,109 @@ belcorp.estrategias.upselling.initialize = function (config) {
         fnMantenedor(0);
     }
 
-    function fnDialog() {
-        $("#divAgregar").dialog({
-            position: ["center", 20],
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 800,
-            draggable: false,
-            title: "CONFIGURACIÓN <b>INCENTIVOS</b>",
-            open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
-            close: function () {
-            },
-        });
+    function optionButtons(cellvalue, options, rowObject) {
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.onUpSellingDelete.emit(, " + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
+        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
+
+        var resultado = edit;
+        resultado += del;
+
+        if (rowObject.Activo !== true)
+            resultado += desactivar;
+
+        return resultado;
     }
 
-    function fnDeshabilitar(rowId) {
-        var elimina = confirm("¿ Esta seguro que desea deshabilitar la estrategia seleccionada?");
-        if (!elimina) return;
-
-        var rowData = $("#list").jqGrid("getRowData", rowId);
-        var params = {
-            EstrategiaID: rowData.EstrategiaID
-        };
-
+    self.editar = function (upSellingId) {
+        //todo, mostrar campos bindeados
+        //cargar tab de regalos, categorias apoyadas y ganadoras
+        //cargar tab de regalos con data, los demas no
         waitingDialog({});
+        var rowData = getRowData(settings.idGrilla, upSellingId);
+        self.currentUpSelling = rowData;
 
-        jQuery.ajax({
-            type: "POST",
-            url: baseUrl + "AdministrarEstrategia/DeshabilitarEstrategia",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                alert(data.message);
-                cargarGrilla();
+        upSellingRegalosObtenerPromise(rowData.UpSellingId)
+            .then(function (result) {
+                if (!result.Success) {
+                    self.fail(err);
+                    return;
+                }
+
+                self.currentUpSelling.regalos = result.Data;
+                //ko apply observables
+            }, function (err) {
+                self.fail(err);
+            })
+            .done(function () {
                 closeWaitingDialog();
-            },
-            error: function (data, error) {
-                alert(data.message);
-                closeWaitingDialog();
-            }
-        });
+            });
     }
 
-    function fnMantenedor(rowId) {
-        var url = baseUrl + "AdministrarEstrategia/IncentivosDetalle";
+    self.eliminar = function (upSellingId) {
+        //confirmar eliminacion
+        //mostrar pantalla de cargando, validar eliminacion
+        //mostrar mensaje de eliminado correctamente, limpiar la pantalla
 
-        waitingDialog({});
+        var upSellingModel = getRowData(settings.idGrilla, upSellingId);
+        if (confirm("Confirme eliminar UpSelling para campaña " + upSellingModel.CodigoCampana)) {
+            waitingDialog({});
+            upSellingEliminarPromise(upSellingModel.UpSellingId)
+                .then(function (result) {
+                    if (!result.Success) {
+                        self.fail(err);
+                        return;
+                    }
 
-        var Estrategia = {};
-
-        if (rowId == 0) {
-            Estrategia.CampaniaInicio = $("#ddlCampania").val();
-            Estrategia.ImageUrl = rutaImagenVacia;
+                    alert("Eliminado correctamente");
+                    //todo: volver a cargar la grilla
+                }, function (err) {
+                    self.fail(err);
+                })
+                .done(function () {
+                    closeWaitingDialog();
+                });
         }
-        else {
-            var rowData = $("#list").jqGrid("getRowData", rowId);
+    }
 
-            Estrategia.EstrategiaID = rowData.EstrategiaID;
-            Estrategia.CampaniaInicio = rowData.CampaniaID;
-            Estrategia.CampaniaFin = rowData.CampaniaIDFin;
-            Estrategia.CUV = rowData.CUV2;
-            Estrategia.DescripcionCUV = rowData.DescripcionCUV2;
-            Estrategia.Activo = rowData.Activo == 1 ? true : false;
-            Estrategia.ImageUrl = rowData.ImagenURL == "" ? rutaImagenVacia : rowData.ImagenURL;
-            Estrategia.CodigoSAP = rowData.CodigoProducto;
-            Estrategia.CodigoConcurso = rowData.CodigoConcurso;
-            Estrategia.TipoConcurso = rowData.TipoConcurso;
-            Estrategia.Orden = rowData.Orden;
-        }
+    self.desactivar = function (upSellingId) {
+        debugger;
+        var another = this;
+        alert(upSellingId);
+        //confirmar desactivacion
+        //llamar a la funcion de editra con el flac desactivado
+        //todo: en los servicios agregar un actualizar solo cabecera
+    }
 
-        $.ajax({
+    self.fail = function (err) {
+        console.error(err);
+    }
+
+    function upSellingRegalosObtenerPromise(upsellingId) {
+        return jQuery.ajax({
             type: "GET",
-            dataType: "html",
-            cache: false,
-            url: url,
-            data: Estrategia,
-            success: function (data) {
-                closeWaitingDialog();
-
-                $("#divAgregar").html(data);
-                showDialog("divAgregar");
-
-                $("#CampaniaFin").focus();
-            },
-            error: function (xhr, ajaxOptions, error) {
-                closeWaitingDialog();
-                alert("Error: " + xhr.status + " - " + xhr.responseText);
-            }
+            url: baseUrl + settings.urlUpSellingObtenerRegalos,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(upsellingId),
+            async: true
         });
     }
+
+    function upSellingEliminarPromise(upsellingId) {
+        return jQuery.ajax({
+            type: "POST",
+            url: baseUrl + settings.urlUpSellingEliminar,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(upsellingId),
+            async: true
+        });
+    }
+
+    function getRowData(idGrid, idRow) {
+        return $("#" + idGrid).jqGrid('getRowData', idRow);
+    }
+
+    self.init();
 }

@@ -181,5 +181,10 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
             return model;
         }
+
+        public IEnumerable<UpSellingDetalle> ObtenerDetalles(int upSellingId)
+        {
+            return _upSellingDataAccess.ObtenerDetalles(upSellingId);
+        }
     }
 }

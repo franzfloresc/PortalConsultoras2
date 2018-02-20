@@ -12,8 +12,17 @@ namespace Portal.Consultoras.Web.Providers
         {
             using (var sv = new SACServiceClient())
             {
-               var upSellings = await sv.UpSellingObtenerAsync(paisId, codigoCampana, incluirRegalos);
+                var upSellings = await sv.UpSellingObtenerAsync(paisId, codigoCampana, incluirRegalos);
                 return Mapper.Map<IList<UpSelling>, IEnumerable<UpSellingModel>>(upSellings);
+            }
+        }
+
+        public async Task<IEnumerable<UpSellingRegaloModel>> ObtenerRegalos(int paisId, int upSellingId)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var upSellings = await sv.UpSellingDetallesObtenerAsync(paisId, upSellingId);
+                return Mapper.Map<IList<UpSellingDetalle>, IEnumerable<UpSellingRegaloModel>>(upSellings);
             }
         }
     }
