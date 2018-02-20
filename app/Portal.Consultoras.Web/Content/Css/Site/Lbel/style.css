@@ -32558,7 +32558,66 @@ h1#penmostreo .campana {
     .content_ficha_producto img {
         width: 100%;
     }
+.etiqueta_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
 
+.content_ficha_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
+
+.etiqueta_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .etiqueta_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
+.content_ficha_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .content_ficha_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
+.etiqueta_descripcion_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
+}
+
+.liquidacion_rango_home_fix, .boton_Agregalo_home_fix {
+    margin-top: 0;
+}
+
+
+.btn_compartir_facebook_ficha {
+    width: 45%;
+    float: none;
+    margin-left: 0;
+    display: inline-block;
+}
+
+.btn_compartir_facebook_ficha_fix {
+    width: 35%;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.btn_compartir_facebook_ficha img {
+    float: left;
+}
 .content_right_ficha {
     float: RIGHT;
     width: 55%;
@@ -32807,13 +32866,40 @@ h1#penmostreo .campana {
     margin-top: 30px;
     padding-left: 64px;
 }
-
+.compartir_redes_ficha_fix {
+    margin-top: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
 .texto_compartelo {
     float: left;
     margin-right: 15px;
     font-family: 'Lato';
     font-size: 12px;
     margin-top: 3px;
+}
+.texto_compartelo_fix {
+    font-family: 'Lato';
+    font-size: 12px;
+    /* margin-top: 3px; */
+    width: 60%;
+    text-align: right;
+    margin-right: 3%;
+    height: 42px;
+    padding: 12px 0px;
+}
+.texto_compartelo_fix p {
+display: block;
+height: 39px;
+margin: 0;
+padding: 0;
+padding: 10px 0px;
+}
+.texto_compartelo_fix p div{
+display:block;
+height:30px;
 }
 
 .btn_compartir_facebook_ficha {

@@ -130,7 +130,7 @@ function onPlayerStateChange(event) {
 function ScrollUser(anchor, alto) {
     var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
     if (topMenu > 0)
-        alto = alto + $('#seccion-fixed-menu').height() + 10;
+        alto = alto + $("#seccion-fixed-menu").height() + 10;
 
     alto = (jQuery(anchor).offset() || {}).top - alto;
     return alto;

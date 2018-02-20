@@ -271,6 +271,9 @@ namespace Portal.Consultoras.Entities
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
 
+        [DataMember]
+        public string Niveles { get; set; }
+
         public BEEstrategia()
         { }
 
@@ -557,6 +560,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EsSubCampania"))
                 EsSubCampania = Convert.ToInt32(row["EsSubCampania"]);
+
+            if (DataRecord.HasColumn(row, "Niveles") && row["Niveles"] != DBNull.Value)
+                Niveles = row["Niveles"].ToString();
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

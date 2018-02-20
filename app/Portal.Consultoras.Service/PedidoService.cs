@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {

@@ -1189,6 +1189,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
+                var herramientasVentaModel = new HerramientasVentaModel();
 
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                 if (configuracionesPaisModels.Any())
@@ -1281,6 +1282,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (c.Estado)
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
+                            case Constantes.ConfiguracionPais.HerramientasVenta:
+                                herramientasVentaModel.TieneHV = true;
+                                
+                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,
+                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList()); 
+                                break;
                         }
                     }
 
@@ -1293,6 +1300,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetRevistaDigital(revistaDigitalModel);
                     sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
+                    sessionManager.SetHerramientasVenta(herramientasVentaModel);
                 }
 
                 usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
@@ -1765,6 +1773,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return revistaDigitalModel;
+        }
+
+        public virtual HerramientasVentaModel ConfiguracionPaisHerramientasVenta(HerramientasVentaModel herramientasVentaModel, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            herramientasVentaModel.ConfiguracionPaisDatos =
+                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+                    new List<ConfiguracionPaisDatosModel>();
+
+            return herramientasVentaModel;
         }
 
         public virtual RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
@@ -2975,15 +2992,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool HabilitarLogCargaOfertas(int paisId)
         {
-            BETablaLogicaDatos[] listDatos;
-            using (var svc = new SACServiceClient())
-            {
-                listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
+            bool result = false;
 
+            try
+            {
+                BETablaLogicaDatos[] listDatos;
+                using (var svc = new SACServiceClient())
+                {
+                    listDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.Palanca);
+
+                }
+                if (!listDatos.Any()) return result;
+                var first = listDatos.FirstOrDefault();
+                result = first != null && first.Codigo.Equals("1");
             }
-            if (!listDatos.Any()) return false;
-            var first = listDatos.FirstOrDefault();
-            return first != null && first.Codigo.Equals("1");
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.HabilitarLogCargaOfertas");
+            }
+            
+
+            return result;
         }
 
         #region GetUserDataAsync

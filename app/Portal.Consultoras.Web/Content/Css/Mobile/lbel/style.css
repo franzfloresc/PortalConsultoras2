@@ -10728,7 +10728,18 @@ span.icon-advertencia {
     color: black;
     font-size: 13px;
 }
+.precio_para_ti_048_izquierdo {
+    display: inline-block;
+    width: 90px;
+}
 
+.precio_para_ti_048_derecho {
+    display: inline-block;
+}
+
+.precio_para_ti_portantos {
+    margin-left: 90px;
+}
     .precio_para_ti_048 b {
         font-size: 16px;
     }

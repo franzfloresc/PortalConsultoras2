@@ -664,7 +664,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
                     item.Codigo = Constantes.BannerCodigo.RevistaDigital;
-                    if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                    if (!(revistaDigital.TieneRevistaDigital()))
                     {
                         var valBool = ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion);
                         if (valBool)

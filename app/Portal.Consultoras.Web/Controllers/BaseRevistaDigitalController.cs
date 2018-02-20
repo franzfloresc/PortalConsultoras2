@@ -115,6 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
+
             return PartialView("template-landing", model);
         }
 
@@ -126,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
 
-            if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
+            if (!revistaDigital.TieneRevistaDigital())
             {
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }

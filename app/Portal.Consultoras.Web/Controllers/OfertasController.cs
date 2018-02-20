@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
                 
@@ -41,8 +41,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
+                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
+
                 };
 
                 return View("Index", modelo);
@@ -71,6 +73,8 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
                     sessionManager.SetTieneOpmX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    sessionManager.SetTieneRdr(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
                     sessionManager.SetTieneRdr(false);
                 return Json(new
                 {

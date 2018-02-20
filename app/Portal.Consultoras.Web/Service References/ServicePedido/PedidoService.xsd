@@ -1077,6 +1077,7 @@
           <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
           <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Niveles" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
           <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />

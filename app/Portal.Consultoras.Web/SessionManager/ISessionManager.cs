@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 using System.Collections.Generic;
@@ -41,6 +43,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
         RevistaDigitalModel GetRevistaDigital();
+
+        void SetHerramientasVenta(HerramientasVentaModel herramientasVenta);
+
+        HerramientasVentaModel GetHerramientasVenta();
 
         void SetGuiaNegocio(GuiaNegocioModel modeloGnd);
 
@@ -110,6 +116,18 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
 
         bool GetFlagLogCargaOfertas();
+
+        void SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo);
+
+        MenuContenedorModel GetMenuContenedorActivo();
+
+        void SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor);
+
+        List<ConfiguracionPaisModel> GetMenuContenedor();
+
+        void SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor);
+
+        List<BEConfiguracionOfertasHome> GetSeccionesContenedor(int campaniaId);
         List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
 
         void SetStartSession(DateTime StartSession);

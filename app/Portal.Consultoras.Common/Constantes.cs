@@ -217,6 +217,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
+            public const string HerramientasVenta = "011";
         }
 
         public static class ConstSession
@@ -269,6 +270,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
+            public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
 
             public const string EventoFestivo = "EventoFestivo";
@@ -566,6 +568,8 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
             public const int RevistaDigitalMobileLandingPopUp = 2712;
+            public const int HerramientasVentaMobileLandingComprar = 2103;
+            public const int HerramientasVentaMobileLandingRevisar = 2114;
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
@@ -692,6 +696,14 @@ namespace Portal.Consultoras.Common
             public const int GNDDesktopLandingPopUp = 1812;
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileLandingPopup = 2812;
+            #endregion
+
+            #region Herramienta de Ventas
+            public const int HerramientasVentasDesktopContenedor = 9999;
+            public const int HVDesktopLanding = 9998;
+            public const int HVDesktopLandingPopUp = 9997;
+            public const int HVMobileLanding = 9996;
+            public const int HVDMobileLandingPopup = 9995;
             #endregion
         }
 
@@ -1086,6 +1098,7 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string HerramientasVenta = "HV";
         }
 
         public static class ConfiguracionPaisDatos
@@ -1214,6 +1227,14 @@ namespace Portal.Consultoras.Common
                 public const string MPedidoIntriga = "MPedidoIntriga";
                 public const string DLandingBannerIntriga = "DLandingBannerIntriga";
                 public const string MLandingBannerIntriga = "MLandingBannerIntriga";
+            }
+
+            public static class HV
+            {
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueado = "DPopupBloqueado";
+                public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
             }
 
         }
@@ -1633,6 +1654,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+            public const string HerramientasVentaIndex = "/herramientasventa/index";
+            public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
+            public const string HerramientasVentaComprar = "/herramientasventa/comprar";
         }
 
         public static class TipoVistaEstrategia
