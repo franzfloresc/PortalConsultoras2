@@ -3784,12 +3784,12 @@ namespace Portal.Consultoras.Web.Controllers
             var listPedido = ObtenerPedidoWebDetalle();
 
             decimal descuentoprol = 0;
-
+            
             if (listPedido.Any())
             {
                 descuentoprol = listPedido[0].DescuentoProl;
             }
-
+            
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {

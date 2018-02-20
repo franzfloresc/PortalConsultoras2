@@ -1101,6 +1101,14 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class ConfiguracionPaisComponente
+        {
+            public static class RD
+            {
+                public const string PopupClubGanaMas = "Popup_Club_Gana+";
+            }
+        }
+
         public static class ConfiguracionPaisDatos
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
@@ -1181,6 +1189,7 @@ namespace Portal.Consultoras.Common
 
                 #region Landing Informativo
                 public const string InformativoVideo = "InformativoVideo";
+
                 #endregion
 
                 #region PopupSuscripcion
@@ -1220,7 +1229,7 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string NombreComercial= "NombreComercial";
+                public const string NombreComercial = "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
@@ -1736,7 +1745,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5 };
         }
 
         public class GanaMas
