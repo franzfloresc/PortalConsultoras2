@@ -214,7 +214,7 @@
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
         var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-        var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");;
+        var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
         (flagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
@@ -2437,7 +2437,7 @@
         var remove = "";
 
         if (rowObject[10] == "1") {
-            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + estrategiaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Producto' title='Deshabilitar Producto' border='0' /></a>";
+            remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomDetalle').EliminarProductoDetalle('" + id + "','" + estrategiaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Producto' title='Deshabilitar Producto' border='0' /></a>";
         }
 
         return edit + remove;
@@ -4184,7 +4184,7 @@
         }
 
         return false;
-    };
+    }
     function Deshabilitar(id, event) {
         event.preventDefault();
         event.stopPropagation();
