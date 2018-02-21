@@ -94,7 +94,7 @@ else
                 <div id="tab-regalos">
                     <div>
                         <div class="div-3">
-                            <input type="button" value="Agregar" data-bind="click:agregarRegalo" />
+                            <input type="button" value="Agregar" data-bind="click:regaloAgregar" />
                         </div>
                         <div class="div-3">
                             <div class="wrap">
@@ -107,11 +107,66 @@ else
                     </div>
                 </div>
                 <div id="tab-categorias-apoyadas"></div>
-                <div id="tab-ganadoras"></div>
+                @*regalos*@
+                <div id="tab-ganadoras">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editRegaloPopUp" data-bind="if:mostrarFormularioRegalo">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titG">CUV:</div>
+                <div class="selectA">
+                    @*hidden no necesario*@
+                    <input type="hidden" data-bind="value:regalo.UpSellingRegaloId" />
+                    <input type="text" data-bind="value:regalo.CUV" />
+                </div>
+                <div class="titG">Nombre:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value:regalo.Nombre" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Descripcion:</div>
+                <div class="selectA">
+                    <input type="text" multiline data-bind="value:regalo.Descripcion" />
+                </div>
+                <div class="titG">Imagen:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value:regalo.Imagen" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Stock:</div>
+                <div class="selectA">
+                    <input type="text" multiline data-bind="value:regalo.Stock" />
+                </div>
+                <div class="titG">Stock Actual:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value:regalo.StockActual" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Orden:</div>
+                <div class="selectA">
+                    <input type="text" multiline data-bind="value:regalo.Orden" />
+                </div>
+                <div class="titG">Activo:</div>
+                <div class="selectA">
+                    <input type="checkbox" data-bind="checked:regalo.Activo" />
+                </div>
+            </div>
+            <div class="div-3">
+                <input type="button" value="Agregar" data-bind="click:regaloAgregar" />
+                <input type="button" value="Cerrar" data-bind="click:regaloCerrar" />
             </div>
         </div>
     </div>
 </div>
+
 
 @Scripts.Render("~/bundles/estrategias-upselling")
 @*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
@@ -134,7 +189,8 @@ else
                 idGrillaRegalos: 'listRegalos',
                 idPagerRegalos: 'pagerRegalos',
                 idTargetDiv: 'upSellingCRUD',
-                campanasPais: JSON.parse('@JsonConvert.SerializeObject(Model.Campanas)')
+                campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
+                idDivPopUpRegalo: 'editRegaloPopUp'
             });
         });
     </script>
