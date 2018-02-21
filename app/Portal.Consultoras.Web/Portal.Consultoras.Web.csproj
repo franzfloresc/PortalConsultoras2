@@ -454,6 +454,7 @@
     <Compile Include="Models\LoginAnalyticsModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
+    <Compile Include="Models\PedidoCrudModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -1338,6 +1339,7 @@
     <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
+    <Content Include="Content\Images\Esika\rd_arrowright_red.png" />
     <Content Include="Content\Images\Esika\scroll-down-icon-esika.svg" />
     <Content Include="Content\Images\Esika\visual de funcionamiento.png" />
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
@@ -1360,6 +1362,7 @@
     <Content Include="Content\Images\Lbel\loading_circle.gif" />
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\rd_arrowright_morado.png" />
     <Content Include="Content\Images\Lbel\scroll-down-icon-lbel.svg" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
@@ -3806,6 +3809,7 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Areas\Mobile\Views\DescargarApp\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.eot" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.ttf" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff" />
@@ -4706,6 +4710,7 @@
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4726,7 +4731,6 @@
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
     <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGana.cshtml" />

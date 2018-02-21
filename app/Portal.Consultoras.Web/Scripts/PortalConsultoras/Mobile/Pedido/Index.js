@@ -114,17 +114,6 @@ $(document).ready(function () {
         }
     });
 
-    //$("#ddlClientes").change(function () {
-    //    if($(this).val() == 0) return;
-
-    //    $.each(lstClientes, function (key, cliente) {
-    //        if (cliente.ClienteID == $("#ddlClientes").val() && cliente.TieneTelefono == 0) {
-    //            showClienteDetalle(cliente);
-    //            return false;
-    //        }
-    //    });
-    //});
-
     ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
@@ -182,12 +171,7 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
-        //var cliente = $.trim($("#txtClienteNombre").val());
-        //if (cliente == "") {
-        //    AbrirMensaje("Seleccione un cliente.");
-        //    return false;
-        //}
-
+        
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
@@ -201,21 +185,7 @@ $(document).ready(function () {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
-
-        //var clienteValido = true;
-        //if ($("#ddlClientes").val() != "0") {
-        //    $.each(lstClientes, function (ind, cli) {
-        //        if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
-        //            AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
-        //                showClienteDetalle(cli);
-        //            });
-        //            clienteValido = false;
-        //            return false;
-        //        }
-        //    });
-        //}
-        //if (!clienteValido) return false;
-
+        
         AgregarProductoListado();
     });
 
@@ -236,6 +206,7 @@ $(document).ready(function () {
         var descripcionCategoria = $(divPadre).find(".hdSugeridoDescripcionCategoria").val();
         var descripcionMarca = $(divPadre).find(".hdSugeridoDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdSugeridoDescripcionEstrategia").val();
+        var tipoEstrategiaId = $(divPadre).find(".hdTipoEstrategiaID").val();
         var OrigenPedidoWeb = MobilePedidoSugerido;
 
         if (!isInt(cantidad)) {
@@ -252,23 +223,20 @@ $(document).ready(function () {
         }
 
         var model = {
-            TipoOfertaSisID: tipoOfertaSisID,
-            ConfiguracionOfertaID: configuracionOfertaID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            MarcaID: marcaID,
+            CUV: cuv,
             Cantidad: cantidad,
             PrecioUnidad: precioUnidad,
-            CUV: cuv,
-            Tipo: tipo,
+            TipoEstrategiaID: parseInt(tipoEstrategiaId),
+            OrigenPedidoWeb: OrigenPedidoWeb,
+            MarcaID: marcaID,
             DescripcionProd: descripcionProd,
-            Pagina: pagina,
-            DescripcionCategoria: descripcionCategoria,
-            DescripcionMarca: descripcionMarca,
-            DescripcionEstrategia: descripcionEstrategia,
-            EsSugerido: true,
-            OrigenPedidoWeb: OrigenPedidoWeb
+            TipoOfertaSisID: tipoOfertaSisID,
+            IndicadorMontoMinimo: indicadorMontoMinimo,
+            ConfiguracionOfertaID: configuracionOfertaID,
+            EsSugerido: true
         };
-        InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
+
+        InsertarProductoSugerido(model);
     });
 
     $("#linkAgregarCliente").on("click", function () {
@@ -279,8 +247,6 @@ $(document).ready(function () {
             return false;
         }
         showClienteDetalle(null);
-        //CerrarMantenerCliente();
-        //$("#divAgregarClientePedido").show();
     });
 
     CargarCarouselEstrategias("");
@@ -322,9 +288,7 @@ function CargarDetallePedido(page, rows) {
                 MostrarBarra(response);
             }
         },
-        error: function (response, error) {
-            checkTimeout(response);
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -356,26 +320,15 @@ function showClienteDetalle(pcliente) {
 
             $("#divDetalleCliente").html(data);
             $("#divAgregarCliente").modal("show");
-            //$("#divAgregarCliente").show();
 
             ClienteDetalleOK = function (cliente) {
                 $("#txtClienteId").val(cliente.ClienteID);
                 $("#txtClienteNombre").val(cliente.Nombre);
 
                 if (pcliente == null && cliente.Insertado) {
-                    //$("#ddlClientes").append(new Option(cliente.Nombre, cliente.ClienteID));
-                    //$("#ddlClientes").val(cliente.ClienteID);
-
                     lstClientes.push(cliente);
                 }
                 else {
-                    //$.each($("#ddlClientes option"), function (ind, cli) {
-                    //    if ($(cli).val() == cliente.ClienteID) {
-                    //        $(cli).text(cliente.Nombre);
-                    //        return false;
-                    //    }
-                    //});
-
                     $.each(lstClientes, function (ind, cli) {
                         if (cli.ClienteID == cliente.ClienteID) {
                             cli.Nombre = cliente.Nombre;
@@ -388,7 +341,6 @@ function showClienteDetalle(pcliente) {
         },
         error: function (xhr, ajaxOptions, error) {
             CloseLoading();
-            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
@@ -420,10 +372,8 @@ function UpdateUsuarioTutoriales() {
         data: JSON.stringify(item),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-        },
-        error: function (data) {
-        }
+        success: function (data) { },
+        error: function (data) { }
     });
     return true;
 }
@@ -494,8 +444,6 @@ function BuscarByCUV(cuv) {
 
                 if (data.message == "" || data.message === undefined) {
                     location.href = urlSesionExperirada;
-                } else {
-                    console.error(data);
                 }
             }
         }
@@ -583,11 +531,7 @@ function IngresoFAD(producto) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data);
-            }
-        }
+        error: function (data, error) { }
     });
 };
 function ObtenerEstrategiaCoincidente(cuv) {
@@ -649,8 +593,6 @@ function ObtenerProductosSugeridos(CUV) {
                 prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -13%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"></a>',
                 nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -13%;"><img src="/Content/Images/mobile/Esika/next.png")"/></a>'
             });
-            //$('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
-            //$('#divCarruselSugerido').prepend($(".js-slick-next-h"));
             CloseLoading();
         },
         error: function (data, error) {
@@ -658,8 +600,6 @@ function ObtenerProductosSugeridos(CUV) {
             if (checkTimeout(data)) {
                 if (data.message == "" || data.message === undefined) {
                     location.href = baseUrl + "Login/SesionExpirada";
-                } else {
-                    AbrirMensaje(data.message);
                 }
             }
         }
@@ -669,7 +609,8 @@ function CancelarProductosSugeridos() {
     $("#txtCodigoProducto").val('');
     $("#txtCodigoProducto").trigger("keyup");
 }
-function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, cantidad, indicadorMontoMinimo, tipoOferta, OrigenPedidoWeb) {
+
+function InsertarProductoSugerido(model) {
     ShowLoading();
     if (ReservadoOEnHorarioRestringido()) {
         CloseLoading();
@@ -681,16 +622,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
         url: urlPedidoInsert,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({
-            MarcaID: marcaID,
-            CUV: cuv,
-            PrecioUnidad: precioUnidad,
-            Descripcion: descripcion,
-            Cantidad: cantidad,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            TipoOferta: tipoOferta,
-            OrigenPedidoWeb: OrigenPedidoWeb
-        }),
+        data: JSON.stringify(model),
         async: true,
         cache: false,
         success: function (data) {
@@ -731,9 +663,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data);
-            }
         }
     });
 };
@@ -787,7 +716,6 @@ function AgregarProductoListado() {
             if (checkTimeout(data)) {
                 $("#btnAgregarProducto").show();
                 $("#btnAgregarProducto").removeAttr("disabled");
-                console.error(data);
             }
         }
     });
@@ -796,7 +724,7 @@ function AgregarProductoListado() {
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
-    var model;
+    var model = {};
     if ($("#hdTipoOfertaSisID").val() === "0") {
         $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());
     }
@@ -805,44 +733,32 @@ function InsertarProducto() {
         if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
 
         model = {
-            Tipo: 1,
-            CUVComplemento: "",
-            MarcaIDComplemento: 0,
-            PrecioUnidadComplemento: 0,
-            IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
-            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
-            Registros: "",
-            RegistrosDe: "",
-            RegistrosTotal: "",
-            Pagina: "",
-            PaginaDe: "",
-            ClienteID_: "",
-            DescripcionEstrategia: "",
-            DescripcionLarga: "",
             CUV: $("#hdfCUV").val(),
-            MarcaID: $("#hdfMarcaID").val(),
-            PrecioUnidad: $("#hdfPrecioUnidad").val(),
-            DescripcionProd: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            PrecioUnidad: $("#hdfPrecioUnidad").val(),
+            TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             OrigenPedidoWeb: origenPedidoWebMobilePedido,
-            //ClienteID: $("#ddlClientes").val(),
-            //ClienteDescripcion: $("#ddlClientes option:selected").text()
+            MarcaID: $("#hdfMarcaID").val(),
+            DescripcionProd: $("#divNombreProducto").html(),
+            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
+            IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
+            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
             ClienteID: $("#txtClienteId").val(),
             ClienteDescripcion: $("#txtClienteNombre").val()
         };
 
     } else {
         model = {
-            MarcaID: $("#hdfMarcaID").val(),
             CUV: $("#hdfCUV").val(),
-            PrecioUnidad: $("#hdfPrecioUnidad").val(),
-            Descripcion: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            PrecioUnidad: $("#hdfPrecioUnidad").val(),
+            TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido,
+            MarcaID: $("#hdfMarcaID").val(),
+            DescripcionProd: $("#divNombreProducto").html(),
+            TipoOfertaSisID: $("#hdTipoOfertaSisID").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
-            TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val(),
-            OrigenPedidoWeb: origenPedidoWebMobilePedido
+            TipoEstrategiaImagen: 2
         };
     }
 
@@ -870,7 +786,6 @@ function InsertarProducto() {
                 }
                 else {
                     $.each(lstClientes, function (ind, cli) {
-                        //if (cli.ClienteID == $("#ddlClientes").val()) {
                         if (cli.ClienteID == $("#txtClienteId").val()) {
                             messageInfoError(data.message, function () {
                                 showClienteDetalle(cli);
@@ -939,9 +854,6 @@ function InsertarProducto() {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                console.error(data);
-            }
         }
     });
 
@@ -960,10 +872,6 @@ function VisibleEstrategias(accion) {
 }
 
 function PedidoOnSuccess() {
-    var ItemCantidad = $("#txtCantidad").val();
-    var ItemPrecio = $("#spnPrecio").html();
-    var ItemTotal = parseFloat(ItemCantidad * ItemPrecio).toFixed(2);
-
     $("#hdfCUV").val("");
     $("#hdfDescripcionProd").val("");
     $("#hdfCUV").val("");

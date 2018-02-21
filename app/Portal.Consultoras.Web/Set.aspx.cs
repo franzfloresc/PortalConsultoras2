@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web
 {
@@ -23,20 +23,19 @@ namespace Portal.Consultoras.Web
             string campania = array[2] ?? "";
             string redSocial = array[3] ?? "";
 
-            int idShowRoom = 0;
+            int idShowRoom;
             bool esId = int.TryParse(idShowroomCadena, out idShowRoom);
 
             int idFinal = esId ? idShowRoom : 0;
 
-            int idCampania = 0;
+            int idCampania;
             bool esCampania = int.TryParse(campania, out idCampania);
 
             int idCampaniaFinal = esCampania ? idCampania : 0;
 
             int paisId = Util.GetPaisID(codigoIso);
 
-            var ofertaShowRoom = new BEShowRoomOferta();
-            var listaDetalle = new List<BEShowRoomOfertaDetalle>();
+            BEShowRoomOferta ofertaShowRoom;
 
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
 
@@ -60,18 +59,20 @@ namespace Portal.Consultoras.Web
                         Globals.UrlMatriz + "/" + codigoIso);
                 }
 
+                List<BEShowRoomOfertaDetalle> listaDetalle;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listaDetalle = sv.GetProductosShowRoomDetalle(paisId, idCampaniaFinal, ofertaShowRoom.CUV).ToList();
                 }
-
-                var subTitulo = "";
+                
                 var contadorDetalle = 1;
+                var txtBuil = new StringBuilder();
                 foreach (var detalle in listaDetalle)
                 {
-                    subTitulo += contadorDetalle == listaDetalle.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
+                    txtBuil.Append(contadorDetalle == listaDetalle.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ");
                     contadorDetalle++;
                 }
+                var subTitulo = txtBuil.ToString();
 
                 HtmlMeta meta1 = new HtmlMeta();
                 meta1.Name = "og:image";
@@ -109,9 +110,7 @@ namespace Portal.Consultoras.Web
                 Page.Header.Controls.Add(meta4);
                 Page.Header.Controls.Add(meta5);
                 Page.Header.Controls.Add(meta6);
-                //imgCuv.Content = imagen;
-                //imgCuvSecure.Content = imagen;
-                //nombreCuv.Content = nombre;
+
                 imgCuvProducto.Src = ofertaShowRoom.ImagenProducto;
 
                 pNombreProducto.InnerHtml = ofertaShowRoom.Descripcion;

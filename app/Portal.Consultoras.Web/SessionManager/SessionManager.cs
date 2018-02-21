@@ -272,6 +272,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
         }
 
+        public void SetFlagLogCargaOfertas(bool habilitarLog)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] = habilitarLog;
+        }
+
+        public bool GetFlagLogCargaOfertas()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
+        }
+        
         void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
         {
             HttpContext.Current.Session["ListFiltersFAV"] = lista;

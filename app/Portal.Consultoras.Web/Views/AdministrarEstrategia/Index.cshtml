@@ -747,11 +747,11 @@
     var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
     var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
     var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
-    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalle";
-    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll';
-    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
-    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
-    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
+    var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalleNew";
+    var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAllNew';
+    var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleNew';
+    var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalleNew';
+    var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalleNew';
     var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
     var imagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
     var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
@@ -760,7 +760,6 @@
     // SHOWROOM-FIN
 
     jQuery(document).ready(function () {
-        $("#btnActualizarTonos").hide();
         fnGrilla();
         IniDialog();
 
@@ -918,8 +917,6 @@
                     estrategiaID: EstrategiaID
                 };
 
-                console.log(item);
-
                 waitingDialog({});
                 jQuery.ajax({
                     type: 'POST',
@@ -998,8 +995,6 @@
                     estrategiaId: EstrategiaID,
                     cuv: CUV
                 };
-
-                console.log(item);
 
                 waitingDialog({});
                 jQuery.ajax({
@@ -1233,14 +1228,12 @@
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             $("#btnDescripcionMasivo").hide();
-            $("#btnActualizarTonos").hide();
 
             if (aux2.in(Codigo.OfertaParaTi, Codigo.OfertaDelDia, Codigo.LosMasVendidos, Codigo.Lanzamiento,
                         Codigo.OfertasParaMi, Codigo.PackAltoDesembolso, Codigo.GuiaDeNegocio, Codigo.CodigoShowRoom)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
-                $("#btnActualizarTonos").show();
                 if (aux2 == Codigo.CodigoShowRoom) {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
                     //$("#btnDescripcionMasivoProd").show();
@@ -1272,7 +1265,6 @@
             $("#hdTipoConsulta").val("1");
             $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
 
-            //kaka
             $("#list").html("");
             $("#divShowRoomEvento").hide();
             $("#divShowRoomEventoNuevo").hide();
@@ -4166,8 +4158,6 @@
             ImagenProducto: $("#hdImagenDetalle").val(),
             ImagenAnterior: $("#hdImagenDetalleAnterior").val()
         };
-
-        console.log(item);
 
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({

@@ -151,8 +151,6 @@
                         else {
                             OcultarPanelMasVendidos();
                         }
-                    } else {
-                        console.log(response.menssage);
                     }
                 }
             });
@@ -220,18 +218,6 @@
     }
 
     function _pintarEstrellasCarrusel(item) {
-        //var xdiv = "#star-" + item.EstrategiaID.toString();
-        //var rating = '';
-        //rating = item.PromValorizado.toString() + '%';
-        //$(xdiv).rateYo({
-        //    rating: rating,
-        //    numStars: 5,
-        //    precision: 2,
-        //    minValue: 1,
-        //    maxValue: 5,
-        //    starWidth: "17px",
-        //    readOnly: true
-        //});
         _pintarEstrellas(item);
     }
 
@@ -294,24 +280,24 @@
         if (item != null && item != undefined) {
             item.EstrategiaID = item.EstrategiaID || 0;
             item.PromValorizado = item.PromValorizado || 0;
+
+            var xdiv = "#star-" + item.EstrategiaID.toString();
+            var rating = '';
+            rating = item.PromValorizado.toString() + '%';
+
+            if ($(xdiv).length) {
+                $(xdiv).rateYo({
+                    rating: rating,
+                    numStars: 5,
+                    precision: 2,
+                    minValue: 1,
+                    maxValue: 5,
+                    starWidth: "17px",
+                    readOnly: true
+                });
+            }
+
         }
-
-        var xdiv = "#star-" + item.EstrategiaID.toString();
-        var rating = '';
-        rating = item.PromValorizado.toString() + '%';
-
-        if ($(xdiv).length) {
-            $(xdiv).rateYo({
-                rating: rating,
-                numStars: 5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "17px",
-                readOnly: true
-            });
-        }
-
     }
 
     var _validarGanancia = function (item) {
@@ -359,8 +345,6 @@
                         model.Lista = _actualizarListaStorate(model.Lista, item);
                         set_local_storage(model, "data_mas_vendidos");
                         location.href = setting.urlDetalleProducto;
-                    } else {
-                        console.log(verDetalleResponse.menssage);
                     }
                 }
             });

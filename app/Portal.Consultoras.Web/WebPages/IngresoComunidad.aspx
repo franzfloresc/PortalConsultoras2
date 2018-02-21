@@ -274,7 +274,6 @@
                 error: function (result) {
                     $('#ErrorUsuario_registro').html("Error al validar.");
                     $('#ErrorUsuario_registro').css({ "color": "#ed1556" });
-                    console.log(result);
                 }
             });
         }
@@ -304,7 +303,6 @@
                 error: function (result) {
                     $('#ErrorCorreo_registro').html("Error al validar.");
                     $('#ErrorCorreo_registro').css({ "color": "#ed1556" });
-                    console.log(result);
                 }
             });
         }
