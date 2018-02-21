@@ -3399,8 +3399,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var qsCampaniaId = GetCampaniaIdFromQueryString();
             int campaniaid;
-            int.TryParse(Util.Trim(qsCampaniaId), out campaniaid);
-            menuActivo.CampaniaId = campaniaid;
+            if (int.TryParse(Util.Trim(qsCampaniaId), out campaniaid))
+            {
+                menuActivo.CampaniaId = campaniaid;
+            }
             return menuActivo;
         }
 
