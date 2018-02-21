@@ -45,7 +45,7 @@ jQuery(document).ready(function () {
         var total_op_menu = $(".bc_para_ti-menu ul li").size();
 
         if (total_op_menu < 3) {
-            $('.bc_para_ti-menu ul li').css("width", "50%");
+            $('.bc_para_ti-menu ul li').css("width", "50% !important");
             $('.bc_para_ti-menu ul li:nth-child(2)').css("border-left", "none");
             $('.bc_para_ti-menu ul li:nth-child(2)').css("border-right", "none");
         }
@@ -54,7 +54,7 @@ jQuery(document).ready(function () {
         var total_op_menu = $(".bc_menu_estrategia .op_menu-horizontal ul li").size();
 
         if (total_op_menu < 3) {
-            $('.bc_menu_estrategia .op_menu-horizontal ul li').css("width", "50%");
+            $('.bc_menu_estrategia .op_menu-horizontal ul li').css("width", "50% !important");
             $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-left", "none");
             $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-right", "none");
         }

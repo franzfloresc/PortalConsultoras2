@@ -1955,3 +1955,20 @@
 /* FIN FICHA PRODUCTO NO ENCONTRADO */
 
 /* FIN ESTILOS ADICIONALES PARA POPUP CONSULTORA YA REGISTRADA A COACH VIRTUAL */
+
+/*FIX SEGUIR MOSTRANDO 2 COLUMNAS EN MOBILE*/
+#divOfertaProductos {
+    justify-content: left;
+    width: 100%;
+}
+@media (max-width:817px) {
+    #divOfertaProductos {
+        justify-content: center;
+        width: 100%;
+    }
+}
+@media (max-width:343px){
+    .revistadigital-landing{
+        width:50%;
+    }
+}

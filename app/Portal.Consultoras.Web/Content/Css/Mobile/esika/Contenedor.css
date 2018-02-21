@@ -61,7 +61,7 @@
 
     .bc_para_ti-menu ul li {
         display: inline-block;
-        width: 33.3%;
+        width: 33.3% !important;
         cursor: pointer;
         margin-top: 0;
     }
