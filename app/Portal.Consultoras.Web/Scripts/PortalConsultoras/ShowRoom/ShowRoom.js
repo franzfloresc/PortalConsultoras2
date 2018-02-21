@@ -581,7 +581,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 }
 
 function AgregarProductoAlCarrito(padre) {
-    debugger;
+    
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
         var imagenProducto = $('.imagen_producto', contenedorImagen);
@@ -868,7 +868,7 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 
 
 function EstrategiaAgregar(event, popup) {
-    debugger;
+    
    
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
@@ -884,13 +884,13 @@ function EstrategiaAgregar(event, popup) {
     var cuvs = "";
     var origen = '';
 
-    //if (EstrategiaValidarSeleccionTono(objInput)) {
-    //    return false;
-    //}
+    if (EstrategiaValidarSeleccionTono(objInput)) {
+        return false;
+    }
 
-    //if (!ValidacionesPreOperacion(cantidad)) {
-    //    return false;
-    //}
+    if (!ValidacionesPreOperacion(cantidad)) {
+        return false;
+    }
 
 
     if (!esSubCampania) {
@@ -935,7 +935,7 @@ function EstrategiaAgregar(event, popup) {
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-                    debugger;
+                    
 
                     CerrarLoad();
                     response = data;
@@ -1127,7 +1127,7 @@ function ValidarUnidadesPermitidas(data, cantidad) {
 
 function EstrategiaValidarSeleccionTono(objInput) {
 
-    debugger;
+    
 
     if (!$('.tono_select_opt')[0])
         return false;
