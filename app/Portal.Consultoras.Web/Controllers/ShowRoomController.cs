@@ -2913,7 +2913,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
                 var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
+                listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
                 {
