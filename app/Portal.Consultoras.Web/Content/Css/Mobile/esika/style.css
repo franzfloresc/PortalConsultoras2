@@ -4992,12 +4992,12 @@ table > thead > tr > th {
     margin: 0 auto;
     width: 100%;
     overflow: hidden;
-    height: 35px;
+    height: 15px;
     margin-top: 6px;
     font-weight: 900;
 }
 
-.producto_precio {
+.producto_precio {   
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
@@ -9022,9 +9022,9 @@ span.title-app-b {
             font-size: 13px;
             margin-bottom: 8px;
         }
-
+      
     .bloque_carousel .producto_precio {
-        margin-bottom: 20px;
+        margin-bottom: 20px;   
     }
 
         .bloque_carousel .producto_precio .producto_precio_normal {
