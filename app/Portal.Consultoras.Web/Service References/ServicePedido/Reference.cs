@@ -33688,6 +33688,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByIdResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerPagoEnLineaByIdAsync(int paisId, int pagoEnLineaResultadoLogId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraIdResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerUltimoPagoEnLineaByConsultoraIdAsync(int paisId, long consultoraId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom", ReplyAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse")]
         int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity);
         
@@ -36156,6 +36162,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerPagoEnLineaByIdAsync(int paisId, int pagoEnLineaResultadoLogId) {
             return base.Channel.ObtenerPagoEnLineaByIdAsync(paisId, pagoEnLineaResultadoLogId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId) {
+            return base.Channel.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog> ObtenerUltimoPagoEnLineaByConsultoraIdAsync(int paisId, long consultoraId) {
+            return base.Channel.ObtenerUltimoPagoEnLineaByConsultoraIdAsync(paisId, consultoraId);
         }
         
         public int RemoverOfertaShowRoom(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta entity) {

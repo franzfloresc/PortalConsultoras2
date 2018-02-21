@@ -101,5 +101,13 @@ namespace Portal.Consultoras.Data.PagoEnLinea
 
             Context.ExecuteNonQuery(command);
         }
+
+        public IDataReader ObtenerUltimoPagoEnLineaByConsultoraId(long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimoPagoEnLineaByConsultoraId");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

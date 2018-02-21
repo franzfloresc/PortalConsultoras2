@@ -53,13 +53,16 @@ else
         </a>
     </div>
 
-    <div class="ultimo_pago_recibido">
-        <span>Último pago recibido</span>
-        <span>@Model.FechaUltimoMovimientoFormatDiaMes</span>
-    </div>
-    <p class="info_horarios_efectivos_pagos mb-32">
-        Los pagos realizados después de las 10 p.m podrás verlos al día siguiente.
-    </p>
+    @if (!string.IsNullOrEmpty(Model.UltimoMovimiento.Glosa))
+    {
+        <div class="ultimo_pago_recibido">
+            <span>Último pago recibido</span>
+            <span>@Model.UltimoMovimiento.FechaVencimientoFormatDiaMes</span>
+        </div>
+        <p class="info_horarios_efectivos_pagos mb-32">
+            Los pagos realizados después de las 10 p.m podrás verlos al día siguiente.
+        </p>
+    }    
 
     <div class="contenedor_detalle_movimientos_estado_de_cuenta">
         <div class="titulo_movimientos_estado_cuenta">

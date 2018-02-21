@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 MontoPagar = montoPagar,
                 PestanhaInicial = pestanhaInicial ?? "",
                 TienePagoEnLinea = userData.TienePagoEnLinea
-        };
+            };
 
             List<string> pestanhaMisPagosAll = new List<string> {
                 Constantes.PestanhasMisPagos.EstadoCuenta,
@@ -92,6 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
 
+            var ultimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
@@ -103,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-
+                UltimoMovimiento = ultimoMovimiento,
                 Rows = items.Select(a => new
                 {
                     Fecha = a.Fecha.ToString("dd/MM/yyyy"),

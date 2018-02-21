@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Portal.Consultoras.Web.Models;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -13,5 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string FechaUltimoMovimiento { set; get; }
         public string FechaUltimoMovimientoFormatDiaMes { get; set; }
         public List<EstadoCuentaDetalleMobilModel> ListaEstadoCuentaDetalle { get; set; }
+        public EstadoCuentaModel UltimoMovimiento { get; set; }
     }
 }

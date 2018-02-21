@@ -2257,6 +2257,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaById(paisId, pagoEnLineaResultadoLogId);
         }
 
+        public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
+        {
+            return BLPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(paisId, consultoraId);
+        }
+
         #endregion
     }
 }

@@ -48,5 +48,18 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             var DAPagoEnLinea = new DAPagoEnLinea(paisId);
             DAPagoEnLinea.UpdateVisualizado(pagoEnLineaResultadoLogId);
         }
+
+        public BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId)
+        {
+            BEPagoEnLineaResultadoLog entidad = null;
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (IDataReader reader = DAPagoEnLinea.ObtenerUltimoPagoEnLineaByConsultoraId(consultoraId))
+                if (reader.Read())
+                {
+                    entidad = new BEPagoEnLineaResultadoLog(reader);
+                }
+            return entidad;
+        }
     }
 }

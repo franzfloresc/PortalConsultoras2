@@ -44,6 +44,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         });
                 }
 
+                model.UltimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+
+                model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
+                model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
+
                 if (model.ListaEstadoCuentaDetalle.Count == 0)
                 {
                     model.MontoStr = Util.DecimalToStringFormat(0, userData.CodigoISO);
@@ -52,15 +57,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                 {
                     model.ListaEstadoCuentaDetalle = model.ListaEstadoCuentaDetalle.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
-                    var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
+                    //var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
 
-                    if (ultimoMovimiento != null)
-                    {
-                        model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
-                        model.FechaUltimoMovimientoFormatDiaMes = ultimoMovimiento.FechaVencimientoFormatDiaMes;
-                        model.Glosa = ultimoMovimiento.Glosa;
-                        model.MontoStr = ultimoMovimiento.MontoStr;
-                    }
+                    //if (ultimoMovimiento != null)
+                    //{
+                    //    model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
+                    //    model.FechaUltimoMovimientoFormatDiaMes = ultimoMovimiento.FechaVencimientoFormatDiaMes;
+                    //    model.Glosa = ultimoMovimiento.Glosa;
+                    //    model.MontoStr = ultimoMovimiento.MontoStr;
+                    //}
 
                     model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
                     model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
@@ -226,18 +231,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             return cadena;
-        }
-
-        private string ObtenerFormatoDiaMes(DateTime fecha)
-        {
-            string resultado = "";
-
-            var nombreMes = Util.NombreMes(fecha.Month);
-
-            resultado = fecha.Day + " " + nombreMes;
-
-            return resultado;
-        }
+        }        
 
         #endregion
     }
