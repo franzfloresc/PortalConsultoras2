@@ -3173,7 +3173,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var result = false;
 
-            result = configuracionPais != null && configuracionPais.ConfiguracionPaisID>=0 && !string.IsNullOrWhiteSpace(configuracionPais.Codigo);
+            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
+            if (configuracionesPais != null)
+            {
+                var cp = configuracionesPais.FirstOrDefault(x=> x.Codigo == configuracionPais.Codigo);
+                result = cp != null && cp.ConfiguracionPaisID >= 0 && !string.IsNullOrWhiteSpace(cp.Codigo);
+
+            }
 
             return result;
         }
