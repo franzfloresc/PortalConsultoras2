@@ -112,5 +112,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoEstrategia { get; set; }
 
         public int EstrategiaId { get; set; }
+
+        public int TipoAccionAgregar { get; set; }
     }
 }
