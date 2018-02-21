@@ -76,7 +76,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 var da = new DAConfiguracionPaisDatos(paisId);
                 TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-                
+
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     foreach (var paisDato in listaEntidad)

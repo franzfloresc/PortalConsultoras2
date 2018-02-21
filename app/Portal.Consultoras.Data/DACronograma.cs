@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetCampaniaActivaPais(DateTime  fechaConsulta)
+        public IDataReader GetCampaniaActivaPais(DateTime fechaConsulta)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCampaniaActivaPais");
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, fechaConsulta);

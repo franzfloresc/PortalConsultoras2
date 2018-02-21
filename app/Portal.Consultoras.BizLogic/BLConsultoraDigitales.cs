@@ -71,7 +71,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar el archivo de descarga de consultora digitales.", ex);
                 }
-                
+
                 if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
                     try
@@ -116,11 +116,11 @@ namespace Portal.Consultoras.BizLogic
 
         private string FormatFile(string paisISO, string fileName, string fechaProceso)
         {
-             return ConfigurationManager.AppSettings["OrderDownloadPath"]
-                 + Path.GetFileNameWithoutExtension(fileName) + ""
-                 + fechaProceso + ""
-                 + paisISO + ""
-                 + Path.GetExtension(fileName);
+            return ConfigurationManager.AppSettings["OrderDownloadPath"]
+                + Path.GetFileNameWithoutExtension(fileName) + ""
+                + fechaProceso + ""
+                + paisISO + ""
+                + Path.GetExtension(fileName);
         }
 
         private string HeaderLine(TemplateField[] template, DataRow row)

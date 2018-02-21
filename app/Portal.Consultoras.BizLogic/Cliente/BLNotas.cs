@@ -81,7 +81,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 {
                     nota.ClienteId = (short)clienteDb.ClienteID;
                     nota.ConsultoraId = clienteDb.ConsultoraID;
-                    
+
                     if (nota.StatusEnum == StatusEnum.Delete)
                     {
                         var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);

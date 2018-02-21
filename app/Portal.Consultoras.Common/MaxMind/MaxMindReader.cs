@@ -1,13 +1,13 @@
 ﻿using MaxMind.Db;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Security.Permissions;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
 using System.Linq;
+using System.Net;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace MaxMind.Util
 {
@@ -551,7 +551,7 @@ namespace MaxMind.Util
         {
             get
             {
-                
+
                 var locale = Locales.FirstOrDefault(l => Names.ContainsKey(l));
                 return locale == null ? null : Names[locale];
             }

@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int InsProductoCompartido(BEProductoCompartido ProComp)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoCompartido");
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
             return Context.ExecuteReader(command);
-        }        
+        }
 
         public void SetTieneStockByCampaniaAndZonaAndProductos(int campaniaID, int zonaID, string codigoRegion, string codigoZona, List<BEProducto> listProducto)
         {

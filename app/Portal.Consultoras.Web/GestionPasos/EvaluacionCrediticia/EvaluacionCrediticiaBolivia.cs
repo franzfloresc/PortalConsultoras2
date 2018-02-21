@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
             {
                 evaluacionCrediticaBe = sv.ConsultarServicioCrediticio(codigoIso, "SomosBelcorp",
                     entidad.CodigoZona, entidad.NumeroDocumento);
-            }             
+            }
             return evaluacionCrediticaBe;
         }
     }

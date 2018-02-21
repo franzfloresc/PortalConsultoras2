@@ -285,7 +285,7 @@
 
         public enum PantallaOrigenPedidoWeb
         {
-            Default=0,
+            Default = 0,
             Home = 1,
             Pedido = 2,
             Liquidacion = 3,

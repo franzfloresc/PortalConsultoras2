@@ -27,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daContenidoDato.GetContenidoDato(paisID, campaniaID))
                 while (reader.Read())
                 {
-                    var contenidodato = new BEContenidoDato(reader) {PaisID = paisID};
+                    var contenidodato = new BEContenidoDato(reader) { PaisID = paisID };
                     contenidodatos.Add(contenidodato);
                 }
 
@@ -42,7 +42,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daContenidoDato.GetLinksPorPais(paisID))
                 while (reader.Read())
                 {
-                    var contenidodato = new BETipoLink(reader) {PaisID = paisID};
+                    var contenidodato = new BETipoLink(reader) { PaisID = paisID };
                     contenidodatos.Add(contenidodato);
                 }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class RegistrarEstrategiaModel
     {
@@ -34,7 +29,7 @@ namespace Portal.Consultoras.Web.Models
         public string ColorFondo { get; set; }
         public string FlagEstrella { get; set; }
         public string CodigoTipoEstrategia { get; set; }
-        
+
         // Atributos usados solo para la estrategia de lanzamiento.
         public string ImgFondoDesktop { get; set; }
         public string ImgPrevDesktop { get; set; }

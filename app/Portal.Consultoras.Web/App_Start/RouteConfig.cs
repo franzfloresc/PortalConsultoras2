@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using Portal.Consultoras.Web.Infraestructure;
+using System.Web.Mvc;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web
 {

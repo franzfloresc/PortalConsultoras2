@@ -1,13 +1,12 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Estrategia;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using Portal.Consultoras.Entities.Estrategia;
-using System.Text;
 
 namespace Portal.Consultoras.Data
 {
@@ -675,7 +674,6 @@ namespace Portal.Consultoras.Data
         }
 
         #endregion
-
 
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {

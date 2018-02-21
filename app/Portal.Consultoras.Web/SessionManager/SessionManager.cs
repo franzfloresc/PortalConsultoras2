@@ -5,9 +5,8 @@ using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
-using System.Collections.Generic;
-
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
@@ -236,12 +235,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetTieneRdr(bool tieneRdr)
         {
-           HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
         }
 
         public bool GetTieneRdr()
         {
-           return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
         }
 
         void ISessionManager.SetUserData(UsuarioModel usuario)
@@ -253,7 +252,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (UsuarioModel)HttpContext.Current.Session["UserData"];
         }
-        
+
         void ISessionManager.SetMontosProl(List<ObjMontosProl> montosProl)
         {
             HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl] = montosProl;
@@ -263,7 +262,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
-        
+
         void ISessionManager.SetMisCertificados(List<MiCertificadoModel> lista)
         {
             HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
@@ -309,7 +308,7 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor] = menuContenedor;
         }
 
-        List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor ()
+        List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor()
         {
             return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
         }
@@ -325,7 +324,7 @@ namespace Portal.Consultoras.Web.SessionManager
             string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
             return (List<BEConfiguracionOfertasHome>)(HttpContext.Current.Session[seccionesXCampaniaSessionKey]);
         }
-        
+
         void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
         {
             HttpContext.Current.Session["ListFiltersFAV"] = lista;

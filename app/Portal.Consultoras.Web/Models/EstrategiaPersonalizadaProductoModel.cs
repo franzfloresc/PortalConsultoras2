@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
-        public string PrecioVenta { get; set; } 
+        public string PrecioVenta { get; set; }
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public string ClaseBloqueada { get; set; }
         public bool ProductoPerdio { get; set; }
@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Models
         public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
         public decimal PrecioPublico { get; set; }
-        
+
         public int MarcaID { get; set; }
         public string UrlCompartir { get; set; }
 

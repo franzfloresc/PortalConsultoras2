@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
-            if(!string.IsNullOrEmpty(query))
+            if (!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
                 string[] lista = param.Split(';');

@@ -601,7 +601,8 @@ namespace Portal.Consultoras.BizLogic
             decimal indicadorNumero;
 
             BEFactorGanancia factorGanancia = null;
-            try {
+            try
+            {
                 factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId);
             }
             catch (Exception ex)
@@ -690,7 +691,7 @@ namespace Portal.Consultoras.BizLogic
             var envio = EnviarPorCorreoPedidoValidado(input, listPedidoWebDetalle);
             if (envio) InsLogEnvioCorreoPedidoValidado(input, listPedidoWebDetalle);
         }
-        
+
         private bool EnviarPorCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             bool esEsika = (ConfigurationManager.AppSettings.Get("PaisesEsika") ?? "").Contains(input.PaisISO);
@@ -760,9 +761,9 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.Append(rowPrecioUnitario);
 
                 if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
-                    {
-                        indicadorOfertaCuv = true;
-                    }
+                {
+                    indicadorOfertaCuv = true;
+                }
                 mailBody.Append("</table>");
             }
             mailBody.Append("</tr></td></tr>");
@@ -817,7 +818,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { return false; }
         }
-        
+
         private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Models
         public bool Estado { get; set; }
         public bool Validado { get; set; }
         public int Orden { get; set; }
-        
+
         public bool TienePerfil { get; set; }
         public string Logo { get; set; }
         public string DesktopTituloMenu { get; set; }

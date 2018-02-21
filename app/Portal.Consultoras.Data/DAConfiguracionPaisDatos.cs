@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
 
         }
-        
+
         public int Guardar(BEConfiguracionPaisDatos entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisDatos_Guardar");
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@respuesta"].Value);
-            
+
         }
 
         public int ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entity)

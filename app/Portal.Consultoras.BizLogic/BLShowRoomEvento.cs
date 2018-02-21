@@ -50,7 +50,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
-            }            
+            }
         }
 
         public void UpdateShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.CargarMasivaConsultora(listaConsultora);
         }
 
-        public int ValidadStockOfertaShowRoom(int paisID,BEShowRoomOferta entity)
+        public int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ValidadStockOfertaShowRoom(entity);
@@ -94,22 +94,23 @@ namespace Portal.Consultoras.BizLogic
             BEShowRoomEventoConsultora entidad = null;
             var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            if(!tienePersonalizacion)
+            if (!tienePersonalizacion)
             {
                 using (IDataReader reader = daPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
-                if (reader.Read())
-                {
-                    entidad = new BEShowRoomEventoConsultora(reader);
-                }
-            }else
+                    if (reader.Read())
+                    {
+                        entidad = new BEShowRoomEventoConsultora(reader);
+                    }
+            }
+            else
             {
                 using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
-                if (reader.Read())
-                {
-                     entidad = new BEShowRoomEventoConsultora(reader);
-                }
+                    if (reader.Read())
+                    {
+                        entidad = new BEShowRoomEventoConsultora(reader);
+                    }
             }
-            
+
             return entidad;
         }
 
@@ -196,9 +197,9 @@ namespace Portal.Consultoras.BizLogic
 
         public int CantidadPedidoByConsultoraShowRoom(BEOfertaProducto entidad)
         {
-                var dataAccess = new DAShowRoomEvento(entidad.PaisID);
-                int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
-                return result;
+            var dataAccess = new DAShowRoomEvento(entidad.PaisID);
+            int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
+            return result;
         }
 
         public int GetStockOfertaShowRoom(int paisID, int CampaniaID, string CUV)
@@ -237,7 +238,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
-            }               
+            }
         }
 
         public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion)
@@ -469,7 +470,7 @@ namespace Portal.Consultoras.BizLogic
                     foreach (var beCategoria in listaCategoria)
                     {
                         dataAccess.InsertShowRoomCategoria(beCategoria);
-                    }                    
+                    }
 
                     oTransactionScope.Complete();
                 }
@@ -480,8 +481,8 @@ namespace Portal.Consultoras.BizLogic
                 throw new Exception(ex.Message, ex);
             }
         }
-        
-         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+
+        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdUpdEventoConsultoraPopup(entity, tipo);
@@ -492,7 +493,6 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ShowRoomEventoConsultoraEmailRecibido(entity);
         }
-
 
         public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {

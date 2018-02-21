@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return pantalla;
         }
-        
+
         public virtual int GetOrigenPedidoWebDetalle(int origenPantalla)
         {
             var result = 0;
@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
                     break;
             }
-            
+
             result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
 
             return result;

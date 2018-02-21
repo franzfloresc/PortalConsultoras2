@@ -9,7 +9,7 @@ using System.Globalization;
 namespace Portal.Consultoras.Data.Hana
 {
     public class DAHEstadoCuenta
-    {       
+    {
         public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int paisId, long consultoraId)
         {
             var listBe = new List<BEEstadoCuenta>();
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Data.Hana
             catch (Exception)
             {
                 listBe = new List<BEEstadoCuenta>();
-            }            
+            }
 
             return listBe;
         }

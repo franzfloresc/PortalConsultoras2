@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Models
             ListaTabs = new List<ComunModel>();
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             EstadoRdcAnalytics = "(not available)";
-            
+
             BloquearRevistaImpresaGeneral = null;
             NoVolverMostrar = true;
         }
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC && !EsSuscrita && !EsActiva;
         }
-        
+
         public bool EsNoSuscritaActiva()
         {
             return TieneRDC && !EsSuscrita && EsActiva;

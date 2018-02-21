@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -589,7 +589,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -1309,7 +1309,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
@@ -1337,7 +1337,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {

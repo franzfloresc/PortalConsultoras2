@@ -691,7 +691,7 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPaisDatos();
             return bl.ConfiguracionPaisDatosGuardar(paisId, listaEntidad);
         }
-        
+
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
             int paisId = GetPaisID(paisISO);
