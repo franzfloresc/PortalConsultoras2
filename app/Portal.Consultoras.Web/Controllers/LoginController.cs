@@ -734,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoZona = usuario.CodigoZona;
                     usuarioModel.ConsultoraID = usuario.ConsultoraID;
                     usuarioModel.CodigoUsuario = usuario.CodigoUsuario;
-                    usuarioModel.CodigoUsuarioHost = string.Format("{0}({1})", usuario.CodigoUsuario, ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name);
+                    usuarioModel.CodigoUsuarioHost = string.Format("{0}({1})", usuario.CodigoUsuario, GetLogonUserIdentityName());
                     usuarioModel.CodigoConsultora = usuario.CodigoConsultora;
                     usuarioModel.NombreConsultora = usuario.Nombre;
                     usuarioModel.RolID = usuario.RolID;
@@ -1169,6 +1169,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return usuarioModel;
+        }
+
+        public virtual string GetLogonUserIdentityName()
+        {
+            var name = string.Empty;
+            try
+            {
+                name = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity.Name;
+            }
+            catch
+            {
+                //
+            }
+            return name;
         }
 
         /// <summary>

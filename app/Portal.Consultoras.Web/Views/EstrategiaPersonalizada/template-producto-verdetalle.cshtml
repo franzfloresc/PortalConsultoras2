@@ -60,16 +60,19 @@
                             {{#iff Precio '>' 0}}
                             <div style="margin-top:-5px;">
                                 <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
                             {{#iff PrecioNiveles '!=' ''}}
                             <div style="margin-top:-5px;">
+                                
                                 <span class="texto_precio_ficha">Precio para ti:</span>
-                                <ul>
+                                <div class="precios_para_ti">
                                     {{#each lstPrecioNiveles as |item|}}
-                                    <li>{{item}}</li>
+                                        <p>{{item}}</p>
                                     {{/each}}
-                                </ul>
+                                </div> 
+                                <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
                             {{#iff PrecioNiveles '==' ''}}
