@@ -502,6 +502,11 @@ namespace Portal.Consultoras.Web
 
             #endregion
 
+            #region Estrategias-UpSelling
+            bundles.Add(new ScriptBundle("~/bundles/estrategias-upselling").Include(
+                "~/Scripts/knockout-{version}.js"
+            ));
+            #endregion
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

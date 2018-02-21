@@ -1,4 +1,6 @@
-﻿var belcorp = belcorp || {};
+﻿//"use strict";
+
+var belcorp = belcorp || {};
 belcorp.estrategias = belcorp.estrategias || {};
 belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
@@ -20,20 +22,17 @@ belcorp.estrategias.upselling.initialize = function (config) {
     registerEvent.call(this, "onUpSellingDesactivar");
 
     var self = this;
-
-    self.init = function () {
+    function initBindins() {
         $("#" + settings.buttonBuscarId).on("click", document.body, buscar);
         $("#" + settings.buttonNuevoId).on("click", document.body, nuevo);
 
-        self.subscribe("onUpSellingEdit", self.editar);
-        self.subscribe("onUpSellingDelete", self.eliminar);
-        self.subscribe("onUpSellingDesactivar", self.desactivar);
+        self.subscribe("onUpSellingEdit", editar);
+        self.subscribe("onUpSellingDelete", eliminar);
+        self.subscribe("onUpSellingDesactivar", desactivar);
 
         cargarGrilla();
         fnDialog();
     }
-
-    self.currentUpSelling = {};
 
     function cargarGrilla() {
         $("#" + settings.idGrilla).jqGrid("GridUnload");
@@ -81,31 +80,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         jQuery("#" + settings.idGrilla).jqGrid("navGrid", "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
     }
 
-    function ShowImage(cellvalue, options, rowObject) {
-        var image = $.trim(rowObject.ImagenURL);
-        var filename = image.replace(/^.*[\\\/]/, "");
-        image = "<img src='" + (filename != "" ? image : rutaImagenVacia) + "' alt='' width='70px' height='60px' title='' border='0' />";
-        return image;
-    }
-
     function buscar(e, s) {
-        if (settings.cmbCampanas.val() === "") {
-            alert("Debe seleccionar la Campaña, verifique.");
-            return;
-        }
-
+        e.preventDefault();
         cargarGrilla();
     }
-
-    function nuevo() {
-        if ($("#ddlCampania").val() == "") {
-            alert("Debe seleccionar la Campaña, verifique.");
-            return false;
-        }
-
-        fnMantenedor(0);
-    }
-
+    
     function optionButtons(cellvalue, options, rowObject) {
         var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.onUpSellingDelete.emit(, " + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
@@ -120,32 +99,17 @@ belcorp.estrategias.upselling.initialize = function (config) {
         return resultado;
     }
 
-    self.editar = function (upSellingId) {
+    function editar(upSellingId) {
         //todo, mostrar campos bindeados
         //cargar tab de regalos, categorias apoyadas y ganadoras
         //cargar tab de regalos con data, los demas no
-        waitingDialog({});
+
         var rowData = getRowData(settings.idGrilla, upSellingId);
-        self.currentUpSelling = rowData;
 
-        upSellingRegalosObtenerPromise(rowData.UpSellingId)
-            .then(function (result) {
-                if (!result.Success) {
-                    self.fail(err);
-                    return;
-                }
-
-                self.currentUpSelling.regalos = result.Data;
-                //ko apply observables
-            }, function (err) {
-                self.fail(err);
-            })
-            .done(function () {
-                closeWaitingDialog();
-            });
+        self.upSellingViewModel.edit(rowData);
     }
 
-    self.eliminar = function (upSellingId) {
+    function eliminar(upSellingId) {
         //confirmar eliminacion
         //mostrar pantalla de cargando, validar eliminacion
         //mostrar mensaje de eliminado correctamente, limpiar la pantalla
@@ -156,14 +120,14 @@ belcorp.estrategias.upselling.initialize = function (config) {
             upSellingEliminarPromise(upSellingModel.UpSellingId)
                 .then(function (result) {
                     if (!result.Success) {
-                        self.fail(err);
+                        fail(err);
                         return;
                     }
 
                     alert("Eliminado correctamente");
                     //todo: volver a cargar la grilla
                 }, function (err) {
-                    self.fail(err);
+                    fail(err);
                 })
                 .done(function () {
                     closeWaitingDialog();
@@ -171,7 +135,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
     }
 
-    self.desactivar = function (upSellingId) {
+    function desactivar(upSellingId) {
         //confirmar desactivacion
         //llamar a la funcion de editra con el flac desactivado
         //todo: en los servicios agregar un actualizar solo cabecera
@@ -184,7 +148,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 .then(function (result) {
 
                 }, function (err) {
-                    self.fail(err);
+                    fail(err);
                 })
                 .done(function () {
                     closeWaitingDialog();
@@ -193,7 +157,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
     }
 
-    self.fail = function (err) {
+    function fail(err) {
         console.error(err);
     }
 
@@ -219,7 +183,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         });
     }
 
-
     function upSellingActualizarCabeceraPromise(upSellingModel) {
         return jQuery.ajax({
             type: "POST",
@@ -230,10 +193,63 @@ belcorp.estrategias.upselling.initialize = function (config) {
             async: true
         });
     }
-
+    
     function getRowData(idGrid, idRow) {
         return $("#" + idGrid).jqGrid('getRowData', idRow);
     }
 
-    self.init();
+    function UpSellingModel(data) {
+        this.UpSellingId = ko.observable(data.UpSellingId);
+        this.CodigoCampana = ko.observable(data.CodigoCampana);
+        this.MontoMeta = ko.observable(data.MontoMeta);
+        this.TextoMeta = ko.observable(data.TextoMeta);
+        this.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario);
+        this.TextoGanaste = ko.observable(data.TextoGanaste);
+        this.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario);
+        this.Activo = ko.observable(data.Activo);
+
+        this.Regalos = ko.observableArray(data.Regalos.map(function (regalo) {
+            return new UpSellingRegaloModel(regalo);
+        }));
+    }
+
+    function UpSellingRegaloModel(data) {
+        this.UpSellingRegaloId = ko.observable(data.UpSellingRegaloId);
+        this.CUV = ko.observable(data.CUV);
+        this.Nombre = ko.observable(data.Nombre);
+        this.Descripcion = ko.observable(data.Descripcion);
+        this.Imagen = ko.observable(data.Imagen);
+        this.Stock = ko.observable(data.Stock);
+    }
+
+    function UpSellingViewModel() {
+        var current = this;
+
+        current.upSelling = ko.observable();
+        current.mostrarFormulario = ko.observable(false);
+        current.edit = function (upSellingRow) {
+            waitingDialog({});
+            upSellingRegalosObtenerPromise(upSellingRow.UpSellingId)
+                .then(function (result) {
+                    if (!result.success) {
+                        fail(result.message);
+                    }
+
+                    upSellingRow.Regalos = result.data;
+                    current.upSelling = new UpSellingModel(upSellingRow);
+                    current.mostrarFormulario(true);
+                }, fail)
+                .done(function () {
+                    closeWaitingDialog();
+                });
+        }
+
+        current.save = function () {
+            //ajax
+        }
+    }
+
+    self.upSellingViewModel = new UpSellingViewModel();
+    ko.applyBindings(self.upSellingViewModel);
+    initBindins();
 }
