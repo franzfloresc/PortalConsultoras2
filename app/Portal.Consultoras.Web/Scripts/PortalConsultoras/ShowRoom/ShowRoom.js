@@ -884,13 +884,13 @@ function EstrategiaAgregar(event, popup) {
     var cuvs = "";
     var origen = '';
 
-    if (EstrategiaValidarSeleccionTono(objInput)) {
-        return false;
-    }
+    //if (EstrategiaValidarSeleccionTono(objInput)) {
+    //    return false;
+    //}
 
-    if (!ValidacionesPreOperacion(cantidad)) {
-        return false;
-    }
+    //if (!ValidacionesPreOperacion(cantidad)) {
+    //    return false;
+    //}
 
 
     if (!esSubCampania) {
