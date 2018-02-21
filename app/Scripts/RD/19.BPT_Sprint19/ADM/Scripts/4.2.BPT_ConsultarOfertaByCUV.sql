@@ -183,7 +183,7 @@ BEGIN TRY
 		IF (@flag = 13) AND NOT EXISTS (SELECT 1 
 			FROM ods.ProductoComercial PC
 			INNER JOIN ods.Campania C ON PC.CampaniaID = C.CampaniaID
-			WHERE C.codigo = @CampaniaID AND CUV = @CUV2 AND CodigoTipoOferta in (126, 71))
+			WHERE C.codigo = @CampaniaID AND CUV = @CUV2 AND CodigoTipoOferta = '126')
 		BEGIN 
 			RAISERROR('El CUV2 ingresado no tiene el código de herramienta de venta.', 16, 1)
 		END 

@@ -27,7 +27,7 @@ BEGIN
 	BEGIN
 		INSERT INTO @tablaCuvsOPT
 		SELECT @CampaniaID, CUV FROM ods.ProductoComercial 
-		WHERE AnoCampania = @CampaniaID AND CodigoTipoOferta in ('126', '071') 
+		WHERE AnoCampania = @CampaniaID AND CodigoTipoOferta in ('126') 
 			AND FactorRepeticion = 1
 		GROUP BY CUV
 	END

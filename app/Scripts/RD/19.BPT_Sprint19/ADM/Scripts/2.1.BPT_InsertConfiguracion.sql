@@ -1,7 +1,7 @@
 USE [BelcorpPeru_BPT]
 GO
 
-IF NOT  EXISTS(SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'HV')
+IF NOT  EXISTS(SELECT * FROM ConfiguracionPais WHERE Codigo = 'HV')
 BEGIN 
 	INSERT INTO [dbo].[ConfiguracionPais]
            ([Codigo]
@@ -29,18 +29,18 @@ BEGIN
      VALUES
            ('HV'
            ,1
-           ,'HERRAMIENTAS DE VENTA'
+           ,'Herramientas de Venta'
            ,1
            ,1
            ,'201801'
-           ,'MobileTituloMenu... Preguntar Dana'
-           ,'DesktopTituloMenu ... Preguntar Dana'
+           ,'Demostradores'
+           ,'Demostradores y herramientas'
            ,NULL
            ,9
-           ,'DesktopTituloBanner... Preguntar Dana'
-           ,'MobileTituloBanner... Preguntar Dana'
-           ,'DesktopSubTituloBanner ... Preguntar Dana'
-           ,'MobileSubTituloBanner... Preguntar Dana'
+           ,'Utiliza demostradores y herramientas de venta'
+           ,'Cierra una venta exitosa'
+           ,''
+           ,'Cierra una venta exitosa'
            ,'PE_2017102380_iujbjjxdcm.png'
            ,'PE_20171023149_brxsonvgtg.png'
            ,'PE_20171023174_kjbcunahse.png'
@@ -52,7 +52,7 @@ BEGIN
 END 
 GO
 
-IF NOT EXISTS (SELECT 1 FROM ConfiguracionOfertasHome 
+IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome 
 			WHERE ConfiguracionPaisID = (SELECT ConfiguracionPaisId FROM ConfiguracionPais WHERE Codigo = 'HV')
            AND CampaniaID = '201801' )
 	INSERT INTO [dbo].[ConfiguracionOfertasHome]
@@ -84,10 +84,10 @@ IF NOT EXISTS (SELECT 1 FROM ConfiguracionOfertasHome
            ,9
            ,'PE_20171045539_xfwrimsvol.png'
            ,'PE_2018129890_hlumexyxne.png'
-           ,'Herramienta Venta - Preguntar dana'
-           ,'Herramienta Venta - Preguntar dana'
-           ,'Herramienta Venta - Preguntar dana'
-           ,'Herramienta Venta - Preguntar dana'
+           ,'Herramientas de venta'
+           ,'Herramientas de venta'
+           ,''
+           ,''
            ,3
            ,4
            ,'011'
@@ -96,12 +96,12 @@ IF NOT EXISTS (SELECT 1 FROM ConfiguracionOfertasHome
            ,0
            ,1
            ,1
-           ,'HerramientasVenta/Index'
+           ,'HerramientasVenta/Comprar'
            ,9
            ,9)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM TipoEstrategia WHERE Codigo = '011')
+IF NOT EXISTS (SELECT * FROM TipoEstrategia WHERE Codigo = '011')
 BEGIN
 	INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
@@ -142,45 +142,6 @@ BEGIN
            ,''
            ,0
            ,0
-           ,'Herramienta Venta')
+           ,'Herramientas de venta Gana+')
 END
 GO
-
-delete from EstrategiaProducto where Campania = '201802' 
-
-select ep.cuv2 from EstrategiaProducto ep
-inner join Estrategia e on ep.EstrategiaId = e.EstrategiaId
-where Campania = '201802' and e.Tipoestrategiaid = 3009
-group by ep.cuv2
-
-select * from estrategiaproducto where estrategiaid = 0
-
-select * from TipoEstrategia
-
-select * from ConfiguracionPais
-
-select * from [ConfiguracionOfertasHome]
-
-select * from estrategia where tipoestrategiaid = 3009 and campaniaid = '201717'
-
-select top 100 * from ods.ofertaspersonalizadas where AnioCampanaVenta = '201718'
-
-DELETE TOP(20)  FROM Estrategia where tipoestrategiaid = 3009 and campaniaid = '201802' and CUV2 in (
-'95320',
-'95321',
-'95322',
-'95364',
-'95365',
-'95387',
-'95388',
-'95395')
-
-DELETE FROM EstrategiaProducto WHERE Campania = '201802' and CUV2 in (
-'95320',
-'95321',
-'95322',
-'95364',
-'95365',
-'95387',
-'95388',
-'95395')

@@ -27,7 +27,6 @@ CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
 )
 GO
 
-
 CREATE PROCEDURE dbo.InsertEstrategiaTemporal
 	@EstrategiaTemporal dbo.EstrategiaTemporalType readonly
 AS
