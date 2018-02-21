@@ -3173,7 +3173,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var result = false;
 
-            result = configuracionPais != null && configuracionPais.ConfiguracionPaisID>=0 && !string.IsNullOrWhiteSpace(configuracionPais.Codigo);
+            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
+            if (configuracionesPais != null)
+            {
+                var cp = configuracionesPais.FirstOrDefault(x=> x.Codigo == configuracionPais.Codigo);
+                result = cp != null && cp.ConfiguracionPaisID >= 0 && !string.IsNullOrWhiteSpace(cp.Codigo);
+
+            }
 
             return result;
         }
@@ -3390,11 +3396,11 @@ namespace Portal.Consultoras.Web.Controllers
         private MenuContenedorModel UpdateCampaniaIdFromQueryString(MenuContenedorModel menuActivo)
         {
             var qsCampaniaId = GetCampaniaIdFromQueryString();
-            if (!string.IsNullOrEmpty(qsCampaniaId) && int.TryParse(qsCampaniaId, out int campaniaid))
+            int campaniaid;
+            if (int.TryParse(Util.Trim(qsCampaniaId), out campaniaid))
             {
-                menuActivo.CampaniaId = int.Parse(qsCampaniaId);
+                menuActivo.CampaniaId = campaniaid;
             }
-
             return menuActivo;
         }
 

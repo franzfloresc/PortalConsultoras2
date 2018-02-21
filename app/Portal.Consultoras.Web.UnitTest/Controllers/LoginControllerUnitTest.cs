@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
                 {
                     var list = new List<ConfiguracionPaisModel>();
-                    list.Add(new ConfiguracionPaisModel { Codigo = "GND" });
+                    list.Add(new ConfiguracionPaisModel { ConfiguracionPaisID = 0, Codigo = "GND" });
                     return list;
                 }
             }
