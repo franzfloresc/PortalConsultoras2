@@ -1247,6 +1247,7 @@
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
+    <Content Include="Content\Css\Mobile\lbel\pago-en-linea.css" />
     <Content Include="Content\Css\Mobile\lbel\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
@@ -1286,6 +1287,7 @@
     <Content Include="Content\Css\Site\Images\visual de funcionamiento.png" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
     <Content Include="Content\Css\Site\Lbel\gestorContenido.css" />
+    <Content Include="Content\Css\Site\Lbel\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
     <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />

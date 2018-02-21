@@ -135,13 +135,13 @@
 }
 
 .paso_activo{
-    background-color:#e81c36;
-    border:1px solid #e81c36;
+    background-color:#642f80;
+    border:1px solid #642f80;
     color:#FFF;
 }
 
 .paso_completado{
-    color: #e81c36;
+    color: #642f80;
     font-family: 'somos-belcorp-iconos';
     font-weight: 400;
     font-size: 12px;
@@ -173,7 +173,7 @@
 
 .fondo_pasos_proceso_pago_avance{
     width:100%;
-    background-color:#e81c36;
+    background-color:#642f80;
 }
 
 .seleccion_metodo_pago,
@@ -310,11 +310,11 @@
 }
 
 .seleccion_tipo_pago input[type="radio"]:checked + label{
-    border:1px solid #e81c36!important;
+    border:1px solid #642f80!important;
 }
 
 .seleccion_tipo_pago input[type="radio"]:checked + label span{
-    background:#e81c36;
+    background:#642f80;
 }
 
 .col_izq {
@@ -492,7 +492,7 @@
 
 .barra_activacion.activado .control_activacion{
     right:-5%;
-    background-color:#e81c36;
+    background-color:#642f80;
 }
 
 .descripcion_opcion_activacion{
@@ -590,7 +590,7 @@
 .contenedor_cta{
     margin-top:19px;
     margin-bottom:54px;
-    border-top: 2px solid #e81c36;
+    border-top: 2px solid #642f80;
     padding-top:13px;
     text-align:right;
 }
@@ -603,7 +603,7 @@
     height: 48px;
     left: 0;
     bottom: 0;
-    background-color: rgba(232,28,54,1);
+    background-color:#642f80;
     color: #FFF;
     font-family: 'Lato';
     font-size: 14px;
@@ -623,7 +623,7 @@
 .cta_pago_en_linea:focus,
 .cta_pago_en_linea:active
 {
-    background-color: rgba(232,28,54,0.9);
+    background-color: #4b1e63;
 }
 
 .cta_pago_en_linea .tipo_moneda_pais{
@@ -762,7 +762,7 @@
     margin-right: 4px;
     font-family: 'somos-belcorp-iconos';
     border-radius: 100%;
-    border: 2px solid #e81c36;
+    border: 2px solid #642f80;
     text-align: center;
     position: relative;
     top: 1px;
@@ -771,7 +771,7 @@
 .icono_pago_exitoso:before,
 .icono_pago_rechazado:before
 {
-    color:#e81c36;
+    color:#642f80;
     font-weight: bold;
     z-index: 1;
 }
@@ -964,7 +964,7 @@
 .contenedor_btn_pagar_con_visa {
     margin-top: 19px;
     margin-bottom: 54px;
-    border-top: 2px solid #e81c36;
+    border-top: 2px solid #642f80;
     padding-top: 13px;
     text-align: right;
 }
@@ -981,7 +981,7 @@
 .contenedor_btn_pagar_con_visa button:focus,
 .contenedor_btn_pagar_con_visa button:active
 {
-    background-color: rgba(232,28,54,0.9)!important;
+    background-color: #4b1e63!important;
 }
 
 /* POPUP TÉRMINOS Y CONDICIONES */
