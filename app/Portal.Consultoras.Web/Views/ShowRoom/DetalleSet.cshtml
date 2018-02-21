@@ -102,48 +102,7 @@
                 @if (Model.CodigoProducto != "")
                 {
                     <div data-estrategia="@Model.CodigoEstrategia">
-                        @if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                        {
-                            if ((Model.ProductoTonos.Any()))
-                            {
-                                btnDesabled = 1;
-                                <div class="content_tonos" data-tono="" data-tono-select="" data-tono-digitable="1">
-                                    <div class="tono_select_opt">
-                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
-                                            <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                            <hr class="clear" />
-                                        </div>
-                                        <div class="content_tonos_select" style="display:none;">
-                                            @foreach (var producto in Model.ProductoTonos)
-                                            {
-                                                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@producto.CUV" data-tono-nombre="@producto.NombreBulk" data-tono-descripcion="@producto.NombreComercial">
-                                                    <div class="tono_seleccionado"><img src="@producto.ImagenBulk" alt=""></div>
-                                                    <div class="texto_tono_seleccionado">@producto.NombreBulk</div>
-                                                    <hr class="clear" />
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="content_tonos_maquillaje" data-tono-div="">
-                                        @foreach (var producto in Model.ProductoTonos)
-                                        {
-                                            <div style="display: none;">
-                                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
-                                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
-                                            </div>
-                                                    <div class="content_tono_detalle" data-tono-cuv="@producto.CUV" data-tono-change="2" data-tono-nombre="@producto.NombreBulk">
-                                                        <img src="@producto.ImagenBulk" alt="">
-                                                    </div>
-                                        }
-                                    </div>
-                                    <hr class="clear">
-                                </div>
-                            }
-                        }
-                        else if (@Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || @Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                        {
-                            if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
+                        @if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
                             {
                                 <div>
                                     @foreach (var producto in Model.ProductoTonos)
@@ -210,8 +169,6 @@
                                     }
                                 </div>
                             }
-
-                        }
                     </div>
                 }
                 <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>
