@@ -208,6 +208,7 @@
     <Compile Include="DAUsuarioOP.cs" />
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
+    <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevistaDigital\DARevistaDigitalSuscripcion.cs" />

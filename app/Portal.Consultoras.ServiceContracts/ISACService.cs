@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -427,7 +428,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID);
-        
+
         [OperationContract]
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
         #endregion
@@ -573,7 +574,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
+
         [OperationContract]
         void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
@@ -637,7 +638,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
-        
+
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
 
@@ -649,7 +650,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso);
-        
+
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
 
@@ -680,11 +681,44 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Estrategia
         [OperationContract]
-        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, 
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
                 int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
 
         [OperationContract]
         int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        #endregion
+
+        #region UpSelling
+        [OperationContract]
+        IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
+
+        [OperationContract]
+        UpSelling UpSellingInsertar(int paisId, UpSelling upSelling);
+
+        [OperationContract]
+        UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera);
+
+
+        [OperationContract]
+        void UpSellingEliminar(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene la lista de detalles del UpSelling
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene 1 detalle por su UpSellingDetalleId
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingDetalleId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
         #endregion
     }
 }
