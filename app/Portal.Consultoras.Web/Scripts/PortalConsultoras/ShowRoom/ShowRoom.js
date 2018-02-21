@@ -581,6 +581,7 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 }
 
 function AgregarProductoAlCarrito(padre) {
+    debugger;
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
         var imagenProducto = $('.imagen_producto', contenedorImagen);
@@ -867,6 +868,7 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 
 
 function EstrategiaAgregar(event, popup) {
+    debugger;
    
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
@@ -920,7 +922,7 @@ function EstrategiaAgregar(event, popup) {
                 Cantidad: $.trim(cantidad),
                 OrigenPedidoWeb: $.trim(origen),
                 ClienteID_: '-1',
-                tipoEstrategiaImagen: "0"
+                tipoEstrategiaImagen: "0" 
             });
             $.ajaxSetup({ cache: false });
 
@@ -933,7 +935,7 @@ function EstrategiaAgregar(event, popup) {
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
-
+                    debugger;
 
                     CerrarLoad();
                     response = data;
@@ -957,15 +959,7 @@ function EstrategiaAgregar(event, popup) {
                     else {
 
                         AbrirPopupPedidoReservado(response.message, tipoOrigenPantalla);
-                    }
-
-                    if (isMobile()) {
-                        window.location = '/Mobile';
-                    }
-                    else {
-                        window.location = '/ShowRoom';
-                    }
-                 
+                    } 
 
                 },
                 error: function (data, error) {
@@ -1132,6 +1126,12 @@ function ValidarUnidadesPermitidas(data, cantidad) {
 }
 
 function EstrategiaValidarSeleccionTono(objInput) {
+
+    debugger;
+
+    if (!$('.tono_select_opt')[0])
+        return false;
+  
 
     var attrClass = $.trim($('#btnAgregalo').attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
