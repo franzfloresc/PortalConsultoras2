@@ -34285,12 +34285,10 @@ h1#penmostreo .campana {
 }
 
 .content_imagen_promocion {
-    height: auto;
-    width: 85px;
     text-align: center;
-    margin-top: -12px;
-    float: left;
-    margin-right: 14px;
+    margin: 2.5px 0 0 -85px;
+    position: absolute;
+    width: 72px;
 }
 
     .content_imagen_promocion img {
