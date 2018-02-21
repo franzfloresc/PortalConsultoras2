@@ -1,4 +1,5 @@
-﻿var AdministrarEstrategia = (function(config) {
+﻿var AdministrarEstrategia = (function (config) {
+    //'use strict';
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || "",
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || "",
@@ -2105,7 +2106,7 @@
                     //$("#divCargaArchivos").css("display", "");
 
                     // Listar Productos ShowRoom
-                    fnGrilla();
+                    _fnGrilla();
 
                     var showroomEvento = jQuery("#listEvento").jqGrid("getRowData")[0];
                     _cargarImagenes(showroomEvento);
@@ -2203,7 +2204,7 @@
                         var id = response.data;
 
                         if ($("#hdEventoID").val() == "0")
-                            fnGrilla();
+                            _fnGrilla();
 
                         $("#hdEventoID").val(id);
                         //Cargar de Consultoras
@@ -4211,7 +4212,7 @@
                 async: true,
                 success: function(data) {
                     _toastHelper.success(data.message);
-                    fnGrilla();
+                    _fnGrilla();
                     closeWaitingDialog();
                 },
                 error: function(data, error) {
@@ -4243,7 +4244,7 @@
                 async: true,
                 success: function (data) {
                     alert(data.message);
-                    fnGrilla();
+                    _fnGrilla();
                     closeWaitingDialog();
                 },
                 error: function (data, error) {
