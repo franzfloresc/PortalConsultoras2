@@ -68,7 +68,7 @@
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
         var act = "&nbsp;<a href='javascript:;' onclick=\'return admPalancaDatos.Editar(event);\' >"
             + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-        var elim = "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return admPalancaDatos.Deshabilitar(event);\" >"
+        var elim = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:;' onclick=\"return admPalancaDatos.Deshabilitar(event);\" >"
             + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
         return act + elim;
     };
@@ -128,7 +128,7 @@
                 {
                     name: 'Activo',
                     index: 'Activo',
-                    width: 30,
+                    width: 60,
                     align: 'center',
                     resizable: false,
                     sortable: false,
