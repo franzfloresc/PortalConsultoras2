@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using Newtonsoft.Json
 @model Portal.Consultoras.Web.Models.Estrategia.UpSellingAdminModel
 
 @if (Model.EsPaisEsika)
@@ -9,40 +10,109 @@ else
 {
     <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
 }
+<div id="upSellingCRUD">
+    <div>
+        <div class="wrap_cab">
+            <div class="filtros2">
+                <div class="elements">
+                    <div class="div-2">
+                        <h1><span>OFERTA FINAL - REGALOS</span></h1>
+                    </div>
+                    <div class="div-3">
+                        <div class="titG">Pais:</div>
+                        <div class="selectA">
+                            @Html.Label(Model.PaisNombre)
+                        </div>
+                        <div class="titG">Campañas:</div>
+                        <div class="selectA">
+                            @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                        </div>
+                    </div>
+                    <br />
+                    <div class="div-3">
+                        <div class="titG"></div>
+                        <input type="button" id="btnBuscar" value="Buscar" />
+                        <input type="button" value="Nuevo" data-bind="click:upSelling.nuevo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="container clearfix">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
 
-
-<div class="wrap_cab">
-    <div class="filtros2">
+    @*formulario de edicion*@
+    <div data-bind="if:mostrarFormulario">
         <div class="elements">
-            <div class="div-2">
-                <h1><span>OFERTA FINAL - REGALOS</span></h1>
-            </div>
             <div class="div-3">
-                <div class="titG">Pais:</div>
+                <div class="titA">Campaña:</div>
                 <div class="selectA">
-                    @Html.Label(Model.PaisNombre)
+                    <select data-bind="options: $root.campanasPais, value: upSelling.CodigoCampana, optionsText: 'Codigo'"></select>
                 </div>
-                <div class="titG">Campañas:</div>
+                <div class="titA">Acivo:</div>
                 <div class="selectA">
-                    @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                    <input type="checkbox" data-bind="checked: upSelling.Activo" />
                 </div>
             </div>
-            <br />
             <div class="div-3">
-                <div class="titG"></div>
-                <input type="button" id="btnBuscar" value="Buscar"/>
-                <input type="button" id="btnNuevo" value="Nuevo" />
+                <div class="titA">Monto meta:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: upSelling.MontoMeta" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titA">Texto meta:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: upSelling.TextoMeta" />
+                </div>
+                <div class="titA">Texto meta secundario:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: upSelling.TextoMetaSecundario" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titA">Texto ganaste:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: upSelling.TextoGanaste" />
+                </div>
+                <div class="titA">Texto ganaste secundario:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: upSelling.TextoGanasteSecundario" />
+                </div>
+            </div>
+            <div id="tabs" class="div-3">
+                <ul>
+                    <li><a href="#tab-regalos">Regalos</a></li>
+                    <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
+                    <li><a href="#tab-ganadoras">Ganadoras</a></li>
+                </ul>
+                @*seccion regalos*@
+                <div id="tab-regalos">
+                    <div>
+                        <div class="div-3">
+                            <input type="button" value="Agregar" data-bind="click:agregarRegalo" />
+                        </div>
+                        <div class="div-3">
+                            <div class="wrap">
+                                <div class="container clearfix">
+                                    <table id="listRegalos"></table>
+                                    <div id="pagerRegalos"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-categorias-apoyadas"></div>
+                <div id="tab-ganadoras"></div>
             </div>
         </div>
     </div>
 </div>
-<div class="wrap">
-    <div class="container clearfix">
-        <table id="list"></table>
-        <div id="pager"></div>
-    </div>
-</div>
-<div id="divAgregar"></div>
+
 @Scripts.Render("~/bundles/estrategias-upselling")
 @*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
 @section scripts{
@@ -50,16 +120,21 @@ else
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({
-                rutaImagenVacia: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
+                rutaImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
                 rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
                 rutaImagenDelete: '@Url.Content("~/Content/Images/Delete.png")',
                 idGrilla: 'list',
                 idPager: 'pager',
                 urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
-
+                urlUpSellingObtenerRegalos: '@Url.Action("ObtenerRegalos", "UpSelling")',
                 buttonBuscarId: 'btnBuscar',
                 buttonNuevoId: 'btnNuevo',
-                cmbCampanas: $("cmbCampanas")
+                cmbCampanas: $("#cmbCampanas"),
+                idTabs: 'tabs',
+                idGrillaRegalos: 'listRegalos',
+                idPagerRegalos: 'pagerRegalos',
+                idTargetDiv: 'upSellingCRUD',
+                campanasPais: JSON.parse('@JsonConvert.SerializeObject(Model.Campanas)')
             });
         });
     </script>

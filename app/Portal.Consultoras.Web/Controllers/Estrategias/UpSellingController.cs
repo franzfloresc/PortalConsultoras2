@@ -40,6 +40,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpGet]
         public async Task<JsonResult> Obtener(string codigoCampana)
         {
+            if (string.IsNullOrEmpty(codigoCampana))
+                codigoCampana = null;
+
             var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }

@@ -1,4 +1,4 @@
-﻿//"use strict";
+﻿"use strict";
 
 var belcorp = belcorp || {};
 belcorp.estrategias = belcorp.estrategias || {};
@@ -6,15 +6,21 @@ belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
 belcorp.estrategias.upselling.initialize = function (config) {
     var settings = {
-        rutaImagenVacia: config.rutaImagenVacia,
+        rutaImagenDesactivar: config.rutaImagenDesactivar,
         rutaImagenEdit: config.rutaImagenEdit,
         rutaImagenDelete: config.rutaImagenDelete,
         idGrilla: config.idGrilla,
         idPager: config.idPager,
+        idGrillaRegalos: config.idGrillaRegalos,
+        idPagerRegalos: config.idPagerRegalos,
         urlUpSellingObtener: config.urlUpSellingObtener,
+        urlUpSellingObtenerRegalos: config.urlUpSellingObtenerRegalos,
         buttonBuscarId: config.buttonBuscarId,
         buttonNuevoId: config.buttonNuevoId,
-        cmbCampanas: config.cmbCampanas
+        cmbCampanas: config.cmbCampanas,
+        idTabs: config.idTabs,
+        idTargetDiv: config.idTargetDiv,
+        campanasPais: config.campanasPais
     };
 
     registerEvent.call(this, "onUpSellingEdit");
@@ -22,16 +28,16 @@ belcorp.estrategias.upselling.initialize = function (config) {
     registerEvent.call(this, "onUpSellingDesactivar");
 
     var self = this;
-    function initBindins() {
+    function initBindings() {
         $("#" + settings.buttonBuscarId).on("click", document.body, buscar);
-        $("#" + settings.buttonNuevoId).on("click", document.body, nuevo);
+        $("#" + settings.buttonNuevoId).on("click", document.body, self.upSellingViewModel.nuevo);
 
+        
         self.subscribe("onUpSellingEdit", editar);
         self.subscribe("onUpSellingDelete", eliminar);
         self.subscribe("onUpSellingDesactivar", desactivar);
 
         cargarGrilla();
-        fnDialog();
     }
 
     function cargarGrilla() {
@@ -42,14 +48,14 @@ belcorp.estrategias.upselling.initialize = function (config) {
             hidegrid: false,
             datatype: "json",
             postData: ({
-                CampaniaID: settings.cmbCampanas.val()
+                codigoCampana: settings.cmbCampanas.val()
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             multiselect: false,
             colNames: ["#", "Pais", "Campaña", "Meta", "Activo", "Opciones"],
             colModel: [
-                { name: "ID", index: "UpSellingId", width: 50, sortable: false, align: "center" },
+                { name: "UpSellingId", index: "UpSellingId", width: 50, sortable: false, align: "center" },
                 { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center" },
                 { name: "CodigoCampana", index: "CodigoCampana", width: 80, sortable: false, align: "center" },
                 { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
@@ -87,7 +93,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     
     function optionButtons(cellvalue, options, rowObject) {
         var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.onUpSellingDelete.emit(, " + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.onUpSellingDelete.emit(" + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
         var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
 
         var resultado = edit;
@@ -99,11 +105,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         return resultado;
     }
 
-    function editar(upSellingId) {
-        //todo, mostrar campos bindeados
-        //cargar tab de regalos, categorias apoyadas y ganadoras
-        //cargar tab de regalos con data, los demas no
+    function enableTabs(tabId) {
+        $("#" + tabId).tabs();
+    }
 
+    function editar(upSellingId) {
         var rowData = getRowData(settings.idGrilla, upSellingId);
 
         self.upSellingViewModel.edit(rowData);
@@ -164,10 +170,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function upSellingRegalosObtenerPromise(upsellingId) {
         return jQuery.ajax({
             type: "GET",
-            url: baseUrl + settings.urlUpSellingObtenerRegalos,
+            url: settings.urlUpSellingObtenerRegalos,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(upsellingId),
+            data: {
+                upsellingId: upsellingId
+            },
             async: true
         });
     }
@@ -186,18 +194,18 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function upSellingActualizarCabeceraPromise(upSellingModel) {
         return jQuery.ajax({
             type: "POST",
-            url: baseUrl + settings.urlUpSellingActualizarCabecera,
+            url: settings.urlUpSellingActualizarCabecera,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(upSellingModel),
             async: true
         });
     }
-    
+
     function getRowData(idGrid, idRow) {
         return $("#" + idGrid).jqGrid('getRowData', idRow);
     }
-
+    
     function UpSellingModel(data) {
         this.UpSellingId = ko.observable(data.UpSellingId);
         this.CodigoCampana = ko.observable(data.CodigoCampana);
@@ -223,33 +231,52 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function UpSellingViewModel() {
-        var current = this;
+        var selfvm = this;
 
-        current.upSelling = ko.observable();
-        current.mostrarFormulario = ko.observable(false);
-        current.edit = function (upSellingRow) {
+        selfvm.upSelling = ko.observable({});
+        selfvm.campanasPais = settings.campanasPais.map(function(campana) {
+            return new { Id: campana.CampaniaID, Codigo: campana.Codigo };
+        });
+        selfvm.mostrarFormulario = ko.observable(false);
+        selfvm.nuevo = function () {
+
+        }
+
+        selfvm.edit = function (upSellingRow) {
+            //todo, mostrar campos bindeados
+            //cargar tab de regalos, categorias apoyadas y ganadoras
+            //cargar tab de regalos con data, los demas no
             waitingDialog({});
             upSellingRegalosObtenerPromise(upSellingRow.UpSellingId)
                 .then(function (result) {
-                    if (!result.success) {
-                        fail(result.message);
+                    if (!result.Success) {
+                        fail(result.Message);
                     }
 
-                    upSellingRow.Regalos = result.data;
-                    current.upSelling = new UpSellingModel(upSellingRow);
-                    current.mostrarFormulario(true);
+                    upSellingRow.Regalos = result.Data;
+                    selfvm.upSelling = new UpSellingModel(upSellingRow);
+                    selfvm.mostrarFormulario(true);
+                    enableTabs(settings.idTabs);
                 }, fail)
                 .done(function () {
                     closeWaitingDialog();
                 });
         }
 
-        current.save = function () {
+        selfvm.save = function () {
             //ajax
+        }
+
+        selfvm.agregarRegalo = function () {
+            //show popUp
+        }
+
+        selfvm.cargarGrillaRegalos = function(data) {
+
         }
     }
 
     self.upSellingViewModel = new UpSellingViewModel();
-    ko.applyBindings(self.upSellingViewModel);
-    initBindins();
+    ko.applyBindings(self.upSellingViewModel, document.getElementById(settings.idTargetDiv));
+    initBindings();
 }
