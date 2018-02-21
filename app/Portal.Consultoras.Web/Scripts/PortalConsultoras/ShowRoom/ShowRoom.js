@@ -264,7 +264,20 @@ $(document).ready(function () {
         $('body').css({ 'overflow-y': 'auto' });
 
     });
+ 
+    if ($('.btn_volver_detalle_oferta')[0])
+    {
+        var urlReefer = $($('.btn_volver_detalle_oferta')[0]).attr('href');
 
+        if (urlReefer)
+        {
+            if (urlReefer.search('/DetalleOferta') > 0 && urlReefer.search('Mobile') > 0)
+            {
+                var urlBack = urlReefer.substring(0, urlReefer.search('/DetalleOferta'));
+                $($('.btn_volver_detalle_oferta')[0]).attr('href', urlBack);
+            }
+        }
+    }
 });
 
 $(document).ready(function () {

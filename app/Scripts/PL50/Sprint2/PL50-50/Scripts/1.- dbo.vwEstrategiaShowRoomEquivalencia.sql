@@ -12,7 +12,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3027 as TipoEstrategiaId
 GO
 
 USE BelcorpMexico
@@ -29,7 +29,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3017 as TipoEstrategiaId
 GO
 
 USE BelcorpColombia
@@ -46,7 +46,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpVenezuela
@@ -63,7 +63,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3017 as TipoEstrategiaId
 GO
 
 USE BelcorpSalvador
@@ -80,7 +80,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpPuertoRico
@@ -97,7 +97,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3020 as TipoEstrategiaId
 GO
 
 USE BelcorpPanama
@@ -114,7 +114,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpGuatemala
@@ -131,7 +131,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpEcuador
@@ -148,7 +148,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpDominicana
@@ -165,7 +165,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3019 as TipoEstrategiaId
 GO
 
 USE BelcorpCostaRica
@@ -182,7 +182,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3022 as TipoEstrategiaId
 GO
 
 USE BelcorpChile
@@ -199,7 +199,7 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3023 as TipoEstrategiaId
 GO
 
 USE BelcorpBolivia
@@ -216,6 +216,6 @@ AS
 SELECT 
 	11 as ConfiguracionOfertaID
 	,1707 as TipoOfertaSisID
-	,3028 as TipoEstrategiaId
+	,3020 as TipoEstrategiaId
 GO
 

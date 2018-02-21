@@ -31,7 +31,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -68,7 +68,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -105,7 +105,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -142,7 +142,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -179,7 +179,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -216,7 +216,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -253,7 +253,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -290,7 +290,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -327,7 +327,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -364,7 +364,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -401,7 +401,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -438,7 +438,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO
@@ -475,7 +475,7 @@ BEGIN
 	FROM EstrategiaProducto e
 	INNER JOIN dbo.Marca m on e.IdMarca = m.MarcaId
 	WHERE Campania = @CampaniaID
-		AND CUV = @CUV
+		AND CUV2 = @CUV
 END
 
 GO

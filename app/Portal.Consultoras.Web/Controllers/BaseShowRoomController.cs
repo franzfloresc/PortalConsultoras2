@@ -612,9 +612,22 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-            ofertaShowRoomModelo.ProductoTonos = listaHermanos;
+            #region Algoritmo para considerar FactorCuadre
+            List<ProductoModel> listaHermanosFactorCuadre = new List<ProductoModel>();
+            foreach (var hermano in listaHermanos)
+            {
+                listaHermanosFactorCuadre.Add((ProductoModel)hermano.Clone());
+                if (hermano.FactorCuadre > 1)
+                {
+                    for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                    {
+                        listaHermanosFactorCuadre.Add((ProductoModel)hermano.Clone());
+                    }
+                }
+            }
+            #endregion
+            ofertaShowRoomModelo.ProductoTonos = listaHermanosFactorCuadre;
             ofertaShowRoomModelo.CodigoEstrategia = codigoVariante;
-                                                    
             /*TONOS-FIN*/
 
             return ofertaShowRoomModelo;

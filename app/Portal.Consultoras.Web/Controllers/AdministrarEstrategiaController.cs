@@ -2598,11 +2598,24 @@ namespace Portal.Consultoras.Web.Controllers
                         readLine = streamReader.ReadLine();
                         if (readLine == null) continue;
                         string[] arrayRows = readLine.Split('|');
+                        int evalResult;
                         if (arrayRows[0] != "CUV")
                         {
                             if (arrayRows.Length != 5)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
+                            if (arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd().Length ==0)
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'Nombre de Producto' es obligatorio. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
+                            if(!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.Order], out evalResult))
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'posición' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
+                            }
+                            if (!int.TryParse(arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.BrandProduct], out evalResult))
+                            {
+                                throw new ArgumentException(string.Format("El valor del campo 'Marca de Producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
                             strategyEntityList.Add(new BEEstrategiaProducto
@@ -2616,7 +2629,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-
+                    if (strategyEntityList.Count == 0)
+                    {
+                        throw new ArgumentException("El archivo seleccionado no tiene registros.");
+                    }
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
