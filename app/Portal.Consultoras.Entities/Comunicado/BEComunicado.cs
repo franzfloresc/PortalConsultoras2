@@ -37,6 +37,18 @@ namespace Portal.Consultoras.Entities
         [Column("Descripcion")]
         public string Descripcion { get; set; }
         [DataMember]
+        [Column("SegmentacionID")]
+        public int? SegmentacionID { get; set; }
+        [DataMember]
+        [Column("SegmentacionConsultora")]
+        public bool SegmentacionConsultora { get; set; }
+        [DataMember]
+        [Column("SegmentacionRegionZona")]
+        public bool SegmentacionRegionZona { get; set; }
+        [DataMember]
+        [Column("SegmentacionEstadoActividad")]
+        public bool SegmentacionEstadoActividad { get; set; }
+        [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
     }
 }
