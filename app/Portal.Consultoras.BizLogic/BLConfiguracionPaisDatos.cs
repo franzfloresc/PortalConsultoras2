@@ -99,8 +99,6 @@ namespace Portal.Consultoras.BizLogic
 
         public bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad)
         {
-            var lista = new List<BEConfiguracionPaisDatos>();
-
             try
             {
                 var da = new DAConfiguracionPaisDatos(entidad.PaisID);
@@ -109,7 +107,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", entidad.PaisID.ToString());
-                lista = new List<BEConfiguracionPaisDatos>();
+                return false;
             }
             return true;
         }

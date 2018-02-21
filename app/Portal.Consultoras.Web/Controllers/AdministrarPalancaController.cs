@@ -545,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var sv = new ServiceUsuario.UsuarioServiceClient())
                     {
-                        //sv.ConfiguracionPaisComponenteDeshabilitar(beEntidad).ToList();
+                        sv.ConfiguracionPaisComponenteDeshabilitar(beEntidad);
                     }
 
                     return PartialView("Partials/MantenimientoProximamente", new AdministrarComponenteModel());
