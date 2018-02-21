@@ -106,14 +106,11 @@ var DescripcionComercial = function (config) {
         var label = $('#' + _config.prefixControlDescripcionComercial + entity.IdMatrizComercialImagen);
         label.prop('title', entity.DescripcionComercial).text(entity.DescripcionComercial);
         closeWaitingDialog();
-        //alert(response.message);
 
         if (_config.isEstrategiaDescripcionComercial)
             $("#txtDescripcion").val(entity.DescripcionComercial);
         if (_config.isLiquidacionDescripcionComercial)
             $("#txtDescripcionModal").val(entity.DescripcionComercial);
-        //if (_config.isSugeridosDescripcionComercial)
-        //    $("#txtDescripcionProductoComercial").val(entity.DescripcionComercial);
 
         _toastHelper.success(response.message);
     };

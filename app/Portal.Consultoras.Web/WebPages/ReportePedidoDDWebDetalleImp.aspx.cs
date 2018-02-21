@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceOSBBelcorpPedido;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -18,53 +15,49 @@ namespace Portal.Consultoras.Web.WebPages
             string parametros = Request.QueryString["parametros"];
             string param = Util.DesencriptarQueryString(parametros);
             string[] lst = param.Split(new char[] { ';' });
-            string PaisISO = lst[0];
-            string CampaniaCod = lst[1];
-            string ConsultoraCod = lst[2];
-            string ConsultoraNombre = lst[3];
-            string Origen = lst[5];
-            string Validado = lst[6];
-            string Saldo = lst[7];
-            string Importe = lst[8];
-            string ImporteConDescuento = lst[9];
+            string paisIso = lst[0];
+            string campaniaCod = lst[1];
+            string consultoraCod = lst[2];
+            string consultoraNombre = lst[3];
+            string origen = lst[5];
+            string validado = lst[6];
+            string saldo = lst[7];
+            string importe = lst[8];
+            string importeConDescuento = lst[9];
             string usuario = lst[14];
             string simbolo = lst[15];
-            string TipoProceso = lst[18];
-            string MotivoRechazo = lst[20];
-            int PaisID = Convert.ToInt32(lst[19]);
+            string tipoProceso = lst[18];
+            string motivoRechazo = lst[20];
+            int paisId = Convert.ToInt32(lst[19]);
 
             Usuario.Text = usuario;
-            lblCampaniaCod.Text = CampaniaCod;
-            lblConsultoraCod.Text = ConsultoraCod;
-            lblConsultoraNombre.Text = ConsultoraNombre;
-            lblOrigen.Text = Origen;
-            lblValidado.Text = Validado;
-            lblSaldo.Text = Saldo;
-            lblMotivoRechazo.Text = MotivoRechazo;
-            lblImporte.Text = Importe;
-            lblImporteConDescuento.Text = ImporteConDescuento;
+            lblCampaniaCod.Text = campaniaCod;
+            lblConsultoraCod.Text = consultoraCod;
+            lblConsultoraNombre.Text = consultoraNombre;
+            lblOrigen.Text = origen;
+            lblValidado.Text = validado;
+            lblSaldo.Text = saldo;
+            lblMotivoRechazo.Text = motivoRechazo;
+            lblImporte.Text = importe;
+            lblImporteConDescuento.Text = importeConDescuento;
 
-            List<BEPedidoDDWebDetalle> lstDetalle = new List<BEPedidoDDWebDetalle>();
-            
-            List<BEPedidoDDWebDetalle> lstPedidosDDWebNoFacturados;
+            List<BEPedidoDDWebDetalle> lstPedidosDdWebNoFacturados;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lstPedidosDDWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(PaisID, PaisISO, Convert.ToInt32(CampaniaCod), ConsultoraCod, TipoProceso).ToList();
+                lstPedidosDdWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(paisId, paisIso, Convert.ToInt32(campaniaCod), consultoraCod, tipoProceso).ToList();
             }
 
-            if (lstPedidosDDWebNoFacturados != null)
-            {
-                lstDetalle = (from c in lstPedidosDDWebNoFacturados
-                              where !string.IsNullOrEmpty(c.CUV.Trim())
-                              select new BEPedidoDDWebDetalle
-                              {
-                                  CUV = c.CUV,
-                                  Descripcion = c.Descripcion,
-                                  Cantidad = c.Cantidad,
-                                  PrecioUnitario = c.PrecioUnitario,
-                                  PrecioTotal = c.PrecioTotal
-                              }).ToList();
-            }
+            var lstDetalle = (from c in lstPedidosDdWebNoFacturados
+                where !string.IsNullOrEmpty(c.CUV.Trim())
+                select new BEPedidoDDWebDetalle
+                {
+                    CUV = c.CUV,
+                    Descripcion = c.Descripcion,
+                    Cantidad = c.Cantidad,
+                    PrecioUnitario = c.PrecioUnitario,
+                    PrecioTotal = c.PrecioTotal
+                }).ToList();
+            
 
             imgBandera.ImageUrl = "../Content/Banderas/" + lst[15];
             imgLogoResponde.ImageUrl = "../Content/Images/logo_responde_" + lst[15];
@@ -80,7 +73,7 @@ namespace Portal.Consultoras.Web.WebPages
                 sb.Append("<td>" + item.CUV + "</td>");
                 sb.Append("<td>" + item.Descripcion + "</td>");
                 sb.Append("<td><span>" + item.Cantidad + "</span></td>");
-                if (PaisID == 4)
+                if (paisId == 4)
                 {
                     sb.Append("<td>" + simbolo + " " + item.PrecioUnitario.ToString("#,##0").Replace(',','.') + "</td>");
                     sb.Append("<td>" + simbolo + " " + item.PrecioTotal.ToString("#,##0").Replace(',', '.') + "</td>");

@@ -685,21 +685,19 @@ namespace Portal.Consultoras.Web.Controllers
                         while ((inputLine = sr.ReadLine()) != null)
                         {
                             var values = inputLine.Split(',');
-                            if (values.Length > 1)
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[1].Trim()) || !IsNumeric(values[3].Trim())) continue;
+
+                            BEOfertaProducto ent = new BEOfertaProducto
                             {
-                                if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
-                                {
-                                    BEOfertaProducto ent = new BEOfertaProducto
-                                    {
-                                        ISOPais = values[0].Trim(),
-                                        CampaniaID = int.Parse(values[1]),
-                                        CUV = values[2].Trim(),
-                                        Stock = int.Parse(values[3].Trim())
-                                    };
-                                    if (ent.Stock >= 0)
-                                        lstStock.Add(ent);
-                                }
-                            }
+                                ISOPais = values[0].Trim(),
+                                CampaniaID = int.Parse(values[1]),
+                                CUV = values[2].Trim(),
+                                Stock = int.Parse(values[3].Trim())
+                            };
+                            if (ent.Stock >= 0)
+                                lstStock.Add(ent);
                         }
                     }
                     if (lstStock.Count > 0)

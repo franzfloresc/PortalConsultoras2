@@ -53,5 +53,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public RevistaDigitalModel RevistaDigital { get; set; }
         public PartialSectionBpt PartialSectionBpt { get; set; }
         public int TipoPopUpMostrar { get; set; }
+        public bool ConsultoraNuevaBannerAppMostrar { get; set; }
     }
 }

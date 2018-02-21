@@ -10,7 +10,6 @@ $(document).ready(function () {
         var me = this;
 
         me.Variables = {
-            //BtnAgregar: '#btnAgregar',
             IrPaso1: '#IrPaso1',
             VerDetalleCDR: ".abrir_detallemb",
             cdrweb_id: ".cdrweb_id",
@@ -34,7 +33,7 @@ $(document).ready(function () {
 
                         return false;
                     }
-                    console.log('Proceder con el registro');
+
                     window.location.href = urlReclamo;
                 });
 
@@ -89,11 +88,9 @@ $(document).ready(function () {
         };
 
         me.Constantes = {
-            //PromocionNoDisponible: "Esta promoción no se encuentra disponible."
         };
 
         me.Funciones = {
-            //BuscarPorCUV: function (CUV) { }
         };
 
         me.Inicializar = function () {

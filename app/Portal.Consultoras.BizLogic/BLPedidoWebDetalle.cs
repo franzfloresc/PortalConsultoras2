@@ -139,8 +139,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            TransactionOptions oTransactionOptions = new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
 
             try
             {
@@ -239,8 +238,7 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
             BEPedidoWebDetalle detalleTemp = new BEPedidoWebDetalle { Cantidad = 0 };
 
-            TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+            TransactionOptions oTransactionOptions = new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
 
             try
             {
@@ -309,26 +307,26 @@ namespace Portal.Consultoras.BizLogic
 
             #region Eliminar si es de OPT o OPM            
 
-            var listaCuvDuplicado = pedidoWebDetalle.GroupBy(p => new { p.CUV , p.ClienteID } ).Select(i => new { CUV = i.Key.CUV, ClienteId = i.Key.ClienteID, Cantidad = i.Count() });
-            listaCuvDuplicado = listaCuvDuplicado.Where(p => p.Cantidad > 1).ToList();
+            //var listaCuvDuplicado = pedidoWebDetalle.GroupBy(p => new { p.CUV , p.ClienteID } ).Select(i => new { CUV = i.Key.CUV, ClienteId = i.Key.ClienteID, Cantidad = i.Count() });
+            //listaCuvDuplicado = listaCuvDuplicado.Where(p => p.Cantidad > 1).ToList();
 
-            foreach (var item in listaCuvDuplicado)
-            {
-                BEPedidoWebDetalle pedidoDuplicado;
-                if (bePedidoWebDetalleParametros.EsBpt)
-                {
-                    pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-                }
-                else
-                {
-                    pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
-                }
+            //foreach (var item in listaCuvDuplicado)
+            //{
+            //    BEPedidoWebDetalle pedidoDuplicado;
+            //    if (bePedidoWebDetalleParametros.EsBpt)
+            //    {
+            //        pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            //    }
+            //    else
+            //    {
+            //        pedidoDuplicado = pedidoWebDetalle.FirstOrDefault(p => p.CUV == item.CUV && p.ClienteID == item.ClienteId && p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
+            //    }
 
-                if (pedidoDuplicado != null)
-                {
-                    pedidoWebDetalle.Remove(pedidoDuplicado);
-                }
-            }
+            //    if (pedidoDuplicado != null)
+            //    {
+            //        pedidoWebDetalle.Remove(pedidoDuplicado);
+            //    }
+            //}
 
             #endregion
 

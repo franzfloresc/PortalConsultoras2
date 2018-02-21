@@ -410,7 +410,6 @@
                     success: function (data) {
                         if (checkTimeout(data)) {
                             CloseLoading();
-                            if (data.message != '') console.log(data.message);
 
                             if (data.success == true) {
                                 $("#popupPedidoAceptado").modal("show");
@@ -460,7 +459,6 @@
                         success: function (data) {
                             if (checkTimeout(data)) {
                                 CloseLoading();
-                                if (data.message != '') console.log(data.message);
 
                                 if (data.success == true) {
                                     $("#popupRechazar").modal("hide");
@@ -508,7 +506,6 @@
                         success: function (data) {
                             if (checkTimeout(data)) {
                                 CloseLoading();
-                                if (data.message != '') console.log(data.message);
 
                                 if (data.success == true) {
                                     $("#popupCancelar").modal("hide");

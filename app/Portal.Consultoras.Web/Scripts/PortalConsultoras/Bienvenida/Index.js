@@ -47,7 +47,6 @@ $(document).ready(function () {
     });
 
     $('#salvavidaTutorial').show();
-    LayoutMenu();
 
     $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
@@ -80,7 +79,6 @@ $(document).ready(function () {
         });
     });
 
-    ////EDP-1564
     $('.contenedor_fondo_popup').click(function (e) {
         if (!$(e.target).closest('.popup_actualizarMisDatos').length) {
             if ($('#popupActualizarMisDatos').is(':visible')) {
@@ -108,8 +106,6 @@ $(document).ready(function () {
         }
     });
 
-    //Fin EDP-1564
-
     document.onkeydown = function (evt) {
         evt = evt || window.event;
         if (evt.keyCode == 27) {
@@ -130,10 +126,10 @@ $(document).ready(function () {
             }
 
             if ($('#popupActualizarMisDatos').is(':visible')) {
-                CerrarPopupActualizacionDatos(); //EDP-1564
+                CerrarPopupActualizacionDatos();
                 PopupCerrar('popupActualizarMisDatos');
             }
-            //EPD-1564
+
             if ($('#popupMisDatos').is(':visible')) {
                 if (showPopupMisDatos == '1') {
                     dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
@@ -145,7 +141,6 @@ $(document).ready(function () {
             if ($('#popupConfirmacionDatos').is(':visible')) {
                 $('#dialog_AgregasteUnidades').hide();
             }
-            // Fin EPD-1564
             if ($('#popupActualizarMisDatosMexico').is(':visible')) {
                 PopupCerrar('popupActualizarMisDatosMexico');
             }
@@ -464,7 +459,6 @@ $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
 
-/*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
@@ -495,7 +489,6 @@ function limitarMinimo(contenido, caracteres, a) {
 }
 
 function CargarCamara() {
-    //https://github.com/jhuckaby/webcamjs
     Webcam.set({
         width: 300,
         height: 300,
@@ -540,10 +533,7 @@ function CortarFoto() {
                     }
                 }
             },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                }
-            },
+            error: function (data, error) { },
             complete: closeWaitingDialog
         });
     });
@@ -580,10 +570,7 @@ function SubirFoto() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-            }
-        },
+        error: function (data, error) { },
         complete: closeWaitingDialog
     });
 }
@@ -751,8 +738,7 @@ function UpdateUsuarioTutoriales(tipo) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
         },
-        error: function (data) {
-        }
+        error: function (data) { }
     });
 }
 
@@ -773,15 +759,7 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
+    
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
     } else {
@@ -804,11 +782,11 @@ function HidePopupTonosTallas() {
 };
 function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('#CUV').attr("value", $("option:selected", ddlTonoTalla).attr("value"));
-    $(ddlTonoTalla).parents('#divTonosTallas').find("#PrecioOferta").attr("value", $("option:selected", ddlTonoTalla).attr("precio-real")); //2024
-    $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla")); //2024
+    $(ddlTonoTalla).parents('#divTonosTallas').find("#PrecioOferta").attr("value", $("option:selected", ddlTonoTalla).attr("precio-real"));
+    $(ddlTonoTalla).parents('#divTonosTallas').find("#DescripcionProd").attr("value", $("option:selected", ddlTonoTalla).attr("desc-talla"));
 
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
-    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
+    $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>');
 };
 
 function alert_unidadesAgregadas(message, exito) {
@@ -825,13 +803,6 @@ function alert_unidadesAgregadas(message, exito) {
 }
 
 function CargarCarouselLiquidaciones() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
@@ -1114,7 +1085,6 @@ function AgregarProductoLiquidacion(contenedor) {
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
-                                AbrirMensaje(data.message);
                                 closeWaitingDialog();
                                 HidePopupTonosTallas();
                             }
@@ -1196,7 +1166,7 @@ function CargarBanners() {
                     return false;
                 }
 
-                var delayPrincipal = 0, delaySBaja1 = 0;
+                var delayPrincipal = 0;
                 var count = 0;
                 var Titulo = "";
                 var Posicion = "";
@@ -1230,11 +1200,9 @@ function CargarBanners() {
                             break;
                         case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
                             var trackingText = dataResult.data[count].TituloComentario;
-                            var trackingDesc = dataResult.data[count].TextoComentario;
                             var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
                             $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
-                            delaySBaja1 = dataResult.data[count].TiempoRotacion;
                             promotionsBajos.push({
                                 id: dataResult.data[count].BannerID,
                                 name: dataResult.data[count].Titulo,
@@ -1547,6 +1515,7 @@ function CargarMisDatos() {
                 var temp = data.lista;
                 $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
                 $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
+                $('#hdn_CodigoUsuarioReal').val(temp.CodigoUsuarioReal);
                 $('#hdn_CorreoMD').val(temp.EMail);
                 $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
@@ -1561,9 +1530,7 @@ function CargarMisDatos() {
                 closeWaitingDialog();
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) { }
-        }
+        error: function (data, error) { }
     });
 };
 function CambiarContrasenia() {
@@ -1682,17 +1649,7 @@ function ActualizarMD() {
             alert('El formato del celular no es correcto.');
             return false;
         }
-
-        /*
-        if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-            if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                alert('Número de celular tiene formato incorrecto.');
-                $('#txtCelularMD').focus();
-                return false;
-            }
-        }
-        */
-
+        
         if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
             var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
             if (!MinCaracterOtroTelefono) {
@@ -1709,7 +1666,7 @@ function ActualizarMD() {
     waitingDialog({});
 
     var item = {
-        CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+        CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
         EMail: $.trim(jQuery('#txtEMailMD').val()),
         Telefono: jQuery('#txtTelefonoMD').val(),
         TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
@@ -1818,13 +1775,6 @@ function DownloadAttachContratoActualizarDatos() {
 }
 
 function CargarMisCursos() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $(window).scroll(function () {
         if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
@@ -1995,14 +1945,6 @@ function ActualizarDatos() {
             if (checkTimeout(data)) {
                 result = false;
                 closeWaitingDialog();
-                if (data.message && data.message != "" && data.message != null) {
-                    var aMensaje = data.message.split("-");
-                    var mensajeHtml = "";
-                    $.each(aMensaje, function (i, v) {
-                        mensajeHtml += v + "<br/>"
-                    });
-                    alert(mensajeHtml);
-                }
                 PopupCerrar('popupActualizarMisDatos');
             }
         }
@@ -2040,7 +1982,6 @@ function CerrarPopupActualizacionDatos() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 PopupCerrar('popupActualizarMisDatos');
-                alert(data.message);
             }
         }
     });
@@ -2189,7 +2130,6 @@ function ActualizarDatosMexico() {
                 if (checkTimeout(data)) {
                     Result = false;
                     closeWaitingDialog();
-                    $('#aviso').html(data.message);
                 }
             }
         });
@@ -2228,7 +2168,6 @@ function AceptarContrato() {
 
                 PopupCerrar('popupAceptacionContrato');
                 if (viewBagCambioClave == 0) {
-                    //EPD - 2121
                     PopupMostrar('popupActualizarMisDatos');
                 }
             }
@@ -2422,7 +2361,6 @@ function RechazarInvitacionFlex() {
             if (checkTimeout(data)) {
                 PopupCerrar('popupInvitaionFlexipago');
                 closeWaitingDialog();
-                alert(data.message);
             }
         }
     });
@@ -2515,8 +2453,6 @@ function AgregarSuenio() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 alert_msgPedidoBanner("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
-                async: false,
-                        closeWaitingDialog();
             }
         }
     });
@@ -2579,14 +2515,6 @@ function CrearPopShow() {
     // 18/07/2017 => AlanAupe => cbNoMostrarPopupShowRoom => no existe en todo el portal
     // En desktop se llama solo en "switch (TipoPopUpMostrar)" y En mobile no se llama
     // el metod ShowRoom/UpdatePopupShowRoom solo se llama en CrearPopShow();
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     var noMostrarShowRoom = true;
 
@@ -2738,7 +2666,6 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         error: function (response, error) {
             if (checkTimeout(response)) {
                 closeWaitingDialog();
-
             }
         }
     });
@@ -2991,7 +2918,6 @@ function mostrarComunicadosPopup() {
 function centrarComunicadoPopup(ID) {
     var altoPopup = ($(window).height() - $("#" + ID).outerHeight()) / 2;
     var imagenPopup = $('#' + ID).find(".img-comunicado");
-    var estadoPopup = $("#popupComunicados").css("display");
     $("#" + ID).css({ "width": imagenPopup.width() });
     $("#" + ID).css({ "top": altoPopup });
 }
@@ -3013,16 +2939,11 @@ function clickCerrarComunicado(obj) {
 }
 
 function clickImagenComunicado(obj) {
-    var comunicadoID = $(obj).attr('data-comunicadoid');
-    var comunicadoDescripcion = $(obj).attr('data-comunicadodescripcion');
     var dialogComunicadoID = $(obj).attr('data-id');
 
     $('#' + dialogComunicadoID).hide();
     $('#' + dialogComunicadoID).attr('data-cerrado', 1);
-    var vclose = mostrarComunicadosPopup();
-
-    if (vclose) {
-    }
+    mostrarComunicadosPopup();
 }
 
 function AceptarComunicadoVisualizacion(ID, dialogComunicadoID) {
@@ -3133,7 +3054,7 @@ function ValidarTelefono(celular) {
     var resultado = false;
 
     var item = {
-        Telefono: celular //$("#txtCelular").val()
+        Telefono: celular
     };
 
     jQuery.ajax({
@@ -3153,7 +3074,6 @@ function ValidarTelefono(celular) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -3221,7 +3141,6 @@ function SRPopupCerrar(tipo) {
             CerrarPopup("#PopShowroomIntriga");
         },
         error: function (data, error) {
-            console.log(data, error);
             CerrarLoad();
             CerrarPopup("#PopShowroomVenta");
             CerrarPopup("#PopShowroomIntriga");

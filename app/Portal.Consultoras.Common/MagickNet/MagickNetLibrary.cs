@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace Portal.Consultoras.Common.MagickNet
 {
@@ -15,8 +16,7 @@ namespace Portal.Consultoras.Common.MagickNet
         /// <returns>Proceso correctamente retorna vacio, sino retorna un mensaje de error</returns>
         public static string GuardarImagenesResize(List<EntidadMagickResize> lista)
         {
-            var resultado = "";
-
+            var txtBuil = new StringBuilder();
             foreach (var item in lista)
             {
                 if (!Util.ExisteUrlRemota(item.RutaImagenResize))
@@ -24,13 +24,14 @@ namespace Portal.Consultoras.Common.MagickNet
                     var nombreImagen = Path.GetFileName(item.RutaImagenResize);
                     var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height);
 
-                    resultado += resultadoImagenResize
-                        ? ""
-                        : "No se genero la imagen " + item.TipoImagen + ", favor volver a guardar.";
+                    if (!resultadoImagenResize)
+                    {
+                        txtBuil.Append("No se genero la imagen " + item.TipoImagen + ", favor volver a guardar.");
+                    }
                 }
             }
 
-            return resultado;
+            return txtBuil.ToString();
         }
 
         public static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, int height)

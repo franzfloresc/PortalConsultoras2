@@ -43,7 +43,7 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-        <form id="frmInsertPedido" action="@Url.Action("Insert", "Pedido")" method="post" role="form">
+        <form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
             <input type="hidden" id="hdfDescripcionCategoria" />
             <input type="hidden" id="hdfDescripcionEstrategia" />
             <input type="hidden" id="hdfDescripcionMarca" />
@@ -67,8 +67,7 @@
             <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
             <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedido" name="OrigenPedidoWeb" />
 
-            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;">
-            </div>
+            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
@@ -1487,6 +1486,7 @@
                         <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
                         <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                         <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
+                        <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
                     </div>
                     <div>
                         <div class="producto_imagen">
@@ -1669,11 +1669,11 @@
                 </div>
                 <div class="texto_pedidos celda_iconos_acciones">
                     {{#if EsKitNueva}}
-                    <div>
+                    <div class="info_copy">
                         <input type="hidden" data-kit="true" />
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                        <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
-                            <div class="tooltip_flecha"></div>
+                        <div class="tooltips tooltip_infoCopy_grid">
+                            <div class="tooltip_flecha_grid"></div>
                             <h6>Kit de Inicio</h6>
                             <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
                             <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
@@ -1885,6 +1885,7 @@
                                     <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
                                     <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
                                     <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
+                                    <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
 
                                 </div>
                                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;">
@@ -1970,6 +1971,7 @@
             <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" class="ID" value="{{ID}}" />
             <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+            <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
         </div>
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear" />

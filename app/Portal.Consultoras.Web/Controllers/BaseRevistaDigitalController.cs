@@ -11,6 +11,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult IndexModel()
         {
+            if(revistaDigital.TieneRDI)
+                return View("template-informativa-rdi");
+
             if (revistaDigital.TieneRDR)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             
@@ -191,7 +194,6 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 video = Util.Trim(dato.Valor1);
-               // video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
             }
 
             return video;
