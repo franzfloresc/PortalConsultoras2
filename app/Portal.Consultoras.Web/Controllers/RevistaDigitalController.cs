@@ -311,17 +311,13 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = userData.CampaniaID,
                 CodigoZona = userData.CodigoZona,
                 EstadoRegistro = tipo,
-                Origen = revistaDigital.SuscripcionModel.Origen,
+                Origen = Constantes.RevistaDigitalOrigen.RD,
                 EstadoEnvio = 0,
                 IsoPais = userData.CodigoISO,
                 EMail = userData.EMail,
                 CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
             };
-
-            entidad.Origen = Util.Trim(entidad.Origen) == ""
-                ? Constantes.RevistaDigitalOrigen.RD
-                : Util.Trim(entidad.Origen);
-
+            
             switch (tipo)
             {
                 case Constantes.EstadoRDSuscripcion.Desactivo:
