@@ -2835,7 +2835,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-
+            modelo.EstrategiaId = id;
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
