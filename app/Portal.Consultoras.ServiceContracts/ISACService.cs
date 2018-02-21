@@ -418,7 +418,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEComunicado GetComunicadoByConsultora(int paisID, string CodigoConsultora);
 
         [OperationContract]
-        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo);
+        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);

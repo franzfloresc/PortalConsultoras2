@@ -560,7 +560,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            if ((usuario.ConsultoraNueva == 1 || usuario.ConsultoraNueva == 7) && EsAndroid())
+                            if (EsAndroid())
                                 urlx = Url.Action("Index", "DescargarApp", new { area = "Mobile" });
                             else
                                 urlx = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
@@ -579,7 +579,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Redirect(decodedUrl);
                     }
 
-                    if ((usuario.ConsultoraNueva == 1 || usuario.ConsultoraNueva == 7) && EsAndroid())
+                    if (EsAndroid())
                         return RedirectToAction("Index", "DescargarApp", new { area = "Mobile" });
                     else
                         return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
