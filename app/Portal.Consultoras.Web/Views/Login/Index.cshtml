@@ -430,7 +430,7 @@
                         </div>
                     </div>*@
 
-                    @{
+                    @*@{
                         if (HttpContext.Current.Request.Browser.IsMobileDevice)
                         {
                             <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
@@ -468,13 +468,12 @@
                                 <div class="icono_llamanos"></div>
                                 <div class="bloque_texto_opcionRecuperacionContrasenia">
                                     <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
-                                    @*<span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente telefonos_desktop">www.belcorpresponde.com</span>*@
                                     <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
                                 </div>
                             </div>
                             <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->                                            
                         </a>
-                    }
+                    }*@
 
                     @if (ViewBag.PaisID == 11)
                     {
@@ -531,13 +530,23 @@
         <span>{{mensaje}}{{telefono}}</span><div></div>
     </script>
 
-    @* </script>*@
 
+    @*Nueva Version olvide contraseña HD-1254*@
+    @{
+        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+        {
+            <a href="#" class="lk_chat" ismovildevice="1" target="_blank"></a>
+        }
+        else
+        {
+            <a href="#" class="lk_chat" ismovildevice="0"></a>
+        }
+    }
     <!-- OPCIONES CORREO Y SMS -->
     <div id="popupRestaurarClave" style="display:none;">
         <div id="popup_opciones_recuperacion_contrasenia">
             <div class="content_bg_opciones_recuperacion_contrasenia">
-                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popupRestaurarClave').hide();"></a>
+                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="CerrarPopup2();"></a>
                 <div id="header">
                     <div class="fondo_sesgado"></div>
                     <span>

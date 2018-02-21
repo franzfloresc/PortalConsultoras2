@@ -83,6 +83,8 @@ namespace Portal.Consultoras.Entities
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "ClaveSecreta"))
                 Clave = Convert.ToString(row["ClaveSecreta"]);
+            if (DataRecord.HasColumn(row, "TipoUsuario"))
+                TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
             if (DataRecord.HasColumn(row, "Celular"))
                 Celular = Convert.ToString(row["Celular"]);
             if (DataRecord.HasColumn(row, "PrimerNombre"))
