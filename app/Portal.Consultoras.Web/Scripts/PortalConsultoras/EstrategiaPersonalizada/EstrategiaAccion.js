@@ -461,7 +461,7 @@ function EstrategiaAgregar(event, popup, limite) {
             if (isMobile()) {
                 
                 ActualizarGanancia(data.DataBarra);
-
+                
                 $(".contenedor_circulos").fadeIn();
                 setTimeout(function () {
                     $(".contenedor_circulos").fadeOut();
@@ -476,6 +476,7 @@ function EstrategiaAgregar(event, popup, limite) {
             }
 
             var cuv = estrategia.CUV2;
+            
 
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != "undefined")
@@ -509,10 +510,17 @@ function EstrategiaAgregar(event, popup, limite) {
                 MostrarBarra(data);
             }
             else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
+
                 if (tipoOrigenEstrategia == 262) {
+
                     origenRetorno = $.trim(origenRetorno);
                     if (origenRetorno != "") {
-                        window.location = origenRetorno;
+                        setTimeout(function () {
+
+                            window.location = origenRetorno;
+
+                        }, 3700);
+                        
                     }
                 }
                 else if (tipoOrigenEstrategia != 272) {

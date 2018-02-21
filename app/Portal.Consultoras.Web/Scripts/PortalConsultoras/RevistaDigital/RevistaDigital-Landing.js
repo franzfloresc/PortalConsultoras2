@@ -37,7 +37,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital") || isPagina("guianegocio")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio") || isPagina("herramientasventa")) {
         OfertaCargarProductos(null);
     }
 
