@@ -10,7 +10,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -297,12 +298,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (Session["BannerApp"] == null)
             {
-                using (var sac = new SACServiceClient())
-                {
-                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, 
-                        Constantes.ComunicadoTipoDispositivo.Mobile, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
-                    Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
-                }
+                var lstComunicados = ObtenerComunicadoPorConsultora();
+                Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
             }
 
             var oComunicados = (BEComunicado)Session["BannerApp"];
@@ -314,5 +311,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         #endregion
+
+        public List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
+        public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Mobile, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
     }
 }

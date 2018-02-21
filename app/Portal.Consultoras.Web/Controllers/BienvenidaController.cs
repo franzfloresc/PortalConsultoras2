@@ -515,26 +515,20 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEComunicado> ValidarComunicadoPopup()
         {
             var tempComunicados = new List<BEComunicado>();
+
             try
             {
-
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
-                    using (var sac = new SACServiceClient())
+                    var comunicados = ObtenerComunicadoPorConsultora();
+
+                    if (comunicados != null && comunicados.Count > 0)
                     {
-                        var comunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora,
-                            Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
-
-                        if (comunicados != null && comunicados.Length > 0)
-                        {
-                            tempComunicados = comunicados.Where(c =>
-                                string.IsNullOrEmpty(c.CodigoCampania) ||
-                                Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-
-                        }
+                        tempComunicados = comunicados.Where(c =>
+                            string.IsNullOrEmpty(c.CodigoCampania) ||
+                            Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -1980,18 +1974,15 @@ namespace Portal.Consultoras.Web.Controllers
             var comunicadoVisualizado = 0;
             var comunicado = new BEComunicado();
 
-            using (var sac = new SACServiceClient())
-            {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, 
-                    Constantes.ComunicadoTipoDispositivo.Desktop, userData.CodigorRegion, userData.CodigoZona, userData.ConsultoraNueva);
+            var tempComunicados = ObtenerComunicadoPorConsultora();
 
-                if (tempComunicados != null && tempComunicados.Length > 0)
+            if (tempComunicados != null && tempComunicados.Count > 0)
+            {
+                comunicado = tempComunicados.FirstOrDefault(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID);
+
+                if (comunicado != null)
                 {
-                    comunicado = tempComunicados.FirstOrDefault(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID);
-                    if (comunicado != null)
-                    {
-                        comunicadoVisualizado = 1;
-                    }
+                    comunicadoVisualizado = 1;
                 }
             }
 
