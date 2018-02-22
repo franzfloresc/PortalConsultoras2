@@ -5,7 +5,7 @@ BEGIN
 SET NOCOUNT ON 
 
 	DECLARE @CodigoTipoEstrategia INT
-    SET @CodigoTipoEstrategia = (SELECT TOP 1 TipoEstrategiaID FROM TipoEstrategia WHERE DescripcionEstrategia= 'Los m·s vendidos')
+    SET @CodigoTipoEstrategia = (SELECT TOP 1 TipoEstrategiaID FROM TipoEstrategia WHERE DescripcionEstrategia= 'Los m√°s vendidos')
 
 	DECLARE @TipoEstrategiaIdLan INT
     SET @TipoEstrategiaIdLan = (SELECT TOP 1 TipoEstrategiaID FROM TipoEstrategia WHERE Codigo = '005')
