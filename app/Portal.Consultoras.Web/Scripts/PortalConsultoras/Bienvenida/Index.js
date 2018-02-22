@@ -1181,31 +1181,45 @@ function CargarBanners() {
                 $('#sliderHomeLoading').empty();
 
                 while (dataResult.data.length > count) {
-                    Titulo = dataResult.data[count].Titulo;
-                    Id = dataResult.data[count].BannerID.toString();
-                    fileName = dataResult.data[count].Archivo;
-                    TipoAccion = dataResult.data[count].TipoAccion;
+                    var objData = dataResult.data[count];
+                    Titulo = objData.Titulo;
+                    Id = objData.BannerID.toString();
+                    fileName = objData.Archivo;
+                    TipoAccion = objData.TipoAccion;
 
-                    if (dataResult.data[count].GrupoBannerID.toString() == '150') {
-                        Posicion = 'Home Slider – ' + dataResult.data[count].Orden;
+                    if (objData.GrupoBannerID.toString() == '150') {
+                        Posicion = 'Home Slider – ' + objData.Orden;
                     }
 
-                    switch (dataResult.data[count].GrupoBannerID) {
+                    switch (objData.GrupoBannerID) {
                         case 150: // Seccion Principal SB2.0
-                            var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
-                            var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
+                            var iniHtmlLink = ((objData.URL.length > 0 && objData.TipoAccion == 0) || objData.TipoAccion == 1 || objData.TipoAccion == 2) ? "<a id='bannerMicroefecto" + objData.BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + objData.URL + "','" + objData.Titulo + "','" + objData.TipoAccion + "','" + objData.CuvPedido + "','" + objData.CantCuvPedido + "','" + objData.BannerID + "','" + Posicion + "','" + objData.Titulo + "', this);\" rel='marquesina' >" : "";
+                            var finHtmlLink = ((objData.URL.length > 0 && objData.TipoAccion == 0) || objData.TipoAccion == 1 || objData.TipoAccion == 2) ? '</a>' : '';
 
                             $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" data-src="' + fileName + '"data-object-fit="none" data-lazy-seccion-banner-home="">' + finHtmlLink + '</div></div></li>');
-                            delayPrincipal = dataResult.data[count].TiempoRotacion;
+                            delayPrincipal = objData.TiempoRotacion;
                             break;
                         case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
-                            var trackingText = dataResult.data[count].TituloComentario;
-                            var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
+                            var trackingText = objData.TituloComentario;
 
-                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                            var attibutes = '';
+                            if (objData.URL.length > 0) {
+                                if (objData.GrupoBannerID == -5) {
+                                    attibutes += "onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'Ofertas#HV' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
+                                } else {
+                                    attibutes += "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + objData.URL + "','" + trackingText + "','0','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "');\"";
+                                }
+                                if (objData.GrupoBannerID == -6 ||
+                                    objData.GrupoBannerID == -7) {
+                                    attibutes += " target=\"_blank=\"";
+                                }
+                                attibutes += " rel=\"banner-inferior=\"";
+                            }
+
+                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + attibutes + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                             promotionsBajos.push({
-                                id: dataResult.data[count].BannerID,
-                                name: dataResult.data[count].Titulo,
+                                id: objData.BannerID,
+                                name: objData.Titulo,
                                 position: 'home-inferior-' + countBajos
                             });
                             countBajos++;
@@ -1459,7 +1473,7 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
     }
     return false;
 };
-function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, Titulo) {
+function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, Titulo,OpenTab) {
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
@@ -1473,8 +1487,10 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
             }
         }
     });
-    if (Tipo == "1")
+    if (Tipo == "1") {
         window.location.href = URL;
+        if (!OpenTab) return;
+    }
     else
         var id = URL;
     if (URL > 0) {
