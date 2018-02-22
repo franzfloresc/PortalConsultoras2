@@ -362,6 +362,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, codigoEstrategia);
+                command.CommandTimeout = 0;
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;

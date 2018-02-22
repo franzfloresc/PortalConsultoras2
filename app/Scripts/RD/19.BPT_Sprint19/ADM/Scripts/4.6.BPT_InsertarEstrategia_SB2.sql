@@ -58,7 +58,7 @@ BEGIN
   WHERE TipoEstrategiaID = @TipoEstrategiaID   
   AND flagNueva = 1  
   
-  -- Para calcular la etiqueta Oferta del dÌa  
+  -- Para calcular la etiqueta Oferta del d√≠a  
   SELECT @TipoEstrategiaIDOfertaDia = COUNT(1)   
   FROM dbo.TipoEstrategia (NOLOCK)  
   WHERE TipoEstrategiaId = @TipoEstrategiaID   
@@ -93,7 +93,7 @@ BEGIN
    WHERE Descripcion LIKE '%GANANCIA%'  
   END  
   
-  -- Obtener el EtiquetaID de la Oferta del dÌa.  
+  -- Obtener el EtiquetaID de la Oferta del d√≠a.  
   IF @TipoEstrategiaIDOfertaDia > 0  
   BEGIN  
    SELECT @EtiquetaID2 = EtiquetaID   
@@ -103,21 +103,21 @@ BEGIN
   
   IF EXISTS(SELECT 1 FROM dbo.Estrategia (NOLOCK) WHERE CUV2 = @CUV2 AND CampaniaID = @CampaniaID AND TipoEstrategiaID = @TipoEstrategiaID AND EstrategiaID <> @EstrategiaID  AND NumeroPedido = @NumeroPedido)  
   BEGIN  
-   RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)  
+   RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)  
   END    
   IF @CampaniaIDFin > 0  
   BEGIN  
    IF EXISTS(SELECT 1 FROM dbo.Estrategia (NOLOCK) WHERE CUV2 = @CUV2 AND ((@CampaniaID BETWEEN CampaniaID AND CampaniaIDFin) OR (@CampaniaIDFin BETWEEN CampaniaID AND CampaniaIDFin)) AND TipoEstrategiaID = @TipoEstrategiaID   
       AND EstrategiaID <> @EstrategiaID  AND NumeroPedido = @NumeroPedido)  
    BEGIN  
-    RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campaÒa seleccionado.', 16, 1)  
+    RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y rango de campa√±a seleccionado.', 16, 1)  
    END   
   END         
   IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008', '010', '011') AND ISNULL(@Orden,0) > 0)  
   BEGIN  
    IF EXISTS(SELECT 1 FROM dbo.Estrategia (NOLOCK) WHERE Orden = @Orden AND CampaniaID = @CampaniaID AND TipoEstrategiaID = @TipoEstrategiaID  AND EstrategiaID <> @EstrategiaID AND NumeroPedido = @NumeroPedido)  
    BEGIN  
-    RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)  
+    RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)  
    END  
   END    
   
