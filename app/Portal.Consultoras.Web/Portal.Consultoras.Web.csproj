@@ -3130,6 +3130,7 @@
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
+    <Content Include="Content\Images\RevistaDigital\check-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
@@ -3173,6 +3174,8 @@
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_negro.svg" />
     <Content Include="Content\Images\RevistaDigital\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\RevistaDigital\personalizacion-visual-desktop.png" />
+    <Content Include="Content\Images\RevistaDigital\personalizacion-visual-mobile.png" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.jpg" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.png" />
     <Content Include="Content\Images\RevistaDigital\plantilla2.png" />
@@ -3198,6 +3201,7 @@
     <Content Include="Content\Images\RevistaDigital\speed-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\tips-y-consejos-visual.png" />
     <Content Include="Content\Images\RevistaDigital\triangle.png" />
+    <Content Include="Content\Images\RevistaDigital\triangulo-dorado.svg" />
     <Content Include="Content\Images\RevistaDigital\Vector.png" />
     <Content Include="Content\Images\RevistaDigital\VectorUP.png" />
     <Content Include="Content\Images\RevistaDigital\visualo.png" />
