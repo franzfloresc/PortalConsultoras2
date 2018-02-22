@@ -226,7 +226,6 @@ namespace Portal.Consultoras.BizLogic
 
                         CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
                     }
-
                     break;
                 default:
                     using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
