@@ -3905,14 +3905,10 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
-                $("#btnActualizarTonos").show();
                 
-                if (aux2 === _codigoEstrategia.ShowRoom) {
-                    $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
-                }
-                else {
-                    $("#btnDescripcionMasivo").val("Descrip. Masivo");
-                }
+                if (aux2 !== _codigoEstrategia.HerramientaVenta) $("#btnActualizarTonos").show();
+                if (aux2 === _codigoEstrategia.ShowRoom) ("#btnDescripcionMasivo").val("Descrip. Masivo Set");
+                else ("#btnDescripcionMasivo").val("Descrip. Masivo");
             }
 
             _seleccionarTipoOferta();
