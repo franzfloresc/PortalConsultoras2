@@ -14348,12 +14348,12 @@ a {
 
     .popup_confirmacion_datos p.felicidades {
         display: block;
-        font-size: 17px;
+        font-size: 13px;
         font-weight: bolder;
         margin-bottom: 0;
         letter-spacing: 1px;
         text-align: center;
-        color: black;
+        color: #c39934;
     }
 
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
@@ -14371,9 +14371,12 @@ a {
         display: block;
         text-align: center;
         font-size: 17px;
-        font-weight: bolder;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
         letter-spacing: 1px;
-        color: #e81c36;
+        color: #000000;
         margin-bottom: 20px;
     }
 
@@ -14381,11 +14384,10 @@ a {
         display: block;
         text-align: center;
         letter-spacing: 0.5px;
-        font-size: 11px;
-        margin-bottom: 15px;
-        line-height: 13px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 16px;
         color: black;
-        text-transform: initial;
     }
 
     .popup_confirmacion_datos .form-datos button {
@@ -14424,9 +14426,10 @@ a {
                 display: inline;
                 position: absolute;
                 padding: 0px 10px;
-                /* width: 20px; */
                 margin-top: 14px;
-                /* width: 20px; */
+                width: auto !important;
+                height: auto !important;
+                margin-bottom: 0 !important;
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
@@ -14467,12 +14470,64 @@ a {
                 letter-spacing: 0.5px;
             }
 
+        .popup_confirmacion_datos .form-datos .validar_chk {
+            width: 100%;
+        }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .inputchk {
+                width: 12%;
+                float: left;
+                margin-top: -6px;
+            }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                    display: none !important;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
+                    display: inline-block;
+                    padding: 0 0 0 0px;
+                    background: white;
+                    box-shadow: inset 0 0 4px #0000006b;
+                    width: 16px;
+                    height: 16px;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                    box-shadow: none;
+                    background: #c39934;
+                }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+                width: 88%;
+                float: left;
+                display: block;
+                text-align: left;
+                margin-top: -9.5px;
+                /* color: black; */
+                /* font-size: 10px !important; */
+                font-size: 10px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.38;
+                letter-spacing: normal;
+                text-align: left;
+                letter-spacing: .7px;
+                color: #000000;
+            }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #e81c36 !important;
+    background: #c39934 !important;
 }
 
 .contenedor_circulos {
