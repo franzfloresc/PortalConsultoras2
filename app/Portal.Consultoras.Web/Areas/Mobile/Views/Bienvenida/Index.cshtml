@@ -7,7 +7,7 @@
 @model BienvenidaModel
 
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     Model.RevistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     var urlDomain = Util.GetUrlHost(Request);
@@ -741,9 +741,14 @@
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 <!--POP UP CUPONES-->
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ 
+    if (!Model.ConsultoraNuevaBannerAppMostrar)
+    {
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+    }
+}
 
 <div class="contenedor_popup_comunicado modal">
     <div class="popup_comunicado">
@@ -819,8 +824,8 @@
         var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
+        var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
-
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
    

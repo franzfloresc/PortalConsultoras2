@@ -59,9 +59,9 @@ namespace Portal.Consultoras.Common
             return entities;
         }
 
-        public static TSource MapToObject<TSource>(this IDataReader dataReader) where TSource : class, new()
+        public static TSource MapToObject<TSource>(this IDataReader dataReader, bool nullable = false) where TSource : class, new()
         {
-            return MapToCollection<TSource>(dataReader).FirstOrDefault() ?? new TSource();
+            return MapToCollection<TSource>(dataReader).FirstOrDefault() ?? (nullable ? null : new TSource());
         }
 
         private static string GetColunmName(PropertyInfo property)

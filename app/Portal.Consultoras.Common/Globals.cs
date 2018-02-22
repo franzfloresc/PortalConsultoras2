@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Common
         public static string RutaImagenesTempBanners { get; set; }
         public static string RutaImagenesTempMatriz { get; set; }
         public static string RutaImagenesOfertasNuevas { get; set; }
-        //public static string RutaImagenesOfertasGratis { get; set; }
+
         public static string RutaImagenesTempLugaresPago { get; set; }
         public static string RutaImagenesLugaresPago { get; set; }
         public static string RutaImagenesTempIncentivos { get; set; }

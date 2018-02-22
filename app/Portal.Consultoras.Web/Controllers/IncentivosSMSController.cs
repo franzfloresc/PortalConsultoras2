@@ -30,13 +30,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (listProducto.Count == 0) return RedirectToAction("Index", "Bienvenida");
 
+                var producto = listProducto[0];
+
                 var model = new ProductoModel()
                 {
-                    CUV = listProducto[0].CUV.Trim(),
-                    Descripcion = listProducto[0].Descripcion.Trim(),
-                    PrecioCatalogo = listProducto[0].PrecioCatalogo,
-                    MarcaID = listProducto[0].MarcaID,
-                    IndicadorMontoMinimo = listProducto[0].IndicadorMontoMinimo.ToString().Trim(),
+                    CUV = producto.CUV,
+                    Descripcion = producto.Descripcion.Trim(),
+                    PrecioCatalogo = producto.PrecioCatalogo,
+                    MarcaID = producto.MarcaID,
+                    IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
+                    TipoEstrategiaID = producto.TipoEstrategiaID
                 };
                 return View(model);
             }

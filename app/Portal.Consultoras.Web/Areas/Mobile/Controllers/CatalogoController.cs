@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
-                TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
                 TieneGND = userData.TieneGND
             };
@@ -155,6 +155,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
                         }
                     }
+                }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
                 else if (revistaDigital.TieneRDR)
                 {
