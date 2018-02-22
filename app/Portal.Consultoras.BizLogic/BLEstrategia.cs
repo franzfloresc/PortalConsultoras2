@@ -214,9 +214,17 @@ namespace Portal.Consultoras.BizLogic
 
                     break;
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                    using (var reader = daEstrategia.GetEstrategiaHerramientasVenta(entidad))
+
+                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString());
+                    if (estrategias == null || !estrategias.Any())
                     {
-                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        estrategias = new List<BEEstrategia>();
+                        using (var reader = daEstrategia.GetEstrategiaHerramientasVenta(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+
+                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
                     }
                     break;
                 default:
