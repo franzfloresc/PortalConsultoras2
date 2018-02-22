@@ -3130,6 +3130,9 @@
     <Content Include="Content\Images\RevistaDigital\icono1.png" />
     <Content Include="Content\Images\RevistaDigital\icono2.png" />
     <Content Include="Content\Images\RevistaDigital\icono3.png" />
+    <Content Include="Content\Images\RevistaDigital\icono_advertencia_notificacion.svg" />
+    <Content Include="Content\Images\RevistaDigital\icono_advertencia_notificacion_esika.svg" />
+    <Content Include="Content\Images\RevistaDigital\icono_advertencia_notificacion_lbel.svg" />
     <Content Include="Content\Images\RevistaDigital\KADIA.png" />
     <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />

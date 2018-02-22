@@ -1941,7 +1941,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 20px;
     top: 1px;
     margin-right: 7px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .caja_guardar_pedido {
@@ -30208,7 +30208,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31085,7 +31085,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31506,7 +31506,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31534,7 +31534,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -32951,7 +32951,7 @@ height:30px;
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33742,7 +33742,7 @@ height:30px;
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
