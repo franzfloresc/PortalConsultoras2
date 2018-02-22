@@ -2583,8 +2583,7 @@
             modal: true,
             closeOnEscape: true,
             width: 830,
-            close: function() {
-            },
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             draggable: false,
             title: "Registro de Estrategias",
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
@@ -2834,6 +2833,7 @@
             width: 500,
             draggable: false,
             title: "Seleccione el alcance de la estrategia",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
@@ -2900,6 +2900,7 @@
             width: 700,
             draggable: false,
             title: "Seleccionar Talla/Color",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
