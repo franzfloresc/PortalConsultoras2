@@ -2975,15 +2975,15 @@
 }
 
     .gana-mas .logo {
-        width: 230px;
+        width: 217px;
         display: block;
         margin: auto;
         margin-bottom: 30px;
         margin-top: 35px;
         height: auto;
         float: initial;
-        height: 80px;
-        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
+        height: 95px;
+        background: url(../../../Images/logo-club-ganamas-dorado.svg);
         background-size: cover;
         background-position: center center;
     }
@@ -3018,7 +3018,7 @@
     }
 
     .gana-mas .pack-medida {
-        background: #613c87;
+        background: #c39934;
     }
 
     .gana-mas .codigos {
@@ -3064,7 +3064,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
+        background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -3107,14 +3107,14 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/Lbel/Triangle.svg');
+        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
     }
 
     .como-funciona p.como-funciona-txt {
-        color: #613c87;
+        color: #c39934;
         display: block;
         text-align: center;
         font-weight: bold;
@@ -3137,7 +3137,7 @@
             font-weight: 700;
             text-align: left;
             font-size: 21px;
-            margin-top: -5px;
+            margin-top: -8px;
         }
 
         .como-funciona .caja-texto span.txt {
@@ -3145,8 +3145,8 @@
             letter-spacing: .5px;
             text-align: left;
             margin-bottom: 20px;
-            font-size: 15px;
-            padding-left: 2%;
+            font-size: 13px;
+            padding-left: -11px;
         }
             .como-funciona .caja-texto span.txt b {
                 display: block;
@@ -3184,7 +3184,7 @@
     }
 
     .como-funciona span.recuerda-txt {
-        color: #613c87;
+        color: black;
         font-weight: 700;
         letter-spacing: .5px !important;
         text-transform: uppercase;
@@ -3240,7 +3240,7 @@
 
     .suscribete a.suscribete-btn {
         display: block;
-        background: #613c87;
+        background: #c39934;
         margin: auto;
         text-align: center;
         color: white;
