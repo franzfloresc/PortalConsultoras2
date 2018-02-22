@@ -94,7 +94,7 @@ else
                 <div id="tab-regalos">
                     <div>
                         <div class="div-3">
-                            <input type="button" value="Agregar" data-bind="click:regaloAgregar" />
+                            <input type="button" value="Agregar" data-bind="click:regaloNuevo" />
                         </div>
                         <div class="div-3">
                             <div class="wrap">
@@ -113,56 +113,68 @@ else
                 </div>
             </div>
         </div>
+        
+        <div class="div-3">
+            <div class="titG"></div>
+            <div class="titG"></div>
+            <div class="titG"></div>
+            <div class="titG"></div>
+            <input type="button" value="Guardar" data-bind="click:save" />
+            <input type="button" value="Cancelar" data-bind="click:cancel" />
+        </div>
     </div>
-
-    <div id="editRegaloPopUp" data-bind="if:mostrarFormularioRegalo">
+    
+    @*popup regalo*@
+    <div id="editRegaloPopUp" data-bind="if: mostrarFormularioRegalo">
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titG">CUV:</div>
                 <div class="selectA">
                     @*hidden no necesario*@
-                    <input type="hidden" data-bind="value:regalo.UpSellingRegaloId" />
-                    <input type="text" data-bind="value:regalo.CUV" />
+                    <input type="hidden" data-bind="value: regaloSeleccionado.UpSellingRegaloId" />
+                    <input type="text" data-bind="value: regaloSeleccionado.CUV" />
                 </div>
                 <div class="titG">Nombre:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value:regalo.Nombre" />
+                    <input type="text" data-bind="value: regaloSeleccionado.Nombre" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Descripcion:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value:regalo.Descripcion" />
+                    <input type="text" multiline data-bind="value: regaloSeleccionado.Descripcion" />
                 </div>
                 <div class="titG">Imagen:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value:regalo.Imagen" />
+                    <input type="text" data-bind="value: regaloSeleccionado.Imagen" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Stock:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value:regalo.Stock" />
+                    <input type="text" multiline data-bind="value: regaloSeleccionado.Stock" />
                 </div>
                 <div class="titG">Stock Actual:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value:regalo.StockActual" />
+                    <input type="text" data-bind="text: regaloSeleccionado.StockActual" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Orden:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value:regalo.Orden" />
+                    <input type="text" multiline data-bind="value: regaloSeleccionado.Orden" />
                 </div>
                 <div class="titG">Activo:</div>
                 <div class="selectA">
-                    <input type="checkbox" data-bind="checked:regalo.Activo" />
+                    <input type="checkbox" data-bind="checked: regaloSeleccionado.Activo" />
                 </div>
             </div>
-            <div class="div-3">
-                <input type="button" value="Agregar" data-bind="click:regaloAgregar" />
-                <input type="button" value="Cerrar" data-bind="click:regaloCerrar" />
-            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG"></div>
+            <input type="button" value="Agregar" data-bind="visible: regaloEsNuevo(), click:regaloAgregar" />
+            <input type="button" value="Actualizar" data-bind="visible: !regaloEsNuevo(), click:regaloActualizar" />
+            <input type="button" value="Cerrar" data-bind="click: regaloCerrar" />
         </div>
     </div>
 </div>

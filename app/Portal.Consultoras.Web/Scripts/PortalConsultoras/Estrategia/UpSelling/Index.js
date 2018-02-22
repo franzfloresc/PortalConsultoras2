@@ -245,8 +245,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         var opt = {
             autoOpen: false,
             modal: true,
-            width: 950,
-            height: 650,
+            width: 910,
+            height: 450,
             title: 'Details'
         };
 
@@ -359,14 +359,23 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.save = function () {
-            //ajax
+            alert("guardar todo");
         }
 
-        selfvm.regalo = ko.observable();
+        selfvm.cancel = function() {
+            alert("perdera cambios");
+        }
+
+        selfvm.regaloSeleccionado = ko.observable();
         selfvm.mostrarFormularioRegalo = ko.observable(false);
-        selfvm.regaloAgregar = function () {
-            //show popUp
-            showDialog("DialogDatosShowRoom");
+        selfvm.regaloEsNuevo = ko.observable(true);
+
+
+        selfvm.regaloNuevo = function () {
+            selfvm.regaloSeleccionado(null);
+            showDialog(settings.idDivPopUpRegalo);
+            selfvm.mostrarFormularioRegalo(true);
+            selfvm.regaloEsNuevo(true);
         }
 
         selfvm.regaloEditar = function (regaloId) {
@@ -375,15 +384,25 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 return regalo.UpSellingRegaloId() === regaloId;
             });
             if (!!regalos && regalos.length > 0) {
-                selfvm.regalo = regalos[0];
+                selfvm.regaloSeleccionado = regalos[0];
                 selfvm.mostrarFormularioRegalo(true);
+                selfvm.regaloEsNuevo(false);
             }
+        }
 
-            closeWaitingDialog();
+        selfvm.regaloAgregar = function () {
+            selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado);
+        }
+
+        selfvm.regaloActualizar = function () {
+            
+                selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado);
         }
 
         selfvm.regaloDelete = function (regaloId) { }
         selfvm.regaloDesactivar = function (regaloId) { }
+        selfvm.regaloCerrar = function () { }
+
     }
 
     self.upSellingViewModel = new UpSellingViewModel();
