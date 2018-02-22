@@ -706,14 +706,17 @@
             var colorFondo1OFRegalo = (ViewBag.ColorFondo1OFRegalo != null) ? ViewBag.ColorFondo1OFRegalo : "";
         }
 
-        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">
+        @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
+        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background-color: silver;">
+
             <div class="btn_regresa_OF" id="btnRegresoOF" style="background-color: @colorFondo1OFRegalo">CONTINUAR COMPRANDO</div>
             <div class="icono_regalo_sorpresa" style="margin-top:47px;"></div>
-            <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO* </b><br/>@titulo1OFRegalo</div>
+            <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO* </b><br />@titulo1OFRegalo</div>
             <div class="titulo_regalo_sorpresa" id="of-regalo-msg2" style="display: none;">
-                FELICIDADES @ViewBag.NombreConsultora <span class="font_700_regalo">¡GANASTE!</span>               
+                FELICIDADES @ViewBag.NombreConsultora <span class="font_700_regalo">¡GANASTE!</span>
             </div>
-            <div class="fondo_blanco_regalo">
+
+            @*<div class="fondo_blanco_regalo">
                 <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
                     TU META ES <span id="of-regalo-montometa">$200.000</span><br />
                     <b>¡AGREGA <span id="of-regalo-montosaldo">$23.999</span> Y LISTO!</b>
@@ -725,10 +728,53 @@
                         Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
                     </div>
                 </div>
+            </div>*@
+
+            <!--INICIO - NUEVO CARRUSEL-->
+            <div class="fondo_blanco_regalo">
+
+                <div class="slider center" id="divCarruselRegalo" style="width: 100%">
+
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="1">
+                        <div class="fondo_blanco_regalo">
+                            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
+                            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" /></div>
+                            <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
+                                Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="2">
+                        <div class="fondo_blanco_regalo">
+                            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Rojo</div>
+                            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" /></div>
+                            <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
+                                Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="3">
+                        <div class="fondo_blanco_regalo">
+                            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Verde</div>
+                            <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" /></div>
+                            <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
+                                Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
+            <!--INICIO - NUEVO CARRUSEL-->
+
             <div class="btn_sigue_comprando" id="btn_sigue_comprando_gana">SIGUE COMPRANDO Y GANA</div>
             <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
+
         </div>
+
     </div>
     
 </script>
@@ -878,7 +924,10 @@
     @if (Model.MostrarPopupPrecargados)
     {
         <script>
-            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+            $(document).ready(function () {
+                messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)');
+            });
+
         </script>
     }    
 }
