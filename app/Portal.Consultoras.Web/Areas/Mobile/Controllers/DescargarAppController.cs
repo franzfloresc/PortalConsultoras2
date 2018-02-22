@@ -21,6 +21,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.EsPaisEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "1" : "0";
 
+            Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = true;
+
             return View();
         }
     }

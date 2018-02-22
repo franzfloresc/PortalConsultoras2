@@ -287,7 +287,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (paisTracking) novedades = GetNovedadesTracking(paisID, item.NumeroPedido);
 
-                    var lstDetalle = pedidosDetalle.Where(x => x.Campana == item.Campana).ToList();
+                    var lstDetalle = pedidosDetalle.Where(x => x.Campana == item.Campana && x.NumeroPedido == item.NumeroPedido).ToList();
 
                     foreach (var itemDet in lstDetalle)
                     {
