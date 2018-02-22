@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -26,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
-                TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
                 TieneGND = userData.TieneGND
             };
@@ -224,7 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string rutaPublicaImagen = "";
-                string correosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
@@ -247,6 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconTelefono = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1YI6wJJKvX90WZk/celu_mail.png";
                 }
 
+                var txtBuil = new StringBuilder();
                 foreach (var item in ListaCatalogosCliente)
                 {
                     #region foreach
@@ -455,7 +456,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</body>";
                     mailBody += "</html>";
 
-                    if (!ValidarCorreoFormato(item.Email)) correosInvalidos += item.Email + "; ";
+                    if (!ValidarCorreoFormato(item.Email)) txtBuil.Append(item.Email + "; ");
                     else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + campaniaId.Substring(4, 2), mailBody, true, userData.NombreConsultora);
 
                     #endregion
@@ -466,6 +467,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsCatalogoCampania(userData.PaisID, userData.CodigoConsultora, Convert.ToInt32(campaniaId));
                 }
 
+                string correosInvalidos = txtBuil.ToString();
                 return Json(new
                 {
                     success = string.IsNullOrEmpty(correosInvalidos),
@@ -602,10 +604,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                     }
                 }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
+                }
                 else if (revistaDigital.TieneRDR)
                 {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
-                    
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();   
                 }
             }
             catch (Exception ex)

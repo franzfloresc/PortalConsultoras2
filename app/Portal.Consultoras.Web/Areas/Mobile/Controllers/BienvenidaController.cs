@@ -108,6 +108,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
+
+                model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
             catch (FaultException ex)
             {
@@ -462,6 +464,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
                         }
                     }
+                }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MBienvenidaIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
                 else if (revistaDigital.TieneRDR)
                 {

@@ -106,8 +106,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEMiCertificado> GetMisCertificadosData();
 
+        void SetFlagLogCargaOfertas(bool habilitarLog);
         void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
 
+        bool GetFlagLogCargaOfertas();
         List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
 
         void SetStartSession(DateTime StartSession);

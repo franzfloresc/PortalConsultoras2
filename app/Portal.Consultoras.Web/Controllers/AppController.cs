@@ -24,7 +24,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (EsAndroid())
                 {
-                    if (EstaActivoBuscarIsoPorIp())
+                    bool valBool = EstaActivoBuscarIsoPorIp();
+                    if (valBool)
                     {
                         var ip = GetIpCliente();
                         if (!string.IsNullOrWhiteSpace(ip)) iso = Util.GetISObyIPAddress(ip);

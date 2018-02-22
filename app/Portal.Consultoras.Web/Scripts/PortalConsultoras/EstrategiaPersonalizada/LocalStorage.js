@@ -53,14 +53,8 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     try {
         tipo = $.trim(tipo);
         cuv = $.trim(cuv);
-
-        if (tipo == "" || tipo == undefined) {
-            return false;
-        }
-        if (cuv == "" || cuv == undefined) {
-            return false;
-        }
-        if (valor == undefined) {
+        
+        if (tipo === "" || cuv === "" || valor == undefined) {
             return false;
         }
 
@@ -99,12 +93,9 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     if (valLocalStorage != null) {
         var data = JSON.parse(valLocalStorage);
 
-        ok = actualizarIsAgregado(data.response.listaLan, cuv, valor);
-
-        if (!ok || cuv == "todo") {
-            ok = actualizarIsAgregado(data.response.lista, cuv, valor);
-        }
-
+        ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
+        ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+        
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));
         }
@@ -119,7 +110,13 @@ function actualizarIsAgregado(lista, cuv, valor) {
     if (lista !== undefined) {
         $.each(lista, function (index, item) {
             if (item.CUV2 == cuv || cuv == "todo") {
-                item.IsAgregado = valor;
+                if (item.ClaseBloqueada !== "" && valor === true) {
+                    item.IsAgregado = false;
+                }
+                else {
+                    item.IsAgregado = valor;
+                }
+
                 ok = true;
                 if (cuv != "todo") {
                     return false;

@@ -71,7 +71,10 @@ namespace Portal.Consultoras.Data
         public bool GetCronogramaAutomaticoActivacion()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCronogramaAutomaticoActivacion");
-            bool result = Context.ExecuteScalar(command) == null ? false : Convert.ToBoolean(Context.ExecuteScalar(command));
+            bool result = false;
+            if (Context.ExecuteScalar(command) != null)
+                result = Convert.ToBoolean(Context.ExecuteScalar(command));
+
             return result;
         }
 

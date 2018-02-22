@@ -90,11 +90,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                string deudaActualConultora = "0.00";
 
                 long consulId = ObtenerConsultoraId(codigoConsultora);
                 var lst = EstadodeCuenta(consulId);
 
+                string deudaActualConultora;
                 using (SACServiceClient client = new SACServiceClient())
                 {
                     deudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, consulId);

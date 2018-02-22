@@ -46,7 +46,6 @@ function CancelarSolicitud(solicitudClienteIdActual, marcaIdActual) {
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                        console.log(data, error);
                     }
                 },
                 complete: CloseLoading

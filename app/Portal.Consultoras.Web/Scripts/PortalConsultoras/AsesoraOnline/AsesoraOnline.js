@@ -70,9 +70,7 @@
                 }
 
             },
-            error: function (data, error) {
-                alert(data.message);
-            }
+            error: function (data, error) { }
         });
 
         return false;

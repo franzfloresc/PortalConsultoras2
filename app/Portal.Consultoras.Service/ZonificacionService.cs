@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Service
 {
     public class ZonificacionService : IZonificacionService
     {
-        private BLZonificacion BLZonificacion;
+        private readonly BLZonificacion BLZonificacion;
 
         public ZonificacionService()
         {
@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Service
         {
             return BLZonificacion.SelectAllTerritorios(paisID);
         }
-
 
         public IList<BETerritorio> SelectTerritorioByCodigo(int paisID, string codigo, int rowCount)
         {
