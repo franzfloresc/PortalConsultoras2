@@ -1251,7 +1251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Add(new ComunModel
                 {
                     Id = 1,
-                    Descripcion = "CUVS encontrados en ofertas personalizadas.",
+                    Descripcion = CodigoEstrategia == "011" ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                     Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
                     ValorOpcional = "0"
                 });
