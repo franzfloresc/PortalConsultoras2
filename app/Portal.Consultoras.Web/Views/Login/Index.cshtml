@@ -67,7 +67,6 @@
                 
                 //if (response.id !== null && response.id !== "") {
                 if (typeof response.id !== 'undefined' && response.id !== null) {
-                    //console.log(response);
                     var exists = checkExternalUser('Facebook', response.id);
                     var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                     var lc = (typeof response.location === 'object') ? response.location.name : "";
@@ -224,7 +223,6 @@
 
             waitingDialog();
             FB.api('/me', function (response) {
-                //console.log(response);
                 closeWaitingDialog();
 
                 if (response.error != null && response.error.message === 'unknown error') {

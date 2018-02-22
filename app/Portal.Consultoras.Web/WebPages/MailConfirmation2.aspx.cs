@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -18,18 +13,18 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 if (!Page.IsPostBack)
                 {
-                    string result = string.Empty;
-                    bool HasSuccess = false;
+                    string result;
                     if (Request.QueryString["data"] != null)
                     {
                         //Formato que envia la url: CodigoUsuario;IdPais
                         string[] query = Util.Desencriptar(Request.QueryString["data"].ToString().Replace("\0","")).Split(',');
 
+                        bool hasSuccess;
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
-                            HasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                            hasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                         }
-                        if (HasSuccess)
+                        if (hasSuccess)
                             result = "Su dirección de correo electrónico ha sido activada correctamente.";
                         else
                             result = "Esta dirección de correo electrónico ya ha sido activada.";

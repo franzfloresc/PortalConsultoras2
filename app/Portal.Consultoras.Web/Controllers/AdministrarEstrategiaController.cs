@@ -694,7 +694,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region codigo_estrategia y variedad
 
-                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
+                if (entidad.EstrategiaID == 0 && entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
                     (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
@@ -1425,24 +1425,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            var productoEstrategias = new List<RptProductoEstrategia>();
-
-                            if (tono)
-                            {
-                                opt.CampaniaID = campaniaId;
-                                productoEstrategias = EstrategiaProductoObtenerServicio(opt);
-
-                                if (productoEstrategias.Any())
-                                {
-                                    opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                                    opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
-                                }
-                            }
-
-                            EstrategiaProductoInsertar(productoEstrategias, opt);
-
+                            
                             if (habilitarNemotecnico)
                             {
+                                var productoEstrategias = new List<RptProductoEstrategia>();
+                                if (tono)
+                                {
+                                    opt.CampaniaID = campaniaId;
+                                    productoEstrategias = EstrategiaProductoObtenerServicio(opt);
+
+                                    if (productoEstrategias.Any())
+                                    {
+                                        opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
+                                        opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
+                                    }
+                                }
+                                //EstrategiaProductoInsertar(productoEstrategias, opt);
                                 #region habilitarNemotecnico
 
                                 var nemotecnicosLista = new List<string>();
@@ -2312,7 +2310,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
                 }
-                //listaEstrategias = listaEstrategias.Take(5).ToList();
+
                 var cuvNoGenerados = "";
                 var cuvNoExistentes = "";
 

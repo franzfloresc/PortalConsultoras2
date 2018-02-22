@@ -271,8 +271,8 @@ namespace Portal.Consultoras.BizLogic
                     cliente.ClienteID = this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos);
 
                     cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
-                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS)
-                        continue;
+                    //if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS)
+                    //    continue;
                 }
             }
 

@@ -1,29 +1,22 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
+
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLMenuApp
+    public class BLMenuApp : IMenuAppBusinessLogic
     {
-        public IList<BEMenuApp> GetMenuApp(int paisId)
+        public IList<BEMenuApp> GetMenuApp(BEMenuApp menuApp)
         {
-            IList<BEMenuApp> listaMenusApp = new List<BEMenuApp>();
-
-            using (IDataReader reader = (new DAMenuApp(paisId)).GetMenusApp())
+            using (IDataReader reader = new DAMenuApp(menuApp.paisId).GetMenusApp(menuApp))
             {
-                while (reader.Read())
-                {
-                    BEMenuApp menuApp = new BEMenuApp(reader);
-                    listaMenusApp.Add(menuApp);
-                }
+                var listaMenusApp = reader.MapToCollection<BEMenuApp>();
+                return ContruirMenus(listaMenusApp);
             }
-
-            listaMenusApp = ContruirMenus(listaMenusApp);
-
-            return listaMenusApp;
         }
 
         private IList<BEMenuApp> ContruirMenus(IList<BEMenuApp> listaMenusApp)

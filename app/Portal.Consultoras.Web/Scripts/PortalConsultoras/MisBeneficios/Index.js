@@ -21,9 +21,7 @@ function CargarProgramasBelcorp() {
                 ArmarProgramasBelcorp(data.lista);
             }
         },
-        error: function (data, error) {
-            console.log(data, error);
-        }
+        error: function (data, error) { }
     });
 };
 function ArmarProgramasBelcorp(data) {

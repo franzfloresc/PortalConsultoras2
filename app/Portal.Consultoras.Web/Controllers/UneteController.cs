@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                     , null
                     , null);
             }
-
+            RegistrarLogGestionSacUnete(id.ToString(), "GESTIONA POSTULANTE", "APROBAR");
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
@@ -1019,12 +1019,11 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(user.CodigoISO, id);
             }
 
-            var belcorpResponde = new BelcorpRespondeBE();
-
-            using (var osv = new BelcorpPaisServiceClient())
-            {
-                belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
-            }
+            //var belcorpResponde = new BelcorpRespondeBE();
+            //using (var osv = new BelcorpPaisServiceClient())
+            //{
+            //    belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
+            //}
 
             solicitudPostulante.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPais(user.CodigoISO,
                 solicitudPostulante.NumeroDocumento);
@@ -1481,8 +1480,14 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ProcesarParametro(GestionValidacionesParameter model)
         {
             model.CodigoISO = CodigoISO;
-            var response = PostHTMLSACUnete("ProcesarParametro", model);
-            return Json(response == "true", JsonRequestBehavior.AllowGet);
+            bool resultado;
+            model.ListaZonasTelefonicasActivas = model.ListaZonasTelefonicasActivas ?? new List<HojaInscripcionBelcorpPais.ParametroUneteBE>();
+            model.ListaZonasTelefonicasInactivas = model.ListaZonasTelefonicasInactivas ?? new List<HojaInscripcionBelcorpPais.ParametroUneteBE>();
+            using (var sv = new BelcorpPaisServiceClient())
+            {
+                resultado = sv.ActualizarValidacionesUnete(model.CodigoISO, model);
+            }
+            return Json(resultado, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -1514,6 +1519,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult DevolverSolicitud(int id, string observacion)
         {
             var response = getHTMLSACUnete("DevolverSolicitud", "&id=" + id + "&observacion=" + observacion);
+            RegistrarLogGestionSacUnete(id.ToString(), "GESTIONA POSTULANTE", "DEVOLVER");
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
@@ -1527,6 +1533,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ReactivarPostulante(string id)
         {
             var response = getHTMLSACUnete("ReactivarPostulante2", "&id=" + id);
+            RegistrarLogGestionSacUnete(id.ToString(), "GESTIONA POSTULANTE", "REACTIVAR");
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
@@ -1534,6 +1541,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult RechazarPostulante(RechazoModel model)
         {
             var response = PostHTMLSACUnete("RechazarPostulante", model);
+            RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "GESTIONA POSTULANTE", "RECHAZAR");
             return Json(response == "true", JsonRequestBehavior.AllowGet);
 
         }
@@ -1579,6 +1587,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                                   "&codterritorio=" + codterritorio +
                                                                   "&direccion=" + direccion
             );
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTAR UBICACION", "GRABAR POSICION");
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
@@ -1611,6 +1620,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult EditarDireccionManualmente(EditarDireccionManualmenteModel model)
         {
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmente", model);
+            RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "CONSULTAR UBICACION", "EDITAR DIRECCION MANUALMENTE");
             return PartialView("_EditarDireccionManualmente");
         }
 
@@ -1634,6 +1644,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (ViewBag.HTMLSACUnete == "{\"success\":true}")
             {
+                RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(),"EDITAR POSTULANTE","EDITAR");
                 return Json(new {success = true}, JsonRequestBehavior.AllowGet);
             }
             else
@@ -1656,7 +1667,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
             }
-
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA CREDITICIA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
 
@@ -1664,6 +1675,8 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
         {
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("GrabarDatosDireccion", model);
+
+            RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(), "CONSULTAR UBICACION", "GRABAR DIRECCION");
             return PartialView("_TemplateMensaje");
         }
 
@@ -1737,7 +1750,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GestionaPostulante()
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", null);
+            var nombreRol = UserData().RolDescripcion;
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
         }
 

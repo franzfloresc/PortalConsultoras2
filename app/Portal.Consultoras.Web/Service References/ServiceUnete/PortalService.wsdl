@@ -361,6 +361,24 @@
   <wsdl:message name="IPortalService_GetReporteFunnel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteFunnelResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionSolicitudPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -593,6 +611,18 @@
     <wsdl:operation name="GetReporteFunnel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnel" message="tns:IPortalService_GetReporteFunnel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnelResponse" message="tns:IPortalService_GetReporteFunnel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse" message="tns:IPortalService_EnviarCodigoVerificacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulanteResponse" message="tns:IPortalService_ValidarCodigoVerificacionSolicitudPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -1112,6 +1142,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetReporteFunnel">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetReporteFunnel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionSolicitudPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionSolicitudPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -52,13 +53,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lstParam.Count > 0)
             {
-                Url = Url + "?";
-
+                var txtBuil = new StringBuilder();
                 foreach (BEServicioParametro param in lstParam)
                 {
-                    Url = Url + param.Abreviatura + "=" + DevolverValorParametro(param.ParametroId) + "&";
+                    txtBuil.Append(param.Abreviatura + "=" + DevolverValorParametro(param.ParametroId) + "&");
                 }
 
+                Url = Util.Trim(Url) + "?" + txtBuil.ToString();
                 Url = Url.Substring(0, Url.Length - 1);
             }
             return Redirect(Url);

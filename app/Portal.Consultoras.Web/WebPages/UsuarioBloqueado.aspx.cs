@@ -7,8 +7,8 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string ISO = Request.QueryString["P"];
-            if (ISO == "CO")
+            string iso = Request.QueryString["P"];
+            if (iso == "CO")
                 DivMensajeCO.Visible = true;
             else
                 DivMensajeGenerico.Visible = true;           
