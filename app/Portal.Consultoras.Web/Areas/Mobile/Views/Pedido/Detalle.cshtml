@@ -542,7 +542,6 @@
     <div  data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
             <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
-            <div class="btn_regalo_sorpresa" id="linkRegaloSorpresa" style="display: none;">DESCUBRE TU PREMIO <span style="text-decoration: underline;">AQUÍ</span></div>
             <a class="cerrar_popMobile" href="javascript:;" style="top:7px; right:7px;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
             </a>
@@ -564,11 +563,11 @@
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
-                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span><br/>PARA LLEGAR AL MONTO MÍNIMO</b></span>
+                    <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span><br />PARA LLEGAR AL MONTO MÍNIMO</b></span>
                     {{else if_eq TipoMeta 'GM'}}
-                        <span>¡GUARDASTE TU <b>PEDIDO<br/>CON ÉXITO!</b></span>
+                    <span>¡GUARDASTE TU <b>PEDIDO<br />CON ÉXITO!</b></span>
                     {{else}} <!--se espera escala de dscto-->
-                        <span>¡GUARDASTE TU <b>PEDIDO<br/>CON ÉXITO!</b></span>
+                    <span>¡GUARDASTE TU <b>PEDIDO<br />CON ÉXITO!</b></span>
                     {{/if_eq}}
                 </h1>
                 <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
@@ -596,7 +595,15 @@
                 </div>
             </div>
 
-            <div class="contenedor_carruselOfertaFinal" style="padding-top:0;">
+            <div class="btn_regalo_sorpresa" id="linkRegaloSorpresa" style="display: none;">
+                <div class="txt_regalo_sorpresa">
+                    ¡FELICITACIONES 
+                    <span class="txt_span_regalo_sorpresa">GANASTE!</span>
+                </div>
+                <span class="span_link_regalo_sorpresa">ELIGE TU PREMIO</span>
+            </div>
+
+            <div class="contenedor_carruselOfertaFinal">
                 <div class="bloque_carousel" style="margin-bottom:17px;">
                     <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         {{#each this.Detalle}}

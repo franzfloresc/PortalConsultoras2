@@ -8935,7 +8935,7 @@ span.title-app-b {
 }
 
 .contenedor_carruselOfertaFinal {
-    padding: 22px 5px 20px 5px;
+    padding: 0 5px 20px 5px;
 }
 
 .ofertaFinal_info {
@@ -11300,7 +11300,8 @@ a {
 }
 
 .margenSuperiorProgramaNuevas {
-    margin-top: -40px;
+    padding-top: 18px;
+    position: relative;
 }
 
 .texto_comple_ficha {
@@ -13543,7 +13544,11 @@ a {
 }
 
 .btn_regalo_sorpresa {
-    background: #e81c36 url('../../../Images/mobile/icono_regalo.png') no-repeat;
+    background: #c81c36;
+    color: white;
+    font-family: 'Lato';
+    height: 67px;
+    /*background: #613c87 url('../../../Images/mobile/icono_regalo.png') no-repeat;
     max-width: 258px;
     text-transform: uppercase;
     height: 40px;
@@ -13556,7 +13561,28 @@ a {
     padding-left: 40px;
     position: relative;
     top: 0;
-    margin-bottom: 16px;
+    margin-bottom: 16px;*/
+}
+
+.txt_regalo_sorpresa {
+    width: 150px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.46;
+    letter-spacing: 0.5px;
+}
+
+.txt_span_regalo_sorpresa {
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 1.27;
+}
+
+.span_link_regalo_sorpresa {
+    text-decoration: underline;
+    font-size: 11px;
+    line-height: 1.64;
+    letter-spacing: 0.4px;
 }
 
 .btn_regalo_sorpresa_gano {
@@ -13575,18 +13601,6 @@ a {
     position: relative;
     top: 0;
     margin-bottom: 16px;
-}
-
-.btn_regalo_sorpresa:before {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 40px 0 0 25px;
-    border-color: transparent transparent transparent #e81c37;
-    position: absolute;
-    right: -25px;
-    z-index: 1;
 }
 
 .ContentSorpresaMobile {
