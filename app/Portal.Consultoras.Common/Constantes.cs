@@ -398,6 +398,9 @@ namespace Portal.Consultoras.Common
 
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
+
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Escenario = "ESC";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
