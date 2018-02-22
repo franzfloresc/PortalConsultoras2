@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
@@ -651,7 +652,8 @@ namespace Portal.Consultoras.BizLogic
 
             var configPais = new BEConfiguracionPais()
             {
-                Detalle = new BEConfiguracionPaisDetalle() {
+                Detalle = new BEConfiguracionPaisDetalle()
+                {
                     PaisID = usuario.PaisID,
                     CodigoRegion = usuario.CodigorRegion,
                     CodigoZona = usuario.CodigoZona,
@@ -681,7 +683,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
                     {
-                        if(oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
                         else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
                     }
                 }
