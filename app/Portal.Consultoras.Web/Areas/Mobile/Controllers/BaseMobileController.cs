@@ -5,10 +5,12 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+
 using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
