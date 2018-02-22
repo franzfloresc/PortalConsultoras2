@@ -333,16 +333,8 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {   
-        $(".lk_chat").get(0).click();
-    });
-    
-    $(".lk_chat").click(function () {        
-        Construir_EnlacexDispositivo(2);
-        var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
-        if (DeshabilitarBotonCorreo)
-        {
-            console.log("Esta fuera de hora");
-        }
+        $('#marca').css('display', 'block');
+        $("#btn_init").trigger("click");
     });
 
     $("body").keyup(function (evt) {
@@ -390,32 +382,6 @@ $(document).ready(function () {
         RecuperarClave(_tipoRecuperar);
     });
 });
-
-function Construir_EnlacexDispositivo(Modo) {
-
-    if (v_IsMovilDevice == "1") {
-        var v_urlbase = $("#hd_CONTEXTO_BASE").val();
-        var paisId = $("#cboPaisCambioClave").val();
-        var codigoUsuario = $("#hdCodigoConsultora").val();
-        var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp +
-            "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario + "&emt_type=1";
-
-        var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
-
-        if (Modo == 2) {
-            if (!DeshabilitarBotonCorreo) {
-                $(".lk_chat").prop("href", v_url);
-                $(".lk_chat").css("text-decoration", "none");
-                $(".lk_chat").css("color", "black");
-            }
-        }
-    }
-    else {
-
-        $('#marca').css('display', 'block');
-        $("#btn_init").trigger("click");
-    }
-}
 
 function Inicializar()
 {
@@ -1233,12 +1199,12 @@ function RecuperarClave(tipoRecuperar) {
                             emt_client_type = response.data.TipoUsuario;
                             emt_country = response.data.CodigoISO;
                             emt_email_address = response.data.Correo;
-                            emt_first_name = response.data.NombreCompleto;
+                            emt_first_name = response.data.PrimerNombre.toUpperCase();
                             emt_id = response.data.CodigoUsuario;
                             emt_type = '1';
                             //fin set variables nuevo chat
 
-                            v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");                            
+                            //v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");                            
                             $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
                             $("#divHoraiosAtencion").html(response.data.descripcionHorario);
 
