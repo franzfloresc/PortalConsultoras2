@@ -2360,13 +2360,16 @@
 }
 
 .banner_pedido_text {
-    font-size: 16px;
-    line-height: 20px;
-    margin-bottom: 52px;
+    font-size: 17px;
+    line-height: 25px;
+    margin-bottom: 32px;
     text-transform: uppercase;
 }
-
-.banner_pedido_masofertas .btn_diagonal {
+    .banner_pedido_text b {
+        display: block;
+        text-align: center;
+    }
+/*.banner_pedido_masofertas .btn_diagonal {
     background: white;
     width: 70%;
     position: absolute;
@@ -2419,12 +2422,12 @@
         height: 12px;
         margin-left: 5px;
     }
-
+    */
 .home_rd1 {
     background-color: #fff;
 }
 
-    .home_rd1 .btn_diagonal .rd_arrowright_blanco {
+/*.home_rd1 .btn_diagonal .rd_arrowright_blanco {
         display: none !important;
     }
 
@@ -2498,7 +2501,7 @@
 .btn_diagonal:hover .rd_arrowright_blanco {
     display: inline !important;
 }
-
+*/
 
 
 @media screen and (max-width: 1220px) {

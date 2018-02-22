@@ -1217,6 +1217,8 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Images\carrusel_n_blanco.png" />
+    <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
     <Content Include="Content\Images\colorpicker\colorpicker_hex.png" />
@@ -1334,6 +1336,9 @@
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
     <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente.png" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente.svg" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente.png" />
     <Content Include="Content\Images\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
@@ -1354,9 +1359,15 @@
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
+    <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente.svg" />
+    <Content Include="Content\Images\etiqueta-ganamas-esika.svg" />
+    <Content Include="Content\Images\etiqueta-ganamas-lbel.svg" />
     <Content Include="Content\Images\expand-button.png" />
     <Content Include="Content\Images\flecha-hacia-abajo.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
+    <Content Include="Content\Images\gif-club-ganamas.gif" />
+    <Content Include="Content\Images\gif-ganamas-esika.gif" />
+    <Content Include="Content\Images\gif-ganamas-lbel.gif" />
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
@@ -1377,6 +1388,13 @@
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
+    <Content Include="Content\Images\logo-club-ganamas-blanco.svg" />
+    <Content Include="Content\Images\logo-club-ganamas-dorado.svg" />
+    <Content Include="Content\Images\logo-club-ganamas-negro.svg" />
+    <Content Include="Content\Images\logo-ganamas-blanco.svg" />
+    <Content Include="Content\Images\logo-ganamas-morado.svg" />
+    <Content Include="Content\Images\logo-ganamas-negro.svg" />
+    <Content Include="Content\Images\logo-ganamas-rojo.svg" />
     <Content Include="Content\Images\mailIcon.png" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
@@ -2690,8 +2708,6 @@
     <Content Include="Content\Images\login\ico3.png" />
     <Content Include="Content\Images\login\ico3_b.png" />
     <Content Include="Content\Images\logo-asesora-online.svg" />
-    <Content Include="Content\Images\logo-belcorp-academia.png" />
-    <Content Include="Content\Images\logo-esika-landing.png" />
     <Content Include="Content\Images\logo-esika-landing.svg" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\logotipo_belcorp_05.png" />

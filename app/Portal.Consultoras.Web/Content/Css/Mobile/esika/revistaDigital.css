@@ -1182,14 +1182,14 @@ div#tab_revistasdigital_mobile {
     height: 20px;
 }
 
-.rd_arrowright {
+/*.rd_arrowright {
     position: relative;
     width: 8px;
     top: -2px;
     left: 5px;
-}
+}*/
 
-    .rd_arrowright:after {
+/*.rd_arrowright:after {
         background-image: url('../../../Images/Esika/rd_arrowright_red.png');
         background-repeat: no-repeat;
         background-size: 6px 10px;
@@ -1199,7 +1199,7 @@ div#tab_revistasdigital_mobile {
         content: '';
         margin-left: 8px;
         margin-top: 4px;
-    }
+    }*/
 
 .rd_ver_mas .arrow_rigth {
     width: 8px;
@@ -1446,7 +1446,7 @@ div#tab_revistasdigital_mobile {
         line-height: 53px;
         padding: 0;
     }
-
+    
 .mpopup_textleg {
     text-align: center;
     font-size: 11px;
@@ -1998,6 +1998,9 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         letter-spacing: .5px;
         font-family: 'Lato';
+        display:block;
+       width:100%;
+       word-wrap:break-word;
     }
 
     .btn_negro a {
@@ -2858,3 +2861,23 @@ a.btn-suscribete-video-baja {
                 text-decoration: underline;
             }
 /* FIN */
+/*BOTON ESIKA NO ANIMADO: ROJO*/
+.activar_boton_esika_no_animado {
+    background-color: #e81c36 !important;
+    color: white !important;
+    padding: 15px 0px;
+}
+/*BOTON DORADO NO ANIMADO - CLUB GANA+*/
+.activar_boton_dorado_no_animado {
+    background-color: #c39934;
+    color: white !important;
+    padding: 15px 0px;
+    border: none !important;
+}
+/*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
+.activar_boton_blanco_no_animado {
+    background-color: white;
+    color: #c39934 !important;
+    position: relative;
+    padding: 15px 0px;
+}

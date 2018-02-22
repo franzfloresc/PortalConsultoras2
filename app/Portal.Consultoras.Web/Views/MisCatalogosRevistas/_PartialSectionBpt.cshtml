@@ -19,7 +19,7 @@
 {
     if (revistaDigital.EsActiva)
     {
-        <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+        <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
                     <img src="@urlLogo" alt="" class="large">
@@ -29,11 +29,34 @@
                     <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 </div>
                 <div class="btn_diagonal btn_stroke_white">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                    </a>
+                    <div class="activar_boton_rojo_a_blanco" style="padding:0px 0px;">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" style="    padding-left: 0px;
+    text-align: center; color:white; padding:0 0;">
+                            VER TODAS MIS OFERTAS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="clear" />
+
+        <!-- EJEMPLO CLUB GANA MÁS-->
+        <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo rd_logo2">
+                    <img src="@urlLogo" alt="" class="large">
+                </div>
+                <div class="hblock_text">
+                    <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                </div>
+                <div class="btn_diagonal btn_stroke_white">
+                    <div class="activar_boton_dorado_a_blanco" style="padding:0px 0px;">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" style="    padding-left: 0px;
+    text-align: center; color:white; padding:0 0;">
+                            SUSCRÍBETE GRATIS
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,7 +65,7 @@
     }
     else
     {
-        <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+        <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
                     <img src="@urlLogo" alt="" class="large">
@@ -52,11 +75,12 @@
                     <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 </div>
                 <div class="btn_diagonal btn_stroke_white">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                    </a>
+                    <div class="activar_boton_rojo_a_blanco" style="padding:0px 0px;">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" style="    padding-left: 0px;
+    text-align: center; color:white; padding:0 0;">
+                            VER TODAS MIS OFERTAS
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -66,7 +90,7 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-    <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+    <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
         <div class="content_belcorp" style="background-color: black;">
             <div class="rd_logo">
                 <img src="@urlLogo" alt="" class="large">
@@ -76,11 +100,12 @@ else if (revistaDigital.TieneRDI)
                 <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
             </div>
             <div class="btn_diagonal btn_stroke_white">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
-                    VER TODAS MIS OFERTAS
-                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
-                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
-                </a>
+                <div class="activar_boton_rojo_a_blanco" style="padding:0px 0px;">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" style="    padding-left: 0px;
+    text-align: center; color:white; padding:0 0;">
+                        VER TODAS MIS OFERTAS
+                    </a>
+                </div>
             </div>
         </div>
     </div>
