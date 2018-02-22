@@ -99,8 +99,43 @@ else
                         <div class="div-3">
                             <div class="wrap">
                                 <div class="container clearfix">
-                                    <table id="listRegalos"></table>
                                     <div id="pagerRegalos"></div>
+                                    <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all">
+                                        <div class="ui-jqgrid-view">
+
+                                            <table class="ui-jqgrid-htable" style="width: 100%" id="listRegalos" data-bind="with: upSelling">
+                                                @*<caption>Amazing Animals</caption>*@
+                                                <thead>
+                                                    <tr class="ui-jqgrid-labels">
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 65px;">Nombre</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">CUV</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">Stock</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">StockA ctual</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Orden</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Activo</th>
+                                                        <th class="ui-state-default ui-th-column ui-th-ltr" data-sortable="false" style="width: 40px;">Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody data-bind="foreach: Regalos">
+                                                    <tr class="ui-widget-content jqgrow ui-row-ltr ui-state-highlight">
+                                                        <td data-bind="text: Nombre" style="text-align:center;"></td>
+                                                        <td data-bind="text: CUV" style="text-align:center;"></td>
+                                                        <td data-bind="text: Stock" style="text-align:center;"></td>
+                                                        <td data-bind="text: StockActual" style="text-align:center;"></td>
+                                                        <td data-bind="text: Orden" style="text-align:center;"></td>
+                                                        <td data-bind="text: Activo" style="text-align:center;"></td>
+                                                        <td style="text-align:center;">
+                                                            <a href="#" data-bind="click: $root.regaloEditar">edit</a>
+                                                            <a href="#" data-bind="click: $root.regaloActivarDesactivar, text: Activo?'Desactivar':'Activar'"></a>
+                                                            <a href="#" data-bind="click: $root.regaloEliminar">Eliminar</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -113,7 +148,7 @@ else
                 </div>
             </div>
         </div>
-        
+
         <div class="div-3">
             <div class="titG"></div>
             <div class="titG"></div>
@@ -123,7 +158,7 @@ else
             <input type="button" value="Cancelar" data-bind="click:cancel" />
         </div>
     </div>
-    
+
     @*popup regalo*@
     <div id="editRegaloPopUp" data-bind="if: mostrarFormularioRegalo">
         <div class="Content_modal">
@@ -172,6 +207,8 @@ else
         </div>
         <div class="div-3">
             <div class="titG"></div>
+            <div class="titG"></div>
+            <div class="titG"></div>
             <input type="button" value="Agregar" data-bind="visible: regaloEsNuevo(), click:regaloAgregar" />
             <input type="button" value="Actualizar" data-bind="visible: !regaloEsNuevo(), click:regaloActualizar" />
             <input type="button" value="Cerrar" data-bind="click: regaloCerrar" />
@@ -183,6 +220,7 @@ else
 @Scripts.Render("~/bundles/estrategias-upselling")
 @*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
 @section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/ko.gridBinding.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function() {

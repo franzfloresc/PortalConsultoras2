@@ -324,6 +324,17 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
     function UpSellingViewModel() {
         var selfvm = this;
+        var defaultRegalo = new UpSellingRegaloModel({
+            UpSellingRegaloId: 0,
+            CUV: null,
+            Nombre: null,
+            Descripcion: null,
+            Imagen: null,
+            Stock: null,
+            StockActual: null,
+            Orden: null,
+            Activo: null
+        });
 
         selfvm.upSelling = ko.observable({});
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
@@ -347,11 +358,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
                         fail(result.Message);
 
                     upSellingRow.Regalos = result.Data;
+
                     selfvm.upSelling = new UpSellingModel(upSellingRow);
                     selfvm.mostrarFormulario(true);
                     enableTabs(settings.idTabs);
-                    //todo: eval length
-                    cargarGrillaRegalos(ko.toJS(selfvm.upSelling.Regalos));
                 }, fail)
                 .done(function () {
                     closeWaitingDialog();
@@ -362,7 +372,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             alert("guardar todo");
         }
 
-        selfvm.cancel = function() {
+        selfvm.cancel = function () {
             alert("perdera cambios");
         }
 
@@ -370,39 +380,42 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.mostrarFormularioRegalo = ko.observable(false);
         selfvm.regaloEsNuevo = ko.observable(true);
 
-
         selfvm.regaloNuevo = function () {
-            selfvm.regaloSeleccionado(null);
+            selfvm.regaloSeleccionado = defaultRegalo;
             showDialog(settings.idDivPopUpRegalo);
             selfvm.mostrarFormularioRegalo(true);
             selfvm.regaloEsNuevo(true);
         }
 
-        selfvm.regaloEditar = function (regaloId) {
+        selfvm.regaloEditar = function (regalo) {
             showDialog(settings.idDivPopUpRegalo);
-            var regalos = selfvm.upSelling.Regalos().filter(function (regalo) {
-                return regalo.UpSellingRegaloId() === regaloId;
-            });
-            if (!!regalos && regalos.length > 0) {
-                selfvm.regaloSeleccionado = regalos[0];
-                selfvm.mostrarFormularioRegalo(true);
-                selfvm.regaloEsNuevo(false);
-            }
+            selfvm.regaloSeleccionado = regalo;
+            selfvm.mostrarFormularioRegalo(true);
+            selfvm.regaloEsNuevo(false);
         }
 
         selfvm.regaloAgregar = function () {
             selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado);
+            selfvm.regaloSeleccionado = null;
+            HideDialog(settings.idDivPopUpRegalo);
         }
 
         selfvm.regaloActualizar = function () {
-            
-                selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado);
+            selfvm.regaloSeleccionado = null;
+            HideDialog(settings.idDivPopUpRegalo);
         }
 
-        selfvm.regaloDelete = function (regaloId) { }
-        selfvm.regaloDesactivar = function (regaloId) { }
-        selfvm.regaloCerrar = function () { }
+        selfvm.regaloActivarDesactivar = function (regalo) {
+            regalo.Activo(!regalo.Activo());
+        }
 
+        selfvm.regaloEliminar = function (regalo) {
+            selfvm.upSelling.Regalos.remove(regalo);
+        }
+
+        selfvm.regaloCerrar = function () {
+            HideDialog(settings.idDivPopUpRegalo);
+        }
     }
 
     self.upSellingViewModel = new UpSellingViewModel();
