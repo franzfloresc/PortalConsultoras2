@@ -13456,44 +13456,57 @@ span.icon-advertencia {
 
 .btn_regalo_sorpresa {
     background: #c81c36;
-    color: white;
-    font-family: 'Lato';
     height: 67px;
-    /*background: #613c87 url('../../../Images/mobile/icono_regalo.png') no-repeat;
-    max-width: 258px;
-    text-transform: uppercase;
-    height: 40px;
-    font-family: 'Lato';
-    font-weight: 700;
-    color: white;
-    font-size: 13px;
-    letter-spacing: 1px;
-    line-height: 39px;
-    padding-left: 40px;
-    position: relative;
-    top: 0;
-    margin-bottom: 16px;*/
+    /*background: #613c87 url('../../../Images/mobile/icono_regalo.png') no-repeat;*/
 }
 
 .txt_regalo_sorpresa {
-    width: 150px;
-    font-size: 13px;
+    color: white;
+    float: left;
+    font-family: 'Lato';
     font-weight: 700;
-    line-height: 1.46;
     letter-spacing: 0.5px;
+    padding: 3px 0 0 5%;
+    text-transform: uppercase;
+    width: 50%;
 }
 
-.txt_span_regalo_sorpresa {
-    font-weight: 900;
+.span_1_regalo_sorpresa {
+    font-size: 13px;
+    line-height: 1.46;
+}
+
+.span_2_regalo_sorpresa {
     font-size: 15px;
     line-height: 1.27;
 }
 
 .span_link_regalo_sorpresa {
-    text-decoration: underline;
     font-size: 11px;
-    line-height: 1.64;
+    font-weight: normal;
     letter-spacing: 0.4px;
+    line-height: 1.64;
+    text-decoration: underline;
+}
+
+.img_regalos_sorpresa {
+    width: 50%;
+    float: right;
+    padding: 5px 5% 0 0;
+}
+
+.img_regalo_sorpresa {
+    width: 56px;
+    height: auto;
+    float: right;
+}
+
+    .img_regalo_sorpresa img {
+        width: 100%;
+    }
+
+.img_2_regalo_sorpresa {
+    margin-right: 5%;
 }
 
 .ContentSorpresaMobile {
