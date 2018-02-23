@@ -70,6 +70,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
                 { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
                 { name: "Options", width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: optionButtons },
+                //{ name: "TextoMeta", index: "TextoMeta", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                //{ name: "TextoMetaSecundario", index: "TextoMetaSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                //{ name: "TextoGanaste", index: "TextoGanaste", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                //{ name: "TextoGanasteSecundario", index: "TextoGanasteSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
             ],
             jsonReader:
             {
@@ -93,58 +97,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
             altRows: false
         });
         jQuery("#" + settings.idGrilla).jqGrid("navGrid", "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
-    }
-
-    function cargarGrillaRegalos(data) {
-        var grilla = $("#" + settings.idGrillaRegalos);
-        grilla.jqGrid("GridUnload");
-
-        grilla.jqGrid({
-            hidegrid: false,
-            datatype: "local",
-            postData: ({
-                codigoCampana: settings.cmbCampanas.val()
-            }),
-            mtype: "GET",
-            contentType: "application/json; charset=utf-8",
-            multiselect: false,
-            colNames: ["#", "Nombre", "CUV", "Stock", "StockActual", "Orden", "Activo", "Opciones"],
-            colModel: [
-                { name: "UpSellingRegaloId", index: "UpSellingRegaloId", width: 50, sortable: false, align: "center" },
-                { name: "Nombre", index: "Nombre", width: 80, sortable: false, align: "center" },
-                { name: "CUV", index: "CUV", width: 80, sortable: false, align: "center" },
-                { name: "Stock", index: "Stock", width: 80, sortable: false, align: "center" },
-                { name: "StockActual", index: "StockActual", width: 100, sortable: false, align: "center" },
-                { name: "Orden", index: "Orden", width: 100, sortable: false, align: "center" },
-                { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
-                { name: "Options", width: 60, editable: true, sortable: false, align: "center", resizable: false, formatter: optionButtonsRegalos },
-            ],
-            //jsonReader:
-            //{
-            //    root: "Data",
-            //    repeatitems: false,
-            //    id: "UpSellingId"
-            //},
-            pager: jQuery("#" + settings.idPager),
-            loadtext: "Cargando datos...",
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: "No hay resultados",
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: "UpSellingId",
-            sortorder: "asc",
-            viewrecords: true,
-            height: "auto",
-            width: 930,
-            pgtext: "Pág: {0} de {1}",
-            altRows: false
-        });
-
-        grilla.jqGrid("navGrid", "#" + settings.idPager, { edit: false, add: false, refresh: false, del: false, search: false });
-
-        for (var i = 0; i <= data.length; i++)
-            grilla.jqGrid('addRowData', i + 1, data[i]);
     }
 
     function buscar(e, s) {
@@ -332,7 +284,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             Stock: null,
             StockActual: null,
             Orden: null,
-            Activo: null
+            Activo: true
         });
     }
 
