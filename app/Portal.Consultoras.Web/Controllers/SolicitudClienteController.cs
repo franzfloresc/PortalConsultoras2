@@ -49,9 +49,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -166,12 +166,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Paginacion = Util.Trim(Paginacion);
                 int outVal;
                 int.TryParse(Paginacion, out outVal);
-                
+
                 if (page == 1 && outVal > 0)
                 {
                     page = outVal;
                 }
-                
+
                 List<BESolicitudCliente> lst;
 
                 if (Consulta == "1")
@@ -445,8 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
             cuerpoMensaje.Append(String.Format("<p>Estimada <strong>{0}</strong>,</p>", entidadSolicitud.NombreGZ.ToUpper()));
             cuerpoMensaje.Append("<p>Hemos recibido el pedido de un nuevo cliente de tu Zona que está en búsqueda de una Consultora.</p>");
             cuerpoMensaje.Append("<p>Te sugerimos asignar este nuevo cliente a una de tus Consultoras más proactivas, digitales y que quieras motivar.</p>");
-            //cuerpoMensaje.Append("<p>Hemos recibido el pedido de un nuevo cliente que no ha podido ser <br />");
-            //cuerpoMensaje.Append(String.Format("atendido por {0} consultoras de tu zona.</p>", entidadSolicitud.NumIteracion.ToString()));
             cuerpoMensaje.Append("<p>A continuación te adjuntamos sus datos y pedido para que puedan atenderlo a la brevedad.</p>");
             cuerpoMensaje.Append(String.Format("<p style=\"line-height:22px\">Cliente: {0}<br />", entidadSolicitud.NombreCompleto));
             cuerpoMensaje.Append(String.Format("Correo electrónico: {0}<br />", entidadSolicitud.Email));

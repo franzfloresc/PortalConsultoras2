@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 
                 if (entidad.CodigoZona != null)
                 {
-                      codigoRegion = entidad.CodigoZona.Substring(0, 2);
+                    codigoRegion = entidad.CodigoZona.Substring(0, 2);
                 }
 
                 tipoDocumento = (tipoDocumento == "2") ? "4" : tipoDocumento;

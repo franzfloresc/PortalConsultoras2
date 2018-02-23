@@ -83,6 +83,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return listaEntity;
             }
         }
-        
+
     }
 }

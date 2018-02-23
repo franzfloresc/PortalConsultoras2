@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
 {
     public class ContenidoService : IContenidoService
     {
-        private BLNavidadConsultora _BLNavidadConsultora;
-        private BLItemCarruselInicio _BLItemCarruselInicio;
+        private readonly BLNavidadConsultora _BLNavidadConsultora;
+        private readonly BLItemCarruselInicio _BLItemCarruselInicio;
+        private readonly BLMailing _BLMailing;
 
-        private BLMailing _BLMailing;
-		public ContenidoService()
+        public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();
             _BLItemCarruselInicio = new BLItemCarruselInicio();
@@ -75,7 +71,7 @@ namespace Portal.Consultoras.Service
             return blBanner.UpdOrdenNumberBanner(paisID, lstBanners);
         }
 
-		public int GetPaisBannerMarquesina(string CampaniaID, int IdBanner)
+        public int GetPaisBannerMarquesina(string CampaniaID, int IdBanner)
         {
             var blBanner = new BLBanner();
             var result = blBanner.GetPaisBannerMarquesina(CampaniaID, IdBanner);
@@ -171,7 +167,7 @@ namespace Portal.Consultoras.Service
         {
             var blResumenCampania = new BLResumenCampania();
             return blResumenCampania.GetDeudaTotal(paisID, ConsultoraID);
-        }      
+        }
 
         #endregion
 
@@ -360,20 +356,20 @@ namespace Portal.Consultoras.Service
             var blBanner = new BLBanner();
             blBanner.DeleteCacheBanner(CampaniaID);
         }
-    
-		public int ActualizarEstadoPaqueteDocumentario(int paisID,string codigo, int campania)
+
+        public int ActualizarEstadoPaqueteDocumentario(int paisID, string codigo, int campania)
         {
             var blPaquete = new BLPaqueteDocumentario();
-            return blPaquete.ActualizarEstadoPaqueteDocumentario(paisID,codigo, campania);
+            return blPaquete.ActualizarEstadoPaqueteDocumentario(paisID, codigo, campania);
         }
 
-        public bool ValidarInvitacionPaqueteDocumentario(int paisID,string codigo)
+        public bool ValidarInvitacionPaqueteDocumentario(int paisID, string codigo)
         {
             var blPaquete = new BLPaqueteDocumentario();
-            return blPaquete.ValidarInvitacionPaqueteDocumentario(paisID,codigo);
+            return blPaquete.ValidarInvitacionPaqueteDocumentario(paisID, codigo);
         }
 
-        public string[] GetPaqueteDocumentario(int paisID) 
+        public string[] GetPaqueteDocumentario(int paisID)
         {
             var blPaquete = new BLPaqueteDocumentario();
             string[] file = blPaquete.GenerarPaqueteDocumentario(paisID);
@@ -414,7 +410,7 @@ namespace Portal.Consultoras.Service
             var blConsultoraLider = new BLConsultoraLider();
             return blConsultoraLider.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais);
         }
-	
+
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
             var blConsultoraLider = new BLConsultoraLider();
@@ -435,7 +431,7 @@ namespace Portal.Consultoras.Service
         #region Emailing para SE
         public List<BEPlantillasMailing> ObtenerPlantillasEmailingSE()
         {
-           return  _BLMailing.ObtenerPlantillasEmailingSE();
+            return _BLMailing.ObtenerPlantillasEmailingSE();
         }
 
         public List<BEMailing> CargarPaisesPlantillaEmailing(int plantillaID)
@@ -447,7 +443,7 @@ namespace Portal.Consultoras.Service
         {
             _BLMailing.RegistrarContenidoEmailingSE(BEMailing);
         }
-        
+
         public bool AgregarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, string CodigoUsuario)
         {
             return _BLMailing.AgregarPaisPlantillaEmailingSE(PaisID, PlantillaID, CodigoUsuario);
@@ -470,7 +466,7 @@ namespace Portal.Consultoras.Service
 
         public void RegistrarLogEnvioAutomatico(int PaisID, BEConsultoraMailing BEConsultora)
         {
-             _BLMailing.RegistrarLogEnvioAutomatico(PaisID, BEConsultora);
+            _BLMailing.RegistrarLogEnvioAutomatico(PaisID, BEConsultora);
         }
 
         public DateTime GetPaisZonaHoraria(int PaisID)
@@ -491,12 +487,7 @@ namespace Portal.Consultoras.Service
 
         #region Miembros de IContenidoService
 
-
-
-
         #endregion
-
-
 
     }
 }

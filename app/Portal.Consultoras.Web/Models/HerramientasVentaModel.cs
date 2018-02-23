@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models

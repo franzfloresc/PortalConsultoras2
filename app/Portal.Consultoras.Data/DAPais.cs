@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
@@ -14,17 +13,10 @@ namespace Portal.Consultoras.Data
 
         public IDataReader EsPaisHana(int paisId)
         {
-            try
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EsPaisHana"))
             {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EsPaisHana"))
-                {
-                    Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
-                    return Context.ExecuteReader(command);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+                return Context.ExecuteReader(command);
             }
         }
     }

@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             PedidoWebDetalleModel model = new PedidoWebDetalleModel
             {
-                CampaniaID = (int) jObject["CampaniaId"],
+                CampaniaID = (int)jObject["CampaniaId"],
                 CodigoConsultora = userData.CodigoConsultora,
                 NombreConsultora = userData.NombreConsultora,
                 Direccion = userData.Direccion,
@@ -165,11 +165,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 (UserData().Simbolo + " " +
                                  string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
@@ -177,8 +177,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 (UserData().ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
                                 a.ConsultoraID.ToString(),
                                 a.PedidoID.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -190,19 +190,19 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
                                 a.Clientes.ToString(),
                                 (UserData().ZonaValida ? a.EstadoPedidoDesc : "Registrado"),
                                 a.ConsultoraID.ToString(),
                                 a.PedidoID.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                
+
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                
+
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (UserData().PaisID == 4)
@@ -694,7 +694,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             BEPedidoWebDetalle source = sourceDetails[i];
                             var arr = column.Contains("#")
-                                ? column.Split('#') 
+                                ? column.Split('#')
                                 : new string[] { "", column };
 
                             if (arr[1] == "CUV")
@@ -720,8 +720,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "ImporteTotal")
                             {
-                                var importeTotal = UserData().PaisID == 4 
-                                    ? source.ImporteTotal.ToString("#,##0").Replace(',', '.') 
+                                var importeTotal = UserData().PaisID == 4
+                                    ? source.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                     : source.ImporteTotal.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + importeTotal;
@@ -731,8 +731,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "PrecioUnidad")
                             {
-                                var precioUnidad = UserData().PaisID == 4 
-                                    ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.') 
+                                var precioUnidad = UserData().PaisID == 4
+                                    ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                     : source.PrecioUnidad.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + precioUnidad;

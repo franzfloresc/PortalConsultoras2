@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -16,7 +13,6 @@ namespace Portal.Consultoras.Web.Models
         public string TipoPersonalizacion { get; set; }
         public int Orden { get; set; }
         public bool Estado { get; set; }
-
         public int PersonalizacionNivelId { get; set; }
         public string Valor { get; set; }
     }

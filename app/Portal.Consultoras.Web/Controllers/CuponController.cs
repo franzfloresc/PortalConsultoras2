@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tieneOfertasPlan20 = true;
                 else
                     tieneOfertasPlan20 = TieneOfertasPlan20();
-                
+
                 return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
             }
 
-            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any())
             {
                 var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
                 flag = lstTmp.Any();
@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoCupon = cuponBe.TipoCupon
             };
         }
-        
+
         private void ActualizarCelularUsuario(CuponUsuarioModel model)
         {
             var celularActual = userData.Celular;

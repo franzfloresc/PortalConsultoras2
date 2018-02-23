@@ -2273,6 +2273,88 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .info_copy:hover .tooltip_importe {
         display: block;
     }
+        
+
+    .info_copy .tooltip_infoCopy_grid {
+        display: none;
+        width: 271px;
+        min-height: 158px;
+        height: auto;
+        position: absolute;
+        background: #fff;       
+        z-index: 50;
+        top: 58%;
+        left: 153%;
+        margin-top: -84px;
+        box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+        padding-top: 18px;
+        padding-left: 22px;
+        padding-right: 20px;
+        padding-bottom: 15px;
+        border: 1px solid #e7e1e1;
+    }
+
+        .info_copy .tooltip_infoCopy_grid:before {
+            position: absolute;
+        }
+
+    .info_copy:hover .tooltip_infoCopy_grid {
+        display: block;  
+    }
+
+
+.tooltip_infoCopy_grid h6 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #000;
+    font-weight: bold !important;
+    text-align: left;
+    margin-bottom: 6px;
+}
+
+
+.tooltip_infoCopy_grid p {
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #000;
+    font-weight: bold;
+    line-height: 18px;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.info_copy .tooltip_flecha_grid {
+    background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 16px !important;
+    position: absolute;
+    top: -8%;
+    left: -11.5%;
+    z-index: 50;
+    width: 32px;
+    height: 169px;
+}
+
+.infoCopy_expand .tooltip_flecha_grid {
+    top: 3%;
+    left: 100%;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.tooltip_flecha_grid_expand {
+    left: -1500%;
+}
+
 
     .info_copy .left_reservado {
         float: left;
@@ -35962,24 +36044,59 @@ height:30px;
     vertical-align: middle;
 }
 
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 280px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
+        position: relative;
+        float: left;
+        top: 0;
+        WIDTH: 100%;
+        LEFT: 0;
+        text-align: left;
+        margin: -13.5% 5% 0% -14.5px;
     }
 
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
+        display: inline-block;
+    /* margin: -15px; */
+    width: 66px;
+    height: 30px;
+    }
+
+    .contenido-popup-nuevo-2017 .cerrargndtxt{
+
+        margin-top: 20px;
+    font-size: 11px;
+    letter-spacing: .5px;
+    color: #9E9E9E;
+    text-decoration: underline;
+
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img{
+        display:block;
+        margin:auto;
+        text-align:center;
+        height:100px;
+        margin-bottom:15px;
+    }
+
+.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-align: center;
+    color: white;
+    font-weight: 300;
+    margin-bottom: 0;
+    display: block;
+    width: 280px;
+    margin: auto;
+    line-height: normal;
+    margin-bottom: 5px;
+}
+
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
+        font-size: 24px;
         letter-spacing: 1px;
-        line-height: 35px;
+        line-height: normal;
         text-align: center;
         color: white;
         font-weight: 700;
@@ -35989,7 +36106,7 @@ height:30px;
         display: block;
         width: 280px;
         margin: auto;
-        margin-bottom: 35px;
+        margin-bottom: 20px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
@@ -36003,6 +36120,7 @@ height:30px;
         padding: 17px 0;
         letter-spacing: 1px;
         margin: auto;
+        border: none;
         box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
     }
 

@@ -109,18 +109,18 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (grid.SortColumn)
                     {
                         case "Tipo":
-                            items = grid.SortOrder == "asc" 
-                                ? listaCupones.OrderBy(c => c.Tipo) 
+                            items = grid.SortOrder == "asc"
+                                ? listaCupones.OrderBy(c => c.Tipo)
                                 : listaCupones.OrderByDescending(c => c.Tipo);
                             break;
                         case "Descripcion":
-                            items = grid.SortOrder == "asc" 
+                            items = grid.SortOrder == "asc"
                                 ? listaCupones.OrderBy(c => c.Descripcion)
                                 : listaCupones.OrderByDescending(c => c.Descripcion);
                             break;
                         case "FechaCreacion":
-                            items = grid.SortOrder == "asc" ? 
-                                listaCupones.OrderBy(c => c.FechaCreacion) 
+                            items = grid.SortOrder == "asc" ?
+                                listaCupones.OrderBy(c => c.FechaCreacion)
                                 : listaCupones.OrderByDescending(c => c.FechaCreacion);
                             break;
                     }
@@ -225,13 +225,13 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (grid.SortColumn)
                     {
                         case "Consultora":
-                            items = grid.SortOrder == "asc" 
-                                ? listaCuponConsultoras.OrderBy(c => c.CodigoConsultora) 
+                            items = grid.SortOrder == "asc"
+                                ? listaCuponConsultoras.OrderBy(c => c.CodigoConsultora)
                                 : listaCuponConsultoras.OrderByDescending(c => c.CodigoConsultora);
                             break;
                         case "ValorAsociado":
-                            items = grid.SortOrder == "asc" 
-                                ? listaCuponConsultoras.OrderBy(c => c.ValorAsociado) 
+                            items = grid.SortOrder == "asc"
+                                ? listaCuponConsultoras.OrderBy(c => c.ValorAsociado)
                                 : listaCuponConsultoras.OrderByDescending(c => c.ValorAsociado);
                             break;
                         case "Estado":
@@ -370,9 +370,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

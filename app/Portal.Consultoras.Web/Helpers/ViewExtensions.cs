@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Helpers
         {
             return GetUniqueSession<MobileAppConfiguracionModel>(htmlHelper.ViewContext, "MobileAppConfiguracion");
         }
-        
+
         /// <summary>
         /// Calcula si es un pais Esika basado en ViewBag.PaisAnalytics
         /// </summary>
@@ -85,6 +85,6 @@ namespace Portal.Consultoras.Web.Helpers
             var getUniqueSession = GetUniqueSession(viewContext, name);
             return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
-        
+
     }
 }

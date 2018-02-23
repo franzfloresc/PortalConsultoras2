@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class DescargablesController: BaseController
+    public class DescargablesController : BaseController
     {
         public ActionResult Descargables()
         {
@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.Urltarjeta_navidenia = urlS3 + Constantes.ArchivosDescargables.TARJETA_NAVIDENA;
                 model.Urlpapel_regalo_dorado = urlS3 + Constantes.ArchivosDescargables.PAPEL_REGALO_DORADO;
-                model.Urlpapel_regalo_rojo = urlS3 + Constantes.ArchivosDescargables.PAPEL_REGALO_ROJO;                
+                model.Urlpapel_regalo_rojo = urlS3 + Constantes.ArchivosDescargables.PAPEL_REGALO_ROJO;
             }
             catch (Exception ex)
             {

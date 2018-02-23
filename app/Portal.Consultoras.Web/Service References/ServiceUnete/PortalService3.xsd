@@ -924,7 +924,7 @@
   <xs:element name="ObtenerListaAutocompletarUbigeoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ObtenerListaAutocompletarUbigeoResult" nillable="true" type="q73:ArrayOfstring" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaAutocompletarUbigeoResult" nillable="true" type="q73:ParametroUneteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

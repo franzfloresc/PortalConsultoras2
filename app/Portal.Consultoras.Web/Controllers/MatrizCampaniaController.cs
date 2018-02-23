@@ -9,7 +9,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
@@ -73,10 +72,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (string.IsNullOrEmpty(paisId)) throw new ArgumentNullException("vPaisID", "No puede ser nulo o vacío.");
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                if (!string.IsNullOrEmpty(paisId))
                 {
-                    campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                    {
+                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    }
                 }
             }
             catch (FaultException ex)
@@ -116,15 +117,17 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-
-                if (productos.Count == 2 && productos.LastOrDefault() != null)
-                    if (!string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
+                if (productos.Count == 2)
+                {
+                    var producto = productos.LastOrDefault();
+                    if (producto != null && !string.IsNullOrEmpty(producto.RegaloImagenUrl))
                     {
                         string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
-                            productos.LastOrDefault().RegaloImagenUrl,
-                            carpetaPais);
+                        productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, producto.RegaloImagenUrl, carpetaPais);
+
+
                     }
+                }
 
                 return Json(new
                 {

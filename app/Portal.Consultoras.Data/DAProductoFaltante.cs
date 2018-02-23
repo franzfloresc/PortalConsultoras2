@@ -54,24 +54,6 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }
-        
-        private DataTable productoTabla(BEProductoFaltante[] students)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("CampaniaID", typeof(string));
-            dt.Columns.Add("CUV", typeof(string));
-            dt.Columns.Add("ZonaID", typeof(string));
-            dt.Columns.Add("Zona", typeof(string));
-            dt.Columns.Add("FaltanteUltimoMinuto", typeof(string));
-            dt.Columns["CampaniaID"].ColumnMapping = MappingType.Attribute;
-
-            foreach (BEProductoFaltante s in students)
-            {
-                dt.Rows.Add(s.CampaniaID, s.CUV, s.ZonaID, s.Zona, s.FaltanteUltimoMinuto);
-            }
-            return dt;
-
-        }
 
         public int DelProductoFaltante(BEProductoFaltante prod, out bool Deleted)
         {
@@ -86,7 +68,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
+        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
             var listTablaTempType = new List<BETablaTemType>();
 
@@ -96,7 +78,7 @@ namespace Portal.Consultoras.Data
                 tablaTemType.CampaniaID = item.CampaniaID;
                 tablaTemType.CUV = item.CUV;
                 tablaTemType.ZonaID = item.ZonaID;
-                
+
                 listTablaTempType.Add(tablaTemType);
             }
 
@@ -117,8 +99,8 @@ namespace Portal.Consultoras.Data
             deleted = Convert.ToInt32(command.Parameters["@Deleted"].Value);
             return deleted;
         }
-        
-        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina,int pais)
+
+        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina, int pais)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByEntity");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, productofaltante.CampaniaID);
@@ -176,7 +158,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-        
+
         public int DelProductoFaltanteMasivo(int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltanteMasivo");

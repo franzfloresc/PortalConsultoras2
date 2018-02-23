@@ -27,7 +27,6 @@ namespace Portal.Consultoras.BizLogic
             daComunicado.UpdComunicadoByConsultora(CodigoConsultora);
         }
 
-        /**GR 1209 Obtener comunicado configurable en la tabla */
         /// <summary>
         /// Obtener los comunicados por consultora y tipo de dispositivo(Desktop o Mobile).
         /// </summary>
@@ -46,7 +45,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (reader.NextResult()) lstComunicadoVista = reader.MapToCollection<BEComunicadoVista>();
 
-                foreach(var item in lstComunicado)
+                foreach (var item in lstComunicado)
                 {
                     item.Vistas = lstComunicadoVista.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
                 }
@@ -54,7 +53,6 @@ namespace Portal.Consultoras.BizLogic
 
             return lstComunicado;
         }
-
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {

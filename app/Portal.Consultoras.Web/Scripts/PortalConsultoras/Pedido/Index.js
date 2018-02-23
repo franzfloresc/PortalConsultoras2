@@ -243,12 +243,7 @@ $(document).ready(function () {
             EjecutarPROL();
         }
     });
-    $("body").on("mouseenter", ".info_copy", function () {
-        $(this).parent().parent().find("div.msj_info").show();
-    });
-    $("body").on("mouseleave", ".info_copy", function () {
-        $(this).parent().parent().find("div.msj_info").hide();
-    });
+
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
         _idPed = idPed;

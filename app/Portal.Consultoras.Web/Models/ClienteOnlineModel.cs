@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Models
             this.Cliente = "";
             this.MensajeDelCliente = "";
         }
-     
+
         public long SolicitudClienteID { get; set; }
         public int MarcaID { get; set; }
         public bool ClienteNuevo { get; set; }

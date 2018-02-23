@@ -424,7 +424,8 @@
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
-    <Compile Include="Models\AdministrarPalancaModel.cs" />
+    <Compile Include="Models\Administrar\AdministrarComponenteDatosModel.cs" />
+    <Compile Include="Models\Administrar\AdministrarPalancaModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AsesoraOnlineModel.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
@@ -433,6 +434,8 @@
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisComponenteModel.cs" />
+    <Compile Include="Models\Administrar\AdministrarComponenteModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
@@ -444,7 +447,7 @@
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionProgramaNuevasAppModel.cs" />
-    <Compile Include="Models\ConfiguracionPaisDatosModel.cs" />
+    <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisDatosModel.cs" />
     <Compile Include="Models\DescargablesModel.cs" />
     <Compile Include="Models\EstrategiaIncentivosModel.cs" />
     <Compile Include="Models\EstrategiaProgramaNuevasModel.cs" />
@@ -465,7 +468,7 @@
     <Compile Include="Models\ConsultoraOnlinePedidoModel.cs" />
     <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
     <Compile Include="Models\CuponConsultoraModel.cs" />
-    <Compile Include="Models\ConfiguracionPaisModel.cs" />
+    <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\CuponUsuarioModel.cs" />
     <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModel.cs" />
@@ -619,6 +622,7 @@
     <Compile Include="Models\HerramientasVentaLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
+    <Compile Include="Models\RevistaDigitalPopupModel.cs" />
     <Compile Include="Models\HerramientasVentaModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
@@ -3367,12 +3371,13 @@
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
+    <Content Include="Scripts\AdminContenido\Palanca\AdminPalancaDatos.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
     <Content Include="Scripts\AdminContenido\ReporteValidacion.js" />
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
-    <Content Include="Scripts\AdminContenido\Estrategia.js" />
+    <Content Include="Scripts\AdminContenido\AdministrarEstrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3509,13 +3514,14 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\Palanca\AdminPalanca.js" />
+    <Content Include="Scripts\AdminContenido\Palanca\AdminPalanca.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-SuscripcionPopup.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
@@ -3822,6 +3828,7 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\Detalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.eot" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.ttf" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff" />
@@ -4724,8 +4731,12 @@
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatos.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoProximamente.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatosCabecera.cshtml" />
     <Content Include="Views\HerramientasVenta\Index.cshtml" />
     <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
+    <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

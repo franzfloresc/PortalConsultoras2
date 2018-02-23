@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return listEstrategia;
                     }
                 }
-                
+
                 var entidad = new BEEstrategia
                 {
                     PaisID = userData.PaisID,
@@ -256,7 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
                         if (Util.Trim(prod.CodigoProducto) == "")
                             continue;
-                        
+
                         if (listaHermanos.Count(p => item.SAP == p.CodigoProducto) > 1)
                         {
                             prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Validar Tipo RD
 
-                if ( revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -611,9 +611,9 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
                     prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
                 }
-                if(estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
                 {
-                    prodModel.PrecioNiveles = estrategia.Niveles!=null?estrategia.Niveles:String.Empty;
+                    prodModel.PrecioNiveles = estrategia.Niveles != null ? estrategia.Niveles : String.Empty;
                 }
                 listaRetorno.Add(prodModel);
             });

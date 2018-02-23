@@ -1531,6 +1531,7 @@ function CargarMisDatos() {
                 var temp = data.lista;
                 $('#hdn_NombreArchivoContratoMD').val(temp.NombreArchivoContrato);
                 $('#hdn_CodigoUsuarioMD').val(temp.CodigoUsuario);
+                $('#hdn_CodigoUsuarioReal').val(temp.CodigoUsuarioReal);
                 $('#hdn_CorreoMD').val(temp.EMail);
                 $('#hdn_NombreCompletoMD').val(temp.NombreCompleto);
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
@@ -1681,7 +1682,7 @@ function ActualizarMD() {
     waitingDialog({});
 
     var item = {
-        CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+        CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
         EMail: $.trim(jQuery('#txtEMailMD').val()),
         Telefono: jQuery('#txtTelefonoMD').val(),
         TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
@@ -3023,14 +3024,14 @@ function PopupMostrarPrioridad() {
 }
 function PopupMostrar(idPopup) {
     var id = "";
-    if (typeof (idPopup) == "string")
+    if (typeof (idPopup) === "string")
         id = "#" + $.trim(idPopup);
 
-    if (id == "") return false;
+    if (id === "") return false;
 
     $(id).attr("data-popup-activo", "1");
     var padreComun = $(id).parent().attr("id");
-    if (padreComun == "fondoComunPopUp") {
+    if (padreComun === "fondoComunPopUp") {
         if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
             $("#fondoComunPopUp").show();
         }
@@ -3230,8 +3231,7 @@ function MostrarPopupInicial() {
             ObtenerComunicadosPopup();
             break;
         case popupRevistaDigitalSuscripcion:
-            PopupMostrar('PopRDSuscripcion');
-            rdAnalyticsModule.MostrarPopup();
+            rdPopup.Mostrar();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();

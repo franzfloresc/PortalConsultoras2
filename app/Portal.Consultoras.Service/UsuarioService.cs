@@ -3,7 +3,6 @@ using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Service
             blUsuario.Update(usuario);
         }
 
-        public int UpdUsuarioRechazarInvitacion(int PaisID,  string CodigoUsuario)
+        public int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario)
         {
             var blUsuario = new BLUsuario();
             return blUsuario.UpdUsuarioRechazarInvitacion(PaisID, CodigoUsuario);
@@ -178,7 +177,7 @@ namespace Portal.Consultoras.Service
             var blUsuario = new BLUsuario();
             return blUsuario.ChangePasswordUser(paisID, codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, origen);
         }
-        
+
         public int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario)
         {
             var blUsuario = new BLUsuario();
@@ -309,7 +308,7 @@ namespace Portal.Consultoras.Service
         {
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
-        }       
+        }
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
@@ -497,8 +496,8 @@ namespace Portal.Consultoras.Service
                 };
 
                 string paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault() ?? "";
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
                 int.TryParse(paisId, out outVal);
@@ -579,7 +578,7 @@ namespace Portal.Consultoras.Service
             var blLogCdrWebCulminado = new BLLogCDRWebCulminado();
             blLogCdrWebCulminado.UpdateVisualizado(paisID, procesoId);
         }
-        
+
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var blUsuario = new BLUsuario();
@@ -662,11 +661,35 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPaisDetalle();
             return bl.Validar(entidad);
         }
-        
+
         public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad)
         {
             var bl = new BLConfiguracionPaisDatos();
             return bl.GetList(entidad);
+        }
+
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetListComponente(entidad);
+        }
+
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetListComponenteDatos(entidad);
+        }
+
+        public bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisComponenteDeshabilitar(entidad);
+        }
+
+        public int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> listaEntidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisDatosGuardar(paisId, listaEntidad);
         }
 
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
@@ -675,7 +698,7 @@ namespace Portal.Consultoras.Service
             var blUsuario = new BLUsuario();
             return blUsuario.InsUsuarioPostulante(paisId, paisISO, entidad);
         }
-        
+
         public string RecuperarContrasenia(int paisId, string correo)
         {
             var blUsuario = new BLUsuario();

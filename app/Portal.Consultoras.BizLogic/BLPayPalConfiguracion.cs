@@ -164,7 +164,7 @@ namespace Portal.Consultoras.BizLogic
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     daPaypalPagos.UpdPaypalPasarelaPago(numeroLote);
-                    daPaypalPagos.UpdPaypalDescarga(numeroLote, 2, "Terminado Ok.",null, filePaypal, Environment.MachineName);
+                    daPaypalPagos.UpdPaypalDescarga(numeroLote, 2, "Terminado Ok.", null, filePaypal, Environment.MachineName);
 
                     transaction.Complete();
                 }
@@ -177,7 +177,7 @@ namespace Portal.Consultoras.BizLogic
                     if (ex is BizLogicException)
                     {
                         message = ex.Message;
-                        if(ex.InnerException != null) messageException = ex.InnerException.Message + "(" + ex.InnerException.StackTrace + ")";
+                        if (ex.InnerException != null) messageException = ex.InnerException.Message + "(" + ex.InnerException.StackTrace + ")";
                     }
                     daPaypalPagos.UpdPaypalDescarga(numeroLote, 99, message, messageException, string.Empty, Environment.MachineName);
                 }
@@ -202,13 +202,11 @@ namespace Portal.Consultoras.BizLogic
         {
             var line = string.Empty;
 
-            if (row.Table.Columns.Contains("REGISTROS"))
-            {
-                if (row["REGISTROS"] != DBNull.Value)
-                {
-                    line = row["REGISTROS"].ToString();
-                }
-            }
+            if (!row.Table.Columns.Contains("REGISTROS"))
+                return line;
+
+            if (row["REGISTROS"] != DBNull.Value)
+                line = row["REGISTROS"].ToString();
 
             return line;
         }

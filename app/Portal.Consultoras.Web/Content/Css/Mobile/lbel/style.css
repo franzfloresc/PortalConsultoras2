@@ -14025,6 +14025,15 @@ span.icon-advertencia {
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
             color: white;
         }
+
+@media (max-width:400px) {
+    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+        position: absolute;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 64px;
+    }
+}
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
     background: #613c87 !important;
@@ -14217,55 +14226,6 @@ span.icon-advertencia {
     }
 }
 
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 250px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
-        letter-spacing: 1px;
-        line-height: 35px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 250px;
-        margin: auto;
-        margin-bottom: 35px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #613c87;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 17px;
-        text-decoration: none;
-        padding: 17px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
 .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
     position: absolute;
     margin-left: 29px;
@@ -14273,11 +14233,11 @@ span.icon-advertencia {
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 24px;
+    font-size: 17px;
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {

@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Data.Hana
                 newStream.Close();
                 response.Close();
 
-                //json
                 return responseFromServer;
             }
 
