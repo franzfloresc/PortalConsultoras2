@@ -20,6 +20,17 @@ var filtroIni = {
     Completo: 0
 };
 
+var CONS_CODIGO_SECCION = {
+    LAN: "LAN",
+    RD: "RD",
+    RDR: "RDR",
+    SR: "SR",
+    ODD: "ODD",
+    OPT: "OPT",
+    DES: "DES-NAV",
+    HV: "HV"
+};
+
 $(document).ready(function () {
 
     urlOfertaCargarProductos = $.trim(urlOfertaCargarProductos);
@@ -270,6 +281,16 @@ function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     }
 
     if (response.success !== true) return false;
+
+    if (isMobile()) {
+        if (response.codigo === CONS_CODIGO_SECCION.HV) {
+            if (response.cantidadTotal == 0) {
+                $(".subnavegador").find("[data-codigo=" + response.codigo + "]").fadeOut();
+            } else {
+                $(".subnavegador").find("[data-codigo=" + response.codigo + "]").fadeIn();
+            }
+        }
+    }
 
     divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);

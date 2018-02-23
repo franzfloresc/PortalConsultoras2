@@ -24,7 +24,8 @@ namespace Portal.Consultoras.Web.Controllers
             var listEstrategia = new List<BEEstrategia>();
 
             if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento 
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
@@ -65,12 +66,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Session[varSession] != null && campaniaId == userData.CampaniaID)
                 {
                     listEstrategia = (List<BEEstrategia>)Session[varSession];
-                    if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
+                    if (listEstrategia.Any())
                     {
-                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
-                    }
+                        if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
+                        {
+                            listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
+                        }
 
-                    return listEstrategia;
+                        return listEstrategia;
+                    }
                 }
                 
                 var entidad = new BEEstrategia
