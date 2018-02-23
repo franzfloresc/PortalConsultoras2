@@ -3146,7 +3146,7 @@
             text-align: left;
             margin-bottom: 20px;
             font-size: 13px;
-            padding-left: -11px;
+            padding-left: 2%;
         }
             .como-funciona .caja-texto span.txt b {
                 display: block;
@@ -3191,7 +3191,7 @@
         font-weight: 900;
         display: block;
         word-wrap: break-word;
-        margin-left: 20px;
+        margin-left: -11px;
     }
 
     .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {
