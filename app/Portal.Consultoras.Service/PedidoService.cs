@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CargaMasiva;
@@ -1934,12 +1935,12 @@ namespace Portal.Consultoras.Service
 
         public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+            return new BLReserva().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EjecutarReservaProl(input);
+            return new BLReserva().EjecutarReservaProl(input);
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -1954,7 +1955,7 @@ namespace Portal.Consultoras.Service
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
-            return new BLReservaProl().EnviarCorreoReservaProl(input);
+            return new BLReserva().EnviarCorreoReservaProl(input);
         }
 
         public int InsertarDesglose(BEInputReservaProl input)
@@ -1964,12 +1965,12 @@ namespace Portal.Consultoras.Service
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
-            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+            return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
         }
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
+            return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
         }
         
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)

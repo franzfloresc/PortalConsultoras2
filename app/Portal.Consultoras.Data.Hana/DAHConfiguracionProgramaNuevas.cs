@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using Common = Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,7 +15,7 @@ namespace Portal.Consultoras.Data.Hana
             var programaNueva = new BEConfiguracionProgramaNuevas();
             try
             {
-                var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
+                var codigoIsoHana = Common.Util.GetPaisIsoSicc(paisId);
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
 
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" +
