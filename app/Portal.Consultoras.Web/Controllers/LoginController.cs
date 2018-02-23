@@ -2810,7 +2810,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuarioCorreo pRestaurar = ((BEUsuarioCorreo)Session["RestaurarClave"]);
 
-                var urlApi = ConfigurationManager.AppSettings.Get("UrlAPISB2");
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
                 string requestUrl = "Api/EnviarSMS";
 
                 CodigoIso = Util.GetPaisISO(paisID);
