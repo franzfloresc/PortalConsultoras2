@@ -1,3 +1,4 @@
+
 USE BelcorpBolivia
 GO
 
@@ -189,6 +190,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpColombia
 GO
 
@@ -284,6 +286,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpCostaRica
 GO
 
@@ -379,6 +382,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpDominicana
 GO
 
@@ -474,6 +478,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpEcuador
 GO
 
@@ -569,6 +574,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpGuatemala
 GO
 
@@ -664,6 +670,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpMexico
 GO
 
@@ -759,6 +766,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpPanama
 GO
 
@@ -854,6 +862,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpPeru
 GO
 
@@ -949,6 +958,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpPuertoRico
 GO
 
@@ -1044,6 +1054,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpSalvador
 GO
 
@@ -1139,6 +1150,7 @@ BEGIN
 
 END
 GO
+
 USE BelcorpVenezuela
 GO
 
