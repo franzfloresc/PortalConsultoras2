@@ -137,6 +137,18 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="BEConfiguracionPaisDetalle" nillable="true" type="tns:BEConfiguracionPaisDetalle" />
+  <xs:complexType name="BEHorario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstaDisponible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraISO" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraIncluyente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HorarioID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimerDiaSemana" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Resumen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEHorario" nillable="true" type="tns:BEHorario" />
   <xs:complexType name="ArrayOfBEConfiguracionOfertasHome">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionOfertasHome" nillable="true" type="tns:BEConfiguracionOfertasHome" />
@@ -433,6 +445,10 @@
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionAccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionConsultora" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SegmentacionEstadoActividad" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SegmentacionID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SegmentacionRegionZona" type="xs:boolean" />
       <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" minOccurs="0" name="Vistas" nillable="true" type="q2:ArrayOfBEComunicadoVista" />
       <xs:element minOccurs="0" name="Visualizo" type="xs:boolean" />
