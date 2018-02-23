@@ -294,6 +294,8 @@ namespace Portal.Consultoras.Common
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
+
+            public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
         }
 
         public static class ConfiguracionManager
@@ -1324,6 +1326,8 @@ namespace Portal.Consultoras.Common
             public const short CodigoRevistaFisica = 132;
             public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
+            public const short ExtensionBannerGanaMasApp = 136;
+            public const short MontoLimiteCupon = 103;
         }
 
         public struct MensajesCDRExpress
@@ -1713,8 +1717,10 @@ namespace Portal.Consultoras.Common
             public class Banner
             {
                 public const string CarpetaPais = "AppConsultora/{0}";
-                public const string ImagenSuscrita = "GanaMasSuscrita.png";
-                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+                public const string ImagenSuscrita = "GanaMasSuscrita";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita";
+                public const string TablaLogicaSuscrita = "Suscrita";
+                public const string TablaLogicaNoSuscrita = "NoSuscrita";
             }
         }
         public class ValAutoEstado

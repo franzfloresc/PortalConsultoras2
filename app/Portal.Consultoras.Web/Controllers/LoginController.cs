@@ -552,9 +552,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (Request.IsAjaxRequest())
                     {
-                        var urlx = (Url.IsLocalUrl(decodedUrl))
-                            ? decodedUrl
-                            : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                        string urlx = string.Empty;
+
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            urlx = decodedUrl;
+                        }
+                        else
+                        {
+                            if (EsAndroid())
+                                urlx = Url.Action("Index", "DescargarApp", new { area = "Mobile" });
+                            else
+                                urlx = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                        }
+
                         return Json(new
                         {
                             success = true,
@@ -568,7 +579,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Redirect(decodedUrl);
                     }
 
-                    if ((usuario.ConsultoraNueva == 1 || usuario.ConsultoraNueva == 7) && EsAndroid())
+                    if (EsAndroid())
                         return RedirectToAction("Index", "DescargarApp", new { area = "Mobile" });
                     else
                         return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -3176,7 +3187,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
             if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return ofertasDelDiaModel;
-            if (!esAppMobile) return ofertasDelDiaModel;
 
             try
             {

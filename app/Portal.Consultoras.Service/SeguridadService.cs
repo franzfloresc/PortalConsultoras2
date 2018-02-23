@@ -2,6 +2,8 @@
 using Portal.Consultoras.BizLogic.Mobile;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.BizLogic.Mobile;
+
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -13,11 +15,18 @@ namespace Portal.Consultoras.Service
         private readonly BLPermiso BLPermiso;
         private readonly BLMenuMobile BLMenuMobile;
 
-        public SeguridadService()
+        private readonly IMenuAppBusinessLogic _menuAppBusinessLogic;
+
+        public SeguridadService() : this(new BLMenuApp())
         {
             BLRol = new BLRol();
             BLPermiso = new BLPermiso();
             BLMenuMobile = new BLMenuMobile();
+        }
+
+        public SeguridadService(IMenuAppBusinessLogic menuAppBusinessLogic)
+        {
+            _menuAppBusinessLogic = menuAppBusinessLogic;
         }
 
         #region Roles
@@ -135,12 +144,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Menus App
-
-        public IList<BEMenuApp> GetMenuApp(int paisiD)
+        public IList<BEMenuApp> GetMenuApp(BEMenuApp menuApp)
         {
-            return (new BLMenuApp()).GetMenuApp(paisiD);
+            return _menuAppBusinessLogic.GetMenuApp(menuApp);
         }
-
         #endregion
     }
 }
