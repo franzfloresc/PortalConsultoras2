@@ -431,6 +431,7 @@
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\Common\AuditoriaModel.cs" />
     <Compile Include="Models\Common\ResultModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaFinalMontoMetaModel.cs" />

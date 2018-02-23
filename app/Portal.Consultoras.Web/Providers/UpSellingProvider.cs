@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         public async Task<IEnumerable<OfertaFinalMontoMetaModel>> ObtenerOfertaFinalMontoMeta(int paisId,int upSellingId)
+        public async Task<UpSellingModel> Guardar(int paisId, UpSellingModel model)
         {
             using (var sv = new SACServiceClient())
             {
@@ -35,5 +36,30 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
         
+                var upSelling = Mapper.Map<UpSellingModel, UpSelling>(model);
+                var upSellingInsertado = await sv.UpSellingInsertarAsync(paisId, upSelling);
+
+                return Mapper.Map<UpSelling, UpSellingModel>(upSellingInsertado);
+            }
+        }
+
+        public async Task<UpSellingModel> Actualizar(int paisId, UpSellingModel model, bool soloCabecera = false)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var upSelling = Mapper.Map<UpSellingModel, UpSelling>(model);
+                var upSellingInsertado = await sv.UpSellingActualizarAsync(paisId, upSelling, soloCabecera);
+
+                return Mapper.Map<UpSelling, UpSellingModel>(upSellingInsertado);
+            }
+        }
+
+        public async Task Eliminar(int paisId, int upSellingId)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                await sv.UpSellingEliminarAsync(paisId, upSellingId);
+            }
+        }
     }
 }

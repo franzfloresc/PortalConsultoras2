@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Common;
 
 namespace Portal.Consultoras.Web.Models.Estrategia
 {
-    public class UpSellingModel
+    public class UpSellingModel :AuditoriaModel
     {
         public int UpSellingId { get; set; }
 

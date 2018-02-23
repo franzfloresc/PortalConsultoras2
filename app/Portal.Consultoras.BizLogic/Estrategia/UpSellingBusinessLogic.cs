@@ -56,7 +56,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
                 var entidad = _upSellingDataAccess.Actualizar(upSelling);
-                if (upSelling.Regalos != null && soloCabecera)
+                if (upSelling.Regalos != null && !soloCabecera)
                 {
                     upSelling.Regalos.ForEach(r =>
                     {
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                     //eliminar los que no vayan a actualizarce
                     var detallesEliminar =
                         from o in upSellingOriginal.Regalos
-                        where entidad.Regalos.Any(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
+                        where entidad.Regalos.All(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
                         select o.UpSellingDetalleId;
 
                     EliminarDetalle(detallesEliminar);
