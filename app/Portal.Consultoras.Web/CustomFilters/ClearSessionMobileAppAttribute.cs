@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Linq;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.CustomFilters
 {

@@ -11,12 +11,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult IndexModel()
         {
-            if(revistaDigital.TieneRDI)
+            if (revistaDigital.TieneRDI)
                 return View("template-informativa-rdi");
 
             if (revistaDigital.TieneRDR)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            
+
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
@@ -62,11 +62,11 @@ namespace Portal.Consultoras.Web.Controllers
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
-                UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
+                UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
+                UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
                 Origen = revistaDigital.SuscripcionEfectiva.Origen
             };
-                        
+
             return View("template-informativa", modelo);
         }
 
@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ProductosPerdio = dato.Estado;
             model.PerdioTitulo = dato.Valor1;
             model.PerdioSubTitulo = dato.Valor2;
-            
+
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
 
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneProductosPerdio = dato.Estado;
             ViewBag.PerdioTitulo = dato.Valor1;
             ViewBag.PerdioSubTitulo = dato.Valor2;
-            
+
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
@@ -195,17 +195,24 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 video = Util.Trim(dato.Valor1);
-               // video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
             }
 
             return video;
         }
 
-        private string Getvalor1Dato(string codigo)
+        public string GetValorDato(string codigo, int valor = 1)
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            return Util.Trim(dato.Valor1);
+            var valorDato = "";
+            switch (valor)
+            {
+                case 1: valorDato = dato.Valor1; break;
+                case 2: valorDato = dato.Valor2; break;
+                case 3: valorDato = dato.Valor3; break;
+                default: valorDato = dato.Valor1; break;
+            }
+            return Util.Trim(valorDato);
         }
-        
+
     }
 }

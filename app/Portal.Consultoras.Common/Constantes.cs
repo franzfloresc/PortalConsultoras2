@@ -296,6 +296,8 @@ namespace Portal.Consultoras.Common
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
+
+            public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
         }
 
         public static class ConfiguracionManager
@@ -1101,6 +1103,14 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
         }
 
+        public static class ConfiguracionPaisComponente
+        {
+            public static class RD
+            {
+                public const string PopupClubGanaMas = "Popup_Club_Gana+";
+            }
+        }
+
         public static class ConfiguracionPaisDatos
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
@@ -1180,14 +1190,21 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                //public const string DInformativoSuscrita = "DInformativoSuscrita";
-                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                //public const string MInformativoSuscrita = "MInformativoSuscrita";
-                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
-
                 public const string InformativoVideo = "InformativoVideo";
+
+                #endregion
+
+                #region PopupSuscripcion
+                public const string PopupMensaje1 = "PopupMensaje1";
+                public const string PopupMensaje2 = "PopupMensaje2";
+                public const string PopupMensajeColor = "PopupMensajeColor";
+                public const string PopupImagenEtiqueta = "PopupImagenEtiqueta";
+                public const string PopupImagenPublicidad = "PopupImagenPublicidad";
+                public const string PopupBotonColorFondo = "PopupBotonColorFondo";
+                public const string PopupBotonColorTexto = "PopupBotonColorTexto";
+                public const string PopupBotonTexto = "PopupBotonTexto";
+                public const string PopupFondoColor = "PopupFondoColor";
+                public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
             }
@@ -1214,7 +1231,7 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string NombreComercial= "NombreComercial";
+                public const string NombreComercial = "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
@@ -1352,6 +1369,8 @@ namespace Portal.Consultoras.Common
             public const short CodigoRevistaFisica = 132;
             public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
+            public const short ExtensionBannerGanaMasApp = 136;
+            public const short MontoLimiteCupon = 103;
         }
 
         public struct MensajesCDRExpress
@@ -1730,7 +1749,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5 };
         }
 
         public class GanaMas
@@ -1744,8 +1763,10 @@ namespace Portal.Consultoras.Common
             public class Banner
             {
                 public const string CarpetaPais = "AppConsultora/{0}";
-                public const string ImagenSuscrita = "GanaMasSuscrita.png";
-                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+                public const string ImagenSuscrita = "GanaMasSuscrita";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita";
+                public const string TablaLogicaSuscrita = "Suscrita";
+                public const string TablaLogicaNoSuscrita = "NoSuscrita";
             }
         }
         public class ValAutoEstado

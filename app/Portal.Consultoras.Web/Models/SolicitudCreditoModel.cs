@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.Models
         public string UrbanizacionSectorEntrega { get; set; }
         public string ApartamentoCasaEntrega { get; set; }
         public string CiudadEntrega { get; set; }
-        
+
         public IEnumerable<BETipoMeta> ListaTipoMeta { get; set; }
 
         public string DiaNacimiento { get; set; }

@@ -41,7 +41,5 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-    
-    
     }
 }

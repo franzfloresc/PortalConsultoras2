@@ -244,7 +244,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (consultoraAfiliar.Afiliado)
                     return RedirectToAction("Index", "ConsultoraOnline", new { area = "Mobile" });
-                
+
                 if (Request.QueryString["data"] != null)
                 {
                     var query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View("DetallePedido", pedido);
         }
-        
+
         [HttpPost]
         public JsonResult CancelarPedido(long SolicitudId, int OpcionCancelado, string RazonMotivoCancelado)
         {
@@ -488,7 +488,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         refresh.Add(item);
                     }
 
-                    MisPedidosModel refreshMisPedidos = new MisPedidosModel {ListaPedidos = refresh};
+                    MisPedidosModel refreshMisPedidos = new MisPedidosModel { ListaPedidos = refresh };
                     Session["objMisPedidos"] = refreshMisPedidos;
                 }
 
@@ -558,8 +558,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var userData = UserData();
 
-            var consultoraAfiliar = new ClienteContactaConsultoraModel {NombreConsultora = userData.PrimerNombre};
-            
+            var consultoraAfiliar = new ClienteContactaConsultoraModel { NombreConsultora = userData.PrimerNombre };
+
             using (var sc = new ServiceSAC.SACServiceClient())
             {
                 var beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(userData.PaisID, userData.CodigoConsultora);
@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
             mensaje.AppendLine("<td colspan=\"7\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>");
+
             mensaje.AppendLine("</td>");
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
@@ -773,7 +773,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
             mensaje.AppendLine("<td colspan=\"6\" style=\"font-size:11px; padding-top:15px; padding-bottom:15px; text-align:center;\">");
-            //mensaje.AppendLine("¿No deseas recibir correos electrónicos de Belcorp? <a href=\"#\" target=\"_blank\">Cancela tu suscripción aquí</a>    ");
+
             mensaje.AppendLine("</td>");
             mensaje.AppendLine("</tr>");
             mensaje.AppendLine("<tr>");
@@ -798,7 +798,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return mensaje.ToString();
         }
-        
+
         #endregion
 
         public ActionResult Historial()
@@ -989,7 +989,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
-                        
+
                         var txtBuil = new StringBuilder();
                         foreach (var item in olstMisPedidosDet)
                         {

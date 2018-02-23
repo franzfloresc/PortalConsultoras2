@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Data
 {
     public class DAConfiguracionOfertasHome : DataAccess
     {
-
         public DAConfiguracionOfertasHome(int OfertasHomeID)
             : base(OfertasHomeID, EDbSource.Portal)
         {

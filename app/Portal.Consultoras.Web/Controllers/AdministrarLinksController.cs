@@ -52,9 +52,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -337,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPermiso>, List<PermisoModel>>(lst);
-            
+
         }
 
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()

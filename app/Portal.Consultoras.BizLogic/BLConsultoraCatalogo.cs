@@ -46,15 +46,15 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = oDaConsultora.GetConsultorasPorTerritorio(paisId, codigoRegion, codigoZona, codigoSeccion, codigoTerritorio))
             {
-                while (reader.Read()) 
+                while (reader.Read())
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
                     consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tablaRetirada, tablaReingresada, tablaEgresada);
-                    if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo); 
+                    if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo);
                 }
             }
             if (listaConsultoraCatalogo.Count > 0) return listaConsultoraCatalogo;
-            
+
             using (IDataReader reader = oDaConsultora.GetConsultorasPorSeccion(paisId, codigoRegion, codigoZona, codigoSeccion))
             {
                 while (reader.Read())
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return listaConsultoraCatalogo;
         }
-        
+
         public List<BEConsultoraCatalogo> GetConsultorasCatalogosPorUbigeo(int paisId, string codigoUbigeo, int marcaId, int tipoFiltroUbigeo)
         {
             List<BEConsultoraCatalogo> listaConsultoraCatalogo = new List<BEConsultoraCatalogo>();
@@ -197,11 +197,11 @@ namespace Portal.Consultoras.BizLogic
             string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente,
             string telefonoCliente, int nuevaConsultora)
         {
-        
+
             try
             {
                 DAConsultoraCatalogo da = new DAConsultoraCatalogo(paisID);
-                int registro = da.InsLogClienteRegistraConsultoraCatalogo(consultoraId, codigoConsultora, campaniaId, 
+                int registro = da.InsLogClienteRegistraConsultoraCatalogo(consultoraId, codigoConsultora, campaniaId,
                     tipoBusqueda, conoceConsultora, codigoDispositivo, soDispotivivo, unidadGeo1, unidadGeo2, unidadGeo3,
                     nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
                 return registro;
@@ -213,7 +213,6 @@ namespace Portal.Consultoras.BizLogic
             }
 
         }
-
 
     }
 }

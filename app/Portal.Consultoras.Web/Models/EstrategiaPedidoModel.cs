@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
     public class EstrategiaPedidoModel
-    {        
+    {
         public int MarcaID { get; set; }
         public string ConsultoraID { get; set; }
         public int EstrategiaID { get; set; }
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-        
+
         public string UrlCompartir { get; set; }
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Models
         public int CantComenRecom { get; set; }
         public int PromValorizado { get; set; }
         public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
-        public int Posicion {get;set;}
+        public int Posicion { get; set; }
         public string GananciaString { get; set; }
         public bool EsOfertaIndependiente { get; set; }
         public string ImagenOfertaIndependiente { get; set; }

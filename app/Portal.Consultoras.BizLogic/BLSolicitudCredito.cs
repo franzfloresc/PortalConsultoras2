@@ -105,7 +105,7 @@
 
             return beSolicitudCredito;
         }
-        
+
         public IList<BESolicitudCredito> BuscarSolicitudCredito(int paisID, string codigoZona, string codigoTerritorio, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud, string numeroDocumento, int estadoSolicitud, string TipoSolicitud, string CodigoConsultora)
         {
             var solicitudes = new List<BESolicitudCredito>();
@@ -402,26 +402,20 @@
             }
             catch (Exception ex)
             {
-                if (paisConSolicitudCredito)
+                if (paisConSolicitudCredito && numeroLote > 0)
                 {
-                    if (numeroLote > 0)
-                    {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
-                    }
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
 
-                if (paisConFlexipago)
+                if (paisConFlexipago && numeroLoteConsuFlex > 0)
                 {
-                    if (numeroLoteConsuFlex > 0)
-                    {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
-                    }
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
                 throw;
             }
@@ -505,7 +499,7 @@
                     {
                         if (row[field.FieldName].ToString().Length > field.Size)
                         {
-                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0,field.Size);
+                            row[field.FieldName] = row[field.FieldName].ToString().Substring(0, field.Size);
                         }
                         item = row[field.FieldName].ToString();
                     }
@@ -518,18 +512,12 @@
 
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
-            var colonias = new List<BETablaLogicaDatos>();
             var daSolicitud = new DASolicitudCredito(paisID);
 
             using (IDataReader reader = daSolicitud.ListarColoniasByTerritorio(codigo))
             {
-                while (reader.Read())
-                {
-                    var solicitud = new BETablaLogicaDatos(reader);
-                    colonias.Add(solicitud);
-                }
+                return reader.MapToCollection<BETablaLogicaDatos>();
             }
-            return colonias;
         }
 
         public string ValidarNumeroRFC(int paisID, string numeroRFC)

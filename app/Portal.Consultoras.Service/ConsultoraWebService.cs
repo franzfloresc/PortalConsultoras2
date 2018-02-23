@@ -4,8 +4,6 @@ using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
@@ -36,7 +34,7 @@ namespace Portal.Consultoras.Service
                 int factorUbigeo;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo); 
+                int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
                 string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                 if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
@@ -57,7 +55,7 @@ namespace Portal.Consultoras.Service
             return vListaConsultoraUbigeo;
 
         }
-        
+
         public int GetPaisID(string ISO)
         {
             try
@@ -80,8 +78,8 @@ namespace Portal.Consultoras.Service
                     new KeyValuePair<string, string>("14", "VE"),
                 };
                 string paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault() ?? "";
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
                 int outVal;
                 int.TryParse(paisId, out outVal);
                 return outVal;
@@ -91,7 +89,7 @@ namespace Portal.Consultoras.Service
                 throw new Exception("Hubo un error en obtener el País");
             }
         }
-        
+
         #endregion
     }
 }

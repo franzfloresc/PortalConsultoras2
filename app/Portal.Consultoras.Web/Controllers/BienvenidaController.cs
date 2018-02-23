@@ -960,6 +960,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
+                model.CodigoUsuarioReal = userData.CodigoUsuario;
             }
             return Json(new
             {
@@ -2319,9 +2320,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if(revistaDigital == null)
+                if (revistaDigital == null)
                     return partial;
-                
+
                 partial.RevistaDigital = revistaDigital;
 
                 if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)

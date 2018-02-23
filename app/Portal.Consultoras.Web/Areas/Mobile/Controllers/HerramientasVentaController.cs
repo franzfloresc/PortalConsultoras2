@@ -6,9 +6,9 @@ using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -190,7 +190,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }
-        
 
         public ActionResult Comprar()
         {
@@ -302,12 +301,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult HVObtenerProductos(BusquedaProductoModel model)
         {
             try
             {
-                if (herramientasVenta==null || herramientasVenta.TieneHV==false || EsCampaniaFalsa(model.CampaniaID))
+                if (herramientasVenta == null || herramientasVenta.TieneHV == false || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -335,7 +335,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                                 var index = defaultOrder.IndexOf(x.MarcaID);
                                                 return index == -1 ? int.MaxValue : index;
                                             }).ToList();
-                
+
                 var cantidadTotal = listModel.Count;
 
 

@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);                                                
+                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
                         item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
                         item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
@@ -437,9 +437,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

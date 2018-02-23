@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            
+
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
@@ -583,25 +583,25 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (revistaDigital.EsActiva)
                     {
-                            if (revistaDigital.EsSuscrita)
-                            {
-                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                            }
-                            else
-                            {
-                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                            }
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
                     }
                     else
                     {
-                            if (revistaDigital.EsSuscrita)
-                            {
-                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                            }
-                            else
-                            {
-                                partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                            }
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
                     }
                 }
                 else if (revistaDigital.TieneRDI)
@@ -610,7 +610,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (revistaDigital.TieneRDR)
                 {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();   
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
                 }
             }
             catch (Exception ex)

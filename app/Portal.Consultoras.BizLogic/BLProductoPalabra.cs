@@ -12,8 +12,7 @@ namespace Portal.Consultoras.BizLogic
     {
         private static readonly string ALPHABET = "abcdefghijklmnopqrstuvwxyzáéíóúñ'";
         private static readonly string REGEXP = string.Format("[{0}]+", ALPHABET.Replace("'", "\\'"));
-        //private static readonly string REGEXP = "[a-záéíóúñ\\']+";
-                
+
         private void GetTokens(List<string> listTexto, Action<string> loadTokens)
         {
             var listPalabraInvalida = new BLPalabraInvalida().GetAll().ToList();
@@ -41,9 +40,7 @@ namespace Portal.Consultoras.BizLogic
             return true;
         }
 
-        //====================================================================================================
-
-        public Dictionary<string,long> GetDictionaryPalabraConteo(string paisISO, int campaniaID)
+        public Dictionary<string, long> GetDictionaryPalabraConteo(string paisISO, int campaniaID)
         {
             int paisId = Util.GetPaisID(paisISO);
             var dictionaryPalabraConteo = CacheManager<Dictionary<string, long>>.GetDataElement(paisId, ECacheItem.ProductoPalabra, campaniaID.ToString());
@@ -51,7 +48,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dAProductoPalabra = new DAProductoPalabra(paisId);
                 dictionaryPalabraConteo = dAProductoPalabra.GetByCampaniaID(campaniaID);
-                CacheManager<Dictionary<string, long>>.AddDataElement(paisId, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1,1,0,0));
+                CacheManager<Dictionary<string, long>>.AddDataElement(paisId, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1, 1, 0, 0));
             }
             return dictionaryPalabraConteo;
         }
@@ -90,6 +87,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return new Dictionary<string, long> { { palabra, 0 } };
         }
+
         public List<string> GetListCandidatoFromPalabra(string paisISO, int campaniaID, string palabra, int iteracion, int count)
         {
             HashSet<string> listPalabra = new HashSet<string> { palabra };
@@ -122,6 +120,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return listPalabraParecida;
         }
+
         private void AddParecidasAgregarLetra(HashSet<string> listPalabra, string palabra)
         {
             for (int i = 0; i <= palabra.Length; i++)
@@ -132,6 +131,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
         }
+
         private void AddParecidasReemplazarLetra(HashSet<string> listPalabra, string palabra)
         {
             for (int i = 0; i < palabra.Length; i++)
@@ -142,6 +142,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
         }
+
         private void AddParecidasEliminarLetra(HashSet<string> listPalabra, string palabra)
         {
             for (int i = 0; i < palabra.Length; i++)
@@ -149,6 +150,7 @@ namespace Portal.Consultoras.BizLogic
                 listPalabra.Add(palabra.Substring(0, i) + palabra.Substring(i + 1));
             }
         }
+
         private void AddParecidasTransponerLetra(HashSet<string> listPalabra, string palabra)
         {
             for (int i = 0; i < palabra.Length - 1; i++)
@@ -173,6 +175,7 @@ namespace Portal.Consultoras.BizLogic
                 palabraListCandidato.Value.RemoveRange(index, count);
             }
         }
+
         public Dictionary<T, int> GetDictionaryCountLimit<T>(Dictionary<T, int> dictionaryCount, int limitMerge)
         {
             var dictionaryIterator = dictionaryCount.ToDictionary(dc => dc.Key, dc => new BETuplaEditable<int, int, int>(1, 1, dc.Value)).ToList();

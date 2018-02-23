@@ -276,7 +276,7 @@ namespace Portal.Consultoras.BizLogic
                 else resultado = GetObservacionesPROL(input, listPedidoWebDetalle);
                 resultado.PedidoID = input.PedidoID;
 
-                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado, listPedidoWebDetalle);
+                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
                 if (input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return resultado;
             }
@@ -601,7 +601,8 @@ namespace Portal.Consultoras.BizLogic
             decimal indicadorNumero;
 
             BEFactorGanancia factorGanancia = null;
-            try {
+            try
+            {
                 factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId);
             }
             catch (Exception ex)
@@ -668,7 +669,7 @@ namespace Portal.Consultoras.BizLogic
             return montoEnviar;
         }
 
-        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {
             if (!resultado.Reserva || resultado.Informativas || input.Email.IsNullOrEmptyTrim()) return false;
             try
@@ -690,7 +691,7 @@ namespace Portal.Consultoras.BizLogic
             var envio = EnviarPorCorreoPedidoValidado(input, listPedidoWebDetalle);
             if (envio) InsLogEnvioCorreoPedidoValidado(input, listPedidoWebDetalle);
         }
-        
+
         private bool EnviarPorCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             bool esEsika = (ConfigurationManager.AppSettings.Get("PaisesEsika") ?? "").Contains(input.PaisISO);
@@ -759,12 +760,9 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
-                if (input.EstadoSimplificacionCUV)
+                if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
                 {
-                    if (pedidoDetalle.IndicadorOfertaCUV)
-                    {
-                        indicadorOfertaCuv = true;
-                    }
+                    indicadorOfertaCuv = true;
                 }
                 mailBody.Append("</table>");
             }
@@ -820,7 +818,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { return false; }
         }
-        
+
         private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo

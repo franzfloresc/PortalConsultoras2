@@ -24,7 +24,6 @@
         </select>
     </div>
 </div>
-
 <div class="div-3">
     <div class="titG">URL Sección:</div>
     <div class="titG selectP2 borde_redondeado">
@@ -136,28 +135,28 @@
                                  style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
-            <div class="hide-configuration">
-                <div class="div-3">
-                    <div class="titG">Tipo Presentación:</div>
-                    <div class="titG borde_redondeado">
-                        @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
-                    </div>
+            
+            <div class="div-3">
+                <div class="titG">Tipo Presentación:</div>
+                <div class="titG borde_redondeado">
+                    @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
                 </div>
-
+            </div>
+            <div class="hide-configuration">
                 <div class="div-3">
                     <div class="titG">Tipo Estrategia:</div>
                 </div>
                 <div class="div-3">
                     <div class="borde_redondeado checkBox">
                         @foreach (var estrategia in Model.ListaTipoEstrategia)
-                {
-                    if (!string.IsNullOrEmpty(estrategia.Codigo))
-                    {
-                        bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
-                        <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
-                        <label>@estrategia.Descripcion</label><br />
-            }
-        }
+                        {
+                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                            {
+                                bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                <label>@estrategia.Descripcion</label><br />
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -249,13 +248,15 @@
                                  style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
-            <div class="hide-configuration">
-                <div class="div-3">
-                    <div class="titG">Tipo Presentación:</div>
-                    <div class="titG borde_redondeado">
-                        @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
-                    </div>
+            
+            <div class="div-3">
+                <div class="titG">Tipo Presentación:</div>
+                <div class="titG borde_redondeado">
+                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
                 </div>
+            </div>
+            
+            <div class="hide-configuration">
                 <div class="div-3">
                     <div class="titG">Tipo Estrategia:</div>
 

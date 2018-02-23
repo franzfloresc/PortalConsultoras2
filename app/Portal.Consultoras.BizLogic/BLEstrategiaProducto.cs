@@ -10,9 +10,9 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertEstrategiaProducto(BEEstrategiaProducto entidad)
         {
-                var da = new DAEstrategiaProducto(entidad.PaisID);
-                int result = da.InsertEstrategiaProducto(entidad);
-                return result;
+            var da = new DAEstrategiaProducto(entidad.PaisID);
+            int result = da.InsertEstrategiaProducto(entidad);
+            return result;
         }
 
         public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)

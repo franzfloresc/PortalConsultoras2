@@ -9,13 +9,13 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLFormularioDato
     {
-        private DAFormularioDato DAFormularioDato;
+        private readonly DAFormularioDato DAFormularioDato;
 
         public BLFormularioDato()
         {
             DAFormularioDato = new DAFormularioDato();
         }
-        
+
         public void Insert(BEFormularioDato formularioDato)
         {
             DAFormularioDato.InsFormularioDato(formularioDato);

@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.RevistaDigital;
 using Portal.Consultoras.Entities.RevistaDigital;
-
 using System;
 using System.Data;
 using System.Transactions;
@@ -79,7 +78,7 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
 
             return entity;
         }
-        
+
         public BERevistaDigitalSuscripcion SingleActiva(BERevistaDigitalSuscripcion entidad)
         {
             var entity = new BERevistaDigitalSuscripcion();

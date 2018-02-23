@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
-using System.Data;
-using Portal.Consultoras.Entities.Mobile;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.Mobile;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
 {
@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -589,7 +589,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -1309,7 +1309,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
@@ -1337,7 +1337,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {

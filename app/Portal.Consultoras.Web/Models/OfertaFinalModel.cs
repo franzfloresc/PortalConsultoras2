@@ -13,6 +13,6 @@ namespace Portal.Consultoras.Web.Models
         }
         public bool Success { get; set; }
         public bool Estado { get; set; }
-        public string Algoritmo { get; set; }        
+        public string Algoritmo { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                BuildMenuMobile(userData,revistaDigital);
+                BuildMenuMobile(userData, revistaDigital);
                 CargarValoresGenerales(userData);
 
                 bool mostrarBanner, permitirCerrarBanner = false;
@@ -84,8 +84,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ViewBag.MostrarOfertaDelDia =
                         !userData.CloseOfertaDelDia
-                        && userData.TieneOfertaDelDia 
-                        && ofertaDelDia != null 
+                        && userData.TieneOfertaDelDia
+                        && ofertaDelDia != null
                         && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
@@ -133,11 +133,11 @@ namespace Portal.Consultoras.Web.Controllers
                 || controllerName == "PedidosFacturados"
                 || controllerName == "EstadoCuenta"
                 || controllerName == "Cliente"
-                || controllerName == "OfertaLiquidacion" 
-                || controllerName == "ConsultoraOnline" 
-                || controllerName == "ProductosAgotados" 
-                || controllerName == "Catalogo" 
-                || controllerName == "MiAsesorBelleza" 
+                || controllerName == "OfertaLiquidacion"
+                || controllerName == "ConsultoraOnline"
+                || controllerName == "ProductosAgotados"
+                || controllerName == "Catalogo"
+                || controllerName == "MiAsesorBelleza"
                 || controllerName == "Notificaciones";
         }
 
@@ -243,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora, tienePersonalizacion).ToList();
-                
+
             }
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             if (listaShowRoomOferta.Any())
@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                     return listadoOfertasTodasModel;
                 }
-                
+
                 List<BEShowRoomOferta> listaShowRoomCpc;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -442,7 +442,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
             modelo.FBRuta = GetUrlCompartirFB();
-            modelo.FBMensaje = ""; 
+            modelo.FBMensaje = "";
 
             modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
             var nombreMarca = "";
@@ -527,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var showRoomEvento = userData.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
-                
+
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;

@@ -18,10 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "")
         {
+
             var model = new EstrategiaOutModel();
             try
             {
-                var codAgrupa = revistaDigital.TieneRDR || 
+                var codAgrupa = revistaDigital.TieneRDR ||
                     (revistaDigital.TieneRDC && revistaDigital.EsActiva) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 

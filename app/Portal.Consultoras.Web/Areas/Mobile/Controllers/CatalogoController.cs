@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            
+
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Campania = campaniaRevista;
             return View();
         }
-        
+
         private PartialSectionBpt GetPartialSectionBptModel()
         {
             var partial = new PartialSectionBpt();

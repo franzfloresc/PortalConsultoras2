@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");
@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int InsProductoCompartido(BEProductoCompartido ProComp)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoCompartido");
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
             return Context.ExecuteReader(command);
-        }        
+        }
 
         public void SetTieneStockByCampaniaAndZonaAndProductos(int campaniaID, int zonaID, string codigoRegion, string codigoZona, List<BEProducto> listProducto)
         {
@@ -235,30 +235,5 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        private static DataTable ConvertListProductoToDataTable(List<BEProducto> listProducto)
-        {
-            var table = new DataTable();
-            table.Columns.Add("Palabra", typeof(string));
-            foreach (var producto in listProducto)
-            {
-                DataRow row = table.NewRow();
-                row["Palabra"] = producto.CUV;
-                table.Rows.Add(row);
-            }
-            return table;
-        }
-
-        private static DataTable ConvertListPalabraToDataTable(List<string> listPalabra)
-        {
-            var table = new DataTable();
-            table.Columns.Add("Palabra", typeof(string));
-            foreach (string palabra in listPalabra)
-            {
-                DataRow row = table.NewRow();
-                row["Palabra"] = palabra;
-                table.Rows.Add(row);
-            }
-            return table;
-        }
     }
 }

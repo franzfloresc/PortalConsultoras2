@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -12,15 +10,15 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public bool Afiliado { get; set; }
         public bool EsPrimeraVez { get; set; }
-        public bool EmailActivo { get; set; }       
+        public bool EmailActivo { get; set; }
         public string NombreCompleto { get; set; }
         [Required(ErrorMessage = "Ingresar el correo electrónico")]
         [EmailAddress(ErrorMessage = "Correo Electronico Invalido")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Ingresar el celular")]
-        [RegularExpression("([0-9]+)", ErrorMessage = "Ingresar solo numeros")] 
+        [RegularExpression("([0-9]+)", ErrorMessage = "Ingresar solo numeros")]
         public string Celular { get; set; }
-        [RegularExpression("([0-9]+)", ErrorMessage = "Ingresar solo numeros")] 
+        [RegularExpression("([0-9]+)", ErrorMessage = "Ingresar solo numeros")]
         public string Telefono { get; set; }
         public string EmailConfirmacion { get; set; }
 

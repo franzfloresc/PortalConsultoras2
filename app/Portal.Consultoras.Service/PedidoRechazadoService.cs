@@ -1,8 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.BizLogic.Pedido;
-
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
@@ -24,7 +23,7 @@ namespace Portal.Consultoras.Service
         public int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista)
         {
             var blPedidoRechazado = new BLPedidoRechazado();
-            return blPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO,lista);
+            return blPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO, lista);
         }
 
         public List<BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID)
