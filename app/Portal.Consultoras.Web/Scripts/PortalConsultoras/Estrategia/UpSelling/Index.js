@@ -15,6 +15,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idPagerRegalos: config.idPagerRegalos,
         urlUpSellingObtener: config.urlUpSellingObtener,
         urlUpSellingObtenerRegalos: config.urlUpSellingObtenerRegalos,
+        urlUpSellingGuardar: config.urlUpSellingGuardar,
+        urlUpSellingEliminar: config.urlUpSellingEliminar,
+        urlUpSellingActualizarCabecera: config.urlUpSellingActualizarCabecera,
         buttonBuscarId: config.buttonBuscarId,
         buttonNuevoId: config.buttonNuevoId,
         cmbCampanas: config.cmbCampanas,
@@ -28,10 +31,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
     registerEvent.call(this, "onUpSellingDelete");
     registerEvent.call(this, "onUpSellingDesactivar");
 
-    registerEvent.call(this, "onUpSellingRegaloEdit");
-    registerEvent.call(this, "onUpSellingRegaloDelete");
-    registerEvent.call(this, "onUpSellingRegaloDesactivar");
-
     var self = this;
     function initBindings() {
         $("#" + settings.buttonBuscarId).on("click", document.body, buscar);
@@ -41,10 +40,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         self.subscribe("onUpSellingEdit", editar);
         self.subscribe("onUpSellingDelete", eliminar);
         self.subscribe("onUpSellingDesactivar", desactivar);
-
-        self.subscribe("onUpSellingRegaloEdit", self.upSellingViewModel.regaloEditar);
-        self.subscribe("onUpSellingRegaloDelete", self.upSellingViewModel.regaloDelete);
-        self.subscribe("onUpSellingRegaloDesactivar", self.upSellingViewModel.regaloDesactivar);
 
         cargarGrilla();
     }
@@ -62,7 +57,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             multiselect: false,
-            colNames: ["#", "Pais", "Campaña", "Meta", "Activo", "Opciones"],
+            colNames: ["#", "Pais", "Campaña", "Meta", "Activo", "Opciones", "TextoMeta", "TextoMetaSecundario", "TextoGanaste", "TextoGanasteSecundario"],
             colModel: [
                 { name: "UpSellingId", index: "UpSellingId", width: 50, sortable: false, align: "center" },
                 { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center" },
@@ -70,10 +65,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
                 { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
                 { name: "Options", width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: optionButtons },
-                //{ name: "TextoMeta", index: "TextoMeta", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
-                //{ name: "TextoMetaSecundario", index: "TextoMetaSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
-                //{ name: "TextoGanaste", index: "TextoGanaste", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
-                //{ name: "TextoGanasteSecundario", index: "TextoGanasteSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                { name: "TextoMeta", index: "TextoMeta", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                { name: "TextoMetaSecundario", index: "TextoMetaSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                { name: "TextoGanaste", index: "TextoGanaste", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
+                { name: "TextoGanasteSecundario", index: "TextoGanasteSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
             ],
             jsonReader:
             {
@@ -106,28 +101,13 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
     function optionButtons(cellvalue, options, rowObject) {
         var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.onUpSellingDelete.emit(" + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
-        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
+        var enable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDelete', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
 
-        var resultado = edit;
-        resultado += del;
-
-        if (rowObject.Activo !== true)
-            resultado += desactivar;
-
-        return resultado;
-    }
-
-    function optionButtonsRegalos(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingRegaloEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar Regalo' title='Editar Regalo' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingRegaloDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar Regalo' title='Deshabilitar Regalo' border='0' /></a>";
-        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingRegaloDelete', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar Regalo' title='Eliminar Regalo' border='0' /></a>";
-
-        var resultado = edit;
-        resultado += del;
+        var resultado = edit + del;
 
         if (rowObject.Activo !== true)
-            resultado += desactivar;
+            resultado += enable;
 
         return resultado;
     }
@@ -142,26 +122,23 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function eliminar(upSellingId) {
-        //confirmar eliminacion
-        //mostrar pantalla de cargando, validar eliminacion
-        //mostrar mensaje de eliminado correctamente, limpiar la pantalla
-
         var upSellingModel = getRowData(settings.idGrilla, upSellingId);
         if (confirm("Confirme eliminar UpSelling para campaña " + upSellingModel.CodigoCampana)) {
             waitingDialog({});
             upSellingEliminarPromise(upSellingModel.UpSellingId)
                 .then(function (result) {
                     if (!result.Success) {
-                        fail(err);
+                        fail(result.Message);
                         return;
                     }
 
                     alert("Eliminado correctamente");
-                    //todo: volver a cargar la grilla
+                    cargarGrilla();
+                    //todo: en caso este editando?
                 }, function (err) {
                     fail(err);
                 })
-                .done(function () {
+                .always(function () {
                     closeWaitingDialog();
                 });
         }
@@ -172,17 +149,25 @@ belcorp.estrategias.upselling.initialize = function (config) {
         //llamar a la funcion de editra con el flac desactivado
         //todo: en los servicios agregar un actualizar solo cabecera
         var upSellingModel = getRowData(settings.idGrilla, upSellingId);
-        var textoActivar = upSellingModel.Activar ? "Activar" : "Desactivar";
+        upSellingModel.Activo = !upSellingModel.Activo;
+
+        var textoActivar = upSellingModel.Activo ? "Activar" : "Desactivar";
         textoActivar += " para la campaña " + upSellingModel.CodigoCampana;
 
         if (confirm("Confirma " + textoActivar)) {
             upSellingActualizarCabeceraPromise(upSellingModel)
                 .then(function (result) {
+                    if (!result.Success) {
+                        fail(result.Message);
+                    }
 
+                    alert("Actualizado correctamente");
+                    cargarGrilla();
+                    //todo: en caso este editando?
                 }, function (err) {
                     fail(err);
                 })
-                .done(function () {
+                .always(function () {
                     closeWaitingDialog();
                 });
         }
@@ -190,6 +175,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function fail(err) {
+        alert("Ups, sucedio un error");
         console.error(err);
     }
 
@@ -198,8 +184,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
             autoOpen: false,
             modal: true,
             width: 910,
-            height: 450,
-            title: 'Details'
+            height: "auto",
+            title: "Details"
         };
 
 
@@ -227,7 +213,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             url: baseUrl + settings.urlUpSellingEliminar,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(upsellingId),
+            data: JSON.stringify({ upsellingId: upsellingId }),
             async: true
         });
     }
@@ -243,23 +229,38 @@ belcorp.estrategias.upselling.initialize = function (config) {
         });
     }
 
+    function upSellingGuardarPromise(upSellingModel) {
+        return jQuery.ajax({
+            type: "POST",
+            url: settings.urlUpSellingGuardar,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(upSellingModel),
+            async: true
+        });
+    }
+
     function getRowData(idGrid, idRow) {
         return $("#" + idGrid).jqGrid('getRowData', idRow);
     }
 
     function UpSellingModel(data) {
-        this.UpSellingId = ko.observable(data.UpSellingId);
-        this.CodigoCampana = ko.observable(data.CodigoCampana);
-        this.MontoMeta = ko.observable(data.MontoMeta);
-        this.TextoMeta = ko.observable(data.TextoMeta);
-        this.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario);
-        this.TextoGanaste = ko.observable(data.TextoGanaste);
-        this.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario);
-        this.Activo = ko.observable(data.Activo);
+        var selfm = this;
+        selfm.UpSellingId = ko.observable(data.UpSellingId);
+        selfm.CodigoCampana = ko.observable(data.CodigoCampana);
+        selfm.MontoMeta = ko.observable(data.MontoMeta);
+        selfm.TextoMeta = ko.observable(data.TextoMeta);
+        selfm.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario);
+        selfm.TextoGanaste = ko.observable(data.TextoGanaste);
+        selfm.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario);
+        selfm.Activo = ko.observable(data.Activo);
+        selfm.Regalos = ko.observableArray();
 
-        this.Regalos = ko.observableArray(data.Regalos.map(function (regalo) {
-            return new UpSellingRegaloModel(regalo);
-        }));
+        if (!!data.Regalos && data.Regalos.length > 0) {
+            selfm.Regalos(data.Regalos.map(function (regalo) {
+                return new UpSellingRegaloModel(regalo);
+            }));
+        }
     }
 
     function UpSellingRegaloModel(data) {
@@ -272,6 +273,20 @@ belcorp.estrategias.upselling.initialize = function (config) {
         this.StockActual = ko.observable(data.StockActual);
         this.Orden = ko.observable(data.Orden);
         this.Activo = ko.observable(data.Activo);
+    }
+
+    function upSellingDefault() {
+        return new UpSellingModel({
+            UpSellingId: null,
+            CodigoCampana: null,
+            MontoMeta: null,
+            TextoMeta: null,
+            TextoMetaSecundario: null,
+            TextoGanaste: null,
+            TextoGanasteSecundario: null,
+            Activo: true,
+            Regalos: []
+        });
     }
 
     function regaloDefault() {
@@ -291,7 +306,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function UpSellingViewModel() {
         var selfvm = this;
 
-        selfvm.upSelling = ko.observable({});
+        selfvm.upSellingSeleccionado = ko.observable();
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
         });
@@ -299,36 +314,53 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.mostrarFormulario = ko.observable(false);
 
         selfvm.nuevo = function () {
-            //todo:
+            selfvm.upSellingSeleccionado(upSellingDefault());
         }
 
         selfvm.edit = function (upSellingRow) {
-            //todo, mostrar campos bindeados
-            //cargar tab de regalos, categorias apoyadas y ganadoras
-            //cargar tab de regalos con data, los demas no
             waitingDialog({});
+            selfvm.upSellingSeleccionado(null);
+            selfvm.regaloSeleccionado(null);
             upSellingRegalosObtenerPromise(upSellingRow.UpSellingId)
                 .then(function (result) {
-                    if (!result.Success)
+                    if (!result.Success) {
                         fail(result.Message);
+                        return;
+                    }
 
                     upSellingRow.Regalos = result.Data;
 
-                    selfvm.upSelling = new UpSellingModel(upSellingRow);
+                    selfvm.upSellingSeleccionado(new UpSellingModel(upSellingRow));
                     selfvm.mostrarFormulario(true);
                     enableTabs(settings.idTabs);
                 }, fail)
-                .done(function () {
+                .always(function () {
                     closeWaitingDialog();
                 });
         }
 
         selfvm.save = function () {
-            alert("guardar todo");
+            waitingDialog({});
+            upSellingGuardarPromise(ko.toJS(selfvm.upSellingSeleccionado))
+                .then(function (result) {
+                    if (!result.Success) {
+                        fail(result.Message);
+                        return;
+                    }
+
+                    selfvm.upSellingSeleccionado(result.Data);
+                    enableTabs(settings.idTabs);
+                    alert("guardado");
+                }, fail)
+                .always(function () {
+                    closeWaitingDialog();
+                });
         }
 
         selfvm.cancel = function () {
             alert("perdera cambios");
+            selfvm.upSellingSeleccionado(null);
+            selfvm.regaloSeleccionado(null);
         }
 
         selfvm.regaloSeleccionado = ko.observable();
@@ -347,7 +379,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloAgregar = function () {
-            selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado());
+            selfvm.upSellingSeleccionado().Regalos.push(selfvm.regaloSeleccionado());
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
@@ -362,7 +394,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloEliminar = function (regalo) {
-            selfvm.upSelling.Regalos.remove(regalo);
+            selfvm.upSellingSeleccionado().Regalos.remove(regalo);
         }
 
         selfvm.regaloCerrar = function () {

@@ -54,5 +54,60 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(ResultModel<UpSellingModel>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> Guardar(UpSellingModel model)
+        {
+            model = SetAuditInfo(model);
+
+            UpSellingModel result;
+            if (model.UpSellingId > 0)
+                result = await _upSellingProvider.Actualizar(userData.PaisID, model);
+            else
+                result = await _upSellingProvider.Guardar(userData.PaisID, model);
+
+            return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
+        }
+
+        private UpSellingModel SetAuditInfo(UpSellingModel model)
+        {
+            model.UsuarioCreacion = userData.UsuarioNombre;
+            model.FechaCreacion = DateTime.Now;
+            if (model.UpSellingId > 0)
+            {
+                model.UsuarioModicacion = userData.UsuarioNombre;
+                model.FechaModificacion = DateTime.Now;
+            }
+
+            model.Regalos.ForEach(regalo =>
+            {
+                regalo.UsuarioCreacion = userData.UsuarioNombre;
+                regalo.FechaCreacion = DateTime.Now;
+                if (regalo.UpSellingRegaloId > 0)
+                {
+                    regalo.UsuarioModicacion = userData.UsuarioNombre;
+                    regalo.FechaModificacion = DateTime.Now;
+                }
+            });
+
+            return model;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Eliminar(int upSellingId)
+        {
+            await _upSellingProvider.Eliminar(userData.PaisID, upSellingId);
+
+            return Json(ResultModel<bool>.BuildOk(true));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Actualizar(UpSellingModel model)
+        {
+            model = SetAuditInfo(model);
+            var result = await _upSellingProvider.Actualizar(userData.PaisID, model, true);
+
+            return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
+        }
     }
 }

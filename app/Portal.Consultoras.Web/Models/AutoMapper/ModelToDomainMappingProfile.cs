@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -98,7 +99,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.EsRechazado, f => f.MapFrom(c => Convert.ToInt32(c.EsRechazado)))
                 .ForMember(t => t.FechaRegistroInicio, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaInicio) ? (DateTime?)null : DateTime.Parse(c.FechaInicio)))
                 .ForMember(t => t.FechaRegistroFin, f => f.MapFrom(c => string.IsNullOrEmpty(c.FechaFin) ? (DateTime?)null : DateTime.Parse(c.FechaFin)));
-                
+
             Mapper.CreateMap<ShowRoomOfertaModel, BEShowRoomOferta>()
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
@@ -345,7 +346,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                 .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID));
-            
+
             Mapper.CreateMap<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>()
                 .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
@@ -369,7 +370,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId))
                 .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion))
                 .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
-            
+
             Mapper.CreateMap<CronogramaFICModel, ServiceZonificacion.BECronogramaFIC>()
                 .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
                 .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona))
@@ -406,7 +407,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
                 .ForMember(t => t.FechaModificacion, f => f.MapFrom(c => c.FechaModificacion))
                 .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion));
-            
+
             Mapper.CreateMap<ShowRoomCategoriaModel, BEShowRoomCategoria>()
                 .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
                 .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
@@ -420,7 +421,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
                 .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                 .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
-            
+
             Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
                 .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                 .ForMember(t => t.CantidadAnterior, f => f.MapFrom(c => c.CantidadAnterior))
@@ -437,6 +438,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
             Mapper.CreateMap<EstrategiaProductoModel, BEEstrategiaProducto>();
+
+            Mapper.CreateMap<UpSellingModel, UpSelling>()
+                .ForMember(t => t.Regalos, f => f.MapFrom(c => c.Regalos));
+
+            Mapper.CreateMap<UpSellingRegaloModel, UpSellingDetalle>()
+                .ForMember(t => t.UpSellingDetalleId, f => f.MapFrom(c => c.UpSellingRegaloId));
 
         }
     }

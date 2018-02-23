@@ -32,7 +32,7 @@ else
                     <div class="div-3">
                         <div class="titG"></div>
                         <input type="button" id="btnBuscar" value="Buscar" />
-                        <input type="button" value="Nuevo" data-bind="click:upSelling.nuevo" />
+                        <input type="button" value="Nuevo" data-bind="click:nuevo" />
                     </div>
                 </div>
             </div>
@@ -46,42 +46,45 @@ else
     </div>
 
     @*formulario de edicion*@
-    <div data-bind="if:mostrarFormulario">
+    <div data-bind="with: upSellingSeleccionado" class="wrap_cab">
         <div class="elements">
             <div class="div-3">
-                <div class="titA">Campaña:</div>
+                <div class="titC">Campaña:</div>
                 <div class="selectA">
-                    <select data-bind="options: $root.campanasPais, value: upSelling.CodigoCampana, optionsText: 'Codigo'"></select>
+                    <select data-bind="options: $root.campanasPais,
+                            optionsText: 'Codigo',
+                            optionsValue: 'Codigo',
+                            value: CodigoCampana"></select>
                 </div>
-                <div class="titA">Acivo:</div>
-                <div class="selectA">
-                    <input type="checkbox" data-bind="checked: upSelling.Activo" />
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titA">Monto meta:</div>
-                <div class="selectA">
-                    <input type="text" data-bind="value: upSelling.MontoMeta" />
+                <div class="titC">Activo:</div>
+                <div>
+                    <input type="checkbox" data-bind="checked: Activo" />
                 </div>
             </div>
             <div class="div-3">
-                <div class="titA">Texto meta:</div>
+                <div class="titC">Monto meta:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value: upSelling.TextoMeta" />
-                </div>
-                <div class="titA">Texto meta secundario:</div>
-                <div class="selectA">
-                    <input type="text" data-bind="value: upSelling.TextoMetaSecundario" />
+                    <input type="text" data-bind="value: MontoMeta" />
                 </div>
             </div>
             <div class="div-3">
-                <div class="titA">Texto ganaste:</div>
+                <div class="titC">Texto principal:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value: upSelling.TextoGanaste" />
+                    <input type="text" data-bind="value: TextoMeta" />
                 </div>
-                <div class="titA">Texto ganaste secundario:</div>
+                <div class="titC">Texto secundario:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value: upSelling.TextoGanasteSecundario" />
+                    <input type="text" data-bind="value: TextoMetaSecundario" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">Imagen fondo principal:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: TextoGanaste" />
+                </div>
+                <div class="titC">Imagen fondo secundaria:</div>
+                <div class="selectA">
+                    <input type="text" data-bind="value: TextoGanasteSecundario" />
                 </div>
             </div>
             <div id="tabs" class="div-3">
@@ -94,7 +97,7 @@ else
                 <div id="tab-regalos">
                     <div>
                         <div class="div-3">
-                            <input type="button" value="Agregar" data-bind="click:regaloNuevo" />
+                            <input type="button" value="Agregar" data-bind="click:$root.regaloNuevo" />
                         </div>
                         <div class="div-3">
                             <div class="wrap">
@@ -103,8 +106,7 @@ else
                                     <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all">
                                         <div class="ui-jqgrid-view">
 
-                                            <table class="ui-jqgrid-htable" style="width: 100%" id="listRegalos" data-bind="with: upSelling">
-                                                @*<caption>Amazing Animals</caption>*@
+                                            <table class="ui-jqgrid-htable" style="width: 100%" id="listRegalos" data-bind="with: $root.upSellingSeleccionado">
                                                 <thead>
                                                     <tr class="ui-jqgrid-labels">
                                                         <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 65px;">Nombre</th>
@@ -123,11 +125,19 @@ else
                                                         <td data-bind="text: Stock" style="text-align:center;"></td>
                                                         <td data-bind="text: StockActual" style="text-align:center;"></td>
                                                         <td data-bind="text: Orden" style="text-align:center;"></td>
-                                                        <td data-bind="text: Activo" style="text-align:center;"></td>
+                                                        <td style="text-align: center;">
+                                                            <input type="checkbox" data-bind="checked: Activo, enable : false" style="text-align:center;" />
+                                                        </td>
                                                         <td style="text-align:center;">
-                                                            <a href="#" data-bind="click: $root.regaloEditar">edit</a>
-                                                            <a href="#" data-bind="click: $root.regaloActivarDesactivar, text: Activo?'Desactivar':'Activar'"></a>
-                                                            <a href="#" data-bind="click: $root.regaloEliminar">Eliminar</a>
+                                                            <a href="#" data-bind="click: $root.regaloEditar">
+                                                                <img src='@Url.Content("~/Content/Images/Edit.png")' alt="Editar UpSelling" title="Editar UpSelling" border='0' />
+                                                            </a>
+                                                            <a href="#" data-bind="click: $root.regaloActivarDesactivar">
+                                                                <img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' />
+                                                            </a>
+                                                            <a href="#" data-bind="click: $root.regaloEliminar">
+                                                                <img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' />
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -154,8 +164,8 @@ else
             <div class="titG"></div>
             <div class="titG"></div>
             <div class="titG"></div>
-            <input type="button" value="Guardar" data-bind="click:save" />
-            <input type="button" value="Cancelar" data-bind="click:cancel" />
+            <input type="button" value="Guardar" data-bind="click:$root.save" />
+            <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
         </div>
     </div>
 
@@ -200,15 +210,15 @@ else
                     <input type="text" multiline data-bind="value: Orden" />
                 </div>
                 <div class="titG">Activo:</div>
-                <div class="selectA">
+                <div>
                     <input type="checkbox" data-bind="checked: Activo" />
                 </div>
             </div>
         </div>
         <div class="div-3">
-            <div class="titG"></div>
-            <div class="titG"></div>
-            <div class="titG"></div>
+            <div class="titC"></div>
+            <div class="titC"></div>
+            <div class="titC"></div>
             <input type="button" value="Agregar" data-bind="visible: $root.regaloEsNuevo(), click: $root.regaloAgregar" />
             <input type="button" value="Actualizar" data-bind="visible: !$root.regaloEsNuevo(), click: $root.regaloActualizar" />
             <input type="button" value="Cerrar" data-bind="click: $root.regaloCerrar" />
@@ -231,6 +241,9 @@ else
                 idPager: 'pager',
                 urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
                 urlUpSellingObtenerRegalos: '@Url.Action("ObtenerRegalos", "UpSelling")',
+                urlUpSellingGuardar: '@Url.Action("Guardar", "UpSelling")',
+                urlUpSellingEliminar: '@Url.Action("Eliminar", "UpSelling")',
+                urlUpSellingActualizarCabecera: '@Url.Action("Actualizar", "UpSelling")',
                 buttonBuscarId: 'btnBuscar',
                 buttonNuevoId: 'btnNuevo',
                 cmbCampanas: $("#cmbCampanas"),
