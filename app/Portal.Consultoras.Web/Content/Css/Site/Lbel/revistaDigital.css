@@ -3428,11 +3428,8 @@
         font-weight: bolder;
         margin-bottom: 0;
         letter-spacing: 1px;
-<<<<<<< HEAD
-        color: #c39934;
-=======
         text-align: center;
->>>>>>> c503c7b1b6686cf0a2771c674d878adca091c049
+        color: #c39934;
     }
 
     .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
@@ -3500,7 +3497,6 @@
                 box-shadow: none;
                 background: #c39934;
             }
-
         .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
             width: 92%;
             float: left;
@@ -3580,13 +3576,8 @@
             .popup_confirmacion_datos .form-datos .input span {
                 text-align: left;
                 display: block;
-<<<<<<< HEAD
                 width: 90%;
                 /* padding-left: 30px; */
-=======
-                width: 100%;
-                padding-left: 30px;
->>>>>>> c503c7b1b6686cf0a2771c674d878adca091c049
                 color: #808080;
                 line-height: 13px;
                 font-size: 11px;
@@ -3597,7 +3588,6 @@
                     display: inline;
                 }
 /* FIN CONFIRMACIÓN DE DATOS */
-
 /* DESPEGABLE LATERAL GND */
 .desplegablegnd {
     position: fixed;
