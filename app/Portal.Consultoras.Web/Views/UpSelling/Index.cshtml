@@ -201,7 +201,7 @@ else
                 </div>
                 <div class="titG">Stock Actual:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="text: StockActual" />
+                    <input type="text" data-bind="text: StockActual, enable: false" />
                 </div>
             </div>
             <div class="div-3">
@@ -252,6 +252,7 @@ else
                 idPagerRegalos: 'pagerRegalos',
                 idTargetDiv: 'upSellingCRUD',
                 campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
+                paisNombre: '@Model.PaisNombre',
                 idDivPopUpRegalo: 'editRegaloPopUp'
             });
         });

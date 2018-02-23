@@ -24,6 +24,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idTabs: config.idTabs,
         idTargetDiv: config.idTargetDiv,
         campanasPais: config.campanasPais,
+        paisNombre: config.paisNombre,
         idDivPopUpRegalo: config.idDivPopUpRegalo
     };
 
@@ -60,10 +61,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
             colNames: ["#", "Pais", "Campaña", "Meta", "Activo", "Opciones", "TextoMeta", "TextoMetaSecundario", "TextoGanaste", "TextoGanasteSecundario"],
             colModel: [
                 { name: "UpSellingId", index: "UpSellingId", width: 50, sortable: false, align: "center" },
-                { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center" },
+                { name: "Pais", index: "Pais", width: 80, sortable: false, align: "center", formatter: function () { return settings.paisNombre } },
                 { name: "CodigoCampana", index: "CodigoCampana", width: 80, sortable: false, align: "center" },
                 { name: "MontoMeta", index: "MontoMeta", width: 80, sortable: false, align: "center" },
-                { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center" },
+                { name: "Activo", index: "Activo", width: 100, sortable: false, align: "center", template: "booleanCheckbox" },
                 { name: "Options", width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: optionButtons },
                 { name: "TextoMeta", index: "TextoMeta", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
                 { name: "TextoMetaSecundario", index: "TextoMetaSecundario", editable: true, sortable: false, hidden: true, editrules: { edithidden: true } },
@@ -97,16 +98,20 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function buscar(e, s) {
         e.preventDefault();
         cargarGrilla();
+        self.upSellingViewModel.esconderEditor();
     }
 
     function optionButtons(cellvalue, options, rowObject) {
         var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
-        var enable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
+        var enable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Habilitar UpSelling' title='Habilitar UpSelling' border='0' /></a>";
+        var disable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDelete', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
 
         var resultado = edit + del;
 
-        if (rowObject.Activo !== true)
+        if (rowObject.Activo === true)
+            resultado += disable;
+        else
             resultado += enable;
 
         return resultado;
@@ -134,6 +139,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
                     alert("Eliminado correctamente");
                     cargarGrilla();
+                    self.upSellingViewModel.esconderEditor();
                     //todo: en caso este editando?
                 }, function (err) {
                     fail(err);
@@ -145,9 +151,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function desactivar(upSellingId) {
-        //confirmar desactivacion
-        //llamar a la funcion de editra con el flac desactivado
-        //todo: en los servicios agregar un actualizar solo cabecera
         var upSellingModel = getRowData(settings.idGrilla, upSellingId);
         upSellingModel.Activo = !upSellingModel.Activo;
 
@@ -164,6 +167,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     alert("Actualizado correctamente");
                     cargarGrilla();
                     //todo: en caso este editando?
+                    self.upSellingViewModel.esconderEditor();
                 }, function (err) {
                     fail(err);
                 })
@@ -188,7 +192,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
             title: "Details"
         };
 
-
         $("#" + divId).dialog(opt).dialog("open");
         $("#ui-datepicker-div").css("z-index", "9999");
         return false;
@@ -210,7 +213,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function upSellingEliminarPromise(upsellingId) {
         return jQuery.ajax({
             type: "POST",
-            url: baseUrl + settings.urlUpSellingEliminar,
+            url: settings.urlUpSellingEliminar,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({ upsellingId: upsellingId }),
@@ -241,7 +244,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function getRowData(idGrid, idRow) {
-        return $("#" + idGrid).jqGrid('getRowData', idRow);
+        var rowData = $("#" + idGrid).jqGrid('getRowData', idRow);
+
+        if (!!rowData.Activo)
+            rowData.Activo = rowData.Activo === "true" ? true : false;
+
+        return rowData;
     }
 
     function UpSellingModel(data) {
@@ -311,10 +319,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
         });
 
-        selfvm.mostrarFormulario = ko.observable(false);
-
         selfvm.nuevo = function () {
             selfvm.upSellingSeleccionado(upSellingDefault());
+            enableTabs(settings.idTabs);
         }
 
         selfvm.edit = function (upSellingRow) {
@@ -331,7 +338,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     upSellingRow.Regalos = result.Data;
 
                     selfvm.upSellingSeleccionado(new UpSellingModel(upSellingRow));
-                    selfvm.mostrarFormulario(true);
                     enableTabs(settings.idTabs);
                 }, fail)
                 .always(function () {
@@ -400,6 +406,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.regaloCerrar = function () {
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
+        }
+
+        selfvm.esconderEditor = function () {
+            selfvm.upSellingSeleccionado(null);
+            selfvm.regaloSeleccionado(null);
         }
     }
 

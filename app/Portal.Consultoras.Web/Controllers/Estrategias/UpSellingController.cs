@@ -79,6 +79,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 model.FechaModificacion = DateTime.Now;
             }
 
+            if (model.Regalos == null)
+                return model;
+
             model.Regalos.ForEach(regalo =>
             {
                 regalo.UsuarioCreacion = userData.UsuarioNombre;
