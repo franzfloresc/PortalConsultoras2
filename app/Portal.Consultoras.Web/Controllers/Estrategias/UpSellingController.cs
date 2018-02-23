@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -54,5 +55,41 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(ResultModel<UpSellingModel>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        {
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingId);
+
+            return Json(ResultModel<IEnumerable<OfertaFinalMontoMetaModel>>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<ActionResult> ExportarExcel(int upSellingId)
+        {
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID,   upSellingId);
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> {
+                    { "CampaniaId", "CampaniaId" },
+                       { "ConsultoraId", "ConsultoraId" },
+                          { "MontoPedido", "MontoPedido" },
+                             { "GapMinimo", "GapMinimo" },
+                                { "GapMaximo", "GapMaximo" },
+                                   { "GapAgregar", "GapAgregar" },
+                                      { "MontoMeta", "MontoMeta" },
+                          { "Cuv", "Cuv" },
+                          { "TipoRango", "TipoRango" },
+                    { "FechaRegistro", "FechaRegistro" } };
+
+             
+
+
+
+        Util.ExportToExcel("ReporteNivelesRiesgo", upSelling.ToList(), dic);
+            return View();
+        }
+
     }
 }

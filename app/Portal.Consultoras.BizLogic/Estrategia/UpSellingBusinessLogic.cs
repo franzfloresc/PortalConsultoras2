@@ -185,5 +185,12 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         {
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
         }
+
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        {
+            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta( upSellingId);  
+            return OfertaFinalList ?? new List<OfertaFinalMontoMeta>();
+        }
     }
 }

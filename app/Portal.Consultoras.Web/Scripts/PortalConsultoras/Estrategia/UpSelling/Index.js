@@ -390,3 +390,59 @@ belcorp.estrategias.upselling.initialize = function (config) {
     ko.applyBindings(self.upSellingViewModel, document.getElementById(settings.idTargetDiv));
     initBindings();
 }
+
+
+
+
+function cargarGrillaaaa() {
+
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + 'UpSelling/ObtenerOfertaFinalMontoMeta',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (dataaa) {
+            debugger;
+
+            var data = dataaa.Data;
+
+
+            var grilla = $("#listOfertaFinalMontoMeta");
+            grilla.jqGrid("GridUnload");
+
+            grilla.jqGrid({
+                hidegrid: false,
+                datatype: "local",
+                postData: ({
+                    upSellingId: 1
+                }),
+                mtype: "GET",
+                contentType: "application/json; charset=utf-8",
+                multiselect: false,
+                colNames: ["Campania", "Codigo", "Nombre", "CuvRegalo", "NombreRegalo", "MontoMeta", "MontoPedido", "FechaRegistro" ],
+                colModel: [
+                    { name: "Campania", index: "Campania", width: 50, sortable: false, align: "center" },
+                    { name: "Codigo", index: "Codigo", width: 80, sortable: false, align: "center" },
+                    { name: "Nombre", index: "Nombre", width: 80, sortable: false, align: "center" },
+                    { name: "CuvRegalo", index: "CuvRegalo", width: 80, sortable: false, align: "center" },
+                    { name: "NombreRegalo", index: "NombreRegalo", width: 100, sortable: false, align: "center" },
+                    { name: "MontoMeta", index: "MontoMeta", width: 100, sortable: false, align: "center" },
+                    { name: "MontoPedido", index: "MontoPedido", width: 100, sortable: false, align: "center" },
+                     { name: "FechaRegistro", index: "FechaRegistro", width: 100, sortable: false, align: "center" , formatter: 'date', formatoptions: { srcformat: 'Y-m-d H:i:s', newformat: 'm/d/Y', defaultValue: null}}, 
+                ],   
+                viewrecords: true,
+                height: "auto",
+                width: 930, 
+                altRows: false
+            });
+
+
+            for (var i = 0; i <= data.length; i++)
+                grilla.jqGrid('addRowData', i + 1, data[i]);  
+
+        },
+    });
+
+
+}

@@ -25,5 +25,15 @@ namespace Portal.Consultoras.Web.Providers
                 return Mapper.Map<IList<UpSellingDetalle>, IEnumerable<UpSellingRegaloModel>>(upSellings);
             }
         }
+
+        public async Task<IEnumerable<OfertaFinalMontoMetaModel>> ObtenerOfertaFinalMontoMeta(int paisId,int upSellingId)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var upSellings = await sv.ObtenerOfertaFinalMontoMetaAsync(paisId, upSellingId);
+                return Mapper.Map<IList<OfertaFinalMontoMeta>, IEnumerable<OfertaFinalMontoMetaModel>>(upSellings);
+            }
+        }
+        
     }
 }

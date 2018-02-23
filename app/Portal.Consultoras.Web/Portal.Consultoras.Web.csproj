@@ -433,6 +433,7 @@
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\Common\ResultModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
+    <Compile Include="Models\Estrategia\OfertaFinalMontoMetaModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
@@ -4050,40 +4051,39 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService.wsdl" />
-    <None Include="Service References\ServiceSAC\SACService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ServiceSAC\SACService1.wsdl" />
     <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService5.xsd">
+    <None Include="Service References\ServiceSAC\SACService9.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService6.xsd">
+    <None Include="Service References\ServiceSAC\SACService91.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService7.xsd">
+    <None Include="Service References\ServiceSAC\SACService92.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService8.xsd">
+    <None Include="Service References\ServiceSAC\SACService93.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService94.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService95.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService96.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService97.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService98.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
-    <None Include="Service References\ServiceSAC\SACService.disco" />
     <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <None Include="Service References\ServiceSAC\configuration.svcinfo" />
     <None Include="Service References\ServiceSAC\Reference.svcmap">
@@ -4104,6 +4104,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceSAC\SACService1.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>

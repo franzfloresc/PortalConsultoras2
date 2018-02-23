@@ -177,5 +177,20 @@ namespace Portal.Consultoras.Data.Estrategia
                 return recordsAffected;
             }
         }
+
+
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.OfertaFinalMontoMeta_Select"))
+            {
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId); 
+                var reader = Context.ExecuteReader(command);
+
+                var data = reader.MapToCollection<OfertaFinalMontoMeta>(true);
+                return data;
+            }
+        }
+
     }
 }

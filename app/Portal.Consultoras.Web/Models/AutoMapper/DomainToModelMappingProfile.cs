@@ -539,6 +539,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UpSellingDetalle, UpSellingRegaloModel>()
                 .ForMember(t => t.UpSellingRegaloId, f => f.MapFrom(c => c.UpSellingDetalleId));
 
+             
+            Mapper.CreateMap<OfertaFinalMontoMeta, OfertaFinalMontoMetaModel>();
+
+
         }
     }
 }

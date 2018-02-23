@@ -110,6 +110,20 @@ else
                 @*regalos*@
                 <div id="tab-ganadoras">
 
+
+                    <div>
+                        <div class="div-3">
+                            <input type="button" id="exportGRid" value="Exportar" />
+                        </div>
+                        <div class="div-3">
+                            <div class="wrap">
+                                <div class="container clearfix">
+                                    <table id="listOfertaFinalMontoMeta"></table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,6 +180,11 @@ else
         </div>
     </div>
 </div>
+
+
+<form action="UpSelling/ExportarExcel">
+     <input type="submit" value="Submit">
+</form>
 
 
 @Scripts.Render("~/bundles/estrategias-upselling")

@@ -719,6 +719,9 @@ namespace Portal.Consultoras.ServiceContracts
         /// <returns></returns>
         [OperationContract]
         UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
+
+        [OperationContract]
+        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
         #endregion
     }
 }
