@@ -556,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
                     wspreciopack = preciosEstrategia.montotal;
                     ganancia = preciosEstrategia.montoganacia;
-                    niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
+                    niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
                 }
 
                 descripcion = lst[0].DescripcionCUV2;
@@ -1408,7 +1408,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     campaniaId.ToString());
                                 precioOferta = preciosEstrategia.montotal;
                                 ganancia = preciosEstrategia.montoganacia;
-                                niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
+                                niveles = preciosEstrategia.listaniveles.Length > 1 ? ObtenerTextoNiveles(preciosEstrategia.listaniveles) : "";
                             }
                         }
                         catch (Exception ex)
@@ -2581,11 +2581,10 @@ namespace Portal.Consultoras.Web.Controllers
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {
             var stringNiveles = "";
-            if (listaNivelEstrategias != null)
-            {
-                stringNiveles = listaNivelEstrategias.Where(nivelEstrategia => nivelEstrategia.nivel != 1)
-                    .Aggregate(stringNiveles, (current, nivelEstrategia) => current + ("X" + nivelEstrategia.nivel + "-" + nivelEstrategia.precio + "|"));
-            }
+           
+            stringNiveles = listaNivelEstrategias.Where(nivelEstrategia => nivelEstrategia.nivel != 1)
+                .Aggregate(stringNiveles, (current, nivelEstrategia) => current + ("X" + nivelEstrategia.nivel + "-" + nivelEstrategia.precio + "|"));
+            
             return stringNiveles != "" ? stringNiveles.Remove(stringNiveles.Length - 1) : "";
         }
     }
