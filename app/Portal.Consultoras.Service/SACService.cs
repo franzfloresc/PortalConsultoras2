@@ -1062,9 +1062,10 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
         {
-            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)

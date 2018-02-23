@@ -10480,7 +10480,6 @@ a {
 .nombre_set_oferta_mobile {
     font-family: 'Lato';
     font-size: 11.5px;
-    margin-top: 4%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10498,14 +10497,26 @@ a {
 
 .imagen_set_oferta_mobile {
     float: right;
-    width: 47%;
-    margin-top: 9px;
+    width: 34%;
+    margin: 9px 20px 0 0;
     text-align: center;
 }
 
     .imagen_set_oferta_mobile img {
         width: 90%;
         margin-top: -7px;
+    }
+
+.imagen_set_oferta_mobile2 {
+    width: 14%;
+    height: auto;
+    float: right;
+    text-align: center;
+    margin: 8px 30px 0 0;
+}
+
+    .imagen_set_oferta_mobile2 img {
+        width: 100%;
     }
 
 .btn_cerrar_oferta_mobile {
@@ -11049,8 +11060,6 @@ a {
     background: black;
     width: 100%;
     overflow: hidden;
-    padding-top: 14px;
-    padding-bottom: 13px;
     height: 60px;
     position: relative;
 }
@@ -11077,14 +11086,13 @@ a {
 .solo_hoy_mobile2 {
     width: 129px;
     height: 34px;
-    position: relative;
-    top: -9px;
+    position: absolute;
+    top: 4px;
 }
 
     .solo_hoy_mobile2 img {
-        width: 77%;
+        width: 88%;
         object-fit: cover;
-        height: 19px;
         object-position: 100%;
     }
 
@@ -11423,9 +11431,10 @@ a {
 
 .btn_volver_detalle_oferta {
     display: block;
-    position: absolute;
+    position: relative;
     top: 21px;
     left: 20px;
+    z-index: 20;
     height: 45px;
     line-height: 43px;
 }
@@ -11992,7 +12001,6 @@ a {
     }
 
 .content_detalle_set_showroom {
-    overflow: hidden;
     margin-top: 13px;
     border-bottom: 1px solid #9B9B9B;
     padding-bottom: 13px;
@@ -12463,7 +12471,7 @@ a {
     margin-top: 7px !important;
     display: block;
     position: absolute;
-    top: 11px;
+    top: 26px;
     left: 67px;
     font-family: 'Lato';
     color: #fff;
@@ -14508,4 +14516,10 @@ a {
 
 .text-uppercase {
     text-transform: uppercase;
+}
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
