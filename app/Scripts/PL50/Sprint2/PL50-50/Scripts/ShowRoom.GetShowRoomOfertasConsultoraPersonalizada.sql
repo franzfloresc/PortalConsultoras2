@@ -1,10 +1,10 @@
---todos iguales
 USE BelcorpPeru
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -47,11 +47,11 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
-		,e.PrecioPublico AS PrecioValorizado
+		,e.Precio AS PrecioValorizado --tachado
 		,COALESCE(e.Precio2, pc.PrecioCatalogo) AS PrecioOferta
 		,e.Cantidad AS Stock
 		,e.ImagenURL AS ImagenProducto
@@ -68,10 +68,15 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
@@ -81,12 +86,14 @@ BEGIN
 END;
 
 GO
+
 USE BelcorpMexico
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -129,7 +136,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -150,25 +157,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
+
 USE BelcorpColombia
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -211,7 +225,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -232,26 +246,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpVenezuela
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -294,7 +314,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -315,26 +335,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpSalvador
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -377,7 +403,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -398,26 +424,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpPuertoRico
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -460,7 +492,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -481,26 +513,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpPanama
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -543,7 +581,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -564,26 +602,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpGuatemala
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -626,7 +670,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -647,26 +691,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpEcuador
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -709,7 +759,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -730,26 +780,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpDominicana
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -792,7 +848,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -813,26 +869,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpCostaRica
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -875,7 +937,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -896,26 +958,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpChile
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -958,7 +1026,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -979,26 +1047,32 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
 
 GO
 
 USE BelcorpBolivia
 GO
 
-IF (OBJECT_ID ( '[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P' ) IS NULL)
-	EXEC('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
+IF (OBJECT_ID('[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada]', 'P') IS NULL)
+	EXEC ('CREATE PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] AS SET NOCOUNT ON;')
 GO
+
 --[ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] 201802, '000758604'
 ALTER PROCEDURE [ShowRoom].[GetShowRoomOfertasConsultoraPersonalizada] @CampaniaID INT
 	,@CodigoConsultora VARCHAR(20)
@@ -1041,7 +1115,7 @@ BEGIN
 			)
 
 	/*Fin Validacion FaltanteAnunciado y ProductoFaltante*/
-	SELECT e.EstrategiaID
+	SELECT DISTINCT e.EstrategiaID
 		,c.CampaniaID
 		,e.CUV2 AS CUV
 		,e.DescripcionCUV2 AS Descripcion
@@ -1062,15 +1136,22 @@ BEGIN
 		,pc.CodigoProducto
 		,e.EsSubCampania
 	FROM Estrategia e
+	INNER JOIN ods.Campania c ON e.CampaniaID = c.Codigo
 	INNER JOIN ods.ProductoComercial pc ON e.CUV2 = pc.CUV
-	INNER JOIN ods.Campania c ON pc.CampaniaID = c.CampaniaID
+		AND pc.CampaniaID = c.CampaniaID
+	INNER JOIN ods.OfertasPersonalizadas op ON c.codigo = op.anioCampanaVenta
+		AND e.CUV2 = op.CUV
+		AND op.TipoPersonalizacion = 'SR'
 	INNER JOIN vwEstrategiaShowRoomEquivalencia ves ON e.TipoEstrategiaId = ves.TipoEstrategiaID
 	WHERE c.Codigo = @CampaniaID
+		AND op.CodConsultora = @CodigoConsultora
 		AND e.Activo = 1
 		AND e.CUV2 NOT IN (
 			SELECT CUV
 			FROM @tablaFaltante
 			)
 	ORDER BY e.Orden
-END
+END;
+
+GO
 
