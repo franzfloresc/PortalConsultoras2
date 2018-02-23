@@ -891,7 +891,7 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
-    IsGuid: function(input) {
+    IsGuid: function (input) {
         var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return guidRegex.test(input);
     }
@@ -1894,6 +1894,12 @@ var registerEvent = function (eventName) {
         console.log("invalid callback " + cb);
     }
 
+    self[eventName].emit = function (args) {
+        self[eventName].callBacks.forEach(function (cb) {
+            cb.call(undefined, args);
+        });
+    }
+
     self.subscribe = function (event, cb) {
         if (!!event) {
             if (self[event]) {
@@ -1907,6 +1913,7 @@ var registerEvent = function (eventName) {
 
     self.applyChanges = function (event, args) {
         if (self[event]) {
+            //todo: could be emit
             self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });
