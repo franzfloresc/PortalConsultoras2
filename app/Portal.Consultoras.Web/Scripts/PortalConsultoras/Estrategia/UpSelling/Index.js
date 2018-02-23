@@ -322,9 +322,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         this.Activo = ko.observable(data.Activo);
     }
 
-    function UpSellingViewModel() {
-        var selfvm = this;
-        var defaultRegalo = new UpSellingRegaloModel({
+    function regaloDefault() {
+        return new UpSellingRegaloModel({
             UpSellingRegaloId: 0,
             CUV: null,
             Nombre: null,
@@ -335,6 +334,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
             Orden: null,
             Activo: null
         });
+    }
+
+    function UpSellingViewModel() {
+        var selfvm = this;
 
         selfvm.upSelling = ko.observable({});
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
@@ -377,31 +380,28 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloSeleccionado = ko.observable();
-        selfvm.mostrarFormularioRegalo = ko.observable(false);
         selfvm.regaloEsNuevo = ko.observable(true);
 
         selfvm.regaloNuevo = function () {
-            selfvm.regaloSeleccionado = defaultRegalo;
+            selfvm.regaloSeleccionado(regaloDefault());
             showDialog(settings.idDivPopUpRegalo);
-            selfvm.mostrarFormularioRegalo(true);
             selfvm.regaloEsNuevo(true);
         }
 
         selfvm.regaloEditar = function (regalo) {
             showDialog(settings.idDivPopUpRegalo);
-            selfvm.regaloSeleccionado = regalo;
-            selfvm.mostrarFormularioRegalo(true);
+            selfvm.regaloSeleccionado(regalo);
             selfvm.regaloEsNuevo(false);
         }
 
         selfvm.regaloAgregar = function () {
-            selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado);
-            selfvm.regaloSeleccionado = null;
+            selfvm.upSelling.Regalos.push(selfvm.regaloSeleccionado());
+            selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
 
         selfvm.regaloActualizar = function () {
-            selfvm.regaloSeleccionado = null;
+            selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
 
@@ -414,6 +414,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloCerrar = function () {
+            selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
     }

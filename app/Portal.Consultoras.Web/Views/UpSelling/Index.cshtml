@@ -160,48 +160,48 @@ else
     </div>
 
     @*popup regalo*@
-    <div id="editRegaloPopUp" data-bind="if: mostrarFormularioRegalo">
+    <div id="editRegaloPopUp" data-bind="with: regaloSeleccionado">
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titG">CUV:</div>
                 <div class="selectA">
                     @*hidden no necesario*@
-                    <input type="hidden" data-bind="value: regaloSeleccionado.UpSellingRegaloId" />
-                    <input type="text" data-bind="value: regaloSeleccionado.CUV" />
+                    <input type="hidden" data-bind="value: UpSellingRegaloId" />
+                    <input type="text" data-bind="value: CUV" />
                 </div>
                 <div class="titG">Nombre:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value: regaloSeleccionado.Nombre" />
+                    <input type="text" data-bind="value: Nombre" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Descripcion:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value: regaloSeleccionado.Descripcion" />
+                    <input type="text" multiline data-bind="value: Descripcion" />
                 </div>
                 <div class="titG">Imagen:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="value: regaloSeleccionado.Imagen" />
+                    <input type="text" data-bind="value: Imagen" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Stock:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value: regaloSeleccionado.Stock" />
+                    <input type="text" multiline data-bind="value: Stock" />
                 </div>
                 <div class="titG">Stock Actual:</div>
                 <div class="selectA">
-                    <input type="text" data-bind="text: regaloSeleccionado.StockActual" />
+                    <input type="text" data-bind="text: StockActual" />
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Orden:</div>
                 <div class="selectA">
-                    <input type="text" multiline data-bind="value: regaloSeleccionado.Orden" />
+                    <input type="text" multiline data-bind="value: Orden" />
                 </div>
                 <div class="titG">Activo:</div>
                 <div class="selectA">
-                    <input type="checkbox" data-bind="checked: regaloSeleccionado.Activo" />
+                    <input type="checkbox" data-bind="checked: Activo" />
                 </div>
             </div>
         </div>
@@ -209,9 +209,9 @@ else
             <div class="titG"></div>
             <div class="titG"></div>
             <div class="titG"></div>
-            <input type="button" value="Agregar" data-bind="visible: regaloEsNuevo(), click:regaloAgregar" />
-            <input type="button" value="Actualizar" data-bind="visible: !regaloEsNuevo(), click:regaloActualizar" />
-            <input type="button" value="Cerrar" data-bind="click: regaloCerrar" />
+            <input type="button" value="Agregar" data-bind="visible: $root.regaloEsNuevo(), click: $root.regaloAgregar" />
+            <input type="button" value="Actualizar" data-bind="visible: !$root.regaloEsNuevo(), click: $root.regaloActualizar" />
+            <input type="button" value="Cerrar" data-bind="click: $root.regaloCerrar" />
         </div>
     </div>
 </div>
@@ -220,7 +220,6 @@ else
 @Scripts.Render("~/bundles/estrategias-upselling")
 @*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/ko.gridBinding.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
     <script>
         jQuery(document).ready(function() {
