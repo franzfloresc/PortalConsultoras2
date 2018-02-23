@@ -576,7 +576,9 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 
     var divMensaje = $("#divMensajeBloqueada");
 
-    if (estrategia.CodigoEstrategia == '011' && isPagina('ofertas') && !isMobile())  {
+    if (estrategia.CodigoEstrategia == '011' &&
+        (isPagina('ofertas') || isPagina('herramientasventa') )&&
+        !isMobile()) {
         divMensaje = $("#divHVMensajeBloqueada");
         divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
     }
