@@ -32208,11 +32208,10 @@ h1#penmostreo .campana {
 }
 
 .producto_set {
-    width: 130px;
+    width: 90px;
     height: auto;
     float: left;
-    margin-left: 25px;
-    margin-top: 12px;
+    margin: 12px 0 0 25px;
     text-align: center;
 }
 
@@ -32377,11 +32376,11 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 46%;
+    width: 34%;
     height: auto;
     float: left;
     text-align: center;
-    margin-top: 25px;
+    margin: 25px 65px 0 0;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32861,7 +32860,7 @@ h1#penmostreo .campana {
 
 .compartir_redes_ficha {
     margin-top: 30px;
-    padding-left: 64px;
+    padding-left: 25px;
 }
 
 .texto_compartelo {
@@ -34418,10 +34417,10 @@ h1#penmostreo .campana {
 }
 
 .content_imagen_promocion {
-    width: 72px;
     text-align: center;
-    float: left;
-    margin-right: 14px;
+    margin: 2.5px 0 0 -85px;
+    position: absolute;
+    width: 72px;
 }
 
     .content_imagen_promocion img {
@@ -34436,7 +34435,7 @@ h1#penmostreo .campana {
     float: left;
     width: 215px;
     margin-right: 20px;
-    margin-top: 17px;
+    margin-top: 2px;
     line-height: 21px;
     text-transform: uppercase;
 }
