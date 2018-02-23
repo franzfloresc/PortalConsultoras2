@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Validar Tipo RD
 
-                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
+                if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -382,9 +382,15 @@ namespace Portal.Consultoras.Web.Controllers
                         Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                         return new List<EstrategiaPedidoModel>();
                     }
-
+                    
                     var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
-                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi).ToList();
+
+                    if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                    {
+                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Publico).ToList();
+                    }
+
+                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
 
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
@@ -582,6 +588,8 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
+
+                prodModel.FlagRevista = estrategia.FlagRevista;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
 

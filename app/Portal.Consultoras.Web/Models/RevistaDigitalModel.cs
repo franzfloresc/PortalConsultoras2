@@ -47,6 +47,8 @@ namespace Portal.Consultoras.Web.Models
         public bool EsActiva { get; set; }
         public bool EsSuscrita { get; set; }
 
+        public bool ActivoMdo { get; set; }
+
         public string NombreConsultora { get; set; }
         public string CampaniaActual { get; set; }
         /// <summary>
