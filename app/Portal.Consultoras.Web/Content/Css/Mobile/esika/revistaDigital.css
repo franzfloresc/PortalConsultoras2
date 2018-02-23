@@ -2298,7 +2298,7 @@ div#tab_revistasdigital_mobile {
     }
 
 .pack-a-medida {
-    background: #e91b37;
+    background: #c39934;
 }
 
 .sin-codigos {
@@ -2321,7 +2321,7 @@ div#tab_revistasdigital_mobile {
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/Esika/Triangle.svg');
+        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -2341,7 +2341,7 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         text-align: center;
         display: block;
-        color: #e81c36 !important;
+        color: #c39934 !important;
         margin-bottom: 30px !important;
     }
 
@@ -2386,7 +2386,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
-            background: url('../../../Images/Esika/personalizacion-visual-desktop.gif');
+            background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2440,6 +2440,12 @@ div#tab_revistasdigital_mobile {
         font-size: 21px;
     }
 
+        .bloques-gana-mas .contenedor-mobile-fix span.nro img {
+            width: 12px;
+            height: 10px;
+            margin-top: 5px;
+        }
+
     .bloques-gana-mas .contenedor-mobile-fix span.txt {
         float: left;
         width: 83%;
@@ -2492,9 +2498,10 @@ div#tab_revistasdigital_mobile {
         height: auto;
         float: initial;
         height: 50px;
-        background: url('../../../Images/Esika/logotipo-club-ganamas-rojo.svg');
-        background-size: cover;
+        background: url('/Content/Images/logo-club-ganamas-dorado.svg');
+        background-size: contain;
         background-position: center center;
+        background-repeat: no-repeat;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
@@ -2544,7 +2551,7 @@ div#tab_revistasdigital_mobile {
     }
 
 .suscribete-gratis a.btn-suscribete {
-    background: #e81c36;
+    background: #c39934;
     color: white;
     font-weight: 600;
     text-decoration: none;
@@ -2569,7 +2576,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .suscribete-gratis p.txt-deseas-cancelar {
-    color: #e81c36;
+    color: #c39934;
     font-weight: 700;
     letter-spacing: .5px !important;
     text-transform: uppercase;
@@ -2659,7 +2666,7 @@ a.btn-suscribete-video-baja {
     }
 
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
-            background: url('../../../Images/Esika/personalizacion-visual-mobile.gif');
+            background: url('../../../Images/RevistaDigital/personalizacion-visual-mobile.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;

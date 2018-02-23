@@ -19,7 +19,7 @@
 {
     if (revistaDigital.EsActiva)
     {
-        <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
+        @*<div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
                     <img src="@urlLogo" alt="" class="large">
@@ -38,13 +38,13 @@
                 </div>
             </div>
         </div>
-        <hr class="clear" />
+        <hr class="clear" />*@
 
         <!-- EJEMPLO CLUB GANA MÁS-->
         <div class="home_block_rd home_rd" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo rd_logo2">
-                    <img src="@urlLogo" alt="" class="large">
+                    <img src="@revistaDigital.DLogoComercialActiva" alt="" class="large">
                 </div>
                 <div class="hblock_text">
                     <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
