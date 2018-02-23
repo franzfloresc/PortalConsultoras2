@@ -1396,5 +1396,10 @@ namespace Portal.Consultoras.Service
             return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
         #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

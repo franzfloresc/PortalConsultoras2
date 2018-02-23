@@ -665,6 +665,13 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
 
+        #region Horario
+
+        [OperationContract]
+        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
+
+        #endregion
+        
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
