@@ -443,7 +443,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             if (data.success === false) {
                 AbrirMensajeEstrategia(data.message);
-                $("#txtCantidad").val(1);
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
                 CerrarLoad();
                 return false;
             }
