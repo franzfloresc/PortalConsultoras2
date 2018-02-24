@@ -14,10 +14,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idGrillaRegalos: config.idGrillaRegalos,
         idPagerRegalos: config.idPagerRegalos,
         urlUpSellingObtener: config.urlUpSellingObtener,
-        urlUpSellingObtenerRegalos: config.urlUpSellingObtenerRegalos,
-        urlUpSellingGuardar: config.urlUpSellingGuardar,
-        urlUpSellingEliminar: config.urlUpSellingEliminar,
-        urlUpSellingActualizarCabecera: config.urlUpSellingActualizarCabecera,
         buttonBuscarId: config.buttonBuscarId,
         buttonNuevoId: config.buttonNuevoId,
         cmbCampanas: config.cmbCampanas,
@@ -30,6 +26,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         rutaTemporal: config.rutaTemporal,
         urlS3: config.urlS3
     };
+
+    var api = belcorp.estrategias.upselling.api;
+    api.initialize(config);
 
     registerEvent.call(this, "onUpSellingEdit");
     registerEvent.call(this, "onUpSellingDelete");
@@ -46,7 +45,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         self.subscribe("onUpSellingDesactivar", desactivar);
 
         cargarGrilla();
-        
+
     }
 
     function cargarGrilla() {
@@ -135,7 +134,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         var upSellingModel = getRowData(settings.idGrilla, upSellingId);
         if (confirm("Confirme eliminar UpSelling para campaña " + upSellingModel.CodigoCampana)) {
             waitingDialog({});
-            upSellingEliminarPromise(upSellingModel.UpSellingId)
+            api.upSellingEliminarPromise(upSellingModel.UpSellingId)
                 .then(function (result) {
                     if (!result.Success) {
                         fail(result.Message);
@@ -163,7 +162,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         textoActivar += " para la campaña " + upSellingModel.CodigoCampana;
 
         if (confirm("Confirma " + textoActivar)) {
-            upSellingActualizarCabeceraPromise(upSellingModel)
+            api.upSellingActualizarCabeceraPromise(upSellingModel)
                 .then(function (result) {
                     if (!result.Success) {
                         fail(result.Message);
@@ -202,52 +201,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         return false;
     }
 
-    function upSellingRegalosObtenerPromise(upsellingId) {
-        return jQuery.ajax({
-            type: "GET",
-            url: settings.urlUpSellingObtenerRegalos,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: {
-                upsellingId: upsellingId
-            },
-            async: true
-        });
-    }
-
-    function upSellingEliminarPromise(upsellingId) {
-        return jQuery.ajax({
-            type: "POST",
-            url: settings.urlUpSellingEliminar,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ upsellingId: upsellingId }),
-            async: true
-        });
-    }
-
-    function upSellingActualizarCabeceraPromise(upSellingModel) {
-        return jQuery.ajax({
-            type: "POST",
-            url: settings.urlUpSellingActualizarCabecera,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(upSellingModel),
-            async: true
-        });
-    }
-
-    function upSellingGuardarPromise(upSellingModel) {
-        return jQuery.ajax({
-            type: "POST",
-            url: settings.urlUpSellingGuardar,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(upSellingModel),
-            async: true
-        });
-    }
-
     function getRowData(idGrid, idRow) {
         var rowData = $("#" + idGrid).jqGrid('getRowData', idRow);
 
@@ -256,33 +209,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         return rowData;
     }
-
-    //function uploadFilePalanca(tag, observableProp) {
-    //    new qq.FileUploader({
-    //        allowedExtensions: ['jpg', 'png', 'jpeg'],
-    //        element: document.getElementById("img-" + tag),
-    //        action: settings.rutaFileUpload,
-    //        onComplete: function (id, fileName, responseJSON) {
-    //            if (checkTimeout(responseJSON)) {
-    //                if (responseJSON.success) {
-    //                    console.log(responseJSON);
-    //                    observableProp(responseJSON.name);
-    //                    $("#nombre-" + tag).val(responseJSON.name);
-    //                    $("#src-" + tag).attr('src', settings.rutaTemporal + responseJSON.name);
-    //                } else alert(responseJSON.message);
-    //            }
-    //            return false;
-    //        },
-    //        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
-    //        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
-    //        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
-    //    });
-    //    if ($("#nombre-" + tag).val() !== "") {
-    //        $("#src-" + tag).attr("src", settings.urlS3 + $("#nombre-" + tag).val());
-    //    }
-
-    //    return false;
-    //}
 
     /**
      * Region ViewModel
@@ -367,7 +293,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             waitingDialog({});
             selfvm.upSellingSeleccionado(null);
             selfvm.regaloSeleccionado(null);
-            upSellingRegalosObtenerPromise(upSellingRow.UpSellingId)
+            api.upSellingRegalosObtenerPromise(upSellingRow.UpSellingId)
                 .then(function (result) {
                     if (!result.Success) {
                         fail(result.Message);
@@ -387,7 +313,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         selfvm.save = function () {
             waitingDialog({});
-            upSellingGuardarPromise(ko.toJS(selfvm.upSellingSeleccionado))
+            api.upSellingGuardarPromise(ko.toJS(selfvm.upSellingSeleccionado))
                 .then(function (result) {
                     if (!result.Success) {
                         fail(result.Message);

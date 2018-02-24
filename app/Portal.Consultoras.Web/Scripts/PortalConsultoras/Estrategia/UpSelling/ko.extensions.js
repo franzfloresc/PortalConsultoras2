@@ -1,7 +1,7 @@
 ﻿(function () {
     ko.bindingHandlers.upLoader = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            uploadFilePalanca(element, valueAccessor, bindingContext.$root.settings().rutaFileUpload);
+            uploadFile(element, valueAccessor, bindingContext.$root.settings().rutaFileUpload);
         }
     };
 
@@ -11,12 +11,13 @@
             $(element).toggle(shouldDisplay);
         },
         update: function (element, valueAccessor) {
+            $("#back-top").click();
             var shouldDisplay = valueAccessor();
-            shouldDisplay ? $(element).fadeIn(1000) : $(element).fadeOut(1000);
+            shouldDisplay ? $(element).fadeIn(600) : $(element).fadeOut(400);
         }
     };
 
-    function uploadFilePalanca(element, observableProp, rutaFileUpload) {
+    function uploadFile(element, observableProp, rutaFileUpload) {
         new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
             element: element,
@@ -34,8 +35,6 @@
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
             onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
         });
-
-        return false;
     }
 })();
 
