@@ -13553,10 +13553,13 @@ span.icon-advertencia {
     position: absolute;
     width: 95%;
     max-width: 400px;
-    min-height: 815px;
+    min-height: 858px;
     top: 0;
-    background-repeat: no-repeat !important;
     z-index: 1000;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    vertical-align: middle;
 }
 
 .btn_regresa_OF {
