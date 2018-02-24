@@ -25,7 +25,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idTargetDiv: config.idTargetDiv,
         campanasPais: config.campanasPais,
         paisNombre: config.paisNombre,
-        idDivPopUpRegalo: config.idDivPopUpRegalo
+        idDivPopUpRegalo: config.idDivPopUpRegalo,
+        rutaFileUpload: config.rutaFileUpload,
+        rutaTemporal: config.rutaTemporal,
+        urlS3: config.urlS3
     };
 
     registerEvent.call(this, "onUpSellingEdit");
@@ -252,6 +255,38 @@ belcorp.estrategias.upselling.initialize = function (config) {
         return rowData;
     }
 
+    //function uploadFilePalanca(tag, observableProp) {
+    //    new qq.FileUploader({
+    //        allowedExtensions: ['jpg', 'png', 'jpeg'],
+    //        element: document.getElementById("img-" + tag),
+    //        action: settings.rutaFileUpload,
+    //        onComplete: function (id, fileName, responseJSON) {
+    //            if (checkTimeout(responseJSON)) {
+    //                if (responseJSON.success) {
+    //                    console.log(responseJSON);
+    //                    observableProp(responseJSON.name);
+    //                    $("#nombre-" + tag).val(responseJSON.name);
+    //                    $("#src-" + tag).attr('src', settings.rutaTemporal + responseJSON.name);
+    //                } else alert(responseJSON.message);
+    //            }
+    //            return false;
+    //        },
+    //        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+    //        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+    //        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    //    });
+    //    if ($("#nombre-" + tag).val() !== "") {
+    //        $("#src-" + tag).attr("src", settings.urlS3 + $("#nombre-" + tag).val());
+    //    }
+
+    //    return false;
+    //}
+
+    /**
+     * Region ViewModel
+     * @param {} data : UpSelling JS Object
+     * @returns {} 
+     */
     function UpSellingModel(data) {
         var selfm = this;
         selfm.UpSellingId = ko.observable(data.UpSellingId);
@@ -314,6 +349,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
     function UpSellingViewModel() {
         var selfvm = this;
 
+        selfvm.settings = ko.observable(settings);
         selfvm.upSellingSeleccionado = ko.observable();
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
@@ -338,6 +374,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     upSellingRow.Regalos = result.Data;
 
                     selfvm.upSellingSeleccionado(new UpSellingModel(upSellingRow));
+                    //uploadFilePalanca("TextoGanaste", selfvm.upSellingSeleccionado().TextoGanaste);
                     enableTabs(settings.idTabs);
                 }, fail)
                 .always(function () {
