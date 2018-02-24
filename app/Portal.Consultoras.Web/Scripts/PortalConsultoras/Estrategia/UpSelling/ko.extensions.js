@@ -5,6 +5,17 @@
         }
     };
 
+    ko.bindingHandlers.fadeVisible = {
+        init: function (element, valueAccessor) {
+            var shouldDisplay = valueAccessor();
+            $(element).toggle(shouldDisplay);
+        },
+        update: function (element, valueAccessor) {
+            var shouldDisplay = valueAccessor();
+            shouldDisplay ? $(element).fadeIn(1000) : $(element).fadeOut(1000);
+        }
+    };
+
     function uploadFilePalanca(element, observableProp, rutaFileUpload) {
         new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -25,11 +36,6 @@
         });
 
         return false;
-    }
-
-    function getPropertyName(elementObservable) {
-        var dataBind = elementObservable.attributes['data-bind'].nodeValue;
-        return dataBind.substring(dataBind.indexOf(":") + 1).trim();
     }
 })();
 

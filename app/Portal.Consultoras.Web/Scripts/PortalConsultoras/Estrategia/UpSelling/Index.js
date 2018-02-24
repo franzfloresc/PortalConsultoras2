@@ -46,6 +46,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         self.subscribe("onUpSellingDesactivar", desactivar);
 
         cargarGrilla();
+        
     }
 
     function cargarGrilla() {
@@ -102,6 +103,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         e.preventDefault();
         cargarGrilla();
         self.upSellingViewModel.esconderEditor();
+        self.upSellingViewModel.mostrarFormularioUpSelling(false);
     }
 
     function optionButtons(cellvalue, options, rowObject) {
@@ -351,6 +353,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         selfvm.settings = ko.observable(settings);
         selfvm.upSellingSeleccionado = ko.observable();
+        selfvm.mostrarFormularioUpSelling = ko.observable(false);
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
         });
@@ -374,7 +377,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     upSellingRow.Regalos = result.Data;
 
                     selfvm.upSellingSeleccionado(new UpSellingModel(upSellingRow));
-                    //uploadFilePalanca("TextoGanaste", selfvm.upSellingSeleccionado().TextoGanaste);
+                    selfvm.mostrarFormularioUpSelling(true);
                     enableTabs(settings.idTabs);
                 }, fail)
                 .always(function () {
@@ -394,6 +397,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     selfvm.upSellingSeleccionado(result.Data);
                     enableTabs(settings.idTabs);
                     alert("guardado");
+                    selfvm.mostrarFormularioUpSelling(false);
                 }, fail)
                 .always(function () {
                     closeWaitingDialog();
@@ -404,6 +408,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             alert("perdera cambios");
             selfvm.upSellingSeleccionado(null);
             selfvm.regaloSeleccionado(null);
+            selfvm.mostrarFormularioUpSelling(false);
         }
 
         selfvm.regaloSeleccionado = ko.observable();
