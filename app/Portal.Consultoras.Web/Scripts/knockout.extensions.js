@@ -1,4 +1,6 @@
-﻿(function () {
+﻿"use strict";
+
+(function () {
     ko.bindingHandlers.upLoader = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             uploadFile(element, valueAccessor, bindingContext.$root.settings().rutaFileUpload);
@@ -16,6 +18,32 @@
             shouldDisplay ? $(element).fadeIn(600) : $(element).fadeOut(400);
         }
     };
+
+    ko.extenders.trackChange = function (target, options) {
+        if (options.track) {
+            target.isDirty = ko.observable(false);
+            target.originalValue = target();
+            target.setOriginalValue = function (startingValue) {
+                target.originalValue = startingValue;
+            }
+            target.subscribe(function (newValue) {
+                if (!!!target.originalValue) {
+                    return false;
+                }
+
+                var isDirty = !(newValue >= target.originalValue && newValue <= target.originalValue);
+                if (options.cb) {
+                    console.log("de: " + target.originalValue + " a: " + newValue);
+                    options.cb(isDirty);
+                }
+
+
+                target.isDirty(isDirty);
+            });
+        }
+
+        return target;
+    }
 
     function uploadFile(element, observableProp, rutaFileUpload) {
         new qq.FileUploader({

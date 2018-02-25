@@ -3458,7 +3458,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\ko.extensions.js" />
+    <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />

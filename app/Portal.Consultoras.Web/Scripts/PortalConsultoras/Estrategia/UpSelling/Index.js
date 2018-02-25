@@ -44,6 +44,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         self.subscribe("onUpSellingDelete", eliminar);
         self.subscribe("onUpSellingDesactivar", desactivar);
 
+        window.onbeforeunload = self.upSellingViewModel.preventLeave
+
         cargarGrilla();
 
     }
@@ -217,15 +219,15 @@ belcorp.estrategias.upselling.initialize = function (config) {
      */
     function UpSellingModel(data) {
         var selfm = this;
-        selfm.UpSellingId = ko.observable(data.UpSellingId);
-        selfm.CodigoCampana = ko.observable(data.CodigoCampana);
-        selfm.MontoMeta = ko.observable(data.MontoMeta);
-        selfm.TextoMeta = ko.observable(data.TextoMeta);
-        selfm.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario);
-        selfm.TextoGanaste = ko.observable(data.TextoGanaste);
-        selfm.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario);
-        selfm.Activo = ko.observable(data.Activo);
-        selfm.Regalos = ko.observableArray();
+        selfm.UpSellingId = ko.observable(data.UpSellingId).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.CodigoCampana = ko.observable(data.CodigoCampana).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.MontoMeta = ko.observable(data.MontoMeta).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.TextoMeta = ko.observable(data.TextoMeta).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.TextoGanaste = ko.observable(data.TextoGanaste).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.Activo = ko.observable(data.Activo).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.Regalos = ko.observableArray().extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
 
         if (!!data.Regalos && data.Regalos.length > 0) {
             selfm.Regalos(data.Regalos.map(function (regalo) {
@@ -287,6 +289,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.nuevo = function () {
             selfvm.upSellingSeleccionado(upSellingDefault());
             enableTabs(settings.idTabs);
+            selfvm.mostrarFormularioUpSelling(true);
         }
 
         selfvm.edit = function (upSellingRow) {
@@ -379,6 +382,15 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.esconderEditor = function () {
             selfvm.upSellingSeleccionado(null);
             selfvm.regaloSeleccionado(null);
+        }
+
+        selfvm.upSellingSeleccionadoIsDirty = ko.observable(false);
+
+        selfvm.preventLeave = function (e, s) {
+            console.log(selfvm.upSellingSeleccionadoIsDirty());
+            var dialogText = "Desea salir del editor? podria perder sus cambios";
+            e.returnValue = dialogText;
+            return dialogText;
         }
     }
 
