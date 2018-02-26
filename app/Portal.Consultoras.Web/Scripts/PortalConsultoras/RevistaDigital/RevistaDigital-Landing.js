@@ -5,7 +5,7 @@ Mobile      => 2: Index    | 21: Detalle Oferta
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
-var ConsultarStorage = ConsultarStorage || true;
+var TieneHV = TieneHV || false;
 var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
 var lsListaRD = lsListaRD || "ListaRD";
@@ -232,8 +232,9 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         }
     }
 
-    
-    ConsultarStorage = isMobile() ? TieneHV ? false : true : true;
+
+    var ConsultarStorage = false;
+    ConsultarStorage =  isMobile() ? TieneHV ? false : true : true;
 
     if (ConsultarStorage) {
         var valLocalStorage = LocalStorageListado(lsListaRD + busquedaModel.CampaniaID, null, 1);
