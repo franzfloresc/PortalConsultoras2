@@ -121,7 +121,7 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
     }
     origen = $.trim(origen) || 0;
     var id = estrategia.EstrategiaID;
-    var route = TieneHV ? "/HerramientasVenta/Detalle?id=" : "/OfertasParaTi/Detalle?id=";
+    var route = "/OfertasParaTi/Detalle?id=";
     //var route = "/HerramientasVenta/Detalle?id=";
     var url = getMobilePrefixUrl() + route + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
     try {

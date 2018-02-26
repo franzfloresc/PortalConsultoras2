@@ -1,7 +1,7 @@
 ﻿
 @using Portal.Consultoras.Common
 
-@model Portal.Consultoras.Web.Models.HerramientasVentaLandingModel
+@model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
@@ -80,9 +80,6 @@
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
-
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 <div class="flecha_scroll">
@@ -90,18 +87,18 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var tipoOrigenPantalla = 1;
-    var urlOfertaCargarProductos = '@Url.Action("ObtenerProductos", "HerramientasVenta")';
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVDesktopLanding';
+    var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "HerramientasVenta")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVDesktopLanding';
     var tipoOrigenEstrategia = 1;
     var CantidadFilas = @Model.CantidadFilas;
     var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
     var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
     var lsListaRD = "HVLista";
     var campaniaId = @Model.CampaniaID;
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/HerramientasVenta-Landing")
 }

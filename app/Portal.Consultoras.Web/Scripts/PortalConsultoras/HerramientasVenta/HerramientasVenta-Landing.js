@@ -7,7 +7,7 @@ var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
 var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
-var lsListaRD = lsListaRD || "ListaRD";
+var lsListaRD = lsListaRD || "HVLista";
 var filtroCampania = new Array();
 var isScroll = typeof isScroll == "undefined" ? true : isScroll;
 var filtroIni = {

@@ -3152,7 +3152,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
-                            seccion.UrlObtenerProductos = (isMobile ? "Mobile/" : "") + (isMobile ? "HerramientasVenta/HVObtenerProductos" : "HerramientasVenta/ObtenerProductos");
+                            seccion.UrlObtenerProductos = "HerramientasVenta/HVObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
                             seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor;
                             break;

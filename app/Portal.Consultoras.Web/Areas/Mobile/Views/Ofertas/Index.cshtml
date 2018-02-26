@@ -45,11 +45,12 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
     var OrigenDesktopODD = 0;
-</script>
+    </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }
