@@ -286,17 +286,24 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             $('.span_2_regalo_sorpresa').text('GANASTE!<br>');
             $('.span_link_regalo_sorpresa').text('ELIGE TU PREMIO<br>');
 
+            $('#of-regalo-msg1').show();
             $('#of-regalo-msg2').hide();
             $('#of-regalo-msg3').text('¡ESCOGE TU PREMIO!');
+            $('#btnQuieroRegalo').show();
+            $('#btn_sigue_comprando_gana').hide();
         }
         else {
             $('.span_1_regalo_sorpresa').text('¡AGREGA ' + agrega +' Y<br>');
             $('.span_2_regalo_sorpresa').text('ELIGE UN PREMIO!<br>');
             $('.span_link_regalo_sorpresa').text('VER PREMIOS<br>');
 
-            $('#of-regalo-msg1').hide();
             $('#of-regalo-msg2').text('TE FALTAN ' + agrega + '<br />');
             $('#of-regalo-msg3').text('¡MIRA LO QUE TE PUEDES LLEVAR!');
+
+            $('#of-regalo-msg1').hide();
+            $('#of-regalo-msg2').show();
+            $('#btnQuieroRegalo').hide();
+            $('#btn_sigue_comprando_gana').show();
         }
     }
 
