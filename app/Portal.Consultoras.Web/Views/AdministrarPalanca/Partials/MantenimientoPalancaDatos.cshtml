@@ -3,7 +3,7 @@
     string imagenVacia = "prod_grilla_vacio.png";
 }
 
-<div id="divMantDatos">
+<div id="divMantDatos" data-estado="@Model.Estado">
     @foreach (var dato in Model.ListaDatos)
     {
         switch (dato.TipoDato)
