@@ -1753,5 +1753,28 @@ namespace Portal.Consultoras.Common
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
         }
+
+        public static class ProductoValidacion
+        {
+            private static Dictionary<string, string> _Message;
+
+            public static class Code
+            {
+                public const string SUCCESS = "0";
+                public const string ERROR_PRODUCTO_NOEXISTE = "1";
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
+                    });
+                }
+            }
+        }
     }
 }

@@ -2256,6 +2256,5 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
         }
-
     }
 }

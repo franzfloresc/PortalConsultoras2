@@ -180,9 +180,11 @@
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
+    <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -205,7 +207,7 @@
     <Compile Include="BLPermiso.cs" />
     <Compile Include="BLPopupPais.cs" />
     <Compile Include="BLProcesoPedidoRechazado.cs" />
-    <Compile Include="BLProducto.cs" />
+    <Compile Include="Producto\BLProducto.cs" />
     <Compile Include="BLProductoFaltante.cs" />
     <Compile Include="BLProductoSugerido.cs" />
     <Compile Include="BLProveedorDespachoCobranza.cs" />
