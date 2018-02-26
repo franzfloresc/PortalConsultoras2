@@ -355,6 +355,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     enableTabs(settings.idTabs);
                     alert("guardado");
                     selfvm.mostrarFormularioUpSelling(false);
+                    selfvm.upSellingSeleccionadoIsDirty(false);
                 }, fail)
                 .always(function () {
                     closeWaitingDialog();

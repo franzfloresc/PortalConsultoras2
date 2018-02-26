@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Infraestructure;
@@ -62,17 +60,18 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public async Task<ActionResult> Guardar(UpSellingModel model)
         {
             model = SetAuditInfo(model);
-            bool upLoaded = false;
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            model.Regalos.ForEach(regalo =>
-            {
-                upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen);
-                if (!upLoaded)
-                    return;
-            });
 
-            if (!upLoaded)
-                return Json(ResultModel<bool>.BuildBad("Sucedio un error al guardar las imagenes", false));
+            foreach (var regalo in model.Regalos)
+            {
+                if (FileExistsInS3(carpetaPais, regalo.Imagen))
+                    continue;
+
+                var upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen);
+                if (!upLoaded)
+                    return Json(ResultModel<bool>.BuildBad("Sucedio un error al guardar las imagenes", false));
+            };
+
 
             UpSellingModel result;
             if (model.UpSellingId > 0)
@@ -125,6 +124,34 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var result = await _upSellingProvider.Actualizar(userData.PaisID, model, true);
 
             return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
+        }
+
+        public bool FileExistsInS3(string carpetaPais, string fileName)
+        {
+            var url = ConfigS3.GetUrlFileS3(carpetaPais, fileName);
+
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "HEAD";
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                return false;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+
+            return response.StatusCode == HttpStatusCode.OK;
         }
     }
 }
