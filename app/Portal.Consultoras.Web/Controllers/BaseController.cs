@@ -2983,7 +2983,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital == null)
                     throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
 
-                var menuActivo = GetSessionMenuActivo();
+                var menuActivo = sessionManager.GetMenuContenedorActivo();
 
                 if (menuActivo.CampaniaId <= 0)
                     menuActivo.CampaniaId = userData.CampaniaID;
@@ -3367,7 +3367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(GetOrigenFromQueryString());
                     if (menuActivo.Codigo == "")
-                        menuActivo = GetSessionMenuActivo();
+                        menuActivo = sessionManager.GetMenuContenedorActivo();
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
@@ -4014,13 +4014,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
-        }
-        #endregion
-
-        #region Sesiones 
-        public MenuContenedorModel GetSessionMenuActivo()
-        {
-            return sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
         }
         #endregion
 

@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         MenuContenedorModel ISessionManager.GetMenuContenedorActivo()
         {
-            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
+            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]) ?? new MenuContenedorModel();
         }
 
         void ISessionManager.SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
