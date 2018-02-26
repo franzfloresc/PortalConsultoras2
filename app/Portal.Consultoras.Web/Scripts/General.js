@@ -698,7 +698,7 @@ function getMobilePrefixUrl() {
 function isPagina(pagina) {
     pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;
-    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+    return ("/" + $.trim(location.href).ReplaceAll(":", "/") + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
 }
 
 function isHome() {

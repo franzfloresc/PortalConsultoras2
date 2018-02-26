@@ -146,9 +146,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
                     if (origenPedidoWeb == Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor)
-                    {
                         result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
-                    }
+                    
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaComprar:
+                    result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+                case Enumeradores.PantallaOrigenPedidoWeb.HerramientasVentaRevisar:
+                    result = Url.Action("Revisar", "HerramientasVenta", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
                 case Enumeradores.PantallaOrigenPedidoWeb.CatalogoPersonalizado:
