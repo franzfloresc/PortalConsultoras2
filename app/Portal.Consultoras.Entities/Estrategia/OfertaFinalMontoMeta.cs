@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Entities.Estrategia
     {
         [DataMember]
         [Column("Campania")]
-        public string Campania { get; set; }
+        public int Campania { get; set; }
 
         [DataMember]
         [Column("Codigo")]

@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Web.Models.Estrategia
 {
     public class OfertaFinalMontoMetaModel
     {  
-        public string Campania { get; set; } 
+        public int Campania { get; set; } 
         public string Codigo { get; set; } 
         public string Nombre { get; set; } 
         public string CuvRegalo { get; set; } 

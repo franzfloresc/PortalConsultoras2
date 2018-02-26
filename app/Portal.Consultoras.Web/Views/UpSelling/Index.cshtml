@@ -91,7 +91,7 @@ else
                 <ul>
                     <li><a href="#tab-regalos">Regalos</a></li>
                     <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
-                    <li><a href="#tab-ganadoras">Ganadoras</a></li>
+                    <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
                 </ul>
                 @*seccion regalos*@
                 <div id="tab-regalos">
@@ -153,12 +153,12 @@ else
                 </div>
                 <div id="tab-categorias-apoyadas"></div>
                 @*regalos*@
-                <div id="tab-ganadoras">
+                <div id="tab-ganadoras" >
 
 
                     <div>
                         <div class="div-3">
-                            <input type="button" id="exportGRid" value="Exportar" />
+                            <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
                         </div>
                         <div class="div-3">
                             <div class="wrap">
@@ -166,6 +166,7 @@ else
                                     <table id="listOfertaFinalMontoMeta"></table>
 
                                 </div>
+                                <div id="pagerListaRegalos"></div>
                             </div>
                         </div>
                     </div>
@@ -241,8 +242,9 @@ else
 </div>
 
 
-<form action="UpSelling/ExportarExcel">
-     <input type="submit" value="Submit">
+<form action="/UpSelling/ExportarExcel" id="reporteListaGanadorasForm" style="display:none">
+    <input type="text" name="upSellingIdListaGanadoras" value="1">
+    <input type="submit" value="Submit">
 </form>
 
 
