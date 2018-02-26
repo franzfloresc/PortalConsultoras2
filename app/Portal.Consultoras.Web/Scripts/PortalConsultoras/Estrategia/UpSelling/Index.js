@@ -24,7 +24,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idTabs: config.idTabs,
         idTargetDiv: config.idTargetDiv,
         campanasPais: config.campanasPais,
-        idDivPopUpRegalo: config.idDivPopUpRegalo
+        idDivPopUpRegalo: config.idDivPopUpRegalo,
+        idDivPopUpRegalo:   config.idListaGanadorasHidden,
+        idFormReporteListaGanadoras: config.idFormReporteListaGanadoras,
+        urlListaGanadorasObtener: config.urlListaGanadorasObtener
     };
 
     registerEvent.call(this, "onUpSellingEdit");
@@ -311,28 +314,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
         });
 
-        selfvm.mostrarFormulario = ko.observable(false);
-
-
-      
-        selfvm.recargarGanadoras = ko.observable(true); 
-
-        selfvm.TraerListaGanadoras = function () {
-      
-            if (selfvm.recargarGanadoras())
-            {
-                cargarGrillaListaGanadoras();
-                selfvm.recargarGanadoras(false);
-            } 
-        }
-
-        selfvm.exportarListaGanadoras = function () {
-
-            debugger;
-            $("[name='upSellingIdListaGanadoras']").val(selfvm.upSellingSeleccionado().UpSellingId());
-            $("#reporteListaGanadorasForm").submit();
- 
-        }
+        selfvm.mostrarFormulario = ko.observable(false);      
 
         selfvm.nuevo = function () {
             selfvm.upSellingSeleccionado(upSellingDefault());
@@ -424,88 +406,111 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         
+
+        selfvm.recargarGanadoras = ko.observable(true);
+
+        selfvm.TraerListaGanadoras = function () {
+       
+            if (selfvm.recargarGanadoras()) {
+                cargarGrillaListaGanadoras(selfvm.upSellingSeleccionado().UpSellingId());
+                selfvm.recargarGanadoras(false);
+            }
+        }
+
+        selfvm.exportarListaGanadoras = function () {
+            $("[name='" + settings.idListaGanadorasHidden + "']").val(selfvm.upSellingSeleccionado().UpSellingId());
+            $("#" + settings.idFormReporteListaGanadoras + "").submit();
+        }
        
     }
 
     self.upSellingViewModel = new UpSellingViewModel();
     ko.applyBindings(self.upSellingViewModel, document.getElementById(settings.idTargetDiv));
     initBindings();
+
+
+
+
+    function cargarGrillaListaGanadoras(upSellingId) {
+    
+        jQuery.ajax({
+            type: 'GET',
+            url: baseUrl + 'UpSelling/ObtenerOfertaFinalMontoMeta',
+            dataType: 'json',
+            data: {
+                upSellingId: upSellingId
+            },
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (response) {
+
+                configureGridListaGanadoras(response);
+            },
+        });
+
+
+    }
 }
 
 
 
 
-function cargarGrillaListaGanadoras() {
 
-    jQuery.ajax({
-        type: 'GET',
-        url: baseUrl + 'UpSelling/ObtenerOfertaFinalMontoMeta',
-        dataType: 'json',
-        data: {
-            upSellingId: 1
-        },
-        contentType: 'application/json; charset=utf-8',
-        async: true,
-        success: function (response) {
-            debugger;
-      
-            var data = response.Data;
+function configureGridListaGanadoras(response) {
+
+    var data = response.Data;
 
 
-            var grilla = $("#listOfertaFinalMontoMeta");
-            grilla.jqGrid("GridUnload");
+    var grilla = $("#listOfertaFinalMontoMeta");
 
-            grilla.jqGrid({
-                hidegrid: false,
-                datatype: "local",
+    grilla.jqGrid("GridUnload");
 
-                mtype: "GET",
-                contentType: "application/json; charset=utf-8",
-                multiselect: false,
-                colNames: ["Campania", "Codigo", "Nombre", "CuvRegalo", "NombreRegalo", "MontoMeta", "MontoPedido", "FechaRegistro"],
-                colModel: [
-                    { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
-                    { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
-                    { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
-                    { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
-                    { name: "NombreRegalo", index: "NombreRegalo", width: 120, sortable: false, align: "left" },
-                    { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right" },
-                    { name: "MontoPedido", index: "MontoPedido", width:40, sortable: false, align: "right" },
- 
-                    { name: "FechaRegistro", index: "FechaRegistro", width: 80, sortable: false, align: "center" },
-                ],
-                pager: jQuery("#pagerListaRegalos"),
-                loadtext: "Cargando datos...",
-                recordtext: "{0} - {1} de {2} Registros",
-                emptyrecords: "No hay resultados",
-                rowNum: 10,
-                scrollOffset: 0,
-                rowList: [10, 20, 30, 40, 50],
-                sortname: "UpSellingId",
-                sortorder: "asc",
-                viewrecords: true,
-                height: "auto",
-                width: 930,
-                pgtext: "Pág: {0} de {1}",
-                altRows: false
-            }); 
-            grilla.jqGrid('navGrid', '#pagerListaRegalos', { add: false, edit: false, del: false, search: false, refresh: true });
-            for (var i = 0; i <= data.length -1; i++)
-            {
-               convertirStringDate(data[i], 'FechaRegistro');
-                grilla.jqGrid('addRowData', i + 1, data[i]);
-            }
+    grilla.jqGrid({
+        hidegrid: false,
+        datatype: "local",
 
-            $('#refresh_listOfertaFinalMontoMeta').click();
-        },
+        mtype: "GET",
+        contentType: "application/json; charset=utf-8",
+        multiselect: false,
+        colNames: ["Campania", "Codigo", "Nombre", "CuvRegalo", "NombreRegalo", "MontoMeta", "MontoPedido", "FechaRegistro"],
+        colModel: [
+            { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
+            { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
+            { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
+            { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
+            { name: "NombreRegalo", index: "NombreRegalo", width: 120, sortable: false, align: "left" },
+            { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right" },
+            { name: "MontoPedido", index: "MontoPedido", width: 40, sortable: false, align: "right" },
+
+            { name: "FechaRegistro", index: "FechaRegistro", width: 80, sortable: false, align: "center" },
+        ],
+        pager: jQuery("#pagerListaRegalos"),
+        loadtext: "Cargando datos...",
+        recordtext: "{0} - {1} de {2} Registros",
+        emptyrecords: "No hay resultados",
+        rowNum: 10,
+        scrollOffset: 0,
+        rowList: [10, 20, 30, 40, 50],
+        sortname: "UpSellingId",
+        sortorder: "asc",
+        viewrecords: true,
+        height: "auto",
+        width: 930,
+        pgtext: "Pág: {0} de {1}",
+        altRows: false
     });
+    grilla.jqGrid('navGrid', '#pagerListaRegalos', { add: false, edit: false, del: false, search: false, refresh: true });
 
+    for (var i = 0; i <= data.length - 1; i++) {
+        convertirStringDate(data[i], 'FechaRegistro');
+        grilla.jqGrid('addRowData', i + 1, data[i]);
+    }
+
+    $('#refresh_listOfertaFinalMontoMeta').click();
 
 }
-
 
 function convertirStringDate(row,field) {
-
     
     JSON.parse('{ "' + field + '":"' + row[field] + '"}', function (key, value) {
        if (typeof value === 'string') {

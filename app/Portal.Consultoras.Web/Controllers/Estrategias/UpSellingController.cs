@@ -111,10 +111,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var result = await _upSellingProvider.Actualizar(userData.PaisID, model, true);
 
             return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
-        }
-
-
-
+        } 
 
 
 
@@ -122,20 +119,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public async Task<ActionResult> ObtenerOfertaFinalMontoMeta(int upSellingId)
         {
             var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingId);
-
-            //var res = new List<OfertaFinalMontoMetaModel>();
-
-
-            //foreach (var item in upSelling)
-            //{
-            //    res.Add(item);
-            //    res.Add(item);
-            //    res.Add(item);
-            //    res.Add(item); 
-            //}
-
             return Json(ResultModel<IEnumerable<OfertaFinalMontoMetaModel>>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
-
         }
 
 
@@ -154,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             { "MontoPedido", "MontoPedido" },
                             { "FechaRegistro", "FechaRegistro" }, };
 
-            Util.ExportToExcel("ReporteNivelesRiesgo", upSelling.ToList(), dic);
+            Util.ExportToExcel("ReporteListaGanadoras", upSelling.ToList(), dic);
             return View();
         }
 

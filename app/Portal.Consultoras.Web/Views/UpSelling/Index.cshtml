@@ -153,9 +153,7 @@ else
                 </div>
                 <div id="tab-categorias-apoyadas"></div>
                 @*regalos*@
-                <div id="tab-ganadoras" >
-
-
+                <div id="tab-ganadoras" > 
                     <div>
                         <div class="div-3">
                             <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
@@ -164,7 +162,6 @@ else
                             <div class="wrap">
                                 <div class="container clearfix">
                                     <table id="listOfertaFinalMontoMeta"></table>
-
                                 </div>
                                 <div id="pagerListaRegalos"></div>
                             </div>
@@ -273,7 +270,11 @@ else
                 idPagerRegalos: 'pagerRegalos',
                 idTargetDiv: 'upSellingCRUD',
                 campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
-                idDivPopUpRegalo: 'editRegaloPopUp'
+                idDivPopUpRegalo: 'editRegaloPopUp',
+                idListaGanadorasHidden: 'upSellingIdListaGanadoras',
+                idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
+                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' 
+
             });
         });
     </script>
