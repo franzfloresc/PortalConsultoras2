@@ -237,25 +237,38 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function UpSellingRegaloModel(data) {
-        this.UpSellingRegaloId = ko.observable(data.UpSellingRegaloId);
-        this.CUV = ko.observable(data.CUV);
-        this.Nombre = ko.observable(data.Nombre);
-        this.Descripcion = ko.observable(data.Descripcion);
-        this.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true, cb: self.upSellingViewModel.actualizarRutaPrefixRegalo } });
-        this.Stock = ko.observable(data.Stock);
-        this.StockActual = ko.observable(data.StockActual);
-        this.Orden = ko.observable(data.Orden);
-        this.Activo = ko.observable(data.Activo);
-        this.ImagenPrefix = ko.observable(data.ImagenPrefix);
-        this.ImagenRuta = ko.computed(function () {
-            var baseRoute = this.ImagenPrefix()
+        var selfm = this;
+        selfm.UpSellingRegaloId = ko.observable(data.UpSellingRegaloId);
+        selfm.CUV = ko.observable(data.CUV).extend({ trackChange: { track: true } });
+        selfm.Nombre = ko.observable(data.Nombre).extend({ trackChange: { track: true } });
+        selfm.Descripcion = ko.observable(data.Descripcion).extend({ trackChange: { track: true } });
+        selfm.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true, cb: self.upSellingViewModel.actualizarRutaPrefixRegalo } });
+        selfm.Stock = ko.observable(data.Stock).extend({ trackChange: { track: true } });
+        selfm.StockActual = ko.observable(data.StockActual);
+        selfm.Orden = ko.observable(data.Orden).extend({ trackChange: { track: true } });
+        selfm.Activo = ko.observable(data.Activo).extend({ trackChange: { track: true } });
+
+        //behaviors
+        selfm.ImagenPrefix = ko.observable(data.ImagenPrefix);
+        selfm.ImagenRuta = ko.computed(function () {
+            var baseRoute = selfm.ImagenPrefix()
             if (!baseRoute) {
                 baseRoute = settings.urlS3;
-                this.ImagenPrefix(baseRoute)
+                selfm.ImagenPrefix(baseRoute)
             }
 
-            return baseRoute + this.Imagen();
-        }, this);
+            return baseRoute + selfm.Imagen();
+        });
+
+        selfm.UndoChanges = function () {
+            selfm.CUV.undoChanges();
+            selfm.Nombre.undoChanges();
+            selfm.Descripcion.undoChanges();
+            selfm.Imagen.undoChanges();
+            selfm.Stock.undoChanges();
+            selfm.Orden.undoChanges();
+            selfm.Activo.undoChanges();
+        }
     }
 
     function upSellingDefault() {
@@ -394,6 +407,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloCerrar = function () {
+            selfvm.regaloSeleccionado().UndoChanges();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
