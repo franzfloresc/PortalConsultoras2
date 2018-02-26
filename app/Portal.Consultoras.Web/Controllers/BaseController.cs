@@ -2459,7 +2459,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToLower();
             codigoConfig = Util.Trim(codigoConfig);
 
-            var listaConfigPais = GetConfiguracionesPaisModel();
+            var listaConfigPais = sessionManager.GetConfiguracionesPaisModel();
             ConfiguracionPaisModel existe;
 
             if (codigoConfig != "" && codigo == "")
@@ -2983,7 +2983,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital == null)
                     throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
 
-                var menuActivo = GetSessionMenuActivo();
+                var menuActivo = sessionManager.GetMenuContenedorActivo();
 
                 if (menuActivo.CampaniaId <= 0)
                     menuActivo.CampaniaId = userData.CampaniaID;
@@ -3367,7 +3367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(GetOrigenFromQueryString());
                     if (menuActivo.Codigo == "")
-                        menuActivo = GetSessionMenuActivo();
+                        menuActivo = sessionManager.GetMenuContenedorActivo();
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
@@ -3540,8 +3540,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
-            var configuracionesPais = GetConfiguracionesPaisModel();
+            var menuContenedor = sessionManager.GetMenuContenedor();
+            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
 
             if (menuContenedor.Any() || !configuracionesPais.Any())
                 return menuContenedor;
@@ -4017,32 +4017,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region Sesiones 
-        public List<ConfiguracionPaisModel> GetConfiguracionesPaisModel()
-        {
-            return sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
-        }
-
-        public EventoFestivoDataModel GetEventoFestivoData()
-        {
-            return sessionManager.GetEventoFestivoDataModel() ??
-                   new EventoFestivoDataModel();
-        }
-
-
-        public OfertaFinalModel GetOfertaFinal()
-        {
-            return sessionManager.GetOfertaFinalModel() ??
-                   new OfertaFinalModel();
-        }
-
-        public MenuContenedorModel GetSessionMenuActivo()
-        {
-            return sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
-        }
-
-        #endregion
-
         #region ConfigurationManager
 
         public string GetConfiguracionManager(string key)
@@ -4318,7 +4292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
                 ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
-                var configuracionPaisOdd = GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+                var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
             }
@@ -4353,7 +4327,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region EventoFestivo
 
-            ViewBag.SaludoFestivo = GetEventoFestivoData().EfSaludo;
+            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
 
             #endregion
 
