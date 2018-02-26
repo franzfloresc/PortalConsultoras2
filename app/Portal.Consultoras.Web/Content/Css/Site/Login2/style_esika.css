@@ -341,8 +341,7 @@ Image .nav0:hover {
         color: white;
         font-family: 'lato';
         letter-spacing: .3px;
-        float: left;
-        color:#000;
+        float: left;        
     }
 
     .formcontrol select {
