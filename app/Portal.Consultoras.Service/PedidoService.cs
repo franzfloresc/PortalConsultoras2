@@ -2266,7 +2266,7 @@ namespace Portal.Consultoras.Service
         }
 
         #region PedidoApp
-        public BEProductoApp GetCUV_App(BEProductoFiltro productoFiltro)
+        public BEProductoApp GetCUVApp(BEProductoFiltro productoFiltro)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoFiltro);
         }

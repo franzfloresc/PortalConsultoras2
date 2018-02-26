@@ -5,12 +5,14 @@ using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Producto;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1238,6 +1240,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
+        #region PedidoApp
+        [OperationContract]
+        BEProductoApp GetCUVApp(BEProductoFiltro productoFiltro);
+        #endregion
     }
 }
