@@ -336,22 +336,19 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_EscribeEnLog()
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosEsNulo_RetornaRevistaDigital()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
+                RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
 
-                var result = controller.ConfiguracionPaisDatosRevistaDigital(new RevistaDigitalModel(), null, null);
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, null, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
-                    Times.AtLeastOnce);
+                Assert.IsNotNull(result);
+                Assert.AreSame(revistaDigitalModel, result);
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_EscribeEnLog()
+            public void ConfiguracionPaisDatosRevistaDigital_PaisIsoEsNulo_RetornaRevistaDigital()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
@@ -359,12 +356,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, null);
 
-                logManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
-                    Times.AtLeastOnce);
+                Assert.IsNotNull(result);
+                Assert.AreSame(rdModel, result);
             }
 
             [TestMethod]
