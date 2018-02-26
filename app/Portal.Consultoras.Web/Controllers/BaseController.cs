@@ -4018,17 +4018,10 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public OfertaFinalModel GetOfertaFinal()
-        {
-            return sessionManager.GetOfertaFinalModel() ??
-                   new OfertaFinalModel();
-        }
-
         public MenuContenedorModel GetSessionMenuActivo()
         {
             return sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
         }
-
         #endregion
 
         #region ConfigurationManager

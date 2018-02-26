@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
-                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(GetOfertaFinal().Algoritmo);
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(sessionManager.GetOfertaFinalModel().Algoritmo);
                 }
                 else
                 {
@@ -338,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
-                var ofertaFinal = GetOfertaFinal();
+                var ofertaFinal = sessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
@@ -3639,7 +3639,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var ps = new ProductoServiceClient())
                 {
                     var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
+                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, sessionManager.GetOfertaFinalModel().Algoritmo);
                 }
 
                 return Json(new
@@ -3789,7 +3789,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descuentoprol = listPedido[0].DescuentoProl;
             }
 
-            var ofertaFinal = GetOfertaFinal();
+            var ofertaFinal = sessionManager.GetOfertaFinalModel();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
                 ZonaID = userData.ZonaID,

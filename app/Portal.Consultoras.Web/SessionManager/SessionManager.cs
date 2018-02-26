@@ -170,7 +170,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         OfertaFinalModel ISessionManager.GetOfertaFinalModel()
         {
-            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal];
+            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal] ??
+                   new OfertaFinalModel();
         }
 
         void ISessionManager.SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel)
