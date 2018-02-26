@@ -433,6 +433,7 @@
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
@@ -4666,6 +4667,7 @@
     <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoVisa.cshtml" />
     <Content Include="Views\Notificaciones\DetallePagoEnLinea.cshtml" />
+    <Content Include="Views\PagoEnLinea\Reporte.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

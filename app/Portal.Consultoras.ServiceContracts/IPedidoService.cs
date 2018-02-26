@@ -1242,6 +1242,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPagoEnLineaResultadoLog ObtenerUltimoPagoEnLineaByConsultoraId(int paisId, long consultoraId);
 
+        [OperationContract]
+        List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+
         #endregion
     }
 }

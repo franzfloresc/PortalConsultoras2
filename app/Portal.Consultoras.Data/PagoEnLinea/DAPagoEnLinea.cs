@@ -109,5 +109,17 @@ namespace Portal.Consultoras.Data.PagoEnLinea
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ObtenerPagoEnLineaByFiltro(BEPagoEnLineaFiltro filtro)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaByFiltro");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, filtro.CampaniaId);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, filtro.RegionId);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, filtro.ZonaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, filtro.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Estado", DbType.String, filtro.Estado);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

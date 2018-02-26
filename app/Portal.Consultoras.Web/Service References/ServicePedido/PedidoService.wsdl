@@ -326,6 +326,12 @@
   <wsdl:message name="IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUltimoPagoEnLineaByConsultoraIdResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaByFiltro_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByFiltro" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByFiltroResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_RemoverOfertaShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:RemoverOfertaShowRoom" />
   </wsdl:message>
@@ -2555,6 +2561,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" message="tns:IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraIdResponse" message="tns:IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltroResponse" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RemoverOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom" message="tns:IPedidoService_RemoverOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse" message="tns:IPedidoService_RemoverOfertaShowRoom_OutputMessage" />
@@ -4334,6 +4344,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerUltimoPagoEnLineaByConsultoraId">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7821,6 +7840,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerUltimoPagoEnLineaByConsultoraId">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

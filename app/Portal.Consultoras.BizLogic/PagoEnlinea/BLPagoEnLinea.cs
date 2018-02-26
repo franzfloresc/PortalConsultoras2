@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
     public class BLPagoEnLinea
-    {         
+    {
         public int InsertPagoEnLineaResultadoLog(int paisId, BEPagoEnLineaResultadoLog entidad)
         {
             var dataAccess = new DAPagoEnLinea(paisId);
@@ -60,6 +60,22 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
                     entidad = new BEPagoEnLineaResultadoLog(reader);
                 }
             return entidad;
+        }
+
+        public List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro)
+        {
+            var lista = new List<BEPagoEnLineaResultadoLogReporte>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaByFiltro(filtro))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaResultadoLogReporte(reader));
+                }
+            }
+
+            return lista;
         }
     }
 }
