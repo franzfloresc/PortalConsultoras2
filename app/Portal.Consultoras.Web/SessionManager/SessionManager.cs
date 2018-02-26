@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ConfiguracionPaisModel> ISessionManager.GetConfiguracionesPaisModel()
         {
-            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises];
+            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises] ?? new List<ConfiguracionPaisModel>();
         }
 
         void ISessionManager.SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel)

@@ -2459,7 +2459,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToLower();
             codigoConfig = Util.Trim(codigoConfig);
 
-            var listaConfigPais = GetConfiguracionesPaisModel();
+            var listaConfigPais = sessionManager.GetConfiguracionesPaisModel();
             ConfiguracionPaisModel existe;
 
             if (codigoConfig != "" && codigo == "")
@@ -3541,7 +3541,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             var menuContenedor = sessionManager.GetMenuContenedor();
-            var configuracionesPais = GetConfiguracionesPaisModel();
+            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
 
             if (menuContenedor.Any() || !configuracionesPais.Any())
                 return menuContenedor;
@@ -4018,11 +4018,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public List<ConfiguracionPaisModel> GetConfiguracionesPaisModel()
-        {
-            return sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
-        }
-
         public EventoFestivoDataModel GetEventoFestivoData()
         {
             return sessionManager.GetEventoFestivoDataModel() ??
@@ -4318,7 +4313,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
                 ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
-                var configuracionPaisOdd = GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+                var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
             }
