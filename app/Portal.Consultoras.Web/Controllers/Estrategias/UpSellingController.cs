@@ -38,12 +38,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public async Task<JsonResult> Obtener(string codigoCampana)
+        public async Task<JsonResult> Obtener(string codigoCampana, bool incluirRegalos = false)
         {
             if (string.IsNullOrEmpty(codigoCampana))
                 codigoCampana = null;
 
-            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
+            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana, incluirRegalos);
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
 

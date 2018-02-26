@@ -3819,7 +3819,6 @@ namespace Portal.Consultoras.Web.Controllers
                 descuentoprol = 0;
             }
             
-
             var ofertaFinal = GetOfertaFinal();
             var objOfertaFinal = new ListaParametroOfertaFinal
             {
@@ -3840,17 +3839,18 @@ namespace Portal.Consultoras.Web.Controllers
                 Estado = ofertaFinal.Estado
             };
 
-
             List<Producto> lista;
             using (var ps = new ProductoServiceClient())
             {
                 lista = ps.ObtenerProductosOfertaFinal(objOfertaFinal).ToList();
             }
+
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
             if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
             {
                 for (var i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
             }
+
             if (lista.Count != 0)
             {
                 var tipoCross = lista[0].TipoCross;
