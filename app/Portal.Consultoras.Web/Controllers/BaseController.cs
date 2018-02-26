@@ -678,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            if (tieneRevistaDigital && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
@@ -689,7 +689,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
-            if (tieneRevistaDigital && (revistaDigital.EsSuscrita || revistaDigital.EsActiva))
+            if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
