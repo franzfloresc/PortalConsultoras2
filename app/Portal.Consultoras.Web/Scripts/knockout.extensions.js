@@ -1,9 +1,10 @@
 ﻿"use strict";
 
 (function () {
+    /*todo: add route upload as parameter*/
     ko.bindingHandlers.upLoader = {
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            uploadFile(element, valueAccessor, bindingContext.$root.settings().rutaFileUpload);
+            uploadFile(element, valueAccessor, bindingContext.$root.settings().urlFileUpload);
         }
     };
 
@@ -33,8 +34,8 @@
 
                 var isDirty = !(invariantNewValue >= target.originalValue && invariantNewValue <= target.originalValue);
                 if (options.cb) {
-                    console.log("type : " + typeof target.originalValue + " =>: " + typeof newValue);
-                    console.log("value : " + target.originalValue + " =>: " + invariantNewValue);
+                    //console.log("type : " + typeof target.originalValue + " =>: " + typeof newValue);
+                    //console.log("value : " + target.originalValue + " =>: " + invariantNewValue);
                     options.cb(isDirty);
                 }
 
@@ -46,11 +47,11 @@
         return target;
     }
 
-    function uploadFile(element, observableProp, rutaFileUpload) {
+    function uploadFile(element, observableProp, urlFileUpload) {
         new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
             element: element,
-            action: rutaFileUpload,
+            action: urlFileUpload,
             onComplete: function (id, fileName, responseJSON) {
                 if (checkTimeout(responseJSON)) {
                     if (responseJSON.success) {

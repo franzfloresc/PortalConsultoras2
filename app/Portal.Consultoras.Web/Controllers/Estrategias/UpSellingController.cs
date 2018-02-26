@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -31,7 +32,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 PaisIso = userData.CodigoISO,
                 Campanas = campanas,
                 PaisNombre = userData.NombrePais,
-                EsPaisEsika = Settings.Instance.PaisesEsika.Contains(userData.CodigoISO)
+                EsPaisEsika = Settings.Instance.PaisesEsika.Contains(userData.CodigoISO),
+                UrlS3 = ConfigS3.GetUrlS3(Globals.UrlMatriz + "/" + userData.CodigoISO)
             };
 
             return View(model);
@@ -59,6 +61,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public async Task<ActionResult> Guardar(UpSellingModel model)
         {
             model = SetAuditInfo(model);
+
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            model.Regalos.ForEach(regalo =>
+            {
+                ConfigS3.SetFileS3(Globals.RutaImagenesTemp, carpetaPais, regalo.Imagen);
+            });
+
 
             UpSellingModel result;
             if (model.UpSellingId > 0)

@@ -6,9 +6,9 @@ belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
 belcorp.estrategias.upselling.initialize = function (config) {
     var settings = {
-        rutaImagenDesactivar: config.rutaImagenDesactivar,
-        rutaImagenEdit: config.rutaImagenEdit,
-        rutaImagenDelete: config.rutaImagenDelete,
+        urlImagenDesactivar: config.urlImagenDesactivar,
+        urlImagenEdit: config.urlImagenEdit,
+        urlImagengenDelete: config.urlImagengenDelete,
         idGrilla: config.idGrilla,
         idPager: config.idPager,
         idGrillaRegalos: config.idGrillaRegalos,
@@ -22,8 +22,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         campanasPais: config.campanasPais,
         paisNombre: config.paisNombre,
         idDivPopUpRegalo: config.idDivPopUpRegalo,
-        rutaFileUpload: config.rutaFileUpload,
-        rutaTemporal: config.rutaTemporal,
+        urlFileUpload: config.urlFileUpload,
+        urlTemporal: config.urlTemporal,
         urlS3: config.urlS3
     };
 
@@ -108,10 +108,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
     }
 
     function optionButtons(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.rutaImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
-        var enable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Habilitar UpSelling' title='Habilitar UpSelling' border='0' /></a>";
-        var disable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.rutaImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDelete', " + options.rowId + "); return false;\" > " + "<img src='" + settings.rutaImagenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"belcorp.estrategias.upselling.applyChanges('onUpSellingEdit', " + options.rowId + "); return false;\">" + "<img src='" + settings.urlImagenEdit + "' alt='Editar UpSelling' title='Editar UpSelling' border='0' /></a>";
+        var enable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.urlImagenDesactivar + "' alt='Habilitar UpSelling' title='Habilitar UpSelling' border='0' /></a>";
+        var disable = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDesactivar'," + options.rowId + "); return false;\"><img src='" + settings.urlImagenDesactivar + "' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return belcorp.estrategias.upselling.applyChanges('onUpSellingDelete', " + options.rowId + "); return false;\" > " + "<img src='" + settings.urlImagengenDelete + "' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' /></a>";
 
         var resultado = edit + del;
 
@@ -246,6 +246,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         this.StockActual = ko.observable(data.StockActual);
         this.Orden = ko.observable(data.Orden);
         this.Activo = ko.observable(data.Activo);
+        this.ImagenRuta = ko.computed(function () {
+            return this.UpSellingRegaloId() === 0 ? settings.urlTemporal + this.Imagen() : settings.urlS3 + this.Imagen();
+        }, this);
     }
 
     function upSellingDefault() {
@@ -280,9 +283,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
         var selfvm = this;
         selfvm.settings = ko.observable(settings);
         selfvm.upSellingSeleccionadoIsDirty = ko.observable(false);
-
         selfvm.upSellingSeleccionado = ko.observable().extend({ trackChange: { track: true, cb: selfvm.upSellingSeleccionadoIsDirty } });
         selfvm.mostrarFormularioUpSelling = ko.observable(false);
+        selfvm.regaloSeleccionado = ko.observable();
+        selfvm.regaloEsNuevo = ko.observable(true);
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
         });
@@ -338,18 +342,15 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.cancel = function () {
-            if (!selfvm.upSellingSeleccionadoIsDirty())
+            if (!selfvm.upSellingSeleccionadoIsDirty()) {
+                selfvm.esconderEditor();
                 return false;
+            }
 
-            if (confirm("perdera cambios")) {
-                selfvm.upSellingSeleccionado(null);
-                selfvm.regaloSeleccionado(null);
-                selfvm.mostrarFormularioUpSelling(false);
+            if (confirm("¿Podria perder sus cambios, guardelos antes de salir?")) {
+                selfvm.esconderEditor();
             }
         }
-
-        selfvm.regaloSeleccionado = ko.observable();
-        selfvm.regaloEsNuevo = ko.observable(true);
 
         selfvm.regaloNuevo = function () {
             selfvm.regaloSeleccionado(regaloDefault());
@@ -390,6 +391,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.esconderEditor = function () {
             selfvm.upSellingSeleccionado(null);
             selfvm.regaloSeleccionado(null);
+            selfvm.mostrarFormularioUpSelling(false);
         }
 
         selfvm.preventLeave = function (e, s) {

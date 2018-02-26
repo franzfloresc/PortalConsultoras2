@@ -10,6 +10,8 @@ else
 {
     <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
 }
+<link href="@Url.Content("~/Content/Css/Site/Admin/Estrategias/UpSelling.css")" rel="stylesheet" />
+
 <div id="upSellingCRUD">
     <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">
         <div class="wrap_cab">
@@ -19,19 +21,21 @@ else
                         <h1><span>OFERTA FINAL - REGALOS</span></h1>
                     </div>
                     <div class="div-3">
-                        <div class="titG">Pais:</div>
+                        <div class="titB">Pais:</div>
                         <div class="selectA">
                             @Html.Label(Model.PaisNombre)
                         </div>
-                        <div class="titG">Campañas:</div>
+                        <div class="titB">Campaña:</div>
                         <div class="selectA">
                             @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                        </div>
+                        <div>
+                            <input type="button" id="btnBuscar" value="Buscar" style="height:37px; margin-left: 32px;" />
                         </div>
                     </div>
                     <br />
                     <div class="div-3">
-                        <div class="titG"></div>
-                        <input type="button" id="btnBuscar" value="Buscar" />
+                        <div class="titB"></div>
                         <input type="button" value="Nuevo" data-bind="click:nuevo" />
                     </div>
                 </div>
@@ -82,11 +86,11 @@ else
                     </div>
                 </div>
                 <div class="div-3">
-                    <div class="titC">Imagen fondo principal:</div>
+                    <div class="titC">Texto ganaste principal:</div>
                     <div class="selectA">
                         <input type="text" data-bind="value: TextoGanaste" />
                     </div>
-                    <div class="titC">Imagen fondo secundaria:</div>
+                    <div class="titC">Texto ganaste secundaria:</div>
                     <div class="selectA">
                         <input type="text" data-bind="value: TextoGanasteSecundario" />
                     </div>
@@ -161,15 +165,21 @@ else
 
                     </div>
                 </div>
+                <div class="div-3">
+                    <div class="titD"></div>
+                    <div class="titC"></div>
+                    <div class="titC"></div>
+                    <div class="titB"></div>
+                    <div class="titA"></div>
+                    <div class="titA"></div>
+                    <input type="button" value="Guardar" data-bind="click:$root.save,
+                                                                value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar',
+                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'#652b82' }" />
+                    <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
+                </div>
             </div>
 
-            <div class="div-3">
-                <div class="titC"></div>
-                <div class="titC"></div>
-                <div class="titC"></div>
-                <input type="button" value="Guardar" data-bind="click:$root.save, value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar' " />
-                <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
-            </div>
+
         </div>
     </div>
     @*popup regalo*@
@@ -194,10 +204,9 @@ else
                 </div>
                 <div class="titG">Imagen:</div>
                 <div class="selectA">
-                    @*<input type="text" data-bind="value: Imagen" />*@
                     <div data-bind="upLoader: Imagen"></div>
                     <div>
-                        <img data-bind="attr: {src: $root.settings().rutaTemporal + Imagen()}" class="img-matriz-preview2">
+                        <img data-bind="attr: {src: ImagenRuta() }" class="img-preview">
                     </div>
                 </div>
             </div>
@@ -245,9 +254,9 @@ else
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({
-                rutaImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
-                rutaImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
-                rutaImagenDelete: '@Url.Content("~/Content/Images/Delete.png")',
+                urlImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
+                urlImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+                urlImagengenDelete: '@Url.Content("~/Content/Images/Delete.png")',
                 idGrilla: 'list',
                 idPager: 'pager',
                 urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
@@ -265,9 +274,9 @@ else
                 campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
                 paisNombre: '@Model.PaisNombre',
                 idDivPopUpRegalo: 'editRegaloPopUp',
-                rutaFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
-                rutaTemporal : '@Url.Content("~/Content/Temporales/")',
-                urlS3 : '@ViewBag.UrlS3'
+                urlFileUpload : '@Url.Action("ImageUpload", "FileUpload")',
+                urlTemporal : '@Url.Content("~/Content/Images/temp")/',
+                urlS3 : '@Model.UrlS3'
             });
         });
     </script>
