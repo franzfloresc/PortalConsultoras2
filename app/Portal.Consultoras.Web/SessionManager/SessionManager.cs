@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         EventoFestivoDataModel ISessionManager.GetEventoFestivoDataModel()
         {
-            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo];
+            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo] ?? new EventoFestivoDataModel();
         }
 
         void ISessionManager.SetTieneLan(bool tieneLan)

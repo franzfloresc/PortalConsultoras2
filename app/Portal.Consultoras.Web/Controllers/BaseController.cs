@@ -4018,13 +4018,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Sesiones 
-        public EventoFestivoDataModel GetEventoFestivoData()
-        {
-            return sessionManager.GetEventoFestivoDataModel() ??
-                   new EventoFestivoDataModel();
-        }
-
-
         public OfertaFinalModel GetOfertaFinal()
         {
             return sessionManager.GetOfertaFinalModel() ??
@@ -4348,7 +4341,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region EventoFestivo
 
-            ViewBag.SaludoFestivo = GetEventoFestivoData().EfSaludo;
+            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
 
             #endregion
 
