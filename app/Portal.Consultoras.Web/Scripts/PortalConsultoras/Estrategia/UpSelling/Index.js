@@ -241,15 +241,18 @@ belcorp.estrategias.upselling.initialize = function (config) {
         this.CUV = ko.observable(data.CUV);
         this.Nombre = ko.observable(data.Nombre);
         this.Descripcion = ko.observable(data.Descripcion);
-        this.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true } });
+        this.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true, cb: self.upSellingViewModel.actualizarRutaPrefixRegalo } });
         this.Stock = ko.observable(data.Stock);
         this.StockActual = ko.observable(data.StockActual);
         this.Orden = ko.observable(data.Orden);
         this.Activo = ko.observable(data.Activo);
+        this.ImagenPrefix = ko.observable(data.ImagenPrefix);
         this.ImagenRuta = ko.computed(function () {
-            var baseRoute = this.UpSellingRegaloId() === 0 ? settings.urlTemporal : settings.urlS3;
-            if (this.Imagen.isDirty())
-                baseRoute = settings.urlTemporal;
+            var baseRoute = this.ImagenPrefix()
+            if (!baseRoute) {
+                baseRoute = settings.urlS3;
+                this.ImagenPrefix(baseRoute)
+            }
 
             return baseRoute + this.Imagen();
         }, this);
@@ -393,6 +396,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.regaloCerrar = function () {
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
+        }
+
+        selfvm.actualizarRutaPrefixRegalo = function () {
+            selfvm.regaloSeleccionado().ImagenPrefix(settings.urlTemporal);
         }
 
         selfvm.esconderEditor = function () {

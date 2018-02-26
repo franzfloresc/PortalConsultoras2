@@ -18,7 +18,7 @@
             $(element).toggle(shouldDisplay);
         },
         update: function (element, valueAccessor) {
-            $("#back-top").click();
+            //$("#back-top").click();
             var shouldDisplay = valueAccessor();
             shouldDisplay ? $(element).fadeIn(600) : $(element).fadeOut(400);
         }
