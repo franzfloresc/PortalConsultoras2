@@ -15,6 +15,7 @@
     height: 70px;
     max-width: 50%;
     overflow: hidden;
+    display:none !important;
 }
 
     .bc_mobile-logo img {
@@ -26,6 +27,7 @@
     display: table;
     float: left;
     width: 50%;
+    display:none !important;
 }
 
     .bc_mobile-texto .mobile-txt {

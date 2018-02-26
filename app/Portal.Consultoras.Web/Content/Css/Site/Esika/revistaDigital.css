@@ -3453,7 +3453,7 @@
         line-height: normal;
         letter-spacing: 1px;
         color: #000000;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .popup_confirmacion_datos span.confirmanos {
@@ -3461,7 +3461,7 @@
         text-align: center;
         letter-spacing: 0.5px;
         font-size: 13px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         line-height: 16px;
     }
 
@@ -3517,7 +3517,7 @@
         width: 100%;
         width: 280px;
         margin: auto;
-        height: 50px;
+        height: 45px;
         margin-bottom: 20px;
         margin-top: 20px;
     }

@@ -3154,6 +3154,13 @@
     <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-blanco.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-dorado.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-club-ganamas-negro.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-blanco.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-morado.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-negro.png" />
+    <Content Include="Content\Images\RevistaDigital\logo-ganamas-rojo.png" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-negro.svg" />
