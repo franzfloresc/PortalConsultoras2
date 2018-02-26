@@ -443,7 +443,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             if (data.success === false) {
                 AbrirMensajeEstrategia(data.message);
-                $("#txtCantidad").val(1);
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
                 CerrarLoad();
                 return false;
             }
@@ -576,7 +576,9 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 
     var divMensaje = $("#divMensajeBloqueada");
 
-    if (estrategia.CodigoEstrategia == '011' && isPagina('ofertas') && !isMobile())  {
+    if (estrategia.CodigoEstrategia == '011' &&
+        (isPagina('ofertas') || isPagina('herramientasventa') )&&
+        !isMobile()) {
         divMensaje = $("#divHVMensajeBloqueada");
         divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
     }
