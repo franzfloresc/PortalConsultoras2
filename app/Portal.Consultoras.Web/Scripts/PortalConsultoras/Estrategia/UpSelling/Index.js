@@ -227,7 +227,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfm.TextoGanaste = ko.observable(data.TextoGanaste).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
         selfm.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
         selfm.Activo = ko.observable(data.Activo).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
-        selfm.Regalos = ko.observableArray().extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.Regalos = ko.observableArray().extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty, isArray: true } });
 
         if (!!data.Regalos && data.Regalos.length > 0) {
             selfm.Regalos(data.Regalos.map(function (regalo) {
@@ -278,9 +278,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
     function UpSellingViewModel() {
         var selfvm = this;
-
         selfvm.settings = ko.observable(settings);
-        selfvm.upSellingSeleccionado = ko.observable();
+        selfvm.upSellingSeleccionadoIsDirty = ko.observable(false);
+
+        selfvm.upSellingSeleccionado = ko.observable().extend({ trackChange: { track: true, cb: selfvm.upSellingSeleccionadoIsDirty } });
         selfvm.mostrarFormularioUpSelling = ko.observable(false);
         selfvm.campanasPais = settings.campanasPais.map(function (campana) {
             return { Id: campana.CampaniaID, Codigo: campana.Codigo };
@@ -290,6 +291,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             selfvm.upSellingSeleccionado(upSellingDefault());
             enableTabs(settings.idTabs);
             selfvm.mostrarFormularioUpSelling(true);
+            selfvm.upSellingSeleccionadoIsDirty(false);
         }
 
         selfvm.edit = function (upSellingRow) {
@@ -304,8 +306,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
                     }
 
                     upSellingRow.Regalos = result.Data;
-
-                    selfvm.upSellingSeleccionado(new UpSellingModel(upSellingRow));
+                    var upSellingData = new UpSellingModel(upSellingRow);
+                    selfvm.upSellingSeleccionado(upSellingData);
+                    selfvm.upSellingSeleccionado.setOriginalValue(upSellingData); //for tracking change
+                    selfvm.upSellingSeleccionadoIsDirty(false);
                     selfvm.mostrarFormularioUpSelling(true);
                     enableTabs(settings.idTabs);
                 }, fail)
@@ -334,10 +338,14 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.cancel = function () {
-            alert("perdera cambios");
-            selfvm.upSellingSeleccionado(null);
-            selfvm.regaloSeleccionado(null);
-            selfvm.mostrarFormularioUpSelling(false);
+            if (!selfvm.upSellingSeleccionadoIsDirty())
+                return false;
+
+            if (confirm("perdera cambios")) {
+                selfvm.upSellingSeleccionado(null);
+                selfvm.regaloSeleccionado(null);
+                selfvm.mostrarFormularioUpSelling(false);
+            }
         }
 
         selfvm.regaloSeleccionado = ko.observable();
@@ -384,13 +392,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
             selfvm.regaloSeleccionado(null);
         }
 
-        selfvm.upSellingSeleccionadoIsDirty = ko.observable(false);
-
         selfvm.preventLeave = function (e, s) {
-            console.log(selfvm.upSellingSeleccionadoIsDirty());
-            var dialogText = "Desea salir del editor? podria perder sus cambios";
-            e.returnValue = dialogText;
-            return dialogText;
+            if (selfvm.upSellingSeleccionadoIsDirty()) {
+                var dialogText = "Desea salir del editor? podria perder sus cambios";
+                e.returnValue = dialogText;
+                return dialogText;
+            }
         }
     }
 

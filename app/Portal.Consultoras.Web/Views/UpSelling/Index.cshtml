@@ -164,9 +164,10 @@ else
             </div>
 
             <div class="div-3">
-                
-                <div class="titC" data-bind="text: $root.upSellingSeleccionadoIsDirty()">asdf</div>
-                <input type="button" value="Guardar" data-bind="click:$root.save, value: $root.upSellingSeleccionadoIsDirty " />
+                <div class="titC"></div>
+                <div class="titC"></div>
+                <div class="titC"></div>
+                <input type="button" value="Guardar" data-bind="click:$root.save, value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar' " />
                 <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
             </div>
         </div>

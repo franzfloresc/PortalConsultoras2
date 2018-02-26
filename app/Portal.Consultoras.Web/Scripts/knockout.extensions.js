@@ -22,18 +22,19 @@
     ko.extenders.trackChange = function (target, options) {
         if (options.track) {
             target.isDirty = ko.observable(false);
-            target.originalValue = target();
+            var valueOfTarget = target()
+            target.originalValue = options.isArray ? ko.toJSON(valueOfTarget) : valueOfTarget;
             target.setOriginalValue = function (startingValue) {
-                target.originalValue = startingValue;
+                target.originalValue = options.isArray ? ko.toJSON(startingValue) : startingValue;
+                target.isDirty(false);
             }
             target.subscribe(function (newValue) {
-                if (!!!target.originalValue) {
-                    return false;
-                }
+                var invariantNewValue = options.isArray ? ko.toJSON(newValue) : newValue;
 
-                var isDirty = !(newValue >= target.originalValue && newValue <= target.originalValue);
+                var isDirty = !(invariantNewValue >= target.originalValue && invariantNewValue <= target.originalValue);
                 if (options.cb) {
-                    console.log("de: " + target.originalValue + " a: " + newValue);
+                    console.log("type : " + typeof target.originalValue + " =>: " + typeof newValue);
+                    console.log("value : " + target.originalValue + " =>: " + invariantNewValue);
                     options.cb(isDirty);
                 }
 
