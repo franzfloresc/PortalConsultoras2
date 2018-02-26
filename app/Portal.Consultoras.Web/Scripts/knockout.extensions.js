@@ -18,7 +18,6 @@
             $(element).toggle(shouldDisplay);
         },
         update: function (element, valueAccessor) {
-            //$("#back-top").click();
             var shouldDisplay = valueAccessor();
             shouldDisplay ? $(element).fadeIn(600) : $(element).fadeOut(400);
         }
@@ -46,6 +45,11 @@
 
                 target.isDirty(isDirty);
             });
+            //note: not work for Array
+            target.undoChanges = function () {
+                target(target.originalValue);
+                target.isDirty(false);
+            }
         }
 
         return target;
