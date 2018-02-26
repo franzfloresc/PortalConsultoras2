@@ -1,4 +1,5 @@
-﻿
+﻿@model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
+
 <div class="Content_general_pop_up" id="PopRDSuscripcion" style="display:none;">
     <div class="popup_rd_bloqueado popup_confirmacion_datos">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="PopRDSuscripcion">
@@ -7,7 +8,7 @@
         <div class="contenido-table-datos">
             <div class="cont-datos">
                 <div class="form_datos">
-                    <p class="felicidades">¡FELICIDADES @ViewBag.NombreConsultora!</p>
+                    <p class="felicidades">¡FELICIDADES @Model.NombreConsultora!</p>
                     <p class="estasganando">DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA 03</p>
                     <span class="confirmanos">
                         Ya estás suscrita al Club. <br />
@@ -16,13 +17,14 @@
                     <div class="form-datos">
                         <div class="input">
                             <img src="~/Content/Images/mailIcon.png" alt="">
-                            <input id="CorreoAnterior" type="hidden" value="@ViewBag.EMail"  />
-                            <input id="Email" type="text" class="txtformvalidar" value="@ViewBag.EMail" placeholder="Tu correo electrónico"/>
+                            <input id="CorreoAnterior" type="hidden" value="@Model.Email"  />
+                            <input id="Email" type="text" class="txtformvalidar" value="@Model.Email" placeholder="Tu correo electrónico"/>
                         </div>
                         <div class="input">
                             <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
-                            <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
-                            <input id="Celular" type="text" value="@ViewBag.Celular" placeholder="Tu teléfono" class="txtformvalidar" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'Celular')" />
+                            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin" />
+                            <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar" 
+                                   onkeydown="return limitarMaximo(event, this.value, @Model.LimiteMax,'Celular')" />
                         </div>
                         <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
                         <div class="validar_chk">

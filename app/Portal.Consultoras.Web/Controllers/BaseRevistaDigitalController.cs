@@ -20,39 +20,38 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-            ViewBag.NombreConsultora = userData.NombreConsultora.ToUpper();
-            ViewBag.EMail = userData.EMail;
-            ViewBag.Celular = userData.Celular;
-
             #region limite Min - Max Telef
+
+            int limiteMinimoTelef, limiteMaximoTelef;
+            
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Mexico:
-                    ViewBag.limiteMinimoTelef = 5;
-                    ViewBag.limiteMaximoTelef = 15;
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
                     break;
                 case Constantes.PaisID.Peru:
-                    ViewBag.limiteMinimoTelef = 7;
-                    ViewBag.limiteMaximoTelef = 9;
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
                     break;
                 case Constantes.PaisID.Colombia:
-                    ViewBag.limiteMinimoTelef = 10;
-                    ViewBag.limiteMaximoTelef = 10;
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Guatemala:
                 case Constantes.PaisID.ElSalvador:
                 case Constantes.PaisID.Panama:
                 case Constantes.PaisID.CostaRica:
-                    ViewBag.limiteMinimoTelef = 8;
-                    ViewBag.limiteMaximoTelef = 8;
+                    limiteMinimoTelef = 8;
+                    limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.Ecuador:
-                    ViewBag.limiteMinimoTelef = 9;
-                    ViewBag.limiteMaximoTelef = 10;
+                    limiteMinimoTelef = 9;
+                    limiteMaximoTelef = 10;
                     break;
                 default:
-                    ViewBag.limiteMinimoTelef = 0;
-                    ViewBag.limiteMaximoTelef = 15;
+                    limiteMinimoTelef = 0;
+                    limiteMaximoTelef = 15;
                     break;
             }
             #endregion
@@ -64,7 +63,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Video = GetVideoInformativo(),
                 UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionEfectiva.Origen
+                Origen = revistaDigital.SuscripcionEfectiva.Origen,
+                NombreConsultora = userData.Sobrenombre.ToUpper(),
+                Email = userData.EMail,
+                Celular = userData.Celular,
+                LimiteMax = limiteMaximoTelef,
+                LimiteMin = limiteMinimoTelef
             };
 
             return View("template-informativa", modelo);
