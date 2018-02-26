@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
-    public class BLPedidoApp
+    public class BLPedidoApp : IPedidoAppBusinessLogic
     {
         private readonly IProductoBusinessLogic _productoBusinessLogic;
 

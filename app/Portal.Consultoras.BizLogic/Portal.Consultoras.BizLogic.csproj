@@ -182,6 +182,7 @@
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoApp.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
+    <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
