@@ -241,13 +241,17 @@ belcorp.estrategias.upselling.initialize = function (config) {
         this.CUV = ko.observable(data.CUV);
         this.Nombre = ko.observable(data.Nombre);
         this.Descripcion = ko.observable(data.Descripcion);
-        this.Imagen = ko.observable(data.Imagen);
+        this.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true } });
         this.Stock = ko.observable(data.Stock);
         this.StockActual = ko.observable(data.StockActual);
         this.Orden = ko.observable(data.Orden);
         this.Activo = ko.observable(data.Activo);
         this.ImagenRuta = ko.computed(function () {
-            return this.UpSellingRegaloId() === 0 ? settings.urlTemporal + this.Imagen() : settings.urlS3 + this.Imagen();
+            var baseRoute = this.UpSellingRegaloId() === 0 ? settings.urlTemporal : settings.urlS3;
+            if (this.Imagen.isDirty())
+                baseRoute = settings.urlTemporal;
+
+            return baseRoute + this.Imagen();
         }, this);
     }
 
@@ -354,6 +358,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         selfvm.regaloNuevo = function () {
             selfvm.regaloSeleccionado(regaloDefault());
+            selfvm.regaloSeleccionado().Imagen.setOriginalValue(regalo().Imagen)
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloEsNuevo(true);
         }
@@ -361,6 +366,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.regaloEditar = function (regalo) {
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloSeleccionado(regalo);
+            selfvm.regaloSeleccionado().Imagen.setOriginalValue(regalo.Imagen())
+
             selfvm.regaloEsNuevo(false);
         }
 

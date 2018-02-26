@@ -1,10 +1,14 @@
 ﻿"use strict";
 
 (function () {
-    /*todo: add route upload as parameter*/
+    /*options:
+    {
+        valueAccessor: --observable
+        url: 'urlToUpload'
+    }*/
     ko.bindingHandlers.upLoader = {
-        init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            uploadFile(element, valueAccessor, bindingContext.$root.settings().urlFileUpload);
+        init: function (element, options, allBindingsAccessor, viewModel, bindingContext) {
+            uploadFile(element, options().valueAccessor, options().url);
         }
     };
 
@@ -55,8 +59,7 @@
             onComplete: function (id, fileName, responseJSON) {
                 if (checkTimeout(responseJSON)) {
                     if (responseJSON.success) {
-                        var value = observableProp();
-                        value(responseJSON.name);
+                        observableProp(responseJSON.name);
                     }
                     else fail(responseJSON.message);
                 }

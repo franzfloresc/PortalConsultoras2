@@ -204,7 +204,7 @@ else
                 </div>
                 <div class="titG">Imagen:</div>
                 <div class="selectA">
-                    <div data-bind="upLoader: Imagen"></div>
+                    <div data-bind="upLoader: { valueAccessor: Imagen, url: $root.settings().urlFileUpload } "></div>
                     <div>
                         <img data-bind="attr: {src: ImagenRuta() }" class="img-preview">
                     </div>
@@ -274,8 +274,8 @@ else
                 campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
                 paisNombre: '@Model.PaisNombre',
                 idDivPopUpRegalo: 'editRegaloPopUp',
-                urlFileUpload : '@Url.Action("ImageUpload", "FileUpload")',
-                urlTemporal : '@Url.Content("~/Content/Images/temp")/',
+                urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+                urlTemporal : '@Url.Content("~/Content/Temporales")/',
                 urlS3 : '@Model.UrlS3'
             });
         });

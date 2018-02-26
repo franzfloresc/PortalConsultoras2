@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,13 +62,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public async Task<ActionResult> Guardar(UpSellingModel model)
         {
             model = SetAuditInfo(model);
-
+            bool upLoaded = false;
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             model.Regalos.ForEach(regalo =>
             {
-                ConfigS3.SetFileS3(Globals.RutaImagenesTemp, carpetaPais, regalo.Imagen);
+                upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen);
+                if (!upLoaded)
+                    return;
             });
 
+            if (!upLoaded)
+                return Json(ResultModel<bool>.BuildBad("Sucedio un error al guardar las imagenes", false));
 
             UpSellingModel result;
             if (model.UpSellingId > 0)
