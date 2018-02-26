@@ -5,6 +5,7 @@ Mobile      => 2: Index    | 21: Detalle Oferta
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
+var ConsultarStorage = ConsultarStorage || true;
 var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
 var lsListaRD = lsListaRD || "ListaRD";
@@ -231,15 +232,21 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         }
     }
 
-    var valLocalStorage = LocalStorageListado(lsListaRD + busquedaModel.CampaniaID, null, 1);
-    if (valLocalStorage != null) {
-        filtroCampania[indCampania] = JSON.parse(valLocalStorage);
-        jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
-        filtroCampania[indCampania].response = filtroCampania[indCampania].response || {};
-        filtroCampania[indCampania].response.Completo = 0;
-        OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear, objSeccion);
-        return true;
+    
+    ConsultarStorage = isMobile() ? TieneHV ? false : true : true;
+
+    if (ConsultarStorage) {
+        var valLocalStorage = LocalStorageListado(lsListaRD + busquedaModel.CampaniaID, null, 1);
+        if (valLocalStorage != null) {
+            filtroCampania[indCampania] = JSON.parse(valLocalStorage);
+            jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
+            filtroCampania[indCampania].response = filtroCampania[indCampania].response || {};
+            filtroCampania[indCampania].response.Completo = 0;
+            OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear, objSeccion);
+            return true;
+        }
     }
+    
 
     busquedaModel = busquedaModel || new Object();
 
