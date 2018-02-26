@@ -14457,6 +14457,19 @@ a {
                 letter-spacing: 0.5px;
             }
 
+            .popup_confirmacion_datos .form-datos .input p.txtvalidar {
+                margin: 0;
+                padding: 0;
+                /* line-height: 2em; */
+                text-align: left;
+                display: block;
+                padding: 5px 0px 0px 40px;
+                color: red;
+                letter-spacing: .5px;
+                font-size: 12px;
+                text-transform: initial;
+            }
+
             .popup_confirmacion_datos .form-datos .input span {
                 text-align: left;
                 display: block;
