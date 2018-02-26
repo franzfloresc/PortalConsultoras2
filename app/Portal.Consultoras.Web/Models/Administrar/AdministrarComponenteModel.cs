@@ -5,6 +5,7 @@ namespace Portal.Consultoras.Web.Models
     public class AdministrarComponenteModel
     {
         public string ConfiguracionPaisComponenteID { get; set; }
+        public bool Estado { get; set; }
         public int CampaniaID { get; set; }
         public string Componente { get; set; }
         public string PalancaCodigo { get; set; }

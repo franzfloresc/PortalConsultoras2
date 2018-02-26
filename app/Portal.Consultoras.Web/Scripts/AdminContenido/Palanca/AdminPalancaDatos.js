@@ -11,7 +11,8 @@
         DdlPalanca: '#ddlPalanca',
         DdlComponente: '#ddlComponente',
         DdlCampania: '#ddlCampania',
-        DivFormulario: '#divMantDatos'
+        DivFormulario: '#divMantDatos',
+        ChbxEstado: '#Estado'
     }
 
     var _texto = {
@@ -40,7 +41,8 @@
 
     var _tipoDato = {
         txt: 'txt',
-        Img: 'img'
+        Img: 'img',
+        checkbox: 'checkbox'
     }
 
     var _evento = function () {
@@ -62,7 +64,7 @@
         $('body').on('change', _elemento.DdlCampania, function () {
             _CargarDatos();
         });
-
+        
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
@@ -135,22 +137,21 @@
                     formatter: _GrillaAcciones
                 }
             ],
-            pager: false,
+            pager: jQuery(_elemento.TablaPagina),
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
             rowNum: 15,
             scrollOffset: 0,
+            rowList: [15, 20, 30, 40, 50],
+            viewrecords: true,
+            pgtext: 'Pág: {0} de {1}',
             sortname: 'Orden',
             sortorder: 'asc',
             height: 'auto',
             width: 930,
             altRows: true,
-            altclass: 'jQGridAltRowClass',
-            pgbuttons: false,
-            viewrecords: false,
-            pgtext: '',
-            pginput: false
+            altclass: 'jQGridAltRowClass'
         });
         jQuery(_elemento.TablaId).jqGrid('navGrid', _elemento.TablaPagina, { edit: false, add: false, refresh: false, del: false, search: false });
     };
@@ -170,7 +171,7 @@
         _RegistroObterner(entidad);
     }
 
-    var GrillaDeshabilitar = function () {
+    var GrillaDeshabilitar = function (event) {
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
 
@@ -195,6 +196,10 @@
 
     var _RegistroObterner = function (modelo) {
         modelo = modelo || {};
+        if (!_RegistroObternerValidar(modelo)) {
+            return false;
+        }
+
         $.ajax({
             url: _url.UrlGrillaEditar,
             type: 'GET',
@@ -210,6 +215,9 @@
                     $(_elemento.DialogRegistroDatosHtml).
                         html(result)
                         .ready(_RegistroObternerImagen(this));
+
+                    $(_elemento.ChbxEstado).prop("checked", $(_elemento.DivFormulario).attr('data-estado') === "True");
+
                 }
                 else if (modelo.Accion === _accion.Editar) {
                     $(_elemento.DialogRegistroHtml).empty();
@@ -217,11 +225,18 @@
                         .html(result)
                         .ready(_RegistroObternerImagen(this));
                     showDialog(_elemento.DialogRegistro);
+
+                    $(_elemento.DdlPalanca).attr("disabled", "disabled");
+                    $(_elemento.DdlComponente).attr("disabled", "disabled");
+                    $(_elemento.DdlCampania).attr("disabled", "disabled");
+                    //$(_elemento.ChbxEstado).attr("disabled", "disabled");
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml).html(result)
                     showDialog(_elemento.DialogRegistro);
+
+                    $(_elemento.ChbxEstado).prop("checked", true);
                 }
             },
             error: function (request, status, error) {
@@ -230,6 +245,17 @@
                 }
             }
         });
+    };
+
+    var _RegistroObternerValidar = function (modelo) {
+
+        if (modelo.Accion === _accion.NuevoDatos) {
+            if ($.trim(modelo.PalancaCodigo) === '' || $.trim(modelo.Codigo) === '') {
+                return false;
+            }
+        }
+
+        return true;
     };
 
     var _RegistroObternerImagen = function () {
@@ -273,10 +299,13 @@
                         $(_elemento.DdlComponente + ' option').remove();
                         $(_elemento.DdlComponente).html("<option value=''>-- Seleccionar --</option>");
                         $.each(data.ListaComponente, function (ind, comp) {
-                            var opt = document.createElement('option');
-                            opt.value = comp.Codigo;
-                            opt.innerHTML = comp.Nombre;
-                            $(_elemento.DdlComponente).append(opt);
+                            var existe = $(_elemento.DdlComponente).find("option[value='" + comp.Codigo + "']");
+                            if (existe.length === 0) {
+                                var opt = document.createElement('option');
+                                opt.value = comp.Codigo;
+                                opt.innerHTML = comp.Nombre;
+                                $(_elemento.DdlComponente).append(opt);
+                            }
                         });
                     }
                 }
@@ -343,6 +372,9 @@
             if (tipoDato === _tipoDato.Img) {
                 valor1 = $("#nombre-" + idConca[3]).val();
             }
+            else if (tipoDato === _tipoDato.checkbox) {
+                valor1 = $("#nombre-" + idConca[3]).is(':checked');
+            }
 
             var dato = {
                 TipoDato: tipoDato,
@@ -351,6 +383,7 @@
                     CampaniaID: idConca[1],
                     Componente: idConca[2],
                     Codigo: idConca[3],
+                    Estado: $(_elemento.ChbxEstado).is(':checked'),
                     Valor1: valor1
                 }
             };

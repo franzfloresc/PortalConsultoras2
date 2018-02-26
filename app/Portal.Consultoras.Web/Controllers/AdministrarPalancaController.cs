@@ -84,6 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaTipoEstrategia = ListTipoEstrategia();
             return PartialView("Partials/MantenimientoOfertasHome", model);
         }
+
         public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
         {
             try
@@ -443,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false });
             }
         }
-        
+
         public JsonResult ComponenteDatosGuardar(List<AdministrarComponenteDatosModel> listaDatos)
         {
             try
@@ -482,7 +483,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
                     }
-                    admDato.Dato.Estado = true;
+                    
                     listaEntidad.Add(Mapper.Map<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>(admDato.Dato));
                 }
 
@@ -505,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
                     PalancaCodigo = model.Codigo,
                 };
                 var listaComponente = ComponenteListarService(compModel);
-                
+
                 return Json(new
                 {
                     success = true,
@@ -566,6 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 d.Valor1 = "";
                                 d.Valor2 = "";
                                 d.Valor3 = "";
+                                d.Estado = false;
                             });
                         }
                         beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
@@ -578,7 +580,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = entidad.CampaniaID,
                     Componente = beEntidad.Componente,
                     ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
-                    ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel)
+                    ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel),
+                    Estado = beEntidadesMdel.Any() && beEntidadesMdel.FirstOrDefault().Estado
                 };
 
                 if (!modelo.ListaDatos.Any() && entidad.Accion == _accion.Editar)
@@ -597,7 +600,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     modelo.ListaCompomente = ComponenteListarService(entidad);
                 }
-                
+
             }
             catch (Exception ex)
             {

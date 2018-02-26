@@ -14,7 +14,7 @@ BEGIN
 	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 	SET @Componente = LTRIM(RTRIM(ISNULL(@Componente, '')))
 
-	if @ConfiguracionPaisID > 0 and @CampaniaID >= 0 and @Componente <> '' and @Codigo <> ''
+	if @ConfiguracionPaisID > 0 and @CampaniaID >= 0 and @Componente <> ''
 	begin
 			update ConfiguracionPaisDatos
 			set Estado = 0

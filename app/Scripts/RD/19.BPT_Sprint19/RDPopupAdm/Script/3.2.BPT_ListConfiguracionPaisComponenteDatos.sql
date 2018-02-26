@@ -9,7 +9,7 @@ CREATE PROCEDURE dbo.ListConfiguracionPaisComponenteDatos
 	,@PalancaCodigo varchar(100) = ''
 	,@Componente varchar(100) = ''
 AS
--- ListConfiguracionPaisComponenteDatos 0, 201302, 'RD', 'Popup_Club_Gana+'
+-- ListConfiguracionPaisComponenteDatos 0, 0, 'RD', 'Popup_Club_Gana+'
 BEGIN
 	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 	SET @ConfiguracionPaisID = ISNULL(@ConfiguracionPaisID, 0)
