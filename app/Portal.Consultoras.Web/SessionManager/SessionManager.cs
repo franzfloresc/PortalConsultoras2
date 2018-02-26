@@ -310,7 +310,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor()
         {
-            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]) ?? new List<ConfiguracionPaisModel>();
         }
 
         void ISessionManager.SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor)
