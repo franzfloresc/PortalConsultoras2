@@ -117,7 +117,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
                 return entidad;
             }
-
         }
 
         public int Eliminar(int upSellingId)
@@ -184,6 +183,19 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         public IEnumerable<UpSellingDetalle> ObtenerDetalles(int upSellingId)
         {
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
+        }
+
+
+        public bool InsertarRegalo(UpSellingRegalo entidad)
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var ok = _upSellingDataAccess.InsertarRegalo(entidad);
+               
+                transaction.Complete();
+
+                return ok;
+            }
         }
     }
 }

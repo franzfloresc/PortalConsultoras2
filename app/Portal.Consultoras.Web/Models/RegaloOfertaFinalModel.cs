@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
@@ -14,15 +11,15 @@ namespace Portal.Consultoras.Web.Models
 
         public int ConsultoraId { get; set; }
 
-        public double MontoPedido { get; set; }
+        public decimal MontoPedido { get; set; }
 
-        public double GapMinimo { get; set; }
+        public decimal GapMinimo { get; set; }
 
-        public double GapMaximo { get; set; }
+        public decimal GapMaximo { get; set; }
 
-        public double GapAgregar { get; set; }
+        public decimal GapAgregar { get; set; }
 
-        public double MontoMeta { get; set; }
+        public decimal MontoMeta { get; set; }
 
         public string Cuv { get; set; }
 

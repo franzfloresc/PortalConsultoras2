@@ -719,6 +719,11 @@ namespace Portal.Consultoras.ServiceContracts
         /// <returns></returns>
         [OperationContract]
         UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
+
+        [OperationContract]
+        bool InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad);
+
+        
         #endregion
     }
 }

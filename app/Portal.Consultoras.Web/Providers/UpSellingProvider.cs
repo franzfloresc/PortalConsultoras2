@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -55,5 +56,17 @@ namespace Portal.Consultoras.Web.Providers
                 await sv.UpSellingEliminarAsync(paisId, upSellingId);
             }
         }
+
+        public async Task<bool> GuardarRegalo(int paisId, RegaloOfertaFinalModel model)
+        {
+            using (var sv = new SACServiceClient())
+            {
+                var upSellingRegalo = Mapper.Map<RegaloOfertaFinalModel, UpSellingRegalo>(model);
+                var ok = await sv.InsertUpSellingRegaloAsync(paisId, upSellingRegalo);
+
+                return ok;
+            }
+        }
+
     }
 }
