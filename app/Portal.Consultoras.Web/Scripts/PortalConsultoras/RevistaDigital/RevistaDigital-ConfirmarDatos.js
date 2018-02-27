@@ -55,7 +55,7 @@ function CheckEmail() {
             return false;
         } else LimpiarError();
 
-    }
+    } else LimpiarError();
     return true;
 }
 
@@ -76,7 +76,7 @@ function CheckPhone() {
         }
         if (error) return false;
         else LimpiarError();
-    }
+    } else LimpiarError();
     return true;
 }
 
