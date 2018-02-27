@@ -269,7 +269,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
                 if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
 
-                input.ProlV3 = true;
+                input.ProlV3 = new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID);
                 var reservaExternaBL = input.ProlV3 ? new BLReservaSicc() as IReservaExternaBL :
                     (input.ProlV2 ? new BLReservaProl2() as IReservaExternaBL : new BLReservaProl1() as IReservaExternaBL);
 

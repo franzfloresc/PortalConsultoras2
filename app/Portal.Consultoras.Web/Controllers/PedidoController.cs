@@ -2225,7 +2225,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : ""
                 }, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {

@@ -7,19 +7,34 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionValidacion
     {
-        public IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int CampaniaID)
+        public bool EstaActivoProl3(int paisID)
         {
-            var lista = new List<BEConfiguracionValidacion>();
-            var daConfiguracionValidacion = new DAConfiguracionValidacion(paisID);
+            var entidad = GetConfiguracionValidacion(paisID, true);
 
-            using (IDataReader reader = daConfiguracionValidacion.GetConfiguracionValidacion(CampaniaID))
-                while (reader.Read())
-                {
-                    var entidad = new BEConfiguracionValidacion(reader) {PaisID = paisID};
-                    lista.Add(entidad);
-                }
+            if (entidad == null) return false;
+            return entidad.TieneProl3;
+        }
 
-            return lista;
+        public BEConfiguracionValidacion GetConfiguracionValidacion(int paisID, bool useCache)
+        {
+            BEConfiguracionValidacion entidad = null;
+            if(useCache) entidad = CacheManager<BEConfiguracionValidacion>.GetDataElement(paisID, ECacheItem.ConfiguracionValidacion);
+            if (entidad != null) return entidad;
+
+            using (IDataReader reader = new DAConfiguracionValidacion(paisID).GetConfiguracionValidacion())
+            {
+                if (reader.Read()) entidad = new BEConfiguracionValidacion(reader) { PaisID = paisID };
+            }
+            if (useCache) CacheManager<BEConfiguracionValidacion>.AddDataElement(paisID, ECacheItem.ConfiguracionValidacion, entidad);
+            return entidad;
+        }
+
+        public IList<BEConfiguracionValidacion> GetListConfiguracionValidacion(int paisID)
+        {
+            var entidad = GetConfiguracionValidacion(paisID, false);
+
+            if (entidad == null) return new List<BEConfiguracionValidacion>();
+            return new List<BEConfiguracionValidacion> { entidad };
         }
 
         public void InsertConfiguracionValidacion(BEConfiguracionValidacion entidad)

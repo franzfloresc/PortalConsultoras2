@@ -36,7 +36,8 @@ namespace Portal.Consultoras.BizLogic
         ProductoPalabra,
         SeccionConfiguracionOfertasHome,
         ConfiguracionEventoFestivo,
-        GNDEstrategia
+        GNDEstrategia,
+        ConfiguracionValidacion
     }
 
     internal class CacheManager<T>
@@ -156,7 +157,7 @@ namespace Portal.Consultoras.BizLogic
         {
             AddDataElement(0, cacheItem, string.Empty, value);
         }
-        public static void AddData(int paisID, ECacheItem cacheItem, T value)
+        public static void AddDataElement(int paisID, ECacheItem cacheItem, T value)
         {
             AddDataElement(paisID, cacheItem, string.Empty, value);
         }

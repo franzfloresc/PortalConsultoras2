@@ -12,14 +12,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaProl2 : BLReservaProl, IReservaExternaBL
     {
-        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
+        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
-            if (olstPedidoWebDetalle.Count == 0) return resultado;
+            if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            string listaProductos = string.Join("|", olstPedidoWebDetalle.Select(x => x.CUV).ToArray());
-            string listaCantidades = string.Join("|", olstPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
-            string listaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
+            string listaProductos = string.Join("|", listPedidoWebDetalle.Select(x => x.CUV).ToArray());
+            string listaCantidades = string.Join("|", listPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
+            string listaRecuperacion = string.Join("|", listPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
 
             RespuestaProl respuestaProl;
             using (var sv = new ServiceStockSsic())
@@ -35,8 +35,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
             resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
             resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
-            resultado.MontoTotal = olstPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
-            resultado.UnidadesAgregadas = olstPedidoWebDetalle.Sum(pd => pd.Cantidad);
+            resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+            resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
             resultado.CodigoMensaje = respuestaProl.codigoMensaje;
             this.UpdateMontosPedidoWeb(resultado, input);
             resultado.RefreshPedido = true;
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     string cuv = item.codvta;
                     string observacion = item.observacion.Replace("+", "");
 
-                    if (tipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == cuv));
+                    if (tipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == cuv));
                     else
                     {
                         if (tipoObs == 0) validacionReemplazo += 1;
@@ -87,12 +87,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 resultado.ResultadoReservaEnum = Enumeradores.ResultadoReserva.Reservado;
                 resultado.Reserva = input.FechaHoraReserva;
             }
+
             if (resultado.Reserva)
             {
                 decimal montoTotalProl = respuestaProl.montototal.ToDecimalSecure();
                 decimal descuentoProl = respuestaProl.montoDescuento.ToDecimalSecure();
-                var listPedidoReserva = GetPedidoReserva(respuestaProl, olstPedidoWebDetalle);
-                EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, true, montoTotalProl, descuentoProl);
+                var listPedidoReserva = GetPedidoReserva(respuestaProl, listPedidoWebDetalle);
+                EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle, true, montoTotalProl, descuentoProl);
             }
 
             if (respuestaProl.ListaConcursoIncentivos != null)

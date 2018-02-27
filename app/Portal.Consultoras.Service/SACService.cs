@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Service
 
         public IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int campaniaID)
         {
-            return BLConfiguracionValidacion.GetConfiguracionValidacion(paisID, campaniaID);
+            return BLConfiguracionValidacion.GetListConfiguracionValidacion(paisID);
         }
 
         public BEConfiguracionValidacionZona GetConfiguracionValidacionZona(int paisID, int campaniaID, int zonaID)

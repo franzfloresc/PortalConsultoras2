@@ -32,7 +32,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 outputPedido = sv.EjecutarCuadreOfertas(inputPedido);
             }
             if (outputPedido == null) return resultado;
-            
+
+            //outputPedido.estadoPedMontoMax;
+            //outputPedido.estadoPedMontoMax;
+            //outputPedido.posiciones[0].
+
             return resultado;
         }
     }
