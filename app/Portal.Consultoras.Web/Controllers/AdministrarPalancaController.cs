@@ -419,9 +419,21 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var list = ComponenteListarService(null);
+                var grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {
-                    rows = from a in list
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
                            select new
                            {
                                id = a.ConfiguracionPaisComponenteID,
@@ -437,6 +449,7 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
+                
             }
             catch (Exception ex)
             {
@@ -656,7 +669,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var admDato = new AdministrarComponenteDatosModel
                 {
                     Dato = iDato,
-                    TipoDato = "txt"
+                    TipoDato = "txt",
+                    Tamanio = 800
                 };
 
                 if (vacio)
@@ -679,46 +693,56 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPaisDatos.RD.PopupImagenPublicidad:
                         admDato.TxtLabel = "Imagen/Gif";
                         admDato.TipoDato = "img";
+                        admDato.TipoFile = "imggif";
                         admDato.Orden = 2;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco:
                         admDato.TxtLabel = "Color del borde";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 3;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColor:
                         admDato.TxtLabel = "Color del fondo";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 4;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1:
                         admDato.TxtLabel = "Mensaje 1";
+                        admDato.TextoAyuda = "Texto en regular";
                         admDato.Orden = 5;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje2:
                         admDato.TxtLabel = "Mensaje 2";
+                        admDato.TextoAyuda = "Texto en bold";
                         admDato.Orden = 6;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensajeColor:
                         admDato.TxtLabel = "Color de los Mensajes";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 7;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonTexto:
                         admDato.TxtLabel = "Texto botón";
+                        admDato.TextoAyuda = "Máximo 26 caractéres";
+                        admDato.Tamanio = 26;
                         admDato.Orden = 8;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorTexto:
                         admDato.TxtLabel = "Color texto botón";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 9;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorFondo:
                         admDato.TxtLabel = "Color botón";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 10;
                         break;
 
