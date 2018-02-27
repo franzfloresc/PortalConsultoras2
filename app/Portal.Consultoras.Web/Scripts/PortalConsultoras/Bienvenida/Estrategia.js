@@ -332,7 +332,7 @@ function ArmarCarouselEstrategias(data) {
                         item.EsBanner = false;
                         item.TextoBanner = "";
                     });
-                    if (tipoOrigenEstrategia == 1) {
+                    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                         data.Lista.splice(3, 0, bannerClubGanaMas);
                     } else if (tipoOrigenEstrategia == 11) {
                         data.Lista.splice(1, 0, bannerClubGanaMas);

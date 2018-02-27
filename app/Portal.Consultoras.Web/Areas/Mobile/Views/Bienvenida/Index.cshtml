@@ -277,36 +277,6 @@
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
 </div>
-<div class="wrapper_resumen_mobile_clubganamas">
-   <div class="zonadecolor">
-       <img src="~/Content/Images/etiqueta-ganamas-esika.svg" class="logo-club-etiqueta" />
-       <span>
-           Consultoras que ahora estan  en el <b>CLUB GANAN 10% MÁS!</b>
-       </span>
-        <a class="boton-ver-mas">
-            VER MÁS OFERTAS
-        </a>
-       
-   </div>
-    <div class="zona-items">
-        <!--INSERTAR AQUÍ CARRUSEL-->
-    </div>
-</div>
-<div class="wrapper_resumen_mobile_clubganamas">
-    <div class="zonadecolor dorado">
-        <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
-        <span>
-            Consultoras que ahora estan  en el <b>CLUB GANAN 10% MÁS!</b>
-        </span>
-        <a class="boton-ver-mas">
-            VER MÁS OFERTAS
-        </a>
-
-    </div>
-    <div class="zona-items">
-        <!--INSERTAR AQUÍ CARRUSEL-->
-    </div>
-</div>
 @if (Model.TieneMasVendidos == 1)
 {
     Html.RenderPartial("MasVendidos");
@@ -780,7 +750,7 @@
 
 <!--FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -829,7 +799,10 @@
         var OrigenDesktopODD = 1;
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
 
-    </script>
+        var revistaDigital= @Html.Raw(Json.Encode(Model.RevistaDigital));
+        
+
+</script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 
 }
