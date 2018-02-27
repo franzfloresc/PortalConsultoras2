@@ -172,6 +172,168 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, result.EsSoloImagen);
                 Assert.IsNotNull(result.UrlImagen);
             }
+
+            [TestMethod]
+            public void BuildMenu_MenuContenedorExisteEnSesion_DevuelveMenuContenedorDesdeSesion()
+            {
+                sessionManager
+                    .Setup(x => x.GetMenuContenedor())
+                    .Returns(new List<ConfiguracionPaisModel>
+                    {
+                        new ConfiguracionPaisModel{ },
+                        new ConfiguracionPaisModel{ },
+                    });
+                var userData = new UsuarioModel { };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(2, result.Count);
+            }
+
+            [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisInicioDesktop_DevuelveMenuInicioDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.Inicio,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-inicio.png",
+                            DesktopLogoBanner = "logo-inicio.png",
+                            DesktopTituloBanner = "#Nombre, Todas tus ofertas en un solo lugar.",
+                            DesktopSubTituloBanner = "Subtitulo banne inicio",
+                            DesktopTituloMenu = "|Inicio",
+                            UrlMenu = "Ofertas",
+                            Orden = 0
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre= "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object,logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.Inicio, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-inicio.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-inicio.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, Todas tus ofertas en un solo lugar.", result.DesktopTituloBanner);
+                Assert.AreEqual("Subtitulo banne inicio", result.DesktopSubTituloBanner);
+                Assert.AreEqual("", result.DesktopTituloMenu);
+                Assert.AreEqual("Inicio", result.DesktopSubTituloMenu);
+                Assert.AreEqual("Ofertas", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+            [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.ShowRoom,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-sr.png",
+                            DesktopLogoBanner = "logo-sr.png",
+                            DesktopTituloBanner = "#Nombre, APROVECHA ESTAS OFERTAS DISEÑADAS SOLO PARA TI.",
+                            DesktopSubTituloBanner = "Suma al monto mínimo del pedido, suma la escala de comisión, otorga puntaje. No comisiona. Precio neto consultora.",
+                            DesktopTituloMenu = "Especial|Día de la Mujer",
+                            UrlMenu = "ShowRoom",
+                            Orden = 1
+                        }
+                    });
+                sessionManager.Setup(x => x.GetEsShowRoom()).Returns(true);
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.ShowRoom, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-sr.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-sr.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, APROVECHA ESTAS OFERTAS DISEÑADAS SOLO PARA TI.", result.DesktopTituloBanner);
+                Assert.AreEqual("Suma al monto mínimo del pedido, suma la escala de comisión, otorga puntaje. No comisiona. Precio neto consultora.", result.DesktopSubTituloBanner);
+                Assert.AreEqual("Especial", result.DesktopTituloMenu);
+                Assert.AreEqual("Día de la Mujer", result.DesktopSubTituloMenu);
+                Assert.AreEqual("ShowRoom/Intriga", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+            [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-gnd.png",
+                            DesktopLogoBanner = "logo-gnd.png",
+                            DesktopTituloBanner = "#Nombre, disfruta de tu guía de negocio online",
+                            DesktopSubTituloBanner = "Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.",
+                            DesktopTituloMenu = "EXPLORA|GUÍA DE NEGOCIO",
+                            Orden = 1
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-gnd.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-gnd.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, disfruta de tu guía de negocio online", result.DesktopTituloBanner);
+                Assert.AreEqual("Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.", result.DesktopSubTituloBanner);
+                Assert.AreEqual("EXPLORA", result.DesktopTituloMenu);
+                Assert.AreEqual("GUÍA DE NEGOCIO", result.DesktopSubTituloMenu);
+                Assert.AreEqual("GuiaNegocio", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
+            {
+                Assert.Inconclusive();
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
+            {
+                Assert.Inconclusive();
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
+            {
+                Assert.Inconclusive();
+            }
         }
 
         [TestClass]
@@ -188,7 +350,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     }
                     protected override string GetDefaultGifMenuOfertas()
                     {
-                        return "cualquier-image.gif";
+                        return "gif-por-defecto.gif";
                     }
                 }
                 [TestMethod]
@@ -197,71 +359,69 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                     var controller = new BaseControllerStub01(sessionManager.Object);
                     var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
+                    var revistaDigital = new RevistaDigitalModel {
+                        TieneRDC = false,
+                        TieneRDR = false,
+                        TieneRDI = false,
+                    };
 
                     var url = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
                     Assert.IsNotNull(url);
-                    Assert.IsTrue(url.Contains("cualquier-image.gif"));
+                    Assert.IsTrue(url.Contains("gif-por-defecto.gif"));
                 }
 
 
 
-
-                class BaseControllerStub02 : BaseController
-                {
-                    public BaseControllerStub02(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-                }
                 [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaInactivaSinEventoFestivo_TieneGifGanaMas()
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaNoActivaSinEventoFestivo_TieneGifGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub02(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
                         TieneRDR = false,
+                        TieneRDI = false,
                         EsSuscrita = false,
                         EsActiva = false,
                         LogoMenuOfertasNoActiva = "gana-mas.gif"
                     };
 
-                    var menuOferta = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
+                    var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                    Assert.IsNotNull(menuOferta);
-                    Assert.IsTrue(menuOferta.Contains("gana-mas.gif"));
+                    Assert.IsNotNull(result);
+                    Assert.AreEqual("gana-mas.gif", result);
                 }
 
-                class BaseControllerStub03 : BaseController
-                {
-                    public BaseControllerStub03(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
                 [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaInactivaSinEventoFestivo_TieneGifClubGanaMas()
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaSinEventoFestivo_TieneGifGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub03(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
+                    var userData = new UsuarioModel { };
+                    var revistaDigital = new RevistaDigitalModel
+                    {
+                        TieneRDC = true,
+                        TieneRDR = false,
+                        TieneRDI = false,
+                        EsSuscrita = false,
+                        EsActiva = true,
+                        LogoMenuOfertasNoActiva = "gana-mas.gif"
+                    };
+
+                    var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
+
+                    Assert.IsNotNull(result);
+                    Assert.AreEqual("gana-mas.gif", result);
+                }
+
+                [TestMethod]
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaNoActivaSinEventoFestivo_TieneGifClubGanaMas()
+                {
+                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -280,32 +440,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Assert.IsTrue(result.Contains("club-gana-mas.gif"));
                 }
 
-                class BaseControllerStub04 : BaseController
-                {
-                    public BaseControllerStub04(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub04(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
@@ -313,50 +452,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         TieneRDR = false,
                         //
                         EsSuscrita = true,
-                        EsActiva = true,
-                        //
-                        LogoMenuOfertasActiva = "club-gana-mas.gif"
-                    };
-
-                    var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
-                    Assert.IsNotNull(result);
-                    Assert.IsTrue(result.Contains("club-gana-mas.gif"));
-                }
-
-                class BaseControllerStub05 : BaseController
-                {
-                    public BaseControllerStub05(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
-                [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
-                {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                    var controller = new BaseControllerStub05(sessionManager.Object);
-                    var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel
-                    {
-                        TieneRDC = true,
-                        TieneRDR = false,
-                        //
-                        EsSuscrita = false,
                         EsActiva = true,
                         //
                         LogoMenuOfertasActiva = "club-gana-mas.gif"
@@ -401,27 +496,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestClass]
             public class ConEventoFestivo : Base
             {
-                class BaseControllerStub06 : BaseController
-                {
-                    public BaseControllerStub06(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
+                
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiConEventoFestivo_DevuelveGifEventoFestivo()
                 {
@@ -434,9 +509,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseControllerStub06(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
+                    var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false, TieneRDI = false };
 
                     var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
@@ -446,30 +521,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
 
 
-
-                class BaseControllerStub07 : BaseController
-                {
-                    public BaseControllerStub07(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
                 [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaInactivaConEventoFestivo_DevuelveGifEventoFestivoGanaMas()
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaNoActivaConEventoFestivo_TieneGifEventoFestivoGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
@@ -480,9 +533,16 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseControllerStub07(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel { TieneRDC = true, TieneRDR = false };
+                    var revistaDigital = new RevistaDigitalModel
+                    {
+                        TieneRDC = true,
+                        TieneRDR = false, 
+                        TieneRDI = false,
+                        EsSuscrita = false,
+                        EsActiva = false
+                    };
 
                     var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
@@ -490,29 +550,37 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
                 }
 
-                class BaseControllerStub08 : BaseController
-                {
-                    public BaseControllerStub08(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
                 [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaInactivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaConEventoFestivo_TieneGifEventoFestivoGanaMas()
+                {
+                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                    {
+                        ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
+                        new EventoFestivoModel{
+                            Nombre=Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS,
+                            Personalizacion = "evento-festivo-ofertas-gana-mas.gif"
+                        }
+                    }
+                    });
+                    var controller = new BaseController(sessionManager.Object);
+                    var userData = new UsuarioModel { };
+                    var revistaDigital = new RevistaDigitalModel
+                    {
+                        TieneRDC = true,
+                        TieneRDR = false,
+                        TieneRDI = false,
+                        EsSuscrita = false,
+                        EsActiva = true
+                    };
+
+                    var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
+
+                    Assert.IsNotNull(result);
+                    Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
+                }
+
+                [TestMethod]
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaNoActivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
@@ -523,15 +591,16 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseControllerStub08(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
                         TieneRDR = false,
+                        TieneRDI = false,
                         //
                         EsSuscrita = true,
-                        EsActiva = false,
+                        EsActiva = false
                     };
 
                     var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
@@ -540,79 +609,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
                 }
 
-                class BaseControllerStub09 : BaseController
-                {
-                    public BaseControllerStub09(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
                 [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
-                {
-                    sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
-                    {
-                        ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
-                        new EventoFestivoModel{
-                            Nombre=Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS,
-                            Personalizacion = "evento-festivo-ofertas-club-gana-mas-.gif"
-                        }
-                    }
-                    });
-                    var controller = new BaseControllerStub09(sessionManager.Object);
-                    var userData = new UsuarioModel { };
-                    var revistaDigital = new RevistaDigitalModel
-                    {
-                        TieneRDC = true,
-                        TieneRDR = false,
-                        //
-                        EsSuscrita = true,
-                        EsActiva = true,
-                    };
-
-                    var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
-
-                    Assert.IsNotNull(result);
-                    Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas-.gif"));
-                }
-
-                class BaseControllerStub10 : BaseController
-                {
-                    public BaseControllerStub10(ISessionManager sessionManager) : base(sessionManager)
-                    {
-
-                    }
-
-                    protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                    {
-                        return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                    }
-                }
-                [TestMethod]
-                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
+                public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
                 {
                     sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                     {
@@ -623,14 +621,14 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     }
                     });
-                    var controller = new BaseControllerStub10(sessionManager.Object);
+                    var controller = new BaseController(sessionManager.Object);
                     var userData = new UsuarioModel { };
                     var revistaDigital = new RevistaDigitalModel
                     {
                         TieneRDC = true,
                         TieneRDR = false,
                         //
-                        EsSuscrita = false,
+                        EsSuscrita = true,
                         EsActiva = true,
                     };
 

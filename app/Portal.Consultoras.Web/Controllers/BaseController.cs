@@ -678,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            if (tieneRevistaDigital && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
@@ -689,7 +689,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
-            if (tieneRevistaDigital && (revistaDigital.EsSuscrita || revistaDigital.EsActiva))
+            if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
@@ -2459,7 +2459,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToLower();
             codigoConfig = Util.Trim(codigoConfig);
 
-            var listaConfigPais = GetConfiguracionesPaisModel();
+            var listaConfigPais = sessionManager.GetConfiguracionesPaisModel();
             ConfiguracionPaisModel existe;
 
             if (codigoConfig != "" && codigo == "")
@@ -2517,15 +2517,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+            var result = false;
+            try
+            {
+                var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
 
-            var urlReferrer = HttpContext.Request.UrlReferrer != null ?
-                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
-                Util.Trim(HttpContext.Request.FilePath);
+                var urlReferrer = HttpContext.Request.UrlReferrer != null ?
+                    Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
+                    Util.Trim(HttpContext.Request.FilePath);
 
-            url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
 
-            return url.Contains("/mobile/") || url.Contains("/g/");
+                result =  url.Contains("/mobile/") || url.Contains("/g/");
+            }
+            catch
+            {
+                //
+            }
+
+            return result;
         }
 
         public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
@@ -2983,7 +2993,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital == null)
                     throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
 
-                var menuActivo = GetSessionMenuActivo();
+                var menuActivo = sessionManager.GetMenuContenedorActivo();
 
                 if (menuActivo.CampaniaId <= 0)
                     menuActivo.CampaniaId = userData.CampaniaID;
@@ -3047,7 +3057,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
-                    RemplazarTagNombreConfiguracionOferta(ref entConf);
+                    RemplazarTagNombreConfiguracionOferta(ref entConf,Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
@@ -3075,7 +3085,7 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            if (!GNDValidarAcceso())
+                            if (!GNDValidarAcceso(revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -3367,7 +3377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(GetOrigenFromQueryString());
                     if (menuActivo.Codigo == "")
-                        menuActivo = GetSessionMenuActivo();
+                        menuActivo = sessionManager.GetMenuContenedorActivo();
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
@@ -3540,8 +3550,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> BuildMenuContenedor(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
-            var menuContenedor = sessionManager.GetMenuContenedor() ?? new List<ConfiguracionPaisModel>();
-            var configuracionesPais = GetConfiguracionesPaisModel();
+            var menuContenedor = sessionManager.GetMenuContenedor();
+            var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
 
             if (menuContenedor.Any() || !configuracionesPais.Any())
                 return menuContenedor;
@@ -3652,7 +3662,7 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        if (!GNDValidarAcceso())
+                        if (!GNDValidarAcceso(revistaDigital))
                             continue;
 
                         confiModel.UrlMenu = "GuiaNegocio";
@@ -3692,7 +3702,7 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
                 SepararPipe(ref config);
-                RemplazarTagNombreConfiguracion(ref config);
+                RemplazarTagNombreConfiguracion(ref config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                 menuContenedor.Add(config);
             }
@@ -3731,7 +3741,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             menuContenedor.AddRange(BuildMenuContenedorBloqueado(menuContenedor));
-            menuContenedor = OrdenarMenuContenedor(menuContenedor);
+            menuContenedor = OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital());
 
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
@@ -3846,10 +3856,9 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedorBloqueado;
         }
 
-        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor, bool tieneRevistaDigital)
         {
             var esMobile = IsMobile();
-            bool tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
             if (tieneRevistaDigital && esMobile)
             {
@@ -3905,7 +3914,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso()
+        public virtual bool GNDValidarAcceso(RevistaDigitalModel revistaDigital)
         {
             var acceso = !(revistaDigital.TieneRDC && revistaDigital.EsActiva);
             return acceso;
@@ -3927,32 +3936,36 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config)
+        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
         {
-            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo);
-            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo);
-            config.MobileTitulo = RemplazaTag(config.MobileTitulo);
-            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo);
+            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo, tag, valor);
+            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo, tag, valor);
+            config.MobileTitulo = RemplazaTag(config.MobileTitulo, tag, valor);
+            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo, tag, valor);
         }
 
-        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
+        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config, string tag, string valor)
         {
-            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
-            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner);
-            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner);
-            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner);
-            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu);
-            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu);
-            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu);
-            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu);
+            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner, tag, valor);
+            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
+            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner, tag, valor);
+            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner, tag, valor);
+            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu, tag, valor);
+            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
+            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu, tag, valor);
+            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu, tag, valor);
         }
 
-        private string RemplazaTag(string cadena)
+        private string RemplazaTag(string cadena, string tag, string valor)
         {
             cadena = cadena ?? "";
-            cadena = cadena.Replace("#Nombre", userData.Sobrenombre);
-            cadena = cadena.Replace("#nombre", userData.Sobrenombre);
-            cadena = cadena.Replace("#NOMBRE", userData.Sobrenombre);
+            tag = tag ?? "";
+            valor = valor ?? "";
+
+            cadena = cadena.Replace(tag, valor);
+            cadena = cadena.Replace(tag.ToLower(), valor);
+            cadena = cadena.Replace(tag.ToUpper(), valor);
+
             return cadena;
         }
 
@@ -4015,32 +4028,6 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                    userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
         }
-        #endregion
-
-        #region Sesiones 
-        public List<ConfiguracionPaisModel> GetConfiguracionesPaisModel()
-        {
-            return sessionManager.GetConfiguracionesPaisModel() ?? new List<ConfiguracionPaisModel>();
-        }
-
-        public EventoFestivoDataModel GetEventoFestivoData()
-        {
-            return sessionManager.GetEventoFestivoDataModel() ??
-                   new EventoFestivoDataModel();
-        }
-
-
-        public OfertaFinalModel GetOfertaFinal()
-        {
-            return sessionManager.GetOfertaFinalModel() ??
-                   new OfertaFinalModel();
-        }
-
-        public MenuContenedorModel GetSessionMenuActivo()
-        {
-            return sessionManager.GetMenuContenedorActivo() ?? new MenuContenedorModel();
-        }
-
         #endregion
 
         #region ConfigurationManager
@@ -4318,7 +4305,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
                 ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
-                var configuracionPaisOdd = GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+                var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
             }
@@ -4353,12 +4340,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region EventoFestivo
 
-            ViewBag.SaludoFestivo = GetEventoFestivoData().EfSaludo;
+            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
 
             #endregion
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
-            ViewBag.TieneHV = false;
+            //
+            ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+            ViewBag.EsSuscrita = revistaDigital.EsSuscrita;
+            ViewBag.EsActiva = revistaDigital.EsActiva;
+            //
+            ViewBag.TieneHV = herramientasVenta.TieneHerramientasVenta();
+            
             var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
@@ -4608,6 +4601,47 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeTitulo = dato == null ? "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    " : Util.Trim(dato.Valor1);
 
             return model;
+        }
+
+        public string GetUrlTerminosCondicionesDatosUsuario()
+        {
+            var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+            var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
+            return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
+        }
+
+        public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (userData.PaisID)
+            {
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 8;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 9;
+                    limiteMaximoTelef = 10;
+                    break;
+                default:
+                    limiteMinimoTelef = 0;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
         }
     }
 }

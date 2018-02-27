@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                if (GNDValidarAcceso())
+                if (GNDValidarAcceso(revistaDigital))
                 {
                     return ViewLanding();
                 }
