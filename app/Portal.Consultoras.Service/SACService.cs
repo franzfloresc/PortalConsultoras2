@@ -1436,6 +1436,12 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
+        public bool InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            return upSellingBusinessLogic.InsertarRegalo(entidad);
+        }
         #endregion
     }
 }

@@ -595,7 +595,8 @@
                 </div>
             </div>
 
-            <div class="btn_regalo_sorpresa" id="linkRegaloSorpresa" style="background:url(https://lh6.googleusercontent.com/kR2yZFf6zBLxVk84FD6mSN4A440KTS3LE2mwRbcoV3FmkTjds1RU8JdzYrMWOjqL_GrU9UoYF_Q98vtOoXc8=w1366-h415); display: none;">
+            <div class="btn_regalo_sorpresa" id="linkRegaloSorpresa" 
+                 style="background:url(https://lh6.googleusercontent.com/kR2yZFf6zBLxVk84FD6mSN4A440KTS3LE2mwRbcoV3FmkTjds1RU8JdzYrMWOjqL_GrU9UoYF_Q98vtOoXc8=w1366-h415); display: none;">
                 <div class="txt_regalo_sorpresa">
                     <span class="span_1_regalo_sorpresa">¡FELICITACIONES<br></span>
                     <span class="span_2_regalo_sorpresa">GANASTE!<br></span>
@@ -717,6 +718,11 @@
         @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
         <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
 
+            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" onclick="btnRegresoOF();">
+                <div class="draw_close" alt="Cerrar"></div>
+                <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
+            </a>
+
             @*<div class="btn_regresa_OF" id="btnRegresoOF" style="background-color: @colorFondo1OFRegalo">CONTINUAR COMPRANDO</div>*@
             <div class="icono_regalo_sorpresa" style="margin-top:47px;"></div>
             <div class="titulo_regalo_sorpresa" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br /></div>
@@ -738,28 +744,32 @@
             </div>*@
 
             <div class="slider center" id="divCarruselRegalo" style="width: 100%">
-                <input type="hidden" value="" />
                 {{#each this.Upselling.Regalos}}
-                <div class="content_info_regalo">
-                    <input type="hidden" id="{{UpSellingDetalleId}}_id" value="{{UpSellingDetalleId}}" />
-                    <input type="hidden" id="{{UpSellingDetalleId}}_cuv" value="{{CUV}}" />
-                    <input type="hidden" id="{{UpSellingDetalleId}}stock" value="{{StockActual}}" />
-                    <div class="titulo_regalo_producto" id="of-regalo-descripcion">{{Nombre}}</div>
-                    <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="{{Imagen}}" alt="" /></div>
-                    <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
-                        {{Descripcion}}
+                <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingDetalleId}}">
+                    <div class="content_info_regalo">
+                        <input type="hidden" class="of-regalo-id" value="{{UpSellingDetalleId}}" />
+                        <input type="hidden" class="of-regalo-cuv" value="{{CUV}}" />
+                        <input type="hidden" class="of-regalo-stock" value="{{StockActual}}" />
+                        <div class="titulo_regalo_producto">{{Nombre}}</div>
+                        <div class="content_imagen_sorpresa">
+                            <img src="{{Imagen}}" alt="" />
+                        </div>
+                        <div class="descripcion_regalo">
+                            {{Descripcion}}
+                        </div>
+                        <div>
+                            <input type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{CUV}}')" />
+                        </div>
                     </div>
-                    <div>
-                        <input type="button" value="QUIERO ESTE PREMDIO" style="background-color: black; color: white;" data-agregar-regalo="" />
+                    <!--clase para stock = 0-->
+                    <div style="display: none;">
                     </div>
-                </div>
-                <div class="" style="display: none;">
                 </div>
                 {{/each}}
             </div>
 
             <div class="btn_sigue_comprando" id="btn_sigue_comprando_gana">SIGUE COMPRANDO Y GANA</div>
-            <div class="">Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
+            <div>Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
             <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
 
         </div>
@@ -770,7 +780,7 @@
             <div class="titulo_regalo_sorpresa">FELICIDADES @ViewBag.NombreConsultora<br /></div>
             <div class="titulo_regalo_sorpresa"><b>¡GANASTE!</b><br /></div>
 
-            <div style="background-color: black; color: white;">
+            <div>
                 <span><b>¡EL PREMIO ES TUYO!</b></span>
                 <span>
                     Recuerda pasar pedido en la siguiente<br />

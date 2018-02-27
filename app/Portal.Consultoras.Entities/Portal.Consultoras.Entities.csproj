@@ -77,6 +77,7 @@
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
     <Compile Include="Estrategia\UpSelling.cs" />
     <Compile Include="Estrategia\UpSellingDetalle.cs" />
+    <Compile Include="Estrategia\UpSellingRegalo.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />

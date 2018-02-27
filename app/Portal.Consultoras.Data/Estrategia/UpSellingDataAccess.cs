@@ -177,5 +177,24 @@ namespace Portal.Consultoras.Data.Estrategia
                 return recordsAffected;
             }
         }
+
+        public bool InsertarRegalo(UpSellingRegalo entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.InsertUpSellingRegalo"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, entidad.CampaniaId);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, entidad.ConsultoraId);
+                Context.Database.AddInParameter(command, "@MontoPedido", DbType.Decimal, entidad.MontoPedido);
+                Context.Database.AddInParameter(command, "@GapMinimo", DbType.Decimal, entidad.GapMinimo);
+                Context.Database.AddInParameter(command, "@GapMaximo", DbType.Decimal, entidad.GapMaximo);
+                Context.Database.AddInParameter(command, "@GapAgregar", DbType.Decimal, entidad.GapAgregar);
+                Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, entidad.MontoMeta);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+                Context.Database.AddInParameter(command, "@TipoRango", DbType.String, entidad.TipoRango);
+
+                var result = Context.ExecuteNonQuery(command);
+                return (result > 0);
+            }
+        }
     }
 }

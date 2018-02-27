@@ -10,6 +10,8 @@ using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
 
+using Portal.Consultoras.Web.Models;
+
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     public class UpSellingController : BaseController
@@ -109,5 +111,28 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> InsertarRegalo(string cuv, decimal montoMeta)
+        {
+            try
+            {
+                RegaloOfertaFinalModel model = new RegaloOfertaFinalModel();
+                model.CampaniaId = userData.CampaniaID;
+                model.ConsultoraId = Convert.ToInt32(userData.ConsultoraID);
+                model.MontoPedido = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+                model.MontoMeta = montoMeta;
+                model.Cuv = cuv;
+
+                var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
+                return Json(new { success = true, JsonRequestBehavior.AllowGet });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
     }
 }

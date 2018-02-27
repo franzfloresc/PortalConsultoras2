@@ -1,53 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:complexType name="ArrayOfUpSelling">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBEApp">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="UpSelling" nillable="true" type="tns:UpSelling" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEApp" nillable="true" type="tns:BEApp" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfUpSelling" nillable="true" type="tns:ArrayOfUpSelling" />
-  <xs:complexType name="UpSelling">
-    <xs:complexContent mixed="false">
-      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" base="q1:Auditoria">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
-          <xs:element minOccurs="0" name="CodigoCampana" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="MontoMeta" type="xs:decimal" />
-          <xs:element minOccurs="0" name="Regalos" nillable="true" type="tns:ArrayOfUpSellingDetalle" />
-          <xs:element minOccurs="0" name="TextoGanaste" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TextoGanasteSecundario" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TextoMeta" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TextoMetaSecundario" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UpSellingId" type="xs:int" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UpSelling" nillable="true" type="tns:UpSelling" />
-  <xs:complexType name="ArrayOfUpSellingDetalle">
+  <xs:element name="ArrayOfBEApp" nillable="true" type="tns:ArrayOfBEApp" />
+  <xs:complexType name="BEApp">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="UpSellingDetalle" nillable="true" type="tns:UpSellingDetalle" />
+      <xs:element minOccurs="0" name="AplicacionNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaActualizacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaLanzamiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MinimaVersion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiereActualizacion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SistemaOperativo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDescarga" type="xs:short" />
+      <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfUpSellingDetalle" nillable="true" type="tns:ArrayOfUpSellingDetalle" />
-  <xs:complexType name="UpSellingDetalle">
-    <xs:complexContent mixed="false">
-      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" base="q2:Auditoria">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
-          <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Orden" type="xs:int" />
-          <xs:element minOccurs="0" name="Stock" type="xs:int" />
-          <xs:element minOccurs="0" name="StockActual" type="xs:int" />
-          <xs:element minOccurs="0" name="UpSellingDetalleId" type="xs:int" />
-          <xs:element minOccurs="0" name="UpSellingId" type="xs:int" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UpSellingDetalle" nillable="true" type="tns:UpSellingDetalle" />
+  <xs:element name="BEApp" nillable="true" type="tns:BEApp" />
 </xs:schema>
