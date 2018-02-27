@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
-
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -46,6 +44,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 codigoCampana = null;
 
             var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana, incluirRegalos);
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            foreach (var item in upsellings)
+            {
+                foreach (var detail in item.Regalos)
+                {
+                    detail.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, detail.Imagen, carpetaPais);
+                }
+            }
+
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
 
@@ -125,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 model.Cuv = cuv;
 
                 var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
-                return Json(new { success = true, JsonRequestBehavior.AllowGet });
+                return Json(new { success = ok, JsonRequestBehavior.AllowGet });
             }
             catch (Exception ex)
             {

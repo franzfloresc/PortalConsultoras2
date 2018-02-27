@@ -718,7 +718,7 @@
         @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
         <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
 
-            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" onclick="btnRegresoOF();">
+            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" id="btnRegresoOF">
                 <div class="draw_close" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
@@ -749,23 +749,22 @@
             <div class="slider center" id="divCarruselRegalo" style="width: 100%">
                 {{#each this.Upselling.Regalos}}
                 <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingDetalleId}}">
-                    <div class="content_info_regalo">
-                        <input type="hidden" class="of-regalo-id" value="{{UpSellingDetalleId}}" />
+                    <div class="content_info_regalo" id="of-regalo-{{UpSellingDetalleId}}">
                         <input type="hidden" class="of-regalo-cuv" value="{{CUV}}" />
                         <input type="hidden" class="of-regalo-stock" value="{{StockActual}}" />
                         <div class="titulo_regalo_producto">{{Nombre}}</div>
                         <div class="content_imagen_sorpresa">
-                            <img src="{{Imagen}}" alt="" />
+                            <img class="of-regalo-imagen" src="{{Imagen}}" alt="" />
                         </div>
                         <div class="descripcion_regalo">
                             {{Descripcion}}
                         </div>
                         <div>
-                            <input type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{CUV}}')" />
+                            <input type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingDetalleId}}','{{CUV}}')" />
                         </div>
                     </div>
-                    <!--clase para stock = 0-->
-                    <div style="display: none;">
+                    
+                    <div class="of-regalo-sinstock" style="display: none;">
                     </div>
                 </div>
                 {{/each}}
@@ -777,7 +776,7 @@
 
         </div>
 
-        <div id="divGanoRegalo" style="display: none;">
+        <div id="divGanoRegalo" class="ContentSorpresaMobile">
             <div class="btn_regresa_OF" id="btnCambiarRegalo">CAMBIAR REGALO</div>
             <div class="icono_regalo_sorpresa" style="margin-top:47px;"></div>
             <div class="titulo_regalo_sorpresa">FELICIDADES @ViewBag.NombreConsultora<br /></div>
