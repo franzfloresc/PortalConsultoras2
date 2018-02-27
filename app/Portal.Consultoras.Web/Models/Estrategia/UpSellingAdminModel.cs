@@ -16,5 +16,6 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public IEnumerable<CampaniaModel> Campanas { get; set; }
 
         public bool EsPaisEsika { get; set; }
+        public string UrlS3 { get; internal set; }
     }
 }
