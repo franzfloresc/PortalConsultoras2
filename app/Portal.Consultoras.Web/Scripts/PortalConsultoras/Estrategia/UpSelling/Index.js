@@ -353,9 +353,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
                     selfvm.upSellingSeleccionado(result.Data);
                     enableTabs(settings.idTabs);
-                    alert("guardado");
+                    alert("Guardado correctamente");
                     selfvm.mostrarFormularioUpSelling(false);
                     selfvm.upSellingSeleccionadoIsDirty(false);
+                    cargarGrilla();
                 }, fail)
                 .always(function () {
                     closeWaitingDialog();
@@ -375,7 +376,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         selfvm.regaloNuevo = function () {
             selfvm.regaloSeleccionado(regaloDefault());
-            selfvm.regaloSeleccionado().Imagen.setOriginalValue(regalo().Imagen)
+            selfvm.regaloSeleccionado().Imagen.setOriginalValue(selfvm.regaloSeleccionado().Imagen)
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloEsNuevo(true);
         }
