@@ -421,7 +421,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-ConfirmarDatos.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-ConfirmarDatos.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Info").Include(
