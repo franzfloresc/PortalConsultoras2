@@ -14380,14 +14380,19 @@ a {
                 display: inline;
                 position: absolute;
                 padding: 0px 10px;
-                /* width: 20px; */
                 margin-top: 14px;
-                /* width: 20px; */
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
                     margin-top: 10px;
                     margin-left: 4px;
+                    width: 32px;
+                    height: auto;
+                }
+
+                .popup_confirmacion_datos .form_datos .input img.envelope{
+                    width: 40px;
+                     height: auto;
                 }
 
                 .popup_confirmacion_datos .form-datos .input img.info {

@@ -766,7 +766,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoMenuPadreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSeccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
@@ -782,6 +794,9 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] SubMenusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int paisIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -807,6 +822,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoMenuPadre {
             get {
                 return this.CodigoMenuPadreField;
@@ -815,6 +843,45 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((object.ReferenceEquals(this.CodigoMenuPadreField, value) != true)) {
                     this.CodigoMenuPadreField = value;
                     this.RaisePropertyChanged("CodigoMenuPadre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRegion {
+            get {
+                return this.CodigoRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRegionField, value) != true)) {
+                    this.CodigoRegionField = value;
+                    this.RaisePropertyChanged("CodigoRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSeccion {
+            get {
+                return this.CodigoSeccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSeccionField, value) != true)) {
+                    this.CodigoSeccionField = value;
+                    this.RaisePropertyChanged("CodigoSeccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoZona {
+            get {
+                return this.CodigoZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
+                    this.CodigoZonaField = value;
+                    this.RaisePropertyChanged("CodigoZona");
                 }
             }
         }
@@ -880,6 +947,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((object.ReferenceEquals(this.SubMenusField, value) != true)) {
                     this.SubMenusField = value;
                     this.RaisePropertyChanged("SubMenus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int paisId {
+            get {
+                return this.paisIdField;
+            }
+            set {
+                if ((this.paisIdField.Equals(value) != true)) {
+                    this.paisIdField = value;
+                    this.RaisePropertyChanged("paisId");
                 }
             }
         }
@@ -1001,10 +1081,10 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSeguridad.BEMenuMobile[]> GetItemsMenuMobileAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISeguridadService/GetMenuApp", ReplyAction="http://tempuri.org/ISeguridadService/GetMenuAppResponse")]
-        Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] GetMenuApp(int paisiD);
+        Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] GetMenuApp(Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp menuApp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISeguridadService/GetMenuApp", ReplyAction="http://tempuri.org/ISeguridadService/GetMenuAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[]> GetMenuAppAsync(int paisiD);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[]> GetMenuAppAsync(Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp menuApp);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1170,12 +1250,12 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
             return base.Channel.GetItemsMenuMobileAsync(paisID);
         }
         
-        public Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] GetMenuApp(int paisiD) {
-            return base.Channel.GetMenuApp(paisiD);
+        public Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] GetMenuApp(Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp menuApp) {
+            return base.Channel.GetMenuApp(menuApp);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[]> GetMenuAppAsync(int paisiD) {
-            return base.Channel.GetMenuAppAsync(paisiD);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[]> GetMenuAppAsync(Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp menuApp) {
+            return base.Channel.GetMenuAppAsync(menuApp);
         }
     }
 }

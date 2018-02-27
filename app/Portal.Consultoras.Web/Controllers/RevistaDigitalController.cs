@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -452,6 +453,32 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                var setSession = false;
+
+                var listaDatosPopup = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
+                
+                var campaniaPopup = (listaDatosPopup.FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).CampaniaID;
+                if (listaDatosPopup.Any(d => d.CampaniaID != campaniaPopup))
+                {
+                    listaDatosPopup = GetConfiguracionPaisDatosPorComponente(userData.CampaniaID, Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
+                    setSession = true;
+                }
+
+                campaniaPopup = (listaDatosPopup.FirstOrDefault() ?? new ConfiguracionPaisDatosModel()).CampaniaID;
+                if (campaniaPopup != userData.CampaniaID && campaniaPopup != 0)
+                {
+                    listaDatosPopup = GetConfiguracionPaisDatosPorComponente(0, Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
+                    setSession = true;
+                }
+
+                if (setSession)
+                {
+                    var listaDatos = revistaDigital.ConfiguracionPaisDatos.Where(d => d.Componente != Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas).ToList();
+                    listaDatos.AddRange(listaDatosPopup);
+                    revistaDigital.ConfiguracionPaisDatos = listaDatos;
+                    sessionManager.SetRevistaDigital(revistaDigital);
+                }
+
                 var modelo = new RevistaDigitalPopupModel
                 {
                     Mensaje1 = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1),
@@ -494,6 +521,37 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        protected virtual List<ConfiguracionPaisDatosModel> GetConfiguracionPaisDatosPorComponente(int campaniaid, string componente)
+        {
+            List<ConfiguracionPaisDatosModel> listaEntidad;
+            try
+            {
+                var beEntidad = new BEConfiguracionPaisDatos
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = campaniaid,
+                    Componente = componente,
+                    ConfiguracionPais = new BEConfiguracionPais
+                    {
+                        Codigo = Constantes.ConfiguracionPais.RevistaDigital
+                    }
+                };
+                
+                using (var sv = new UsuarioServiceClient())
+                {
+                    var beEntidades = sv.GetConfiguracionPaisComponenteDatos(beEntidad).ToList();
+
+                    listaEntidad = Mapper.Map<IList<BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
+                }
+            }
+            catch (Exception ex)
+            {
+                listaEntidad = new List<ConfiguracionPaisDatosModel>();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.PaisID.ToString());
+            }
+            return listaEntidad;
         }
 
         [HttpPost]

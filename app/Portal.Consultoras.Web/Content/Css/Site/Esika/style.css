@@ -36003,6 +36003,13 @@ height:30px;
             color: white;
         }
 
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .cerrargndtxt {
+            display: block;
+            width: 100%;
+            position: relative;
+            top: 85px;
+        }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
@@ -36052,6 +36059,7 @@ height:30px;
         LEFT: 0;
         text-align: left;
         margin: -13.5% 5% 0% -14.5px;
+        top:-16px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
