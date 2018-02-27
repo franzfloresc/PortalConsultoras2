@@ -172,6 +172,73 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, result.EsSoloImagen);
                 Assert.IsNotNull(result.UrlImagen);
             }
+
+            [TestMethod]
+            public void BuildMenu_MenuContenedorExisteEnSesion_DevuelveMenuContenedorDesdeSesion()
+            {
+                sessionManager
+                    .Setup(x => x.GetMenuContenedor())
+                    .Returns(new List<ConfiguracionPaisModel>
+                    {
+                        new ConfiguracionPaisModel{ },
+                        new ConfiguracionPaisModel{ },
+                    });
+                var userData = new UsuarioModel { };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital);
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(2, result.Count);
+            }
+
+            [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisInicioDesktop_DevuelveMenuInicioDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.Inicio,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-inicio.png",
+                            DesktopLogoBanner = "logo-inicio.png",
+                            DesktopTituloBanner = "#Nombre, Todas tus ofertas en un solo lugar.",
+                            DesktopSubTituloBanner = "Subtitulo banne inicio",
+                            DesktopTituloMenu = "|Inicio",
+                            UrlMenu = "Ofertas",
+                            Orden = 0
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre= "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object,logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.Inicio, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-inicio.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-inicio.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, Todas tus ofertas en un solo lugar.", result.DesktopTituloBanner);
+                Assert.AreEqual("Subtitulo banne inicio", result.DesktopSubTituloBanner);
+                Assert.AreEqual("", result.DesktopTituloMenu);
+                Assert.AreEqual("Inicio", result.DesktopSubTituloMenu);
+                Assert.AreEqual("Ofertas", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
+            {
+                Assert.Inconclusive();
+            }
         }
 
         [TestClass]

@@ -2517,15 +2517,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
+            var result = false;
+            try
+            {
+                var url = HttpContext.Request.Url != null ? HttpContext.Request.Url.AbsolutePath : null;
 
-            var urlReferrer = HttpContext.Request.UrlReferrer != null ?
-                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
-                Util.Trim(HttpContext.Request.FilePath);
+                var urlReferrer = HttpContext.Request.UrlReferrer != null ?
+                    Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) :
+                    Util.Trim(HttpContext.Request.FilePath);
 
-            url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
+                url = (url ?? urlReferrer).Replace("#", "/").ToLower() + "/";
 
-            return url.Contains("/mobile/") || url.Contains("/g/");
+                result =  url.Contains("/mobile/") || url.Contains("/g/");
+            }
+            catch
+            {
+                //
+            }
+
+            return result;
         }
 
         public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
@@ -3047,7 +3057,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
-                    RemplazarTagNombreConfiguracionOferta(ref entConf);
+                    RemplazarTagNombreConfiguracionOferta(ref entConf,Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
@@ -3692,7 +3702,7 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
                 SepararPipe(ref config);
-                RemplazarTagNombreConfiguracion(ref config);
+                RemplazarTagNombreConfiguracion(ref config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                 menuContenedor.Add(config);
             }
@@ -3731,7 +3741,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             menuContenedor.AddRange(BuildMenuContenedorBloqueado(menuContenedor));
-            menuContenedor = OrdenarMenuContenedor(menuContenedor);
+            menuContenedor = OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital());
 
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
@@ -3846,10 +3856,9 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedorBloqueado;
         }
 
-        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor, bool tieneRevistaDigital)
         {
             var esMobile = IsMobile();
-            bool tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
             if (tieneRevistaDigital && esMobile)
             {
@@ -3927,32 +3936,36 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config)
+        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
         {
-            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo);
-            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo);
-            config.MobileTitulo = RemplazaTag(config.MobileTitulo);
-            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo);
+            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo, tag, valor);
+            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo, tag, valor);
+            config.MobileTitulo = RemplazaTag(config.MobileTitulo, tag, valor);
+            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo, tag, valor);
         }
 
-        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
+        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config, string tag, string valor)
         {
-            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
-            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner);
-            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner);
-            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner);
-            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu);
-            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu);
-            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu);
-            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu);
+            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner, tag, valor);
+            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
+            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner, tag, valor);
+            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner, tag, valor);
+            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu, tag, valor);
+            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
+            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu, tag, valor);
+            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu, tag, valor);
         }
 
-        private string RemplazaTag(string cadena)
+        private string RemplazaTag(string cadena, string tag, string valor)
         {
             cadena = cadena ?? "";
-            cadena = cadena.Replace("#Nombre", userData.Sobrenombre);
-            cadena = cadena.Replace("#nombre", userData.Sobrenombre);
-            cadena = cadena.Replace("#NOMBRE", userData.Sobrenombre);
+            tag = tag ?? "";
+            valor = valor ?? "";
+
+            cadena = cadena.Replace(tag, valor);
+            cadena = cadena.Replace(tag.ToLower(), valor);
+            cadena = cadena.Replace(tag.ToUpper(), valor);
+
             return cadena;
         }
 
