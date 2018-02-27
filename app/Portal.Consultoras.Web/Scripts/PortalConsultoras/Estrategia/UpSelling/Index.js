@@ -468,7 +468,6 @@ function configureGridListaGanadoras(response) {
     grilla.jqGrid({
         hidegrid: false,
         datatype: "local",
-
         mtype: "GET",
         contentType: "application/json; charset=utf-8",
         multiselect: false,
@@ -479,9 +478,8 @@ function configureGridListaGanadoras(response) {
             { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
             { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
             { name: "NombreRegalo", index: "NombreRegalo", width: 120, sortable: false, align: "left" },
-            { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right" },
-            { name: "MontoPedido", index: "MontoPedido", width: 40, sortable: false, align: "right" },
-
+            { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "MontoPedido", index: "MontoPedido", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
             { name: "FechaRegistro", index: "FechaRegistro", width: 80, sortable: false, align: "center" },
         ],
         pager: jQuery("#pagerListaRegalos"),
