@@ -3715,6 +3715,7 @@ namespace Portal.Consultoras.Web.Controllers
                             confiModel.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                         }
 
+                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                 }
 

@@ -83,20 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
-        public ActionResult _Landing(int id)
-        {
-            try
-            {
-                return ViewLanding(id);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return PartialView("template-Landing", new RevistaDigitalModel());
-            }
-        }
-
+        
         public ActionResult MensajeBloqueado()
         {
             try

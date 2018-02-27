@@ -3465,8 +3465,6 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\HerramientasVenta\HerramientasVenta-Landing.js" />
-    <Content Include="Scripts\PortalConsultoras\HerramientasVenta\HerramientasVenta.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
@@ -3777,7 +3775,6 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
     <Content Include="Areas\Mobile\Views\MisPedidos\IngresadoDetalle.cshtml" />
     <Content Include="Areas\Mobile\Views\MisPedidos\FacturadoDetalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\MasVendidos.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-landing.cshtml" />
@@ -3827,7 +3824,6 @@
     <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-landing.cshtml" />
-    <Content Include="Areas\Mobile\Views\HerramientasVenta\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.eot" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.ttf" />
@@ -4734,7 +4730,6 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatos.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoProximamente.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatosCabecera.cshtml" />
-    <Content Include="Views\HerramientasVenta\Index.cshtml" />
     <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
@@ -4746,7 +4741,6 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
-    <Content Include="Views\RevistaDigital\Index.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
