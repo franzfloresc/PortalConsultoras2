@@ -35890,8 +35890,8 @@ h1#penmostreo .campana {
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
         display: inline-block;
     /* margin: -15px; */
-    width: 66px;
-    height: 30px;
+    width: auto;
+    height: 40px;
     }
 
     .contenido-popup-nuevo-2017 .cerrargndtxt{
@@ -35908,7 +35908,7 @@ h1#penmostreo .campana {
         display:block;
         margin:auto;
         text-align:center;
-        height:100px;
+        height:120px;
         margin-bottom:15px;
     }
 
@@ -35950,7 +35950,7 @@ h1#penmostreo .campana {
         display: block;
         font-size: 13px;
         text-decoration: none;
-        padding: 17px 0;
+        padding: 13px 0;
         letter-spacing: 1px;
         margin: auto;
         border: none;

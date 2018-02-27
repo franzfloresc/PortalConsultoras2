@@ -35780,10 +35780,29 @@ h1#penmostreo .campana {
     }
 }
 
+
 .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
     display: table-cell;
     vertical-align: middle;
 }
+
+ .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
+        position: relative;
+        float: left;
+        top: 0;
+        WIDTH: 100%;
+        LEFT: 0;
+        text-align: left;
+        margin: -13.5% 5% 0% -14.5px;
+    }
+
+.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
+        display: inline-block;
+    /* margin: -15px; */
+    width: auto;
+    height: 40px;
+    }
+
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
         font-size: 28px;
@@ -35825,6 +35844,15 @@ h1#penmostreo .campana {
 
     }
 
+.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img {
+    display: block;
+    margin: auto;
+    text-align: center;
+    height: 120px;
+    margin-bottom: 15px;
+}
+
+
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
         background: #613c87;
         color: white;
@@ -35833,7 +35861,7 @@ h1#penmostreo .campana {
         display: block;
         font-size: 13px;
         text-decoration: none;
-        padding: 17px 0;
+        padding: 13px 0;
         letter-spacing: 1px;
         margin: auto;
         border: none;
