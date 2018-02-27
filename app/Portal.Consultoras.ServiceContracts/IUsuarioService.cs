@@ -277,7 +277,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad);
-        
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad);
+
         [OperationContract]
         bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
         

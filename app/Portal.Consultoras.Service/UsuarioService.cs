@@ -668,6 +668,12 @@ namespace Portal.Consultoras.Service
             return bl.GetList(entidad);
         }
 
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetListComponenteDatos(entidad);
+        }
+
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
             int paisId = GetPaisID(paisISO);

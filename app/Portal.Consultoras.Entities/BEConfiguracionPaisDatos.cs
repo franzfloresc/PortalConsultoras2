@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
+        public string Componente { get; set; }
+        [DataMember]
         public string Valor1 { get; set; }
         [DataMember]
         public string Valor2 { get; set; }

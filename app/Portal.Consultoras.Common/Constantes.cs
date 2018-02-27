@@ -1088,6 +1088,8 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
         }
 
+        public static class ConfiguracionPaisComponente        {            public static class RD            {                public const string PopupClubGanaMas = "Popup_Club_Gana+";            }        }
+
         public static class ConfiguracionPaisDatos
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";

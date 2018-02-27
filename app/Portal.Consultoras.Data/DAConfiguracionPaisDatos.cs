@@ -27,6 +27,17 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
+        public IDataReader GetListComponenteDatos(BEConfiguracionPaisDatos entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListConfiguracionPaisComponenteDatos");
+            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "PalancaCodigo", DbType.String, entity.ConfiguracionPais.Codigo);
+            Context.Database.AddInParameter(command, "Componente", DbType.String, entity.Componente);
+
+            return Context.ExecuteReader(command);
+
+        }
     }
 }
