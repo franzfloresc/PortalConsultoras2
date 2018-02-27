@@ -551,6 +551,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("hv", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

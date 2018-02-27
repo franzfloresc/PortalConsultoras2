@@ -108,20 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Ofertas");
         }
-
-        public ActionResult _Landing(int id)
-        {
-            try
-            {
-                return ViewLanding(id);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return PartialView("template-Landing", new RevistaDigitalLandingModel());
-            }
-        }
-
+        
         public ActionResult MensajeBloqueado()
         {
             try
