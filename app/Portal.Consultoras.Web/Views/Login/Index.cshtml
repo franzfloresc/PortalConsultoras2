@@ -348,7 +348,7 @@
                                                     item.Telefonos = "0501-2352677"; break;
                                                 };
                                         }
-                                    <option value="@item.PaisID" data-campoclave="@item.NombreCambioClave" data-telefonos="@item.Telefonos"  class="NombreCambioClave">@item.Nombre</option>
+                                        <option value="@item.PaisID" data-campoclave="@item.NombreCambioClave" data-telefonos="@item.Telefonos" class="NombreCambioClave">@item.Nombre</option>
                                     }
                                 }
                             </select>
@@ -356,8 +356,8 @@
                     </div>
                     <div class="boxform">
                         <div class="formcontrol codigoConsultora_dni user" style="margin-bottom: 33px; color: black;">
-                             <input type="hidden" id="hdfCorreoElectronico" />
-                             <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Código de consultora o DNI" style="color: black;" />
+                            <input type="hidden" id="hdfCorreoElectronico" />
+                            <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Código de consultora o DNI" style="color: black;" />
                         </div>
                     </div>
 
@@ -383,14 +383,15 @@
         <div id="popup_cambioContrasenia">
             <div class="content_bg_cambioContrasenia">
                 <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup3').hide();"></a>
-
                 <div class="contenedor_cabecera_popup">
                     <div id="header_cambioContrasenia">
-                        <div class="franja_negra_fondo"></div>
-                        CAMBIO DE <span class="texto_bold">CONTRASEÑA</span>
+                        <div class="fondo_sesgado"></div>
+                        <span>
+                            CAMBIO DE <strong>CONTRASEÑA</strong>
+                        </span>
+                        <div class="indicador_lbel"></div>
                     </div>
                 </div>
-                <div class="indicador_lbel"></div>
                 <div class="mensaje_pop_up2 mensaje_popup_cambioContrasenia">
                     <span class="contenido_mensaje"><span id="spnombre">Sofía,</span> no te preocupes.</span>
                     <span class="contenido_mensaje texto_bold">Elige cómo prefieres cambiar tu contraseña</span>
@@ -410,68 +411,68 @@
 
                     @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros" onclick="javascript:Construir_EnlacexDispositivo(2);">*@
                     @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
-                        <div class="icono_chateaConNosotros"></div>
-                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat">
-                                @{
-                                    if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                                    {
-                                        <a href="#" class="lk_chat" ismovildevice="1" target="_blank">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
+                            <div class="icono_chateaConNosotros"></div>
+                            <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat">
+                                    @{
+                                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                                        {
+                                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="lk_chat" ismovildevice="0">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
+                                        }
                                     }
-                                    else
-                                    {
-                                        <a href="#" class="lk_chat" ismovildevice="0">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
-                                    }
-                                }
-                            </span>
-                        </div>
-                    </div>*@
+                                </span>
+                            </div>
+                        </div>*@
 
                     @*@{
-                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                            if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                            {
+                                <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
+                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
+                                        <div class="icono_chateaConNosotros"></div>
+                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#" class="lk_chat" ismovildevice="0">
+                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
+                                        <div class="icono_chateaConNosotros"></div>
+                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </a>
+                            }
+                        }
+
+                        @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
                         {
-                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
-                                <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                    <div class="icono_chateaConNosotros"></div>
+                            <a id="lk_telefono" href="http://www.belcorpresponde.com/" target="_blank">
+                                <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
+                                <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
+                                    <div class="icono_llamanos"></div>
                                     <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                        <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">                                            
-                                        </span>
+                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
+                                        <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
                                     </div>
                                 </div>
+                                <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
                             </a>
-                        }
-                        else
-                        {
-                            <a href="#" class="lk_chat" ismovildevice="0">
-                                <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                    <div class="icono_chateaConNosotros"></div>
-                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                        <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">                                            
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </a>
-                        }
-                    }
-
-                    @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
-                    {
-                        <a id="lk_telefono" href="http://www.belcorpresponde.com/" target="_blank">
-                            <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                            <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
-                                <div class="icono_llamanos"></div>
-                                <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                    <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
-                                    <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
-                                </div>
-                            </div>
-                            <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->                                            
-                        </a>
-                    }*@
+                        }*@
 
                     @if (ViewBag.PaisID == 11)
                     {
@@ -496,7 +497,7 @@
                     }
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 
     <script id="correo-template" type="text/x-handlebars-template">
@@ -525,7 +526,8 @@
     </script>
 
     <script id="telefonodesktop-template" type="text/x-handlebars-template">
-        <span>{{mensaje}}{{telefono}}</span><div></div>
+        <span>{{mensaje}}{{telefono}}</span>
+        <div></div>
     </script>
 
 
@@ -557,30 +559,25 @@
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
                     <b id="menPrioridad1" style="display:none;">Elige cómo prefieres cambiar tu contraseña.</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
-
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <b id="menPrioridad1_correo" style="display:none;">Te enviaremos un e-mail al siguiente correo: </b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
-
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <b id="menPrioridad1_sms" style="display:none;">Te enviaremos un mensaje de texto al siguiente número:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
-
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
-                    <b id="menPrioridad2_chat"style="display:none;">Puedes comunicarte con nosotros por este medio:</b>
+                    <b id="menPrioridad2_chat" style="display:none;">Puedes comunicarte con nosotros por este medio:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
-
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
-
                     <!-- INICIO - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                     <span id="menPrioridad3" class="texto_disculpa" style="display:none;">Sofía, discúlpanos, en estos momentos no podemos atenderte.</span>
                     <b style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
                     <!-- FIN - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                 </div>
 
-                <div class="opciones_recuperacion_contrasenia">                    
+                <div class="opciones_recuperacion_contrasenia">
                     <div id="prioridad1" style="display:none;">
                         <!-- INICIO - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
                         <a id="divRecup_porcorreo" class="opcion_recuperacion_contrasenia opcionCorreo RecuperarPorCorreo">
@@ -599,10 +596,9 @@
                                 <div class="numero_celular NumCelularDestino"></div>
                             </div>
                             <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
-                        </a>                        
+                        </a>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
-
                     <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <div id="prioridad1_correo" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -616,7 +612,6 @@
                         <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
-
                     <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <div id="prioridad1_sms" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -630,7 +625,6 @@
                         <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
-
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
                     <div id="prioridad2_chat" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -643,7 +637,6 @@
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
-
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <div id="Opcionesllamada" class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
                         <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
@@ -657,18 +650,16 @@
                             </div>
                         </div>
                         <!-- FIN - OPCIÓN LLAMADA DESKTOP -->
-
                         <!-- INICIO - OPCIÓN LLAMADA MOBILE -->
                         <div class="contenedor_solo_una_opcion opcionLlamada_mobile">
                             <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
                             <div id="divllamadasMobile" class="grupo_centrales_telefonicas_disponibles" style="display:none;">
-                                    
+
                             </div>
                         </div>
                         <!-- FIN - OPCIÓN LLAMADA MOBILE -->
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
-
                     <!-- INICIO - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                     <div id="prioridad3" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
@@ -682,8 +673,8 @@
                                         <span class="divHorario">Lunes a Viernes: 08:00 a 20:00</span>
                                     </div>
                                     @*<div>
-                                        <span class="divHs">Sábados: 08:00 a 18:00</span>
-                                    </div>*@
+                                            <span class="divHs">Sábados: 08:00 a 18:00</span>
+                                        </div>*@
                                 </div>
                             </div>
                         </div>
@@ -731,8 +722,9 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14) {
-                            <img  src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
+                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        {
+                            <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
                         else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
                         {
@@ -744,7 +736,7 @@
                     <p>
                         Te hemos enviado las instrucciones a :
                         <br />
-                        <p id="correoDestino" style="font: bold;"><strong></strong></p>
+                    <p id="correoDestino" style="font: bold;"><strong></strong></p>
                     </p>
                     <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a id="divPrimerInteto" class="accion_alternativa_posterior_envio_password RecuperarPorCorreo" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Reenviar mensaje a mi correo</a>
@@ -753,14 +745,13 @@
                     <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
                     <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-
                     @*<div style="display:none;">
-                        <span class="txto_no_llego_mensaje">No me llego el correo.</span>
-                        <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">
-                            <span>Ver más opciones</span>
-                            <span class="flecha_ver_mas_opciones"></span>
-                        </a>
-                    </div>*@
+                            <span class="txto_no_llego_mensaje">No me llego el correo.</span>
+                            <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">
+                                <span>Ver más opciones</span>
+                                <span class="flecha_ver_mas_opciones"></span>
+                            </a>
+                        </div>*@
 
                     <div id="divVolverInicio" style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
@@ -769,7 +760,6 @@
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
                 <!-- FIN - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
-
                 <!-- INICIO - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
                 <div id="divPopupIntentosSMS" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <h1 id="MenPrimerIntentoSms" style="display:none;">Por favor, revisa tu celular</h1>
@@ -819,7 +809,6 @@
                     <!-- Fin donde contiene el link -->
                 </div>
                 <!-- FIN - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
-
                 <!-- INICIO - MÁS OPCIONES -->
                 <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
@@ -937,7 +926,6 @@
                 <a id="btnCerrarCambioContraseniaPopup" href="#" class="cerrar" onclick="$('#popup3').hide();"></a>
 
                 <div id="headerCambioContrasenia">CAMBIO DE CONTRASEÑA</div>
-                <div class="indicador_lbel"></div>
                 <div class="mensaje_pop_up2">
                     <p>{{UsuarioName}}, no te preocupes.</p>
                 </div>
@@ -1141,7 +1129,7 @@
             </div>
 
             <div class="clear"></div>
-                
+
             <!-- INGRESA A TU CUENTA -->
             <div class="boxform">
                 <div class="formbtn">
@@ -1287,13 +1275,13 @@
     @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
     {
         <script type="text/javascript">
-        /* <![CDATA[ */
+            /* <![CDATA[ */
             var google_conversion_id = 0;
             var google_custom_params = window.google_tag_params;
             var google_remarketing_only = true;
-        /* ]]> */
+            /* ]]> */
         </script>
-        
+
         <noscript id="noscript-pixel-image"></noscript>
     }
 
@@ -1305,14 +1293,14 @@
             foreach (var paisAnalytics in Model.ListPaisAnalytics)
             {
                 <text>
-                    configAnalytics.listPaisAnalytics.push({
-                        CodigoISO: '@paisAnalytics.CodigoISO',
-                        GndId: @(paisAnalytics.GndId),
-                        PixelId: '@paisAnalytics.PixelId',
-                        SearchId: @(paisAnalytics.SearchId),
-                        YoutubeId: @(paisAnalytics.YoutubeId)
-                    })
-                </text>
+        configAnalytics.listPaisAnalytics.push({
+            CodigoISO: '@paisAnalytics.CodigoISO',
+            GndId: @(paisAnalytics.GndId),
+            PixelId: '@paisAnalytics.PixelId',
+            SearchId: @(paisAnalytics.SearchId),
+            YoutubeId: @(paisAnalytics.YoutubeId)
+            })
+        </text>
             }
         }
     </script>

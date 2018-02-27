@@ -855,7 +855,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #bg_1, #popup_olvidasteContrasenia, #popup_cambioContrasenia, #popup_opciones_recuperacion_contrasenia {
     font-family: lato;
-    overflow-y: scroll;
+    overflow-y: auto;
     position: fixed;
     z-index: 1000;
     width: 100%;
@@ -948,7 +948,9 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
+    padding-top:29px;
     padding-bottom: 55px;
+    margin-bottom:30px;
 }
 
 .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
@@ -961,6 +963,7 @@ h1, h2, h3, h4, h5, h6 {
     background: white;
     padding-top:29px;
     padding-bottom: 44px;
+    margin-bottom:30px;
 }
 
 .content_bg_olvidasteContrasenia{
@@ -1001,7 +1004,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contenedor_cabecera_popup{
     display:block;
-    overflow:hidden;
+    margin-bottom:40px;
 }
 
 #popup3{
@@ -1024,13 +1027,13 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid black;
 }
 
-#header span{
+#header > span, #header_cambioContrasenia > span{
     display:block;
     letter-spacing:1px;
 }
 
-#header{
-    padding-left: 20.2%;
+.content_bg_1 #header{
+    padding-left:15.5%;
 }
 
 #header_cambioContrasenia{
@@ -1047,6 +1050,11 @@ h1, h2, h3, h4, h5, h6 {
     height: 15px;
     margin-left: 1%;
     margin-top: -1px;
+}
+
+.content_bg_1 .mensaje_pop_up{
+    margin-top:40px;
+    margin-bottom:44px;
 }
 
 .mensaje_pop_up {
@@ -1793,6 +1801,10 @@ h1, h2, h3, h4, h5, h6 {
 
     #header{
         padding-left: 6.3%!important;
+    }
+
+    .content_bg_1 #header{
+        padding-left:16%!important;
     }
 
 }
@@ -3148,6 +3160,10 @@ h1, h2, h3, h4, h5, h6 {
         margin-bottom:5%;
     }
 
+    .content_bg_1 #header{
+        padding-left:10%!important;
+    }
+
     #header {
         width: 100%!important;
     }
@@ -3246,6 +3262,13 @@ h1, h2, h3, h4, h5, h6 {
     .btn_ingresar_chat{
         width:100%;
         max-width:none;
+    }
+
+    .content_bg_1 .mensaje_pop_up{
+        margin-left:9%;
+        margin-right:9%;
+        margin-top: 38px;
+        margin-bottom: 38px;
     }
 
     .mensaje_pop_up_contraseniaEnviada h1{
