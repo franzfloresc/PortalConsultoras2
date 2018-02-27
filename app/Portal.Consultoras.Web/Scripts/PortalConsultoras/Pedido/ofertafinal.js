@@ -618,7 +618,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
             if (valoresOFR != null) {
                 if (valoresOFR.meta > 0 && valoresOFR.total > 0 && valoresOFR.total >= valoresOFR.meta) {
-                    if (consultoraRegaloPN != 'True')
+                    //if (consultoraRegaloPN != 'True')
                         //$("#spnTituloOfertaFinal span").html("FELICIDADES " + nombreConsultora + "</br><b>!GANASTE EL PREMIO!</b>");
                 }
             }
@@ -692,7 +692,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     else if (tipoMeta == "RG") {
         if (esOfertaFinalRegalo) {
             if (valoresOFR != null) {
-                if (valoresOFR.total >= valoresOFR.meta && valoresOFR.meta > 0 && valoresOFR.total > 0)
+                //if (valoresOFR.total >= valoresOFR.meta && valoresOFR.meta > 0 && valoresOFR.total > 0)
                     //$("#spnTituloOfertaFinal span").html("FELICIDADES " + nombreConsultora + "</br><b>!GANASTE EL PREMIO!</b>");
             }
             //if (ofertaFinalRegalo != null) {

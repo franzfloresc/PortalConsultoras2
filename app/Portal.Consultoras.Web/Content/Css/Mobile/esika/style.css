@@ -6640,6 +6640,40 @@ input[type='checkbox']:checked + span:after {
         transform: rotate(-45deg);
     }
 
+.draw_close_2 {
+    position: relative;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .draw_close_2::before,
+    .draw_close_2::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 1px; /* cross thickness */
+        background-color: #fff;
+    }
+
+    .draw_close_2::before {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .draw_close_2::after {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
 /*MENSAJES DE ALERTA CATÁLOGOS*/
 .MensajeAlertaMobile {
     position: fixed;
@@ -8954,7 +8988,7 @@ span.title-app-b {
 }
 
 .ofertaFinal_descripcion {
-    display: block;
+    display: none;
     font-family: 'Lato';
     font-size: 13px;
     line-height: 1.23;
@@ -9005,7 +9039,7 @@ span.title-app-b {
             background: #fff;
             width: 237px;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 20px auto;
             height: 460px;
             border: 1px solid #e7e1e1;
             box-shadow: 0 15px 18px -7px rgba(204,200,204,1);
@@ -9093,10 +9127,9 @@ span.title-app-b {
     background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png') no-repeat;
     background-size: 27px;
     background-position: 0;
-    padding-left: 46px;
-    height: 28px;
-    font-size: 12px;
-    margin-bottom: 5px;
+    padding-left: 40px;
+    height: 32px;
+    margin: -18px auto 5px auto;
 }
 /* FIN POPUP OFERTA FINAL */
 
@@ -11331,6 +11364,7 @@ a {
 /*NUEVO OF*/
 .content_texto_OPT {
     margin-bottom: 0;
+    padding-top: 20px;
 }
 
 .margenSuperiorProgramaNuevas {
@@ -13670,17 +13704,16 @@ a {
 }
 
 .btn_regresa_OF {
-    background: url('../../../Images/Esika/regresar.png') no-repeat;
-    background-position: 15px 8px;
+    background: url(../../../Images/Esika/regresar.png) no-repeat;
+    background-position: 15px 10px;
     text-transform: uppercase;
     height: 40px;
     font-family: 'Lato';
-    font-weight: 700;
     color: white;
-    font-size: 13px;
-    letter-spacing: 1px;
+    font-size: 11px;
+    letter-spacing: .5px;
     line-height: 39px;
-    padding-left: 40px;
+    padding-left: 35px;
 }
 
 .icono_regalo_sorpresa {
@@ -13694,8 +13727,6 @@ a {
     }
 
 .txt_regalo_sorpresa_popup {
-    /*width: 225px;
-    height: 48px;*/
     font-family: 'Lato';
     text-align: center;
     color: #ffffff;
@@ -13746,8 +13777,34 @@ a {
 }
 
 .content_info_regalo {
+    padding: 22px 10px 22px 10px;
+    background: #FFF;
+    width: 237px;
     display: block;
-    padding: 22px 10px 0 10px;
+    margin: 0 auto 20px auto;
+    /* height: 460px; */
+    border: 1px solid #e7e1e1;
+    box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -moz-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -o-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -ms-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+    -webkit-box-shadow: 0 15px 18px -7px rgba(0,0,0,1);
+}
+
+.boton_quiero_este_premio {
+    display: block;
+    height: 45px;
+    line-height: 44px;
+    background: black;
+    color: white;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    cursor: pointer;
+    margin: 0 auto 0 auto;
+    width: 90%;
+    vertical-align: top;
+    letter-spacing: 0.5px;
 }
 
 .titulo_regalo_producto {
@@ -13816,25 +13873,64 @@ a {
 }
 
 .btn_sigue_comprando {
-    margin: 0 auto;
-    margin-top: 16px;
+    margin: 10px auto 0 auto;
     height: 45px;
-    width: 90%;
+    width: 80%;
     max-width: 280px;
     line-height: 44px;
     display: block;
     color: white;
     font-family: 'Lato';
     font-size: 14px;
-    padding-left: 50px;
-    font-weight: 700;
-    margin-bottom: 0;
-    background: black url('../../../Images/Esika/regresar.png') no-repeat;
-    background-position: 26px 11px;
+    padding-left: 35px;
+    background: black url(../../../Images/Esika/regresar.png) no-repeat;
+    background-position: 10px 12px;
+}
+
+.arrow_box {
+    position: relative;
+    background: #000000;
+    width: 237px;
+    margin: 15px auto 0px auto;
+    padding: 10px;
+}
+
+    .arrow_box:after {
+        top: 100%;
+        left: 50%;
+        content: " ";
+        border: solid transparent;
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000000;
+        border-width: 10px;
+        margin-left: -10px;
+    }
+
+.span_1_regalo_sorpresa_producto {
+    font-size: 10.4px;
+}
+
+.span_2_regalo_sorpresa_producto {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .8px;
+}
+
+.txt_nota_premio {
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 13px;
+    display: block;
+    color: white;
+    text-align: center;
+    line-height: 1.31;
 }
 
 .btn_legal_RS {
-    margin-top: 36px;
     font-family: 'Lato';
     font-size: 13px;
     display: block;
