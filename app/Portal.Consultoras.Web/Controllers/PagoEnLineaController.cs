@@ -236,73 +236,73 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (sidx)
                     {
                         case "CampaniaId":
-                            items = lst.OrderBy(x => x.CampaniaId);
+                            items = lst.OrderByDescending(x => x.CampaniaId);
                             break;
                         case "NombreComercio":
-                            items = lst.OrderBy(x => x.NombreComercio);
+                            items = lst.OrderByDescending(x => x.NombreComercio);
                             break;
                         case "IdUnicoTransaccion":
-                            items = lst.OrderBy(x => x.IdUnicoTransaccion);
+                            items = lst.OrderByDescending(x => x.IdUnicoTransaccion);
                             break;
                         case "PagoEnLineaResultadoLogId":
-                            items = lst.OrderBy(x => x.PagoEnLineaResultadoLogId);
+                            items = lst.OrderByDescending(x => x.PagoEnLineaResultadoLogId);
                             break;
                         case "NombreCompleto":
-                            items = lst.OrderBy(x => x.NombreCompleto);
+                            items = lst.OrderByDescending(x => x.NombreCompleto);
                             break;
                         case "FechaCreacionFormat":
-                            items = lst.OrderBy(x => x.FechaCreacionFormat);
+                            items = lst.OrderByDescending(x => x.FechaCreacionFormat);
                             break;
                         case "FechaCreacionHoraFormat":
-                            items = lst.OrderBy(x => x.FechaCreacionHoraFormat);
+                            items = lst.OrderByDescending(x => x.FechaCreacionHoraFormat);
                             break;
                         case "CodigoConsultora":
-                            items = lst.OrderBy(x => x.CodigoConsultora);
+                            items = lst.OrderByDescending(x => x.CodigoConsultora);
                             break;
                         case "NumeroDocumento":
-                            items = lst.OrderBy(x => x.NumeroDocumento);
+                            items = lst.OrderByDescending(x => x.NumeroDocumento);
                             break;
                         case "Canal":
-                            items = lst.OrderBy(x => x.Canal);
+                            items = lst.OrderByDescending(x => x.Canal);
                             break;
                         case "Ciclo":
-                            items = lst.OrderBy(x => x.Ciclo);
+                            items = lst.OrderByDescending(x => x.Ciclo);
                             break;
                         case "ImporteAutorizado":
-                            items = lst.OrderBy(x => x.ImporteAutorizado);
+                            items = lst.OrderByDescending(x => x.ImporteAutorizado);
                             break;
                         case "MontoGastosAdministrativos":
-                            items = lst.OrderBy(x => x.MontoGastosAdministrativos);
+                            items = lst.OrderByDescending(x => x.MontoGastosAdministrativos);
                             break;
                         case "IVA":
-                            items = lst.OrderBy(x => x.IVA);
+                            items = lst.OrderByDescending(x => x.IVA);
                             break;
                         case "MontoPago":
-                            items = lst.OrderBy(x => x.MontoPago);
+                            items = lst.OrderByDescending(x => x.MontoPago);
                             break;
                         case "TicketId":
-                            items = lst.OrderBy(x => x.TicketId);
+                            items = lst.OrderByDescending(x => x.TicketId);
                             break;
                         case "CodigoRegion":
-                            items = lst.OrderBy(x => x.CodigoRegion);
+                            items = lst.OrderByDescending(x => x.CodigoRegion);
                             break;
                         case "CodigoZona":
-                            items = lst.OrderBy(x => x.CodigoZona);
+                            items = lst.OrderByDescending(x => x.CodigoZona);
                             break;
                         case "OrigenTarjeta":
-                            items = lst.OrderBy(x => x.OrigenTarjeta);
+                            items = lst.OrderByDescending(x => x.OrigenTarjeta);
                             break;
                         case "NumeroTarjeta":
-                            items = lst.OrderBy(x => x.NumeroTarjeta);
+                            items = lst.OrderByDescending(x => x.NumeroTarjeta);
                             break;
                         case "NumeroOrdenTienda":
-                            items = lst.OrderBy(x => x.NumeroOrdenTienda);
+                            items = lst.OrderByDescending(x => x.NumeroOrdenTienda);
                             break;
                         case "MensajeError":
-                            items = lst.OrderBy(x => x.MensajeError);
+                            items = lst.OrderByDescending(x => x.MensajeError);
                             break;
                         case "CodigoError":
-                            items = lst.OrderBy(x => x.CodigoError);
+                            items = lst.OrderByDescending(x => x.CodigoError);
                             break;
                     }
                 }
