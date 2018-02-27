@@ -1760,8 +1760,8 @@ namespace Portal.Consultoras.Common
 
             public static class Code
             {
-                public const string SUCCESS = "0";
-                public const string ERROR_PRODUCTO_NOEXISTE = "1";
+                public const string SUCCESS = "0000";
+                public const string ERROR_PRODUCTO_NOEXISTE = "1101";
             }
 
             public static Dictionary<string, string> Message
