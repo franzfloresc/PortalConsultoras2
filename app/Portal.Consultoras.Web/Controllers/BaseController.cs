@@ -3085,7 +3085,7 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            if (!GNDValidarAcceso())
+                            if (!GNDValidarAcceso(revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -3662,7 +3662,7 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        if (!GNDValidarAcceso())
+                        if (!GNDValidarAcceso(revistaDigital))
                             continue;
 
                         confiModel.UrlMenu = "GuiaNegocio";
@@ -3914,7 +3914,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Guia de Negocio Digitalizada
-        public virtual bool GNDValidarAcceso()
+        public virtual bool GNDValidarAcceso(RevistaDigitalModel revistaDigital)
         {
             var acceso = !(revistaDigital.TieneRDC && revistaDigital.EsActiva);
             return acceso;

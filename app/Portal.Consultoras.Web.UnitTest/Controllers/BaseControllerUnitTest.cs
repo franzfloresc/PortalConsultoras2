@@ -277,6 +277,47 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-gnd.png",
+                            DesktopLogoBanner = "logo-gnd.png",
+                            DesktopTituloBanner = "#Nombre, disfruta de tu guía de negocio online",
+                            DesktopSubTituloBanner = "Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.",
+                            DesktopTituloMenu = "EXPLORA|GUÍA DE NEGOCIO",
+                            Orden = 1
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-gnd.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-gnd.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, disfruta de tu guía de negocio online", result.DesktopTituloBanner);
+                Assert.AreEqual("Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.", result.DesktopSubTituloBanner);
+                Assert.AreEqual("EXPLORA", result.DesktopTituloMenu);
+                Assert.AreEqual("GUÍA DE NEGOCIO", result.DesktopSubTituloMenu);
+                Assert.AreEqual("GuiaNegocio", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+
+            [TestMethod]
             public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
             {
                 Assert.Inconclusive();
@@ -284,6 +325,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             [TestMethod]
             public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
+            {
+                Assert.Inconclusive();
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
             {
                 Assert.Inconclusive();
             }
