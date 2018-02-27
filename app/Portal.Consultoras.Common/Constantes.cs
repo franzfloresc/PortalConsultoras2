@@ -1762,6 +1762,7 @@ namespace Portal.Consultoras.Common
             {
                 public const string SUCCESS = "0000";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                public const string ERROR_PRODUCTO_AGOTADO = "1102";
             }
 
             public static Dictionary<string, string> Message
@@ -1772,6 +1773,7 @@ namespace Portal.Consultoras.Common
                     {
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
+                        {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                     });
                 }
             }

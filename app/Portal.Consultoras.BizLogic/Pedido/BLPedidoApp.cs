@@ -20,7 +20,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public BEProductoApp GetCUV(BEProductoFiltro productoFiltro)
         {
-            var productos = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
+            var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
                                 productoFiltro.paisID, 
                                 productoFiltro.campaniaID, 
                                 productoFiltro.codigoDescripcion, 
@@ -30,11 +30,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                 productoFiltro.CodigoZona, 
                                 productoFiltro.criterio, 
                                 productoFiltro.rowCount, 
-                                productoFiltro.validarOpt);
+                                productoFiltro.validarOpt).FirstOrDefault();
 
-            if(!productos.Any()) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+            if(producto == null) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
-            return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.SUCCESS, productos.FirstOrDefault());
+            if (!producto.TieneStock) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_AGOTADO);
+
+            return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.SUCCESS, producto);
         }
 
         private BEProductoApp ProductoMensajeRespuesta(string codigoRespuesta, BEProducto producto = null)
