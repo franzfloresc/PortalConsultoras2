@@ -369,7 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return new List<EstrategiaPedidoModel>();
                 }
 
-                #region Validar Tipo RD
+                #region Validar Tipo RD 
 
                 if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
                 {

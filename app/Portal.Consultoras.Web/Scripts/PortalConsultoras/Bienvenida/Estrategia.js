@@ -12,6 +12,8 @@ var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
+var revistaDigital = revistaDigital || null;
+
 $(document).ready(function () {
     $('body').on('click', '[data-tono-change]', function (e) {
         var accion = $(this).attr("data-tono-change");
@@ -286,6 +288,7 @@ function ArmarCarouselEstrategias(data) {
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
+        $('.contenido_gana_mas').hide();
         return false;
     }
 
@@ -316,6 +319,31 @@ function ArmarCarouselEstrategias(data) {
         }
     } catch (e) {
     }
+    if (revistaDigital != null) {
+        if (revistaDigital.TieneRDC) {
+            if (!revistaDigital.EsActiva) {
+                if (!revistaDigital.EsSuscrita) {
+                    var bannerClubGanaMas = new Object();
+                    bannerClubGanaMas.EsBanner = true;
+                    bannerClubGanaMas.TextoBanner = "Mensaje de Prueba";
+                    $.extend(true, bannerClubGanaMas, data.Lista[0]);
+
+                    $.each(data.Lista, function (i, item) {
+                        item.EsBanner = false;
+                        item.TextoBanner = "";
+                    });
+                    if (tipoOrigenEstrategia == 1) {
+                        data.Lista.splice(3, 0, bannerClubGanaMas);
+                    } else if (tipoOrigenEstrategia == 11) {
+                        data.Lista.splice(1, 0, bannerClubGanaMas);
+                    }
+                }
+            }
+        }
+    }
+    
+    
+
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
 

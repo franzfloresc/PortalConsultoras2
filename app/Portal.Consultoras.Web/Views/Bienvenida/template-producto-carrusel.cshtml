@@ -1,13 +1,63 @@
 ﻿<script id="producto-landing-template" type="text/x-handlebars-template">
+
     {{#each this.lista as |item|}}
 
+    {{#iff EsBanner}}
+    <!--Brayan aqui el Banner-->
+    <div data-item="16767" data-item-cuv="95469" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide slick-current slick-active" tabindex="-1" role="option" style="" data-slick-index="0" aria-hidden="false">
+        <input class="PosicionEstrategia" value="1" tabindex="0" type="hidden">
+        <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+            <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201804,&quot;EstrategiaID&quot;:16767,&quot;CUV2&quot;:&quot;95469&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:1,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000867952018150843_seplvzywym.png&quot;,&quot;FotoProductoSmall&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000867952018150843_seplvzywym_small.png&quot;,&quot;FotoProductoMedium&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000867952018150843_seplvzywym_medium.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Ésika&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;4 Mascara 6en1 Esika Pro 10ml&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;4 Mascara 6en1 Esika Pro 10ml&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:63.6,&quot;Precio2&quot;:46.8,&quot;PrecioTachado&quot;:&quot;63.60&quot;,&quot;PrecioVenta&quot;:&quot;46.80&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:false,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;2001&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;PrecioPublico&quot;:15.9,&quot;MarcaID&quot;:2,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;Ganancia&quot;:16.8,&quot;GananciaString&quot;:&quot;16.80&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:[],&quot;EsOfertaIndependiente&quot;:false,&quot;ImagenOfertaIndependiente&quot;:null,&quot;MostrarImgOfertaIndependiente&quot;:false,&quot;PrecioNiveles&quot;:null}"></div></div>
+            <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                <div class="producto_img_home" data-item-tag="foto">
+                    <img class="imagen_producto slick-lazyload-error" style="max-width: 100% !important;" data-img-lazy="1" data-lazy-seccion-revista-digital="">
+                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="0">VER DETALLE</a>
+                </div>
+                <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                    <h6>Ésika</h6>
+                    <p class="nombre_producto"><b>{{TextoBanner}}</b></p>
+                </div>
+                <div class="producto_nombre_descripcion" data-item-tag="precio">
+                    <div>
+                        <span class="producto_precio_normal">S/. 63.60</span>
+                        <span class="producto_precio_oferta"><b>S/. 46.80</b></span>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                <div>
+                    <div class="texto_elige_tono"></div>
+                    <div class="clear"></div>
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <div style="margin: 9px 0;height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:none;">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript: VerDetalleEstrategia(event);" {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
-                <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
+                    <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     {{#iff TieneVerDetalle}}
                     <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
@@ -21,7 +71,7 @@
                 {{else}}
                 {{#iff ImagenURL '!=' ''}}
                 <div class="etiqueta_producto" data-item-tag="etiqueta">
-                <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
+                    <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                 </div>
                 {{/iff}}
                 {{/iff}}
@@ -98,6 +148,8 @@
             </div>
         </div>
     </div>
-
+    {{/iff}}
     {{/each}}
+
+
 </script>
