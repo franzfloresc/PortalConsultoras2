@@ -1,23 +1,33 @@
 ﻿$(document).ready(function () {
     
-    $(".popup_confirmacion_datos .form-datos .input input#Email").on("keyup", function () {
+    $(".popup_confirmacion_datos .form-datos .input input#Email").on("keyup", function (event) {
+        event.stopPropagation();
         ValidateButton();
     });
     
-    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function () {
+    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function (event) {
+        event.stopPropagation();
         ValidateButton();
     });
     
-    
-    $(".popup_confirmacion_datos .form-datos .input input#Email").on("blur", function () {
+    $(".popup_confirmacion_datos .form-datos .input input#Email").on("blur", function (event) {
+        event.stopPropagation();
         CheckEmail();
     });
 
-    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("blur", function () {
+    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("blur", function (event) {
+        event.stopPropagation();
         CheckPhone();
     });
+    
     $("#chkinput").on("change", function () {
+        event.stopPropagation();
         CheckTermCondiciones();
+    });
+    
+    $("#buttonConfirmarDatos").on("click", function (event) {
+        event.stopPropagation();
+        RDConfirmarDatos();
     });
     
     $("a[data-popup-close=PopRDSuscripcion]").on("click", function () {
@@ -90,31 +100,33 @@ function ValidateButton() {
     }
 }
 function RDConfirmarDatos() {
-    
-    if (CheckEmail() && CheckPhone() && CheckTermCondiciones()) {
+    AbrirLoad();
+    if (CheckTermCondiciones() && CheckEmail() && CheckPhone()) {
         AbrirLoad();
         var correoAnterior = $.trim($("#CorreoAnterior").val());
         var celular = $.trim($("#Celular").val()).toString();
         var email = $.trim($("#Email").val()).toString();
-       
+
         var confirmarDatosModel = {
             Email: email,
             Celular: celular,
             CorreoAnterior: correoAnterior
         }
-        
+
         rdAnalyticsModule.GuardarDatos();
         RDConfirmarDatosPromise(confirmarDatosModel).then(
-            function (data) {
+            function(data) {
                 CerrarLoad();
                 //alert(data.message);
                 window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
             },
-            function (xhr, status, error) {
+            function(xhr, status, error) {
                 CerrarLoad();
             }
-        ); 
-    } 
+        );
+    } else {
+        CerrarLoad();
+    }
 } 
 
 function RDConfirmarDatosPromise(confirmarDatosModel) {
