@@ -235,7 +235,55 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.ShowRoom,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-sr.png",
+                            DesktopLogoBanner = "logo-sr.png",
+                            DesktopTituloBanner = "#Nombre, APROVECHA ESTAS OFERTAS DISEÑADAS SOLO PARA TI.",
+                            DesktopSubTituloBanner = "Suma al monto mínimo del pedido, suma la escala de comisión, otorga puntaje. No comisiona. Precio neto consultora.",
+                            DesktopTituloMenu = "Especial|Día de la Mujer",
+                            UrlMenu = "ShowRoom",
+                            Orden = 1
+                        }
+                    });
+                sessionManager.Setup(x => x.GetEsShowRoom()).Returns(true);
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.ShowRoom, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-sr.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-sr.png", result.DesktopLogoBanner);
+                Assert.AreEqual("vvilelaj, APROVECHA ESTAS OFERTAS DISEÑADAS SOLO PARA TI.", result.DesktopTituloBanner);
+                Assert.AreEqual("Suma al monto mínimo del pedido, suma la escala de comisión, otorga puntaje. No comisiona. Precio neto consultora.", result.DesktopSubTituloBanner);
+                Assert.AreEqual("Especial", result.DesktopTituloMenu);
+                Assert.AreEqual("Día de la Mujer", result.DesktopSubTituloMenu);
+                Assert.AreEqual("ShowRoom/Intriga", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
+            }
+
+            [TestMethod]
             public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
+            {
+                Assert.Inconclusive();
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
             {
                 Assert.Inconclusive();
             }
