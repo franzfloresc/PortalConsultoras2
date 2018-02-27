@@ -16,6 +16,6 @@ namespace Portal.Consultoras.Web.Models
         public string Celular { get; set; }
         public int LimiteMax { get; set; }
         public int LimiteMin { get; set; }
-        
+        public string UrlTerminosCondicionesDatosUsuario { get; set; }
     }
 }

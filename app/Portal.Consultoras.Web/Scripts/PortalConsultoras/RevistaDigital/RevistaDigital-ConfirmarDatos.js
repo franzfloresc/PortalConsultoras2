@@ -1,87 +1,120 @@
 ﻿$(document).ready(function () {
+    
+    $(".popup_confirmacion_datos .form-datos .input input#Email").on("keyup", function () {
+        ValidateButton();
+    });
+    
+    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function () {
+        ValidateButton();
+    });
+    
+    
+    $(".popup_confirmacion_datos .form-datos .input input#Email").on("blur", function () {
+        CheckEmail();
+    });
+
+    $(".popup_confirmacion_datos .form-datos .input input#Celular").on("blur", function () {
+        CheckPhone();
+    });
+    $("#chkinput").on("change", function () {
+        CheckTermCondiciones();
+    });
+    
     $("a[data-popup-close=PopRDSuscripcion]").on("click", function () {
         rdAnalyticsModule.CerrarPopUp("ConfirmarDatos");
         window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
     });
-
-    $("#Celular").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[0-9+ *#-]/;
-            return re.test(keyChar);
-        }
-    });
-
-    $("#Email").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            return re.test(keyChar);
-        }
-    });
 });
 
-function RDConfirmarDatos() {
-    var correoAnterior = $.trim($('#CorreoAnterior').val());
-    var email = $.trim($('#Email').val());
-    var celular = $.trim($('#Celular').val());
-
-    if (email === '' && celular === '') {
-        alert('Debe ingresar al menos un campo.');
+function CheckTermCondiciones() {
+    if ($("#chkinput").attr("checked")) {
+        $("label[for='chkinput']").css("border", "none");
+        return true;
+    } else {
+        $("label[for='chkinput']").css("border", "1px solid red");
         return false;
     }
+}
 
-    if (email !== '') {
+function CheckEmail() {
+    var email = $.trim($("#Email").val()).toString();
+    if (email !== "") {
         if (!validateEmail(email)) {
-            $('#Email').focus();
-            alert("El formato del correo electrónico ingresado no es correcto.\n");
+            $("#Email").focus();
+            $("#errorEmail").text("El formato del correo ingresado no es correcto.").fadeIn();
             return false;
-        }
-    }
+        } else LimpiarError();
 
-    if (celular !== '') {
+    }
+    return true;
+}
+
+function CheckPhone() {
+    var celular = $.trim($("#Celular").val()).toString();
+    if (celular !== "") {
+        var error = false;
+
+        if (!limitarMinimo(celular, $("#hdn_CaracterMinimo").val(), 2)) {
+            $("#txtCelularMD").focus();
+            $("#errorPhone").text("El formato del celular no es correcto.").fadeIn();
+            error = true;
+        } else {
+            if (!ValidarTelefono(celular)) {
+                $("#errorPhone").text("El número de celular ya está en uso.").fadeIn();
+                error = true;
+            }
+        }
+        if (error) return false;
+        else LimpiarError();
+    }
+    return true;
+}
+
+function LimpiarError() {
+    $("#errorPhone").fadeOut();
+    $("#errorEmail").fadeOut();
+    $("#errorCampos").fadeOut();
+}
+
+function ValidateButton() {
+    if ($(".popup_confirmacion_datos .form-datos .input input#Email").val() != "" || $(".popup_confirmacion_datos .form-datos .input input#Celular").val() != "") {
+        $(".popup_confirmacion_datos .form-datos button").removeAttr("disabled");
+        $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+        $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+    }
+    else {
+        $(".popup_confirmacion_datos .form-datos button").attr("disabled", "disabled");
+        $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+        $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+        LimpiarError();
+    }
+}
+function RDConfirmarDatos() {
+    
+    if (CheckEmail() && CheckPhone() && CheckTermCondiciones()) {
         AbrirLoad();
-        if (!ValidarTelefono(celular)) {
-            alert('El formato del celular no es correcto.');
-            CerrarLoad();
-            return false;
+        var correoAnterior = $.trim($("#CorreoAnterior").val());
+        var celular = $.trim($("#Celular").val()).toString();
+        var email = $.trim($("#Email").val()).toString();
+       
+        var confirmarDatosModel = {
+            Email: email,
+            Celular: celular,
+            CorreoAnterior: correoAnterior
         }
-        CerrarLoad();
-
-        var tieneCantidadMinimaCaracteres = limitarMinimo(celular, $("#hdn_CaracterMinimo").val(), 2);
-        if (!tieneCantidadMinimaCaracteres) {
-            $('#txtCelularMD').focus();
-            alert('El formato del celular no es correcto.');
-            return false;
-        }
-    }
-    
-    rdAnalyticsModule.GuardarDatos();
-    
-    var confirmarDatosModel = {
-        Email: email,
-        Celular: celular,
-        CorreoAnterior: correoAnterior
-    }
-    AbrirLoad();
-    RDConfirmarDatosPromise(confirmarDatosModel).then(
-        function (data) {
-            CerrarLoad();
-            alert(data.message);
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
-        },
-        function (xhr, status, error) {
-            CerrarLoad();
-        }
-    );
+        
+        rdAnalyticsModule.GuardarDatos();
+        RDConfirmarDatosPromise(confirmarDatosModel).then(
+            function (data) {
+                CerrarLoad();
+                //alert(data.message);
+                window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+            },
+            function (xhr, status, error) {
+                CerrarLoad();
+            }
+        ); 
+    } 
 } 
 
 function RDConfirmarDatosPromise(confirmarDatosModel) {
@@ -89,10 +122,10 @@ function RDConfirmarDatosPromise(confirmarDatosModel) {
     var d = $.Deferred();
 
     var promise = $.ajax({
-        type: 'POST',
-        url: baseUrl + 'RevistaDigital/ActualizarDatos',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        type: "POST",
+        url: baseUrl + "RevistaDigital/ActualizarDatos",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(confirmarDatosModel),
         async: true
     });
@@ -114,10 +147,10 @@ function ValidarTelefono(celular) {
     };
 
     jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        type: "POST",
+        url: baseUrl + "Bienvenida/ValidadTelefonoConsultora",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(item),
         async: false,
         cache: false,
@@ -158,9 +191,7 @@ function limitarMaximo(e, contenido, caracteres, id) {
 
 function limitarMinimo(contenido, caracteres, a) {
     if (contenido.length < caracteres && contenido.trim() != "") {
-        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
-        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
-    }
+    } 
     return true;
 }

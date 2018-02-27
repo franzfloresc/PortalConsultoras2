@@ -4609,5 +4609,46 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
+
+        public string GetUrlTerminosCondicionesDatosUsuario()
+        {
+            var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+            var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
+            return ConfigS3.GetUrlFileS3(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc, String.Empty);
+        }
+
+        public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (userData.PaisID)
+            {
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 8;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 9;
+                    limiteMaximoTelef = 10;
+                    break;
+                default:
+                    limiteMinimoTelef = 0;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
+        }
     }
 }

@@ -20,41 +20,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-            #region limite Min - Max Telef
-
             int limiteMinimoTelef, limiteMaximoTelef;
-            
-            switch (userData.PaisID)
-            {
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
-                    limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
-                    limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
-                    limiteMaximoTelef = 10;
-                    break;
-                default:
-                    limiteMinimoTelef = 0;
-                    limiteMaximoTelef = 15;
-                    break;
-            }
-            #endregion
+            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
 
             var modelo = new RevistaDigitalInformativoModel
             {
@@ -68,7 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Email = userData.EMail,
                 Celular = userData.Celular,
                 LimiteMax = limiteMaximoTelef,
-                LimiteMin = limiteMinimoTelef
+                LimiteMin = limiteMinimoTelef,
+                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario()
             };
 
             return View("template-informativa", modelo);

@@ -51,21 +51,6 @@ $(document).ready(function () {
         $(window).scroll();
     });
 
-    /* popup validar datos 2017 */
-
-    $(".popup_confirmacion_datos .form-datos .input input#Email, .popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function () {
-        if ($('.popup_confirmacion_datos .form-datos .input input#Email').val() != "" || $('.popup_confirmacion_datos .form-datos .input input#Celular').val() != "") {
-            $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
-            $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
-            $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
-        }
-        else {
-            $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
-            $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
-            $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
-        }
-    });
-
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
