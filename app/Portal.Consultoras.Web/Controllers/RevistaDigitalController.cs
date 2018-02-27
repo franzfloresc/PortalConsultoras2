@@ -483,6 +483,10 @@ namespace Portal.Consultoras.Web.Controllers
                     FondoColorMarco = GetValorDato(Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco)
                 };
 
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                modelo.ImagenEtiqueta = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenEtiqueta, String.Empty);
+                modelo.ImagenPublicidad = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenPublicidad, String.Empty);
+
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);
                 modelo.BotonColorFondo = Util.ColorFormato(modelo.BotonColorFondo, transparent);
