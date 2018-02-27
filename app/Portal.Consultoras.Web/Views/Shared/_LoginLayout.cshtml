@@ -92,7 +92,7 @@
 
     @RenderSection("headerScripts", required: false)
 </head>
-<body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="" >
+<body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -208,8 +208,13 @@
     <div id="bg_1" style="display: none;">
         <div class="content_bg_1">
             <a href="javascript:closeit()" class="cerrar"></a>
-            <div id="header">CREA TU CORREO</div>
-            <div class="indicador_lbel"></div>
+            <div id="header">
+                <div class="fondo_sesgado"></div>
+                <span>
+                    CREA <strong>TU CORREO</strong>
+                </span>
+                <div class="indicador_lbel"></div>
+            </div>
             <div class="mensaje_pop_up">
                 Necesitas tener un correo electrónico para utilizar nuestra plataforma.
                 <br />
@@ -326,7 +331,7 @@
             </a>
         </div>
         <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
-        <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" /> 
+        <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" />
     </div>
 
     <!--[if lt IE 11>
