@@ -9,7 +9,7 @@ using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Common; 
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);  
 
             Dictionary<string, string> dic =
                             new Dictionary<string, string> {

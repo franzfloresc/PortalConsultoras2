@@ -99,7 +99,7 @@ else
                     <ul>
                         <li><a href="#tab-regalos">Regalos</a></li>
                         <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
-                    <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
+                        <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
                     </ul>
                     @*seccion regalos*@
                     <div id="tab-regalos">
@@ -161,20 +161,20 @@ else
                     </div>
                     <div id="tab-categorias-apoyadas"></div>
                     @*regalos*@
-                <div id="tab-ganadoras" > 
-                    <div>
-                        <div class="div-3">
-                            <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
-                        </div>
-                        <div class="div-3">
-                            <div class="wrap">
-                                <div class="container clearfix">
-                                    <table id="listOfertaFinalMontoMeta"></table>
+                    <div id="tab-ganadoras" >
+                        <div>
+                            <div class="div-3">
+                                <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
+                            </div>
+                            <div class="div-3">
+                                <div class="wrap">
+                                    <div class="container clearfix">
+                                        <table id="listOfertaFinalMontoMeta"></table>
+                                    </div>
+                                    <div id="pagerListaRegalos"></div>
                                 </div>
-                                <div id="pagerListaRegalos"></div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <div class="div-3">
@@ -293,7 +293,7 @@ else
                 idDivPopUpRegalo: 'editRegaloPopUp',
                 idListaGanadorasHidden: 'upSellingIdListaGanadoras',
                 idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
-                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' 
+                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
 
                 paisNombre: '@Model.PaisNombre',
                 idDivPopUpRegalo: 'editRegaloPopUp',

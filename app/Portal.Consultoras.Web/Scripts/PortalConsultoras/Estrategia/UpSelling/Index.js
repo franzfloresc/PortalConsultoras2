@@ -21,9 +21,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idTargetDiv: config.idTargetDiv,
         campanasPais: config.campanasPais,
         idDivPopUpRegalo: config.idDivPopUpRegalo,
-        idDivPopUpRegalo:   config.idListaGanadorasHidden,
+        idListaGanadorasHidden:   config.idListaGanadorasHidden,
         idFormReporteListaGanadoras: config.idFormReporteListaGanadoras,
-        urlListaGanadorasObtener: config.urlListaGanadorasObtener
+        urlListaGanadorasObtener: config.urlListaGanadorasObtener,
         paisNombre: config.paisNombre,
         idDivPopUpRegalo: config.idDivPopUpRegalo,
         urlFileUpload: config.urlFileUpload,
@@ -436,12 +436,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
             }
         }
 
-        
+
 
         selfvm.recargarGanadoras = ko.observable(true);
 
         selfvm.TraerListaGanadoras = function () {
-       
+
             if (selfvm.recargarGanadoras()) {
                 cargarGrillaListaGanadoras(selfvm.upSellingSeleccionado().UpSellingId());
                 selfvm.recargarGanadoras(false);
@@ -452,7 +452,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             $("[name='" + settings.idListaGanadorasHidden + "']").val(selfvm.upSellingSeleccionado().UpSellingId());
             $("#" + settings.idFormReporteListaGanadoras + "").submit();
         }
-       
+
     }
 
     self.upSellingViewModel = new UpSellingViewModel();
@@ -463,7 +463,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
 
     function cargarGrillaListaGanadoras(upSellingId) {
-    
+
         jQuery.ajax({
             type: 'GET',
             url: baseUrl + 'UpSelling/ObtenerOfertaFinalMontoMeta',
@@ -540,15 +540,14 @@ function configureGridListaGanadoras(response) {
 }
 
 function convertirStringDate(row,field) {
-    
+
     JSON.parse('{ "' + field + '":"' + row[field] + '"}', function (key, value) {
-       if (typeof value === 'string') {
-           var d = /\/Date\((\d*)\)\//.exec(value);        
-           return (d) ? new Date(+d[1]) : value;
-       }
-       row[field] = value[field].toLocaleDateString();
-   });
+        if (typeof value === 'string') {
+            var d = /\/Date\((\d*)\)\//.exec(value);
+            return (d) ? new Date(+d[1]) : value;
+        }
+        row[field] = value[field].toLocaleDateString();
+    });
 
 
 }
- 
