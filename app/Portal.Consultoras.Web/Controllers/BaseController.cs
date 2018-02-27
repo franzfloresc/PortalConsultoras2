@@ -4646,7 +4646,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.HV.MPopupBloqueado : Constantes.ConfiguracionPaisDatos.HV.DPopupBloqueado;
             var dato = herramientasVenta.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            model.MensajeTitulo = dato == null ? "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    " : Util.Trim(dato.Valor1);
+            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
 
             return model;
         }
