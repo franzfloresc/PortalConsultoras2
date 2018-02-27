@@ -146,7 +146,7 @@
             rowList: [15, 20, 30, 40, 50],
             viewrecords: true,
             pgtext: 'Pág: {0} de {1}',
-            sortname: 'Orden',
+            sortname: 'ConfiguracionPaisID',
             sortorder: 'asc',
             height: 'auto',
             width: 930,
@@ -238,6 +238,7 @@
 
                     $(_elemento.ChbxEstado).prop("checked", true);
                 }
+                CargarGrilla();
             },
             error: function (request, status, error) {
                 if (modelo.Accion === _accion.Deshabilitar) {

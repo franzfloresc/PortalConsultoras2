@@ -565,8 +565,14 @@ function ShowActionsOfertas(cellvalue, options, rowObject) {
 }
 function UploadFilePalanca(tag) {
 
+    var tipoFile = ['jpg', 'png', 'jpeg'];
+    var tipoFileTag = $("#nombre-" + tag).attr('data-tipofile');
+    if (tipoFileTag === 'imggif') {
+        tipoFile.push('gif');
+    }
+
     new qq.FileUploader({
-        allowedExtensions: ['jpg', 'png', 'jpeg'],
+        allowedExtensions: tipoFile,
         element: document.getElementById("img-" + tag),
         action: rutaFileUpload,
         onComplete: function (id, fileName, responseJSON) {
