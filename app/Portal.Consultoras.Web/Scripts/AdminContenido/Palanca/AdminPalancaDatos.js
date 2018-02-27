@@ -12,7 +12,8 @@
         DdlComponente: '#ddlComponente',
         DdlCampania: '#ddlCampania',
         DivFormulario: '#divMantDatos',
-        ChbxEstado: '#Estado'
+        ChbxEstado: '#Estado',
+        PopupTitulo: '#divPalancaDatos_Titulo'
     }
 
     var _texto = {
@@ -21,7 +22,9 @@
         SinResultados: 'No hay resultados',
         TituloDialogRegistro: 'Configuración de Palanca',
         ProcesoError: 'Error al procesar la Solicitud.',
-        ProcesoConforme: 'se proceso con exito su solicitud.'
+        ProcesoConforme: 'se proceso con exito su solicitud.',
+        PopupTituloNuevo: 'Nuevo Registro',
+        PopupTituloEditar: 'Actualizar Registro'
     };
 
     var _url = {
@@ -226,19 +229,19 @@
                         .ready(_RegistroObternerImagen(this));
                     showDialog(_elemento.DialogRegistro);
 
+                    $(_elemento.PopupTitulo).html(_texto.PopupTituloEditar);
                     $(_elemento.DdlPalanca).attr("disabled", "disabled");
                     $(_elemento.DdlComponente).attr("disabled", "disabled");
                     $(_elemento.DdlCampania).attr("disabled", "disabled");
-                    //$(_elemento.ChbxEstado).attr("disabled", "disabled");
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml).html(result)
                     showDialog(_elemento.DialogRegistro);
+                    $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
 
                     $(_elemento.ChbxEstado).prop("checked", true);
                 }
-                CargarGrilla();
             },
             error: function (request, status, error) {
                 if (modelo.Accion === _accion.Deshabilitar) {
@@ -402,6 +405,7 @@
                 if (data.success) {
                     HideDialog(_elemento.DialogRegistro);
                     _toastHelper.success(_texto.ProcesoConforme);
+                    CargarGrilla();
                 }
                 else {
                     _toastHelper.error(_texto.ProcesoError);
