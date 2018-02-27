@@ -316,6 +316,46 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(false, result.EsAncla);
             }
 
+            [TestMethod]
+            public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisHerramientasVentaDesktop_DevuelveMenuHerramientasVentaDesktop()
+            {
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.HerramientasVenta,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-hv.png",
+                            DesktopLogoBanner = "logo-hv.png",
+                            DesktopTituloBanner = "Utiliza demostradores y herramientas de venta",
+                            DesktopSubTituloBanner = "",
+                            DesktopTituloMenu = "Demostradores y|herramientas",
+                            UrlMenu = "#",
+                            Orden = 1
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = false };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller.BuildMenuContenedor(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(Constantes.ConfiguracionPais.HerramientasVenta, result.Codigo);
+                Assert.AreEqual(201804, result.CampaniaId);
+                Assert.AreEqual("fondo-hv.png", result.DesktopFondoBanner);
+                Assert.AreEqual("logo-hv.png", result.DesktopLogoBanner);
+                Assert.AreEqual("Utiliza demostradores y herramientas de venta", result.DesktopTituloBanner);
+                Assert.AreEqual("", result.DesktopSubTituloBanner);
+                Assert.AreEqual("Demostradores y", result.DesktopTituloMenu);
+                Assert.AreEqual("herramientas", result.DesktopSubTituloMenu);
+                Assert.AreEqual("#", result.UrlMenu);
+                Assert.AreEqual(true, result.EsAncla);
+            }
 
             [TestMethod]
             public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
@@ -331,6 +371,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             [TestMethod]
             public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisGuiaNegocioDesktop_DevuelveMenuGuiaNegocioDesktop()
+            {
+                Assert.Inconclusive();
+            }
+
+            [TestMethod]
+            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisHerramientasVentaDesktop_DevuelveMenuHerramientasVentaDesktop()
             {
                 Assert.Inconclusive();
             }
