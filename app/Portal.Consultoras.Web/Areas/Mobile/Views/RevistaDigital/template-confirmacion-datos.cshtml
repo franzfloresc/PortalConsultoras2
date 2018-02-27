@@ -25,7 +25,7 @@
                                 <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
                                 <input id="Celular" type="text" value="@ViewBag.Celular" placeholder="Tu teléfono" class="txtformvalidar" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'Celular')" />
                             </div>
-                            <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
+                            
                             <div class="validar_chk">
                                 <div class="inputchk">
                                     <input type="checkbox" name="chkinput" id="chkinput" />
@@ -36,6 +36,7 @@
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
+                            <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
                         </div>
                     </div>
                 </div>
