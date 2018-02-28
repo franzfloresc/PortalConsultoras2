@@ -1060,6 +1060,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #endregion
 
+                        if (usuarioModel.MenuNotificaciones == 1 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            usuarioModel.TieneNotificaciones = TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea);
+
                         #region EventoFestivo
 
                         try
@@ -1293,9 +1296,9 @@ namespace Portal.Consultoras.Web.Controllers
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
                             case Constantes.ConfiguracionPais.PagoEnLinea:
-                                            if (c.Estado)
-                                                usuarioModel.TienePagoEnLinea = true;
-                                            break;
+                                if (c.Estado)
+                                    usuarioModel.TienePagoEnLinea = true;
+                                break;
 
                         }
                     }
@@ -1311,10 +1314,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                 }
 
-                usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
-
-                            if (usuarioModel.MenuNotificaciones == 1 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                                usuarioModel.TieneNotificaciones = TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea);
+                usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);                
             }
             catch (Exception ex)
             {
@@ -1376,38 +1376,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
                     usuarioModel.IPUsuario = GetIpCliente();
-                    usuarioModel.MenuNotificaciones = 1;
-
-                    var flexiPagoTask = Task.Run(() => GetPermisoFlexipagoAsync(usuario));
-                    var notificacionTask = Task.Run(() => TieneNotificacionesAsync(usuario));
-                    var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntregaAsync(usuario));
-                    var linkPaisTask = Task.Run(() => GetLinksPorPaisAsync(usuario));
-                    var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidadAsync(usuario));
-
-                    Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
-
-                    usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
-
-                    usuarioModel.TieneNotificaciones = notificacionTask.Result;
-
-                    var fechaPromesa = fechaPromesaTask.Result;
-                    if (!string.IsNullOrEmpty(fechaPromesa))
-                    {
-                        var arrValores = fechaPromesa.Split('|');
-                        usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
-                        usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
-                        usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
-                    }
-
-                    var lista = linkPaisTask.Result;
-                    if (lista.Count > 0)
-                    {
-                        usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                        usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                        usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
-                    }
-
-                    usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
+                    usuarioModel.MenuNotificaciones = 1;                    
 
                     usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 4 || usuarioModel.PaisID == 3 || usuarioModel.PaisID == 12 ? 1 : 0;
                     usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4 ? "https://www.zonapagos.com/pagosn2/LoginCliente"
@@ -1550,6 +1519,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
                                             usuarioModel.TieneGND = true;
                                             break;
+                                        case Constantes.ConfiguracionPais.PagoEnLinea:
+                                            if (c.Estado)
+                                                usuarioModel.TienePagoEnLinea = true;
+                                            break;
                                     }
 
                                     if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
@@ -1578,6 +1551,37 @@ namespace Portal.Consultoras.Web.Controllers
                             sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
                         }
                         #endregion
+
+                        var flexiPagoTask = Task.Run(() => GetPermisoFlexipagoAsync(usuario));
+                        var notificacionTask = Task.Run(() => TieneNotificacionesAsync(usuario, usuarioModel.TienePagoEnLinea));
+                        var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntregaAsync(usuario));
+                        var linkPaisTask = Task.Run(() => GetLinksPorPaisAsync(usuario));
+                        var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidadAsync(usuario));
+
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+
+                        usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
+
+                        usuarioModel.TieneNotificaciones = notificacionTask.Result;
+
+                        var fechaPromesa = fechaPromesaTask.Result;
+                        if (!string.IsNullOrEmpty(fechaPromesa))
+                        {
+                            var arrValores = fechaPromesa.Split('|');
+                            usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
+                            usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
+                            usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
+                        }
+
+                        var lista = linkPaisTask.Result;
+                        if (lista.Count > 0)
+                        {
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
+                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
+                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                        }
+
+                        usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;                                               
                     }
                     if (usuarioModel.CatalogoPersonalizado != 0)
                     {
@@ -3024,13 +3028,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private async Task<int> TieneNotificacionesAsync(ServiceUsuario.BEUsuario usuario)
+        private async Task<int> TieneNotificacionesAsync(ServiceUsuario.BEUsuario usuario, bool tienePagoEnLinea)
         {
-            if (!(usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return 0;
+            if (usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) return 0;
 
             using (var sv = new UsuarioServiceClient())
             {
-                return await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR);
+                return await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR, tienePagoEnLinea);
             }
         }
 

@@ -19,6 +19,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
+            if (!userData.TienePagoEnLinea)
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
             sessionManager.SetDatosPagoVisa(null);
 
             var model = ObtenerValoresPagoEnLinea();

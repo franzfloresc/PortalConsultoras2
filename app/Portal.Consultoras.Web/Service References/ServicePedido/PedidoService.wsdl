@@ -38,9 +38,10 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
@@ -324,6 +325,42 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLog" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerTokenTarjetaGuardadaByConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTokenTarjetaGuardadaByConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerTokenTarjetaGuardadaByConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTokenTarjetaGuardadaByConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMontoDeudaConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMontoDeudaConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMontoDeudaConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMontoDeudaConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaById" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimoPagoEnLineaByConsultoraId" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimoPagoEnLineaByConsultoraIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaByFiltro_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByFiltro" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPagoEnLineaByFiltroResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelOfertaShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:DelOfertaShowRoom" />
@@ -2554,6 +2591,30 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertPagoEnLineaResultadoLog">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTokenTarjetaGuardadaByConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultora" message="tns:IPedidoService_ObtenerTokenTarjetaGuardadaByConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultoraResponse" message="tns:IPedidoService_ObtenerTokenTarjetaGuardadaByConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMontoDeudaConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" message="tns:IPedidoService_UpdateMontoDeudaConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultoraResponse" message="tns:IPedidoService_UpdateMontoDeudaConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" message="tns:IPedidoService_ObtenerPagoEnLineaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByIdResponse" message="tns:IPedidoService_ObtenerPagoEnLineaById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimoPagoEnLineaByConsultoraId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" message="tns:IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraIdResponse" message="tns:IPedidoService_ObtenerUltimoPagoEnLineaByConsultoraId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltroResponse" message="tns:IPedidoService_ObtenerPagoEnLineaByFiltro_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="DelOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelOfertaShowRoom" message="tns:IPedidoService_DelOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelOfertaShowRoomResponse" message="tns:IPedidoService_DelOfertaShowRoom_OutputMessage" />
@@ -4333,6 +4394,60 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPagoEnLineaResultadoLog">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTokenTarjetaGuardadaByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMontoDeudaConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimoPagoEnLineaByConsultoraId">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7820,6 +7935,60 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCertificadoDigital">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertPagoEnLineaResultadoLog">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTokenTarjetaGuardadaByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerTokenTarjetaGuardadaByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMontoDeudaConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMontoDeudaConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaById">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimoPagoEnLineaByConsultoraId">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimoPagoEnLineaByConsultoraId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPagoEnLineaByFiltro">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

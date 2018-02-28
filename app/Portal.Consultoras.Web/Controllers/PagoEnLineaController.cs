@@ -25,6 +25,9 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
+            if (!userData.TienePagoEnLinea)
+                return RedirectToAction("Index", "Bienvenida");
+
             sessionManager.SetDatosPagoVisa(null);
 
             var model = ObtenerValoresPagoEnLinea();
