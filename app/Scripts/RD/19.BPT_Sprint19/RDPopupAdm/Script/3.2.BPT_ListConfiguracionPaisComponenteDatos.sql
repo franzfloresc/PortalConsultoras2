@@ -41,7 +41,7 @@ BEGIN
 	FROM ConfiguracionPaisDatos D
 		INNER JOIN ConfiguracionPais P 
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
-	where (D.CampaniaID = @CampaniaID or @CampaniaID = 0)
+	where (D.CampaniaID = @CampaniaID or @CampaniaID < 0)
 		AND (P.Codigo = @PalancaCodigo OR @PalancaCodigo = '')
 		AND (D.Componente = @Componente OR @Componente = '')
 
