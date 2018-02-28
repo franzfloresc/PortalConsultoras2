@@ -35955,7 +35955,7 @@ height:30px;
         WIDTH: 100%;
         LEFT: 0;
         text-align: left;
-        margin: -13.5% 5% 0% -14.5px;
+        margin: -79px 5% 0% -15px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
@@ -35972,6 +35972,7 @@ height:30px;
     letter-spacing: .5px;
     color: #9E9E9E;
     text-decoration: underline;
+    cursor:pointer;
 
     }
 
