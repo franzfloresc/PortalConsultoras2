@@ -21,8 +21,8 @@
         RegistroPaginar: '{0} - {1} de {2} Registros',
         SinResultados: 'No hay resultados',
         TituloDialogRegistro: 'Configuración de Palanca',
-        ProcesoError: 'Error al procesar la Solicitud.',
-        ProcesoConforme: 'se proceso con exito su solicitud.',
+        ProcesoError: 'Error al procesar la solicitud.',
+        ProcesoConforme: 'Se procesó con éxito su solicitud.',
         PopupTituloNuevo: 'Nuevo Registro',
         PopupTituloEditar: 'Actualizar Registro'
     };
@@ -73,9 +73,7 @@
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
         var act = "&nbsp;<a href='javascript:;' onclick=\'return admPalancaDatos.Editar(event);\' >"
             + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-        var elim = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:;' onclick=\"return admPalancaDatos.Deshabilitar(event);\" >"
-            + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
-        return act + elim;
+        return act;
     };
 
     var CargarGrilla = function () {
@@ -131,8 +129,8 @@
                     sortable: false
                 },
                 {
-                    name: 'Activo',
-                    index: 'Activo',
+                    name: 'Accion',
+                    index: 'Accion',
                     width: 60,
                     align: 'center',
                     resizable: false,
@@ -227,21 +225,38 @@
                     $(_elemento.DialogRegistroHtml)
                         .html(result)
                         .ready(_RegistroObternerImagen(this));
+
                     showDialog(_elemento.DialogRegistro);
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
 
                     $(_elemento.PopupTitulo).html(_texto.PopupTituloEditar);
                     $(_elemento.DdlPalanca).attr("disabled", "disabled");
                     $(_elemento.DdlComponente).attr("disabled", "disabled");
-                    $(_elemento.DdlCampania).attr("disabled", "disabled");
+                    $(_elemento.DdlCampania).attr("disabled", "disabled");    
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml).html(result)
                     showDialog(_elemento.DialogRegistro);
-                    $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
 
+                    $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
                     $(_elemento.ChbxEstado).prop("checked", true);
                 }
+
+                if (modelo.CampaniaID == 0) {
+                    $(_elemento.ChbxEstado).prop("checked", true);
+                    $(_elemento.ChbxEstado).attr("disabled", "disabled");
+                }
+                else {
+                    $(_elemento.ChbxEstado).removeAttr("disabled", "disabled");
+                }
+
+                var msjObs = $("#msjObservacion").html();
+                $("#msjObservacionCabecera").html($.trim(msjObs));
+
             },
             error: function (request, status, error) {
                 if (modelo.Accion === _accion.Deshabilitar) {
@@ -343,7 +358,9 @@
             closeOnEscape: true,
             width: 830,
             height: 500,
-            close: function () { },
+            close: function () {
+                $('body').css({ 'overflow': 'auto' });
+            },
             draggable: false,
             title: _texto.TituloDialogRegistro,
             open: function (event, ui) { },
