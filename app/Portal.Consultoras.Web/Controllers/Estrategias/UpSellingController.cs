@@ -46,15 +46,19 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 codigoCampana = null;
 
             var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
+
+            upsellings.Update(upSelling => SetFullUrlImage(upSelling.Regalos));
+
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public async Task<JsonResult> ObtenerRegalos(int upSellingId)
         {
-            var upSelling = await _upSellingProvider.ObtenerRegalos(userData.PaisID, upSellingId);
+            var regalos = await _upSellingProvider.ObtenerRegalos(userData.PaisID, upSellingId);
+            SetFullUrlImage(regalos);
 
-            return Json(ResultModel<UpSellingModel>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
+            return Json(ResultModel<UpSellingModel>.BuildOk(regalos), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -155,6 +159,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
 
             return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        private void SetFullUrlImage(IEnumerable<UpSellingRegaloModel> model)
+        {
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            model.Update(regalo =>
+            {
+                regalo.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, regalo.Imagen, carpetaPais);
+            });
         } 
 
 
