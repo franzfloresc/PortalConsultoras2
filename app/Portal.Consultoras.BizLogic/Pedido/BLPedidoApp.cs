@@ -9,13 +9,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
     public class BLPedidoApp : IPedidoAppBusinessLogic
     {
         private readonly IProductoBusinessLogic _productoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
 
-        public BLPedidoApp() : this(new BLProducto())
+        public BLPedidoApp() : this(new BLProducto(), new BLPedidoWeb())
         { }
 
-        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic)
+        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
+            _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
         }
 
         public BEProductoApp GetCUV(BEProductoFiltro productoFiltro)
@@ -35,6 +37,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if(producto == null) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
             if (!producto.TieneStock) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_AGOTADO);
+
+            if(producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_LIQUIDACION);
+
+            if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_SHOWROOM);
+
+            var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(
+                                            productoFiltro.paisID, 
+                                            productoFiltro.campaniaID, 
+                                            productoFiltro.CodigoZona);
+            var tieneRDC = false; //revistaDigital.TieneRDC && revistaDigital.EsActiva;
+            if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
+            {
+                if(WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoFiltro.paisID))) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA);
+                else return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL);
+            }
 
             return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.SUCCESS, producto);
         }

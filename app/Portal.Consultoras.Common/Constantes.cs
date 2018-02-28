@@ -1196,7 +1196,7 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string NombreComercial= "NombreComercial";
+                public const string NombreComercial = "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
@@ -1703,7 +1703,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5 };
         }
 
         public class GanaMas
@@ -1763,6 +1763,10 @@ namespace Portal.Consultoras.Common
                 public const string SUCCESS = "0000";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                public const string ERROR_PRODUCTO_SHOWROOM = "1104";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1105";
+                public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1106";
             }
 
             public static Dictionary<string, string> Message
@@ -1774,6 +1778,10 @@ namespace Portal.Consultoras.Common
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
+                        {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
+                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
+                        {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                     });
                 }
             }
