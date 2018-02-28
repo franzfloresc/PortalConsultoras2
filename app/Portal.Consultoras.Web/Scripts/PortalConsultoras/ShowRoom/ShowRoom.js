@@ -331,20 +331,20 @@ $(document).ready(function () {
 
     });
 
-    var so = $.trim(tipoOrigenEstrategia)[0];
-    if (so == 1) {
-        $(document).on('mousemove', '[data-tono-change]', function (e) {
-            var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-            if (activo == 1) {
-                $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            }
-        });
+    //var so = $.trim(tipoOrigenEstrategia)[0];
+    //if (so == 1) {
+    //    $(document).on('mousemove', '[data-tono-change]', function (e) {
+    //        var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
+    //        if (activo == 1) {
+    //            $(this).parents("[data-tono]").find('.content_tonos_select').show();
+    //        }
+    //    });
 
-        $(document).on('mouseleave', '.content_tonos_select', function (e) {
-            $(this).hide();
-            $(this).attr("data-visible", "0");
-        });
-    }
+    //    $(document).on('mouseleave', '.content_tonos_select', function (e) {
+    //        $(this).hide();
+    //        $(this).attr("data-visible", "0");
+    //    });
+    //}
 });
 
 

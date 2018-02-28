@@ -583,23 +583,20 @@
 
         $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
    
-            
-
             if (ValidarUnidadesPermitidas(data, cantidad))
             {
-
                 var params = ({
-                    listaCuvTonos: $.trim(cuvs),
+                    CuvTonos: $.trim(cuvs),
                     EstrategiaID: $.trim(estrategia.EstrategiaId),
                     FlagNueva: "0",  
                     Cantidad: $.trim(cantidad),
                     OrigenPedidoWeb: $.trim(origen),
                     ClienteID_: '-1',
-                    tipoEstrategiaImagen: "0"  
+                    TipoEstrategiaImagen: "0"  
                 });
+
                 $.ajaxSetup({ cache: false });
 
-             
                 jQuery.ajax({
                     type: 'POST',
                     url: baseUrl + 'Pedido/AgregarProducto',
