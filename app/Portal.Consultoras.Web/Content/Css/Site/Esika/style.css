@@ -35955,14 +35955,14 @@ height:30px;
         WIDTH: 100%;
         LEFT: 0;
         text-align: left;
-        margin: -79px 5% 0% -15px;
+        margin: -69px 5% 0% -15px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
         display: inline-block;
     /* margin: -15px; */
-    width: 66px;
-    height: 30px;
+    width: auto;
+    height: 40px;
     }
 
     .contenido-popup-nuevo-2017 .cerrargndtxt{
@@ -35980,7 +35980,7 @@ height:30px;
         display:block;
         margin:auto;
         text-align:center;
-        height:100px;
+        height:120px;
         margin-bottom:15px;
     }
 
