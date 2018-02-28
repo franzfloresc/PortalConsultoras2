@@ -493,7 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var admDato in listaDatos)
                 {
-                    if (admDato.TipoDato == "img")
+                    if (admDato.TipoDato == "img" && admDato.Dato.Editado)
                     {
                         admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
                     }

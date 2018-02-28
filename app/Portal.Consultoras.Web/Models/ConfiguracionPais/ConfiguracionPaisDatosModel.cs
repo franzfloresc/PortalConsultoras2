@@ -15,6 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string Valor3 { get; set; }
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
+        public bool Editado { get; set; }
 
         public object Clone()
         {

@@ -390,7 +390,9 @@
             }
             var valor1 = $(datox).find('input').val();
             var tipoDato = $(datox).attr('data-tipodato');
+            var valOrigen = "";
             if (tipoDato === _tipoDato.Img) {
+                var valOrigen = $("#nombre-" + idConca[3]).attr("data-valueorigin");
                 valor1 = $("#nombre-" + idConca[3]).val();
             }
             else if (tipoDato === _tipoDato.checkbox) {
@@ -405,7 +407,8 @@
                     Componente: idConca[2],
                     Codigo: idConca[3],
                     Estado: $(_elemento.ChbxEstado).is(':checked'),
-                    Valor1: valor1
+                    Valor1: valor1,
+                    Editado: valOrigen != valor1
                 }
             };
             listaDatos.push(dato);
