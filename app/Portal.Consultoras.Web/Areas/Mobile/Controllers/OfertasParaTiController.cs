@@ -131,6 +131,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             switch (origenPedidoWeb)
             {
+                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                case Constantes.OrigenPedidoWeb.GNDMobileLandingPopup:
+                    result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup:
+                    result = Url.Action("Index", "Ofertas", new { area = "Mobile" });
+                    break;
                 case Constantes.OrigenPedidoWeb.HVMobileLanding:
                     result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
                     break;
