@@ -516,6 +516,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     prod.NombreComercial = item.NombreProducto;
                     prod.Descripcion = item.Descripcion1;
+                    if (!string.IsNullOrEmpty(item.ImagenProducto))
+                    {
+                        prod.Imagen = item.ImagenProducto;
+                    }
+                    if (!string.IsNullOrEmpty(item.NombreMarca))
+                    {
+                        prod.DescripcionMarca = item.NombreMarca;
+                    }
                     prod.Orden = item.Orden;
                     prod.Grupo = item.Grupo;
                     prod.PrecioCatalogo = item.Precio;
