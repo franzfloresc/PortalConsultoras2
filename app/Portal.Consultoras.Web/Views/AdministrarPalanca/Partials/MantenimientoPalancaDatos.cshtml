@@ -2,7 +2,7 @@
 @{
     string imagenVacia = "prod_grilla_vacio.png";
 }
-
+<div id="msjObservacion" style="display:none;">@Model.Observacion</div>
 <div id="divMantDatos" data-estado="@Model.Estado">
     @foreach (var dato in Model.ListaDatos)
     {

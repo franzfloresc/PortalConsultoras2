@@ -419,6 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var list = ComponenteListarService(null);
+                list = list.Where(c => c.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -523,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    ListaComponente = listaComponente,
+                    ListaComponente = listaComponente.Where(p => p.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas),
                 });
             }
             catch (Exception ex)
@@ -554,7 +555,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
                 if (entidad.Accion == _accion.Deshabilitar)
                 {
                     using (var sv = new ServiceUsuario.UsuarioServiceClient())
@@ -565,6 +565,16 @@ namespace Portal.Consultoras.Web.Controllers
                     return PartialView("Partials/MantenimientoProximamente", new AdministrarComponenteModel());
                 }
 
+                modelo = new AdministrarComponenteModel
+                {
+                    PalancaCodigo = entidad.PalancaCodigo,
+                    CampaniaID = entidad.CampaniaID,
+                    Componente = beEntidad.Componente,
+                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
+                    Observacion = ""
+                };
+
+                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
                 if (entidad.Accion != _accion.Nuevo)
                 {
                     using (var sv = new ServiceUsuario.UsuarioServiceClient())
@@ -583,19 +593,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 d.Estado = false;
                             });
                         }
+                        else if (entidad.Accion == _accion.NuevoDatos && beEntidad.CampaniaID > 0)
+                        {
+                            modelo.Observacion = "Ya existe un registro con la misma campaña";
+                        }
+                        
                         beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
                     }
                 }
-
-                modelo = new AdministrarComponenteModel
-                {
-                    PalancaCodigo = entidad.PalancaCodigo,
-                    CampaniaID = entidad.CampaniaID,
-                    Componente = beEntidad.Componente,
-                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
-                    ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel),
-                    Estado = beEntidadesMdel.Any() && beEntidadesMdel.FirstOrDefault().Estado
-                };
+                
+                modelo.ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel);
+                modelo.Estado = beEntidadesMdel.Any() && beEntidadesMdel.FirstOrDefault().Estado;
 
                 if (!modelo.ListaDatos.Any() && entidad.Accion == _accion.Editar)
                 {
@@ -607,11 +615,11 @@ namespace Portal.Consultoras.Web.Controllers
                     return PartialView("Partials/MantenimientoPalancaDatos", modelo);
                 }
 
-                modelo.ListaPalanca = ListarConfiguracionPais();
+                modelo.ListaPalanca = ListarConfiguracionPais().Where(p => p.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
                 modelo.ListaCampanias = ListCampanias(userData.PaisID);
                 if (entidad.Accion != _accion.Nuevo)
                 {
-                    modelo.ListaCompomente = ComponenteListarService(entidad);
+                    modelo.ListaCompomente = ComponenteListarService(entidad).Where(p => p.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
                 }
 
             }
