@@ -718,7 +718,7 @@
         @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
         <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
 
-            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;" id="btnRegresoOF">
+            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;"  data-regresar-of="">
                 <div class="draw_close_2" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
@@ -748,19 +748,19 @@
 
             <div class="slider center" id="divCarruselRegalo" style="width: 100%">
                 {{#each this.Upselling.Regalos}}
-                <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingDetalleId}}">
-                    <div class="content_info_regalo" id="of-regalo-{{UpSellingDetalleId}}">
+                <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingRegaloId}}">
+                    <div class="content_info_regalo" id="of-regalo-{{UpSellingRegaloId}}">
                         <input type="hidden" class="of-regalo-cuv" value="{{CUV}}" />
                         <input type="hidden" class="of-regalo-stock" value="{{StockActual}}" />
                         <div class="titulo_regalo_producto">{{Nombre}}</div>
                         <div class="content_imagen_sorpresa">
-                            <img class="of-regalo-imagen" src="{{Imagen}}" alt="" />
+                            <img class="of-regalo-imagen" src="{{Imagen}}" alt="" style="width: 215px; height: 235px;" />
                         </div>
                         <div class="descripcion_regalo">
                             {{Descripcion}}
                         </div>
                         <div>
-                            <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingDetalleId}}','{{CUV}}')" />
+                            <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                         </div>
                     </div>
                     
@@ -778,7 +778,7 @@
 
         <div id="divGanoRegalo" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw); display: none;">
             <div class="btn_regresa_OF" id="btnCambiarRegalo">CAMBIAR REGALO</div>
-            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px; position: absolute;" onclick="btnRegresoOF();">
+            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px; position: absolute;" data-regresar-of="">
                 <div class="draw_close_2" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
@@ -799,7 +799,9 @@
 
             <div class="content_info_regalo">
                 <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
-                <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" /></div>
+                <div class="content_imagen_sorpresa">
+                    <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" style="width: 215px; height: 235px;"/>
+                </div>
                 <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                     Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
                 </div>

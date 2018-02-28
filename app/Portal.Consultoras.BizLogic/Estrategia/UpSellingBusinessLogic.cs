@@ -185,7 +185,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
         }
 
-
         public bool InsertarRegalo(UpSellingRegalo entidad)
         {
             using (var transaction = new TransactionScope())
