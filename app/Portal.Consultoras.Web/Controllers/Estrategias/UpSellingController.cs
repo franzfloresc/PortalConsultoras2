@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -56,6 +57,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(ResultModel<UpSellingModel>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
 
+
         [HttpPost]
         public async Task<ActionResult> Guardar(UpSellingModel model)
         {
@@ -82,6 +84,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(ResultModel<UpSellingModel>.BuildOk(result), JsonRequestBehavior.AllowGet);
         }
 
+  
         private UpSellingModel SetAuditInfo(UpSellingModel model)
         {
             model.UsuarioCreacion = userData.UsuarioNombre;
@@ -152,6 +155,36 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
 
             return response.StatusCode == HttpStatusCode.OK;
+        } 
+
+
+
+        [HttpGet]
+        public async Task<ActionResult> ObtenerOfertaFinalMontoMeta(int upSellingId)
+        {
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingId);
+            return Json(ResultModel<IEnumerable<OfertaFinalMontoMetaModel>>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
+
+
+        public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
+        {
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);  
+
+            Dictionary<string, string> dic =
+                            new Dictionary<string, string> {
+                            { "Campania", "Campania" },
+                            { "Codigo", "Codigo" },
+                            { "Nombre", "Nombre" },
+                            { "CuvRegalo", "CuvRegalo" },
+                            { "NombreRegalo", "NombreRegalo" },
+                            { "MontoMeta", "MontoMeta" },
+                            { "MontoPedido", "MontoPedido" },
+                            { "FechaRegistro", "FechaRegistro" }, };
+
+            Util.ExportToExcel("ReporteListaGanadoras", upSelling.ToList(), dic);
+            return View();
+        }
+
     }
 }

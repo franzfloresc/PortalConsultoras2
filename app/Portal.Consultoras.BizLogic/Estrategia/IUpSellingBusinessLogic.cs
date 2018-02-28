@@ -13,5 +13,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
         UpSelling Actualizar(UpSelling upSelling, bool soloCabecera);
         UpSelling Insertar(UpSelling upSelling);
         int Eliminar(int upSellingId);
+        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId);
     }
 }

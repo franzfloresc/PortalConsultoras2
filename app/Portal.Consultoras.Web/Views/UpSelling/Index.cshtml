@@ -99,7 +99,7 @@ else
                     <ul>
                         <li><a href="#tab-regalos">Regalos</a></li>
                         <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
-                        <li><a href="#tab-ganadoras">Ganadoras</a></li>
+                        <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
                     </ul>
                     @*seccion regalos*@
                     <div id="tab-regalos">
@@ -161,8 +161,20 @@ else
                     </div>
                     <div id="tab-categorias-apoyadas"></div>
                     @*regalos*@
-                    <div id="tab-ganadoras">
-
+                    <div id="tab-ganadoras" >
+                        <div>
+                            <div class="div-3">
+                                <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
+                            </div>
+                            <div class="div-3">
+                                <div class="wrap">
+                                    <div class="container clearfix">
+                                        <table id="listOfertaFinalMontoMeta"></table>
+                                    </div>
+                                    <div id="pagerListaRegalos"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="div-3">
@@ -243,6 +255,12 @@ else
 </div>
 
 
+<form action="/UpSelling/ExportarExcel" id="reporteListaGanadorasForm" style="display:none">
+    <input type="text" name="upSellingIdListaGanadoras" value="1">
+    <input type="submit" value="Submit">
+</form>
+
+
 @Scripts.Render("~/bundles/estrategias-upselling")
 @*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
 @section scripts{
@@ -272,6 +290,11 @@ else
                 idPagerRegalos: 'pagerRegalos',
                 idTargetDiv: 'upSellingCRUD',
                 campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
+                idDivPopUpRegalo: 'editRegaloPopUp',
+                idListaGanadorasHidden: 'upSellingIdListaGanadoras',
+                idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
+                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
+
                 paisNombre: '@Model.PaisNombre',
                 idDivPopUpRegalo: 'editRegaloPopUp',
                 urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',

@@ -1436,6 +1436,11 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
         }
 
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+        }
         #endregion
     }
 }
