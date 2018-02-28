@@ -1440,7 +1440,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
                                     }
                                 }
-                                //EstrategiaProductoInsertar(productoEstrategias, opt);
+
+                                // habilitar no comentar
+                                EstrategiaProductoInsertar(productoEstrategias, opt);
+
                                 #region habilitarNemotecnico
 
                                 var nemotecnicosLista = new List<string>();
