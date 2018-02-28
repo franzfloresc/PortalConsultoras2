@@ -589,20 +589,20 @@
             {
 
                 var params = ({
-                    listaCuvTonos: $.trim(cuvs),
+                    CuvTonos: $.trim(cuvs),
                     EstrategiaID: $.trim(estrategia.EstrategiaId),
                     FlagNueva: "0",  
                     Cantidad: $.trim(cantidad),
                     OrigenPedidoWeb: $.trim(origen),
                     ClienteID_: '-1',
-                    tipoEstrategiaImagen: "0"  
+                    TipoEstrategiaImagen: "0"  
                 });
                 $.ajaxSetup({ cache: false });
 
              
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProducto',
+                    url: baseUrl + 'Pedido/PedidoAgregarProducto',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
