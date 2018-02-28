@@ -334,8 +334,7 @@ jQuery(document).ready(function () {
         if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
             return false;
         }
-
-        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
 
@@ -361,8 +360,7 @@ jQuery(document).ready(function () {
         return "";
 
     }
-    SetHandlebars = function (idTemplate, data, idHtml) {
-
+    SetHandlebars = function (idTemplate, data, idHtml) {                                               
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
@@ -411,13 +409,13 @@ jQuery(document).ready(function () {
         formatDecimalPais = formatDecimalPais || new Object();
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : formatDecimalPais.decimalCantidad;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0 );
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
-        var montoOrig = parseFloat($.trim(monto)) == NaN ? "0" : $.trim(monto);
+        var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
 
-        decimalCantidad = parseInt(decimalCantidad) == NaN ? 0 : parseInt(decimalCantidad);
+        decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
         var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
@@ -552,7 +550,7 @@ function CerrarLoad(opcion) {
             CloseLoading(opcion);
         }
         else {
-            closeWaitingDialog(opcion);
+            closeWaitingDialog();
         }
     } catch (e) {
 
@@ -694,9 +692,9 @@ function checkTimeout(data) {
     var thereIsStillTime = true;
 
     if (data) {
-        var eval = data.responseText ? data.responseText : data;
-        if (jQuery.type(eval) === "string") {
-            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
+        var evalText = data.responseText ? data.responseText : data;
+        if (jQuery.type(evalText) === "string") {
+            if ((evalText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (evalText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (evalText == '"_Logon_"'))
                 thereIsStillTime = false;
         }
 
@@ -745,7 +743,6 @@ function paginadorAccionGenerico(obj) {
     var paginaActualCambio = padre.find("[data-paginacion='page']").val() || 1;
     var rows = padre.find("[data-paginacion='rows'] > option:selected").val() || 0;
     var pageCount = padre.find("[data-paginacion='pageCount']").html() || 0;
-    var recordCount = padre.find("[data-paginacion='recordCount']").html() || 0;
 
     pageCount = parseInt(pageCount, 10);
     paginaActual = parseInt(paginaActual, 10);
@@ -796,7 +793,6 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
     $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
@@ -923,8 +919,8 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
+            success: function (result) { },
+            error: function (x, xh, xhr) { }
         });
     }
 }
@@ -994,6 +990,8 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
+    menuModule.Resize();
+
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
 
@@ -1063,6 +1061,7 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
+    menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -1128,9 +1127,7 @@ function cerrarMensajePostulante() {
                 LayoutHeader();
             }
         },
-        error: function (response) {
-            console.log(response);
-        }
+        error: function (response) { }
     });
 }
 
@@ -1191,12 +1188,10 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     id = $.trim(id);
     if (id == "0" || id == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
         return false;
     }
     ruta = $.trim(ruta);
     if (ruta == "") {
-        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
         return false;
     }
 
@@ -1283,14 +1278,8 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                     AbrirMensaje(response.message);
                 }
             }
-            //CerrarLoad();
         },
-        error: function (response, error) {
-            //CloseLoading();
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
+        error: function (response, error) { }
     });
 }
 
@@ -1314,7 +1303,7 @@ function ModificarPedido2(pTipo) {
     }
     else {
         if (_ModificacionPedidoProl === "0")
-            ConfirmarModificar2('');
+            ConfirmarModificar2();
         else
             showDialog("divConfirmValidarPROL");
         return false;
@@ -1504,9 +1493,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
     var detalle = $("[data-odd-tipoventana='detalle']");
     var listaOferta = data == undefined ? null : data;
     var impresions = new Array();
+    var divs = new Array();
 
     if (carrusel.length > 0 && carrusel.is(":visible")) {
-        var divs = new Array();
         var div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
         var div3 = $(carrusel).find("[data-item-position = 2]")[0];
@@ -1562,9 +1551,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
             });
         }
         else if (NameContenedor == "#OfertasDelDiaOfertas") {
-            NameList == "Oferta del día - Detalle Slider";
+            NameList = "Oferta del día - Detalle Slider";
             if (listaOferta.ListaOfertas.length > 1) {
-                NameList == "Oferta del día - Slider Productos";
+                NameList = "Oferta del día - Slider Productos";
                 lstOferta = data.ListaOfertas;
 
                 $.each(lstOferta, function (index, item) {
@@ -1744,9 +1733,7 @@ function GuardarIndicadorPedidoAutentico() {
                             localStorage.setItem('SBTokenPedido', response.message);
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             } else {
 
@@ -1771,16 +1758,13 @@ function GuardarIndicadorPedidoAutentico() {
                             }
                         }
                     },
-                    error: function (response) {
-                        console.log(response);
-                    }
+                    error: function (response) { }
                 });
             }
         }
     }
 }
 
-/*** EPD-2378 ***/
 function EnviarCorreoPedidoReservado() {
     jQuery.ajax({
         type: 'POST',
@@ -1795,8 +1779,6 @@ function EnviarCorreoPedidoReservado() {
         }
     });
 }
-/*** Fin EPD-2378 ***/
-
 
 function AbrirPopupFade(ident) {
     $(ident).fadeIn();
@@ -1879,10 +1861,6 @@ Object.defineProperty(Object.prototype, "in", {
 });
 var registerEvent = function (eventName) {
     var self = this;
-    if (self[eventName]) {
-        console.log("event already exists");
-    }
-
     self[eventName] = self[eventName] || {};
     self[eventName].callBacks = [];
     self[eventName].subscribe = function (cb) {
@@ -1890,8 +1868,7 @@ var registerEvent = function (eventName) {
             self[eventName].callBacks.push(cb);
             return;
         }
-
-        console.log("invalid callback " + cb);
+        
     }
 
     self[eventName].emit = function (args) {
@@ -1907,8 +1884,6 @@ var registerEvent = function (eventName) {
                 return;
             }
         }
-
-        console.log("no event exists " + event);
     }
 
     self.applyChanges = function (event, args) {

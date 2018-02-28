@@ -91,7 +91,7 @@
 
     jQuery.validator.addMethod('requiredif',
         function (value, element, params) {
-            console.log("Test");
+
             var listaValores = params.listvalues.split(',');
 
             var existeEnArray = $.inArray($(params.otherproperty).val(), listaValores) !== -1;

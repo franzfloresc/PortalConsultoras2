@@ -152,9 +152,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             using (var service = new SACServiceClient())
             {
-                var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
-                var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
+                //var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
+                //var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
+                //var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
 
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 
@@ -272,13 +272,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             foreach (var item in lstObservacionesPedido)
             {
-                if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                if (item.StockDisponible == 0)
+                    item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
                 else
                 {
-                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
-                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
-
-                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                    var txtAdd = string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                    if (item.StockDisponible == 1)
+                        item.ObservacionPROL = "Nos ingresó 1 unidad" + txtAdd;
+                    else
+                        item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades" + txtAdd;
                 }
             }
 

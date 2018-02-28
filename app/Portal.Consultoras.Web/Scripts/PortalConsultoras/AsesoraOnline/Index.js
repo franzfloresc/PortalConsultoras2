@@ -35,7 +35,6 @@ $(document).ready(function () {
                 e.preventDefault();
 
                 $(this).parents(".contenedor_fondo_popup").fadeOut(400);
-                //$(this).parent().fadeOut(400);            
             },
             mostrarBotonSuscripcionMobile: function () {
                 if (window.matchMedia("(max-width:767px)").matches) {

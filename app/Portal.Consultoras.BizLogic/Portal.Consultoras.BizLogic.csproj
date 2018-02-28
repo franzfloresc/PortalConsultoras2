@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
+    <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
@@ -103,7 +105,7 @@
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
-    <Compile Include="BLCuponConsultora.cs" />
+    <Compile Include="Cupon\BLCuponConsultora.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
@@ -160,7 +162,7 @@
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
     <Compile Include="BLMensajeMetaConsultora.cs" />
-    <Compile Include="BLMenuApp.cs" />
+    <Compile Include="App\BLMenuApp.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
     <Compile Include="BLConsultoraOnline.cs" />

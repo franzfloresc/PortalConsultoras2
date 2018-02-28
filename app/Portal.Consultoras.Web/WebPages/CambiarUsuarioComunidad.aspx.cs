@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Portal.Consultoras.Web.ServiceComunidad;
+﻿using EasyCallback;
 using LithiumSSOClient;
-using System.Configuration;
-using EasyCallback;
-using System.Web.Services;
-using System.Web.Script.Serialization;
-using System.Collections;
+using Portal.Consultoras.Web.ServiceComunidad;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using System.Web.Script.Serialization;
+using System.Web.Services;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -27,15 +23,15 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string CodigoUsuario = Request.QueryString["U"];
+            string codigoUsuario = Request.QueryString["U"];
             if (!IsPostBack)
             {
-                if (!string.IsNullOrEmpty(CodigoUsuario))
+                if (!string.IsNullOrEmpty(codigoUsuario))
                 {
-                    txtUsuarioActual.Value = CodigoUsuario;
-                    hdfCodigoUsuarioActual.Value = CodigoUsuario;
+                    txtUsuarioActual.Value = codigoUsuario;
+                    hdfCodigoUsuarioActual.Value = codigoUsuario;
 
-                    BEUsuarioComunidad usuario = null;
+                    BEUsuarioComunidad usuario;
                     using (ComunidadServiceClient sv = new ComunidadServiceClient())
                     {
                         usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
@@ -73,14 +69,17 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
-                BEUsuarioComunidad Result = null;
+                BEUsuarioComunidad obeUsuarioComunidad = new BEUsuarioComunidad
+                {
+                    UsuarioId = Convert.ToInt64(hdfUsuarioComunidadId.Value),
+                    CodigoUsuario = datos["CodigoUsuario"].ToString()
+                };
+
+                BEUsuarioComunidad result;
 
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    BEUsuarioComunidad oBEUsuarioComunidad = new BEUsuarioComunidad();
-                    oBEUsuarioComunidad.UsuarioId = Convert.ToInt64(hdfUsuarioComunidadId.Value);
-                    oBEUsuarioComunidad.CodigoUsuario = datos["CodigoUsuario"].ToString();
-                    Result = sv.UpdCambiarUsuarioComunidad(oBEUsuarioComunidad);
+                    result = sv.UpdCambiarUsuarioComunidad(obeUsuarioComunidad);
                 }
 
                 return serializer.Serialize(new
@@ -102,7 +101,7 @@ namespace Portal.Consultoras.Web.WebPages
         [WebMethod]
         public static string ValidarUsuarioIngresado(string usuario)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByCodigo(new BEUsuarioComunidad()
@@ -125,14 +124,14 @@ namespace Portal.Consultoras.Web.WebPages
 
         private void AutenticarUsuario()
         {
-            int TipoUsuario = 0;
-            BEUsuario oBEUsuario = null;
+            int tipoUsuario = 0;
+            BEUsuario obeUsuario = null;
 
             if (Convert.ToInt32(hdfEsConsultora.Value) != 0)
             {
                 //Validacion Inicio
 
-                TipoUsuario = 2;
+                tipoUsuario = 2;
                 //2: Consultora
                 //3: Colaborador
                 //4: Lider
@@ -140,31 +139,31 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    oBEUsuario = sv.GetSesionUsuario(Convert.ToInt32(hdfPaisId.Value), hdfCodigoUsuarioSB.Value);
+                    obeUsuario = sv.GetSesionUsuario(Convert.ToInt32(hdfPaisId.Value), hdfCodigoUsuarioSB.Value);
                 }
 
-                if (oBEUsuario.Lider == 1)
+                if (obeUsuario.Lider == 1)
                 {
-                    TipoUsuario = 4;
+                    tipoUsuario = 4;
                 }
                 else
                 {
-                    int EsColaborador = 0;
+                    int esColaborador;
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        EsColaborador = sv.GetValidarColaboradorZona(oBEUsuario.PaisID, oBEUsuario.CodigoZona);
+                        esColaborador = sv.GetValidarColaboradorZona(obeUsuario.PaisID, obeUsuario.CodigoZona);
                     }
 
-                    if (EsColaborador == 1)
+                    if (esColaborador == 1)
                     {
-                        TipoUsuario = 3;
+                        tipoUsuario = 3;
                     }
                 }
 
                 //Validacion Final
             }
 
-            BEUsuarioComunidad usuario = null;
+            BEUsuarioComunidad usuario;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
@@ -172,16 +171,16 @@ namespace Portal.Consultoras.Web.WebPages
                     UsuarioId = Convert.ToInt64(hdfUsuarioComunidadId.Value),
                     CodigoUsuario = string.Empty,
                     Tipo = 1,
-                    TipoUsuario = TipoUsuario
+                    TipoUsuario = tipoUsuario
                 });
             }
 
             if (usuario != null)
             {
-                string XmlPath = Server.MapPath("~/Key");
-                string KeyPath = Path.Combine(XmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                string xmlPath = Server.MapPath("~/Key");
+                string keyPath = Path.Combine(xmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                SSOClient.init(KeyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                SSOClient.init(keyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
                 Hashtable settingsMap = new Hashtable();
 
                 if (Convert.ToInt32(hdfEsConsultora.Value) == 0)
@@ -191,20 +190,20 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    if (oBEUsuario != null)
+                    if (obeUsuario != null)
                     {
-                        settingsMap.Add("profile.name_first", oBEUsuario.PrimerNombre);
-                        settingsMap.Add("profile.name_last", oBEUsuario.PrimerApellido);
-                        settingsMap.Add("profile.codigo_consultora", oBEUsuario.CodigoConsultora);
-                        settingsMap.Add("profile.pais", oBEUsuario.CodigoISO);
-                        settingsMap.Add("profile.zona", oBEUsuario.CodigoZona);
-                        settingsMap.Add("profile.region", oBEUsuario.CodigorRegion);
+                        settingsMap.Add("profile.name_first", obeUsuario.PrimerNombre);
+                        settingsMap.Add("profile.name_last", obeUsuario.PrimerApellido);
+                        settingsMap.Add("profile.codigo_consultora", obeUsuario.CodigoConsultora);
+                        settingsMap.Add("profile.pais", obeUsuario.CodigoISO);
+                        settingsMap.Add("profile.zona", obeUsuario.CodigoZona);
+                        settingsMap.Add("profile.region", obeUsuario.CodigorRegion);
                         settingsMap.Add("profile.seccion", string.Empty);
-                        settingsMap.Add("profile.lider", oBEUsuario.Lider.ToString());
-                        settingsMap.Add("profile.seccion_lider", oBEUsuario.SeccionGestionLider);
+                        settingsMap.Add("profile.lider", obeUsuario.Lider.ToString());
+                        settingsMap.Add("profile.seccion_lider", obeUsuario.SeccionGestionLider);
                         settingsMap.Add("profile.gz", string.Empty);
                         settingsMap.Add("profile.ubigeo", string.Empty);
-                        settingsMap.Add("profile.campania_actual", oBEUsuario.CampaniaID.ToString());
+                        settingsMap.Add("profile.campania_actual", obeUsuario.CampaniaID.ToString());
                     }
                 }
 

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Portal.Consultoras.Web.ServiceContenido;
 using System.ServiceModel;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -20,7 +15,8 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
-                        rslt = sv.InsAbonoPago(12, /*int.Parse(this.Request["PAISID"].ToString()*/
+                        /*int.Parse(this.Request["PAISID"].ToString()*/
+                        rslt = sv.InsAbonoPago(12,
                                                this.Request["USER1"].ToString(),
                                                this.Request["USER2"].ToString(),
                                                (string.IsNullOrEmpty(Request["AMOUNT"])) ? 0 : Decimal.Parse(this.Request["AMOUNT"]),

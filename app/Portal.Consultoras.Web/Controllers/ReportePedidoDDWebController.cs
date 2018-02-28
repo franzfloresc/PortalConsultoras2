@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string FomatearMontoDecimalGPR(string motivoRechazo)
         {
-            string textoDecimal = string.Empty;
+            var txtBuil = new StringBuilder();
             string[] motivos = motivoRechazo.Split(',');
 
             foreach (string item in motivos)
@@ -176,9 +176,11 @@ namespace Portal.Consultoras.Web.Controllers
                     decimal montoDecimal = Convert.ToDecimal(motivoItem.Substring(motivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
 
                     motivoItem = motivoItem.Remove(motivoItem.IndexOf(':'));
-                    textoDecimal += string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00"));
+                    txtBuil.Append(string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00")));
                 }
             }
+
+            string textoDecimal = txtBuil.ToString();
             return string.IsNullOrEmpty(textoDecimal) ? motivoRechazo : textoDecimal;
         }
 
@@ -913,18 +915,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string extension = ".csv";
                 string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-                string nombreCabecera = "";
-                string cabecera = "";
+                
                 string nombre = originalFileName;
                 var sw = new StringWriter();
 
+                var txtBuilNombre = new StringBuilder();
+                var txtBuilCabecera = new StringBuilder();
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    nombreCabecera += keyvalue.Key + ",";
-                    cabecera += keyvalue.Value;
+                    txtBuilNombre.Append(keyvalue.Key + ",");
+                    txtBuilCabecera.Append(keyvalue.Value);
                 }
-                string csv = CreateCSVTextFile(nombreCabecera, Source);
-                sw.WriteLine(cabecera);
+                string csv = CreateCSVTextFile(txtBuilNombre.ToString(), Source);
+                sw.WriteLine(txtBuilCabecera.ToString());
                 sw.Write(csv);
 
                 HttpContext.Response.ClearHeaders();

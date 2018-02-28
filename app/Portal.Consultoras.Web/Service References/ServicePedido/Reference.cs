@@ -3278,6 +3278,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ConsultoraNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CuponEstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CuponMontoMaxDsctoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal CuponPctDescuentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4209,6 +4218,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConsultoraNuevaField.Equals(value) != true)) {
                     this.ConsultoraNuevaField = value;
                     this.RaisePropertyChanged("ConsultoraNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CuponEstado {
+            get {
+                return this.CuponEstadoField;
+            }
+            set {
+                if ((this.CuponEstadoField.Equals(value) != true)) {
+                    this.CuponEstadoField = value;
+                    this.RaisePropertyChanged("CuponEstado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal CuponMontoMaxDscto {
+            get {
+                return this.CuponMontoMaxDsctoField;
+            }
+            set {
+                if ((this.CuponMontoMaxDsctoField.Equals(value) != true)) {
+                    this.CuponMontoMaxDsctoField = value;
+                    this.RaisePropertyChanged("CuponMontoMaxDscto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal CuponPctDescuento {
+            get {
+                return this.CuponPctDescuentoField;
+            }
+            set {
+                if ((this.CuponPctDescuentoField.Equals(value) != true)) {
+                    this.CuponPctDescuentoField = value;
+                    this.RaisePropertyChanged("CuponPctDescuento");
                 }
             }
         }
@@ -6470,6 +6518,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoMaximoDescuentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6591,6 +6642,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaModificacionField.Equals(value) != true)) {
                     this.FechaModificacionField = value;
                     this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoMaximoDescuento {
+            get {
+                return this.MontoMaximoDescuentoField;
+            }
+            set {
+                if ((this.MontoMaximoDescuentoField.Equals(value) != true)) {
+                    this.MontoMaximoDescuentoField = value;
+                    this.RaisePropertyChanged("MontoMaximoDescuento");
                 }
             }
         }
@@ -28388,6 +28452,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FechaFormattedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NumeroPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -28464,6 +28531,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FechaFormattedField, value) != true)) {
                     this.FechaFormattedField = value;
                     this.RaisePropertyChanged("FechaFormatted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NumeroPedido {
+            get {
+                return this.NumeroPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NumeroPedidoField, value) != true)) {
+                    this.NumeroPedidoField = value;
+                    this.RaisePropertyChanged("NumeroPedido");
                 }
             }
         }

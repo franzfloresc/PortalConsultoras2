@@ -259,15 +259,15 @@ namespace Portal.Consultoras.Web.Controllers
             if (esFacturacion)
             {
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
-                string codigoSap = "";
+                var txtBuil = new StringBuilder();
                 foreach (var beProducto in listaShowRoomOferta)
                 {
                     if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                     {
-                        codigoSap += beProducto.CodigoProducto + "|";
+                        txtBuil.Append(beProducto.CodigoProducto + "|");
                     }
                 }
-
+                var codigoSap = txtBuil.ToString();
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                 try
@@ -341,18 +341,20 @@ namespace Portal.Consultoras.Web.Controllers
                     listaShowRoomCpc = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
                 }
 
-                string codigoSap = "";
                 var listaTieneStock = new List<Lista>();
+                var txtBuil = new StringBuilder();
+                string codigoSap;
                 if (esFacturacion)
                 {
                     foreach (var beProducto in listaShowRoomCpc)
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                         {
-                            codigoSap += beProducto.CodigoProducto + "|";
+                            txtBuil.Append(beProducto.CodigoProducto + "|");
                         }
                     }
 
+                    codigoSap = txtBuil.ToString();
                     codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                     try
@@ -375,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaShowRoomCpcFinal = new List<BEShowRoomOferta>();
-                codigoSap = "";
+                txtBuil.Clear();
                 foreach (var beShowRoomOferta in listaShowRoomCpc)
                 {
                     bool tieneStockProl = true;
@@ -388,12 +390,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tieneStockProl)
                     {
-                        codigoSap += beShowRoomOferta.CodigoProducto + "|";
+                        txtBuil.Append(beShowRoomOferta.CodigoProducto + "|");
                         listaShowRoomCpcFinal.Add(beShowRoomOferta);
                     }
                 }
                 List<Producto> listaShowRoomProductoCatalogo;
                 var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
+
+                codigoSap = txtBuil.ToString();
                 codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
                 using (ProductoServiceClient sv = new ProductoServiceClient())
                 {

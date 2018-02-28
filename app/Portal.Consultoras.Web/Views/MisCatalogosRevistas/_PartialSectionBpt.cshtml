@@ -28,7 +28,7 @@
                     <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                     <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 </div>
-                <div class="btn_diagonal">
+                <div class="btn_diagonal btn_stroke_white">
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                         VER TODAS MIS OFERTAS
                         <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
@@ -54,8 +54,8 @@
                 <div class="btn_diagonal btn_stroke_white">
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                         VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                     </a>
                 </div>
             </div>
@@ -64,12 +64,35 @@
         <div style="height: 35px; background: #fff;"></div>
     }
 }
+else if (revistaDigital.TieneRDI)
+{
+    <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+        <div class="content_belcorp" style="background-color: black;">
+            <div class="rd_logo">
+                <img src="@urlLogo" alt="" class="large">
+            </div>
+            <div class="hblock_text">
+                <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+            </div>
+            <div class="btn_diagonal btn_stroke_white">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
+                    VER TODAS MIS OFERTAS
+                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
+                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr class="clear" />
+    <div style="height: 35px; background: #fff;"></div>
+}
 else if (revistaDigital.TieneRDR)
 {
     <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
         <div>
             <div style="height: 127px; position: relative; margin-bottom: 16px;">
-                <img src="@urlLogo" alt="" class="large"/>
+                <img src="@urlLogo" alt="" class="large" />
             </div>
             <div>
                 <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
@@ -83,7 +106,5 @@ else if (revistaDigital.TieneRDR)
             </div>
         </div>
     </div>
-    
+
 }
-
-

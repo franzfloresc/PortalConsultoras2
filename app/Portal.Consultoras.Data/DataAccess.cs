@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Data
     
     public abstract class DataAccess
     {
-        private DbContext context;
+        private readonly DbContext context;
 
         public DataAccess(DataAccess dataAccess)
         {

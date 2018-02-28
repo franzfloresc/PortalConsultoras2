@@ -45,8 +45,7 @@ $(document).ready(function () {
         e.preventDefault();
         (this).blur();
     });
-    //La postulante ahora puede visualizar productos cuando tenga pedido reservado
-    //ReservadoOEnHorarioRestringido();
+    
 });
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -73,7 +72,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         }
                         if (mostrarAlerta == true) {
                             CloseLoading();
-                            //AbrirMensaje(data.message, '', fnRedireccionar);
                             AbrirPopupPedidoReservado(data.message, '2')
                         }
                         else fnRedireccionar();
@@ -260,7 +258,6 @@ function AgregarOfertaProducto(article) {
                             error: function (response, error) {
                                 if (checkTimeout(response)) {
                                     CloseLoading();
-                                    console.log(response);
                                 }
                             }
                         });
@@ -287,11 +284,7 @@ function HorarioRestringido() {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                window.messageInfo(data.message);
-            }
-        }
+        error: function (data, error) { }
     });
     return horarioRestringido;
 }
@@ -311,11 +304,7 @@ function ActualizarCantidadTotalPedido() {
                 }
             }
         },
-        error: function (response, error) {
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
+        error: function (response, error) { }
     });
 }
 function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, posicion) {
