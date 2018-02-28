@@ -183,14 +183,10 @@ $(document).ready(function () {
         }
     });
 
-    $("body").on("click",
-        ".btn-volver-fix-detalle span",
-        function (e) {
-            window.location = urlRetorno;
-        });
-
+    $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
+        window.location = urlRetorno;
+    });
     
-
 });
 
 function FlechaScrollDown(idCamapania) {

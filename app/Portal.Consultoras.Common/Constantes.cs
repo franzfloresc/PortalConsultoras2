@@ -570,8 +570,6 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
             public const int RevistaDigitalMobileLandingPopUp = 2712;
-            public const int HerramientasVentaMobileLandingComprar = 2103;
-            public const int HerramientasVentaMobileLandingRevisar = 2114;
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
@@ -701,11 +699,11 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Herramienta de Ventas
-            public const int HerramientasVentasDesktopContenedor = 9999;
+            public const int HVDesktopContenedor = 9999;
             public const int HVDesktopLanding = 9998;
             public const int HVDesktopLandingPopUp = 9997;
             public const int HVMobileLanding = 9996;
-            public const int HVDMobileLandingPopup = 9995;
+            public const int HVMobileLandingPopup = 9995;
             #endregion
         }
 

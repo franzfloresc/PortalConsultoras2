@@ -7,7 +7,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class OfertasParaTiController : BaseEstrategiaController
     {
-
         public ActionResult Detalle(int id, int origen)
         {
             try
@@ -32,9 +31,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return GetRedirectTo(origenPantalla);
             
             ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
-            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
+            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
+
             return View(modelo);
         }
 
@@ -68,11 +68,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
                     break;
-
                 case Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobile:
                     result = Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp;
                     break;
-
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -82,17 +80,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
                     break;
-
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
                     break;
                 case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
                     result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
                     break;
-
                 case Constantes.OrigenPedidoWeb.GNDMobileLanding:
                     result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
                     break;
+                case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
+                    break;
+
             }
 
             result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
@@ -127,7 +127,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public virtual string GetActionTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla, int origenPedidoWeb)
         {
-            string result;
+            string result = "";
+
+            switch (origenPedidoWeb)
+            {
+                case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                    result = Url.Action("Comprar", "HerramientasVenta", new { area = "Mobile" });
+                    break;
+            }
+
+            if (result != "")
+                return result;
 
             switch (origenPantalla)
             {
