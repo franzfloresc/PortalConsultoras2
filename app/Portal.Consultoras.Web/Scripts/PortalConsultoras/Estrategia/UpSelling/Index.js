@@ -249,17 +249,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfm.Activo = ko.observable(data.Activo).extend({ trackChange: { track: true } });
 
         //behaviors
-        selfm.ImagenPrefix = ko.observable(data.ImagenPrefix);
-        selfm.ImagenRuta = ko.computed(function () {
-            var baseRoute = selfm.ImagenPrefix()
-            if (!baseRoute) {
-                baseRoute = settings.urlS3;
-                selfm.ImagenPrefix(baseRoute)
-            }
-
-            return baseRoute + selfm.Imagen();
-        });
-
+        selfm.ImagenRuta = ko.observable(data.Imagen); //start value
         selfm.UndoChanges = function () {
             selfm.CUV.undoChanges();
             selfm.Nombre.undoChanges();
@@ -415,7 +405,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.actualizarRutaPrefixRegalo = function () {
-            selfvm.regaloSeleccionado().ImagenPrefix(settings.urlTemporal);
+            var ruta = settings.urlTemporal + selfvm.regaloSeleccionado().Imagen();
+            selfvm.regaloSeleccionado().ImagenRuta(ruta);
         }
 
         selfvm.esconderEditor = function () {
