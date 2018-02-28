@@ -35749,6 +35749,7 @@ h1#penmostreo .campana {
             width: 100%;
             position: relative;
             top: 85px;
+            cursor:pointer;
         }
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
@@ -35799,7 +35800,7 @@ h1#penmostreo .campana {
         WIDTH: 100%;
         LEFT: 0;
         text-align: left;
-        margin: -13.5% 5% 0% -14.5px;
+        margin: -4px 5% 0% -15px;
         top: -16px;
     }
 

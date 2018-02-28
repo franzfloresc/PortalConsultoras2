@@ -35841,6 +35841,7 @@ h1#penmostreo .campana {
             width: 100%;
             position: relative;
             top: 85px;
+            cursor:pointer;
         }
 
 .desactivar_boton_popup_confirma_datos {
@@ -35891,8 +35892,8 @@ h1#penmostreo .campana {
         WIDTH: 100%;
         LEFT: 0;
         text-align: left;
-        margin: -13.5% 5% 0% -14.5px;
-        top:-16px;
+        margin: -41px 5% 0% -15px;
+        top: -4px;
     }
 
     .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
