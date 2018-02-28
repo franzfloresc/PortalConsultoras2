@@ -107,9 +107,6 @@ function fnGrilla() {
         },
         error: function (data, error) {
             $("#dellateContenido").html("");
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }
@@ -242,9 +239,6 @@ function getLugarPago() {
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }

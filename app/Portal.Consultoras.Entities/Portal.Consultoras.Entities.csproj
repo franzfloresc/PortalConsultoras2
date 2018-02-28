@@ -73,6 +73,7 @@
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
+    <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />

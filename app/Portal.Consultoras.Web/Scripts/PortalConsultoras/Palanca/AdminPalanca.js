@@ -27,7 +27,6 @@ jQuery(document).ready(function () {
     $.jgrid.extend({
         Editar: Modificar,
         EditarOfertas: ModificarOfertas,
-        //Eliminar: estrategiaObj.eliminar
     });
 
     $("body").on("change", "#cbDesktopCantidadTodos", function () {
@@ -71,6 +70,12 @@ jQuery(document).ready(function () {
         } else {
             $(".hide-configuration").hide();
         }
+
+        if ($(this).find('option:selected').attr("data-codigo") === _palanca.odd) {
+            $(".hide-config-image-odd").show();
+        } else {
+            $(".hide-config-image-odd").hide();
+        }
     });
 });
 
@@ -95,9 +100,7 @@ function Modificar(idConfiguracionPais, event) {
                 $("#UrlMenu").attr("disabled", "disabled");
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 
@@ -136,9 +139,7 @@ function ModificarOfertas(idOfertasHome) {
                 $(".hide-configuration").hide();
             }
         },
-        error: function (request, status, error) {
-            alert(request);
-        }
+        error: function (request, status, error) { }
     });
 }
 function IniDialogs() {
@@ -164,7 +165,6 @@ function IniDialogs() {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo: $("#ddlConfiguracionPais").val(),
                     Excluyente: $("input[name='Excluyente']:checked").val(),
-                    //Descripcion : $("#Descripcion").val(),
                     Estado: $("#Estado").is(':checked'),
                     Logo: $("#nombre-icono").val(),
                     Orden: $("#Orden").val(),
@@ -200,12 +200,10 @@ function IniDialogs() {
                             UpdateGrillaPalanca();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
-                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 
@@ -223,10 +221,47 @@ function IniDialogs() {
         modal: true,
         closeOnEscape: true,
         width: 830,
-        close: function () { },
+        close: function() {
+            $('div[id^="collorpicker_"]').hide();
+        },
         draggable: false,
         title: "Configurar Contenedor Home",
-        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+        open: function(event, ui) {
+            $(".ui-dialog-titlebar-close", ui.dialog).hide();
+            $("#colorpickerHolder").ColorPicker({ flat: true });
+            $("#DesktopColorFondo, #DesktopColorTexto, #MobileColorFondo, #MobileColorTexto").ColorPicker({
+                onSubmit: function (hsb, hex, rgb, el) {
+                        var newValue = "#" + hex;
+                        $(el).val(newValue);
+                        $(el).ColorPickerHide();
+                    },
+                    onBeforeShow: function () {
+                        $(this).ColorPickerSetColor(this.value);
+                    }
+                })
+                .bind("keyup", function () {
+                    $(this).ColorPickerSetColor(this.value);
+                });
+
+            if ($("#DesktopColorFondo").val() === "") {
+                $("#DesktopColorFondo").val("#000000");
+            }
+
+            if ($("#MobileColorFondo").val() === "") {
+                $("#MobileColorFondo").val("#000000");
+            }
+
+            if ($("#DesktopColorTexto").val() === "") {
+                $("#DesktopColorTexto").val("#ffffff");
+            }
+
+            if ($("#MobileColorTexto").val() === "") {
+                $("#MobileColorTexto").val("#ffffff");
+            }
+            if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") !== _palanca.odd ) {
+                $(".hide-config-image-odd").hide();
+            }
+        },
         buttons:
         {
             "Guardar": function () {
@@ -252,8 +287,49 @@ function IniDialogs() {
                     _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                     return false;
                 }
+
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
+                    $("#DesktopUsarImagenFondo").prop("checked") && $("#nombre-fondo-desktop").val() === "") {
+                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en desktop.");
+                    return false;
+                }
+
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd &&
+                    $("#MobileUsarImagenFondo").prop("checked") && $("#nombre-fondo-mobile").val() === "") {
+                    _toastHelper.error("Se dede seleccionar una imagen para usar como fondo en móvil.");
+                    return false;
+                }
+
                 var desktopTipoPresentacion = $("#ddlDesktopTipoPresentacionOfertas").val();
                 var mobileTipoPresentacion = $("#ddlMobileTipoPresentacionOfertas").val();
+                var desktopColorFondo = $("#DesktopColorFondo").val();
+                var mobileColorFondo = $("#MobileColorFondo").val();
+                var desktopColorTexto = $("#DesktopColorTexto").val();
+                var mobileColorTexto = $("#MobileColorTexto").val();
+                var desktopUsarImagenFondo = $("#DesktopUsarImagenFondo").prop("checked");
+                var mobileUsarImagenFondo = $("#MobileUsarImagenFondo").prop("checked");
+
+                var regExpColorHex = /^#+([a-fA-F0-9]{6})/;
+                if (!regExpColorHex.test(desktopColorFondo) && desktopColorFondo  !== "") {
+                    _toastHelper.error("El color de fondo para desktop debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(mobileColorFondo) && mobileColorFondo !== "") {
+                    _toastHelper.error("El color de fondo para móvil debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(desktopColorTexto) && desktopColorTexto !== "") {
+                    _toastHelper.error("El color de texto para desktop debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
+                if (!regExpColorHex.test(mobileColorTexto) && mobileColorTexto !== "") {
+                    _toastHelper.error("El color de texto para móvil debe tener un código hexadecimal válido.");
+                    return false;
+                }
+
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.showroom) {
                     desktopTipoPresentacion = _tipopresentacion.showroom;
                     mobileTipoPresentacion = _tipopresentacion.showroom;
@@ -261,6 +337,13 @@ function IniDialogs() {
                 if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;
                     mobileTipoPresentacion = _tipopresentacion.odd;
+                } else {
+                    desktopColorFondo = "";
+                    mobileColorFondo = "";
+                    desktopColorTexto = "";
+                    mobileColorTexto = "";
+                    desktopUsarImagenFondo = false;
+                    mobileUsarImagenFondo = false;
                 }
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
@@ -268,8 +351,14 @@ function IniDialogs() {
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
                     MobileOrden: $("#MobileOrden").val(),
+                    DesktopColorFondo: desktopColorFondo,
+                    MobileColorFondo: mobileColorFondo,
+                    DesktopUsarImagenFondo: desktopUsarImagenFondo,
+                    MobileUsarImagenFondo: mobileUsarImagenFondo,
                     DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
                     MobileImagenFondo: $("#nombre-fondo-mobile").val(),
+                    DesktopColorTexto: desktopColorTexto,
+                    MobileColorTexto: mobileColorTexto,
                     DesktopTitulo: $("#DesktopTitulo").val(),
                     MobileTitulo: $("#MobileTitulo").val(),
                     DesktopSubTitulo: $("#DesktopSubTitulo").val(),
@@ -300,12 +389,10 @@ function IniDialogs() {
                             UpdateGrillaOfertas();
                         } else {
                             _toastHelper.error("Error al procesar la Solicitud.");
-                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {
                         _toastHelper.error("Error al procesar la Solicitud.");
-                        console.log(data.message);
                     }
                 });
 
@@ -361,28 +448,16 @@ function UpdateGrillaPalanca() {
                 formatter: ShowActions
             }
         ],
-        //jsonReader:
-        //{
-        //    root: "rows",
-        //    page: "page",
-        //    total: "total",
-        //    records: "records",
-        //    repeatitems: true,
-        //    cell: "cell",
-        //    id: "id"
-        //},
         pager: false,
         loadtext: 'Cargando datos...',
         recordtext: "{0} - {1} de {2} Registros",
         emptyrecords: 'No hay resultados',
         rowNum: 100,
         scrollOffset: 0,
-        //rowList: [10, 20, 30, 40, 50],
         sortname: 'Orden',
         sortorder: 'asc',
         height: 'auto',
         width: 930,
-        //pgtext: 'Pág: {0} de {1}',
         altRows: true,
         altclass: 'jQGridAltRowClass',
         pgbuttons: false,

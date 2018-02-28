@@ -45,7 +45,6 @@ $("#CUV").keyup(function () {
             },
             error: function (data, error) {
                 closeWaitingDialog();
-                alert(data.message);
             }
         });
     }
@@ -189,21 +188,24 @@ $("#btnGuardar").click(function (e) {
         $("#DescripcionCUV").focus()
         return;
     }
+    if ($("#Orden").val() <= 0) {
+        alert("Ingrese un valor para el orden a mostrar mayor a cero.");
+        $("#Orden").focus();
+        return;
+    }
 
     var rutaImagen = $("#imgSeleccionada").attr("src");
     var imagenCorrecta = true;
     var imagenSeleccionada = "";
     if (rutaImagen == null || rutaImagen == "" || rutaImagen == rutaImagenVacia) imagenCorrecta = false;
-    if ($("#Activo").is(":checked")) {
+    //if ($("#Activo").is(":checked")) {
         if (!imagenCorrecta) {
             alert("Seleccione una imagen a mostrar.");
             return;
         }
-    }
+    //}
     if (imagenCorrecta) imagenSeleccionada = rutaImagen.substr(rutaImagen.lastIndexOf("/") + 1);
-
-    var Mensaje = "";
-
+    
     var params = {
         EstrategiaID: $("#EstrategiaID").val(),
         TipoEstrategiaID: $("#hdnTipoEstrategiaID").val(),
@@ -223,12 +225,12 @@ $("#btnGuardar").click(function (e) {
         EtiquetaID2: "0",
         Precio2: "0",
         FlagCEP2: (CUV != "") ? "1" : "0",
-        TextoLibre: Mensaje,
-        FlagTextoLibre: (Mensaje != "") ? "1" : "0",
+        TextoLibre: "",
+        FlagTextoLibre: "0",
         Cantidad: "0",
         FlagCantidad: "0",
         Zona: "",
-        Orden: "0",
+        Orden: $.trim($("#Orden").val()),
         ColorFondo: "",
         FlagEstrella: "0",
         CodigoTipoEstrategia: "022",
@@ -246,7 +248,8 @@ $("#btnGuardar").click(function (e) {
         PrecioAnt: "",
         EsOfertaIndependiente: "0",
         Ganancia: "0",
-        CodigoConcurso: $.trim($("#CodigoConcurso").val())
+        CodigoConcurso: $.trim($("#CodigoConcurso").val()),
+        RutaImagenCompleta: rutaImagen
     };
 
     waitingDialog({});
@@ -271,7 +274,6 @@ $("#btnGuardar").click(function (e) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 });

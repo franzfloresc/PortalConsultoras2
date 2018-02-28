@@ -3,6 +3,10 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.BizLogic.RevistaDigital;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.Cupon;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,15 +21,28 @@ namespace Portal.Consultoras.BizLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
+        private readonly IConfiguracionPaisBusinessLogic _configuracionPaisBusinessLogic;
+        private readonly ICuponConsultoraBusinessLogic _cuponConsultoraBusinessLogic;
 
-        public BLUsuario() : this(new BLTablaLogicaDatos(), new BLConsultoraConcurso())
+        public BLUsuario() : this(new BLTablaLogicaDatos(), 
+                                    new BLConsultoraConcurso(), 
+                                    new BLRevistaDigitalSuscripcion(), 
+                                    new BLConfiguracionPais(),
+                                    new BLCuponConsultora())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, 
-                        IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+                        IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
+                        IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic,
+                        IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic,
+                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
+            _configuracionPaisBusinessLogic = configuracionPaisBusinessLogic;
+            _cuponConsultoraBusinessLogic = cuponConsultoraBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -417,6 +434,8 @@ namespace Portal.Consultoras.BizLogic
             var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
             var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
             var incentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
+            var revistaDigitalSuscripcionTask = Task.Run(() => this.GetRevistaDigitalSuscripcion(usuario));
+            var cuponTask = Task.Run(() => this.GetCupon(usuario));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -426,7 +445,9 @@ namespace Portal.Consultoras.BizLogic
                             usuarioConsultoraTask,
                             consultoraAniversarioTask,
                             consultoraCumpleanioTask,
-                            incentivosConcursosTask);
+                            incentivosConcursosTask,
+                            revistaDigitalSuscripcionTask,
+                            cuponTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -450,6 +471,13 @@ namespace Portal.Consultoras.BizLogic
 
             usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
             usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
+
+            usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 2 ? Convert.ToInt16(revistaDigitalSuscripcionTask.Result[0]) : Constantes.GanaMas.PaisSinGND;
+            usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 2 ? revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+
+            usuario.CuponEstado = cuponTask.Result.EstadoCupon;
+            usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
+            usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
 
             return usuario;
         }
@@ -614,6 +642,99 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return lstConcursos;
+        }
+
+        private List<string> GetRevistaDigitalSuscripcion(BEUsuario usuario)
+        {
+            var lst = new List<string>();
+
+            var resultado = Constantes.GanaMas.PaisSinGND;
+            var UrlBannerGanaMas = string.Empty;
+
+            var configPais = new BEConfiguracionPais()
+            {
+                Detalle = new BEConfiguracionPaisDetalle() {
+                    PaisID = usuario.PaisID,
+                    CodigoRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoSeccion = usuario.Seccion,
+                    CodigoConsultora = usuario.CodigoConsultora
+                }
+            };
+
+            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais).Where(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
+
+            if (lstCnfigPais.Any())
+            {
+                var oRequest = new BERevistaDigitalSuscripcion()
+                {
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    PaisID = usuario.PaisID
+                };
+
+                var oResponse = _revistaDigitalSuscripcionBusinessLogic.GetLast(oRequest);
+
+                if (oResponse.RevistaDigitalSuscripcionID > 0)
+                {
+                    if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion)
+                    {
+                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_SuscritaActiva;
+                        else resultado = Constantes.GanaMas.PaisConGND_SuscritaNoActiva;
+                    }
+                    else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
+                    {
+                        if(oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                        else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
+                    }
+                }
+                else
+                {
+                    resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                }
+            }
+
+            lst.Add(resultado.ToString());
+
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.ExtensionBannerGanaMasApp);
+            var oSuscrita = tablaLogica.Where(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaSuscrita).FirstOrDefault();
+            var extensionSuscrita = oSuscrita == null ? string.Empty : oSuscrita.Descripcion;
+            var oNoSuscrita = tablaLogica.Where(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaNoSuscrita).FirstOrDefault();
+            var extensionNoSuscrita = oNoSuscrita == null ? string.Empty : oNoSuscrita.Descripcion;
+
+            var carpetaPais = string.Format(Constantes.GanaMas.Banner.CarpetaPais, usuario.CodigoISO);
+            if (resultado == Constantes.GanaMas.PaisConGND_SuscritaActiva || resultado == Constantes.GanaMas.PaisConGND_SuscritaNoActiva)
+                UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenSuscrita, extensionSuscrita));
+            else if (resultado == Constantes.GanaMas.PaisConGND_NoSuscritaActiva || resultado == Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva)
+                UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenNoSuscrita, extensionNoSuscrita));
+
+            lst.Add(UrlBannerGanaMas);
+
+            return lst;
+        }
+
+        private BECuponConsultora GetCupon(BEUsuario usuario)
+        {
+            decimal MontoMaximoDescuento = 0;
+
+            var oRequest = new BECuponConsultora()
+            {
+                CodigoConsultora = usuario.CodigoConsultora,
+                CampaniaId = usuario.CampaniaID
+            };
+
+            var oResponse = _cuponConsultoraBusinessLogic.GetCuponConsultoraByCodigoConsultoraCampaniaId(usuario.PaisID, oRequest);
+            if (oResponse != null)
+            {
+                var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.MontoLimiteCupon);
+                var result = lst.Where(x => x.Codigo == usuario.CampaniaID.ToString()).FirstOrDefault();
+                if (result != null)
+                {
+                    decimal.TryParse(result.Descripcion, out MontoMaximoDescuento);
+                    oResponse.MontoMaximoDescuento = MontoMaximoDescuento;
+                }
+            }
+
+            return oResponse ?? new BECuponConsultora();
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)

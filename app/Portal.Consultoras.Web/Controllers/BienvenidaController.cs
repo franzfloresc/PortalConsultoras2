@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
@@ -17,6 +18,16 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
+        public BienvenidaController()
+        {
+
+        }
+
+        public BienvenidaController(ILogManager logManager)
+        {
+            this.logManager = logManager;
+        }
+
         public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
@@ -26,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model.PartialSectionBpt = GetPartialSectionBptModel();
+                model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
 
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
@@ -260,14 +271,14 @@ namespace Portal.Consultoras.Web.Controllers
                         Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            
-            if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile",vc=true });
+
+            if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile", vc = true });
             return RedirectToAction("Index", new { showPopupMisDatos = true });
         }
 
@@ -323,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
-                
+
                 return tipoPopUpMostrar;
             }
 
@@ -376,7 +387,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int BuscarTipoPopupEnLista(BienvenidaHomeModel model, List<BEPopupPais> listaPopUps)
         {
             var tipoPopUpMostrar = 0;
-            
+
             foreach (var popup in listaPopUps)
             {
                 switch (popup.CodigoPopup)
@@ -448,7 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var comunicados = ValidarComunicadoPopup();
                         if (comunicados.Any())
                             tipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
-                        
+
                         break;
 
                     case Constantes.TipoPopUp.RevistaDigitalSuscripcion:
@@ -465,8 +476,18 @@ namespace Portal.Consultoras.Web.Controllers
                         if (userData.TieneCupon == 1)
                         {
                             var cupon = ObtenerCuponDesdeServicio();
-                            if (cupon != null && cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
-                                tipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
+                            if (cupon != null)
+                            {
+                                if (userData.CodigoISO == "PE")
+                                {
+                                    tipoPopUpMostrar = Constantes.TipoPopUp.CuponForzado;
+                                }
+                                else
+                                {
+                                    if (cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
+                                        tipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
+                                }
+                            }
                         }
                         break;
 
@@ -474,7 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (userData.TieneAsesoraOnline == 1)
                         {
                             var existeAsesoraOnlineResult = ExisteConsultoraEnAsesoraOnline(userData.CodigoISO, userData.CodigoConsultora);
-                            
+
                             if (existeAsesoraOnlineResult != 1)
                             {
                                 var habilitadoConfiguracionPaisResult = ValidarAsesoraOnlineConfiguracionPais(userData.CodigoISO, userData.CodigoConsultora);
@@ -483,7 +504,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         break;
-                        
+
                 }
 
                 if (tipoPopUpMostrar > 0)
@@ -641,7 +662,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (cronograma == null) return false;
                 if (cronograma.FechaInicioWeb == null) return false;
 
-                var fechaDa = (DateTime) cronograma.FechaInicioWeb;
+                var fechaDa = (DateTime)cronograma.FechaInicioWeb;
 
                 var diasemana = "";
 
@@ -756,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                
+
                 using (var svr = new UsuarioServiceClient())
                 {
                     svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora);
@@ -941,6 +962,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
+                model.CodigoUsuarioReal = userData.CodigoUsuario;
             }
             return Json(new
             {
@@ -1668,7 +1690,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -1685,7 +1707,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (entidad.ConsultoraID == 0)
                 return 1;
-            
+
             int validacion;
             if (Session["SuenioNavidad"] == null)
             {
@@ -2242,7 +2264,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int ExisteConsultoraEnAsesoraOnline(string paisIso, string codigoConsultora)
         {
             try
-                {
+            {
 
                 using (var svClient = new AsesoraOnlineServiceClient())
                 {
@@ -2294,49 +2316,49 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private PartialSectionBpt GetPartialSectionBptModel()
+        public virtual PartialSectionBpt GetPartialSectionBptModel(RevistaDigitalModel revistaDigital)
         {
             var partial = new PartialSectionBpt();
 
             try
             {
+                if(revistaDigital == null)
+                    return partial;
+                
                 partial.RevistaDigital = revistaDigital;
 
-                if (revistaDigital.TieneRDC)
+                if (revistaDigital.TieneRDC && revistaDigital.EsActiva && revistaDigital.EsSuscrita)
                 {
-                    if (revistaDigital.EsActiva)
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
-                    else
-                    {
-                        if (revistaDigital.EsSuscrita)
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                        else
-                        {
-                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-                        }
-                    }
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva);
+                }
+                else if (revistaDigital.TieneRDC && revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva);
+                }
+                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && revistaDigital.EsSuscrita)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva);
+                }
+                else if (revistaDigital.TieneRDC && !revistaDigital.EsActiva && !revistaDigital.EsSuscrita)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva);
+                }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga);
                 }
                 else if (revistaDigital.TieneRDR)
                 {
-                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr);
                 }
+
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                logManager.LogErrorWebServicesBusWrap(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, "LoginController.GetPartialSectionBptModel");
             }
 
+            partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
         }
     }

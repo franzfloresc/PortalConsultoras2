@@ -23,8 +23,7 @@ namespace Portal.Consultoras.Common
             {
                 Directory.CreateDirectory(path);
             }
-
-            // Add headers if file don't exists
+            
             if (!File.Exists(Path.Combine(path, fileName)))
             {
                 sw = new StreamWriter(Path.Combine(path, fileName), true, Encoding.UTF8);
@@ -56,21 +55,7 @@ namespace Portal.Consultoras.Common
             log.Exception = exception;
             log.StackTrace = stackTrace;
             log.LogDate = DateTime.Now;
-
-            //var dbEntityException = string.Empty;
-            //if (ex.GetType() == typeof(DbEntityValidationException))
-            //{
-            //    var dbException = (DbEntityValidationException)ex;
-            //    foreach (var eve in dbException.EntityValidationErrors)
-            //    {
-            //        foreach (var ve in eve.ValidationErrors)
-            //        {
-            //            dbEntityException += string.Format("Property name: {0} - Message: {1}", ve.PropertyName, ve.ErrorMessage);
-            //        }
-            //    }
-            //    log.DBEntityException = dbEntityException;
-            //}
-
+            
             return log;
         }
 
@@ -88,14 +73,15 @@ namespace Portal.Consultoras.Common
 
         public static string GetExceptionMessage(Exception exception)
         {
-            string message = string.Empty, separadorExcepciones = string.Empty;
+            var txtBuil = new StringBuilder();
+            string separadorExcepciones = string.Empty;
             while (exception != null)
             {
-                message += separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").";
+                txtBuil.Append(separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").");
                 separadorExcepciones = Environment.NewLine + Environment.NewLine;
                 exception = exception.InnerException;
             }
-            return message;
+            return txtBuil.ToString();
         }
     }
 

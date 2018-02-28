@@ -115,27 +115,23 @@
                         if (EsMontoMinimo == "True") {
                             $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
                         }
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "3":
                         $('#sMensajePedidoPROL').html(Observaciones);
                         $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
                         $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "4":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "5":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
-                        //$('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                 }
                 CargarCantidadNotificacionesSinLeer()

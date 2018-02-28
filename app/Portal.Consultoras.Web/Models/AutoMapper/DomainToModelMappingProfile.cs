@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServiceCDR;
@@ -10,7 +11,10 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Common;
+
 using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -508,7 +512,32 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-            
+
+            Mapper.CreateMap<ServiceUsuario.BEUsuario, UsuarioModel>()
+                .ForMember(t => t.NombreConsultora, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.CambioClave, f => f.MapFrom(c => Convert.ToInt32(c.CambioClave)))
+                .ForMember(t => t.FechaInicioCampania, f => f.MapFrom(c => c.FechaInicioFacturacion))
+                .ForMember(t => t.VioVideoModelo, f => f.MapFrom(c => c.VioVideo))
+                .ForMember(t => t.VioTutorialModelo, f => f.MapFrom(c => c.VioTutorial))
+                .ForMember(t => t.DiaPROLMensajeCierreCampania, f => f.MapFrom(c => DateTime.Now.AddHours(c.ZonaHoraria) >= c.FechaInicioFacturacion))
+                .ForMember(t => t.HoraInicioReserva, f => f.MapFrom(c => c.HoraInicio))
+                .ForMember(t => t.HoraFinReserva, f => f.MapFrom(c => c.HoraFin))
+                .ForMember(t => t.HoraInicioPreReserva, f => f.MapFrom(c => c.HoraInicioNoFacturable))
+                .ForMember(t => t.HoraFinPreReserva, f => f.MapFrom(c => c.HoraCierreNoFacturable))
+                .ForMember(t => t.DiasCampania, f => f.MapFrom(c => c.DiasAntes))
+                .ForMember(t => t.HoraFinFacturacion, f => f.MapFrom(c => c.HoraFin))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.CampaniaDescripcion))
+                .ForMember(t => t.SobrenombreOriginal, f => f.MapFrom(c => c.Sobrenombre))
+                .ForMember(t => t.SegmentoConstancia, f => f.MapFrom(c => c.SegmentoConstancia ?? string.Empty))
+                .ForMember(t => t.NombreGerenteZonal, f => f.MapFrom(c => c.NombreGerenteZona))
+                .ForMember(t => t.MensajePedidoDesktop, f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoDesktop : 0))
+                .ForMember(t => t.MensajePedidoMobile, f => f.MapFrom(c => c.TipoUsuario == Constantes.TipoUsuario.Postulante ? c.MensajePedidoMobile : 0))
+                .ForMember(t => t.MontoMinimo, f => f.MapFrom(c => c.MontoMinimoPedido))
+                .ForMember(t => t.MontoMaximo, f => f.MapFrom(c => c.MontoMaximoPedido))
+                .ForMember(t => t.OfertaDelDia, f => f.MapFrom(c => new OfertaDelDiaModel()))
+                .ForMember(t => t.ListaLoginExterno, f => f.MapFrom(c => new List<UsuarioExternoModel>()))
+                .ForMember(t => t.CodigosConcursos, f => f.MapFrom(c => string.Empty))
+                .ForMember(t => t.CodigosProgramaNuevas, f => f.MapFrom(c => string.Empty));
         }
     }
 }

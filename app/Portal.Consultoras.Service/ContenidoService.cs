@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
 {
     public class ContenidoService : IContenidoService
     {
-        private BLNavidadConsultora _BLNavidadConsultora;
-        private BLItemCarruselInicio _BLItemCarruselInicio;
+        private readonly BLNavidadConsultora _BLNavidadConsultora;
+        private readonly BLItemCarruselInicio _BLItemCarruselInicio;
+        private readonly BLMailing _BLMailing;
 
-        private BLMailing _BLMailing;
         public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();
@@ -29,69 +25,69 @@ namespace Portal.Consultoras.Service
 
         public IList<BEBanner> SelectBanner(int campaniaID)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SelectBanner(campaniaID);
+            var blBanner = new BLBanner();
+            return blBanner.SelectBanner(campaniaID);
         }
 
         public IList<BEGrupoBanner> SelectGrupoBanner(int campaniaID)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SelectGrupoBanner(campaniaID);
+            var blBanner = new BLBanner();
+            return blBanner.SelectGrupoBanner(campaniaID);
         }
 
         public int SaveBanner(BEBanner banner)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SaveBanner(banner);
+            var blBanner = new BLBanner();
+            return blBanner.SaveBanner(banner);
         }
 
         public List<int> SaveListBanner(List<BEBanner> listBanner)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SaveListBanner(listBanner);
+            var blBanner = new BLBanner();
+            return blBanner.SaveListBanner(listBanner);
         }
 
         public void SaveGrupoBanner(BEGrupoBanner grupoBanner)
         {
-            var BLBanner = new BLBanner();
-            BLBanner.SaveGrupoBanner(grupoBanner);
+            var blBanner = new BLBanner();
+            blBanner.SaveGrupoBanner(grupoBanner);
         }
 
         public void DeleteBanner(int campaniaID, int bannerID)
         {
-            var BLBanner = new BLBanner();
-            BLBanner.DeleteBanner(campaniaID, bannerID);
+            var blBanner = new BLBanner();
+            blBanner.DeleteBanner(campaniaID, bannerID);
         }
 
         public IList<BEBannerInfo> SelectBannerByConsultora(int paisID, int campaniaID, string codigoConsultora, bool consultoraNueva)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SelectBannerByConsultora(paisID, campaniaID, codigoConsultora, consultoraNueva);
+            var blBanner = new BLBanner();
+            return blBanner.SelectBannerByConsultora(paisID, campaniaID, codigoConsultora, consultoraNueva);
         }
 
         public int UpdOrdenNumberBanner(int paisID, List<BEBannerOrden> lstBanners)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.UpdOrdenNumberBanner(paisID, lstBanners);
+            var blBanner = new BLBanner();
+            return blBanner.UpdOrdenNumberBanner(paisID, lstBanners);
         }
 
         public int GetPaisBannerMarquesina(string CampaniaID, int IdBanner)
         {
-            int result;
-            var BLBanner = new BLBanner();
-            result = BLBanner.GetPaisBannerMarquesina(CampaniaID, IdBanner);
+            var blBanner = new BLBanner();
+            var result = blBanner.GetPaisBannerMarquesina(CampaniaID, IdBanner);
             return result;
         }
+
         public IList<BEParametro> GetParametrosBanners()
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.GetParametrosBanners();
+            var blBanner = new BLBanner();
+            return blBanner.GetParametrosBanners();
         }
 
         public IList<BEBannerInfo> SelectBannerByConsultoraBienvenida(int paisID, int campaniaID, string codigoConsultora, bool consultoraNueva)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.SelectBannerByConsultoraBienvenida(paisID, campaniaID, codigoConsultora, consultoraNueva);
+            var blBanner = new BLBanner();
+            return blBanner.SelectBannerByConsultoraBienvenida(paisID, campaniaID, codigoConsultora, consultoraNueva);
         }
 
         #endregion
@@ -99,32 +95,32 @@ namespace Portal.Consultoras.Service
         #region Gestion Formularios Informativos
         public void InsertFormularioDato(BEFormularioDato formularioDato)
         {
-            var BLFormularioDato = new BLFormularioDato();
-            BLFormularioDato.Insert(formularioDato);
+            var blFormularioDato = new BLFormularioDato();
+            blFormularioDato.Insert(formularioDato);
         }
 
         public void UpdateFormularioDato(BEFormularioDato formularioDato)
         {
-            var BLFormularioDato = new BLFormularioDato();
-            BLFormularioDato.Update(formularioDato);
+            var blFormularioDato = new BLFormularioDato();
+            blFormularioDato.Update(formularioDato);
         }
 
         public void DeleteFormularioDato(int paisID, ETipoFormulario tipoFormulario, int formularioDatoID)
         {
-            var BLFormularioDato = new BLFormularioDato();
-            BLFormularioDato.Delete(paisID, tipoFormulario, formularioDatoID);
+            var blFormularioDato = new BLFormularioDato();
+            blFormularioDato.Delete(paisID, tipoFormulario, formularioDatoID);
         }
 
         public IList<BEFormularioDato> SelectFormularioDatoByPais(int paisID, ETipoFormulario tipoFormulario)
         {
-            var BLFormularioDato = new BLFormularioDato();
-            return BLFormularioDato.Select(paisID, tipoFormulario);
+            var blFormularioDato = new BLFormularioDato();
+            return blFormularioDato.Select(paisID, tipoFormulario);
         }
 
         public BEFormularioDato SelectFormularioDato(ETipoFormulario tipoFormulario)
         {
-            var BLFormularioDato = new BLFormularioDato();
-            return BLFormularioDato.Select(tipoFormulario);
+            var blFormularioDato = new BLFormularioDato();
+            return blFormularioDato.Select(tipoFormulario);
         }
 
         #endregion
@@ -133,44 +129,44 @@ namespace Portal.Consultoras.Service
 
         public IList<BEResumenCampania> GetPedidoWebAcumulado(int paisID, int CampaniaID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetPedidoWebAcumulado(paisID, CampaniaID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetPedidoWebAcumulado(paisID, CampaniaID, ConsultoraID);
         }
 
         public decimal GetMontoDeuda(int paisID, int campaniaID, long consultoraID, string codigoUsuario, bool revisarHana)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetMontoDeuda(paisID, campaniaID, Convert.ToInt32(consultoraID), codigoUsuario, revisarHana);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetMontoDeuda(paisID, campaniaID, Convert.ToInt32(consultoraID), codigoUsuario, revisarHana);
         }
 
         public IList<BEResumenCampania> GetSaldoPendiente(int paisID, int CampaniaID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetSaldoPendiente(paisID, CampaniaID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetSaldoPendiente(paisID, CampaniaID, ConsultoraID);
         }
 
         public IList<BEResumenCampania> GetProductosSolicitados(int paisID, int CampaniaID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetProductosSolicitados(paisID, CampaniaID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetProductosSolicitados(paisID, CampaniaID, ConsultoraID);
         }
 
         public IList<BEResumenCampania> GetValorAPagar(int paisID, int CampaniaID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetValorAPagar(paisID, CampaniaID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetValorAPagar(paisID, CampaniaID, ConsultoraID);
         }
 
         public IList<BEResumenCampania> GetFlexipago(int paisID, int CampaniaID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetFlexipago(paisID, CampaniaID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetFlexipago(paisID, CampaniaID, ConsultoraID);
         }
 
         public IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID)
         {
-            var BLResumenCampania = new BLResumenCampania();
-            return BLResumenCampania.GetDeudaTotal(paisID, ConsultoraID);
+            var blResumenCampania = new BLResumenCampania();
+            return blResumenCampania.GetDeudaTotal(paisID, ConsultoraID);
         }
 
         #endregion
@@ -179,20 +175,20 @@ namespace Portal.Consultoras.Service
 
         public IList<BEContenidoDato> SelectContenidoDato(int paisID, int campaniaID)
         {
-            var BLContenidoDato = new BLContenidoDato();
-            return BLContenidoDato.SelectContenidoDato(paisID, campaniaID);
+            var blContenidoDato = new BLContenidoDato();
+            return blContenidoDato.SelectContenidoDato(paisID, campaniaID);
         }
 
         public void InsContenidoDato(BEContenidoDato contenidodato)
         {
-            var BLContenidoDato = new BLContenidoDato();
-            BLContenidoDato.InsContenidoDato(contenidodato);
+            var blContenidoDato = new BLContenidoDato();
+            blContenidoDato.InsContenidoDato(contenidodato);
         }
 
         public void UpdContenidoDato(BEContenidoDato contenidodato)
         {
-            var BLContenidoDato = new BLContenidoDato();
-            BLContenidoDato.UpdContenidoDato(contenidodato);
+            var blContenidoDato = new BLContenidoDato();
+            blContenidoDato.UpdContenidoDato(contenidodato);
         }
 
         #endregion
@@ -201,8 +197,8 @@ namespace Portal.Consultoras.Service
 
         public IList<BETipoLink> GetLinksPorPais(int paisID)
         {
-            var BLContenidoDato = new BLContenidoDato();
-            return BLContenidoDato.GetLinksPorPais(paisID);
+            var blContenidoDato = new BLContenidoDato();
+            return blContenidoDato.GetLinksPorPais(paisID);
         }
 
         #endregion
@@ -211,32 +207,32 @@ namespace Portal.Consultoras.Service
 
         public IList<BEPayPalConfiguracion> GetConfiguracionPayPal(int paisID)
         {
-            var BLPayPalConfiguracion = new BLPayPalConfiguracion();
-            return BLPayPalConfiguracion.GetConfiguracionPayPal(paisID);
+            var blPayPalConfiguracion = new BLPayPalConfiguracion();
+            return blPayPalConfiguracion.GetConfiguracionPayPal(paisID);
         }
 
         public int InsDatosPago(int paisID, string chrCodigoConsultora, string chrCodigoTerritorio, decimal montoAbono, string chrNumeroTarjeta, DateTime datFechaTransaccion, Int16 estado)
         {
-            var BLPayPalConfiguracion = new BLPayPalConfiguracion();
-            return BLPayPalConfiguracion.InsDatosPago(paisID, chrCodigoConsultora, chrCodigoTerritorio, montoAbono, chrNumeroTarjeta, datFechaTransaccion, estado);
+            var blPayPalConfiguracion = new BLPayPalConfiguracion();
+            return blPayPalConfiguracion.InsDatosPago(paisID, chrCodigoConsultora, chrCodigoTerritorio, montoAbono, chrNumeroTarjeta, datFechaTransaccion, estado);
         }
 
         public int InsAbonoPago(int paisID, string chrCodigoPais, string chrCodigoConsultora, decimal mnyMontoAbono, string chrCodigoAutorizacionBanco, string chrCodigoTransaccion, int chrResultado)
         {
-            var BLPayPalConfiguracion = new BLPayPalConfiguracion();
-            return BLPayPalConfiguracion.InsAbonoPago(paisID, chrCodigoPais, chrCodigoConsultora, mnyMontoAbono, chrCodigoAutorizacionBanco, chrCodigoTransaccion, chrResultado);
+            var blPayPalConfiguracion = new BLPayPalConfiguracion();
+            return blPayPalConfiguracion.InsAbonoPago(paisID, chrCodigoPais, chrCodigoConsultora, mnyMontoAbono, chrCodigoAutorizacionBanco, chrCodigoTransaccion, chrResultado);
         }
 
         public bool ExistePagoPendiente(int paisID, decimal mnyMontoAbono, string chrNumeroTarjeta, DateTime datFecha)
         {
-            var BLPayPalConfiguracion = new BLPayPalConfiguracion();
-            return BLPayPalConfiguracion.ExistePagoPendiente(paisID, mnyMontoAbono, chrNumeroTarjeta, datFecha);
+            var blPayPalConfiguracion = new BLPayPalConfiguracion();
+            return blPayPalConfiguracion.ExistePagoPendiente(paisID, mnyMontoAbono, chrNumeroTarjeta, datFecha);
         }
 
         public IList<BEPayPalConfiguracion> GetReporteAbonos(int paisID, string chrCodigoPais, string chrCodigoConsultora, int intDia, int intMes, int intAnho, string chrRETCodigoTransaccion)
         {
-            var BLPayPalConfiguracion = new BLPayPalConfiguracion();
-            return BLPayPalConfiguracion.GetReporteAbonos(paisID, chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion);
+            var blPayPalConfiguracion = new BLPayPalConfiguracion();
+            return blPayPalConfiguracion.GetReporteAbonos(paisID, chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion);
         }
 
         #endregion        
@@ -249,6 +245,7 @@ namespace Portal.Consultoras.Service
                 return blContenidoRevista.Insertar(nroCampania, rutaImagenPortada);
             }
         }
+
         public Int32 ActualizarContenidoRevista(int paisId, int id, string rutaImagenPortada)
         {
             using (var blContenidoRevista = new BLContenidoRevista(paisId))
@@ -264,6 +261,7 @@ namespace Portal.Consultoras.Service
                 return blContenidoRevista.EliminarById(id);
             }
         }
+
         public BEContenidoRevista ObtenerContenidoRevistaCampania(int paisId, string campania)
         {
             using (var blContenidoRevista = new BLContenidoRevista(paisId))
@@ -271,6 +269,7 @@ namespace Portal.Consultoras.Service
                 return blContenidoRevista.ObtenerByCampania(campania);
             }
         }
+
         public IList<BEContenidoRevista> ContenidoRevistaPaginado(int paisId, string campania, int pageSize, int pageNum, out int totalRows)
         {
             using (var blContenidoRevista = new BLContenidoRevista(paisId))
@@ -278,6 +277,7 @@ namespace Portal.Consultoras.Service
                 return blContenidoRevista.ObtenerByCampania(campania, pageSize, pageNum, out totalRows);
             }
         }
+
         public BEContenidoRevista ObtenerContenidoRevistaId(int paisId, int id)
         {
             using (var blContenidoRevista = new BLContenidoRevista(paisId))
@@ -291,25 +291,26 @@ namespace Portal.Consultoras.Service
 
         public IList<BEBelcorpResponde> GetBelcorpResponde(int paisID)
         {
-            var BLBelcorpResponde = new BLBelcorpResponde();
-            return BLBelcorpResponde.GetBelcorpResponde(paisID);
+            var blBelcorpResponde = new BLBelcorpResponde();
+            return blBelcorpResponde.GetBelcorpResponde(paisID);
         }
 
         public IList<BEBelcorpResponde> GetBelcorpRespondeAdministrador(int paisID)
         {
-            var BLBelcorpResponde = new BLBelcorpResponde();
-            return BLBelcorpResponde.GetBelcorpRespondeAdministrador(paisID);
+            var blBelcorpResponde = new BLBelcorpResponde();
+            return blBelcorpResponde.GetBelcorpRespondeAdministrador(paisID);
         }
 
         public void InsBelcorpResponde(BEBelcorpResponde BEBelcorpResponde)
         {
-            var BLBelcorpResponde = new BLBelcorpResponde();
-            BLBelcorpResponde.InsBelcorpResponde(BEBelcorpResponde);
+            var blBelcorpResponde = new BLBelcorpResponde();
+            blBelcorpResponde.InsBelcorpResponde(BEBelcorpResponde);
         }
+
         public void DeleteBelcorpRespondeCache(int paisID)
         {
-            var BLBelcorpResponde = new BLBelcorpResponde();
-            BLBelcorpResponde.DeleteBelcorpRespondeCache(paisID);
+            var blBelcorpResponde = new BLBelcorpResponde();
+            blBelcorpResponde.DeleteBelcorpRespondeCache(paisID);
         }
 
         #endregion
@@ -334,26 +335,26 @@ namespace Portal.Consultoras.Service
 
         public BEBannerSegmentoZona GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId);
+            var blBanner = new BLBanner();
+            return blBanner.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId);
         }
 
         public List<BEBannerSegmentoZona> GetBannerPaisesAsignados(int CampaniaId, int BannerId)
         {
-            var BLBanner = new BLBanner();
-            return BLBanner.GetBannerPaisesAsignados(CampaniaId, BannerId);
+            var blBanner = new BLBanner();
+            return blBanner.GetBannerPaisesAsignados(CampaniaId, BannerId);
         }
 
         public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
-            var BLBanner = new BLBanner();
-            BLBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
+            var blBanner = new BLBanner();
+            blBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
         }
 
         public void DeleteCacheBanner(int CampaniaID)
         {
-            var BLBanner = new BLBanner();
-            BLBanner.DeleteCacheBanner(CampaniaID);
+            var blBanner = new BLBanner();
+            blBanner.DeleteCacheBanner(CampaniaID);
         }
 
         public int ActualizarEstadoPaqueteDocumentario(int paisID, string codigo, int campania)
@@ -403,22 +404,23 @@ namespace Portal.Consultoras.Service
             return _BLNavidadConsultora.SeleccionarNavidadConsultora(entidad);
         }
         #endregion
+
         public IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais)
         {
-            var BLConsultoraLider = new BLConsultoraLider();
-            return BLConsultoraLider.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais);
+            var blConsultoraLider = new BLConsultoraLider();
+            return blConsultoraLider.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais);
         }
 
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
-            var BLConsultoraLider = new BLConsultoraLider();
-            return BLConsultoraLider.GetProyectaNivel(paisID, ConsultoraID);
+            var blConsultoraLider = new BLConsultoraLider();
+            return blConsultoraLider.GetProyectaNivel(paisID, ConsultoraID);
         }
 
         public DataSet ObtenerParametrosSuperateLider(int paisID, long ConsultoraID, int CampaniaVenta)
         {
-            var BLConsultoraLider = new BLConsultoraLider();
-            return BLConsultoraLider.ObtenerParametrosSuperateLider(paisID, ConsultoraID, CampaniaVenta);
+            var blConsultoraLider = new BLConsultoraLider();
+            return blConsultoraLider.ObtenerParametrosSuperateLider(paisID, ConsultoraID, CampaniaVenta);
         }
 
         public IList<BEItemCarruselInicio> GetItemCarruselInicio(int paisID)

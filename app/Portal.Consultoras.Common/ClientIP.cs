@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Common
                 var indOf = ip.IndexOf(":");
                 if (indOf > 0)
                 {
-                    ip = ip.Substring(0, ip.IndexOf(":") - 1);
+                    ip = ip.Substring(0, indOf - 1);
                 }
             }
             return ip;

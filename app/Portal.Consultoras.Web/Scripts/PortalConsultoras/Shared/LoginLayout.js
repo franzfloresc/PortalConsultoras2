@@ -65,7 +65,6 @@ $(document).ready(function () {
 });
 
 function Jqueryplaceholder(Control) {
-    var placeholder = $('#' + Control).attr('placeholder');
     $('#' + Control).val('');
     $('#' + Control).focus(function () {
         var placeholdertext = $(this).attr('placeholder');

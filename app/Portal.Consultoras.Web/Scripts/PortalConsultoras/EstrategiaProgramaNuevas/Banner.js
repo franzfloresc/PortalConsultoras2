@@ -38,7 +38,7 @@ uploaderCupon = new qq.FileUploader({
             if (response.success) {
                 $("#imgBannerCupon").attr("src", response.extra + "?" + new Date().getTime());
             } else {
-                alert(response.message);
+                alert(response.extra);
             };
         }
     },
@@ -139,7 +139,6 @@ function fn_CargarImagen() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 }

@@ -1,22 +1,22 @@
-﻿namespace Portal.Consultoras.Web.Controllers
-{
-    using AutoMapper;
-    using Portal.Consultoras.Common;
-    using Portal.Consultoras.Web.Models;
-    using Portal.Consultoras.Web.ServiceCliente;
-    using Portal.Consultoras.Web.ServicePedido;
-    using Portal.Consultoras.Web.ServiceSAC;
-    using Portal.Consultoras.Web.ServiceUsuario;
-    using Portal.Consultoras.Web.ServiceZonificacion;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Text;
-    using System.Web.Mvc;
-    using System.Web.Script.Serialization;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
+namespace Portal.Consultoras.Web.Controllers
+{
     public class ConsultaDatoConsultoraController : BaseController
     {
         public ActionResult ConsultaDatoConsultora()
@@ -90,11 +90,11 @@
         {
             if (ModelState.IsValid)
             {
-                string deudaActualConultora = "0.00";
 
                 long consulId = ObtenerConsultoraId(codigoConsultora);
                 var lst = EstadodeCuenta(consulId);
 
+                string deudaActualConultora;
                 using (SACServiceClient client = new SACServiceClient())
                 {
                     deudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, consulId);
@@ -972,12 +972,8 @@
                 SortColumn = sidx,
                 SortOrder = sord
             };
-            bool errorServicio;
-            string errorCode;
-            string errorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(campania))
-                lst = GetPDFRVDigital(campania, codigo, out errorServicio, out errorCode, out errorMessage);
+            if (!string.IsNullOrEmpty(campania)) lst = GetListPaqueteDocumentario(codigo, campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
@@ -1018,7 +1014,6 @@
                         a.FechaFacturacion,
                         a.Ruta,
                     }
-
                 }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -1026,57 +1021,8 @@
 
         public ActionResult GetCampaniasRVDigitalWeb(string CodigoConsultora)
         {
-            UsuarioModel usuario = userData;
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : CodigoConsultora) };
-            List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-
-                WrapperCampanias st = jsonSerializer.Deserialize<WrapperCampanias>(outResult);
-                if (st != null && st.LIS_CampanaResult != null && st.LIS_CampanaResult.lista != null &&
-                    st.LIS_CampanaResult.lista.Count != 0)
-
-                    foreach (var item in st.LIS_CampanaResult.lista)
-                    {
-                        lstCampaniaModel.Add(new CampaniaModel()
-                        {
-                            CampaniaID = Convert.ToInt32(item),
-                            Codigo = item
-                        });
-                    }
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            if (lstCampaniaModel.Count != 0)
-                return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
-
-            return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
-
-
+            string errorMessage;
+            return Json(GetListCampaniaPaqueteDocumentario(CodigoConsultora, out errorMessage), JsonRequestBehavior.AllowGet);
         }
 
         #region metodos genericos
@@ -1102,138 +1048,6 @@
             }
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
-        }
-
-        public List<RVPRFModel> GetPDFRVDigital(string campania, string codigo, out bool errorServicio, out string errorCode, out string errorMessage)
-        {
-            UsuarioModel usuario = userData;
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), Campana = campania };
-            List<RVPRFModel> lstRvprfModel = new List<RVPRFModel>();
-            errorServicio = false;
-            errorCode = string.Empty;
-            errorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
-
-                WrapperPDFWeb st = jsonSerializer.Deserialize<WrapperPDFWeb>(outResult);
-                if (st != null && st.GET_URLResult != null)
-
-                    if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
-                    {
-                        if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
-                        {
-                            foreach (var item in st.GET_URLResult.objeto)
-                            {
-                                lstRvprfModel.Add(new RVPRFModel()
-                                {
-                                    Nombre = "Paquete Documentario",
-                                    FechaFacturacion = item.fechaFacturacion,
-                                    Ruta = Convert.ToString(item.url)
-                                });
-                            }
-                        }
-                    }
-                    else
-                    {
-                        errorCode = st.GET_URLResult.errorCode;
-                        errorMessage = st.GET_URLResult.errorMessage;
-                    }
-            }
-            catch (Exception ex)
-            {
-                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                errorServicio = true;
-            }
-
-            return lstRvprfModel;
-        }
-
-        public string DevolverNombrePais(string iso, out string marca)
-        {
-            string result = string.Empty;
-            marca = string.Empty;
-
-            switch (iso)
-            {
-                case "AR":
-                    result = "ARGENTINA";
-                    marca = "L'Bel";
-                    break;
-                case "BO":
-                    result = "BOLIVIA";
-                    marca = "Esika";
-                    break;
-                case "CL":
-                    result = "CHILE";
-                    marca = "Esika";
-                    break;
-                case "CO":
-                    result = "COLOMBIA";
-                    marca = "L'Bel";
-                    break;
-                case "CR":
-                    result = "COSTA RICA";
-                    marca = "L'Bel";
-                    break;
-                case "DO":
-                    result = "DOMINICANA";
-                    marca = "L'Bel";
-                    break;
-                case "EC":
-                    result = "ECUADOR";
-                    marca = "L'Bel";
-                    break;
-                case "SV":
-                    result = "EL SALVADOR";
-                    marca = "Esika";
-                    break;
-                case "GT":
-                    result = "GUATEMALA";
-                    marca = "Esika";
-                    break;
-                case "MX":
-                    result = "MEXICO";
-                    marca = "L'Bel";
-                    break;
-                case "PA":
-                    result = "PANAMA";
-                    marca = "L'Bel";
-                    break;
-                case "PE":
-                    result = "PERU";
-                    marca = "Esika";
-                    break;
-                case "PR":
-                    result = "PUERTO RICO";
-                    marca = "L'Bel";
-                    break;
-                case "VE":
-                    result = "VENEZUELA";
-                    marca = "L'Bel";
-                    break;
-            }
-            return result;
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)

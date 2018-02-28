@@ -3,7 +3,9 @@ using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+
 using System.Collections.Generic;
+using System;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -105,6 +107,16 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEMiCertificado> GetMisCertificadosData();
 
+        void SetFlagLogCargaOfertas(bool habilitarLog);
+        void SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista);
+
+        bool GetFlagLogCargaOfertas();
+        List<ServiceSAC.BETablaLogicaDatos> GetListFiltersFAV();
+
+        void SetStartSession(DateTime StartSession);
+
+        DateTime GetStartSession();
+        
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
         PagoEnLineaModel GetDatosPagoVisa();

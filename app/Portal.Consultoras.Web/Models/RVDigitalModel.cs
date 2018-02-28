@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -19,27 +17,6 @@ namespace Portal.Consultoras.Web.Models
     }
 
     [Serializable]
-    public class RVDCampaniasParam
-    {
-        public string pais { get; set; }
-        public string tipo { get; set; }
-        public string docIdentidad { get; set; }
-        public string consultora { get; set; }
-        public string marca { get; set; }
-    }
-
-    [Serializable]
-    public class RVDPDFParam
-    {
-        public string consultora { get; set; }
-        public string pais { get; set; }
-        public string tipo { get; set; }
-        public string docIdentidad { get; set; }
-        public string marca { get; set; }
-        public string Campana { get; set; }
-    }
-
-    [Serializable]
     public class WrapperCampanias
     {
         public LIS_CampanaResult LIS_CampanaResult { get; set; }
@@ -50,45 +27,21 @@ namespace Portal.Consultoras.Web.Models
     {
         public string errorCode { get; set; }
         public string errorMessage { get; set; }
-        public List<string> lista { get; set; }
+        public List<LIS_PedidoResult> lista { get; set; }
         public string objeto { get; set; }
     }
 
     [Serializable]
-    public class WrapperPDF
+    public class LIS_PedidoResult
     {
-        public SEL_PDFxCampanaResult SEL_PDFxCampanaResult { get; set; }
-    }
-
-    [Serializable]
-    public class SEL_PDFxCampanaResult
-    {
-        public string errorCode { get; set; }
-        public string errorMessage { get; set; }
-        public List<string> lista { get; set; }
-        public string objeto { get; set; }
-    }
-
-    [Serializable]
-    public class RVDWebCampaniasParam
-    {
-        public string Pais { get; set; }
-        public string Tipo { get; set; }
-        public string CodigoConsultora { get; set; }
-        public string Campana { get; set; }
+        public string campana { get; set; }
+        public string pedido { get; set; }
     }
 
     [Serializable]
     public class WrapperPDFWeb
     {
         public GET_URLResult GET_URLResult { get; set; }
-    }
-
-    [Serializable]
-    public class objeto
-    {
-        public string fechaFacturacion { get; set; }
-        public string url { get; set; }
     }
 
     [Serializable]
@@ -99,5 +52,11 @@ namespace Portal.Consultoras.Web.Models
         public List<string> lista { get; set; }
         public List<objeto> objeto { get; set; }
     }
-     
+
+    [Serializable]
+    public class objeto
+    {
+        public string fechaFacturacion { get; set; }
+        public string url { get; set; }
+    }    
 }

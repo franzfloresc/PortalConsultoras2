@@ -141,16 +141,13 @@ function SeccionCargarProductos(objConsulta) {
                 }
             }
         },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        error: function (error, x) { }
     });
 }
 
 function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
     if (htmlSeccion.length !== 1) {
-        console.log(data.Seccion);
         return false;
     }
 
@@ -168,7 +165,6 @@ function SeccionMostrarProductos(data) {
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if (data.Seccion.TemplateProducto === "") {
-        console.log(data.Seccion);
         return false;
     }
 
@@ -312,9 +308,6 @@ function RenderCarruselSimple(divProd) {
         speed: 260,
         prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
         nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
-        //})
-        //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
     });
 
     divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
@@ -342,12 +335,8 @@ function UpdateSessionState(codigo, campaniaId) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
-        success: function (data) {
-            console.log(data.estado);
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
+        success: function (data) { },
+        error: function (error, x) { }
     });
 }
 

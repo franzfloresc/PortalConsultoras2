@@ -1,4 +1,22 @@
 ﻿﻿@model Portal.Consultoras.Web.Models.EstrategiaIncentivosModel
+<style>
+    #Orden {
+        text-align:right
+    }
+    .EstrategiaTablaDetail .div-3 {
+        height:65px
+    }
+    .EstrategiaTablaDetail .div-3 div {
+        display:inline-block !important;
+        float:none!important;
+        text-align:center;
+        vertical-align:middle
+    }
+    input[type="checkbox"] {
+        display: inline-block !important;
+        float: none !important
+    }
+</style>
 <form action="" method="post">
     <div class="Content_modal">
         @Html.HiddenFor(model => model.EstrategiaID)
@@ -7,7 +25,7 @@
         <div class="div-3">
             <div class="titG"><span class="required">(*)</span>Cod. concurso:</div>
             <div class="selectA" style="width:150px">
-                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "3" })
+                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "6" })
             </div>
         </div>
         <div class="div-3">
@@ -22,11 +40,20 @@
         </div>
         <div class="EstrategiaTabla">
             <div class="EstrategiaTablaHeader">
-                <div>
+                <div style="width:150px">
                     <span class="required">(*)</span>Código
                 </div>
-                <div>
+                <div style="width:500px;display:none">
                     <span class="required">(*)</span>Descripción
+                </div>
+                <div style="width:100px">
+                    <span class="required">(*)</span>Orden
+                </div>
+                <div style="width:200px">
+                    Imagen
+                </div>
+                <div style="width:200px">
+                    ¿Activar Oferta?
                 </div>
             </div>
             <div class="EstrategiaTablaDetail">
@@ -34,26 +61,24 @@
                     <div class="selectA" style="width:150px">
                         @Html.TextBoxFor(model => model.CUV, new { autocomplete = "off", maxlength = "5" })
                     </div>
-                    <div class="selectA" style="width:500px">
+                    <div class="selectA" style="width:500px;display:none !important">
                         @Html.TextBoxFor(model => model.DescripcionCUV, new { autocomplete = "off", maxlength = "800" })
+                    </div>
+                    <div class="selectA" style="width:100px">
+                        @Html.TextBoxFor(model => model.Orden, new { autocomplete = "off", maxlength = "3" })
+                    </div>
+                    <div style="width:200px">
+                        <div class="pdr_modal borde_redondeado">
+                            <img src='@Model.ImageUrl' id="imgSeleccionada" class="img-matriz-preview">
+                        </div>
+                    </div>
+                    <div style="width:200px">
+                        @Html.CheckBoxFor(model => model.Activo)
                     </div>
                 </div>
             </div>
         </div>
         <br />
-        <div class="div-3">
-            <div class="titG">Imagen:</div>
-            <div>
-                <div class="pdr_modal borde_redondeado">
-                    <img src='@Model.ImageUrl' id="imgSeleccionada" class="img-matriz-preview">
-                </div>
-            </div>
-            <div class="titG">¿Activar Oferta?</div>
-            <div>
-                @Html.CheckBoxFor(model => model.Activo)
-            </div>
-        </div>
-
         <div class="Content_modal">
             <div class="EstrategiaTab">
                 <div class="EstrategiaTabHeader">

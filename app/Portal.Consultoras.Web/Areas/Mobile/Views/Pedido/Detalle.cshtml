@@ -278,6 +278,17 @@
         <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
+    <div class="contenedor_cupon" id="cupon-pedido-mobile" style="display: none;">
+        <div class="background_cupon"></div>
+        <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+            <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+        </div>
+        <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
+            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+            <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+        </div>
+    </div>
     <div class="detalle_pedido_ingresado">
         <span class="titulo_detalle">DETALLE</span>
     </div>
@@ -312,7 +323,7 @@
                         <span>Oferta Flexipago</span>
                         {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                         <br />
-                        <span>Pre-venta Digital</span>
+                        <span>OFERTAS ESPECIALES GANA+</span>
                         {{else}}
                         {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                         <br />
@@ -325,15 +336,15 @@
 
                         {{/if_eq}}
                     </span>
-                        <span class="cod_prod">
-                            {{#if detalle.EstadoSimplificacionCuv}}
-                            {{#if detalle.IndicadorOfertaCUV}}
-                            <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
-                            <span class="icon-advertencia"></span>
-                            {{/if}}
-                            {{/if}}
-                            {{detalle.CUV}}
-                        </span>
+                    <span class="cod_prod">
+                        {{#if detalle.EstadoSimplificacionCuv}}
+                        {{#if detalle.IndicadorOfertaCUV}}
+                        <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                        <span class="icon-advertencia"></span>
+                        {{/if}}
+                        {{/if}}
+                        {{detalle.CUV}}
+                    </span>
                     <span class="desc_prod">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
@@ -617,6 +628,7 @@
                                 <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                                 <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
                                 <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
+                                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
                             </div>
                             <div class="contenido_item_ofertaFinal">
                                 <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="">
@@ -752,13 +764,14 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="OF" />
-                    <input type="hidden" class="ID" value="{{ID}}" />
-                    <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
-                    <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
-                    <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
-                    <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
-                    <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
-                    <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="ID" value="{{ID}}" />
+                <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+                <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+                <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
@@ -834,7 +847,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';

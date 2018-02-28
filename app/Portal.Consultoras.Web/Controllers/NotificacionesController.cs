@@ -233,7 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(paisId, SolicitudId);
+                //ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(paisId, SolicitudId);
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatosMail = sv.GetTablaLogicaDatos(paisId, 57);
                 String emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);

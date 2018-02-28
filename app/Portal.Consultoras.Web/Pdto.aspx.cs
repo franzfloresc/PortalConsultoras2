@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
+using System;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 
 namespace Portal.Consultoras.Web
 {
@@ -21,16 +17,14 @@ namespace Portal.Consultoras.Web
 
                 string codigoIso = array[0] ?? "";
                 string idProducto = array[1] ?? "";
-
-                //Validando si es Número Entero.
-                int idProComp = 0;
+                
+                int idProComp;
                 bool esId = int.TryParse(idProducto, out idProComp);
                 int idFinal = esId ? idProComp : 0;
-
-                //Obteniendo PaísID..
+                
                 int paisId = Util.GetPaisID(codigoIso);
 
-                BEProductoCompartido objProComp = new BEProductoCompartido();
+                BEProductoCompartido objProComp;
 
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -39,43 +33,43 @@ namespace Portal.Consultoras.Web
 
                 if (objProComp != null)
                 {
-                    string ProductoCompPalanca = objProComp.PcPalanca;
-                    var ArrayDetalle = objProComp.PcDetalle.Split('|');
+                    string productoCompPalanca = objProComp.PcPalanca;
+                    var arrayDetalle = objProComp.PcDetalle.Split('|');
 
-                    string RutaImagen = "";
-                    string MarcaDesc = "";
-                    string NomProducto = "";
-                    string Volumen = "";
-                    string DescProducto = "";
+                    string rutaImagen = "";
+                    string marcaDesc = "";
+                    string nomProducto = "";
+                    string volumen = "";
+                    string descProducto = "";
 
                     //desconcatenar detalle
-                    if (ArrayDetalle.Length > 0)
+                    if (arrayDetalle.Length > 0)
                     {
-                        RutaImagen = Convert.ToString(ArrayDetalle[0] ?? "");
-                        MarcaDesc = Convert.ToString(ArrayDetalle[2] ?? "");
-                        NomProducto = Convert.ToString(ArrayDetalle[3] ?? "");
+                        rutaImagen = Convert.ToString(arrayDetalle[0] ?? "");
+                        marcaDesc = Convert.ToString(arrayDetalle[2] ?? "");
+                        nomProducto = Convert.ToString(arrayDetalle[3] ?? "");
 
-                        if (ProductoCompPalanca == "FAV")
+                        if (productoCompPalanca == "FAV")
                         {
-                            Volumen = Convert.ToString(ArrayDetalle.Length > 4 ? ArrayDetalle[4] ?? "" : "");
-                            DescProducto = Convert.ToString(ArrayDetalle.Length > 5 ? ArrayDetalle[5] ?? "" : "");
+                            volumen = Convert.ToString(arrayDetalle.Length > 4 ? arrayDetalle[4] ?? "" : "");
+                            descProducto = Convert.ToString(arrayDetalle.Length > 5 ? arrayDetalle[5] ?? "" : "");
                         }
                     }
 
                     HtmlMeta meta1 = new HtmlMeta();
                     meta1.Name = "og:image";
                     meta1.Attributes.Add("property", "og:image");
-                    meta1.Content = RutaImagen;
+                    meta1.Content = rutaImagen;
 
                     HtmlMeta meta2 = new HtmlMeta();
                     meta2.Name = "og:title";
                     meta2.Attributes.Add("property", "og:title");
-                    meta2.Content = NomProducto;
+                    meta2.Content = nomProducto;
 
                     HtmlMeta meta3 = new HtmlMeta();
                     meta3.Name = "og:image:secure_url";
                     meta3.Attributes.Add("property", "og:image:secure_url");
-                    meta3.Content = RutaImagen;
+                    meta3.Content = rutaImagen;
 
                     HtmlMeta meta4 = new HtmlMeta();
                     meta4.Name = "og:site_name";
@@ -100,11 +94,11 @@ namespace Portal.Consultoras.Web
                     Page.Header.Controls.Add(meta6);
 
 
-                    imgCuvProducto.Src = RutaImagen;
-                    pMarcaProducto.InnerHtml = MarcaDesc;
-                    pNombreProducto.InnerHtml = NomProducto;
-                    pVolumenProducto.InnerHtml = Volumen;
-                    pDescripcionProducto.InnerHtml = DescProducto;
+                    imgCuvProducto.Src = rutaImagen;
+                    pMarcaProducto.InnerHtml = marcaDesc;
+                    pNombreProducto.InnerHtml = nomProducto;
+                    pVolumenProducto.InnerHtml = volumen;
+                    pDescripcionProducto.InnerHtml = descProducto;
                     pMensaje1.Visible = false;
                 }
                 else
