@@ -331,6 +331,7 @@ $(document).ready(function () {
 
     });
 
+    /*
     var so = $.trim(tipoOrigenEstrategia)[0];
     if (so == 1) {
         $(document).on('mousemove', '[data-tono-change]', function (e) {
@@ -345,6 +346,7 @@ $(document).ready(function () {
             $(this).attr("data-visible", "0");
         });
     }
+    */
 });
 
 
