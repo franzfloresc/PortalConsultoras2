@@ -431,7 +431,12 @@
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\Common\AuditoriaModel.cs" />
+    <Compile Include="Models\Common\ResultModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -662,6 +667,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\UpSellingProvider.cs" />
+    <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1208,6 +1215,7 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
     <Content Include="Content\Images\colorpicker\colorpicker_hex.png" />
@@ -3449,6 +3457,9 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
+    <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
@@ -4069,6 +4080,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService8.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
@@ -4707,6 +4721,7 @@
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\UpSelling\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
