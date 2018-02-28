@@ -10178,15 +10178,17 @@ span.icon-advertencia {
 /*FICHA PRODCUTO*/
 
 .content_imagen_ficha {
-    width: 230px;
-    height: 230px;
+    width: auto;
+    max-height: 230px;
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
     .content_imagen_ficha img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 230px;
     }
 
 .titulo_ficha_producto {
@@ -10657,7 +10659,6 @@ span.icon-advertencia {
 /*FICHA 048B*/
 .content_oferta_guia_negocio {
     width: 100%;
-    max-width: 292px;
     margin: 0 auto;
     height: auto;
     text-align: left;
@@ -11361,12 +11362,14 @@ span.icon-advertencia {
 .alerta_notificacion {
     font-family: 'Lato';
     width: 74%;
+    text-align: center;
     height: 20px;
     margin: 0 auto;
     font-size: 12px;
     letter-spacing: .2px;
     padding-left: 29px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
+    margin-top: 20px;
 }
 
 .texto_sin_tono {

@@ -59,18 +59,12 @@
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
     }
 </div>
-@if (codigo != Constantes.ConfiguracionPais.RevistaDigital)
-{
-    <div class="" style="border-bottom:0">
-        <div class="pestana_esika"></div>
-        <div class="pestana_lbel"></div>
-    </div>
-}
+
 @{
     var btnDesabled = 0;
     var btnDesabledClass = "";
 }
-<div style="margin-top: 25px;"></div>
+<div style="height: 15px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
@@ -303,15 +297,15 @@
 }
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
-    </script>
+        var urlRetorno =  $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
+</script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
 

@@ -699,11 +699,12 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Herramienta de Ventas
-            public const int HVDesktopContenedor = 9999;
-            public const int HVDesktopLanding = 9998;
-            public const int HVDesktopLandingPopUp = 9997;
-            public const int HVMobileLanding = 9996;
-            public const int HVMobileLandingPopup = 9995;
+            public const int HVDesktopContenedor = 1831;
+            public const int HVDesktopContenedorPopup = 1832;
+            public const int HVDesktopLanding = 1011;
+            public const int HVDesktopLandingPopUp = 1012;
+            public const int HVMobileLanding = 2011;
+            public const int HVMobileLandingPopup = 2011;
             #endregion
         }
 
