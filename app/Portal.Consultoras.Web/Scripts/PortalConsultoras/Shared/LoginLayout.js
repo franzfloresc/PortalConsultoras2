@@ -13,12 +13,12 @@ $(document).ready(function () {
     LocalStorageLimpiar();
 
     if (esPaisEsika == 'True') {
-        $('#cssStyle').attr('disabled', false);
-        $('#cssStyleLbel').attr('disabled', true);
+        $('#cssStyle>link').attr('disabled', false);
+        $('#cssStyleLbel>link').attr('disabled', true);
     }
     if (esPaisLbel == 'True') {
-        $('#cssStyle').attr('disabled', true);
-        $('#cssStyleLbel').attr('disabled', false);
+        $('#cssStyle>link').attr('disabled', true);
+        $('#cssStyleLbel>link').attr('disabled', false);
     }
 
     $(".DropDown").change(function () {

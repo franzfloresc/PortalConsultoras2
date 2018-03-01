@@ -85,6 +85,7 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />
     <Compile Include="DABotmakerApiLog.cs" />

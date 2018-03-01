@@ -37,6 +37,12 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_GetCampaniaActivaPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniaActivaPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPaisResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetFechaHoraPais_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFechaHoraPais" />
   </wsdl:message>
@@ -132,6 +138,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_ListConfiguracionOfertasHome_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHome" />
@@ -366,6 +378,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicadoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
@@ -672,12 +690,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescargaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniaActivaPais_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPais" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniaActivaPais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniaActivaPaisResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1190,6 +1202,10 @@
     <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPais" message="tns:ISACService_GetCampaniaActivaPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse" message="tns:ISACService_GetCampaniaActivaPais_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPais" message="tns:ISACService_GetFechaHoraPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFechaHoraPaisResponse" message="tns:ISACService_GetFechaHoraPais_OutputMessage" />
@@ -1253,6 +1269,10 @@
     <wsdl:operation name="UpdateConfiguracionPais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigo" message="tns:ISACService_GetHorarioByCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigoResponse" message="tns:ISACService_GetHorarioByCodigo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" message="tns:ISACService_ListConfiguracionOfertasHome_InputMessage" />
@@ -1409,6 +1429,10 @@
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" message="tns:ISACService_ActualizarVisualizoComunicado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicadoResponse" message="tns:ISACService_ActualizarVisualizoComunicado_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarDonacionConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
@@ -1613,10 +1637,6 @@
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" message="tns:ISACService_GetConsultoraDigitalesDescarga_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse" message="tns:ISACService_GetConsultoraDigitalesDescarga_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPais" message="tns:ISACService_GetCampaniaActivaPais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse" message="tns:ISACService_GetCampaniaActivaPais_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1961,6 +1981,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechaHoraPais" style="document" />
       <wsdl:input>
@@ -2098,6 +2127,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2449,6 +2487,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2908,15 +2955,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3693,6 +3731,15 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCampaniaActivaPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFechaHoraPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetFechaHoraPais" style="document" />
       <wsdl:input>
@@ -3830,6 +3877,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4181,6 +4237,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarComunicadoVisualizado">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4640,15 +4705,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraDigitalesDescarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniaActivaPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
