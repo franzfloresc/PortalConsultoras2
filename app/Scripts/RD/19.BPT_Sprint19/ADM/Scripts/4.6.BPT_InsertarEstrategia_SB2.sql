@@ -41,7 +41,7 @@ AS
 BEGIN  
  SET NOCOUNT ON  
   
- DECLARE @CodigoTipoEstrategia VARCHAR = '',  
+ DECLARE @CodigoTipoEstrategia VARCHAR(5) = '',  
    @TipoEstrategiaIDPackNueva INT = 0,   
    @TipoEstrategiaIDOfertaDia INT = 0  
   
@@ -252,6 +252,4 @@ BEGIN
   
  SET NOCOUNT OFF  
 END  
-
-
 GO
