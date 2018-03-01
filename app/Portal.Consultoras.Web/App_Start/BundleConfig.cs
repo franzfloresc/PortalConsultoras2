@@ -201,7 +201,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
                 "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
@@ -282,7 +283,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
-                "~/Content/Css/Site/jquery.rateyo.css"
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login").Include(

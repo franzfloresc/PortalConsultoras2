@@ -562,7 +562,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color: #000;
-    background: #fff url('../../../Images/Esika/ayuda.png') no-repeat;
+    background: #FFF url('../../../Images/Esika/ayuda.png') no-repeat;
     background-position: 18px 4px;
 }
 
@@ -35815,35 +35815,6 @@ h1#penmostreo .campana {
     font-size: 17px;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        margin: 5% auto auto auto;
-        width: 432px;
-        height: 432px;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-            color: white;
-        }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .cerrargndtxt {
-            display: block;
-            width: 100%;
-            position: relative;
-            top: 85px;
-            cursor:pointer;
-        }
-
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
@@ -35878,98 +35849,6 @@ h1#penmostreo .campana {
     100% {
         opacity: 1;
     }
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
-        position: relative;
-        float: left;
-        top: 0;
-        WIDTH: 100%;
-        LEFT: 0;
-        text-align: left;
-        margin: -41px 5% 0% -15px;
-        top: -4px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
-        display: inline-block;
-    /* margin: -15px; */
-    width: auto;
-    height: 40px;
-    }
-
-    .contenido-popup-nuevo-2017 .cerrargndtxt{
-
-        margin-top: 20px;
-    font-size: 11px;
-    letter-spacing: .5px;
-    color: #9E9E9E;
-    text-decoration: underline;
-
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img{
-        display:block;
-        margin:auto;
-        text-align:center;
-        height:120px;
-        margin-bottom:15px;
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 17px;
-    letter-spacing: 1px;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    margin-bottom: 0;
-    display: block;
-    width: 280px;
-    margin: auto;
-    line-height: normal;
-    margin-bottom: 5px;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 24px;
-        letter-spacing: 1px;
-        line-height: normal;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 280px;
-        margin: auto;
-        margin-bottom: 20px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #e81c36;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 13px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        border: none;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 30px;
 }
 
 .contenedor_fondo_popup {

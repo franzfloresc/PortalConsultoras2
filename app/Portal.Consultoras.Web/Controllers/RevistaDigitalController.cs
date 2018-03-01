@@ -522,7 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.FondoColorMarco = Util.ColorFormato(modelo.FondoColorMarco, transparent);
 
                 modelo.FondoColor = "background:" + modelo.FondoColor + ";";
-                modelo.FondoColorMarco = "box-shadow: inset 0 0 0 5px " + modelo.FondoColorMarco + ";";
+                modelo.FondoColorMarco = "border: 5px solid " + modelo.FondoColorMarco + ";";
 
                 return Json(new
                 {
