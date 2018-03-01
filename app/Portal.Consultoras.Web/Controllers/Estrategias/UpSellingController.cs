@@ -125,15 +125,27 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                RegaloOfertaFinalModel model = new RegaloOfertaFinalModel();
-                model.CampaniaId = userData.CampaniaID;
-                model.ConsultoraId = Convert.ToInt32(userData.ConsultoraID);
-                model.MontoPedido = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                model.MontoMeta = montoMeta;
-                model.Cuv = cuv;
+                var montoPedido = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+                if (montoPedido >= montoMeta)
+                {
+                    RegaloOfertaFinalModel model = new RegaloOfertaFinalModel();
+                    model.CampaniaId = userData.CampaniaID;
+                    model.ConsultoraId = Convert.ToInt32(userData.ConsultoraID);
+                    model.MontoPedido = montoPedido;
+                    model.MontoMeta = montoMeta;
+                    model.Cuv = cuv;
 
-                var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
-                return Json(new { success = ok, JsonRequestBehavior.AllowGet });
+                    var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
+                    return Json(new { success = ok, JsonRequestBehavior.AllowGet });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se puede guardar el regalo"
+                    });
+                }
             }
             catch (Exception ex)
             {
