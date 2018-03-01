@@ -1899,7 +1899,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-top: -11.5px;
 }
 
-.RevistaDigital/icono_advertencia_notificacion_lbel.svg {
+.icono_advertencia_notificacion {
     position: relative;
     display: block;
     float: left;
@@ -1907,7 +1907,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 20px;
     top: 1px;
     margin-right: 7px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat center center;
 }
 
 .caja_guardar_pedido {
@@ -3648,7 +3648,7 @@ a.subir_carousel, a.bajar_carousel {
             margin-top: -17px;
         }
 
-    .popup_agregarCliente .RevistaDigital/icono_advertencia_notificacion_lbel.svg {
+    .popup_agregarCliente .icono_advertencia_notificacion {
         display: inline-block;
         vertical-align: middle;
         float: none;
@@ -4497,7 +4497,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.svg') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat center center;
 }
 
 .texto_notaDemanda {
@@ -4962,7 +4962,7 @@ a.subir_carousel, a.bajar_carousel {
     margin: 14px auto 0 auto;
 }
 
-    .mensaje_advertencia_detalleCarousel .RevistaDigital/icono_advertencia_notificacion_lbel.svg {
+    .mensaje_advertencia_detalleCarousel .icono_advertencia_notificacion {
         margin-bottom: 21px;
     }
 /* POPUP DETALLE CARRUSEL OFERTAS PARA TI - PACK NUEVAS */
@@ -30275,7 +30275,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31267,7 +31267,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31686,7 +31686,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31714,7 +31714,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -33069,7 +33069,7 @@ height:30px;
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33648,7 +33648,7 @@ height:30px;
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/Esika/RevistaDigital/icono_advertencia_notificacion_lbel.svg.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
@@ -35098,7 +35098,7 @@ height:30px;
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Lbel/RevistaDigital/icono_advertencia_notificacion_lbel.svg.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
