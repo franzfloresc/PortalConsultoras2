@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, upSelling.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSelling>(true);
+                return reader.MapToObject<UpSelling>(closeReaderFinishing: true);
             }
         }
 
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSelling.UpSellingId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSelling>(true);
+                return reader.MapToObject<UpSelling>(closeReaderFinishing: true);
             }
         }
 
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@FechaModificacion", DbType.DateTime, regalo.FechaModificacion);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSellingDetalle>(true);
+                return reader.MapToObject<UpSellingDetalle>(closeReaderFinishing: true);
             }
         }
 
@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, upSellingDetalleId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSellingDetalle>(true);
+                return reader.MapToObject<UpSellingDetalle>(closeReaderFinishing: true);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, regalo.UpSellingDetalleId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToObject<UpSellingDetalle>(true);
+                return reader.MapToObject<UpSellingDetalle>(closeReaderFinishing: true);
             }
         }
 

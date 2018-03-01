@@ -5,6 +5,11 @@ namespace Portal.Consultoras.Web.Models.Estrategia
 {
     public class UpSellingModel :AuditoriaModel
     {
+        public UpSellingModel()
+        {
+            Regalos = new List<UpSellingRegaloModel>();
+        }
+
         public int UpSellingId { get; set; }
 
         public string CodigoCampana { get; set; }

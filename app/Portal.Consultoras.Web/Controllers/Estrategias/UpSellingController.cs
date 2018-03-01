@@ -68,6 +68,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             foreach (var regalo in model.Regalos)
             {
+                if (regalo.Imagen.StartsWith("http"))
+                    continue;
+
                 if (FileExistsInS3(carpetaPais, regalo.Imagen))
                     continue;
 
