@@ -1,8 +1,7 @@
 ﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ReservaProl;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Portal.Consultoras.Data

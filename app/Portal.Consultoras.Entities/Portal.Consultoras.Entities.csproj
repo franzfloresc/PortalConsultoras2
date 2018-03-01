@@ -72,7 +72,8 @@
     <Compile Include="BEPedidoWebDetalleParametros.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
-    <Compile Include="DEPedidoWebDetalleExplotado.cs" />
+    <Compile Include="DENativeType.cs" />
+    <Compile Include="ReservaProl\DEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="DEPedidoWebDetalleObs.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

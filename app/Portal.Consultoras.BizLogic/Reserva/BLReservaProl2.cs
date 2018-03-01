@@ -40,11 +40,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             foreach (var o in respuestaProl.ListaObservaciones)
             {
                 if (o.cod_observacion == "08") resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == o.codvta));
-                else
-                {
-                    resultado.ListDetalleObservacion.AddRange(listPedidoWebDetalle.Where(d => d.CUV == o.codvta).Select(d => CreatePedidoWebDetalle(d, o)));
-                    resultado.ListPedidoObservacion.Add(CreatePedidoObservacion(o));
-                }
+                else resultado.ListPedidoObservacion.Add(CreatePedidoObservacion(o));
             }
             var obsPedido = resultado.ListPedidoObservacion.FirstOrDefault(o => o.Caso == 95);
             if (obsPedido != null) obsPedido.Descripcion = Regex.Replace(obsPedido.Descripcion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
@@ -88,17 +84,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 CUV = observacion.codvta,
                 Tipo = 2,
                 Descripcion = observacion.observacion.Replace("+", "")
-            };
-        }
-
-        private BEPedidoWebDetalle CreatePedidoWebDetalle(BEPedidoWebDetalle detalle, ObservacionProl observacion)
-        {
-            return new BEPedidoWebDetalle
-            {
-                CampaniaID = detalle.CampaniaID,
-                PedidoID = detalle.PedidoID,
-                PedidoDetalleID = detalle.PedidoDetalleID,
-                ObservacionPROL = observacion.observacion
             };
         }
     }

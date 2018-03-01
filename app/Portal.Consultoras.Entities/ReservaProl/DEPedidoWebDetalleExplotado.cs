@@ -1,4 +1,4 @@
-﻿namespace Portal.Consultoras.Entities
+﻿namespace Portal.Consultoras.Entities.ReservaProl
 {
     public class DEPedidoWebDetalleExplotado
     {

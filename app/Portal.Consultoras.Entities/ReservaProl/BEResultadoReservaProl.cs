@@ -53,7 +53,6 @@ namespace Portal.Consultoras.Entities.ReservaProl
 
         public decimal MontoTotalProl { get; set; }
         public List<BEPedidoWebDetalle> ListDetalleBackOrder { get; set; }
-        public List<BEPedidoWebDetalle> ListDetalleObservacion { get; set; }
 
         #region Atributos Cargar Session
         [DataMember]

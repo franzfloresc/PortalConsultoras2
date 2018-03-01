@@ -10,6 +10,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
@@ -301,8 +302,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
                 if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
 
-                bool esProlV3 = new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID);
-                var reservaExternaBL = esProlV3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
+                input.VersionProl = (byte)(new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID) ? 3 : 2);
+                var reservaExternaBL = input.VersionProl == 3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
                 BEResultadoReservaProl resultado = reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
 
                 UpdatePedidoWebReservado(input, resultado, listPedidoWebDetalle);
@@ -329,27 +330,41 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var pedidoWeb = CreatePedidoWeb(resultado, input);
-            var totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);
-            var gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, totalPedido);
-            var estadoPedido = input.PROLSinStock ? Constantes.EstadoPedido.Pendiente : Constantes.EstadoPedido.Procesado;
-            
-            var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-            var daPedidoWeb = new DAPedidoWeb(input.PaisID);
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(input.PaisID);
-            var daFactorGanancia = new DAFactorGanancia(input.PaisID);
+            decimal gananciaEstimada = 0;
+            List<BEPedidoWebDetalle> listDetalleObservacion = null;
 
-            daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);
             if (resultado.Reserva)
             {
-                bLPedidoWebDetalle.InsPedidoWebDetallePROLv2(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, resultado.ListDetalleObservacion, false, input.CodigoUsuario, resultado.MontoTotalProl, resultado.MontoDescuento);
-                daFactorGanancia.UpdatePedidoWebEstimadoGanancia(input.CampaniaID, input.PedidoID, gananciaEstimada);
+                pedidoWeb.CodigoUsuarioModificacion = input.CodigoUsuario;
+                pedidoWeb.MontoTotalProl = resultado.MontoTotalProl;
+                pedidoWeb.EstadoPedido = input.PROLSinStock ? Constantes.EstadoPedido.Pendiente : Constantes.EstadoPedido.Procesado;
+                pedidoWeb.VersionProl = input.VersionProl;
+
+                gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, listPedidoWebDetalle.Sum(p => p.ImporteTotal));
+                listDetalleObservacion = listPedidoWebDetalle.Join(resultado.ListPedidoObservacion, d => d.CUV, o => o.CUV, (d, o) => CreatePedidoWebDetalle(d, o)).ToList();
             }
-            else if (input.ValidacionAbierta && resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMinimo)
+
+            var daPedidoWeb = new DAPedidoWeb(input.PaisID);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(input.PaisID);
+            TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+
+            using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
             {
-                daPedidoWebDetalle.DelPedidoWebDetalleDesglosePedido(input.CampaniaID, input.PedidoID);
-                daPedidoWeb.UpdPedidoWebDesReserva(input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, input.CodigoUsuario, false);
+                daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);
+                if (resultado.Reserva)
+                {
+                    if (listDetalleObservacion.Any()) daPedidoWebDetalle.UpdListPedidoWebDetalleObsPROL(listDetalleObservacion);
+                    daPedidoWeb.UpdPedidoWebReserva(pedidoWeb, gananciaEstimada);
+                }
+                else if (input.ValidacionAbierta && resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.NoReservadoMontoMinimo)
+                {
+                    daPedidoWebDetalle.DelPedidoWebDetalleDesglosePedido(input.CampaniaID, input.PedidoID);
+                    daPedidoWeb.UpdPedidoWebDesReserva(input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, input.CodigoUsuario, false);
+                }
+                daPedidoWebDetalle.UpdListBackOrderPedidoWebDetalle(input.CampaniaID, input.PedidoID, resultado.ListDetalleBackOrder);
+
+                transScope.Complete();
             }
-            bLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(input.PaisID, input.CampaniaID, input.PedidoID, resultado.ListDetalleBackOrder);
         }
 
         private BEPedidoWeb CreatePedidoWeb(BEResultadoReservaProl resultado, BEInputReservaProl input)
@@ -363,6 +378,17 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroRevista = resultado.MontoAhorroRevista,
                 DescuentoProl = resultado.MontoDescuento,
                 MontoEscala = resultado.MontoEscala
+            };
+        }
+
+        private BEPedidoWebDetalle CreatePedidoWebDetalle(BEPedidoWebDetalle detalle, BEPedidoObservacion observacion)
+        {
+            return new BEPedidoWebDetalle
+            {
+                CampaniaID = detalle.CampaniaID,
+                PedidoID = detalle.PedidoID,
+                PedidoDetalleID = detalle.PedidoDetalleID,
+                ObservacionPROL = observacion.Descripcion
             };
         }
 

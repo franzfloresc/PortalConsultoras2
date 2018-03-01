@@ -1165,7 +1165,7 @@ namespace Portal.Consultoras.Service
 
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
-            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, ValidacionAbierta, CodigoUsuario, MontoTotalProl, DescuentoProl);
+            BLPedidoWebDetalle.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, EstadoPedido, olstPedidoWebDetalle, CodigoUsuario, MontoTotalProl, DescuentoProl);
         }
 
         public BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha)
