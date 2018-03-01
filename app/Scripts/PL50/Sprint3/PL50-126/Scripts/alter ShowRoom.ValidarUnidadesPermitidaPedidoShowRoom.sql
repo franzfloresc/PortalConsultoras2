@@ -1,6 +1,4 @@
 
---
-
 alter PROCEDURE ShowRoom.ValidarUnidadesPermitidaPedidoShowRoom (
 
 	@CampaniaID INT
@@ -127,23 +125,22 @@ BEGIN
 			--si tiene tono
 			if @EstrategiaId is not null
 			begin
+ 
+
 				SET @ItemsPedido = @Cantidad - (
 
-					SELECT isnull((
-
-								SELECT sum(isnull(cantidad, 0))
-
-								FROM pedidowebdetalle
-
-								 WHERE cuv in  (	select  cuv from EstrategiaProducto	where activo ='1' and estrategiaid =@EstrategiaId)
-							 
-									AND campaniaid = @campaniaid
-
-									AND consultoraid = @consultoraid
-
+					SELECT isnull(( 
+								  select sum(CantidadIndiviual) from	 (
+							  SELECT isnull(pedidowebdetalle.cantidad, 0)    as CantidadIndiviual 
+									  from EstrategiaProducto
+								  inner join pedidowebdetalle on EstrategiaProducto.cuv = pedidowebdetalle.cuv
+								  	where EstrategiaProducto.activo ='1' and EstrategiaProducto.estrategiaid =@EstrategiaId  and digitable=1
+								and  pedidowebdetalle.campaniaid = @campaniaid  AND pedidowebdetalle.consultoraid = @consultoraid
+								group by EstrategiaProducto.cuv2  , pedidowebdetalle.cantidad  ) Cantidad
 								), 0)
+					)							
 
-					)
+					
 			end			
 			---
 			else
