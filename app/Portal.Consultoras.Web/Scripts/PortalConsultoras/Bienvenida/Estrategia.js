@@ -451,10 +451,6 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
-            arrows: false,
-            dots: true,
-            centerMode: true,
-            centerPadding: '60 px',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -467,24 +463,6 @@ function ArmarCarouselEstrategias(data) {
                 {
                     breakpoint: 600,
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 1
-                    }
                 }
             ]
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
