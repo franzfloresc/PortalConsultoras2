@@ -25,7 +25,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idFormReporteListaGanadoras: config.idFormReporteListaGanadoras,
         urlListaGanadorasObtener: config.urlListaGanadorasObtener,
         paisNombre: config.paisNombre,
-        idDivPopUpRegalo: config.idDivPopUpRegalo,
         urlFileUpload: config.urlFileUpload,
         urlTemporal: config.urlTemporal,
         urlS3: config.urlS3
