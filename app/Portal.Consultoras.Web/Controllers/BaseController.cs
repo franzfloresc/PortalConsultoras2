@@ -3697,7 +3697,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
-                    var valBool = BuilTituloBannerRD(ref config);
+                    var valBool = BuilTituloBannerRD(ref config,revistaDigital);
                     if (!valBool)
                         continue;
                 }
@@ -3733,7 +3733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (m.Codigo == Constantes.ConfiguracionPais.Inicio)
                     {
-                        BuilTituloBannerRD(ref m);
+                        BuilTituloBannerRD(ref m,revistaDigital);
                     }
 
                 });
@@ -3747,7 +3747,7 @@ namespace Portal.Consultoras.Web.Controllers
             return menuContenedor;
         }
 
-        private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
+        private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi,RevistaDigitalModel revistaDigital)
         {
             var codigo = string.Empty;
             var codigoMobile = string.Empty;

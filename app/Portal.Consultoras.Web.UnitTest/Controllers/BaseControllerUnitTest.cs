@@ -193,6 +193,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(2, result.Count);
             }
 
+
+
             [TestMethod]
             public void BuildMenu_NoTieneRevistaDigitalTieneConfiguracionPaisInicioDesktop_DevuelveMenuInicioDesktop()
             {
@@ -357,14 +359,75 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, result.EsAncla);
             }
 
+
+
             [TestMethod]
-            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisInicioTieneConfiguracionPaisInicioRDDesktop_DevuelveMenuInicioRDDesktop()
+            public void BuildMenu_TieneInicioDesktopTieneRevistaDigitalDesktopTieneInicioRdDesktop_DevuelveInicioRdDesktopYRevistaDigitalDesktop()
             {
-                Assert.Inconclusive();
+                sessionManager.Setup(x => x.GetMenuContenedor()).Returns(new List<ConfiguracionPaisModel> { });
+                sessionManager
+                    .Setup(x => x.GetConfiguracionesPaisModel())
+                    .Returns(new List<ConfiguracionPaisModel> {
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.Inicio,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-inicio.png",
+                            DesktopLogoBanner = "logo-inicio.png",
+                            DesktopTituloBanner = "#Nombre, título banner inicio",
+                            DesktopSubTituloBanner = "Sub título banner inicio",
+                            DesktopTituloMenu = "Título Menu Inicio|Sub Título Menu Inicio",
+                            UrlMenu = "UrlInicio",
+                            OrdenBpt = 0
+                        },
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.RevistaDigital,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-rd.png",
+                            DesktopLogoBanner = "logo-rd.png",
+                            DesktopTituloBanner = "#Nombre, título banner rd",
+                            DesktopSubTituloBanner = "Sub título banner rd",
+                            DesktopTituloMenu = "Título Menu RD|Sub Título Menu RD",
+                            UrlMenu = "UrlRevistaDigital",
+                            OrdenBpt = 1
+                        },
+                        new ConfiguracionPaisModel
+                        {
+                            Codigo = Constantes.ConfiguracionPais.InicioRD,
+                            Estado = true,
+                            TienePerfil = true,
+                            DesdeCampania= 201714,
+                            DesktopFondoBanner = "fondo-inicio-rd.png",
+                            DesktopLogoBanner = "logo-inicio-rd.png",
+                            DesktopTituloBanner = "#Nombre, título banner inicio rd",
+                            DesktopSubTituloBanner = "Sub título banner inicio rd",
+                            DesktopTituloMenu = "Título Menu Inicio RD|Sub Título Menu Inicio RD",
+                            UrlMenu = "UrlInicioRevistaDigital",
+                            OrdenBpt = 0
+                        }
+                    });
+                var userData = new UsuarioModel { CampaniaID = 201804, Sobrenombre = "vvilelaj" };
+                var revistaDigital = new RevistaDigitalModel { TieneRDC = true };
+                var controller = new BaseController(sessionManager.Object, logManager.Object);
+
+                var result = controller
+                    .BuildMenuContenedor(userData, revistaDigital)
+                    .Where(x => x.CampaniaId == userData.CampaniaID)
+                    .ToList();
+
+                Assert.IsNotNull(result);
+                Assert.AreEqual(2,result.Count);
+                Assert.AreEqual(Constantes.ConfiguracionPais.InicioRD, result.First().Codigo);
+                Assert.AreEqual(Constantes.ConfiguracionPais.RevistaDigital, result.Last().Codigo);
             }
 
             [TestMethod]
-            public void BuildMenu_TieneRevistaDigitalTieneConfiguracionPaisShowRoomDesktop_DevuelveMenuShowRoomDesktop()
+            public void BuildMenu_TieneRevistaDigitalDesktopEsNoSuscritaEsNoActiva_DevuelveMenuInicioRdNoSuscrita()
             {
                 Assert.Inconclusive();
             }
