@@ -1336,6 +1336,7 @@
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
     <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\Esika\RevistaDigital\logo_esika_diagonal.png" />
     <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente.png" />
     <Content Include="Content\Images\etiqueta-club-ganamas-blanco-independiente.svg" />
     <Content Include="Content\Images\etiqueta-club-ganamas-dorado-independiente.png" />
@@ -1383,6 +1384,7 @@
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\rd_arrowright_morado.png" />
+    <Content Include="Content\Images\Lbel\RevistaDigital\logo_lbel_diagonal.png" />
     <Content Include="Content\Images\Lbel\scroll-down-icon-lbel.svg" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />

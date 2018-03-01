@@ -809,6 +809,51 @@
         padding-right: 10px;
         padding-left: 10px;
     }
+    .revistadigital-landing .content_item_carrusel_clubganamas {
+        background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
+        border: none !important;
+        min-height: 372px;
+        padding: 111px 30px 33px 30px;
+    }
+
+    .revistadigital-landing .content_item_carrusel .clubganamas_logo {
+        position: absolute;
+        left: 0;
+        top:0;
+    }
+
+    .revistadigital-landing .content_item_carrusel_clubganamas p {
+        display: block;
+        width: 165px;
+        height: 161px;
+        font-family: Lato;
+        font-size: 24px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+    }
+
+    .revistadigital-landing .content_item_carrusel_clubganamas a {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+    }
 
 .ProductoResaltante {
     width: 35%;
@@ -3704,15 +3749,15 @@
 /* FIN DEPEGABLE */
 
 .contenedor_ganamas {
-width: 100%;
-max-height: 500px;
-overflow: hidden;
-background-color: #f6f6f6;
+    width: 100%;
+    max-height: 550px;
+    overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas_bg {
 width: 100%;
-height: 160px;
+height: 200px;
 background-color: #000000;
 position: relative;
 z-index: 60;
@@ -3723,7 +3768,7 @@ margin-top: 200px;
 max-width: 1189px;
 margin: auto;
 position: relative;
-top: -161px;
+top: -200px;
 z-index: 100;
 }
 
@@ -3747,6 +3792,10 @@ width: 100%;
 display: table-cell;
 vertical-align: middle;
 width: 100%;
+height:96px;
+background:url('../../../Images/Esika/RevistaDigital/logo_esika_diagonal.png');
+background-size: contain;
+background-repeat: no-repeat;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo img {
