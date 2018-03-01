@@ -1080,8 +1080,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)

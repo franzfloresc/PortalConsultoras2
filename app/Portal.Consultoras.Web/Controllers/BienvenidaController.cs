@@ -1999,6 +1999,43 @@ namespace Portal.Consultoras.Web.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ActualizarVisualizoComunicado(int ComunicadoId)
+        {
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    sac.ActualizarVisualizoComunicado(userData.PaisID, userData.CodigoConsultora, ComunicadoId);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema al actualizar que se visualizó el popup, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+
         public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
         {
             try
