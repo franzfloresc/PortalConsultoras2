@@ -3,15 +3,18 @@
 </div>
 
 <script id="RDPopup-template" type="text/x-handlebars-template">
-    <div>
-        <div data-popup-body="" class="centrar-estructura" style="{{FondoColorMarco}} {{FondoColor}}">
+        <div class="centrar-estructura" data-popup-body="" style="{{FondoColorMarco}} {{FondoColor}}">
+            <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            
+            <div class="logogndplus">
+                <img src="{{ImagenEtiqueta}}" alt="" />
+            </div>
             <div class="centrar-vertical-contenido">
-                <div class="logogndplus">
-                    <img src="{{ImagenEtiqueta}}" alt="" />
-                </div>
+                {{#IsNullOrEmpty ImagenPublicidad '!='}}
                 <div>
                     <img src="{{ImagenPublicidad}}" alt="" />
                 </div>
+                {{/IsNullOrEmpty}}
                 <div class="clear"></div>
                 <p class="primer-texto" style="color:{{MensajeColor}};">
                     {{Mensaje1}}
@@ -24,10 +27,6 @@
                 </a>
                 <div class="cerrargndtxt" onclick="rdPopup.NoMostrar()">NO VOLVER A VER ESTE ANUNCIO</div>
             </div>
-            
-            <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
-            
         </div>
         
-    </div>
 </script>
