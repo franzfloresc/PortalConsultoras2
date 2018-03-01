@@ -9,10 +9,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaSicc : IReservaExternaBL
     {
-        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
+        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
-            if (olstPedidoWebDetalle.Count == 0) return resultado;
+            if (listPedidoWebDetalle.Count == 0) return resultado;
+
+            var listCuponNueva = new List<BECuponNueva>();
 
             var inputPedido = new Data.ServiceSicc.Pedido
             {
@@ -23,8 +25,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 montoPedMontoMin = input.MontoMinimo.ToString(),
                 indValiProl = input.FechaHoraReserva ? "1" : "0",  //?
                 indEnvioSap = "0",
-                posiciones = olstPedidoWebDetalle.Select(d => new Detalle { CUV = d.CUV, unidadesDemandadas = d.Cantidad.ToString() }).ToArray()
+                posiciones = listPedidoWebDetalle.Select(d => new Detalle { CUV = d.CUV, unidadesDemandadas = d.Cantidad.ToString() }).ToArray()
             };
+            foreach (var detalle in inputPedido.posiciones)
+            {
+                var cuponNueva = listCuponNueva.FirstOrDefault(c => c.CodigoCupon == detalle.CUV);
+                if (cuponNueva != null) detalle.CUV = cuponNueva.CUV;
+            }
+            //¿Que pasa si el CUV de cuponNueva ya existe en el detalle?
+            //Como hacer que los CUV devueltos por el servicio vuelvan a CodigoCupon, si habia ya un detalle con el mismo CUV de cuponNueva. 
 
             Data.ServiceSicc.Pedido outputPedido;
             using (var sv = new ServiceClient())
@@ -32,6 +41,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 outputPedido = sv.EjecutarCuadreOfertas(inputPedido);
             }
             if (outputPedido == null) return resultado;
+
+            foreach (var detalle in outputPedido.posiciones)
+            {
+                var cuponNueva = listCuponNueva.FirstOrDefault(c => c.CUV == detalle.CUV);
+                if (cuponNueva != null) detalle.CUV = cuponNueva.CodigoCupon;
+            }
 
             //outputPedido.estadoPedMontoMax;
             //outputPedido.estadoPedMontoMax;

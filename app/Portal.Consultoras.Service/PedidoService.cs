@@ -1960,7 +1960,7 @@ namespace Portal.Consultoras.Service
 
         public int InsertarDesglose(BEInputReservaProl input)
         {
-            return new BLReservaProl().InsertarDesglose(input);
+            return new BLReserva().InsertarDesglose(input);
         }
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)

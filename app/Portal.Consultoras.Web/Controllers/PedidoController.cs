@@ -2184,7 +2184,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
                 SetUserData(userData);
-
+                
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
                 {
@@ -2309,6 +2309,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string ObtenerMensajePROLAnalytics(List<ObservacionModel> lista)
         {
             if (lista == null || lista.Count == 0) return "00_Tu pedido se guardó con éxito";
+
             foreach (var item in lista)
             {
                 if (!Regex.IsMatch(Util.SubStr(item.CUV, 0), @"^\d+$")) return item.Caso + "_" + item.Descripcion;

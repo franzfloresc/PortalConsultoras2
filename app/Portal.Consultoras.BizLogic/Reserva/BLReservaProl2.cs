@@ -10,13 +10,60 @@ using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
-    public class BLReservaProl2 : BLReservaProl, IReservaExternaBL
+    public class BLReservaProl2 : IReservaExternaBL
     {
         public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
+            RespuestaProl respuestaProl = ConsumirServicioProl(input, listPedidoWebDetalle);
+            if (respuestaProl == null) return resultado;
+
+            resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
+            resultado.MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure();
+            resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
+            resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
+            resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
+            resultado.MontoTotalProl = respuestaProl.montototal.ToDecimalSecure();
+            resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+            resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
+            resultado.CodigoMensaje = respuestaProl.codigoMensaje;
+
+            if (respuestaProl.ListaConcursoIncentivos != null)
+            {
+                resultado.ListaConcursosCodigos = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
+                resultado.ListaConcursosPuntaje = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
+                resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+            }
+
+            foreach (var o in respuestaProl.ListaObservaciones)
+            {
+                if (o.cod_observacion == "08") resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == o.codvta));
+                else
+                {
+                    resultado.ListDetalleObservacion.AddRange(listPedidoWebDetalle.Where(d => d.CUV == o.codvta).Select(d => CreatePedidoWebDetalle(d, o)));
+                    resultado.ListPedidoObservacion.Add(CreatePedidoObservacion(o));
+                }
+            }
+            var obsPedido = resultado.ListPedidoObservacion.FirstOrDefault(o => o.Caso == 95);
+            if (obsPedido != null) obsPedido.Descripcion = Regex.Replace(obsPedido.Descripcion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+            string codNoReservaPedido = obsPedido != null ? obsPedido.CUV : "";
+
+            bool reservo = respuestaProl.ListaObservaciones.All(o => o.cod_observacion == "00");
+            resultado.Restrictivas = respuestaProl.ListaObservaciones.Any();
+            resultado.Reserva = input.FechaHoraReserva && reservo;
+            resultado.ResultadoReservaEnum = respuestaProl.codigoMensaje.Equals("00") ? Enumeradores.ResultadoReserva.Reservado :
+                reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
+                codNoReservaPedido == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
+                codNoReservaPedido == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
+                Enumeradores.ResultadoReserva.NoReservadoObservaciones;
+            
+            return resultado;
+        }
+
+        private RespuestaProl ConsumirServicioProl(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
             string listaProductos = string.Join("|", listPedidoWebDetalle.Select(x => x.CUV).ToArray());
             string listaCantidades = string.Join("|", listPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
             string listaRecuperacion = string.Join("|", listPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
@@ -28,82 +75,31 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (input.FechaHoraReserva) respuestaProl = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
                 else respuestaProl = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
-            if (respuestaProl == null) return resultado;
+            if (respuestaProl.codigoMensaje.Equals("00")) respuestaProl.ListaObservaciones = new ObservacionProl[0];
+            else respuestaProl.ListaObservaciones = respuestaProl.ListaObservaciones ?? new ObservacionProl[0];
 
-            resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
-            resultado.MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure();
-            resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
-            resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
-            resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
-            resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
-            resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
-            resultado.CodigoMensaje = respuestaProl.codigoMensaje;
-            this.UpdateMontosPedidoWeb(resultado, input);
-            resultado.RefreshPedido = true;
-            resultado.RefreshMontosProl = true;
+            return respuestaProl;
+        }
 
-            List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
-            bool validacionProlmm = false;
-            string cuvVal = string.Empty;
-            int validacionReemplazo = 0;
-            if (!respuestaProl.codigoMensaje.Equals("00"))
+        private BEPedidoObservacion CreatePedidoObservacion(ObservacionProl observacion) {
+            return new BEPedidoObservacion
             {
-                foreach (var item in respuestaProl.ListaObservaciones)
-                {
-                    int tipoObs = Convert.ToInt32(item.cod_observacion);
-                    string cuv = item.codvta;
-                    string observacion = item.observacion.Replace("+", "");
+                Caso = Convert.ToInt32(observacion.cod_observacion),
+                CUV = observacion.codvta,
+                Tipo = 2,
+                Descripcion = observacion.observacion.Replace("+", "")
+            };
+        }
 
-                    if (tipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == cuv));
-                    else
-                    {
-                        if (tipoObs == 0) validacionReemplazo += 1;
-                        else if (tipoObs == 95)
-                        {
-                            validacionProlmm = true;
-                            cuvVal = cuv;
-                            observacion = Regex.Replace(observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
-                        }
-                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = tipoObs, CUV = cuv, Tipo = 2, Descripcion = observacion });
-                    }
-                }
-                resultado.Restrictivas = respuestaProl.ListaObservaciones.Any();
-                resultado.Reserva = input.FechaHoraReserva && (respuestaProl.ListaObservaciones.Count() == validacionReemplazo);
-                resultado.ResultadoReservaEnum =
-                    respuestaProl.ListaObservaciones.Count() == validacionReemplazo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
-                    cuvVal == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
-                    cuvVal == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
-                    Enumeradores.ResultadoReserva.NoReservadoObservaciones;
-
-                var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-                if (input.ValidacionAbierta && validacionProlmm && cuvVal == "XXXXX")
-                {
-                    bLPedidoWebDetalle.UpdPedidoWebByEstado(input.PaisID, input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, input.CodigoUsuario, false);
-                }
-                bLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(input.PaisID, input.CampaniaID, input.PedidoID, lstPedidoWebDetalleBackOrder);
-            }
-            else
+        private BEPedidoWebDetalle CreatePedidoWebDetalle(BEPedidoWebDetalle detalle, ObservacionProl observacion)
+        {
+            return new BEPedidoWebDetalle
             {
-                resultado.ResultadoReservaEnum = Enumeradores.ResultadoReserva.Reservado;
-                resultado.Reserva = input.FechaHoraReserva;
-            }
-
-            if (resultado.Reserva)
-            {
-                decimal montoTotalProl = respuestaProl.montototal.ToDecimalSecure();
-                decimal descuentoProl = respuestaProl.montoDescuento.ToDecimalSecure();
-                var listPedidoReserva = GetPedidoReserva(respuestaProl, listPedidoWebDetalle);
-                EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle, true, montoTotalProl, descuentoProl);
-            }
-
-            if (respuestaProl.ListaConcursoIncentivos != null)
-            {
-                resultado.ListaConcursosCodigos = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
-                resultado.ListaConcursosPuntaje = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
-                resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
-            }
-
-            return resultado;
+                CampaniaID = detalle.CampaniaID,
+                PedidoID = detalle.PedidoID,
+                PedidoDetalleID = detalle.PedidoDetalleID,
+                ObservacionPROL = observacion.observacion
+            };
         }
     }
 }
