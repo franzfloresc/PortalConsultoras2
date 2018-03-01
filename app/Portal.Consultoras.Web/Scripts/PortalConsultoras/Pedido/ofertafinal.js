@@ -332,9 +332,13 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var duration = 500;
 
         if (upSellingGano != null) {
+            $('#divGanoRegalo').css("z-index", "1000");
+            $('#ContentSorpresaMobile').css("z-index", "100");
             $('#divGanoRegalo').toggle(effect, options, duration);
         }
         else {
+            $('#ContentSorpresaMobile').css("z-index", "1000");
+            $('#divGanoRegalo').css("z-index", "100");
             $('#ContentSorpresaMobile').toggle(effect, options, duration);
 
             $('#divCarruselRegalo.slick-initialized').slick('unslick');
@@ -366,6 +370,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var options = { direction: 'right' };
         var duration = 500;
 
+        $('#ContentSorpresaMobile').css("z-index", "1000");
+        $('#divGanoRegalo').css("z-index", "100");
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
@@ -396,9 +402,13 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var duration = 500;
 
         if (upSellingGano != null) {
+            $('#divGanoRegalo').css("z-index", "1000");
+            $('#ContentSorpresaMobile').css("z-index", "100");
             $('#divGanoRegalo').toggle(effect, options, duration);
         }
         else {
+            $('#ContentSorpresaMobile').css("z-index", "1000");
+            $('#divGanoRegalo').css("z-index", "100");
             $('#ContentSorpresaMobile').toggle(effect, options, duration);
         }
 
@@ -411,6 +421,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
+        $('#ContentSorpresaMobile').css("z-index", "1000");
+        $('#divGanoRegalo').css("z-index", "100");
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
@@ -1291,6 +1303,8 @@ function InsertUpSellingRegalo(id, cuv) {
                         var effect = 'slide';
                         var options = { direction: 'right' };
                         var duration = 500;
+                        $('#divGanoRegalo').css("z-index", "1000");
+                        $('#ContentSorpresaMobile').css("z-index", "100");
                         $('#divGanoRegalo').toggle(effect, options, duration);
                     }
                 }

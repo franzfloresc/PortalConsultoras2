@@ -600,7 +600,7 @@
                 <div class="txt_regalo_sorpresa">
                     <span class="span_1_regalo_sorpresa">¡FELICITACIONES<br></span>
                     <span class="span_2_regalo_sorpresa">GANASTE!<br></span>
-                    <span class="span_link_regalo_sorpresa">ELIGE TU PREMIO<br></span>
+                    <span class="span_link_regalo_sorpresa">ESCOGE TU PREMIO<br></span>
                 </div>
                 <div class="img_regalos_sorpresa">
                     <div class="img_regalo_sorpresa">
@@ -719,7 +719,7 @@
         <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
 
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;"  data-regresar-of="">
-                <div class="draw_close_2" alt="Cerrar"></div>
+                <div class="draw_close draw_close_white" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
 
@@ -745,8 +745,13 @@
                     </div>
                 </div>
             </div>*@
-
-            <div class="slider center" id="divCarruselRegalo" style="width: 100%">
+            <div class="arrow_box">
+                <div class="txt_regalo_sorpresa_popup">
+                    <div class="span_2_regalo_sorpresa_producto"><b>AGREGA $119.00</b><br></div>
+                    <div class="span_1_regalo_sorpresa_producto">TU META ES $300.00</div>
+                </div>
+            </div>
+            <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin-top: -10px;">
                 {{#each this.Upselling.Regalos}}
                 <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingRegaloId}}">
                     <div class="content_info_regalo" id="of-regalo-{{UpSellingRegaloId}}">
@@ -769,7 +774,10 @@
                 </div>
                 {{/each}}
             </div>
-
+            <div class="txt_paginacion_premio" id="txt_paginacion_premio_gana">
+                <span class="span_paginacion_premio_1">1</span>
+                <span> / 3</span>
+            </div>
             <div class="btn_sigue_comprando" id="btn_sigue_comprando_gana">SIGUE COMPRANDO Y GANA</div>
             <div class="txt_nota_premio">Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
             <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
@@ -779,7 +787,7 @@
         <div id="divGanoRegalo" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw); display: none;">
             <div class="btn_regresa_OF" id="btnCambiarRegalo">CAMBIAR REGALO</div>
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px; position: absolute;" data-regresar-of="">
-                <div class="draw_close_2" alt="Cerrar"></div>
+                <div class="draw_close draw_close_white" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
             <div class="icono_regalo_sorpresa" style="margin-top: 20px;">
