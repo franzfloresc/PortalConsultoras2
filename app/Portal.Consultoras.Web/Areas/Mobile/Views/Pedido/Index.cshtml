@@ -9,6 +9,7 @@
     ViewBag.SourcePage = 2;
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -409,7 +410,7 @@
 
 @section scripts
 {
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -485,8 +486,9 @@
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
-        var listaMensajeMeta = dataBarra == null ? null :dataBarra.ListaMensajeMeta;
-    </script>
+        var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
+        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
+</script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {

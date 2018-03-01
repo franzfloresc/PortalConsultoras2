@@ -91,36 +91,54 @@
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+    {
+        <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+{
+        <div class="saludo_mobile" style="width: 63%;">¡Feliz Cumpleaños&nbsp;</div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+{
+        <div class="saludo_mobile" style="width: 63%;">¡@ViewBag.SaludoFestivo&nbsp;</div>
+}
+else
+{
+    if (Model.RevistaDigital.TieneRDC)
+    {
+        if (Model.RevistaDigital.EsActiva)
+        {
+            <div class="saludo_mobile">¡Hola&nbsp;</div>
+        }
+        else
+        {
+            if (Model.RevistaDigital.EsSuscrita)
             {
-                <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
-            }
-            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
-            {
-                <div class="saludo_mobile" style="width: 63%;">¡Feliz Cumpleaños&nbsp;</div>
-            }
-            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
-            {
-                <div class="saludo_mobile" style="width: 63%;">¡@ViewBag.SaludoFestivo&nbsp;</div>
+
+                    <div class="saludo_mobile">Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">Club Gana+</a></div>
             }
             else
             {
-                <div class="saludo_mobile">¡Hola&nbsp;</div>
+                    <div class="saludo_mobile">¡Hola&nbsp;</div>
             }
+        }
+    }
+}
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
             @if (Model.PortalLideres && Model.Lider == 1)
-            {
-                <a href="@Url.Action("Index", "Lider", new { area = "" })" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
-                    @if (Model.NombrePais == "Venezuela")
-                    {
-                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-                    }
-                    else
-                    {
-                        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
-                    }
-                </a>
-            }
+    {
+        <a href="@Url.Action("Index", "Lider", new { area = "" })" role="menu" region="Medio" parent="Socias empresarias" id="lnk-med-sociasempresarias" class="enlace_sociasEmpresarias" title="Ir A Socias Empresarias">
+            @if (Model.NombrePais == "Venezuela")
+    {
+        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+}
+else
+{
+        <span class="btn_seguirp_mobile"></span><span class="texto_enlace_socias">&nbsp;Ir a Socias Empresarias</span>
+}
+        </a>
+}
 
             <hr class="clear" />
             <div class="info_cam_mobile">
@@ -129,19 +147,19 @@
             </div>
             <div class="borde_gris"></div>
             @if (ViewBag.Dias == 0)
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES
-                    <span>Hoy</span>
-                </div>
-            }
-            else
-            {
-                <div class="info_cam_mobile">
-                    EL CIERRE ES EN
-                    <span>@(Model.DiasParaCierre) días</span>
-                </div>
-            }
+    {
+        <div class="info_cam_mobile">
+            EL CIERRE ES
+            <span>Hoy</span>
+        </div>
+}
+else
+{
+        <div class="info_cam_mobile">
+            EL CIERRE ES EN
+            <span>@(Model.DiasParaCierre) días</span>
+        </div>
+}
         </div>
         <hr class="clear" />
         <!--FIN RESUMEN-->

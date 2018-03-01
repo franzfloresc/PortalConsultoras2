@@ -54,45 +54,73 @@
 
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
-            {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡Feliz Aniversario</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
-            }
-            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
-            {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
-            }
-            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
-            {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡@ViewBag.SaludoFestivo</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
-                </div>
-            }
-            else
-            {
-                <div class="nombre_consultora">
-                    <span style="margin-top: -0.5px!important;">¡Hola</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
-            }
+    {
+        <div class="nombre_consultora">
+            <span class="saludo_aniversario">¡Feliz Aniversario</span>
+        </div>
+        <div class="consultora_home">
+            <span>@nombreConsultora</span>
+        </div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+{
+        <div class="nombre_consultora">
+            <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
+        </div>
+        <div class="consultora_home">
+            <span>@nombreConsultora</span>
+        </div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+{
+        <div class="nombre_consultora">
+            <span class="saludo_aniversario">¡@ViewBag.SaludoFestivo</span>
+        </div>
+        <div class="consultora_home">
+            <span>@(nombreConsultora)</span>
+        </div>
+}
+else
+{
+if (revistaDigital.TieneRDC)
+{
+    if (revistaDigital.EsActiva)
+    {
+        <div class="nombre_consultora">
+            <span style="margin-top: -0.5px!important;">¡Hola</span>
+        </div>
+        <div class="consultora_home">
+            <span>@nombreConsultora</span>
+        </div>
+}
+else
+{
+if (revistaDigital.EsSuscrita)
+{
+        <div class="nombre_consultora">
+            <span style="margin-top: -0.5px!important;">Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">Club Gana+</a> </span>
+        </div>
+        <div class="consultora_home">
+            <span>@nombreConsultora</span>
+        </div>
+}
+else
+{
+        <div class="nombre_consultora">
+            <span style="margin-top: -0.5px!important;">¡Hola</span>
+        </div>
+        <div class="consultora_home">
+            <span>@nombreConsultora</span>
+        </div>
+}
+}
+}
+
+}
             @if (ViewBag.TipoUsuario != 2)
-            {
-                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-            }
+    {
+        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+}
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN

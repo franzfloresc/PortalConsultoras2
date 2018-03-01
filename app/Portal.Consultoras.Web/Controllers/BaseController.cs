@@ -4349,6 +4349,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
             ViewBag.EsSuscrita = revistaDigital.EsSuscrita;
             ViewBag.EsActiva = revistaDigital.EsActiva;
+            ViewBag.TieneRDC = revistaDigital.TieneRDC;
             //
             ViewBag.TieneHV = herramientasVenta.TieneHerramientasVenta();
             
