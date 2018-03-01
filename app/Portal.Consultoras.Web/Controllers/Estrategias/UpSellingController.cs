@@ -68,6 +68,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             foreach (var regalo in model.Regalos)
             {
+                if (string.IsNullOrEmpty(regalo.Imagen))
+                    continue;
+
                 if (regalo.Imagen.StartsWith("http"))
                     continue;
 

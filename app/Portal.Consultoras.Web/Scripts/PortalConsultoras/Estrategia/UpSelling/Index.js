@@ -17,6 +17,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         buttonBuscarId: config.buttonBuscarId,
         buttonNuevoId: config.buttonNuevoId,
         cmbCampanas: config.cmbCampanas,
+        idDivPopUpRegalo: config.idDivPopUpRegalo,
         idTabs: config.idTabs,
         idTargetDiv: config.idTargetDiv,
         campanasPais: config.campanasPais,
@@ -220,8 +221,14 @@ belcorp.estrategias.upselling.initialize = function (config) {
         var selfm = this;
         selfm.UpSellingId = ko.observable(data.UpSellingId).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
         selfm.CodigoCampana = ko.observable(data.CodigoCampana).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
-        selfm.MontoMeta = ko.observable(data.MontoMeta).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
-        selfm.TextoMeta = ko.observable(data.TextoMeta).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
+        selfm.MontoMeta = ko.observable(data.MontoMeta).extend({
+            trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty }
+            , required: "Monto requerido"
+        });
+        selfm.TextoMeta = ko.observable(data.TextoMeta).extend({
+            trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty }
+            , required: "Texto requerido"
+        });
         selfm.TextoMetaSecundario = ko.observable(data.TextoMetaSecundario).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
         selfm.TextoGanaste = ko.observable(data.TextoGanaste).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
         selfm.TextoGanasteSecundario = ko.observable(data.TextoGanasteSecundario).extend({ trackChange: { track: true, cb: self.upSellingViewModel.upSellingSeleccionadoIsDirty } });
@@ -233,18 +240,35 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 return new UpSellingRegaloModel(regalo);
             }));
         }
+
+        selfm.isValid = function () {
+            return !(selfm.MontoMeta.hasError()
+                    || selfm.TextoMeta.hasError());
+        }
     }
 
     function UpSellingRegaloModel(data) {
         var selfm = this;
         selfm.UpSellingRegaloId = ko.observable(data.UpSellingRegaloId);
-        selfm.CUV = ko.observable(data.CUV).extend({ trackChange: { track: true } });
-        selfm.Nombre = ko.observable(data.Nombre).extend({ trackChange: { track: true } });
+        selfm.CUV = ko.observable(data.CUV).extend({
+            trackChange: { track: true }
+            , required: "CUV requerido"
+        });
+        selfm.Nombre = ko.observable(data.Nombre).extend({
+            trackChange: { track: true }
+            , required: "Nombre requerido"
+        });
         selfm.Descripcion = ko.observable(data.Descripcion).extend({ trackChange: { track: true } });
         selfm.Imagen = ko.observable(data.Imagen).extend({ trackChange: { track: true, cb: self.upSellingViewModel.actualizarRutaPrefixRegalo } });
-        selfm.Stock = ko.observable(data.Stock).extend({ trackChange: { track: true } });
+        selfm.Stock = ko.observable(data.Stock).extend({
+            trackChange: { track: true }
+            , required: "Stock requerido"
+        });
         selfm.StockActual = ko.observable(data.StockActual);
-        selfm.Orden = ko.observable(data.Orden).extend({ trackChange: { track: true } });
+        selfm.Orden = ko.observable(data.Orden).extend({
+            trackChange: { track: true }
+            , required: "Orden Requerido"
+        });
         selfm.Activo = ko.observable(data.Activo).extend({ trackChange: { track: true } });
 
         //behaviors
@@ -257,6 +281,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
             selfm.Stock.undoChanges();
             selfm.Orden.undoChanges();
             selfm.Activo.undoChanges();
+        }
+        selfm.isValid = function () {
+            return !(selfm.CUV.hasError()
+                    || selfm.Nombre.hasError()
+                    || selfm.Stock.hasError()
+                    || selfm.Orden.hasError());
         }
     }
 
@@ -332,6 +362,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.save = function () {
+            if (!selfvm.upSellingSeleccionado().isValid()) {
+                alert("Los campos marcados son necesarios");
+                return;
+            }
+
             waitingDialog({});
             api.upSellingGuardarPromise(ko.toJS(selfvm.upSellingSeleccionado))
                 .then(function (result) {
@@ -365,7 +400,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
         selfvm.regaloNuevo = function () {
             selfvm.regaloSeleccionado(regaloDefault());
-            selfvm.regaloSeleccionado().Imagen.setOriginalValue(selfvm.regaloSeleccionado().Imagen)
+            selfvm.regaloSeleccionado().Imagen.setOriginalValue(selfvm.regaloSeleccionado().Imagen())
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloEsNuevo(true);
         }
@@ -373,12 +408,23 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.regaloEditar = function (regalo) {
             showDialog(settings.idDivPopUpRegalo);
             selfvm.regaloSeleccionado(regalo);
-            selfvm.regaloSeleccionado().Imagen.setOriginalValue(regalo.Imagen())
+            selfvm.regaloSeleccionado().CUV.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Nombre.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Descripcion.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Imagen.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Stock.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Orden.setCurrentValueAsOriginal();
+            selfvm.regaloSeleccionado().Activo.setCurrentValueAsOriginal();
 
             selfvm.regaloEsNuevo(false);
         }
 
         selfvm.regaloAgregar = function () {
+            if (!selfvm.regaloSeleccionado().isValid()) {
+                alert("Los campos marcados son necesarios");
+                return;
+            }
+
             selfvm.upSellingSeleccionado().Regalos.push(selfvm.regaloSeleccionado());
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);

@@ -16,3 +16,7 @@
     width: 100%;
     height: initial !important;
 }
+
+.error {
+    border: 1px solid #f09da7 !important;
+}
