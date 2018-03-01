@@ -2596,11 +2596,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
 }
 
-.titulo_mis_pedidos {
+.titulo_mis_pedidos, .titulo_pedidos_fic {
     float: left;
 }
 
-    .titulo_mis_pedidos h1 {
+    .titulo_mis_pedidos h1, .titulo_pedidos_fic h1 {
         text-align: center;
         font-weight: 300 !important;
         font-size: 17px;
@@ -27540,14 +27540,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         font-size: 14.5px;
     }
 
-.titulo_pedidos_fic {
+/*.titulo_pedidos_fic {
     float: left;
     text-align: left;
     font-size: 22px;
     letter-spacing: 3px;
     color: #000;
     font-family: 'Lato';
-}
+}*/
 
 .content_paginador {
     float: right;

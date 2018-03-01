@@ -14524,7 +14524,30 @@ a {
     background-image: url(../../../Images/mobile/Esika/indicador_pedido.png);
     background-repeat: no-repeat;
     background-position: 0 center;
-    color: #e81c36;
+}
+
+.titulo_vista {
+    display: inline-block;
+    line-height: 20px;
+    padding: 15px 0 13px 0;
+    text-align: center;
+}
+
+.bloque_info_pedido_fic {
+    display: block;
+    margin-bottom: 44px;
+}
+
+.enlace_ingresa_tu_pedido_fic,
+.info_pedido_fic
+{
+    color:#e81c36;
+}
+
+.info_pedido_fic{
+    margin:0;
+    padding:0;
+    line-height:20px;
 }
 
 /* HD-912 - FIN - PEDIDO FIC MOBILE */
