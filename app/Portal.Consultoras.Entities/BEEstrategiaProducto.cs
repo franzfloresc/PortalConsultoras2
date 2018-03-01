@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioValorizado { get; set; }
         [DataMember]
-        public Int16 Digitable { get; set; }
+        public int Digitable { get; set; }
         [DataMember]
         public string CodigoError { get; set; }
         [DataMember]
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Entities
             Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
             Precio = DataRecord.GetColumn<decimal>(row, "Precio");
             PrecioValorizado = DataRecord.GetColumn<decimal>(row, "PrecioValorizado");
-            //Digitable = DataRecord.GetColumn<int>(row, "Digitable");
+            Digitable = DataRecord.GetColumn<int>(row, "Digitable");
             CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
