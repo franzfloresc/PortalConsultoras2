@@ -48,9 +48,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             foreach (var item in upsellings)
             {
-                foreach (var detail in item.Regalos)
+                foreach (var regalo in item.Regalos)
                 {
-                    detail.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, detail.Imagen, carpetaPais);
+                    regalo.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, regalo.Imagen, carpetaPais);
                 }
             }
 
@@ -121,19 +121,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public async Task<ActionResult> InsertarRegalo(string cuv, decimal montoMeta)
+        public async Task<ActionResult> InsertarRegalo(RegaloOfertaFinalModel model)
         {
             try
             {
                 var montoPedido = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                if (montoPedido >= montoMeta)
+                if (montoPedido >= model.MontoMeta)
                 {
-                    RegaloOfertaFinalModel model = new RegaloOfertaFinalModel();
                     model.CampaniaId = userData.CampaniaID;
-                    model.ConsultoraId = Convert.ToInt32(userData.ConsultoraID);
+                    model.ConsultoraId = userData.ConsultoraID;
                     model.MontoPedido = montoPedido;
-                    model.MontoMeta = montoMeta;
-                    model.Cuv = cuv;
 
                     var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
                     return Json(new { success = ok, JsonRequestBehavior.AllowGet });

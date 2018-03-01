@@ -3630,16 +3630,48 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 RegaloOfertaFinalModel model = null;
-                using (var ps = new ProductoServiceClient())
+                using (var svc = new ProductoServiceClient())
                 {
-                    var regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                    var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
 
-                    if (regalo != null)
+                    if (entidad != null)
                     {
-                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(regalo);
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, regalo.RegaloImagenUrl, carpetaPais);
+                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = model
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                });
+            }
+        }
+
+        public JsonResult ObtenerRegaloMontoMeta()
+        {
+            try
+            {
+                RegaloOfertaFinalModel model = null;
+                using (var svc = new ProductoServiceClient())
+                {
+                    var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                    if (entidad != null)
+                    {
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
                     }
                 }
 
@@ -3664,10 +3696,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                using (var ps = new ProductoServiceClient())
+                using (var svc = new ProductoServiceClient())
                 {
                     var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
+                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
                 }
 
                 return Json(new

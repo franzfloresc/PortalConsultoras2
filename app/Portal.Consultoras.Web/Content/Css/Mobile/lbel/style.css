@@ -13596,6 +13596,14 @@ span.icon-advertencia {
     vertical-align: middle;
 }
 
+.ContentSorpresaMobileBack {
+    z-index: 100;
+}
+
+.ContentSorpresaMobileForward{
+    z-index: 1000;
+}
+
 .btn_regresa_OF {
     background: url(../../../Images/Esika/regresar.png) no-repeat;
     background-position: 15px 10px;

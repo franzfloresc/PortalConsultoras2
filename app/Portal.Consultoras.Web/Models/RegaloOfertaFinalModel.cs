@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int CampaniaId { get; set; }
 
-        public int ConsultoraId { get; set; }
+        public long ConsultoraId { get; set; }
 
         public decimal MontoPedido { get; set; }
 
