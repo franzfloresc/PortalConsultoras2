@@ -4,17 +4,18 @@
 
     {{#iff EsBanner}}
     <!--Brayan aqui el Banner-->
-    <div data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide slick-current slick-active" tabindex="-1" role="option" style="" data-slick-index="0" aria-hidden="false">
-        <div class="content_item_carrusel sdsd content_item_carrusel_clubganamas" style="cursor:pointer; ">
+    <div data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <div class="content_item_carrusel content_item_carrusel_clubganamas" style="cursor:pointer; ">
             <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="content" class="clubganamas_logo" />
-            <p>¿QUIERES MUCHO MÁS OFERTAS?</p>
-            <a>SUSCRÍBETE</a>
+            <p>DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
+            <p>ÚNETE AL CLUB GANA +</p>
+            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE</a>
         </div>
     </div>
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel asdf" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
+        <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript: VerDetalleEstrategia(event);" {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
