@@ -71,13 +71,13 @@ else
                 </div>
                 <div class="div-3">
                     <div class="titC">Monto meta:</div>
-                    <div class="selectA">
+                    <div class="selectA" data-bind="css: { error: MontoMeta.hasError }">
                         <input type="text" data-bind="value: MontoMeta" />
                     </div>
                 </div>
                 <div class="div-3">
                     <div class="titC">Texto principal:</div>
-                    <div class="selectA">
+                    <div class="selectA" data-bind="css: { error: TextoMeta.hasError }">
                         <input type="text" data-bind="value: TextoMeta" />
                     </div>
                     <div class="titC">Texto secundario:</div>
@@ -199,13 +199,11 @@ else
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titG">CUV:</div>
-                <div class="selectA">
-                    @*hidden no necesario*@
-                    <input type="hidden" data-bind="value: UpSellingRegaloId" />
+                <div class="selectA" data-bind="css: { error: CUV.hasError }">
                     <input type="text" data-bind="value: CUV" />
                 </div>
                 <div class="titG">Nombre:</div>
-                <div class="selectA">
+                <div class="selectA" data-bind="css: { error: Nombre.hasError }">
                     <input type="text" data-bind="value: Nombre" />
                 </div>
             </div>
@@ -224,17 +222,16 @@ else
             </div>
             <div class="div-3">
                 <div class="titG">Stock:</div>
-                <div class="selectA">
+                <div class="selectA" data-bind="css: { error: Stock.hasError }">
                     <input type="text" multiline data-bind="value: Stock" />
                 </div>
                 <div class="titG">Stock Actual:</div>
                 <div class="selectA" data-bind="text: StockActual">
-                    @*<input type="text" data-bind="text: StockActual, enable: false" />*@
                 </div>
             </div>
             <div class="div-3">
                 <div class="titG">Orden:</div>
-                <div class="selectA">
+                <div class="selectA" data-bind="css: { error: Orden.hasError }">
                     <input type="text" multiline data-bind="value: Orden" />
                 </div>
                 <div class="titG">Activo:</div>
