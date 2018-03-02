@@ -202,20 +202,20 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static string CadenaAleatoria()
         {
-            string strValue = "";
-            Random objAleatorio = new Random();
             try
             {
+                var txtBuil = new StringBuilder();
+                Random objAleatorio = new Random();
                 for (int i = 0; i < 8; i++)
                 {
-                    strValue = strValue + objAleatorio.Next(0, 10).ToString();
+                    txtBuil.Append(objAleatorio.Next(0, 10).ToString());
                 }
+                return txtBuil.ToString();
             }
             catch (Exception)
             {
                 return "";
             }
-            return strValue;
         }
 
         /// <summary>
@@ -236,7 +236,6 @@ namespace Portal.Consultoras.Common
         /// <param name="isHTML">Flag que indica si es HTML o no</param>
         /// <param name="Tags">Tag del elemento</param>
         /// <returns></returns>
-        /// 
         public static bool EnviarMailMobile(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -2893,8 +2892,9 @@ namespace Portal.Consultoras.Common
             string urlCodigousuario = HttpUtility.UrlEncode(Crypto.EncryptLogin(codigousuario.Trim()));
             string urlFechasolicitud = HttpUtility.UrlEncode(Crypto.EncryptLogin(fechasolicitud.Trim()));
             string urlNombre = HttpUtility.UrlEncode(Crypto.EncryptLogin(nombre.Trim()));
+            string url_guiId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(GenerarGUID()));
 
-            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var uri = new Uri(urlportal + "WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5&wxabc=param6");
             var qs = HttpUtility.ParseQueryString(uri.Query);
             if (urlPaisId != null) qs.Set("xyzab", urlPaisId);
             if (urlCorreo != null) qs.Set("abxyz", urlCorreo);
@@ -2902,6 +2902,7 @@ namespace Portal.Consultoras.Common
             if (urlCodigousuario != null) qs.Set("bxyza", urlCodigousuario);
             if (urlFechasolicitud != null) qs.Set("zabxy", urlFechasolicitud);
             if (urlNombre != null) qs.Set("xbaby", urlNombre);
+            qs.Set("wxabc", url_guiId);
 
             var uriBuilder = new UriBuilder(uri)
             {

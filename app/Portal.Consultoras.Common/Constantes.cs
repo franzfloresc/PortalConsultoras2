@@ -287,12 +287,15 @@ namespace Portal.Consultoras.Common
             //ODD
             public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
             public const string GuiaNegocio = "GuiaNegocio";
-            
+            public const string HabilidarLogCargaOferta = "HabilidarLogCargaOferta";
+
             public const string PedidoWebDDConf = "PedidoWebDDConf";
             public const string PedidoWebDD = "PedidoWebDD";
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
+
+            public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
         }
 
         public static class ConfiguracionManager
@@ -1057,6 +1060,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
+            public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
             public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
@@ -1070,6 +1074,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
@@ -1078,6 +1083,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string OfertaFinalCrossSellingGanaMas = "OFCGM";
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
@@ -1182,6 +1188,22 @@ namespace Portal.Consultoras.Common
                 public const string DRDRLandingBanner = "DRDRLandingBanner";
                 public const string MRDRLandingBanner = "MRDRLandingBanner";
                 public const string LogoMenuOfertas = "LogoMenuOfertas";
+            }
+
+            public static class RDI
+            {
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
+                public const string DBienvenidaIntriga = "DBienvenidaIntriga";
+                public const string MBienvenidaIntriga = "MBienvenidaIntriga";
+                public const string LogoComercial = "LogoComercial";
+                public const string LogoComercialFondo = "LogoComercialFondo";
+                public const string NombreComercial= "NombreComercial";
+                public const string DCatalogoIntriga = "DCatalogoIntriga";
+                public const string MCatalogoIntriga = "MCatalogoIntriga";
+                public const string DPedidoIntriga = "DPedidoIntriga";
+                public const string MPedidoIntriga = "MPedidoIntriga";
+                public const string DLandingBannerIntriga = "DLandingBannerIntriga";
+                public const string MLandingBannerIntriga = "MLandingBannerIntriga";
             }
 
         }
@@ -1303,7 +1325,10 @@ namespace Portal.Consultoras.Common
 
             public const short RevistaDigital = 131;
             public const short CodigoRevistaFisica = 132;
+            public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
+            public const short ExtensionBannerGanaMasApp = 136;
+            public const short MontoLimiteCupon = 103;
         }
 
         public struct MensajesCDRExpress
@@ -1521,6 +1546,11 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
+        public struct CodigoHorario
+        {
+            public const string ChatEmtelco = "ChatEmtelco";
+            public const string BelcorpResponde = "BelcorpResponde";
+        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -1670,16 +1700,28 @@ namespace Portal.Consultoras.Common
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
         }
-        public static class ColumnsStrategyShowroom
+        public static class ColumnsSetStrategyShowroom
         {
             public const string CUV = "cuv";
             public const string NormalPrice = "precio normal";
             public const string AllowedUnits = "unidades permitidas";
             public const string NameSet = "nombre de set";
-            public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
+            public const string IsSubcampaign = "essubcampania";
+            public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 , OfferStatus  = 6};
+        }
+
+        public static class ColumnsProductStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string Order = "posicion";
+            public const string ProductName = "nombre producto";
+            public const string Description = "descripcion";
+            public const string BrandProduct = "marca producto";
+
+            public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
         public class GanaMas
@@ -1693,8 +1735,10 @@ namespace Portal.Consultoras.Common
             public class Banner
             {
                 public const string CarpetaPais = "AppConsultora/{0}";
-                public const string ImagenSuscrita = "GanaMasSuscrita.png";
-                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+                public const string ImagenSuscrita = "GanaMasSuscrita";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita";
+                public const string TablaLogicaSuscrita = "Suscrita";
+                public const string TablaLogicaNoSuscrita = "NoSuscrita";
             }
         }
         public class ValAutoEstado

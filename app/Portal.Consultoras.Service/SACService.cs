@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
-using System.Data;
-using Portal.Consultoras.Entities.Mobile;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.Mobile;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
 {
@@ -429,30 +429,30 @@ namespace Portal.Consultoras.Service
 
         public int InsertFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.InsertFactorGanancia(entidad);
+                result = BLFactorGanancia.InsertFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.UpdateFactorGanancia(entidad);
+                result = BLFactorGanancia.UpdateFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)
@@ -572,7 +572,7 @@ namespace Portal.Consultoras.Service
 
         public int InsertLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
                 lintPosicion= BLLugarPago.InsertLugarPago(entidad);
@@ -586,7 +586,7 @@ namespace Portal.Consultoras.Service
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
                 lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
@@ -1062,9 +1062,10 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
         {
-            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
@@ -1079,8 +1080,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
@@ -1260,7 +1265,7 @@ namespace Portal.Consultoras.Service
 
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
-            new BLConsultoraDigitales().GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+            BLConsultoraDigitales.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
         }
 
         public BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
@@ -1395,5 +1400,10 @@ namespace Portal.Consultoras.Service
             return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
         #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

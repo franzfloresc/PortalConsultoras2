@@ -139,7 +139,6 @@ function fn_CargarImagen() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            alert(data.message);
         }
     });
 }

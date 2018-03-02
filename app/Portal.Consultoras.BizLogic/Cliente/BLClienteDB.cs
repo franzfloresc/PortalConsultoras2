@@ -10,7 +10,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLClienteDB : IClienteDBBusinessLogic
     {
-        DAClienteDB clienteData;
+        readonly DAClienteDB clienteData;
 
         public BLClienteDB()
         {

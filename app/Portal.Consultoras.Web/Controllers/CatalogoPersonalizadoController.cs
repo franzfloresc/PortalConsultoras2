@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
@@ -261,12 +262,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var precioMaximo = prodModel.PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
-                if (lstFilters == null && tipoOrigen == 1)
+                if (lstFilters == null && tipoOrigen == 1 && Session["UserFiltersFAV"] != null)
                 {
-                    if (Session["UserFiltersFAV"] != null)
-                    {
-                        lstFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
-                    }
+                    lstFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
                 }
 
                 if (lstFilters != null)
@@ -274,16 +272,13 @@ namespace Portal.Consultoras.Web.Controllers
                     for (int i = 0; i < lstFilters.Count; i++)
                     {
                         var v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
-                        if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
-                        {
-                            if (!(lstFilters[i].Id == "4" 
-                                && Convert.ToDouble(lstFilters[i].Valor1).Equals(Convert.ToDouble(precioMinimo))
-                                && Convert.ToDouble(lstFilters[i].Valor2).Equals(Convert.ToDouble(precioMaximo))
-                                ))
-                            {
-                                flt += v1.Split(',').Length;
-                            }
-                        }
+                        if (Convert.ToInt32(lstFilters[i].Id) <= 1 || v1.Length <= 0) continue;
+
+                        if (lstFilters[i].Id == "4"
+                            && Convert.ToDouble(lstFilters[i].Valor1).Equals(Convert.ToDouble(precioMinimo))
+                            && Convert.ToDouble(lstFilters[i].Valor2).Equals(Convert.ToDouble(precioMaximo))) continue;
+
+                        flt += v1.Split(',').Length;
                     }
                 }
 

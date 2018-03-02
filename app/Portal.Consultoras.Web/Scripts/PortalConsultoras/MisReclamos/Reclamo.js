@@ -151,7 +151,6 @@ $(document).ready(function () {
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
     });
 
-    //EPD-1919 INICIO
     $("#btnDespachoNormal").on("click", function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
         var claseBotonDesactivado = "cdr_tipo_despacho_icono";
@@ -163,7 +162,8 @@ $(document).ready(function () {
             botonExpress.addClass(claseBotonDesactivado);
             tipoDespacho = false;
         }
-    });
+    });
+
     $("#btnDespachoExpress").on("click", function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
         var claseBotonDesactivado = "cdr_tipo_despacho_icono";
@@ -176,7 +176,6 @@ $(document).ready(function () {
             tipoDespacho = true;
         }
     });
-    //EPD-1919 FIN
 
     $(".modificarPrecioMenos").on("click", function () {
         var precio = $("#hdCuvPrecio2").val();
@@ -274,8 +273,6 @@ function EvaluarCUV() {
 function EvaluarCUV2() {
 
     if (!CUV2Cambio()) return false;
-
-    var cuv = $("#txtCUV2").val();
 
     if (cuv2PrevVal.length == 5) BuscarCUVCambiar(cuv2PrevVal);
     else {
@@ -391,7 +388,6 @@ function BuscarCUVCambiar(cuv) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -486,7 +482,6 @@ function BuscarMotivo() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -540,7 +535,6 @@ function ValidarPaso1() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -578,8 +572,6 @@ function CargarOperacion() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {
-            }
         }
     });
 }
@@ -678,8 +670,6 @@ function ObtenerValorParametria(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {
-            }
         }
     });
 }
@@ -708,7 +698,6 @@ function ObtenerValorCDRWebDatos(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -750,7 +739,6 @@ function CargarPropuesta(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -795,7 +783,6 @@ function DetalleGuardar() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -879,10 +866,8 @@ function ValidarPaso2Trueque() {
     ok = $.trim($("#txtCUVPrecio2").val()) != "" ? ok : false;
 
     var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
-    var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
     var montoPedidoTrueque = $("#hdImporteTotal2").val();
 
-    //------------------------------------------------------------
     waitingDialog();
 
     var item = {
@@ -914,11 +899,8 @@ function ValidarPaso2Trueque() {
             closeWaitingDialog();
         }
     });
-    //------------------------------------------------------------
     var valorParametria = $("#hdParametriaCdr").val();
     var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
-
-    var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
 
     if (valorParametriaAbs == "1") {
         var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
@@ -995,15 +977,12 @@ function DetalleCargar() {
             SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
             SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
 
-            //EPD-1919 INICIO
             if (data.esCDRExpress) $("#TipoDespacho").show();
             else $("#TipoDespacho").hide();
-            //EPD-1919 FIN
 
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1057,7 +1036,6 @@ function DetalleEliminar(objItem) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1188,7 +1166,6 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 }
@@ -1253,7 +1230,6 @@ function ObtenerMontoProductosDevolver(codigoOperacion) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -1292,7 +1268,6 @@ function ObtenerCantidadProductosByCodigoSsic(codigoSsic) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
 
@@ -1316,7 +1291,6 @@ function ValidarTelefono() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            checkTimeout(data);
         }
     });
     return resultado;
@@ -1341,13 +1315,11 @@ function ValidarCorreoDuplicado(correo) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
         }
     });
     return resultado;
 }
 
-/*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||

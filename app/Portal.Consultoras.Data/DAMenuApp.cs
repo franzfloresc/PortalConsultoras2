@@ -1,6 +1,8 @@
 ﻿using System.Data;
 using System.Data.Common;
 
+using Portal.Consultoras.Entities;
+
 namespace Portal.Consultoras.Data
 {
     public class DAMenuApp : DataAccess
@@ -11,10 +13,14 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetMenusApp()
+        public IDataReader GetMenusApp(BEMenuApp menuApp)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMenusApp");
-            command.CommandTimeout = 0;
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, menuApp.CodigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, menuApp.CodigoZona);
+            Context.Database.AddInParameter(command, "@CodigoSeccion", DbType.String, menuApp.CodigoSeccion);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, menuApp.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@VersionMenu", DbType.Int16, menuApp.VersionMenu);
             return Context.ExecuteReader(command);
         }
     }

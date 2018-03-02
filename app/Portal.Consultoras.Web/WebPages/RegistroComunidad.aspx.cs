@@ -1,16 +1,14 @@
-﻿using System;
+﻿using EasyCallback;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceComunidad;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EasyCallback;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceComunidad;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -37,10 +35,10 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
-                long UniqueId = -1;
+                long uniqueId;
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    UniqueId = sv.InsUsuarioRegistro(new BEUsuarioComunidad()
+                    uniqueId = sv.InsUsuarioRegistro(new BEUsuarioComunidad()
                     {
                         CodigoUsuario = datos["CodigoUsuario"].ToString(),
                         Nombre = datos["Nombre"].ToString(),
@@ -51,12 +49,12 @@ namespace Portal.Consultoras.Web.WebPages
                     });
                 }
 
-                if (UniqueId > 0)
+                if (uniqueId > 0)
                 {
-                    string[] parametros = new string[] { UniqueId.ToString(), "0", datos["PaisId"].ToString() };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    string[] parametros = new string[] { uniqueId.ToString(), "0", datos["PaisId"].ToString() };
+                    string paramQuerystring = Util.EncriptarQueryString(parametros);
 
-                    string pagina_confirmacion = GetUrlHost(Page.Request) + "WebPages/ConfirmacionRegistroComunidad.aspx?data=" + param_querystring;
+                    string paginaConfirmacion = GetUrlHost(Page.Request) + "WebPages/ConfirmacionRegistroComunidad.aspx?data=" + paramQuerystring;
 
                     StringBuilder sb = new StringBuilder();
                     sb.Append("<html><head><title>mail_inscripcion</title><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head>");
@@ -67,7 +65,7 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
                     sb.Append("<tr><td width='766' height='28'>&nbsp;</td></tr>");
                     sb.Append("<tr><td><table id='Table_' width='766' height='46' border='0' cellpadding='0' cellspacing='0'><tr><td width='259'>&nbsp;</td>");
-                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", pagina_confirmacion));
+                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
                     sb.Append("<td width='258'>&nbsp;</td></tr></table></td></tr>");
                     sb.Append("<tr><td width='766' height='56'>&nbsp;</td></tr></table></body></html>");
 
@@ -77,7 +75,7 @@ namespace Portal.Consultoras.Web.WebPages
                     {
                         sv.UpdUsuarioCorreoEnviado(new BEUsuarioComunidad()
                         {
-                            UsuarioId = UniqueId,
+                            UsuarioId = uniqueId,
                             Tipo = 0
                         });
                     }
@@ -87,13 +85,11 @@ namespace Portal.Consultoras.Web.WebPages
                         success = true
                     });
                 }
-                else
+
+                return serializer.Serialize(new
                 {
-                    return serializer.Serialize(new
-                    {
-                        success = false
-                    });
-                }
+                    success = false
+                });
 
             }
             catch (Exception ex)
@@ -109,14 +105,14 @@ namespace Portal.Consultoras.Web.WebPages
 
         public Uri GetUrlHost(HttpRequest request)
         {
-            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
+            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath != null && request.ApplicationPath.Equals("/") ? "/" : (request.ApplicationPath + "/"));
             return new Uri(baseUrl);
         }
 
         [WebMethod]
         public static string ValidarUsuarioIngresado(string usuario)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByCodigo(new BEUsuarioComunidad()
@@ -130,7 +126,7 @@ namespace Portal.Consultoras.Web.WebPages
         [WebMethod]
         public static string ValidarCorreoIngresado(string correo)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByCorreo(new BEUsuarioComunidad()

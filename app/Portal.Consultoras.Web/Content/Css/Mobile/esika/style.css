@@ -6404,36 +6404,40 @@ body {
     .content_revistas_mobile img {
         width: 100%;
     }
+
 .contrevista p {
-font-size: 13px;
-font-weight: normal;
-font-style: normal;
-font-stretch: normal;
-line-height: normal;
-letter-spacing: 0.3px;
-display: block;
-text-align: center;
-width: 200px;
-margin: auto;
-margin-top: -30px;
-margin-bottom: 15px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+    margin-top: -30px;
+    margin-bottom: 15px;
 }
+
 .contrevista a {
-width: 200px;
-/* height: 30px; */
-padding: 8px;
-margin: auto;
-display: block;
-border: solid 1px #000000;
-transition: .3s;
-margin-bottom: 30px;
-text-align: center;
-transition: .3s;
+    width: 200px;
+    /* height: 30px; */
+    padding: 8px;
+    margin: auto;
+    display: block;
+    border: solid 1px #000000;
+    transition: .3s;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: .3s;
 }
-.contrevista a:hover{
-background:black;
-color:white;
-}
+
+    .contrevista a:hover {
+        background: black;
+        color: white;
+    }
+
 .previous_revistas_mobile, .next_revistas_mobile {
     width: 14px;
     height: 34px;
@@ -8072,6 +8076,7 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #e81c36;
+    text-transform: uppercase;
 }
 
 .btn_borde_black {
@@ -10366,12 +10371,6 @@ a {
     float: left;
 }
 
-.btn_desactivado_general {
-    background: #e5e5e5;
-    border: 1px solid #d2d2d2;
-    color: #b9b9b9;
-}
-
 .btn_agregar_ficha_producto {
     width: 50%;
     height: 48px;
@@ -10384,6 +10383,12 @@ a {
     text-align: center;
     line-height: 47px;
     background: black;
+}
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 
 .btn_compartir_ofertas {
@@ -10475,7 +10480,6 @@ a {
 .nombre_set_oferta_mobile {
     font-family: 'Lato';
     font-size: 11.5px;
-    margin-top: 4%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10493,14 +10497,26 @@ a {
 
 .imagen_set_oferta_mobile {
     float: right;
-    width: 47%;
-    margin-top: 9px;
+    width: 34%;
+    margin: 9px 20px 0 0;
     text-align: center;
 }
 
     .imagen_set_oferta_mobile img {
         width: 90%;
         margin-top: -7px;
+    }
+
+.imagen_set_oferta_mobile2 {
+    width: 14%;
+    height: auto;
+    float: right;
+    text-align: center;
+    margin: 8px 30px 0 0;
+}
+
+    .imagen_set_oferta_mobile2 img {
+        width: 100%;
     }
 
 .btn_cerrar_oferta_mobile {
@@ -11044,8 +11060,6 @@ a {
     background: black;
     width: 100%;
     overflow: hidden;
-    padding-top: 14px;
-    padding-bottom: 13px;
     height: 60px;
     position: relative;
 }
@@ -11072,14 +11086,13 @@ a {
 .solo_hoy_mobile2 {
     width: 129px;
     height: 34px;
-    position: relative;
-    top: -9px;
+    position: absolute;
+    top: 4px;
 }
 
     .solo_hoy_mobile2 img {
-        width: 77%;
+        width: 88%;
         object-fit: cover;
-        height: 19px;
         object-position: 100%;
     }
 
@@ -11418,9 +11431,10 @@ a {
 
 .btn_volver_detalle_oferta {
     display: block;
-    position: absolute;
+    position: relative;
     top: 21px;
     left: 20px;
+    z-index: 20;
     height: 45px;
     line-height: 43px;
 }
@@ -11987,7 +12001,6 @@ a {
     }
 
 .content_detalle_set_showroom {
-    overflow: hidden;
     margin-top: 13px;
     border-bottom: 1px solid #9B9B9B;
     padding-bottom: 13px;
@@ -12346,7 +12359,7 @@ a {
     color: #e81c36;
     text-align: center;
     height: 48px;
-    line-height: 47px;
+    padding: 15px 0;
 }
 
 .saludo_paginacion {
@@ -12458,7 +12471,7 @@ a {
     margin-top: 7px !important;
     display: block;
     position: absolute;
-    top: 11px;
+    top: 26px;
     left: 67px;
     font-family: 'Lato';
     color: #fff;
@@ -14219,33 +14232,39 @@ a {
 
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
-background: #e81c36 !important;
+    background: #e81c36 !important;
 }
-.popup_confirmacion_datos .estructura_confirmar_datos{
-box-shadow: none !important;
-background: white;
+
+.popup_confirmacion_datos .estructura_confirmar_datos {
+    box-shadow: none !important;
+    background: white;
 }
-.popup_confirmacion_datos .contenido-table-datos{
-display:table;
-height:432px;
-width: 100%;
+
+.popup_confirmacion_datos .contenido-table-datos {
+    display: table;
+    height: 432px;
+    width: 100%;
 }
-.popup_confirmacion_datos .contenido-table-datos .cont-datos{
-vertical-align:middle;
-display:table-cell;
-}
+
+    .popup_confirmacion_datos .contenido-table-datos .cont-datos {
+        vertical-align: middle;
+        display: table-cell;
+    }
+
 .popup_confirmacion_datos {
-padding: 0px 40px;
+    padding: 0px 40px;
 }
-.popup_confirmacion_datos p.felicidades {
-display: block;
-font-size: 17px;
-font-weight: bolder;
-margin-bottom: 0;
-letter-spacing: 1px;
-text-align: center;
-color: black;
-}
+
+    .popup_confirmacion_datos p.felicidades {
+        display: block;
+        font-size: 17px;
+        font-weight: bolder;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+        text-align: center;
+        color: black;
+    }
+
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
         background: url(../../../Images/Esika/loading_circle.gif);
         height: 50px;
@@ -14256,112 +14275,123 @@ color: black;
         background-repeat: no-repeat;
         background-position: center;
     }
-.popup_confirmacion_datos p.estasganando {
-display: block;
-text-align: center;
-font-size: 17px;
-font-weight: bolder;
-letter-spacing: 1px;
-color: #e81c36;
-margin-bottom: 20px;
-}
 
-.popup_confirmacion_datos span.confirmanos {
-display: block;
-text-align: center;
-letter-spacing: 0.5px;
-font-size: 11px;
-margin-bottom: 15px;
-line-height: 13px;
-color: black;
-text-transform: initial;
-}
+    .popup_confirmacion_datos p.estasganando {
+        display: block;
+        text-align: center;
+        font-size: 17px;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        color: #e81c36;
+        margin-bottom: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos button {
-background: #e0e0e0;
-letter-spacing: 1px;
-color: white;
-border: none;
-font-size: 13px;
-text-align: center;
-display: block;
-font-weight: bolder;
-width: 100%;
-/* padding: 15px 50px; */
-/* margin-top: 5px; */
-/* margin-bottom: 20px; */
-width: 240px;
-margin: auto;
-height: 45px;
-margin-bottom: 20px;
-margin-top: 20px;
-}
+    .popup_confirmacion_datos span.confirmanos {
+        display: block;
+        text-align: center;
+        letter-spacing: 0.5px;
+        font-size: 11px;
+        margin-bottom: 15px;
+        line-height: 13px;
+        color: black;
+        text-transform: initial;
+    }
 
-.popup_confirmacion_datos .form-datos {
-margin-bottom: opx;
-}
-.popup_confirmacion_datos .form-datos .input {
-margin-bottom: 15px;
-}
-.popup_confirmacion_datos .form-datos .input:last-child{
-margin-bottom:0;
-}
-.popup_confirmacion_datos .form-datos .input img {
-display: inline;
-position: absolute;
-padding: 0px 10px;
-/* width: 20px; */
-margin-top: 14px;
-/* width: 20px; */
-}
-.popup_confirmacion_datos .form-datos .input img.phone {
-margin-top: 10px;
-margin-left: 4px;
-}
-.popup_confirmacion_datos .form-datos .input img.info {
-display: block;
-padding: 0px;
-margin-top: 4px;
-border: none;
-background: none;
-width: 20px;
-height: 20px;
-}
-.popup_confirmacion_datos .form-datos .input input {
-display: inline;
-padding: 12px 40px;
-width: 100%;
-border: 1px solid #e0e0e0;
-height: 40px;
-color: black;
-letter-spacing: 0.5px;
-}
+    .popup_confirmacion_datos .form-datos button {
+        background: #e0e0e0;
+        letter-spacing: 1px;
+        color: white;
+        border: none;
+        font-size: 13px;
+        text-align: center;
+        display: block;
+        font-weight: bolder;
+        width: 100%;
+        /* padding: 15px 50px; */
+        /* margin-top: 5px; */
+        /* margin-bottom: 20px; */
+        width: 240px;
+        margin: auto;
+        height: 45px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
 
-.popup_confirmacion_datos .form-datos .input span {
-text-align: left;
-display: block;
-/* padding: 12pt 27px; */
-width: 100%;
-padding-left: 30px;
-color: #808080;
-line-height: 13px;
-font-size: 11px;
-text-transform: initial;
-letter-spacing: 0.5px;
-}
+    .popup_confirmacion_datos .form-datos {
+        margin-bottom: opx;
+    }
+
+        .popup_confirmacion_datos .form-datos .input {
+            margin-bottom: 15px;
+        }
+
+            .popup_confirmacion_datos .form-datos .input:last-child {
+                margin-bottom: 0;
+            }
+
+            .popup_confirmacion_datos .form-datos .input img {
+                display: inline;
+                position: absolute;
+                padding: 0px 10px;
+                /* width: 20px; */
+                margin-top: 14px;
+                /* width: 20px; */
+            }
+
+                .popup_confirmacion_datos .form-datos .input img.phone {
+                    margin-top: 10px;
+                    margin-left: 4px;
+                }
+
+                .popup_confirmacion_datos .form-datos .input img.info {
+                    display: block;
+                    padding: 0px;
+                    margin-top: 4px;
+                    border: none;
+                    background: none;
+                    width: 20px;
+                    height: 20px;
+                }
+
+            .popup_confirmacion_datos .form-datos .input input {
+                display: inline;
+                padding: 12px 40px;
+                width: 100%;
+                border: 1px solid #e0e0e0;
+                height: 40px;
+                color: black;
+                letter-spacing: 0.5px;
+            }
+
+            .popup_confirmacion_datos .form-datos .input span {
+                text-align: left;
+                display: block;
+                /* padding: 12pt 27px; */
+                width: 100%;
+                padding-left: 30px;
+                color: #808080;
+                line-height: 13px;
+                font-size: 11px;
+                text-transform: initial;
+                letter-spacing: 0.5px;
+            }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
-} 
+}
+
 .activar_boton_popup_confirma_datos {
     background: #e81c36 !important;
 }
-@media (max-width:400px){
+
+@media (max-width:400px) {
     .popup_confirmacion_datos {
         padding: 0px 15px !important;
     }
-    .popup_confirmacion_datos .centrar-vertical-contenido{
-    padding:25px;
-}
+
+        .popup_confirmacion_datos .centrar-vertical-contenido {
+            padding: 25px;
+        }
 }
 /* */
 
@@ -14486,4 +14516,176 @@ letter-spacing: 0.5px;
 
 .text-uppercase {
     text-transform: uppercase;
+}
+
+/* INI: VISTA ACTUALIZAR CONTRASEÑA */
+.contenedor_vista_cambio_contrasenia,
+.cambio_contrasenia_cabecera,
+.cambio_contrasenia_titulo,
+.contenido_cambio_contrasenia,
+.contenido_mensaje_consultora,
+.formulario_cambio_contrasenia,
+.formulario_cambio_contrasenia input{
+    display: block;
+    font-family: 'Lato';
+}
+
+.contenedor_vista_cambio_contrasenia{
+    margin-top:12px;
+}
+
+.contenedor_cabecera_contrasenia{
+    display: block;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.cambio_contrasenia_cabecera {
+    background: #000;
+    width: 87%;
+    height: 47px;
+    position: relative;
+}
+
+.franja_negra_fondo_mobile {
+    display: block;
+    background: #000;
+    width: 30px;
+    height: 55px;
+    position: absolute;
+    right: -2%;
+    transform: skewX(-15deg);
+}
+
+.cambio_contrasenia_titulo {
+    margin: 0 auto;
+    width:100%;
+    max-width:300px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left:9%;
+    font-size: 13px;
+    color: #FFF;
+    text-transform: uppercase;
+    line-height: 47px;
+    font-weight: 300;
+    letter-spacing:0.9px;
+}
+
+.cambio_contrasenia_titulo span {
+    font-weight: 900;
+}
+
+.contenedor_vista_actualizando_contrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicitaciones_consultora{
+    display:block;
+}
+
+.contenido_mensaje_consultora {
+    font-weight: 500;
+    width: 100%;
+    max-width: 297px;
+    margin: 0 auto 25px auto;
+}
+
+.contenido_mensaje_consultora, .formulario_cambio_contrasenia{
+    padding:0 8px;
+}
+
+.contenido_mensaje_consultora div:first-child{
+    font-size:18px;
+    margin-bottom:3px;
+}
+
+.contenido_mensaje_consultora div:last-child{
+    font-size:16px;
+}
+
+.formulario_cambio_contrasenia input[type="password"] {
+    width: 100%;
+    margin:0 auto;
+    max-width: 279px;
+    margin-bottom: 30px;
+    color: #000;
+    border-bottom: solid 1px #959595;
+    padding: 6px 0;
+    font-size:14px;
+    letter-spacing:0.2px;
+}
+
+.formulario_cambio_contrasenia input[type="submit"] {
+    width: 100%;
+    max-width: 279px;
+    margin: 52px auto;
+    height: 45px;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #FFF;
+    font-weight: 700;
+    background: #e81c36;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-webkit-input-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-ms-input-placeholder{
+    color:#000;
+}
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+    text-align:center;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width:100%;
+    max-width: 279px;
+    height: 45px;
+    background: #e81c36;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
+    }
+/* FIN: VISTA ACTUALIZAR CONTRASEÑA */
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }

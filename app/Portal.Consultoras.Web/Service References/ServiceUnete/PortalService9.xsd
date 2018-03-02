@@ -79,6 +79,7 @@
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleDiasEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DevueltoPorSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
@@ -267,6 +268,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PosiblesConsultorasPendientesVisitaBE" nillable="true" type="tns:PosiblesConsultorasPendientesVisitaBE" />
+  <xs:complexType name="ResumenDiasEsperaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DiasEspera" type="xs:int" />
+      <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteBE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
@@ -300,4 +308,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Cell" nillable="true" type="tns:Cell" />
+  <xs:complexType name="CodigoVerificacionSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoVerificacionId" type="xs:int" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroCelular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RespuestaEnvio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CodigoVerificacionSolicitudPostulanteBE" nillable="true" type="tns:CodigoVerificacionSolicitudPostulanteBE" />
 </xs:schema>

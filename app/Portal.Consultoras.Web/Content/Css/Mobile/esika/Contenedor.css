@@ -66,11 +66,6 @@
         margin-top: 0;
     }
 
-        .bc_para_ti-menu ul li:nth-child(2) a {
-            margin-left: 3px;
-            margin-right: 3px;
-        }
-
         .bc_para_ti-menu ul li a {
             display: block;
             cursor: pointer;
@@ -444,181 +439,215 @@ img.icono-submenu-tabs {
 }
 
 /* viñeta gnd */
-.desplegablegnd{
-position: fixed;
-bottom:0;
-width:100%;
-}
-.desplegablegnd .gndcontenido{
-margin:auto;
-width:80%;
-border: 1px solid #00000014;
-}
-.desplegablegnd .gndcontenido .nrognd{
-background: black;
-color:white;
-text-align: center;
-padding: 13.5px 15px
-}
-.desplegablegnd .gndcontenido .nrognd > div{
-
-}
-.desplegablegnd .gndcontenido .nrognd .numeritognd{
-text-align: left;
-width:50%;
-display: inline-block;
-font-size: 11px;
-letter-spacing: 2px;
-}
-.desplegablegnd .gndcontenido .nrognd .flechitagnd{
-text-align: right;
-width:50%;
-display: inline-block;
-}
-.desplegablegnd .gndcontenido .nrognd .flechitagnd img{
-width:15px;
-height: 15px;
-writing-mode: horizontal-tb;
-transform: rotate(180deg);
-position: relative;
-top: -1px;
-
-}
-.desplegablegnd .gndcontenido .contenedorgnd{
-padding: 15px;
-text-align: center;
-background: white;
-}
-.desplegablegnd .gndcontenido .contenedorgnd > div{
-display: inline-block;
-
-}
-.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
-float: left;
-width:45%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .portadagnd img{
-width:100%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd{
-float: right;
-width:50%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd{
-display: table;
-width:100%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd{
-display: table-cell;
-vertical-align: middle;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
-display: block;
-width:100%;
-font-size: 15px;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-display: block;
-margin: auto;
-text-align: center;
-width: 65%;
-border: 1px solid black;
-font-size: 12px;
-letter-spacing: 1px;
-padding: 10px 15px;
-color: black;
-margin-top: 10px;
-transition:.3s;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a:hover{
-background: black;
-color:white;
-}
-@media (max-width: 512px){
-.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
-width:40%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd{
-    width:60%;
-    padding-left:5%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-    margin-top:0;
-    padding: 5px 15px;
+.desplegablegnd {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
+    .desplegablegnd .gndcontenido {
+        margin: auto;
+        width: 80%;
+        border: 1px solid #00000014;
+    }
+
+        .desplegablegnd .gndcontenido .nrognd {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 13.5px 15px
+        }
+
+            .desplegablegnd .gndcontenido .nrognd > div {
+            }
+
+            .desplegablegnd .gndcontenido .nrognd .numeritognd {
+                text-align: left;
+                width: 50%;
+                display: inline-block;
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .desplegablegnd .gndcontenido .nrognd .flechitagnd {
+                text-align: right;
+                width: 50%;
+                display: inline-block;
+            }
+
+                .desplegablegnd .gndcontenido .nrognd .flechitagnd img {
+                    width: 15px;
+                    height: 15px;
+                    writing-mode: horizontal-tb;
+                    transform: rotate(180deg);
+                    position: relative;
+                    top: -1px;
+                }
+
+        .desplegablegnd .gndcontenido .contenedorgnd {
+            padding: 15px;
+            text-align: center;
+            background: white;
+        }
+
+            .desplegablegnd .gndcontenido .contenedorgnd > div {
+                display: inline-block;
+            }
+
+            .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+                float: left;
+                width: 45%;
+            }
+
+                .desplegablegnd .gndcontenido .contenedorgnd .portadagnd img {
+                    width: 100%;
+                }
+
+            .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+                float: right;
+                width: 50%;
+            }
+
+                .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd {
+                    display: table;
+                    width: 100%;
+                }
+
+                    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd {
+                        display: table-cell;
+                        vertical-align: middle;
+                    }
+
+                        .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p {
+                            display: block;
+                            width: 100%;
+                            font-size: 15px;
+                        }
+
+                        .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+                            display: block;
+                            margin: auto;
+                            text-align: center;
+                            width: 65%;
+                            border: 1px solid black;
+                            font-size: 12px;
+                            letter-spacing: 1px;
+                            padding: 10px 15px;
+                            color: black;
+                            margin-top: 10px;
+                            transition: .3s;
+                        }
+
+                            .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a:hover {
+                                background: black;
+                                color: white;
+                            }
+
+@media (max-width: 512px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+        width: 40%;
+    }
+
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+        width: 60%;
+        padding-left: 5%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+            margin-top: 0;
+            padding: 5px 15px;
+        }
 }
-@media (max-width: 469px){
-.desplegablegnd .gndcontenido .contenedorgnd .portadagnd{
-width:35%;
+
+@media (max-width: 469px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
+        width: 35%;
+    }
+
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+        width: 65%;
+        padding-left: 5%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p {
+            margin-bottom: 5px;
+        }
 }
-.desplegablegnd .gndcontenido .contenedorgnd .infognd{
-    width:65%;
-    padding-left:5%;
+
+@media (max-width: 435px) {
+    .desplegablegnd .gndcontenido {
+        width: 85%;
+    }
 }
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
-    margin-bottom:5px;
+
+@media (max-width: 409px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        font-size: 10px;
+    }
+
+    .desplegablegnd .gndcontenido {
+        width: 90%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+            padding-left: 4%;
+        }
 }
+
+@media (max-width: 400px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        font-size: 9px;
+    }
+
+    .desplegablegnd .gndcontenido {
+        width: 95%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+            padding-left: 3%;
+        }
 }
-@media (max-width: 435px){
-.desplegablegnd .gndcontenido{
-width:85%;
+
+@media (max-width: 409px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        font-size: 10px;
+    }
+
+    .desplegablegnd .gndcontenido {
+        width: 90%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+            padding-left: 4%;
+        }
 }
+
+@media (max-width: 400px) {
+    .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a {
+        font-size: 9px;
+    }
+
+    .desplegablegnd .gndcontenido {
+        width: 95%;
+    }
+
+        .desplegablegnd .gndcontenido .contenedorgnd .infognd {
+            padding-left: 3%;
+        }
+
+            .desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p {
+                font-size: 12px;
+            }
 }
-@media (max-width: 409px){
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-font-size: 10px;
-}
-.desplegablegnd .gndcontenido{
-width:90%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd {
-    padding-left: 4%;
-}
-}
-@media (max-width: 400px){
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-font-size: 9px;
-}
-.desplegablegnd .gndcontenido{
-width:95%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd {
-    padding-left: 3%;
-}
-}
-@media (max-width: 409px){
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-font-size: 10px;
-}
-.desplegablegnd .gndcontenido{
-width:90%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd {
-    padding-left: 4%;
-}
-}
-@media (max-width: 400px){
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd a{
-font-size: 9px;
-}
-.desplegablegnd .gndcontenido{
-width:95%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd {
-    padding-left: 3%;
-}
-.desplegablegnd .gndcontenido .contenedorgnd .infognd .continfognd .sbcontgnd p{
-    font-size:12px;
-}
-}
+
 @media (max-width: 350px) {
     .desplegablegnd .gndcontenido .contenedorgnd .portadagnd {
-    width: 40%;
-}
+        width: 40%;
+    }
+
     .desplegablegnd .gndcontenido .contenedorgnd .infognd {
-    width: 60%;
-    padding-left: 2.5%;
+        width: 60%;
+        padding-left: 2.5%;
+    }
 }
-}
-    /*fin viñeta gnd*/
+/*fin viñeta gnd*/

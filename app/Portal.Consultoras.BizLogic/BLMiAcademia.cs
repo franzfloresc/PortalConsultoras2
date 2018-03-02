@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -67,23 +68,21 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    try
                     {
-                        try
-                        {
-                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
-                        }
+                        BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
                     }
-
-                    daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir los archivos de Cursos de Líderes al destino FTP.", ex);
+                    }
                 }
+
+                daMiAcademia.UpdLetCursoDescarga(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+                
             }
             catch (Exception ex)
             {
@@ -124,7 +123,7 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row)
         {
-            string line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
             {
                 string item;
@@ -138,8 +137,9 @@ namespace Portal.Consultoras.BizLogic
                     default: item = string.Empty; break;
                 }
 
-                line += item + ",";
+                txtBuil.Append(item + ",");
             }
+            string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
     }
