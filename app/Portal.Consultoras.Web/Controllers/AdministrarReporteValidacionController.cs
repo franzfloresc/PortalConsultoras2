@@ -144,6 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
+        [Obsolete("Migrado PL50-50")]
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
             List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
@@ -160,8 +161,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
+                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
             }
 
             if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)

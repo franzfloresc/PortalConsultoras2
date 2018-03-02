@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ActualizarContrasenia";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<style type="text/css">
+
+    header#new-header{
+        box-shadow:none!important;
+        position:relative!important;
+    }
+
+    #contentmobile{
+        margin-top:0!important;
+    }
+
+    .icon-menu, .menu-shop, footer{
+        display:none!important;
+    }
+
+</style>
+
+<div class="contenedor_vista_cambio_contrasenia">
+    <div class="contenedor_cabecera_contrasenia">
+        <div class="cambio_contrasenia_cabecera">
+            <div class="franja_negra_fondo_mobile"></div>
+            <h1 class="wrapper_resumen_mobile cambio_contrasenia_titulo">
+                Cambio de <span>contraseña</span>
+            </h1>
+        </div>
+    </div>
+    <div class="wrapper_resumen_mobile contenido_cambio_contrasenia">
+        <!-- VISTA ACTUALIZACIÓN CONTRASEÑA -->
+        <div class="contenedor_vista_actualizando_contrasenia" style="display:block;">
+            <div class="contenido_mensaje_consultora">
+                <div>¡Hola <span>Sofía</span>!<br /></div>
+                <div>Cambia tu contraseña aquí:</div>
+            </div>
+            <form class="formulario_cambio_contrasenia" id="cambioContraseniaForm">
+                <input type="password" name="nuevoPassword" placeholder="Nueva contraseña" />
+                <input type="password" name="nuevoPasswordConfirmacion" placeholder="Confirmar contraseña" />
+                <input type="submit" value="Cambiar contraseña" />
+            </form>
+        </div>
+        <!-- FIN VISTA ACTUALIZACIÓN CONTRASEÑA -->
+        <!-- VISTA FELICITACIONES, DESPUÉS QUE LA CONSULTORA ACTUALIZÓ SU CONTRASEÑA -->
+        <div class="contenedor_vista_felicitaciones_consultora" style="display:none;">
+            <div class="icono_check_felicitaciones"></div>
+            <div class="mensaje_felicitaciones">
+                <span>¡FELICIDADES!</span>
+                <span>Tu contraseña fue actualizada</span>
+                <a href="https://www.somosbelcorp.com" title="Ir a Somos Belcorp" target="_self">
+                    IR A SOMOS BELCORP
+                </a>
+            </div>
+        </div>
+        <!-- FIN VISTA FELICITACIONES, DESPUÉS QUE LA CONSULTORA ACTUALIZÓ SU CONTRASEÑA -->
+    </div>
+</div>
+

@@ -94,12 +94,6 @@
   <wsdl:message name="IUsuarioService_RegistrarUsuarioPostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarUsuarioPostulanteResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_RecuperarContrasenia_InputMessage">
-    <wsdl:part name="parameters" element="tns:RecuperarContrasenia" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarMisDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarMisDatos" />
   </wsdl:message>
@@ -154,6 +148,12 @@
   <wsdl:message name="IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUsuarioConfiguracionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioChatEmtelco_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioChatEmtelco" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioChatEmtelco_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioChatEmtelcoResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertTerminosCondiciones" />
   </wsdl:message>
@@ -177,6 +177,30 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdUsuarioFotoPerfil_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdUsuarioFotoPerfilResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviaClaveAEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviaClaveAEmail" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EnviaClaveAEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviaClaveAEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdFechaBloqueoRestaurarClave_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdFechaBloqueoRestaurarClave" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdFechaBloqueoRestaurarClave_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdFechaBloqueoRestaurarClaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCodigoSMS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoSMS" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCodigoSMS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodigoSMSResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
@@ -729,10 +753,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" message="tns:IUsuarioService_RegistrarUsuarioPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse" message="tns:IUsuarioService_RegistrarUsuarioPostulante_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ActualizarMisDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatos" message="tns:IUsuarioService_ActualizarMisDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatosResponse" message="tns:IUsuarioService_ActualizarMisDatos_OutputMessage" />
@@ -769,6 +789,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracionResponse" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioChatEmtelco">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" message="tns:IUsuarioService_GetUsuarioChatEmtelco_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelcoResponse" message="tns:IUsuarioService_GetUsuarioChatEmtelco_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertTerminosCondiciones">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" message="tns:IUsuarioService_InsertTerminosCondiciones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse" message="tns:IUsuarioService_InsertTerminosCondiciones_OutputMessage" />
@@ -784,6 +808,22 @@
     <wsdl:operation name="UpdUsuarioFotoPerfil">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfil" message="tns:IUsuarioService_UpdUsuarioFotoPerfil_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfilResponse" message="tns:IUsuarioService_UpdUsuarioFotoPerfil_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuarioResponse" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviaClaveAEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmail" message="tns:IUsuarioService_EnviaClaveAEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmailResponse" message="tns:IUsuarioService_EnviaClaveAEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdFechaBloqueoRestaurarClave">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdFechaBloqueoRestaurarClave" message="tns:IUsuarioService_UpdFechaBloqueoRestaurarClave_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdFechaBloqueoRestaurarClaveResponse" message="tns:IUsuarioService_UpdFechaBloqueoRestaurarClave_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoSMS">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoSMS" message="tns:IUsuarioService_GetCodigoSMS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoSMSResponse" message="tns:IUsuarioService_GetCodigoSMS_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -1218,15 +1258,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ActualizarMisDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarMisDatos" style="document" />
       <wsdl:input>
@@ -1308,6 +1339,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioChatEmtelco">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertTerminosCondiciones">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
       <wsdl:input>
@@ -1337,6 +1377,42 @@
     </wsdl:operation>
     <wsdl:operation name="UpdUsuarioFotoPerfil">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviaClaveAEmail">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdFechaBloqueoRestaurarClave">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdFechaBloqueoRestaurarClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoSMS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoSMS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2203,15 +2279,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ActualizarMisDatos">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarMisDatos" style="document" />
       <wsdl:input>
@@ -2293,6 +2360,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioChatEmtelco">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertTerminosCondiciones">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
       <wsdl:input>
@@ -2322,6 +2398,42 @@
     </wsdl:operation>
     <wsdl:operation name="UpdUsuarioFotoPerfil">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioFotoPerfil" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviaClaveAEmail">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdFechaBloqueoRestaurarClave">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdFechaBloqueoRestaurarClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodigoSMS">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoSMS" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

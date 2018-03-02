@@ -12,7 +12,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -31,7 +31,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -50,7 +50,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -69,7 +69,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -88,7 +88,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -107,7 +107,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -126,7 +126,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -145,7 +145,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -164,7 +164,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -183,7 +183,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -202,7 +202,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -221,7 +221,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
@@ -240,7 +240,7 @@ IF NOT EXISTS(SELECT 1 FROM sys.columns
 		WHERE Name = N'EsSubCampania' AND OBJECT_ID = OBJECT_ID(N'Estrategia'))
 BEGIN
 	ALTER TABLE Estrategia
-	ADD EsSubCampania BIT DEFAULT 1;
+	ADD EsSubCampania BIT DEFAULT 0;
 END  
 
 GO
