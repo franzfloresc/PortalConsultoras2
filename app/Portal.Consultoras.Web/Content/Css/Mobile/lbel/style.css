@@ -14343,6 +14343,10 @@ span.icon-advertencia {
 
 /* HD-912 - PEDIDO FIC MOBILE */
 
+.pt-22{
+    padding-top:22px;
+}
+
 .enlace_ingresa_tu_pedido_fic{
     display: block;
     width: 189px;

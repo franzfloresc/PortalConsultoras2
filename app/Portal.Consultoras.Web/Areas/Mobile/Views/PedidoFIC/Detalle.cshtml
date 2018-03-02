@@ -22,7 +22,7 @@
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 
 <div class="contenedor_producto">
-    <div class="content_320 ingresoPedidom">
+    <div class="content_320 ingresoPedidom pt-22">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
@@ -33,9 +33,17 @@
                     }
                  }
                 <h2 class="nombre_campania_pedido">
-                    MI PEDIDO
+                    MI PEDIDO FIC
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
+
+                <!-- INFO SOBRE PEDIDO FIC -->
+                <div class="bloque_info_pedido_fic text-left mb-20">
+                    <p class="info_pedido_fic">
+                        <strong>Recuerda :</strong> este pedido <span class="text-uppercase">No</span> te será facturado. Sólo nos estás ayudando a conocer tus preferencias y la de tus clientes.
+                    </p>
+                </div>
+                <!-- FIN - INFO SOBRE PEDIDO FIC -->
 
                 <div id="divProductosDetalle">
                     <div class="text-center">
@@ -45,7 +53,7 @@
             </div>
         </div>
 
-        @{
+        @*@{
             string[] tooltips = Model.ProlTooltip.Split('|');
             string tooltip1 = "";
             string tooltip2 = "";
@@ -77,14 +85,18 @@
                     <span>@tooltip2</span>
                 </div>
             }
-        }
+        }*@
 
+        <div class="tooltip_noOlvidesGuardarTuPedido">
+            <h2>Haz click aquí cuando hayas finalizado</h2>
+            <span>Podrás optar por un pedido sorpresa a un super precio</span>
+        </div>
 
     </div>
 </div>
 
 <div class="btn_guardarPedido">
-    <input type="submit" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+    <input type="submit" value="Ingresa tu pedido" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
 </div>
 
 <!-- START Popup para Observaciones PROL -->
@@ -868,12 +880,14 @@
         var nombreConsultora = '@ViewBag.NombreConsultora';
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
+    
     @if (Model.MostrarPopupPrecargados)
     {
         <script>
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
         </script>
-    }    
+    }
+    
 }
