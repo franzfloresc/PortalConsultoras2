@@ -4653,7 +4653,11 @@ margin-top: -88px;
     height: auto;
     font-family: 'Lato';
 }
-
+.content_resumen_dato_mobile a.txtdorado{
+    color: #a18328;
+    text-decoration: underline;
+    margin-right: 5px;
+}
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
