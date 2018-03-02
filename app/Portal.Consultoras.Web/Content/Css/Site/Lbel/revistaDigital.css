@@ -824,12 +824,21 @@
         top:0;
     }
 
-    .revistadigital-landing .content_item_carrusel_clubganamas p {
+    .revistadigital-landing .content_item_carrusel_clubganamas p.primero {
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.27;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 15px;
+    }
+
+    .revistadigital-landing .content_item_carrusel_clubganamas p.segundo {
         display: block;
-        width: 165px;
-        height: 161px;
+        width: 100%;
         font-family: Lato;
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 900;
         font-style: normal;
         font-stretch: normal;
