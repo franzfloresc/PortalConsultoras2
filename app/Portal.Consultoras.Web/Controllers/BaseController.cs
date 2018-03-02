@@ -3577,6 +3577,7 @@ namespace Portal.Consultoras.Web.Controllers
                     config.DesktopFondoBanner = revistaDigital.BannerOfertasNoActivaNoSuscrita;
                     config.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
                     config.MobileFondoBanner = string.Empty;
+                    config.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
                 }
                 if(revistaDigital.TieneRevistaDigital())
                 {

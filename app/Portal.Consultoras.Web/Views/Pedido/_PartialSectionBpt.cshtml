@@ -74,18 +74,18 @@
           
 
         <div class="fondo_gris" style="background:transparent !important;">
-            <div class="club_gana_mas_pedido">
-                <div class="logo_club"></div>
-                <p class="primer-texto">@revistaDigital.NombreConsultora , TODAS </p>
+
+            <div class="club_gana_mas_pedido club_gana_mas_pedido_activo">
+                <div class="logo_club logo_club_activo"></div>
+                <p class="primer-texto">CONSULTAS YA SUSCRITAS</p>
                 <p class="segundo-texto">
-                    TUS OFERTAS EN UN
-                    SOLO LUGAR
+                    !GANAN HASTA 10% MÁS!
                 </p>
                 <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
             </div>
 
             @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-                                                 new ViewDataDictionary {
+                                              new ViewDataDictionary {
 { "Source", 2 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
@@ -108,6 +108,7 @@
                 <div class="clear"></div>*@
             <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         <div class="fondo_gris" style="background:transparent !important;">
+
             <div class="club_gana_mas_pedido">
                 <div class="logo_club"></div>
                 <p class="primer-texto">@revistaDigital.NombreConsultora , TODAS </p>
@@ -119,11 +120,11 @@
             </div>
 
             @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-                                              new ViewDataDictionary {
-            { "Source", 2 },
-            { "NombreConsultora", revistaDigital.NombreConsultora },
-            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
-            { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
+                                           new ViewDataDictionary {
+{ "Source", 2 },
+{ "NombreConsultora", revistaDigital.NombreConsultora },
+{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
+{ "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
         </div>
         }
     }
