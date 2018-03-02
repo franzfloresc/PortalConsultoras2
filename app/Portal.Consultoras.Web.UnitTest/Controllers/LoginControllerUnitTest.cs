@@ -485,6 +485,50 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialColorActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorActiva,
+                        Valor1 = "DLogoComercialColorActiva",
+                        Valor2 = "MLogoComercialColorActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialColorActiva", result.DLogoComercialColorActiva);
+                Assert.AreEqual("MLogoComercialColorActiva", result.MLogoComercialColorActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialColorNoActiva_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorNoActiva,
+                        Valor1 = "DLogoComercialColorNoActiva",
+                        Valor2 = "MLogoComercialColorNoActiva"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual("DLogoComercialColorNoActiva", result.DLogoComercialColorNoActiva);
+                Assert.AreEqual("MLogoComercialColorNoActiva", result.MLogoComercialColorNoActiva);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
             public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialFondoActiva_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);

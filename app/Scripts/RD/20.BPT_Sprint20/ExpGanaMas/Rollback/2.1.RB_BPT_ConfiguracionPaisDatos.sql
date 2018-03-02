@@ -264,3 +264,37 @@ begin
 				and cp.Codigo = 'RD'
 				and cpd.Codigo = 'DLandingBannerInicioRdActivaSuscrita'
 end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'LogoComercialColorActiva'	))
+begin
+	print 'Rollback Insertando PaisConfiguracionDatos : LogoComercialColorActiva'
+
+	delete cpd
+	from ConfiguracionPaisDatos cpd
+		join ConfiguracionPais cp
+		on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+		and cp.Codigo = 'RD'
+		and cpd.Codigo = 'LogoComercialColorActiva'
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'LogoComercialColorNoActiva'	))
+begin
+	print 'Rollback Insertando PaisConfiguracionDatos : LogoComercialColorNoActiva'
+
+	delete cpd
+	from ConfiguracionPaisDatos cpd
+		join ConfiguracionPais cp
+		on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+		and cp.Codigo = 'RD'
+		and cpd.Codigo = 'LogoComercialColorNoActiva'
+end
