@@ -1939,7 +1939,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: left;
     width: 20px;
     height: 20px;
-    top: 1px;
+    top: -1px;
     margin-right: 7px;
     background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
@@ -4551,7 +4551,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') center center no-repeat;
 }
 
 .texto_notaDemanda {
@@ -26722,7 +26722,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -35000,7 +35000,7 @@ height:30px;
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
