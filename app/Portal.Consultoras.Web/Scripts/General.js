@@ -38,29 +38,7 @@ jQuery(document).ready(function () {
             });
         }
     }
-
-    /* redimensionar menu de 3 a 2 tabs / si es RD => 3 tabs / si no => 2*/
-
-    if (isMobile()) {
-        var total_op_menu = $(".bc_para_ti-menu ul li").size();
-
-        if (total_op_menu < 3) {
-            $('.bc_para_ti-menu ul li').css("width", "50% !important");
-            $('.bc_para_ti-menu ul li:nth-child(2)').css("border-left", "none");
-            $('.bc_para_ti-menu ul li:nth-child(2)').css("border-right", "none");
-        }
-    }
-    else {
-        var total_op_menu = $(".bc_menu_estrategia .op_menu-horizontal ul li").size();
-
-        if (total_op_menu < 3) {
-            $('.bc_menu_estrategia .op_menu-horizontal ul li').css("width", "50% !important");
-            $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-left", "none");
-            $('.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2)').css("border-right", "none");
-        }
-    }
-
-    /* fin popup validar datos 2017 */
+    
 
 });
 (function ($) {
@@ -1014,7 +992,9 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -1085,7 +1065,9 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
