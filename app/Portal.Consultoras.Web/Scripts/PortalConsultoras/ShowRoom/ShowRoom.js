@@ -291,6 +291,10 @@ $(document).ready(function () {
         }
 
         if (accion == 1) {
+            $("[data-tono]").find('.content_tonos_select').hide();
+            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+
             $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
             $(this).parents("[data-tono]").find('.content_tonos_select').show();
             $(this).parent().addClass("tono_por_elegir");
@@ -326,12 +330,12 @@ $(document).ready(function () {
         });
 
         if (btnActivar) {
+            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
             $('#btnAgregalo').removeClass('btn_desactivado_general');
         }
 
     });
 
-    /*
     var so = $.trim(tipoOrigenEstrategia)[0];
     if (so == 1) {
         $(document).on('mousemove', '[data-tono-change]', function (e) {
@@ -346,7 +350,6 @@ $(document).ready(function () {
             $(this).attr("data-visible", "0");
         });
     }
-    */
 });
 
 
