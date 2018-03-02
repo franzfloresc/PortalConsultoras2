@@ -44,63 +44,54 @@
     {
         if (revistaDigital.EsSuscrita)
         {
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" class="small" alt="">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
+
+            <div class="wrapper_resumen_mobile_clubganamas">
+                <div class="zonadecolor dorado">
+                    <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
+                    <span>
+                        <b>Consultoras ya suscritas ¡Ganan hasta 10% más!</b>
+                    </span>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
+                        VER MÁS OFERTAS
+                    </a>
+
+                </div>
+                <div class="zona-items">
+                    <!--INSERTAR AQUÍ CARRUSEL-->
+                    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
+                                  new ViewDataDictionary {
+            { "Source", 2 },
+            { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+            { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                                          });
                 </div>
             </div>
-            <hr class="clear" />
-            @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                         new ViewDataDictionary {
-                { "Source", 2 },
-                { "NombreConsultora", ViewBag.NombreConsultora },
-                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-                { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                                 });
         }
         else
         {
+            <div class="wrapper_resumen_mobile_clubganamas">
+                <div class="zonadecolor">
+                    <img src="~/Content/Images/etiqueta-ganamas-esika.svg" class="logo-club-etiqueta" />
+                    <span>
+                        @revistaDigital.NombreConsultora , TODAS <b>TUS OFERTAS EN UN SOLO LUGAR</b>
+                    </span>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
+                        VER MÁS OFERTAS
+                    </a>
 
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" class="small" alt="">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
+                </div>
+                <div class="zona-items">
+                    <!--INSERTAR AQUÍ CARRUSEL-->
+                    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
+                   new ViewDataDictionary {
+{ "Source", 2 },
+{ "NombreConsultora", ViewBag.NombreConsultora },
+{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                           });
                 </div>
             </div>
-            <hr class="clear" />
-            @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                         new ViewDataDictionary {
-                { "Source", 2 },
-                { "NombreConsultora", ViewBag.NombreConsultora },
-                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-                { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                                 });
-
         }
 
     }
@@ -127,12 +118,12 @@ else if (revistaDigital.TieneRDI)
     </div>
     <hr class="clear" />
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-            new ViewDataDictionary {
+                new ViewDataDictionary {
 { "Source", 2 },
 { "NombreConsultora", ViewBag.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
 { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-            });
+                });
 }
 else if (revistaDigital.TieneRDR)
 {
@@ -164,10 +155,10 @@ else if (revistaDigital.TieneRDR)
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                new ViewDataDictionary {
-    { "Source", 1 },
-    { "NombreConsultora", ViewBag.NombreConsultora },
-    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
-    { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                });
+                    new ViewDataDictionary {
+{ "Source", 1 },
+{ "NombreConsultora", ViewBag.NombreConsultora },
+{ "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+{ "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                    });
 }
