@@ -298,6 +298,8 @@ function ArmarCarouselEstrategias(data) {
 
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
+        item.EsBanner = false;
+        item.TextoBanner = "";
     });
 
     tieneOPT = true;
@@ -320,11 +322,6 @@ function ArmarCarouselEstrategias(data) {
     } catch (e) {
     }
 
-    $.each(data.Lista, function (i, item) {
-        item.EsBanner = false;
-        item.TextoBanner = "";
-    });
-
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
             if (!revistaDigital.EsActiva) {
@@ -339,12 +336,17 @@ function ArmarCarouselEstrategias(data) {
                     } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
                         data.Lista.splice(1, 0, bannerClubGanaMas);
                     }
+
+                    $.each(data.Lista, function (i, item) {
+                        item.Posicion = i + 1;
+                    });
+
+                    arrayOfertasParaTi = data.Lista;
                 }
             }
         }
     }
-    
-    
+   
 
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
@@ -443,7 +445,7 @@ function ArmarCarouselEstrategias(data) {
         EstablecerLazyCarrusel($('#divListadoEstrategia'));
 
         $('#divListadoEstrategia').slick({
-            lazyLoad: 'ondemand',
+            lazyload: 'ondemand',
             infinite: true,
             vertical: false,
             slidesToShow: 1,
@@ -451,6 +453,8 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            arrows: false,
+            centerMode: true,
             responsive: [
                 {
                     breakpoint: 1200,
@@ -484,6 +488,8 @@ function ArmarCarouselEstrategias(data) {
             nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-7%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
+            arrows: false,
+            centerMode: true,
             responsive: [
                 {
                     breakpoint: 960,
