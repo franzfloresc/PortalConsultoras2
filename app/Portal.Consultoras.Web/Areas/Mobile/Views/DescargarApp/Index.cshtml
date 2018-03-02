@@ -35,7 +35,7 @@
             Tu negocio es más fácil con el <span class="nombre_app"></span>
         </h1>
         <p class="info_descarga">Descárgalo y disfruta de sus beneficios</p>
-        <button type="button" class="btn_descargar_app" onclick="window.open('@ViewBag.Url')">¡Descárgalo ahora!</button>
+        <button type="button" class="btn_descargar_app">¡Descárgalo ahora!</button>
     </div>
     <div class="imagen_descargar_app_e_ir_a_version_web">
         <div class="img_vista_descargar_app">
@@ -53,3 +53,64 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        var ComunicadoId = '@ViewBag.ComunicadoId';
+        var EsPaisEsika = '@ViewBag.EsPaisEsika';
+        var Url = '@ViewBag.Url';
+
+        $(document).ready(function () {
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': ComunicadoId,
+                                'name': (EsPaisEsika == "1" ? "Banner Descargar app consultora Ésika" : "Banner Descargar app consultora L'bel"),
+                                'position': 'Home Pop-up',
+                                'creative': 'Banner'
+                            }]
+                    }
+                }
+            }); 
+
+            $(".btn_cerrar_vista_descargar_app").click(function (e) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Banner Pop-up',
+                    'action': 'Banner Descargar app consultora',
+                    'label': 'Cerrar Pop-up'
+                });
+            });
+
+            $(".btn_descargar_app").click(function (e) {
+                dataLayer.push({
+                    'event': 'promotionClick',
+                    'ecommerce': {
+                        'promoClick': {
+                            'promotions': [
+                                {
+                                    'id': ComunicadoId,
+                                    'name': (EsPaisEsika == "1" ? "Descargar app consultora Ésika" : "Descargar app consultora L'bel"),
+                                    'creative': 'Banner Pop-up',
+                                    'position': 'Home Pop-up'
+                                }]
+                        }
+                    }
+                });
+
+                window.open(Url);
+            });
+
+            $(".enlace_ir_version_web").click(function (e) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Banner Pop-up',
+                    'action': 'Banner Descargar app consultora',
+                    'label': 'Ir a la versión web'
+                });
+            });
+        });
+    </script>
+}
