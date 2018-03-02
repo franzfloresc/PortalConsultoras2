@@ -12,6 +12,7 @@ var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 var _campania = "";
+var TieneHV = TieneHV || false;
 
 var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || new Object();
