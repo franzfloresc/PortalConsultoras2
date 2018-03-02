@@ -11,7 +11,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -20,7 +20,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -36,7 +36,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -45,7 +45,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -61,7 +61,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -70,7 +70,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -86,7 +86,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -95,7 +95,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -111,7 +111,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -120,7 +120,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -136,7 +136,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -145,7 +145,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -161,7 +161,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -170,7 +170,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -186,7 +186,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -195,7 +195,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -211,7 +211,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -220,7 +220,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -236,7 +236,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -245,7 +245,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -261,7 +261,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -270,7 +270,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -286,7 +286,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -295,7 +295,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
@@ -311,7 +311,7 @@ GO
 
 CREATE PROCEDURE [dbo].[DeleteEstrategiaProducto]
 @EstrategiaID INT
-,@CUV2 VARCHAR(6)
+,@CUV VARCHAR(6)
 ,@UsuarioModificacion VARCHAR(30)
 AS
 BEGIN
@@ -320,7 +320,7 @@ BEGIN
 		,UsuarioModificacion = @UsuarioModificacion
 		,FechaModificacion = GETDATE()
 	WHERE EstrategiaID = @EstrategiaID
-		AND CUV2 = @CUV2
+		AND CUV = @CUV
 END
 GO
 
