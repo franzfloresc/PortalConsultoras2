@@ -85,6 +85,10 @@ namespace Portal.Consultoras.Web.Models
         public bool SubscripcionAutomaticaAVirtualCoach { get; set; }
 
         public bool BloqueoProductoDigital { get; set; }
+        public string BannerOfertasNoActivaNoSuscrita { get; set; }
+        public string BannerOfertasNoActivaSuscrita { get; set; }
+        public string BannerOfertasActivaNoSuscrita { get; set; }
+        public string BannerOfertasActivaSuscrita { get; set; }
 
         public bool EsSuscritaInactiva()
         {
