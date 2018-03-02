@@ -16,6 +16,7 @@ $(document).ready(function () {
         if ($(".ui-autocomplete").css("display") == "none") {
             AutocompleteClick = true;
             $(this).autocomplete("search", "");
+            $(".ui-autocomplete").css({ "z-index": "2000" });
         }
         else {
             $(this).autocomplete('close');
