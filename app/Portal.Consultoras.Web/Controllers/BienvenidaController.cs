@@ -1999,6 +1999,43 @@ namespace Portal.Consultoras.Web.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ActualizarVisualizoComunicado(int ComunicadoId)
+        {
+            try
+            {
+                using (var sac = new SACServiceClient())
+                {
+                    sac.ActualizarVisualizoComunicado(userData.PaisID, userData.CodigoConsultora, ComunicadoId);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema al actualizar que se visualizó el popup, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+        }
+
         public JsonResult AceptarComunicadoVisualizacion(int ComunicadoID)
         {
             try
@@ -2126,47 +2163,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            {
+                url = String.Format(
+                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    userData.SegmentoAbreviatura.Trim(),
+                    userData.CodigoUsuario.Trim(),
+                    userData.PrimerNombre.Split(' ').First().Trim(),
+                    userData.EMail.Trim(), userData.CodigoISO.Trim()
+                );
+            }
 
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                fechaInicioChat != "")
-            {
-                var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
-                    "dd/MM/yyyy",
-                    CultureInfo.InvariantCulture);
-                if (DateTime.Now >= fechaInicioChatPais)
-                {
-                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
-                        userData.SegmentoAbreviatura.Trim(),
-                        userData.CodigoUsuario.Trim(),
-                        userData.PrimerNombre.Split(' ').First().Trim(),
-                        userData.EMail.Trim(), userData.CodigoISO.Trim());
-                }
-            }
-            else
-            {
-                if (userData.CodigoISO.Equals("PA"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
-                }
-                else if (userData.CodigoISO.Equals("QR"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
-                }
-                else if (userData.CodigoISO.Equals("SV"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
-                }
-                else if (userData.CodigoISO.Equals("GT"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
-                }
-                else
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
-                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
-                }
-            }
             ViewBag.UrlBelcorpChatPais = url;
             return View();
         }
