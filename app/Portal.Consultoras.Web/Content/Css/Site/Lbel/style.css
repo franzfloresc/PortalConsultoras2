@@ -19790,6 +19790,13 @@ label.checkpop.c_on {
     margin-top: -5px;
     float: left;
 }
+.consultora_home a.txtdorado{
+    display: inline;
+    font-size: 13px;
+    color: #d4ae3a;
+    margin-right: 5px;
+    text-decoration:underline;
+}
 
 .info_cam_belcorp {
     float: left;
