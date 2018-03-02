@@ -102,10 +102,10 @@
                         <div class="contenedorMenu">
                             <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
                                 <div class="contenedorInformacion">
-                                    @if (!string.IsNullOrEmpty(menuhijo.Logo))
+                                    @if (!string.IsNullOrEmpty(menuhijo.DesktopLogoMenu))
                                     {
                                         <div class="contenedorImagen">
-                                            <img style="display:inline;" src="@menuhijo.Logo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
+                                            <img style="display:inline;" src="@menuhijo.DesktopLogoMenu" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" alt="" />
                                         </div>
                                     }
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))

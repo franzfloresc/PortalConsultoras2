@@ -1722,6 +1722,22 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialColorActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialColorActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialColorNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialColorNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
                 if (value1 != null)
                 {
@@ -1780,6 +1796,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp

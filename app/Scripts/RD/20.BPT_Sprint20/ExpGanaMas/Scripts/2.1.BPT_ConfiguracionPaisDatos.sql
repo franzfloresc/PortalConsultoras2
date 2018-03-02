@@ -392,3 +392,69 @@ begin
 	,null
 	)
 end
+
+if( not exists(	select 1
+				from ConfiguracionPaisDatos cpd
+					join ConfiguracionPais cp
+					on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+					and cp.Codigo = 'RD'
+					and cpd.Codigo = 'LogoComercialColorActiva'	))
+begin
+	print 'Insertando PaisConfiguracionDatos : LogoComercialColorActiva'
+
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	,Componente
+	)
+	values(
+	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
+	,'LogoComercialColorActiva'
+	,0
+	,'logo-club-ganamas-dorado.svg'
+	,'logo-club-ganamas-dorado.svg'
+	,null
+	,'Logo de club gana mas en color dorado'
+	,1
+	,null
+	)
+end
+
+if( not exists(	select 1
+				from ConfiguracionPaisDatos cpd
+					join ConfiguracionPais cp
+					on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+					and cp.Codigo = 'RD'
+					and cpd.Codigo = 'LogoComercialColorNoActiva'	))
+begin
+	print 'Insertando PaisConfiguracionDatos : LogoComercialColorNoActiva'
+
+	insert into ConfiguracionPaisDatos(
+	ConfiguracionPaisID
+	,Codigo
+	,CampaniaID
+	,Valor1
+	,Valor2
+	,Valor3
+	,Descripcion
+	,Estado
+	,Componente
+	)
+	values(
+	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
+	,'LogoComercialColorNoActiva'
+	,0
+	,'logo-ganamas-rojo.svg'
+	,'logo-ganamas-rojo.svg'
+	,null
+	,'Logo de club gana mas en color morado'
+	,1
+	,null
+	)
+end

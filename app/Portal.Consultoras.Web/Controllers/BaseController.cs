@@ -3608,7 +3608,16 @@ namespace Portal.Consultoras.Web.Controllers
                         config.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, config.MobileTituloBanner);
                         config.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, config.MobileSubTituloBanner);
 
-                        config.Logo = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoComercialColorNoActiva))
+                        {
+                            config.MobileLogoMenu = revistaDigital.MLogoComercialColorActiva;
+                        }
+                        if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoComercialColorActiva))
+                        {
+                            config.MobileLogoMenu = revistaDigital.MLogoComercialColorNoActiva;
+                        }
                         config.Descripcion = string.Empty;
                         config = ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
@@ -3628,7 +3637,8 @@ namespace Portal.Consultoras.Web.Controllers
                         config.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, config.MobileTituloBanner);
                         config.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, config.MobileSubTituloBanner);
 
-                        config.Logo = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
+                        config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
                         config.Descripcion = string.Empty;
                         config = ActualizarTituloYSubtituloBanner(config, revistaDigital);
                         break;
