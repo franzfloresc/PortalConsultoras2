@@ -278,14 +278,14 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('body').off().on('click', '[data-tono-change]', function (e) {
-        var accion = $(this).attr("data-tono-change");
+    $('body').on('click', '[data-tono-showroom-change]', function (e) {
+        var accion = $(this).attr("data-tono-showroom-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
         if (hideSelect == "1") {
             $(this).parents("[data-tono]").find('.content_tonos_select').hide();
             $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+            $(this).parents("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
             if (accion == 1)
                 return true;
         }
@@ -293,7 +293,7 @@ $(document).ready(function () {
         if (accion == 1) {
             $("[data-tono]").find('.content_tonos_select').hide();
             $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+            $("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
 
             $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
             $(this).parents("[data-tono]").find('.content_tonos_select').show();
@@ -303,7 +303,7 @@ $(document).ready(function () {
 
         var cuv = $.trim($(this).attr("data-tono-cuv"));
         var prod = $(this).parents("[data-tono]");
-        var objSet = prod.find("[data-tono-change='1']");
+        var objSet = prod.find("[data-tono-showroom-change='1']");
         objSet.find("img").attr("src", $(this).find("img").attr("src"));
         objSet.find(".tono_seleccionado").show();
         objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
@@ -330,26 +330,11 @@ $(document).ready(function () {
         });
 
         if (btnActivar) {
-            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
             $('#btnAgregalo').removeClass('btn_desactivado_general');
         }
 
     });
 
-    var so = $.trim(tipoOrigenEstrategia)[0];
-    if (so == 1) {
-        $(document).on('mousemove', '[data-tono-change]', function (e) {
-            var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-            if (activo == 1) {
-                $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            }
-        });
-
-        $(document).on('mouseleave', '.content_tonos_select', function (e) {
-            $(this).hide();
-            $(this).attr("data-visible", "0");
-        });
-    }
 });
 
 
