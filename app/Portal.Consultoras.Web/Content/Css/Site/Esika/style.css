@@ -3055,6 +3055,45 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         line-height: normal;
         letter-spacing: 1px;
     }
+.club_gana_mas_pedido_activo {
+    background: #f8f8f8;
+}
+
+    .club_gana_mas_pedido_activo .logo_club_activo {
+        background: url(../../../Images/etiqueta-club-ganamas-dorado-independiente.png);
+    }
+
+    .club_gana_mas_pedido_activo a {
+        background-color: #c39934;
+        border: none;
+    }
+
+    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+        color: black;
+    }
+.club_gana_mas_pedido_activo {
+    background: #f8f8f8;
+}
+
+    .club_gana_mas_pedido_activo .logo_club_activo {
+        background: url(../../../Images/etiqueta-club-ganamas-dorado-independiente.png);
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido_activo a {
+        background-color: #c39934;
+        border: none;
+    }
+
+    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+        color: black;
+    }
 .flexiPago_belcorp {
     display: block;
     width: 28.1%;

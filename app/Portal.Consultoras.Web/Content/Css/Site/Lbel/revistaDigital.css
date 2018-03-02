@@ -3810,7 +3810,10 @@ background-repeat: no-repeat;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo img {
-max-width: 100%;
+width: 150px;
+    margin: auto;
+    text-align: center;
+    display: block;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt {
@@ -3834,6 +3837,7 @@ letter-spacing: 1px;
 text-align: center;
 color: #ffffff;
 margin-bottom: 0;
+text-transform:uppercase
 }
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
 display: table-cell;
