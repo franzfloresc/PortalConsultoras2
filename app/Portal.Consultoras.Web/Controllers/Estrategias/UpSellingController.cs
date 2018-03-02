@@ -186,16 +186,22 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             Dictionary<string, string> dic =
                             new Dictionary<string, string> {
-                            { "Campania", "Campania" },
-                            { "Codigo", "Codigo" },
-                            { "Nombre", "Nombre" },
-                            { "CuvRegalo", "CuvRegalo" },
-                            { "NombreRegalo", "NombreRegalo" },
-                            { "MontoMeta", "MontoMeta" },
-                            { "MontoPedido", "MontoPedido" },
-                            { "FechaRegistro", "FechaRegistro" }, };
+                            { "Campania", "Campaña" },
+                            { "Codigo", "Cod Consultora" },
+                            { "Nombre", "Nombre de Consultora" },
+                            { "CuvRegalo", "CUV Regalo" },
+                            { "NombreRegalo", "Nombre Regalo" },
+                            { "MontoInicial", "Monto Pedido" }, 
+                           // { "RangoInicial", "Rango Inicial" },
+                           // { "RangoFinal", "Rango Final" },
+                            { "MontoAgregar", "Monto a Agregar" },
+                            { "MontoMeta", "Monto Meta" },
+                           // { "MontoGanador", "Monto Ganador" },  
+                            { "FechaRegistro", "Fecha Registro" },
+                            };
 
-            Util.ExportToExcel("ReporteListaGanadoras", upSelling.ToList(), dic);
+            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, DateTime.Now.ToString("yyyyMM"));
+        Util.ExportToExcel(filename, upSelling.ToList(), dic);
             return View();
         }
 
