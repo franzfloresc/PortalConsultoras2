@@ -280,9 +280,12 @@
       <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComoLlegue" type="xs:int" />
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
