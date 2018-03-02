@@ -3699,7 +3699,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svc = new ProductoServiceClient())
                 {
                     var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
+                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
                 }
 
                 return Json(new

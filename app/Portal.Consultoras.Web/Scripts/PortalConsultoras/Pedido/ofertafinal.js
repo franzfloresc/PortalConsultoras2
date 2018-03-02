@@ -270,8 +270,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     objOf.TotalPedido = $("#hdfTotal").val();
     objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();
     objOf.Upselling = cumpleOferta.upselling;
-    objOf.RegaloFoto1 = (objOf.Upselling.Regalos.length > 0) ? objOf.Upselling.Regalos[0].Imagen : null;
-    objOf.RegaloFoto2 = (objOf.Upselling.Regalos.length > 1) ? objOf.Upselling.Regalos[1].Imagen : null;
+    objOf.RegaloFoto1 = (objOf.Upselling.Regalos.length > 0) ? objOf.Upselling.Regalos[0].Imagen : "";
+    objOf.RegaloFoto2 = (objOf.Upselling.Regalos.length > 1) ? objOf.Upselling.Regalos[1].Imagen : "";
 
     objOf.Cross = objOf.TipoMeta == "GM" ? objOf.Detalle.Find("TipoCross", true).length > 0 ? "1" : "0" : "0";
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
@@ -319,18 +319,19 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     });
 
     $("[data-regresar-of]").click(function () {
-        debugger;
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
 
         if (upSellingGano != null) {
+            $('#divGanoRegalo').css("z-index", "1000");
+            $('#ContentSorpresaMobile').css("z-index", "100");
             $('#divGanoRegalo').toggle(effect, options, duration);
-            //$('#divGanoRegalo').attr('z-index', 100);
         }
         else {
+            $('#ContentSorpresaMobile').css("z-index", "1000");
+            $('#divGanoRegalo').css("z-index", "100");
             $('#ContentSorpresaMobile').toggle(effect, options, duration);
-            //$('#ContentSorpresaMobile').attr('z-index', 100);
 
             $('#divCarruselRegalo.slick-initialized').slick('unslick');
         }
@@ -344,29 +345,23 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var options = { direction: 'right' };
         var duration = 500;
 
-            $('#divGanoRegalo').css("z-index", "1000");
-            $('#ContentSorpresaMobile').css("z-index", "100");
-            $('#ContentSorpresaMobile').css("z-index", "1000");
-            $('#divGanoRegalo').css("z-index", "100");
+        $('#divGanoRegalo').css("z-index", "1000");
+        $('#ContentSorpresaMobile').css("z-index", "100");
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
-
         $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
         $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
     });
 
     $("#btnCambiarRegalo").click(function () {
-        debugger;
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
 
-        $('#divGanoRegalo').toggle(effect, options, duration);
-        //$('#divGanoRegalo').attr('z-index', 100);
-
+        $('#ContentSorpresaMobile').css("z-index", "1000");
+        $('#divGanoRegalo').css("z-index", "100");
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
-        //$('#ContentSorpresaMobile').attr('z-index', 1000);
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
 
@@ -393,7 +388,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         if (esUpselling) {
             if (objUpselling != null) {
                 MostrarOfertaFinalRegalo(objOf.TotalPedido);
-                GanoOfertaFinalRegalo(objOf.TotalPedido);
+                //GanoOfertaFinalRegalo(objOf.TotalPedido);
             }
         }
     }
@@ -487,87 +482,7 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $('.popup_ofertaFinal').css({ "padding-top": "0px" });
         }
 
-        //var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);
-
-        //$(container).find('#of-regalo-descripcion').text(ofertaFinalRegalo.Descripcion);
-        //$(container).find('#of-regalo-imagen').attr('src', ofertaFinalRegalo.RegaloImagenUrl);
-        //$(container).find('#of-regalo-descripcion-larga').text(ofertaFinalRegalo.RegaloDescripcion);
-
-        /*
-        if (gano) {
-            $(container).find('#of-regalo-msg1').hide();
-            $(container).find('#of-regalo-msg2').hide();
-            $(container).find('#of-regalo-montos').hide();
-
-            if (tipoOrigen == '1') {
-                $('div.icono_regalo_sorpresa').css("background", "url(/Content/Images/gif-regalo-gano.gif)");
-                $(container).find('#of-regalo-msg3').show();
-            }
-            else if (tipoOrigen == '2') {
-                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile");
-                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile_gano");
-                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa");
-                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa_gano");
-                $('#linkRegaloSorpresa').html('MIRA <ins>AQUÍ</ins> TU PREMIO');
-            }
-        }
-        else {
-            var saldo = (ofertaFinalRegalo.MontoMeta - totalPedido).toFixed(2);
-            var simbolo = $("#hdSimbolo").val();
-            var montoSaldo = simbolo + ' ' + DecimalToStringFormat(saldo);
-            var montoMeta = simbolo + ' ' + ofertaFinalRegalo.FormatoMontoMeta;
-            $(container).find('#of-regalo-montometa').text(montoMeta);
-            $(container).find('#of-regalo-montosaldo').text(montoSaldo);
-            $(container).find('#of-regalo-montos').show();
-            $(container).find('#of-regalo-msg1').show();
-            if (tipoOrigen == '2') {
-                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile_gano");
-                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile");
-                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa_gano");
-                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa");
-            }
-        }
-        */
-
-        var simbolo = $("#hdSimbolo").val();
-
-        debugger;
-        if (objUpselling != null) {
-            if (totalPedido >= objUpselling.Meta.MontoMeta) {
-
-                $('.span_1_regalo_sorpresa').html('¡FELICITACIONES<br>');
-                $('.span_2_regalo_sorpresa').html('GANASTE!<br>');
-                $('.span_link_regalo_sorpresa').text('ELIGE TU PREMIO');
-
-                upSellingGano = GetUpSellingRegalo();
-
-                if (upSellingGano != null) {
-                    $('#of-regalo-descripcion').text(upSellingGano.Descripcion);
-                    $('#of-regalo-imagen').attr('src', upSellingGano.RegaloImagenUrl);
-                    $('#of-regalo-descripcion-larga').text(upSellingGano.RegaloDescripcion);
-                }
-                else {
-                    $('#of-regalo-msg1').show();
-                    $('#of-regalo-msg2').hide();
-                    $('#of-regalo-msg3').html('<b>¡ESCOGE TU PREMIO!</b>');
-                    $('[data-agregar-regalo]').show();
-                    $('#btn_sigue_comprando_gana').hide();
-                }
-            }
-            else {
-                var agrega = Math.round(Math.abs(totalPedido - objUpselling.Meta.MontoMeta), 2);
-                $('.span_1_regalo_sorpresa').html('¡AGREGA ' + simbolo + agrega + ' Y<br>');
-                $('.span_2_regalo_sorpresa').html('ELIGE UN PREMIO!<br>');
-                $('.span_link_regalo_sorpresa').text('VER PREMIOS');
-
-                $('#of-regalo-msg2').html('TE FALTAN ' + agrega + '<br />');
-                $('#of-regalo-msg3').html('<b>¡MIRA LO QUE TE <br />PUEDES LLEVAR!</b>');
-                $('#of-regalo-msg1').hide();
-                $('#of-regalo-msg2').show();
-                $('[data-agregar-regalo]').hide();
-                $('#btn_sigue_comprando_gana').show();
-            }
-        }
+        validarGanoRegalo(totalPedido);
 
         if (tipoOrigen == '1') {
             $(container).show();
@@ -578,11 +493,11 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         }
 
         //set url terminos y condiciones segun rango
-        //if (ofertaFinalRegalo.TipoRango != null && ofertaFinalRegalo.TipoRango != '') {
-        //    var href = $('#of-regalo-terminos').attr('href');
-        //    var nhref = href.replace('RGX', ofertaFinalRegalo.TipoRango);
-        //    $('#of-regalo-terminos').attr('href', nhref);
-        //}
+        if (objUpselling.Meta.TipoRango != null && objUpselling.Meta.TipoRango != "") {
+            var href = $('#of-regalo-terminos').attr('href');
+            var xhref = href.replace('RGX', objUpselling.Meta.TipoRango);
+            $('#of-regalo-terminos').attr('href', xhref);
+        }
     }
 }
 
@@ -590,81 +505,58 @@ function GanoOfertaFinalRegalo(totalPedido) {
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
 
-        /*
-        var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);
-        if (gano) {
-            $(container).find('#of-regalo-msg1').hide();
-            $(container).find('#of-regalo-montos').hide();
-            $(container).find('#of-regalo-msg2').show();
-            if (tipoOrigen == '1') {
-                $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
-                $("#spnTituloOfertaFinal span").html("SIGUE APROVECHANDO <b>LAS MEJORES OFERTAS</b><br />QUE TENEMOS PARA TI Y GANA MÁS");
-                $("#msjOfertaFinal span").html("");
-                $(container).find('#of-regalo-msg3').hide();
-            }
-            else if (tipoOrigen == '2') {
-                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile");
-                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile_gano");
-
-                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa");
-                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa_gano");
-                $('#linkRegaloSorpresa').html('MIRA <ins>AQUÍ</ins> TU PREMIO');
-                $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
-            }
-        }
-        else {
-            var saldo = (ofertaFinalRegalo.MontoMeta - totalPedido).toFixed(2);
-            var simbolo = $("#hdSimbolo").val();
-            var montoSaldo = simbolo + ' ' + DecimalToStringFormat(saldo);
-            $(container).find('#of-regalo-montosaldo').text(montoSaldo);
-            $(container).find('#of-regalo-montos').show();
-            $(container).find('#of-regalo-msg1').show();
-        }
-        */
-
-        var simbolo = $("#hdSimbolo").val();
-
-        debugger;
-        if (objUpselling != null) {
-            if (totalPedido >= objUpselling.Meta.MontoMeta) {
-
-                $('.span_1_regalo_sorpresa').html('¡FELICITACIONES<br>');
-                $('.span_2_regalo_sorpresa').html('GANASTE!<br>');
-                $('.span_link_regalo_sorpresa').text('ELIGE TU PREMIO');
-
-                upSellingGano = GetUpSellingRegalo();
-
-                if (upSellingGano != null) {
-                    $('#of-regalo-descripcion').text(upSellingGano.Descripcion);
-                    $('#of-regalo-imagen').attr('src', upSellingGano.RegaloImagenUrl);
-                    $('#of-regalo-descripcion-larga').text(upSellingGano.RegaloDescripcion);
-                }
-                else {
-                    $('#of-regalo-msg1').show();
-                    $('#of-regalo-msg2').hide();
-                    $('#of-regalo-msg3').html('<b>¡ESCOGE TU PREMIO!</b>');
-                    $('[data-agregar-regalo]').show();
-                    $('#btn_sigue_comprando_gana').hide();
-                }
-            }
-            else {
-                var agrega = Math.round(Math.abs(totalPedido - objUpselling.Meta.MontoMeta));
-                $('.span_1_regalo_sorpresa').html('¡AGREGA ' + simbolo + agrega + ' Y<br>');
-                $('.span_2_regalo_sorpresa').html('ELIGE UN PREMIO!<br>');
-                $('.span_link_regalo_sorpresa').text('VER PREMIOS');
-
-                $('#of-regalo-msg2').html('TE FALTAN ' + agrega + '<br />');
-                $('#of-regalo-msg3').html('<b>¡MIRA LO QUE TE <br />PUEDES LLEVAR!</b>');
-                $('#of-regalo-msg1').hide();
-                $('#of-regalo-msg2').show();
-                $('[data-agregar-regalo]').hide();
-                $('#btn_sigue_comprando_gana').show();
-            }
-        }
+        validarGanoRegalo(totalPedido);
 
         if (tipoOrigen == '1') (container).show();
     }
 }
+
+function validarGanoRegalo(totalPedido) {
+    var simbolo = $("#hdSimbolo").val();
+    $('#content-regalo-agrega').hide();
+
+    if (objUpselling != null) {
+        if (totalPedido >= objUpselling.Meta.MontoMeta) {
+
+            $('.span_1_regalo_sorpresa').html('¡FELICITACIONES<br>');
+            $('.span_2_regalo_sorpresa').html('GANASTE!<br>');
+            $('.span_link_regalo_sorpresa').text('ESCOGE TU PREMIO');
+
+            upSellingGano = GetUpSellingRegalo();
+
+            if (upSellingGano != null) {
+                $('#of-regalo-descripcion').text(upSellingGano.Descripcion);
+                $('#of-regalo-imagen').attr('src', upSellingGano.RegaloImagenUrl);
+                $('#of-regalo-descripcion-larga').text(upSellingGano.RegaloDescripcion);
+            }
+            else {
+                $('#of-regalo-msg1').show();
+                $('#of-regalo-msg2').hide();
+                $('#of-regalo-msg3').html('<b>¡ESCOGE TU PREMIO!</b>');
+                $('[data-agregar-regalo]').show();
+                $('#btn_sigue_comprando_gana').hide();
+            }
+        }
+        else {
+            var agrega = Math.round((objUpselling.Meta.MontoMeta - totalPedido), 2);
+            $('.span_1_regalo_sorpresa').html('¡AGREGA ' + simbolo + agrega + ' Y<br>');
+            $('.span_2_regalo_sorpresa').html('ESCOGE TU PREMIO!<br>');
+            $('.span_link_regalo_sorpresa').text('VER PREMIOS');
+
+            //$('#of-regalo-msg2').html('TE FALTAN ' + agrega + '<br />');
+            $('#of-regalo-msg3').html('<b>¡MIRA LO QUE<br>TE PUEDES LLEVAR!</b>');
+            $('#of-regalo-msg1').hide();
+            $('#of-regalo-msg2').hide();
+            $('[data-agregar-regalo]').hide();
+            $('#btn_sigue_comprando_gana').show();
+
+            $('#of-regalo-agrega').text(simbolo + agrega);
+            $('#of-regalo-montometa').text(simbolo + objUpselling.Meta.MontoMeta);
+            $('#content-regalo-agrega').show();
+        }
+    }
+}
+
 
 function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
@@ -674,9 +566,9 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     if (isNaN(metaMonto)) metaMonto = 0;
     var metaTotal = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
 
-    var valoresOFR = GetValoresOfertaFinalRegalo(data);
-    var minimo = 0;
-    if (valoresOFR != null) minimo = valoresOFR.minimo;
+    //var valoresOFR = GetValoresOfertaFinalRegalo(data);
+    //var minimo = 0;
+    //if (valoresOFR != null) minimo = valoresOFR.minimo;
 
     if (consultoraRegaloPN == 'True') {
         var montoMeta = parseFloat(metaMonto) + parseFloat(metaTotal);
@@ -688,7 +580,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         //var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total")
         //var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
         var montolimite = parseFloat(metaMonto) + parseFloat(metaTotal);
-        if (valoresOFR != null) montolimite = minimo;
+        //if (valoresOFR != null) montolimite = minimo;
 
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ahora tu ganancia estimada total es " : "Ahora tu ganancia estimada total es ";
@@ -741,11 +633,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             agregoOfertaFinal = 1;
             $("#btnNoGraciasOfertaFinal").show();
 
-            //debugger;
             if (esUpselling) {
                 if (objUpselling != null) {
                     MostrarOfertaFinalRegalo(data.total);
-                    GanoOfertaFinalRegalo(data.total);
+                    //GanoOfertaFinalRegalo(data.total);
                 }
                 //else {
                 //    if (InsertarOfertaFinalRegalo()) {
@@ -1348,7 +1239,7 @@ function InsertUpSellingRegalo(id, cuv) {
                 if (response.success) {
                     ok = true;
 
-                    //debugger;
+                    // mostrar regalo ganado
                     var div = $('#of-regalo-' + id);
                     if (typeof div !== 'undefined') {
                         var descripcion = div.find('.titulo_regalo_producto').text();
@@ -1362,6 +1253,7 @@ function InsertUpSellingRegalo(id, cuv) {
                         var effect = 'slide';
                         var options = { direction: 'right' };
                         var duration = 500;
+
                         $('#divGanoRegalo').css("z-index", "1000");
                         $('#ContentSorpresaMobile').css("z-index", "100");
                         $('#divGanoRegalo').toggle(effect, options, duration);
@@ -1875,14 +1767,14 @@ function GetValoresOfertaFinalRegalo(data) {
     if (objUpselling != null)
         meta = objUpselling.Meta.MontoMeta;
 
-    if (ofertaFinalAlgoritmo === "OFR" && tipoOrigen === "2") {
-        if (total >= minimo && minimo > 0 && total > 0) {
+    if (ofertaFinalAlgoritmo == "OFR" && tipoOrigen == "2") {
+        if (minimo > 0 && total > 0 && total >= minimo ) {
             tipo = "RG";
-            if (total >= meta && meta > 0 && total > 0)
+            if (meta > 0 && total > 0 && total >= meta)
                 tipo = "GM";
         }
-        else
-            tipo = "MM";
+        //else
+        //    tipo = "MM";
 
         return {
             tipo: tipo,
