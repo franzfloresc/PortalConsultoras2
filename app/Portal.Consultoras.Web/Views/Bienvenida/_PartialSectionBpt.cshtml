@@ -44,26 +44,6 @@
     }
     else
     {
-
-        @*<div class="home_block_rd home_rd">
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="large">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                        <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                    </div>
-                    <div class="btn_diagonal">
-                        <a href="javascript:redireccionarcontenedorcomprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')">
-                            ver todas mis ofertas
-                            <img class="rd_arrowright" src="@Url.Content("~/content/images/revistadigital/rd_arrowright.png")" alt="">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/content/images/revistadigital/rd_arrowright_blanco.png")" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>*@
-
         if (revistaDigital.EsSuscrita)
         {
             <div class="contenedor_ganamas">
@@ -98,7 +78,6 @@
                         <div style="clear:both;"></div>
                     </div>
                     <div class="contenido_gana_mas">
-                        <!-- insertar carrusel aquí -->
 
                         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
                                    new ViewDataDictionary {
