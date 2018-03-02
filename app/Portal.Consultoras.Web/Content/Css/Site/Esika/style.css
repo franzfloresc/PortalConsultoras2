@@ -3000,7 +3000,61 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
     width: 28.1%;
 }
+.club_gana_mas_pedido {
+    height: 289px;
+    background: black;
+    padding: 64px 57px;
+}
 
+    .club_gana_mas_pedido .logo_club {
+        background: url(../../../Images/Esika/RevistaDigital/logo_esika_diagonal.png);
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido p.primer-texto {
+        font-size: 17px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        margin-bottom:0;
+        display:block;
+    }
+
+    .club_gana_mas_pedido p.segundo-texto {
+        font-size: 17px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        display:block;
+    }
+
+    .club_gana_mas_pedido a {
+        color: white;
+        border: 1px solid white;
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 15px 0px;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+    }
 .flexiPago_belcorp {
     display: block;
     width: 28.1%;
@@ -3138,6 +3192,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
+    top: -115px;
 }
 
 .control_carousel_flechaArriba {
