@@ -1552,6 +1552,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante");
         }
 
+        public ActionResult ResumenDiasEspera(int id, string diasEsperaTotal)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ResumenDiasEspera", "&id=" + id + "&diasEsperaTotal=" + diasEsperaTotal);
+            return PartialView("_ResumenDiasEspera");
+        }
+
         [HttpPost]
         public string ValidarCelularExiste(string Celular, int SolicitudPostulanteId)
         {

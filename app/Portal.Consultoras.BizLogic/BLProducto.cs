@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
@@ -203,6 +204,7 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
