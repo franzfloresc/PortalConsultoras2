@@ -717,8 +717,8 @@
 
         @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
         <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
-
-            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px;"  data-regresar-of="">
+            <div style="height: 47px"></div>
+            <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px; position:absolute;" data-regresar-of="">
                 <div class="draw_close draw_close_white" alt="Cerrar"></div>
                 <!--<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">-->
             </a>
@@ -727,7 +727,7 @@
             <div class="icono_regalo_sorpresa">
                 <img src="/Content/Images/gif-regalo-gano.gif" alt="">
             </div>
-            <div class="txt_regalo_sorpresa_popup">
+            <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
                 <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
                 <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg2">TE FALTAN $119.00<br></span>
                 <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3">¡ESCOGE TU PREMIO!<br></span>
@@ -747,11 +747,11 @@
             </div>*@
             <div class="arrow_box" id="content-regalo-agrega" style="display:none;">
                 <div class="txt_regalo_sorpresa_popup">
-                    <div class="span_2_regalo_sorpresa_producto"><b>AGREGA <span id="of-regalo-agrega">$119.00</span></b><br></div>
-                    <div class="span_1_regalo_sorpresa_producto">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
+                    <div class="span_2_regalo_sorpresa_producto span_2_regalo_sorpresa_producto_2"><b>AGREGA <span id="of-regalo-agrega">$119.00</span></b><br></div>
+                    <div class="span_1_regalo_sorpresa_producto span_1_regalo_sorpresa_producto_2">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
                 </div>
             </div>
-            <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin-top: -10px;">
+            <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin: 0 auto 0 auto;">
                 {{#each this.Upselling.Regalos}}
                 <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingRegaloId}}">
                     <div class="content_info_regalo" id="of-regalo-{{UpSellingRegaloId}}">
@@ -767,9 +767,9 @@
                         <div>
                             <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                         </div>
-                    </div>
-                    
-                    <div class="of-regalo-sinstock" style="display: none;">
+                        <div class="content_regalo_sinstock" id="of-regalo-sinstock" style="display: none;">
+                            <div class="txt_agotado">AGOTADO</div>
+                        </div>
                     </div>
                 </div>
                 {{/each}}
@@ -793,7 +793,7 @@
             <div class="icono_regalo_sorpresa" style="margin-top: 20px;">
                 <img src="/Content/Images/gif-regalo-gano.gif" alt="">
             </div>
-            <div class="txt_regalo_sorpresa_popup">
+            <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
                 <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
                 <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3"><b>¡GANASTE!</b><br></span>
             </div>

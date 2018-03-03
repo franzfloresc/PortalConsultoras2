@@ -2794,10 +2794,12 @@
     <Content Include="Content\Images\mobile\Esika\mensajes.png" />
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
+    <Content Include="Content\Images\mobile\Esika\next_white.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
     <Content Include="Content\Images\mobile\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
+    <Content Include="Content\Images\mobile\Esika\previous_ofertas_home_white.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
     <Content Include="Content\Images\mobile\Esika\tarjeta.png" />
     <Content Include="Content\Images\mobile\Esika\triangulo.png" />
