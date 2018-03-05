@@ -12,7 +12,7 @@
     var EsconderBanner = "block";
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     title = revistaDigital.TieneRDC ? !revistaDigital.EsActiva? revistaDigital.EsSuscrita? "Catálogos" : title:title:title;
-    EsconderRevista = revistaDigital.TieneRDC ? !revistaDigital.EsActiva ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista : EsconderRevista;
+    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
     EsconderBanner = EsconderRevista;
 
     ViewBag.Title = title;
