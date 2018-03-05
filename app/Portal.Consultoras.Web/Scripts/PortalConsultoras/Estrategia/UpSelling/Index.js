@@ -530,7 +530,7 @@ function configureGridListaGanadoras(response) {
     for (var i = 0; i <= data.length - 1; i++) {
         convertirStringDate(data[i], 'FechaRegistro');
         grilla.jqGrid('addRowData', i + 1, data[i]);
-    }
+    }  
 
     $('#refresh_listOfertaFinalMontoMeta').click();
 
@@ -543,7 +543,7 @@ function convertirStringDate(row,field) {
             var d = /\/Date\((\d*)\)\//.exec(value);
             return (d) ? new Date(+d[1]) : value;
         }
-        row[field] = value[field].toLocaleDateString();
+        row[field] = value[field].toLocaleString();
     });
 
 

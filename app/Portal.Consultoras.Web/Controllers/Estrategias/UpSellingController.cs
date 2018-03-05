@@ -182,26 +182,27 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);  
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
+
 
             Dictionary<string, string> dic =
-                            new Dictionary<string, string> {
-                            { "Campania", "Campaña" },
-                            { "Codigo", "Cod Consultora" },
-                            { "Nombre", "Nombre de Consultora" },
-                            { "CuvRegalo", "CUV Regalo" },
-                            { "NombreRegalo", "Nombre Regalo" },
-                            { "MontoInicial", "Monto Pedido" }, 
+                new Dictionary<string, string> {
+                            { "Campaña", "Campania" },
+                            {  "Cod Consultora","Codigo" },
+                            { "Nombre de Consultora","Nombre" },
+                            {  "CUV Regalo","CuvRegalo" },
+                            { "Nombre Regalo", "NombreRegalo" },
+                            { "Monto Pedido","MontoInicial" }, 
                            // { "RangoInicial", "Rango Inicial" },
                            // { "RangoFinal", "Rango Final" },
-                            { "MontoAgregar", "Monto a Agregar" },
-                            { "MontoMeta", "Monto Meta" },
+                            { "Monto a Agregar" ,"MontoAgregar"},
+                            { "Monto Meta","MontoMeta" },
                            // { "MontoGanador", "Monto Ganador" },  
-                            { "FechaRegistro", "Fecha Registro" },
-                            };
+                            { "Fecha Registro" ,"FechaRegistro" },
+                };
 
             var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, DateTime.Now.ToString("yyyyMM"));
-        Util.ExportToExcel(filename, upSelling.ToList(), dic);
+            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy HH:mm");
             return View();
         }
 
