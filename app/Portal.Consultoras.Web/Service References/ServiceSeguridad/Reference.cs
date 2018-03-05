@@ -796,6 +796,12 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         private Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] SubMenusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short VersionMenuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool VisibleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int paisIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -947,6 +953,32 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((object.ReferenceEquals(this.SubMenusField, value) != true)) {
                     this.SubMenusField = value;
                     this.RaisePropertyChanged("SubMenus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short VersionMenu {
+            get {
+                return this.VersionMenuField;
+            }
+            set {
+                if ((this.VersionMenuField.Equals(value) != true)) {
+                    this.VersionMenuField = value;
+                    this.RaisePropertyChanged("VersionMenu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Visible {
+            get {
+                return this.VisibleField;
+            }
+            set {
+                if ((this.VisibleField.Equals(value) != true)) {
+                    this.VisibleField = value;
+                    this.RaisePropertyChanged("Visible");
                 }
             }
         }
