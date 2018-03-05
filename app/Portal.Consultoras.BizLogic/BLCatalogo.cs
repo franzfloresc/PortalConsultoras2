@@ -90,7 +90,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var catalogoConfiguraciones = GetCatalogoConfiguracion(Util.GetPaisID(paisISO));
-                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new [] { campania });
+                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new[] { campania });
                 foreach (var catalogoRevista in listCatalogoRevista)
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
@@ -335,7 +335,7 @@ namespace Portal.Consultoras.BizLogic
                 return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
             }
         }
-        
+
         private string GetPaisNombreByISO(string paisISO)
         {
             switch (paisISO)

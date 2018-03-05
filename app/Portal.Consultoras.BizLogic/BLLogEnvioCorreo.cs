@@ -7,7 +7,7 @@
 
     public class BLLogEnvioCorreo
     {
-        public bool InsLogEnvioCorreoPedidoValidado(int paisID,BELogCabeceraEnvioCorreo beLogCabeceraEnvioCorreo,List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo)
+        public bool InsLogEnvioCorreoPedidoValidado(int paisID, BELogCabeceraEnvioCorreo beLogCabeceraEnvioCorreo, List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo)
         {
             try
             {
@@ -24,7 +24,7 @@
             {
                 return false;
             }
-        
+
         }
     }
 }

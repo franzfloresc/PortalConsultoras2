@@ -100,13 +100,13 @@ namespace Portal.Consultoras.Data
         {
             get { return (string)this["ocwsolact"]; }
         }
-        
+
         [ConfigurationProperty("consuflex", IsRequired = false)]
         public string ConsuFlexTemplate
         {
             get { return (string)this["consuflex"]; }
         }
-        
+
         [ConfigurationProperty("letcurso", IsRequired = false)]
         public string LetCursoTemplate
         {

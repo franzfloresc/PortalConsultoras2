@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda) 
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
                 ? lst.Count
                 : lst.Count(p => p.Fecha.ToUpper().Contains(vBusqueda.ToUpper()));
 

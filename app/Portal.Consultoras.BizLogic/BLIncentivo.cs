@@ -21,7 +21,7 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        
+
         public void InsertIncentivo(BEIncentivo entidad)
         {
             var daIncentivo = new DAIncentivo(entidad.PaisID);

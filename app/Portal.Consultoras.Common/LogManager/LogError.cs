@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Common
 
         public string IsoPais { get; set; }
 
-        public string  CodigoUsuario { get; set; }
+        public string CodigoUsuario { get; set; }
 
         public string InformacionAdicional { get; set; }
 

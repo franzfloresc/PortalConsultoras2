@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int UpdPedidoWebByEstado(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebByEstado");
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
-            
+
             return Context.ExecuteReader(command);
         }
 
@@ -284,14 +284,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigosZonas", DbType.AnsiString, CodigosZonas);
 
             return Context.ExecuteReader(command);
-    }
+        }
 
         public IDataReader GetPedidoWebID(int CampaniaID, long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebID");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            
+
             return Context.ExecuteReader(command);
         }
 

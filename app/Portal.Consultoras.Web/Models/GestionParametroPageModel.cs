@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
+﻿using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {

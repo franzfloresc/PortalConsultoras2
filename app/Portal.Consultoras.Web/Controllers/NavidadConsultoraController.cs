@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private  bool TieneImagenAltoAnchoYTamanioValido(int height, int width, long contentLength)
+        private bool TieneImagenAltoAnchoYTamanioValido(int height, int width, long contentLength)
         {
             return height != 403 || width != 403 || contentLength > 204800;
         }
@@ -256,9 +256,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lista;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lista = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lista = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lista);

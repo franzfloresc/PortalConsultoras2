@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Annotations
                 {
                     validateCount++;
 
-                 
+
                 }
             }
 
@@ -96,8 +96,8 @@ namespace Portal.Consultoras.Web.Annotations
                     return new ValidationResult(mensajeErrorActual);
                 }
             }
-            
-                return ValidationResult.Success;
+
+            return ValidationResult.Success;
         }
 
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)

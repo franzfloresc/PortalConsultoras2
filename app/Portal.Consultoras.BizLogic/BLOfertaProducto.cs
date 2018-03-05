@@ -235,12 +235,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var lst = new List<BEOfertaProducto>();
             var dataAccess = new DAOfertaProducto(PaisID);
-            int pos =0;
+            int pos = 0;
             using (IDataReader reader = dataAccess.GetOfertaProductosPortal(TipoOfertaSisID, DuplaConsultora, CodigoCampania))
                 while (reader.Read())
                 {
                     pos = pos + 1;
-                    var entity = new BEOfertaProducto(reader) {Orden = pos};
+                    var entity = new BEOfertaProducto(reader) { Orden = pos };
                     lst.Add(entity);
                 }
             return lst;
@@ -255,7 +255,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     pos = pos + 1;
-                    var entity = new BEOfertaProducto(reader) {Orden = pos};
+                    var entity = new BEOfertaProducto(reader) { Orden = pos };
                     lst.Add(entity);
                 }
             return lst;
@@ -265,23 +265,23 @@ namespace Portal.Consultoras.BizLogic
         {
             var daPedidoWebDetalle = new DAOfertaProducto(pedidowebdetalle.PaisID);
             TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
-            
-                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
-                {
-                    daPedidoWebDetalle.InsPedidoWebDetalleOferta(pedidowebdetalle);
-                    daPedidoWebDetalle.UpdPedidoWebTotalesOferta(pedidowebdetalle.ConsultoraID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CodigoUsuarioModificacion);
-                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
-                    {
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
-                    }
-                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Accesorizate)
-                    {
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
-                    }
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
 
-                    oTransactionScope.Complete();
+            using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+            {
+                daPedidoWebDetalle.InsPedidoWebDetalleOferta(pedidowebdetalle);
+                daPedidoWebDetalle.UpdPedidoWebTotalesOferta(pedidowebdetalle.ConsultoraID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CodigoUsuarioModificacion);
+                if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
+                {
+                    new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                 }
+                if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Accesorizate)
+                {
+                    new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                }
+
+                oTransactionScope.Complete();
+            }
         }
 
         public void UpdPedidoWebDetalleOferta(BEPedidoWebDetalle pedidowebdetalle)
@@ -289,22 +289,22 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWebDetalle = new DAOfertaProducto(pedidowebdetalle.PaisID);
 
             TransactionOptions oTransactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
-            
-                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+
+            using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+            {
+                daPedidoWebDetalle.UpdPedidoWebOferta(pedidowebdetalle);
+                daPedidoWebDetalle.UpdPedidoWebTotalesOferta(pedidowebdetalle.ConsultoraID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CodigoUsuarioModificacion);
+                if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                 {
-                    daPedidoWebDetalle.UpdPedidoWebOferta(pedidowebdetalle);
-                    daPedidoWebDetalle.UpdPedidoWebTotalesOferta(pedidowebdetalle.ConsultoraID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CodigoUsuarioModificacion);
-                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
-                    {
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
-                    }
-                    if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Accesorizate)
-                    {
-                        new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
-                    }
-                    oTransactionScope.Complete();
+                    new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                 }
+                if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Accesorizate)
+                {
+                    new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
+                }
+                oTransactionScope.Complete();
+            }
         }
 
         public int GetStockOfertaProductoLiquidacion(int paisID, int CampaniaID, string CUV)
@@ -384,21 +384,25 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAOfertaProducto(PaisID);
             return dataAccess.ValidarUnidadesPermitidasEnPedidoZA(CampaniaID, CUV, ConsultoraID, TipoOfertaSisID);
         }
+
         public int GetUnidadesPermitidasByCuvZA(int paisID, int CampaniaID, string CUV, int TipoOfertaSisID)
         {
             var dataAccess = new DAOfertaProducto(paisID);
             return dataAccess.GetUnidadesPermitidasByCuvZA(CampaniaID, CUV, TipoOfertaSisID);
         }
+
         public int ObtenerMaximoItemsaMostrarZA(int PaisID)
         {
             var dataAccess = new DAOfertaProducto(PaisID);
             return dataAccess.ObtenerMaximoItemsaMostrarZA();
         }
+
         public int ActualizarItemsMostrarZA(int PaisID, int Cantidad)
         {
             var dataAccess = new DAOfertaProducto(PaisID);
             return dataAccess.ActualizarItemsMostrarZA(Cantidad);
         }
+
         public IList<BEAdministracionOfertaProducto> GetDatosAdmStockMinimoCorreosZA(int paisID, int TipoOfertaSisID)
         {
             var lst = new List<BEAdministracionOfertaProducto>();
@@ -411,12 +415,14 @@ namespace Portal.Consultoras.BizLogic
                     lst.Add(entity);
                 }
             return lst;
-                }
+        }
+
         public int InsAdministracionStockMinimoZA(BEAdministracionOfertaProducto entity)
         {
             var dataAccess = new DAOfertaProducto(entity.PaisID);
             return dataAccess.InsAdministracionStockMinimoZA(entity);
         }
+
         public int UpdAdministracionStockMinimoZA(BEAdministracionOfertaProducto entity)
         {
             var dataAccess = new DAOfertaProducto(entity.PaisID);
@@ -425,47 +431,51 @@ namespace Portal.Consultoras.BizLogic
 
         public int EliminarTallaColor(BEOfertaProducto entidad)
         {
-                var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
-                int result = daOfertaProducto.EliminarTallaColor(entidad);
-                return result;
+            var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
+            int result = daOfertaProducto.EliminarTallaColor(entidad);
+            return result;
         }
+
         public List<BEOfertaProducto> GetTallaColor(BEOfertaProducto entidad)
         {
-                var listaTallaColor = new List<BEOfertaProducto>();
-                var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
-                using (IDataReader reader = daOfertaProducto.GetTallaColor(entidad))
+            var listaTallaColor = new List<BEOfertaProducto>();
+            var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
+            using (IDataReader reader = daOfertaProducto.GetTallaColor(entidad))
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        listaTallaColor.Add(new BEOfertaProducto(reader));
-                    }
+                    listaTallaColor.Add(new BEOfertaProducto(reader));
                 }
-                return listaTallaColor;
+            }
+            return listaTallaColor;
         }
+
         public int InsertTallaColorCUV(BEOfertaProducto entidad)
         {
-                var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
-                int result = daOfertaProducto.InsertTallaColorCUV(entidad);
-                return result;
+            var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
+            int result = daOfertaProducto.InsertTallaColorCUV(entidad);
+            return result;
         }
+
         public List<BEOfertaProducto> ConsultarLiquidacionByCUV(BEOfertaProducto entidad)
         {
-                var listaTallaColor = new List<BEOfertaProducto>();
-                var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
-                using (IDataReader reader = daOfertaProducto.ConsultarLiquidacionByCUV(entidad))
+            var listaTallaColor = new List<BEOfertaProducto>();
+            var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
+            using (IDataReader reader = daOfertaProducto.ConsultarLiquidacionByCUV(entidad))
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        listaTallaColor.Add(new BEOfertaProducto(reader));
-                    }
+                    listaTallaColor.Add(new BEOfertaProducto(reader));
                 }
-                return listaTallaColor;
+            }
+            return listaTallaColor;
         }
+
         public int CantidadPedidoByConsultora(BEOfertaProducto entidad)
         {
-                var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
-                int result = daOfertaProducto.CantidadPedidoByConsultora(entidad);
-                return result;
+            var daOfertaProducto = new DAOfertaProducto(entidad.PaisID);
+            int result = daOfertaProducto.CantidadPedidoByConsultora(entidad);
+            return result;
         }
 
         public int RemoverOfertaLiquidacion(BEOfertaProducto entity)

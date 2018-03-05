@@ -107,10 +107,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFechaString(DateTime fechaHora, string format)
         {
-            if(EsFechaValidacionNula(fechaHora)) return "";
+            if (EsFechaValidacionNula(fechaHora)) return "";
             return fechaHora.ToString(format, CultureInfo.InvariantCulture);
         }
-        private bool EsFechaValidacionNula(DateTime fechaHora) {
+
+        private bool EsFechaValidacionNula(DateTime fechaHora)
+        {
             return fechaHora.Year == 2000;
         }
     }

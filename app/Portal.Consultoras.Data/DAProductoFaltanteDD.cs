@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int InsProductoFaltante(string PaisISO, string UsuarioCreacion,IEnumerable<BEProductoFaltante> productosFaltantes)
+        public int InsProductoFaltante(string PaisISO, string UsuarioCreacion, IEnumerable<BEProductoFaltante> productosFaltantes)
         {
             var productosFaltantesReader = new GenericDataReader<BEProductoFaltante>(productosFaltantes);
 
@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@PaisISO", SqlDbType.Char).Value = PaisISO;
             command.Parameters.Add("@UsuarioCreacion", SqlDbType.Char).Value = UsuarioCreacion;
             command.Parameters.Add(parameter);
-            
+
             return Context.ExecuteNonQuery(command);
         }
 

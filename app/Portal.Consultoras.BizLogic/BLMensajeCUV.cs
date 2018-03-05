@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daMensajeCuv.GetMensajesCUVsByPaisAndCampania(CampaniaID, PaisID))
                 while (reader.Read())
                 {
-                    var mensaje = new BEMensajeCUV(reader) {PaisID = PaisID};
+                    var mensaje = new BEMensajeCUV(reader) { PaisID = PaisID };
                     mensajes.Add(mensaje);
                 }
             return mensajes.ToList();
@@ -34,7 +34,7 @@ namespace Portal.Consultoras.BizLogic
             daMensajeCuv.DeleteMensajesCUVsByPaisAndCampania(parametroID);
         }
 
-        public BEMensajeCUV GetMensajeByCUV(int paisID,  int campaniaID, string cuv)
+        public BEMensajeCUV GetMensajeByCUV(int paisID, int campaniaID, string cuv)
         {
             var daMensajeCuv = new DAMensajeCUV(paisID);
             return daMensajeCuv.GetMensajeByCUV(paisID, campaniaID, cuv);

@@ -99,7 +99,9 @@ $(document).ready(function () {
                 $('body').css({ 'overflow-y': 'auto' });
 
             },
-            error: function (err) { }
+            error: function (err) {
+                checkTimeout(err);
+            }
         });
     }
 
