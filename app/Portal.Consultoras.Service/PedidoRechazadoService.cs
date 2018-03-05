@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Service
         public int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista)
         {
             var blPedidoRechazado = new BLPedidoRechazado();
-            return blPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO,lista);
+            return blPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO, lista);
         }
 
         public List<BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID)

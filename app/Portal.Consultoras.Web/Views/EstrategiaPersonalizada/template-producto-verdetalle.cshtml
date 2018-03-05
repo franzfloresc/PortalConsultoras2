@@ -21,25 +21,31 @@
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="{{Palanca}}" />
             </div>
-            <div class="content_left_ficha">
+            <div class="content_left_ficha content_left_ficha_fix">
                 {{#iff ImagenURL '!=' ''}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                <div class="etiqueta_producto etiqueta_producto_fix">
+                    <div class="cont_etiqueta_producto"><img src="{{ImagenURL}}" alt="Etiqueta Producto" /></div>
                 </div>
                 {{/iff}}
-                <div class="content_ficha_producto">
-                    <img id="fav_imagen_prod" src="{{FotoProducto01}}" style="max-width: 300px !important;">
+                <div class="content_ficha_producto content_ficha_producto_fix">
+                    <div class="cont_etiqueta_producto">
+                        <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                    </div>
                 </div>
-                <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
-                    <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
-                        <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
+                {{#iff CodigoEstrategia '!=' '011'}}
+                <div class="compartir_redes_ficha compartir_redes_ficha_fix">
+                    <div class="texto_compartelo texto_compartelo_fix">
+                        Compártelo con tus clientes
+                    </div>
+                    <a class="btn_compartir_facebook_ficha btn_compartir_facebook_ficha_fix" href="javascript: void(0);" data-compartir="FB">
+                        <img src="@Url.Content(" ~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
                     <hr class="clear">
                 </div>
+                {{/iff}}
             </div>
-            <div class="content_right_ficha">
-                <div style="min-height:300px;">
+            <div class="content_right_ficha content_right_ficha_fix">
+                <div class="etiqueta_descripcion_fix">
                     <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
                         {{#iff DescripcionMarca '!=' ''}}
                         <div class="marca_producto">{{DescripcionMarca}}</div>
@@ -54,9 +60,24 @@
                             {{#iff Precio '>' 0}}
                             <div style="margin-top:-5px;">
                                 <span class="texto_precio_ficha">Valorizado a:</span> <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                                <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
+                            {{#iff PrecioNiveles '!=' ''}}
+                            <div style="margin-top:-5px;">
+                                
+                                <span class="texto_precio_ficha">Precio para ti:</span>
+                                <div class="precios_para_ti">
+                                    {{#each lstPrecioNiveles as |item|}}
+                                        <p style="font-weight:normal;font-size:13px;">{{item}}</p>
+                                    {{/each}}
+                                </div> 
+                                <div style="clear:both;"></div>
+                            </div>
+                            {{/iff}}
+                            {{#iff PrecioNiveles '==' ''}}
                             <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioVenta}}</div>
+                            {{/iff}}
                             {{#iff Ganancia '>' 0}}
                             <div style="color: #e81c36; letter-spacing: .5px; text-transform: uppercase;font-weight: 700;font-size: 16px;line-height: 17.6px;">
                                 Gana: {{Simbolo}} {{GananciaString}}
@@ -144,14 +165,14 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="liquidacion_rango_home">
+                <div class="liquidacion_rango_home liquidacion_rango_home_fix">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto" 
+                <a class="boton_Agregalo_home boton_Agregalo_home_fix ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto" 
                    onclick="javascript:EstrategiaAgregar(event, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>

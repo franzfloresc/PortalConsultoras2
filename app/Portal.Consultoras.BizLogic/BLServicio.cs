@@ -21,6 +21,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return servicios;
         }
+
         public IList<BEServicioCampania> SelectServicioByCampaniaPais(int PaisId, int CampaniaId)
         {
             IList<BEServicioCampania> servicios = (IList<BEServicioCampania>)CacheManager<BEServicioCampania>.GetData(PaisId, ECacheItem.ServiciosBelcorp, CampaniaId.ToString());
@@ -37,6 +38,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return servicios;
         }
+
         public IList<BEServicioCampania> SelectServicioByCampaniaPaisAdministrador(int PaisId, int CampaniaId)
         {
             List<BEServicioCampania> servicios = new List<BEServicioCampania>();
@@ -49,6 +51,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return servicios;
         }
+
         public IList<BEParametro> SelectParametros()
         {
             List<BEParametro> parametros = new List<BEParametro>();
@@ -61,6 +64,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return parametros;
         }
+
         public IList<BEServicioParametro> SelectParametrosbyServicio(int ServicioId)
         {
             List<BEServicioParametro> parametros = new List<BEServicioParametro>();
@@ -73,6 +77,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return parametros;
         }
+
         public IList<BEEstadoServicio> SelectEstadoServiciobyPais(int ServicioId, int CampaniaId)
         {
             List<BEEstadoServicio> parametros = new List<BEEstadoServicio>();
@@ -91,26 +96,31 @@ namespace Portal.Consultoras.BizLogic
             var daServicio = new DAServicio();
             return daServicio.InsServicio(servicio);
         }
+
         public int UpdServicio(BEServicio servicio)
         {
             var daServicio = new DAServicio();
             return daServicio.UpdServicio(servicio);
         }
+
         public int DelServicio(int ServicioId)
         {
             var daServicio = new DAServicio();
             return daServicio.DelServicio(ServicioId);
         }
+
         public int DelServicioParametro(int ServicioId, int ParametroId)
         {
             var daServicio = new DAServicio();
             return daServicio.DelServicioParametro(ServicioId, ParametroId);
         }
+
         public int InsServicioParametro(int ServicioId, int ParametroId)
         {
             var daServicio = new DAServicio();
             return daServicio.InsServicioParametro(ServicioId, ParametroId);
         }
+
         public int InsServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
@@ -118,6 +128,7 @@ namespace Portal.Consultoras.BizLogic
 
             return daServicio.InsServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
+
         public int InsServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
@@ -125,6 +136,7 @@ namespace Portal.Consultoras.BizLogic
 
             return daServicio.InsServicioCampaniaRango(CampaniaId, CampaniaFinalId, ServicioId, CodigoISO);
         }
+
         public int DelServicioCampania(int CampaniaId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
@@ -132,6 +144,7 @@ namespace Portal.Consultoras.BizLogic
 
             return daServicio.DelServicioCampania(CampaniaId, ServicioId, CodigoISO);
         }
+
         public int DelServicioCampaniaRango(int CampaniaId, int CampaniaFinalId, int ServicioId, string CodigoISO)
         {
             var daServicio = new DAServicio();
@@ -226,7 +239,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lista;
         }
-        
+
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DAServicio daServicio = new DAServicio();

@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(UserData().PaisID);
                 lst = sv.GetOfertaProductosPortalFlexipago(UserData().PaisID, Constantes.ConfiguracionOferta.Flexipago, UserData().CodigoConsultora, UserData().CampaniaID).Take(cantidad).ToList();
             }
-            
+
             return Mapper.Map<IList<BEOfertaFlexipago>, List<OfertaFlexipagoModel>>(lst);
         }
 
@@ -478,8 +478,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    message = tipoCarga.Equals("0") 
-                        ? "No se actualizó la Categoría de ninguno de los CUV's de productos que estaban dentro del archivo (CSV), verifique." 
+                    message = tipoCarga.Equals("0")
+                        ? "No se actualizó la Categoría de ninguno de los CUV's de productos que estaban dentro del archivo (CSV), verifique."
                         : "No se actualizó ninguna de las consultoras por categoría que estaban dentro del archivo (CSV), verifique que los códigos sean correctos.";
                 }
             }
@@ -520,7 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
-            
+
             if (lst.Count > 0)
             {
                 lstFinal.Add(new BEMatrizComercial
@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult UpdateOfertaFlexipago(OfertaFlexipagoModel model)
         {
             try
-            {   
+            {
                 BEOfertaFlexipago entidad = Mapper.Map<OfertaFlexipagoModel, BEOfertaFlexipago>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -973,9 +973,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

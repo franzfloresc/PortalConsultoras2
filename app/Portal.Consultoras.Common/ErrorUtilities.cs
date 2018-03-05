@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Common
             {
                 Directory.CreateDirectory(path);
             }
-            
+
             if (!File.Exists(Path.Combine(path, fileName)))
             {
                 sw = new StreamWriter(Path.Combine(path, fileName), true, Encoding.UTF8);
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Common
             log.Exception = exception;
             log.StackTrace = stackTrace;
             log.LogDate = DateTime.Now;
-            
+
             return log;
         }
 

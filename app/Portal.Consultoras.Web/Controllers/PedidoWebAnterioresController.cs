@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                             obePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
                             obePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
-                        
+
                     }
 
                     lst.Add(obePedidoWeb);
@@ -188,7 +188,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                
+
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (UserData().PaisID == 4)
@@ -199,11 +199,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 a.EstadoPedidoDesc,
                                 (UserData().Simbolo + " " +
@@ -212,8 +212,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CodigoUsuarioCreacion,
                                 a.Direccion,
                                 a.ImporteTotal.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -225,11 +225,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 a.EstadoPedidoDesc,
                                 (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
@@ -237,8 +237,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CodigoUsuarioCreacion,
                                 a.Direccion,
                                 a.ImporteTotal.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                
+
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (UserData().PaisID == 4)
@@ -373,11 +373,11 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CUV,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CUV,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
@@ -390,8 +390,8 @@ namespace Portal.Consultoras.Web.Controllers
                                  string.Format("{0:#,##0}", a.ImporteTotalPedido).Replace(',', '.')),
                                 (UserData().Simbolo + " " + string
                                      .Format("{0:#,##0}", a.ImporteTotal - a.ImporteTotalPedido).Replace(',', '.'))
-                            }
-                        }
+                                   }
+                               }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -406,11 +406,11 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CUV,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CUV,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
@@ -420,8 +420,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotalPedido)),
                                 (UserData().Simbolo + " " +
                                  string.Format("{0:#,##0.00}", a.ImporteTotal - a.ImporteTotalPedido))
-                            }
-                        }
+                                   }
+                               }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -569,8 +569,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "ImporteTotal")
                             {
-                                var importeTotal = UserData().PaisID == 4 
-                                    ? source.ImporteTotal.ToString("#,##0").Replace(',', '.') 
+                                var importeTotal = UserData().PaisID == 4
+                                    ? source.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                     : source.ImporteTotal.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + importeTotal;
@@ -580,8 +580,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "PrecioUnidad")
                             {
-                                var precioUnidad = UserData().PaisID == 4 
-                                    ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.') 
+                                var precioUnidad = UserData().PaisID == 4
+                                    ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.')
                                     : source.PrecioUnidad.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + precioUnidad;
@@ -590,7 +590,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else if (arr[1] == "Descuento")
                             {
-                                var importeTotalPedido = UserData().PaisID == 4 
+                                var importeTotalPedido = UserData().PaisID == 4
                                     ? source.ImporteTotalPedido.ToString("#,##0").Replace(',', '.')
                                     : source.ImporteTotalPedido.ToString("0.00");
 
@@ -600,7 +600,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else if (arr[1] == "ImportePagar")
                             {
-                                var importePagar = UserData().PaisID == 4 
+                                var importePagar = UserData().PaisID == 4
                                     ? (source.ImporteTotal - source.ImporteTotalPedido).ToString("#,##0").Replace(',', '.')
                                     : (source.ImporteTotal - source.ImporteTotalPedido).ToString("0.00");
 

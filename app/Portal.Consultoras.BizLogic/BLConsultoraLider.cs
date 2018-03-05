@@ -6,7 +6,6 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraLider
     {
-        //2397 CampaniaLider - Codigo(i = 0)
         public IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais)
         {
             List<string> datos = new List<string>();
@@ -21,7 +20,6 @@ namespace Portal.Consultoras.BizLogic
             return datos;
         }
 
-        //2397 ProyectaNivel  - FlgProyecta(i = 0)
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
             List<string> datos = new List<string>();

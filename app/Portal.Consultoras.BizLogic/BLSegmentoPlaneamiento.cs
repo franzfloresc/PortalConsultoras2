@@ -7,7 +7,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLSegmentoPlaneamiento
     {
-        public IList<BESegmentoPlaneamiento> GetSegmentoPlaneamiento(int PaisID,int campaniaId)
+        public IList<BESegmentoPlaneamiento> GetSegmentoPlaneamiento(int PaisID, int campaniaId)
         {
             var segmentoPlaneamiento = new List<BESegmentoPlaneamiento>();
             var daSegmentoPlaneamiento = new DASegmentoPlaneamiento(PaisID);
@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daSegmentoPlaneamiento.GetSegmentoPlaneamiento(campaniaId))
                 while (reader.Read())
                 {
-                    var entidad = new BESegmentoPlaneamiento(reader) {PaisID = PaisID};
+                    var entidad = new BESegmentoPlaneamiento(reader) { PaisID = PaisID };
                     segmentoPlaneamiento.Add(entidad);
                 }
 

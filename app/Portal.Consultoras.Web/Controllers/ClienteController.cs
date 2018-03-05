@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string vBusqueda)
         {
             if (ModelState.IsValid)
@@ -330,8 +330,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda) 
-                ? lst.Count 
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
+                ? lst.Count
                 : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = recordCount;
@@ -453,7 +453,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             BECliente source = sourceDetails[i];
 
-                            var arr = column.Contains("#") 
+                            var arr = column.Contains("#")
                                 ? column.Split('#')
                                 : new string[] { "", column };
 

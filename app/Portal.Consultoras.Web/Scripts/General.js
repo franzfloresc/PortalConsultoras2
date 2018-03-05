@@ -38,6 +38,8 @@ jQuery(document).ready(function () {
             });
         }
     }
+    
+
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -674,7 +676,7 @@ function getMobilePrefixUrl() {
 function isPagina(pagina) {
     pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;
-    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+    return ("/" + $.trim(location.href).ReplaceAll(":", "/") + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
 }
 
 function isHome() {
@@ -990,7 +992,9 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -1061,7 +1065,9 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {

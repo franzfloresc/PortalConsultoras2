@@ -110,19 +110,19 @@ namespace Portal.Consultoras.Web.Controllers
                 if (getUser.codigo == "002")
                 {
                     createUser = svcLms.ws_servercreate_user(
-                        isoUsuario, 
-                        userData.NombreConsultora, 
-                        eMail, 
-                        userData.CampaniaID.ToString(), 
-                        userData.CodigorRegion, 
-                        userData.CodigoZona, 
-                        userData.SegmentoConstancia, 
-                        userData.SeccionAnalytics, 
-                        userData.Lider.ToString(), 
-                        userData.NivelLider.ToString(), 
-                        userData.CampaniaInicioLider, 
-                        userData.SeccionGestionLider, 
-                        nivelProyectado, 
+                        isoUsuario,
+                        userData.NombreConsultora,
+                        eMail,
+                        userData.CampaniaID.ToString(),
+                        userData.CodigorRegion,
+                        userData.CodigoZona,
+                        userData.SegmentoConstancia,
+                        userData.SeccionAnalytics,
+                        userData.Lider.ToString(),
+                        userData.NivelLider.ToString(),
+                        userData.CampaniaInicioLider,
+                        userData.SeccionGestionLider,
+                        nivelProyectado,
                         key);
                     token = createUser.token;
                 }
@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View();
         }
-        
+
         private List<MiCurso> ValidadCursosMA()
         {
             try

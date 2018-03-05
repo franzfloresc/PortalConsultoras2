@@ -71,26 +71,26 @@ namespace Portal.Consultoras.BizLogic
 
             //if (lista == null || lista.Count == 0)
             //{
-                try
+            try
+            {
+                var da = new DAConfiguracionOfertasHome(paisId);
+                lista = new List<BEConfiguracionOfertasHome>();
+                using (IDataReader reader = da.GetListarSeccion(campaniaId))
                 {
-                    var da = new DAConfiguracionOfertasHome(paisId);
-                    lista = new List<BEConfiguracionOfertasHome>();
-                    using (IDataReader reader = da.GetListarSeccion(campaniaId))
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var ofertaHome = new BEConfiguracionOfertasHome(reader);
-                            lista.Add(ofertaHome);
-                        }
+                        var ofertaHome = new BEConfiguracionOfertasHome(reader);
+                        lista.Add(ofertaHome);
                     }
                 }
-                catch (Exception ex)
-                {
-                    LogManager.SaveLog(ex, "", paisId.ToString());
-                    lista = new List<BEConfiguracionOfertasHome>();
-                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId.ToString());
+                lista = new List<BEConfiguracionOfertasHome>();
+            }
 
-                //CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
+            //CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
             //}
 
             return lista;

@@ -20,8 +20,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string paisId = usuario.PaisID.ToString();
 
-                var codigoConsultora = UserData().UsuarioPrueba == 1 
-                    ? UserData().ConsultoraAsociada 
+                var codigoConsultora = UserData().UsuarioPrueba == 1
+                    ? UserData().ConsultoraAsociada
                     : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();

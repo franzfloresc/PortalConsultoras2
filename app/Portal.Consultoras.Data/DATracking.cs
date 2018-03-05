@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nroPedido);
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
-        
+
         public void InsLogConfirmacionEntrega(BELogConfirmacionEntrega oBELogConfirmacionEntrega)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsLogConfirmacionEntrega");

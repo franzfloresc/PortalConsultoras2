@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.Models
         public virtual string Mes { get; set; }
         public virtual string Dia { get; set; }
 
-
         public SelectList Anios { get; set; }
         public SelectList Meses { get; set; }
         public SelectList Dias { get; set; }

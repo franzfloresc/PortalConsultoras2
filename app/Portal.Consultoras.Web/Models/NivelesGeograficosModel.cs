@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class NivelesGeograficosModel
     {
@@ -28,11 +23,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string ZONA_CIUDAD { get; set; }
         public string sidx { get; set; }
-
         public string sord { get; set; }
-
         public int page { get; set; }
-
         public int rows { get; set; }
     }
 }
