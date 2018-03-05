@@ -1,6 +1,6 @@
 USE BelcorpPeru
 GO
-
+ 
 IF (OBJECT_ID('ShowRoom.ValidarUnidadesPermitidaPedidoShowRoom', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE ShowRoom.ValidarUnidadesPermitidaPedidoShowRoom AS SET NOCOUNT ON;')
 GO
@@ -20,7 +20,7 @@ AS
 
 /*
 
-ShowRoom.ValidarUnidadesPermitidaPedidoShowRoom 201607, '99001', 8828
+ShowRoom.ValidarUnidadesPermitidaPedidoShowRoom 201607,  '99001', 8828
 
 */
 
