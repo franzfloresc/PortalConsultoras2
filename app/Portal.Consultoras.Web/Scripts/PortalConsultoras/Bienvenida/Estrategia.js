@@ -289,6 +289,9 @@ function ArmarCarouselEstrategias(data) {
         $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
         $('.contenido_gana_mas').hide();
+        $(".contenedor_ganamas").css({ "height": "100px" });
+        $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+        $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
         return false;
     }
 
