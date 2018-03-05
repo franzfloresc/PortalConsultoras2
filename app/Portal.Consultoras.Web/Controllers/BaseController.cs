@@ -205,62 +205,35 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var pedObs = pedido;
             var txtBuil = new StringBuilder();
-
-            if (userData.NuevoPROL && userData.ZonaNuevoPROL)
+            
+            foreach (var item in pedObs)
             {
-                foreach (var item in pedObs)
-                {
-                    item.Mensaje = string.Empty;
-                    var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
-                    if (temp.Count != 0)
-                    {
-                        if (temp[0].Caso == 0)
-                        {
-                            item.ClaseFila = string.Empty;
-                            item.TipoObservacion = 0;
-                        }
-                        else
-                        {
-                            item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
-                            item.TipoObservacion = temp[0].Tipo;
-                        }
-
-                        foreach (var ob in temp)
-                        {
-                            txtBuil.Append(ob.Descripcion + "<br/>");
-                        }
-                        item.Mensaje = txtBuil.ToString();
-                        txtBuil.Clear();
-                    }
-                    else
+                item.Mensaje = string.Empty;
+                var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
+                if (temp.Count != 0)
+                {                        
+                    if (userData.NuevoPROL && userData.ZonaNuevoPROL && temp[0].Caso == 0)
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
                     }
-                }
-            }
-            else
-            {
-                foreach (var item in pedObs)
-                {
-                    item.Mensaje = string.Empty;
-                    var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
-                    if (temp.Count != 0)
+                    else
                     {
                         item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                         item.TipoObservacion = temp[0].Tipo;
-                        foreach (var ob in temp)
-                        {
-                            txtBuil.Append(ob.Descripcion + "<br/>");
-                        }
-                        item.Mensaje = txtBuil.ToString();
-                        txtBuil.Clear();
                     }
-                    else
+                        
+                    foreach (var ob in temp)
                     {
-                        item.ClaseFila = string.Empty;
-                        item.TipoObservacion = 0;
+                        txtBuil.Append(ob.Descripcion + "<br/>");
                     }
+                    item.Mensaje = txtBuil.ToString();
+                    txtBuil.Clear();
+                }
+                else
+                {
+                    item.ClaseFila = string.Empty;
+                    item.TipoObservacion = 0;
                 }
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
@@ -4114,56 +4087,44 @@ namespace Portal.Consultoras.Web.Controllers
             var TextoPromesa = ".";
             var TextoNuevoPROL = "";
 
-            if (userData.ZonaValida)
+            if (!userData.ZonaValida) ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+            else if (!userData.DiaPROL)
             {
-                if (!userData.DiaPROL)
+                if (userData.NuevoPROL && userData.ZonaNuevoPROL)
                 {
-                    if (userData.NuevoPROL && userData.ZonaNuevoPROL)
-                    {
-                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        if (!("BO CL VE").Contains(userData.CodigoISO))
-                            TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
-                    }
-                    else
-                    {
-                        if (userData.CodigoISO == "VE")
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            ViewBag.MensajeCierreCampania = "El <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> desde las <b>" + FormatearHora(userData.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
-                        }
-                    }
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                    if (!("BO CL VE").Contains(userData.CodigoISO))
+                        TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
+                }
+                else if (userData.CodigoISO == "VE")
+                {
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
                 }
                 else
                 {
-                    if (userData.DiasCampania != 0 && FechaHoraActual < userData.FechaInicioCampania)
-                    {
-                        ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                    }
-                    else
-                    {
-                        if (userData.NuevoPROL && userData.ZonaNuevoPROL)
-                        {
-                            ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "VE")
-                            {
-                                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
-                            }
-                            else
-                            {
-                                ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
-                                TextoPromesaEspecial = true;
-                            }
-                        }
-                    }
+                    ViewBag.MensajeCierreCampania = "El <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> desde las <b>" + FormatearHora(userData.HoraFacturacion) + "</b> hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> podrás validar los productos que te llegarán en el pedido";
                 }
             }
-            else ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+            else
+            {
+                if (userData.DiasCampania != 0 && FechaHoraActual < userData.FechaInicioCampania)
+                {
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                }
+                else if (userData.NuevoPROL && userData.ZonaNuevoPROL)
+                {
+                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
+                }
+                else if (userData.CodigoISO == "VE")
+                {
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                }
+                else
+                {
+                    ViewBag.MensajeCierreCampania = "Recuerda que tienes hasta las <b>" + FormatearHora(HoraCierrePortal) + "</b> para validar lo que vas a recibir en el pedido";
+                    TextoPromesaEspecial = true;
+                }
+            }
 
             if (userData.TipoCasoPromesa != "0")
             {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Belcorp.BDI.Service.PROL.Entidad" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Belcorp.BDI.Service.PROL.Entidad" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Pedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPeriodo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoVentaGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoPedidoMontoMaximo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estadoPedidoMontoMinimo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="formaPagoGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indValiProl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoTotalDcto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoBaseDcto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoBaseDctoAcum" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoMaximo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoPedidoMontoMaximo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoPedidoMontoMinimo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoTiendaVirtual" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoVentaRetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidOfertaGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidProductoGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="porcDescFijoAlca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="porcDescVariAlca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="posiciones" nillable="true" type="tns:ArrayOfDetalle" />
+      <xs:element minOccurs="0" name="precioGanador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valRangFinaVari" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valRangInicVari" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indEnvioSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidPedidoSap" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pedido" nillable="true" type="tns:Pedido" />
+  <xs:complexType name="ArrayOfDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Detalle" nillable="true" type="tns:Detalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDetalle" nillable="true" type="tns:ArrayOfDetalle" />
+  <xs:complexType name="Detalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="escalaDescuento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="factorCuadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="factorRepeticion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="grupoDescuento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="importeDescuento1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="importeDescuento2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indAccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indLimiteVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indicadorRecuperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numUnidOrig" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroSeccionDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="observaciones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidCatalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidDetaOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidFormaPago" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidGrupoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidIndicadorCuadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidNiveOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidNiveOfertaGratis" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidNiveOfertaRango" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidPosicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidSubtipoPosicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oidTipoPosicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pagina" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="porcentajeDescuento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="precioCatalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="precioContable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="precioPublico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="precioUnitario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ranking" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unidadesDemandadas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unidadesPorAtender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valCodiOrig" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="oportunidadAhorro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="unidadesReservadasSap" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Detalle" nillable="true" type="tns:Detalle" />
+</xs:schema>

@@ -2144,7 +2144,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
-
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = false;
                 input.CodigosConcursos = userData.CodigosConcursos;
@@ -2300,7 +2299,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
             }
-
         }
 
         private string ObtenerMensajePROLAnalytics(List<ObservacionModel> lista)

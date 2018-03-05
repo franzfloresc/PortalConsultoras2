@@ -306,6 +306,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 input.VersionProl = (byte)(new BLConfiguracionValidacion().EstaActivoProl3(input.PaisID) ? 3 : 2);
                 var reservaExternaBL = input.VersionProl == 3 ? new BLReservaSicc() as IReservaExternaBL : new BLReservaProl2() as IReservaExternaBL;
                 BEResultadoReservaProl resultado = reservaExternaBL.ReservarPedido(input, listPedidoWebDetalle);
+                resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
+                resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+                resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
 
                 UpdatePedidoWebReservado(input, resultado, listPedidoWebDetalle);
                 resultado.RefreshPedido = true;
@@ -379,6 +382,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 PaisID = input.PaisID,
                 CampaniaID = input.CampaniaID,
+                PedidoID = input.PedidoID,
                 ConsultoraID = input.ConsultoraID,
                 MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
                 MontoAhorroRevista = resultado.MontoAhorroRevista,

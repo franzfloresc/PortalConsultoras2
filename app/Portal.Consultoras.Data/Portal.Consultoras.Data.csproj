@@ -288,13 +288,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\ServiceSicc\Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse.datasource">
+    <None Include="Connected Services\ServiceSicc\Portal.Consultoras.Data.ServiceSicc.Pedido.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServiceSicc\Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Connected Services\ServiceSicc\Service.wsdl" />
+    <None Include="Connected Services\ServiceSicc\Service.xsd">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceSicc\ProcesoPEDCuadreOfertasConsolidadoWebService.wsdl" />
+    <None Include="Connected Services\ServiceSicc\Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceSicc\Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

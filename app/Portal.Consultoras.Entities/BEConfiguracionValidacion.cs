@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Entities
             ProcesoDA = Convert.ToInt16(DataRecord.HasColumn(row, "ProcesoDA") ? row["ProcesoDA"] : -1);
             ProcesoDAPRD = Convert.ToInt16(DataRecord.HasColumn(row, "ProcesoDAPRD") ? row["ProcesoDAPRD"] : -1);
             if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria")) HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
-            if (DataRecord.HasColumn(row, "TieneProl3")) FlagNoValidados = Convert.ToBoolean(row["TieneProl3"]);
+            if (DataRecord.HasColumn(row, "TieneProl3")) TieneProl3 = Convert.ToBoolean(row["TieneProl3"]);
         }
     }
 }

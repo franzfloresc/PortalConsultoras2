@@ -62,7 +62,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
                 model.RutaChile = ObtenerRutaChile();
                 model.UrlChileEncriptada = ObtenerUrlChileEncriptada();
-                model.PROL1 = (ObtenerConfiguracionCampania().ZonaValida && !userData.PROLSinStock && !(userData.NuevoPROL && userData.ZonaNuevoPROL));
                 model.FechaVencimiento = ObtenerFechaVencimiento();
 
                 model.MontoDeuda = userData.MontoDeuda;

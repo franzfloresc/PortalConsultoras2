@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Data
             //Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, pedidoWeb.MontoAhorroRevista);
             //Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, pedidoWeb.DescuentoProl);
             //Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
-            Context.Database.AddInParameter(command, "@GananciaEstimada", DbType.Decimal, gananciaEstimada);
+            Context.Database.AddInParameter(command, "@EstimadoGanancia", DbType.Decimal, gananciaEstimada);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.Int16, pedidoWeb.EstadoPedido);
             Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
 

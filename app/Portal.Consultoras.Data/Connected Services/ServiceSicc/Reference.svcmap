@@ -19,10 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://pelnx2141:7002/nssiccqas/services/ProcesoPEDCuadreOfertasConsolidadoWebService?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://pents62:8097/Service.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProcesoPEDCuadreOfertasConsolidadoWebService.wsdl" MetadataType="Wsdl" ID="a96d7385-d3b6-4796-99c8-4dac85379b35" SourceId="1" SourceUrl="http://pelnx2141:7002/nssiccqas/services/ProcesoPEDCuadreOfertasConsolidadoWebService?wsdl" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="79486eea-08fd-4167-8d5f-a61c200521f6" SourceId="1" SourceUrl="http://pents62:8097/Service.svc?wsdl" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="159868d8-734d-4b9f-9479-d35ec84b5df2" SourceId="1" SourceUrl="http://pents62:8097/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="55b22be2-0f97-4cba-aec5-41af58b3385b" SourceId="1" SourceUrl="http://pents62:8097/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="3486e49a-feb2-4863-8137-4165e7e4a4a3" SourceId="1" SourceUrl="http://pents62:8097/Service.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

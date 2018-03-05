@@ -22,12 +22,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
             resultado.MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure();
-            resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
             resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
             resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
             resultado.MontoTotalProl = respuestaProl.montototal.ToDecimalSecure();
-            resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
-            resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad);
             resultado.CodigoMensaje = respuestaProl.codigoMensaje;
 
             if (respuestaProl.ListaConcursoIncentivos != null)
@@ -71,9 +68,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (input.FechaHoraReserva) respuestaProl = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
                 else respuestaProl = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
-            if (respuestaProl.codigoMensaje.Equals("00")) respuestaProl.ListaObservaciones = new ObservacionProl[0];
-            else respuestaProl.ListaObservaciones = respuestaProl.ListaObservaciones ?? new ObservacionProl[0];
 
+            if (respuestaProl != null)
+            {
+                if (respuestaProl.codigoMensaje.Equals("00")) respuestaProl.ListaObservaciones = new ObservacionProl[0];
+                else respuestaProl.ListaObservaciones = respuestaProl.ListaObservaciones ?? new ObservacionProl[0];
+            }
             return respuestaProl;
         }
 

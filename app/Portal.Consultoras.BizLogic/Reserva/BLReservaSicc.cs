@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.ServiceSicc;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
 using System.Collections.Generic;
@@ -16,20 +15,17 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            PedidoConsolidadoWebService respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
+            Data.ServiceSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
             if (respuestaSicc == null) return resultado;
 
             GuardarExplotado(input, respuestaSicc.posiciones);
             var listMensajeProl = new Dictionary<string, string>();
-
-            //resultado.MontoAhorroCatalogo = NO HAY
-            //resultado.MontoAhorroRevista = NO HAY
-            resultado.MontoGanancia =  respuestaSicc.posiciones.Sum(p => p.importeDescuento1.ToDecimalSecure());
+            
+            resultado.MontoAhorroCatalogo =  respuestaSicc.posiciones.Sum(p => p.importeDescuento1.ToDecimalSecure()); //MontoGanancia
+            resultado.MontoAhorroRevista = 0;
             //resultado.MontoDescuento = FALTA
             resultado.MontoEscala = respuestaSicc.posiciones.Sum(p => p.escalaDescuento.ToDecimalSecure());
             //resultado.MontoTotalProl = SE DEBE DEJAR DE USAR
-            resultado.MontoTotal = listPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento; // CANDIDATO A PASAR A BLRESERVA
-            resultado.UnidadesAgregadas = listPedidoWebDetalle.Sum(pd => pd.Cantidad); // CANDIDATO A PASAR A BLRESERVA
 
             //if (respuestaProl.ListaConcursoIncentivos != null)
             //{
@@ -50,7 +46,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             foreach (var p in respuestaSicc.posiciones)
             {
-                if (p.indicadorRecuperacion == "1") resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == p.cuv));
+                if (p.indicadorRecuperacion == "1") resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == p.CUV));
                 else if(!string.IsNullOrEmpty(p.observaciones)) resultado.ListPedidoObservacion.Add(CreatePedidoObservacion(p, listPedidoWebDetalle, listMensajeProl));
             }
 
@@ -69,18 +65,18 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
-        private PedidoConsolidadoWebService ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private Data.ServiceSicc.Pedido ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
-            var inputPedido = new PedidoConsolidadoWebService
+            var inputPedido = new Data.ServiceSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
                 //FALTA CODIGO CONCURSOS
                 indValiProl = input.FechaHoraReserva ? "1" : "0",  //FECHA RESERVA O FACTURACION?
-                posiciones = listPedidoWebDetalle.Select(d => new PosicionConsolidadoWebService
+                posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
                 {
-                    cuv = d.CUV,
+                    CUV = d.CUV,
                     unidadesDemandadas = d.Cantidad.ToString()
                 }).ToArray()
             };
@@ -92,10 +88,10 @@ namespace Portal.Consultoras.BizLogic.Reserva
             //    if (cuponNueva != null) detalle.cuv = cuponNueva.CUV;
             //}
 
-            PedidoConsolidadoWebService respuestaSicc;
-            using (var sv = new ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient())
+            Data.ServiceSicc.Pedido respuestaSicc;
+            using (var sv = new Data.ServiceSicc.ServiceClient())
             {
-                respuestaSicc = sv.executeCuadreOfertasConsolidado(inputPedido);
+                respuestaSicc = sv.EjecutarCuadreOfertas(inputPedido);
             }
 
             //if(respuestaSicc != null && respuestaSicc.posiciones != null)
@@ -109,7 +105,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return respuestaSicc;
         }
 
-        private void GuardarExplotado(BEInputReservaProl input, PosicionConsolidadoWebService[] arrayDetalle)
+        private void GuardarExplotado(BEInputReservaProl input, Data.ServiceSicc.Detalle[] arrayDetalle)
         {
             var daPedidoWebDetalleExplotado = new DAPedidoWebDetalleExplotado(input.PaisID);
             daPedidoWebDetalleExplotado.DeleteByPedidoID(input.CampaniaID, input.PedidoID);
@@ -117,7 +113,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 CampaniaID = input.CampaniaID,
                 PedidoID = input.PedidoID,
                 CodigoSap = d.codigoSap,
-                CUV = d.cuv,
+                CUV = d.CUV,
                 EscalaDescuento = d.escalaDescuento.ToNullableDecimalSecure(),
                 FactorCuadre = d.factorCuadre.ToNullableDecimalSecure(),
                 FactorRepeticion = d.factorRepeticion.ToInt32Secure(),
@@ -158,7 +154,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }).ToList());
         }
 
-        private BEPedidoObservacion CreatePedidoObservacion(PosicionConsolidadoWebService detalle, List<BEPedidoWebDetalle> listPedidoWebDetalle, Dictionary<string, string> listMensajeProl)
+        private BEPedidoObservacion CreatePedidoObservacion(Data.ServiceSicc.Detalle detalle, List<BEPedidoWebDetalle> listPedidoWebDetalle, Dictionary<string, string> listMensajeProl)
         {
             return new BEPedidoObservacion();
         }
