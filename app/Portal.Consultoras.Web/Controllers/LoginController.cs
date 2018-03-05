@@ -1891,7 +1891,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
+        protected virtual async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
         {
             IList<ServiceUsuario.BEConfiguracionPais> listaConfigPais;
 
@@ -1925,7 +1925,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
         }
 
-        protected async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
+        protected virtual async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
         {
             List<BEConfiguracionPaisDatos> listaEntidad;
 
@@ -2210,7 +2210,7 @@ namespace Portal.Consultoras.Web.Controllers
             return usuarioModel;
         }
 
-        private async Task<ServiceUsuario.BEUsuario> GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
+        protected virtual async Task<ServiceUsuario.BEUsuario> GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
         {
             using (var usuarioServiceClient = new UsuarioServiceClient())
             {
