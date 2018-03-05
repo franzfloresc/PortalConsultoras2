@@ -2,6 +2,15 @@
 
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
+@{
+    var headerClass = "";
+
+    if (ViewBag.EsSuscrita)
+    {
+        headerClass += " seccion-titulo-dorado";
+    }
+}
+
 <style>
     .previsualizales-ofertas .titulo {
         display: block;
@@ -21,10 +30,12 @@
             float: left;
             text-transform: uppercase;
         }
+
     .slick-list {
         width: 85% !important;
         margin: auto;
     }
+
     .content_item_ept {
         padding-bottom: 15px;
     }
@@ -33,12 +44,12 @@
     @if (@Model.Titulo != "")
     {
         <div class="titulo" style="padding-top:0;">
-            <h2>@Model.Titulo</h2>
+            <h2 class="@headerClass">@Model.Titulo</h2>
         </div>
     }
     <div class="content_carrusel_landing">
-        <div id="divCarruselLan" class="divCarruselLan" 
-             data-content-item="@Model.CampaniaID" 
+        <div id="divCarruselLan" class="divCarruselLan"
+             data-content-item="@Model.CampaniaID"
              data-seccion-productos="">
 
         </div>
