@@ -20,6 +20,7 @@
         <div class="parche_presentacion_contenedor">
             @if (mostrarPopupVenta)
             {
+                <!-- para titulo la clase es "seccion-titulo-dorado"-->
                 <div class="bloque-titulo">
                     <div class="seccion-titulo">
                         <span>@Model.Titulo</span>
@@ -30,6 +31,7 @@
 
                     @if (Model.VerMas)
                     {
+                        <!-- para btn la clase es "dorado"-->
                         <div class="ir">
                             <a href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                         </div>

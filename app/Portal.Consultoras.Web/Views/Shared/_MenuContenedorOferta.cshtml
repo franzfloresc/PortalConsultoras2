@@ -94,6 +94,10 @@
                 @foreach (var menuhijo in menuList)
                 {
                     var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                    if (ViewBag.EsSuscrita && claseActivo == "activo")
+                    {
+                        claseActivo = "activo-dorado";
+                    }
                     <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                         data-codigo="@menuhijo.Codigo"
                         data-es-ancla="@menuhijo.EsAncla"

@@ -310,7 +310,9 @@ img.icono-submenu-tabs {
     margin-left: 10px;
     margin-top: 5px;
 }
-
+img.icono-logo-submenu-tabs {
+    width: 43px;
+}
 .opcion_home_vistaOfertas {
     display: inline;
 }
