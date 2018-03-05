@@ -1113,6 +1113,7 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionPaisDatos
         {
             public const string BloqueoProductoDigital = "BloqueoProductoDigital";
+            public const string ActivoMdo = "ActivoMDO";
 
             public static class RD
             {
@@ -1814,6 +1815,13 @@ namespace Portal.Consultoras.Common
             public const string EnEjecucion = "En ejecución";
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
+        }
+
+        public class FlagRevista
+        {
+            public const int Publico = 0;
+            public const int Compra = 1;
+            public const int Perdiste = 2;
         }
     }
 }

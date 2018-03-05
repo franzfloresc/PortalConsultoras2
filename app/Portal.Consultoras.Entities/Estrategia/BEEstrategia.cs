@@ -272,6 +272,9 @@ namespace Portal.Consultoras.Entities
         [Column("Niveles")]
         public string Niveles { get; set; }
 
+        [DataMember]
+        public int FlagRevista { get; set; }
+
         public BEEstrategia()
         { }
 

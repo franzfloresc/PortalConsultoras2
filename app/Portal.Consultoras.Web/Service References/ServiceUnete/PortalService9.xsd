@@ -111,6 +111,7 @@
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagConsultoraDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />

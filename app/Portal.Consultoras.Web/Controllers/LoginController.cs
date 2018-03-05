@@ -1776,6 +1776,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
                 if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
+                
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo);
+                if (value1 != null) revistaDigitalModel.ActivoMdo = value1.Valor1 == "1";
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
@@ -1790,6 +1793,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos =
