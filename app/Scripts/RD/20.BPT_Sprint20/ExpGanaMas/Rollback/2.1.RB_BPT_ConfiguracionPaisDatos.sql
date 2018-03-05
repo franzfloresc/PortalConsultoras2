@@ -1,4 +1,4 @@
-use BelcorpChile_bpt
+ï»¿use BelcorpChile_bpt
 go
 
 print db_name()
@@ -125,7 +125,7 @@ begin
 	update cpd
 	set 
 	cpd.Valor1 = '#Nombre Bienvenida a Gana+ tu nuevo espacio online de ofertas exclusivas',
-	cpd.Valor2 = 'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!'
+	cpd.Valor2 = 'Encuentra packs Ãºnicos, pasa tu pedido sin digitar cÃ³digos Â¡y mucho mÃ¡s!'
 	from ConfiguracionPaisDatos cpd
 	inner join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
@@ -145,8 +145,8 @@ begin
 
 	update cpd
 	set 
-	cpd.Valor1 = '#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
-	cpd.Valor2 = 'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!'
+	cpd.Valor1 = '#Nombre llegÃ³ Gana+: tu nuevo espacio de ofertas exclusivas',
+	cpd.Valor2 = 'Encuentra packs Ãºnicos, pasa tu pedido sin digitar cÃ³digos Â¡y mucho mÃ¡s!'
 	from ConfiguracionPaisDatos cpd
 	inner join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
@@ -166,8 +166,8 @@ begin
 
 	update cpd
 	set 
-	cpd.Valor1 = '#Nombre ya estás suscrita a Gana+',
-	cpd.Valor2 = 'Ingresa a Gana+ y a partir de la próxima campaña descubre ofertas ¡que te harán ganar más!'
+	cpd.Valor1 = '#Nombre ya estÃ¡s suscrita a Gana+',
+	cpd.Valor2 = 'Ingresa a Gana+ y a partir de la prÃ³xima campaÃ±a descubre ofertas Â¡que te harÃ¡n ganar mÃ¡s!'
 	from ConfiguracionPaisDatos cpd
 	inner join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
@@ -187,8 +187,8 @@ begin
 
 	update cpd
 	set 
-	cpd.Valor1 = '#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
-	cpd.Valor2 = 'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!'
+	cpd.Valor1 = '#Nombre llegÃ³ Gana+: tu nuevo espacio de ofertas exclusivas',
+	cpd.Valor2 = 'Encuentra packs Ãºnicos, pasa tu pedido sin digitar cÃ³digos Â¡y mucho mÃ¡s!'
 	from ConfiguracionPaisDatos cpd
 	inner join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID

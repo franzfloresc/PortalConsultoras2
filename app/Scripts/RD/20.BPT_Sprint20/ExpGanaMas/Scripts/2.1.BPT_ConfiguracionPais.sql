@@ -1,4 +1,4 @@
-use BelcorpChile_bpt
+﻿use BelcorpChile_bpt
 go
 
 print db_name()
