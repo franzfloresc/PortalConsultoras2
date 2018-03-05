@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -19,7 +18,6 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,11 +28,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -533,6 +531,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
+                    if (revistaDigital.TieneRevistaDigital())
+                    {
+                        userData.ClaseLogoSB = "negro";
+                    }
                     permiso.EsSoloImagen = true;
                     permiso.UrlImagen = GetUrlImagenMenuOfertas(userData, revistaDigital);
                 }
@@ -587,13 +589,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
                             }
                         }
-
-                        if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower()
-                            && (revistaDigital.TieneRevistaDigital()))
-                        {
-                            userData.ClaseLogoSB = "negro";
-                        }
-
+                        
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
                     }
                     else
@@ -667,9 +663,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
-            var tieneEventoFestivoData = sessionManager.GetEventoFestivoDataModel() != null &&
-                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null &&
-                sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas.Any();
+            var smEventoFestivo = sessionManager.GetEventoFestivoDataModel();
+            var tieneEventoFestivoData = smEventoFestivo != null &&
+                smEventoFestivo.ListaGifMenuContenedorOfertas != null &&
+                smEventoFestivo.ListaGifMenuContenedorOfertas.Any();
 
             if (!tieneRevistaDigital)
             {
