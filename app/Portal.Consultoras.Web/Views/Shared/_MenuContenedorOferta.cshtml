@@ -90,13 +90,13 @@
     @if (menuList.Any())
     {
         <div class="op-menu-vertical sticky">
-            <ul class="subnavegador">
+            <ul class="subnavegador" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
                 @foreach (var menuhijo in menuList)
                 {
-                    var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
-                    if (ViewBag.EsSuscrita && claseActivo == "activo")
+                    var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : string.Empty;
+                    if (ViewBag.EsSuscrita)
                     {
-                        claseActivo = "activo-dorado";
+                        claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo-dorado" : "default-dorado";
                     }
                     <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                         data-codigo="@menuhijo.Codigo"

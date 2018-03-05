@@ -301,6 +301,19 @@ section {
     color: #e81c36;
 }
 
+.bc_para_ti-menu-opciones ul li a.activo-dorado p::after {
+    content: '';
+    display: block;
+    width: 75%;
+    margin: auto;
+    border: 1px solid #c39934;
+    margin-top: 12px;
+}
+
+.bc_para_ti-menu-opciones ul li a.activo-dorado p {
+    color: #c39934;
+}
+
 .bc-menu-vertical-prev, .bc-menu-vertical-next {
     width: auto !important;
 }

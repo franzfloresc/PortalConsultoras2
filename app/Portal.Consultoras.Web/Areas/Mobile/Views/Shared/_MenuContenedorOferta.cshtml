@@ -107,10 +107,14 @@
         {
             <div data-layout-menu2="" class="slick-slider-fixed-mobile">
                 <div class="bc_para_ti-menu-opciones">
-                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;">
+                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()" >
                         @foreach (var menuhijo in menuList)
                         {
-                            var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                            var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : string.Empty;
+                            if (ViewBag.EsSuscrita)
+                            {
+                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo-dorado" : "default-dorado";
+                            }
                             <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                                 data-codigo="@menuhijo.Codigo"
                                 data-es-ancla="@(menuhijo.Codigo != "ODD" && @menuhijo.EsAncla)"
