@@ -293,6 +293,7 @@
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
+    <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
@@ -436,7 +437,13 @@
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisComponenteModel.cs" />
     <Compile Include="Models\Administrar\AdministrarComponenteModel.cs" />
+    <Compile Include="Models\Common\AuditoriaModel.cs" />
+    <Compile Include="Models\Common\ResultModel.cs" />
     <Compile Include="Models\EstrategiaProductoModel.cs" />
+    <Compile Include="Models\Estrategia\OfertaFinalMontoMetaModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingModel.cs" />
+    <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -671,6 +678,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\UpSellingProvider.cs" />
+    <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1218,6 +1227,7 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
+    <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
@@ -3493,6 +3503,9 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
+    <Content Include="Scripts\knockout.extensions.js" />
     <Content Include="Scripts\PortalConsultoras\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
@@ -4120,9 +4133,14 @@
     <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
-    <None Include="Service References\ServiceSAC\SACService.disco" />
     <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <None Include="Service References\ServiceSAC\configuration.svcinfo" />
     <None Include="Service References\ServiceSAC\Reference.svcmap">
@@ -4143,6 +4161,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceSAC\SACService.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -4761,6 +4780,7 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatos.cshtml" />
     <Content Include="Views\Unete\_ResumenDiasEspera.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoProximamente.cshtml" />
+    <Content Include="Views\UpSelling\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatosCabecera.cshtml" />
     <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
