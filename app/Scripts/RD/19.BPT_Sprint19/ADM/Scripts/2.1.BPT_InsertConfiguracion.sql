@@ -1,4 +1,4 @@
-USE [BelcorpPeru_BPT]
+﻿USE [BelcorpPeru_BPT]
 GO
 
 IF NOT  EXISTS(SELECT * FROM ConfiguracionPais WHERE Codigo = 'HV')
@@ -41,10 +41,10 @@ BEGIN
            ,'Cierra una venta exitosa'
            ,''
            ,'Cierra una venta exitosa'
-           ,'PE_2017102380_iujbjjxdcm.png'
-           ,'PE_20171023149_brxsonvgtg.png'
-           ,'PE_20171023174_kjbcunahse.png'
-           ,'PE_20171023200_plttupxvop.png'
+           ,'inicio-banner-navidad-desktop-default.jpg'
+           ,'inicio-banner-navidad-mobile-default.jpg'
+           ,'logo-ganamas-desktop.png'
+           ,'logo-ganamas-mobile.png'
            ,'HerramientaVenta/Index'
            ,9
            ,9
@@ -82,8 +82,8 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'PE_20171045539_xfwrimsvol.png'
-           ,'PE_2018129890_hlumexyxne.png'
+           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
            ,''

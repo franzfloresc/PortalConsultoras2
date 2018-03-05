@@ -2893,8 +2893,9 @@ namespace Portal.Consultoras.Common
             string urlCodigousuario = HttpUtility.UrlEncode(Crypto.EncryptLogin(codigousuario.Trim()));
             string urlFechasolicitud = HttpUtility.UrlEncode(Crypto.EncryptLogin(fechasolicitud.Trim()));
             string urlNombre = HttpUtility.UrlEncode(Crypto.EncryptLogin(nombre.Trim()));
+            string url_guiId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(GenerarGUID()));
 
-            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var uri = new Uri(urlportal + "WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5&wxabc=param6");
             var qs = HttpUtility.ParseQueryString(uri.Query);
             if (urlPaisId != null) qs.Set("xyzab", urlPaisId);
             if (urlCorreo != null) qs.Set("abxyz", urlCorreo);
@@ -2902,6 +2903,7 @@ namespace Portal.Consultoras.Common
             if (urlCodigousuario != null) qs.Set("bxyza", urlCodigousuario);
             if (urlFechasolicitud != null) qs.Set("zabxy", urlFechasolicitud);
             if (urlNombre != null) qs.Set("xbaby", urlNombre);
+            qs.Set("wxabc", url_guiId);
 
             var uriBuilder = new UriBuilder(uri)
             {

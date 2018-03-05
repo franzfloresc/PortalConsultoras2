@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string urlportal = ConfigurationManager.AppSettings["URLSite"];
+
             if (!Page.IsPostBack)
             {
                 var esEsika = false;
@@ -31,21 +33,29 @@ namespace Portal.Consultoras.Web.WebPages
                 var codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
                 var fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
                 var nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
+                var guiid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["wxabc"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["wxabc"]).Trim()) : "";
 
                 DateTime fechaactual = DateTime.Now;
 
-                if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
+                if (paisid == "2" || paisid == "3" || paisid == "4" || paisid == "6" || paisid == "7" || paisid == "8" || paisid == "11" || paisid == "13" || paisid == "14")
                     esEsika = true;
 
-                if (Convert.ToDateTime(fechasolicitud) < fechaactual)
+                TimeSpan tspan;
+                tspan = fechaactual.Subtract(Convert.ToDateTime(fechasolicitud));
+
+                if (tspan.Minutes >= 5)
                 {
-                    txtmarca.Text = esEsika ? "esika" : "lbel";
-                    string titulo = "Sesión Expirada";
-                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
+                    divCambiarClave.Visible = false;
+                    Response.Redirect(urlportal);
+
+                    //txtmarca.Text = esEsika ? "esika" : "lbel";
+                    //string titulo = "Sesión Expirada";
+                    //string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
                 }
                 else
                 {
+                    divCambiarClave.Visible = true;
                     lblNombre.Text = nombre;
                     txtpaisid.Text = paisid;
                     txtcorreo.Text = correo;

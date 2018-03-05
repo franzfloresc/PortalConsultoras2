@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = new DAMenuApp(menuApp.paisId).GetMenusApp(menuApp))
             {
                 var listaMenusApp = reader.MapToCollection<BEMenuApp>();
-                return ContruirMenus(listaMenusApp);
+                return ContruirMenus(listaMenusApp).OrderBy(x=>x.Posicion).ThenBy(x=>x.Orden).ToList();
             }
         }
 

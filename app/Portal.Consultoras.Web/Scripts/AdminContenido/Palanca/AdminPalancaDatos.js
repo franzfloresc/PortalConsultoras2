@@ -11,7 +11,9 @@
         DdlPalanca: '#ddlPalanca',
         DdlComponente: '#ddlComponente',
         DdlCampania: '#ddlCampania',
-        DivFormulario: '#divMantDatos'
+        DivFormulario: '#divMantDatos',
+        ChbxEstado: '#Estado',
+        PopupTitulo: '#divPalancaDatos_Titulo'
     }
 
     var _texto = {
@@ -19,8 +21,10 @@
         RegistroPaginar: '{0} - {1} de {2} Registros',
         SinResultados: 'No hay resultados',
         TituloDialogRegistro: 'Configuración de Palanca',
-        ProcesoError: 'Error al procesar la Solicitud.',
-        ProcesoConforme: 'se proceso con exito su solicitud.'
+        ProcesoError: 'Error al procesar la solicitud.',
+        ProcesoConforme: 'Se procesó con éxito su solicitud.',
+        PopupTituloNuevo: 'Nuevo Registro',
+        PopupTituloEditar: 'Actualizar Registro'
     };
 
     var _url = {
@@ -40,7 +44,8 @@
 
     var _tipoDato = {
         txt: 'txt',
-        Img: 'img'
+        Img: 'img',
+        checkbox: 'checkbox'
     }
 
     var _evento = function () {
@@ -62,15 +67,13 @@
         $('body').on('change', _elemento.DdlCampania, function () {
             _CargarDatos();
         });
-
+        
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
         var act = "&nbsp;<a href='javascript:;' onclick=\'return admPalancaDatos.Editar(event);\' >"
             + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
-        var elim = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:;' onclick=\"return admPalancaDatos.Deshabilitar(event);\" >"
-            + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar' title='Deshabilitar' border='0' /></a>";
-        return act + elim;
+        return act;
     };
 
     var CargarGrilla = function () {
@@ -126,8 +129,8 @@
                     sortable: false
                 },
                 {
-                    name: 'Activo',
-                    index: 'Activo',
+                    name: 'Accion',
+                    index: 'Accion',
                     width: 60,
                     align: 'center',
                     resizable: false,
@@ -135,22 +138,21 @@
                     formatter: _GrillaAcciones
                 }
             ],
-            pager: false,
+            pager: jQuery(_elemento.TablaPagina),
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
             rowNum: 15,
             scrollOffset: 0,
-            sortname: 'Orden',
+            rowList: [15, 20, 30, 40, 50],
+            viewrecords: true,
+            pgtext: 'Pág: {0} de {1}',
+            sortname: 'ConfiguracionPaisID',
             sortorder: 'asc',
             height: 'auto',
             width: 930,
             altRows: true,
-            altclass: 'jQGridAltRowClass',
-            pgbuttons: false,
-            viewrecords: false,
-            pgtext: '',
-            pginput: false
+            altclass: 'jQGridAltRowClass'
         });
         jQuery(_elemento.TablaId).jqGrid('navGrid', _elemento.TablaPagina, { edit: false, add: false, refresh: false, del: false, search: false });
     };
@@ -170,7 +172,7 @@
         _RegistroObterner(entidad);
     }
 
-    var GrillaDeshabilitar = function () {
+    var GrillaDeshabilitar = function (event) {
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
 
@@ -195,6 +197,10 @@
 
     var _RegistroObterner = function (modelo) {
         modelo = modelo || {};
+        if (!_RegistroObternerValidar(modelo)) {
+            return false;
+        }
+
         $.ajax({
             url: _url.UrlGrillaEditar,
             type: 'GET',
@@ -210,19 +216,47 @@
                     $(_elemento.DialogRegistroDatosHtml).
                         html(result)
                         .ready(_RegistroObternerImagen(this));
+
+                    $(_elemento.ChbxEstado).prop("checked", $(_elemento.DivFormulario).attr('data-estado') === "True");
+
                 }
                 else if (modelo.Accion === _accion.Editar) {
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml)
                         .html(result)
                         .ready(_RegistroObternerImagen(this));
+
                     showDialog(_elemento.DialogRegistro);
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
+
+                    $(_elemento.PopupTitulo).html(_texto.PopupTituloEditar);
+                    $(_elemento.DdlPalanca).attr("disabled", "disabled");
+                    $(_elemento.DdlComponente).attr("disabled", "disabled");
+                    $(_elemento.DdlCampania).attr("disabled", "disabled");    
                 }
                 else {
                     $(_elemento.DialogRegistroHtml).empty();
                     $(_elemento.DialogRegistroHtml).html(result)
                     showDialog(_elemento.DialogRegistro);
+                    $('body').css({ 'overflow-x': 'hidden' });
+                    $('body').css({ 'overflow-y': 'hidden' });
+
+                    $(_elemento.PopupTitulo).html(_texto.PopupTituloNuevo);
+                    $(_elemento.ChbxEstado).prop("checked", true);
                 }
+
+                if (modelo.CampaniaID == 0) {
+                    $(_elemento.ChbxEstado).prop("checked", true);
+                    $(_elemento.ChbxEstado).attr("disabled", "disabled");
+                }
+                else {
+                    $(_elemento.ChbxEstado).removeAttr("disabled", "disabled");
+                }
+
+                var msjObs = $("#msjObservacion").html();
+                $("#msjObservacionCabecera").html($.trim(msjObs));
+
             },
             error: function (request, status, error) {
                 if (modelo.Accion === _accion.Deshabilitar) {
@@ -230,6 +264,17 @@
                 }
             }
         });
+    };
+
+    var _RegistroObternerValidar = function (modelo) {
+
+        if (modelo.Accion === _accion.NuevoDatos) {
+            if ($.trim(modelo.PalancaCodigo) === '' || $.trim(modelo.Codigo) === '') {
+                return false;
+            }
+        }
+
+        return true;
     };
 
     var _RegistroObternerImagen = function () {
@@ -273,10 +318,13 @@
                         $(_elemento.DdlComponente + ' option').remove();
                         $(_elemento.DdlComponente).html("<option value=''>-- Seleccionar --</option>");
                         $.each(data.ListaComponente, function (ind, comp) {
-                            var opt = document.createElement('option');
-                            opt.value = comp.Codigo;
-                            opt.innerHTML = comp.Nombre;
-                            $(_elemento.DdlComponente).append(opt);
+                            var existe = $(_elemento.DdlComponente).find("option[value='" + comp.Codigo + "']");
+                            if (existe.length === 0) {
+                                var opt = document.createElement('option');
+                                opt.value = comp.Codigo;
+                                opt.innerHTML = comp.Nombre;
+                                $(_elemento.DdlComponente).append(opt);
+                            }
                         });
                     }
                 }
@@ -310,7 +358,9 @@
             closeOnEscape: true,
             width: 830,
             height: 500,
-            close: function () { },
+            close: function () {
+                $('body').css({ 'overflow': 'auto' });
+            },
             draggable: false,
             title: _texto.TituloDialogRegistro,
             open: function (event, ui) { },
@@ -340,8 +390,13 @@
             }
             var valor1 = $(datox).find('input').val();
             var tipoDato = $(datox).attr('data-tipodato');
+            var valOrigen = "";
             if (tipoDato === _tipoDato.Img) {
+                var valOrigen = $("#nombre-" + idConca[3]).attr("data-valueorigin");
                 valor1 = $("#nombre-" + idConca[3]).val();
+            }
+            else if (tipoDato === _tipoDato.checkbox) {
+                valor1 = $("#nombre-" + idConca[3]).is(':checked');
             }
 
             var dato = {
@@ -351,7 +406,9 @@
                     CampaniaID: idConca[1],
                     Componente: idConca[2],
                     Codigo: idConca[3],
-                    Valor1: valor1
+                    Estado: $(_elemento.ChbxEstado).is(':checked'),
+                    Valor1: valor1,
+                    Editado: valOrigen != valor1
                 }
             };
             listaDatos.push(dato);
@@ -368,6 +425,7 @@
                 if (data.success) {
                     HideDialog(_elemento.DialogRegistro);
                     _toastHelper.success(_texto.ProcesoConforme);
+                    CargarGrilla();
                 }
                 else {
                     _toastHelper.error(_texto.ProcesoError);

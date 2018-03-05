@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="75" viewBox="0 0 120 75">
+    <g fill="none" fill-rule="evenodd" transform="translate(1)">
+        <path stroke="#979797" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M0 17h102v57H0z"/>
+        <path stroke="#979797" stroke-width="2" d="M0 20l50.992 36L102 20"/>
+        <circle cx="103" cy="16" r="16" fill="#613C87"/>
+        <text fill="#FFF" font-family="Lato-Bold, Lato" font-size="16.8" font-weight="bold">
+            <tspan x="98.128" y="21">1</tspan>
+        </text>
+    </g>
+</svg>

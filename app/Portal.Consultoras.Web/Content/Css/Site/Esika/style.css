@@ -562,7 +562,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color: #000;
-    background: #fff url('../../../Images/Esika/ayuda.png') no-repeat;
+    background: #FFF url('../../../Images/Esika/ayuda.png') no-repeat;
     background-position: 18px 4px;
 }
 
@@ -1939,9 +1939,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: left;
     width: 20px;
     height: 20px;
-    top: 1px;
+    top: -1px;
     margin-right: 7px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .caja_guardar_pedido {
@@ -4551,7 +4551,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') center center no-repeat;
 }
 
 .texto_notaDemanda {
@@ -26722,7 +26722,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -29614,6 +29614,30 @@ h1#penmostreo .campana {
 
 /* FIN POPUPS OFERTAS REVISTA */
 /* ACTUALIZAR CONTRASEÑA */
+.titulo_interiores.tituloCambioContrasenia {
+    background:black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+    background-position:right;
+    transform: scaleY(-1);
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+}
+
+.titulo_interiores.tituloCambioContrasenia span{
+    display:inline-block;
+    transform: scaleY(-1);
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    font-weight:200;
+}
+
+.titulo_interiores.tituloCambioContrasenia span:last-child{
+    font-weight:700;
+}
+
 .contenedor_actualizarContraseniaForm {
     display: block;
     margin: 50px auto 119px auto;
@@ -29622,15 +29646,22 @@ h1#penmostreo .campana {
 }
 
 .imagen_consultora, .campos_actualizacionContrasenia {
-    display: block;
     vertical-align: top;
     margin: 0 auto;
     width: 100%;
     max-width: 365px;
     padding: 0 18px 0 20px;
 }
+.campos_actualizacionContrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicidades{
+    display:block;
+}
 
 .imagen_consultora {
+    display:none;
     width: 131px;
     height: 131px;
     border-radius: 100%;
@@ -29683,6 +29714,16 @@ h1#penmostreo .campana {
     font-weight: normal;
     padding: 0 20px;
 }
+    .campoContrasenia.borde_inferior_campo{
+        border-bottom: 1px solid #959595;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        padding-left:0;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom:30px;
+    }
 
     .campoContrasenia::-webkit-input-placeholder {
         color: #000;
@@ -29716,6 +29757,47 @@ h1#penmostreo .campana {
     .btnCambiarContrasenia:hover {
         opacity: .8;
     }
+    .btnCambiarContrasenia.mt-34{
+        margin-top:34px;
+    }
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width:100%;
+    max-width:328px;
+    height: 45px;
+    background: #e81c36;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
+    }
 
 @media screen and (max-width:1288px) {
     .ubicacion_web.ubicacionWebActualizarContrasenia {
@@ -29735,9 +29817,15 @@ h1#penmostreo .campana {
 }
 
 @media screen and (max-width:499px) {
+    .hideOnMobile{
+        display:none;
+    }
+
     .titulo_interiores.tituloCambioContrasenia {
-        background: #000;
-        width: 100%;
+        background:black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+        background-position:right;
+        width: 96%;
+        max-width:305px;
         padding: 0 0 0 29px;
     }
 
@@ -30290,7 +30378,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31167,7 +31255,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31588,7 +31676,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31616,7 +31704,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -32209,11 +32297,10 @@ h1#penmostreo .campana {
 }
 
 .producto_set {
-    width: 130px;
+    width: 90px;
     height: auto;
     float: left;
-    margin-left: 25px;
-    margin-top: 12px;
+    margin: 12px 0 0 25px;
     text-align: center;
 }
 
@@ -32378,11 +32465,11 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 46%;
+    width: 34%;
     height: auto;
     float: left;
     text-align: center;
-    margin-top: 25px;
+    margin: 25px 65px 0 0;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32915,7 +33002,7 @@ float:left;
 
 .compartir_redes_ficha {
     margin-top: 30px;
-    padding-left: 64px;
+    padding-left: 25px;
 }
 .compartir_redes_ficha_fix {
     margin-top: 0;
@@ -33033,7 +33120,7 @@ height:30px;
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33824,7 +33911,7 @@ height:30px;
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
@@ -34503,10 +34590,10 @@ height:30px;
 }
 
 .content_imagen_promocion {
-    width: 72px;
     text-align: center;
-    float: left;
-    margin-right: 14px;
+    margin: 2.5px 0 0 -85px;
+    position: absolute;
+    width: 72px;
 }
 
     .content_imagen_promocion img {
@@ -34521,7 +34608,7 @@ height:30px;
     float: left;
     width: 215px;
     margin-right: 20px;
-    margin-top: 17px;
+    margin-top: 2px;
     line-height: 21px;
     text-transform: uppercase;
 }
@@ -35000,7 +35087,7 @@ height:30px;
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -35982,27 +36069,6 @@ height:30px;
     font-size: 17px;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        margin: 5% auto auto auto;
-        width: 432px;
-        height: 432px;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-            color: white;
-        }
-
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
@@ -36037,97 +36103,6 @@ height:30px;
     100% {
         opacity: 1;
     }
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
-        position: relative;
-        float: left;
-        top: 0;
-        WIDTH: 100%;
-        LEFT: 0;
-        text-align: left;
-        margin: -13.5% 5% 0% -14.5px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus img{
-        display: inline-block;
-    /* margin: -15px; */
-    width: 66px;
-    height: 30px;
-    }
-
-    .contenido-popup-nuevo-2017 .cerrargndtxt{
-
-        margin-top: 20px;
-    font-size: 11px;
-    letter-spacing: .5px;
-    color: #9E9E9E;
-    text-decoration: underline;
-
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img{
-        display:block;
-        margin:auto;
-        text-align:center;
-        height:100px;
-        margin-bottom:15px;
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 17px;
-    letter-spacing: 1px;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    margin-bottom: 0;
-    display: block;
-    width: 280px;
-    margin: auto;
-    line-height: normal;
-    margin-bottom: 5px;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 24px;
-        letter-spacing: 1px;
-        line-height: normal;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 280px;
-        margin: auto;
-        margin-bottom: 20px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #e81c36;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 17px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        border: none;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 30px;
 }
 
 .contenedor_fondo_popup {

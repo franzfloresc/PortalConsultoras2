@@ -30,7 +30,8 @@ var listaSeccion = {};
 var timer;
 
 var varContenedor = {
-    CargoRevista: false
+    CargoRevista: false,
+    CargoHv: false
 }
 
 $(document).ready(function () {
@@ -107,7 +108,15 @@ function SeccionCargarProductos(objConsulta) {
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            OfertaCargarProductos(null, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: "ListaRD", UrlCargarProductos: urlOfertaCargarProductos }, false, objConsulta);
+        }
+        return false;
+    }
+
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
+        if (!varContenedor.CargoHv) {
+            varContenedor.CargoHv = true;
+            OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv }, false, objConsulta);
         }
         return false;
     }
@@ -232,6 +241,10 @@ function SeccionMostrarProductos(data) {
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+            var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
+            if (data.cantidadTotal < cantidadAMostrar) {
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal)
+            }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
         } else {

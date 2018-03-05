@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
@@ -11,6 +10,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,8 +23,9 @@ namespace Portal.Consultoras.Web.Controllers
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento
-                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento 
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
@@ -63,12 +66,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (Session[varSession] != null && campaniaId == userData.CampaniaID)
                 {
                     listEstrategia = (List<BEEstrategia>)Session[varSession];
-                    if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
+                    if (listEstrategia.Any())
                     {
-                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
-                    }
+                        if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
+                        {
+                            listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
+                        }
 
-                    return listEstrategia;
+                        return listEstrategia;
+                    }
                 }
 
                 var entidad = new BEEstrategia

@@ -43,7 +43,8 @@
         imagenDeshabilitar: config.imagenDeshabilitar, 
         imagenEliminar: config.imagenEliminar, 
         imagenProductoVacio: config.imagenProductoVacio,
-        urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom
+        urlUploadFileStrategyShowroom: config.urlUploadFileStrategyShowroom,
+        urlUploadFileProductStrategyShowroom: config.urlUploadFileProductStrategyShowroom
     };
 
     var _variables = {
@@ -2524,7 +2525,7 @@
         $("#lblMensaje").text("Mensaje Adicional:");
     }
 
-    var _uploadFileStrategyShowroom = function() {
+    var _uploadFileSetStrategyShowroom = function() {
         waitingDialog({});
         var formData = new FormData();
         var totalFiles = document.getElementById("fileDescMasivo").files.length;
@@ -2573,6 +2574,56 @@
             }
         });
     }
+
+    var _uploadFileProductStrategyShowroom = function () {
+        waitingDialog({ });
+        var formData = new FormData();
+        var totalFiles = document.getElementById("fileDescMasivo").files.length;
+        if (totalFiles <= 0) {
+            _toastHelper.error("Seleccione al menos un archivo.");
+            closeWaitingDialog();
+            return false;
+            }
+
+        formData.append("Documento", document.getElementById("fileDescMasivo").files[0]);
+        formData.append("Pais", $('#ddlPais').val());
+        formData.append("CampaniaId", $('#ddlCampania').val());
+        formData.append("TipoEstrategia", $('#ddlTipoEstrategia').val());
+
+        $.ajax({
+                url: _config.urlUploadFileProductStrategyShowroom,
+                type: "POST",
+                dataType: "JSON",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $("#listCargaDescMasiva").jqGrid("GridUnload");
+                var mensaje = '';
+                if (data.listActualizado == 0) {
+                    mensaje = 'No se realizó ninguna actualización (Verificar que los CUVs existan en la tabla "ods.EstrategiaProducto").';
+                    }
+                    else {
+                    mensaje = 'El procedimiento culmino con éxito, se actualizaron '+ data.listActualizado +' producto(s)';
+                }
+                closeWaitingDialog();
+                $("#estadoCargaMasiva").css('color', 'black');
+                $('#estadoCargaMasiva').html(mensaje);
+                $("#divDescMasivoPaso1").fadeOut(function() {
+                    $("#divDescMasivoPaso2").fadeIn();
+                });
+
+                },
+                    error: function(data) {
+                 $("#estadoCargaMasiva").css('color', 'red');
+                 $('#estadoCargaMasiva').html(data.statusText);
+                 $("#divDescMasivoPaso1").fadeOut(function() {
+                        $("#divDescMasivoPaso2").fadeIn();
+                 });
+                closeWaitingDialog();
+        }
+        });
+        }
     // SHOWROOM-FIN
     
     // Binding events dialogs 
@@ -2583,8 +2634,7 @@
             modal: true,
             closeOnEscape: true,
             width: 830,
-            close: function() {
-            },
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             draggable: false,
             title: "Registro de Estrategias",
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
@@ -2834,6 +2884,7 @@
             width: 500,
             draggable: false,
             title: "Seleccione el alcance de la estrategia",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
@@ -2900,6 +2951,7 @@
             width: 700,
             draggable: false,
             title: "Seleccionar Talla/Color",
+            close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
@@ -3500,7 +3552,9 @@
                 showDialog("DialogNuevoMasivo");
             }
         },
-        clickDescripcionMasivo: function() {
+        clickDescripcionMasivo: function () {
+            $("#hdTipoCargaShowroom").val("SetShowroom");
+            $("#fileDescMasivo").val("");
             if (_validarMasivo()) {
                 if ($("#ddlTipoEstrategia").find(":selected").data("codigo") === _codigoEstrategia.ShowRoom) {
                     $("#ui-id-10").text("Carga masiva de Showroom");
@@ -3513,10 +3567,13 @@
                 
                 if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
                     $("#seccionFormatoArchivoShowroon").show();
+                    $("#seccionFormatoArchivoSetShowroon").show();
                     $("#seccionFormatoArchivoGeneral").hide();
+                    $("#seccionFormatoArchivoProductoShowroon").hide();
                 } else {
                     $("#seccionFormatoArchivoGeneral").show();
                     $("#seccionFormatoArchivoShowroon").hide();
+                    $("#seccionFormatoArchivoProductoShowroon").hide();
                 }
                 
                 showDialog("DialogDescMasivo");
@@ -3530,7 +3587,12 @@
             $("#divDescMasivoPaso2").hide();
             $("#estadoCargaMasiva").text("");
             if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
-                _uploadFileStrategyShowroom();
+                if ($("#hdTipoCargaShowroom").val() == "SetShowroom") {
+                    //UploadFileSetStrategyShowroom();
+                    _uploadFileSetStrategyShowroom();
+                } else {
+                    _uploadFileProductStrategyShowroom();
+                }
             } else {
                 _uploadFileCvs();
             }
@@ -3885,6 +3947,37 @@
 
             showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
         },
+        clickDescripcionMasivoProd: function() {
+            $("#hdTipoCargaShowroom").val("ProductoShowroom");
+            $("#fileDescMasivo").val("");
+            if ($("#ddlPais").val() == "") {
+                _toastHelper.error("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                _toastHelper.error("Debe seleccionar la Campaña, verifique.");
+                return false;
+            }
+            if ($("#ddlTipoEstrategia").val() == "") {
+                _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
+                return false;
+            } else {
+                var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
+                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
+                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
+                    estrategiaId !== 12 && estrategiaId != 22 && estrategiaId !== 30) {
+                    _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+                    return false;
+                }
+            }
+            $("#ui-id-10").text('Carga masiva de productos Showroom');
+            $("#divDescMasivoPaso2").hide();
+            $("#seccionFormatoArchivoSetShowroon").hide();
+            $("#seccionFormatoArchivoGeneral").hide();
+            $("#divDescMasivoPaso1").show();
+            $("#seccionFormatoArchivoProductoShowroon").show();
+            showDialog("DialogDescMasivo");
+        },
         
         changeTipoEstrategia: function() {
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
@@ -3905,13 +3998,14 @@
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
                 $("#btnDescripcionMasivo").show();
-                $("#btnActualizarTonos").show();
                 
+                if (aux2 !== _codigoEstrategia.HerramientaVenta) $("#btnActualizarTonos").show();
                 if (aux2 === _codigoEstrategia.ShowRoom) {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo Set");
-                }
-                else {
+                    $("#btnDescripcionMasivoProd").show();
+                } else {
                     $("#btnDescripcionMasivo").val("Descrip. Masivo");
+                    $("#btnDescripcionMasivoProd").hide();
                 }
             }
 
@@ -4130,6 +4224,7 @@
         $("body").on("click", "#btnNuevoShowRoom", _eventos.clickNuevoShowRoom);
         $("body").on("click", "#btnNuevoDetalle", _eventos.clickNuevoDetalle);
         $("body").on("click", "#imgMiniSeleccionada", _eventos.clickImgSeleccionada);
+        $("body").on("click", "#btnDescripcionMasivoProd", _eventos.clickDescripcionMasivoProd);
 
         $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnBuscarNemotecnico",_eventos.clickBuscarNemotencnico);
         $("#matriz-comercial-header").on("click", "#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico", _eventos.clickLimipiarNemotecnico);
