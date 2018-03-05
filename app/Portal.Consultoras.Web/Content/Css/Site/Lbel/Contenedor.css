@@ -500,7 +500,9 @@
         width: 100%;
         padding: 24px 0;
     }
-
+        .parche_presentacion_contenedor .bloque-titulo .seccion-titulo-dorado {
+            color: #c39934 !important;
+        } 
         .parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
             float: left;
             width: 50%;
@@ -552,6 +554,10 @@
                 font-family: 'Lato';
                 height: 40px;
             }
+
+                .parche_presentacion_contenedor .bloque-titulo .ir a.dorado {
+                    background: #c39934 !important;
+                }
 
     .parche_presentacion_contenedor .parche_clear {
         clear: both;
