@@ -1,4 +1,4 @@
-use BelcorpChile_bpt
+ï»¿use BelcorpChile_bpt
 go
 
 print db_name()
@@ -288,7 +288,7 @@ begin
 	,'#Nombre, Bienvenida a tu espacio exclusivo'
 	,null
 	,null
-	,'Título de la cabecera del contendor de ofertas para consultora Activa No Suscrita'
+	,'TÃ­tulo de la cabecera del contendor de ofertas para consultora Activa No Suscrita'
 	,1
 	,null
 	)
@@ -321,7 +321,7 @@ begin
 	,'#Nombre, Bienvenida a tu espacio exclusivo'
 	,null
 	,null
-	,'Título de la cabecera del contendor de ofertas para consultora No Activa No Suscrita'
+	,'TÃ­tulo de la cabecera del contendor de ofertas para consultora No Activa No Suscrita'
 	,1
 	,null
 	)
@@ -354,7 +354,7 @@ begin
 	,'#Nombre, Bienvenida a'
 	,null
 	,null
-	,'Título de la cabecera del contendor de ofertas para consultora No Activa Suscrita'
+	,'TÃ­tulo de la cabecera del contendor de ofertas para consultora No Activa Suscrita'
 	,1
 	,null
 	)
@@ -387,7 +387,7 @@ begin
 	,'#Nombre, Bienvenida a'
 	,null
 	,null
-	,'Título de la cabecera del contendor de ofertas para consultora Activa Suscrita'
+	,'TÃ­tulo de la cabecera del contendor de ofertas para consultora Activa Suscrita'
 	,1
 	,null
 	)
@@ -417,8 +417,8 @@ begin
 	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
 	,'LogoComercialColorActiva'
 	,0
-	,'logo-club-ganamas-dorado.svg'
-	,'logo-club-ganamas-dorado.svg'
+	,'logo-club-ganamas_normal.svg'
+	,'logo-club-ganamas_normal.svg'
 	,null
 	,'Logo de club gana mas en color dorado'
 	,1
@@ -450,8 +450,8 @@ begin
 	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
 	,'LogoComercialColorNoActiva'
 	,0
-	,'logo-ganamas-rojo.svg'
-	,'logo-ganamas-rojo.svg'
+	,'logo-ganamas_normal.svg'
+	,'logo-ganamas_normal.svg'
 	,null
 	,'Logo de club gana mas en color morado'
 	,1
