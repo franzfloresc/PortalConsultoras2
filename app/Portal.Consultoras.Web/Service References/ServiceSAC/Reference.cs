@@ -436,7 +436,7 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CampaniaField;
+        private int CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
@@ -448,16 +448,28 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private System.Nullable<System.DateTime> FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal MontoMetaField;
+        private decimal MontoAgregarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal MontoPedidoField;
+        private decimal MontoGanadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoInicialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoMetaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreRegaloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal RangoFinalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal RangoInicialField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -470,12 +482,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Campania {
+        public int Campania {
             get {
                 return this.CampaniaField;
             }
             set {
-                if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
+                if ((this.CampaniaField.Equals(value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
                 }
@@ -522,6 +534,45 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoAgregar {
+            get {
+                return this.MontoAgregarField;
+            }
+            set {
+                if ((this.MontoAgregarField.Equals(value) != true)) {
+                    this.MontoAgregarField = value;
+                    this.RaisePropertyChanged("MontoAgregar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoGanador {
+            get {
+                return this.MontoGanadorField;
+            }
+            set {
+                if ((this.MontoGanadorField.Equals(value) != true)) {
+                    this.MontoGanadorField = value;
+                    this.RaisePropertyChanged("MontoGanador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoInicial {
+            get {
+                return this.MontoInicialField;
+            }
+            set {
+                if ((this.MontoInicialField.Equals(value) != true)) {
+                    this.MontoInicialField = value;
+                    this.RaisePropertyChanged("MontoInicial");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal MontoMeta {
             get {
                 return this.MontoMetaField;
@@ -530,19 +581,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MontoMetaField.Equals(value) != true)) {
                     this.MontoMetaField = value;
                     this.RaisePropertyChanged("MontoMeta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal MontoPedido {
-            get {
-                return this.MontoPedidoField;
-            }
-            set {
-                if ((this.MontoPedidoField.Equals(value) != true)) {
-                    this.MontoPedidoField = value;
-                    this.RaisePropertyChanged("MontoPedido");
                 }
             }
         }
@@ -569,6 +607,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.NombreRegaloField, value) != true)) {
                     this.NombreRegaloField = value;
                     this.RaisePropertyChanged("NombreRegalo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal RangoFinal {
+            get {
+                return this.RangoFinalField;
+            }
+            set {
+                if ((this.RangoFinalField.Equals(value) != true)) {
+                    this.RangoFinalField = value;
+                    this.RaisePropertyChanged("RangoFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal RangoInicial {
+            get {
+                return this.RangoInicialField;
+            }
+            set {
+                if ((this.RangoInicialField.Equals(value) != true)) {
+                    this.RangoInicialField = value;
+                    this.RaisePropertyChanged("RangoInicial");
                 }
             }
         }
