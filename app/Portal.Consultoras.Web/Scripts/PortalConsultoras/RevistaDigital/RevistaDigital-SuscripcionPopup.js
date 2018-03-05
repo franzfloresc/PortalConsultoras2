@@ -48,6 +48,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 CerrarLoad();
+                CerrarPopup(_constants.PopupSuscripcionId);
             },
             error: function (data, error) {
                 CerrarLoad();

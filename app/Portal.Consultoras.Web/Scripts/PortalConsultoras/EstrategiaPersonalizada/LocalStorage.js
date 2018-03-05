@@ -58,27 +58,23 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
             return false;
         }
 
+        var listaCuv = cuv.split('|');
+        var indCampania = indCampania || 0;
         if (tipo == "rd") {
-            var listaCuv = cuv.split('|');
-            $.each(listaCuv, function (ind, cuvItem) {
-                var cuvx = cuvItem.split(';')[0];
-                var lista = "ListaRD";
-                var indCampania = indCampania || 0;
-
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
-            });
+            var lista = "ListaRD";
+        }
+        else if (tipo == "gn") {
+            var lista = "GNDLista";
+        }
+        else if (tipo == "hv") {
+            var lista = "HVLista";
         }
 
-        if (tipo == "gn") {
-            var listaCuv = cuv.split('|');
-            $.each(listaCuv, function (ind, cuvItem) {
-                var cuvx = cuvItem.split(';')[0];
-                var lista = "GNDLista";
-                var indCampania = indCampania || 0;
+        $.each(listaCuv, function (ind, cuvItem) {
+            var cuvx = cuvItem.split(';')[0];
+            ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
+        });
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
-            });
-        }
     } catch (e) {
         console.log(e);
     }
@@ -94,11 +90,8 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
         var data = JSON.parse(valLocalStorage);
 
         ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
-
-        if (!ok || cuv == "todo") {
-            ok = actualizarIsAgregado(data.response.lista, cuv, valor);
-        }
-
+        ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+        
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));
         }

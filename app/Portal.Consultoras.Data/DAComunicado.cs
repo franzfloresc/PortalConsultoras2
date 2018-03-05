@@ -43,6 +43,14 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public void ActualizarVisualizoComunicado(string CodigoConsultora,int ComunicadoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarVisualizoComunicado");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ComunicadoId", DbType.Int32, ComunicadoId);
+            Context.ExecuteNonQuery(command);
+        }
+
         public void InsertarDonacionConsultora(string CodigoIso, string CodigoConsultora, string Campania, string IPUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarDonacionConsultora");

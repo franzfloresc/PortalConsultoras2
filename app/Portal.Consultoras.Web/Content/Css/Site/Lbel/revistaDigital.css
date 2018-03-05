@@ -2967,6 +2967,14 @@
     color: #000;
 }
 
+.producto_nombre_descripcion .nombre_producto {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    height: 40px;
+}
 
 .block_inscribete_predio {
     margin: 15px 0;
@@ -3785,8 +3793,9 @@ z-index: 100;
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
 background: transparent;
-margin-bottom: 24px;
-width: 100%;
+max-width: 1063px;
+    margin: auto;
+    margin-bottom: 25px;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {

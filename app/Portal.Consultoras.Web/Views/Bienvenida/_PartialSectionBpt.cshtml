@@ -17,7 +17,48 @@
 {
     if (revistaDigital.EsActiva)
     {
-        <div class="home_block_rd home_rd" style="position:relative; z-index:1">
+
+        <div class="contenedor_ganamas">
+            <div class="sb_contenedor_ganamas_bg dorado_club">
+
+            </div>
+            <div class="sb_contenedor_ganamas">
+                <div class="head_gana_mas">
+                    <div class="club_logo">
+                        <div class="centrar_vertical">
+                            <div class="centrar_cont_club" style="background: none">
+                                <img src="/Content/Images/logo-club-ganamas-blanco.svg" alt="">
+                            </div>
+                        </div>
+                    </div><div class="clubtxt">
+                        <div class="centrar_vertical">
+                            <div class="centrar_cont_club">
+                                <p><b>Consultoras ya suscritas ¡Ganan hasta 10% más!</b></p>
+                            </div>
+                        </div>
+                    </div><div class="club_btn">
+                        <div class="centrar_vertical club_btn_dorado">
+                            <div class="centrar_cont_club club_btn_dorado">
+                                <div class="activar_boton_blanco_no_animado">
+                                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion,'@Constantes.ConfiguracionPais.RevistaDigital')">VER MÁS OFERTAS</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="contenido_gana_mas" style="background: none;">
+
+                    <hr class="clear" />
+                    <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"></div>
+                    <hr class="clear" />
+
+                </div>
+            </div>
+        </div>
+
+        @*<div class="home_block_rd home_rd" style="position:relative; z-index:1">
             <div class="hblock"></div>
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
@@ -39,7 +80,7 @@
 
         <hr class="clear" />
         <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"></div>
-        <hr class="clear" />
+        <hr class="clear" />*@
 
     }
     else
@@ -63,7 +104,8 @@
                                 <div class="centrar_cont_club">
                                     <p><b>Consultoras ya suscritas ¡Ganan hasta 10% más!</b></p>
                                 </div>
-                            </div></div><div class="club_btn">
+                            </div>
+                        </div><div class="club_btn">
                             <div class="centrar_vertical club_btn_dorado">
                                 <div class="centrar_cont_club club_btn_dorado">
                                     <div class="activar_boton_blanco_no_animado">
@@ -78,7 +120,7 @@
                     <div class="contenido_gana_mas">
 
                         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                   new ViewDataDictionary {
+                                        new ViewDataDictionary {
                         { "Source", 2 },
                         { "NombreConsultora", revistaDigital.NombreConsultora },
                         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
@@ -122,7 +164,7 @@
                         <!-- insertar carrusel aquí -->
 
                         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                                  new ViewDataDictionary {
+                                                       new ViewDataDictionary {
                     { "Source", 2 },
                     { "NombreConsultora", revistaDigital.NombreConsultora },
                     { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
@@ -148,7 +190,7 @@ else if (revistaDigital.TieneRDI)
                 <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
             </div>
             <div class="btn_diagonal">
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome, '@Constantes.ConfiguracionPais.RevistaDigitalIntriga')">
                     VER TODAS MIS OFERTAS
                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="">
                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="">
@@ -157,14 +199,12 @@ else if (revistaDigital.TieneRDI)
         </div>
     </div>
     <hr class="clear" />
-    <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"></div>
-    <hr class="clear" />
     @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                                new ViewDataDictionary {
+                                                    new ViewDataDictionary {
 { "NombreConsultora", revistaDigital.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
 { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                                                });
+                                                    });
 }
 else if (revistaDigital.TieneRDR)
 {
@@ -194,10 +234,10 @@ else if (revistaDigital.TieneRDR)
 else
 {
     @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                                                                new ViewDataDictionary {
+                                                                    new ViewDataDictionary {
 { "Source", 1 },
 { "NombreConsultora", revistaDigital.NombreConsultora },
 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome },
 { "NombrePalanca", revistaDigital.NombreComercialNoActiva }
-                                                                });
+                                                                    });
 }

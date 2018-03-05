@@ -283,6 +283,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumento" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumentoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_AgregarSolicitudPrePostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarSolicitudPrePostulante" />
   </wsdl:message>
@@ -294,6 +300,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerPosiblesConsultorasPendientesVisita_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPosiblesConsultorasPendientesVisitaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerResumenDiasEspera_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenDiasEspera" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerResumenDiasEspera_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenDiasEsperaResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
@@ -560,6 +572,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulante_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumentoResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" message="tns:IPortalService_AgregarSolicitudPrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulanteResponse" message="tns:IPortalService_AgregarSolicitudPrePostulante_OutputMessage" />
@@ -567,6 +583,10 @@
     <wsdl:operation name="ObtenerPosiblesConsultorasPendientesVisita">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerPosiblesConsultorasPendientesVisita" message="tns:IPortalService_ObtenerPosiblesConsultorasPendientesVisita_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerPosiblesConsultorasPendientesVisitaResponse" message="tns:IPortalService_ObtenerPosiblesConsultorasPendientesVisita_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenDiasEspera">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerResumenDiasEspera" message="tns:IPortalService_ObtenerResumenDiasEspera_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerResumenDiasEsperaResponse" message="tns:IPortalService_ObtenerResumenDiasEspera_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
@@ -1032,6 +1052,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPrePostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" style="document" />
       <wsdl:input>
@@ -1043,6 +1072,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerPosiblesConsultorasPendientesVisita">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerPosiblesConsultorasPendientesVisita" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumenDiasEspera">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerResumenDiasEspera" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

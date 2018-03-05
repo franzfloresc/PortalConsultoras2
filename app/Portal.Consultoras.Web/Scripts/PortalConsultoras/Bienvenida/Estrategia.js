@@ -289,6 +289,9 @@ function ArmarCarouselEstrategias(data) {
         $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
         $('.contenido_gana_mas').hide();
+        $(".contenedor_ganamas").css({ "height": "100px" });
+        $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+        $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
         return false;
     }
 
@@ -299,7 +302,6 @@ function ArmarCarouselEstrategias(data) {
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
         item.EsBanner = false;
-        item.TextoBanner = "";
     });
 
     tieneOPT = true;
@@ -329,7 +331,6 @@ function ArmarCarouselEstrategias(data) {
                     var bannerClubGanaMas = new Object();
                     $.extend(true, bannerClubGanaMas, data.Lista[0]);
                     bannerClubGanaMas.EsBanner = true;
-                    bannerClubGanaMas.TextoBanner = "Mensaje de Prueba";
 
                     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                         data.Lista.splice(3, 0, bannerClubGanaMas);

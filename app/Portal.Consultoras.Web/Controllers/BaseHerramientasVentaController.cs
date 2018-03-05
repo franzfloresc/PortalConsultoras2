@@ -12,41 +12,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
 
-            var model = new HerramientasVentaLandingModel();
-
-            model.CampaniaID = id;
-            model.IsMobile = IsMobile();
-
-            model.FiltersBySorting = new List<BETablaLogicaDatos>
+            var model = new RevistaDigitalLandingModel
             {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor,
-                    Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor,
-                    Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
-                }
+                CampaniaID = id,
+                IsMobile = IsMobile(),
+                FiltersBySorting = GetFiltersBySorting(),
+                FiltersByBrand = GetFiltersByBrand(),
+                Success = true,
+                MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                CantidadFilas = 10
             };
-
-            model.FiltersByBrand = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos {Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA"},
-                new BETablaLogicaDatos {Codigo = "CYZONE", Descripcion = "CYZONE"},
-                new BETablaLogicaDatos {Codigo = "ÉSIKA", Descripcion = "ÉSIKA"},
-                new BETablaLogicaDatos {Codigo = "LBEL", Descripcion = "LBEL"}
-            };
-
-            model.Success = true;
-            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.CantidadFilas = 10;
 
             return PartialView("template-landing", model);
         }
@@ -55,54 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
-
-        public ActionResult ViewLandingHV(int tipo)
-        {
-            var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
-
-            var model = new RevistaDigitalLandingModel();
-            if (EsCampaniaFalsa(id)) return PartialView("template-landing", model);
-
-            model.CampaniaID = id;
-            model.IsMobile = IsMobile();
-
-            model.FiltersBySorting = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor,
-                    Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor,
-                    Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
-                }
-            };
-
-            model.FiltersByBrand = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos {Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA"},
-                new BETablaLogicaDatos {Codigo = "CYZONE", Descripcion = "CYZONE"},
-                new BETablaLogicaDatos {Codigo = "ÉSIKA", Descripcion = "ÉSIKA"},
-                new BETablaLogicaDatos {Codigo = "LBEL", Descripcion = "LBEL"}
-            };
-
-            model.Success = true;
-
-            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.CantidadFilas = 10;
-
-            ViewBag.TieneHV = true;
-            ViewBag.OrigenPedidoWeb = tipo == 1 ? Constantes.OrigenPedidoWeb.HerramientasVentaMobileLandingComprar : Constantes.OrigenPedidoWeb.HerramientasVentaMobileLandingRevisar;
-            return PartialView("template-landing", model);
-        }
-
+        
         public List<BETablaLogicaDatos> GetFiltersBySorting()
         {
             var filtersBySorting = new List<BETablaLogicaDatos>
@@ -110,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new BETablaLogicaDatos
                 {
                     Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR PRECIO"
+                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR"
                 },
                 new BETablaLogicaDatos
                 {
@@ -133,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new BETablaLogicaDatos
                 {
                     Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA"
+                    Descripcion = IsMobile() ? "FILTRAR POR" : "FILTRAR POR"
                 },
                 new BETablaLogicaDatos
                 {

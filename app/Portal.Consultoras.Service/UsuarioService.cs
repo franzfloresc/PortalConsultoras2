@@ -699,12 +699,6 @@ namespace Portal.Consultoras.Service
             return blUsuario.InsUsuarioPostulante(paisId, paisISO, entidad);
         }
 
-        public string RecuperarContrasenia(int paisId, string correo)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.RecuperarContrasenia(paisId, correo);
-        }
-
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {
             var blUsuario = new BLUsuario();
@@ -767,6 +761,11 @@ namespace Portal.Consultoras.Service
             blUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetUsuarioChatEmtelco(paisID, codigoUsuario);
+        }
+
         #region TerminosCondiciones
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
@@ -791,5 +790,31 @@ namespace Portal.Consultoras.Service
         {
             return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
         }
+
+        #region Restaurar Contraseña
+        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
+        }
+
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
+        }
+
+        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdFechaBloqueoRestaurarClave(paisId, CodigoUsuario);
+        }
+
+        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
+        }
+        #endregion
     }
 }

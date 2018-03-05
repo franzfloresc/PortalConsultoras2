@@ -2956,6 +2956,15 @@
         line-height: 18px;
     }
 
+.producto_nombre_descripcion .nombre_producto {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    height: 40px;
+}
+
 .producto_precio_bpt {
     width: 100%;
     padding-left: 16px;
@@ -3783,8 +3792,9 @@ z-index: 100;
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
 background: transparent;
-margin-bottom: 24px;
-width: 100%;
+max-width: 1063px;
+margin: auto;
+margin-bottom: 25px;
 }
 
 .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {

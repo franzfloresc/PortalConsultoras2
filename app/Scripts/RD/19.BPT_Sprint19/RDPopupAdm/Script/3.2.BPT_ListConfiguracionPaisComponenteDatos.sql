@@ -9,7 +9,7 @@ CREATE PROCEDURE dbo.ListConfiguracionPaisComponenteDatos
 	,@PalancaCodigo varchar(100) = ''
 	,@Componente varchar(100) = ''
 AS
--- ListConfiguracionPaisComponenteDatos 0, 201302, 'RD', 'Popup_Club_Gana+'
+-- ListConfiguracionPaisComponenteDatos 0, 0, 'RD', 'Popup_Club_Gana+'
 BEGIN
 	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 	SET @ConfiguracionPaisID = ISNULL(@ConfiguracionPaisID, 0)
@@ -41,7 +41,7 @@ BEGIN
 	FROM ConfiguracionPaisDatos D
 		INNER JOIN ConfiguracionPais P 
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
-	where (D.CampaniaID = @CampaniaID or @CampaniaID = 0)
+	where (D.CampaniaID = @CampaniaID or @CampaniaID < 0)
 		AND (P.Codigo = @PalancaCodigo OR @PalancaCodigo = '')
 		AND (D.Componente = @Componente OR @Componente = '')
 

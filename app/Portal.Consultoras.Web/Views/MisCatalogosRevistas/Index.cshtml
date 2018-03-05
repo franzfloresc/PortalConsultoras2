@@ -11,8 +11,8 @@
     var EsconderRevista = "block";
     var EsconderBanner = "block";
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
-    title = revistaDigital.TieneRDC ? !revistaDigital.EsActiva? revistaDigital.EsSuscrita? "Catálogos" : title:title:title;
-    EsconderRevista = revistaDigital.TieneRDC ? !revistaDigital.EsActiva ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista : EsconderRevista;
+    title = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita? "Catálogos" : title:title;
+    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
     EsconderBanner = EsconderRevista;
 
     ViewBag.Title = title;
@@ -201,7 +201,6 @@
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>

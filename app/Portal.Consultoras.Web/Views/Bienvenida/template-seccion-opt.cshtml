@@ -12,7 +12,7 @@
     </div>
     <hr class="clear" />
     <div>
-        @*<div>
+        <div>
             @if (ViewBag.Source == 1)
             {
                 <div class="titulo_ofertas_home">
@@ -24,15 +24,15 @@
             }
             else
             {
-                <div class="titulo_ofertas_home">
+                @*<div class="titulo_ofertas_home">
                     OFERTAS <b class="color_marca">@ViewBag.NombrePalanca</b>
                     <div class="texto_exclusivo_bpt">
                         @ViewBag.NombreConsultora, DESCUBRE OFERTAS EXCLUSIVAS PARA TI <br/>DE TUS PRODUCTOS FAVORITOS
                     </div>
-                </div>
+                </div>*@
             }
             <div class="linea_titulo_absoluto"></div>
-        </div>*@
+        </div>
         <hr class="clear"/>
         <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@ViewBag.Origen"
              style="overflow-x: initial; max-height: 400px;"></div>

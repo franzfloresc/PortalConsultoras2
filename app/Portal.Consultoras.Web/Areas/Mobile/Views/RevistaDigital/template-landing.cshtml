@@ -115,7 +115,6 @@
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
         var tipoOrigenEstrategia = 27;
         var CantidadFilas = @Model.CantidadFilas;
@@ -123,7 +122,6 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
-        var TieneHV = @(ViewBag.TieneHV.ToString().ToLower());
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
 }

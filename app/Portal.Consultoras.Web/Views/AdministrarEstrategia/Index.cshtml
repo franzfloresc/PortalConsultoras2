@@ -31,6 +31,7 @@
 <input type="hidden" id="hdZonas" value="" />
 <input type="hidden" id="hdSimbolo" />
 <input type="hidden" id="hdTallaColorID" />
+<input type="hidden" id="hdTipoCargaShowroom" />
 <input type="hidden" id="hdNiveles" />
 <div class="wrap_cab_plan50">
     <div class="filtros2_plan50">
@@ -345,12 +346,20 @@
                 <span id="seccionFormatoArchivoGeneral">                    
                     - Descripción<br />
                 </span>
-                <span id="seccionFormatoArchivoShowroon">
+                <span id="seccionFormatoArchivoSetShowroon">
                     - Precio Normal<br />
                     - Unidades Permitidas<br />
                     - Nombre de Set<br />
                     - Tip Negocio<br />
                     - Es Subcampaña<br />
+                    - Estado de Set<br />
+                    <br><i>Separador de campos:</i> "|"
+                </span>
+                <span id="seccionFormatoArchivoProductoShowroon">
+                    - Posición<br />
+                    - Nombre de Producto<br />
+                    - Descripcion<br />
+                    - Marca de Producto<br />
                     <br><i>Separador de campos:</i> "|"
                 </span>
             </div>
@@ -732,7 +741,8 @@
             imagenDeshabilitar: '@Url.Content("~/Content/Images/NotAllowed.png")',
             imagenEliminar: '@Url.Content("~/Content/Images/delete.png")',
             imagenProductoVacio: '@Url.Content("~/Content/Images/prod_grilla_vacio.png")',
-            urlUploadFileStrategyShowroom: '@Url.Action("UploadFileStrategyShowroom", "AdministrarEstrategia")'
+            urlUploadFileStrategyShowroom: '@Url.Action("UploadFileSetStrategyShowroom", "AdministrarEstrategia")',
+            urlUploadFileProductStrategyShowroom: '@Url.Action("UploadFileProductStrategyShowroom", "AdministrarEstrategia")'
             // SHOWROOM-FIN
         });
         adminEstrategiaModule.Inicializar();
