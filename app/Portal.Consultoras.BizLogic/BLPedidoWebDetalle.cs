@@ -263,7 +263,6 @@ namespace Portal.Consultoras.BizLogic
 
                     daPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido, pedidowebdetalle.CodigoUsuarioModificacion);
 
-                    /*R20150905*/
                     if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion)
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockEliminar(Constantes.ConfiguracionOferta.Liquidacion, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                     if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
