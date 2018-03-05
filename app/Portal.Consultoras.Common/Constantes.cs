@@ -1771,11 +1771,11 @@ namespace Portal.Consultoras.Common
 
         public class GanaMas
         {
-            public const short PaisSinGND = 1;
-            public const short PaisConGND_SuscritaActiva = 2;
-            public const short PaisConGND_SuscritaNoActiva = 3;
-            public const short PaisConGND_NoSuscritaActiva = 4;
-            public const short PaisConGND_NoSuscritaNoActiva = 5;
+            public const short PaisSinRD = 1;
+            public const short PaisConRD_SuscritaActiva = 2;
+            public const short PaisConRD_SuscritaNoActiva = 3;
+            public const short PaisConRD_NoSuscritaActiva = 4;
+            public const short PaisConRD_NoSuscritaNoActiva = 5;
 
             public class Banner
             {
