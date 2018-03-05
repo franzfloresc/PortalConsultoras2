@@ -75,6 +75,12 @@ input[type='button'], .qq-upload-button {
     float: left;
 }
 
+.qq-upload-button {
+    border-radius: 0px;
+    text-align: center;
+    padding: 12px 20px 0px 20px
+}
+
 .required {
     color: #e81c36;
     font-weight: normal;

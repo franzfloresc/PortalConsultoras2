@@ -296,6 +296,8 @@ namespace Portal.Consultoras.Common
             public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
             public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
             public const string DescargaExcelMaxItems = "DescargaExcelMaxItems";
+
+            public const string ConsultoraNuevaBannerAppMostrar = "ConsultoraNuevaBannerAppMostrar";
         }
 
         public static class ConfiguracionManager
@@ -316,7 +318,6 @@ namespace Portal.Consultoras.Common
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
-            public const string GIF_MENU_DEFAULT_OFERTAS_BPT = "GIF_MENU_DEFAULT_OFERTAS_BPT";
             public const string MostrarPedidosPendientes = "MostrarPedidosPendientes";
             public const string Permisos_CCC = "Permisos_CCC";
             public const string Efecto_TutorialSalvavidas = "Efecto_TutorialSalvavidas";
@@ -568,8 +569,6 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
             public const int RevistaDigitalMobileLandingPopUp = 2712;
-            public const int HerramientasVentaMobileLandingComprar = 2103;
-            public const int HerramientasVentaMobileLandingRevisar = 2114;
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
@@ -699,11 +698,12 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Herramienta de Ventas
-            public const int HerramientasVentasDesktopContenedor = 9999;
-            public const int HVDesktopLanding = 9998;
-            public const int HVDesktopLandingPopUp = 9997;
-            public const int HVMobileLanding = 9996;
-            public const int HVDMobileLandingPopup = 9995;
+            public const int HVDesktopContenedor = 1831;
+            public const int HVDesktopContenedorPopup = 1832;
+            public const int HVDesktopLanding = 1011;
+            public const int HVDesktopLandingPopUp = 1012;
+            public const int HVMobileLanding = 2011;
+            public const int HVMobileLandingPopup = 2011;
             #endregion
         }
 
@@ -1070,6 +1070,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
+            public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
             public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
@@ -1381,6 +1382,8 @@ namespace Portal.Consultoras.Common
             public const short CodigoRevistaFisica = 132;
             public const short Palanca = 135;
             public const int ValoresImagenesResize = 121;
+            public const short ExtensionBannerGanaMasApp = 136;
+            public const short MontoLimiteCupon = 103;
         }
 
         public struct MensajesCDRExpress
@@ -1598,6 +1601,11 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
+        public struct CodigoHorario
+        {
+            public const string ChatEmtelco = "ChatEmtelco";
+            public const string BelcorpResponde = "BelcorpResponde";
+        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -1750,16 +1758,28 @@ namespace Portal.Consultoras.Common
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
         }
-        public static class ColumnsStrategyShowroom
+        public static class ColumnsSetStrategyShowroom
         {
             public const string CUV = "cuv";
             public const string NormalPrice = "precio normal";
             public const string AllowedUnits = "unidades permitidas";
             public const string NameSet = "nombre de set";
-            public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
+            public const string IsSubcampaign = "essubcampania";
+            public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 , OfferStatus  = 6};
+        }
+
+        public static class ColumnsProductStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string Order = "posicion";
+            public const string ProductName = "nombre producto";
+            public const string Description = "descripcion";
+            public const string BrandProduct = "marca producto";
+
+            public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
         public class GanaMas
@@ -1773,8 +1793,10 @@ namespace Portal.Consultoras.Common
             public class Banner
             {
                 public const string CarpetaPais = "AppConsultora/{0}";
-                public const string ImagenSuscrita = "GanaMasSuscrita.png";
-                public const string ImagenNoSuscrita = "GanaMasNoSuscrita.png";
+                public const string ImagenSuscrita = "GanaMasSuscrita";
+                public const string ImagenNoSuscrita = "GanaMasNoSuscrita";
+                public const string TablaLogicaSuscrita = "Suscrita";
+                public const string TablaLogicaNoSuscrita = "NoSuscrita";
             }
         }
         public class ValAutoEstado

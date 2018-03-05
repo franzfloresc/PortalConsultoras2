@@ -94,6 +94,10 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
+        
+        /// <summary>
+        /// Codigo Campaña
+        /// </summary>
         public int CampaniaID { get; set; }
 
         public string CampaniaAnio

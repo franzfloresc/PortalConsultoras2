@@ -100,6 +100,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IDataReader GetProductoComercialByListaCuv(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByListaCuv");

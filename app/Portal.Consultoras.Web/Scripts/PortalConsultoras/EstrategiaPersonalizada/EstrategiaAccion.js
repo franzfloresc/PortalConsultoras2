@@ -122,7 +122,7 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
     }
     origen = $.trim(origen) || 0;
     var id = estrategia.EstrategiaID;
-    var route = TieneHV ? "/HerramientasVenta/Detalle?id=" : "/OfertasParaTi/Detalle?id=";
+    var route = "/OfertasParaTi/Detalle?id=";
     //var route = "/HerramientasVenta/Detalle?id=";
     var url = getMobilePrefixUrl() + route + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
     try {
@@ -444,7 +444,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             if (data.success === false) {
                 AbrirMensajeEstrategia(data.message);
-                $("#txtCantidad").val(1);
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
                 CerrarLoad();
                 return false;
             }
@@ -462,7 +462,7 @@ function EstrategiaAgregar(event, popup, limite) {
             if (isMobile()) {
                 
                 ActualizarGanancia(data.DataBarra);
-
+                
                 $(".contenedor_circulos").fadeIn();
                 setTimeout(function () {
                     $(".contenedor_circulos").fadeOut();
@@ -477,6 +477,7 @@ function EstrategiaAgregar(event, popup, limite) {
             }
 
             var cuv = estrategia.CUV2;
+            
 
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != "undefined")
@@ -510,10 +511,17 @@ function EstrategiaAgregar(event, popup, limite) {
                 MostrarBarra(data);
             }
             else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
+
                 if (tipoOrigenEstrategia == 262) {
+
                     origenRetorno = $.trim(origenRetorno);
                     if (origenRetorno != "") {
-                        window.location = origenRetorno;
+                        setTimeout(function () {
+
+                            window.location = origenRetorno;
+
+                        }, 3700);
+                        
                     }
                 }
                 else if (tipoOrigenEstrategia != 272) {
@@ -544,6 +552,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("hv", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 
@@ -569,7 +578,9 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 
     var divMensaje = $("#divMensajeBloqueada");
 
-    if (estrategia.CodigoEstrategia == '011' && isPagina('ofertas') && !isMobile())  {
+    if (estrategia.CodigoEstrategia == '011' &&
+        (isPagina('ofertas') || isPagina('herramientasventa') )&&
+        !isMobile()) {
         divMensaje = $("#divHVMensajeBloqueada");
         divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
     }

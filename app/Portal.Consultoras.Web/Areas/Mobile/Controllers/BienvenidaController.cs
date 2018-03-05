@@ -108,6 +108,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
+
+                model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
             catch (FaultException ex)
             {
@@ -321,6 +323,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(new { success = validar, mensajeFechaDA = mensajeFechaDa });
         }
 
+        public ActionResult ActualizarContrasenia()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Obtiene la URL para el chat que se mostrara dependiendo del pais.
         /// </summary>
@@ -328,48 +335,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ChatBelcorp()
         {
             string url = "";
-            string fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
-
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                fechaInicioChat != "")
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
-                DateTime fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
-                    "dd/MM/yyyy",
-                    CultureInfo.InvariantCulture);
+                url = String.Format(
+                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    userData.SegmentoAbreviatura.Trim(),
+                    userData.CodigoUsuario.Trim(),
+                    userData.PrimerNombre.Split(' ').First().Trim(),
+                    userData.EMail.Trim(), userData.CodigoISO.Trim()
+                );
+            }
 
-                if (DateTime.Now >= fechaInicioChatPais)
-                {
-                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
-                        userData.SegmentoAbreviatura.Trim(),
-                        userData.CodigoUsuario.Trim(),
-                        userData.PrimerNombre.Split(' ').First().Trim(),
-                        userData.EMail.Trim(), userData.CodigoISO.Trim());
-                }
-            }
-            else
-            {
-                if (userData.CodigoISO.Equals("PA"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
-                }
-                else if (userData.CodigoISO.Equals("QR"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
-                }
-                else if (userData.CodigoISO.Equals("SV"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
-                }
-                else if (userData.CodigoISO.Equals("GT"))
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
-                }
-                else
-                {
-                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
-                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
-                }
-            }
             ViewBag.UrlBelcorpChatPais = url;
             return Redirect(url);
         }
@@ -397,12 +373,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                using (var sac = new SACServiceClient())
-                {
-                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
-                    lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
-                    if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
-                }
+                var lstComunicados = ObtenerComunicadoPorConsultora().ToList();
+                lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
                 return Json(new
                 {
@@ -479,4 +452,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return partial;
         }
     }
+
 }

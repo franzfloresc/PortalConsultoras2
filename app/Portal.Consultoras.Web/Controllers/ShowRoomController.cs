@@ -768,6 +768,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoId)
         {
@@ -930,6 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarDescripcionSetsMasivo(HttpPostedFileBase flDescripcionSets, int hdCargaDescripcionSetsEventoId, int hdCargaDescripcionSetsCampaniaId)
         {
@@ -1187,6 +1189,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int paisId, int campaniaId)
         {
             if (ModelState.IsValid)
@@ -1357,6 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public JsonResult ValidarPriorizacion(int paisId, string codigoOferta, int campaniaId, int orden)
         {
             int flagExiste;
@@ -1373,6 +1377,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migracion de tablas")]
         public JsonResult ObtenerOrdenPriorizacion(int paisId, int configuracionOfertaId, int campaniaId)
         {
             int orden;
@@ -1388,6 +1393,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult InsertOrUpdateOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1433,6 +1439,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult DeshabilitarOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1475,6 +1482,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult RemoverOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -2327,6 +2335,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult GetShowRoomPerfilOfertaCuvs(int campaniaId, int eventoId, int perfilId)
         {

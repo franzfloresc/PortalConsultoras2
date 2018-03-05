@@ -243,14 +243,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
-
-        /* BPT-369 */
         [DataMember]
         public int FlagValidarImagen { get; set; }
 
         [DataMember]
         public int PesoMaximoImagen { get; set; }
-        /* BPT-369 */
 
         [DataMember]
         [Column("CodigoPrograma")]

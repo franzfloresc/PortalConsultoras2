@@ -1671,11 +1671,11 @@
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
             {{#if EsKitNueva}}
-            <div>
+            <div class="info_copy">
                 <input type="hidden" data-kit="true" />
                 <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
-                    <div class="tooltip_flecha"></div>
+                <div class="tooltips tooltip_infoCopy_grid">
+                    <div class="tooltip_flecha_grid"></div>
                     <h6>Kit de Inicio</h6>
                     <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
                     <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
@@ -2050,7 +2050,7 @@
         var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
         var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
         var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
-        var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
+        var alertaSugerido = '@Url.Content("~/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg")';
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
         var dataBarra = {};
@@ -2064,7 +2064,6 @@
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';

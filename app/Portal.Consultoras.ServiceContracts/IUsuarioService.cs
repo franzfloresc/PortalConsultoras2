@@ -300,9 +300,6 @@ namespace Portal.Consultoras.ServiceContracts
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
 
         [OperationContract]
-        string RecuperarContrasenia(int paisId, string correo);
-
-        [OperationContract]
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
 
         [OperationContract]
@@ -329,6 +326,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
+        
+        [OperationContract]
+        BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
 
         #region TerminosCondiciones
         [OperationContract]
@@ -344,5 +344,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
+
+        #region Restaurar Contraseña
+        [OperationContract]
+        BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
+
+        [OperationContract]
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar);
+
+        [OperationContract]
+        void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario);
+
+        [OperationContract]
+        string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen);
+        #endregion
     }
 }

@@ -81,8 +81,8 @@ $(document).ready(function () {
 
         CargarCarouselMasVendidos('mobile');
     }
-
-    CargarPopupsConsultora();
+    
+    if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -100,7 +100,7 @@ $(document).ready(function () {
         });
     });
 
-    ObtenerComunicadosPopup();
+    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 });
 $(window).load(function () {
@@ -606,6 +606,8 @@ function armarComunicadosPopup(comunicado) {
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
+    ActualizarVisualizoComunicado(comunicado.ComunicadoId);
+
     $(window).resize();
     dataLayer.push({
         'event': 'promotionView',
@@ -647,6 +649,26 @@ function grabarComunicadoPopup() {
             if (checkTimeout(data)) {
                 CloseLoading();
                 alert("Ocurrió un error al aceptar el comunicado.");
+            }
+        }
+    });
+}
+
+function ActualizarVisualizoComunicado(comunicadoId) {
+    var params = { ComunicadoId: comunicadoId };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/ActualizarVisualizoComunicado",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("Ocurrió un error al actualizar la visualización del comunicado.");
             }
         }
     });

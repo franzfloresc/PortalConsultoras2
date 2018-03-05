@@ -35,7 +35,7 @@ BEGIN
 	IF (@EstrategiaCodigo = '011')
 		INSERT INTO @tablaCuvsOPT
 			SELECT @CampaniaID, CUV, 0, 99 FROM ods.ProductoComercial 
-			WHERE AnoCampania = @CampaniaID AND CodigoTipoOferta in ('126') 
+			WHERE AnoCampania = @CampaniaID AND CodigoTipoOferta = '126'
 				AND FactorRepeticion = 1
 			GROUP BY CUV
 	ELSE

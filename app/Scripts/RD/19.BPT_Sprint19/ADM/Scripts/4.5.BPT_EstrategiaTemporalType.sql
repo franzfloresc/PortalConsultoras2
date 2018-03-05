@@ -126,14 +126,14 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('OFERTA DEL DÍA')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('OFERTA DEL DÃA')+'%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -145,13 +145,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 
 	IF @TipoEstrategia = 30
