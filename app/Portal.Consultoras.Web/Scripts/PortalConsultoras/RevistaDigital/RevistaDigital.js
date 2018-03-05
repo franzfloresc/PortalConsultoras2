@@ -280,6 +280,12 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     modeloTemp.lista = listaAdd || response.lista;
     var divProd = $("[data-listado-campania=" + response.CampaniaID + "]");
     divProd = divProd.length > 0 ? divProd : $("#divOfertaProductos").parent();
+
+    $.each(modeloTemp.lista, function (ind, tem) {
+        tem.EsBanner = false;
+        tem.TextoBanner = "";
+    });
+
     if (response.Mobile) {
         $.each(modeloTemp.lista, function (ind, tem) {
             tem.TipoAccionAgregar = 0;
