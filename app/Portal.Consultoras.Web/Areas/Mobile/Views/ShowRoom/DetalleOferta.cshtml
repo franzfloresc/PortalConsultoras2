@@ -79,7 +79,7 @@
                                         btnDesabled = 1;
                                         <div class="content_tonos_producto content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="1">
                                             <div class="tono_select_opt">
-                                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
                                                     <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
                                                     <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                     <hr class="clear" />
@@ -87,7 +87,7 @@
                                                 <div class="content_tonos_select" style="display:none;">
                                                     @foreach (var Hermano in Model.ProductoTonos)
                                                     {
-                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
+                                                        <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
                                                             <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
                                                             <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
                                                             <hr class="clear" />
@@ -103,7 +103,7 @@
                                                         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                                         <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                                     </div>
-                                                    <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                                    <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-showroom-change="2" data-tono-nombre="@Hermano.NombreBulk">
                                                         <img src="@Hermano.ImagenBulk" alt="">
                                                     </div>
                                                 }
@@ -151,7 +151,7 @@
                                                         {
                                                             <div class="content_tonos_producto">
                                                                 <div class="tono_select_opt">
-                                                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                                    <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
                                                                         <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
                                                                         <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                                         <hr class="clear" />
@@ -160,7 +160,7 @@
                                                                         @foreach (var Tono in Hermano.Hermanos)
                                                                         {
                                                                             btnDesabled = 1;
-                                                                            <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                                            <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
                                                                                 <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
                                                                                 <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
                                                                                 <hr class="clear" />
@@ -806,9 +806,9 @@
         
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-showroom-change='1']").parent().addClass("tono_no_seleccionado");
             setTimeout(function () {
-                $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+                $(objInput).parents("[data-item]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_no_seleccionado");
             }, 500);
             return true;
         }
