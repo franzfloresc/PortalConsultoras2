@@ -732,6 +732,19 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioChatEmtelco");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            BEUsuarioChatEmtelco usuarioChatemtelco = null;
+            using (IDataReader reader = Context.ExecuteReader(command))
+            {
+                if (reader.Read()) usuarioChatemtelco = new BEUsuarioChatEmtelco(reader);
+            }
+            return usuarioChatemtelco;
+        }
         
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
         {            
@@ -760,6 +773,35 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, fotoPerfil);
 
             return Context.ExecuteNonQuery(command);
+        }       
+
+        #region Restaurar Contraseña
+        public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
+            Context.Database.AddInParameter(command, "@CodigoEntrante", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
+
+            return Context.ExecuteReader(command);
         }
+
+        public void UpdFechaBloqueoRestaurarClave(string CodigoUsuario, string Tipo)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFechaBloqueoRestaurarClave");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoBloqueo", DbType.AnsiString, Tipo);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public string GetCodigoSMS(string CodigoConsultora, string Origen)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoSMS"); ;
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, Origen);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+        #endregion
     }
 }

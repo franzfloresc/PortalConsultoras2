@@ -428,9 +428,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID);
-        
+
+        [OperationContract]
+        void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId);
+
         [OperationContract]
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
+
         #endregion
 
         #region Estado Cuenta
@@ -665,6 +669,13 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
 
+        #region Horario
+
+        [OperationContract]
+        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
+
+        #endregion
+        
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
