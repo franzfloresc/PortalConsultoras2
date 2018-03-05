@@ -237,10 +237,31 @@
                 color: #642f80 !important;
             }
 
+
                 .op-menu-vertical ul li a.activo p {
                     color: #642f80;
                 }
 
+            .op-menu-vertical ul li a.activo-dorado {
+                border-left: 5px solid #c39934 !important;
+                text-decoration: none;
+                color: #B11314 !important;
+            }
+
+            .op-menu-vertical ul li a.activo-dorado p {
+                color: #c39934 !important;
+            }
+
+
+            .op-menu-vertical ul li a.activo-dorado:hover {
+                box-shadow: -3px 2px 6px rgba(0, 0, 0, .21);
+                border-left: 5px solid #c39934 !important;
+                text-decoration: none;
+            }
+
+                .op-menu-vertical ul li a.activo-dorado:hover p {
+                    color: #c39934 !important;
+                }
             .op-menu-vertical ul li a p {
                 display: block;
                 text-align: left;
