@@ -9,282 +9,351 @@
 //------------------------------------------------------------------------------
 
 namespace Portal.Consultoras.Data.ServiceSicc {
-    using System.Runtime.Serialization;
-    using System;
     
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Pedido", Namespace="http://schemas.datacontract.org/2004/07/Belcorp.BDI.Service.PROL.Entidad")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://pelnx2141:7002/nssiccqas/services/ProcesoPEDCuadreOfertasConsolidadoWebSer" +
+        "vice", ConfigurationName="ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl")]
+    public interface ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl {
+        
+        // CODEGEN: Se está generando un contrato de mensaje, ya que el espacio de nombres de contenedor (http://impl.ws.pedido.spusicc.service.ssicc.belcorp.biz) del mensaje executeCuadreOfertasConsolidadoRequest no coincide con el valor predeterminado (http://pelnx2141:7002/nssiccqas/services/ProcesoPEDCuadreOfertasConsolidadoWebService)
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PosicionConsolidadoWebService))]
+        Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse executeCuadreOfertasConsolidado(Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse> executeCuadreOfertasConsolidadoAsync(Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest request);
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
-    public partial class Pedido : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:pedidoConsolidadoWebService.beans.ws.pedido.spusicc.service.ssicc.belcorp.biz" +
+        "")]
+    public partial class PedidoConsolidadoWebService : object, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoClienteField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoPaisField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string codigoPeriodoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string codigoVtaGanadorField;
+        private string codigoVentaGanadorField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string estadoPedMontoMaxField;
+        private string estadoPedidoMontoMaximoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string estadoPedMontoMinField;
+        private string estadoPedidoMontoMinimoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string formaPagoGanadorField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string indValiProlField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string montoMaxField;
+        private string montoBaseDctoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string montoPedMontoMaxField;
+        private string montoBaseDctoAcumField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string montoPedMontoMinField;
+        private string montoMaximoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string montoPedidoMontoMaximoField;
+        
+        private string montoPedidoMontoMinimoField;
+        
+        private string montoTiendaVirtualField;
+        
+        private string montoVentaRetailField;
+        
         private string oidOfertaGanadorField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidProductoGanadorField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Data.ServiceSicc.Detalle[] posicionesField;
+        private string porcDescFijoAlcaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string porcDescVariAlcaField;
+        
+        private PosicionConsolidadoWebService[] posicionesField;
+        
         private string precioGanadorField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string indEnvioSapField;
+        private string valRangFinaVariField;
         
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
+        private string valRangInicVariField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string codigoCliente {
             get {
                 return this.codigoClienteField;
             }
             set {
-                if ((object.ReferenceEquals(this.codigoClienteField, value) != true)) {
-                    this.codigoClienteField = value;
-                    this.RaisePropertyChanged("codigoCliente");
-                }
+                this.codigoClienteField = value;
+                this.RaisePropertyChanged("codigoCliente");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string codigoPais {
             get {
                 return this.codigoPaisField;
             }
             set {
-                if ((object.ReferenceEquals(this.codigoPaisField, value) != true)) {
-                    this.codigoPaisField = value;
-                    this.RaisePropertyChanged("codigoPais");
-                }
+                this.codigoPaisField = value;
+                this.RaisePropertyChanged("codigoPais");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string codigoPeriodo {
             get {
                 return this.codigoPeriodoField;
             }
             set {
-                if ((object.ReferenceEquals(this.codigoPeriodoField, value) != true)) {
-                    this.codigoPeriodoField = value;
-                    this.RaisePropertyChanged("codigoPeriodo");
-                }
+                this.codigoPeriodoField = value;
+                this.RaisePropertyChanged("codigoPeriodo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string codigoVtaGanador {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string codigoVentaGanador {
             get {
-                return this.codigoVtaGanadorField;
+                return this.codigoVentaGanadorField;
             }
             set {
-                if ((object.ReferenceEquals(this.codigoVtaGanadorField, value) != true)) {
-                    this.codigoVtaGanadorField = value;
-                    this.RaisePropertyChanged("codigoVtaGanador");
-                }
+                this.codigoVentaGanadorField = value;
+                this.RaisePropertyChanged("codigoVentaGanador");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string estadoPedMontoMax {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string estadoPedidoMontoMaximo {
             get {
-                return this.estadoPedMontoMaxField;
+                return this.estadoPedidoMontoMaximoField;
             }
             set {
-                if ((object.ReferenceEquals(this.estadoPedMontoMaxField, value) != true)) {
-                    this.estadoPedMontoMaxField = value;
-                    this.RaisePropertyChanged("estadoPedMontoMax");
-                }
+                this.estadoPedidoMontoMaximoField = value;
+                this.RaisePropertyChanged("estadoPedidoMontoMaximo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string estadoPedMontoMin {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string estadoPedidoMontoMinimo {
             get {
-                return this.estadoPedMontoMinField;
+                return this.estadoPedidoMontoMinimoField;
             }
             set {
-                if ((object.ReferenceEquals(this.estadoPedMontoMinField, value) != true)) {
-                    this.estadoPedMontoMinField = value;
-                    this.RaisePropertyChanged("estadoPedMontoMin");
-                }
+                this.estadoPedidoMontoMinimoField = value;
+                this.RaisePropertyChanged("estadoPedidoMontoMinimo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string formaPagoGanador {
             get {
                 return this.formaPagoGanadorField;
             }
             set {
-                if ((object.ReferenceEquals(this.formaPagoGanadorField, value) != true)) {
-                    this.formaPagoGanadorField = value;
-                    this.RaisePropertyChanged("formaPagoGanador");
-                }
+                this.formaPagoGanadorField = value;
+                this.RaisePropertyChanged("formaPagoGanador");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string indValiProl {
             get {
                 return this.indValiProlField;
             }
             set {
-                if ((object.ReferenceEquals(this.indValiProlField, value) != true)) {
-                    this.indValiProlField = value;
-                    this.RaisePropertyChanged("indValiProl");
-                }
+                this.indValiProlField = value;
+                this.RaisePropertyChanged("indValiProl");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string montoMax {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoBaseDcto {
             get {
-                return this.montoMaxField;
+                return this.montoBaseDctoField;
             }
             set {
-                if ((object.ReferenceEquals(this.montoMaxField, value) != true)) {
-                    this.montoMaxField = value;
-                    this.RaisePropertyChanged("montoMax");
-                }
+                this.montoBaseDctoField = value;
+                this.RaisePropertyChanged("montoBaseDcto");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string montoPedMontoMax {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoBaseDctoAcum {
             get {
-                return this.montoPedMontoMaxField;
+                return this.montoBaseDctoAcumField;
             }
             set {
-                if ((object.ReferenceEquals(this.montoPedMontoMaxField, value) != true)) {
-                    this.montoPedMontoMaxField = value;
-                    this.RaisePropertyChanged("montoPedMontoMax");
-                }
+                this.montoBaseDctoAcumField = value;
+                this.RaisePropertyChanged("montoBaseDctoAcum");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string montoPedMontoMin {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoMaximo {
             get {
-                return this.montoPedMontoMinField;
+                return this.montoMaximoField;
             }
             set {
-                if ((object.ReferenceEquals(this.montoPedMontoMinField, value) != true)) {
-                    this.montoPedMontoMinField = value;
-                    this.RaisePropertyChanged("montoPedMontoMin");
-                }
+                this.montoMaximoField = value;
+                this.RaisePropertyChanged("montoMaximo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoPedidoMontoMaximo {
+            get {
+                return this.montoPedidoMontoMaximoField;
+            }
+            set {
+                this.montoPedidoMontoMaximoField = value;
+                this.RaisePropertyChanged("montoPedidoMontoMaximo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoPedidoMontoMinimo {
+            get {
+                return this.montoPedidoMontoMinimoField;
+            }
+            set {
+                this.montoPedidoMontoMinimoField = value;
+                this.RaisePropertyChanged("montoPedidoMontoMinimo");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoTiendaVirtual {
+            get {
+                return this.montoTiendaVirtualField;
+            }
+            set {
+                this.montoTiendaVirtualField = value;
+                this.RaisePropertyChanged("montoTiendaVirtual");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string montoVentaRetail {
+            get {
+                return this.montoVentaRetailField;
+            }
+            set {
+                this.montoVentaRetailField = value;
+                this.RaisePropertyChanged("montoVentaRetail");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidOfertaGanador {
             get {
                 return this.oidOfertaGanadorField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidOfertaGanadorField, value) != true)) {
-                    this.oidOfertaGanadorField = value;
-                    this.RaisePropertyChanged("oidOfertaGanador");
-                }
+                this.oidOfertaGanadorField = value;
+                this.RaisePropertyChanged("oidOfertaGanador");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidProductoGanador {
             get {
                 return this.oidProductoGanadorField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidProductoGanadorField, value) != true)) {
-                    this.oidProductoGanadorField = value;
-                    this.RaisePropertyChanged("oidProductoGanador");
-                }
+                this.oidProductoGanadorField = value;
+                this.RaisePropertyChanged("oidProductoGanador");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Data.ServiceSicc.Detalle[] posiciones {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string porcDescFijoAlca {
+            get {
+                return this.porcDescFijoAlcaField;
+            }
+            set {
+                this.porcDescFijoAlcaField = value;
+                this.RaisePropertyChanged("porcDescFijoAlca");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string porcDescVariAlca {
+            get {
+                return this.porcDescVariAlcaField;
+            }
+            set {
+                this.porcDescVariAlcaField = value;
+                this.RaisePropertyChanged("porcDescVariAlca");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public PosicionConsolidadoWebService[] posiciones {
             get {
                 return this.posicionesField;
             }
             set {
-                if ((object.ReferenceEquals(this.posicionesField, value) != true)) {
-                    this.posicionesField = value;
-                    this.RaisePropertyChanged("posiciones");
-                }
+                this.posicionesField = value;
+                this.RaisePropertyChanged("posiciones");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string precioGanador {
             get {
                 return this.precioGanadorField;
             }
             set {
-                if ((object.ReferenceEquals(this.precioGanadorField, value) != true)) {
-                    this.precioGanadorField = value;
-                    this.RaisePropertyChanged("precioGanador");
-                }
+                this.precioGanadorField = value;
+                this.RaisePropertyChanged("precioGanador");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-        public string indEnvioSap {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string valRangFinaVari {
             get {
-                return this.indEnvioSapField;
+                return this.valRangFinaVariField;
             }
             set {
-                if ((object.ReferenceEquals(this.indEnvioSapField, value) != true)) {
-                    this.indEnvioSapField = value;
-                    this.RaisePropertyChanged("indEnvioSap");
-                }
+                this.valRangFinaVariField = value;
+                this.RaisePropertyChanged("valRangFinaVari");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string valRangInicVari {
+            get {
+                return this.valRangInicVariField;
+            }
+            set {
+                this.valRangInicVariField = value;
+                this.RaisePropertyChanged("valRangInicVari");
             }
         }
         
@@ -298,502 +367,544 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Detalle", Namespace="http://schemas.datacontract.org/2004/07/Belcorp.BDI.Service.PROL.Entidad")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2612.0")]
     [System.SerializableAttribute()]
-    public partial class Detalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:posicionConsolidadoWebService.beans.ws.pedido.spusicc.service.ssicc.belcorp.b" +
+        "iz")]
+    public partial class PosicionConsolidadoWebService : object, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        private string codigoSapField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string codigoSAPField;
+        private string cuvField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CUVField;
+        private string escalaDescuentoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string factorCuadreField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string factorRepeticionField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string grupoDescuentoField;
+        
+        private string importeDescuento1Field;
+        
+        private string importeDescuento2Field;
+        
         private string indAccionField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string indLimiteVentaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indicadorRecuperacionField;
+        
         private string numUnidOrigField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroSeccionDetalleField;
+        
         private string observacionesField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidCatalogoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidDetaOfertaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidEstrategiaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidFormaPagoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidGrupoOfertaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidIndicadorCuadreField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidNiveOfertaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidNiveOfertaGratisField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidNiveOfertaRangoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidOfertaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidPosicionField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidProductoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidSubtipoPosicionField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oidTipoPosicionField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string paginaField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string porcentajeDescuentoField;
+        
         private string precioCatalogoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string precioContableField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string precioPublicoField;
+        
         private string precioUnitarioField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string rankingField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string unidadesDemandadasField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string unidadesPorAtenderField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string valCodiOrigField;
         
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string codigoSap {
             get {
-                return this.extensionDataField;
+                return this.codigoSapField;
             }
             set {
-                this.extensionDataField = value;
+                this.codigoSapField = value;
+                this.RaisePropertyChanged("codigoSap");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string codigoSAP {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string cuv {
             get {
-                return this.codigoSAPField;
+                return this.cuvField;
             }
             set {
-                if ((object.ReferenceEquals(this.codigoSAPField, value) != true)) {
-                    this.codigoSAPField = value;
-                    this.RaisePropertyChanged("codigoSAP");
-                }
+                this.cuvField = value;
+                this.RaisePropertyChanged("cuv");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-        public string CUV {
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string escalaDescuento {
             get {
-                return this.CUVField;
+                return this.escalaDescuentoField;
             }
             set {
-                if ((object.ReferenceEquals(this.CUVField, value) != true)) {
-                    this.CUVField = value;
-                    this.RaisePropertyChanged("CUV");
-                }
+                this.escalaDescuentoField = value;
+                this.RaisePropertyChanged("escalaDescuento");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string factorCuadre {
             get {
                 return this.factorCuadreField;
             }
             set {
-                if ((object.ReferenceEquals(this.factorCuadreField, value) != true)) {
-                    this.factorCuadreField = value;
-                    this.RaisePropertyChanged("factorCuadre");
-                }
+                this.factorCuadreField = value;
+                this.RaisePropertyChanged("factorCuadre");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string factorRepeticion {
             get {
                 return this.factorRepeticionField;
             }
             set {
-                if ((object.ReferenceEquals(this.factorRepeticionField, value) != true)) {
-                    this.factorRepeticionField = value;
-                    this.RaisePropertyChanged("factorRepeticion");
-                }
+                this.factorRepeticionField = value;
+                this.RaisePropertyChanged("factorRepeticion");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string grupoDescuento {
+            get {
+                return this.grupoDescuentoField;
+            }
+            set {
+                this.grupoDescuentoField = value;
+                this.RaisePropertyChanged("grupoDescuento");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string importeDescuento1 {
+            get {
+                return this.importeDescuento1Field;
+            }
+            set {
+                this.importeDescuento1Field = value;
+                this.RaisePropertyChanged("importeDescuento1");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string importeDescuento2 {
+            get {
+                return this.importeDescuento2Field;
+            }
+            set {
+                this.importeDescuento2Field = value;
+                this.RaisePropertyChanged("importeDescuento2");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string indAccion {
             get {
                 return this.indAccionField;
             }
             set {
-                if ((object.ReferenceEquals(this.indAccionField, value) != true)) {
-                    this.indAccionField = value;
-                    this.RaisePropertyChanged("indAccion");
-                }
+                this.indAccionField = value;
+                this.RaisePropertyChanged("indAccion");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string indLimiteVenta {
             get {
                 return this.indLimiteVentaField;
             }
             set {
-                if ((object.ReferenceEquals(this.indLimiteVentaField, value) != true)) {
-                    this.indLimiteVentaField = value;
-                    this.RaisePropertyChanged("indLimiteVenta");
-                }
+                this.indLimiteVentaField = value;
+                this.RaisePropertyChanged("indLimiteVenta");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string indicadorRecuperacion {
+            get {
+                return this.indicadorRecuperacionField;
+            }
+            set {
+                this.indicadorRecuperacionField = value;
+                this.RaisePropertyChanged("indicadorRecuperacion");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string numUnidOrig {
             get {
                 return this.numUnidOrigField;
             }
             set {
-                if ((object.ReferenceEquals(this.numUnidOrigField, value) != true)) {
-                    this.numUnidOrigField = value;
-                    this.RaisePropertyChanged("numUnidOrig");
-                }
+                this.numUnidOrigField = value;
+                this.RaisePropertyChanged("numUnidOrig");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string numeroSeccionDetalle {
+            get {
+                return this.numeroSeccionDetalleField;
+            }
+            set {
+                this.numeroSeccionDetalleField = value;
+                this.RaisePropertyChanged("numeroSeccionDetalle");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string observaciones {
             get {
                 return this.observacionesField;
             }
             set {
-                if ((object.ReferenceEquals(this.observacionesField, value) != true)) {
-                    this.observacionesField = value;
-                    this.RaisePropertyChanged("observaciones");
-                }
+                this.observacionesField = value;
+                this.RaisePropertyChanged("observaciones");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidCatalogo {
             get {
                 return this.oidCatalogoField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidCatalogoField, value) != true)) {
-                    this.oidCatalogoField = value;
-                    this.RaisePropertyChanged("oidCatalogo");
-                }
+                this.oidCatalogoField = value;
+                this.RaisePropertyChanged("oidCatalogo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidDetaOferta {
             get {
                 return this.oidDetaOfertaField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidDetaOfertaField, value) != true)) {
-                    this.oidDetaOfertaField = value;
-                    this.RaisePropertyChanged("oidDetaOferta");
-                }
+                this.oidDetaOfertaField = value;
+                this.RaisePropertyChanged("oidDetaOferta");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidEstrategia {
             get {
                 return this.oidEstrategiaField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidEstrategiaField, value) != true)) {
-                    this.oidEstrategiaField = value;
-                    this.RaisePropertyChanged("oidEstrategia");
-                }
+                this.oidEstrategiaField = value;
+                this.RaisePropertyChanged("oidEstrategia");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidFormaPago {
             get {
                 return this.oidFormaPagoField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidFormaPagoField, value) != true)) {
-                    this.oidFormaPagoField = value;
-                    this.RaisePropertyChanged("oidFormaPago");
-                }
+                this.oidFormaPagoField = value;
+                this.RaisePropertyChanged("oidFormaPago");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidGrupoOferta {
             get {
                 return this.oidGrupoOfertaField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidGrupoOfertaField, value) != true)) {
-                    this.oidGrupoOfertaField = value;
-                    this.RaisePropertyChanged("oidGrupoOferta");
-                }
+                this.oidGrupoOfertaField = value;
+                this.RaisePropertyChanged("oidGrupoOferta");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidIndicadorCuadre {
             get {
                 return this.oidIndicadorCuadreField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidIndicadorCuadreField, value) != true)) {
-                    this.oidIndicadorCuadreField = value;
-                    this.RaisePropertyChanged("oidIndicadorCuadre");
-                }
+                this.oidIndicadorCuadreField = value;
+                this.RaisePropertyChanged("oidIndicadorCuadre");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=14)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidNiveOferta {
             get {
                 return this.oidNiveOfertaField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidNiveOfertaField, value) != true)) {
-                    this.oidNiveOfertaField = value;
-                    this.RaisePropertyChanged("oidNiveOferta");
-                }
+                this.oidNiveOfertaField = value;
+                this.RaisePropertyChanged("oidNiveOferta");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidNiveOfertaGratis {
             get {
                 return this.oidNiveOfertaGratisField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidNiveOfertaGratisField, value) != true)) {
-                    this.oidNiveOfertaGratisField = value;
-                    this.RaisePropertyChanged("oidNiveOfertaGratis");
-                }
+                this.oidNiveOfertaGratisField = value;
+                this.RaisePropertyChanged("oidNiveOfertaGratis");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidNiveOfertaRango {
             get {
                 return this.oidNiveOfertaRangoField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidNiveOfertaRangoField, value) != true)) {
-                    this.oidNiveOfertaRangoField = value;
-                    this.RaisePropertyChanged("oidNiveOfertaRango");
-                }
+                this.oidNiveOfertaRangoField = value;
+                this.RaisePropertyChanged("oidNiveOfertaRango");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=17)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidOferta {
             get {
                 return this.oidOfertaField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidOfertaField, value) != true)) {
-                    this.oidOfertaField = value;
-                    this.RaisePropertyChanged("oidOferta");
-                }
+                this.oidOfertaField = value;
+                this.RaisePropertyChanged("oidOferta");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=18)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidPosicion {
             get {
                 return this.oidPosicionField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidPosicionField, value) != true)) {
-                    this.oidPosicionField = value;
-                    this.RaisePropertyChanged("oidPosicion");
-                }
+                this.oidPosicionField = value;
+                this.RaisePropertyChanged("oidPosicion");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=19)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidProducto {
             get {
                 return this.oidProductoField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidProductoField, value) != true)) {
-                    this.oidProductoField = value;
-                    this.RaisePropertyChanged("oidProducto");
-                }
+                this.oidProductoField = value;
+                this.RaisePropertyChanged("oidProducto");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=20)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidSubtipoPosicion {
             get {
                 return this.oidSubtipoPosicionField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidSubtipoPosicionField, value) != true)) {
-                    this.oidSubtipoPosicionField = value;
-                    this.RaisePropertyChanged("oidSubtipoPosicion");
-                }
+                this.oidSubtipoPosicionField = value;
+                this.RaisePropertyChanged("oidSubtipoPosicion");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=21)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string oidTipoPosicion {
             get {
                 return this.oidTipoPosicionField;
             }
             set {
-                if ((object.ReferenceEquals(this.oidTipoPosicionField, value) != true)) {
-                    this.oidTipoPosicionField = value;
-                    this.RaisePropertyChanged("oidTipoPosicion");
-                }
+                this.oidTipoPosicionField = value;
+                this.RaisePropertyChanged("oidTipoPosicion");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=22)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string pagina {
             get {
                 return this.paginaField;
             }
             set {
-                if ((object.ReferenceEquals(this.paginaField, value) != true)) {
-                    this.paginaField = value;
-                    this.RaisePropertyChanged("pagina");
-                }
+                this.paginaField = value;
+                this.RaisePropertyChanged("pagina");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=23)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string porcentajeDescuento {
+            get {
+                return this.porcentajeDescuentoField;
+            }
+            set {
+                this.porcentajeDescuentoField = value;
+                this.RaisePropertyChanged("porcentajeDescuento");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string precioCatalogo {
             get {
                 return this.precioCatalogoField;
             }
             set {
-                if ((object.ReferenceEquals(this.precioCatalogoField, value) != true)) {
-                    this.precioCatalogoField = value;
-                    this.RaisePropertyChanged("precioCatalogo");
-                }
+                this.precioCatalogoField = value;
+                this.RaisePropertyChanged("precioCatalogo");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=24)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string precioContable {
             get {
                 return this.precioContableField;
             }
             set {
-                if ((object.ReferenceEquals(this.precioContableField, value) != true)) {
-                    this.precioContableField = value;
-                    this.RaisePropertyChanged("precioContable");
-                }
+                this.precioContableField = value;
+                this.RaisePropertyChanged("precioContable");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string precioPublico {
+            get {
+                return this.precioPublicoField;
+            }
+            set {
+                this.precioPublicoField = value;
+                this.RaisePropertyChanged("precioPublico");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string precioUnitario {
             get {
                 return this.precioUnitarioField;
             }
             set {
-                if ((object.ReferenceEquals(this.precioUnitarioField, value) != true)) {
-                    this.precioUnitarioField = value;
-                    this.RaisePropertyChanged("precioUnitario");
-                }
+                this.precioUnitarioField = value;
+                this.RaisePropertyChanged("precioUnitario");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=26)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string ranking {
             get {
                 return this.rankingField;
             }
             set {
-                if ((object.ReferenceEquals(this.rankingField, value) != true)) {
-                    this.rankingField = value;
-                    this.RaisePropertyChanged("ranking");
-                }
+                this.rankingField = value;
+                this.RaisePropertyChanged("ranking");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=27)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string unidadesDemandadas {
             get {
                 return this.unidadesDemandadasField;
             }
             set {
-                if ((object.ReferenceEquals(this.unidadesDemandadasField, value) != true)) {
-                    this.unidadesDemandadasField = value;
-                    this.RaisePropertyChanged("unidadesDemandadas");
-                }
+                this.unidadesDemandadasField = value;
+                this.RaisePropertyChanged("unidadesDemandadas");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=28)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string unidadesPorAtender {
             get {
                 return this.unidadesPorAtenderField;
             }
             set {
-                if ((object.ReferenceEquals(this.unidadesPorAtenderField, value) != true)) {
-                    this.unidadesPorAtenderField = value;
-                    this.RaisePropertyChanged("unidadesPorAtender");
-                }
+                this.unidadesPorAtenderField = value;
+                this.RaisePropertyChanged("unidadesPorAtender");
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=29)]
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
         public string valCodiOrig {
             get {
                 return this.valCodiOrigField;
             }
             set {
-                if ((object.ReferenceEquals(this.valCodiOrigField, value) != true)) {
-                    this.valCodiOrigField = value;
-                    this.RaisePropertyChanged("valCodiOrig");
-                }
+                this.valCodiOrigField = value;
+                this.RaisePropertyChanged("valCodiOrig");
             }
         }
         
@@ -807,50 +918,89 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSicc.IService")]
-    public interface IService {
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="executeCuadreOfertasConsolidado", WrapperNamespace="http://impl.ws.pedido.spusicc.service.ssicc.belcorp.biz", IsWrapped=true)]
+    public partial class executeCuadreOfertasConsolidadoRequest {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EjecutarCuadreOfertas", ReplyAction="http://tempuri.org/IService/EjecutarCuadreOfertasResponse")]
-        Portal.Consultoras.Data.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.ServiceSicc.Pedido input);
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="", Order=0)]
+        public Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService pedido;
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/EjecutarCuadreOfertas", ReplyAction="http://tempuri.org/IService/EjecutarCuadreOfertasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.ServiceSicc.Pedido input);
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServiceChannel : Portal.Consultoras.Data.ServiceSicc.IService, System.ServiceModel.IClientChannel {
+        public executeCuadreOfertasConsolidadoRequest() {
+        }
+        
+        public executeCuadreOfertasConsolidadoRequest(Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService pedido) {
+            this.pedido = pedido;
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServiceClient : System.ServiceModel.ClientBase<Portal.Consultoras.Data.ServiceSicc.IService>, Portal.Consultoras.Data.ServiceSicc.IService {
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="executeCuadreOfertasConsolidadoResponse", WrapperNamespace="http://pelnx2141:7002/nssiccqas/services/ProcesoPEDCuadreOfertasConsolidadoWebSer" +
+        "vice", IsWrapped=true)]
+    public partial class executeCuadreOfertasConsolidadoResponse {
         
-        public ServiceClient() {
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="", Order=0)]
+        public Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService executeCuadreOfertasConsolidadoReturn;
+        
+        public executeCuadreOfertasConsolidadoResponse() {
         }
         
-        public ServiceClient(string endpointConfigurationName) : 
+        public executeCuadreOfertasConsolidadoResponse(Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService executeCuadreOfertasConsolidadoReturn) {
+            this.executeCuadreOfertasConsolidadoReturn = executeCuadreOfertasConsolidadoReturn;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ProcesoPEDCuadreOfertasConsolidadoWebServiceImplChannel : Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient : System.ServiceModel.ClientBase<Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl>, Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl {
+        
+        public ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient() {
+        }
+        
+        public ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public ServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public ProcesoPEDCuadreOfertasConsolidadoWebServiceImplClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public Portal.Consultoras.Data.ServiceSicc.Pedido EjecutarCuadreOfertas(Portal.Consultoras.Data.ServiceSicc.Pedido input) {
-            return base.Channel.EjecutarCuadreOfertas(input);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl.executeCuadreOfertasConsolidado(Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest request) {
+            return base.Channel.executeCuadreOfertasConsolidado(request);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.Pedido> EjecutarCuadreOfertasAsync(Portal.Consultoras.Data.ServiceSicc.Pedido input) {
-            return base.Channel.EjecutarCuadreOfertasAsync(input);
+        public Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService executeCuadreOfertasConsolidado(Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService pedido) {
+            Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest inValue = new Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest();
+            inValue.pedido = pedido;
+            Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse retVal = ((Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl)(this)).executeCuadreOfertasConsolidado(inValue);
+            return retVal.executeCuadreOfertasConsolidadoReturn;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse> Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl.executeCuadreOfertasConsolidadoAsync(Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest request) {
+            return base.Channel.executeCuadreOfertasConsolidadoAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoResponse> executeCuadreOfertasConsolidadoAsync(Portal.Consultoras.Data.ServiceSicc.PedidoConsolidadoWebService pedido) {
+            Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest inValue = new Portal.Consultoras.Data.ServiceSicc.executeCuadreOfertasConsolidadoRequest();
+            inValue.pedido = pedido;
+            return ((Portal.Consultoras.Data.ServiceSicc.ProcesoPEDCuadreOfertasConsolidadoWebServiceImpl)(this)).executeCuadreOfertasConsolidadoAsync(inValue);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 throw;
             }
         }
-
+        
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
@@ -244,7 +244,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (listPedidoWebDetalle.Count == 0) return 0;
 
                 var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
-                EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle, false);
+                EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle);
                 return listPedidoWebDetalle[0].PedidoID;
             }
             catch (Exception ex)
@@ -278,7 +278,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             return true;
         }
-
+        
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
@@ -297,6 +297,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 };
                 var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
+                listPedidoWebDetalle = listPedidoWebDetalle.Where(d => !d.AceptoBackOrder).ToList();
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
                 var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
@@ -346,6 +347,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             var daPedidoWeb = new DAPedidoWeb(input.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(input.PaisID);
+            var daConcurso = new DAConcurso(input.PaisID);
             TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
 
             using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
@@ -362,7 +364,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     daPedidoWeb.UpdPedidoWebDesReserva(input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, input.CodigoUsuario, false);
                 }
                 daPedidoWebDetalle.UpdListBackOrderPedidoWebDetalle(input.CampaniaID, input.PedidoID, resultado.ListDetalleBackOrder);
-
+                
+                if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
+                {
+                    daConcurso.ActualizarInsertarPuntosConcurso(input.CodigoConsultora, input.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
+                }
                 transScope.Complete();
             }
         }

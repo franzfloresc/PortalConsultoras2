@@ -10,10 +10,11 @@ namespace Portal.Consultoras.Data
     {
         public DAPedidoWebDetalleExplotado(int paisID) : base(paisID, EDbSource.Portal) {}
 
-        public int DeleteByPedidoID(int pedidoID)
+        public int DeleteByPedidoID(int campaniaID, int pedidoID)
         {
             SqlCommand cmd = new SqlCommand("DeletePedidoWebDetalleExplotadoByPedidoID");
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@CampaniaID", SqlDbType.Int).Value = campaniaID;
             cmd.Parameters.Add("@PedidoID", SqlDbType.Int).Value = pedidoID;
             return Context.ExecuteNonQuery(cmd);
         }

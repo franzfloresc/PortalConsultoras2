@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Linq;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -51,7 +52,12 @@ namespace Portal.Consultoras.BizLogic
         public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
             DAConcurso DAConcurso = new DAConcurso(PaisID);
-            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+            TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+
+            using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+            {
+                DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
+            }
         }
 
         /// <summary>

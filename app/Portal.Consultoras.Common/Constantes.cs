@@ -1753,5 +1753,10 @@ namespace Portal.Consultoras.Common
             public const string Finalizado = "Terminado";
             public const string Error = "Error";
         }
+        public class ProlCodigoRechazo
+        {
+            public const string MontoMinimo = "XXXXX";
+            public const string MontoMaximo = "YYYYY";
+        }
     }
 }

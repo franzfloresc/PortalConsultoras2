@@ -2154,15 +2154,12 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     resultado = sv.EjecutarReservaProl(input);
-
-                    if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
-                        sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
                 sessionManager.SetObservacionesProl(null);
                 sessionManager.SetDetallesPedido(null);
-                if (resultado.RefreshMontosProl)
+                if (resultado.RefreshPedido)
                 {
                     sessionManager.SetMontosProl(
                         new List<ObjMontosProl>
