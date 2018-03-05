@@ -8,7 +8,6 @@
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
-
 }
 
 @if (esShowRoom)
@@ -20,9 +19,17 @@
         <div class="parche_presentacion_contenedor">
             @if (mostrarPopupVenta)
             {
-                <!-- para titulo la clase es "seccion-titulo-dorado"-->
+                var seccionTituloClass = "seccion-titulo";
+                var vermasClass = "";
+
+                if (ViewBag.EsSuscrita)
+                {
+                    seccionTituloClass += " seccion-titulo-dorado";
+                    vermasClass += " dorado";
+                }
+
                 <div class="bloque-titulo">
-                    <div class="seccion-titulo">
+                    <div class="@seccionTituloClass">
                         <span>@Model.Titulo</span>
                     </div>
                     <div class="cantidad">
@@ -31,9 +38,9 @@
 
                     @if (Model.VerMas)
                     {
-                        <!-- para btn la clase es "dorado"-->
+                        
                         <div class="ir">
-                            <a href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
+                            <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                         </div>
                     }
                     <div class="parche_clear"></div>
@@ -52,26 +59,26 @@
     </div>
 
 
-if (mostrarPopupIntriga)
-{
-    <script id="template-showroom" type="text/x-handlebars-template">
-        <div class="" data-popup-main="" style="max-height: 550px;">
-            <div class="" data-popup-body style="text-align:center; position:relative">
-                <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
-                <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
-                <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
-                <div class="contenedorMensajeIntrigaA">
-                    <div class="dias_intriga_home dias_inicio_landing" style="text-align: center; padding:0">{{MensajeDiasFaltantes}}</div>
+    if (mostrarPopupIntriga)
+    {
+        <script id="template-showroom" type="text/x-handlebars-template">
+            <div class="" data-popup-main="" style="max-height: 550px;">
+                <div class="" data-popup-body style="text-align:center; position:relative">
+                    <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
+                    <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
+                    <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
+                    <div class="contenedorMensajeIntrigaA">
+                        <div class="dias_intriga_home dias_inicio_landing" style="text-align: center; padding:0">{{MensajeDiasFaltantes}}</div>
+                    </div>
+                    <div class="contenedorMensajeIntrigaB">
+                    </div>
+                    <a href="/ShowRoom/Intriga">
+                        <img class="imagen_dias_intriga_inicio" style="height: 500px;" src="@Model.ImagenFondo" />
+                    </a>
                 </div>
-                <div class="contenedorMensajeIntrigaB">
-                </div>
-                <a href="/ShowRoom/Intriga">
-                    <img class="imagen_dias_intriga_inicio" style="height: 500px;" src="@Model.ImagenFondo" />
-                </a>
             </div>
-        </div>
-    </script>
-}
+        </script>
+    }
 
     if (mostrarPopupVenta)
     {
@@ -94,13 +101,13 @@ if (mostrarPopupIntriga)
                                         <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
                                         <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
                                         <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
-                                    <input type="hidden" class="origenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor" />
+                                        <input type="hidden" class="origenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor" />
                                     </div>
                                     <div class="producto_img_home mini" data-img="">
                                         {{#IsNullOrEmpty ImagenProducto '=='}}
-                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" data-img-lazy="1"/>
+                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" data-img-lazy="1" />
                                         {{else}}
-                                            <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" data-img-lazy="1"/>
+                                        <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" data-img-lazy="1" />
                                         {{/IsNullOrEmpty}}
                                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                                     </div>
