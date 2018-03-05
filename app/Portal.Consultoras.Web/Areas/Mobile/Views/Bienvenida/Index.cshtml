@@ -744,9 +744,14 @@ else
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 <!--POP UP CUPONES-->
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ 
+    if (!Model.ConsultoraNuevaBannerAppMostrar)
+    {
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+    }
+}
 
 <div class="contenedor_popup_comunicado modal">
     <div class="popup_comunicado">
@@ -794,7 +799,6 @@ else
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
@@ -822,8 +826,8 @@ else
         var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
+        var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
-
         var revistaDigital= @Html.Raw(Json.Encode(Model.RevistaDigital));
         
 

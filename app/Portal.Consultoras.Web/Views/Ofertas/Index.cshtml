@@ -68,8 +68,9 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
     var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
@@ -78,7 +79,7 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-    </script>
+</script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
 

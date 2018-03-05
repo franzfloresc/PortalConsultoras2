@@ -84,6 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaTipoEstrategia = ListTipoEstrategia();
             return PartialView("Partials/MantenimientoOfertasHome", model);
         }
+
         public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
         {
             try
@@ -418,9 +419,22 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var list = ComponenteListarService(null);
+                list = list.Where(c => c.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
+                var grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {
-                    rows = from a in list
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
                            select new
                            {
                                id = a.ConfiguracionPaisComponenteID,
@@ -436,6 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
+                
             }
             catch (Exception ex)
             {
@@ -478,11 +493,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var admDato in listaDatos)
                 {
-                    if (admDato.TipoDato == "img")
+                    if (admDato.TipoDato == "img" && admDato.Dato.Editado)
                     {
                         admDato.Dato.Valor1 = SaveFileS3(admDato.Dato.Valor1);
                     }
-                    admDato.Dato.Estado = true;
+                    
                     listaEntidad.Add(Mapper.Map<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>(admDato.Dato));
                 }
 
@@ -509,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    ListaComponente = listaComponente,
+                    ListaComponente = listaComponente.Where(p => p.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas),
                 });
             }
             catch (Exception ex)
@@ -540,7 +555,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
                 if (entidad.Accion == _accion.Deshabilitar)
                 {
                     using (var sv = new ServiceUsuario.UsuarioServiceClient())
@@ -551,6 +565,16 @@ namespace Portal.Consultoras.Web.Controllers
                     return PartialView("Partials/MantenimientoProximamente", new AdministrarComponenteModel());
                 }
 
+                modelo = new AdministrarComponenteModel
+                {
+                    PalancaCodigo = entidad.PalancaCodigo,
+                    CampaniaID = entidad.CampaniaID,
+                    Componente = beEntidad.Componente,
+                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
+                    Observacion = ""
+                };
+
+                List<ConfiguracionPaisDatosModel> beEntidadesMdel = new List<ConfiguracionPaisDatosModel>();
                 if (entidad.Accion != _accion.Nuevo)
                 {
                     using (var sv = new ServiceUsuario.UsuarioServiceClient())
@@ -566,20 +590,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 d.Valor1 = "";
                                 d.Valor2 = "";
                                 d.Valor3 = "";
+                                d.Estado = false;
                             });
                         }
+                        else if (entidad.Accion == _accion.NuevoDatos && beEntidad.CampaniaID > 0)
+                        {
+                            modelo.Observacion = "Ya existe un registro con la misma campaña";
+                        }
+                        
                         beEntidadesMdel = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPaisDatos>, List<ConfiguracionPaisDatosModel>>(beEntidades);
                     }
                 }
-
-                modelo = new AdministrarComponenteModel
-                {
-                    PalancaCodigo = entidad.PalancaCodigo,
-                    CampaniaID = entidad.CampaniaID,
-                    Componente = beEntidad.Componente,
-                    ListaCompomente = new List<ConfiguracionPaisComponenteModel>(),
-                    ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel)
-                };
+                
+                modelo.ListaDatos = ComponenteDatosFormato(entidad, beEntidadesMdel);
+                modelo.Estado = beEntidadesMdel.Any() && beEntidadesMdel.FirstOrDefault().Estado;
 
                 if (!modelo.ListaDatos.Any() && entidad.Accion == _accion.Editar)
                 {
@@ -591,11 +615,11 @@ namespace Portal.Consultoras.Web.Controllers
                     return PartialView("Partials/MantenimientoPalancaDatos", modelo);
                 }
 
-                modelo.ListaPalanca = ListarConfiguracionPais();
+                modelo.ListaPalanca = ListarConfiguracionPais().Where(p => p.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
                 modelo.ListaCampanias = ListCampanias(userData.PaisID);
                 if (entidad.Accion != _accion.Nuevo)
                 {
-                    modelo.ListaCompomente = ComponenteListarService(entidad);
+                    modelo.ListaCompomente = ComponenteListarService(entidad).Where(p => p.Codigo == Constantes.ConfiguracionPaisComponente.RD.PopupClubGanaMas);
                 }
 
             }
@@ -653,7 +677,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var admDato = new AdministrarComponenteDatosModel
                 {
                     Dato = iDato,
-                    TipoDato = "txt"
+                    TipoDato = "txt",
+                    Tamanio = 800
                 };
 
                 if (vacio)
@@ -676,46 +701,56 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPaisDatos.RD.PopupImagenPublicidad:
                         admDato.TxtLabel = "Imagen/Gif";
                         admDato.TipoDato = "img";
+                        admDato.TipoFile = "imggif";
                         admDato.Orden = 2;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColorMarco:
                         admDato.TxtLabel = "Color del borde";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 3;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupFondoColor:
                         admDato.TxtLabel = "Color del fondo";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 4;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje1:
                         admDato.TxtLabel = "Mensaje 1";
+                        admDato.TextoAyuda = "Texto en regular";
                         admDato.Orden = 5;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensaje2:
                         admDato.TxtLabel = "Mensaje 2";
+                        admDato.TextoAyuda = "Texto en bold";
                         admDato.Orden = 6;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupMensajeColor:
                         admDato.TxtLabel = "Color de los Mensajes";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 7;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonTexto:
                         admDato.TxtLabel = "Texto botón";
+                        admDato.TextoAyuda = "Máximo 26 caractéres";
+                        admDato.Tamanio = 26;
                         admDato.Orden = 8;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorTexto:
                         admDato.TxtLabel = "Color texto botón";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 9;
                         break;
 
                     case Constantes.ConfiguracionPaisDatos.RD.PopupBotonColorFondo:
                         admDato.TxtLabel = "Color botón";
+                        admDato.TextoAyuda = "Código hexadecimal";
                         admDato.Orden = 10;
                         break;
 

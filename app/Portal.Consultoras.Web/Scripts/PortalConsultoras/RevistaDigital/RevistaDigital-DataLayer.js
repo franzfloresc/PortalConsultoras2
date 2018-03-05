@@ -290,7 +290,9 @@ var rdAnalyticsModule = (function () {
 
     function FiltrarProducto(tipo, label) {
         try {
-            switch (tipo.toString()) {
+            tipo = $.trim(tipo);
+            label = $.trim(label);
+            switch (tipo) {
                 case _filterCode.marca:
                     _virtualEventPush(_text.epm, _action.filtrar, label);
                     break;

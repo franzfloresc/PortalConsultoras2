@@ -1,8 +1,7 @@
-﻿using Portal.Consultoras.Common;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -10,34 +9,40 @@ namespace Portal.Consultoras.Entities
     public class BEMenuApp
     {
         [DataMember]
+        [Column("MenuAppId")]
         public int MenuAppId { get; set; }
         [DataMember]
+        [Column("Codigo")]
         public string Codigo { get; set; }
         [DataMember]
+        [Column("Descripcion")]
         public string Descripcion { get; set; }
         [DataMember]
+        [Column("Orden")]
         public int Orden { get; set; }
         [DataMember]
+        [Column("CodigoMenuPadre")]
         public string CodigoMenuPadre { get; set; }
         [DataMember]
+        [Column("Posicion")]
         public int Posicion { get; set; }
         [DataMember]
         public List<BEMenuApp> SubMenus { get; set; }
 
-        public BEMenuApp(IDataRecord row)
-        {
-            if (DataRecord.HasColumn(row, "MenuAppId") && row["MenuAppId"] != DBNull.Value)
-                MenuAppId = Convert.ToInt32(row["MenuAppId"]);
-            if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
-                Codigo = Convert.ToString(row["Codigo"]);
-            if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
-                Orden = Convert.ToInt32(row["Orden"]);
-            if (DataRecord.HasColumn(row, "CodigoMenuPadre") && row["CodigoMenuPadre"] != DBNull.Value)
-                CodigoMenuPadre = Convert.ToString(row["CodigoMenuPadre"]);
-            if (DataRecord.HasColumn(row, "Posicion") && row["Posicion"] != DBNull.Value)
-                Posicion = Convert.ToInt32(row["Posicion"]);
-        }
+        [DataMember]
+        public int paisId { get; set; }
+        [DataMember]
+        public string CodigoRegion { get; set; }
+        [DataMember]
+        public string CodigoZona { get; set; }
+        [DataMember]
+        public string CodigoSeccion { get; set; }
+        [DataMember]
+        public string CodigoConsultora { get; set; }
+        [DataMember]
+        [Column("Visible")]
+        public bool Visible { get; set; }
+        [DataMember]
+        public short VersionMenu { get; set; }
     }
 }

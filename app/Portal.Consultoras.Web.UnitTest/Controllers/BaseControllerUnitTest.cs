@@ -976,7 +976,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(true, result.VerMas);
                 //
                 Assert.AreEqual("HerramientasVenta/ObtenerProductos", result.UrlObtenerProductos);
-                Assert.AreEqual(Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor, result.OrigenPedido);
+                Assert.AreEqual(Constantes.OrigenPedidoWeb.HVDesktopContenedor, result.OrigenPedido);
                 //
                 Assert.AreEqual("seccion-simple-centrado", result.TemplatePresentacion);
                 Assert.AreEqual("#producto-landing-template", result.TemplateProducto);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -18,6 +19,7 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,6 +34,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2300,7 +2303,47 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
+        protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla,string accion)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                var data = new
+                {
+                    FechaRegistro = "",
+                    Pais = userData.CodigoISO,
+                    Rol = userData.RolDescripcion,
+                    Usuario = userData.CodigoUsuario,
+                    Pantalla  = pantalla,
+                    Accion =  accion,
+                    SolicitudId = solicitudId
+                };
 
+
+                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+
+        }
         #endregion
 
         #region Notificaciones
@@ -3122,9 +3165,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
-                            seccion.UrlObtenerProductos = (isMobile ? "Mobile/" : "") + (isMobile ? "HerramientasVenta/HVObtenerProductos" : "HerramientasVenta/ObtenerProductos");
+                            seccion.UrlObtenerProductos = "HerramientasVenta/HVObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
-                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HerramientasVentasDesktopContenedor;
+                            seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedor;
+                            seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                             break;
                     }
                     #endregion
@@ -3703,6 +3747,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "GuiaNegocio";
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
+                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                 }
 
@@ -4593,6 +4638,28 @@ namespace Portal.Consultoras.Web.Controllers
             return serializer.Deserialize<T>(outputJson);
         }
 
+        public List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
+        public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = await sac.ObtenerComunicadoPorConsultoraAsync(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+        
         protected MensajeProductoBloqueadoModel HVMensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
@@ -4605,7 +4672,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.HV.MPopupBloqueado : Constantes.ConfiguracionPaisDatos.HV.DPopupBloqueado;
             var dato = herramientasVenta.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            model.MensajeTitulo = dato == null ? "A PARTIR DE LA PRÓXIMA CAMPAÑA PODRÁS DISFRUTAR DE ESTA Y MÁS OFERTAS    " : Util.Trim(dato.Valor1);
+            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
 
             return model;
         }
@@ -4650,5 +4717,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
         }
+
     }
 }
