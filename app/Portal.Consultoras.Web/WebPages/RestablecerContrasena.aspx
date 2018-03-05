@@ -27,6 +27,20 @@
     <link href="../Content/Css/Site/calc.css" rel="stylesheet" />
 
     <style type="text/css">
+
+        body, .fondo_f9f9f9{
+            background:#FFF!important;
+        }
+
+        header{
+            box-shadow:none;
+            position:relative;
+        }
+
+        .ubicacion_web{
+            display:none;
+        }
+
         .MensajeAlertaMobile {
             position: fixed;
             z-index: 2010;
@@ -233,13 +247,15 @@
         <div class="fondo_f9f9f9">
             <div class="content_belcorp">
                 <div class="fondo_negro_lateral"></div>
-                <div class="titulo_interiores tituloCambioContrasenia"><span>CAMBIO DE CONTRASEÑA</span></div>
+                <div class="titulo_interiores tituloCambioContrasenia">
+                    <span>CAMBIO DE&nbsp;</span><span class="texto_bold">CONTRASEÑA</span>
+                </div>                
             </div>
             <hr class="clear" />
-            <div class="linea_separadora" style="margin-top: -1px"></div>
+            <div class="linea_separadora hideOnMobile"></div>
         </div>
 
-        <div class="content_belcorp">
+        <div class="content_belcorp" id="divCambiarClave" runat="server" visible="true">
             <div class="pestana_lbel pestanaLbelActualizarContrasenia"></div>
             <!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
             <div class="contenedor_actualizarContraseniaForm" id="divFormularioActualizacion">
@@ -255,16 +271,19 @@
                             <asp:TextBox ID="txtcontrasenaanterior" runat="server" CssClass="txttexto"></asp:TextBox>
                             <asp:TextBox ID="txtmarca" runat="server" CssClass="txttexto"></asp:TextBox>
                         </div>
-                        <asp:TextBox ID="txtcontrasenanueva1" runat="server" CssClass="campoContrasenia" placeholder="Nueva contraseña" TextMode="Password"></asp:TextBox>
-                        <asp:TextBox ID="txtcontrasenanueva2" runat="server" CssClass="campoContrasenia" placeholder="Confirmar contraseña" TextMode="Password"></asp:TextBox>
-                        <input id="btncambiar" class="btnCambiarContrasenia" type="button" value="CAMBIAR" />
+                        <asp:TextBox ID="txtcontrasenanueva1" runat="server" CssClass="campoContrasenia borde_inferior_campo" placeholder="Nueva contraseña" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox ID="txtcontrasenanueva2" runat="server" CssClass="campoContrasenia borde_inferior_campo" placeholder="Confirmar contraseña" TextMode="Password"></asp:TextBox>
+                        <input id="btncambiar" class="btnCambiarContrasenia mt-34" type="button" value="CAMBIAR CONTRASEÑA" />
                     </form>
                 </div>
                 <div class="campos_actualizacionContrasenia" id="divActualizacionCorrecta" style="display:none;">
-                    <div class="saludoConsultora">¡Tu contraseña fue actualizada correctamente!</div>
-                    <span class="cambiarContraseniaTexto"></span>
-                    <div class="formulario_actualizarContrasenia">
-                        <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>
+                    <div class="icono_check_felicitaciones"></div>
+                    <div class="mensaje_felicitaciones">
+                        <span>¡FELICIDADES!</span>
+                        <span>Tu contraseña fue actualizada</span>
+                        <div class="formulario_actualizarContrasenia">
+                            <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>
+                        </div>
                     </div>
                 </div>
             </div>

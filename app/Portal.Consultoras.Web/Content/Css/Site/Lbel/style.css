@@ -29626,6 +29626,11 @@ h1#penmostreo .campana {
 /* ACTUALIZAR CONTRASEÑA */
 .titulo_interiores.tituloCambioContrasenia {
     width: 100%;
+    font-weight:200;
+}
+
+.titulo_interiores.tituloCambioContrasenia span{
+    font-weight:700;
 }
 
 .contenedor_actualizarContraseniaForm {
@@ -29642,6 +29647,13 @@ h1#penmostreo .campana {
     width: 100%;
     max-width: 365px;
     padding: 0 18px 0 20px;
+}
+.campos_actualizacionContrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicidades{
+    display:block;
 }
 
 .imagen_consultora {
@@ -29697,6 +29709,16 @@ h1#penmostreo .campana {
     font-weight: normal;
     padding: 0 20px;
 }
+    .campoContrasenia.borde_inferior_campo{
+        border-bottom: 1px solid #959595;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        padding-left:0;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom:30px;
+    }
 
     .campoContrasenia::-webkit-input-placeholder {
         color: #000;
@@ -29729,6 +29751,46 @@ h1#penmostreo .campana {
 
     .btnCambiarContrasenia:hover {
         opacity: .8;
+    }
+    .btnCambiarContrasenia.mt-34{
+        margin-top:34px;
+    }
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Lbel/icono_check_lbel.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width: 328px;
+    height: 45px;
+    background: #642f80;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
     }
 
 @media screen and (max-width:1288px) {
@@ -32752,7 +32814,10 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+    border: none;
+}
 .ficha_btn_agregar {
     width: 358px;
     background: black;
@@ -32809,12 +32874,12 @@ h1#penmostreo .campana {
     line-height: 12px;
 }
 
-    .etiqueta_guia_negocio span {
-        display: block;
-        font-size: 13.9px;
-        font-weight: 700;
-        height: 14px;
-    }
+.etiqueta_guia_negocio span {
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
+}
 
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante {

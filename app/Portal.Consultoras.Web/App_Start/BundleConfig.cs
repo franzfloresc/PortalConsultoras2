@@ -318,6 +318,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
             ));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
+               "~/Content/Css/Site/Login2/style_esika.css"
+            ));
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Lbel").Include(
+               "~/Content/Css/Site/Login2/style_lbel.css"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
                 "~/Scripts/fileuploader.js",
                 "~/Scripts/jquery.form.js",

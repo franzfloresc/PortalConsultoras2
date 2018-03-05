@@ -1381,15 +1381,15 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    var tono =
+                    var tono = 
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                         estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                    estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
+                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
+                        estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
 
                     foreach (var opt in listBeEstrategias)
                     {
@@ -1425,24 +1425,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            
+                            var productoEstrategias = new List<RptProductoEstrategia>();
+                            if (tono)
+                            {
+                                opt.CampaniaID = campaniaId;
+                                productoEstrategias = EstrategiaProductoObtenerServicio(opt);
+
+                                if (productoEstrategias.Any())
+                                {
+                                    opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
+                                    opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
+                                }
+                            }
+
+                            EstrategiaProductoInsertar(productoEstrategias, opt);
+
+                            #region habilitarNemotecnico
+
                             if (habilitarNemotecnico)
                             {
-                                var productoEstrategias = new List<RptProductoEstrategia>();
-                                if (tono)
-                                {
-                                    opt.CampaniaID = campaniaId;
-                                    productoEstrategias = EstrategiaProductoObtenerServicio(opt);
-
-                                    if (productoEstrategias.Any())
-                                    {
-                                        opt.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                                        opt.TieneVariedad = TieneVariedad(opt.CodigoEstrategia, opt.CUV2);
-                                    }
-                                }
-                                //EstrategiaProductoInsertar(productoEstrategias, opt);
-                                #region habilitarNemotecnico
-
                                 var nemotecnicosLista = new List<string>();
                                 var grupoPrevio = string.Empty;
                                 foreach (var productoEstrategia in productoEstrategias)
@@ -1478,9 +1479,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         nemoTecnicoBusqueda, Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
                                     opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : string.Empty;
                                 }
-
-                                #endregion
                             }
+
+                            #endregion
                         }
                         catch (Exception ex)
                         {

@@ -759,7 +759,7 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    
+
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
     } else {
@@ -837,21 +837,21 @@ function ArmarCarouselLiquidaciones(data) {
     if ($.trim(htmlDiv).length > 0) {
         htmlDiv += [
             '<div>',
-                '<div class="content_item_carrusel background_vermas">',
-                    '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
-                    '<div class="producto_img_home">',
-                    '</div>',
-                    '<div class="producto_nombre_descripcion">',
-                        '<p class="nombre_producto">',
-                        '</p>',
-                        '<div class="producto_precio" style="margin-bottom: -8px;">',
-                            '<span class="producto_precio_oferta"></span>',
-                        '</div>',
-                        '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
-                            'VER MÁS',
-                        '</a>',
-                    '</div>',
-                '</div>',
+            '<div class="content_item_carrusel background_vermas">',
+            '<input type="hidden" id="Posicion" value="' + (data.length + 1) + '"/>',
+            '<div class="producto_img_home">',
+            '</div>',
+            '<div class="producto_nombre_descripcion">',
+            '<p class="nombre_producto">',
+            '</p>',
+            '<div class="producto_precio" style="margin-bottom: -8px;">',
+            '<span class="producto_precio_oferta"></span>',
+            '</div>',
+            '<a href="' + baseUrl + 'OfertaLiquidacion/OfertasLiquidacion" class="boton_Agregalo_home no_accionar" style="width:100%;">',
+            'VER MÁS',
+            '</a>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join("\n");
     };
@@ -1120,10 +1120,10 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
         var strPrecioReal = strOption[3];
 
         option += '<option value="' + strCuv + '"' +
-                  'desc-talla="' + strDescCuv + '"' +
-                  'desc-precio="' + strDescPrecio + '"' +
-                  'precio-real="' + strPrecioReal + '"' +
-                  '>' + strDescTalla + '</option>';
+            'desc-talla="' + strDescCuv + '"' +
+            'desc-precio="' + strDescPrecio + '"' +
+            'precio-real="' + strPrecioReal + '"' +
+            '>' + strDescTalla + '</option>';
     };
 
     $(divTonosTallas).find('#ddlTallaColorLiq').html(option);
@@ -1412,11 +1412,11 @@ function SetGoogleAnalyticsBannerIntermedios(URL, TrackText, PaginaNueva, Id, Po
         'ecommerce': {
             'promoClick': {
                 'promotions': [
-                 {
-                     'id': Id,
-                     'name': Titulo,
-                     'position': Posicion
-                 }]
+                    {
+                        'id': Id,
+                        'name': Titulo,
+                        'position': Posicion
+                    }]
             }
         }
     });
@@ -1440,12 +1440,12 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
         'ecommerce': {
             'promoClick': {
                 'promotions': [
-                 {
-                     'id': Id,
-                     'name': Titulo,
-                     'position': Posicion,
-                     'creative': 'Banner'
-                 }]
+                    {
+                        'id': Id,
+                        'name': Titulo,
+                        'position': Posicion,
+                        'creative': 'Banner'
+                    }]
             }
         }
     });
@@ -1465,11 +1465,11 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
         'ecommerce': {
             'promoClick': {
                 'promotions': [
-                 {
-                     'id': Id,
-                     'name': Titulo,
-                     'position': 'home-inferior-' + Posicion
-                 }]
+                    {
+                        'id': Id,
+                        'name': Titulo,
+                        'position': 'home-inferior-' + Posicion
+                    }]
             }
         }
     });
@@ -1491,12 +1491,12 @@ function SetGoogleAnalyticsPromotionClick(Id, Posicion, Titulo) {
         'ecommerce': {
             'promoClick': {
                 'promotions': [
-                 {
-                     'id': Id,
-                     'name': Titulo,
-                     'position': Posicion,
-                     'creative': 'Producto'
-                 }]
+                    {
+                        'id': Id,
+                        'name': Titulo,
+                        'position': Posicion,
+                        'creative': 'Producto'
+                    }]
             }
         }
     });
@@ -1629,7 +1629,7 @@ function ActualizarMD() {
         }
 
         if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
-                ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
+            ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
             $('#txtTelefonoMD').focus();
             alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
             return false;
@@ -1649,7 +1649,7 @@ function ActualizarMD() {
             alert('El formato del celular no es correcto.');
             return false;
         }
-        
+
         if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
             var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
             if (!MinCaracterOtroTelefono) {
@@ -2708,12 +2708,12 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
         'ecommerce': {
             'promoView': {
                 'promotions': [
-                {
-                    'id': $("#hdEventoIDShowRoom").val(),
-                    'name': name,
-                    'position': 'Home pop-up - 1',
-                    'creative': 'Banner'
-                }]
+                    {
+                        'id': $("#hdEventoIDShowRoom").val(),
+                        'name': name,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
             }
         }
     });
@@ -2844,7 +2844,7 @@ function ObtenerComunicadosPopup() {
                         loadedImgNum += 1;
                         if (loadedImgNum == images.length) {
                             closeWaitingDialog();
-                            mostrarComunicadosPopup();
+                            mostrarComunicadosPopup(response.data);
                         }
                     });
                 }
@@ -2890,7 +2890,7 @@ function armarComunicadosPopup(response) {
     }
 }
 
-function mostrarComunicadosPopup() {
+function mostrarComunicadosPopup(data) {
     if (viewBagVerComunicado != '1' || viewBagVioTutorial == 0 || viewBagVioVideo == 0 || viewBagVioTutorialSalvavidas == 0) {
         PopupCerrar('popupComunicados');
         return true;
@@ -2900,7 +2900,9 @@ function mostrarComunicadosPopup() {
     if (lista.length == 0) {
         PopupCerrar('popupComunicados');
         return true;
-    }
+    }    
+    ActualizarVisualizoComunicado(data.ComunicadoId);
+
     PopupMostrar('popupComunicados');
     var j = 0;
 
@@ -2913,6 +2915,26 @@ function mostrarComunicadosPopup() {
     });
 
     return (j <= 0);
+}
+
+function ActualizarVisualizoComunicado(comunicadoId) {
+    var params = { ComunicadoId: comunicadoId };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/ActualizarVisualizoComunicado",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("Ocurrió un error al actualizar la visualización del comunicado.");
+            }
+        }
+    });
 }
 
 function centrarComunicadoPopup(ID) {

@@ -1319,8 +1319,6 @@
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
     <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
-    <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
-    <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\alertIcon.png" />
     <Content Include="Content\Images\android-EPM-mockup.png" />
@@ -1330,6 +1328,11 @@
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
+    <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-envelope-esika.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-envelope-lbel.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-envelope.png" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\boton-cerrar-vista-descargar-app.svg" />
     <Content Include="Content\Images\carrito-hover.png" />
@@ -2601,8 +2604,31 @@
     <Content Include="Content\Images\Login2\ico2_b.png" />
     <Content Include="Content\Images\Login2\ico3.png" />
     <Content Include="Content\Images\Login2\ico3_b.png" />
+    <Content Include="Content\Images\Login2\Icons\arrow-select.svg" />
     <Content Include="Content\Images\Login2\Icons\favicon_esika.ico" />
     <Content Include="Content\Images\Login2\Icons\favicon_lbel.ico" />
+    <Content Include="Content\Images\Login2\Icons\flecha-regresar.svg" />
+    <Content Include="Content\Images\Login2\Icons\flecha-ver-mas-opciones-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\flecha-ver-mas-opciones-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-alerta-error-esika.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-alerta-error-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-alerta-error-lbel.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-alerta-error-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-chatea-con-nosotros-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-chatea-con-nosotros-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-llamada-mobile.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-llamanos-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-llamanos-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-mail-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-mail-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-mensaje-sms-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-mensaje-sms-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-nuevo-correo-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-nuevo-correo-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-reloj-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-reloj-lbel.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-sms-esika.svg" />
+    <Content Include="Content\Images\Login2\Icons\icono-sms-lbel.svg" />
     <Content Include="Content\Images\Login2\Icons\icono_nuevo_correo.png" />
     <Content Include="Content\Images\Login2\ico_admin.png" />
     <Content Include="Content\Images\Login2\ico_admin_esika.png" />
@@ -3786,6 +3812,10 @@
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.ttf" />
+    <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.woff" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.eot" />
     <Content Include="Areas\Mobile\Views\Notificaciones\DetalleNotificacionesCdr.cshtml" />
     <Content Include="Areas\Mobile\Views\Ofertas\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
@@ -4059,35 +4089,35 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService6.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService1.wsdl" />
+    <None Include="Service References\ServiceSAC\SACService.wsdl" />
+    <None Include="Service References\ServiceSAC\SACService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService9.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService91.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService92.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService93.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService94.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService95.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService96.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService97.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceSAC\SACService98.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
@@ -4112,7 +4142,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceSAC\SACService1.disco" />
+    <None Include="Service References\ServiceSAC\SACService.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -4203,7 +4233,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
     <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
     <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
     <None Include="Service References\ServiceUsuario\Reference.svcmap">
@@ -4213,13 +4242,6 @@
     <None Include="Service References\ServiceUsuario\UsuarioService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceZonificacion\configuration.svcinfo" />
-    <None Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
-    <None Include="Service References\ServiceZonificacion\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference1.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">
       <SubType>Designer</SubType>
@@ -4233,6 +4255,7 @@
     <None Include="Service References\ServiceUsuario\UsuarioService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4397,6 +4420,13 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
+    <None Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\configuration.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
@@ -4674,6 +4704,7 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
+    <Content Include="Views\Login\ChatBelcorp.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
@@ -4727,6 +4758,7 @@
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
+    <Content Include="Views\Unete\_ResumenDiasEspera.cshtml" />
     <Content Include="Views\UpSelling\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

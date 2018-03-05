@@ -14348,6 +14348,190 @@ span.icon-advertencia {
 }
 /* FIN NUEVO POPUP SUSCRIBIRSE */
 
+/* INI: VISTA ACTUALIZAR CONTRASEÑA */
+.contenedor_vista_cambio_contrasenia,
+.cambio_contrasenia_cabecera,
+.cambio_contrasenia_titulo,
+.contenido_cambio_contrasenia,
+.contenido_mensaje_consultora,
+.formulario_cambio_contrasenia,
+.formulario_cambio_contrasenia input{
+    display: block;
+    font-family: 'Lato';
+}
+
+.contenedor_vista_cambio_contrasenia{
+    margin-top:12px;
+}
+
+.contenedor_cabecera_contrasenia{
+    display: block;
+    overflow: hidden;
+    height: 67px;
+    margin-bottom: 35px;
+}
+
+.cambio_contrasenia_cabecera {
+    width: 100%;
+    height: 47px;
+    position: relative;
+    border-bottom: 1px solid #000;
+}
+
+.franja_negra_fondo_mobile {
+    display: block;
+    width: 30px;
+    height: 100%;
+    position: absolute;
+    top: 31px;
+    left: 7%;
+    background: #FFF url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat center;
+    z-index: 10;
+}
+
+@media screen and (min-width:406px) and (max-width:767px){
+
+    .franja_negra_fondo_mobile{
+        left: 28%;
+    }
+
+}
+
+@media screen and (min-width:360px) and (max-width:405px){
+
+    .franja_negra_fondo_mobile{
+        left: 14%;
+    }
+
+}
+
+.cambio_contrasenia_titulo {
+    margin: 0 auto;
+    width:100%;
+    max-width:300px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left:10px;
+    font-size: 13px;
+    color: #000;
+    text-transform: uppercase;
+    line-height: 47px;
+    font-weight: 300;
+    letter-spacing:0.9px;
+}
+
+.cambio_contrasenia_titulo span {
+    font-weight: 900;
+}
+
+.contenedor_vista_actualizando_contrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicitaciones_consultora{
+    display:block;
+}
+
+.contenido_mensaje_consultora {
+    font-weight: 500;
+    width: 100%;
+    max-width: 297px;
+    margin: 0 auto 25px auto;
+}
+
+.contenido_mensaje_consultora, .formulario_cambio_contrasenia{
+    padding:0 8px;
+}
+
+.contenido_mensaje_consultora div:first-child{
+    font-size:18px;
+    margin-bottom:3px;
+}
+
+.contenido_mensaje_consultora div:last-child{
+    font-size:16px;
+}
+
+.formulario_cambio_contrasenia input[type="password"] {
+    width: 100%;
+    margin:0 auto;
+    max-width: 279px;
+    margin-bottom: 30px;
+    color: #000;
+    border-bottom: solid 1px #959595;
+    padding: 6px 0;
+    font-size:14px;
+    letter-spacing:0.2px;
+}
+
+.formulario_cambio_contrasenia input[type="submit"] {
+    width: 100%;
+    max-width: 279px;
+    margin: 52px auto;
+    height: 45px;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #FFF;
+    font-weight: 700;
+    background: #642f80;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-webkit-input-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-ms-input-placeholder{
+    color:#000;
+}
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+    text-align:center;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Lbel/icono_check_lbel.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width:100%;
+    max-width: 279px;
+    height: 45px;
+    background: #642f80;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
+    }
+/* FIN: VISTA ACTUALIZAR CONTRASEÑA */
+
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;

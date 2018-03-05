@@ -27,17 +27,29 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:8082/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarTonoEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarTonoEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategiaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpSellingObtener_InputMessage">
     <wsdl:part name="parameters" element="tns:UpSellingObtener" />
   </wsdl:message>
@@ -79,6 +91,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerOfertaFinalMontoMetaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCargaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_InsConfiguracionParametroCarga_InputMessage">
     <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCarga" />
@@ -428,6 +446,12 @@
   <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetHorarioByCodigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHorarioByCodigoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_ListConfiguracionOfertasHome_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHome" />
   </wsdl:message>
@@ -451,18 +475,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasHomeResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategiaResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarTonoEstrategia_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarTonoEstrategia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarTonoEstrategiaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGanancia" />
@@ -788,6 +800,12 @@
   <wsdl:message name="ISACService_InsertarComunicadoVisualizado_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarComunicadoVisualizadoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarVisualizoComunicado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarVisualizoComunicadoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_InsertarDonacionConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarDonacionConsultora" />
   </wsdl:message>
@@ -841,12 +859,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsConfiguracionTipoProcesoCargaPedidosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCargaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1233,6 +1245,14 @@
     <wsdl:part name="parameters" element="tns:GetIndicadorDescuentoByPedidoWebDetalleResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" message="tns:ISACService_ActualizarDescripcionEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse" message="tns:ISACService_ActualizarDescripcionEstrategia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategia" message="tns:ISACService_ActualizarTonoEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategiaResponse" message="tns:ISACService_ActualizarTonoEstrategia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpSellingObtener">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpSellingObtener" message="tns:ISACService_UpSellingObtener_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpSellingObtenerResponse" message="tns:ISACService_UpSellingObtener_OutputMessage" />
@@ -1260,6 +1280,10 @@
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMetaResponse" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsConfiguracionParametroCarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" message="tns:ISACService_InsConfiguracionParametroCarga_InputMessage" />
@@ -1493,6 +1517,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigo" message="tns:ISACService_GetHorarioByCodigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigoResponse" message="tns:ISACService_GetHorarioByCodigo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" message="tns:ISACService_ListConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHomeResponse" message="tns:ISACService_ListConfiguracionOfertasHome_OutputMessage" />
@@ -1508,14 +1536,6 @@
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarDescripcionEstrategia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" message="tns:ISACService_ActualizarDescripcionEstrategia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse" message="tns:ISACService_ActualizarDescripcionEstrategia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarTonoEstrategia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategia" message="tns:ISACService_ActualizarTonoEstrategia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarTonoEstrategiaResponse" message="tns:ISACService_ActualizarTonoEstrategia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage" />
@@ -1733,6 +1753,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizado" message="tns:ISACService_InsertarComunicadoVisualizado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarComunicadoVisualizadoResponse" message="tns:ISACService_InsertarComunicadoVisualizado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" message="tns:ISACService_ActualizarVisualizoComunicado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarVisualizoComunicadoResponse" message="tns:ISACService_ActualizarVisualizoComunicado_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarDonacionConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultora" message="tns:ISACService_InsertarDonacionConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertarDonacionConsultoraResponse" message="tns:ISACService_InsertarDonacionConsultora_OutputMessage" />
@@ -1768,10 +1792,6 @@
     <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidosResponse" message="tns:ISACService_InsConfiguracionTipoProcesoCargaPedidos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -2032,6 +2052,24 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpSellingObtener">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtener" style="document" />
       <wsdl:input>
@@ -2088,6 +2126,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2617,6 +2664,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" style="document" />
       <wsdl:input>
@@ -2646,24 +2702,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarDescripcionEstrategia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarTonoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3157,6 +3195,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertarDonacionConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
       <wsdl:input>
@@ -3231,15 +3278,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3827,6 +3865,24 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarTonoEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpSellingObtener">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpSellingObtener" style="document" />
       <wsdl:input>
@@ -3883,6 +3939,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4412,6 +4477,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetHorarioByCodigo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" style="document" />
       <wsdl:input>
@@ -4441,24 +4515,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarDescripcionEstrategia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarTonoEstrategia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarTonoEstrategia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4952,6 +5008,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarVisualizoComunicado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarVisualizoComunicado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertarDonacionConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsertarDonacionConsultora" style="document" />
       <wsdl:input>
@@ -5026,15 +5091,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsConfiguracionTipoProcesoCargaPedidos">
       <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionTipoProcesoCargaPedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5621,7 +5677,7 @@
   </wsdl:binding>
   <wsdl:service name="SACService">
     <wsdl:port name="BasicHttpBinding_ISACService" binding="tns:BasicHttpBinding_ISACService">
-      <soap:address location="http://localhost:8082/SACService.svc" />
+      <soap:address location="http://localhost:41615/SACService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ISACService" binding="tns:BasicHttpsBinding_ISACService">
       <soap:address location="https://localhost:44392/SACService.svc" />

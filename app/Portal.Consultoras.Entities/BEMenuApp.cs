@@ -39,5 +39,10 @@ namespace Portal.Consultoras.Entities
         public string CodigoSeccion { get; set; }
         [DataMember]
         public string CodigoConsultora { get; set; }
+        [DataMember]
+        [Column("Visible")]
+        public bool Visible { get; set; }
+        [DataMember]
+        public short VersionMenu { get; set; }
     }
 }

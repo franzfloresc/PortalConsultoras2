@@ -1064,9 +1064,10 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
         {
-            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
@@ -1081,8 +1082,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
@@ -1442,5 +1447,10 @@ namespace Portal.Consultoras.Service
             return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
         }
         #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

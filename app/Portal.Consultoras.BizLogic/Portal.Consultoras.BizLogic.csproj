@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
