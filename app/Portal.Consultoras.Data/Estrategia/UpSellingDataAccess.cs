@@ -184,10 +184,10 @@ namespace Portal.Consultoras.Data.Estrategia
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.OfertaFinalMontoMeta_Select"))
             {
-                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId); 
+                Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
                 var reader = Context.ExecuteReader(command);
 
-                var data = reader.MapToCollection<OfertaFinalMontoMeta>(true);
+                var data = reader.MapToCollection<OfertaFinalMontoMeta>(closeReaderFinishing: true);
                 return data;
             }
         }
