@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Data.Estrategia
 
                 var reader = Context.ExecuteReader(command);
 
-                var data = reader.MapToCollection<UpSelling>(true);
+                var data = reader.MapToCollection<UpSelling>(closeReaderFinishing: true);
                 return data;
             }
         }
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@UpSellingId", DbType.Int32, upSellingId);
 
                 var reader = Context.ExecuteReader(command);
-                return reader.MapToCollection<UpSellingDetalle>(true);
+                return reader.MapToCollection<UpSellingDetalle>(closeReaderFinishing: true);
             }
         }
 
