@@ -21,7 +21,7 @@
 <div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
     {
-        if (revistaDigital.EsActiva)
+        if (revistaDigital.EsSuscrita)
         {
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -36,28 +36,7 @@
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
                         <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo" style="background-image: linear-gradient(to right, #b3842f, #d9b43c) !important;">
-                            <img src="~/Content/Images/logo-club-ganamas-blanco.svg" alt="" class="small">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
-                            @Html.Raw(configuracionPaisDatosModel.Valor2)
-                        </div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright activar_boton_dorado_no_animado" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                 VER TODAS MIS OFERTAS
                             </a>
                         </div>
@@ -67,53 +46,26 @@
         }
         else
         {
-            if (revistaDigital.EsSuscrita)
-            {
-                <div class="wrapper_resumen_mobile">
-                    <div class="banner_pedido_rd">
-                        <div class="cabecera_pedido_rd">
-                            <div class="rd_logo">
-                                <img src="@urlLogo" alt="" class="small">
-                            </div>
-                            <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+            <div class="wrapper_resumen_mobile">
+                <div class="banner_pedido_rd">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@urlLogo" alt="" class="small">
                         </div>
-                        <div class="banner_pedido_masofertas">
-                            <div class="banner_pedido_text">
-                                @Html.Raw(configuracionPaisDatosModel.Valor2)
-                            </div>
-                            <div class="btn_red">
-                                <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                    VER TODAS MIS OFERTAS
-                                </a>
-                            </div>
+                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    </div>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">
+                            @Html.Raw(configuracionPaisDatosModel.Valor2)
+                        </div>
+                        <div class="btn_red">
+                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                VER TODAS MIS OFERTAS
+                            </a>
                         </div>
                     </div>
                 </div>
-            }
-            else
-            {
-                <div class="wrapper_resumen_mobile">
-                    <div class="banner_pedido_rd">
-                        <div class="cabecera_pedido_rd">
-                            <div class="rd_logo">
-                                <img src="@urlLogo" alt="" class="small">
-                            </div>
-                            <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                        </div>
-                        <div class="banner_pedido_masofertas">
-                            <div class="banner_pedido_text">
-                                @Html.Raw(configuracionPaisDatosModel.Valor2)
-                            </div>
-                            <div class="btn_red">
-                                <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                    VER TODAS MIS OFERTAS
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            }
+            </div>
 
         }
     }
