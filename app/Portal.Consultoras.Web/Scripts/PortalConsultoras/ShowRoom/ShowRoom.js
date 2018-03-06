@@ -867,13 +867,12 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 
 
 
-function EstrategiaAgregar(event, popup) {
-    
-   
+function EstrategiaAgregarShowRoom(event, popup) {
+     
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
     var cantidad = $(padre).find("[data-input='cantidad']").val();
-    var estrategia = EstrategiaObtenerObj(event);
+    var estrategia = EstrategiaObtenerObjShowRoom(event);
     var objInput = $('.detailItem');
     var origenPedidoWebEstrategia = "";
     var campania = estrategia.CampaniaID;
@@ -884,7 +883,7 @@ function EstrategiaAgregar(event, popup) {
     var cuvs = "";
     var origen = '';
 
-    if (EstrategiaValidarSeleccionTono(objInput)) {
+    if (EstrategiaValidarSeleccionTonoShowRoom(objInput)) {
         return false;
     }
 
@@ -979,7 +978,7 @@ function EstrategiaAgregar(event, popup) {
 
 
 
-function EstrategiaObtenerObj(e) {
+function EstrategiaObtenerObjShowRoom(e) {
 
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
@@ -990,44 +989,6 @@ function EstrategiaObtenerObj(e) {
 }
 
 
-
-
-
-function EstrategiaValidarBloqueada(objInput, estrategia) {
-    if ($.trim($(objInput).attr("data-bloqueada")) == "") {
-        return false;
-    }
-
-    if (isMobile()) {
-        EstrategiaVerDetalleMobile(estrategia);
-        return true;
-    }
-
-    var divMensaje = $("#divMensajeBloqueada");
-    if (divMensaje.length > 0) {
-        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
-        if (itemClone.length > 0) {
-            divMensaje.find("[data-item-html]").html(itemClone.html());
-            divMensaje = divMensaje.find("[data-item-html]");
-            divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-            divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
-            divMensaje.find('[data-item-tag="body"]').css("float", "none");
-            divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
-            divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
-            divMensaje.find('[data-item-tag="body"]').attr("class", "");
-            divMensaje.find('[data-item-tag="agregar"]').remove();
-            divMensaje.find('[data-item-tag="fotofondo"]').remove();
-            divMensaje.find('[data-item-tag="verdetalle"]').remove();
-            divMensaje.find('[data-item-accion="verdetalle"]').remove();
-            divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
-            divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-            divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
-        }
-        $(".contenedor_popup_detalleCarousel").hide();
-        $("#divMensajeBloqueada").show();
-    }
-    return true;
-}
 
 
 
@@ -1125,7 +1086,7 @@ function ValidarUnidadesPermitidas(data, cantidad) {
 
 }
 
-function EstrategiaValidarSeleccionTono(objInput) {
+function EstrategiaValidarSeleccionTonoShowRoom(objInput) {
 
     
 
