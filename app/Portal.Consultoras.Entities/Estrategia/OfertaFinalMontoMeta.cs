@@ -27,12 +27,28 @@ namespace Portal.Consultoras.Entities.Estrategia
         public string NombreRegalo { get; set; }
 
         [DataMember]
+        [Column("MontoInicial")]
+        public decimal MontoInicial { get; set; }
+
+        [DataMember]
+        [Column("RangoInicial")]
+        public decimal RangoInicial { get; set; }
+
+        [DataMember]
+        [Column("RangoFinal")]
+        public decimal RangoFinal { get; set; }
+
+        [DataMember]
+        [Column("MontoAgregar")]
+        public decimal MontoAgregar { get; set; }    
+
+        [DataMember]
         [Column("MontoMeta")]
         public decimal MontoMeta { get; set; }
 
         [DataMember]
-        [Column("MontoPedido")]
-        public decimal MontoPedido { get; set; }
+        [Column("MontoGanador")]
+        public decimal MontoGanador { get; set; }
 
         [DataMember]
         [Column("FechaRegistro")]

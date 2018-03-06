@@ -522,7 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
                     prod.Descripcion = item.Descripcion1;
                     if (!string.IsNullOrEmpty(item.ImagenProducto))
                     {
-                        prod.Imagen = item.ImagenProducto;
+                        prod.Imagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
                     }
                     if (!string.IsNullOrEmpty(item.NombreMarca))
                     {
