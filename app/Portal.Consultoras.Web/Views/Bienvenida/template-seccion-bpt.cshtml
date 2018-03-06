@@ -11,18 +11,19 @@
                  data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
                 <div data-item-tag="contenido">
                     <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                    <div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:320px; margin: 0 !important; height:initial !important" 
-                         onclick="javascript: VerDetalleEstrategia(event);">
+                    @*<div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:320px; margin: 0 !important; height:initial !important"
+        onclick="javascript: VerDetalleEstrategia(event);">*@
+                    <div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:320px; margin: 0 !important; height:initial !important">
                         {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
                         <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo" style="height: 300px;">
                         {{/iff}}
-                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" style="display:none;">VER DETALLE</a>
                     </div>
                     <div class="clearfix"></div>
                     <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
-                    <a href="javascript:;" onclick="RDRedireccionarDetalle(event)" class="btn-descubre">DESCUBRIR MÁS</a>
+                    <a href="javascript:;" onclick="RDRedireccionarDetalle(event)" class="btn-descubre" style="display:none;">DESCUBRIR MÁS</a>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="ver-mas rd_ver_mas">
-                        VER MÁS LANZAMIENTOS 
+                        VER MÁS LANZAMIENTOS
                     </a>
                 </div>
             </div>
