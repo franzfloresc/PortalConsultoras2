@@ -485,7 +485,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialColorActiva_SeActualizaRevistaDigitalModel()
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioActiva_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
@@ -493,21 +493,21 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     new BEConfiguracionPaisDatos
                     {
-                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorActiva,
-                        Valor1 = "DLogoComercialColorActiva",
-                        Valor2 = "MLogoComercialColorActiva"
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva,
+                        Valor1 = "DLogoMenuInicioActiva",
+                        Valor2 = "MLogoMenuInicioActiva"
                     }
                 };
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
 
-                Assert.AreEqual("DLogoComercialColorActiva", result.DLogoComercialColorActiva);
-                Assert.AreEqual("MLogoComercialColorActiva", result.MLogoComercialColorActiva);
+                Assert.AreEqual("DLogoMenuInicioActiva", result.DLogoMenuInicioActiva);
+                Assert.AreEqual("MLogoMenuInicioActiva", result.MLogoMenuInicioActiva);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
 
             [TestMethod]
-            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoComercialColorNoActiva_SeActualizaRevistaDigitalModel()
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneLogoMenuInicioNoActiva_SeActualizaRevistaDigitalModel()
             {
                 var controller = new LoginController(logManager.Object, sessionManager.Object);
                 var rdModel = new RevistaDigitalModel();
@@ -515,16 +515,16 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     new BEConfiguracionPaisDatos
                     {
-                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoComercialColorNoActiva,
-                        Valor1 = "DLogoComercialColorNoActiva",
-                        Valor2 = "MLogoComercialColorNoActiva"
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva,
+                        Valor1 = "DLogoMenuInicioNoActiva",
+                        Valor2 = "MLogoMenuInicioNoActiva"
                     }
                 };
 
                 var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
 
-                Assert.AreEqual("DLogoComercialColorNoActiva", result.DLogoComercialColorNoActiva);
-                Assert.AreEqual("MLogoComercialColorNoActiva", result.MLogoComercialColorNoActiva);
+                Assert.AreEqual("DLogoMenuInicioNoActiva", result.DLogoMenuInicioNoActiva);
+                Assert.AreEqual("MLogoMenuInicioNoActiva", result.MLogoMenuInicioNoActiva);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
 

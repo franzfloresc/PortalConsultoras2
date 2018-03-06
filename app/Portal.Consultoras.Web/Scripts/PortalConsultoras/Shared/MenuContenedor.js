@@ -52,11 +52,15 @@ var menuModule = (function () {
             $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
         }
     }
-    function _changeLogoMobile() {
-        var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+    function _changeLogoMenuDesktopAndMobile() {
+        if (!isMobile())_changeLogoMenu(elementos.subnavegadorUl);
+        if (isMobile())_changeLogoMenu(elementos.menuMobHome);
+    }
+    function _changeLogoMenu(selector) {
+        var img = $.trim($(selector).find('img').attr("src"));
         if (img !== "") {
             img = img.replace("_hover.", "_normal.");
-            $(elementos.menuMobHome).find('img').attr("src", img);
+            $(selector).find('img').attr("src", img);
         }
     }
     function _animateScrollTo(codigo, topHeight) {
@@ -179,7 +183,7 @@ var menuModule = (function () {
                         _animateScrollTo(elementos.html, menuHeight);
                     }
                 }
-                _changeLogoMobile();
+                _changeLogoMenuDesktopAndMobile();
             }
         }
     }
@@ -195,7 +199,7 @@ var menuModule = (function () {
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
         if (esAncla === "True") {
-            _changeLogoMobile();
+            _changeLogoMenuDesktopAndMobile();
             if (currentLocation.indexOf("/ofertasparati") > -1) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";

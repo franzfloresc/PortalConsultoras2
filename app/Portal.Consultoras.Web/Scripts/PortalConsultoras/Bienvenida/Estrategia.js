@@ -302,6 +302,7 @@ function ArmarCarouselEstrategias(data) {
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
         item.EsBanner = false;
+        item.EsLanzamiento = false;
     });
 
     tieneOPT = true;
@@ -327,22 +328,37 @@ function ArmarCarouselEstrategias(data) {
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
             if (!revistaDigital.EsSuscrita) {
-                    var bannerClubGanaMas = new Object();
-                    $.extend(true, bannerClubGanaMas, data.Lista[0]);
-                    bannerClubGanaMas.EsBanner = true;
+                var bannerClubGanaMas = new Object();
+                $.extend(true, bannerClubGanaMas, data.Lista[0]);
+                bannerClubGanaMas.EsBanner = true;
 
-                    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                        data.Lista.splice(3, 0, bannerClubGanaMas);
-                    } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
-                        data.Lista.splice(1, 0, bannerClubGanaMas);
-                    }
+                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+                    data.Lista.splice(3, 0, bannerClubGanaMas);
+                } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
+                    data.Lista.splice(1, 0, bannerClubGanaMas);
+                }
 
-                    $.each(data.Lista, function (i, item) {
-                        item.Posicion = i + 1;
-                    });
+                $.each(data.Lista, function (i, item) {
+                    item.Posicion = i + 1;
+                });
 
-                    arrayOfertasParaTi = data.Lista;
-                
+                arrayOfertasParaTi = data.Lista;
+
+            }
+            if (revistaDigital.EsActiva){
+                var productoLanzamiento = new Object();
+                $.extend(true, productoLanzamiento, data.Lista[0]);
+                productoLanzamiento.EsLanzamiento = true;
+
+                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+                    data.Lista.splice(0, 0, productoLanzamiento);
+                } 
+
+                $.each(data.Lista, function (i, item) {
+                    item.Posicion = i + 1;
+                });
+
+                arrayOfertasParaTi = data.Lista;
             }
         }
     }

@@ -55,3 +55,18 @@ begin
 	from ConfiguracionPais cp
 	where cp.Codigo = 'RD'
 end
+
+if exists(	select 1
+			from ConfiguracionPais cp
+			where cp.Codigo = 'GND'	)
+begin
+	print 'Actualizando ConfiguracionPais : GND'
+	update cp
+	set 
+	cp.DesktopTituloBanner = 'Disfruta de tu guía de negocio online en'
+	,cp.DesktopSubTituloBanner = NULL
+	,cp.MobileTituloBanner = 'Disfruta de tu guía de negocio online en'
+	,cp.MobileSubTituloBanner = NULL
+	from ConfiguracionPais cp
+	where cp.Codigo = 'GND'
+end

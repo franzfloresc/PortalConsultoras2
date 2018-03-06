@@ -13,6 +13,17 @@
         </div>
     </div>
     {{else}}
+    {{#iff EsLanzamiento}}
+    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_carrusel content_item_carrusel_clubganamas" style="cursor:pointer; ">
+            <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="content" class="clubganamas_logo" />
+            <p class="primero">Lanzamiento</p>
+            <p class="segundo">ÚNETE AL CLUB GANA +</p>
+            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE</a>
+        </div>
+    </div>
+    {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
@@ -110,6 +121,8 @@
             </div>
         </div>
     </div>
+    {{/iff}}
+
     {{/iff}}
     {{/each}}
 

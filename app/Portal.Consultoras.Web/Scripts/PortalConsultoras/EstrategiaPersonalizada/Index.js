@@ -255,9 +255,12 @@ function SeccionMostrarProductos(data) {
 
     data.Mobile = isMobile();
 
-    $.each(data.lista, function (i, item) {
-        item.EsBanner = false;
-    });
+    if (data.lista) {
+        $.each(data.lista, function (i, item) {
+            item.EsBanner = false;
+            item.EsLanzamiento = false;
+        });
+    }
 
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 

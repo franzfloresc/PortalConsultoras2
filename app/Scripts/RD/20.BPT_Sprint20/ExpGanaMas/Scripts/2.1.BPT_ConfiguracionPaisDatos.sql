@@ -398,9 +398,9 @@ if( not exists(	select 1
 					join ConfiguracionPais cp
 					on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 					and cp.Codigo = 'RD'
-					and cpd.Codigo = 'LogoComercialColorActiva'	))
+					and cpd.Codigo = 'LogoMenuInicioActiva'	))
 begin
-	print 'Insertando PaisConfiguracionDatos : LogoComercialColorActiva'
+	print 'Insertando PaisConfiguracionDatos : LogoMenuInicioActiva'
 
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
@@ -415,12 +415,12 @@ begin
 	)
 	values(
 	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
-	,'LogoComercialColorActiva'
+	,'LogoMenuInicioActiva'
 	,0
-	,'logo-club-ganamas_normal.svg'
-	,'logo-club-ganamas_normal.svg'
+	,'inicio-club-ganamas-desktop_normal.svg'
+	,'inicio-club-ganamas-mobile_normal.svg'
 	,null
-	,'Logo de club gana mas en color dorado'
+	,'Logo del menu inicio para desktop y mobile para la consultora Activa'
 	,1
 	,null
 	)
@@ -431,9 +431,9 @@ if( not exists(	select 1
 					join ConfiguracionPais cp
 					on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 					and cp.Codigo = 'RD'
-					and cpd.Codigo = 'LogoComercialColorNoActiva'	))
+					and cpd.Codigo = 'LogoMenuInicioNoActiva'	))
 begin
-	print 'Insertando PaisConfiguracionDatos : LogoComercialColorNoActiva'
+	print 'Insertando PaisConfiguracionDatos : LogoMenuInicioNoActiva'
 
 	insert into ConfiguracionPaisDatos(
 	ConfiguracionPaisID
@@ -448,12 +448,12 @@ begin
 	)
 	values(
 	(select ConfiguracionPaisID from ConfiguracionPais cp where cp.Codigo = 'RD')
-	,'LogoComercialColorNoActiva'
+	,'LogoMenuInicioNoActiva'
 	,0
-	,'logo-ganamas_normal.svg'
-	,'logo-ganamas_normal.svg'
+	,'inicio-ganamas-desktop_normal.svg'
+	,'inicio-ganamas-mobile_normal.svg'
 	,null
-	,'Logo de club gana mas en color morado'
+	,'Logo del menu inicio para desktop y mobile para la consultora No Activa'
 	,1
 	,null
 	)

@@ -53,31 +53,31 @@
                     </a>
 
                 </div>
-                <div class="zona-items">
 
-                    @if (revistaDigital.EsActiva)
-                    {
-                        <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
-                                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
-                            </div>
+                @if (revistaDigital.EsActiva)
+                {
+                    <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
+                            <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                         </div>
-                    }
-                    else
-                    {
+                    </div>
+                }
+                else
+                {
+                    <div class="zona-items">
 
                         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-                                  new ViewDataDictionary {
+                        new ViewDataDictionary {
                         { "Source", 2 },
                         { "NombreConsultora", ViewBag.NombreConsultora },
                         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                         { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
-                                                              });
+                                                            });
+                    </div>
+                }
 
-                    }
 
-                </div>
                 </div>
         }
         else
