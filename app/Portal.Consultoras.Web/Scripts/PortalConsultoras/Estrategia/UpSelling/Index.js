@@ -538,16 +538,22 @@ function configureGridListaGanadoras(response) {
         mtype: "GET",
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ["Campania", "Codigo", "Nombre", "CuvRegalo", "NombreRegalo", "MontoMeta", "MontoPedido", "FechaRegistro"],
+        //colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Pedido", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
+        colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Pedido", "Monto Meta",  "Fecha Registro"],
         colModel: [
             { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
             { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
             { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
             { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
             { name: "NombreRegalo", index: "NombreRegalo", width: 120, sortable: false, align: "left" },
+            { name: "MontoInicial", index: "MontoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+           // { name: "RangoInicial", index: "RangoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+           // { name: "RangoFinal", index: "RangoFinal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+           // { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
             { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "MontoPedido", index: "MontoPedido", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "FechaRegistro", index: "FechaRegistro", width: 80, sortable: false, align: "center" },
+           // { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "FechaRegistro", index: "FechaRegistro", width: 100, sortable: false, align: "center" },
+
         ],
         pager: jQuery("#pagerListaRegalos"),
         loadtext: "Cargando datos...",
@@ -569,7 +575,7 @@ function configureGridListaGanadoras(response) {
     for (var i = 0; i <= data.length - 1; i++) {
         convertirStringDate(data[i], 'FechaRegistro');
         grilla.jqGrid('addRowData', i + 1, data[i]);
-    }
+    }  
 
     $('#refresh_listOfertaFinalMontoMeta').click();
 
@@ -582,7 +588,7 @@ function convertirStringDate(row,field) {
             var d = /\/Date\((\d*)\)\//.exec(value);
             return (d) ? new Date(+d[1]) : value;
         }
-        row[field] = value[field].toLocaleDateString();
+        row[field] = value[field].toLocaleString();
     });
 
 

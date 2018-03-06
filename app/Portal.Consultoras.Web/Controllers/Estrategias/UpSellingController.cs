@@ -165,6 +165,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
 
             return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        private void SetFullUrlImage(IEnumerable<UpSellingRegaloModel> model)
+        {
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            model.Update(regalo =>
+            {
+                regalo.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, regalo.Imagen, carpetaPais);
+            });
         } 
 
 
@@ -179,30 +188,29 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);  
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
+
 
             Dictionary<string, string> dic =
-                            new Dictionary<string, string> {
-                            { "Campania", "Campania" },
-                            { "Codigo", "Codigo" },
-                            { "Nombre", "Nombre" },
-                            { "CuvRegalo", "CuvRegalo" },
-                            { "NombreRegalo", "NombreRegalo" },
-                            { "MontoMeta", "MontoMeta" },
-                            { "MontoPedido", "MontoPedido" },
-                            { "FechaRegistro", "FechaRegistro" }, };
+                new Dictionary<string, string> {
+                            { "Campaña", "Campania" },
+                            {  "Cod Consultora","Codigo" },
+                            { "Nombre de Consultora","Nombre" },
+                            {  "CUV Regalo","CuvRegalo" },
+                            { "Nombre Regalo", "NombreRegalo" },
+                            { "Monto Pedido","MontoInicial" }, 
+                           // { "RangoInicial", "Rango Inicial" },
+                           // { "RangoFinal", "Rango Final" },
+                            { "Monto a Agregar" ,"MontoAgregar"},
+                            { "Monto Meta","MontoMeta" },
+                           // { "MontoGanador", "Monto Ganador" },  
+                            { "Fecha Registro" ,"FechaRegistro" },
+                };
 
-            Util.ExportToExcel("ReporteListaGanadoras", upSelling.ToList(), dic);
+            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, DateTime.Now.ToString("yyyyMM"));
+            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy HH:mm");
             return View();
         }
 
-        private void SetFullUrlImage(IEnumerable<UpSellingRegaloModel> model)
-        {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            model.Update(regalo =>
-            {
-                regalo.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, regalo.Imagen, carpetaPais);
-            });
-        }
     }
 }
