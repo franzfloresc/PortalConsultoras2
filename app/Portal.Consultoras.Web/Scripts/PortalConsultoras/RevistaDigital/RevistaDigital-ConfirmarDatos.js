@@ -20,7 +20,7 @@
         CheckPhone();
     });
     
-    $("#chkinput").on("change", function () {
+    $("#chkinput").on("change", function (event) {
         event.stopPropagation();
         CheckTermCondiciones();
     });
