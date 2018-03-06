@@ -19,7 +19,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -52,7 +51,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -85,7 +83,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -118,7 +115,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -151,7 +147,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -184,7 +179,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -217,7 +211,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -250,7 +243,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -283,7 +275,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -316,7 +307,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -349,7 +339,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -382,7 +371,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')
@@ -415,7 +403,6 @@ BEGIN
 	(@HerramientasVentaId,'MPopupBloqueado',0,'A partir de la próxima campaña, disfrutarás de este y muchos más beneficios.',
 	null,null,null,1,null);
 END
-GO
 
 IF NOT EXISTS(SELECT 1 FROM ConfiguracionPaisDatos CPD
 	WHERE ConfiguracionPaisID = @HerramientasVentaId AND  Codigo = 'DPopupBloqueado')

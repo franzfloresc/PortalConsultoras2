@@ -318,7 +318,6 @@ namespace Portal.Consultoras.Common
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
-            public const string GIF_MENU_DEFAULT_OFERTAS_BPT = "GIF_MENU_DEFAULT_OFERTAS_BPT";
             public const string MostrarPedidosPendientes = "MostrarPedidosPendientes";
             public const string Permisos_CCC = "Permisos_CCC";
             public const string Efecto_TutorialSalvavidas = "Efecto_TutorialSalvavidas";
