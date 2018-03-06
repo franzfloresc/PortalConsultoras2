@@ -1771,11 +1771,55 @@
         var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
     }
 
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: url(@imagenFondoOFRegalo); background-repeat:no-repeat; background-size:cover;" data-popup-body="">
-        <div class="icono_regalo_sorpresa mt-11"></div>
+    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: #613c87 url(@imagenFondoOFRegalo); background-repeat:no-repeat; background-size:cover;" data-popup-body="">
+        <div class="icono_regalo_sorpresa">
+            <img src="/Content/Images/gif-regalo-gano.gif" alt="">
+        </div>
+            <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
+            <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
+            <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg2">TE FALTAN $119.00<br></span>
+            <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3">¡ESCOGE TU PREMIO!<br></span>
+        </div>
+        <div class="arrow_box" id="content-regalo-agrega" style="display:none;">
+            <div class="txt_regalo_sorpresa_popup">
+                <div class="span_2_regalo_sorpresa_producto"><b>AGREGA <span id="of-regalo-agrega">$119.00</span></b><br></div>
+                <div class="span_1_regalo_sorpresa_producto">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
+            </div>
+        </div>
+        <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin: 0 auto 0 auto;">
+            {{#each this.Upselling.Regalos}}
+            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingRegaloId}}">
+                <div class="content_info_regalo" id="of-regalo-{{UpSellingRegaloId}}">
+                    <input type="hidden" class="of-regalo-cuv" value="{{CUV}}" />
+                    <input type="hidden" class="of-regalo-stock" value="{{StockActual}}" />
+                    <div class="titulo_regalo_producto">{{Nombre}}</div>
+                    <div class="content_imagen_sorpresa">
+                        <img class="of-regalo-imagen" src="{{Imagen}}" alt="" />
+                    </div>
+                    <div class="descripcion_regalo">
+                        {{Descripcion}}
+                    </div>
+                    <div>
+                        <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
+                    </div>
+                    <div class="content_regalo_sinstock" id="of-regalo-sinstock" style="display: none;">
+                        <div class="txt_agotado">AGOTADO</div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="txt_paginacion_premio" id="txt_paginacion_premio_gana">
+            <span class="span_paginacion_premio_1">1</span>
+            <span> / 3</span>
+        </div>
+        <div class="txt_nota_premio">Recuerda pasar pedido en la siguiente <br />para recibir tu premio</div>
+        <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
+        @*<div class="icono_regalo_sorpresa mt-11"></div>
         <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br/>@titulo1OFRegalo</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
+        
         <div class="fondo_blanco_regalo">
             <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
                 TU META ES <span id="of-regalo-montometa">$200.000</span><br />
@@ -1788,6 +1832,33 @@
                 <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Leer términos y condiciones</a>
             </div>
         </div>
+        *@
+    </div>
+    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw); display: none;">
+        <div class="btn_regresa_OF" id="btnCambiarRegalo">CAMBIAR REGALO</div>
+        <div class="icono_regalo_sorpresa" style="margin-top: 20px;">
+            <img src="/Content/Images/gif-regalo-gano.gif" alt="">
+        </div>
+        <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
+            <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
+            <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3"><b>¡GANASTE!</b><br></span>
+        </div>
+        <div class="arrow_box arrow_box_2">
+            <div class="txt_regalo_sorpresa_popup">
+                <div class="span_2_regalo_sorpresa_producto"><b>¡EL PREMIO ES TUYO!</b><br></div>
+                <div class="span_1_regalo_sorpresa_producto_2">Recuerda pasar pedido en la siguiente<br>campaña para recibir tu premio</div>
+            </div>
+        </div>
+        <div class="content_info_regalo">
+            <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
+            <div class="content_imagen_sorpresa">
+                <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" style="width: 215px; height: 235px;"/>
+            </div>
+            <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
+                Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
+            </div>
+        </div>
+        <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
     </div>
     <div class="popup_ofertaFinal pt-26" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" id="div-popup-ofertafinal">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
