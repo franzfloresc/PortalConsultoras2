@@ -759,7 +759,7 @@
     }
     
     var _showActionsProductos = function (cellvalue, options, rowObject) {
-        if (rowObject[10] == "1") {
+ 
             var id = rowObject[0];
             var campaniaId = $("#ddlCampania").val();
             var cuv = rowObject[5];
@@ -767,9 +767,7 @@
             var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
             var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
 
-            return edit + remove;
-        }
-        return "";
+            return edit + remove;      
     }
     
     var _showActionsVer1 = function(cellvalue, options, rowObject) {
