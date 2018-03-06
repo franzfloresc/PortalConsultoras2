@@ -270,16 +270,16 @@ if( exists(	select 1
 				join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 				and cp.Codigo = 'RD'
-				and cpd.Codigo = 'LogoComercialColorActiva'	))
+				and cpd.Codigo = 'LogoMenuInicioActiva'	))
 begin
-	print 'Rollback Insertando PaisConfiguracionDatos : LogoComercialColorActiva'
+	print 'Rollback Insertando PaisConfiguracionDatos : LogoMenuInicioActiva'
 
 	delete cpd
 	from ConfiguracionPaisDatos cpd
 		join ConfiguracionPais cp
 		on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 		and cp.Codigo = 'RD'
-		and cpd.Codigo = 'LogoComercialColorActiva'
+		and cpd.Codigo = 'LogoMenuInicioActiva'
 end
 
 if( exists(	select 1
@@ -287,14 +287,14 @@ if( exists(	select 1
 				join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 				and cp.Codigo = 'RD'
-				and cpd.Codigo = 'LogoComercialColorNoActiva'	))
+				and cpd.Codigo = 'LogoMenuInicioNoActiva'	))
 begin
-	print 'Rollback Insertando PaisConfiguracionDatos : LogoComercialColorNoActiva'
+	print 'Rollback Insertando PaisConfiguracionDatos : LogoMenuInicioNoActiva'
 
 	delete cpd
 	from ConfiguracionPaisDatos cpd
 		join ConfiguracionPais cp
 		on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 		and cp.Codigo = 'RD'
-		and cpd.Codigo = 'LogoComercialColorNoActiva'
+		and cpd.Codigo = 'LogoMenuInicioNoActiva'
 end
