@@ -3402,7 +3402,6 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 12px;
     width: 50%;
     padding-right: 5px;
-    float:left;
 }
 
 .producto_precio_oferta {
@@ -33138,12 +33137,11 @@ height:30px;
     font-size: 13px;
     font-weight: 400;
     margin-right: 10px;
-    float:left;
     width:90px;
 }
 .precios_para_ti {
-    float: left;
     margin-top: -3px;
+    display: inline-table;
 }
     .precios_para_ti p {
         display: block;
