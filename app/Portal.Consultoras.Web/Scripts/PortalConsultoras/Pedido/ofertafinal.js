@@ -485,11 +485,32 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $('.popup_ofertaFinal').css({ "padding-top": "0px" });
         }
 
-        validarGanoRegalo(totalPedido);
-
         if (tipoOrigen == '1') {
             $(container).show();
             //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+
+            /* Carrusel Regalos */
+            $('#divCarruselRegalo.slick-initialized').slick('unslick');
+
+            $('#divCarruselRegalo').slick({
+                infinite: true,
+                vertical: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: false,
+                centerMode: false,
+                centerPadding: '0',
+                tipo: 'p',
+                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 2%; top: 0%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home_white.png"/></a>',
+                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 2%; top: 0%;"><img src="/Content/Images/mobile/Esika/next_white.png"/></a>'
+            }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+
+            });
+
+            $('#divCarruselRegalo').prepend($(".js-slick-prev-h"));
+            $('#divCarruselRegalo').prepend($(".js-slick-next-h"));
+
+            /* Carrusel Regalos */
 
             $('#count-ofertas').text(totalProductosOF);
             $('#div-count-ofertas').show();
@@ -501,6 +522,8 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             var xhref = href.replace('RGX', objUpselling.Meta.TipoRango);
             $('#of-regalo-terminos').attr('href', xhref);
         }
+
+        validarGanoRegalo(totalPedido);
     }
 }
 
@@ -508,9 +531,9 @@ function GanoOfertaFinalRegalo(totalPedido) {
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
 
-        validarGanoRegalo(totalPedido);
-
         if (tipoOrigen == '1') (container).show();
+
+        validarGanoRegalo(totalPedido);
     }
 }
 
@@ -559,7 +582,6 @@ function validarGanoRegalo(totalPedido) {
         }
     }
 }
-
 
 function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
