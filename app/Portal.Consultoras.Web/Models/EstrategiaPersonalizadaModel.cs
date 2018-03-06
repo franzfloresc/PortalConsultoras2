@@ -12,8 +12,8 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
-
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado2 { get; set; }
         public List<ConfiguracionSeccionHomeModel> ListaSeccion { get; set; }
-        
+
     }
 }

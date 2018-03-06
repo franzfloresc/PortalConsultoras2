@@ -229,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaVencimiento;
                 string montoPagar;
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
-                
+
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
                 {
@@ -690,8 +690,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EstadoCuentaModel source = sourceDetails[i];
 
-                            var arr = column.Contains("#") 
-                                ? column.Split('#') 
+                            var arr = column.Contains("#")
+                                ? column.Split('#')
                                 : new string[] { "", column };
 
                             if (arr[1] == "Fecha")
@@ -710,8 +710,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = userData.PaisID == 4 
-                                    ? source.Cargo.ToString("#,##0").Replace(',', '.') 
+                                string cargo = userData.PaisID == 4
+                                    ? source.Cargo.ToString("#,##0").Replace(',', '.')
                                     : source.Cargo.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + cargo;
@@ -721,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (arr[1] == "Abono")
                             {
                                 string abono = userData.PaisID == 4
-                                    ? source.Abono.ToString("#,##0").Replace(',', '.') 
+                                    ? source.Abono.ToString("#,##0").Replace(',', '.')
                                     : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");

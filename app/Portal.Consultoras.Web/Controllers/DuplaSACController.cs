@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(keyPath, pathData));
 
             string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_DUPLACYZONE) + texto;
-            
+
             if (UserData().CodigoISO == "PE"
                 || UserData().CodigoISO == "BO"
                 || UserData().CodigoISO == "CO"

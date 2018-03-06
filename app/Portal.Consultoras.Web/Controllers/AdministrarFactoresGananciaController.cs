@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

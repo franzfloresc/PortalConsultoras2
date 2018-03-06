@@ -208,9 +208,9 @@ namespace Portal.Consultoras.BizLogic
 
         public int CantidadPedidoByConsultoraShowRoom(BEOfertaProducto entidad)
         {
-                var dataAccess = new DAShowRoomEvento(entidad.PaisID);
-                int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
-                return result;
+            var dataAccess = new DAShowRoomEvento(entidad.PaisID);
+            int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
+            return result;
         }
 
         public int GetStockOfertaShowRoom(int paisID, int CampaniaID, string CUV)
@@ -492,7 +492,6 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ShowRoomEventoConsultoraEmailRecibido(entity);
         }
-
 
         public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {

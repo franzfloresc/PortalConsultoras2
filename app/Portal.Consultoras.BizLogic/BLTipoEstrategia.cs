@@ -9,16 +9,16 @@ namespace Portal.Consultoras.BizLogic
     {
         public int InsertTipoEstrategia(BETipoEstrategia entidad)
         {
-                var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-                int result = daTipoEstrategia.Insert(entidad);
-                return result;
+            var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
+            int result = daTipoEstrategia.Insert(entidad);
+            return result;
         }
 
         public int DeleteTipoEstrategia(BETipoEstrategia entidad)
         {
-                var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
-                int result = daTipoEstrategia.Delete(entidad);
-                return result;
+            var daTipoEstrategia = new DATipoEstrategia(entidad.PaisID);
+            int result = daTipoEstrategia.Delete(entidad);
+            return result;
         }
 
         public List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad)

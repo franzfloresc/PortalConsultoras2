@@ -1949,7 +1949,7 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="tipoConfigurado" type="xs:int" />
-        <xs:element minOccurs="0" name="estrategiaId" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoEstrategia" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

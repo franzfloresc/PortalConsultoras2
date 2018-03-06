@@ -119,7 +119,7 @@ namespace Portal.Consultoras.BizLogic.CDR
                     {
                         daCdrWebDetalle.UpdCdrWebDetalleCantidadObservado(becdrWebDetalle);
                     }
-                    
+
                     oTransactionScope.Complete();
                 }
                 resultado = true;

@@ -8,12 +8,9 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -113,8 +110,8 @@ namespace Portal.Consultoras.Web.Controllers
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     else
                         fechaVencimiento = string.Empty;
-                    montoPagar = userData.PaisID == 4 
-                        ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.')) 
+                    montoPagar = userData.PaisID == 4
+                        ? string.Format("{0:#,##0}", deudaActualConultora.Replace(',', '.'))
                         : string.Format("{0:#,##0.00}", deudaActualConultora);
                 }
                 var simbolo = string.Format("{0} ", userData.Simbolo);
@@ -190,18 +187,18 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   cell = new string[]
+                                   {
                                 a.Fecha.ToString("dd/MM/yyyy"),
                                 a.Glosa,
                                 string.Format("{0} ", userData.Simbolo) +
                                 string.Format("{0:#,##0}", a.Cargo).Replace(',', '.'),
                                 string.Format("{0} ", userData.Simbolo) +
                                 string.Format("{0:#,##0}", a.Abono).Replace(',', '.')
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -216,16 +213,16 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   cell = new string[]
+                                   {
                                 a.Fecha.ToString("dd/MM/yyyy"),
                                 a.Glosa,
                                 string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Cargo),
                                 string.Format("{0} ", userData.Simbolo) + string.Format("{0:#,##0.00}", a.Abono)
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -339,11 +336,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 a.EstadoPedidoDesc,
                                 (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
@@ -351,8 +348,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CodigoUsuarioCreacion,
                                 a.Direccion,
                                 a.ImporteTotal.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -364,11 +361,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CampaniaID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CampaniaID,
+                                   cell = new string[]
+                                   {
                                 DescripcionCampania(a.CampaniaID.ToString()),
                                 a.EstadoPedidoDesc,
                                 (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
@@ -376,8 +373,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CodigoUsuarioCreacion,
                                 a.Direccion,
                                 a.ImporteTotal.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -521,11 +518,11 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CUV,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CUV,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
@@ -536,8 +533,8 @@ namespace Portal.Consultoras.Web.Controllers
                                  string.Format("{0:#,##0}", a.ImporteTotalPedido).Replace(',', '.')),
                                 (userData.Simbolo + " " +
                                  string.Format("{0:#,##0}", a.ImporteTotal - a.ImporteTotalPedido).Replace(',', '.'))
-                            }
-                        }
+                                   }
+                               }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -555,11 +552,11 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = "0",
                         rows = from a in items
-                        select new
-                        {
-                            id = a.CUV,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.CUV,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
@@ -569,8 +566,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotalPedido)),
                                 (userData.Simbolo + " " +
                                  string.Format("{0:#,##0.00}", a.ImporteTotal - a.ImporteTotalPedido))
-                            }
-                        }
+                                   }
+                               }
                     };
 
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -600,7 +597,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
 
                     olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-                    
+
                 }
 
                 decimal total = 0;
@@ -611,8 +608,8 @@ namespace Portal.Consultoras.Web.Controllers
                     total = olstPedido.Sum(p => p.ImporteTotal);
                 }
 
-                totalPw = userData.PaisID == 4 ? 
-                    string.Format("{0:#,##0}", total).Replace(',', '.') 
+                totalPw = userData.PaisID == 4 ?
+                    string.Format("{0:#,##0}", total).Replace(',', '.')
                     : string.Format("{0:N2}", total);
 
 
@@ -664,16 +661,16 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.ClienteID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.ClienteID,
+                               cell = new string[]
+                               {
                             a.Nombre,
                             a.ClienteID.ToString(),
                             a.eMail
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -759,19 +756,19 @@ namespace Portal.Consultoras.Web.Controllers
                         totalSum = string.Format("{0:#,##0}", (from req in lst select req.ImporteTotal).Sum())
                             .Replace(',', '.'),
                         rows = from a in items
-                        select new
-                        {
-                            id = a.PedidoDetalleID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.PedidoDetalleID,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
                                 (userData.Simbolo + " " + string.Format("{0:#,##0}", a.PrecioUnidad).Replace(',', '.')),
                                 (userData.Simbolo + " " + string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
                                 a.ImporteTotal.ToString("#0.00")
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -785,19 +782,19 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = string.Format("{0:#,##0.00}", (from req in lst select req.ImporteTotal).Sum()),
                         rows = from a in items
-                        select new
-                        {
-                            id = a.PedidoDetalleID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.PedidoDetalleID,
+                                   cell = new string[]
+                                   {
                                 a.CUV,
                                 a.DescripcionProd,
                                 a.Cantidad.ToString(),
                                 (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.PrecioUnidad)),
                                 (userData.Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
                                 a.ImporteTotal.ToString("#0.00")
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -1005,16 +1002,16 @@ namespace Portal.Consultoras.Web.Controllers
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
                 rows = from a in items
-                select new
-                {
-                    id = a.Nombre + "-" + a.FechaFacturacion,
-                    cell = new string[]
-                    {
+                       select new
+                       {
+                           id = a.Nombre + "-" + a.FechaFacturacion,
+                           cell = new string[]
+                           {
                         a.Nombre,
                         a.FechaFacturacion,
                         a.Ruta,
-                    }
-                }
+                           }
+                       }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -1031,9 +1028,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -1054,8 +1051,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda) 
-                ? lst.Count 
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
+                ? lst.Count
                 : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = recordCount;

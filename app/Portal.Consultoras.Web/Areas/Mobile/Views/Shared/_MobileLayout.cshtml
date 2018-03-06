@@ -160,6 +160,11 @@
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
+                        <div class="contenedor_circulos">
+                            <div class="circulo-1 iniciarTransicion"></div>
+                            <div class="circulo-2 iniciarTransicion"></div>
+                            <div class="circulo-3 iniciarTransicion"></div>
+                        </div>
                         <a role="link" region="Superior" parent="Pedido" title="Pedido"
                            class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
@@ -375,7 +380,7 @@
         var emt_country = '@ViewBag.CodigoISODL';
         var emt_email_address = '@ViewBag.CorreoC';
         var emt_first_name = '@ViewBag.NombreC';
-        var emt_id = '@ViewBag.ConsultoraId';
+        var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';

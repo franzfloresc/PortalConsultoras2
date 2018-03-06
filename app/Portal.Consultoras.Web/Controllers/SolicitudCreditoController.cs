@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectAllZonas(paisId);
             }
-            
+
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
 
@@ -76,9 +76,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -272,11 +272,11 @@ namespace Portal.Consultoras.Web.Controllers
                     records = pag.RecordCount,
                     totalregistros = lst.Count,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.SolicitudCreditoID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.SolicitudCreditoID,
+                               cell = new string[]
+                               {
                             a.SolicitudCreditoID.ToString(),
                             UserData().CodigoISO,
                             a.CodigoZona,
@@ -294,8 +294,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 : Convert.ToDateTime(a.FechaCreacion).ToString("dd/MM/yyyy hh:mm tt")),
                             a.CodigoLote > 0 ? "ENVIADO" : "PENDIENTE",
                             a.TipoSolicitud
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -352,7 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaSolicitudes = new List<BESolicitudCredito>();
             }
-            
+
             var list = Mapper.Map<IList<BESolicitudCredito>, IList<SolicitudCreditoModel>>(listaSolicitudes);
 
             if (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico)
@@ -558,8 +558,8 @@ namespace Portal.Consultoras.Web.Controllers
             for (int i = 1; i <= 31; i++)
             {
                 listaDiaNacimiento.Add(i < 10
-                    ? new InfoGenerica {Texto = string.Format("0{0}", i), Valor = string.Format("0{0}", i)}
-                    : new InfoGenerica {Texto = i.ToString(), Valor = i.ToString()});
+                    ? new InfoGenerica { Texto = string.Format("0{0}", i), Valor = string.Format("0{0}", i) }
+                    : new InfoGenerica { Texto = i.ToString(), Valor = i.ToString() });
             }
             return listaDiaNacimiento;
         }

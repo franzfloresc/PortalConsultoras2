@@ -163,6 +163,16 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [Column("EsSubCampania")]
         public bool EsSubCampania { get; set; }
 
+        [DataMember]
+        [ViewProperty]
+        [Column("CodigoEstrategia")]
+        public string CodigoEstrategia { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        [Column("TieneVariedad")]
+        public int TieneVariedad { get; set; }
+
         public BEShowRoomOferta()
         { }
 
@@ -231,6 +241,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
             if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
                 EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
+            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
+            if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
+                TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
 
         }
     }

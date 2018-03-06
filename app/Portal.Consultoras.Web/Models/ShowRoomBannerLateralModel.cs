@@ -1,5 +1,5 @@
-﻿using System;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using Portal.Consultoras.Web.ServicePedido;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {

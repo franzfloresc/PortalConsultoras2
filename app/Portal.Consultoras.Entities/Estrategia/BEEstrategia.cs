@@ -243,14 +243,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
-
-        /* BPT-369 */
         [DataMember]
         public int FlagValidarImagen { get; set; }
 
         [DataMember]
         public int PesoMaximoImagen { get; set; }
-        /* BPT-369 */
 
         [DataMember]
         [Column("CodigoPrograma")]
@@ -270,6 +267,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
+        
+        [DataMember]
+        [Column("Niveles")]
+        public string Niveles { get; set; }
 
         public BEEstrategia()
         { }
@@ -540,6 +541,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PromValorizado"))
                 PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
+            if (DataRecord.HasColumn(row, "Niveles"))
+                Niveles = Convert.ToString(row["Niveles"]);
+
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
 
@@ -557,6 +561,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EsSubCampania"))
                 EsSubCampania = Convert.ToInt32(row["EsSubCampania"]);
+
+            if (DataRecord.HasColumn(row, "Niveles") && row["Niveles"] != DBNull.Value)
+                Niveles = row["Niveles"].ToString();
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
@@ -621,5 +628,6 @@ namespace Portal.Consultoras.Entities
         public int TieneVariedad { get; set; }
         public decimal PrecioPublico { get; set; }
         public decimal Ganancia { get; set; }
+        public string Niveles { get; set; }
     }
 }
