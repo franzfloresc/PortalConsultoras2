@@ -326,8 +326,7 @@ function ArmarCarouselEstrategias(data) {
 
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
-            if (!revistaDigital.EsActiva) {
-                if (!revistaDigital.EsSuscrita) {
+            if (!revistaDigital.EsSuscrita) {
                     var bannerClubGanaMas = new Object();
                     $.extend(true, bannerClubGanaMas, data.Lista[0]);
                     bannerClubGanaMas.EsBanner = true;
@@ -343,7 +342,7 @@ function ArmarCarouselEstrategias(data) {
                     });
 
                     arrayOfertasParaTi = data.Lista;
-                }
+                
             }
         }
     }
