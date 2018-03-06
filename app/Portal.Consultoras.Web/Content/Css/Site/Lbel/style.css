@@ -19856,19 +19856,21 @@ label.checkpop.c_on {
     width: 100%;
     overflow: hidden;
     color: black;
+    font-size:15px;
 }
 
 .consultora_home {
     margin-bottom: 6px;
     display: block;
     color: black;
+    font-size: 13px !important;
     margin-top: -5px;
     float: left;
 }
 .consultora_home a.txtdorado{
     display: inline;
-    font-size: 13px;
-    color: #d4ae3a;
+    font-size: 13px !important;
+    color: #d4ae3a !important;
     margin-right: 5px;
     text-decoration:underline;
 }
@@ -20299,7 +20301,7 @@ label.checkpop.c_on {
     font-size: 9px;
     letter-spacing: .1px;
     color: #848484;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-left: 10px;
     float: left;
 }

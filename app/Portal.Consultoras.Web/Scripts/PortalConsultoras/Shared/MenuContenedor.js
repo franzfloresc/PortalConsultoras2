@@ -16,10 +16,15 @@ var menuModule = (function () {
         seccionMenuFija: "#seccion-fixed-menu",
         header: "header",
         bcMenuEstrategia: ".bc_menu_estrategia",
+        subnavegadorUl: "ul.subnavegador",
         aHover: "ul.subnavegador li a",
-        aMenuActivo: "ul.subnavegador li a.activo",
-        bcParaTiMenu: ".op_menu-horizontal ul li a",
-        bcParaTiMenuActivo: ".op_menu-horizontal ul li a.activo",
+        aMenuActivo: function () {
+            return "ul.subnavegador li a." + this.claseActivo;
+        },//"ul.subnavegador li a.activo",
+        bcParaTiMenu: ".op_menu-horizontal ul li a",    
+        bcParaTiMenuActivo: function () {
+            return ".op_menu-horizontal ul li a." + this.claseActivo;
+        },//".op_menu-horizontal ul li a.activo",
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
     },
@@ -68,6 +73,12 @@ var menuModule = (function () {
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
+        var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
+        var esActiva = $(elementos.subnavegadorUl).data("es-activa");
+        if (esSuscrita) {
+            elementos.claseActivo = "activo-dorado";
+        }
+
         url = document.location.href;
         $(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
         if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
@@ -76,10 +87,10 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find('img.click-menu').css('display', 'inline');
         }
         if ($(elementos.aHover).hasClass(elementos.claseActivo)) {
-            var img = $.trim($(elementos.aMenuActivo).find('img').attr("src"));
+            var img = $.trim($(elementos.aMenuActivo()).find('img').attr("src"));
             if (img !== "") {
                 img = img.replace("_normal.", "_hover.");
-                $(elementos.aMenuActivo).find('img').attr("src", img);
+                $(elementos.aMenuActivo()).find('img').attr("src", img);
             }
         }
     }

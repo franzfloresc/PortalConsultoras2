@@ -302,7 +302,6 @@ function ArmarCarouselEstrategias(data) {
     $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
         item.EsBanner = false;
-        item.TextoBanner = "";
     });
 
     tieneOPT = true;
@@ -327,12 +326,10 @@ function ArmarCarouselEstrategias(data) {
 
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
-            if (!revistaDigital.EsActiva) {
-                if (!revistaDigital.EsSuscrita) {
+            if (!revistaDigital.EsSuscrita) {
                     var bannerClubGanaMas = new Object();
                     $.extend(true, bannerClubGanaMas, data.Lista[0]);
                     bannerClubGanaMas.EsBanner = true;
-                    bannerClubGanaMas.TextoBanner = "Mensaje de Prueba";
 
                     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
                         data.Lista.splice(3, 0, bannerClubGanaMas);
@@ -345,7 +342,7 @@ function ArmarCarouselEstrategias(data) {
                     });
 
                     arrayOfertasParaTi = data.Lista;
-                }
+                
             }
         }
     }

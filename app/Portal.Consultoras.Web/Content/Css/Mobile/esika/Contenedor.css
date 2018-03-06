@@ -165,6 +165,10 @@ section {
     color: #b52e36;
 }
 
+.titulo h2.seccion-titulo-dorado {
+    color: #c39934 !important;
+}
+
 .bc_plantilla-producto-promocion {
     height: auto;
     background-repeat: no-repeat !important;
@@ -299,6 +303,19 @@ section {
 .bc_para_ti-menu-opciones ul li a.activo p.activo {
     border-bottom: 1px solid #e81c36;
     color: #e81c36;
+}
+
+.bc_para_ti-menu-opciones ul li a.activo-dorado p::after {
+    content: '';
+    display: block;
+    width: 75%;
+    margin: auto;
+    border: 1px solid #c39934;
+    margin-top: 12px;
+}
+
+.bc_para_ti-menu-opciones ul li a.activo-dorado p {
+    color: #c39934;
 }
 
 .bc-menu-vertical-prev, .bc-menu-vertical-next {
