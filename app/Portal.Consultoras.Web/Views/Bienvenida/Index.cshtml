@@ -95,7 +95,7 @@ if (revistaDigital.TieneRDC)
     if (revistaDigital.EsActiva)
     {
         <div class="nombre_consultora_2018">
-            ¡Hola <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+            ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
             {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             }

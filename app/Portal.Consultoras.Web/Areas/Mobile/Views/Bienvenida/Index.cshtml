@@ -93,18 +93,23 @@
         <div class="content_resumen_dato_mobile" style="text-align:left">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
     {
-        <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
-        <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
+        <div class="nombre_consultora_2018">
+            ¡Feliz Aniversario @nombreConsultora
+        </div>
 }
 else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
 {
-        <div class="saludo_mobile" style="width: 63%;">¡Feliz Cumpleaños&nbsp;</div>
-        <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
+        
+        <div class="nombre_consultora_2018">
+            ¡Feliz Cumpleaños @nombreConsultora
+        </div>
 }
 else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
 {
-        <div class="saludo_mobile" style="width: 63%;">¡@ViewBag.SaludoFestivo&nbsp;</div>
-        <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
+        
+        <div class="nombre_consultora_2018">
+            ¡@ViewBag.SaludoFestivo @nombreConsultora
+        </div>
 }
 else
 {
@@ -112,25 +117,28 @@ if (Model.RevistaDigital.TieneRDC)
 {
     if (Model.RevistaDigital.EsActiva)
     {
-        <div class="saludo_mobile">¡Hola&nbsp;</div>
+        <div class="nombre_consultora_2018">
+            ¡Hola
+        </div>
 }
 else
 {
 if (Model.RevistaDigital.EsSuscrita)
 {
 
-        <div class=""><p style="    margin-bottom: 0px;">¡Bienvenida al</p></div>
-        <div><a class="txtdorado" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">CLUB GANA+</a> <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div></div>
-
-}
-else
-{
-        <div class="saludo_mobile">¡Hola&nbsp;</div>
-        <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
-}
-}
-}
-}
+        <div class="nombre_consultora_2018">
+            ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
+        </div>
+                        }
+                        else
+                        {
+                            <div class="nombre_consultora_2018">
+                                ¡Hola @nombreConsultora
+                            </div>
+                        }
+                    }
+                }
+            }
 
 
             @if (Model.PortalLideres && Model.Lider == 1)
