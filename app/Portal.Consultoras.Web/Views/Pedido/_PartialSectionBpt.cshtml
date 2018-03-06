@@ -15,30 +15,6 @@
 
 @if (revistaDigital.TieneRDC)
 {
-
-        <!-- PASE PEDIDO INSCRITAS C-12 -->
-        @*<div class="banner_pedido_rd" style="box-shadow: none;">
-            <!--si no es club gana+, cambia a: /etiqueta-ganamas-esika.svg-->
-            <img src="~/Content/Images/etiqueta-club-ganamas-dorado-independiente.svg" alt="Club Gana+" />
-            <div class="cabecera_pedido_rd" style=" display:none;">
-                <div class="rd_logo">
-                    <img src="@urlLogo" alt="" class="small">
-                </div>
-                <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-            </div>
-            <div class="banner_pedido_masofertas" style="padding-bottom:0;">
-                <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)<b>¡GANAN HASTA 10% MÁS!</b></div>
-                <!-- si no es club gana+, cambia la clase activar a: .activar_boton_esika_no_animado-->
-                <div class="generalbtn2018 activar_boton_dorado_no_animado" style="max-width:238px;">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
-                </div>
-                <div class="btn_diagonal btn_stroke">
-
-                </div>
-            </div>
-        </div>*@
-        <!-- FIN PASE PEDIDO INSCRITAS C-12 -->
-
         if (revistaDigital.EsSuscrita)
         {
 
@@ -66,7 +42,7 @@
             {
                 @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
                                                 new ViewDataDictionary {
-                { "Source", 2 },
+                { "Source", 3 },
                 { "NombreConsultora", revistaDigital.NombreConsultora },
                 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
                 { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
@@ -109,7 +85,7 @@
             {
                 @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
                                             new ViewDataDictionary {
-                { "Source", 2 },
+                { "Source", 3 },
                 { "NombreConsultora", revistaDigital.NombreConsultora },
                 { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido },
                 { "NombrePalanca", revistaDigital.NombreComercialNoActiva }});
