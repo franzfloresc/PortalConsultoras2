@@ -464,9 +464,9 @@ namespace Portal.Consultoras.BizLogic
             usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
             usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
 
-            usuario.EsAniversario = (bool)consultoraAniversarioTask.Result[0];
+            usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 ? (bool)consultoraAniversarioTask.Result[0] : false;
             usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
-            usuario.AniosPermanencia = (int)consultoraAniversarioTask.Result[1];
+            usuario.AniosPermanencia = consultoraAniversarioTask.Result.Count == 2 ? (int)consultoraAniversarioTask.Result[1] : 0;
 
             usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
             usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
@@ -478,6 +478,7 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponEstado = cuponTask.Result.EstadoCupon;
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
             usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
+            usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
             return usuario;
         }
