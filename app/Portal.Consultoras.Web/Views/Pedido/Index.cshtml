@@ -1835,8 +1835,11 @@
         *@
     </div>
     <div id="divGanoRegalo" class="content_regalo_sorpresa" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw); display: none;">
-        <div class="btn_regresa_OF" id="btnCambiarRegalo">CAMBIAR REGALO</div>
-        <div class="icono_regalo_sorpresa" style="margin-top: 20px;">
+        <div class="btn_regresa_OF" id="btnCambiarRegalo">
+            <img class="img_regresa_OF" img="" src="/Content/Images/Esika/regresar.png" alt="">
+            <span class="span_regresa_OF">CAMBIAR REGALO</span>
+        </div>
+        <div class="icono_regalo_sorpresa" style="margin-top: 18px;">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
         <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
@@ -1852,7 +1855,7 @@
         <div class="content_info_regalo">
             <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
             <div class="content_imagen_sorpresa">
-                <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt="" style="width: 215px; height: 235px;"/>
+                <img id="of-regalo-imagen" src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/>
             </div>
             <div class="descripcion_regalo" id="of-regalo-descripcion-larga">
                 Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
@@ -1958,7 +1961,7 @@
                                     <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
 
                                 </div>
-                                <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;">
+                                <div class="contenido_item_carrusel_ofertaFinal">
                                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}" data-verdetalle="" onclick="javascript:CargarVerDetalleOF(this, event);">
                                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;" data-tooltip-text="{{CUVPedidoNombre}}">
                                         <a class="ver_detalle_carrusel" style="bottom:23px;" onclick="of_google_analytics_product_click('desktop',{{ID}},'{{TipoMeta}}')">VER DETALLE</a>
@@ -2001,7 +2004,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="display: block; position: relative; top: -8px;">
+                <div style="display: block; position: relative;">
                     <div class="contenedor_boton_reservarPedido">
                         <a id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                             RESERVA TU PEDIDO

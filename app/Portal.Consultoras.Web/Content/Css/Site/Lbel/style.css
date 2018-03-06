@@ -20270,6 +20270,7 @@ label.checkpop.c_on {
     margin: 0 auto;
     height: 335px;
     border: 1px solid #e7e1e1;
+    padding: 22px 0 22px 0;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
@@ -35471,8 +35472,8 @@ h1#penmostreo .campana {
 }
 
 .icono_regalo_sorpresa {
-    margin: 0 auto 12px auto;
-    width: 70px;
+    margin: 0 auto 8px auto;
+    width: 80px;
     /*background: url('https:// image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png');*/
 }
 
@@ -35638,14 +35639,30 @@ h1#penmostreo .campana {
 }
 
 .btn_regresa_OF {
-    background: url(../../../Images/Esika/regresar.png) no-repeat;
-    background-position: 15px 10px;
-    text-transform: uppercase;
-    font-family: 'Lato';
+    /* background: url(../../../Images/Esika/regresar.png) no-repeat; */
+    left: 15px;
+    position: absolute;
+    top: 15px;
+}
+
+.img_regresa_OF {
+    margin-top: 3.2px;
+    position: absolute;
+    width: 8px;
+}
+
+.span_regresa_OF {
     color: white;
+    font-family: 'Lato';
     font-size: 11px;
     letter-spacing: .5px;
-    padding-left: 35px;
+    position: relative;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+
+#divGanoRegalo .btn_legal_RS {
+    margin-top: 30px;
 }
 
 #divCarruselRegalo .content_item_carrusel_ofertaFinal {
