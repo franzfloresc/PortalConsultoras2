@@ -199,11 +199,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             {  "CUV Regalo","CuvRegalo" },
                             { "Nombre Regalo", "NombreRegalo" },
                             { "Monto Pedido","MontoInicial" }, 
-                           // { "RangoInicial", "Rango Inicial" },
-                           // { "RangoFinal", "Rango Final" },
+                            { "Rango Inicial", "RangoInicial" },
+                             { "Rango Final", "RangoFinal" },
                             { "Monto a Agregar" ,"MontoAgregar"},
                             { "Monto Meta","MontoMeta" },
-                           // { "MontoGanador", "Monto Ganador" },  
+                             { "Monto Ganador", "MontoGanador" },  
                             { "Fecha Registro" ,"FechaRegistro" },
                 };
 
