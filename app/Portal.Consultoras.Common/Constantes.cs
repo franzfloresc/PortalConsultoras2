@@ -1121,8 +1121,8 @@ namespace Portal.Consultoras.Common
                 public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
                 public const string NombreComercialActiva = "NombreComercialActiva";
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
-                public const string LogoComercialColorActiva = "LogoComercialColorActiva";
-                public const string LogoComercialColorNoActiva = "LogoComercialColorNoActiva";
+                public const string LogoMenuInicioActiva = "LogoMenuInicioActiva";
+                public const string LogoMenuInicioNoActiva = "LogoMenuInicioNoActiva";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";

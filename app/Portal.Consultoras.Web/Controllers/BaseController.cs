@@ -3652,13 +3652,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                         config.DesktopLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
                         config.MobileLogoMenu = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
-                        if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoComercialColorNoActiva))
+                        if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.DLogoMenuInicioNoActiva))
                         {
-                            config.MobileLogoMenu = revistaDigital.MLogoComercialColorActiva;
+                            config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioNoActiva;
                         }
-                        if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoComercialColorActiva))
+                        if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.DLogoMenuInicioActiva))
                         {
-                            config.MobileLogoMenu = revistaDigital.MLogoComercialColorNoActiva;
+                            config.DesktopLogoMenu = revistaDigital.DLogoMenuInicioActiva;
+                        }
+                        if (!revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioNoActiva))
+                        {
+                            config.MobileLogoMenu = revistaDigital.MLogoMenuInicioNoActiva;
+                        }
+                        if (revistaDigital.EsSuscrita && !string.IsNullOrEmpty(revistaDigital.MLogoMenuInicioActiva))
+                        {
+                            config.MobileLogoMenu = revistaDigital.MLogoMenuInicioActiva;
                         }
                         config.Descripcion = string.Empty;
                         config = ActualizarTituloYSubtituloBanner(config, revistaDigital);
@@ -3744,7 +3752,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "GuiaNegocio";
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
-                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
+                        confiModel.UrlMenu = "#";
                         break;
                 }
 

@@ -19867,6 +19867,29 @@ label.checkpop.c_on {
     margin-top: -5px;
     float: left;
 }
+.nombre_consultora_2018 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
 .consultora_home a.txtdorado{
     display: inline;
     font-size: 13px !important;
@@ -20303,9 +20326,15 @@ label.checkpop.c_on {
     color: #848484;
     margin-top: -2px;
     margin-left: 10px;
-    float: left;
+    display: inline;
+    top: -2px;
+    position: relative;
 }
-
+    .mis_datos img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+    }
     .mis_datos:hover {
         text-decoration: underline;
     }
