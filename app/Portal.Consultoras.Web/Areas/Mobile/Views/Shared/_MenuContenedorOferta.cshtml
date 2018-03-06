@@ -113,7 +113,7 @@
                             var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : string.Empty;
                             if (ViewBag.EsSuscrita)
                             {
-                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo-dorado" : "default-dorado";
+                                claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activo-dorado" : "default-dorado";
                             }
                             <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                                 data-codigo="@menuhijo.Codigo"
