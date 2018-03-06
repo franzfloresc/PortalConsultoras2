@@ -10,6 +10,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaSicc : IReservaExternaBL
     {
+        private readonly RestClient restClient = new RestClient();
+
         public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
@@ -88,11 +90,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             //    if (cuponNueva != null) detalle.cuv = cuponNueva.CUV;
             //}
 
-            Data.ServiceSicc.Pedido respuestaSicc;
-            using (var sv = new Data.ServiceSicc.ServiceClient())
-            {
-                respuestaSicc = sv.EjecutarCuadreOfertas(inputPedido);
-            }
+            var respuestaSicc = restClient.PostAsync<Data.ServiceSicc.Pedido>("/Service.svc/EjecutarCuadreOfertas", inputPedido).Result;
 
             //if(respuestaSicc != null && respuestaSicc.posiciones != null)
             //{
@@ -114,38 +112,38 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 PedidoID = input.PedidoID,
                 CodigoSap = d.codigoSap,
                 CUV = d.CUV,
-                EscalaDescuento = d.escalaDescuento.ToNullableDecimalSecure(),
-                FactorCuadre = d.factorCuadre.ToNullableDecimalSecure(),
+                EscalaDescuento = d.escalaDescuento.ToDecimalSecure(),
+                FactorCuadre = d.factorCuadre.ToDecimalSecure(),
                 FactorRepeticion = d.factorRepeticion.ToInt32Secure(),
                 GrupoDescuento = d.grupoDescuento,
-                ImporteDescuento1 = d.importeDescuento1.ToNullableDecimalSecure(),
-                ImporteDescuento2 = d.importeDescuento2.ToNullableDecimalSecure(),
+                ImporteDescuento1 = d.importeDescuento1.ToDecimalSecure(),
+                ImporteDescuento2 = d.importeDescuento2.ToDecimalSecure(),
                 IndAccion = d.indAccion == "1",
                 IndLimiteVenta = d.indLimiteVenta == "1",
                 IndRecuperacion = d.indicadorRecuperacion == "1",
-                NumUnidOrig = d.numUnidOrig.ToNullableInt32Secure(),
-                NumSeccionDetalle = d.numeroSeccionDetalle.ToNullableInt32Secure(),
+                NumUnidOrig = d.numUnidOrig.ToInt32Secure(),
+                NumSeccionDetalle = d.numeroSeccionDetalle.ToInt32Secure(),
                 Observaciones= d.observaciones,
                 IdCatalogo = d.oidCatalogo.ToInt32Secure(),
                 IdDetaOferta = d.oidDetaOferta.ToInt32Secure(),
                 IdEstrategia = d.oidEstrategia.ToInt32Secure(),
-                IdFormaPago = d.oidFormaPago.ToNullableInt32Secure(),
-                IdGrupoOferta = d.oidGrupoOferta.ToNullableInt32Secure(),
-                IdIndicadorCuadre = d.oidIndicadorCuadre.ToNullableInt32Secure(),
-                IdNiveOferta = d.oidNiveOferta.ToNullableInt32Secure(),
-                IdNiveOfertaGratis = d.oidNiveOfertaGratis.ToNullableInt32Secure(),
-                IdNiveOfertaRango = d.oidNiveOfertaRango.ToNullableInt32Secure(),
-                IdOferta = d.oidOferta.ToNullableInt32Secure(),
-                IdPosicion = d.oidPosicion.ToNullableInt32Secure(),
+                IdFormaPago = d.oidFormaPago.ToInt32Secure(),
+                IdGrupoOferta = d.oidGrupoOferta.ToInt32Secure(),
+                IdIndicadorCuadre = d.oidIndicadorCuadre.ToInt32Secure(),
+                IdNiveOferta = d.oidNiveOferta.ToInt32Secure(),
+                IdNiveOfertaGratis = d.oidNiveOfertaGratis.ToInt32Secure(),
+                IdNiveOfertaRango = d.oidNiveOfertaRango.ToInt32Secure(),
+                IdOferta = d.oidOferta.ToInt32Secure(),
+                IdPosicion = d.oidPosicion.ToInt32Secure(),
                 IdProducto = d.oidProducto.ToInt32Secure(),
-                IdSubTipoPosicion = d.oidSubtipoPosicion.ToNullableInt32Secure(),
-                IdTipoPosicion = d.oidTipoPosicion.ToNullableInt32Secure(),
+                IdSubTipoPosicion = d.oidSubtipoPosicion.ToInt32Secure(),
+                IdTipoPosicion = d.oidTipoPosicion.ToInt32Secure(),
                 Pagina = d.pagina.ToInt32Secure(),
-                PorcentajeDescuento = d.porcentajeDescuento.ToNullableDecimalSecure(),
-                PrecioCatalogo = d.precioCatalogo.ToNullableDecimalSecure(),
-                PrecioContable = d.precioContable.ToNullableDecimalSecure(),
-                PrecioPublico = d.precioPublico.ToNullableDecimalSecure(),
-                PrecioUnitario = d.precioUnitario.ToNullableDecimalSecure(),
+                PorcentajeDescuento = d.porcentajeDescuento.ToDecimalSecure(),
+                PrecioCatalogo = d.precioCatalogo.ToDecimalSecure(),
+                PrecioContable = d.precioContable.ToDecimalSecure(),
+                PrecioPublico = d.precioPublico.ToDecimalSecure(),
+                PrecioUnitario = d.precioUnitario.ToDecimalSecure(),
                 Ranking = d.ranking,
                 UnidadesDemandadas = d.unidadesDemandadas.ToInt32Secure(),
                 UnidadesPorAtender = d.unidadesPorAtender.ToInt32Secure(),
