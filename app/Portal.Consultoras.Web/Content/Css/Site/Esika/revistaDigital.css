@@ -809,6 +809,53 @@
         padding-right: 10px;
         padding-left: 10px;
     }
+    .revistadigital-landing .content_item_carrusel_clubganamas img.portada {
+        width: 100%;
+    }
+     .revistadigital-landing .content_item_carrusel_clubganamas img.portada_off{
+         height:229px;
+     }
+    .revistadigital-landing .content_item_carrusel_clubganamas a.portada {
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+        margin-top: 5px;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas p.tercero {
+        overflow: hidden;
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        height: 40px;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height: 18px;
+        display: block;
+    }
     .revistadigital-landing .content_item_carrusel_clubganamas {
         background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
         border: none !important;
@@ -816,6 +863,10 @@
         padding: 111px 30px 33px 30px;
         max-width: 240px;
         margin: auto;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas_off {
+        background-image: linear-gradient(48deg, white, white) !important;
+        padding: 20px 35px;
     }
 
     .revistadigital-landing .content_item_carrusel .clubganamas_logo {
