@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daConfiguracionValidacion.GetConfiguracionValidacion(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BEConfiguracionValidacion(reader) {PaisID = paisID};
+                    var entidad = new BEConfiguracionValidacion(reader) { PaisID = paisID };
                     lista.Add(entidad);
                 }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -11,6 +8,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoISO { get; set; }
 
         public string NombreCompleto { get; set; }
-        public List<EventoPostulanteModel> ListaEventos {get; set;}
+        public List<EventoPostulanteModel> ListaEventos { get; set; }
     }
 }

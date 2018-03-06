@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Common;
-
 using System;
 using System.Collections.Generic;
 using System.Data;

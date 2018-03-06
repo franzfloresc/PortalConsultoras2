@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {

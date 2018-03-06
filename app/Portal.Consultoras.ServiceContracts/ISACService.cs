@@ -578,7 +578,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
+
         [OperationContract]
         void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
@@ -642,7 +642,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
-        
+
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
 
@@ -654,7 +654,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso);
-        
+
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
 
@@ -692,7 +692,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Estrategia
         [OperationContract]
-        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, 
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
                 int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
 
         [OperationContract]

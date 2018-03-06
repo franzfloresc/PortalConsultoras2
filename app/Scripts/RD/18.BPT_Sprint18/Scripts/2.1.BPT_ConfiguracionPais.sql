@@ -16,7 +16,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 0,
+		'RDI', 1, 'Revista Digital Intriga', 0,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -49,7 +49,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -82,7 +82,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -115,7 +115,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -148,7 +148,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -181,7 +181,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -214,7 +214,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -247,7 +247,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -280,7 +280,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -313,7 +313,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -346,7 +346,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 0,
+		'RDI', 1, 'Revista Digital Intriga', 0,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -379,7 +379,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 0,
+		'RDI', 1, 'Revista Digital Intriga', 0,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 
@@ -412,7 +412,7 @@ BEGIN
 		DesktopLogoBanner, MobileLogoBanner,
 		UrlMenu, Logo)	
 	values (
-		'RDI', 0, 'Revista Digital Intriga', 1,
+		'RDI', 1, 'Revista Digital Intriga', 1,
 		0, 201804,
 		(select max(Orden) + 1 from ConfiguracionPais), 
 		(select max(MobileOrden) + 1 from ConfiguracionPais), 

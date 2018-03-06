@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.SelectIncentivos(paisId, campaniaId).ToList();
                 }
-                
+
                 var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
                 if (lst.Count > 0)
                 {

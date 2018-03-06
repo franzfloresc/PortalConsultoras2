@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -22,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.OrdenMaximo = 3;
                 model.OrdenCyzone = 3;
 
-                if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
+                if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
                     model.OrdenEsika = 1;
                     model.OrdenLbel = 2;

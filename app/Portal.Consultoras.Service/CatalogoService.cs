@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
-            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia) 
+            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia)
             {
                 if (codigoUbigeo.Length == 18) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
                 else if (codigoUbigeo.Length == 12) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo12AndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
@@ -155,26 +155,26 @@ namespace Portal.Consultoras.Service
             try
             {
                 List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-                {
-                    new KeyValuePair<string, string>("1", "AR"),
-                    new KeyValuePair<string, string>("2", "BO"),
-                    new KeyValuePair<string, string>("3", "CL"),
-                    new KeyValuePair<string, string>("4", "CO"),
-                    new KeyValuePair<string, string>("5", "CR"),
-                    new KeyValuePair<string, string>("6", "EC"),
-                    new KeyValuePair<string, string>("7", "SV"),
-                    new KeyValuePair<string, string>("8", "GT"),
-                    new KeyValuePair<string, string>("9", "MX"),
-                    new KeyValuePair<string, string>("10", "PA"),
-                    new KeyValuePair<string, string>("11", "PE"),
-                    new KeyValuePair<string, string>("12", "PR"),
-                    new KeyValuePair<string, string>("13", "DO"),
-                    new KeyValuePair<string, string>("14", "VE"),
-                };
-                
+            {
+                new KeyValuePair<string, string>("1", "AR"),
+                new KeyValuePair<string, string>("2", "BO"),
+                new KeyValuePair<string, string>("3", "CL"),
+                new KeyValuePair<string, string>("4", "CO"),
+                new KeyValuePair<string, string>("5", "CR"),
+                new KeyValuePair<string, string>("6", "EC"),
+                new KeyValuePair<string, string>("7", "SV"),
+                new KeyValuePair<string, string>("8", "GT"),
+                new KeyValuePair<string, string>("9", "MX"),
+                new KeyValuePair<string, string>("10", "PA"),
+                new KeyValuePair<string, string>("11", "PE"),
+                new KeyValuePair<string, string>("12", "PR"),
+                new KeyValuePair<string, string>("13", "DO"),
+                new KeyValuePair<string, string>("14", "VE"),
+            };
+
                 string paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault() ?? "";
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
                 int.TryParse(paisId, out outVal);
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Service
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            
+
         }
 
         public int InsLogClienteRegistraConsultoraCatalogo(string PaisISO, int consultoraId, string codigoConsultora,

@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
                 IEnumerable<BETipoEstrategia> items = lst;
-                
+
                 #region Sort Section
                 if (sord == "asc")
                 {
@@ -178,9 +178,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult Registrar(string TipoEstrategiaID, string DescripcionEstrategia,
                         string ImagenEstrategia, string Orden,
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string CodigoPrograma, string FlagMostrarImg,
                         string FlagValidarImagen,
                         string PesoMaximoImagen,
-                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
+                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "",
                         string ImagenOfertaIndependienteAnterior = "", string Codigo = "")
         {
             string operacion = "registró";

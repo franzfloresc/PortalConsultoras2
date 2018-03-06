@@ -441,9 +441,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -496,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
-                
+
                 string fileextension = Path.GetExtension(uplArchivo.FileName) ?? "";
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
@@ -561,7 +561,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var zonas = (from item in lst
-                select item.Zona).ToList();
+                         select item.Zona).ToList();
 
             zonas = (from item in zonas
                      select item).Distinct().ToList();

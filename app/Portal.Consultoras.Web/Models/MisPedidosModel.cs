@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models
 {

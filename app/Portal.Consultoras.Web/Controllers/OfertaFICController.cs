@@ -35,8 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
-                    ? sv.SelectPaises().ToList() 
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
                     : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IEnumerable<PaisModel>>(lst);
@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
                         int campaniaAnterior = AddCampaniaAndNumero(model.CampaniaID, -1);
                         foreach (string cuv in productosAValidar)
                         {
-                            List<ServiceODS.BEProductoDescripcion>  productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();
+                            List<ServiceODS.BEProductoDescripcion> productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();
                             if (productoFaltante.Count == 0 || productoFaltante[0].CUV != cuv)
                             {
                                 productosNoValidos.Add(cuv);

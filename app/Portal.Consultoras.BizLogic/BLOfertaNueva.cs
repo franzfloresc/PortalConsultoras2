@@ -34,7 +34,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
-        
+
         public IList<BEOfertaNueva> GetProductosOfertaConsultoraNueva(int paisID, int CampaniaID, int consultoraid)
         {
             var lst = new List<BEOfertaNueva>();
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = dataAccess.GetDescripcionPackByCUV(CUV, CampaniaCodigo))
                 while (reader.Read())
                 {
-                    entity = new BEOfertaNueva(reader) {PaisID = paisID};
+                    entity = new BEOfertaNueva(reader) { PaisID = paisID };
                 }
             return entity;
         }
@@ -107,13 +107,13 @@ namespace Portal.Consultoras.BizLogic
         public int UpdEstadoPacksOfertasNueva(int PaisID, int idconsultora, string CodigoConsultora, int campania)
         {
             var dataAccess = new DAOfertaNueva(PaisID);
-            return dataAccess.UpdEstadoPacksOfertasNueva(idconsultora,CodigoConsultora,campania);
+            return dataAccess.UpdEstadoPacksOfertasNueva(idconsultora, CodigoConsultora, campania);
         }
 
         public int ObtenerEstadoPacksOfertasNueva(int PaisID, int idconsultora, int campania)
         {
             var dataAccess = new DAOfertaNueva(PaisID);
-            return dataAccess.ObtenerEstadoPacksOfertasNueva(idconsultora,campania);
+            return dataAccess.ObtenerEstadoPacksOfertasNueva(idconsultora, campania);
         }
 
     }

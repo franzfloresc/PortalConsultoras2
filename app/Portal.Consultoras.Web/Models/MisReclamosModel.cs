@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -34,7 +31,7 @@ namespace Portal.Consultoras.Web.Models
 
         public List<CDRWebModel> ListaCDRWeb { get; set; }
 
-        public decimal MontoMinimo { get; set; }        
+        public decimal MontoMinimo { get; set; }
 
         public int TieneHistoricoCDR { get; set; }
         public string UrlPoliticaCdr { get; set; }

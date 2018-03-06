@@ -54,6 +54,7 @@ namespace Portal.Consultoras.BizLogic
                 return reader.MapToCollection<Estrategia.BEConfiguracionProgramaNuevasApp>();
             }
         }
+
         public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
             return new DAConfiguracionProgramaNuevas(entidad.PaisID).InsConfiguracionProgramaNuevasApp(entidad);

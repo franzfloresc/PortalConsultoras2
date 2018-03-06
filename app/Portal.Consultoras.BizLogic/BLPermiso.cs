@@ -82,11 +82,13 @@ namespace Portal.Consultoras.BizLogic
                 tran.Complete();
             }
         }
+
         public void UpdatePermiso(BEPermiso entidad)
         {
             var daPermiso = new DAPermiso(entidad.PaisID);
             daPermiso.Update(entidad);
         }
+
         public void DeletePermiso(int paisID, int permisoID)
         {
             var daPermiso = new DAPermiso(paisID);

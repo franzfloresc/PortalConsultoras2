@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         public void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, List<BELogParametroDiasCargaPedido> listaEntidades)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daLogParametroDiasCargaPedido = new DALogParametroDiasCargaPedido(paisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))

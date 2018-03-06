@@ -34,9 +34,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int MarcaID { get; set; }
 
         public string DescripcionMarca { get; set; }
-        
+
         public string ObservacionPROL { get; set; }
-        
+
         public bool IndicadorOfertaCUV { get; set; }
     }
 }

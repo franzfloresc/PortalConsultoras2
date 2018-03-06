@@ -65,8 +65,7 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionMarca { get; set; }
         public string TipoEstrategiaDescripcion { get; set; }
         public short Position { get; set; }
-
-
+        
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public bool BloqueoProductoDigital { get; set; }
     }

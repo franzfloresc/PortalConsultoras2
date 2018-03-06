@@ -9,7 +9,6 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisPedidosController : BaseMobileController
@@ -28,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     var result = await service.GetMisPedidosByCampaniaAsync(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, top);
 
-                    foreach(var item in result)
+                    foreach (var item in result)
                     {
                         listaPedidos.Add(new MisPedidosCampaniaModel()
                         {

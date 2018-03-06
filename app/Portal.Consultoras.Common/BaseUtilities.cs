@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Common
                             result = new StreamReader(streamRe).ReadToEnd();
                     }
                 }
-                
+
                 var resultado = JsonConvert.DeserializeObject<TResult>(result);
                 return resultado;
             }

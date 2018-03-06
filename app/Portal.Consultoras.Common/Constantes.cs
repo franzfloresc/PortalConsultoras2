@@ -217,6 +217,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
+            public const string HerramientasVenta = "011";
         }
 
         public static class ConstSession
@@ -269,6 +270,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
+            public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
 
             public const string EventoFestivo = "EventoFestivo";
@@ -695,6 +697,15 @@ namespace Portal.Consultoras.Common
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileLandingPopup = 2812;
             #endregion
+
+            #region Herramienta de Ventas
+            public const int HVDesktopContenedor = 1831;
+            public const int HVDesktopContenedorPopup = 1832;
+            public const int HVDesktopLanding = 1011;
+            public const int HVDesktopLandingPopUp = 1012;
+            public const int HVMobileLanding = 2011;
+            public const int HVMobileLandingPopup = 2011;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -1089,6 +1100,15 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string HerramientasVenta = "HV";
+        }
+
+        public static class ConfiguracionPaisComponente
+        {
+            public static class RD
+            {
+                public const string PopupClubGanaMas = "Popup_Club_Gana+";
+            }
         }
 
         public static class ConfiguracionPaisDatos
@@ -1171,6 +1191,20 @@ namespace Portal.Consultoras.Common
 
                 #region Landing Informativo
                 public const string InformativoVideo = "InformativoVideo";
+
+                #endregion
+
+                #region PopupSuscripcion
+                public const string PopupMensaje1 = "PopupMensaje1";
+                public const string PopupMensaje2 = "PopupMensaje2";
+                public const string PopupMensajeColor = "PopupMensajeColor";
+                public const string PopupImagenEtiqueta = "PopupImagenEtiqueta";
+                public const string PopupImagenPublicidad = "PopupImagenPublicidad";
+                public const string PopupBotonColorFondo = "PopupBotonColorFondo";
+                public const string PopupBotonColorTexto = "PopupBotonColorTexto";
+                public const string PopupBotonTexto = "PopupBotonTexto";
+                public const string PopupFondoColor = "PopupFondoColor";
+                public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
             }
@@ -1197,13 +1231,21 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string NombreComercial= "NombreComercial";
+                public const string NombreComercial = "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
                 public const string MPedidoIntriga = "MPedidoIntriga";
                 public const string DLandingBannerIntriga = "DLandingBannerIntriga";
                 public const string MLandingBannerIntriga = "MLandingBannerIntriga";
+            }
+
+            public static class HV
+            {
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueado = "DPopupBloqueado";
+                public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
             }
 
         }
@@ -1630,6 +1672,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+            public const string HerramientasVentaIndex = "/herramientasventa/index";
+            public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
+            public const string HerramientasVentaComprar = "/herramientasventa/comprar";
         }
 
         public static class TipoVistaEstrategia

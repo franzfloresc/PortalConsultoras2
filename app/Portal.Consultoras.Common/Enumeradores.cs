@@ -285,7 +285,7 @@
 
         public enum PantallaOrigenPedidoWeb
         {
-            Default=0,
+            Default = 0,
             Home = 1,
             Pedido = 2,
             Liquidacion = 3,
@@ -294,7 +294,9 @@
             OfertaParaTi = 6,
             RevistaDigital = 7,
             GuiaNegocioDigital = 8,
-            General = 9
+            General = 9,
+            HerramientasVentaComprar = 10,
+            HerramientasVentaRevisar = 11
         }
 
     }

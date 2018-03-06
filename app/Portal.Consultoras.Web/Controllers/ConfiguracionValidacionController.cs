@@ -102,9 +102,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionValidacion(paisId, CampaniaID);
             }
-            
+
             return Mapper.Map<IList<BEConfiguracionValidacion>, IEnumerable<ConfiguracionValidacionModel>>(lst);
         }
 
@@ -200,9 +200,9 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (var item in lstZonasActivas)
                 {
                     BEConfiguracionValidacionZona[] temp = lst.Where(p => p.ZonaID == item.ZonaID).ToArray();
-                    item.DiasDuracionCronograma = temp.Length != 0 
+                    item.DiasDuracionCronograma = temp.Length != 0
                         ? temp[0].DiasDuracionCronograma
-                        : (short) 1;
+                        : (short)1;
                 }
             }
 

@@ -10,6 +10,6 @@ namespace Portal.Consultoras.Web.Models
         public Boolean EsquemaDAConsultora { get; set; }
         public Boolean TipoProcesoCarga { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
-        
+
     }
 }

@@ -34,9 +34,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Helpers
             result = result.Replace("Ó", "o");
             result = result.Replace("Ú", "u");
             result = result.Replace("Ñ", "n");
-            
+
             result = result.ToLowerInvariant();
-            
+
             result = result.Replace(" ", "-");
 
             return result;

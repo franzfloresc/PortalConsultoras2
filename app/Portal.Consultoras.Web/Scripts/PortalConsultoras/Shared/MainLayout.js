@@ -60,6 +60,8 @@ $(document).ready(function () {
                 $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
+            
+            $('#alertDialogMensajes').dialog('close');
         }
     });
 
