@@ -55,3 +55,18 @@ begin
 	from ConfiguracionPais cp
 	where cp.Codigo = 'RD'
 end
+
+if exists(	select 1
+			from ConfiguracionPais cp
+			where cp.Codigo = 'GND'	)
+begin
+	print 'Rollback Actualizando ConfiguracionPais : GND'
+	update cp
+	set 
+	cp.DesktopTituloBanner = '#Nombre, disfruta de tu guía de negocio online'
+	,cp.DesktopSubTituloBanner = 'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.'
+	,cp.MobileTituloBanner = '#Nombre, disfruta de tu guía de negocio online'
+	,cp.MobileSubTituloBanner = 'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.'
+	from ConfiguracionPais cp
+	where cp.Codigo = 'GND'
+end
