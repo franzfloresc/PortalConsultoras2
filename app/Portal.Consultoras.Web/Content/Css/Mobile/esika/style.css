@@ -4638,6 +4638,27 @@ margin-top: -88px;
     height: auto;
     font-family: 'Lato';
 }
+.nombre_consultora_2018 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
+
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
 .content_resumen_dato_mobile a.txtdorado{
     color: #a18328;
     text-decoration: underline;
