@@ -283,6 +283,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
     $.each(modeloTemp.lista, function (ind, tem) {
         tem.EsBanner = false;
+        tem.EsLanzamiento = false;
     });
 
     if (response.Mobile) {
