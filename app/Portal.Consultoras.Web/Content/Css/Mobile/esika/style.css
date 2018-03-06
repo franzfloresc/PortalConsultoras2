@@ -13821,15 +13821,13 @@ a {
 }
 
 .content_imagen_sorpresa {
-    height: auto;
-    width: 100%;
+    width: 215px;
     margin: 0 auto;
     text-align: center;
 }
 
     .content_imagen_sorpresa img {
-        width: auto;
-        height: 218px;
+        width: 100%;
     }
 
 .descripcion_regalo {
