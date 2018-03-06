@@ -99,46 +99,34 @@
 }
 else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
 {
-        
+
         <div class="nombre_consultora_2018">
             ¡Feliz Cumpleaños @nombreConsultora
         </div>
 }
 else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
 {
-        
+
         <div class="nombre_consultora_2018">
             ¡@ViewBag.SaludoFestivo @nombreConsultora
         </div>
 }
 else
 {
-if (Model.RevistaDigital.TieneRDC)
-{
-    if (Model.RevistaDigital.EsActiva)
+    if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && !Model.RevistaDigital.EsActiva)
     {
-        <div class="nombre_consultora_2018">
-            ¡Hola
-        </div>
-}
-else
-{
-if (Model.RevistaDigital.EsSuscrita)
-{
+            <div class="nombre_consultora_2018">
+                ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
+            </div>
+    }
+    else
+    {
+            <div class="nombre_consultora_2018">
+                ¡Hola @nombreConsultora
+            </div>
+    }
 
-        <div class="nombre_consultora_2018">
-            ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
-        </div>
-                        }
-                        else
-                        {
-                            <div class="nombre_consultora_2018">
-                                ¡Hola @nombreConsultora
-                            </div>
-                        }
-                    }
-                }
-            }
+}
 
 
             @if (Model.PortalLideres && Model.Lider == 1)
