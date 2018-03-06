@@ -384,6 +384,8 @@ function ArmarCarouselEstrategias(data) {
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
         var esVariableWidth = $("#divListadoEstrategia2").length > 0;
+        cantProCarrusel = 4;
+        esVariableWidth = false;
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
