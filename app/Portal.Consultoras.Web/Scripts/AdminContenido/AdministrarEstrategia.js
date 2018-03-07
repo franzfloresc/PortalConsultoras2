@@ -3570,7 +3570,7 @@
                     $("#seccionFormatoArchivoProductoShowroon").hide();
                 } else {
                     $("#seccionFormatoArchivoGeneral").show();
-                    $("#seccionFormatoArchivoShowroon").hide();
+                    $("#seccionFormatoArchivoSetShowroon").hide();
                     $("#seccionFormatoArchivoProductoShowroon").hide();
                 }
                 
