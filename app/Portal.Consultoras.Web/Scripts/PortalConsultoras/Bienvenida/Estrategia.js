@@ -293,6 +293,10 @@ function ArmarCarouselEstrategias(data) {
             $(".contenedor_ganamas").css({ "height": "100px" });
             $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
             $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+            if (isMobile()) {
+                $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
+            }
+           
         }
         return false;
     }
@@ -443,6 +447,15 @@ function ArmarCarouselEstrategias(data) {
 
         EstablecerLazyCarrusel($('#divListadoEstrategia'));
 
+        var claseFlechaDoradaNext = "";
+        var claseFlechaDoradaPrev = "";
+        if (revistaDigital.TieneRDC) {
+            if (revistaDigital.EsSuscrita) {
+                claseFlechaDoradaNext = "next-flecha-dorada";
+                claseFlechaDoradaPrev = "prev-flecha-dorada";
+            }
+        }
+
         $('#divListadoEstrategia').not('.slick-initialized').slick({
             lazyLoad: 'ondemand',
             infinite: true,
@@ -454,8 +467,8 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             speed: 270,
             pantallaPedido: false,
-            prevArrow: '<button type="button" data-role="none" class="slick-next"></button>',
-            nextArrow: '<button type="button" data-role="none" class="slick-prev"></button>'
+            prevArrow: '<button type="button" data-role="none" class="slick-next ' + claseFlechaDoradaNext+' "></button>',
+            nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev+'"></button>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
