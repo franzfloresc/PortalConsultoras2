@@ -56,6 +56,10 @@ namespace Portal.Consultoras.Entities.Cupon
         public string TipoCupon { get; set; }
 
         [DataMember]
+        [Column("TipoCondicion")]
+        public short? TipoCondicion { get; set; }
+
+        [DataMember]
         public decimal MontoMaximoDescuento { get; set; }
     }
 }
