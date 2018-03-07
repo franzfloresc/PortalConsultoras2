@@ -351,6 +351,7 @@ function ArmarCarouselEstrategias(data) {
                         var productoLanzamiento = new Object();
                         $.extend(true, productoLanzamiento, data.ListaLan[0]);
                         productoLanzamiento.EsLanzamiento = true;
+                        productoLanzamiento.EsBanner = false;
                         productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
 
                         if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
