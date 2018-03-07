@@ -15,7 +15,6 @@
     <input type="hidden" id="hdEstrategiaPrecioAnt" />
     <input type="hidden" id="hdImagenMiniaturaURLAnterior" />
     <div class="Content_modal">
-
         <div class="div-3">
             <div class="titG">Campaña:</div>
             <div class="selectP2 borde_redondeado">
@@ -91,11 +90,6 @@
             <div class="selectCheck borde_redondeado chkEsOfertaIndependiente">
                 <input type="checkbox" class="check" id="chkEsOfertaIndependiente" style="margin-top: 2px;  margin-left: 15px;" />
             </div>
-        </div>
-        <div id='contenedor'>
-            <img id="mifoto1" src="http://www.gochecks.net/data/media/5/3volkswagen_beetle.jpg" width="320" height="240" class="basetooltip" title="elmer" />
-            <br><br>
-            <img id="mifoto2" src="https://pbs.twimg.com/media/Ce4MgXlUkAAaqka.jpg" width="320" height="240" class="basetooltip" title="cangahuala" />
         </div>
         <div class="div-3">
             <div class="titG">
@@ -383,8 +377,8 @@
 <script id="matriz-comercial-item-template" type="text/x-handlebars-template">
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
-        <div class="pdr_modal borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
+        <div id='contenedor' class="pdr_modal borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview basetooltip">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
@@ -426,7 +420,8 @@
         border-radius: 5px;
         padding: 10px;
         color: #fff;
-        font-size: 12px Arial;
+        font-size: 7px !important;
+        z-index: 1002;
     }
 </style>
 
@@ -438,7 +433,6 @@
 </script>
 
 <script type="text/javascript">
-
     $("#linkTallaColor").click(function () {
         if ($.trim($("#txtCUV2").val()) == "") {
             alert("Debe ingresar un valor para CUV2");
@@ -598,35 +592,5 @@
 
     $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
 
-    (function () {
-        $('#contenedor img').each(function () {
-            var img = document.getElementById($(this).attr('id'));
-            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
-            img.title = '<b>Tipo: </b>' + extension + '<br><b>Tamaño: </b>' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels';
-            img.style.cursor = 'help';
-        });
-    }());
-
-    $('.basetooltip').hover(function () {
-        // Hover over code
-        var title = $(this).attr('title');
-        $(this).data('tipText', title).removeAttr('title');
-        $('<p class="tooltipImage"></p>')
-            .html(title)
-            .appendTo('body')
-            .fadeIn('slow');
-    }, function () {
-        // Hover out code
-        $(this).attr('title', $(this).data('tipText'));
-        $('.tooltipImage').remove();
-    }).mousemove(function (e) {
-        var mousex = e.pageX + 20; //Get X
-        var mousey = e.pageY + -10; //Get Y
-        $('.tooltipImage')
-            .css({
-                top: mousey,
-                left: mousex
-            })
-    });
-
+   
 </script>

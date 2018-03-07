@@ -300,14 +300,45 @@ var Estrategia = function (config) {
             } else {
                 VistaNuevoProductoGeneral();
             }
-
-            return data;
+           return data;
         };
     };
 
     var _obtenerImagenGrilla = function (id) {
         if (id == 0) return "";
         var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
+        $('[id*=img-matriz-]').each(function () {
+            var img = document.getElementById($(this).attr('id'));
+            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
+            if (img.naturalWidth != 0) {
+                img.title = '<b>Tipo: </b>' + extension + '<br><b>Tamaño: </b>' + img.naturalWidth + ' x ' + img.naturalHeight + ' px';
+                img.style.cursor = 'help';
+
+                $('.basetooltip').hover(function () {
+                    // Hover over code
+                    var title = $(this).attr('title');
+                    $(this).data('tipText', title).removeAttr('title');
+                    $('<p class="tooltip"></p>')
+                        .html(title)
+                        .appendTo('body')
+                        .fadeIn('slow');
+                }, function () {
+                    // Hover out code
+                    $(this).attr('title', $(this).data('tipText'));
+                    $('.tooltip').remove();
+                }).mousemove(function (e) {
+                    var mousex = e.pageX + 20; //Get X
+                    var mousey = e.pageY + -10; //Get Y
+                    $('.tooltip')
+                        .css({
+                            top: mousey,
+                            left: mousex
+                        })
+                });
+            }
+        });
+
+       
         return (imagen == rutaImagenVacia) ? "" : $.trim(imagen);
     };
 
