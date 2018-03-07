@@ -27,7 +27,6 @@ namespace Portal.Consultoras.BizLogic
             daComunicado.UpdComunicadoByConsultora(CodigoConsultora);
         }
 
-        /**GR 1209 Obtener comunicado configurable en la tabla */
         /// <summary>
         /// Obtener los comunicados por consultora y tipo de dispositivo(Desktop o Mobile).
         /// </summary>
@@ -101,12 +100,17 @@ namespace Portal.Consultoras.BizLogic
             return lstComunicadoFinal;
         }
 
-
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
             DAComunicado daComunicado = new DAComunicado(PaisID);
             daComunicado.InsertarComunicadoVisualizado(CodigoConsultora, ComunicadoID);
 
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            DAComunicado daComunicado = new DAComunicado(PaisId);
+            daComunicado.ActualizarVisualizoComunicado(CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)

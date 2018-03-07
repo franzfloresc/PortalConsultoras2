@@ -3,7 +3,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var codigo = ViewBag.Codigo ?? "";
 }
@@ -14,6 +14,7 @@
         footer {
             display: none;
         }
+
         .btn-volver-fix-detalle span {
             font-family: 'Lato';
             font-size: 11.9px;
@@ -23,6 +24,7 @@
             position: relative;
             top: 1px;
         }
+
         .btn-volver-fix-detalle img {
             width: 6px;
             height: 11px;
@@ -34,11 +36,11 @@
 }
 
 <div class="titulo_mobile" style="display:none;">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
-        } 
+        }
     }
     @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
     {
@@ -47,7 +49,7 @@
                 @if (mobileConfiguracion.MostrarBotonAtras)
                 {
                     <span>VOLVER</span>
-                }                
+                }
             </div>
             <div class="texto_usuario_ept">CLUB GANA+</div>
         </div>
@@ -57,18 +59,12 @@
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
     }
 </div>
-@if (codigo != Constantes.ConfiguracionPais.RevistaDigital)
-{
-    <div class="" style="border-bottom:0">
-        <div class="pestana_esika"></div>
-        <div class="pestana_lbel"></div>
-    </div>
-}
+
 @{
     var btnDesabled = 0;
     var btnDesabledClass = "";
 }
-<div style="margin-top: 25px;"></div>
+<div style="height: 15px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
@@ -87,9 +83,38 @@
 
             @if (Model.Precio > 0)
             {
-                    <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
+                <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
             }
-            <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+            @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+            {
+                if (String.IsNullOrEmpty(Model.PrecioNiveles))
+                {
+                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                }
+                else
+                {
+                    var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
+                    var cont = 0;
+                    foreach (var item in PrecioNiveles)
+                    {
+                        if (cont == 0)
+                        {
+                            <div class="precio_para_ti_048">
+                                <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>@item</b>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
+                        }
+                        cont++;
+                    }
+                }
+            }
+            else
+            {
+                <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+            }
             @if (Model.Ganancia > 0)
             {
                 <div class="gana_048">Gana: @Model.Simbolo @Model.GananciaString</div>
@@ -163,10 +188,10 @@
                             <div class="@claseItem">
                                 @foreach (var Hermano in Model.Hermanos)
                                 {
-                                     if ((Hermano.NombreComercial ?? "" ) == "" && Hermano.Digitable != 1)
-                                     {
-                                         continue;
-                                     }
+                                    if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
+                                    {
+                                        continue;
+                                    }
                                     <div>
                                         <div class="@claseItem3" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                             <div style="display: none;">
@@ -174,10 +199,10 @@
                                                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                             </div>
                                             <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                             @if (@Hermano.Cantidad > 0)
-                                             {
-                                                <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
-                                             }
+                                                @if (@Hermano.Cantidad > 0)
+                                                {
+                                                    <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                                }
                                                 <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
                                             </div>
                                             @if (Hermano.Digitable == 1)
@@ -215,16 +240,16 @@
                 </div>
             }
             <!--REDES-->
-            @if (mobileConfiguracion.MostrarHipervinculo)
+            @if (mobileConfiguracion.MostrarHipervinculo && Model.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
-            <div>
-                <div class="content_redes_ficha">
-                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <div>
+                    <div class="content_redes_ficha">
+                        <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                    </div>
+                    <hr class="clear">
                 </div>
-                <hr class="clear">
-            </div>
             }
             <!--FIN REDES-->
 
@@ -261,20 +286,27 @@
 
 @if ((Model.ClaseBloqueada ?? "") != "")
 {
-    @Html.Action("MensajeBloqueado", "RevistaDigital")
+    if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+    {
+        @Html.Action("MensajeBloqueado", "HerramientasVenta")
+    }
+    else
+    {
+        @Html.Action("MensajeBloqueado", "RevistaDigital")
+    }
 }
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
-    </script>
-    
+        var urlRetorno =  $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
+</script>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
 
 }

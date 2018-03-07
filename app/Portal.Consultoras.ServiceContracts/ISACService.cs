@@ -428,9 +428,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID);
-        
+
+        [OperationContract]
+        void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId);
+
         [OperationContract]
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
+
         #endregion
 
         #region Estado Cuenta
@@ -574,7 +578,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
+
         [OperationContract]
         void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
@@ -638,7 +642,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
-        
+
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
 
@@ -650,7 +654,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso);
-        
+
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
 
@@ -665,6 +669,13 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
 
+        #region Horario
+
+        [OperationContract]
+        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
+
+        #endregion
+        
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
@@ -681,7 +692,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Estrategia
         [OperationContract]
-        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, 
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
                 int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
 
         [OperationContract]

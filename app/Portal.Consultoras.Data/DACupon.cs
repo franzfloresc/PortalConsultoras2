@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities.Cupon;
-using System;
 using System.Data;
 using System.Data.Common;
 
@@ -33,13 +32,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ListarCuponesPorCampania(int paisId, int campaniaId)
         {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponesPorCampania"))
-                {
-                    Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
-                    Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponesPorCampania"))
+            {
+                Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
 
-                    return Context.ExecuteReader(command);
-                }
+                return Context.ExecuteReader(command);
+            }
         }
     }
 }

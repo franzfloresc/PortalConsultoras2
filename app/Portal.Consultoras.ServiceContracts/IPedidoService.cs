@@ -1,12 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Producto;
 
 using System;
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> GetEscalaDescuento(int PaisID);
 
         [OperationContract]
-        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo);
+        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo);
 
         [OperationContract]
         IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID);
@@ -610,7 +610,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
-        
+
         [OperationContract]
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
@@ -633,6 +633,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad);
 
         [OperationContract]
+        List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
 
         [OperationContract]
@@ -650,7 +653,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
-        
+
         [OperationContract]
         List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
 
@@ -787,7 +790,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
-        
+
         [OperationContract]
         int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
 
@@ -873,7 +876,7 @@ namespace Portal.Consultoras.ServiceContracts
         void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv);
 
         [OperationContract]
-        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
+        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
@@ -995,9 +998,9 @@ namespace Portal.Consultoras.ServiceContracts
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
-       
+
         [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
 
         [OperationContract]
         List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
@@ -1061,10 +1064,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
-        
+
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
-        
+
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
 
@@ -1094,9 +1097,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
-       
+
         #region Cupon
-        
+
         [OperationContract]
         BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
 
@@ -1114,7 +1117,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID);
-        
+
         [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
 
@@ -1124,19 +1127,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
-        
+
         [OperationContract]
         void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
         List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
-        
+
         [OperationContract]
         void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
         List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
-        
+
         [OperationContract]
         List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
 
@@ -1224,7 +1227,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
 
-	    #region ConfiguracionProgramaNuevasApp
+        #region ConfiguracionProgramaNuevasApp
         [OperationContract]
         List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         [OperationContract]

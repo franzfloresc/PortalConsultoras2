@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -589,7 +589,7 @@ namespace Portal.Consultoras.Service
             int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -1080,8 +1080,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
@@ -1310,7 +1314,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
@@ -1338,7 +1342,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {
@@ -1396,5 +1400,10 @@ namespace Portal.Consultoras.Service
             return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
         #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

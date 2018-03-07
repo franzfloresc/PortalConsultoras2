@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int PaisID { get; set; }
 
         public int FlagValidate { get; set; }
-        
+
         public string Nombre { get; set; }
 
         [Display(Name = "Correo")]

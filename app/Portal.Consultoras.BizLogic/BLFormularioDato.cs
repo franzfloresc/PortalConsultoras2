@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
         {
             DAFormularioDato = new DAFormularioDato();
         }
-        
+
         public void Insert(BEFormularioDato formularioDato)
         {
             DAFormularioDato.InsFormularioDato(formularioDato);

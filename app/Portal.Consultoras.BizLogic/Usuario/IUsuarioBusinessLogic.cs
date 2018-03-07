@@ -6,6 +6,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public interface IUsuarioBusinessLogic
     {
+        List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID);
         void AceptarContrato(BEUsuario usuario);
         string AceptarContratoColombia(BEUsuario usuario);
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);
@@ -54,7 +55,6 @@ namespace Portal.Consultoras.BizLogic
         BEUsuario ObtenerDatosPorUsuario(int PaisID, string CodigoUsuario);
         List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
-        string RecuperarContrasenia(int paisId, string correo);
         BEUsuario Select(int paisID, string codigoUsuario);
         List<BEUsuarioCorreo> SelectByEmail(string Email, int paisID);
         List<BEUsuario> SelectByNombre(int paisID, string NombreUsuario);
@@ -87,6 +87,7 @@ namespace Portal.Consultoras.BizLogic
         int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
         bool ValidarUsuario(int paisId, string codigoUsuario, string clave);
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
+        BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
     }
 }

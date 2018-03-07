@@ -3,10 +3,39 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<div class="fondo_f9f9f9">
+<style type="text/css">
+
+    body{
+        background:#FFF;
+    }
+
+    header{
+        box-shadow:none;
+        position:relative;
+    }
+
+    .menu_new_esika, .menu_esika_b{
+        display:none;
+    }
+
+    .ubicacion_web, .boton_ayuda{
+        display:none;
+    }
+
+    #contentmain{
+        margin-top:15px!important;
+    }
+
+    footer{
+        display:none;
+    }
+
+</style>
+
+<div class="">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores"><span>CAMBIO DE CONTRASEÑA</span></div>
+        <div class="titulo_interiores tituloCambioContrasenia">CAMBIO DE <span>CONTRASEÑA</span></div>
     </div>
     <hr class="clear" />
     <div class="linea_separadora" style="margin-top:-1px"></div>
@@ -15,17 +44,31 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
     <div class="contenedor_actualizarContraseniaForm">
-        <div class="imagen_consultora">
+        @*<div class="imagen_consultora">
             <img src="@Url.Content("~/Content/Images/Esika/user.jpg")" alt="Imagen Consultora" />
-        </div>
-        <div class="campos_actualizacionContrasenia">
-            <div class="saludoConsultora">¡Hola <span>Valeria!</span></div>
+        </div>*@
+        <!-- VISTA ACTUALIZAR CONTRASEÑA -->
+        <div class="campos_actualizacionContrasenia" style="display:block;">
+            <div class="saludoConsultora">¡Hola <span>Sofía!</span></div>
             <span class="cambiarContraseniaTexto">Cambia tu contraseña aquí:</span>
             <form class="formulario_actualizarContrasenia" >
-                <input type="password" name="nuevaContrasenia" class="campoContrasenia" placeholder="Nueva contraseña" />
-                <input type="password" name="confirmarContrasenia" class="campoContrasenia"  placeholder="Confirmar contraseña" />
-                <input type="submit" name="btnCambiarContrasenia" class="btnCambiarContrasenia" value="CAMBIAR" />
+                <input type="password" name="nuevaContrasenia" class="campoContrasenia borde_inferior_campo" placeholder="Nueva contraseña" />
+                <input type="password" name="confirmarContrasenia" class="campoContrasenia borde_inferior_campo"  placeholder="Confirmar contraseña" />
+                <input type="submit" name="btnCambiarContrasenia" class="btnCambiarContrasenia mt-34" value="CAMBIAR CONTRASEÑA" />
             </form>
         </div>
+        <!-- FIN VISTA ACTUALIZAR CONTRASEÑA -->
+        <!-- VISTA FELICITACIONES, DESPUÉS QUE LA CONSULTORA ACTUALIZÓ SU CONTRASEÑA -->
+        <div class="contenedor_vista_felicidades" style="display:none;">
+            <div class="icono_check_felicitaciones"></div>
+            <div class="mensaje_felicitaciones">
+                <span>¡FELICIDADES!</span>
+                <span>Tu contraseña fue actualizada</span>
+                <a href="https://www.somosbelcorp.com" title="Ir a Somos Belcorp" target="_self">
+                    IR A SOMOS BELCORP
+                </a>
+            </div>
+        </div>
+        <!-- FIN VISTA FELICITACIONES, DESPUÉS QUE LA CONSULTORA ACTUALIZÓ SU CONTRASEÑA -->
     </div>
 </div>

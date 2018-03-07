@@ -80,7 +80,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        
         public int UpdatePedidoWebEstimadoGanancia(int campaniaId, int pedidoId, decimal estimadoGanancia)
         {
             SqlCommand cmd = new SqlCommand("UdpPedidoWebEstimadoGanancia");

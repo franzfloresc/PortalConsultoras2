@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class ShowRoomOfertaModel: CompartirRedesSocialesModel
+    public class ShowRoomOfertaModel : CompartirRedesSocialesModel
     {
         public int OfertaShowRoomID { get; set; }
 
@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUV { get; set; }
 
         public int TipoOfertaSisID { get; set; }
-       
+
         public int ConfiguracionOfertaID { get; set; }
 
         public string Descripcion { get; set; }
@@ -106,5 +106,11 @@ namespace Portal.Consultoras.Web.Models
 
         public int Posicion { get; set; }
         public string UrlDetalle { get; set; }
+
+        public List<ProductoModel> ProductoTonos { get; set; }
+
+        public string CodigoEstrategia { get; set; }
+
+        public int EstrategiaId { get; set; }
     }
 }

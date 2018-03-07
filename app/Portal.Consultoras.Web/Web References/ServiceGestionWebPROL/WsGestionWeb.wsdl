@@ -235,9 +235,21 @@
       </s:element>
       <s:complexType name="PreciosEstrategia">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="listaniveles" type="tns:ArrayOfNivelEstrategia" />
           <s:element minOccurs="1" maxOccurs="1" name="montotal" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="montoganacia" type="s:decimal" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcionerror" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfNivelEstrategia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NivelEstrategia" nillable="true" type="tns:NivelEstrategia" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NivelEstrategia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="nivel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="precio" type="s:decimal" />
         </s:sequence>
       </s:complexType>
     </s:schema>

@@ -18,7 +18,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var daNavidadConsultora = new DANavidadConsultora(entidad.PaisId);
             daNavidadConsultora.EditarNavidadConsultora(entidad);
-            
+
         }
 
         public void EliminarNavidadConsultora(BENavidadConsultora entidad)

@@ -217,6 +217,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
+            public const string HerramientasVenta = "011";
         }
 
         public static class ConstSession
@@ -269,6 +270,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
+            public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
 
             public const string EventoFestivo = "EventoFestivo";
@@ -695,6 +697,15 @@ namespace Portal.Consultoras.Common
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileLandingPopup = 2812;
             #endregion
+
+            #region Herramienta de Ventas
+            public const int HVDesktopContenedor = 1831;
+            public const int HVDesktopContenedorPopup = 1832;
+            public const int HVDesktopLanding = 1011;
+            public const int HVDesktopLandingPopUp = 1012;
+            public const int HVMobileLanding = 2011;
+            public const int HVMobileLandingPopup = 2011;
+            #endregion
         }
 
         public static class TipoTutorial
@@ -1060,6 +1071,7 @@ namespace Portal.Consultoras.Common
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
+            public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
             public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
@@ -1088,6 +1100,15 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string HerramientasVenta = "HV";
+        }
+
+        public static class ConfiguracionPaisComponente
+        {
+            public static class RD
+            {
+                public const string PopupClubGanaMas = "Popup_Club_Gana+";
+            }
         }
 
         public static class ConfiguracionPaisDatos
@@ -1170,6 +1191,20 @@ namespace Portal.Consultoras.Common
 
                 #region Landing Informativo
                 public const string InformativoVideo = "InformativoVideo";
+
+                #endregion
+
+                #region PopupSuscripcion
+                public const string PopupMensaje1 = "PopupMensaje1";
+                public const string PopupMensaje2 = "PopupMensaje2";
+                public const string PopupMensajeColor = "PopupMensajeColor";
+                public const string PopupImagenEtiqueta = "PopupImagenEtiqueta";
+                public const string PopupImagenPublicidad = "PopupImagenPublicidad";
+                public const string PopupBotonColorFondo = "PopupBotonColorFondo";
+                public const string PopupBotonColorTexto = "PopupBotonColorTexto";
+                public const string PopupBotonTexto = "PopupBotonTexto";
+                public const string PopupFondoColor = "PopupFondoColor";
+                public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
             }
@@ -1203,6 +1238,14 @@ namespace Portal.Consultoras.Common
                 public const string MPedidoIntriga = "MPedidoIntriga";
                 public const string DLandingBannerIntriga = "DLandingBannerIntriga";
                 public const string MLandingBannerIntriga = "MLandingBannerIntriga";
+            }
+
+            public static class HV
+            {
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueado = "DPopupBloqueado";
+                public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
             }
 
         }
@@ -1545,6 +1588,11 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
+        public struct CodigoHorario
+        {
+            public const string ChatEmtelco = "ChatEmtelco";
+            public const string BelcorpResponde = "BelcorpResponde";
+        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -1624,6 +1672,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+            public const string HerramientasVentaIndex = "/herramientasventa/index";
+            public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
+            public const string HerramientasVentaComprar = "/herramientasventa/comprar";
         }
 
         public static class TipoVistaEstrategia
@@ -1694,25 +1745,36 @@ namespace Portal.Consultoras.Common
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
         }
-        public static class ColumnsStrategyShowroom
+        public static class ColumnsSetStrategyShowroom
         {
             public const string CUV = "cuv";
             public const string NormalPrice = "precio normal";
             public const string AllowedUnits = "unidades permitidas";
             public const string NameSet = "nombre de set";
-            public const string IsSubcampaign = "essubcampania";
             public const string BusinessTip = "tip negocio";
+            public const string IsSubcampaign = "essubcampania";
+            public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5 };
+            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip=4, IsSubcampaign = 5 , OfferStatus  = 6};
+        }
+
+        public static class ColumnsProductStrategyShowroom
+        {
+            public const string CUV = "cuv";
+            public const string Order = "posicion";
+            public const string ProductName = "nombre producto";
+            public const string Description = "descripcion";
+            public const string BrandProduct = "marca producto";
+            public enum Position { CUV = 0, Order = 1, ProductName = 2, Description = 3, BrandProduct = 4 };
         }
 
         public class GanaMas
         {
-            public const short PaisSinGND = 1;
-            public const short PaisConGND_SuscritaActiva = 2;
-            public const short PaisConGND_SuscritaNoActiva = 3;
-            public const short PaisConGND_NoSuscritaActiva = 4;
-            public const short PaisConGND_NoSuscritaNoActiva = 5;
+            public const short PaisSinRD = 1;
+            public const short PaisConRD_SuscritaActiva = 2;
+            public const short PaisConRD_SuscritaNoActiva = 3;
+            public const short PaisConRD_NoSuscritaActiva = 4;
+            public const short PaisConRD_NoSuscritaNoActiva = 5;
 
             public class Banner
             {

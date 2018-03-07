@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daConfiguracionValidacionZona.GetCampaniasActivas(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BEConfiguracionValidacionZona(reader) {PaisID = paisID};
+                    var entidad = new BEConfiguracionValidacionZona(reader) { PaisID = paisID };
                     lista.Add(entidad);
                 }
 
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         public void InsConfiguracionValidacionZona(BEConfiguracionValidacion ent, List<BEConfiguracionValidacionZona> lista)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
             var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic
         public void UpdConfiguracionValidacionZona(BEConfiguracionValidacion ent, List<BEConfiguracionValidacionZona> lista)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(ent.PaisID);
             var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.BizLogic
         public void UpdConfiguracionValidacionZonaCronograma(int PaisID, List<BEConfiguracionValidacionZona> listaEntidades)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionValidacionZona = new DAConfiguracionValidacionZona(PaisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (reader.Read())
                 {
-                    entidad = new BEConfiguracionValidacionZona(reader) {PaisID = paisID};
+                    entidad = new BEConfiguracionValidacionZona(reader) { PaisID = paisID };
                 }
             }
             return entidad;

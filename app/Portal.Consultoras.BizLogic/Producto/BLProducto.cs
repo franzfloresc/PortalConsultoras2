@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 
@@ -26,6 +27,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return productoDescripcion;
         }
+
         public IList<BEProductoDescripcion> GetProductoComercialByPaisAndCampania(int campaniaID, string codigo, int paisID, int rowCount)
         {
             var productos = new List<BEProductoDescripcion>();
@@ -102,7 +104,7 @@ namespace Portal.Consultoras.BizLogic
             IList<BEProducto> productos = new List<BEProducto>();
             var daProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = daProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion,RegionID,ZonaID, CodigoRegion, CodigoZona, validarOpt))
+            using (IDataReader reader = daProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, validarOpt))
             {
                 while (reader.Read())
                 {
@@ -128,7 +130,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var producto = new BEProducto(reader);
-                    if((producto.CUVRevista ?? "").Trim() != "")
+                    if ((producto.CUVRevista ?? "").Trim() != "")
                     {
                         producto.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
                         producto.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
@@ -143,10 +145,10 @@ namespace Portal.Consultoras.BizLogic
             int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount)
         {
             IList<BEProducto> listProducto = new List<BEProducto>();
-            var bLProductoPalabra = new BLProductoPalabra();            
+            var bLProductoPalabra = new BLProductoPalabra();
             var listTextoCandidato = bLProductoPalabra.GetListCandidatoFromTexto(paisISO, campaniaID, textoBusqueda, 2, 1);
             if (listTextoCandidato.Count == 0) return listProducto;
-            
+
             var paisId = Util.GetPaisID(paisISO);
             var dAProducto = new DAProducto(paisId);
             var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
@@ -155,7 +157,8 @@ namespace Portal.Consultoras.BizLogic
             listProducto = CacheManager<BEProducto>.GetData(paisId, ECacheItem.Producto, campaniaID.ToString());
             if (listProducto != null && listProducto.Count > 0)
             {
-                listProducto = listProducto.Select(producto => new {
+                listProducto = listProducto.Select(producto => new
+                {
                     Producto = producto,
                     Repeticion = listPalabra.Count(palabra => producto.TextoBusqueda.ToLower().Contains(palabra))
                 })
@@ -201,7 +204,8 @@ namespace Portal.Consultoras.BizLogic
                     orderby producto.CUV
                     select producto).ToList();
         }
-        
+
+        [Obsolete("Migrado PL50-50")]
         public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
@@ -272,7 +276,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-        
+
         public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
