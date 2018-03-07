@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FlagNueva"))
                 FlagNueva = Convert.ToBoolean(row["FlagNueva"]);
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
-                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);               
+                ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)

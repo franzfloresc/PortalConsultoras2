@@ -1,8 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("EsSubCampania")]
         public int EsSubCampania { get; set; }
-        
+
         [DataMember]
         [Column("Niveles")]
         public string Niveles { get; set; }

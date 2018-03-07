@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Activo")) Activo = Convert.ToInt16(row["Activo"]);
 
-            if(DataRecord.HasColumn(row, "Digitable")) Digitable = Convert.ToInt16(row["Digitable"]);
+            if (DataRecord.HasColumn(row, "Digitable")) Digitable = Convert.ToInt16(row["Digitable"]);
 
             NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
