@@ -21,6 +21,7 @@
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
             display: table-cell;
             vertical-align: middle;
+            padding: 10px;
         }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
@@ -74,7 +75,6 @@
             }
 
             .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-                background: #e81c36;
                 color: white;
                 text-align: center;
                 max-width: 240px;
