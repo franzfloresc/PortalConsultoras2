@@ -1757,6 +1757,21 @@ namespace Portal.Consultoras.Common
         {
             public const string MontoMinimo = "XXXXX";
             public const string MontoMaximo = "YYYYY";
+            public const string Deuda = "ZZZZZ";
+        }
+        public class ProlObsCod
+        {
+            public const string Deuda = "LimiteVenta0";
+            public const string MontoMinimo = "LimiteVenta0";
+            public const string MontoMaximo  = "LimiteVenta0";
+            public const string LimiteVenta0 = "LimiteVenta0";
+            public const string LimiteVenta = "LimiteVenta";
+            public const string LimiteVenta0Pack = "LimiteVenta0Pack";
+            public const string LimiteVentaPack = "LimiteVentaPack";
+            public const string Promocion0 = "Promocion0";
+            public const string Promocion = "Promocion";
+            public const string Reemplazo = "Reemplazo";
+            public const string SinStock = "SinStock";
         }
     }
 }

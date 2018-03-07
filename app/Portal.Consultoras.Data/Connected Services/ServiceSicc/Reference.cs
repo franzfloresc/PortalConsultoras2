@@ -95,6 +95,15 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         private string valRangInicVariField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string montoDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string montoTotalOporAhorroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string indEnvioSapField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -423,6 +432,45 @@ namespace Portal.Consultoras.Data.ServiceSicc {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=24)]
+        public string indDeuda {
+            get {
+                return this.indDeudaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.indDeudaField, value) != true)) {
+                    this.indDeudaField = value;
+                    this.RaisePropertyChanged("indDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
+        public string montoDeuda {
+            get {
+                return this.montoDeudaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.montoDeudaField, value) != true)) {
+                    this.montoDeudaField = value;
+                    this.RaisePropertyChanged("montoDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=26)]
+        public string montoTotalOporAhorro {
+            get {
+                return this.montoTotalOporAhorroField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.montoTotalOporAhorroField, value) != true)) {
+                    this.montoTotalOporAhorroField = value;
+                    this.RaisePropertyChanged("montoTotalOporAhorro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=27)]
         public string indEnvioSap {
             get {
                 return this.indEnvioSapField;
@@ -435,7 +483,7 @@ namespace Portal.Consultoras.Data.ServiceSicc {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(Order=25)]
+        [System.Runtime.Serialization.DataMemberAttribute(Order=28)]
         public string oidPedidoSap {
             get {
                 return this.oidPedidoSapField;

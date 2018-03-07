@@ -5,6 +5,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ServSicc = Portal.Consultoras.Data.ServiceSicc;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
@@ -17,17 +18,30 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            Data.ServiceSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
+            ServSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
             if (respuestaSicc == null) return resultado;
 
             GuardarExplotado(input, respuestaSicc.posiciones);
-            var listMensajeProl = new Dictionary<string, string>();
-            
-            resultado.MontoAhorroCatalogo =  respuestaSicc.posiciones.Sum(p => p.importeDescuento1.ToDecimalSecure()); //MontoGanancia
+            var listMensajeProl = new Dictionary<string, string> {
+                { Constantes.ProlObsCod.Deuda, "Su pedido no pasa por tener una deuda de {0}."},
+                { Constantes.ProlObsCod.MontoMaximo, "Su pedido no pasa por sobrepasar el monto máximo."},
+                { Constantes.ProlObsCod.MontoMinimo, "Su pedido no pasa por no superar el monto mínimo."},
+                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."}, //Limite venta > 0
+                { Constantes.ProlObsCod.LimiteVenta0, "El producto {0} está agotado."}, //Limite venta = 0
+                { Constantes.ProlObsCod.LimiteVenta, "El producto {0} sobrepasa el límite de venta {1}."}, //Limite venta > 0
+                { Constantes.ProlObsCod.LimiteVenta0Pack, "El producto {0} del pack {2} está agotado."}, //Limite venta = 0
+                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."}, //Limite venta > 0
+                { Constantes.ProlObsCod.Promocion0, "El producto {0} no cumple con la promoción del catálogo." },
+                { Constantes.ProlObsCod.Promocion, "{1} producto(s) {0} no cumple(n) con la promoción del catálogo." }, //Falta cantidad que no cumple
+                { Constantes.ProlObsCod.Reemplazo, "El producto {0} ha sido reemplazado por el producto {1}." },
+                { Constantes.ProlObsCod.SinStock, "El producto {0} no tiene stock." }
+            };
+
+            resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
+            resultado.MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure();
+            resultado.MontoAhorroCatalogo = respuestaSicc.montoTotalOporAhorro.ToDecimalSecure();
             resultado.MontoAhorroRevista = 0;
-            //resultado.MontoDescuento = FALTA
-            resultado.MontoEscala = respuestaSicc.posiciones.Sum(p => p.escalaDescuento.ToDecimalSecure());
-            //resultado.MontoTotalProl = SE DEBE DEJAR DE USAR
+            resultado.MontoEscala = respuestaSicc.montoBaseDcto.ToDecimalSecure();
 
             //if (respuestaProl.ListaConcursoIncentivos != null)
             //{
@@ -36,28 +50,48 @@ namespace Portal.Consultoras.BizLogic.Reserva
             //    resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
             //}
 
-            if (respuestaSicc.estadoPedidoMontoMinimo == "1" || respuestaSicc.estadoPedidoMontoMaximo == "1")
+            //REVISAR LAS CONSECUENCIAS DE MANDAR "ZZZZZ" a la capa web
+            if (respuestaSicc.indDeuda == "1")
+            {
+                resultado.ListPedidoObservacion.Add(new BEPedidoObservacion
+                {
+                    Caso = 95,
+                    CUV = Constantes.ProlCodigoRechazo.Deuda,
+                    Tipo = 2,
+                    Descripcion = string.Format(listMensajeProl[Constantes.ProlObsCod.Deuda], respuestaSicc.montoDeuda.ToDecimalSecure())
+                });
+            }
+            else if (respuestaSicc.estadoPedidoMontoMinimo == "1" || respuestaSicc.estadoPedidoMontoMaximo == "1")
             {
                 bool esMin = respuestaSicc.estadoPedidoMontoMinimo == "1";
-                resultado.ListPedidoObservacion.Add(new BEPedidoObservacion {
+                resultado.ListPedidoObservacion.Add(new BEPedidoObservacion
+                {
                     Caso = 95,
                     CUV = esMin ? Constantes.ProlCodigoRechazo.MontoMinimo : Constantes.ProlCodigoRechazo.MontoMaximo,
                     Tipo = 2,
-                    Descripcion = Regex.Replace(listMensajeProl[esMin ? "montoMinimo" : "montoMaximo"], "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO))                    
+                    Descripcion = Regex.Replace(
+                        listMensajeProl[esMin ? Constantes.ProlObsCod.MontoMinimo : Constantes.ProlObsCod.MontoMaximo],
+                        "(\\#.*\\#)",
+                        Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO)
+                    )
                 });
             }
             foreach (var p in respuestaSicc.posiciones)
             {
                 if (p.indicadorRecuperacion == "1") resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == p.CUV));
-                else if(!string.IsNullOrEmpty(p.observaciones)) resultado.ListPedidoObservacion.Add(CreatePedidoObservacion(p, listPedidoWebDetalle, listMensajeProl));
+                else
+                {
+                    var pedidoObservacion = CreatePedidoObservacion(p, respuestaSicc.posiciones, listPedidoWebDetalle, listMensajeProl);
+                    if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
+                }
             }
 
             bool reservo = !TieneObservacionesBloqueantes(resultado.ListPedidoObservacion);
-            //FALTA DEUDA, CONFIRMAR CON LEO
-            resultado.ResultadoReservaEnum = !resultado.ListPedidoObservacion.Any() ? Enumeradores.ResultadoReserva.Reservado :
-                reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
+            resultado.ResultadoReservaEnum = respuestaSicc.indDeuda == "1" ? Enumeradores.ResultadoReserva.NoReservadoDeuda :
                 respuestaSicc.estadoPedidoMontoMinimo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
                 respuestaSicc.estadoPedidoMontoMaximo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
+                !resultado.ListPedidoObservacion.Any() ? Enumeradores.ResultadoReserva.Reservado :
+                reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
 
             resultado.Reserva = input.FechaHoraReserva && reservo;
@@ -67,15 +101,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return resultado;
         }
 
-        private Data.ServiceSicc.Pedido ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private ServSicc.Pedido ConsumirServicioSicc(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var inputPedido = new Data.ServiceSicc.Pedido
             {
                 codigoPais = Util.GetPaisIsoSicc(input.PaisID),
                 codigoPeriodo = input.CampaniaID.ToString(),
                 codigoCliente = input.CodigoConsultora,
+                indEnvioSap = input.FechaHoraReserva ? "1" : "0",
+                indValiProl = "0",
                 //FALTA CODIGO CONCURSOS
-                indValiProl = input.FechaHoraReserva ? "1" : "0",  //FECHA RESERVA O FACTURACION?
                 posiciones = listPedidoWebDetalle.Select(d => new Data.ServiceSicc.Detalle
                 {
                     CUV = d.CUV,
@@ -103,7 +138,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return respuestaSicc;
         }
 
-        private void GuardarExplotado(BEInputReservaProl input, Data.ServiceSicc.Detalle[] arrayDetalle)
+        private void GuardarExplotado(BEInputReservaProl input, ServSicc.Detalle[] arrayDetalle)
         {
             var daPedidoWebDetalleExplotado = new DAPedidoWebDetalleExplotado(input.PaisID);
             daPedidoWebDetalleExplotado.DeleteByPedidoID(input.CampaniaID, input.PedidoID);
@@ -152,9 +187,60 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }).ToList());
         }
 
-        private BEPedidoObservacion CreatePedidoObservacion(Data.ServiceSicc.Detalle detalle, List<BEPedidoWebDetalle> listPedidoWebDetalle, Dictionary<string, string> listMensajeProl)
+        private BEPedidoObservacion CreatePedidoObservacion(ServSicc.Detalle detalle, ServSicc.Detalle[] arrayDetalle, List<BEPedidoWebDetalle> listPedidoWebDetalle, Dictionary<string, string> listMensajeProl)
         {
-            return new BEPedidoObservacion();
+            BEPedidoObservacion pedidoObservacion = null;
+            int unidadesDemandadas = detalle.unidadesDemandadas.ToInt32Secure();
+            int unidadesPorAtender = detalle.unidadesPorAtender.ToInt32Secure();
+            int unidadesReservadasSap = detalle.unidadesReservadasSap.ToInt32Secure();
+
+            if (detalle.indLimiteVenta == "1")
+            {
+                pedidoObservacion = new BEPedidoObservacion
+                {
+                    Caso = 0,
+                    Descripcion = string.IsNullOrEmpty(detalle.valCodiOrig) ?
+                        (unidadesDemandadas == 0 ? Constantes.ProlObsCod.LimiteVenta0 : Constantes.ProlObsCod.LimiteVenta) :
+                        (unidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0Pack : Constantes.ProlObsCod.LimiteVentaPack)
+                };
+                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, unidadesPorAtender, detalle.valCodiOrig);
+            }
+            else if (!string.IsNullOrEmpty(detalle.observaciones))
+            {
+                pedidoObservacion = new BEPedidoObservacion
+                {
+                    Caso = 0,
+                    Descripcion = unidadesPorAtender == 0 ? Constantes.ProlObsCod.Promocion0 : Constantes.ProlObsCod.Promocion
+                };
+                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, unidadesDemandadas - unidadesPorAtender);
+            }
+            else if(detalle.oidSubtipoPosicion == "2030")
+            {
+                var reemplazo = arrayDetalle.FirstOrDefault(d => d.oidSubtipoPosicion == "2029" && d.valCodiOrig == detalle.CUV);
+                if(reemplazo != null)
+                {
+                    pedidoObservacion = new BEPedidoObservacion
+                    {
+                        Caso = 0,
+                        Descripcion = string.Format(Constantes.ProlObsCod.Reemplazo, detalle.CUV)
+                    };
+                }
+            }
+            else if(unidadesReservadasSap == 0)
+            {
+                pedidoObservacion = new BEPedidoObservacion
+                {
+                    Caso = 0,
+                    Descripcion = string.Format(Constantes.ProlObsCod.SinStock, detalle.CUV)
+                };
+            }
+
+            if (pedidoObservacion != null)
+            {
+                pedidoObservacion.CUV = !string.IsNullOrEmpty(detalle.valCodiOrig) ? detalle.valCodiOrig : detalle.CUV;
+                pedidoObservacion.Tipo = 2;
+            }
+            return pedidoObservacion;
         }
 
         private bool TieneObservacionesBloqueantes(List<BEPedidoObservacion> listObservaciones)

@@ -26,6 +26,9 @@
       <xs:element minOccurs="0" name="precioGanador" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="valRangFinaVari" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="valRangInicVari" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indDeuda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoDeuda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="montoTotalOporAhorro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indEnvioSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="oidPedidoSap" nillable="true" type="xs:string" />
     </xs:sequence>
