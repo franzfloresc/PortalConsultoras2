@@ -2743,6 +2743,7 @@
     <Content Include="Content\Images\mobile.png" />
     <Content Include="Content\Images\mobile\app-android.jpg" />
     <Content Include="Content\Images\mobile\app-ios.jpg" />
+    <Content Include="Content\Images\mobile\banner_mobile.png" />
     <Content Include="Content\Images\mobile\bg_la_01.jpg" />
     <Content Include="Content\Images\mobile\bg_la_02.png" />
     <Content Include="Content\Images\mobile\cdr_paso1.png" />
@@ -2986,6 +2987,7 @@
     <Content Include="Content\Images\mobile\m_logo_somos_belcorp_white.png" />
     <Content Include="Content\Images\mobile\pattern.png" />
     <Content Include="Content\Images\mobile\pestania_ver_solicitud.svg" />
+    <Content Include="Content\Images\mobile\sr_of_mobile.png" />
     <Content Include="Content\Images\mobile\tags.png" />
     <Content Include="Content\Images\mobile\Tarjeta_AmericanExpress.png" />
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
@@ -3027,6 +3029,7 @@
     <Content Include="Content\Images\phoneIcon.png" />
     <Content Include="Content\Images\PL20\agenda.png" />
     <Content Include="Content\Images\PL20\agenda_lbel.jpg" />
+    <Content Include="Content\Images\PL20\Banner_desktop.png" />
     <Content Include="Content\Images\PL20\calendario.png" />
     <Content Include="Content\Images\PL20\calendario_lbel.jpg" />
     <Content Include="Content\Images\PL20\cupon1mobile.png" />
