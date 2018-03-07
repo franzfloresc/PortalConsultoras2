@@ -613,11 +613,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
                 {
-                    
+                    prodModel.Precio = 0;
+                    prodModel.Ganancia = 0;
                     if (estrategia.Precio2 > 0 && !string.IsNullOrWhiteSpace(estrategia.Niveles))
                     {
-                        estrategia.Niveles = "X1-" + estrategia.Precio2.ToString() + "|" + estrategia.Niveles;
-                        //
                         try
                         {
                             var niveles = estrategia.Niveles.Split('|');
@@ -629,10 +628,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     var tmp = n.Split('-');
                                     if(tmp.Length == 2)
                                     {
+                                        tmp[0] = Util.Trim(tmp[0]).ToLower();
                                         var precio = decimal.Parse(tmp[1]);
                                         tmp[1] =  Util.DecimalToStringFormat(precio, userData.CodigoISO, userData.Simbolo);
                                     }
-                                    nivelesConFormato.Add(string.Join("-", tmp));
+                                    nivelesConFormato.Add(string.Join(" ", tmp));
                                 });
 
                                 estrategia.Niveles = string.Join("|", nivelesConFormato);
@@ -640,12 +640,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch
                         {
-                            //
+                            estrategia.Niveles = "";
                         }
-                    }
-                    if (estrategia.Precio2 > 0 && string.IsNullOrWhiteSpace(estrategia.Niveles))
-                    {
-                        estrategia.Niveles = "X1-" + Util.DecimalToStringFormat(estrategia.Precio2, userData.CodigoISO, userData.Simbolo);
                     }
 
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
