@@ -310,6 +310,21 @@ function ArmarCarouselEstrategias(data) {
 
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
 
+    // PARA CASO DE RDR
+    try {
+        SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
+
+        if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
+            $('#divListaEstrategias').show();
+            if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
+                $('#divListadoEstrategia2 #bc_promo').remove();
+                $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
+                $('#divListadoEstrategia2 .bc_productos').css("float", "none");
+                $('#divListadoEstrategia2 .bc_productos').css("margin", "0 auto");
+            }
+        }
+    } catch (e) { }
+
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
             if (!revistaDigital.EsSuscrita) {
@@ -330,21 +345,27 @@ function ArmarCarouselEstrategias(data) {
                 arrayOfertasParaTi = data.Lista;
 
             }
-            if (revistaDigital.EsActiva){
-                var productoLanzamiento = new Object();
-                $.extend(true, productoLanzamiento, data.Lista[0]);
-                productoLanzamiento.EsLanzamiento = true;
+            if (data.ListaLan) {
+                if (data.ListaLan.length > 0) {
+                    if (revistaDigital.EsActiva) {
+                        var productoLanzamiento = new Object();
+                        $.extend(true, productoLanzamiento, data.ListaLan[0]);
+                        productoLanzamiento.EsLanzamiento = true;
+                        productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
 
-                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                    data.Lista.splice(0, 0, productoLanzamiento);
-                } 
+                        if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+                            data.Lista.splice(0, 0, productoLanzamiento);
+                        }
 
-                $.each(data.Lista, function (i, item) {
-                    item.Posicion = i + 1;
-                });
+                        $.each(data.Lista, function (i, item) {
+                            item.Posicion = i + 1;
+                        });
 
-                arrayOfertasParaTi = data.Lista;
+                        arrayOfertasParaTi = data.Lista;
+                    }
+                }
             }
+            
         }
     }
    
@@ -367,8 +388,8 @@ function ArmarCarouselEstrategias(data) {
     RevisarMostrarContenedorCupon();
 
     if (tipoOrigenEstrategia == 1) {
-        var cantProCarrusel = 4;
-        var esVariableWidth = false;
+        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
+        var esVariableWidth = true;
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
