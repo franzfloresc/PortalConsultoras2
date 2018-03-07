@@ -4,7 +4,7 @@
     <div class="wrapper_resumen_mobile" data-item="{{EstrategiaID}}" OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento">
         <div class="rd_lanzamiento">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-            @*<div onclick="javascript: VerDetalleEstrategia(event);">*@
+            <div onclick="javascript: VerDetalleEstrategia(event);">
                 <div>
                     {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
                     <img class="rd_lanzamiento_producto" src="{{TipoEstrategiaDetalle.ImgHomeMobile}}">
@@ -17,6 +17,7 @@
                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
                 </a>
             </div>
+         </div>
     </div>
     <hr class="clear" />
     {{/each}}

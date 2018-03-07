@@ -34,7 +34,7 @@
                 {
                     <div style="padding-top:20px" id="divContenedorListaEstrategia">
                         <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
+                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;">
                             <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
 
                         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
                         new ViewDataDictionary {
-                        { "Source", 2 },
+                        { "Source", 3 },
                         { "NombreConsultora", ViewBag.NombreConsultora },
                         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                         { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
@@ -74,7 +74,7 @@
                     {
                         <div style="padding-top:20px" id="divContenedorListaEstrategia">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
+                                 data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;">
                                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
 
                         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
                            new ViewDataDictionary {
-                        { "Source", 2 },
+                        { "Source", 3 },
                         { "NombreConsultora", ViewBag.NombreConsultora },
                         { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
                         { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}

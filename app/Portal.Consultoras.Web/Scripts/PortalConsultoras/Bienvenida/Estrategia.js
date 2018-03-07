@@ -289,9 +289,11 @@ function ArmarCarouselEstrategias(data) {
         $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
         $('.contenido_gana_mas').hide();
-        $(".contenedor_ganamas").css({ "height": "100px" });
-        $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
-        $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+        if (revistaDigital.TieneRDC) {
+            $(".contenedor_ganamas").css({ "height": "100px" });
+            $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+            $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
+        }
         return false;
     }
 
@@ -327,24 +329,7 @@ function ArmarCarouselEstrategias(data) {
 
     if (revistaDigital != null) {
         if (revistaDigital.TieneRDC) {
-            if (!revistaDigital.EsSuscrita) {
-                var bannerClubGanaMas = new Object();
-                $.extend(true, bannerClubGanaMas, data.Lista[0]);
-                bannerClubGanaMas.EsBanner = true;
-
-                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                    data.Lista.splice(3, 0, bannerClubGanaMas);
-                } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
-                    data.Lista.splice(1, 0, bannerClubGanaMas);
-                }
-
-                $.each(data.Lista, function (i, item) {
-                    item.Posicion = i + 1;
-                });
-
-                arrayOfertasParaTi = data.Lista;
-
-            }
+            
             if (data.ListaLan) {
                 if (data.ListaLan.length > 0) {
                     if (revistaDigital.EsActiva) {
@@ -365,6 +350,25 @@ function ArmarCarouselEstrategias(data) {
                         arrayOfertasParaTi = data.Lista;
                     }
                 }
+            }
+
+            if (!revistaDigital.EsSuscrita) {
+                var bannerClubGanaMas = new Object();
+                $.extend(true, bannerClubGanaMas, data.Lista[0]);
+                bannerClubGanaMas.EsBanner = true;
+
+                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+                    data.Lista.splice(3, 0, bannerClubGanaMas);
+                } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 21) {
+                    data.Lista.splice(1, 0, bannerClubGanaMas);
+                }
+
+                $.each(data.Lista, function (i, item) {
+                    item.Posicion = i + 1;
+                });
+
+                arrayOfertasParaTi = data.Lista;
+
             }
             
         }

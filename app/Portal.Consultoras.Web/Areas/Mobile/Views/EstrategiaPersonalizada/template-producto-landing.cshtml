@@ -1,12 +1,14 @@
-﻿<script id="producto-landing-template" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+<script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
     {{#iff EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas" style="cursor:pointer; ">
             <img src="/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" alt="content" class="clubganamas_logo" />
-            <p>¿QUIERES MUCHO MÁS OFERTAS?</p>
-            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE</a>
+            <p class="primero">DISFRUTA DE MÁS Y MEJORES OFERTAS</p>
+            <p class="segundo">ÚNETE AL CLUB GANA +</p>
+            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
         </div>
     </div>
     {{else}}
@@ -16,10 +18,11 @@
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
             <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2018238541_umdwfcuazj.png" alt="content" class="clubganamas_logo" />
-            <img src="https://4.bp.blogspot.com/-m2bsR7tUOZY/WVFi8J5Kh0I/AAAAAAAArzw/7dPGbPHsfQ4U3gxI0DHLXZ2kx_ew63rnACLcBGAs/s320/esika%2Bcampa%25C3%25B1a%2B11%2B2017.png" class="portada" />
-
-            <p class="tercero">4 Delineador Liquido Facil Aplicación 3m...</p>
-            <a href="@Url.Action("Informacion", "RevistaDigital")" class="portada portada_off">VER LANZAMIENTOS</a>
+            {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
+            <img src="{{TipoEstrategiaDetalle.ImgHomeMobile}}" class="portada">
+            {{/iff}}
+            <p class="tercero">Conoce {{DescripcionResumen}}</p>
+            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
     </div>
     {{else}}

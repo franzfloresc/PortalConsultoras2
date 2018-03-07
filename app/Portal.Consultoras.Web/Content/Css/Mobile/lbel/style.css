@@ -5070,9 +5070,46 @@ table > thead > tr > th {
     padding: 13px 0px;
     display:block;
 }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        font-weight:normal !important;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.segundo {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+        word-wrap: break-word;
+    }
 @media only screen and (max-width: 991px) {
     .contenedor_carrusel_home .content_item_carrusel_clubganamas {
-        padding: 111px 20px 33px 20px;
+        padding: 111px 10px 33px 120px;
     }
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p{
         font-size:15px;

@@ -3024,7 +3024,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .club_gana_mas_pedido {
     height: 289px;
     background: black;
-    padding: 64px 57px;
+    padding: 64px 50px;
 }
 
     .club_gana_mas_pedido .logo_club {
@@ -3046,8 +3046,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         letter-spacing: 0.5px;
         text-align: center;
         color: #ffffff;
-        margin-bottom:0;
-        display:block;
+        margin-bottom: 0;
+        display: block;
+        padding: 0 35px;
+        display: block;
+        word-wrap: break-word;
     }
 
     .club_gana_mas_pedido p.segundo-texto {
@@ -3059,7 +3062,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         letter-spacing: 0.5px;
         text-align: center;
         color: #ffffff;
-        display:block;
+        display: block;
+        word-wrap: break-word;
     }
 
     .club_gana_mas_pedido a {
