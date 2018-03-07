@@ -465,7 +465,7 @@
             $("#txtTextoLibre").val(data.TextoLibre);
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
-
+            $("#hdNiveles").val(data.Niveles);
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -893,7 +893,7 @@
                             $("#txtPrecio2").val("");
                             $("#txtPrecio2").focus();
                         }
-
+                        $("#hdNiveles").val(data.niveles);
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
 
