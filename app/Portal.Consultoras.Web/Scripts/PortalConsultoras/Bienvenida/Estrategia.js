@@ -330,21 +330,27 @@ function ArmarCarouselEstrategias(data) {
                 arrayOfertasParaTi = data.Lista;
 
             }
-            if (revistaDigital.EsActiva){
-                var productoLanzamiento = new Object();
-                $.extend(true, productoLanzamiento, data.Lista[0]);
-                productoLanzamiento.EsLanzamiento = true;
+            if (data.ListaLan) {
+                if (data.ListaLan.length > 0) {
+                    if (revistaDigital.EsActiva) {
+                        var productoLanzamiento = new Object();
+                        $.extend(true, productoLanzamiento, data.ListaLan[0]);
+                        productoLanzamiento.EsLanzamiento = true;
+                        productoLanzamiento.ClaseEstrategia = data.Lista[0].ClaseEstrategia;
 
-                if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
-                    data.Lista.splice(0, 0, productoLanzamiento);
-                } 
+                        if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 2) {
+                            data.Lista.splice(0, 0, productoLanzamiento);
+                        }
 
-                $.each(data.Lista, function (i, item) {
-                    item.Posicion = i + 1;
-                });
+                        $.each(data.Lista, function (i, item) {
+                            item.Posicion = i + 1;
+                        });
 
-                arrayOfertasParaTi = data.Lista;
+                        arrayOfertasParaTi = data.Lista;
+                    }
+                }
             }
+            
         }
     }
    
@@ -368,7 +374,7 @@ function ArmarCarouselEstrategias(data) {
 
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = 4;
-        var esVariableWidth = false;
+        var esVariableWidth = true;
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
