@@ -1767,15 +1767,15 @@
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     
     @{
-        var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
-        var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
+        //var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
+        //var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
     }
 
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: #613c87 url(@imagenFondoOFRegalo); background-repeat:no-repeat; background-size:cover;" data-popup-body="">
+    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: #613c87; background-repeat:no-repeat; background-size:cover;" data-popup-body="">
         <div class="icono_regalo_sorpresa">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
-            <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
+        <div class="txt_regalo_sorpresa_popup box_regalo_sorpresa_popup">
             <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg1">FELICIDADES @ViewBag.NombreConsultora<br></span>
             <span class="span_1_regalo_sorpresa_popup" id="of-regalo-msg2">TE FALTAN $119.00<br></span>
             <span class="span_2_regalo_sorpresa_popup" id="of-regalo-msg3">¡ESCOGE TU PREMIO!<br></span>
@@ -1802,9 +1802,12 @@
                     <div>
                         <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                     </div>
-                    <div class="content_regalo_sinstock" id="of-regalo-sinstock" style="display: none;">
+
+                    {{#iff StockActual '==' '0'}}
+                    <div class="content_regalo_sinstock" data-regalo-sinstock="">
                         <div class="txt_agotado">AGOTADO</div>
                     </div>
+                    {{/iff}}
                 </div>
             </div>
             {{/each}}
@@ -1834,8 +1837,8 @@
         </div>
         *@
     </div>
-    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw); display: none;">
-        <div class="btn_regresa_OF" id="btnCambiarRegalo">
+    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="background: #613c87; display: none;">
+        <div class="btn_regresa_OF" id="btnCambiarRegalo1" style="cursor:pointer;">
             <img class="img_regresa_OF" img="" src="/Content/Images/Esika/regresar.png" alt="">
             <span class="span_regresa_OF">CAMBIAR REGALO</span>
         </div>
@@ -1863,6 +1866,7 @@
         </div>
         <a class="btn_legal_RS" target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Descargar términos y condiciones</a>
     </div>
+
     <div class="popup_ofertaFinal pt-26" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" id="div-popup-ofertafinal">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido" style="display: none;">

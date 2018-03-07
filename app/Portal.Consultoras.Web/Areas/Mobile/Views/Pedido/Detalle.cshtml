@@ -602,11 +602,11 @@
                     <span class="span_2_regalo_sorpresa">GANASTE!<br></span>
                     <span class="span_link_regalo_sorpresa">ESCOGE TU PREMIO<br></span>
                 </div>
-                <div class="img_regalos_sorpresa">
+                <div class="img_regalos_sorpresa" id="of-regalo-foto1">
                     <div class="img_regalo_sorpresa">
                         <img src="{{RegaloFoto1}}">
                     </div>
-                    <div class="img_regalo_sorpresa img_2_regalo_sorpresa">
+                    <div class="img_regalo_sorpresa img_2_regalo_sorpresa" id="of-regalo-foto2">
                         <img src="{{RegaloFoto2}}">
                     </div>
                 </div>
@@ -716,7 +716,7 @@
         }
 
         @*<div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -6px;">*@
-        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87 url(https://lh5.googleusercontent.com/V-zVOI5DeW1A12YY91xRNNIVIsGqk2K2Osv1h-bVNDnIafJwKePgrcB8A4DdtlJNafJrvBYB8Ut8I0Pl3F9H=w1366-h613-rw);">
+        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: #613c87;">
             <div style="height: 47px"></div>
             <a class="cerrar_popMobile" href="javascript:;" style="top:6px; right:10px; position:absolute;" data-regresar-of="">
                 <div class="draw_close draw_close_white" alt="Cerrar"></div>
@@ -767,9 +767,12 @@
                         <div>
                             <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                         </div>
-                        <div class="content_regalo_sinstock" id="of-regalo-sinstock" style="display: none;">
+
+                        {{#iff StockActual '==' '0'}}
+                        <div class="content_regalo_sinstock" data-regalo-sinstock="">
                             <div class="txt_agotado">AGOTADO</div>
                         </div>
+                        {{/iff}}
                     </div>
                 </div>
                 {{/each}}
