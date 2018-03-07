@@ -140,7 +140,7 @@
                                                     {
                                                         <div class="tonos_set_individual">
                                                             <div class="tono_select_opt">
-                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
                                                                     <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
                                                                     <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                                     <hr class="clear" />
@@ -149,7 +149,7 @@
                                                                     @foreach (var tono in producto.Hermanos)
                                                                     {
                                                                         btnDesabled = 1;
-                                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
+                                                                        <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
                                                                             <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
                                                                             <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
                                                                             <hr class="clear" />
@@ -682,9 +682,9 @@
      
         var attrClass = $.trim($('#btnAgregalo').attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-showroom-change='1']").parent().addClass("tono_no_seleccionado");
             setTimeout(function () {
-                $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+                $(objInput).parents("[data-item]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_no_seleccionado");
             }, 500);
             return true;
         }
