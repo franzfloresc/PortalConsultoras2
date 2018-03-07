@@ -107,28 +107,28 @@ else
 
         codigoPais = '@Model.CodigoPais';
 
-        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel1))
         {
             <text>$("#LugarNivel1").val('');</text>
         }
-        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel2))
         {
             <text>$("#LugarNivel2").val('');</text>
         }
-        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel3))
         {
             <text>$("#LugarNivel3").val('');</text>
         }
-        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>");
         @if (string.IsNullOrEmpty(Model.LugarNivel4))
         {
             <text>$("#LugarNivel4").val('');</text>
         }
         if (codigoPais == 'GT') {
-            $("#LugarNivel5").prepend("<option value=''>--Seleccione--</option>");//.val('');
+            $("#LugarNivel5").prepend("<option value=''>--Seleccione--</option>");
             @if (string.IsNullOrEmpty(Model.LugarNivel5))
             {
                 <text>$("#LugarNivel5").val('');</text>
@@ -209,7 +209,6 @@ else
             $('#btnEditarPosicion').attr('disabled', false);
             $('#btnGuardarPosicion').attr('disabled', false);
             $('#btnActualizarSeccion').attr('disabled', false);
-            //HabilitarDatosDireccion(0);
         }
     });
 
@@ -262,5 +261,4 @@ else
 
         });
     });
-    //# sourceURL===_Ubigeogrupo3.cshtml
 </script>

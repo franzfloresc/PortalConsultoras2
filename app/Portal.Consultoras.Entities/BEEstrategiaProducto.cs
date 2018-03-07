@@ -85,7 +85,6 @@ namespace Portal.Consultoras.Entities
             NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
             Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
             ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
-            //IdMarca = DataRecord.GetColumn<int>(row, "IdMarca");
 
             if (DataRecord.HasColumn(row, "IdMarca")) IdMarca = Convert.ToInt16(row["IdMarca"]);
 

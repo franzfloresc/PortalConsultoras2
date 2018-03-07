@@ -30,7 +30,7 @@
             }
 
             if (activatab == "#tab-paqueteDocumentario") {
-                validarExiteInformacion(); //08/09/2014 - Elmer Cangahuala Marquez - R2013-2
+                validarExiteInformacion();
             }
 
             if (activatab == "#tab-pedidoFacturado") {
@@ -71,7 +71,7 @@
 
                     for (var i in resultado) {
                         var campania = resultado[i];
-                        if (typeof (campania.CampaniaID) != 'undefined')//R20150906
+                        if (typeof (campania.CampaniaID) != 'undefined')
                         $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
                     }
                 }
