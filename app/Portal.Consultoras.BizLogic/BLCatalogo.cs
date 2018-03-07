@@ -211,16 +211,23 @@ namespace Portal.Consultoras.BizLogic
 
             if (catalogoRevista.MarcaID == 0)
             {
-                foreach (var grupo in Grupos.Split(','))
+                if (!string.IsNullOrEmpty(Grupos))
                 {
-                    var zonas                       = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
-                    esRevistaPiloto                 = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
-                    if (esRevistaPiloto)
+
+                    foreach (var grupo in Grupos.Split(','))
                     {
-                        codeGrupo                   = grupo.Trim().ToString();
-                        break;
+                        var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
+                        esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                        if (esRevistaPiloto)
+                        {
+                            codeGrupo = grupo.Trim().ToString();
+                            break;
+                        }
                     }
                 }
+                else
+                    esRevistaPiloto = false;
+
                 codigo                              = ServiceSettings.Instance.CodigoRevistaIssuu;
                 if (catalogoRevista.CampaniaID.ToString().Length >= 6)
                     nroCampania                     = catalogoRevista.CampaniaID.Substring(4, 2);

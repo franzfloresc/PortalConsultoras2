@@ -2149,16 +2149,22 @@ namespace Portal.Consultoras.Web.Controllers
             string nroCampania                  = string.Empty;
             string anioCampania                 = string.Empty;
 
-            foreach (var grupo in Grupos.Split(','))
+            if (!string.IsNullOrEmpty(Grupos))
             {
-                var zonas                       = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
-                esRevistaPiloto                 = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-                if (esRevistaPiloto)
+                foreach (var grupo in Grupos.Split(','))
                 {
-                    codeGrupo                   = grupo.Trim().ToString();
-                    break;
+                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
+                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+                    if (esRevistaPiloto)
+                    {
+                        codeGrupo = grupo.Trim().ToString();
+                        break;
+                    }
                 }
             }
+            else
+                esRevistaPiloto = false;
+
             codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             if (campania.Length >= 6)
                 nroCampania                     = campania.Substring(4, 2);
