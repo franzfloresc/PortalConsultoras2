@@ -33168,8 +33168,7 @@ height:30px;
 }
 
 .cantidad_producto_opt {
-    width: 4%;
-    float: left;
+    margin-right: 5px;
 }
 
 .sub_precio {
