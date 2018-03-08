@@ -6,6 +6,7 @@ belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
 belcorp.estrategias.upselling.initialize = function (config) {
     var settings = {
+        idCampaniaHidden: config.idCampaniaHidden,
         urlImagenDesactivar: config.urlImagenDesactivar,
         urlImagenEdit: config.urlImagenEdit,
         urlImagengenDelete: config.urlImagengenDelete,
@@ -366,6 +367,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.save = function () {
+            selfvm.recargarGanadoras = ko.observable(true);
             if (!selfvm.upSellingSeleccionado().isValid()) {
                 alert("Los campos marcados son necesarios");
                 return;
@@ -392,7 +394,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.cancel = function () {
+
             if (!selfvm.upSellingSeleccionadoIsDirty()) {
+                selfvm.recargarGanadoras = ko.observable(true);
                 selfvm.esconderEditor();
                 return false;
             }
@@ -477,7 +481,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         selfvm.recargarGanadoras = ko.observable(true);
 
         selfvm.TraerListaGanadoras = function () {
-
+          
             if (selfvm.recargarGanadoras()) {
                 cargarGrillaListaGanadoras(selfvm.upSellingSeleccionado().UpSellingId());
                 selfvm.recargarGanadoras(false);
@@ -485,7 +489,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.exportarListaGanadoras = function () {
+
             $("[name='" + settings.idListaGanadorasHidden + "']").val(selfvm.upSellingSeleccionado().UpSellingId());
+            $("[name='" + settings.idCampaniaHidden + "']").val(selfvm.upSellingSeleccionado().CodigoCampana());
             $("#" + settings.idFormReporteListaGanadoras + "").submit();
         }
 
@@ -565,7 +571,7 @@ function configureGridListaGanadoras(response) {
         sortorder: "asc",
         viewrecords: true,
         height: "auto",
-        width: 930,
+        width: 900,
         pgtext: "Pág: {0} de {1}",
         altRows: false
     });

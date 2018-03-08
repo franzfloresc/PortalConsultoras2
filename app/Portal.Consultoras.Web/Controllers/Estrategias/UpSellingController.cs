@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
 
-        public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
+        public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras, string campaniaListaGanadoras)
         {
             var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
 
@@ -207,8 +207,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             { "Fecha Registro" ,"FechaRegistro" },
                 };
 
-            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, DateTime.Now.ToString("yyyyMM"));
-            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy HH:mm");
+            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, campaniaListaGanadoras);
+            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy hh:mm:ss AM/PM");
             return View();
         }
 
