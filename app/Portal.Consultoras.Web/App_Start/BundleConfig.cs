@@ -146,6 +146,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
                "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
+               "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Esika/revistaDigital.css",
                "~/Content/Css/Site/Esika/seccion-descarga-imprime.css"
                ));
@@ -162,6 +163,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/reset.css",
                "~/Content/Css/Site/Lbel/style.css",
                "~/Content/Css/ui.jquery/Lbel/jquery-ui.css",
+               "~/Content/Css/Site/RevistaDigital/index.css",
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css"
                ));
@@ -447,7 +449,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -508,8 +510,7 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/slick-pedido.css"
             ));
 
             #endregion
@@ -527,8 +528,7 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/slick-pedido.css"
             ));
 
             #endregion

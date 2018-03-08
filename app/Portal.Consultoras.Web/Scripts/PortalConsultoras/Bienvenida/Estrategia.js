@@ -290,13 +290,13 @@ function ArmarCarouselEstrategias(data) {
         $('#divContenedorListaEstrategia').hide();
         $('.contenido_gana_mas').hide();
         if (revistaDigital.TieneRDC) {
-            $(".contenedor_ganamas").css({ "height": "100px" });
-            $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
-            $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
             if (isMobile()) {
                 $(".wrapper_resumen_mobile_clubganamas .zonadecolor, .wrapper_resumen_mobile_clubganamas").css({ "height": "200px" });
+            } else {
+                $(".contenedor_ganamas").css({ "height": "100px" });
+                $(".sb_contenedor_ganamas_bg").css({ "height": "100px" });
+                $(".contenedor_ganamas .sb_contenedor_ganamas").css({ "top": "-100px" });
             }
-           
         }
         return false;
     }
@@ -372,7 +372,6 @@ function ArmarCarouselEstrategias(data) {
                 });
 
                 arrayOfertasParaTi = data.Lista;
-
             }
             
         }
