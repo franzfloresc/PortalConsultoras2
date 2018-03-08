@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PosicionBannerPedidoModel> listaPoscionBannerPedido { set; get; }
         public string grupoUrlPDF { get; set; }
         public string grupoTipoUrl { get; set; }
-        
 
         public AdministrarBannerPedidoModel()
         {

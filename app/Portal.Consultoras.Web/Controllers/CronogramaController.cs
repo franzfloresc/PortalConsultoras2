@@ -163,9 +163,9 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         lst = sv.GetCronogramaByCampania(
-                            PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                            PaisID == string.Empty ? 11 : int.Parse(PaisID),
                             CampaniaID == "" ? 0 : int.Parse(CampaniaID),
-                            string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                            string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID),
                             Int16.Parse(TipoCronogramaID)).ToList();
                     }
                 }
@@ -372,9 +372,9 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     lst = sv.GetCronogramaByCampaniaAnticipado(
-                        PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                        PaisID == string.Empty ? 11 : int.Parse(PaisID),
                         CampaniaID == "" ? -1 : int.Parse(CampaniaID),
-                        string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                        string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID),
                         Int16.Parse(TipoCronogramaID)).ToList();
                 }
 
@@ -686,9 +686,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -786,7 +786,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 UserData().ZonaID, 2).FirstOrDefault();
                         if (cronograma != null && cronograma.FechaInicioWeb != null)
                         {
-                            DateTime fechaDa = (DateTime) cronograma.FechaInicioWeb;
+                            DateTime fechaDa = (DateTime)cronograma.FechaInicioWeb;
 
                             TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
                             var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";

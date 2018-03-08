@@ -58,5 +58,5 @@ namespace Portal.Consultoras.Web.Models
     {
         public string fechaFacturacion { get; set; }
         public string url { get; set; }
-    }    
+    }
 }

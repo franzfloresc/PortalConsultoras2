@@ -9,7 +9,7 @@
             : base(paisID, EDbSource.Digitacion)
         { }
 
-        public DAUbigeo(int paisID,int idPortal)
+        public DAUbigeo(int paisID, int idPortal)
             : base(paisID, EDbSource.Portal)
         { }
 
@@ -27,13 +27,16 @@
             Context.Database.AddInParameter(command, "@CodigoUbigeo", DbType.String, codigoUbigeo);
             return Context.ExecuteReader(command);
         }
-        public IDataReader GetUbigeosPorNivel(int nivel,string CodigoPadre) {
+
+        public IDataReader GetUbigeosPorNivel(int nivel, string CodigoPadre)
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("GetUbigeosNivel");
             Context.Database.AddInParameter(command, "@Nivel", DbType.Int32, nivel);
             Context.Database.AddInParameter(command, "@CodigoPadre", DbType.String, CodigoPadre);
             return Context.ExecuteReader(command);
-        
+
         }
+
         public IDataReader GetUbigeosPorPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUbigeosPorPais");

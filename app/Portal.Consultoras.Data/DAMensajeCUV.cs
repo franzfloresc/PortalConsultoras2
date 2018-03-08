@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Data
                 mensaje = dr.GetString(0);
             }
 
-            BEMensajeCUV beMensajeCuv = new BEMensajeCUV {Mensaje = mensaje};
+            BEMensajeCUV beMensajeCuv = new BEMensajeCUV { Mensaje = mensaje };
             return beMensajeCuv;
         }
 

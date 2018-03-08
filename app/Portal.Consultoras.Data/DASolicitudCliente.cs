@@ -15,12 +15,12 @@ namespace Portal.Consultoras.Data
             : base(paisID, EDbSource.Portal)
         {
         }
-        
+
         public IDataReader InsertarSolicitudCliente(BEEntradaSolicitudCliente entidadSolicitud,
             IEnumerable<BESolicitudClienteDetalle> entidadSolicitudDetalle)
         {
             IList<BESolicitudClienteDetalleStoreParameter> entidadSolicitudDetalleStoreParameter = new List<BESolicitudClienteDetalleStoreParameter>();
-            entidadSolicitudDetalle.ToList().ForEach(x => {entidadSolicitudDetalleStoreParameter.Add(new BESolicitudClienteDetalleStoreParameter(x));});
+            entidadSolicitudDetalle.ToList().ForEach(x => { entidadSolicitudDetalleStoreParameter.Add(new BESolicitudClienteDetalleStoreParameter(x)); });
 
             var detalleSolicitud = new GenericDataReader<BESolicitudClienteDetalleStoreParameter>(entidadSolicitudDetalleStoreParameter);
             var command = new SqlCommand("dbo.RegistrarSolicitudCliente");
@@ -105,15 +105,15 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@FlagMedio", SqlDbType.VarChar, 10).Value = entidadSolicitud.FlagMedio;
             command.Parameters.Add("@NumIteracion", SqlDbType.Int).Value = 1;
 
-            command.Parameters.Add("@CodigoDispositivo",SqlDbType.VarChar, 50).Value = entidadSolicitud.CodigoDispositivo;
+            command.Parameters.Add("@CodigoDispositivo", SqlDbType.VarChar, 50).Value = entidadSolicitud.CodigoDispositivo;
             command.Parameters.Add("@SODispositivo", SqlDbType.VarChar, 20).Value = entidadSolicitud.SODispositivo;
             command.Parameters.Add("@TipoUsuario", SqlDbType.Int).Value = entidadSolicitud.TipoUsuario;
             command.Parameters.Add("@UsuarioAppID", SqlDbType.BigInt).Value = entidadSolicitud.UsuarioAppID;
 
             List<DESolicitudClienteDetalleAppCatalogo> listDeDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
-            if(entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDeDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
+            if (entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDeDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
             var detalleSolicitud = new GenericDataReader<DESolicitudClienteDetalleAppCatalogo>(listDeDetalleSolicitud);
-            
+
             var paramSolicitudDetalle = new SqlParameter("@SolicitudDetalle", SqlDbType.Structured);
             paramSolicitudDetalle.TypeName = "dbo.SolicitudDetalleAppCatalogoType";
             paramSolicitudDetalle.Value = detalleSolicitud;
@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MotivoSolicitudId", DbType.Int32, opcionRechazo);
             Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, razonMotivoRechazo);
 
-             return Context.ExecuteReader(command);
+            return Context.ExecuteReader(command);
         }
 
         public void CancelarSolicitudCliente(long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
@@ -210,7 +210,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@SolicitudId", DbType.Int64, solicitudId);
             Context.Database.AddInParameter(command, "@MotivoSolicitudId", DbType.Int32, opcionCancelacion);
             Context.Database.AddInParameter(command, "@RazonMotivoSolicitud", DbType.String, razonMotivoCancelacion);
-            
+
             Context.ExecuteReader(command);
         }
 
@@ -219,7 +219,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMotivosRechazo_SB2");
             return Context.ExecuteReader(command);
         }
-        
+
         public int EnviarSolicitudClienteaGZ(BESolicitudCliente entidadSolicitudCliente)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.EnviarSolicitudaGerenteZona");
@@ -239,7 +239,8 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@Estado", DbType.String, DBNull.Value);
             }
-            else {
+            else
+            {
                 Context.Database.AddInParameter(command, "@Estado", DbType.String, entidadSolicitudCliente.EstadoSolicitudClienteId);
             }
 
@@ -314,9 +315,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@campania", DbType.String, campania);
 
             return Context.ExecuteReader(command);
-        }   
-
-
+        }
 
     }
 }

@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {
-    public class DAEstadoCuenta:DataAccess
+    public class DAEstadoCuenta : DataAccess
     {
         public DAEstadoCuenta(int paisID)
             : base(paisID, EDbSource.Portal)

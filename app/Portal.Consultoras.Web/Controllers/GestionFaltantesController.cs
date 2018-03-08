@@ -186,8 +186,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     var zonasNoValidas = (from item in zonasAValidar
-                                         where !(zonas.Any(z => z.Codigo == item))
-                                         select item).ToList();
+                                          where !(zonas.Any(z => z.Codigo == item))
+                                          select item).ToList();
 
                     if (zonasNoValidas.Count != 0)
                     {
@@ -383,6 +383,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         public JsonResult Eliminar(int CampaniaID, string CUV, int ZonaID, string Zona, string FaltanteUM)
         {
             try
@@ -430,7 +431,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public string ProcesarMasivo(HttpPostedFileBase uplArchivo, GestionFaltantesModel model)
         {
@@ -447,7 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
-                
+
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
                 if (fileextension != null && !fileextension.ToLower().Equals(".xlsx"))
@@ -532,12 +532,12 @@ namespace Portal.Consultoras.Web.Controllers
             List<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                lista = paisId == 0 
-                    ? servicezona.SelectCampanias(UserData().PaisID).ToList() 
+                lista = paisId == 0
+                    ? servicezona.SelectCampanias(UserData().PaisID).ToList()
                     : servicezona.SelectCampanias(paisId).ToList();
             }
             lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
@@ -547,9 +547,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

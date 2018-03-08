@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Data.Hana
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
                 List<ConfiguracionProgramaNuevasHana> listaHana = JsonConvert.DeserializeObject<List<ConfiguracionProgramaNuevasHana>>(responseFromServer);
 
-                if(listaHana != null && listaHana.Count > 0)
+                if (listaHana != null && listaHana.Count > 0)
                 {
                     var configuracionProgramaNuevasHana = listaHana[0];
 
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data.Hana
                     programaNueva.CodigoZona = entidad.CodigoZona;
                 }
             }
-            catch(Exception) { programaNueva = new BEConfiguracionProgramaNuevas(); }
+            catch (Exception) { programaNueva = new BEConfiguracionProgramaNuevas(); }
 
             return programaNueva;
         }

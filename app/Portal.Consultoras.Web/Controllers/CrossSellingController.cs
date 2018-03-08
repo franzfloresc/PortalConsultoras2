@@ -40,9 +40,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -349,7 +349,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult UpdateAdmCrossSelling(CrossSellingProductoModel model)
         {
             try
-            {   
+            {
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DeshabilitarAdmCrossSelling(CrossSellingProductoModel model)
         {
             try
-            {   
+            {
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetDescripcionProductoByCUV(paisId, campaniaId, cuv).ToList();
 
             }
-            
+
             return Mapper.Map<IList<BECrossSellingAsociacion>, IEnumerable<CrossSellingAsociacionModel>>(lst);
         }
 
@@ -587,19 +587,19 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.NroOrden,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.NroOrden,
+                                   cell = new string[]
+                                   {
                                 a.CodigoCampania,
                                 a.CUV,
                                 a.Descripcion,
                                 a.PrecioOferta.ToString("#0.00"),
                                 a.CrossSellingAsociacionID.ToString(),
                                 a.CampaniaID.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -668,17 +668,17 @@ namespace Portal.Consultoras.Web.Controllers
                             page = pag.CurrentPage,
                             records = pag.RecordCount,
                             rows = from a in items
-                            select new
-                            {
-                                id = a.NroOrden,
-                                cell = new string[]
-                                {
+                                   select new
+                                   {
+                                       id = a.NroOrden,
+                                       cell = new string[]
+                                       {
                                     CampaniaID.ToString(),
                                     a.CodigoSegmento,
                                     a.CrossSellingAsociacionID.ToString(),
                                     a.DescripcionSegmento
-                                }
-                            }
+                                       }
+                                   }
                         };
                         return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -919,7 +919,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult DeleteAsociacionCrossSelling_Perfil(CrossSellingAsociacionModel model)
         {
             try
-            {   
+            {
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

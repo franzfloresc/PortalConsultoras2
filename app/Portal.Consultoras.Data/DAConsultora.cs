@@ -62,8 +62,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Codigo", DbType.String, codigo);
             return Context.ExecuteReader(command);
         }
-
-
+        
         public long GetConsultoraIdByCodigo(string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraIdByCodigo");
@@ -109,7 +108,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraCUVRegular");
             command.CommandTimeout = 0;
-                Context.Database.AddInParameter(command, "@campaniaID", DbType.Int64, campaniaID);
+            Context.Database.AddInParameter(command, "@campaniaID", DbType.Int64, campaniaID);
             if (!string.IsNullOrEmpty(CUVRegular))
                 Context.Database.AddInParameter(command, "@CUVRegular", DbType.String, CUVRegular);
             return Context.ExecuteReader(command);
@@ -135,7 +134,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
             Context.Database.AddInParameter(command, "@MarcaId", DbType.Int32, marcaId);
             Context.Database.AddInParameter(command, "@tipoFiltroUbigeo", DbType.Int32, tipoFiltroUbigeo);
-            
+
             return Context.ExecuteReader(command);
         }
 

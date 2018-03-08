@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -28,7 +24,7 @@ namespace Portal.Consultoras.Web.Models
         public int PaisID { get; set; }
         public string ISOPais { get; set; }
         public string DescripcionMarca { get; set; }
-		public string TallaColor { get; set; }
+        public string TallaColor { get; set; }
         public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
         public string CodigoTipoOferta { get; set; }

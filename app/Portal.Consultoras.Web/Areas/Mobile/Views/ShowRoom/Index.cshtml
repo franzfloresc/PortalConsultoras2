@@ -362,6 +362,15 @@ else
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
+               <div class="producto_precio">
+               {{#iff TipoAccionAgregar '==' '0'}}
+                   <B>&nbsp</B>
+               {{/iff}}
+               {{#iff TipoAccionAgregar '==' '1'}}
+                   <b style="color:#b52e36">ELIGE TU OPCIÓN</b>      
+                {{/iff}}
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
     {{/each}}

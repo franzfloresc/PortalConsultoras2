@@ -743,6 +743,9 @@ img {
         -o-transition: padding 150ms ease-out 0s;
         -webkit-transition: padding 150ms ease-out 0s;
         transition: padding 150ms ease-out 0s;
+        width: 45%;
+        display: inline-block;
+        height: 20px;
     }
 
         .submenu > ul > li ul > li:hover {

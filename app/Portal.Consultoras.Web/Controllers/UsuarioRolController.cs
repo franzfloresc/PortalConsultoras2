@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(model);
         }
+
         public ActionResult ConsultarUsuarioRol(string sidx, string sord, int page, int rows, string vRolDescripcion, string vNombreUsuario)
         {
             if (ModelState.IsValid)
@@ -162,6 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult EliminarUsuarioRol(UsuarioRolModel model)
         {
@@ -224,6 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ValidarUsuario(ConsultoraFicticiaModel model)
         {
@@ -295,18 +298,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pag;
         }
+
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
+
         private List<BERol> CargarRol()
         {
             var model = new UsuarioRolModel();

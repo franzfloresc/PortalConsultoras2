@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
-                    var beCdrWeb = new BECDRWeb {ConsultoraID = userData.ConsultoraID};
+                    var beCdrWeb = new BECDRWeb { ConsultoraID = userData.ConsultoraID };
 
                     var listaReclamo = cdr.GetCDRWebMobile(userData.PaisID, beCdrWeb).ToList();
                     listaCdrWebModel = Mapper.Map<List<BECDRWeb>, List<CDRWebModel>>(listaReclamo);
