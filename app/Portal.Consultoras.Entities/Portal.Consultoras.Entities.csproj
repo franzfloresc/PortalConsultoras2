@@ -316,6 +316,7 @@
     <Compile Include="BEUbigeo.cs" />
     <Compile Include="BEUnidadGeografica.cs" />
     <Compile Include="ShowRoom\BEShowRoomTono.cs" />
+    <Compile Include="Usuario\BERevistaDigital.cs" />
     <Compile Include="Usuario\BEUsuario.cs" />
     <Compile Include="BEUsuarioCorreo.cs" />
     <Compile Include="BEUsuarioRol.cs" />
