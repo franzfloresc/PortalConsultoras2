@@ -4491,7 +4491,7 @@
             event.stopPropagation();
         }
 
-        var eliminar = confirm("¿ Está seguro que desea eliminar todos los productos del set ?");
+        var eliminar = confirm("¿ Está seguro que desea deshabilitar todos los productos del set ?");
         if (!eliminar)
             return false;
 
@@ -4574,7 +4574,7 @@
     }
     
     function EliminarProductoDetalle(ID, EstrategiaID, CUV) {
-        var eliminar = confirm("¿ Está seguro que desea eliminar el producto ?");
+        var eliminar = confirm("¿ Está seguro que desea deshabilitar el producto ?");
         if (!eliminar)
             return false;
 
