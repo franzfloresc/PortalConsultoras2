@@ -202,6 +202,90 @@ if( exists(	select 1
 				join ConfiguracionPais cp
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaNoSuscrita'	))
+begin
+	print 'Rollback Actualizando PaisConfiguracionDatos : MLandingBannerActivaNoSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = '#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	cpd.Valor2 = NULL
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaNoSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerNoActivaNoSuscrita'	))
+begin
+	print 'Rollback Actualizando PaisConfiguracionDatos : DLandingBannerNoActivaNoSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = '#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	cpd.Valor2 = 'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!'
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerNoActivaNoSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerNoActivaSuscrita'	))
+begin
+	print 'Rollback Actualizando PaisConfiguracionDatos : DLandingBannerNoActivaSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = '#Nombre ya estás suscrita a Gana+',
+	cpd.Valor2 = 'Ingresa a Gana+ y a partir de la próxima campaña descubre ofertas ¡que te harán ganar más!'
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerNoActivaSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerActivaSuscrita'	))
+begin
+	print 'Rollback Actualizando PaisConfiguracionDatos : DLandingBannerActivaSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = '#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	cpd.Valor2 = 'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!'
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'DLandingBannerActivaSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
 				and cpd.Codigo = 'DLandingBannerInicioRdActivaNoSuscrita'	))
 begin
 	print 'Rollback Insertando PaisConfiguracionDatos : DLandingBannerInicioRdActivaNoSuscrita'

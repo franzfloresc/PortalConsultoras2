@@ -355,8 +355,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("", result.DesktopSubTituloBanner);
                 Assert.AreEqual("Demostradores y", result.DesktopTituloMenu);
                 Assert.AreEqual("herramientas", result.DesktopSubTituloMenu);
-                Assert.AreEqual("#", result.UrlMenu);
-                Assert.AreEqual(true, result.EsAncla);
+                Assert.AreEqual("HerramientasVenta/Comprar", result.UrlMenu);
+                Assert.AreEqual(false, result.EsAncla);
             }
 
 

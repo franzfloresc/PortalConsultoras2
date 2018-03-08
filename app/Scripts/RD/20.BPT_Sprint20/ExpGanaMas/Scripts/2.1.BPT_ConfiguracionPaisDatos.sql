@@ -1,5 +1,11 @@
-﻿use BelcorpChile_bpt
-go
+﻿--use BelcorpChile_bpt
+--go
+
+--use BelcorpPeru_bpt
+--go
+
+--use BelcorpCostaRica_bpt
+--go
 
 print db_name()
 
@@ -258,6 +264,90 @@ begin
 				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
 				and cp.Codigo = 'RD'
 				and cpd.Codigo = 'DLandingBannerActivaSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaNoSuscrita'	))
+begin
+	print 'Actualizando PaisConfiguracionDatos : MLandingBannerActivaNoSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN',
+	cpd.Valor2 = NULL
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaNoSuscrita'
+
+end
+	
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerNoActivaNoSuscrita'	))
+begin
+	print 'Actualizando PaisConfiguracionDatos : MLandingBannerNoActivaNoSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN',
+	cpd.Valor2 = NULL
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerNoActivaNoSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerNoActivaSuscrita'	))
+begin
+	print 'Actualizando PaisConfiguracionDatos : MLandingBannerNoActivaSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN',
+	cpd.Valor2 = NULL
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerNoActivaSuscrita'
+
+end
+
+if( exists(	select 1
+			from ConfiguracionPaisDatos cpd
+				join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaSuscrita'	))
+begin
+	print 'Actualizando PaisConfiguracionDatos : MLandingBannerActivaSuscrita'
+
+	update cpd
+	set 
+	cpd.Valor1 = 'APROVECHA OFERTAS HECHAS A TU MEDIDA EN',
+	cpd.Valor2 = NULL
+	from ConfiguracionPaisDatos cpd
+	inner join ConfiguracionPais cp
+				on cpd.ConfiguracionPaisID = cp.ConfiguracionPaisID
+				and cp.Codigo = 'RD'
+				and cpd.Codigo = 'MLandingBannerActivaSuscrita'
 
 end
 
