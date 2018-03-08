@@ -85,7 +85,7 @@
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
-        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true" || parameters.paisISO == 'PE');
+        setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
         setting.CampaniaActual = parameters.campaniaActual;
@@ -274,8 +274,10 @@
 
                 if (setting.MostrarContenedorInfo) {
                     mostrarContenedorInfo();
-                } else {
-                    mostrarContenedorConocelo();
+                }
+                else {
+                    //mostrarContenedorConocelo();
+                    $(elements.ContenedorPadreCupon).hide();
                 }
 
             } else {
@@ -283,9 +285,10 @@
             }
         }
 
-        if (setting.PaisISO == "PE") {
-            $('[data-cupon-info-opt]').hide();
-        }
+        $('[data-cupon-info-opt]').hide();
+        //if (setting.PaisISO == "PE") {
+        //    $('[data-cupon-info-opt]').hide();
+        //}
     }
 
     var revisarMostrarContenedorCupon = function () {
@@ -323,7 +326,8 @@
                     if (setting.Cupon) {
                         finishLoadCuponContenedorInfo = true;
                         setting.MostrarContenedorPadreCupon = setting.TieneCupon;
-                        setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
+                        //setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
+                        setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO);
                         mostrarContenedorCuponPorPagina();
                     }
                 }
@@ -494,12 +498,10 @@
         var campania = setting.CampaniaActual.substring(4);
 
         $(elements.ContenedorTituloGanaste).empty();
-        if (setting.PaisISO == "PE") {
-            $(elements.ContenedorTituloGanaste).append("¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
-        }
-        else {
-            $(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
-        }
+
+        $(elements.ContenedorTituloGanaste).append("¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
@@ -510,9 +512,9 @@
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
 
-        if (setting.PaisISO == "PE") {
-            $('[data-cupon-ganaste-condicion2]').hide();
-        }
+        //if (setting.PaisISO == "PE") {
+        //    $('[data-cupon-ganaste-condicion2]').hide();
+        //}
     }
 
     var mostrarPopupGana = function () {
@@ -549,12 +551,8 @@
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        if (setting.PaisISO == 'PE') {
-                            mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
-                        }
-                        else {
-                            mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
-                        }
+                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
+                        //mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";                        
                     }
                 }
                 else {
