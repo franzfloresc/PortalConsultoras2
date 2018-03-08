@@ -3633,13 +3633,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-
                     if (entidad != null)
                     {
                         model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
                         model.CodigoISO = userData.CodigoISO;
                         var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                         model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
+                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                     }
                 }
 
@@ -3668,7 +3668,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svc = new ProductoServiceClient())
                 {
                     var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-
                     if (entidad != null)
                     {
                         model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);

@@ -191,6 +191,7 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@MontoMeta", DbType.Decimal, entidad.MontoMeta);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@TipoRango", DbType.String, entidad.TipoRango);
+                Context.Database.AddInParameter(command, "@MontoPedidoFinal", DbType.Decimal, entidad.MontoPedidoFinal);
 
                 var result = Context.ExecuteNonQuery(command);
                 return (result > 0);

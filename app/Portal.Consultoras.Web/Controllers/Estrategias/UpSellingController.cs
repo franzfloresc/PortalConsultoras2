@@ -130,10 +130,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     model.CampaniaId = userData.CampaniaID;
                     model.ConsultoraId = userData.ConsultoraID;
-                    model.MontoPedido = montoPedido;
+                    model.MontoPedidoFinal = montoPedido;
 
                     var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
-                    return Json(new { success = ok, JsonRequestBehavior.AllowGet });
+                    return Json(new {
+                        success = true,
+                        code = ok,
+                        JsonRequestBehavior.AllowGet
+                    });
                 }
                 else
                 {

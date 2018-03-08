@@ -31,19 +31,23 @@ namespace Portal.Consultoras.Web.Models
    
         public string RegaloImagenUrl { get; set; }
 
+        public decimal MontoPedidoFinal { get; set; }
+
         public string FormatoMontoPedido
         {
             get
             {
-                return Util.DecimalToStringFormat(Convert.ToDecimal(MontoPedido), CodigoISO);
+                return Util.DecimalToStringFormat(MontoPedido, CodigoISO);
             }
         }
 
-        public string FormatoMontoMeta
+        public string FormatoMontoMeta { get; set; }
+
+        public string FormatoMontoPedidoFinal
         {
             get
             {
-                return Util.DecimalToStringFormat(Convert.ToDecimal(MontoMeta), CodigoISO);
+                return Util.DecimalToStringFormat(MontoPedidoFinal, CodigoISO);
             }
         }
     }
