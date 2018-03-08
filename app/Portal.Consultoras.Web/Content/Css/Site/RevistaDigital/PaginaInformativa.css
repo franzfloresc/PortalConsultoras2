@@ -195,8 +195,6 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            width: 250px;
-            height: 278px;
             background-repeat: no-repeat;
             background-size: contain;
             background-position-x: right;
@@ -204,7 +202,6 @@
             width: 342px;
             margin-top: -118px;
             margin-left: 60px;
-            background-size: cover;
             height: 381px;
         }
 
