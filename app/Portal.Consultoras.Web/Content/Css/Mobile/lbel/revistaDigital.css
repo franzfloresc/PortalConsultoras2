@@ -1239,7 +1239,7 @@ div#tab_revistasdigital_mobile {
 /*.rd_arrowright {
     position: relative;
     width: 8px;
-    top: -1px;
+    top: -2px;
     left: 5px;
 }
 
@@ -2742,7 +2742,7 @@ a.btn-suscribete-video {
     letter-spacing: 1.5px;
     color: white;
     text-align: center;
-    box-shadow: 1px 2px 3px 4px #0000000f;
+    box-shadow: 1px 2px 3px 4px #000000;
     cursor: pointer;
     z-index: 999;
 }
@@ -2761,9 +2761,10 @@ a.btn-suscribete-video-baja {
     bottom: 0;
     letter-spacing: 1.5px;
     text-align: center;
-    box-shadow: 1px 2px 3px 4px #0000000f;
+    box-shadow: 1px 2px 3px 4px #000000;
     cursor: pointer;
     z-index: 999;
+    display: none;
 }
 
     a.btn-suscribete-video-baja span.baja-ver-mas {

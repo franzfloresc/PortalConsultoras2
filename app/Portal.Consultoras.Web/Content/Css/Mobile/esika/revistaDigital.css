@@ -2761,7 +2761,7 @@ a.btn-suscribete-video-baja {
     bottom: 0;
     letter-spacing: 1.5px;
     text-align: center;
-    box-shadow: 1px 2px 3px 4px #0000000f;
+    box-shadow: 1px 2px 3px 4px #000000;
     cursor: pointer;
     z-index: 999;
     display: none;
