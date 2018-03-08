@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
-using System.Xml.Serialization;
 using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.Data.Estrategia;
 using Portal.Consultoras.Entities.Estrategia;
@@ -53,6 +49,10 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 if (upSellingOriginal == null)
                     throw new NullReferenceException("UpSelling no encontrado");
 
+                var upSellingsByCampana = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
+                if (upSellingsByCampana.Count(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId) > 0)
+                    throw new ArgumentException("Ya existe UpSelling para la Campaña " + upSelling.CodigoCampana);
+
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
                 var entidad = _upSellingDataAccess.Actualizar(upSelling);
@@ -84,8 +84,6 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                         select o.UpSellingDetalleId;
 
                     EliminarDetalle(detallesEliminar);
-                    //if (upSelling.Regalos != null && upSelling.Regalos.Count != upSellingOriginal.Regalos.Count - regalosEliminados)
-                    //    throw new ArgumentException("UpSelling detalle no coincide con los detalles originales");
                 }
 
                 transaction.Complete();
@@ -100,7 +98,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 var upSellings = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
                 if (upSellings != null && upSellings.Any())
-                    throw new ArgumentOutOfRangeException("Solo se permite 1 Upselling por Campana " + upSelling.CodigoCampana);
+                    throw new ArgumentException("Ya existe UpSelling para la Campaña  " + upSelling.CodigoCampana);
 
                 var entidad = _upSellingDataAccess.Insertar(upSelling);
                 if (upSelling.Regalos != null)
@@ -186,10 +184,9 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             return _upSellingDataAccess.ObtenerDetalles(upSellingId);
         }
 
-
         public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int upSellingId)
         {
-            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta( upSellingId);  
+            var OfertaFinalList = _upSellingDataAccess.ObtenerOfertaFinalMontoMeta(upSellingId);
             return OfertaFinalList ?? new List<OfertaFinalMontoMeta>();
         }
     }

@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="Content_modal">
+    <div class="div-3">
+        <div class="titG">CUV:</div>
+        <div class="selectA" data-bind="css: { error: CUV.hasError }">
+            <input type="text" data-bind="value: CUV" />
+        </div>
+        <div class="titG">Nombre:</div>
+        <div class="selectA" data-bind="css: { error: Nombre.hasError }">
+            <input type="text" data-bind="value: Nombre" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Descripcion:</div>
+        <div class="selectA">
+            <textarea rows="5" cols="40" data-bind="value: Descripcion"></textarea>
+        </div>
+        <div class="titG">Imagen:</div>
+        <div class="selectA">
+            <div data-bind="upLoader: { valueAccessor: Imagen, url: $root.settings().urlFileUpload } "></div>
+            <div>
+                <img data-bind="attr: {src: ImagenRuta() }" class="img-preview">
+            </div>
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Stock:</div>
+        <div class="selectA" data-bind="css: { error: Stock.hasError }">
+            <input type="text" multiline data-bind="value: Stock" />
+        </div>
+        <div class="titG">Stock Actual:</div>
+        <div class="selectA" data-bind="text: StockActual">
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Orden:</div>
+        <div class="selectA" data-bind="css: { error: Orden.hasError }">
+            <input type="text" multiline data-bind="value: Orden" />
+        </div>
+        <div class="titG">Activo:</div>
+        <div>
+            <input type="checkbox" data-bind="checked: Activo" />
+        </div>
+    </div>
+</div>
+<div class="div-3">
+    <div class="titC"></div>
+    <div class="titC"></div>
+    <div class="titC"></div>
+    <input type="button" value="Agregar" data-bind="visible: $root.regaloEsNuevo(), click: $root.regaloAgregar" />
+    <input type="button" value="Actualizar" data-bind="visible: !$root.regaloEsNuevo(), click: $root.regaloActualizar" />
+    <input type="button" value="Cerrar" data-bind="click: $root.regaloCerrar" />
+</div>

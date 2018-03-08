@@ -389,6 +389,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
+    <Compile Include="CustomFilters\BaseAuthenticationFilter.cs" />
     <Compile Include="CustomFilters\ClearSessionMobileAppAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
@@ -3309,6 +3310,7 @@
     <Content Include="Content\Images\unificado_lb_es.png" />
     <Content Include="Content\Images\update.png" />
     <Content Include="Content\Images\UploadLoading.gif" />
+    <Content Include="Content\Images\upselling\upselling_sprite.png" />
     <Content Include="Content\Images\user_menu.png" />
     <Content Include="Content\Images\usuario_bloqueado.png" />
     <Content Include="Content\Images\ver-mas-flecha-vertical.svg" />
@@ -4760,6 +4762,8 @@
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Views\Unete\_ResumenDiasEspera.cshtml" />
     <Content Include="Views\UpSelling\Index.cshtml" />
+    <Content Include="Views\UpSelling\_Detalle.cshtml" />
+    <Content Include="Views\UpSelling\_DetalleEdit.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
