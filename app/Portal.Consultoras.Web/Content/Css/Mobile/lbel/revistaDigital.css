@@ -1008,7 +1008,7 @@ div#tab_revistasdigital_mobile {
     }
 
 .tabs_pagos li a {
-    padding-bottom: 5px;
+    padding: 15px 0px;
     margin-bottom: 4px;
 }
 
@@ -1936,10 +1936,14 @@ div#tab_revistasdigital_mobile {
         color: black;
         margin: 0 auto;
         width: 100%;
-        overflow: hidden;
-        height: 35px;
         margin-top: 6px;
         font-weight: 900;
+        overflow: hidden;
+        /* for set '...' in absolute position */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
     }
 
         .producto_nombre_descripcion_bpt .nombre_producto_bpt b {
@@ -2132,6 +2136,9 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         letter-spacing: .5px;
         font-family: 'Lato';
+        display: block;
+        width: 100%;
+        word-wrap: break-word;
     }
 
     .btn_negro a {
@@ -2587,6 +2594,8 @@ div#tab_revistasdigital_mobile {
         display: block;
         width: 100%;
         text-align: center;
+        margin-bottom: 10px;
+        margin-top: 30px;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .instrucciones {

@@ -93,6 +93,8 @@
 
 .como-funciona .caja-img .visual-funcionamiento {
     background: url('/Content/Images/Lbel/visual-de-funcionamiento.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .como-funciona .caja-club-derecha hr {
