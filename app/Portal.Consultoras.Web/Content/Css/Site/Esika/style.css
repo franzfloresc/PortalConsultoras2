@@ -3304,8 +3304,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .producto_precio {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
@@ -20184,7 +20184,7 @@ label.checkpop.c_on {
     margin: 0 auto;
     height: 335px;
     border: 1px solid #e7e1e1;
-    padding: 22px 0 22px 0;
+    padding: 15px 0 15px 0;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
@@ -26983,7 +26983,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     letter-spacing: .5px;
     text-align: center;
     color: #a18328;
-    cursor: default;
+    margin-top: 10px;
 }
 
     .content_carrusel_agregado .agregado .icono {
@@ -35733,6 +35733,7 @@ h1#penmostreo .campana {
 
 .btn_regresa_OF {
     /* background: url(../../../Images/Esika/regresar.png) no-repeat; */
+    cursor: pointer;
     left: 15px;
     position: absolute;
     top: 15px;

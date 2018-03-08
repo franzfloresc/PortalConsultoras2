@@ -751,7 +751,7 @@
                     <div class="span_1_regalo_sorpresa_producto span_1_regalo_sorpresa_producto_2">TU META ES <span id="of-regalo-montometa">$300.00</span></div>
                 </div>
             </div>
-            <div class="slider center" id="divCarruselRegalo" style="width: 100%; margin: 0 auto 0 auto;">
+            <div class="slider center" id="divCarruselRegaloMobile" style="width: 100%; margin: 0 auto 0 auto;">
                 {{#each this.Upselling.Regalos}}
                 <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinalRegalo" data-id="{{UpSellingRegaloId}}">
                     <div class="content_info_regalo" id="of-regalo-{{UpSellingRegaloId}}">
@@ -759,7 +759,7 @@
                         <input type="hidden" class="of-regalo-stock" value="{{StockActual}}" />
                         <div class="titulo_regalo_producto">{{Nombre}}</div>
                         <div class="content_imagen_sorpresa">
-                            <img class="of-regalo-imagen" src="{{Imagen}}" alt="" style="width: 215px; height: 235px;" />
+                            <img class="of-regalo-imagen" src="{{Imagen}}" alt="" />
                         </div>
                         <div class="descripcion_regalo">
                             {{Descripcion}}

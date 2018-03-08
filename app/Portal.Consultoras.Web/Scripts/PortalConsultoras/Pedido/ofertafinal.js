@@ -287,7 +287,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
-
+        
         if (upSellingGano == null)
             upSellingGano = GetUpSellingRegalo();
 
@@ -301,9 +301,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
                 $('#divGanoRegalo').hide();
             });
 
-            $('#divCarruselRegalo.slick-initialized').slick('unslick');
+            $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
 
-            $('#divCarruselRegalo').slick({
+            $('#divCarruselRegaloMobile').slick({
                 infinite: true,
                 vertical: false,
                 slidesToShow: 1,
@@ -318,8 +318,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
             });
 
-            $('#divCarruselRegalo').prepend($(".js-slick-prev-" + aux));
-            $('#divCarruselRegalo').prepend($(".js-slick-next-" + aux));
+            $('#divCarruselRegaloMobile').prepend($(".js-slick-prev-" + aux));
+            $('#divCarruselRegaloMobile').prepend($(".js-slick-next-" + aux));
         }
     });
 
@@ -327,7 +327,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
-
+        
         if (upSellingGano != null) {
             if ($('#divGanoRegalo').is(':visible'))
             {
@@ -336,19 +336,22 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
                 });
 
                 $('#ContentSorpresaMobile').hide();
-                $('#divCarruselRegalo.slick-initialized').slick('unslick');
+                $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
             }
             else
             {
+                $('#divCarruselRegaloMobile').prepend($(".js-slick-prev-" + aux));
+                $('#divCarruselRegaloMobile').prepend($(".js-slick-next-" + aux));
+
                 $('#ContentSorpresaMobile').toggle(effect, options, duration, function () {
-                    $('#divCarruselRegalo.slick-initialized').slick('unslick');
+                    $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
                     $('#divGanoRegalo').hide();
                 });
             }
         }
         else {
             $('#ContentSorpresaMobile').toggle(effect, options, duration, function () {
-                $('#divCarruselRegalo.slick-initialized').slick('unslick');
+                $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
                 $('#divGanoRegalo').hide();
             });
         }
@@ -361,9 +364,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
-
+        
         $('#ContentSorpresaMobile').toggle(effect, options, duration, function() {
-            $('#divCarruselRegalo.slick-initialized').slick('unslick');
+            $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
             $('#divGanoRegalo').hide();
         });
 
@@ -376,15 +379,18 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var options = { direction: 'right' };
         var duration = 500;
 
+        $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
+        $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
+
         $('#ContentSorpresaMobile').toggle(effect, options, duration, function () {
             
         });
 
         $('#divGanoRegalo').hide();
 
-        $('#divCarruselRegalo.slick-initialized').slick('unslick');
+        $('#divCarruselRegaloMobile.slick-initialized').slick('unslick');
 
-        $('#divCarruselRegalo').slick({
+        $('#divCarruselRegaloMobile').slick({
             infinite: true,
             vertical: false,
             slidesToShow: 1,
@@ -399,14 +405,14 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
         });
 
-        $('#divCarruselRegalo').prepend($(".js-slick-prev-" + aux));
-        $('#divCarruselRegalo').prepend($(".js-slick-next-" + aux));
+        $('#divCarruselRegaloMobile').prepend($(".js-slick-prev-" + aux));
+        $('#divCarruselRegaloMobile').prepend($(".js-slick-next-" + aux));
     });
     
     $("#btnCambiarRegalo1").click(function () {
-        var effect = 'slide';
-        var options = { direction: 'right' };
-        var duration = 500;
+
+        $('#container-of-regalo').show();
+        $('#divGanoRegalo').hide();
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
 
@@ -419,8 +425,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         });
@@ -430,9 +436,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
         $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
         $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
-
-        $('#container-of-regalo').show();
-        $('#divGanoRegalo').hide();
     });
 
     //if (objOf.TipoMeta != 'MM') {
@@ -539,7 +542,9 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         validarGanoRegalo(totalPedido);
 
         if (tipoOrigen == '1') {
+            $("#divOfertaFinal").show();
             $(container).show();
+            $('#divGanoRegalo').hide();
             //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
 
             /* Carrusel Regalos */
@@ -554,8 +559,8 @@ function MostrarOfertaFinalRegalo(totalPedido) {
                 centerMode: false,
                 centerPadding: '0',
                 tipo: 'p',
-                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
+                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
             });
@@ -1341,6 +1346,7 @@ function InsertUpSellingRegalo(id, cuv) {
                             upSellingGano = GetUpSellingRegalo();
 
                         if (tipoOrigen == "1") {
+                            $('#divCarruselRegalo.slick-initialized').slick('unslick');
                             $('#divGanoRegalo').show();
                             $('#container-of-regalo').hide();
                         }
