@@ -1218,9 +1218,11 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
