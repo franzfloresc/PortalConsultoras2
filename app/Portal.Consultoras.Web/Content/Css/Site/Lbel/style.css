@@ -3434,7 +3434,6 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 13px;
     width: 50%;
     padding-right: 5px;
-    font-weight: 300;
 }
 
 .producto_precio_oferta {
@@ -34061,7 +34060,17 @@ height:30px;
     font-size: 13px;
     font-weight: 400;
     margin-right: 10px;
+    width: 90px;
 }
+.precios_para_ti {
+    margin-top: -3px;
+    display: inline-table;
+}
+
+    .precios_para_ti p {
+        display: block;
+        margin-bottom: 0px;
+    }
 
 .ganancia_ficha {
     color: #613c87;

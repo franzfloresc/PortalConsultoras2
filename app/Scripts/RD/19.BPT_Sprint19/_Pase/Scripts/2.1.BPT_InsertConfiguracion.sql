@@ -83,7 +83,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -232,7 +232,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -381,7 +381,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -530,7 +530,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -679,7 +679,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -828,7 +828,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -977,7 +977,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1126,7 +1126,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1275,7 +1275,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1424,7 +1424,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1573,7 +1573,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1722,7 +1722,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
@@ -1871,7 +1871,7 @@ IF NOT EXISTS (SELECT * FROM ConfiguracionOfertasHome
            ,'201801'
            ,9
            ,9
-           ,'herramientas-venta-desktop.png'
+           ,'herramientas-venta-desktop.jpg'
            ,'herramientas-venta-mobile.jpg'
            ,'Herramientas de venta'
            ,'Herramientas de venta'
