@@ -1470,6 +1470,16 @@ namespace Portal.Consultoras.Web.Controllers
                         MostrarPaso1y2SE)
                     .ToList();
 
+                //Se separó para saturar el servicio ObtenerReporteGestionPostulante
+                ResumenDiasEsperaCollection reporteDiasEspera;
+                foreach (var item in resultado)
+                {
+                    reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, item.SolicitudPostulanteID, Convert.ToInt32(item.DiasEnEspera));
+                    item.DetalleDiasEsperaGSAC = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnGestionServicioAlCliente).ToString()).FirstOrDefault().DiasEspera.ToString();
+                    item.DetalleDiasEsperaAFFVV = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnAprobacionFFVV).ToString()).FirstOrDefault().DiasEspera.ToString();
+                    item.DetalleDiasEsperaASAC = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnAprobacionSAC).ToString()).FirstOrDefault().DiasEspera.ToString();
+                }
+
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
                 return null;
