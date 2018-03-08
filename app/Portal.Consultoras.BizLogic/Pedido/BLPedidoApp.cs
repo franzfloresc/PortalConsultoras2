@@ -42,16 +42,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_SHOWROOM);
 
-            var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(
-                                            productoFiltro.paisID, 
-                                            productoFiltro.campaniaID, 
-                                            productoFiltro.CodigoZona);
-            var tieneRDC = false; //revistaDigital.TieneRDC && revistaDigital.EsActiva;
-            if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
-            {
-                if(WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoFiltro.paisID))) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA);
-                else return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL);
-            }
+            //var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(
+            //                                productoFiltro.paisID, 
+            //                                productoFiltro.campaniaID, 
+            //                                productoFiltro.CodigoZona);
+            //var tieneRDC = false; //revistaDigital.TieneRDC && revistaDigital.EsActiva;
+            //if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
+            //{
+            //    if(WebConfig.PaisesEsika.Contains(Util.GetPaisISO(productoFiltro.paisID))) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA);
+            //    else return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL);
+            //}
 
             return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.SUCCESS, producto);
         }

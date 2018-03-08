@@ -23,25 +23,29 @@ namespace Portal.Consultoras.BizLogic
         private readonly IRevistaDigitalSuscripcionBusinessLogic _revistaDigitalSuscripcionBusinessLogic;
         private readonly IConfiguracionPaisBusinessLogic _configuracionPaisBusinessLogic;
         private readonly ICuponConsultoraBusinessLogic _cuponConsultoraBusinessLogic;
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
                                     new BLRevistaDigitalSuscripcion(),
                                     new BLConfiguracionPais(),
-                                    new BLCuponConsultora())
+                                    new BLCuponConsultora(),
+                                    new BLConfiguracionPaisDatos())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
                         IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
                         IRevistaDigitalSuscripcionBusinessLogic revistaDigitalSuscripcionBusinessLogic,
                         IConfiguracionPaisBusinessLogic configuracionPaisBusinessLogic,
-                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic)
+                        ICuponConsultoraBusinessLogic cuponConsultoraBusinessLogic,
+                        IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _revistaDigitalSuscripcionBusinessLogic = revistaDigitalSuscripcionBusinessLogic;
             _configuracionPaisBusinessLogic = configuracionPaisBusinessLogic;
             _cuponConsultoraBusinessLogic = cuponConsultoraBusinessLogic;
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -2136,6 +2140,49 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetCodigoSMS(CodigoConsultora, Origen);
         }
+        #endregion
+
+        #region UserData
+        private void ConfiguracionPaisUsuario(BEUsuario usuario)
+        {
+            var config = new BEConfiguracionPais
+            {
+                DesdeCampania = usuario.CampaniaID,
+                Detalle = new BEConfiguracionPaisDetalle
+                {
+                    PaisID = usuario.PaisID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    CodigoRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoSeccion = usuario.SeccionAnalytics
+                }
+            };
+
+            var configuracionesPaisModels = _configuracionPaisBusinessLogic.GetList(config);
+
+            if (configuracionesPaisModels.Any())
+            {
+                var listaPaisDatos = _configuracionPaisDatosBusinessLogic;
+
+                foreach (var c in configuracionesPaisModels)
+                {
+                    switch (c.Codigo)
+                    {
+                        case Constantes.ConfiguracionPais.RevistaDigital:
+                            break;
+                        case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                            break;
+                        case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
+                            break;
+                    }
+                }
+            }
+        }
+
+        //private void ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        //{
+
+        //}
         #endregion
     }
 }
