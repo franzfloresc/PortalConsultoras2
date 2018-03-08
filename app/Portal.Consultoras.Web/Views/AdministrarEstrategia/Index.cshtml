@@ -694,6 +694,7 @@
 <script type="text/javascript">
     var imagenVacia = '@imagenVacia';
     var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+    var rutaImagenBloqueado  = '@Url.Content("~/Content/Images/rutaImagenBloqueado.jpg")';
     var rutaTemporal = '@Url.Content("~/Content/Temporales/")';
     var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
     var urlCargarArbolRegionesZonas = baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas";
@@ -795,9 +796,9 @@
             Eliminar: estrategiaObj.eliminar,
             Remover: estrategiaObj.remover,
             // SHOWROOM-INICIO
-            EditarEvento: function (ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania, tienePersonalizacion) { 
-                
-               
+            EditarEvento: function (ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania, tienePersonalizacion) {
+
+
                 $("#txtEventoPaisID").val(paisNombre);
                 $("#txtEventoCampaniaID").val(campaniaID);
                 $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
@@ -922,7 +923,7 @@
 
                 fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
                 return false;
-                
+
             },
             //EliminarProducto: function(ID, CampaniaID, CUV) {
             EliminarProducto: function(EstrategiaID) {
@@ -964,7 +965,7 @@
             },
             //EditarProductoDetalle: function(ID, CampaniaID, CUV, Imagen) {
             EditarProductoDetalle: function(ID, Imagen) {
-                
+
                 //$('#hdOfertaShowRoomDetalleID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'OfertaShowRoomDetalleID'));
                 $('#hdEstrategiaProductoID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'EstrategiaProductoId'));
                 $('#hdEstrategiaID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'EstrategiaId'));
@@ -1005,8 +1006,8 @@
             },
             //EliminarProductoDetalle: function (ID, CampaniaID, CUV) {
             EliminarProductoDetalle: function (ID, EstrategiaID, CUV) {
-                
-               
+
+
                 var eliminar = confirm('¿ Está seguro que desea eliminar el producto ?');
                 if (!eliminar)
                     return false;
@@ -1052,8 +1053,8 @@
         $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico', estrategiaObj.limpiarBusquedaNemotecnico);
 
         $("#btnNuevo").click(function () {
-            
-               
+
+
             isNuevo = true;
 
             var tieneFlagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
@@ -1411,8 +1412,8 @@
         });
 
         $("#chkSeleccionar").click(function () {
-            
-               
+
+
             if (this.checked)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
             else
@@ -1547,8 +1548,8 @@
         });
 
         $(".chk-estrategia-imagen").click(function () {
-            
-               
+
+
             var id = $(this).attr('data-id');
             if ($(this).attr('checked')) {
                 $("#ImagenProducto").val($(this).val());
@@ -1559,8 +1560,8 @@
         ActivarDesactivarChecks();
         PaletaColores();
         $(".activar-desactivar").click(function () {
-            
-               
+
+
             if (!$(this).attr("checked")) {
                 $(this).parent().parent().find("input").each(function () {
                     $(this).val('');
@@ -1589,8 +1590,8 @@
         });
 
         $("#btnNuevoMasivo").click(function () {
-            
-               
+
+
             if (ValidarMasivo()) {
                 $("#divMasivoPaso1").show();
                 $("#divMasivoPaso2").hide();
@@ -1650,7 +1651,7 @@
                 } else {
                     UploadFileProductStrategyShowroom();
                 }
-                
+
             }else{
                 UploadFileCvs();
             }
@@ -2495,7 +2496,7 @@
     }
 
     function ShowActionsProductos(cellvalue, options, rowObject) {
-     
+
             var id = rowObject[0];
             var campaniaId = $("#ddlCampania").val();
             var cuv = rowObject[5];

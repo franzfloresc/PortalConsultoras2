@@ -19,7 +19,9 @@ var Estrategia = function (config) {
     var _paginadorClick = function (page) {
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
         var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenesByCodigoSAP;
-        fnObtenerImagenes(_editData, page, false).done(function () { closeWaitingDialog(); });
+        fnObtenerImagenes(_editData, page, false).done(function () {
+            closeWaitingDialog();
+        });
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
@@ -307,38 +309,6 @@ var Estrategia = function (config) {
     var _obtenerImagenGrilla = function (id) {
         if (id == 0) return "";
         var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
-        $('[id*=img-matriz-]').each(function () {
-            var img = document.getElementById($(this).attr('id'));
-            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
-            if (img.naturalWidth != 0) {
-                img.title = '<b>Tipo: </b>' + extension + '<br><b>Tamaño: </b>' + img.naturalWidth + ' x ' + img.naturalHeight + ' px';
-                img.style.cursor = 'help';
-
-                $('.basetooltip').hover(function () {
-                    // Hover over code
-                    var title = $(this).attr('title');
-                    $(this).data('tipText', title).removeAttr('title');
-                    $('<p class="tooltip"></p>')
-                        .html(title)
-                        .appendTo('body')
-                        .fadeIn('slow');
-                }, function () {
-                    // Hover out code
-                    $(this).attr('title', $(this).data('tipText'));
-                    $('.tooltip').remove();
-                }).mousemove(function (e) {
-                    var mousex = e.pageX + 20; //Get X
-                    var mousey = e.pageY + -10; //Get Y
-                    $('.tooltip')
-                        .css({
-                            top: mousey,
-                            left: mousex
-                        })
-                });
-            }
-        });
-
-       
         return (imagen == rutaImagenVacia) ? "" : $.trim(imagen);
     };
 
@@ -416,6 +386,8 @@ var Estrategia = function (config) {
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
         $(".qq-upload-list").css("display", "none");
+        setInterval(function () { AddTitleCustom(); }, 1000); //PL50-202
+        
     };
 
     var _validarNemotecnico = function () {
@@ -754,3 +726,35 @@ var Estrategia = function (config) {
         obtenerImagenes: _obtenerImagenes
     }
 };
+
+function AddTitleCustom() {
+    $('[name^=picture-]').each(function () {
+        var img = document.getElementById($(this).attr('id'));
+        var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
+
+        if (img.src.indexOf(".") == -1) {
+            img.title = 'No hay imagen';
+            img.src = rutaImagenVacia;
+        }
+        var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
+
+        img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixcels)';
+
+        if (nombre == 'prod_grilla_vacio.png') {
+            img.title = 'No se ha seleccionado imagen';
+            img.src = rutaImagenVacia;
+        }
+
+        if (nombre == 'rutaImagenBloqueado.jpg') {
+            img.title = 'Imagen inaccesible';
+            img.src = rutaImagenBloqueado;
+        }
+
+        if (img.naturalWidth == 0) {
+            img.title = 'Imagen inaccesible';
+            img.src = rutaImagenBloqueado;
+        }
+
+    });
+}
+
