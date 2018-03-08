@@ -1634,6 +1634,10 @@ h4.re3 {
     color: #262626;
 }
 
+.sub_titulo_noti {
+    margin-top: -13px;
+}
+
 .sub_titulo_noti span {
     font-weight: 900;
     color: #e81c36;
@@ -1655,6 +1659,10 @@ h4.re3 {
     color: black;
     font-family: 'Lato';
     font-size: 13px;
+}
+
+.text-noti span:hover {
+    cursor: pointer;
 }
 
 .list-notificaciones .no-read:before {
