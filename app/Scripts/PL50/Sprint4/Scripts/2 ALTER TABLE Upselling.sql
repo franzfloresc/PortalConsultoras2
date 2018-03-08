@@ -4,13 +4,13 @@ go
 IF  COL_LENGTH('dbo.Upselling', 'CategoriaApoyada') IS  NULL
 BEGIN
     ALTER TABLE Upselling
-	ADD CategoriaApoyada bit;
+	ADD CategoriaApoyada bit DEFAULT 0;
 END
 
 IF  COL_LENGTH('dbo.Upselling', 'CategoriaMonto') IS  NULL
 BEGIN
 	ALTER TABLE Upselling
-	ADD CategoriaMonto bit;
+	ADD CategoriaMonto bit DEFAULT 0;
 END
 
 go
