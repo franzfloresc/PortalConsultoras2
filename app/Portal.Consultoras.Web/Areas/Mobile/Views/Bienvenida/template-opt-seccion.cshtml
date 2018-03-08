@@ -1,5 +1,5 @@
 ﻿
-<div class="fondo_gris" id="divContenedorListaEstrategia">
+<div class="fondo_gris" id="divContenedorListaEstrategia" style="background:transparent !important;">
     <div class="row contenedorCupon">
         <div class="label_cupon contenedorCuponConocelo" style="display: none;">
             <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             }
-            else
+            else if(ViewBag.Source == 2)
             {
                 <div>
                     <div class="titulo_ofertas_home">
@@ -38,7 +38,7 @@
                 </div>
             }
             <hr class="clear"/>
-            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia" style="width: 100%;">
                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif"/><br/>
                 </div>
             </div>

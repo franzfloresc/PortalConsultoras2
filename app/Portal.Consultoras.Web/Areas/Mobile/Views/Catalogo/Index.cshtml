@@ -24,6 +24,14 @@
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 
     var titulo = "MIS CATÁLOGOS Y REVISTAS";
+    var EsconderRevista = "block";
+    var EsconderBanner = "block";
+
+    titulo = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "MIS CATÁLOGOS" : titulo : titulo;
+    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
+    EsconderBanner = EsconderRevista;
+
+
 }
 
 <style type="text/css">
@@ -68,7 +76,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;@titulo
 </div>
 
-<div class="fondo_f2f2f2">
+<div class="fondo_f2f2f2" style="display:@EsconderRevista">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
 

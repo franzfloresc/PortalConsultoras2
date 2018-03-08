@@ -21,7 +21,7 @@
 <div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
     {
-        if (revistaDigital.EsActiva)
+        if (revistaDigital.EsSuscrita)
         {
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -36,7 +36,7 @@
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
                         <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                 VER TODAS MIS OFERTAS
                             </a>
                         </div>
@@ -66,6 +66,7 @@
                     </div>
                 </div>
             </div>
+
         }
     }
     else if (revistaDigital.TieneRDI)

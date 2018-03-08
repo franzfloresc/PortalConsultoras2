@@ -345,6 +345,58 @@
     letter-spacing: 3.5px;
 }
 
+.contenedor_carrusel_home .content_item_carrusel_clubganamas_off {
+    background-image: linear-gradient(48deg, white, white) !important;
+    padding: 20px 10px;
+}
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off img.portada {
+        width: 100%;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada {
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 10px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 10px;
+        margin-top: 5px;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas_off p.tercero {
+        overflow: hidden;
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        height: 40px;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height: 18px;
+        display: block;
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
 /* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
 
 div#tab_revistasdigital_mobile {
@@ -1182,14 +1234,14 @@ div#tab_revistasdigital_mobile {
     height: 20px;
 }
 
-.rd_arrowright {
+/*.rd_arrowright {
     position: relative;
     width: 8px;
     top: -2px;
     left: 5px;
-}
+}*/
 
-    .rd_arrowright:after {
+/*.rd_arrowright:after {
         background-image: url('../../../Images/Esika/rd_arrowright_red.png');
         background-repeat: no-repeat;
         background-size: 6px 10px;
@@ -1199,7 +1251,7 @@ div#tab_revistasdigital_mobile {
         content: '';
         margin-left: 8px;
         margin-top: 4px;
-    }
+    }*/
 
 .rd_ver_mas .arrow_rigth {
     width: 8px;
@@ -1446,7 +1498,7 @@ div#tab_revistasdigital_mobile {
         line-height: 53px;
         padding: 0;
     }
-
+    
 .mpopup_textleg {
     text-align: center;
     font-size: 11px;
@@ -1886,6 +1938,15 @@ div#tab_revistasdigital_mobile {
         text-overflow:ellipsis;
         -webkit-box-orient: vertical;
     }
+        .producto_nombre_descripcion_bpt .nombre_producto_bpt b {
+            display: block;
+            overflow: hidden;
+            height: 35px !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+        }
 
 .producto_precio_bpt {
     width: 100%;
@@ -1973,7 +2034,57 @@ div#tab_revistasdigital_mobile {
     text-transform: uppercase;
     padding-right: 8px;
 }
+.wrapper_resumen_mobile_clubganamas {
 
+margin-top:10px;
+margin-bottom:10px;
+height:580px;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor {
+width: 100%;
+height: 247px;
+background: black;
+}
+.wrapper_resumen_mobile_clubganamas .dorado {
+background: linear-gradient(62deg, #b3842f, #d9b43c) !important;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
+width: 89px;
+position: absolute;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor span {
+display: block;
+width: 209px;
+margin: auto;
+line-height: 1.31;
+letter-spacing: 1px;
+text-align: center;
+color: #ffffff;
+font-size: 13px;
+padding: 55px 0px 15px 0px;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
+display: block;
+width: 209px;
+text-transform: uppercase;
+text-align: center;
+font-size: 13px;
+font-weight: bold;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.31;
+letter-spacing: 1px;
+color: #ffffff;
+margin: auto;
+border: 1px solid white;
+padding: 13px 0px;
+}
+.wrapper_resumen_mobile_clubganamas .zona-items {
+height: 440px;
+overflow: hidden;
+width: 100%;
+margin-top: -88px;
+}
 .banner_pedido_masofertas {
     padding: 25px 20px;
     text-align: center;
@@ -1998,6 +2109,9 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         letter-spacing: .5px;
         font-family: 'Lato';
+        display:block;
+       width:100%;
+       word-wrap:break-word;
     }
 
     .btn_negro a {
@@ -2295,7 +2409,7 @@ div#tab_revistasdigital_mobile {
     }
 
 .pack-a-medida {
-    background: #e91b37;
+    background: #c39934;
 }
 
 .sin-codigos {
@@ -2318,7 +2432,7 @@ div#tab_revistasdigital_mobile {
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/Esika/Triangle.svg');
+        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -2338,7 +2452,7 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         text-align: center;
         display: block;
-        color: #e81c36 !important;
+        color: #c39934 !important;
         margin-bottom: 30px !important;
     }
 
@@ -2383,7 +2497,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
-            background: url('../../../Images/Esika/personalizacion-visual-desktop.gif');
+            background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2437,6 +2551,12 @@ div#tab_revistasdigital_mobile {
         font-size: 21px;
     }
 
+        .bloques-gana-mas .contenedor-mobile-fix span.nro img {
+            width: 12px;
+            height: 10px;
+            margin-top: 5px;
+        }
+
     .bloques-gana-mas .contenedor-mobile-fix span.txt {
         float: left;
         width: 83%;
@@ -2489,9 +2609,10 @@ div#tab_revistasdigital_mobile {
         height: auto;
         float: initial;
         height: 50px;
-        background: url('../../../Images/Esika/logotipo-club-ganamas-rojo.svg');
-        background-size: cover;
+        background: url('/Content/Images/logo-club-ganamas-dorado.svg');
+        background-size: contain;
         background-position: center center;
+        background-repeat: no-repeat;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
@@ -2541,7 +2662,7 @@ div#tab_revistasdigital_mobile {
     }
 
 .suscribete-gratis a.btn-suscribete {
-    background: #e81c36;
+    background: #c39934;
     color: white;
     font-weight: 600;
     text-decoration: none;
@@ -2566,7 +2687,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .suscribete-gratis p.txt-deseas-cancelar {
-    color: #e81c36;
+    color: #c39934;
     font-weight: 700;
     letter-spacing: .5px !important;
     text-transform: uppercase;
@@ -2656,7 +2777,7 @@ a.btn-suscribete-video-baja {
     }
 
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
-            background: url('../../../Images/Esika/personalizacion-visual-mobile.gif');
+            background: url('../../../Images/RevistaDigital/personalizacion-visual-mobile.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2858,3 +2979,23 @@ a.btn-suscribete-video-baja {
                 text-decoration: underline;
             }
 /* FIN */
+/*BOTON ESIKA NO ANIMADO: ROJO*/
+.activar_boton_esika_no_animado {
+    background-color: #e81c36 !important;
+    color: white !important;
+    padding: 15px 0px;
+}
+/*BOTON DORADO NO ANIMADO - CLUB GANA+*/
+.activar_boton_dorado_no_animado {
+    background-color: #c39934;
+    color: white !important;
+    padding: 15px 0px;
+    border: none !important;
+}
+/*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
+.activar_boton_blanco_no_animado {
+    background-color: white;
+    color: #c39934 !important;
+    position: relative;
+    padding: 15px 0px;
+}

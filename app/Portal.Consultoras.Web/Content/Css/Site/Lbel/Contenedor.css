@@ -1,10 +1,7 @@
 ﻿
 .bc_menu_estrategia {
     background-color: #000;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
     background-position: center !important;
-    position: relative;
 }
 
 .bc_plantilla-banner {
@@ -62,6 +59,16 @@
     font-size: 13px;
     font-family: 'Lato', sans-serif;
     text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin-bottom:0px;
+}
+.bc_menu_estrategia .texto-info p img{
+        width: 107px;
+    position: relative;
+    top: 6px;
+    margin-left: 5px;
 }
 
 .bc_menu_estrategia .texto-info span {
@@ -79,23 +86,51 @@
 }
 
 .texto-info {
-    position: absolute;
-    height: 96px;
-    display: inline-block;
-    padding: 0 40px;
+    display: table-cell;
+    vertical-align: middle;
+    height: 70px;
+    width: 100%;
+}
+.contenedor_cabecera_2018 {
+    width: 100%;
+    height: 70px;
+    display: table;
 }
 
+    .contenedor_cabecera_2018 .sb_contenedor_cabecera_2018 {
+        width: 100%;
+        height: 70%;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        color: white;
+        font-size: 13px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding-bottom: 10px;
+    }
+
+        .contenedor_cabecera_2018 .sb_contenedor_cabecera_2018 img {
+            top: 4px;
+            margin-left: 1px;
+            height: 25px;
+            position: relative;
+        }
 .centrar-horizontal {
-    margin: 0;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    width:100%;
+    height:70px;
+    display:table-cell;
+    vertical-align:middle;
 }
 
 .contenedor_top {
-    height: 96px;
+    height: 70px;
+    display: table;
+    width: 100%;
 }
 
 .bc_menu_estrategia .op_menu-horizontal ul {
@@ -202,10 +237,31 @@
                 color: #642f80 !important;
             }
 
+
                 .op-menu-vertical ul li a.activo p {
                     color: #642f80;
                 }
 
+            .op-menu-vertical ul li a.activo-dorado {
+                border-left: 5px solid #c39934 !important;
+                text-decoration: none;
+                color: #c39934 !important;
+            }
+
+            .op-menu-vertical ul li a.activo-dorado p {
+                color: #c39934 !important;
+            }
+
+
+            .op-menu-vertical ul li a.activo-dorado:hover {
+                box-shadow: -3px 2px 6px rgba(0, 0, 0, .21);
+                border-left: 5px solid #c39934 !important;
+                text-decoration: none;
+            }
+
+                .op-menu-vertical ul li a.activo-dorado:hover p {
+                    color: #c39934 !important;
+                }
             .op-menu-vertical ul li a p {
                 display: block;
                 text-align: left;
@@ -358,9 +414,9 @@
         width: 13%;
     }
 
-    .bc_menu_estrategia .texto-info {
+    /*.bc_menu_estrategia .texto-info {
         width: 87%;
-    }
+    }*/
 }
 
 @media (max-width: 950px) {
@@ -368,11 +424,11 @@
         width: 15%;
     }
 
-    .bc_menu_estrategia .texto-info {
+    /*.bc_menu_estrategia .texto-info {
         width: 85%;
-    }
+    }*/
 
-        .bc_menu_estrategia .texto-info p {
+    .bc_menu_estrategia .texto-info p {
             font-size: 10px;
         }
 
@@ -386,9 +442,9 @@
         width: 17%;
     }
 
-    .bc_menu_estrategia .texto-info {
+    /*.bc_menu_estrategia .texto-info {
         width: 83%;
-    }
+    }*/
 }
 
 .bc_estrategia_contenido {
@@ -444,7 +500,9 @@
         width: 100%;
         padding: 24px 0;
     }
-
+        .parche_presentacion_contenedor .bloque-titulo .seccion-titulo-dorado {
+            color: black !important;
+        } 
         .parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
             float: left;
             width: 50%;
@@ -496,6 +554,10 @@
                 font-family: 'Lato';
                 height: 40px;
             }
+
+                .parche_presentacion_contenedor .bloque-titulo .ir a.dorado {
+                    background: #c39934 !important;
+                }
 
     .parche_presentacion_contenedor .parche_clear {
         clear: both;

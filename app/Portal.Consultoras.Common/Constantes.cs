@@ -1122,6 +1122,8 @@ namespace Portal.Consultoras.Common
                 public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
                 public const string NombreComercialActiva = "NombreComercialActiva";
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
+                public const string LogoMenuInicioActiva = "LogoMenuInicioActiva";
+                public const string LogoMenuInicioNoActiva = "LogoMenuInicioNoActiva";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
@@ -1131,6 +1133,10 @@ namespace Portal.Consultoras.Common
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
+                public const string BannerOfertasNoActivaNoSuscrita = "BannerOfertasNoActivaNoSuscrita";
+                public const string BannerOfertasNoActivaSuscrita = "BannerOfertasNoActivaSuscrita";
+                public const string BannerOfertasActivaNoSuscrita = "BannerOfertasActivaNoSuscrita";
+                public const string BannerOfertasActivaSuscrita = "BannerOfertasActivaSuscrita";
                 #endregion
 
                 #region Bienvenida
@@ -1178,11 +1184,19 @@ namespace Portal.Consultoras.Common
                 public const string MPerdiste = "MPerdiste";
                 #endregion
 
+                #region Inicio Revista Digital - Banner
+                public const string DLandingBannerInicioRdActivaNoSuscrita = "DLandingBannerInicioRdActivaNoSuscrita";
+                public const string DLandingBannerInicioRdNoActivaNoSuscrita = "DLandingBannerInicioRdNoActivaNoSuscrita";
+                public const string DLandingBannerInicioRdNoActivaSuscrita = "DLandingBannerInicioRdNoActivaSuscrita";
+                public const string DLandingBannerInicioRdActivaSuscrita = "DLandingBannerInicioRdActivaSuscrita";
+                #endregion
+
                 #region Revista Digital Landing Productos - Banner
                 public const string DLandingBannerNoActivaNoSuscrita = "DLandingBannerNoActivaNoSuscrita";
                 public const string DLandingBannerNoActivaSuscrita = "DLandingBannerNoActivaSuscrita";
                 public const string DLandingBannerActivaNoSuscrita = "DLandingBannerActivaNoSuscrita";
                 public const string DLandingBannerActivaSuscrita = "DLandingBannerActivaSuscrita";
+                //
                 public const string MLandingBannerNoActivaNoSuscrita = "MLandingBannerNoActivaNoSuscrita";
                 public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
                 public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";

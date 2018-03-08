@@ -1738,6 +1738,22 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoMenuInicioActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoMenuInicioActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoMenuInicioNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoMenuInicioNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
                 if (value1 != null)
                 {
@@ -1779,6 +1795,17 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo);
                 if (value1 != null) revistaDigitalModel.ActivoMdo = value1.Valor1 == "1";
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita);
+                if (value1 != null) revistaDigitalModel.BannerOfertasNoActivaNoSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita);
+                if (value1 != null) revistaDigitalModel.BannerOfertasNoActivaSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita);
+                if (value1 != null) revistaDigitalModel.BannerOfertasActivaNoSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita);
+                if (value1 != null) revistaDigitalModel.BannerOfertasActivaSuscrita = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
@@ -1787,6 +1814,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuInicioNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
@@ -1794,6 +1823,10 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaSuscrita
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaNoSuscrita
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasActivaSuscrita
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos =

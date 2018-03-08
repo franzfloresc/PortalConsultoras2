@@ -8,17 +8,24 @@
 
 @{
     var title = "Catálogos y Revistas";
+    var EsconderRevista = "block";
+    var EsconderBanner = "block";
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    title = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita? "Catálogos" : title:title;
+    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
+    EsconderBanner = EsconderRevista;
+
     ViewBag.Title = title;
 
 }
 
-<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
-<input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
-<input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
-<input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
-<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
-<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
-<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+    <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
+    <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
+    <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
+    <input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+    <input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+    <input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+    <input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
@@ -61,7 +68,7 @@
     </div>
     <!-- FIN CATALOGO -->
 
-    <div class="expoferta_revista">
+    <div class="expoferta_revista" style="display:@EsconderRevista">
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml",

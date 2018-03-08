@@ -12,9 +12,6 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
 
-<div class="back-to" onClick="RedireccionarContenedorComprar()">
-    <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
-</div>
 @if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
     /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */
@@ -33,7 +30,7 @@ else
     <div class="contenedor-mobile-fix" style="padding: 0;">
         <div class="logo"></div>
         <span class="txt-logo">
-            OFERTAS A TU MEDIDA, SEGÚN LO QUE SIEMPRE PIDES ¡Y MUCHO MÁS!
+            CONOCE SUS BENEFICIOS EXCLUSIVOS ¡Y ÚNETE YA!
         </span>
     </div>
 </div>
@@ -58,10 +55,10 @@ else
     <div class="contenedor-mobile-fix">
         <div class="bloque-texto">
             <p class="titulo">
-                SIN CÓDIGOS
+                MENOS CÓDIGOS QUE DIGITAR
             </p>
             <span class="texto">
-                No vas a tener que digitar códigos, todo será más rápido.
+                Tendrás menos códigos que digitar, todo será más rápido.
             </span>
         </div>
         <div class="bloque-img">
@@ -127,17 +124,17 @@ else
             <div class="arrow"></div>
             <p class="titulo">¿CÓMO FUNCIONA?</p>
             <div class="bloque-texto">
-                <span class="nro">-</span>
+                <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
                     En esta campaña te suscribes al Club GANA+
                 </span>
                 <div class="clear"></div>
-                <span class="nro">-</span>
+                <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
                     Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
                 </span>
                 <div class="clear"></div>
-                <span class="nro mobil-nro-funciona">-</span>
+                <span class="nro mobil-nro-funciona"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt mobil-nro-funciona">
                     En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
                 </span>
@@ -152,7 +149,7 @@ else
             </div>
             <div class="clear"></div>
             <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
-                <span class="nro" style="width:7%;">-</span>
+                <span class="nro" style="width:7%;"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt" style="width: 91%;">
                     En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
                 </span>

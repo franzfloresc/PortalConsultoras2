@@ -4530,7 +4530,69 @@ table > thead > tr > th {
     margin-top: 66px;
     position: relative;
 }
+.wrapper_resumen_mobile {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+    position: relative;
+}
 
+.wrapper_resumen_mobile_clubganamas {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 500px;
+}
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor {
+        width: 100%;
+        height: 247px;
+        background: black;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .dorado {
+        background: linear-gradient(62deg, #b3842f, #d9b43c) !important;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
+        width: 89px;
+        position: absolute;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor span {
+        display: block;
+        width: 209px;
+        margin: auto;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 13px;
+        padding: 55px 0px 15px 0px;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
+        display: block;
+        width: 209px;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        color: #ffffff;
+        margin: auto;
+        border: 1px solid white;
+        padding: 13px 0px;
+    }
+
+    .wrapper_resumen_mobile_clubganamas .zona-items {
+        height: 420px;
+        overflow: hidden;
+        width: 100%;
+        margin-top: -88px;
+    }
 .wrapper_resumen_mobile {
     width: 100%;
     padding-left: 14px;
@@ -4541,7 +4603,76 @@ table > thead > tr > th {
 .sombra_wrapper {
     border-bottom: 1px solid black;
 }
+.wrapper_resumen_mobile_clubganamas {
+        
+        margin-top:10px;
+        margin-bottom:10px;
+        height:580px;
+    }
+        .wrapper_resumen_mobile_clubganamas .zonadecolor {
+            width: 100%;
+            height: 247px;
+            background-image: linear-gradient(62deg, #b3842f, #d9b43c);
+        }
+            .wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
+                width: 89px;
+                position: absolute;
+            }
+            .wrapper_resumen_mobile_clubganamas .zonadecolor span {
+                display: block;
+                width: 209px;
+                margin: auto;
+                line-height: 1.31;
+                letter-spacing: 1px;
+                text-align: center;
+                color: #ffffff;
+                font-size: 13px;
+                padding: 45px 0px 15px 0px;
+            }
+            .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
+                display: block;
+                width: 209px;
+                text-transform: uppercase;
+                text-align: center;
+                font-size: 13px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.31;
+                letter-spacing: 1px;
+                color: #ffffff;
+                margin: auto;
+                border: 1px solid white;
+                padding: 13px 0px;
+            }
+.nombre_consultora_2018 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
 
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
+        .wrapper_resumen_mobile_clubganamas .zona-items {
+            height: 322px;
+            overflow: hidden;
+            width: 100%;
+            margin-top: -88px;
+        }
 .content_320 {
     width: 292px;
     height: auto;
@@ -4594,7 +4725,11 @@ table > thead > tr > th {
     font-family: 'Lato';
     vertical-align: middle;
 }
-
+.content_resumen_dato_mobile a.txtdorado{
+    color: #a18328;
+    text-decoration: underline;
+    margin-right: 5px;
+}
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -4887,6 +5022,99 @@ table > thead > tr > th {
     position: relative;
 }
 
+.contenedor_carrusel_home .content_item_carrusel_clubganamas {
+    background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
+    border: none !important;
+    min-height: 372px;
+    padding: 111px 30px 33px 30px;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas .clubganamas_logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas p {
+      display: block;
+    width: 100%;
+    height: 161px;
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1.8px;
+    text-align: center;
+    margin: auto;
+    color: #ffffff;
+    margin-bottom: 22px;
+    /* margin-left: -6%; */
+    word-wrap: break-word;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas a {
+    font-size: 13px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.31;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    border: 1px solid white;
+    /* padding: 18.6px 0px; */
+    height: 46px;
+    padding: 13px 0px;
+    display:block;
+}
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        font-weight:normal !important;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.segundo {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+        word-wrap: break-word;
+    }
+@media only screen and (max-width: 991px) {
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas {
+        padding: 111px 10px 33px 120px;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p{
+        font-size:15px;
+    }
+}
 .content_item_home {
     background: white;
     border: 1px solid #e7e1e1;
@@ -14003,171 +14231,6 @@ span.icon-advertencia {
     }
 /*FIN BANNER APP*/
 
-/* NUEVO POPUP SUSCRIBIRSE */
-
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 2.9% !important;
-        width: 390px;
-        margin: auto;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 17px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 300;
-                margin-bottom: 0;
-                display: block;
-                width: 250px;
-                margin: auto;
-                margin-bottom: 5px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 24px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 700;
-                margin-top: 10px;
-                letter-spacing: 1px;
-                display: block;
-                width: 250px;
-                margin: auto;
-                margin-bottom: 20px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
-                float: left;
-                top: 0;
-                WIDTH: 100%;
-                LEFT: 0;
-                text-align: left;
-                margin: -9.5% 5% 0% -14.5px;
-            }
-
-            .contenido-popup-nuevo-2017 .cerrargndtxt{
-
-                    margin-top: 20px;
-                font-size: 11px;
-                letter-spacing: .5px;
-                color: #9E9E9E;
-                text-decoration: underline;
-                cursor:pointer;
-
-                }
-
-                .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img{
-                    display:block;
-                    margin:auto;
-                    text-align:center;
-                    height:160px;
-                    margin-bottom:15px;
-                }
-    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
-        position: absolute;
-        margin-top: -15px;
-        margin-left: -15px;
-        width: 64px;
-    }
-    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus img {
-        width: 100%;
-    }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-                background: #e81c36;
-                display: inline;
-                vertical-align: middle;
-                text-transform: uppercase;
-                text-align: center;
-                margin: auto;
-            }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 1.4% !important;
-        width: 390px;
-        margin: auto;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 17px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 300;
-                margin-bottom: 0;
-                display: block;
-                width: 250px !important;
-                margin: auto;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 24px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 700;
-                margin-bottom: 36px;
-                display: block;
-                width: 250px !important;
-                margin: auto;
-                margin-bottom: 20px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-                background: #e81c36;
-                color: white;
-                text-align: center;
-                max-width: 240px;
-                display: block;
-                font-size: 17px;
-                text-decoration: none;
-                padding: 17px 0;
-                letter-spacing: 1px;
-                margin: auto;
-                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-                color: white;
-            }
-
-@media (max-width:400px) {
-    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
-        position: absolute;
-        margin-top: 5px;
-        margin-left: 5px;
-        width: 64px;
-    }
-}
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
     background: #613c87 !important;
@@ -14195,12 +14258,12 @@ span.icon-advertencia {
 
     .popup_confirmacion_datos p.felicidades {
         display: block;
-        font-size: 17px;
+        font-size: 13px;
         font-weight: bolder;
         margin-bottom: 0;
         letter-spacing: 1px;
         text-align: center;
-        color: black;
+        color: #c39934;
     }
 
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
@@ -14218,9 +14281,12 @@ span.icon-advertencia {
         display: block;
         text-align: center;
         font-size: 17px;
-        font-weight: bolder;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
         letter-spacing: 1px;
-        color: #613c87;
+        color: #000000;
         margin-bottom: 20px;
     }
 
@@ -14228,11 +14294,10 @@ span.icon-advertencia {
         display: block;
         text-align: center;
         letter-spacing: 0.5px;
-        font-size: 11px;
-        margin-bottom: 15px;
-        line-height: 13px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 16px;
         color: black;
-        text-transform: initial;
     }
 
     .popup_confirmacion_datos .form-datos button {
@@ -14272,6 +14337,9 @@ span.icon-advertencia {
                 position: absolute;
                 padding: 0px 10px;
                 margin-top: 14px;
+                width: auto !important;
+                height: auto !important;
+                margin-bottom: 0 !important;
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
@@ -14306,6 +14374,19 @@ span.icon-advertencia {
                 letter-spacing: 0.5px;
             }
 
+            .popup_confirmacion_datos .form-datos .input p.txtvalidar {
+                margin: 0;
+                padding: 0;
+                /* line-height: 2em; */
+                text-align: left;
+                display: block;
+                padding: 5px 0px 0px 40px;
+                color: red;
+                letter-spacing: .5px;
+                font-size: 12px;
+                text-transform: initial;
+            }
+
             .popup_confirmacion_datos .form-datos .input span {
                 text-align: left;
                 display: block;
@@ -14319,12 +14400,64 @@ span.icon-advertencia {
                 letter-spacing: 0.5px;
             }
 
+        .popup_confirmacion_datos .form-datos .validar_chk {
+            width: 100%;
+        }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .inputchk {
+                width: 12%;
+                float: left;
+                margin-top: -6px;
+            }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                    display: none !important;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
+                    display: inline-block;
+                    padding: 0 0 0 0px;
+                    background: white;
+                    box-shadow: inset 0 0 4px #0000006b;
+                    width: 16px;
+                    height: 16px;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                    box-shadow: none;
+                    background: #c39934;
+                }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+                width: 88%;
+                float: left;
+                display: block;
+                text-align: left;
+                margin-top: -9.5px;
+                /* color: black; */
+                /* font-size: 10px !important; */
+                font-size: 10px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.38;
+                letter-spacing: normal;
+                text-align: left;
+                letter-spacing: .7px;
+                color: #000000;
+            }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #613c87 !important;
+    background: #c39934 !important;
 }
 
 @media (max-width:400px) {
@@ -14365,95 +14498,18 @@ span.icon-advertencia {
     }
 }
 
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 29px;
-    margin-top: -20px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 17px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-    font-size: 24px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-    font-size: 13px;
-    padding: 14.5px 0;
-    border: none;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 0;
-    margin-top: -49px;
-}
-
 .content_pop_up_intriga {
     HEIGHT: 100%;
     display: table;
     width: 100%;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
 @media (max-width: 1024px) {
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 24px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 26px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        font-size: 13px;
-        padding: 14.5px 0;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-        position: absolute;
-        margin-left: 0;
-        margin-top: -49px;
-    }
-
     .contenido .centrar-estructura {
         height: 80%;
     }
 }
 
-@media (max-width: 500px) {
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        width: 92%;
-        margin-top: 4.9% !important;
-    }
-}
-
-@media (max-width: 400px) {
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        width: 100%;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        padding: 0;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-            margin-left: -19px;
-            margin-top: -30px;
-        }
-}
 /* FIN NUEVO POPUP SUSCRIBIRSE */
 
 /* INI: VISTA ACTUALIZAR CONTRASEÑA */

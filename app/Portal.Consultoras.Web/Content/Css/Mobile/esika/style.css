@@ -4530,7 +4530,57 @@ table > thead > tr > th {
     padding-right: 14px;
     position: relative;
 }
+.wrapper_resumen_mobile_clubganamas {
 
+margin-top:10px;
+margin-bottom:10px;
+height:580px;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor {
+width: 100%;
+height: 247px;
+background: black;
+}
+.wrapper_resumen_mobile_clubganamas .dorado {
+background: linear-gradient(62deg, #b3842f, #d9b43c) !important;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
+width: 89px;
+position: absolute;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor span {
+display: block;
+width: 209px;
+margin: auto;
+line-height: 1.31;
+letter-spacing: 1px;
+text-align: center;
+color: #ffffff;
+font-size: 13px;
+padding: 55px 0px 15px 0px;
+}
+.wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
+display: block;
+width: 209px;
+text-transform: uppercase;
+text-align: center;
+font-size: 13px;
+font-weight: bold;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.31;
+letter-spacing: 1px;
+color: #ffffff;
+margin: auto;
+border: 1px solid white;
+padding: 13px 0px;
+}
+.wrapper_resumen_mobile_clubganamas .zona-items {
+height: 420px;
+overflow: hidden;
+width: 100%;
+margin-top: -88px;
+}
 .sombra_wrapper {
     box-shadow: 0 3px 5px 0 rgba(126,126,126,.5) !important;
     -webkit-box-shadow: 0 3px 5px 0 rgba(126,126,126,.5) !important;
@@ -4588,7 +4638,32 @@ table > thead > tr > th {
     height: auto;
     font-family: 'Lato';
 }
+.nombre_consultora_2018 {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+}
 
+    .nombre_consultora_2018 a {
+        display: inline-block;
+        color: #c39934;
+        transition: .3s;
+        text-decoration: underline;
+    }
+        .nombre_consultora_2018 a.mis_datos {
+            display: inline-block;
+            color: #848484;
+            transition: .3s;
+            text-decoration: none;
+            margin-top: 0px;
+            top: -1px;
+            margin-left: 5px;
+        }
+.content_resumen_dato_mobile a.txtdorado{
+    color: #a18328;
+    text-decoration: underline;
+    margin-right: 5px;
+}
 .saludo_mobile {
     width: 24%;
     font-size: 17px;
@@ -4905,6 +4980,100 @@ table > thead > tr > th {
     position: relative;
 }
 
+.contenedor_carrusel_home .content_item_carrusel_clubganamas {
+    background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
+    border: none !important;
+    min-height: 372px;
+    padding: 111px 30px 33px 30px;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas .clubganamas_logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.contenedor_carrusel_home .content_item_carrusel_clubganamas p {
+        display: block;
+    width: 100%;
+    height: 161px;
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1.8px;
+    text-align: center;
+    margin: auto;
+    color: #ffffff;
+    margin-bottom: 22px;
+    /* margin-left: -6%; */
+    word-wrap: break-word;
+}
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas a {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+        display: block;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.primero {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        word-wrap: break-word;
+        margin-bottom: 10px;
+        font-weight: normal !important;
+    }
+
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p.segundo {
+        display: block;
+        width: 100%;
+        height: auto;
+        font-family: Lato;
+        font-size: 16px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        margin-bottom: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+        word-wrap: break-word;
+        
+    }
+@media only screen and (max-width: 991px) {
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas {
+        padding: 111px 10px 33px 10px;
+    }
+    .contenedor_carrusel_home .content_item_carrusel_clubganamas p{
+        font-size:15px;
+    }
+}
 .content_item_home {
     background: white;
     border: 1px solid #e7e1e1;
@@ -14105,6 +14274,7 @@ a {
     }
 /*FIN BANNER APP*/
 
+                cursor:pointer;
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
@@ -14132,12 +14302,12 @@ a {
 
     .popup_confirmacion_datos p.felicidades {
         display: block;
-        font-size: 17px;
+        font-size: 13px;
         font-weight: bolder;
         margin-bottom: 0;
         letter-spacing: 1px;
         text-align: center;
-        color: black;
+        color: #c39934;
     }
 
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
@@ -14155,9 +14325,12 @@ a {
         display: block;
         text-align: center;
         font-size: 17px;
-        font-weight: bolder;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
         letter-spacing: 1px;
-        color: #e81c36;
+        color: #000000;
         margin-bottom: 20px;
     }
 
@@ -14165,11 +14338,10 @@ a {
         display: block;
         text-align: center;
         letter-spacing: 0.5px;
-        font-size: 11px;
-        margin-bottom: 15px;
-        line-height: 13px;
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 16px;
         color: black;
-        text-transform: initial;
     }
 
     .popup_confirmacion_datos .form-datos button {
@@ -14209,6 +14381,9 @@ a {
                 position: absolute;
                 padding: 0px 10px;
                 margin-top: 14px;
+                width: auto !important;
+                height: auto !important;
+                margin-bottom: 0 !important;
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
@@ -14243,6 +14418,19 @@ a {
                 letter-spacing: 0.5px;
             }
 
+            .popup_confirmacion_datos .form-datos .input p.txtvalidar {
+                margin: 0;
+                padding: 0;
+                /* line-height: 2em; */
+                text-align: left;
+                display: block;
+                padding: 5px 0px 0px 40px;
+                color: red;
+                letter-spacing: .5px;
+                font-size: 12px;
+                text-transform: initial;
+            }
+
             .popup_confirmacion_datos .form-datos .input span {
                 text-align: left;
                 display: block;
@@ -14256,12 +14444,64 @@ a {
                 letter-spacing: 0.5px;
             }
 
+        .popup_confirmacion_datos .form-datos .validar_chk {
+            width: 100%;
+        }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .inputchk {
+                width: 12%;
+                float: left;
+                margin-top: -6px;
+            }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"] {
+                    width: 16px;
+                    height: 16px;
+                    display: none !important;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
+                    display: inline-block;
+                    padding: 0 0 0 0px;
+                    background: white;
+                    box-shadow: inset 0 0 4px #0000006b;
+                    width: 16px;
+                    height: 16px;
+                }
+
+                .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
+                    width: 16px;
+                    height: 16px;
+                    display: inline-block;
+                    box-shadow: none;
+                    background: #c39934;
+                }
+
+            .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+                width: 88%;
+                float: left;
+                display: block;
+                text-align: left;
+                margin-top: -9.5px;
+                /* color: black; */
+                /* font-size: 10px !important; */
+                font-size: 10px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.38;
+                letter-spacing: normal;
+                text-align: left;
+                letter-spacing: .7px;
+                color: #000000;
+            }
+
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #e81c36 !important;
+    background: #c39934 !important;
 }
 
 .contenedor_circulos {

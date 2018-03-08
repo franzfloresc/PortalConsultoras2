@@ -809,6 +809,111 @@
         padding-right: 10px;
         padding-left: 10px;
     }
+    .revistadigital-landing .content_item_carrusel_clubganamas img.portada {
+        width: 100%;
+    }
+     .revistadigital-landing .content_item_carrusel_clubganamas img.portada_off{
+         height:229px;
+     }
+    .revistadigital-landing .content_item_carrusel_clubganamas a.portada {
+        border: 1px solid black !important;
+        color: black !important;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+        margin-top: 5px;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas p.tercero {
+        overflow: hidden;
+        font-weight: bold;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        height: 40px;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height: 18px;
+        display: block;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas {
+        background-image: linear-gradient(48deg, #b3842f, #d9b43c) !important;
+        border: none !important;
+        min-height: 372px;
+        padding: 111px 30px 33px 30px;
+        max-width: 240px;
+        margin: auto;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas_off {
+        background-image: linear-gradient(48deg, white, white) !important;
+        padding: 20px 35px;
+    }
+
+    .revistadigital-landing .content_item_carrusel .clubganamas_logo {
+        position: absolute;
+        left: 0;
+        top:0;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas p.primero {
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.27;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 15px;
+    }
+
+    .revistadigital-landing .content_item_carrusel_clubganamas p.segundo {
+        display: block;
+        width: 100%;
+        font-family: Lato;
+        font-size: 22px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1.8px;
+        text-align: center;
+        margin: auto;
+        color: #ffffff;
+        margin-bottom: 22px;
+    }
+    .revistadigital-landing .content_item_carrusel_clubganamas a {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.31;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+        width: 100%;
+        border: 1px solid white;
+        /* padding: 18.6px 0px; */
+        height: 46px;
+        padding: 13px 0px;
+    }
 
 .ProductoResaltante {
     width: 35%;
@@ -1525,7 +1630,7 @@
     position: absolute;
 }
 
-    .btn_diagonal:after {
+ .btn_diagonal:after {
         content: '';
         position: absolute;
         top: 0;
@@ -1596,6 +1701,7 @@
     text-decoration: none;
     line-height: 45px;
     transition: all .6s ease-in-out;
+    letter-spacing: 1px;
 }
 /*BTN STROKE BLACK*/
 .btn_stroke {
@@ -1603,18 +1709,17 @@
     width: 260px;
     left: 50%;
     margin-left: -130px;
-    border: 1px solid black;
     color: black;
     font-size: 13px;
 }
 
-    .btn_stroke:hover a {
+/*.btn_stroke:hover a {
         color: white;
-    }
+    }*/
 
-    .btn_stroke:after {
+   /* .btn_stroke:after {
         background: black;
-    }
+    }*/
 
 /*BTN STROKE WHITE*/
 
@@ -1745,9 +1850,9 @@
     }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -webkit-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
+            background: -o-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
+            background: linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
         }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal a {
@@ -2236,7 +2341,9 @@
     height: 120px;
     padding-top: 26px;
 }
-
+.home_block_rd .rd_logo2 {
+    background-image: linear-gradient(to right, #b3842f, #d9b43c) !important;
+}
     .home_block_rd .rd_logo img.large {
         width: 160px;
         margin-left: -20px;
@@ -2366,14 +2473,17 @@
 }
 
 .banner_pedido_text {
-    font-size: 16px;
-    line-height: 20px;
-    margin-bottom: 52px;
+    font-size: 17px;
+    line-height: 25px;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
-
+.banner_pedido_text b{
+    display:block;
+    text-align:center;
+}
 .banner_pedido_masofertas .btn_diagonal {
-    background: white;
+    /*background: white;*/
     width: 70%;
     position: absolute;
     left: 50%;
@@ -2381,8 +2491,8 @@
     margin-left: -35%;
 }
 
-    .banner_pedido_masofertas .btn_diagonal:after {
-        background: black;
+    /* .banner_pedido_masofertas .btn_diagonal:after {
+        background: linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
         color: white;
     }
 
@@ -2399,7 +2509,7 @@
         color: white;
         transition: all .2s ease-in-out;
     }
-        .banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
+ .banner_pedido_masofertas .btn_diagonal a .rd_arrowright {
             
             display: none;
         }
@@ -2416,19 +2526,19 @@
         transform: translateY(40%) translateX(-100%) rotate(-75deg);
     }
 
-    .banner_pedido_masofertas .btn_diagonal img {
+ .banner_pedido_masofertas .btn_diagonal img {
         position: relative;
         top: 1px;
         margin-left: 5px;
         height: 12px;
         width: 8px;
     }
-
+    */
 .home_rd1 {
     background-color: #fff;
 }
 
-    .home_rd1 .content_belcorp {
+/* .home_rd1 .content_belcorp {
         box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     }
 
@@ -2499,7 +2609,7 @@
         width: 8px;
         height: 12px;
     }
-
+       */
 
 @media screen and (max-width: 1220px) {
     .home_rd1 .content_belcorp {
@@ -2979,15 +3089,15 @@
 }
 
     .gana-mas .logo {
-        width: 230px;
+        width: 217px;
         display: block;
         margin: auto;
         margin-bottom: 30px;
         margin-top: 35px;
         height: auto;
         float: initial;
-        height: 80px;
-        background: url('../../../Images/Esika/logotipo-club-ganamas-rojo.svg');
+        height: 95px;
+        background: url(../../../Images/logo-club-ganamas-dorado.svg);
         background-size: cover;
         background-position: center center;
     }
@@ -3022,7 +3132,7 @@
     }
 
     .gana-mas .pack-medida {
-        background: #e81c36;
+        background: #c39934;
     }
 
     .gana-mas .codigos {
@@ -3068,7 +3178,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url('../../../Images/Esika/personalizacion-visual-desktop.gif');
+        background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -3111,14 +3221,14 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/Esika/Triangle.svg');
+        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
     }
 
     .como-funciona p.como-funciona-txt {
-        color: #e81c36;
+        color: #c39934;
         display: block;
         text-align: center;
         font-weight: bold;
@@ -3141,7 +3251,7 @@
             font-weight: 700;
             text-align: left;
             font-size: 21px;
-            margin-top: -5px;
+            margin-top: -8px;
         }
 
         .como-funciona .caja-texto span.txt {
@@ -3149,7 +3259,7 @@
             letter-spacing: .5px;
             text-align: left;
             margin-bottom: 20px;
-            font-size: 15px;
+            font-size: 13px;
             padding-left: 2%;
         }
          .como-funciona .caja-texto span.txt b{
@@ -3188,14 +3298,14 @@
     }
 
     .como-funciona span.recuerda-txt {
-        color: #e81c36;
+        color: black;
         font-weight: 700;
         letter-spacing: .5px !important;
         text-transform: uppercase;
         font-weight: 900;
         display: block;
         word-wrap: break-word;
-        margin-left: 20px;
+        margin-left: -11px;
     }
 
     .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {
@@ -3244,7 +3354,7 @@
 
     .suscribete a.suscribete-btn {
         display: block;
-        background: #e81c36;
+        background: #c39934;
         margin: auto;
         text-align: center;
         color: white;
@@ -3275,7 +3385,7 @@
         margin-bottom: 20px;
         letter-spacing: .5px;
         font-size: 15px;
-        color: #e81c36;
+        color: #c39934;
         font-weight: 700;
         margin-top: 30px;
     }
@@ -3429,10 +3539,11 @@
     .popup_confirmacion_datos p.felicidades {
         display: block;
         font-size: 13px;
-        font-weight: bolder;
+        font-weight: 900;
         margin-bottom: 0;
         letter-spacing: 1px;
         text-align: center;
+        color: #c39934;
     }
 
     .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
@@ -3449,11 +3560,14 @@
     .popup_confirmacion_datos p.estasganando {
         display: block;
         text-align: center;
-        font-size: 28px;
-        font-weight: bolder;
+        font-size: 17px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
         letter-spacing: 1px;
-        color: #e81c36;
-        margin-bottom: 20px;
+        color: #000000;
+        margin-bottom: 10px;
     }
 
     .popup_confirmacion_datos span.confirmanos {
@@ -3461,9 +3575,61 @@
         text-align: center;
         letter-spacing: 0.5px;
         font-size: 13px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         line-height: 16px;
     }
+
+    .popup_confirmacion_datos .form-datos .validar_chk{
+        width:100%;
+        margin-top:22px;
+    }
+
+    .popup_confirmacion_datos .form-datos .validar_chk .inputchk{
+            width: 8%;
+    float: left;
+    margin-top: -6px;
+    }
+
+    .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type="checkbox"]{
+        width:16px;
+        height:16px;
+        display: none !important;
+    }
+
+        .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox] + label {
+            display: inline-block;
+            padding: 0 0 0 0px;
+            background: white;
+            box-shadow: inset 0 0 4px #0000006b;
+            width: 16px;
+            height: 16px;
+        }
+
+        .popup_confirmacion_datos .form-datos .validar_chk .inputchk input[type=checkbox]:checked + label {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            box-shadow: none;
+            background: #c39934;
+        }
+        .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+            width: 92%;
+            float: left;
+            display: block;
+            text-align: left;
+            margin-top: -9.5px;
+            font-size: 12px;
+            line-height: 15px;
+        }
+         .popup_confirmacion_datos .form-datos .validar_chk .txtchk span.obligatorio{
+            color:red;
+        }
+        .popup_confirmacion_datos .form-datos .validar_chk .txtchk a.terminos{
+                padding: 0;
+            display: inline;
+            width: auto !important;
+            text-decoration: underline;
+        }
 
     .popup_confirmacion_datos .form-datos button {
         background: #e0e0e0;
@@ -3477,7 +3643,7 @@
         width: 100%;
         width: 280px;
         margin: auto;
-        height: 50px;
+        height: 45px;
         margin-bottom: 20px;
         margin-top: 20px;
     }
@@ -3524,25 +3690,50 @@
                 height: 40px;
             }
 
+            .popup_confirmacion_datos .form-datos .input p.txtvalidar {
+                margin: 0;
+                padding: 0;
+                /* line-height: 2em; */
+                text-align: left;
+                display: block;
+                padding: 5px 0px 0px 40px;
+                color: red;
+                letter-spacing: .5px;
+                font-size: 12px;
+            }
+
+                .popup_confirmacion_datos .form-datos .input input[type="checkbox"] {
+                    float: left;
+                    width: 10% !important;
+                    width: 16px;
+                    height: 16px;
+                    margin-top: 1px;
+                    display: block !important;
+                }
+
             .popup_confirmacion_datos .form-datos .input span {
                 text-align: left;
                 display: block;
-                width: 100%;
-                padding-left: 30px;
+                width: 90%;
+                /* padding-left: 30px; */
                 color: #808080;
                 line-height: 13px;
                 font-size: 11px;
+                float: left;
             }
-/* FIN CONFIRMACIÓN DE DATOS */
-
-/* DESPEGABLE LATERAL GND */
-.desplegablegnd {
-    position: fixed;
-    right: 0px;
-    display: table;
-    height: 100vh;
-    top: 6px;
-}
+                .popup_confirmacion_datos .form-datos .input span a {
+                    text-decoration: underline;
+                    display: inline;
+                }
+                /* FIN CONFIRMACIÓN DE DATOS */
+                /* DESPEGABLE LATERAL GND */
+                .desplegablegnd {
+                    position: fixed;
+                    right: 0px;
+                    display: table;
+                    height: 100vh;
+                    top: 6px;
+                }
 
     .desplegablegnd .gndcontenido {
         display: table-cell;
@@ -3625,3 +3816,258 @@
             text-decoration: none;
         }
 /* FIN DEPEGABLE */
+
+.contenedor_ganamas {
+    width: 100%;
+    max-height: 550px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas_bg {
+width: 100%;
+height: 200px;
+background-color: #000000;
+position: relative;
+z-index: 60;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas {
+margin-top: 200px;
+max-width: 1189px;
+margin: auto;
+position: relative;
+top: -200px;
+z-index: 100;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
+background: transparent;
+max-width: 1063px;
+margin: auto;
+margin-bottom: 25px;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
+display: inline-block;
+width: 20%;
+
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical {
+display: table;
+height: 96px;
+width: 100%;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo .centrar_vertical .centrar_cont_club {
+display: table-cell;
+vertical-align: middle;
+width: 100%;
+height:96px;
+background:url('../../../Images/Esika/RevistaDigital/logo_esika_diagonal.png');
+background-size: contain;
+background-repeat: no-repeat;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo img {
+    width: 150px;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt {
+display: inline-block;
+width: 60%;
+text-align: center;
+height: 96px;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical {
+display: table;
+height: 96px;
+width: 100%;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt p {
+display: block;
+font-size: 15px;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 1px;
+text-align: center;
+color: #ffffff;
+text-transform:uppercase;
+margin-bottom: 0;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
+display: table-cell;
+vertical-align: middle;
+width: 100%;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
+display: inline-block;
+width: 20%;
+height:96px;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical {
+display: table;
+width: 100%;
+height:96px;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn_dorado{
+    height:45px;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn .centrar_vertical .centrar_cont_club {
+display: table-cell;
+width: 100%;
+vertical-align: middle;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn a {
+
+font-size: 14px;
+font-weight: 600;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: 1px;
+text-align: center;
+}
+.contenedor_ganamas .sb_contenedor_ganamas .contenido_gana_mas {
+width: 100%;
+min-height: 341px;
+overflow: hidden;
+text-align:center;
+}
+.contenedor_ganamas .dorado_club {
+background-image: linear-gradient(84deg, #b3842f, #d9b43c);
+transition:.3s;
+}
+.contenedor_ganamas .dorado_btn {
+color: #c39934 !important;
+background-color: white !important;
+transition: .3s;
+}
+
+/**** COLOR DORADOCLUB GANA+ *****/
+
+.bg_club_gana_mas {
+    background: #c39934 !important;
+    
+}
+.color_club_gana_mas {
+    color: #c39934 !important;
+}
+
+/**** BOTONES MODIFICADOS CON CLUB GANA + *****/
+
+/*BOTON DORADO ANIMADO*/
+.generalbtn2018 {
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    margin:auto;
+}
+.activar_boton_dorado_a_blanco {
+    background-color: #c39934;
+    color: white;
+}
+    .activar_boton_dorado_a_blanco a {
+        height: 45px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        line-height: 45px;
+        letter-spacing: 1px;
+        background: linear-gradient(to right, #c39934 50%, white 50%);
+        background-size: 200% 100%;
+        background-position: left bottom;
+        transition: all .2s ease;
+    }
+        .activar_boton_dorado_a_blanco a:hover {
+            background-position: right bottom;
+            color: black !important;
+        }
+
+.activar_boton_blanco_a_negro_dorado {
+    background-color: white;
+}
+
+    .activar_boton_blanco_a_negro_dorado a {
+        height: 45px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        line-height: 45px;
+        letter-spacing: 1px;
+        background: linear-gradient(to right, white 50%, black 50%);
+        background-size: 200% 100%;
+        background-position: left bottom;
+        transition: all .2s ease;
+        color: #c39934 !important;
+    }
+
+        .activar_boton_blanco_a_negro_dorado a:hover {
+            background-position: right bottom;
+            color:white !important;
+        } 
+
+/*BOTON DORADO NO ANIMADO - CLUB GANA+*/
+.activar_boton_dorado_no_animado {
+    background-color: #c39934;
+    color: white;
+    position:relative;
+    padding:15px 0px;
+}
+/*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
+.activar_boton_blanco_no_animado {
+    background-color: white;
+    color: #c39934 !important;
+    position: relative;
+    padding: 15px 0px;
+}
+/*BOTON ESIKA ANIMADO: ROJO A BLANCO*/
+.activar_boton_rojo_a_blanco {
+    position: relative;
+    transition: all .6s ease-in-out;
+}
+
+    .activar_boton_rojo_a_blanco a {
+        height: 45px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        line-height: 45px;
+        letter-spacing: 1px;
+        background: linear-gradient(to right, #e81c36 50%, white 50%);
+        background-size: 200% 100%;
+        background-position: left bottom;
+        transition: all .2s ease;
+        padding:15px 0px;
+        color:white;
+    }
+    .activar_boton_rojo_a_blanco a:hover {
+        background-position: right bottom;
+        color:black !important;
+    } 
+/*BOTON ESIKA NO ANIMADO: ROJO*/
+.activar_boton_esika_no_animado {
+    background-color: #e81c36 !important;
+    color:white !important;
+    padding:15px 0px;
+}
+
+.activar_boton_lbel_animado {
+}
+
+/*BOTON LBEL NO ANIMADO*/
+.activar_boton_lbel_no_animado {
+    background-color: #652b82 !important;
+    color:white !important;
+}

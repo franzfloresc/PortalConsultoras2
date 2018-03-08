@@ -54,45 +54,79 @@
 
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+    {
+
+        <div class="nombre_consultora_2018">
+            ¡Feliz Aniversario @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+    {
+        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+}
+        </div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+{
+    <div class="nombre_consultora_2018">
+        ¡Feliz Cumpleaños @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+    {
+    <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+    }
+    </div>
+}
+else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+{
+    <div class="nombre_consultora_2018">
+        ¡@ViewBag.SaludoFestivo @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+    {
+        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+    }
+    </div>
+
+}
+else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+{
+        <div class="nombre_consultora_2018">
+            Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+        {
+        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+        }
+        </div>
+}
+else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
+{
+    string CampaniaEfectiva = revistaDigital.SuscripcionModel.CampaniaEfectiva.ToString();
+    string CampaniaActual = String.Concat(DateTime.Now.Year, revistaDigital.CampaniaActual);
+
+    if (CampaniaEfectiva.Equals(CampaniaActual))
+    {
+            <div class="nombre_consultora_2018">
+                Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora @if (ViewBag.TipoUsuario != 2)
             {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡Feliz Aniversario</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
+            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             }
-            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
-            {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
-            }
-            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
-            {
-                <div class="nombre_consultora">
-                    <span class="saludo_aniversario">¡@ViewBag.SaludoFestivo</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
-                </div>
-            }
-            else
-            {
-                <div class="nombre_consultora">
-                    <span style="margin-top: -0.5px!important;">¡Hola</span>
-                </div>
-                <div class="consultora_home">
-                    <span>@nombreConsultora</span>
-                </div>
-            }
-            @if (ViewBag.TipoUsuario != 2)
+            </div>
+    }
+    else
+    {
+            <div class="nombre_consultora_2018">
+                ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
             {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             }
+            </div>
+    }
+}
+else
+{
+    <div class="nombre_consultora_2018">
+        ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+    {
+    <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+    }
+    </div>
+}
+
+
+
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -2062,7 +2096,7 @@ else
 
 <!--EPD-1204 FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2162,6 +2196,7 @@ else
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
+        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
@@ -2174,7 +2209,7 @@ else
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }
