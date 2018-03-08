@@ -1,0 +1,148 @@
+﻿
+/*REVISTA DIGITAL DETALLE DESKTOP */
+.revista_ficha {
+    background-repeat: no-repeat !important;
+    background-position: center top !important;
+    padding-top: 40px;
+    min-height: 370px;
+}
+
+    .revista_ficha .rd_volver {
+        font-size: 13px;
+        letter-spacing: .5px;
+        position: absolute;
+        top: -20px;
+        transition: all .2s ease-in-out;
+        padding-left: 0;
+    }
+
+        .revista_ficha .rd_volver .previous_volver {
+            width: 8px;
+            height: 12px;
+            position: absolute;
+            left: -15px;
+            top: 3px;
+        }
+
+        .revista_ficha .rd_volver:hover {
+            font-weight: 800;
+            transition: all .2s ease-in-out;
+        }
+
+            .revista_ficha .rd_volver:hover .previous_volver {
+                animation: bounceLeft 1.2s infinite;
+            }
+
+
+    .revista_ficha .content_revista_ficha_descripcion {
+        min-height: 314px;
+        background-color: white;
+        margin-left: 40%;
+        position: relative;
+        padding: 60px 45px;
+    }
+
+        .revista_ficha .content_revista_ficha_descripcion .tag_nuevo {
+            background-color: black;
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 5px 5px 8px 12px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+
+            .revista_ficha .content_revista_ficha_descripcion .tag_nuevo:after {
+                content: '';
+                position: absolute;
+                right: -15px;
+                top: 0;
+                width: 0;
+                height: 0;
+                border-left: 0 solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 35px solid #000;
+                clear: both;
+                z-index: 1;
+            }
+
+        .revista_ficha .content_revista_ficha_descripcion .descripcion_text .tit_revista_producto {
+            font-weight: 700;
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        .revista_ficha .content_revista_ficha_descripcion .descripcion_text .revista_separador {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .5px;
+            border-bottom: 1px solid black;
+            padding-bottom: 5px;
+            margin: 10px 0 20px;
+            line-height: 15px;
+        }
+
+        .revista_ficha .content_revista_ficha_descripcion .revista_list {
+            font-size: 13px;
+            line-height: 23px;
+        }
+
+.pack_personalizado_ficha {
+    background: #f6f6f6;
+    overflow: hidden;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+    .pack_personalizado_ficha .tit_pack {
+        font-size: 18px;
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: 1px;
+        margin-bottom: 40px;
+    }
+
+    .pack_personalizado_ficha .revista_producto_video {
+        height: 402px;
+        float: right;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+.lanzamiento-view-detalle {
+    width: 38%;
+    display: inline-block;
+    text-align: center;
+}
+
+    .lanzamiento-view-detalle .revistadigital-landing {
+        width: 100%;
+    }
+
+    .lanzamiento-view-detalle .content_item_carrusel {
+        height: auto;
+        width: 100%;
+    }
+
+    .lanzamiento-view-detalle .nombre_producto {
+        max-width: 100%;
+    }
+
+@media (max-width: 1189px) {
+    .revista_ficha {
+        background-position: -375px 0 !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .revista_ficha {
+        background-position: -420px 0 !important;
+    }
+
+        .revista_ficha .content_revista_ficha_descripcion {
+            margin-left: 310px;
+        }
+}

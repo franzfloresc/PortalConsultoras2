@@ -1224,6 +1224,7 @@
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Gnd-Flotante.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\Lanzamiento-Detalle.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
