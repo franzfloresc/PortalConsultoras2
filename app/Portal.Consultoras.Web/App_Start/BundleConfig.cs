@@ -285,6 +285,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
                 "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
             ));
 
@@ -374,6 +375,19 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/CssPedido").Include(
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/MisCatalogoRevista").Include(
+                "~/Content/Css/Mobile/jquery.tag-editor.css",
+                "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
+            ));
+            
+            bundles.Add(new StyleBundle("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle").Include(
+                "~/Content/Css/Mobile/RevistaDigital/OfertaParaTi-Detalle.css"
             ));
 
             #region RevistaDigital
@@ -511,8 +525,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/ProductoListado/Landing.css",
                 "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css"
             ));
-
-
+            
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/GuiaNegocio-Landing").Include(
                 "~/Content/Css/Mobile/RevistaDigital/Gnd-Flotante.css"
             ));

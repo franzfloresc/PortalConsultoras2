@@ -4538,62 +4538,6 @@ table > thead > tr > th {
     position: relative;
 }
 
-.wrapper_resumen_mobile_clubganamas {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 500px;
-}
-
-    .wrapper_resumen_mobile_clubganamas .zonadecolor {
-        width: 100%;
-        height: 247px;
-        background: black;
-    }
-
-    .wrapper_resumen_mobile_clubganamas .dorado {
-        background: linear-gradient(62deg, #b3842f, #d9b43c) !important;
-    }
-
-    .wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
-        width: 89px;
-        position: absolute;
-    }
-
-    .wrapper_resumen_mobile_clubganamas .zonadecolor span {
-        display: block;
-        width: 209px;
-        margin: auto;
-        line-height: 1.31;
-        letter-spacing: 1px;
-        text-align: center;
-        color: #ffffff;
-        font-size: 13px;
-        padding: 55px 0px 15px 0px;
-    }
-
-    .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
-        display: block;
-        width: 209px;
-        text-transform: uppercase;
-        text-align: center;
-        font-size: 13px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.31;
-        letter-spacing: 1px;
-        color: #ffffff;
-        margin: auto;
-        border: 1px solid white;
-        padding: 13px 0px;
-    }
-
-    .wrapper_resumen_mobile_clubganamas .zona-items {
-        height: 420px;
-        overflow: hidden;
-        width: 100%;
-        margin-top: -88px;
-    }
 .wrapper_resumen_mobile {
     width: 100%;
     padding-left: 14px;
@@ -4604,48 +4548,7 @@ table > thead > tr > th {
 .sombra_wrapper {
     border-bottom: 1px solid black;
 }
-.wrapper_resumen_mobile_clubganamas {
-        
-        margin-top:10px;
-        margin-bottom:10px;
-        height:580px;
-    }
-        .wrapper_resumen_mobile_clubganamas .zonadecolor {
-            width: 100%;
-            height: 247px;
-            background-image: linear-gradient(62deg, #b3842f, #d9b43c);
-        }
-            .wrapper_resumen_mobile_clubganamas .zonadecolor img.logo-club-etiqueta {
-                width: 89px;
-                position: absolute;
-            }
-            .wrapper_resumen_mobile_clubganamas .zonadecolor span {
-                display: block;
-                width: 209px;
-                margin: auto;
-                line-height: 1.31;
-                letter-spacing: 1px;
-                text-align: center;
-                color: #ffffff;
-                font-size: 13px;
-                padding: 45px 0px 15px 0px;
-            }
-            .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {
-                display: block;
-                width: 209px;
-                text-transform: uppercase;
-                text-align: center;
-                font-size: 13px;
-                font-weight: bold;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.31;
-                letter-spacing: 1px;
-                color: #ffffff;
-                margin: auto;
-                border: 1px solid white;
-                padding: 13px 0px;
-            }
+
 .nombre_consultora_2018 {
     width: 100%;
     word-wrap: break-word;
@@ -4667,12 +4570,6 @@ table > thead > tr > th {
             margin-top: 0px;
             top: -1px;
             margin-left: 5px;
-        }
-        .wrapper_resumen_mobile_clubganamas .zona-items {
-            height: 322px;
-            overflow: hidden;
-            width: 100%;
-            margin-top: -88px;
         }
 .content_320 {
     width: 292px;

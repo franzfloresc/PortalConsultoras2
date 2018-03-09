@@ -1217,9 +1217,11 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Lanzamiento-Detalle.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />

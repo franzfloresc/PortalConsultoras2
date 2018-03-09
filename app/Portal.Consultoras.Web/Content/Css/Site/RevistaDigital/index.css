@@ -950,43 +950,6 @@
         margin-bottom: 12px;
     }
 
-.ept_preguntasRespuestas_accordion .box_pregunta_ept {
-    font-family: 'Lato';
-    font-size: 15px;
-    width: 100%;
-    margin-right: 4%;
-    border-bottom: 1px solid black;
-    float: left;
-    position: relative;
-}
-
-.box_pregunta_ept:nth-child(2n) {
-    margin-right: 0;
-}
-
-.ept_preguntasRespuestas_accordion {
-    margin-bottom: 30px;
-    overflow: hidden;
-    width: 49%;
-    float: left;
-}
-
-    .ept_preguntasRespuestas_accordion .text_respuesta_ept {
-        overflow: hidden;
-        display: none;
-        margin-bottom: 20px;
-        font-size: 13px;
-    }
-
-.box_pregunta_ept .tit_pregunta_ept {
-    cursor: pointer;
-    padding: 20px 10px 0 0;
-    height: 75px;
-    font-size: 14px;
-    line-height: 17px;
-    font-weight: 700;
-}
-
 .ept_preguntasRespuestas_accordion2 .box_pregunta_ept2 {
     font-family: 'Lato';
     font-size: 15px;
@@ -1025,17 +988,6 @@
     font-weight: 700;
 }
 
-.box_pregunta_ept .tit_pregunta_ept:after {
-    content: '';
-    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
-    right: 0;
-    top: 20px;
-    position: absolute;
-    height: 20px;
-    width: 20px;
-    z-index: 99;
-}
-
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
     content: '';
     background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
@@ -1045,14 +997,6 @@
     height: 20px;
     width: 20px;
     z-index: 99;
-}
-
-.descargarPreguntasRespuestas {
-    border-bottom: 2px solid black;
-    padding-bottom: 30px;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 50px;
 }
 
 .titulo_no_inscrita {
@@ -2024,13 +1968,6 @@
             color: white !important;
         }
 
-/*BOTON DORADO NO ANIMADO - CLUB GANA+*/
-.activar_boton_dorado_no_animado {
-    background-color: #c39934;
-    color: white;
-    position: relative;
-    padding: 15px 0px;
-}
 /*BOTON BLANCO NO ANIMADO - CLUB GANA+*/
 .activar_boton_blanco_no_animado {
     background-color: white;
