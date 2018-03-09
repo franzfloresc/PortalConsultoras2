@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Service
         private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private readonly BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private readonly BLCupon BLCupon;
-        private readonly BLEstrategia blEstrategia;        
+        private readonly BLEstrategia blEstrategia;
         private readonly BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Service
         }
 
         public IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
-        {            
+        {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
         }
 
@@ -872,7 +872,7 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
         {
             return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
@@ -1345,12 +1345,12 @@ namespace Portal.Consultoras.Service
                 };
 
                 string paisId = (from c in listaPaises
-                    where c.Value == ISO.ToUpper()
-                    select c.Key).SingleOrDefault() ?? "";
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
                 int.TryParse(paisId, out outVal);
-                return  outVal;
+                return outVal;
             }
             catch (Exception)
             {
@@ -1426,7 +1426,7 @@ namespace Portal.Consultoras.Service
                 BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
                 return blSolicitudCliente.GetPedidosAppCatalogo(paisID, consultoraID, dispositivoID, tipoUsuario, campania);
             }
-            catch (Exception ex) { return new BEResultadoMisPedidosAppCatalogo(error, ex.Message);}
+            catch (Exception ex) { return new BEResultadoMisPedidosAppCatalogo(error, ex.Message); }
         }
 
         public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID)
@@ -1436,7 +1436,7 @@ namespace Portal.Consultoras.Service
             {
                 if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código ISO de País.");
                 if (prefijoISO.Length > 2) return new BEResultadoPedidoDetalleAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
-                if ( pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
+                if (pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
 
                 int paisID = GetPaisID(prefijoISO);
                 BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
@@ -1469,11 +1469,13 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarMasivaConsultora(paisID, listaConsultora);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos)
         {
             return BLShowRoomEvento.UpdOfertaShowRoomStockMasivo(paisID, stockProductos);
         }
-        
+
+        [Obsolete("Migrado PL50-50")]
         public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
@@ -1494,46 +1496,55 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(paisID, campaniaID, codigoConsultora, mostrarPopup);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
             return BLShowRoomEvento.GetProductosShowRoom(paisID, campaniaID);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
             return BLShowRoomEvento.GetOrdenPriorizacionShowRoom(paisID, ConfiguracionOfertaID, CampaniaID);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden)
         {
             return BLShowRoomEvento.ValidarPriorizacionShowRoom(paisID, ConfiguracionOfertaID, CampaniaID, Orden);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.ValidadStockOfertaShowRoom(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int InsOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.InsOfertaShowRoom(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.UpdOfertaShowRoom(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.DelOfertaShowRoom(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.InsOrUpdOfertaShowRoom(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
@@ -1579,21 +1590,25 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetProductosShowRoomDetalle(paisID, campaniaId, cuv);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int InsOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
         {
             return BLShowRoomEvento.InsOfertaShowRoomDetalle(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
         {
             return BLShowRoomEvento.UpdOfertaShowRoomDetalle(paisID, entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int EliminarOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle beShowRoomOfertaDetalle)
         {
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalle(paisID, beShowRoomOfertaDetalle);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv)
         {
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
@@ -1609,6 +1624,7 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetShowRoomPerfiles(paisId, eventoId);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEShowRoomPerfilOferta> GetShowRoomPerfilOfertaCuvs(int paisId, BEShowRoomPerfilOferta beShowRoomPerfilOferta)
         {
             return BLShowRoomEvento.GetShowRoomPerfilOfertaCuvs(paisId, beShowRoomPerfilOferta);
@@ -1619,9 +1635,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.GuardarPerfilOfertaShowRoom(paisId, perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
-            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
+            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
         }
 
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
@@ -1798,7 +1814,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
-        
+
         public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, entidad);
@@ -1837,10 +1853,10 @@ namespace Portal.Consultoras.Service
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
-        
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
         {
-            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, estrategiaId);
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
         }
 
         public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
@@ -1972,7 +1988,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReserva().DeshacerPedidoValidado(usuario, tipo);
         }
-        
+
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
         {
             return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
@@ -2009,7 +2025,7 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
-        
+
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
         {
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
@@ -2044,7 +2060,7 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.ActualizarCuponConsultora(paisId, cuponConsultora);
         }
-        
+
         public List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomCampania(paisID, campaniaID).ToList();
@@ -2055,7 +2071,7 @@ namespace Portal.Consultoras.Service
             var listaCuponConsultoras = BLCuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId);
             return listaCuponConsultoras;
         }
-        
+
         public List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomPersonalizacion(paisID, campaniaID).ToList();
@@ -2066,6 +2082,7 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomOferta(paisID, campaniaID).ToList();
@@ -2075,7 +2092,8 @@ namespace Portal.Consultoras.Service
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
         }
-        
+
+        [Obsolete("Migrado PL50-50")]
         public List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomComponentes(paisID, campaniaID).ToList();
@@ -2100,7 +2118,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
-        
+
         public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
@@ -2148,7 +2166,7 @@ namespace Portal.Consultoras.Service
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-        
+
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);
@@ -2227,8 +2245,8 @@ namespace Portal.Consultoras.Service
         {
             BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
-        #endregion  
-        
+        #endregion
+
         #region ConfiguracionProgramaNuevasApp
         public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
@@ -2258,5 +2276,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().InsertarEstrategiaMasiva(entidad);
         }
 
+        public List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad)
+        {
+            return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
+        }
     }
 }

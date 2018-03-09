@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var model = new UpdatePassSACModel {listaPaises = DropDowListPaises()};
+            var model = new UpdatePassSACModel { listaPaises = DropDowListPaises() };
             return View(model);
         }
 
@@ -110,6 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Consultar");
         }
+
         public BEPager Paginador(BEGrid item, List<BEUsuario> lst)
         {
             BEPager pag = new BEPager();
@@ -191,14 +192,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
+
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -208,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "UpdatePassSAC/MantenimientoUsuarioGZ"))
                 return RedirectToAction("Index", "Bienvenida");
-            string url =GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
+            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
             return Redirect(url);
         }
     }

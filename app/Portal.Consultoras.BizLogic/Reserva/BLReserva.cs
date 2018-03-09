@@ -528,7 +528,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var envio = EnviarPorCorreoPedidoValidado(input, listPedidoWebDetalle);
             if (envio) InsLogEnvioCorreoPedidoValidado(input, listPedidoWebDetalle);
         }
-        
+
         private bool EnviarPorCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             bool esEsika = (ConfigurationManager.AppSettings.Get("PaisesEsika") ?? "").Contains(input.PaisISO);
@@ -655,7 +655,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             catch (Exception) { return false; }
         }
-        
+
         private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo

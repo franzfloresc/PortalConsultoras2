@@ -37,6 +37,7 @@ namespace Portal.Consultoras.BizLogic
         SeccionConfiguracionOfertasHome,
         ConfiguracionEventoFestivo,
         GNDEstrategia,
+        HVEstrategia,
         ConfiguracionValidacion
     }
 
@@ -137,11 +138,11 @@ namespace Portal.Consultoras.BizLogic
             T result = default(T);
             if (Connection != null)
             {
-                string key = getKey(paisID, cacheItem, customKey);                                
+                string key = getKey(paisID, cacheItem, customKey);
                 try
                 {
                     IDatabase cache = Connection.GetDatabase();
-                    if(cache.KeyExists(key)) result = JsonConvert.DeserializeObject<T>(cache.StringGet(key));
+                    if (cache.KeyExists(key)) result = JsonConvert.DeserializeObject<T>(cache.StringGet(key));
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
             }
@@ -215,8 +216,8 @@ namespace Portal.Consultoras.BizLogic
             key += ConfigurationManager.AppSettings["AppCacheRedis"] + "_";
             if (paisID > 0) key += paisID.ToString() + "_";
             key += cacheItem.ToString();
-            if (!string.IsNullOrEmpty(customKey)) key+= "_" + customKey;
-            
+            if (!string.IsNullOrEmpty(customKey)) key += "_" + customKey;
+
             return key;
         }
     }

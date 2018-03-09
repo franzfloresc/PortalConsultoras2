@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
@@ -443,9 +444,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region para la imagen
 
-                
+
                 string caracterSepara = "|";
-                
+
                 var txtBuil = new StringBuilder();
                 txtBuil.Append(caracterSepara);
 
@@ -488,7 +489,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
                     }
-                    
+
                     foreach (var itemSap in listaProductoBySap)
                     {
                         if (dataProl.lista_oObjGratis.Length > 0)

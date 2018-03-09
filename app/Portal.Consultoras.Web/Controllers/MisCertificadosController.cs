@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (listaData.Any())
                     {
-                        foreach(var item in listaData)
+                        foreach (var item in listaData)
                         {
                             if (item.TipoCert == tipo)
                             {
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.CodigoIso = userData.CodigoISO;
                         model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
                         var view = model.NombreVista;
-                        
+
 
                         string html = RenderViewToString(ControllerContext,
                             view, model, true);
@@ -257,8 +257,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     bool partial = false)
         {
             // first find the ViewEngine for this view
-            var viewEngineResult = partial 
-                ? ViewEngines.Engines.FindPartialView(context, viewPath) 
+            var viewEngineResult = partial
+                ? ViewEngines.Engines.FindPartialView(context, viewPath)
                 : ViewEngines.Engines.FindView(context, viewPath, null);
 
             if (viewEngineResult == null)

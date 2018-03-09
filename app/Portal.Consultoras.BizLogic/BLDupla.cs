@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daDupla.GetDupla(codigoUsuario))
                 if (reader.Read())
                 {
-                    dupla = new BEDupla(reader) {PaisID = paisID};
+                    dupla = new BEDupla(reader) { PaisID = paisID };
                 }
             return dupla;
         }

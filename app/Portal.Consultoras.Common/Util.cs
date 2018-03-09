@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -38,14 +39,14 @@ namespace Portal.Consultoras.Common
             bool result = int.TryParse(ParseString(value), out number);
             return result ? number : 0;
         }
-        
+
         static public Int32 ParseInt32(object value)
         {
             Int32 number;
             bool result = Int32.TryParse(ParseString(value), out number);
             return result ? number : 0;
         }
-        
+
         static public Int64 ParseInt64(object value)
         {
             Int64 number;
@@ -53,7 +54,7 @@ namespace Portal.Consultoras.Common
             return result ? number : 0;
 
         }
-        
+
         static public Double ParseDouble(object value)
         {
             Double number;
@@ -67,7 +68,7 @@ namespace Portal.Consultoras.Common
             bool result = Double.TryParse(ParseString(value), out number);
             return result ? RoundDouble(number, NumDecimales) : 0;
         }
-        
+
         static public Double RoundDouble(Double value, Int32 NumDecimales)
         {
             return Math.Round(value, NumDecimales);
@@ -78,35 +79,35 @@ namespace Portal.Consultoras.Common
             var cadena = Convert.ToString(value);
             return !string.IsNullOrEmpty(cadena) ? cadena : String.Empty;
         }
-        
+
         static public String ParseStringNullable(int? value)
         {
             if (value == null)
                 return String.Empty;
-            
+
             String cadena = Convert.ToString(value.Value);
             return !string.IsNullOrEmpty(cadena) ? cadena : String.Empty;
         }
-        
+
         static public DateTime? ParseDate(object value)
         {
             DateTime date;
             bool result = DateTime.TryParse(ParseString(value), out date);
-            return result ? (DateTime?) date : null;
+            return result ? (DateTime?)date : null;
         }
-        
+
         static public DateTime? ParseDate(object value, string format)
         {
             if (ParseDate(value) == null) return null;
             return DateTime.ParseExact(ParseString(value), format, null);
         }
-        
+
         static public DateTime? ParseDate(object value, string format, CultureInfo culture)
         {
             if (ParseDate(value) != null) return null;
             return DateTime.ParseExact(ParseString(value), format, culture);
         }
-        
+
         public static DateTime TruncateDate(DateTime value)
         {
             var iDay = value.Day;
@@ -164,7 +165,7 @@ namespace Portal.Consultoras.Common
             }
             return lngDateDiffValue;
         }
-        
+
         static public long ToUnixTimespan(DateTime date)
         {
             TimeSpan tspan = date.ToUniversalTime().Subtract(
@@ -269,7 +270,7 @@ namespace Portal.Consultoras.Common
             objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
 
-            objMail.From = string.IsNullOrEmpty(displayNameDe) 
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
                 ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
 
@@ -329,7 +330,7 @@ namespace Portal.Consultoras.Common
             objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
             objMail.From = string.IsNullOrEmpty(displayNameDe)
-                ? new MailAddress(strDe) 
+                ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + strMensaje + "</body></HTML>";
@@ -380,8 +381,8 @@ namespace Portal.Consultoras.Common
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
             objMail.To.Add(strPara);
-            objMail.From = string.IsNullOrEmpty(displayNameDe) 
-                ? new MailAddress(strDe) 
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
 
             objMail.Subject = strTitulo;
@@ -467,7 +468,7 @@ namespace Portal.Consultoras.Common
             objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
 
-            objMail.From = string.IsNullOrEmpty(displayNameDe) 
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
                 ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
 
@@ -681,8 +682,8 @@ namespace Portal.Consultoras.Common
 
             objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
-            objMail.From = string.IsNullOrEmpty(displayNameDe) 
-                ? new MailAddress(strDe) 
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + strMensaje + "</body></HTML>";
@@ -812,7 +813,7 @@ namespace Portal.Consultoras.Common
                         using (SmtpClient objClient = new SmtpClient(strServidor))
                         {
                             NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
-                            objClient.EnableSsl = true; 
+                            objClient.EnableSsl = true;
                             objClient.Credentials = credentials;
                             objClient.Send(objMail);
                         }
@@ -850,8 +851,8 @@ namespace Portal.Consultoras.Common
                     using (MailMessage objMail = new MailMessage())
                     {
                         objMail.To.Add(strPara);
-                        objMail.From = string.IsNullOrEmpty(displayNameDe) 
-                            ? new MailAddress(strDe) 
+                        objMail.From = string.IsNullOrEmpty(displayNameDe)
+                            ? new MailAddress(strDe)
                             : new MailAddress(strDe, displayNameDe);
                         objMail.Subject = strTitulo;
                         objMail.Body = "<html><head><META http-equiv=Content-Type content=\"text/html; \"></head><body style=\"font-family:Arial, Helvetica, sans-serif; font-size: 12px; color:#333333; margin:0; padding:0; background-color:#F0F0F0;\"> " + strMensaje + "</body></html>";
@@ -1266,6 +1267,88 @@ namespace Portal.Consultoras.Common
             }
         }
 
+
+        //Para Showroom
+        public static bool ExportToExcelFormat<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string dateFormat)
+        {
+            try
+            {
+                string extension = ".xlsx";
+                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
+
+                var wb = new XLWorkbook();
+                var ws = wb.Worksheets.Add("Hoja1");
+                List<string> columns = new List<string>();
+                int index = 1;
+
+                foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
+                {
+                    ws.Cell(1, index).Value = keyvalue.Key;
+                    index++;
+                    columns.Add(keyvalue.Value);
+                }
+                int row = 2;
+                foreach (var dataItem in (System.Collections.IEnumerable)Source)
+                {
+                    var col = 1;
+                    foreach (string column in columns)
+                    {
+                        foreach (PropertyInfo property in dataItem.GetType().GetProperties())
+                        {
+                            if (column == property.Name)
+                            {
+                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
+                                {
+                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
+                                }
+                                else
+                                {
+                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
+                                        ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat)? dateFormat: "dd/MM/yyyy";
+                                    else
+                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                                }
+                                break;
+                            }
+                        }
+                        col++;
+                    }
+                    row++;
+                }
+                ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
+
+                var titlesStyle = wb.Style;
+                titlesStyle.Font.Bold = true;
+                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
+
+                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
+
+                var stream = new MemoryStream();
+                wb.SaveAs(stream);
+
+                HttpContext.Current.Response.ClearHeaders();
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.Buffer = false;
+                HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Current.Response.Charset = "UTF-8";
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
+                HttpContext.Current.Response.ContentType = "application/octet-stream";
+                HttpContext.Current.Response.BinaryWrite(stream.ToArray());
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Metodo que exporta una lista a documento Excel.
         /// </summary>
@@ -1561,7 +1644,7 @@ namespace Portal.Consultoras.Common
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
                 List<string> columns = new List<string>();
-                
+
                 if (Source.Count == 0)
                 {
                     ws.Cell(1, 1).Value = "No hay registros para mostrar en la fecha que indicas";
@@ -1677,7 +1760,7 @@ namespace Portal.Consultoras.Common
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
-                                var arr = column.Contains("#") 
+                                var arr = column.Contains("#")
                                     ? column.Split('#')
                                     : new string[] { "", column };
 
@@ -2529,8 +2612,8 @@ namespace Portal.Consultoras.Common
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
-                                var arr = column.Contains("#") 
-                                    ? column.Split('#') 
+                                var arr = column.Contains("#")
+                                    ? column.Split('#')
                                     : new string[] { "", column };
 
                                 if (arr[1] == property.Name)
@@ -2927,8 +3010,9 @@ namespace Portal.Consultoras.Common
             string urlCodigousuario = HttpUtility.UrlEncode(Crypto.EncryptLogin(codigousuario.Trim()));
             string urlFechasolicitud = HttpUtility.UrlEncode(Crypto.EncryptLogin(fechasolicitud.Trim()));
             string urlNombre = HttpUtility.UrlEncode(Crypto.EncryptLogin(nombre.Trim()));
+            string url_guiId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(GenerarGUID()));
 
-            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var uri = new Uri(urlportal + "WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5&wxabc=param6");
             var qs = HttpUtility.ParseQueryString(uri.Query);
             if (urlPaisId != null) qs.Set("xyzab", urlPaisId);
             if (urlCorreo != null) qs.Set("abxyz", urlCorreo);
@@ -2936,6 +3020,7 @@ namespace Portal.Consultoras.Common
             if (urlCodigousuario != null) qs.Set("bxyza", urlCodigousuario);
             if (urlFechasolicitud != null) qs.Set("zabxy", urlFechasolicitud);
             if (urlNombre != null) qs.Set("xbaby", urlNombre);
+            qs.Set("wxabc", url_guiId);
 
             var uriBuilder = new UriBuilder(uri)
             {
@@ -3001,7 +3086,7 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
-        
+
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0 || nroCampanias <= 0) return 0;
@@ -3043,7 +3128,7 @@ namespace Portal.Consultoras.Common
                 result = true;
             }
             catch (WebException webException)
-            {                
+            {
                 LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
                 result = false;
             }
@@ -3059,9 +3144,9 @@ namespace Portal.Consultoras.Common
         }
 
         public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
-        {            
+        {
             if (string.IsNullOrEmpty(rutaImagen))
-                return "";            
+                return "";
 
             string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
 
@@ -3070,6 +3155,32 @@ namespace Portal.Consultoras.Common
             ruta = ruta.Replace(soloImagen, soloImagen + rutaNombreExtension);
 
             return ruta;
+        }
+
+        public static string ColorFormato(string colorStr, string defecto = "")
+        {
+            var transparent = "transparent";
+            colorStr = Trim(colorStr);
+            defecto = Trim(defecto);
+            if (colorStr == "") return defecto;
+            if (colorStr.ToLower() == transparent) return colorStr;
+
+            #region Formato #ABC #AABBCC
+            var parte = colorStr[0] == '#' ? SubStr(colorStr, 1) : colorStr;
+
+            if (parte.Length == 6 || parte.Length == 3)
+            {
+                string pattern = @"([0-9|A-F]{6})|([0-9|A-F]{3})";
+                Match match = Regex.Match(parte.ToUpper(), pattern);
+                if (match.Success)
+                    return colorStr[0] == '#' ? colorStr : ("#" + colorStr);
+
+                if (colorStr[0] == '#')
+                    return defecto;
+            }
+            #endregion
+
+            return colorStr == "" ? defecto : colorStr;
         }
     }
 
@@ -3086,7 +3197,7 @@ namespace Portal.Consultoras.Common
             for (int i = 0; i < r.FieldCount; i++)
             {
                 if (columnName.Equals(r.GetName(i), StringComparison.InvariantCultureIgnoreCase))
-                    return r[columnName] != DBNull.Value;                           
+                    return r[columnName] != DBNull.Value;
             }
 
             return false;

@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
-        
+
         public IDataReader ValidarCuvDescargado(int anioCampania, string codigoVenta, string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCampaniaCUVDescargado");

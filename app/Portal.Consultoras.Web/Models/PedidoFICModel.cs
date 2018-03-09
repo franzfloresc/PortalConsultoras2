@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceODS;
 using System.ComponentModel.DataAnnotations;
 
 namespace Portal.Consultoras.Web.Models
@@ -57,7 +54,6 @@ namespace Portal.Consultoras.Web.Models
         public int TipoOfertaSisID { get; set; }
         public int ConfiguracionOfertaID { get; set; }
         public int CantidadAnterior { get; set; }
-
 
         public string Registros { get; set; }
 

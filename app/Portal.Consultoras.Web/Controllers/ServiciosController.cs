@@ -19,29 +19,32 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/AdministrarServicios"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel {listaParametros = DropDowListParametros()};
+            var model = new ServicioModel { listaParametros = DropDowListParametros() };
             return View(model);
         }
+
         public ActionResult MantenimientoServicios()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicios"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel {DropDownListCampania = CargarCampania()};
+            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
         }
+
         public ActionResult MantenimientoServicio()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/MantenimientoServicio"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var model = new ServicioModel {DropDownListCampania = CargarCampania()};
+            var model = new ServicioModel { DropDownListCampania = CargarCampania() };
             model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
 
             return View(model);
         }
+
         public ActionResult RedireccionServicio(int ServicioId, string Url)
         {
             IList<BEServicioParametro> lstParam;
@@ -73,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 return Update(model);
         }
+
         [HttpPost]
         public JsonResult Update(ServicioModel model)
         {
@@ -123,6 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult Insert(ServicioModel model)
         {
@@ -175,6 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertParametro(int ServicioId, int ParametroId)
         {
@@ -233,6 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult Delete(int ServicioID)
         {
@@ -281,6 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult DeleteServicioParametro(int ServicioID, int ParametroId)
         {
@@ -329,6 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult MantenerEstado(string ServicioId, string CampaniaInicialId, string CampaniaFinalId, string ISOPais, string Estado)
         {
@@ -395,6 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult DeleteEstado(int ServicioId, int CampaniaId, string ISOPais)
         {
@@ -446,6 +456,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertEstado(string IDs, string CampaniaInicialId, string CampaniaFinalId)
         {
@@ -734,6 +745,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarServicio(string sidx, string sord, int page, int rows, string vDescripcion, string vCampaniaInicial)
         {
             if (ModelState.IsValid)
@@ -819,6 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarParametrosbyServicios(string sidx, string sord, int page, int rows, int ServicioId)
         {
             if (ModelState.IsValid)
@@ -886,6 +899,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarEstadoServiciobyPais(string sidx, string sord, int page, int rows, int ServicioId, int CampaniaId)
         {
             if (ModelState.IsValid)
@@ -964,6 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ConsultarEstadoServiciobyPais2(string sidx, string sord, int page, int rows, int ServicioId, int CampaniaInicioID, int CampaniaFinalID)
         {
             if (ModelState.IsValid)
@@ -979,7 +994,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].ServicioId = ServicioId;
                         if (Session["ListaIndividual"] == null)
                         {
-                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> {lst};
+                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
                             Session["ListaIndividual"] = lista;
                         }
                         else
@@ -1006,7 +1021,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lst[0].ServicioId = ServicioId;
                         if (Session["ListaRango"] == null)
                         {
-                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> {lst};
+                            List<List<BEEstadoServicio>> lista = new List<List<BEEstadoServicio>> { lst };
                             Session["ListaRango"] = lista;
                         }
                         else
@@ -1118,6 +1133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pag;
         }
+
         public BEPager PaginadorDetalle(BEGrid item, List<BEServicioParametro> lst)
         {
 
@@ -1138,6 +1154,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pag;
         }
+
         public BEPager PaginadorEstado(BEGrid item, List<BEEstadoServicio> lst)
         {
 
@@ -1169,6 +1186,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEParametro>, IEnumerable<ParametroModel>>(lst);
         }
+
         private List<BECampania> CargarCampania()
         {
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
@@ -1196,7 +1214,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return "";
             }
         }
-
 
         public JsonResult CargarArbolRegionesZonas(int? pais)
         {
@@ -1298,7 +1315,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetServicioCampaniaSegmentoZonaAsignados(servicioId, paisId, tipo).ToList();
             }
-            
+
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 

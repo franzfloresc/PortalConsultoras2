@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Data
             : base(paisID, EDbSource.Portal)
         {
         }
-        
+
         public IDataReader GetFichaProducto(BEFichaProducto entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarFichaProducto_SB2"))
@@ -21,6 +21,6 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
- 
+
     }
 }

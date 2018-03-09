@@ -372,10 +372,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.FormularioDatoID = 1;
-                    entidad.TipoFormularioID = ETipoFormulario.Contratos;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.FormularioDatoID = 1;
+                entidad.TipoFormularioID = ETipoFormulario.Contratos;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -407,9 +407,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.Contratos;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.Contratos;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -441,10 +441,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.FormularioDatoID = 1;
-                    entidad.TipoFormularioID = ETipoFormulario.Politicas;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.FormularioDatoID = 1;
+                entidad.TipoFormularioID = ETipoFormulario.Politicas;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -476,9 +476,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.Politicas;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.Politicas;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -510,10 +510,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.FormularioDatoID = 1;
-                    entidad.TipoFormularioID = ETipoFormulario.Belcenter;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.FormularioDatoID = 1;
+                entidad.TipoFormularioID = ETipoFormulario.Belcenter;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -545,9 +545,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.Descripcion = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.Belcenter;
+                entidad.Archivo = string.Empty;
+                entidad.Descripcion = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.Belcenter;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -579,9 +579,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                    entidad.Archivo = string.Empty;
-                    entidad.URL = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.Telefonos;
+                entidad.Archivo = string.Empty;
+                entidad.URL = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.Telefonos;
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -851,7 +851,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
-
 
         [HttpPost]
         public ActionResult MantenerFondo(ContenidoDatoModel form)

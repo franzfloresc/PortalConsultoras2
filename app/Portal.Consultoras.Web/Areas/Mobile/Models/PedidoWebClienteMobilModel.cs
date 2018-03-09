@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public decimal ImporteDescuento { get; set; }
 
-        public int PedidoID {get; set;}
+        public int PedidoID { get; set; }
 
         public List<PedidoWebDetalleMobilModel> ListaPedidoWebDetalleProductos { get; set; }
 

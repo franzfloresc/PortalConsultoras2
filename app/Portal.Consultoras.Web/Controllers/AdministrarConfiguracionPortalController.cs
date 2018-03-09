@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarConfiguracionPortalController : BaseController
     {
-
         public ActionResult Index()
         {
             AdministrarConfiguracionPortalModel model = new AdministrarConfiguracionPortalModel();
@@ -21,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 BEConfiguracionPortal configuracionPortalParametro =
-                    new BEConfiguracionPortal {PaisID = UserData().PaisID};
+                    new BEConfiguracionPortal { PaisID = UserData().PaisID };
 
                 BEConfiguracionPortal configuracionPortal;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -51,14 +50,13 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-
 
         [HttpPost]
         public JsonResult ActualizarConfiguracionPortal(int EstadoSimplificacionCUV, int EsquemaDAConsultora, int TipoProcesoCarga)
@@ -79,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     resultado = sv.ActualizarConfiguracionPortal(configuracionPortal);
                 }
 
-                var operacion = resultado == 0 
+                var operacion = resultado == 0
                     ? "No se actualizó la configuracion portal."
                     : "Se actualizó la configuracion portal.";
 

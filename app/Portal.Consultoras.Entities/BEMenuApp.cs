@@ -32,12 +32,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int paisId { get; set; }
         [DataMember]
-        public string CodigoRegion { get; set; }
+        public short RevistaDigitalSuscripcion { get; set; }
         [DataMember]
-        public string CodigoZona { get; set; }
+        [Column("Visible")]
+        public bool Visible { get; set; }
         [DataMember]
-        public string CodigoSeccion { get; set; }
-        [DataMember]
-        public string CodigoConsultora { get; set; }
+        public short VersionMenu { get; set; }
     }
 }

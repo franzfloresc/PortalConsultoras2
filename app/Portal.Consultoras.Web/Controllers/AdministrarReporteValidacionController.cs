@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         public JsonResult ObtenerCampanias()
         {
             int paisId = UserData().PaisID;
@@ -144,6 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
+        [Obsolete("Migrado PL50-50")]
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
             List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
@@ -160,8 +161,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
+                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
             }
 
             if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
@@ -266,7 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             if (tipoEstrategiaId == 4)
             {
-              dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
+                dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");
             }
             if (tipoEstrategiaId == 7)

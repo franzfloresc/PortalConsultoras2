@@ -809,7 +809,7 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) 
+                if (headerFile != null)
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
@@ -864,10 +864,10 @@ namespace Portal.Consultoras.BizLogic
             }
             string[] s;
 
-            if (headerFile == null && detailFile == null) 
+            if (headerFile == null && detailFile == null)
                 s = new string[] { };
             else
-                s = new string[] { headerFile, detailFile }; 
+                s = new string[] { headerFile, detailFile };
 
             return s;
         }
@@ -883,7 +883,7 @@ namespace Portal.Consultoras.BizLogic
                 string codigoPaisProd = new BLZonificacion().SelectPais(paisID).CodigoISOProd;
 
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
-                var element = section.Countries[paisID];                                
+                var element = section.Countries[paisID];
                 var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate]);
                 var detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate]);
 
@@ -900,7 +900,7 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                FtpConfigurationElement ftpElement;                
+                FtpConfigurationElement ftpElement;
                 try
                 {
                     Guid fileGuid = Guid.NewGuid();
@@ -954,7 +954,7 @@ namespace Portal.Consultoras.BizLogic
                         BLFileManager.CompressFile(headerFile, zipHeaderFile, ftpElement.Header);
                         BLFileManager.CompressFile(detailFile, zipDetailFile, ftpElement.Detail);
                     }
-                    
+
                     if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                     {
                         try
@@ -1073,10 +1073,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private string HeaderLine(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
-        {            
+        {
             string line = string.Empty;
             foreach (TemplateField field in template)
-            {                
+            {
                 string item;
                 switch (field.FieldName)
                 {
@@ -1089,7 +1089,7 @@ namespace Portal.Consultoras.BizLogic
                     case "FECHAFACTURA": item = fechaFactura; break;
                     case "REGION": item = row["CodigoRegion"].ToString(); break;
                     case "ZONA":
-                        item = !ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais) 
+                        item = !ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais)
                             ? row["CodigoZona"].ToString()
                             : row["CodigoZona"].ToString().Substring(0, 4);
                         break;
@@ -1153,7 +1153,7 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case "CELULAR":
                         item = row["Celular"].ToString().Length > 15 ? row["Celular"].ToString().Substring(0, 15) : row["Celular"].ToString();
-                        break; 
+                        break;
                     case "EMAIL":
                         item = row["EMail"].ToString().Length > 50 ? row["EMail"].ToString().Substring(0, 50) : row["EMail"].ToString();
                         break;
@@ -1997,12 +1997,12 @@ namespace Portal.Consultoras.BizLogic
                 listaPedido.AddRange(listaPedidoFacturado.OrderByDescending(p => p.CampaniaID).Take(top));
 
                 var listaPedidoAgrupada = (from tbl in listaPedido
-                                            group tbl by tbl.CampaniaID into grp
-                                            select new 
-                                            {
-                                                CampaniaID = grp.Key,
-                                                Cantidad = grp.Count()
-                                            }).Where(x=>x.Cantidad > 1);
+                                           group tbl by tbl.CampaniaID into grp
+                                           select new
+                                           {
+                                               CampaniaID = grp.Key,
+                                               Cantidad = grp.Count()
+                                           }).Where(x => x.Cantidad > 1);
 
                 var listaPedidoEliminar = (from tblPedido in listaPedido
                                            join tblGroup in listaPedidoAgrupada
@@ -2023,7 +2023,7 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-             new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
+            new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
         }
 
         public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
@@ -2054,7 +2054,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
-            
+
             var daPedidoWeb = new DAPedidoWeb(paisID);
             using (IDataReader reader = daPedidoWeb.GetPedidosFacturadoSegunDias(campaniaID, consultoraID, maxDias))
                 while (reader.Read())
@@ -2066,7 +2066,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         while (readerDetalle.Read())
                         {
-                            var detalle = new BEPedidoWebDetalle(readerDetalle) {PedidoID = entidad.PedidoID};
+                            var detalle = new BEPedidoWebDetalle(readerDetalle) { PedidoID = entidad.PedidoID };
                             listaDetalle.Add(detalle);
                         }
                     }
@@ -2130,8 +2130,10 @@ namespace Portal.Consultoras.BizLogic
 
             if (configuracion != null)
             {
-                if (validarGPR && configuracion.IndicadorGPRSB == 1) {
-                    return new BEValidacionModificacionPedido {
+                if (validarGPR && configuracion.IndicadorGPRSB == 1)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
                         Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
                     };
@@ -2153,10 +2155,10 @@ namespace Portal.Consultoras.BizLogic
                     };
                 }
             }
-            if(validarHorario)
+            if (validarHorario)
             {
                 string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
-                if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
+                if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
                 {
                     return new BEValidacionModificacionPedido
                     {
@@ -2173,7 +2175,7 @@ namespace Portal.Consultoras.BizLogic
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             if (!usuario.HabilitarRestriccionHoraria) return null;
             if (fechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= fechaHoraActual) return null;
-            
+
             TimeSpan horaActual = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
             TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
 
@@ -2185,7 +2187,7 @@ namespace Portal.Consultoras.BizLogic
             TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
             return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
-        
+
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             var daPedidoWeb = new DAPedidoWeb(paisID);
@@ -2303,12 +2305,12 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(paisID);
             return daPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
-        
+
         public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
         {
             var daPedidoWeb = new DAPedidoWeb(paisID);
             daPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
-        }        
+        }
         #endregion
 
         #region Certificado Digital

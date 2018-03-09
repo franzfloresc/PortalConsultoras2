@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daFactorGanancia.GetFactorGananciaById(paisID))
                 while (reader.Read())
                 {
-                    var entidad = new BEFactorGanancia(reader) {PaisID = paisID};
+                    var entidad = new BEFactorGanancia(reader) { PaisID = paisID };
                     lista.Add(entidad);
                 }
 
@@ -69,7 +69,7 @@ namespace Portal.Consultoras.BizLogic
                 CacheManager<BEFactorGanancia>.RemoveData(entidad.PaisID, ECacheItem.FactorGanancia);
             }
 
-            return rangoValido;  
+            return rangoValido;
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
@@ -83,7 +83,7 @@ namespace Portal.Consultoras.BizLogic
                 CacheManager<BEFactorGanancia>.RemoveData(entidad.PaisID, ECacheItem.FactorGanancia);
             }
 
-            return rangoValido;  
+            return rangoValido;
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)

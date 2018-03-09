@@ -9573,7 +9573,7 @@ span.icon-advertencia {
     color: black;
     font-weight: 700;
     margin-top: 20px;
-    background: #f3f3f3 url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat center center;
+    background: #f3f3f3 url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat center center;
     background-position: 10px 10px;
     padding: 10px 10px 10px 43px;
     position: relative;
@@ -9623,7 +9623,7 @@ span.icon-advertencia {
     margin-right: 2%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') no-repeat center center;
     display: inline-block;
     vertical-align: top;
     margin-top: 2px;
@@ -10178,15 +10178,17 @@ span.icon-advertencia {
 /*FICHA PRODCUTO*/
 
 .content_imagen_ficha {
-    width: 230px;
-    height: 230px;
+    width: auto;
+    max-height: 230px;
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
     .content_imagen_ficha img {
-        width: 100%;
+        max-width: 100%;
+        max-height: 230px;
     }
 
 .titulo_ficha_producto {
@@ -10417,7 +10419,6 @@ span.icon-advertencia {
 .nombre_set_oferta_mobile {
     font-family: 'Lato';
     font-size: 11.5px;
-    margin-top: 4%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10435,14 +10436,26 @@ span.icon-advertencia {
 
 .imagen_set_oferta_mobile {
     float: right;
-    width: 47%;
-    margin-top: 9px;
+    width: 34%;
+    margin: 9px 20px 0 0;
     text-align: center;
-    margin-top: -7px;
 }
 
     .imagen_set_oferta_mobile img {
         width: 90%;
+        margin-top: -7px;
+    }
+
+.imagen_set_oferta_mobile2 {
+    width: 14%;
+    height: auto;
+    float: right;
+    text-align: center;
+    margin: 8px 30px 0 0;
+}
+
+    .imagen_set_oferta_mobile2 img {
+        width: 100%;
     }
 
 .btn_cerrar_oferta_mobile {
@@ -10657,14 +10670,18 @@ span.icon-advertencia {
 /*FICHA 048B*/
 .content_oferta_guia_negocio {
     width: 100%;
-    max-width: 292px;
     margin: 0 auto;
     height: auto;
     text-align: left;
     font-family: 'Lato';
     position: relative;
 }
-
+.content_oferta_guia_negocio::after{
+    content:"";
+    display:block;
+    width:100%;
+    height:30px;
+}
 .etiqueta_guia_negocio {
     background: black;
     width: 70px;
@@ -10728,7 +10745,18 @@ span.icon-advertencia {
     color: black;
     font-size: 13px;
 }
+.precio_para_ti_048_izquierdo {
+    display: inline-block;
+    width: 90px;
+}
 
+.precio_para_ti_048_derecho {
+    display: inline-block;
+}
+
+.precio_para_ti_portantos {
+    margin-left: 90px;
+}
     .precio_para_ti_048 b {
         font-size: 16px;
     }
@@ -10969,8 +10997,6 @@ span.icon-advertencia {
     background: black;
     width: 100%;
     overflow: hidden;
-    padding-top: 14px;
-    padding-bottom: 13px;
     height: 60px;
     position: relative;
 }
@@ -10997,14 +11023,13 @@ span.icon-advertencia {
 .solo_hoy_mobile2 {
     width: 129px;
     height: 34px;
-    position: relative;
-    top: -9px;
+    position: absolute;
+    top: 4px;
 }
 
     .solo_hoy_mobile2 img {
-        width: 77%;
+        width: 88%;
         object-fit: cover;
-        height: 19px;
         object-position: 100%;
     }
 
@@ -11313,7 +11338,7 @@ span.icon-advertencia {
     margin-bottom: 15px;
     top: 1px;
     margin-right: 7px;
-    background: url('../../../Images/Lbel/icono_advertencia_notificacion.png') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_lbel.svg') center center no-repeat;
 }
 /*HOMOLOGAR OPT*/
 .content_tono_detalle:hover {
@@ -11345,12 +11370,14 @@ span.icon-advertencia {
 .alerta_notificacion {
     font-family: 'Lato';
     width: 74%;
+    text-align: center;
     height: 20px;
     margin: 0 auto;
     font-size: 12px;
     letter-spacing: .2px;
     padding-left: 29px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
+    margin-top: 20px;
 }
 
 .texto_sin_tono {
@@ -11601,7 +11628,7 @@ span.icon-advertencia {
 
 .btn_volver_detalle_oferta {
     display: block;
-    position: absolute;
+    position: relative;
     top: 21px;
     left: 20px;
     z-index: 20;
@@ -12172,7 +12199,6 @@ span.icon-advertencia {
     }
 
 .content_detalle_set_showroom {
-    overflow: hidden;
     margin-top: 13px;
     border-bottom: 1px solid #9B9B9B;
     padding-bottom: 13px;
@@ -12415,7 +12441,7 @@ span.icon-advertencia {
     margin-top: 7px !important;
     display: block;
     position: absolute;
-    top: 11px;
+    top: 26px;
     left: 67px;
     font-family: 'Lato';
     color: #fff;
@@ -13977,38 +14003,6 @@ span.icon-advertencia {
     }
 /*FIN BANNER APP*/
 
-/* NUEVO POPUP SUSCRIBIRSE */
-
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 2.9% !important;
-        width: 390px;
-        margin: auto;
-        display: table;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #613c87;
-        padding: 20px;
-        height: 390px;
-        margin: auto;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-            color: white;
-        }
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
     background: #613c87 !important;
@@ -14112,15 +14106,20 @@ span.icon-advertencia {
                 display: inline;
                 position: absolute;
                 padding: 0px 10px;
-                /* width: 20px; */
                 margin-top: 14px;
-                /* width: 20px; */
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
                     margin-top: 10px;
                     margin-left: 4px;
+                    width: 32px;
+                    height: auto;
                 }
+
+    .popup_confirmacion_datos .form_datos .input img.envelope {
+        width: 40px;
+        height: auto;
+    }
 
                 .popup_confirmacion_datos .form-datos .input img.info {
                     display: block;
@@ -14201,142 +14200,205 @@ span.icon-advertencia {
     }
 }
 
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 250px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
-        letter-spacing: 1px;
-        line-height: 35px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 250px;
-        margin: auto;
-        margin-bottom: 35px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #613c87;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 17px;
-        text-decoration: none;
-        padding: 17px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 29px;
-    margin-top: -20px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 24px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-    font-size: 26px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-    font-size: 13px;
-    padding: 14.5px 0;
-    border: none;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 0;
-    margin-top: -49px;
-}
-
 .content_pop_up_intriga {
     HEIGHT: 100%;
     display: table;
     width: 100%;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
 @media (max-width: 1024px) {
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 24px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 26px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        font-size: 13px;
-        padding: 14.5px 0;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-        position: absolute;
-        margin-left: 0;
-        margin-top: -49px;
-    }
-
     .contenido .centrar-estructura {
         height: 80%;
     }
 }
 
-@media (max-width: 500px) {
 
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        width: 92%;
-        margin-top: 4.9% !important;
-    }
+/* INI: VISTA ACTUALIZAR CONTRASEÑA */
+.contenedor_vista_cambio_contrasenia,
+.cambio_contrasenia_cabecera,
+.cambio_contrasenia_titulo,
+.contenido_cambio_contrasenia,
+.contenido_mensaje_consultora,
+.formulario_cambio_contrasenia,
+.formulario_cambio_contrasenia input{
+    display: block;
+    font-family: 'Lato';
 }
 
-@media (max-width: 400px) {
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        width: 100%;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        padding: 0;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-            margin-left: -19px;
-            margin-top: -30px;
-        }
+.contenedor_vista_cambio_contrasenia{
+    margin-top:12px;
 }
-/* FIN NUEVO POPUP SUSCRIBIRSE */
+
+.contenedor_cabecera_contrasenia{
+    display: block;
+    overflow: hidden;
+    height: 67px;
+    margin-bottom: 35px;
+}
+
+.cambio_contrasenia_cabecera {
+    width: 100%;
+    height: 47px;
+    position: relative;
+    border-bottom: 1px solid #000;
+}
+
+.franja_negra_fondo_mobile {
+    display: block;
+    width: 30px;
+    height: 100%;
+    position: absolute;
+    top: 31px;
+    left: 7%;
+    background: #FFF url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat center;
+    z-index: 10;
+}
+
+@media screen and (min-width:406px) and (max-width:767px){
+
+    .franja_negra_fondo_mobile{
+        left: 28%;
+    }
+
+}
+
+@media screen and (min-width:360px) and (max-width:405px){
+
+    .franja_negra_fondo_mobile{
+        left: 14%;
+    }
+
+}
+
+.cambio_contrasenia_titulo {
+    margin: 0 auto;
+    width:100%;
+    max-width:300px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left:10px;
+    font-size: 13px;
+    color: #000;
+    text-transform: uppercase;
+    line-height: 47px;
+    font-weight: 300;
+    letter-spacing:0.9px;
+}
+
+.cambio_contrasenia_titulo span {
+    font-weight: 900;
+}
+
+.contenedor_vista_actualizando_contrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicitaciones_consultora{
+    display:block;
+}
+
+.contenido_mensaje_consultora {
+    font-weight: 500;
+    width: 100%;
+    max-width: 297px;
+    margin: 0 auto 25px auto;
+}
+
+.contenido_mensaje_consultora, .formulario_cambio_contrasenia{
+    padding:0 8px;
+}
+
+.contenido_mensaje_consultora div:first-child{
+    font-size:18px;
+    margin-bottom:3px;
+}
+
+.contenido_mensaje_consultora div:last-child{
+    font-size:16px;
+}
+
+.formulario_cambio_contrasenia input[type="password"] {
+    width: 100%;
+    margin:0 auto;
+    max-width: 279px;
+    margin-bottom: 30px;
+    color: #000;
+    border-bottom: solid 1px #959595;
+    padding: 6px 0;
+    font-size:14px;
+    letter-spacing:0.2px;
+}
+
+.formulario_cambio_contrasenia input[type="submit"] {
+    width: 100%;
+    max-width: 279px;
+    margin: 52px auto;
+    height: 45px;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #FFF;
+    font-weight: 700;
+    background: #642f80;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-webkit-input-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]::-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-moz-placeholder{
+    color:#000;
+}
+
+.formulario_cambio_contrasenia input[type="password"]:-ms-input-placeholder{
+    color:#000;
+}
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
+    text-align:center;
+}
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Lbel/icono_check_lbel.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width:100%;
+    max-width: 279px;
+    height: 45px;
+    background: #642f80;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
+    }
+/* FIN: VISTA ACTUALIZAR CONTRASEÑA */
+
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}

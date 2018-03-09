@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic
             var urlAbsolute = string.Format("{0}/{1}", _chatBotUrl, urlRelative);
 
             var pages = Math.Ceiling((double)listProactivaMensaje.Count / _messagePerRequest);
-            
+
             var tasks = new List<Task<bool>>();
 
             for (int i = 1; i <= pages; i++)

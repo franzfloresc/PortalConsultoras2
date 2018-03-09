@@ -1,14 +1,13 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Incentivo;
-using Portal.Consultoras.Common;
-using Incentivos = Portal.Consultoras.Common.Constantes.Incentivo;
-
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Transactions;
+using Incentivos = Portal.Consultoras.Common.Constantes.Incentivo;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -109,7 +108,7 @@ namespace Portal.Consultoras.BizLogic
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {
-            	DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
+                DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
@@ -134,7 +133,7 @@ namespace Portal.Consultoras.BizLogic
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {
-            	DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampaniaActual);
+                DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampaniaActual);
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampaniaActual, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
@@ -170,7 +169,7 @@ namespace Portal.Consultoras.BizLogic
 
             incentivos.AddRange(this.ObtenerIncentivosProgramaNuevasConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID));
 
-            if(estrategia) incentivos.AddRange(this.ObtenerIncentivosConsultoraEstrategia(paisID, codigoConsultora, codigoCampania));
+            if (estrategia) incentivos.AddRange(this.ObtenerIncentivosConsultoraEstrategia(paisID, codigoConsultora, codigoCampania));
             else incentivos.AddRange(this.ObtenerIncentivosPuntosConsultora(paisID, codigoConsultora, codigoCampania));
 
             return incentivos;
@@ -288,12 +287,12 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private void AjustarConcursoAnterior(BEConsultoraConcurso concurso)
-        { 
+        {
             // Alcanzo todos los niveles, quitar los premios para no acumulativos..
             if (!concurso.IndicadorPremioAcumulativo && !concurso.Premios.Any(p => p.PuntajeMinimo > concurso.PuntajeTotal))
             {
-                    concurso.Premios.RemoveAll(p => p.NumeroNivel < concurso.NivelAlcanzado);
-                    concurso.Premios = new List<BEPremio>{
+                concurso.Premios.RemoveAll(p => p.NumeroNivel < concurso.NivelAlcanzado);
+                concurso.Premios = new List<BEPremio>{
                         new BEPremio
                         {
                             Importante = 1,
@@ -301,7 +300,7 @@ namespace Portal.Consultoras.BizLogic
                             PuntajeMinimo = concurso.Premios.FirstOrDefault().PuntajeMinimo
                         }
                     };
-                
+
             }
 
             foreach (BEPremio Premio in concurso.Premios)
@@ -441,7 +440,7 @@ namespace Portal.Consultoras.BizLogic
             var DAConcurso = new DAConcurso(paisID);
 
             DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
-            
+
             using (var reader = DAConcurso.ObtenerIncentivosConsultoraEstrategia(codigoConsultora, codigoCampania))
             {
                 incentivosConcursos = reader.MapToCollection<BEIncentivoConcurso>();

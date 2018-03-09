@@ -1,0 +1,33 @@
+﻿@model Portal.Consultoras.Web.Models.AdministrarComponenteModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+<div id="msjObservacion" style="display:none;">@Model.Observacion</div>
+<div id="divMantDatos" data-estado="@Model.Estado">
+    @foreach (var dato in Model.ListaDatos)
+    {
+        switch (dato.TipoDato)
+        {
+            case "img":
+                <div class="div-3" id="@dato.Dato.ConfiguracionPaisID-@dato.Dato.CampaniaID-@dato.Dato.Componente-@dato.Dato.Codigo" data-tipodato="@dato.TipoDato">
+                    <div class="titG">@dato.TxtLabel:</div>
+                    <div>
+                        <input type="hidden" name="@dato.Dato.Codigo" id="nombre-@dato.Dato.Codigo" value="@dato.Dato.Valor1" data-valueorigin="@dato.Dato.Valor1" data-tipofile="@dato.TipoFile" />
+                        <div id="img-@dato.Dato.Codigo"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-@dato.Dato.Codigo" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                </div>
+                break;
+            case "txt":
+                <div class="div-3" id="@dato.Dato.ConfiguracionPaisID-@dato.Dato.CampaniaID-@dato.Dato.Componente-@dato.Dato.Codigo" data-tipodato="@dato.TipoDato">
+                    <div class="titG">@dato.TxtLabel:</div>
+                    <div class="selectP2 borde_redondeado">
+                        <input type="text" id="@dato.Dato.Codigo" name="@dato.Dato.Codigo" value="@dato.Dato.Valor1" placeholder="@dato.TextoAyuda"  maxlength="@dato.Tamanio" />
+                    </div>
+                </div>
+                break;
+        }
+    }
+</div>
