@@ -39,6 +39,14 @@
         }
     }
 
+    ko.bindingHandlers.imageAttr = {
+        update: function (element, options) {
+            $(element).on('load', function () {
+                element.setAttribute(options().attr, options.text);
+            });
+
+        }
+    }
     ko.extenders.trackChange = function (target, options) {
         if (options.track) {
             target.isDirty = ko.observable(false);
@@ -106,7 +114,7 @@
         });
 
         return invalidProperties.length == 0;
-        
+
         //return the original observable
         return target;
     };
