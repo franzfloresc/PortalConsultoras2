@@ -731,30 +731,22 @@ function AddTitleCustom() {
     $('[name^=picture-]').each(function () {
         var img = document.getElementById($(this).attr('id'));
         var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
-
         if (img.src.indexOf(".") == -1) {
             img.title = 'No hay imagen';
             img.src = rutaImagenVacia;
         }
         var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
-
-        img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixcels)';
-
+        img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels)';
         if (nombre == 'prod_grilla_vacio.png') {
             img.title = 'No se ha seleccionado imagen';
-            img.src = rutaImagenVacia;
         }
-
         if (nombre == 'rutaImagenBloqueado.jpg') {
             img.title = 'Imagen inaccesible';
-            img.src = rutaImagenBloqueado;
         }
-
         if (img.naturalWidth == 0) {
             img.title = 'Imagen inaccesible';
             img.src = rutaImagenBloqueado;
         }
-
     });
 }
 
