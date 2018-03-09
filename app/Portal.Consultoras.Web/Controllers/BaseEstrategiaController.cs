@@ -100,8 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
                         || tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb
-                        || tipo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
                     {
                         Session[varSession] = listEstrategia;
                     }

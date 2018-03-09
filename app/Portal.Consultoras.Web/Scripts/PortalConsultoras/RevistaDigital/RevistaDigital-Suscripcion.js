@@ -4,42 +4,7 @@ $(document).ready(function () {
     var clickabrir = 1
 
     if (isMobile()) {
-
-        var saber_mas = 1;
-        $('a.btn-suscribete-video-baja').click(function () {
-            if (saber_mas == 1) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
-                saber_mas = 2;
-            }
-            else if (saber_mas == 2) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-dos");
-                saber_mas = 3;
-            }
-            else if (saber_mas == 3) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-tres");
-                saber_mas = 1;
-            }
-
-            var page = $("html, body");
-            var alto = $('#new-header').height();
-
-            var link = $(this);
-            var anchor = link.attr('href');
-            page.stop().animate({ scrollTop: ScrollUser(anchor, alto) }, 1000);
-
-        });
-        var offS = $(".como-funciona").offset() || {};
-        var anchor_offset = offS.top || 0;
-
-        $(window).on('scroll', function () {
-            if ($(window).scrollTop() > anchor_offset) {
-                $("a.btn-suscribete-video-baja").css("display", "none");
-            }
-            else {
-                $("a.btn-suscribete-video-baja").css("display", "block");
-            }
-        });
-
+        
         $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente').click(function () {
             $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul').slideToggle();
 
@@ -115,9 +80,6 @@ function onPlayerStateChange(event) {
     if (event.data === 0 && estaSuscrita === "False") {
         $('a.btn-suscribete-video').animate({
             bottom: '0%'
-        });
-        $('a.btn-suscribete-video-baja').animate({
-            bottom: '-100%'
         });
         $("#div-suscribite").hide();
     }

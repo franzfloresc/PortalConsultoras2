@@ -1,4 +1,16 @@
 ﻿
+.video-visual {
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: #2e2e2e;
+}
+
+    .video-visual iframe {
+        width: 100%;
+        height: 400px;
+    }
+
 .gana-mas {
     padding-bottom: 30px;
 }
@@ -195,8 +207,6 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            width: 250px;
-            height: 278px;
             background-repeat: no-repeat;
             background-size: contain;
             background-position-x: right;
@@ -204,7 +214,6 @@
             width: 342px;
             margin-top: -118px;
             margin-left: 60px;
-            background-size: cover;
             height: 381px;
         }
 
