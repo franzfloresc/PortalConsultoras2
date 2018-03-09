@@ -277,9 +277,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="DiasEspera" type="xs:int" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResumenDiasEspera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+  <xs:complexType name="ArrayOfResumenDiasEsperaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResumenDiasEsperaBE" nillable="true" type="tns:ArrayOfResumenDiasEsperaBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteBE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
