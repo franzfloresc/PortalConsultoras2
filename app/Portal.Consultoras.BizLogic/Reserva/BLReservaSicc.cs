@@ -26,15 +26,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 { Constantes.ProlObsCod.Deuda, "Su pedido no pasa por tener una deuda de {0}."},
                 { Constantes.ProlObsCod.MontoMaximo, "Su pedido no pasa por sobrepasar el monto máximo."},
                 { Constantes.ProlObsCod.MontoMinimo, "Su pedido no pasa por no superar el monto mínimo."},
-                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."}, //Limite venta > 0
                 { Constantes.ProlObsCod.LimiteVenta0, "El producto {0} está agotado."}, //Limite venta = 0
                 { Constantes.ProlObsCod.LimiteVenta, "El producto {0} sobrepasa el límite de venta {1}."}, //Limite venta > 0
                 { Constantes.ProlObsCod.LimiteVenta0Pack, "El producto {0} del pack {2} está agotado."}, //Limite venta = 0
                 { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."}, //Limite venta > 0
+                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."}, //Limite venta > 0
                 { Constantes.ProlObsCod.Promocion0, "El producto {0} no cumple con la promoción del catálogo." },
                 { Constantes.ProlObsCod.Promocion, "{1} producto(s) {0} no cumple(n) con la promoción del catálogo." }, //Falta cantidad que no cumple
                 { Constantes.ProlObsCod.Reemplazo, "El producto {0} ha sido reemplazado por el producto {1}." },
-                { Constantes.ProlObsCod.SinStock, "El producto {0} no tiene stock." }
+                { Constantes.ProlObsCod.SinStock0, "El producto {0} no tiene stock." },
+                { Constantes.ProlObsCod.SinStock, "El producto {0} sólo tiene {1} en stock." }
             };
 
             resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
@@ -86,16 +87,16 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 }
             }
 
-            bool reservo = !TieneObservacionesBloqueantes(resultado.ListPedidoObservacion);
+            bool reservo = !resultado.ListDetalleBackOrder.Any() && resultado.ListPedidoObservacion.All(o => o.Caso == 0);
+            resultado.Restrictivas = resultado.ListDetalleBackOrder.Any() || resultado.ListPedidoObservacion.Any();
+            resultado.Reserva = input.FechaHoraReserva && reservo;
             resultado.ResultadoReservaEnum = respuestaSicc.indDeuda == "1" ? Enumeradores.ResultadoReserva.NoReservadoDeuda :
                 respuestaSicc.estadoPedidoMontoMinimo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
                 respuestaSicc.estadoPedidoMontoMaximo == "1" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
-                !resultado.ListPedidoObservacion.Any() ? Enumeradores.ResultadoReserva.Reservado :
+                !resultado.Restrictivas ? Enumeradores.ResultadoReserva.Reservado :
                 reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
 
-            resultado.Reserva = input.FechaHoraReserva && reservo;
-            resultado.Restrictivas = resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.Reservado;
             resultado.CodigoMensaje = resultado.ResultadoReservaEnum == Enumeradores.ResultadoReserva.Reservado ? "00" : "01";
 
             return resultado;
@@ -198,14 +199,14 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 pedidoObservacion = new BEPedidoObservacion
                 {
-                    Caso = 0,
+                    Caso = 0, //04 o 05, dependiendo de si unidadesPorAtender == 0
                     Descripcion = string.IsNullOrEmpty(detalle.valCodiOrig) ?
-                        (unidadesDemandadas == 0 ? Constantes.ProlObsCod.LimiteVenta0 : Constantes.ProlObsCod.LimiteVenta) :
+                        (unidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0 : Constantes.ProlObsCod.LimiteVenta) :
                         (unidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0Pack : Constantes.ProlObsCod.LimiteVentaPack)
                 };
                 pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, unidadesPorAtender, detalle.valCodiOrig);
             }
-            else if (!string.IsNullOrEmpty(detalle.observaciones))
+            else if (detalle.observaciones == "PROMOCION NO CUMPLE")
             {
                 pedidoObservacion = new BEPedidoObservacion
                 {
@@ -222,17 +223,18 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     pedidoObservacion = new BEPedidoObservacion
                     {
                         Caso = 0,
-                        Descripcion = string.Format(Constantes.ProlObsCod.Reemplazo, detalle.CUV)
+                        Descripcion = string.Format(Constantes.ProlObsCod.Reemplazo, detalle.CUV, reemplazo.CUV)
                     };
                 }
             }
-            else if(unidadesReservadasSap == 0)
+            else if(unidadesReservadasSap < unidadesDemandadas)
             {
                 pedidoObservacion = new BEPedidoObservacion
                 {
                     Caso = 0,
-                    Descripcion = string.Format(Constantes.ProlObsCod.SinStock, detalle.CUV)
+                    Descripcion = unidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0 : Constantes.ProlObsCod.SinStock
                 };
+                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, unidadesReservadasSap);
             }
 
             if (pedidoObservacion != null)
@@ -241,15 +243,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 pedidoObservacion.Tipo = 2;
             }
             return pedidoObservacion;
-        }
-
-        private bool TieneObservacionesBloqueantes(List<BEPedidoObservacion> listObservaciones)
-        {
-            //Saber si es reservado:
-            //Reemplazo
-            //Pack con producto agotado
-
-            return true;
         }
     }
 }

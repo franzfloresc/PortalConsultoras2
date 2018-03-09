@@ -42,14 +42,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var obsPedido = resultado.ListPedidoObservacion.FirstOrDefault(o => o.Caso == 95);
             if (obsPedido != null) obsPedido.Descripcion = Regex.Replace(obsPedido.Descripcion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
             string codNoReservaPedido = obsPedido != null ? obsPedido.CUV : "";
-
-            bool reservo = respuestaProl.ListaObservaciones.All(o => o.cod_observacion == "00");
-            resultado.Restrictivas = respuestaProl.ListaObservaciones.Any();
+            
+            bool reservo = !resultado.ListDetalleBackOrder.Any() && resultado.ListPedidoObservacion.All(o => o.Caso == 0);
+            resultado.Restrictivas = respuestaProl.ListaObservaciones.Any(); //respuestaProl.codigoMensaje.Equals("00")
             resultado.Reserva = input.FechaHoraReserva && reservo;
-            resultado.ResultadoReservaEnum = respuestaProl.codigoMensaje.Equals("00") ? Enumeradores.ResultadoReserva.Reservado :
-                reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
+            resultado.ResultadoReservaEnum =
                 codNoReservaPedido == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
-                codNoReservaPedido == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
+                codNoReservaPedido == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo : 
+                respuestaProl.codigoMensaje.Equals("00") ? Enumeradores.ResultadoReserva.Reservado :
+                reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
             
             return resultado;

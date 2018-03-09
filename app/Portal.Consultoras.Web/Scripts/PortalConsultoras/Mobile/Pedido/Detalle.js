@@ -952,7 +952,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
             if (cumpleOferta.resultado) {
                 esPedidoValidado = response.data.ProlSinStock != true;
-            } else {
+            }
+            else {
                 if (response.data.ProlSinStock == true) {
                     messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                     AnalyticsGuardarValidar(response);
@@ -971,7 +972,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     ShowLoading();
                     document.location = urlPedidoValidado;
                 }, 2000);
-
             }
             return true;
         }
