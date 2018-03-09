@@ -614,16 +614,13 @@ belcorp.estrategias.upselling.initialize = function (config) {
             }
 
             selfvm.upSellingSeleccionado().Regalos.push(selfvm.regaloSeleccionado());
+            selfvm.ordernarRegalos();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
 
         selfvm.regaloActualizar = function () {
-            
-            //selfvm.upSellingSeleccionado().Regalos.sort(function (a,b) {
-            //    return a.Orden - b.Orden
-            //});
-
+            selfvm.ordernarRegalos();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
@@ -640,6 +637,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
             selfvm.regaloSeleccionado().UndoChanges();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
+        }
+
+        selfvm.ordernarRegalos = function () {
+            selfvm.upSellingSeleccionado().Regalos(selfvm.upSellingSeleccionado().Regalos.sort(function (left, rigth) {
+                return Number(left.Orden()) - Number(rigth.Orden())
+            }));
         }
 
         selfvm.actualizarRutaPrefixRegalo = function () {
@@ -660,8 +663,6 @@ belcorp.estrategias.upselling.initialize = function (config) {
                 return dialogText;
             }
         }
-
-
 
         selfvm.recargarGanadoras = ko.observable(true);
 
@@ -765,7 +766,7 @@ function configureGridListaGanadoras(response) {
     for (var i = 0; i <= data.length - 1; i++) {
         convertirStringDate(data[i], 'FechaRegistro');
         grilla.jqGrid('addRowData', i + 1, data[i]);
-    }  
+    }
 
     $('#refresh_listOfertaFinalMontoMeta').click();
 
