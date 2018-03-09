@@ -83,7 +83,14 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                         where entidad.Regalos.All(upSellingDetalle => upSellingDetalle.UpSellingDetalleId != o.UpSellingDetalleId)
                         select o.UpSellingDetalleId;
 
-                    EliminarDetalle(detallesEliminar);
+                    try
+                    {
+                        EliminarDetalle(detallesEliminar);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("No se puede eliminar el Upselling por que uno de sus regalos ya fue ganado por alguna consultora", ex);
+                    }
                 }
 
                 transaction.Complete();
