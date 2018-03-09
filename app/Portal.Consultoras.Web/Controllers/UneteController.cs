@@ -1470,14 +1470,21 @@ namespace Portal.Consultoras.Web.Controllers
                         MostrarPaso1y2SE)
                     .ToList();
 
-                //Se separó para saturar el servicio ObtenerReporteGestionPostulante
-                ResumenDiasEsperaCollection reporteDiasEspera;
+                List<ResumenDiasEsperaBE> listaRequest = new List<ResumenDiasEsperaBE>();
                 foreach (var item in resultado)
                 {
-                    reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, item.SolicitudPostulanteID, Convert.ToInt32(item.DiasEnEspera));
-                    item.DetalleDiasEsperaGSAC = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnGestionServicioAlCliente).ToString()).FirstOrDefault().DiasEspera.ToString();
-                    item.DetalleDiasEsperaAFFVV = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnAprobacionFFVV).ToString()).FirstOrDefault().DiasEspera.ToString();
-                    item.DetalleDiasEsperaASAC = reporteDiasEspera.Where(x => x.Estado == ((int)EnumsEstadoPostulante.EnAprobacionSAC).ToString()).FirstOrDefault().DiasEspera.ToString();
+                    listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera= Convert.ToInt32(item.DiasEnEspera)});
+                }
+                //Se separó para saturar el servicio ObtenerReporteGestionPostulante
+                ResumenDiasEsperaCollection reporteDiasEspera;
+                reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, listaRequest.ToArray());
+
+                foreach (var item in resultado)
+                {
+                    var data = reporteDiasEspera.ToList().Where(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).FirstOrDefault().ResumenDiasEspera.Split('|');
+                    item.DetalleDiasEsperaGSAC = data[0];
+                    item.DetalleDiasEsperaAFFVV = data[1];
+                    item.DetalleDiasEsperaASAC = data[2];
                 }
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
