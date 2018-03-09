@@ -6,7 +6,9 @@
 @model  OfertaProductoPrincipalMobileModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -17,20 +19,26 @@
     </style>
 }
 
-<div class="wrapper_resumen_mobile sin_padding">
+@{ 
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="wrapper_resumen_mobile sin_padding">
 
-    <div class="encabezado_liquidacion">
-        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-            if (mobileConfiguracion.MostrarBotonAtras)
-            {
-                <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
-            } }
-        <span>LIQUIDACIÓN WEB</span>
-    </div>
+            <div class="encabezado_liquidacion">
+                @{  
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
+                    }
+                }
+                <span>LIQUIDACIÓN WEB</span>
+            </div>
 
-    <div class="pestana_lbel mobileLiquidaciones"></div>
+            <div class="pestana_lbel mobileLiquidaciones"></div>
 
-</div>
+        </div>
+                    }
+}
 
 <div class="wrapper_resumen_mobile">
     <div class="descripcion_liquidacion_web">
@@ -43,7 +51,7 @@
         <div id="liquidacionMobile" class="contenedor_productos_liquidacion">
         </div>
         <div style="text-align:center" class="liquidacion_productos2">
-            <img style="display:none;" id="loader" src="@Url.Content("~/Content/Images/loading_spinner.gif" )" alt="" width="30" height="31" />
+            <img style="display:none;" id="loader" src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" width="30" height="31" />
             <div class="clear"></div>
             <br />
             <div id="boton_vermas" class="ver-mas-vertical" style="display:none;">
@@ -55,11 +63,16 @@
     </div>
 </div>
 
-<div class="btn_agregarPedido">
-    <form>
-        <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new {area = "Mobile"})';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
-    </form>
-</div>
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="btn_agregarPedido">
+            <form>
+                <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
+            </form>
+        </div>
+    }
+}
 
 <script id="OfertasLiquidacionMobile-template" type="text/x-handlebars-template">
     {{#each this}}
