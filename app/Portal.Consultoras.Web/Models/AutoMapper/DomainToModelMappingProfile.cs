@@ -13,6 +13,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -536,6 +537,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ListaLoginExterno, f => f.MapFrom(c => new List<UsuarioExternoModel>()))
                 .ForMember(t => t.CodigosConcursos, f => f.MapFrom(c => string.Empty))
                 .ForMember(t => t.CodigosProgramaNuevas, f => f.MapFrom(c => string.Empty));
+
+            Mapper.CreateMap<UpSelling, UpSellingModel>()
+                .ForMember(t => t.Regalos, f => f.MapFrom(c => c.Regalos));
+
+            Mapper.CreateMap<UpSellingDetalle, UpSellingRegaloModel>()
+                .ForMember(t => t.UpSellingRegaloId, f => f.MapFrom(c => c.UpSellingDetalleId));
+
+             
+            Mapper.CreateMap<OfertaFinalMontoMeta, OfertaFinalMontoMetaModel>();
+
+
         }
     }
 }

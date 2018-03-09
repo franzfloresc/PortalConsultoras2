@@ -2842,17 +2842,17 @@ function cerrar_popup_tutorial() {
 
 function ObtenerComunicadosPopup() {
     waitingDialog();
-
+   
     $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-            if (checkTimeout(response)) {
+            if (checkTimeout(response)) {               
                 armarComunicadosPopup(response);
                 var images = $("#popupComunicados img.img-comunicado");
                 var loadedImgNum = 0;
-
+                
                 if (images.length == 0) {
                     closeWaitingDialog();
                 } else {
@@ -2877,10 +2877,11 @@ function ObtenerComunicadosPopup() {
 function armarComunicadosPopup(response) {
     viewBagVerComunicado = response.comunicadoVisualizado;
     var item = response.data;
-    if (item != null) {
+    if (item.CodigoConsultora != null) {
+        
         dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
-
+        
         if (item.Accion == "CUV") {
         }
         else if (item.Accion == "URL") {

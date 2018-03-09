@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Data
 {
@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Data
         }
 
         #region ConfiguracionApp
-        public IDataReader GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public IDataReader GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevasApp"))
             {
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))
             {

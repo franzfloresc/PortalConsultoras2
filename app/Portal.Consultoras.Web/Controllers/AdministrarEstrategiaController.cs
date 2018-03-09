@@ -2726,7 +2726,7 @@ namespace Portal.Consultoras.Web.Controllers
             var stringNiveles = "";
            
             stringNiveles = listaNivelEstrategias.Where(nivelEstrategia => nivelEstrategia.nivel != 1)
-                .Aggregate(stringNiveles, (current, nivelEstrategia) => current + ("X" + nivelEstrategia.nivel + "-" + nivelEstrategia.precio + "|"));
+                .Aggregate(stringNiveles, (current, nivelEstrategia) => current + (nivelEstrategia.nivel + "X" + "-" + nivelEstrategia.precio + "|"));
             
             return stringNiveles != "" ? stringNiveles.Remove(stringNiveles.Length - 1) : "";
         }

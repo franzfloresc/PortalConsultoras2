@@ -4,7 +4,7 @@ using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -47,15 +47,15 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region ConfiguracionApp
-        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
             using (IDataReader reader = new DAConfiguracionProgramaNuevas(entidad.PaisID).GetConfiguracionProgramaNuevasApp(entidad))
             {
-                return reader.MapToCollection<Estrategia.BEConfiguracionProgramaNuevasApp>();
+                return reader.MapToCollection<BEConfiguracionProgramaNuevasApp>();
             }
         }
 
-        public bool InsConfiguracionProgramaNuevasApp(Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        public bool InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
             return new DAConfiguracionProgramaNuevas(entidad.PaisID).InsConfiguracionProgramaNuevasApp(entidad);
         }

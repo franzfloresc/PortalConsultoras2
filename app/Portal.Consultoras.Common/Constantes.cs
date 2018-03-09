@@ -318,7 +318,6 @@ namespace Portal.Consultoras.Common
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
-            public const string GIF_MENU_DEFAULT_OFERTAS_BPT = "GIF_MENU_DEFAULT_OFERTAS_BPT";
             public const string MostrarPedidosPendientes = "MostrarPedidosPendientes";
             public const string Permisos_CCC = "Permisos_CCC";
             public const string Efecto_TutorialSalvavidas = "Efecto_TutorialSalvavidas";
@@ -400,6 +399,9 @@ namespace Portal.Consultoras.Common
 
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
+
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Escenario = "ESC";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1001,6 +1003,7 @@ namespace Portal.Consultoras.Common
             public const string Ofertas = "OFERTAS";
             public const string GuiaNegocio = "GUIANEGOCIO";
             public const string RevistaDigitalInformacion = "REVISTADIGITALINFORMACION";
+            public const string LiquidacionWeb = "LIQUIDACIONWEB";
         }
 
         public static class EstadoCuentaTipoMovimiento

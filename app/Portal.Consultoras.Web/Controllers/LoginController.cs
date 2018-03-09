@@ -683,6 +683,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToUniqueRoute("GuiaNegocio", "Index", null);
                     case Constantes.IngresoExternoPagina.RevistaDigitalInformacion:
                         return RedirectToUniqueRoute("RevistaDigital", "Informacion", null);
+                    case Constantes.IngresoExternoPagina.LiquidacionWeb:
+                        return RedirectToUniqueRoute("OfertaLiquidacion", "Index", null);
                 }
             }
             catch (Exception ex)
@@ -2627,7 +2629,7 @@ namespace Portal.Consultoras.Web.Controllers
                     paises = sv.SelectPaises().ToList();
                 }
 
-                paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
+                paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina || p.CodigoISO == Constantes.CodigosISOPais.Venezuela);
             }
             catch (Exception ex)
             {
