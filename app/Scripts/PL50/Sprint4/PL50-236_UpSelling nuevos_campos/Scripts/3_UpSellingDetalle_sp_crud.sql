@@ -234,7 +234,7 @@ INNER JOIN OfertaFinalMontoMeta ofi ON ud.CUV = ofi.CUV
 	AND u.CodigoCampana = ofi.CampaniaID
 	WHERE ud.UpSellingDetalleId = @UpSellingDetalleId
 	)
-THROW 51000, 'Regalo asociado a alguna consultora.', 1;  
+THROW 51000, 'No se puede eliminar el Regalo porque ya fue ganado por alguna consultora', 1;  
 
 DELETE
 FROM [UpSellingDetalle]
