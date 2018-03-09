@@ -255,7 +255,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any())
             {
                 var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)) 
-                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y));
+                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)
+                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
 
                 if (producto != null)
                     flagValidacionCodigoCatalogo = true;
@@ -268,7 +269,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaPedidoWebDetalle.Any())
             {
                 var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")
-                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y));
+                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)
+                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 if (producto != null)
                     flagValidacionAppCatalogo = true;
             }

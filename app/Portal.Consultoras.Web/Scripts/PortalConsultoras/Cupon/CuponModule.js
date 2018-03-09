@@ -499,14 +499,14 @@
 
         $(elements.ContenedorTituloGanaste).empty();
 
-        $(elements.ContenedorTituloGanaste).append("¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
         //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
 
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();
-        $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
+        $(elements.ContenedorTextoDetalleCuponCampania).append("Válido solo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");
         $(elements.ContenedorMontoLimitePopupGanaste).empty();
-        $(elements.ContenedorMontoLimitePopupGanaste).append('Tu dscto lo verás reflejado en tu <br/>facturación (dscto hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + ')');
+        $(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *");
 
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
@@ -551,16 +551,20 @@
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TIENES UN CUPÓN DE DSCTO DE " + valor + simbolo + "!</b><br>MONTO MÁXIMO DE DSCTO DE " + setting.SimboloMoneda + setting.Cupon.MontoLimiteFormateado + "<br>Lo verás reflejado en tu facturación";
-                        //mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";                        
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";                        
                     }
+
+                    $("#divCondicionesCupon").hide();
                 }
                 else {
+                    var marca = isEsika ? "Ésika" : "L'bel";
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b></span>";
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + simbolo + " " + valor + " DSCTO *</b></span>";
                     } else {
-                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b></span>";
+                        mensaje = "Agrega 1 oferta de Gana+ pasando pedido por el app " + marca + " Conmigo para hacer <span><b style='font-weight: 900'>válido tu " + valor + simbolo + " DSCTO *</b></span>";
                     }
+
+                    $("#divCondicionesCupon").show();
                 }
 
                 $(elements.ContenedorCuponInfo).each(function (index) {

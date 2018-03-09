@@ -34684,6 +34684,7 @@ h1#penmostreo .campana {
     float: left;
     margin-left: 38px;
     line-height: 1.17;
+    width: 185px;
 }
 
 .content_cupon {
@@ -34856,7 +34857,7 @@ h1#penmostreo .campana {
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    margin-top: 12px;
+    /*margin-top: 12px;*/
     font-family: 'Lato';
     font-size: 12px;
     height: 72px;
@@ -34875,7 +34876,7 @@ h1#penmostreo .campana {
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 30%;
+    width: 40%;
 }
 
 .info_recuerda_cupon_line {
