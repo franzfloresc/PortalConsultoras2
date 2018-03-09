@@ -18,11 +18,11 @@
         <div class="selectA">
             <textarea rows="5" cols="40" data-bind="value: Descripcion"></textarea>
         </div>
-        <div class="titG">Imagen:</div>
+        <div class="titG">Imagen(500x500px):</div>
         <div class="selectA">
             <div data-bind="upLoader: { valueAccessor: Imagen, url: $root.settings().urlFileUpload } "></div>
             <div>
-                <img data-bind="attr: {src: ImagenRuta() }" class="img-preview">
+                <img data-bind="attr: {src: ImagenRuta() }, imageSize: { show:true, attr:'title'}" class="img-preview">
             </div>
         </div>
     </div>
