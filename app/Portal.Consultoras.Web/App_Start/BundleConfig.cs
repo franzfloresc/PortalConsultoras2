@@ -391,8 +391,8 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Info").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/RevistaDigital/PaginaInformativa.css",
+                "~/Content/Css/Site/RevistaDigital/ConfirmarDatos.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
@@ -407,8 +407,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Detalle").Include(
@@ -422,6 +421,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Detalle").Include(
+                "~/Content/Css/Site/RevistaDigital/Lanzamiento-Detalle.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
@@ -510,7 +510,8 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css",
+                "~/Content/Css/Site/RevistaDigital/Gnd-Flotante.css"
             ));
 
             #endregion
@@ -528,7 +529,7 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
-                "~/Content/Css/Site/slick-pedido.css"
+                "~/Content/Css/Site/ProductoListado/Landing.css"
             ));
 
             #endregion
