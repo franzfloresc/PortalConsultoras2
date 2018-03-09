@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daConfiguracionParametroCarga.GetCampaniasActivasConfiguracionParametroCarga(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BEConfiguracionParametroCarga(reader) {PaisID = paisID};
+                    var entidad = new BEConfiguracionParametroCarga(reader) { PaisID = paisID };
                     lista.Add(entidad);
                 }
 
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         public void InsConfiguracionParametroCarga(BEConfiguracionValidacion ent, List<BEConfiguracionParametroCarga> lista)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionParametroCarga = new DAConfiguracionParametroCarga(ent.PaisID);
             var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.BizLogic
         public void UpdConfiguracionParametroCarga(BEConfiguracionValidacion ent, List<BEConfiguracionParametroCarga> lista)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionParametroCarga = new DAConfiguracionParametroCarga(ent.PaisID);
             var daConfiguracionValidacion = new DAConfiguracionValidacion(ent.PaisID);
 
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.BizLogic
         public void UpdConfiguracionParametroCargaPedido(int PaisID, List<BEConfiguracionParametroCarga> listaEntidades)
         {
             TransactionOptions transactionOptions =
-                new TransactionOptions {IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted};
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             var daConfiguracionParametroCarga = new DAConfiguracionParametroCarga(PaisID);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (reader.Read())
                 {
-                    entidad = new BEConfiguracionParametroCarga(reader) {PaisID = paisID};
+                    entidad = new BEConfiguracionParametroCarga(reader) { PaisID = paisID };
                 }
             }
             return entidad;

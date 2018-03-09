@@ -15,7 +15,6 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
-                        /*int.Parse(this.Request["PAISID"].ToString()*/
                         rslt = sv.InsAbonoPago(12,
                                                this.Request["USER1"].ToString(),
                                                this.Request["USER2"].ToString(),

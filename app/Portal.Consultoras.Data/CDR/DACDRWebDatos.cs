@@ -4,7 +4,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CDR
 {
-    public class DACDRWebDatos: DataAccess
+    public class DACDRWebDatos : DataAccess
     {
         public DACDRWebDatos(int paisID)
             : base(paisID, EDbSource.Portal)

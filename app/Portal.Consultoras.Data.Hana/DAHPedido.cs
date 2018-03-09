@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Data.Hana
                     bePedidoWeb.Clientes = 0;
                     bePedidoWeb.EstadoPedidoDesc = pedidoHana.estadoPedido;
                     bePedidoWeb.ConsultoraID = 0;
-                    bePedidoWeb.PedidoID = pedidoHana.oidPedido;                  
+                    bePedidoWeb.PedidoID = pedidoHana.oidPedido;
                     bePedidoWeb.FechaRegistro = pedidoHana.fechaFacturacion;
                     bePedidoWeb.CanalIngreso = pedidoHana.origen;
                     bePedidoWeb.CantidadProductos = pedidoHana.NUMUNIDATEN;

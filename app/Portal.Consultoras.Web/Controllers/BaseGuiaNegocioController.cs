@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Success = true,
                 CantidadFilas = 10
             };
-            
+
             return PartialView("Index", model);
         }
 
@@ -56,7 +56,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return filtersBySorting;
         }
-
 
         public List<BETablaLogicaDatos> GetFiltersByBrand()
         {

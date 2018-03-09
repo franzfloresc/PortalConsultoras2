@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Data.CDR
 
             Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho);
             Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);
-            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho); 
+            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho);
 
             Context.Database.AddInParameter(command, "EsMovilFin", DbType.Boolean, entity.EsMovilFin);
 

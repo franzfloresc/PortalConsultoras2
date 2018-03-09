@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         public JsonResult ObtenerCampanias()
         {
             int paisId = UserData().PaisID;
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             if (tipoEstrategiaId == 4)
             {
-              dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
+                dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");
             }
             if (tipoEstrategiaId == 7)

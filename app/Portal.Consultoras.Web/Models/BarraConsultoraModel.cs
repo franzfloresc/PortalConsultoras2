@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal TippingPoint { get; set; }
         public string TippingPointStr { get; set; }
-        
+
         public decimal TotalPedido { get; set; }
         public string TotalPedidoStr { get; set; }
 
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal MontoAhorroRevista { get; set; }
         public string MontoAhorroRevistaStr { get; set; }
-        
+
         public decimal MontoGanancia { get; set; }
         public string MontoGananciaStr { get; set; }
 

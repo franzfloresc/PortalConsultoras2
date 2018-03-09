@@ -59,12 +59,12 @@ namespace Portal.Consultoras.BizLogic
             return deleted;
         }
 
-        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
+        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
             int deleted;
             var daProductofaltante = new DAProductoFaltante(paisID);
 
-            daProductofaltante.DelProductoFaltante2(productofaltante.ToList(), out deleted,flag,pais,campania,zona,cuv,e_producto,fecha);
+            daProductofaltante.DelProductoFaltante2(productofaltante.ToList(), out deleted, flag, pais, campania, zona, cuv, e_producto, fecha);
 
             return deleted;
         }
@@ -74,10 +74,10 @@ namespace Portal.Consultoras.BizLogic
             var productos = new List<BEProductoFaltante>();
             var daProductofaltante = new DAProductoFaltante(paisID);
 
-            using (IDataReader reader = daProductofaltante.GetProductoFaltanteByEntity(productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina,paisID))//R1957
+            using (IDataReader reader = daProductofaltante.GetProductoFaltanteByEntity(productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina, paisID))//R1957
                 while (reader.Read())
                 {
-                    var prodfal = new BEProductoFaltante(reader) {PaisID = paisID};
+                    var prodfal = new BEProductoFaltante(reader) { PaisID = paisID };
                     productos.Add(prodfal);
                 }
 
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.BizLogic
             var blPais = new BLPais();
 
             if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
-            {               
+            {
                 using (IDataReader reader = daProductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID, cuv, descripcion))
                     while (reader.Read())
                     {
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dahFaltanteAnunciado = new DAHFaltanteAnunciado();
                 var productosHana = dahFaltanteAnunciado.GetProductoFaltanteAnunciado(paisID, CampaniaID);
-                
+
                 using (IDataReader reader = daProductofaltante.GetOnlyProductoFaltante(productosHana, CampaniaID, ZonaID, cuv, descripcion))
                     while (reader.Read())
                     {

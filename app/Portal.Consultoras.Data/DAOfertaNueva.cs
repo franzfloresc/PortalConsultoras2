@@ -141,21 +141,21 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int UpdEstadoPacksOfertasNueva(int idconsultora,string CodigoConsultora, int campania)
+        public int UpdEstadoPacksOfertasNueva(int idconsultora, string CodigoConsultora, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdestadoAccesoPackNueva");
             Context.Database.AddInParameter(command, "@idconsultora", DbType.Int32, idconsultora);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);            
+            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);
 
             return Context.ExecuteNonQuery(command);
         }
 
-        public int ObtenerEstadoPacksOfertasNueva(int idconsultora,  int campania)
+        public int ObtenerEstadoPacksOfertasNueva(int idconsultora, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadoPacksOfertasNueva");
             Context.Database.AddInParameter(command, "@idconsultora", DbType.Int32, idconsultora);
-            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);         
+            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }

@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Common
 
             return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + rutaRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
         }
+
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {
             var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
@@ -87,6 +88,7 @@ namespace Portal.Consultoras.Common
         {
             return SetFileS3(path, carpetaPais, fileName, true, true, false);
         }
+
         public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException)
         {
             try
@@ -102,9 +104,9 @@ namespace Portal.Consultoras.Common
                         var request = new PutObjectRequest
                         {
                             BucketName = ConfigS3.BUCKET_NAME,
-                            Key = ConfigS3.ROOT_DIRECTORY + "/" + 
-                                    ((carpetaPais != "") ? carpetaPais + "/" : "") +
-                                    fileName,
+                            Key = ConfigS3.ROOT_DIRECTORY + "/" +
+                                  ((carpetaPais != "") ? carpetaPais + "/" : "") +
+                                  fileName,
                             InputStream = inputStream
                         };
                         if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
@@ -112,7 +114,7 @@ namespace Portal.Consultoras.Common
                     }
                     if (EliminarArchivo) File.Delete(path);
                 }
-                
+
                 return true;
             }
             catch
@@ -124,39 +126,39 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileS3WithAuthentication(string carpetaPais, string fileName, string carpetaAnterior)
         {
-                if (fileName.Trim() == "") return fileName;
+            if (fileName.Trim() == "") return fileName;
 
-                var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
-                    ConfigS3.MY_AWS_ACCESS_KEY_ID,
-                    ConfigS3.MY_AWS_SECRET_KEY,
-                    Amazon.RegionEndpoint.USEast1);
+            var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
+                ConfigS3.MY_AWS_ACCESS_KEY_ID,
+                ConfigS3.MY_AWS_SECRET_KEY,
+                Amazon.RegionEndpoint.USEast1);
 
-                var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
-                    ConfigS3.BUCKET_NAME,
-                    ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName);
+            var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
+                ConfigS3.BUCKET_NAME,
+                ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName);
 
-                string url;
+            string url;
 
-                if (s3FileInfo.Exists)
+            if (s3FileInfo.Exists)
+            {
+                var expiryUrlRequest = new GetPreSignedUrlRequest
                 {
-                    var expiryUrlRequest = new GetPreSignedUrlRequest
-                    {
-                        BucketName = ConfigS3.BUCKET_NAME,
-                        Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName,
-                        Expires = DateTime.Now.AddDays(1)
-                    };
+                    BucketName = ConfigS3.BUCKET_NAME,
+                    Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName,
+                    Expires = DateTime.Now.AddDays(1)
+                };
 
-                    url = client.GetPreSignedURL(expiryUrlRequest);
-                }
-                else
-                {
-                    if (carpetaAnterior != string.Empty) url = carpetaAnterior + "/" + fileName;
-                    else url = fileName;
-                }
+                url = client.GetPreSignedURL(expiryUrlRequest);
+            }
+            else
+            {
+                if (carpetaAnterior != string.Empty) url = carpetaAnterior + "/" + fileName;
+                else url = fileName;
+            }
 
-                client.Dispose();
+            client.Dispose();
 
-                return url;
+            return url;
         }
 
         public static string GetUrlFileS3WithAuthentication(string keyRuta)

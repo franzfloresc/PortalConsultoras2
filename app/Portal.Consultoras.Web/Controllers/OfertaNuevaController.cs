@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
@@ -351,9 +351,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -596,7 +596,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     int paisId = UserData().PaisID;
-                    
+
                     entidad.PaisID = paisId;
                     entidad.UsuarioModificacion = UserData().CodigoConsultora;
 
@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = svc.UpdEstadoPacksOfertasNueva(UserData().PaisID, Convert.ToInt32(UserData().ConsultoraID), UserData().CodigoConsultora, UserData().CampaniaID);
                 }
-                
+
                 if (result == 0)
                     return Json(new { result = false, mensaje = "Ocurrió un error al actualizar el numero de acceso al sistema" }, JsonRequestBehavior.AllowGet);
 

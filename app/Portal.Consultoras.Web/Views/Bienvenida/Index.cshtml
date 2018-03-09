@@ -27,9 +27,9 @@
 <div class="content_slider_home" style="min-height: 300px;">
     <div id="sliderHomeLoading" class="center">
         <br />
-        <div >
+        <div>
             <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
-        </div>        
+        </div>
         <br />
     </div>
     <div class="flexslider">
@@ -132,16 +132,16 @@
     <hr class="clear" />
     <div class="items_belcorp">
         @{
-            string verUltmPagos = Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile || 
-                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia || 
-                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico || 
-                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador || 
+            string verUltmPagos = Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador ||
                 Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru ? "0" : "1";
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
-            
+
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
-            if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela) {clasePagoOnlineVZ = "margin-top: 0px;"; }
+            if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela) { clasePagoOnlineVZ = "margin-top: 0px;"; }
         }
 
         <div class="titulo_home_img"></div>
@@ -174,7 +174,7 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador || 
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador ||
             Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
@@ -198,33 +198,33 @@
         <hr class="clear" />
         <div class="info_centro">
             @{string cabezaEscala = null, pieEscala = null;
-            if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
-            {
-                cabezaEscala = "Ganancia estimada total*";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
-            {
-                cabezaEscala = "Comisión y ahorro total*";
-                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
-            {
-                cabezaEscala = "Ganancia estimada total*";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
-            {
-                cabezaEscala = "Oportunidad de ahorro total";
-                pieEscala = "";
-            }
+                if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
+                {
+                    cabezaEscala = "Comisión y ahorro total*";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";
+                }
             }
             @(cabezaEscala)
             <div class="deuda_home">
@@ -263,7 +263,7 @@
 }
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
-   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
+    @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -1295,7 +1295,7 @@ else
             <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
             <input type="hidden" id="Posicion" value="{{Posicion}}" />
             <div class="producto_img_home mini">
-                <img src="{{ImagenProducto}}" class="imagen_producto" data-img-lazy="1"/>
+                <img src="{{ImagenProducto}}" class="imagen_producto" data-img-lazy="1" />
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -1392,7 +1392,7 @@ else
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
         <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
-            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom=""/>
+            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom="" />
         </div>
         <div style="width:71%;float:left;">
             <div class="clear"></div>
@@ -1414,9 +1414,9 @@ else
                     </div>
                     <div class="producto_img_home mini" data-img="">
                         {{#IsNullOrEmpty ImagenProducto '=='}}
-                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom=""/>
+                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom="" />
                         {{else}}
-                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom=""/>
+                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
                         {{/IsNullOrEmpty}}
                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                     </div>
@@ -1426,6 +1426,7 @@ else
                             <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
                             <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                         </div>
+                        {{#iff TipoAccionAgregar '==' '0'}}
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -1437,6 +1438,12 @@ else
                             </div>
                         </div>
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        {{/iff}}
+                        {{#iff TipoAccionAgregar '==' '1'}}
+                        <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                            <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                        </a>
+                        {{/iff}}
                         <div class="clear"></div>
                         <div style="padding-top: 9px; margin-bottom:6px; height: 15px;">
                             <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
@@ -2043,24 +2050,7 @@ else
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (revistaDigital.TieneRDS == true)
 {
-    <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="PopRDSuscripcion" data-popup-main="" data-popup-function-hide="RDPopupCerrar()" style="display:none;">
-       
-            <div class="centrar-estructura" data-popup-body="">
-                <div class="centrar-vertical-contenido">
-                    <p class="primer-texto">
-                        DILE ADIÓS A
-                        LOS CÓDIGOS…
-                    </p>
-                    <p class="segundo-texto">
-                        ¡DILE SÍ A
-                        OFERTAS <span class="flashit">GANA +</span>!
-                    </p>
-                    <a href="javascript: RDRedireccionarInformacion(2)" class="btn-popup">ENTÉRATE AQUÍ</a>
-                </div>
-                <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
-            </div>
-
-    </div>
+    @Html.Partial("~/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
@@ -2154,7 +2144,6 @@ else
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';

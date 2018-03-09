@@ -1,0 +1,303 @@
+﻿@using System.Web.Optimization
+@using Newtonsoft.Json
+@model Portal.Consultoras.Web.Models.Estrategia.UpSellingAdminModel
+
+@if (Model.EsPaisEsika)
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+else
+{
+    <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+<link href="@Url.Content("~/Content/Css/Site/Admin/Estrategias/UpSelling.css")" rel="stylesheet" />
+
+<div id="upSellingCRUD">
+    <div data-bind="fadeVisible: !$root.mostrarFormularioUpSelling()">
+        <div class="wrap_cab">
+            <div class="filtros2">
+                <div class="elements">
+                    <div class="div-2">
+                        <h1><span>OFERTA FINAL - REGALOS</span></h1>
+                    </div>
+                    <div class="div-3">
+                        <div class="titB">Pais:</div>
+                        <div class="selectA">
+                            @Html.Label(Model.PaisNombre)
+                        </div>
+                        <div class="titB">Campaña:</div>
+                        <div class="selectA">
+                            @Html.DropDownList("cmbCampanas", new SelectList(Model.Campanas, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                        </div>
+                        <div>
+                            <input type="button" id="btnBuscar" value="Buscar" style="height:37px; margin-left: 32px;" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="div-3">
+                        <div class="titB"></div>
+                        <input type="button" value="Nuevo" data-bind="click:nuevo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="container clearfix">
+                <table id="list"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    @*formulario de edicion*@
+    <div data-bind="fadeVisible: $root.mostrarFormularioUpSelling()">
+        <div data-bind="with: upSellingSeleccionado" class="wrap_cab">
+            <div class="elements">
+                <div class="div-2">
+                    <h1><span>OFERTA FINAL - REGALOS</span></h1>
+                </div>
+                <div class="div-3">
+                    <div class="titC">Campaña:</div>
+                    <div class="selectA">
+                        <select data-bind="options: $root.campanasPais,
+                            optionsText: 'Codigo',
+                            optionsValue: 'Codigo',
+                            value: CodigoCampana"></select>
+                    </div>
+                    <div class="titC">Activo:</div>
+                    <div>
+                        <input type="checkbox" data-bind="checked: Activo" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC">Monto meta:</div>
+                    <div class="selectA" data-bind="css: { error: MontoMeta.hasError }">
+                        <input type="text" data-bind="value: MontoMeta" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC">Texto principal:</div>
+                    <div class="selectA" data-bind="css: { error: TextoMeta.hasError }">
+                        <input type="text" data-bind="value: TextoMeta" />
+                    </div>
+                    <div class="titC">Texto secundario:</div>
+                    <div class="selectA">
+                        <input type="text" data-bind="value: TextoMetaSecundario" />
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titC">Texto ganaste principal:</div>
+                    <div class="selectA">
+                        <input type="text" data-bind="value: TextoGanaste" />
+                    </div>
+                    <div class="titC">Texto ganaste secundaria:</div>
+                    <div class="selectA">
+                        <input type="text" data-bind="value: TextoGanasteSecundario" />
+                    </div>
+                </div>
+                <div id="tabs" class="div-3">
+                    <ul>
+                        <li><a href="#tab-regalos">Regalos</a></li>
+                        <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
+                        <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
+                    </ul>
+                    @*seccion regalos*@
+                    <div id="tab-regalos">
+                        <div>
+                            <div class="div-3">
+                                <input type="button" value="Agregar" data-bind="click:$root.regaloNuevo" />
+                            </div>
+                            <div class="div-3">
+                                <div class="wrap">
+                                    <div class="container clearfix">
+                                        <div id="pagerRegalos"></div>
+                                        <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-jqgrid-view">
+
+                                                <table class="ui-jqgrid-htable" style="width: 100%" id="listRegalos" data-bind="with: $root.upSellingSeleccionado">
+                                                    <thead>
+                                                        <tr class="ui-jqgrid-labels">
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 65px;">Nombre</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">CUV</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">Stock</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">StockA ctual</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Orden</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Activo</th>
+                                                            <th class="ui-state-default ui-th-column ui-th-ltr" data-sortable="false" style="width: 40px;">Opciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody data-bind="foreach: Regalos">
+                                                        <tr class="ui-widget-content jqgrow ui-row-ltr ui-state-highlight">
+                                                            <td data-bind="text: Nombre" style="text-align:center;"></td>
+                                                            <td data-bind="text: CUV" style="text-align:center;"></td>
+                                                            <td data-bind="text: Stock" style="text-align:center;"></td>
+                                                            <td data-bind="text: StockActual" style="text-align:center;"></td>
+                                                            <td data-bind="text: Orden" style="text-align:center;"></td>
+                                                            <td style="text-align: center;">
+                                                                <input type="checkbox" data-bind="checked: Activo, enable : false" style="text-align:center;" />
+                                                            </td>
+                                                            <td style="text-align:center;">
+                                                                <a href="#" data-bind="click: $root.regaloEditar">
+                                                                    <img src='@Url.Content("~/Content/Images/Edit.png")' alt="Editar UpSelling" title="Editar UpSelling" border='0' />
+                                                                </a>
+                                                                <a href="#" data-bind="click: $root.regaloActivarDesactivar">
+                                                                    <img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' />
+                                                                </a>
+                                                                <a href="#" data-bind="click: $root.regaloEliminar">
+                                                                    <img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' />
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-categorias-apoyadas"></div>
+                    @*regalos*@
+                    <div id="tab-ganadoras" >
+                        <div>
+                            <div class="div-3">
+                                <input type="button" id="exportGRid" value="Exportar" data-bind="click: $root.exportarListaGanadoras" />
+                            </div>
+                            <div class="div-3">
+                                <div class="wrap">
+                                    <div class="container clearfix">
+                                        <table id="listOfertaFinalMontoMeta"></table>
+                                    </div>
+                                    <div id="pagerListaRegalos"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titD"></div>
+                    <div class="titC"></div>
+                    <div class="titC"></div>
+                    <div class="titB"></div>
+                    <div class="titA"></div>
+                    <div class="titA"></div>
+                    <input type="button" value="Guardar" data-bind="click:$root.save,
+                                                                value: $root.upSellingSeleccionadoIsDirty() ? '*Guardar': 'Guardar',
+                                            style: { background: $root.upSellingSeleccionadoIsDirty()? '#5bc0de':'#652b82' }" />
+                    <input type="button" value="Cancelar" data-bind="click:$root.cancel" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    @*popup regalo*@
+    <div id="editRegaloPopUp" data-bind="with: regaloSeleccionado">
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titG">CUV:</div>
+                <div class="selectA" data-bind="css: { error: CUV.hasError }">
+                    <input type="text" data-bind="value: CUV" />
+                </div>
+                <div class="titG">Nombre:</div>
+                <div class="selectA" data-bind="css: { error: Nombre.hasError }">
+                    <input type="text" data-bind="value: Nombre" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Descripcion:</div>
+                <div class="selectA">
+                    <input type="text" multiline data-bind="value: Descripcion" />
+                </div>
+                <div class="titG">Imagen:</div>
+                <div class="selectA">
+                    <div data-bind="upLoader: { valueAccessor: Imagen, url: $root.settings().urlFileUpload } "></div>
+                    <div>
+                        <img data-bind="attr: {src: ImagenRuta() }" class="img-preview">
+                    </div>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Stock:</div>
+                <div class="selectA" data-bind="css: { error: Stock.hasError }">
+                    <input type="text" multiline data-bind="value: Stock" />
+                </div>
+                <div class="titG">Stock Actual:</div>
+                <div class="selectA" data-bind="text: StockActual">
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Orden:</div>
+                <div class="selectA" data-bind="css: { error: Orden.hasError }">
+                    <input type="text" multiline data-bind="value: Orden" />
+                </div>
+                <div class="titG">Activo:</div>
+                <div>
+                    <input type="checkbox" data-bind="checked: Activo" />
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titC"></div>
+            <div class="titC"></div>
+            <div class="titC"></div>
+            <input type="button" value="Agregar" data-bind="visible: $root.regaloEsNuevo(), click: $root.regaloAgregar" />
+            <input type="button" value="Actualizar" data-bind="visible: !$root.regaloEsNuevo(), click: $root.regaloActualizar" />
+            <input type="button" value="Cerrar" data-bind="click: $root.regaloCerrar" />
+        </div>
+    </div>
+</div>
+
+
+<form action="/UpSelling/ExportarExcel" id="reporteListaGanadorasForm" style="display:none">
+    <input type="text" name="upSellingIdListaGanadoras" value="1">
+    <input type="submit" value="Submit">
+</form>
+
+
+@Scripts.Render("~/bundles/estrategias-upselling")
+@*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>
+    @*<script src="~/Scripts/PortalConsultoras/Palanca/AdminPalanca.js"></script>*@
+    <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+
+    <script>
+        jQuery(document).ready(function() {
+            belcorp.estrategias.upselling.initialize({
+                urlImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
+                urlImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
+                urlImagengenDelete: '@Url.Content("~/Content/Images/Delete.png")',
+                idGrilla: 'list',
+                idPager: 'pager',
+                urlUpSellingObtener: '@Url.Action("Obtener", "UpSelling")',
+                urlUpSellingObtenerRegalos: '@Url.Action("ObtenerRegalos", "UpSelling")',
+                urlUpSellingGuardar: '@Url.Action("Guardar", "UpSelling")',
+                urlUpSellingEliminar: '@Url.Action("Eliminar", "UpSelling")',
+                urlUpSellingActualizarCabecera: '@Url.Action("Actualizar", "UpSelling")',
+                buttonBuscarId: 'btnBuscar',
+                buttonNuevoId: 'btnNuevo',
+                cmbCampanas: $("#cmbCampanas"),
+                idTabs: 'tabs',
+                idGrillaRegalos: 'listRegalos',
+                idPagerRegalos: 'pagerRegalos',
+                idTargetDiv: 'upSellingCRUD',
+                campanasPais: JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.Campanas))'),
+                idDivPopUpRegalo: 'editRegaloPopUp',
+                idListaGanadorasHidden: 'upSellingIdListaGanadoras',
+                idFormReporteListaGanadoras: 'reporteListaGanadorasForm',
+                urlListaGanadorasObtener: '@Url.Action("ObtenerOfertaFinalMontoMeta", "UpSelling")' ,
+
+                paisNombre: '@Model.PaisNombre',
+                idDivPopUpRegalo: 'editRegaloPopUp',
+                urlFileUpload : '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+                urlTemporal : '@Url.Content("~/Content/Temporales")/',
+                urlS3 : '@Model.UrlS3'
+            });
+        });
+    </script>
+}
