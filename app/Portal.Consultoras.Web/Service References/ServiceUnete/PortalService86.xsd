@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:27067/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="ParametroUneteBE">
     <xs:sequence>
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
@@ -113,7 +113,6 @@
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FlagConsultoraDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
@@ -146,7 +145,6 @@
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoLegal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Offline" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrigenIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Paso" type="xs:int" />
       <xs:element minOccurs="0" name="PoblacionVilla" nillable="true" type="xs:string" />
@@ -156,7 +154,6 @@
       <xs:element minOccurs="0" name="RechazadoPor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RequiereAprobacionSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
@@ -277,9 +274,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="DiasEspera" type="xs:int" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResumenDiasEspera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+  <xs:complexType name="ArrayOfResumenDiasEsperaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResumenDiasEsperaBE" nillable="true" type="tns:ArrayOfResumenDiasEsperaBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteBE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
@@ -313,17 +318,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Cell" nillable="true" type="tns:Cell" />
-  <xs:complexType name="CodigoVerificacionSolicitudPostulanteBE">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoVerificacionId" type="xs:int" />
-      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroCelular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RespuestaEnvio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoEnvio" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="CodigoVerificacionSolicitudPostulanteBE" nillable="true" type="tns:CodigoVerificacionSolicitudPostulanteBE" />
 </xs:schema>
