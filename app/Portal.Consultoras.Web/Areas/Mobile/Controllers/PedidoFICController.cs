@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
@@ -35,30 +36,57 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
-                && !configuracionCampania.ModificaPedidoReservado
-                && !configuracionCampania.ValidacionAbierta)
-                return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+            //if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            //    && !configuracionCampania.ModificaPedidoReservado
+            //    && !configuracionCampania.ValidacionAbierta)
+            //    return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
 
+          //  var detallesPedidoWeb = ObtenerPedidoWebDetalle();
+           
 
-            var detallesPedidoWeb = ObtenerPedidoWebDetalle();
-            if ((detallesPedidoWeb == null || !detallesPedidoWeb.Any())
-                && GetSeInsertoProductoAutomaticos(userData))
+            /////////////////////////////////////////
+            Session[Constantes.ConstSession.PedidoFIC] = null;
+            ViewBag.ClaseTabla = "tabla2";
+            ViewBag.Pais_ISO = userData.CodigoISO;
+            ViewBag.PROL = "Guardar";
+            ViewBag.PROLDes = "Guarda los productos que haz ingresado";
+            ViewBag.ModPedido = "display:none;";
+            ViewBag.NombreConsultora = userData.NombreConsultora;
+            ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+            ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
+        
+            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
+            PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
             {
-                sessionManager.SetDetallesPedido(null);
-                detallesPedidoWeb = ObtenerPedidoWebDetalle();
-                UpdPedidoWebMontosPROL();
-            }
+                PaisID = userData.PaisID,
+                ListaDetalle = olstPedidoFicDetalle,
+                Simbolo = userData.Simbolo,
+                Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
+            };
+            //////////////////////////////////////
 
-            detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-            BEPedidoWeb pedidoWeb = ObtenerPedidoWeb() ?? new BEPedidoWeb();
 
-            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
-            model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
+            //if ((detallesPedidoWeb == null || !detallesPedidoWeb.Any())
+            //    && GetSeInsertoProductoAutomaticos(userData))
+            //{
+            //    sessionManager.SetDetallesPedido(null);
+            //    detallesPedidoWeb = ObtenerPedidoWebDetalle();
+            //    UpdPedidoWebMontosPROL();
+            //}
 
-            if (userData.PedidoID == 0 && detallesPedidoWeb.Count > 0)
+          //  detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+          //  BEPedidoWeb pedidoWeb = ObtenerPedidoWeb() ?? new BEPedidoWeb();
+
+            olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();  //  PPC
+           // BEPedidoFIC pedidoFICWeb = ObtenerPedidoWeb() ?? new BEPedidoFIC();
+
+
+            //model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            //model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
+
+            if (userData.PedidoID == 0 && modelo.ListaDetalle.Count > 0)
             {
-                userData.PedidoID = detallesPedidoWeb[0].PedidoID;
+                userData.PedidoID = modelo.ListaDetalle[0].PedidoID;
                 SetUserData(userData);
             }
 
@@ -67,14 +95,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = ViewBag.Campania;
             model.CampaniaNro = userData.CampaniaNro;
-            model.Total = detallesPedidoWeb.Sum(p => p.ImporteTotal);
+          //  model.Total = detallesPedidoWeb.Sum(p => p.ImporteTotal);
+            model.Total = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
             model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-            model.TotalMinimo = detallesPedidoWeb.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
+           // model.TotalMinimo = detallesPedidoWeb.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
+            model.TotalMinimo = olstPedidoFicDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
+
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, userData.CodigoISO);
-            model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - pedidoWeb.DescuentoProl, userData.CodigoISO);
-            model.DescuentoStr = (pedidoWeb.DescuentoProl > 0 ? "-" : "") + Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
-            model.ListaProductos = detallesPedidoWeb.ToList();
-            model.CantidadProductos = detallesPedidoWeb.Sum(p => p.Cantidad);
+            // model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - pedidoWeb.DescuentoProl, userData.CodigoISO);
+            // model.DescuentoStr = (pedidoWeb.DescuentoProl > 0 ? "-" : "") + Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
+
+            //model.ListaProductos = detallesPedidoWeb.ToList();
+            model.ListaProductosFIC = olstPedidoFicDetalle.ToList();
+
+            model.CantidadProductos = modelo.ListaDetalle.Sum(p => p.Cantidad);
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
             model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
             model.FormatoMontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
@@ -110,7 +144,36 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
+
             return View("Index", model);
+
+
+
+
+            //ViewBag.Simbolo = model.Simbolo;
+            //ViewBag.Total = model.Total;
+            //ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC;
+
+            //var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
+            //var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC);
+
+            //ViewBag.ImagenUrlOfertaFIC = url;
+            //ViewBag.PaisID = userData.PaisID;
+
+            //if (olstPedidoFicDetalle.Count != 0 && userData.PedidoID == 0)
+            //{
+            //    userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
+            //    SetUserData(userData);
+            //}
+
+            //ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            
+
+
+            ////  PPC
+            //  return View(pedidoModelo);
+
+            ////  PPC
         }
 
         private BEConfiguracionCampania GetConfiguracionCampania(UsuarioModel userDataParam)
@@ -187,10 +250,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
-                && !beConfiguracionCampania.ModificaPedidoReservado
-                && !beConfiguracionCampania.ValidacionAbierta)
-                return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+            //if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            //    && !beConfiguracionCampania.ModificaPedidoReservado
+            //    && !beConfiguracionCampania.ValidacionAbierta)
+            //    return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
 
             var model = new PedidoDetalleMobileModel
             {
@@ -224,70 +287,70 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ProlTooltip += string.Format("|No olvides reservar tu pedido el dia {0} para que sea enviado a facturar", fechaFacturacionFormat);
                 }
             }
-            else // Periodo de facturacion
-            {
-                if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
-                {
-                    ViewBag.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+            //else // Periodo de facturacion
+            //{
+            //    if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
+            //    {
+            //        ViewBag.AccionBoton = "validar";
+            //        model.Prol = "RESERVA TU PEDIDO";
+            //        model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
-                    if (diaActual <= userData.FechaInicioCampania)
-                    {
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        if (userData.CodigoISO == "BO")
-                        {
-                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                        }
-                        else
-                        {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                        }
-                    }
-                }
-                else // PROL 1
-                {
-                    if (userData.PROLSinStock)
-                    {
-                        ViewBag.AccionBoton = "guardar";
-                        model.Prol = "GUARDA TU PEDIDO";
-                        model.ProlTooltip = "Es importante que guardes tu pedido";
-                        model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                    }
-                    else
-                    {
-                        ViewBag.AccionBoton = "validar";
-                        model.Prol = "VALIDA TU PEDIDO";
-                        model.ProlTooltip = "Haz click aqui para validar tu pedido";
+            //        if (diaActual <= userData.FechaInicioCampania)
+            //        {
+            //            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+            //        }
+            //        else
+            //        {
+            //            if (userData.CodigoISO == "BO")
+            //            {
+            //                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+            //            }
+            //            else
+            //            {
+            //                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+            //            }
+            //        }
+            //    }
+            //    else // PROL 1
+            //    {
+            //        if (userData.PROLSinStock)
+            //        {
+            //            ViewBag.AccionBoton = "guardar";
+            //            model.Prol = "GUARDA TU PEDIDO";
+            //            model.ProlTooltip = "Es importante que guardes tu pedido";
+            //            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+            //        }
+            //        else
+            //        {
+            //            ViewBag.AccionBoton = "validar";
+            //            model.Prol = "VALIDA TU PEDIDO";
+            //            model.ProlTooltip = "Haz click aqui para validar tu pedido";
 
-                        if (diaActual <= userData.FechaInicioCampania)
-                        {
-                            model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
-                        }
-                        else
-                        {
-                            if (userData.CodigoISO == "BO")
-                            {
-                                model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                            }
-                            else
-                            {
-                                model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                            }
-                        }
-                    }
+            //            if (diaActual <= userData.FechaInicioCampania)
+            //            {
+            //                model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
+            //            }
+            //            else
+            //            {
+            //                if (userData.CodigoISO == "BO")
+            //                {
+            //                    model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
+            //                }
+            //                else
+            //                {
+            //                    model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
+            //                }
+            //            }
+            //        }
 
-                }
-            }
+            //    }
+            //}
 
-            var pedidoWeb = ObtenerPedidoWeb();
-            ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
-            ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
-            ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
-            ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+           // var pedidoWeb = ObtenerPedidoWeb();
+           // ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            //ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+            //ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
+           // ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
 
             model.PaisID = userData.PaisID;
 
@@ -306,6 +369,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
+            PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
+            {
+                PaisID = userData.PaisID,
+                ListaDetalle = olstPedidoFicDetalle,
+                Simbolo = userData.Simbolo,
+                Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
+            };
+            olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();
+
+
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             model.EsFacturacion = esFacturacion;
@@ -319,7 +393,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;
             model.MontoMaximo = userData.MontoMaximo;
-            model.Total = pedidoWeb.ImporteTotal;
+            //model.Total = pedidoWeb.ImporteTotal;
+            model.Total = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
             model.DataBarra = GetDataBarra(true, true);
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
@@ -546,6 +621,496 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
+
+
+
+        ///////////////////////////        Index  --  Pedido FIC
+
+ 
+
+        ///////////////////////////        Detalle  --  Pedido FIC
+
+        private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
+        {
+           // if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+
+            List<BEPedidoFICDetalle> list;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                list = sv.SelectFICByCampania(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.ConsultoraID, userData.NombreConsultora).ToList();
+            }
+            Session[Constantes.ConstSession.PedidoFIC] = list;
+            return list;
+        }
+
+
+        [HttpPost]
+        public JsonResult CargarDetallePedido(string sidx, string sord, int page, int rows, int clienteId, bool mobil = false)
+        {
+            try
+            {
+                PedidoSb2Model model = new PedidoSb2Model { CodigoIso = userData.CodigoISO };
+                var listaDetalle = ObtenerPedidoFICDetalle() ?? new List<BEPedidoFICDetalle>();
+
+                decimal total = listaDetalle.Sum(p => p.ImporteTotal);
+
+                model.ListaCliente = (from item in listaDetalle
+                                      select new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
+                    ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+                model.ListaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
+
+                listaDetalle = listaDetalle.Where(p => p.ClienteID == clienteId || clienteId == -1).ToList();
+                decimal totalCliente = listaDetalle.Sum(p => p.ImporteTotal);
+
+                var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoFICDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
+                pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
+
+                model.ListaDetalleModel = pedidoWebDetalleModel;
+                model.Total = total;
+                model.TotalConDescuento = total;
+                model.TotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
+                model.TotalProductos = pedidoWebDetalleModel.Sum(p => Convert.ToInt32(p.Cantidad));
+
+                userData.PedidoID = 0;
+                if (model.ListaDetalleModel.Any())
+                {
+                    userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
+                    SetUserData(userData);
+
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
+                    BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
+
+                    model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+
+                    model.Registros = grid.PageSize.ToString();
+                    model.RegistrosTotal = pag.RecordCount.ToString();
+                    model.Pagina = pag.CurrentPage.ToString();
+                    model.PaginaDe = pag.PageCount.ToString();
+                }
+                else
+                {
+                    model.RegistrosTotal = "0";
+                    model.Pagina = "1";
+                    model.PaginaDe = "1";
+                }
+
+                model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
+                model.Simbolo = userData.Simbolo;
+
+                return Json(new
+                {
+                    success = false,
+                    message = "OK",
+                    data = model
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad)
+        {
+            BEPedidoFICDetalle obe = new BEPedidoFICDetalle
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = CampaniaID,
+                PedidoID = PedidoID,
+                PedidoDetalleID = PedidoDetalleID,
+                TipoOfertaSisID = TipoOfertaSisID,
+                CUV = CUV,
+                Cantidad = Cantidad
+            };
+
+            string mensaje;
+            if (ReservadoEnHorarioRestringido(out mensaje))
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            bool errorServer;
+            AdministradorPedido(obe, "D", false, out errorServer);
+            if (errorServer)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar eliminar el detalle"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                success = true,
+                message = "El detalle se eliminó exitosamente."
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAll()
+        {
+            bool errorServer = false;
+            string message = string.Empty;
+
+            try
+            {
+                bool eliminacionMasiva;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    eliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);
+                }
+                if (!eliminacionMasiva)
+                {
+                    errorServer = true;
+                    message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+                }
+
+            }
+            catch
+            {
+                errorServer = true;
+                message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            }
+
+            return Json(new
+            {
+                success = !errorServer,
+                message = message,
+                extra = ""
+            });
+
+        }
+
+        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, bool reservado, out bool errorServer)
+        {
+            errorServer = false;
+            List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
+
+            try
+            {
+                if (Session[Constantes.ConstSession.PedidoFIC] == null)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    }
+                    Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                }
+                else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+
+                if (tipoAdm == "I")
+                {
+                    int cantidad;
+                    short result = ValidarInsercion(olstTempListado, obePedidoFicDetalle, out cantidad);
+                    if (result != 0)
+                    {
+                        tipoAdm = "U";
+                        obePedidoFicDetalle.Stock = obePedidoFicDetalle.Cantidad;
+                        obePedidoFicDetalle.Cantidad += cantidad;
+                        obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+                        obePedidoFicDetalle.PedidoDetalleID = result;
+                        obePedidoFicDetalle.Flag = 2;
+                    }
+                }
+                else
+                {
+                    if (tipoAdm == "I_S")
+                    {
+                        int cantidad;
+                        bool eliminacion;
+                        short pedidoDetalleId;
+                        short result = ValidarInsercionSession(olstTempListado, obePedidoFicDetalle, out cantidad, out eliminacion, out pedidoDetalleId);
+                        if (result != 0)
+                        {
+                            tipoAdm = "U_S";
+                            if (eliminacion)
+                                obePedidoFicDetalle.EliminadoTemporal = false;
+                            else
+                                obePedidoFicDetalle.Cantidad += cantidad;
+
+                            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+                            obePedidoFicDetalle.PedidoDetalleID = result;
+                        }
+                    }
+                }
+
+                int totalClientes = CalcularTotalCliente(olstTempListado, obePedidoFicDetalle, tipoAdm == "D" || tipoAdm == "D_S" ? obePedidoFicDetalle.PedidoDetalleID : (short)0, tipoAdm);
+                decimal totalImporte = CalcularTotalImporte(olstTempListado, obePedidoFicDetalle, tipoAdm == "I" || tipoAdm == "I_S" ? (short)0 : obePedidoFicDetalle.PedidoDetalleID, tipoAdm);
+                obePedidoFicDetalle.ImporteTotalPedido = totalImporte;
+                obePedidoFicDetalle.Clientes = totalClientes;
+
+                switch (tipoAdm)
+                {
+                    case "I":
+                        BEPedidoFICDetalle obe;
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            obe = sv.InsertFIC(obePedidoFicDetalle);
+                        }
+                        obe.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                        obe.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                        obe.Nombre = obePedidoFicDetalle.Nombre;
+
+                        if (userData.PedidoID == 0)
+                        {
+                            userData.PedidoID = obe.PedidoID;
+                            SetUserData(userData);
+                        }
+
+                        olstTempListado.Add(obe);
+
+                        break;
+                    case "U":
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdPedidoFICDetalle(obePedidoFicDetalle);
+                        }
+
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
+                            .Update(p =>
+                            {
+                                p.Cantidad = obePedidoFicDetalle.Cantidad;
+                                p.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                                p.ClienteID = obePedidoFicDetalle.ClienteID;
+                                p.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                                p.Nombre = obePedidoFicDetalle.Nombre;
+                            });
+
+                        break;
+                    case "D":
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.DelPedidoFICDetalle(obePedidoFicDetalle);
+                        }
+                        olstTempListado.RemoveAll(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID);
+                        break;
+                    case "I_S":
+                        obePedidoFicDetalle.PedidoDetalleID = Convert.ToInt16((1000 + DateTime.Now.Second + DateTime.Now.Millisecond).ToString());
+                        obePedidoFicDetalle.EstadoItem = 1;
+                        obePedidoFicDetalle.CUVNuevo = true;
+                        obePedidoFicDetalle.ClaseFila = "f3";
+                        olstTempListado.Add(obePedidoFicDetalle);
+                        break;
+                    case "U_S":
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
+                            .Update(p =>
+                            {
+                                p.Cantidad = obePedidoFicDetalle.Cantidad;
+                                p.ImporteTotal = obePedidoFicDetalle.ImporteTotal;
+                                p.ClienteID = obePedidoFicDetalle.ClienteID;
+                                p.DescripcionProd = obePedidoFicDetalle.DescripcionProd;
+                                p.Nombre = obePedidoFicDetalle.Nombre;
+                                p.EstadoItem = 2;
+                                p.ClaseFila = "f3";
+                                p.Stock = obePedidoFicDetalle.Stock;
+                                p.Flag = obePedidoFicDetalle.Flag;
+                                p.EliminadoTemporal = obePedidoFicDetalle.EliminadoTemporal;
+                            });
+                        break;
+                    case "D_S":
+                        olstTempListado.Where(p => p.PedidoDetalleID == obePedidoFicDetalle.PedidoDetalleID)
+                            .Update(p =>
+                            {
+                                p.EstadoItem = 3;
+                                p.EliminadoTemporal = true;
+                            });
+                        break;
+                }
+
+                olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
+                Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+
+                errorServer = false;
+            }
+            catch
+            {
+                if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                errorServer = true;
+            }
+
+            return olstTempListado;
+        }
+        private int CalcularTotalCliente(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, short pedidoDetalleId, string adm)
+        {
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            if (pedidoDetalleId == 0)
+            {
+                if (adm == "I" || adm == "I_S")
+                    temp.Add(itemPedido);
+                else
+                    temp.Where(p => p.PedidoDetalleID == itemPedido.PedidoDetalleID).Update(p => p.ClienteID = itemPedido.ClienteID);
+
+            }
+            else
+                temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+
+            return temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+        }
+
+        private decimal CalcularTotalImporte(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, short pedidoDetalleId, string adm)
+        {
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            if (pedidoDetalleId == 0)
+                temp.Add(itemPedido);
+            else
+                temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+            return temp.Sum(p => p.ImporteTotal) + (adm == "U" || adm == "U_S" ? itemPedido.ImporteTotal : 0);
+        }
+
+        private short ValidarInsercion(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, out int cantidad)
+        {
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            BEPedidoFICDetalle obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
+            cantidad = obe != null ? obe.Cantidad : 0;
+            return obe != null ? obe.PedidoDetalleID : (short)0;
+        }
+
+        private short ValidarInsercionSession(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, out int cantidad, out bool eliminacion, out short pedidoDetalleId)
+        {
+            List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
+            BEPedidoFICDetalle obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
+            cantidad = obe != null ? obe.Cantidad : 0;
+            if (obe != null)
+            {
+                eliminacion = obe.EliminadoTemporal;
+                pedidoDetalleId = obe.PedidoDetalleID;
+            }
+            else
+            {
+                pedidoDetalleId = (short)0;
+                eliminacion = false;
+            }
+
+            return obe != null ? obe.PedidoDetalleID : (short)0;
+        }
+
+        [HttpPost]
+        public JsonResult Insert(PedidoDetalleModel model)
+        {
+            userData.PedidoID = 0;
+            var olstPedidoFicDetal = ObtenerPedidoFICDetalle();
+            if (olstPedidoFicDetal.Count != 0)
+            {
+                userData.PedidoID = olstPedidoFicDetal[0].PedidoID;
+                SetUserData(userData);
+            }
+
+            BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
+            {
+                IPUsuario = userData.IPUsuario,
+                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                ConsultoraID = userData.ConsultoraID,
+                PaisID = userData.PaisID,
+                TipoOfertaSisID = model.TipoOfertaSisID,
+                ConfiguracionOfertaID = model.ConfiguracionOfertaID,
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                PedidoID = userData.PedidoID,
+                OfertaWeb = false,
+                IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo)
+            };
+
+            if (model.Tipo != 2)
+            {
+                obePedidoFicDetalle.MarcaID = model.MarcaID;
+                obePedidoFicDetalle.Cantidad = Convert.ToInt32(model.Cantidad);
+                obePedidoFicDetalle.PrecioUnidad = model.PrecioUnidad;
+                obePedidoFicDetalle.CUV = model.CUV;
+            }
+            else
+            {
+                obePedidoFicDetalle.MarcaID = model.MarcaIDComplemento;
+                obePedidoFicDetalle.Cantidad = 1;
+                obePedidoFicDetalle.PrecioUnidad = model.PrecioUnidadComplemento;
+                obePedidoFicDetalle.CUV = model.CUVComplemento;
+            }
+            obePedidoFicDetalle.DescripcionProd = model.DescripcionProd;
+            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+            obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+
+            bool errorServer;
+            AdministradorPedido(obePedidoFicDetalle, "I", false, out errorServer);
+            if (errorServer)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un error al intentar insertar el producto"
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new
+            {
+                success = true,
+                message = "El producto se insertó exitosamente."
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Update(PedidoFICDetalleModel model)
+        {
+            BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = model.CampaniaID,
+                PedidoID = model.PedidoID,
+                PedidoDetalleID = model.PedidoDetalleID,
+                Cantidad = Convert.ToInt32(model.Cantidad),
+                PrecioUnidad = model.PrecioUnidad,
+                ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID),
+                CUV = model.CUV,
+                TipoOfertaSisID = model.TipoOfertaSisID,
+                Stock = model.Stock,
+                Flag = model.Flag,
+                DescripcionProd = model.DescripcionProd
+            };
+
+            obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
+            obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
+            bool errorServer;
+            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", false, out errorServer);
+
+            decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+            string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+
+            string totalCliente = "";
+            if (model.ClienteID_ != "-1")
+            {
+                olstPedidoWebDetalle = (from item in olstPedidoWebDetalle
+                                        where item.ClienteID == Convert.ToInt16(model.ClienteID_)
+                                        select item).ToList();
+                var tCliente = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                totalCliente = Util.DecimalToStringFormat(tCliente, userData.CodigoISO);
+            }
+
+            var message = errorServer ? "Hubo un problema al intentar actualizar el registro. Por favor inténtelo nuevamente." : "El registro ha sido actualizado de manera exitosa.";
+
+            return Json(new
+            {
+                success = !errorServer,
+                Total = total,
+                FormatoTotal = formatoTotal,
+                TotalCliente = totalCliente,
+                ClienteID_ = model.ClienteID_,
+                Simbolo = userData.Simbolo,
+                message = message,
+                extra = ""
+            });
+        }
+
 
         #endregion
 

@@ -118,6 +118,7 @@ $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
+        
         window.location.href = baseUrl + "Mobile/PedidoFIC/Detalle";
     });
 
@@ -257,15 +258,19 @@ $(document).ready(function () {
         $("#txtCodigoProducto").val(CuvEnSession);
         $("#txtCodigoProducto").keyup();
     }
-
+    
     CargarDialogMesajePostulantePedido();
 
     CargarDetallePedido();
+
+
 });
 
 var ClienteDetalleOK = null;
 
+
 function CargarDetallePedido(page, rows) {
+    
     var clienteId = $("#ddlClientes").val() || -1;
     var obj = {
         sidx: "",
@@ -277,7 +282,7 @@ function CargarDetallePedido(page, rows) {
 
     $.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/CargarDetallePedido',
+        url: baseUrl + 'PedidoFIC/CargarDetallePedido',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
@@ -293,7 +298,10 @@ function CargarDetallePedido(page, rows) {
     });
 }
 
+
+
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
+    
     if (formatoTotal != undefined) { }
 
     if (total != undefined)
