@@ -11,6 +11,8 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -41,12 +43,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpGet]
-        public async Task<JsonResult> Obtener(string codigoCampana)
+        public async Task<JsonResult> Obtener(string codigoCampana, bool incluirRegalos = false)
         {
             if (string.IsNullOrEmpty(codigoCampana))
                 codigoCampana = null;
 
-            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana);
+            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana, incluirRegalos);
 
             upsellings.Update(upSelling =>
             {
@@ -55,6 +57,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 upSelling.ImagenFondoGanasteMobile = MakeFullUrlS3(upSelling.ImagenFondoGanasteMobile);
                 SetFullUrlImage(upSelling.Regalos);
             });
+
 
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
         }
@@ -257,5 +260,41 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return model;
         }
+
+        [HttpPost]
+        public async Task<ActionResult> InsertarRegalo(RegaloOfertaFinalModel model)
+        {
+            try
+            {
+                var montoPedidoFinal = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+                if (montoPedidoFinal >= model.MontoMeta)
+                {
+                    model.CampaniaId = userData.CampaniaID;
+                    model.ConsultoraId = userData.ConsultoraID;
+                    model.MontoPedidoFinal = montoPedidoFinal;
+
+                    var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
+                    return Json(new {
+                        success = true,
+                        code = ok,
+                        JsonRequestBehavior.AllowGet
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se puede guardar el regalo"
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
     }
 }

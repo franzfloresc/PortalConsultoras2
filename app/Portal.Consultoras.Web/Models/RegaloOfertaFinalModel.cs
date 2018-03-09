@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
@@ -12,17 +9,17 @@ namespace Portal.Consultoras.Web.Models
 
         public int CampaniaId { get; set; }
 
-        public int ConsultoraId { get; set; }
+        public long ConsultoraId { get; set; }
 
-        public double MontoPedido { get; set; }
+        public decimal MontoPedido { get; set; }
 
-        public double GapMinimo { get; set; }
+        public decimal GapMinimo { get; set; }
 
-        public double GapMaximo { get; set; }
+        public decimal GapMaximo { get; set; }
 
-        public double GapAgregar { get; set; }
+        public decimal GapAgregar { get; set; }
 
-        public double MontoMeta { get; set; }
+        public decimal MontoMeta { get; set; }
 
         public string Cuv { get; set; }
 
@@ -34,19 +31,23 @@ namespace Portal.Consultoras.Web.Models
    
         public string RegaloImagenUrl { get; set; }
 
+        public decimal MontoPedidoFinal { get; set; }
+
         public string FormatoMontoPedido
         {
             get
             {
-                return Util.DecimalToStringFormat(Convert.ToDecimal(MontoPedido), CodigoISO);
+                return Util.DecimalToStringFormat(MontoPedido, CodigoISO);
             }
         }
 
-        public string FormatoMontoMeta
+        public string FormatoMontoMeta { get; set; }
+
+        public string FormatoMontoPedidoFinal
         {
             get
             {
-                return Util.DecimalToStringFormat(Convert.ToDecimal(MontoMeta), CodigoISO);
+                return Util.DecimalToStringFormat(MontoPedidoFinal, CodigoISO);
             }
         }
     }
