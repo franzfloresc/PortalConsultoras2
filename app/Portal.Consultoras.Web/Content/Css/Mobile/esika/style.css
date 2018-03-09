@@ -14512,6 +14512,10 @@ a {
 
 /* HD-912 - PEDIDO FIC MOBILE */
 
+.mb-0{
+    margin-bottom:0!important;
+}
+
 .pt-22{
     padding-top:22px;
 }
@@ -14539,7 +14543,7 @@ a {
 
 .bloque_info_pedido_fic {
     display: block;
-    margin-bottom: 44px;
+    margin-bottom: 32px;
 }
 
 .enlace_ingresa_tu_pedido_fic,
