@@ -1138,32 +1138,6 @@
     top: 35%;
 }
 
-.ol_detalle {
-    margin: 0 0 1.5em;
-    padding: 0;
-    counter-reset: item;
-    width: 100% !important;
-}
-
-    .ol_detalle > li {
-        margin: 0;
-        padding: 0 0 0 2em;
-        text-indent: -2em;
-        list-style-type: none;
-        counter-increment: item;
-        display: inline-block;
-        width: 100% !important;
-    }
-
-        .ol_detalle > li:before {
-            display: inline-block;
-            width: 1.5em;
-            padding-right: .5em;
-            font-weight: bold;
-            text-align: right;
-            content: counter(item) '.';
-        }
-
 /*TRANSITIONS*/
 @keyframes bounceLeft {
     0%, 20%, 60%, 100% {
@@ -1820,36 +1794,6 @@
 }
 
 /* nuevo landing de revista 6.11.2017 */
-
-.back-to {
-    background: black;
-    color: white;
-    padding: 13.5px 20px;
-    font-size: 11px;
-    letter-spacing: 1px;
-}
-
-    .back-to img {
-        margin-right: 10px;
-    }
-
-.video-visual {
-    max-width: 100%;
-    height: 400px;
-    overflow: hidden;
-    background: #2e2e2e;
-}
-
-    .video-visual iframe {
-        width: 100%;
-        height: 400px;
-    }
-
-
-
-.bloque-suscripcion {
-}
-
 .contenedor-suscripcion {
     max-width: 1024px;
     margin: auto;

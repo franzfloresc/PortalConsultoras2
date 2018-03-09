@@ -12,11 +12,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
-{
-    /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */
-}
-else
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
 {
     <div class="video-visual">
         <div class="video-container">

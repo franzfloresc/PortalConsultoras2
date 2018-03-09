@@ -131,6 +131,32 @@
         max-width: 100%;
     }
 
+.ol_detalle {
+    margin: 0 0 1.5em;
+    padding: 0;
+    counter-reset: item;
+    width: 100% !important;
+}
+
+    .ol_detalle > li {
+        margin: 0;
+        padding: 0 0 0 2em;
+        text-indent: -2em;
+        list-style-type: none;
+        counter-increment: item;
+        display: inline-block;
+        width: 100% !important;
+    }
+
+        .ol_detalle > li:before {
+            display: inline-block;
+            width: 1.5em;
+            padding-right: .5em;
+            font-weight: bold;
+            text-align: right;
+            content: counter(item) '.';
+        }
+
 @media (max-width: 1189px) {
     .revista_ficha {
         background-position: -375px 0 !important;
