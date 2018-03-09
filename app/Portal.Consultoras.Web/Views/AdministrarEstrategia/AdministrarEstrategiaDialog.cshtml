@@ -98,7 +98,7 @@
             </div>
             <div class="titG">
                 <div class="pdr_modal borde_redondeado alignrigth">
-                    <img name="picture-normal" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
+                    <img name="picture-normal" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" style="font-size:9px !important;" data-id="">
                 </div>
             </div>
 
@@ -106,7 +106,7 @@
                 <div class="titG">Imagen Miniatura:</div>
                 <div class="titG3">
                     <div class="pdr_modal borde_redondeado alignrigth">
-                        <img name="picture-mini" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgMiniSeleccionada" class="img-matriz-preview" data-id="">
+                        <img name="picture-mini" src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgMiniSeleccionada" class="img-matriz-preview" style="font-size:9px !important;" data-id="">
                     </div>
                 </div>
                 <div class="titC" style="padding: 0; width: 180px; padding-right: 20px;">
@@ -378,7 +378,7 @@
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
         <div id='contenedor' class="pdr_modal borde_redondeado aligncenter">
-            <img name="picture-{{@@index}}" id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
+            <img name="picture-{{@@index}}" id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview" style="font-size:9px !important;">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
