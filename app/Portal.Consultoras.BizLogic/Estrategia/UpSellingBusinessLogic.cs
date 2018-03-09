@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
                 var upSellingsByCampana = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
                 if (upSellingsByCampana.Count(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId) > 0)
-                    throw new ArgumentException("Ya existe UpSelling para la Campaña " + upSelling.CodigoCampana);
+                    throw new ArgumentException("Esta campaña ya cuenta con Upselling asociado");
 
                 upSellingOriginal.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
 
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 var upSellings = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
                 if (upSellings != null && upSellings.Any())
-                    throw new ArgumentException("Ya existe UpSelling para la Campaña  " + upSelling.CodigoCampana);
+                    throw new ArgumentException("Esta campaña ya cuenta con Upselling asociado");
 
                 var entidad = _upSellingDataAccess.Insertar(upSelling);
                 if (upSelling.Regalos != null)
