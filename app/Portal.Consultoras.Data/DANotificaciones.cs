@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        
+
         public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesSinLeer");
@@ -55,14 +55,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen);
             Context.ExecuteNonQuery(command);
         }
-        
+
         public void UpdNotificacionSolicitudClienteVisualizacion(long SolicitudClienteId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdNotificacionSolicitudClienteVisualizacion");
             Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, SolicitudClienteId);
             Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader GetValidacionStockProductos(long ConsultoraId, long ValAutomaticaPROLLogId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetValidacionStockProductos");

@@ -656,7 +656,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }
-        
+
         #endregion
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal()

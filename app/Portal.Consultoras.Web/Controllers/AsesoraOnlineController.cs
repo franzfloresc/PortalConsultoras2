@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
         private static string _isoPais;
         private static string _codigoConsultora;
         private static string _origen;
+
         public ActionResult Index(string param)
         {
             try

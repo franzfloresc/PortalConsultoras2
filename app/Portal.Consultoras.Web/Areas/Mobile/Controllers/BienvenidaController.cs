@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (userData.RolID != Constantes.Rol.Consultora)
                     return RedirectToAction("Index", "Bienvenida", new { area = "" });
-                    
+
                 model.RevistaDigital = revistaDigital;
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
 
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = GetBucketNameFromConfig();
-                ViewBag.NombreConsultora = model.NombreConsultora;                
+                ViewBag.NombreConsultora = model.NombreConsultora;
 
                 model.PartialSectionBpt = GetPartialSectionBptModel();
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     success = true,
                     message = string.Empty,
-                    extra = oComunicados
+                    data = oComunicados
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)

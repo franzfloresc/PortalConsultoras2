@@ -47,6 +47,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -95,9 +97,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -153,6 +155,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -201,9 +205,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -259,6 +263,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -307,9 +313,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -365,6 +371,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -413,9 +421,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -471,6 +479,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -519,9 +529,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -577,6 +587,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -625,9 +637,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -683,6 +695,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -731,9 +745,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -789,6 +803,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -837,9 +853,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -895,6 +911,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -943,9 +961,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -1001,6 +1019,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -1049,9 +1069,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -1107,6 +1127,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -1155,9 +1177,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -1213,6 +1235,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -1261,9 +1285,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END
@@ -1319,6 +1343,8 @@ SET NOCOUNT ON;
 
 		SELECT @codConsultoraDefault = Codigo FROM TablaLogicaDatos with(nolock) WHERE TablaLogicaDatosID = 10001
 	
+		
+		SELECT * FROM (
 		SELECT distinct
 			EstrategiaID,
 			CUV2,
@@ -1367,9 +1393,9 @@ SET NOCOUNT ON;
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
+		) as TablaTem
 		ORDER BY
-			te.Orden ASC, CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC, E.EstrategiaID ASC
-
+			Orden1 ASC, CASE WHEN ISNULL(Orden2,0) = 0 THEN Orden1 ELSE Orden2 END ASC, EstrategiaID ASC
 
 SET NOCOUNT OFF
 END

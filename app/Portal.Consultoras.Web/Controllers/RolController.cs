@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = string.IsNullOrEmpty(vDescripcion) 
+                items = string.IsNullOrEmpty(vDescripcion)
                     ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize)
                     : items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 

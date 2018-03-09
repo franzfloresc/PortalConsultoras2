@@ -150,6 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         public JsonResult RealizarDescargaDDParcial(DescargarPedidoModel model)
         {
@@ -263,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
                     });
                 }
-                
+
                 return Json(new
                 {
                     success = true,
@@ -325,6 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
+
         public ActionResult ObtenerUltimaDescargaPedido()
         {
             if (ModelState.IsValid)
@@ -363,6 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult DeshacerUltimaDescargaPedidos()
         {
             using (PedidoServiceClient sv = new PedidoServiceClient())

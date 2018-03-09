@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     HttpPostedFileBase postedFile = Request.Files[0];
                     if (postedFile == null)
-                        return Json(new {success = false, message = ""}, "text/html");
+                        return Json(new { success = false, message = "" }, "text/html");
 
                     var fileName = Path.GetFileName(postedFile.FileName) ?? "";
                     var path = Path.Combine(Globals.RutaImagenesTemp, fileName);
@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Directory.CreateDirectory(Globals.RutaImagenesTemp);
 
                 return Json(new { success = true, name = Path.GetFileName(path2) }, "text/html");
-                
+
             }
             catch (Exception ex)
             {
@@ -62,9 +62,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 HttpPostedFileBase postedFile = Request.Files[0];
-                if (postedFile == null )
+                if (postedFile == null)
                     return Json(new { success = false, message = "" }, "text/html");
-                
+
                 var fileName = Path.GetFileName(postedFile.FileName) ?? "";
                 var path = Path.Combine(Globals.RutaImagenesTempOfertas, fileName);
                 if (!System.IO.File.Exists(Globals.RutaImagenesTempOfertas))

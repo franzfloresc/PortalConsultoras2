@@ -355,7 +355,7 @@ namespace Portal.Consultoras.BizLogic
             IList<BEGrupoBanner> grupos = SelectGrupoBanner(campaniaID);
             var bannersByConsultora = new List<BEBannerInfo>();
             BEGrupoConsultora consultora = null;
-            
+
             foreach (BEBanner banner in banners)
             {
                 if (banner.FlagConsultoraNueva)

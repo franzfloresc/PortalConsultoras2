@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetOfertaWebByCampania(CampaniaID, PedidoID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEOfertaWeb(reader) {PaisID = PaisID};
+                    var entidad = new BEOfertaWeb(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 

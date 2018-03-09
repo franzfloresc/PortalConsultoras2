@@ -63,6 +63,6 @@ namespace Portal.Consultoras.Web.Controllers
             ContenidoServiceClient sv = new ContenidoServiceClient();
             return sv.GetLiderCampaniaActual(paisId, consultoraId, codigoPais)[0];
         }
-        
+
     }
 }

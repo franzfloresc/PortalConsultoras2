@@ -23,12 +23,12 @@ namespace Portal.Consultoras.Web.Models
         public int Ancho { get; set; }
         public int Alto { get; set; }
         public int TipoContenido { get; set; }
-		public int TipoAccion { get; set; }
+        public int TipoAccion { get; set; }
         public int PaginaNueva { get; set; }
         public string TituloComentario { get; set; }
         public string TextoComentario { get; set; }
 
-		[RegularExpression("[0-9]{1,}", ErrorMessage = "Debe ingresar CUV valido.")]
+        [RegularExpression("[0-9]{1,}", ErrorMessage = "Debe ingresar CUV valido.")]
         [Required(ErrorMessage = "Debe ingresar CUV.")]
         public string CUV { get; set; }
         [RegularExpression("[0-9]{1,}", ErrorMessage = "Debe ingresar cantidad valida.")]
@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombreCorto { get; set; }
         public List<BECampania> DropDownListCampania { get; set; }
         public List<BETipoContenido> DropDownListTipoContenido { get; set; }
-		public List<BETipoAccion> DropDownListTipoAccion { get; set; }
+        public List<BETipoAccion> DropDownListTipoAccion { get; set; }
         public List<BEPaginaNueva> DropDownListPaginaNueva { get; set; }
 
         public string ImagenActualizar { get; set; }
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Models
         public int TipoContenido { get; set; }
         public string TipoContenidoNombre { get; set; }
     }
-   public class BETipoAccion
+    public class BETipoAccion
     {
         public int TipoAccion { get; set; }
         public string TipoAccionNombre { get; set; }

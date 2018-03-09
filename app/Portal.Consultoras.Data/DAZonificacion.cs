@@ -195,7 +195,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoTerritorio", DbType.String, codigoTerritorio);
             return Context.ExecuteReader(command);
         }
-        
+
         public IDataReader GetSegmentoBanner()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSegmento");

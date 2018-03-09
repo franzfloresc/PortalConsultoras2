@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion()
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital)
                 };
 
                 return View(modelo);
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion()
+                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital)
                 };
 
                 return View("Index", modelo);
