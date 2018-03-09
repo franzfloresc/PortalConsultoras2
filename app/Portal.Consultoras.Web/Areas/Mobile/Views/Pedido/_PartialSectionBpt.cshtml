@@ -22,7 +22,8 @@
                 <div class="zonadecolor dorado">
                     <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
                     <span>
-                        <b>Consultoras ya suscritas ¡Ganan hasta 10% más!</b>
+                        <p class="primero">Consultoras ya suscritas</p>
+                        <p class="segundo">¡Ganan hasta 10% más!</p>
                     </span>
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
                         VER MÁS OFERTAS
@@ -32,7 +33,9 @@
 
                 @if (revistaDigital.EsActiva)
                 {
-                    <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                    <div style="    top: -50px;
+    background: transparent;
+    position: relative;" id="divContenedorListaEstrategia">
                         <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
                              data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;">
                             <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>

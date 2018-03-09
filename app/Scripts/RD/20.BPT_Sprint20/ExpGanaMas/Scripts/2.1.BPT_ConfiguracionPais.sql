@@ -1,5 +1,11 @@
-﻿use BelcorpChile_bpt
-go
+﻿--use BelcorpChile_bpt
+--go
+
+--use BelcorpPeru_bpt
+--go
+
+--use BelcorpCostaRica_bpt
+--go
 
 print db_name()
 

@@ -3752,7 +3752,7 @@ namespace Portal.Consultoras.Web.Controllers
                         config.UrlMenu = "GuiaNegocio";
                         break;
                     case Constantes.ConfiguracionPais.HerramientasVenta:
-                        confiModel.UrlMenu = "#";
+                        confiModel.UrlMenu = "HerramientasVenta/Comprar";
                         break;
                 }
 

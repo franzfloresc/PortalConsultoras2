@@ -91,9 +91,9 @@
         background: url('../../../Images/Esika/consejos-y-tips-visual.png');
     }
 
-        .como-funciona .caja-img .visual-funcionamiento {
-            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
-        }
+.como-funciona .caja-img .visual-funcionamiento {
+    background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
+}
 
         .como-funciona .caja-club-derecha hr {
             background: #e81c36;

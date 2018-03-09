@@ -1217,10 +1217,21 @@
     <Content Include="Content\Banners\FolderContent.txt" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\Lanzamiento-Detalle.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\OfertaParaTi-Detalle.css" />
+    <Content Include="Content\Css\Mobile\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\Gnd-Flotante.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\Lanzamiento-Detalle.css" />
+    <Content Include="Content\Css\Site\RevistaDigital\PaginaInformativa.css" />
     <Content Include="Content\Css\Site\RevistaDigital\PopupSuscripcion.css" />
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
@@ -3877,7 +3888,6 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
@@ -4767,7 +4777,6 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
-    <Content Include="Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
