@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
+using Portal.Consultoras.Web.Models.Estrategia;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -438,6 +439,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
             Mapper.CreateMap<EstrategiaProductoModel, BEEstrategiaProducto>();
+
+            Mapper.CreateMap<UpSellingModel, UpSelling>()
+                .ForMember(t => t.Regalos, f => f.MapFrom(c => c.Regalos));
+
+            Mapper.CreateMap<UpSellingRegaloModel, UpSellingDetalle>()
+                .ForMember(t => t.UpSellingDetalleId, f => f.MapFrom(c => c.UpSellingRegaloId));
 
         }
     }

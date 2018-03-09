@@ -2629,7 +2629,7 @@ namespace Portal.Consultoras.Web.Controllers
                     paises = sv.SelectPaises().ToList();
                 }
 
-                paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
+                paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina || p.CodigoISO == Constantes.CodigosISOPais.Venezuela);
             }
             catch (Exception ex)
             {

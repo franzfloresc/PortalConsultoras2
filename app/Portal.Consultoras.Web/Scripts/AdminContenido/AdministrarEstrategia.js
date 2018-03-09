@@ -465,7 +465,7 @@
             $("#txtTextoLibre").val(data.TextoLibre);
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
-
+            $("#hdNiveles").val(data.Niveles);
             //var strZonas = $("#hdZonas").val();
             //if (strZonas != "") {
             //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -759,17 +759,15 @@
     }
     
     var _showActionsProductos = function (cellvalue, options, rowObject) {
-        if (rowObject[10] == "1") {
+ 
             var id = rowObject[0];
             var campaniaId = $("#ddlCampania").val();
             var cuv = rowObject[5];
 
-            var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
-            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "');\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
+            var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
+            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
 
-            return edit + remove;
-        }
-        return "";
+            return edit + remove;      
     }
     
     var _showActionsVer1 = function(cellvalue, options, rowObject) {
@@ -895,7 +893,7 @@
                             $("#txtPrecio2").val("");
                             $("#txtPrecio2").focus();
                         }
-
+                        $("#hdNiveles").val(data.niveles);
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
 
@@ -3572,7 +3570,7 @@
                     $("#seccionFormatoArchivoProductoShowroon").hide();
                 } else {
                     $("#seccionFormatoArchivoGeneral").show();
-                    $("#seccionFormatoArchivoShowroon").hide();
+                    $("#seccionFormatoArchivoSetShowroon").hide();
                     $("#seccionFormatoArchivoProductoShowroon").hide();
                 }
                 
@@ -4462,7 +4460,14 @@
         return false;
     }
     
-    function EditarProducto(ID, CampaniaID, CUV) {
+    function EditarProducto(ID, CampaniaID, CUV, event) {
+
+
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
         _limpiarDatosShowRoomDetalle();
 
         $("#txtPaisDetalle").val(_variables.paisNombre);
@@ -4477,10 +4482,16 @@
         showDialog("DialogRegistroOfertaShowRoomDetalle");
 
         _fnGrillaOfertaShowRoomDetalle(CampaniaID, CUV, ID);
+        return false;
     }
     
-    function EliminarProducto(EstrategiaID) {
-        var eliminar = confirm("¿ Está seguro que desea eliminar todos los productos del set ?");
+    function EliminarProducto(EstrategiaID, event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        var eliminar = confirm("¿ Está seguro que desea deshabilitar todos los productos del set ?");
         if (!eliminar)
             return false;
 
@@ -4509,6 +4520,8 @@
                     } else
                         alert(data.message);
                 }
+
+                return false;
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
@@ -4517,6 +4530,7 @@
                 }
             }
         });
+        return false;
     }
     
     function EditarProductoDetalle(ID, Imagen) {
@@ -4560,7 +4574,7 @@
     }
     
     function EliminarProductoDetalle(ID, EstrategiaID, CUV) {
-        var eliminar = confirm("¿ Está seguro que desea eliminar el producto ?");
+        var eliminar = confirm("¿ Está seguro que desea deshabilitar el producto ?");
         if (!eliminar)
             return false;
 

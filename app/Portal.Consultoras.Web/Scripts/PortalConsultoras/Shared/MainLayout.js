@@ -94,8 +94,10 @@ $(document).ready(function () {
                     var functionHide = $.trim($(this).attr("data-popup-function-hide"));
                     FuncionEjecutar(functionHide);
                     if ($(e.target).parents().find(".content_ficha_producto_nueva").length > 0) {
-                        document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
-                        dataLayerFichaProducto();
+                        if (document.getElementById('infusionsoft') != null) {
+                            document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                            dataLayerFichaProducto();
+                        }
                     }
                     CerrarPopup(e.target);
                 }

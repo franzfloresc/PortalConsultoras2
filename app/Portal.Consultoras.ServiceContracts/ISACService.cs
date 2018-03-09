@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -697,6 +698,42 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        #endregion
+
+        #region UpSelling
+        [OperationContract]
+        IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
+
+        [OperationContract]
+        UpSelling UpSellingInsertar(int paisId, UpSelling upSelling);
+
+        [OperationContract]
+        UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera);
+
+
+        [OperationContract]
+        void UpSellingEliminar(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene la lista de detalles del UpSelling
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene 1 detalle por su UpSellingDetalleId
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingDetalleId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
+
+        [OperationContract]
+        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
         #endregion
     }
 }

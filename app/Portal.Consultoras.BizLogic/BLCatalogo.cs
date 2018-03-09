@@ -202,6 +202,55 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaCodigoIssuu(string codigoZona, BECatalogoRevista catalogoRevista)
         {
+            string codigo                           = null;
+            bool esRevistaPiloto                    = false;
+            var Grupos                              = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
+            string codeGrupo                        = null;
+            string nroCampania                      = string.Empty;
+            string anioCampania                     = string.Empty;
+
+            if (catalogoRevista.MarcaID == 0)
+            {
+                if (!string.IsNullOrEmpty(Grupos))
+                {
+
+                    foreach (var grupo in Grupos.Split(','))
+                    {
+                        var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
+                        esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                        if (esRevistaPiloto)
+                        {
+                            codeGrupo = grupo.Trim().ToString();
+                            break;
+                        }
+                    }
+                }
+                else
+                    esRevistaPiloto = false;
+
+                codigo                              = ServiceSettings.Instance.CodigoRevistaIssuu;
+                if (catalogoRevista.CampaniaID.ToString().Length >= 6)
+                    nroCampania                     = catalogoRevista.CampaniaID.Substring(4, 2);
+                if (catalogoRevista.CampaniaID.ToString().Length >= 6)
+                    anioCampania                    = catalogoRevista.CampaniaID.Substring(0, 4);
+
+                if (esRevistaPiloto)
+                    catalogoRevista.CodigoIssuu     = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                else
+                {
+                    catalogoRevista.CodigoIssuu     = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, "");
+                    catalogoRevista.CodigoIssuu     = Util.Trim(catalogoRevista.CodigoIssuu.Substring(catalogoRevista.CodigoIssuu.Length - 1)) == "." ? catalogoRevista.CodigoIssuu.Substring(0, catalogoRevista.CodigoIssuu.Length - 1) : catalogoRevista.CodigoIssuu;
+                }
+            }
+            else
+            {
+                codigo                              = ServiceSettings.Instance.CodigoCatalogoIssuu;
+                catalogoRevista.CodigoIssuu         = string.Format(codigo, catalogoRevista.MarcaDescripcion.ToLower(), GetPaisNombreByISO(catalogoRevista.PaisISO), catalogoRevista.CampaniaID.Substring(4, 2), catalogoRevista.CampaniaID.Substring(0, 4));
+            }
+        }
+
+        private void SetCatalogoRevistaCodigoIssuu_Backup(string codigoZona, BECatalogoRevista catalogoRevista)
+        {
             string codigo;
             var nombreCatalogoConfig = catalogoRevista.MarcaDescripcion.ToUpper(1);
             string zonas = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Zonas_" + catalogoRevista.PaisISO + catalogoRevista.CampaniaID] ?? "";

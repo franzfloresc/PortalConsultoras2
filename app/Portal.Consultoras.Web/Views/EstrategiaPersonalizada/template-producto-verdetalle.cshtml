@@ -63,21 +63,20 @@
                                 <div style="clear:both;"></div>
                             </div>
                             {{/iff}}
-                            {{#iff PrecioNiveles '!=' ''}}
                             <div style="margin-top:-5px;">
-                                
                                 <span class="texto_precio_ficha">Precio para ti:</span>
                                 <div class="precios_para_ti">
-                                    {{#each lstPrecioNiveles as |item|}}
-                                        <p style="font-weight:normal;font-size:13px;">{{item}}</p>
-                                    {{/each}}
-                                </div> 
+                                    <p style="font-size:13px;">
+                                        {{#iff  PrecioNiveles '!=' ''}}1x{{/iff}} {{Simbolo}} {{PrecioVenta}}
+                                    </p>
+                                    {{#iff PrecioNiveles '!=' ''}}
+                                        {{#each lstPrecioNiveles as |item|}}
+                                        <p style="font-size:13px;">{{item}}</p>
+                                        {{/each}}
+                                    {{/iff}}
+                                </div>
                                 <div style="clear:both;"></div>
                             </div>
-                            {{/iff}}
-                            {{#iff PrecioNiveles '==' ''}}
-                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioVenta}}</div>
-                            {{/iff}}
                             {{#iff Ganancia '>' 0}}
                             <div style="color: #e81c36; letter-spacing: .5px; text-transform: uppercase;font-weight: 700;font-size: 16px;line-height: 17.6px;">
                                 Gana: {{Simbolo}} {{GananciaString}}
