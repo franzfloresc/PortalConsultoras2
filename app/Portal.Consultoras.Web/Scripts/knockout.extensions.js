@@ -113,7 +113,7 @@
 
     function uploadFile(element, observableProp, urlFileUpload) {
         new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
+            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
             element: element,
             action: urlFileUpload,
             onComplete: function (id, fileName, responseJSON) {
