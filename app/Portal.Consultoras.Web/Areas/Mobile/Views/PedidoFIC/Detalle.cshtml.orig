@@ -64,7 +64,11 @@
 </div>
 
 <div class="btn_guardarPedido">
+<<<<<<< HEAD
     <input type="submit" value="GUARDA TU PEDIDO" id="btnGuardarPedido" name="btnGuardarPedido" onclick="MensajeGuardar();" />
+=======
+    <input type="submit" value="Guarda tu pedido" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+>>>>>>> c9203c43b3d96cbee07db35c9e73e4db35cd7bd3
 </div>
 
 <!-- START Popup para Observaciones PROL -->
@@ -189,10 +193,78 @@
         <span id="lblTotalResumen">
             MONTO TOTAL :
         </span>
+<<<<<<< HEAD
+
+        @{
+            string cabezaEscala = null, pieEscala = null;
+            string lbl1Ganancia = null, lbl2Ganancia = null;
+
+            if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+            {
+                cabezaEscala = "Ganancia estimada total";
+                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                lbl1Ganancia = "Mis descuentos";
+                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+            }
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+            {
+                cabezaEscala = "Ganancia estimada total";
+                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                lbl1Ganancia = "Mis descuentos";
+                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+            }
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+            {
+                cabezaEscala = "Comisión y ahorro total";
+                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+            }
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+            {
+                cabezaEscala = "Oportunidad de ahorro total";
+                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                lbl1Ganancia = "Por tus compras de productos de catalogo";
+                lbl2Ganancia = "Por tus comprar de productos de revista";
+            }
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
+            {
+                cabezaEscala = "Ganancia total";
+                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                lbl1Ganancia = "Mis descuentos";
+                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+            }
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
+            {
+                cabezaEscala = "Oportunidad de ahorro total";
+                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                lbl1Ganancia = "Mis descuentos";
+                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+            }
+        }
+
+        <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+        <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+        <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+        <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+
+
     </div>
     <div class="montos_resumen">
         <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
         <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>     
+=======
+    </div>
+    <div class="montos_resumen">
+        <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
+        <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
+>>>>>>> c9203c43b3d96cbee07db35c9e73e4db35cd7bd3
     </div>
 
     <div class="detalle_pedido_ingresado">
@@ -389,15 +461,27 @@
     <div class="separador"></div>
     <div style="margin-left: -28px;">
         <div class="textos_resumen">
+<<<<<<< HEAD
             <span id="lblProductosResumen">HE AGREGADO :</span>
+            <span>
+                MONTO TOTAL :
+            </span>
+
+=======
+            <span style="margin-left:30px;">HE AGREGADO :</span>
             <span style="margin-left:30px;">
                 MONTO TOTAL :
             </span>
+>>>>>>> c9203c43b3d96cbee07db35c9e73e4db35cd7bd3
         </div>
 
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
+<<<<<<< HEAD
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>           
+=======
+            <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
+>>>>>>> c9203c43b3d96cbee07db35c9e73e4db35cd7bd3
         </div>
     </div>
 

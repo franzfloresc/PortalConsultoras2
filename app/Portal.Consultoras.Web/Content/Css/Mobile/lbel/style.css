@@ -14343,6 +14343,10 @@ span.icon-advertencia {
 
 /* HD-912 - PEDIDO FIC MOBILE */
 
+.mb-0{
+    margin-bottom:0!important;
+}
+
 .pt-22{
     padding-top:22px;
 }
@@ -14354,7 +14358,7 @@ span.icon-advertencia {
     line-height:21.5px;
     text-align: center;
     font-weight: bold;
-    margin: 14px auto 0;
+    margin: 14px auto 10px;
     padding-left: 12px;
     background-image: url('../../../Images/mobile/Lbel/indicador_pedido.png');
     background-repeat: no-repeat;
@@ -14370,7 +14374,7 @@ span.icon-advertencia {
 
 .bloque_info_pedido_fic {
     display: block;
-    margin-bottom: 44px;
+    margin-bottom: 32px;
 }
 
 .enlace_ingresa_tu_pedido_fic,
