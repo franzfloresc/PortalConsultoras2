@@ -6,11 +6,11 @@ namespace Portal.Consultoras.Entities.Producto
     public class BEProductoFiltro
     {
         [DataMember]
-        public int paisID { get; set; }
+        public int PaisID { get; set; }
         [DataMember]
-        public int campaniaID { get; set; }
+        public int CampaniaID { get; set; }
         [DataMember]
-        public string codigoDescripcion { get; set; }
+        public string CodigoDescripcion { get; set; }
         [DataMember]
         public int RegionID { get; set; }
         [DataMember]
@@ -20,10 +20,15 @@ namespace Portal.Consultoras.Entities.Producto
         [DataMember]
         public string CodigoZona { get; set; }
         [DataMember]
-        public int criterio { get; set; }
+        public int Criterio { get; set; }
         [DataMember]
-        public int rowCount { get; set; }
+        public int RowCount { get; set; }
         [DataMember]
-        public bool validarOpt { get; set; }
+        public bool ValidarOpt { get; set; }
+
+        [DataMember]
+        public bool EsShowRoom { get; set; }
+        [DataMember]
+        public BERevistaDigital RevistaDigital { get; set; }
     }
 }

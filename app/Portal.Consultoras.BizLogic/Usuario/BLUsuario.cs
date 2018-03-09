@@ -430,16 +430,17 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var terminosCondicionesTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
-            var politicaPrivacidadTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
+            var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
+            var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
             var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
-            var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
-            var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
-            var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
-            var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
-            var incentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
-            var revistaDigitalSuscripcionTask = Task.Run(() => this.GetRevistaDigitalSuscripcion(usuario));
-            var cuponTask = Task.Run(() => this.GetCupon(usuario));
+            var gprBannerTask = Task.Run(() => GetGPRBanner(usuario));
+            var usuarioConsultoraTask = Task.Run(() => GetUsuarioConsultora(usuario));
+            var consultoraAniversarioTask = Task.Run(() => GetConsultoraAniversario(usuario));
+            var consultoraCumpleanioTask = Task.Run(() => GetConsultoraCumpleanio(usuario));
+            var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
+            var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
+            var cuponTask = Task.Run(() => GetCupon(usuario));
+            var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -451,7 +452,8 @@ namespace Portal.Consultoras.BizLogic
                             consultoraCumpleanioTask,
                             incentivosConcursosTask,
                             revistaDigitalSuscripcionTask,
-                            cuponTask);
+                            cuponTask,
+                            configuracionPaisTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -484,6 +486,8 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
             usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
             usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
+
+            usuario = configuracionPaisTask.Result;
 
             return usuario;
         }
@@ -2144,7 +2148,7 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region UserData
-        private void ConfiguracionPaisUsuario(BEUsuario usuarioModel)
+        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuarioModel)
         {
             var revistaDigitalModel = new BERevistaDigital { NoVolverMostrar = true };
 
@@ -2192,7 +2196,16 @@ namespace Portal.Consultoras.BizLogic
                             break;
                     }
                 }
+
+                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
+                revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
+                revistaDigitalModel.CampaniaMasUno = Common.Util.AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
+                revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
+
+                usuarioModel.RevistaDigital = revistaDigitalModel;
             }
+
+            return usuarioModel;
         }
 
         private List<BEConfiguracionPais> GetConfiguracionPais(BEUsuario usuario)
@@ -2219,7 +2232,7 @@ namespace Portal.Consultoras.BizLogic
             return new List<BEConfiguracionPais>();
         }
 
-        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEUsuario usuario)
+        private List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEUsuario usuario)
         {
             try
             {
@@ -2356,7 +2369,7 @@ namespace Portal.Consultoras.BizLogic
             return revistaDigitalModel;
         }
 
-        public BERevistaDigital ConfiguracionPaisRevistaDigital(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
+        private BERevistaDigital ConfiguracionPaisRevistaDigital(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
@@ -2455,7 +2468,7 @@ namespace Portal.Consultoras.BizLogic
             return revistaDigitalModel;
         }
 
-        protected void ActualizarSubscripciones(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
+        private void ActualizarSubscripciones(BERevistaDigital revistaDigitalModel, BEUsuario usuarioModel)
         {
             var rds = new BERevistaDigitalSuscripcion
             {
@@ -2477,7 +2490,7 @@ namespace Portal.Consultoras.BizLogic
             return revistaDigital.EsActiva ? "No Inscrita Activa" : "No Inscrita No Activa";
         }
 
-        public BERevistaDigital FormatTextConfiguracionPaisDatosModel(BERevistaDigital revistaDigital,
+        private BERevistaDigital FormatTextConfiguracionPaisDatosModel(BERevistaDigital revistaDigital,
                     string nombreConsultora)
         {
             if (revistaDigital == null)
@@ -2506,7 +2519,7 @@ namespace Portal.Consultoras.BizLogic
                 .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
         }
 
-        public BERevistaDigital ConfiguracionPaisDatosRevistaDigitalReducida(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalReducida(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
@@ -2553,7 +2566,7 @@ namespace Portal.Consultoras.BizLogic
             return revistaDigitalModel;
         }
 
-        public virtual BERevistaDigital ConfiguracionPaisDatosRevistaDigitalIntriga(BERevistaDigital revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        private BERevistaDigital ConfiguracionPaisDatosRevistaDigitalIntriga(BERevistaDigital revistaDigital, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
