@@ -30,31 +30,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -92,31 +92,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -154,31 +154,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -216,31 +216,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -278,31 +278,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -340,31 +340,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -402,31 +402,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -464,31 +464,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -526,31 +526,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -588,31 +588,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -650,31 +650,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -712,31 +712,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end
@@ -774,31 +774,31 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje1', 'UN NUEVO ESPACIO CON OFERTAS', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensaje2', 'HECHAS A TU MEDIDA', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupMensajeColor', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenEtiqueta', 'ClubGanaMas-etiqueta-dorado.png', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupImagenPublicidad', 'ClubGanaMas-Popup.gif', @Comp)
 
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorFondo', '#C39934', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonColorTexto', '#FFF', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupBotonTexto', 'CONOCE EL CLUB', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColor', 'transparent', @Comp)
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1)
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Componente)
 	values (@ConfiguracionPaisID, @estado, @Campania, 'PopupFondoColorMarco', 'C39934', @Comp)
 
 end

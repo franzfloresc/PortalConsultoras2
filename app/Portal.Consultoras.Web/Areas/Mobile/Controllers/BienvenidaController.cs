@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     success = true,
                     message = string.Empty,
-                    extra = oComunicados
+                    data = oComunicados
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)

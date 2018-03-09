@@ -2149,6 +2149,48 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetRevistaCodigoIssuu(string campania)
         {
+            string codigo                       = null;
+            string requestUrl                   = null;
+            bool esRevistaPiloto                = false;
+            var Grupos                          = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + userData.CodigoISO + campania);
+            string codeGrupo                    = null;
+            string nroCampania                  = string.Empty;
+            string anioCampania                 = string.Empty;
+
+            if (!string.IsNullOrEmpty(Grupos))
+            {
+                foreach (var grupo in Grupos.Split(','))
+                {
+                    var zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania + "_" + grupo);
+                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+                    if (esRevistaPiloto)
+                    {
+                        codeGrupo = grupo.Trim().ToString();
+                        break;
+                    }
+                }
+            }
+            else
+                esRevistaPiloto = false;
+
+            codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
+            if (campania.Length >= 6)
+                nroCampania                     = campania.Substring(4, 2);
+            if (campania.Length >= 6)
+                anioCampania                    = campania.Substring(0, 4);
+
+            if (esRevistaPiloto)
+                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+            else
+            {
+                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
+                requestUrl                      = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+            }
+            return requestUrl;
+        }
+
+        protected string GetRevistaCodigoIssuu_Backup(string campania)
+        {
             string codigo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;

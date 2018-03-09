@@ -23,7 +23,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -63,7 +62,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -103,7 +101,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -143,7 +140,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -183,7 +179,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -223,7 +218,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -263,7 +257,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -303,7 +296,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -343,7 +335,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -383,7 +374,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -423,7 +413,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -463,7 +452,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD
@@ -503,7 +491,6 @@ BEGIN
 	WHERE ConfiguracionPaisID = @HerramientasVentaId 
 	AND  Codigo = 'MPopupBloqueado'
 END
-GO
 
 IF EXISTS(	SELECT 1 
 			FROM ConfiguracionPaisDatos CPD

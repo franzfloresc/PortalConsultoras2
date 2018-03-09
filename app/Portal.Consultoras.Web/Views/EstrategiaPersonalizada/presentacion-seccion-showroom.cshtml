@@ -108,6 +108,7 @@ if (mostrarPopupIntriga)
                                             <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
                                             <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                                         </div>
+                                        {{#iff TipoAccionAgregar '==' '0'}}
                                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -119,6 +120,12 @@ if (mostrarPopupIntriga)
                                             </div>
                                         </div>
                                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                                        {{/iff}}
+                                        {{#iff TipoAccionAgregar '==' '1'}}
+                                        <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                                            <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                                        </a>
+                                        {{/iff}}
                                         <div class="clear"></div>
                                         <div style="margin-top: 9px; margin-bottom: 9px; height: 15px;">
                                             <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
