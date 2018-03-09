@@ -615,6 +615,11 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.regaloActualizar = function () {
+            
+            //selfvm.upSellingSeleccionado().Regalos.sort(function (a,b) {
+            //    return a.Orden - b.Orden
+            //});
+
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
