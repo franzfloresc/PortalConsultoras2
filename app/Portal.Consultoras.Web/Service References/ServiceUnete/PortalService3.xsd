@@ -758,28 +758,29 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="lista" nillable="true" type="q56:ArrayOfResumenDiasEsperaBE" />
+        <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
+        <xs:element minOccurs="0" name="DiasEspera" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerReporteDiasEsperaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerReporteDiasEsperaResult" nillable="true" type="q57:ResumenDiasEsperaCollection" />
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerReporteDiasEsperaResult" nillable="true" type="q56:ResumenDiasEsperaCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarSolicitudesPostulanteV2">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q58:GestionaPostulanteModelSAC" />
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q57:GestionaPostulanteModelSAC" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarSolicitudesPostulanteV2Response">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="ConsultarSolicitudesPostulanteV2Result" nillable="true" type="q59:paginacionGrid" />
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="ConsultarSolicitudesPostulanteV2Result" nillable="true" type="q58:paginacionGrid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -803,7 +804,7 @@
   <xs:element name="ObtenerReporteGestionPostulanteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerReporteGestionPostulanteResult" nillable="true" type="q60:ArrayOfSolicitudPostulanteBE" />
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerReporteGestionPostulanteResult" nillable="true" type="q59:ArrayOfSolicitudPostulanteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -815,7 +816,7 @@
   <xs:element name="GetDictionaryReporteFuenteIngresoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q61="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteFuenteIngresoResult" nillable="true" type="q61:ArrayOfKeyValueOfstringstring" />
+        <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteFuenteIngresoResult" nillable="true" type="q60:ArrayOfKeyValueOfstringstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -830,7 +831,7 @@
   <xs:element name="GetDictionaryReporteGestionPostulantesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteGestionPostulantesResult" nillable="true" type="q62:ArrayOfKeyValueOfstringstring" />
+        <xs:element xmlns:q61="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteGestionPostulantesResult" nillable="true" type="q61:ArrayOfKeyValueOfstringstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -842,7 +843,7 @@
   <xs:element name="GetDictionaryReporteConsolidadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteConsolidadoResult" nillable="true" type="q63:ArrayOfKeyValueOfstringstring" />
+        <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteConsolidadoResult" nillable="true" type="q62:ArrayOfKeyValueOfstringstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -854,63 +855,63 @@
   <xs:element name="GetDictionaryReporteFunnelResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q64="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteFunnelResult" nillable="true" type="q64:ArrayOfKeyValueOfstringstring" />
+        <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetDictionaryReporteFunnelResult" nillable="true" type="q63:ArrayOfKeyValueOfstringstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerReporteConsolidadoFiltro">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q65:ReporteConsolidadoModelSAC" />
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q64:ReporteConsolidadoModelSAC" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ObtenerReporteConsolidadoFiltroResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerReporteConsolidadoFiltroResult" nillable="true" type="q66:ArrayOfReporteConsolidadoBE" />
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerReporteConsolidadoFiltroResult" nillable="true" type="q65:ArrayOfReporteConsolidadoBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarReporteConsolidado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q67:ReporteConsolidadoModelSAC" />
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q66:ReporteConsolidadoModelSAC" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarReporteConsolidadoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarReporteConsolidadoResult" nillable="true" type="q68:ReporteConsolidadoPag" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarReporteConsolidadoResult" nillable="true" type="q67:ReporteConsolidadoPag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarNivelesGeograficos">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q69:NivelesGeograficosModelSAC" />
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q68:NivelesGeograficosModelSAC" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarNivelesGeograficosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarNivelesGeograficosResult" nillable="true" type="q70:ReporteConsolidadoPag" />
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarNivelesGeograficosResult" nillable="true" type="q69:ReporteConsolidadoPag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarNivelesRiesgo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q71:NivelesRiesgoModelSAC" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" minOccurs="0" name="model" nillable="true" type="q70:NivelesRiesgoModelSAC" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarNivelesRiesgoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarNivelesRiesgoResult" nillable="true" type="q72:ReporteConsolidadoPag" />
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarNivelesRiesgoResult" nillable="true" type="q71:ReporteConsolidadoPag" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -926,36 +927,7 @@
   <xs:element name="GetReporteFunnelResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="GetReporteFunnelResult" nillable="true" type="q73:ArrayOfReporteFunnel" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetRoles">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetRolesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="GetRolesResult" nillable="true" type="q74:ArrayOfRolLog" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetUsuariosPorRol">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="RolId" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetUsuariosPorRolResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="GetUsuariosPorRolResult" nillable="true" type="q75:ArrayOfUsuarioRolLog" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="GetReporteFunnelResult" nillable="true" type="q72:ArrayOfReporteFunnel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -963,14 +935,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="entidad" nillable="true" type="q76:CodigoVerificacionSolicitudPostulanteBE" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="entidad" nillable="true" type="q73:CodigoVerificacionSolicitudPostulanteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="EnviarCodigoVerificacionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="EnviarCodigoVerificacionResult" nillable="true" type="q77:CodigoVerificacionSolicitudPostulanteBE" />
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="EnviarCodigoVerificacionResult" nillable="true" type="q74:CodigoVerificacionSolicitudPostulanteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -978,7 +950,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q78:CodigoVerificacionSolicitudPostulanteBE" />
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q75:CodigoVerificacionSolicitudPostulanteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1000,7 +972,7 @@
   <xs:element name="ObtenerListaAutocompletarUbigeoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaAutocompletarUbigeoResult" nillable="true" type="q79:ParametroUneteCollection" />
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaAutocompletarUbigeoResult" nillable="true" type="q76:ParametroUneteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

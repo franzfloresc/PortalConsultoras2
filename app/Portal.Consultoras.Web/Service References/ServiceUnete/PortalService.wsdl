@@ -379,18 +379,6 @@
   <wsdl:message name="IPortalService_GetReporteFunnel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteFunnelResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_GetRoles_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetRoles" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetRoles_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetRolesResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetUsuariosPorRol_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUsuariosPorRol" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_GetUsuariosPorRol_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUsuariosPorRolResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_EnviarCodigoVerificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacion" />
   </wsdl:message>
@@ -653,14 +641,6 @@
     <wsdl:operation name="GetReporteFunnel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnel" message="tns:IPortalService_GetReporteFunnel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnelResponse" message="tns:IPortalService_GetReporteFunnel_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetRoles">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetRoles" message="tns:IPortalService_GetRoles_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetRolesResponse" message="tns:IPortalService_GetRoles_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuariosPorRol">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRol" message="tns:IPortalService_GetUsuariosPorRol_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetUsuariosPorRolResponse" message="tns:IPortalService_GetUsuariosPorRol_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarCodigoVerificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
@@ -1219,24 +1199,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetReporteFunnel">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetReporteFunnel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetRoles">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/GetRoles" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUsuariosPorRol">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/GetUsuariosPorRol" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
