@@ -1836,8 +1836,11 @@ namespace Portal.Consultoras.Common
             public const string Promocion0 = "Promocion0";
             public const string Promocion = "Promocion";
             public const string Reemplazo = "Reemplazo";
+            public const string ReemplazoPack = "ReemplazoPack";
             public const string SinStock0 = "SinStock0";
             public const string SinStock = "SinStock";
+            public const string SinStock0Pack = "SinStock0Pack";
+            public const string SinStockPack = "SinStockPack";
         }
     }
 }

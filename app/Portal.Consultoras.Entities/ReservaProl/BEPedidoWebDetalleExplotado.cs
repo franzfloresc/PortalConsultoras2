@@ -1,6 +1,6 @@
 ﻿namespace Portal.Consultoras.Entities.ReservaProl
 {
-    public class DEPedidoWebDetalleExplotado
+    public class BEPedidoWebDetalleExplotado
     {
         public int CampaniaID { get; set; }
         public int PedidoID { get; set; }
@@ -42,5 +42,7 @@
         public int UnidadesDemandadas { get; set; }
         public int UnidadesPorAtender { get; set; }
         public string ValCodiOrig { get; set; }
+        public decimal OportunidadAhorro { get; set; }
+        public int UnidadesReservadasSap { get; set; }
     }
 }
