@@ -308,14 +308,17 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
                 centerMode: false,
                 centerPadding: '0',
                 tipo: 'p',
-                prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-                nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+                prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: auto;"><hr class="draw_line color_white line_1_left"><hr class="draw_line color_white line_2_left"></a>',
+                nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: auto;"><hr class="draw_line color_white line_1_right"><hr class="draw_line color_white line_2_right"></a>'
             }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                 $('#of-regalo-actual').text(nextSlide + 1);
             });
 
             $('#divCarruselRegaloMobile').prepend($(".js-slick-prev-" + aux));
             $('#divCarruselRegaloMobile').prepend($(".js-slick-next-" + aux));
+
+            $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
+            $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
         }
     });
 
@@ -395,14 +398,17 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+            prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: auto;"><hr class="draw_line color_white line_1_left"><hr class="draw_line color_white line_2_left"></a>',
+            nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: auto;"><hr class="draw_line color_white line_1_right"><hr class="draw_line color_white line_2_right"></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             $('#of-regalo-actual').text(nextSlide + 1);
         });
 
         $('#divCarruselRegaloMobile').prepend($(".js-slick-prev-" + aux));
         $('#divCarruselRegaloMobile').prepend($(".js-slick-next-" + aux));
+
+        $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
+        $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
     });
     
     $("#btnCambiarRegalo1").click(function () {
@@ -420,8 +426,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+            prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: 70px;"><hr class="draw_line color_white line_1_left"><hr class="draw_line color_white line_2_left"></a>',
+            nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: 70px;"><hr class="draw_line color_white line_1_right"><hr class="draw_line color_white line_2_right"></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
 
         });
@@ -460,8 +466,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 1.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+            prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: auto;"><hr class="draw_line line_1_left"><hr class="draw_line line_2_left"></a>',
+            nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: auto;"><hr class="draw_line line_1_right"><hr class="draw_line line_2_right"></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             of_google_analytics_producto_impresion_arrows(event, slick, currentSlide, nextSlide, tipoOrigen, objOf.TipoMeta, objOf.Detalle);
         });
@@ -476,8 +482,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas js-slick-prev-of" style="left:-5%;" ><img src="/Content/Images/Esika/previous_ofertas_home.png" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas next js-slick-next-of" style="right:-5%; text-align:right;"><img src="/Content/Images/Esika/next.png" alt="" /></a>'
+            prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: auto;"><hr class="draw_line line_1_left"><hr class="draw_line line_2_left"></a>',
+            nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: auto;"><hr class="draw_line line_1_right"><hr class="draw_line line_2_right"></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             of_google_analytics_producto_impresion_arrows(event, slick, currentSlide, nextSlide, tipoOrigen, objOf.TipoMeta, objOf.Detalle);
         });
@@ -561,8 +567,8 @@ function MostrarOfertaFinalRegalo(totalPedido) {
                     centerMode: false,
                     centerPadding: '0',
                     tipo: 'p',
-                    prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-                    nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: -9%; top: 35%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+                    prevArrow: '<a class="draw_arrow_left" style="top: 40%; width: auto; height: 70px;"><hr class="draw_line color_white line_1_left"><hr class="draw_line color_white line_2_left"></a>',
+                    nextArrow: '<a class="draw_arrow_right" style="top: 40%; width: auto; height: 70px;"><hr class="draw_line color_white line_1_right"><hr class="draw_line color_white line_2_right"></a>'
                 }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                     $('#of-regalo-actual').text(nextSlide + 1);
                 });

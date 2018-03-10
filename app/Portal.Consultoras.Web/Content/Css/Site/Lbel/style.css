@@ -20306,6 +20306,63 @@ label.checkpop.c_on {
     font-weight: 600;
 }
 
+.draw_arrow_left {
+    left: 0;
+    margin-left: -8%;
+}
+
+.draw_arrow_right {
+    right: 0;
+    margin-right: -8%;
+}
+
+.draw_line {
+    margin-left: 0;
+    width: 40px;
+    border: 0;
+    border-top: 2px solid #000;
+}
+
+.color_white {
+    border-top: 2px solid #fff;
+}
+
+.line_1_right {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 16px;
+}
+
+.line_2_right {
+    -webkit-transform: rotate(305deg);
+    -moz-transform: rotate(305deg);
+    -ms-transform: rotate(305deg);
+    -o-transform: rotate(305deg);
+    transform: rotate(305deg);
+    margin-top: 30px;
+}
+
+.line_1_left {
+    -webkit-transform: rotate(125deg);
+    -moz-transform: rotate(125deg);
+    -ms-transform: rotate(125deg);
+    -o-transform: rotate(125deg);
+    transform: rotate(125deg);
+    margin-top: 16px;
+}
+
+.line_2_left {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 30px;
+}
+
 .previous_ofertas {
     height: 329px;
     top: 0;
@@ -35748,7 +35805,7 @@ h1#penmostreo .campana {
 
 .txt_agotado {
     font-family: Lato;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 900;
     letter-spacing: 1.3px;
     color: #d0021b;

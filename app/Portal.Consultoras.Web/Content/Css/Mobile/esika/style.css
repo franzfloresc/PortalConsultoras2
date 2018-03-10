@@ -2702,7 +2702,7 @@ table > thead > tr > th {
     padding-top: 0;
 }
 
-.slick-arrow {
+/*.slick-arrow {
     position: absolute;
     top: 42%;
     cursor: pointer;
@@ -2713,7 +2713,7 @@ table > thead > tr > th {
 }
 
     .slick-arrow img {
-    }
+    }*/
 
 .slick-prev {
     left: -5px;
@@ -4928,6 +4928,72 @@ table > thead > tr > th {
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
+}
+
+@media only screen and (max-width:330px) {
+
+    .draw_arrow_left {
+        margin-left: -3%;
+    }
+
+    .draw_arrow_right {
+        margin-right: -3%;
+    }
+}
+
+.draw_arrow_left {
+    left: 0;
+}
+
+.draw_arrow_right {
+    right: 0;
+}
+
+.draw_line {
+    margin-left: 0;
+    width: 40px;
+    border: 0;
+    border-top: 2px solid #000;
+}
+
+.color_white {
+    border-top: 2px solid #fff;
+}
+
+.line_1_right {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 16px;
+}
+
+.line_2_right {
+    -webkit-transform: rotate(305deg);
+    -moz-transform: rotate(305deg);
+    -ms-transform: rotate(305deg);
+    -o-transform: rotate(305deg);
+    transform: rotate(305deg);
+    margin-top: 30px;
+}
+
+.line_1_left {
+    -webkit-transform: rotate(125deg);
+    -moz-transform: rotate(125deg);
+    -ms-transform: rotate(125deg);
+    -o-transform: rotate(125deg);
+    transform: rotate(125deg);
+    margin-top: 16px;
+}
+
+.line_2_left {
+    -webkit-transform: rotate(235deg);
+    -moz-transform: rotate(235deg);
+    -ms-transform: rotate(235deg);
+    -o-transform: rotate(235deg);
+    transform: rotate(235deg);
+    margin-top: 30px;
 }
 
 .previous_ofertas_mobile {
@@ -13613,7 +13679,7 @@ a {
     letter-spacing: 0.5px;
     padding: 15px 0 0 4%;
     text-transform: uppercase;
-    width: 55%;
+    width: 60%;
 }
 
 .span_1_regalo_sorpresa {
@@ -13635,13 +13701,13 @@ a {
 }
 
 .img_regalos_sorpresa {
-    width: 45%;
+    width: 40%;
     float: right;
-    padding: 18px 4% 0 0;
+    padding: 20px 4% 0 0;
 }
 
 .img_regalo_sorpresa {
-    width: 55px;
+    width: 50px;
     height: auto;
     float: right;
 }
@@ -13793,7 +13859,7 @@ a {
 
 .txt_agotado {
     font-family: Lato;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 900;
     letter-spacing: 1.3px;
     color: #d0021b;
