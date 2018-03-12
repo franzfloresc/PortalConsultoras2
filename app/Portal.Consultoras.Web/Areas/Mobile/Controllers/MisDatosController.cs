@@ -278,6 +278,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
+
         public JsonResult ValidadTelefonoConsultora(string Telefono)
         {
             try
@@ -314,7 +315,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
 
     }
 }

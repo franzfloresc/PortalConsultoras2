@@ -14,7 +14,7 @@
 
         public string NombreClasefb { get; set; }
         public string NombreClasews { get; set; }
-        
+
         public bool TieneGND { get; set; }
         public bool TieneSeccionRevista { get; set; }
         public bool TieneSeccionRD { get; set; }

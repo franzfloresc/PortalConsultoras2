@@ -217,6 +217,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "010";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
+            public const string HerramientasVenta = "011";
         }
 
         public static class ConstSession
@@ -269,6 +270,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
+            public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
 
             public const string EventoFestivo = "EventoFestivo";
@@ -316,7 +318,6 @@ namespace Portal.Consultoras.Common
             public const string URL_LIDER = "URL_LIDER";
             public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
             public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
-            public const string GIF_MENU_DEFAULT_OFERTAS_BPT = "GIF_MENU_DEFAULT_OFERTAS_BPT";
             public const string MostrarPedidosPendientes = "MostrarPedidosPendientes";
             public const string Permisos_CCC = "Permisos_CCC";
             public const string Efecto_TutorialSalvavidas = "Efecto_TutorialSalvavidas";
@@ -398,6 +399,9 @@ namespace Portal.Consultoras.Common
 
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
+
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Escenario = "ESC";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -694,6 +698,15 @@ namespace Portal.Consultoras.Common
             public const int GNDDesktopLandingPopUp = 1812;
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileLandingPopup = 2812;
+            #endregion
+
+            #region Herramienta de Ventas
+            public const int HVDesktopContenedor = 1831;
+            public const int HVDesktopContenedorPopup = 1832;
+            public const int HVDesktopLanding = 1011;
+            public const int HVDesktopLandingPopUp = 1012;
+            public const int HVMobileLanding = 2011;
+            public const int HVMobileLandingPopup = 2011;
             #endregion
         }
 
@@ -1089,6 +1102,15 @@ namespace Portal.Consultoras.Common
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
+            public const string HerramientasVenta = "HV";
+        }
+
+        public static class ConfiguracionPaisComponente
+        {
+            public static class RD
+            {
+                public const string PopupClubGanaMas = "Popup_Club_Gana+";
+            }
         }
 
         public static class ConfiguracionPaisDatos
@@ -1171,6 +1193,20 @@ namespace Portal.Consultoras.Common
 
                 #region Landing Informativo
                 public const string InformativoVideo = "InformativoVideo";
+
+                #endregion
+
+                #region PopupSuscripcion
+                public const string PopupMensaje1 = "PopupMensaje1";
+                public const string PopupMensaje2 = "PopupMensaje2";
+                public const string PopupMensajeColor = "PopupMensajeColor";
+                public const string PopupImagenEtiqueta = "PopupImagenEtiqueta";
+                public const string PopupImagenPublicidad = "PopupImagenPublicidad";
+                public const string PopupBotonColorFondo = "PopupBotonColorFondo";
+                public const string PopupBotonColorTexto = "PopupBotonColorTexto";
+                public const string PopupBotonTexto = "PopupBotonTexto";
+                public const string PopupFondoColor = "PopupFondoColor";
+                public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
             }
@@ -1197,13 +1233,21 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaIntriga = "MBienvenidaIntriga";
                 public const string LogoComercial = "LogoComercial";
                 public const string LogoComercialFondo = "LogoComercialFondo";
-                public const string NombreComercial= "NombreComercial";
+                public const string NombreComercial = "NombreComercial";
                 public const string DCatalogoIntriga = "DCatalogoIntriga";
                 public const string MCatalogoIntriga = "MCatalogoIntriga";
                 public const string DPedidoIntriga = "DPedidoIntriga";
                 public const string MPedidoIntriga = "MPedidoIntriga";
                 public const string DLandingBannerIntriga = "DLandingBannerIntriga";
                 public const string MLandingBannerIntriga = "MLandingBannerIntriga";
+            }
+
+            public static class HV
+            {
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueado = "DPopupBloqueado";
+                public const string MPopupBloqueado = "MPopupBloqueado";
+                #endregion
             }
 
         }
@@ -1630,6 +1674,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+            public const string HerramientasVentaIndex = "/herramientasventa/index";
+            public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
+            public const string HerramientasVentaComprar = "/herramientasventa/comprar";
         }
 
         public static class TipoVistaEstrategia
@@ -1726,11 +1773,11 @@ namespace Portal.Consultoras.Common
 
         public class GanaMas
         {
-            public const short PaisSinGND = 1;
-            public const short PaisConGND_SuscritaActiva = 2;
-            public const short PaisConGND_SuscritaNoActiva = 3;
-            public const short PaisConGND_NoSuscritaActiva = 4;
-            public const short PaisConGND_NoSuscritaNoActiva = 5;
+            public const short PaisSinRD = 1;
+            public const short PaisConRD_SuscritaActiva = 2;
+            public const short PaisConRD_SuscritaNoActiva = 3;
+            public const short PaisConRD_NoSuscritaActiva = 4;
+            public const short PaisConRD_NoSuscritaNoActiva = 5;
 
             public class Banner
             {

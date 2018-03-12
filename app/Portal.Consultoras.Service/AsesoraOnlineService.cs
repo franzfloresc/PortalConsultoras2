@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Service
 
         public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
         {
-           new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+            new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
         }
     }
 }

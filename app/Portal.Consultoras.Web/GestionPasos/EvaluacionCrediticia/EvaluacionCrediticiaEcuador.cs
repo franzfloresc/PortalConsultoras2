@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
             {
                 EnumEstadoCrediticio = EnumsEstadoBurocrediticio.PuedeSerConsultora,
                 Mensaje = "SI PUEDE SER CONSULTORA"
-            }; 
+            };
         }
     }
 }

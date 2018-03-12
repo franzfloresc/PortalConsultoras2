@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.CustomFilters;
-
+using Portal.Consultoras.Web.Infraestructure;
 using System;
 using System.Web.Mvc;
 
@@ -22,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO,string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
             }
 
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });

@@ -26,10 +26,10 @@ namespace Portal.Consultoras.BizLogic
             var daAsesoraOnline = new DAAsesoraOnline(paisId);
 
             using (IDataReader reader = daAsesoraOnline.GetUsuarioByCodigoConsultora(codigoConsultora))
-            while (reader.Read())
-            {
-                entidad = new BEUsuario(reader, true);
-            }
+                while (reader.Read())
+                {
+                    entidad = new BEUsuario(reader, true);
+                }
 
             return entidad;
         }
@@ -55,8 +55,9 @@ namespace Portal.Consultoras.BizLogic
             return daAsesoraOnline.ValidarAsesoraOnlineConfiguracionPais(codigoConsultora);
         }
 
-        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
-            MailUtilities.EnviarMailBienvenidaAsesoraOnline(emailFrom,  emailTo,  titulo, displayname, nombreConsultora);
+        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
+        {
+            MailUtilities.EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
         }
 
         public int GetPaisID(string ISO)

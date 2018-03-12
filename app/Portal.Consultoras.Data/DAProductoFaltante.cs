@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }
-        
+
         public int DelProductoFaltante(BEProductoFaltante prod, out bool Deleted)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltante");
@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
+        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
             var listTablaTempType = new List<BETablaTemType>();
 
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Data
                 tablaTemType.CampaniaID = item.CampaniaID;
                 tablaTemType.CUV = item.CUV;
                 tablaTemType.ZonaID = item.ZonaID;
-                
+
                 listTablaTempType.Add(tablaTemType);
             }
 
@@ -99,8 +99,8 @@ namespace Portal.Consultoras.Data
             deleted = Convert.ToInt32(command.Parameters["@Deleted"].Value);
             return deleted;
         }
-        
-        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina,int pais)
+
+        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina, int pais)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByEntity");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, productofaltante.CampaniaID);
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-        
+
         public int DelProductoFaltanteMasivo(int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltanteMasivo");
