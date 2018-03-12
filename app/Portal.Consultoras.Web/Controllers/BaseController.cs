@@ -4405,13 +4405,10 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
-            //
             ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
             ViewBag.EsSuscrita = revistaDigital.EsSuscrita;
             ViewBag.EsActiva = revistaDigital.EsActiva;
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
-            //
-            ViewBag.TieneHV = herramientasVenta.TieneHerramientasVenta();
             
             var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;

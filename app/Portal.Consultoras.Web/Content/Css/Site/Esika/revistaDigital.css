@@ -1,14 +1,14 @@
-        .revistadigital .revistadigital-desc span {
-            color: #e81c36;
-        }
+.revistadigital .revistadigital-desc span {
+    color: #e81c36;
+}
 
-        .revistadigital .revistadigital-baj a {
-            color: #e81c36;
-        }
+.revistadigital .revistadigital-baj a {
+    color: #e81c36;
+}
 
-    .revistadigital .arrow-right {
-        border-left: 5px solid #e81c36;
-    }
+.revistadigital .arrow-right {
+    border-left: 5px solid #e81c36;
+}
 
 .revistadigital .boxoffer .fondo_boton {
     background: #e81c36;
@@ -16,10 +16,6 @@
 
 .titulo_set_banner_ept {
     color: #e81c36;
-}
-
-.buscar_landing_ept {
-    background: #e81c36;
 }
 
 .rd_logo {
@@ -33,16 +29,8 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
 }
 
-.rd_tit {
-    color: #e81c36;
-}
-
 /* boton rojo */
 .rd_btn_rojo {
-    background: #e81c36;
-}
-
-.rd_btn_rojo_right {
     background: #e81c36;
 }
 
@@ -57,35 +45,29 @@
 }
 /* fin boton rojo*/
 
-    .rd_inscripcion .popup_rd_content .btn_diagonal {
-        background: #e81c36;
-    }
+.rd_inscripcion .popup_rd_content .btn_diagonal {
+    background: #e81c36;
+}
 
-        .rd_inscripcion .popup_rd_content .btn_diagonal:after {
-            background: -webkit-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
-            background: -o-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
-            background: linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
-        }
+    .rd_inscripcion .popup_rd_content .btn_diagonal:after {
+        background: -webkit-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
+        background: -o-linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
+        background: linear-gradient(84deg, rgb(179, 132, 47), rgb(217, 180, 60));
+    }
 
 .home_block_rd {
     background-color: #e91b37;
 }
 
-        .home_rd1 .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-        }
-
 .home_rd {
     background-color: rgba(233,27,55,1);
 }
 
-        .home_rd .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
-        }
+    .home_rd .btn_diagonal:after {
+        background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+        background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+        background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+    }
 
 .gana-mas .txt-img-cont-tres {
     background: url('/Content/Images/Esika/consejos-y-tips-visual.png');
@@ -95,16 +77,15 @@
     background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
 }
 
-        .como-funciona .caja-club-derecha hr {
-            background: #e81c36;
-        }
+.como-funciona .caja-club-derecha hr {
+    background: #e81c36;
+}
 
 /* POPUP CONFIRMACION DE DATOS */
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
 }
 
-    .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
-        background: url('/Content/Images/Esika/loading_circle.gif');
-    }
-
+.popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+    background: url('/Content/Images/Esika/loading_circle.gif');
+}
