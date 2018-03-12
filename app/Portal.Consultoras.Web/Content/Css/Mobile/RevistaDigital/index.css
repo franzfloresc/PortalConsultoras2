@@ -292,7 +292,6 @@
         margin-top: 6px;
         font-weight: 900;
         overflow: hidden;
-        /* for set '...' in absolute position */
         display: -webkit-box;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;

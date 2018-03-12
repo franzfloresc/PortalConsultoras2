@@ -24,7 +24,7 @@
         height: auto;
         float: initial;
         height: 95px;
-        background: url(../../../Images/logo-club-ganamas-dorado.svg);
+        background: url(/Content/Images/logo-club-ganamas-dorado.svg);
         background-size: cover;
         background-position: center center;
     }
@@ -106,7 +106,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
+        background: url('/Content/Images/RevistaDigital/personalizacion-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -114,7 +114,7 @@
     .gana-mas .txt-img-cont-dos {
         width: 250px;
         height: 80px !important;
-        background: url('../../../Images/no-mas-codigo-visual-desktop.png');
+        background: url('/Content/Images/no-mas-codigo-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -148,7 +148,7 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
+        background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
