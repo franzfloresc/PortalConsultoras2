@@ -441,6 +441,7 @@ namespace Portal.Consultoras.BizLogic
             var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
             var cuponTask = Task.Run(() => GetCupon(usuario));
             var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario));
+            var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
 
             Task.WaitAll(
                             terminosCondicionesTask,
@@ -453,7 +454,8 @@ namespace Portal.Consultoras.BizLogic
                             incentivosConcursosTask,
                             revistaDigitalSuscripcionTask,
                             cuponTask,
-                            configuracionPaisTask);
+                            configuracionPaisTask,
+                            codigosRevistasTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -488,6 +490,8 @@ namespace Portal.Consultoras.BizLogic
             usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
             usuario = configuracionPaisTask.Result;
+
+            usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
             return usuario;
         }
@@ -2151,6 +2155,7 @@ namespace Portal.Consultoras.BizLogic
         private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuarioModel)
         {
             var revistaDigitalModel = new BERevistaDigital { NoVolverMostrar = true };
+            var guiaNegocio = new BEGuiaNegocio();
 
             var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
 
@@ -2193,6 +2198,23 @@ namespace Portal.Consultoras.BizLogic
                                     .ToList(), usuarioModel.CodigoISO);
                             revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                             revistaDigitalModel.TieneRDI = true;
+                            break;
+                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                            guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
+                                    .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                    .ToList());
+                            guiaNegocio.TieneGND = true;
+                            usuarioModel.TieneGND = true;
+                            break;
+                        case Constantes.ConfiguracionPais.OfertaDelDia:
+                            usuarioModel.OfertaDelDiaModel = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDiaModel, listaPaisDatos
+                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                .ToList());
+                            break;
+                        case Constantes.ConfiguracionPais.OfertasParaTi:
+                            usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, listaPaisDatos
+                                .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                .ToList());
                             break;
                     }
                 }
@@ -2629,6 +2651,69 @@ namespace Portal.Consultoras.BizLogic
             catch { }
 
             return revistaDigital;
+        }
+
+        private string ObtenerCodigoRevistaFisica(int paisId)
+        {
+            var lst = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
+            var tablaLogicaDatos = lst.FirstOrDefault();
+            return (tablaLogicaDatos == null ? string.Empty : tablaLogicaDatos.Codigo);
+        }
+
+        private BEUsuario ConfiguracionPaisDatosUsuario(BEUsuario modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            { 
+                if (listaDatos == null || !listaDatos.Any()) return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.OptBloqueoProductoDigital = (value1.Valor1 == "1");
+            }
+            catch { }
+
+            return modelo;
+        }
+
+        private BEOfertaDelDia ConfiguracionPaisDatosOfertaDelDia(BEOfertaDelDia modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            try
+            {
+                modelo = modelo ?? new BEOfertaDelDia();
+                if (listaDatos == null || !listaDatos.Any())
+                    return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+
+            }
+            catch { }
+
+            return modelo;
+
+        }
+
+        private BEGuiaNegocio ConfiguracionPaisDatosGuiaNegocio(List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            var modelo = new BEGuiaNegocio();
+
+            try
+            {
+                if (listaDatos == null || !listaDatos.Any()) return modelo;
+
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+                modelo.ConfiguracionPaisDatos = listaDatos ?? new List<BEConfiguracionPaisDatos>();
+            }
+            catch { }
+
+            return modelo;
         }
         #endregion
     }

@@ -60,7 +60,74 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             }
 
+            var bloqueoProductoCatalogo = BloqueoProductosCatalogo(producto, productoFiltro);
+            if(!bloqueoProductoCatalogo) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+
+            var bloqueoProductoDigitales = BloqueoProductosDigitales(producto, productoFiltro);
+            if (!bloqueoProductoDigitales) return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
+
             return ProductoMensajeRespuesta(Constantes.ProductoValidacion.Code.SUCCESS, producto);
+        }
+
+        private bool BloqueoProductosCatalogo(BEProducto producto, BEProductoFiltro productoFiltro)
+        {
+            if (producto == null) return true;
+
+            var revistaDigital = productoFiltro.RevistaDigital ?? new BERevistaDigital();
+
+            if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR)) return true;
+
+            if (!revistaDigital.EsActiva) return true;
+
+            if (revistaDigital.BloquearRevistaImpresaGeneral != null)
+            {
+                if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
+                {
+                    return !productoFiltro.CodigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
+                }
+            }
+            else
+            {
+                if (revistaDigital.BloqueoRevistaImpresa)
+                {
+                    return !productoFiltro.CodigosRevistaImpresa.Contains(producto.CodigoCatalogo.ToString());
+                }
+            }
+
+            return true;
+        }
+
+        private bool BloqueoProductosDigitales(BEProducto producto, BEProductoFiltro productoFiltro)
+        {
+            if (producto == null) return true;
+
+            var revistaDigital = productoFiltro.RevistaDigital ?? new BERevistaDigital();
+
+            if (revistaDigital.BloqueoProductoDigital)
+            {
+                return !(
+                            producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                          || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                          || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                        );
+            }
+
+            if (productoFiltro.OfertaDelDiaModel != null && productoFiltro.OfertaDelDiaModel.BloqueoProductoDigital)
+            {
+                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia);
+            }
+
+            if (productoFiltro.GuiaNegocio != null && productoFiltro.GuiaNegocio.BloqueoProductoDigital)
+            {
+                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+            }
+
+            if (productoFiltro.OptBloqueoProductoDigital)
+            {
+                return (producto.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            }
+
+            return true;
         }
 
         private BEProductoApp ProductoMensajeRespuesta(string codigoRespuesta, BEProducto producto = null)
