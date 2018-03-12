@@ -95,6 +95,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneRdr();
 
+        void SetTieneHv(bool tieneHv);
+
+        bool GetTieneHv();
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
