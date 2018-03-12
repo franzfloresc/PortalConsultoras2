@@ -1,4 +1,4 @@
-USE BelcorpPeru_pl50
+USE Belcorpmexico_pl50
 GO
 
 IF (OBJECT_ID('dbo.UpsellingMarcaCategoriaFlagsEditar', 'P') IS NULL)
@@ -14,7 +14,6 @@ begin
 	 update UpSelling 
 	 set CategoriaApoyada =@CategoriaApoyada, CategoriaMonto =@CategoriaMonto 
 	 where  UpSellingId = @UpSellingId
-
 
 end
 go

@@ -1,4 +1,4 @@
-USE BelcorpPeru_pl50
+USE Belcorpmexico_pl50
 GO
 
 IF (OBJECT_ID('dbo.EliminarUpsellingMarcaCategoria', 'P') IS NULL)
@@ -9,10 +9,7 @@ ALTER PROCEDURE dbo.EliminarUpsellingMarcaCategoria
  @MarcaID char(2),
  @CategoriaID char(2) 
 AS
-begin
-
-
- 
+begin 
 
 DELETE FROM [dbo].[Upselling_Marca_Categoria]
       WHERE [UpsellingID] =@UpSellingId and [MarcaID] =@MarcaID and [CategoriaID] =@CategoriaID 

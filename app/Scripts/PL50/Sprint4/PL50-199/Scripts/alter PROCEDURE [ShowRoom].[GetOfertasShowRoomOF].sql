@@ -1,11 +1,10 @@
-USE BELCORPperu_PL50
+USE BELCORPmexico_PL50
 GO
 alter PROCEDURE [ShowRoom].[GetOfertasShowRoomOF] @CampaniaID INT
 AS
 /*
 
 ShowRoom.GetOfertasShowRoomOF 201804
-
 */
 BEGIN
 	DECLARE @tablaFaltante TABLE (CUV VARCHAR(6))
@@ -32,7 +31,7 @@ BEGIN
 BEGIN
  
 
-				SELECT e.cuv2 AS CUV
+				SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -42,7 +41,8 @@ BEGIN
 		INNER JOIN ods.campania c ON e.campaniaid = c.codigo
 		INNER JOIN ods.productocomercial o ON c.campaniaid = o.campaniaid
 			AND e.cuv2 = o.cuv
-		INNER JOIN ods.sap_producto s ON o.CodigoProducto = s.CodigoSAP
+		inner join estrategiaproducto ep on e.EstrategiaId = ep.EstrategiaId
+		INNER JOIN  ods.sap_producto s ON s.CodigoSAP = ep.SAP
 		INNER JOIN Upselling_Marca_Categoria umc ON umc.MarcaID = s.CodigoMarca and umc.CategoriaID = s.CodigoCategoria
 		WHERE e.tipoestrategiaid = (SELECT TOP 1 TIPOESTRATEGIAID FROM TIPOESTRATEGIA WHERE descripcionEstrategia ='ShowRoom')
 			AND e.campaniaid = @CampaniaID

@@ -1,4 +1,4 @@
-USE BelcorpPeru_pl50
+USE Belcorpmexico_pl50
 GO
 
 IF (OBJECT_ID('dbo.GetUpsellingMarcaCategoriaLista', 'P') IS NULL)
