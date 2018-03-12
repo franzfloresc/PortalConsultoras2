@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
-                
+
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutEmpty").Include(
@@ -400,7 +400,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
-            
+
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css"
@@ -510,6 +510,9 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region Estrategias-UpSelling
+            bundles.Add(new StyleBundle("~/bundles/estrategias-upselling-css")
+                .Include("~/Content/Css/Site/Admin/Estrategias/UpSelling.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/estrategias-upselling").Include(
                 "~/Scripts/knockout-{version}.js",
                 "~/Scripts/knockout.extensions.js"

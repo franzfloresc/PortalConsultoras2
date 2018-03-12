@@ -1234,7 +1234,7 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
-    alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
+    //alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({

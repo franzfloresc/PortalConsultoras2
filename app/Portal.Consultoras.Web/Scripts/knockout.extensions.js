@@ -23,6 +23,22 @@
         }
     };
 
+    ko.bindingHandlers.imageSize = {
+        init: function (element, options) {
+            if (options().show) {
+                $(element).on('load', function () {
+                    var x = element.naturalWidth;
+                    var y = element.naturalHeight;
+
+                    if (!x || !y || x === 0 || y === 0)
+                        return;
+
+                    element.setAttribute(options().attr, x + ' x ' + y);
+                });
+            }
+        }
+    }
+
     ko.extenders.trackChange = function (target, options) {
         if (options.track) {
             target.isDirty = ko.observable(false);
@@ -80,9 +96,24 @@
         return target;
     };
 
+    ko.extenders.viewModelHasError = function (target, overrideMessage) {
+        var keys = Object.keys(target);
+        if (!keys || !(keys.length > 0))
+            return false;
+
+        var invalidProperties = keys.filter(function (key) {
+            return (selfm.hasOwnProperty(key) && ko.isObservable(selfm[key]) && typeof selfm[key].hasError === 'function' && selfm[key].hasError());
+        });
+
+        return invalidProperties.length == 0;
+        
+        //return the original observable
+        return target;
+    };
+
     function uploadFile(element, observableProp, urlFileUpload) {
         new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
+            allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
             element: element,
             action: urlFileUpload,
             onComplete: function (id, fileName, responseJSON) {
