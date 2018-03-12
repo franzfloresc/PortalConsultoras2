@@ -23,7 +23,7 @@
     color: black;
     top: 10px;
     padding-left: 20px;
-    background: url('../../../Images/Esika/pagina.png') no-repeat;
+    background: url('/Content/Images/Esika/pagina.png') no-repeat;
     background-position: 3px 2px;
     height: 20px;
 }

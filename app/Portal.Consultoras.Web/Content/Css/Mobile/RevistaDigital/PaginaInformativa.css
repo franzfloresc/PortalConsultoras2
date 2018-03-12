@@ -130,7 +130,7 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url('../../../Images/RevistaDigital/triangulo-dorado.svg');
+        background: url('/Content/Images/RevistaDigital/triangulo-dorado.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -186,7 +186,7 @@
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
-            background: url('../../../Images/RevistaDigital/personalizacion-visual-desktop.png');
+            background: url('/Content/Images/RevistaDigital/personalizacion-visual-desktop.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -195,7 +195,7 @@
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
             width: 135px;
             height: 80px !important;
-            background: url('../../../Images/no-mas-codigo-visual.png');
+            background: url('/Content/Images/no-mas-codigo-visual.png');
             background-size: 40%;
             background-position: center center;
             background-repeat: no-repeat;
@@ -428,7 +428,7 @@ a.btn-suscribete-video {
     }
 
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
-            background: url('../../../Images/RevistaDigital/personalizacion-visual-mobile.png');
+            background: url('/Content/Images/RevistaDigital/personalizacion-visual-mobile.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
