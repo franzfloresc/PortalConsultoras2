@@ -81,8 +81,8 @@ $(document).ready(function () {
 
         CargarCarouselMasVendidos('mobile');
     }
-
-    CargarPopupsConsultora();
+    
+    if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -100,20 +100,13 @@ $(document).ready(function () {
         });
     });
 
-    ObtenerComunicadosPopup();
+    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
 function CrearPopShow() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
     $("#btnCerrarPopShowroom").click(function () {
         $("#PopShowroom").modal("hide");
@@ -310,10 +303,7 @@ function UpdateUsuarioTutorialMobile() {
                 viewBagVioTutorial = data.result;
             }
         },
-        error: function (data) {
-            if (checkTimeout(data)) {
-            }
-        }
+        error: function (data) { }
     });
 };
 
@@ -354,7 +344,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    //messageInfo(data.message);
                     AbrirPopupPedidoReservado(data.message, '2');
                 }
                 else fnRedireccionar();
@@ -366,7 +355,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                console.log(error);
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
@@ -385,7 +373,7 @@ function CargarPopupsConsultora() {
         VerTutorialMobile();
     }
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
-        AbrirPopupFade("#PopRDSuscripcion");
+        rdPopup.Mostrar();
     }
 };
 
@@ -530,7 +518,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
-        //CERRAR
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'App Consultora',
@@ -540,8 +527,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $(window).resize(function (e) {
-        //var w_width = $(window).width() - 50;
-        //var w_height = $(window).height() - 150;
         var w_width = 326;
         var w_height = 418;
 
@@ -561,7 +546,6 @@ function ObtenerComunicadosPopup() {
 
         window.open($(this).attr("urlAccion"));
 
-        //CLICK
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
@@ -622,6 +606,8 @@ function armarComunicadosPopup(comunicado) {
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
+    ActualizarVisualizoComunicado(comunicado.ComunicadoId);
+
     $(window).resize();
     dataLayer.push({
         'event': 'promotionView',
@@ -663,6 +649,26 @@ function grabarComunicadoPopup() {
             if (checkTimeout(data)) {
                 CloseLoading();
                 alert("Ocurrió un error al aceptar el comunicado.");
+            }
+        }
+    });
+}
+
+function ActualizarVisualizoComunicado(comunicadoId) {
+    var params = { ComunicadoId: comunicadoId };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/ActualizarVisualizoComunicado",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("Ocurrió un error al actualizar la visualización del comunicado.");
             }
         }
     });

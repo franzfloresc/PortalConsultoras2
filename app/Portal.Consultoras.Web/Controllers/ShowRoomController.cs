@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -16,8 +17,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
-using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -769,6 +768,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoId)
         {
@@ -804,28 +804,27 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             var values = inputLine.Split('|');
-                            if (values.Length > 1)
-                            {
-                                if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
-                                {
-                                    var ent = new BEShowRoomOferta
-                                    {
-                                        ISOPais = values[0].Trim().Replace("\"", ""),
-                                        CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
-                                        CUV = values[2].Trim().Replace("\"", ""),
-                                        Stock = int.Parse(values[3].Trim().Replace("\"", "")),
-                                        PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
-                                        UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
-                                        Descripcion = values[6].Trim().Replace("\"", ""),
-                                        CodigoCategoria = values[7].Trim().Replace("\"", ""),
-                                        TipNegocio = values[8].Trim().Replace("\"", ""),
-                                        EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
-                                    };
 
-                                    if (ent.Stock >= 0)
-                                        lstStock.Add(ent);
-                                }
-                            }
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[1].Trim()) || !IsNumeric(values[3].Trim())) continue;
+
+                            var ent = new BEShowRoomOferta
+                            {
+                                ISOPais = values[0].Trim().Replace("\"", ""),
+                                CampaniaID = int.Parse(values[1].Trim().Replace("\"", "")),
+                                CUV = values[2].Trim().Replace("\"", ""),
+                                Stock = int.Parse(values[3].Trim().Replace("\"", "")),
+                                PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", "")),
+                                UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", "")),
+                                Descripcion = values[6].Trim().Replace("\"", ""),
+                                CodigoCategoria = values[7].Trim().Replace("\"", ""),
+                                TipNegocio = values[8].Trim().Replace("\"", ""),
+                                EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1
+                            };
+
+                            if (ent.Stock >= 0)
+                                lstStock.Add(ent);
                         }
                     }
 
@@ -859,7 +858,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             string messageErrorPrecioCero = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto " +
                                 productoPrecioCero.CUV + " tiene precio oferta Cero";
-                            
+
                             LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", "CUV: " + productoPrecioCero.CUV + " con precio CERO");
 
                             return messageErrorPrecioCero;
@@ -932,6 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
             return message;
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public string ActualizarDescripcionSetsMasivo(HttpPostedFileBase flDescripcionSets, int hdCargaDescripcionSetsEventoId, int hdCargaDescripcionSetsCampaniaId)
         {
@@ -1189,6 +1189,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int paisId, int campaniaId)
         {
             if (ModelState.IsValid)
@@ -1359,6 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public JsonResult ValidarPriorizacion(int paisId, string codigoOferta, int campaniaId, int orden)
         {
             int flagExiste;
@@ -1375,6 +1377,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migracion de tablas")]
         public JsonResult ObtenerOrdenPriorizacion(int paisId, int configuracionOfertaId, int campaniaId)
         {
             int orden;
@@ -1390,6 +1393,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult InsertOrUpdateOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1435,6 +1439,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult DeshabilitarOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1477,6 +1482,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult RemoverOfertaShowRoom(ShowRoomOfertaModel model)
         {
@@ -1567,88 +1573,16 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
         {
-            try
-            {
-                string mensaje;
-                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
-                if (noPasa)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje,
-                        extra = ""
-                    });
-                }
-                
-                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-
-                entidad.PaisID = userData.PaisID;
-                entidad.ConsultoraID = userData.ConsultoraID;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                entidad.IPUsuario = userData.IPUsuario;
-
-                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    sv.InsPedidoWebDetalleOferta(entidad);
-                }
-
-                sessionManager.SetPedidoWeb(null);
-                sessionManager.SetDetallesPedido(null);
-
-                UpdPedidoWebMontosPROL();
-
-                var indPedidoAutentico = new BEIndicadorPedidoAutentico
-                {
-                    PedidoID = entidad.PedidoID,
-                    CampaniaID = entidad.CampaniaID,
-                    PedidoDetalleID = entidad.PedidoDetalleID,
-                    IndicadorIPUsuario = GetIPCliente(),
-                    IndicadorFingerprint = "",
-                    IndicadorToken = Session["TokenPedidoAutentico"] != null
-                        ? Session["TokenPedidoAutentico"].ToString()
-                        : ""
-                };
-
-                InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se agregó la Oferta Web satisfactoriamente.",
-                    extra = "",
-                    DataBarra = GetDataBarra()
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
+            return InsertarPedidoWebPortal(model, 1);
         }
 
         [HttpPost]
         public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        {
+            return InsertarPedidoWebPortal(model, 2);
+        }
+
+        private JsonResult InsertarPedidoWebPortal(PedidoDetalleModel model, int tipo)
         {
             try
             {
@@ -1663,20 +1597,27 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                
+
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.ConsultoraID = userData.ConsultoraID;
                 entidad.CampaniaID = userData.CampaniaID;
-                entidad.OfertaWeb = false;
-                entidad.ConfiguracionOfertaID = 0;
-                entidad.TipoOfertaSisID = 0;
-                entidad.SubTipoOfertaSisID = 0;
-                entidad.EsSugerido = false;
-                entidad.EsKitNueva = false;
+                if (tipo == 1)
+                {
+                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                }
+                else if (tipo == 2)
+                {
+                    entidad.TipoOfertaSisID = 0;
+                    entidad.OfertaWeb = false;
+                    entidad.ConfiguracionOfertaID = 0;
+                    entidad.SubTipoOfertaSisID = 0;
+                    entidad.EsSugerido = false;
+                    entidad.EsKitNueva = false;
+                    entidad.EsCompraPorCompra = true;
+                }
                 entidad.IPUsuario = userData.IPUsuario;
-                entidad.EsCompraPorCompra = true;
 
                 entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                 entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
@@ -1751,7 +1692,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string soloExtension = nombreImagen.Split('.')[1];
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 nombreImagenFinal = iso + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
-                
+
                 if (nombreImagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
             }
@@ -2394,6 +2335,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Migrado PL50-50")]
         [HttpPost]
         public JsonResult GetShowRoomPerfilOfertaCuvs(int campaniaId, int eventoId, int perfilId)
         {
@@ -2495,7 +2437,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
                 }
-                
+
                 var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
 
                 foreach (var item in listaPersonalizacionModel)
@@ -2566,7 +2508,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaFinal.Add(model);
                     }
                 }
-                
+
                 var listaEntidades = Mapper.Map<IList<ShowRoomPersonalizacionNivelModel>, IList<BEShowRoomPersonalizacionNivel>>(listaFinal);
 
                 foreach (var entidad in listaEntidades)
@@ -2749,7 +2691,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (var sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -2763,10 +2705,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
-        
+
         #region Comprar desde Página de Oferta
 
         public ActionResult DetalleOfertaCUV(string query)
@@ -2826,7 +2768,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-
+            modelo.EstrategiaId = id;
             var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
@@ -2899,12 +2841,12 @@ namespace Portal.Consultoras.Web.Controllers
                             listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                             break;
                     }
-                    
+
                 }
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
                 var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
+                listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
                 {
@@ -2971,7 +2913,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
-                
+
                 var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
@@ -3368,17 +3310,17 @@ namespace Portal.Consultoras.Web.Controllers
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
                 rows = from a in items
-                select new
-                {
-                    id = a.TipoOfertaID,
-                    cell = new[]
-                    {
+                       select new
+                       {
+                           id = a.TipoOfertaID,
+                           cell = new[]
+                           {
                         a.TipoOfertaID.ToString(),
                         a.Codigo,
                         a.Descripcion,
                         a.Activo.ToString()
                     }
-                }
+                       }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

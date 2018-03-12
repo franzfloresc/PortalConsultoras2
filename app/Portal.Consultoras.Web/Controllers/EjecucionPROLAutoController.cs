@@ -68,15 +68,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ValidacionAutomaticaModel GetEstadoProcesoPROLAutoDetalle()
         {
-            var listValidacionAutomatica = new List<BEValidacionAutomatica>();
+            List<BEValidacionAutomatica> listValidacionAutomatica;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listValidacionAutomatica = sv.GetEstadoProcesoPROLAutoDetalle(UserData().PaisID).ToList();
             }
-            if (listValidacionAutomatica == null || listValidacionAutomatica.Count == 0) return null;
+            if (listValidacionAutomatica.Count == 0) return null;
 
             var valAuto = listValidacionAutomatica[0];
-            var model = new ValidacionAutomaticaModel { FechaFacturacion = GetFechaString(valAuto.FechaHoraFacturacion, "dd/MM/yyyy") };
+            var model = new ValidacionAutomaticaModel
+            {
+                FechaFacturacion = GetFechaString(valAuto.FechaHoraFacturacion, "dd/MM/yyyy")
+            };
             model.ListaValidacionAutomatica = new List<ValidacionAutomaticaDetalleModel>{
                 new ValidacionAutomaticaDetalleModel {
                     Proceso = "Reserva de Pedido",
@@ -104,10 +107,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFechaString(DateTime fechaHora, string format)
         {
-            if(EsFechaValidacionNula(fechaHora)) return "";
+            if (EsFechaValidacionNula(fechaHora)) return "";
             return fechaHora.ToString(format, CultureInfo.InvariantCulture);
         }
-        private bool EsFechaValidacionNula(DateTime fechaHora) {
+
+        private bool EsFechaValidacionNula(DateTime fechaHora)
+        {
             return fechaHora.Year == 2000;
         }
     }

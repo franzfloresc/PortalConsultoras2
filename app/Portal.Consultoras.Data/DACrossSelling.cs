@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
-        
+
         public IDataReader GetCampaniasPorPais(int CampaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerConfiguracionCrossSelling");

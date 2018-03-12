@@ -4,8 +4,6 @@ using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
@@ -31,17 +29,17 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
-                int limiteInferior = 6;
+                int limiteInferior;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
-                int factorUbigeo = 3;
+                int factorUbigeo;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
-                int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo); 
+                int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
                 limiteInferior *= factorUbigeo;
-                string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
+                string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
+                if (codigoUbigeo.Length < limiteInferior) throw new Exception(mensajeValidacion);
             }
-            int tipoFiltroUbigeo = 1;
+            int tipoFiltroUbigeo;
             vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 66);
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
@@ -58,44 +56,39 @@ namespace Portal.Consultoras.Service
 
         }
 
-
         public int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-            {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
-            };
-            string paisID = "0";
             try
             {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
+                List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+                {
+                    new KeyValuePair<string, string>("1", "AR"),
+                    new KeyValuePair<string, string>("2", "BO"),
+                    new KeyValuePair<string, string>("3", "CL"),
+                    new KeyValuePair<string, string>("4", "CO"),
+                    new KeyValuePair<string, string>("5", "CR"),
+                    new KeyValuePair<string, string>("6", "EC"),
+                    new KeyValuePair<string, string>("7", "SV"),
+                    new KeyValuePair<string, string>("8", "GT"),
+                    new KeyValuePair<string, string>("9", "MX"),
+                    new KeyValuePair<string, string>("10", "PA"),
+                    new KeyValuePair<string, string>("11", "PE"),
+                    new KeyValuePair<string, string>("12", "PR"),
+                    new KeyValuePair<string, string>("13", "DO"),
+                    new KeyValuePair<string, string>("14", "VE"),
+                };
+                string paisId = (from c in listaPaises
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
+                int outVal;
+                int.TryParse(paisId, out outVal);
+                return outVal;
             }
             catch (Exception)
             {
                 throw new Exception("Hubo un error en obtener el País");
             }
-            if (paisID != null)
-            {
-                return int.Parse(paisID);
-            }
-            else return 0;
         }
-
 
         #endregion
     }

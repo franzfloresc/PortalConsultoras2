@@ -8,13 +8,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarBotonAtras { get; set; }
 
         public int ClienteID { get; set; }
-        
+
         public bool MostrarHipervinculo { get; set; }
-        
+
         public bool EsAppMobile { get; set; }
-        
+
         public int TimeOutSession { get; set; }
-        
+
         public MobileAppConfiguracionModel()
         {
             MostrarBotonAtras = true;

@@ -16,11 +16,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class CatalogoRevistaController : Controller
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
-
         private const string CodigoISO = "BR";
         private const string paisNombre = "brasil";
-        private const int NroCampanias = 18;
-
+        //private const int NroCampanias = 18;
 
         public ActionResult Index(string ID = "")
         {

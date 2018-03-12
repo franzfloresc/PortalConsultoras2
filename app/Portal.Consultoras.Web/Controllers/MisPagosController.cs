@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -134,23 +135,26 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 #region cotnenido del correo
-                string cadena = "<span style='font-family:Calibri'><h2> Estado de Cuenta Belcorp </h2></span>" +
+
+                var txtBuil = new StringBuilder();
+                txtBuil.Append("<span style='font-family:Calibri'><h2> Estado de Cuenta Belcorp </h2></span>" +
                                 "<table width='650px' border = '1px' bordercolor='black' cellpadding='5px' cellspacing='0px' bgcolor='dddddd' >" +
                                 "<tr>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Fecha</th>" +
                                     "<th bgcolor='666666' width='350px' align='center'><font color='#FFFFFF'>Últimos Movimientos</th>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Pedidos</th>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
-                                "</tr>";
+                                "</tr>"
+                            );
 
                 for (int i = 0; i < lst.Count - 1; i++)
                 {
-                    cadena = cadena + "<tr>" +
+                    txtBuil.Append("<tr>" +
                                         "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
                                         "<td align='left'>" + lst[i].Glosa + "</td>" +
                                         "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Cargo, userData.CodigoISO) + "</td>" +
                                         "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Abono, userData.CodigoISO) + "</td>" +
-                                      "</tr>";
+                                      "</tr>");
                 }
 
                 if (lst.Count > 0)
@@ -158,27 +162,30 @@ namespace Portal.Consultoras.Web.Controllers
                     if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
                     {
 
-                        cadena = cadena + "</table><br /><br />" +
-                                     "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                     "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') +
+                                     "<br />");
 
                     }
                     else if (Math.Abs(lst[lst.Count - 1].Abono) > 0)
                     {
 
-                        cadena = cadena + "</table><br /><br />" +
-                                         "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                         "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') +
+                                         "<br />");
 
                     }
                     else
                     {
-                        cadena = cadena + "</table><br /><br />" +
-                                          "TOTAL A PAGAR: " + "0" + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                          "TOTAL A PAGAR: " + "0" +
+                                          "<br />");
                     }
                 }
 
                 #endregion
 
-                Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + userData.CodigoISO + ") Estado de Cuenta", cadena, true, userData.NombreConsultora);
+                Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + userData.CodigoISO + ") Estado de Cuenta", txtBuil.ToString(), true, userData.NombreConsultora);
                 return Json(new
                 {
                     success = true,
@@ -222,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaVencimiento;
                 string montoPagar;
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
-                
+
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
                 {
@@ -683,8 +690,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EstadoCuentaModel source = sourceDetails[i];
 
-                            var arr = column.Contains("#") 
-                                ? column.Split('#') 
+                            var arr = column.Contains("#")
+                                ? column.Split('#')
                                 : new string[] { "", column };
 
                             if (arr[1] == "Fecha")
@@ -703,8 +710,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = userData.PaisID == 4 
-                                    ? source.Cargo.ToString("#,##0").Replace(',', '.') 
+                                string cargo = userData.PaisID == 4
+                                    ? source.Cargo.ToString("#,##0").Replace(',', '.')
                                     : source.Cargo.ToString("0.00");
 
                                 ws.Cell(row, col).Value = arr[0] + cargo;
@@ -714,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (arr[1] == "Abono")
                             {
                                 string abono = userData.PaisID == 4
-                                    ? source.Abono.ToString("#,##0").Replace(',', '.') 
+                                    ? source.Abono.ToString("#,##0").Replace(',', '.')
                                     : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");

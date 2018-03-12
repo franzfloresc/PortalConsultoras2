@@ -71,7 +71,10 @@ namespace Portal.Consultoras.Data
         public bool GetCronogramaAutomaticoActivacion()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCronogramaAutomaticoActivacion");
-            bool result = Context.ExecuteScalar(command) == null ? false : Convert.ToBoolean(Context.ExecuteScalar(command));
+            bool result = false;
+            if (Context.ExecuteScalar(command) != null)
+                result = Convert.ToBoolean(Context.ExecuteScalar(command));
+
             return result;
         }
 
@@ -82,7 +85,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetCampaniaActivaPais(DateTime  fechaConsulta)
+        public IDataReader GetCampaniaActivaPais(DateTime fechaConsulta)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCampaniaActivaPais");
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, fechaConsulta);

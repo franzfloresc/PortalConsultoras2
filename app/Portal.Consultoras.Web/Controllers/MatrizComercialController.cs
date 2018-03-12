@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -419,19 +419,17 @@ namespace Portal.Consultoras.Web.Controllers
                         while ((inputLine = sr.ReadLine()) != null)
                         {
                             var values = inputLine.Split(',');
-                            if (values.Length > 1)
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[0].Trim())) continue;
+
+                            BEMatrizComercial ent = new BEMatrizComercial
                             {
-                                if (IsNumeric(values[0].Trim()))
-                                {
-                                    BEMatrizComercial ent = new BEMatrizComercial
-                                    {
-                                        CodigoSAP = values[0].Trim(),
-                                        Descripcion = values[1].Trim()
-                                    };
-                                    if (!string.IsNullOrEmpty(ent.CodigoSAP))
-                                        lstmatriz.Add(ent);
-                                }
-                            }
+                                CodigoSAP = values[0].Trim(),
+                                Descripcion = values[1].Trim()
+                            };
+                            if (!string.IsNullOrEmpty(ent.CodigoSAP))
+                                lstmatriz.Add(ent);
                         }
                     }
                     if (lstmatriz.Count > 0)

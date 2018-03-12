@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return PartialView("ListadoDetalleSolicitud", model);
         }
-        
+
         public ActionResult ListarDetalleSolicitudClienteCatalogo(long SolicitudId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -165,13 +165,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
                     var beSolicitudCliente = new ServiceSAC.BESolicitudCliente
-                        {
-                            SolicitudClienteID = SolicitudId,
-                            CodigoConsultora = ConsultoraID.ToString(),
-                            MensajeaCliente = MensajeaCliente,
-                            UsuarioModificacion = userData.CodigoUsuario,
-                            Estado = "A"
-                        };
+                    {
+                        SolicitudClienteID = SolicitudId,
+                        CodigoConsultora = ConsultoraID.ToString(),
+                        MensajeaCliente = MensajeaCliente,
+                        UsuarioModificacion = userData.CodigoUsuario,
+                        Estado = "A"
+                    };
                     sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
                 }
 
@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(paisId, SolicitudId);
+                //ServiceSAC.BESolicitudCliente beSolicitudCliente = sv.GetSolicitudCliente(paisId, SolicitudId);
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatosMail = sv.GetTablaLogicaDatos(paisId, 57);
                 String emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
@@ -330,13 +330,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var model = new NotificacionesModel
-                {
-                    ListaNotificacionesDetalle = new List<BENotificacionesDetalle>(),
-                    ListaNotificacionesDetallePedido =
+            {
+                ListaNotificacionesDetalle = new List<BENotificacionesDetalle>(),
+                ListaNotificacionesDetallePedido =
                         Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido),
-                    NombreConsultora = userData.NombreConsultora,
-                    Origen = 3
-                };
+                NombreConsultora = userData.NombreConsultora,
+                Origen = 3
+            };
 
             return PartialView("ListadoObservaciones", model);
         }
@@ -432,12 +432,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
         }
-        
+
         public bool CheckDataSessionCantidadNotificaciones()
         {
             if (Session["fechaGetNotificacionesSinLeer"] != null &&
                 Session["cantidadGetNotificacionesSinLeer"] != null)
-            {                
+            {
                 var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
                 var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;

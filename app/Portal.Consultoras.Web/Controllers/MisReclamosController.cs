@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -28,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
-                    var beCdrWeb = new BECDRWeb {ConsultoraID = userData.ConsultoraID};
+                    var beCdrWeb = new BECDRWeb { ConsultoraID = userData.ConsultoraID };
 
                     var listaReclamo = cdr.GetCDRWeb(userData.PaisID, beCdrWeb).ToList();
 
@@ -587,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoNumero = model.NumeroPedido,
                         ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString()),
                         EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen),
-                        CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle},
+                        CDRWebDetalle = new BECDRWebDetalle[] { entidadDetalle },
                         TipoDespacho = model.TipoDespacho,
                         FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho
@@ -662,7 +663,7 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = lista,
                 cantobservado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado),
                 cantaprobado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado),
-                esCDRExpress = TieneDetalleCDRExpress(lista), 
+                esCDRExpress = TieneDetalleCDRExpress(lista),
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
@@ -671,7 +672,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidadDetalle = new BECDRWebDetalle {CDRWebDetalleID = model.CDRWebDetalleID};
+                var entidadDetalle = new BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID };
 
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
@@ -709,7 +710,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cdrWebFiltro = new BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
-                    var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault();
+                    var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault();
                     if (cdrWeb == null) return ErrorJson("Error al buscar reclamo.", true);
                     cdrWeb.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWeb.CDRWebID }, cdrWeb.PedidoID);
                     if (TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea, true);
@@ -732,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
                     sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
 
-                    cdrWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault() ?? new BECDRWeb();
+                    cdrWebMailConfirmacion = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault() ?? new BECDRWeb();
                     cdrWebMailConfirmacion.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWebMailConfirmacion.CDRWebID }, cdrWebMailConfirmacion.PedidoID);
                     cdrWebMailConfirmacion.CDRWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                     cdrWebMailConfirmacion.CDRWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
@@ -1167,11 +1168,11 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.NroCDR,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.NroCDR,
+                               cell = new string[]
+                               {
                             a.NroCDR ?? string.Empty,
                             a.ConsultoraCodigo ?? string.Empty,
                             a.RegionCodigo ?? string.Empty,
@@ -1197,8 +1198,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.TipoDespacho ?? string.Empty,
                             a.FleteDespacho.ToString(),
                             a.OrigenCDRWeb ?? string.Empty
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -1291,7 +1292,7 @@ namespace Portal.Consultoras.Web.Controllers
             string templateDetalleOperacionFaltanteAbonoPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_faltanteAbono.html";
             string templateUrlDetalleOperacionTruequePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle_codigo_operacion_trueque.html";
 
-            string htmlDetalle = "";
+            var txtBuil = new StringBuilder();
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
@@ -1321,9 +1322,9 @@ namespace Portal.Consultoras.Web.Controllers
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO2#", simbolo + " " + precio2);
 
                 html = html.Replace("#FORMATO_DETALLE_TIPO_OPERACION#", htmlOperacion);
-                htmlDetalle += html;
+                txtBuil.Append(html);
             }
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", htmlDetalle);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
 
             #endregion
 
@@ -1337,7 +1338,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -1371,14 +1372,14 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
             if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)

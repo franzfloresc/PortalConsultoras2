@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Common
         #endregion
 
         #region Propiedades
-        public static string RutaTemporales { get; set; } 
+        public static string RutaTemporales { get; set; }
         public static string UrlBanner { get; set; }
         public static string UrlNavidadConsultora { get; set; }
         public static string UrlFileConsultoras { get; set; }
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Common
         public static string RutaImagenesTempBanners { get; set; }
         public static string RutaImagenesTempMatriz { get; set; }
         public static string RutaImagenesOfertasNuevas { get; set; }
-        //public static string RutaImagenesOfertasGratis { get; set; }
+
         public static string RutaImagenesTempLugaresPago { get; set; }
         public static string RutaImagenesLugaresPago { get; set; }
         public static string RutaImagenesTempIncentivos { get; set; }
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Common
             }
             set { _sizeLimitImageRevista = value; }
         }
-        
+
         #endregion
     }
 }

@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (img.Width > model.Ancho || img.Height > model.Alto)
                             return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                            "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
-                        
+
                         img.Dispose();
 
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
@@ -300,11 +300,11 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            id = a.GrupoBannerID,
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   id = a.GrupoBannerID,
+                                   cell = new string[]
+                                   {
                                 a.GrupoBannerID.ToString(),
                                 a.TiempoRotacion.ToString(),
                                 a.Nombre,
@@ -312,8 +312,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.Dimension,
                                 a.Ancho.ToString(),
                                 a.Alto.ToString()
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -526,7 +526,6 @@ namespace Portal.Consultoras.Web.Controllers
                     hidden = true
                 }
             };
-            // colModel.Add(new Model { name = "Archivo", index = "Archivo", width = 150, key = false, sortable = false });
 
             using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
             {
@@ -653,7 +652,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
-            
+
             if (lstFinalInfo.Any())
                 lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
 
@@ -665,9 +664,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
                     item.Codigo = Constantes.BannerCodigo.RevistaDigital;
-                    if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                    if (!(revistaDigital.TieneRevistaDigital()))
                     {
-                        if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                        var valBool = ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion);
+                        if (valBool)
                         {
                             if (revistaDigital.NoVolverMostrar)
                             {

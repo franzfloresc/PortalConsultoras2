@@ -105,7 +105,7 @@
 
             return beSolicitudCredito;
         }
-        // C20150926 - CAH --> Se agrego el parametro paisID
+
         public IList<BESolicitudCredito> BuscarSolicitudCredito(int paisID, string codigoZona, string codigoTerritorio, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud, string numeroDocumento, int estadoSolicitud, string TipoSolicitud, string CodigoConsultora)
         {
             var solicitudes = new List<BESolicitudCredito>();
@@ -404,18 +404,18 @@
             {
                 if (paisConSolicitudCredito && numeroLote > 0)
                 {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
 
                 if (paisConFlexipago && numeroLoteConsuFlex > 0)
                 {
-                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
+                    string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                 }
                 throw;
             }
@@ -488,7 +488,7 @@
 
         private static string BuildLine(IEnumerable<TemplateField> template, DataRow row)
         {
-            var line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (var field in template)
             {
                 var item = string.Empty;
@@ -505,25 +505,19 @@
                     }
                 }
 
-                line += item.PadRight(field.Size);
+                txtBuil.Append(item.PadRight(field.Size));
             }
-            return line;
+            return txtBuil.ToString();
         }
 
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
-            var colonias = new List<BETablaLogicaDatos>();
             var daSolicitud = new DASolicitudCredito(paisID);
 
             using (IDataReader reader = daSolicitud.ListarColoniasByTerritorio(codigo))
             {
-                while (reader.Read())
-                {
-                    var solicitud = new BETablaLogicaDatos(reader);
-                    colonias.Add(solicitud);
-                }
+                return reader.MapToCollection<BETablaLogicaDatos>();
             }
-            return colonias;
         }
 
         public string ValidarNumeroRFC(int paisID, string numeroRFC)

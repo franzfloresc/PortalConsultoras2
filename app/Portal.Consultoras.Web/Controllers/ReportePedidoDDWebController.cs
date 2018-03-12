@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PaisOcultoID = userData.PaisID;
             return View(model);
         }
+
         public ActionResult ReportePedidosDDWebDetalle()
         {
             if (Request.Form["data"] == null)
@@ -75,6 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
         public ActionResult ReportePedidosDDWebDetalleImp(string parametros)
         {
             string param = Util.DesencriptarQueryString(parametros);
@@ -102,6 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
         public ActionResult ConsultarPedidosDDWeb(FiltroReportePedidoDDWebModel model)
         {
             ViewBag.PaisOcultoID = userData.PaisID;
@@ -133,7 +136,8 @@ namespace Portal.Consultoras.Web.Controllers
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-                rows = items.Select(a => new {
+                rows = items.Select(a => new
+                {
                     idCampania = a.CampaniaID.ToString(),
                     idPedido = a.PedidoID.ToString(),
                     cell = new string[]
@@ -165,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string FomatearMontoDecimalGPR(string motivoRechazo)
         {
-            string textoDecimal = string.Empty;
+            var txtBuil = new StringBuilder();
             string[] motivos = motivoRechazo.Split(',');
 
             foreach (string item in motivos)
@@ -176,9 +180,11 @@ namespace Portal.Consultoras.Web.Controllers
                     decimal montoDecimal = Convert.ToDecimal(motivoItem.Substring(motivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
 
                     motivoItem = motivoItem.Remove(motivoItem.IndexOf(':'));
-                    textoDecimal += string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00"));
+                    txtBuil.Append(string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00")));
                 }
             }
+
+            string textoDecimal = txtBuil.ToString();
             return string.IsNullOrEmpty(textoDecimal) ? motivoRechazo : textoDecimal;
         }
 
@@ -222,17 +228,17 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstPedidosDdWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(userData.PaisID, isoWs, Convert.ToInt32(vCampania), vConsultoraCodigo, vTipoProceso).ToList();
                     }
-                    
+
                     lst = (from c in lstPedidosDdWebNoFacturados
-                        select new BEPedidoDDWebDetalle
-                        {
-                            CUV = c.CUV,
-                            Descripcion = c.Descripcion,
-                            Cantidad = c.Cantidad,
-                            PrecioUnitario = c.PrecioUnitario,
-                            PrecioTotal = c.PrecioTotal
-                        }).ToList();
-                    
+                           select new BEPedidoDDWebDetalle
+                           {
+                               CUV = c.CUV,
+                               Descripcion = c.Descripcion,
+                               Cantidad = c.Cantidad,
+                               PrecioUnitario = c.PrecioUnitario,
+                               PrecioTotal = c.PrecioTotal
+                           }).ToList();
+
                 }
 
                 BEGrid grid = new BEGrid
@@ -378,6 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
+
         public ActionResult ExportarExcelDetallePedido(FiltroReportePedidoDDWebModel model)
         {
             var dic = new Dictionary<string, string>{
@@ -392,6 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("PedidoDetalleConsultora", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
+
         public JsonResult ValidLimitCountDetalle(FiltroReportePedidoDDWebModel model)
         {
             try
@@ -425,6 +433,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera, true);
             }
         }
+
         public ActionResult ExportarExcelCabecera(FiltroReportePedidoDDWebModel model)
         {
             var dic = new Dictionary<string, string>{
@@ -448,7 +457,8 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             var list = GetPedidoWebDD(model);
-            var lista = list.Select(a => new { 
+            var lista = list.Select(a => new
+            {
                 a.NroRegistro,
                 a.FechaRegistro,
                 a.FechaReserva,
@@ -793,6 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return model.DropDownListCampania;
             }
         }
+
         public List<BEZona> CargarZona()
         {
             var model = new ReportePedidoDDWebModel();
@@ -806,6 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return model.DropDownListZona;
             }
         }
+
         public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
@@ -825,7 +837,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -857,7 +869,8 @@ namespace Portal.Consultoras.Web.Controllers
                     list = sv.GetPedidosWebDDNoFacturados(pedidoDDWebFiltro).ToList();
                 }
 
-                list = list.Select((p, i) => {
+                list = list.Select((p, i) =>
+                {
                     p.NroRegistro = (i + 1).ToString();
                     p.paisISO = model.CodigoISO;
                     p.TipoProceso = p.OrigenNombre;
@@ -873,6 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.PedidoWebDD] = list;
             return list;
         }
+
         private List<BEPedidoDDWeb> GetPedidoWebDDDetalle(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
@@ -902,7 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = "0";
             if (model.ZonaID == "" || model.ZonaID == "-- Todas --") model.ZonaID = "0";
             if (model.Consultora == "") model.Consultora = "0";
-            model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));            
+            model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
         }
 
         #endregion
@@ -913,18 +927,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string extension = ".csv";
                 string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-                string nombreCabecera = "";
-                string cabecera = "";
+
                 string nombre = originalFileName;
                 var sw = new StringWriter();
 
+                var txtBuilNombre = new StringBuilder();
+                var txtBuilCabecera = new StringBuilder();
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    nombreCabecera += keyvalue.Key + ",";
-                    cabecera += keyvalue.Value;
+                    txtBuilNombre.Append(keyvalue.Key + ",");
+                    txtBuilCabecera.Append(keyvalue.Value);
                 }
-                string csv = CreateCSVTextFile(nombreCabecera, Source);
-                sw.WriteLine(cabecera);
+                string csv = CreateCSVTextFile(txtBuilNombre.ToString(), Source);
+                sw.WriteLine(txtBuilCabecera.ToString());
                 sw.Write(csv);
 
                 HttpContext.Response.ClearHeaders();

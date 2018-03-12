@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarValidacionTelefonica(int id)
         {
-            var model = new ConsultarValidacionTelefonicaModel {SolicitudPostulanteId = id};
+            var model = new ConsultarValidacionTelefonicaModel { SolicitudPostulanteId = id };
 
             using (var portalSv = new PortalServiceClient())
             {
@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            sheets.Add((string) schemas.Rows[0]["TABLE_NAME"]);
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
                         }
                     }
 
@@ -512,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            sheets.Add((string) schemas.Rows[0]["TABLE_NAME"]);
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
                         }
                     }
 
@@ -916,7 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoPostal = item.Descripcion;
                 }
 
-                var data = new {CodigoPostal = codigoPostal};
+                var data = new { CodigoPostal = codigoPostal };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -929,7 +929,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lugaresNivel = sv.ObtenerParametrosUnete(codigoIso, nivel, id);
 
                 var data = lugaresNivel.Select(l =>
-                    new {Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion}).ToList();
+                    new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion }).ToList();
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -1019,12 +1019,11 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante = sv.ObtenerSolicitudPostulante(user.CodigoISO, id);
             }
 
-            var belcorpResponde = new BelcorpRespondeBE();
-
-            using (var osv = new BelcorpPaisServiceClient())
-            {
-                belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
-            }
+            //var belcorpResponde = new BelcorpRespondeBE();
+            //using (var osv = new BelcorpPaisServiceClient())
+            //{
+            //    belcorpResponde = osv.ObtenerTelefonosDeBelcorpResponde(user.CodigoISO);
+            //}
 
             solicitudPostulante.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPais(user.CodigoISO,
                 solicitudPostulante.NumeroDocumento);
@@ -1286,7 +1285,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Dictionary<string, string> dic =
-                new Dictionary<string, string> {{"ZonaSeccion", "ZonaSeccion"}, {"NivelRiesgo", "NivelRiesgo"}};
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "NivelRiesgo", "NivelRiesgo" } };
 
             Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
             return View();
@@ -1316,7 +1315,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoCR) item;
+                    var crItem = (UbigeoCR)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1339,7 +1338,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoPA) item;
+                    var crItem = (UbigeoPA)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1361,7 +1360,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoGT) item;
+                    var crItem = (UbigeoGT)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1384,7 +1383,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in lstSelect)
                 {
-                    var crItem = (UbigeoSV) item;
+                    var crItem = (UbigeoSV)item;
 
                     objNivel = new NivelesGeograficosModel
                     {
@@ -1553,6 +1552,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante");
         }
 
+        public ActionResult ResumenDiasEspera(int id, string diasEsperaTotal)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ResumenDiasEspera", "&id=" + id + "&diasEsperaTotal=" + diasEsperaTotal);
+            return PartialView("_ResumenDiasEspera");
+        }
+
         [HttpPost]
         public string ValidarCelularExiste(string Celular, int SolicitudPostulanteId)
         {
@@ -1646,7 +1651,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ViewBag.HTMLSACUnete == "{\"success\":true}")
             {
                 RegistrarLogGestionSacUnete(model.SolicitudPostulanteID.ToString(),"EDITAR POSTULANTE","EDITAR");
-                return Json(new {success = true}, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -1733,7 +1738,7 @@ namespace Portal.Consultoras.Web.Controllers
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            using (var response = (HttpWebResponse) request.GetResponse())
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 return JsonConvert.DeserializeObject(result) as JObject;
@@ -1854,7 +1859,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag.RecordCount = recordCount;
 
-            int pageCount = (int) (((float) recordCount / (float) item.PageSize) + 1);
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
             pag.PageCount = pageCount;
 
             int currentPage = item.CurrentPage;
@@ -1888,7 +1893,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ReporteConsolidado()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteConsolidado", null);
-            return View(new ReporteConsolidadoModelSAC {CodigoIso = CodigoISO});
+            return View(new ReporteConsolidadoModelSAC { CodigoIso = CodigoISO });
         }
 
         [HttpPost]

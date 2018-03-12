@@ -6,7 +6,7 @@ $(document).ready(function () {
     if (isMobile()) {
 
         var saber_mas = 1;
-        $("a.btn-suscribete-video-baja").click(function () {
+        $('a.btn-suscribete-video-baja').click(function () {
             if (saber_mas == 1) {
                 $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
                 saber_mas = 2;
@@ -21,20 +21,17 @@ $(document).ready(function () {
             }
 
             var page = $("html, body");
-            var alto = $("#new-header").height();
+            var alto = $('#new-header').height();
 
             var link = $(this);
-            var anchor = link.attr("href");
+            var anchor = link.attr('href');
             page.stop().animate({ scrollTop: ScrollUser(anchor, alto) }, 1000);
 
         });
-        var offS = $(".como-funciona").offset();
-        var anchor_offset = 0;
-        if (offS != undefined) {
-            var anchor_offset = offS.top;
-        }
+        var offS = $(".como-funciona").offset() || {};
+        var anchor_offset = offS.top || 0;
 
-        $(window).on("scroll", function () {
+        $(window).on('scroll', function () {
             if ($(window).scrollTop() > anchor_offset) {
                 $("a.btn-suscribete-video-baja").css("display", "none");
             }
@@ -43,33 +40,33 @@ $(document).ready(function () {
             }
         });
 
-        $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente").click(function () {
-            $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes ul").slideToggle();
+        $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente').click(function () {
+            $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul').slideToggle();
 
             if (clickabrir == 1) {
-                $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue").css("display", "none");
-                $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "block");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "none");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "block");
                 clickabrir = 0;
             }
             else {
-                $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "none");
-                $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue").css("display", "block");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "none");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "block");
                 clickabrir = 1;
             }
         });
     }
     else {
 
-        $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)").click(function () {
-            $(this).find("ul").slideToggle();
+        $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
+            $(this).find('ul').slideToggle();
             if (clickabrir == 1) {
-                $(this).find("span.despliegue").css("display", "none");
-                $(this).find("span.nodespliegue").css("display", "block");
+                $(this).find('span.despliegue').css("display", "none");
+                $(this).find('span.nodespliegue').css("display", "block");
                 clickabrir = 0;
             }
             else {
-                $(this).find("span.despliegue").css("display", "block");
-                $(this).find("span.nodespliegue").css("display", "none");
+                $(this).find('span.despliegue').css("display", "block");
+                $(this).find('span.nodespliegue').css("display", "none");
                 clickabrir = 1;
             }
         });
@@ -79,9 +76,9 @@ $(document).ready(function () {
 
 });
  window.onYouTubePlayerAPIReady = function () {
-    player = new YT.Player("player", {
-        width: "640",
-        height: "390",
+    player = new YT.Player('player', {
+        width: '640',
+        height: '390',
         enablejsapi: 1,
         fs: 0,
         showinfo: 0,
@@ -102,8 +99,7 @@ $(document).ready(function () {
 function onScrollDown(event) {
     $(window).scroll(function () {
         var windowHeight = $(window).scrollTop();
-        var contenido2 = $("#saber-mas-uno").offset();
-        contenido2 = contenido2.top;
+        var contenido2 = ($("#saber-mas-uno").offset() || {}).top || 0;
 
         if (windowHeight >= contenido2) {
             event.target.pauseVideo();
@@ -113,12 +109,15 @@ function onScrollDown(event) {
 
 // when video ends
 function onPlayerStateChange(event) {
+    if (typeof estaSuscrita == "undefined")
+        return false;
+
     if (event.data === 0 && estaSuscrita === "False") {
-        $("a.btn-suscribete-video").animate({
-            bottom: "0%"
+        $('a.btn-suscribete-video').animate({
+            bottom: '0%'
         });
-        $("a.btn-suscribete-video-baja").animate({
-            bottom: "-100%"
+        $('a.btn-suscribete-video-baja').animate({
+            bottom: '-100%'
         });
         $("#div-suscribite").hide();
     }
@@ -129,30 +128,12 @@ function onPlayerStateChange(event) {
 }
 
 function ScrollUser(anchor, alto) {
-
-    if ($("#seccion-fixed-menu").position.top > 0)
+    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
+    if (topMenu > 0)
         alto = alto + $("#seccion-fixed-menu").height() + 10;
 
-    return jQuery(anchor).offset().top - alto;
-}
-
-function RDPopupCerrar() {
-    
-    AbrirLoad();
-    rdAnalyticsModule.CerrarPopUp("Enterate");
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "RevistaDigital/PopupCerrar",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data) {
-            CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
-        },
-        error: function (data, error) {
-            CerrarLoad();
-        }
-    });
+    alto = (jQuery(anchor).offset() || {}).top - alto;
+    return alto;
 }
 
 function RDPopupMobileCerrar() {
@@ -162,10 +143,10 @@ function RDPopupMobileCerrar() {
     rdAnalyticsModule.CerrarPopUp("ConfirmarDatos");
 
     $.ajax({
-        type: "POST",
-        url: baseUrl + "RevistaDigital/PopupCerrar",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
@@ -194,16 +175,14 @@ function RDSuscripcion() {
             }
             rdAnalyticsModule.SuscripcionExistosa();
 
-            //
             $("#PopRDSuscripcion").css("display", "block");
 
-            $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+            $('.popup_confirmacion_datos .form-datos input').keyup(); //to update button style
 
             return false;
         },
         function (xhr, status, error) {
             CerrarLoad();
-            console.log(xhr.responseText);
         }
     );
 }
@@ -212,10 +191,10 @@ function RDSuscripcionPromise() {
     var d = $.Deferred();
 
     var promise = $.ajax({
-        type: "POST",
-        url: baseUrl + "RevistaDigital/Suscripcion",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/Suscripcion',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         async: true
     });
 
@@ -232,10 +211,10 @@ function RDDesuscripcion() {
     AbrirLoad();
     rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
-        type: "POST",
-        url: baseUrl + "RevistaDigital/Desuscripcion",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
+        type: 'POST',
+        url: baseUrl + 'RevistaDigital/Desuscripcion',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
             if (!checkTimeout(data))
@@ -254,20 +233,6 @@ function RDDesuscripcion() {
     });
 }
 
-function RDRedireccionarInformacion(seccion) {
-    RDPopupCerrar();
-    seccion = seccion || 0;
-    rdAnalyticsModule.IrEnterate();
-    
-    var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
-    if (seccion == 2) url += "?tipo=" + seccion;
-    var urlLocal = $.trim(window.location).toLowerCase() + "/";
-    window.location = url;
-    if (urlLocal.indexOf("/revistadigital//Informacion/") >= 0) {
-        window.location.reload();
-    }
-}
-
 function RDRedireccionarDetalle(event) {
     var obj = EstrategiaObtenerObj(event);
     EstrategiaGuardarTemporal(obj);
@@ -276,7 +241,7 @@ function RDRedireccionarDetalle(event) {
 }
 
 function MostrarTerminos() {
-    var win = window.open(urlTerminosCondicionesRD, "_blank");
+    var win = window.open(urlTerminosCondicionesRD, '_blank');
     if (win) {
         //Browser has allowed it to be opened
         win.focus();

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
@@ -84,12 +85,12 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
-            List<BECatalogoRevista> listCatalogoRevista = _catalogosRevistas;
+            List<BECatalogoRevista> listCatalogoRevista;
 
             try
             {
                 var catalogoConfiguraciones = GetCatalogoConfiguracion(Util.GetPaisID(paisISO));
-                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new [] { campania });
+                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new[] { campania });
                 foreach (var catalogoRevista in listCatalogoRevista)
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
@@ -201,6 +202,55 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaCodigoIssuu(string codigoZona, BECatalogoRevista catalogoRevista)
         {
+            string codigo                           = null;
+            bool esRevistaPiloto                    = false;
+            var Grupos                              = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID];
+            string codeGrupo                        = null;
+            string nroCampania                      = string.Empty;
+            string anioCampania                     = string.Empty;
+
+            if (catalogoRevista.MarcaID == 0)
+            {
+                if (!string.IsNullOrEmpty(Grupos))
+                {
+
+                    foreach (var grupo in Grupos.Split(','))
+                    {
+                        var zonas = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo];
+                        esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                        if (esRevistaPiloto)
+                        {
+                            codeGrupo = grupo.Trim().ToString();
+                            break;
+                        }
+                    }
+                }
+                else
+                    esRevistaPiloto = false;
+
+                codigo                              = ServiceSettings.Instance.CodigoRevistaIssuu;
+                if (catalogoRevista.CampaniaID.ToString().Length >= 6)
+                    nroCampania                     = catalogoRevista.CampaniaID.Substring(4, 2);
+                if (catalogoRevista.CampaniaID.ToString().Length >= 6)
+                    anioCampania                    = catalogoRevista.CampaniaID.Substring(0, 4);
+
+                if (esRevistaPiloto)
+                    catalogoRevista.CodigoIssuu     = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                else
+                {
+                    catalogoRevista.CodigoIssuu     = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, "");
+                    catalogoRevista.CodigoIssuu     = Util.Trim(catalogoRevista.CodigoIssuu.Substring(catalogoRevista.CodigoIssuu.Length - 1)) == "." ? catalogoRevista.CodigoIssuu.Substring(0, catalogoRevista.CodigoIssuu.Length - 1) : catalogoRevista.CodigoIssuu;
+                }
+            }
+            else
+            {
+                codigo                              = ServiceSettings.Instance.CodigoCatalogoIssuu;
+                catalogoRevista.CodigoIssuu         = string.Format(codigo, catalogoRevista.MarcaDescripcion.ToLower(), GetPaisNombreByISO(catalogoRevista.PaisISO), catalogoRevista.CampaniaID.Substring(4, 2), catalogoRevista.CampaniaID.Substring(0, 4));
+            }
+        }
+
+        private void SetCatalogoRevistaCodigoIssuu_Backup(string codigoZona, BECatalogoRevista catalogoRevista)
+        {
             string codigo;
             var nombreCatalogoConfig = catalogoRevista.MarcaDescripcion.ToUpper(1);
             string zonas = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Zonas_" + catalogoRevista.PaisISO + catalogoRevista.CampaniaID] ?? "";
@@ -222,16 +272,16 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetCatalogoRevistaFieldsInSearchIssuu(List<BECatalogoRevista> listCatalogoRevista, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
-            var queryString = "";
+            var txtBuil = new StringBuilder();
             for (int i = 0; i < listCatalogoRevista.Count; i++)
             {
-                queryString += "docname:" + listCatalogoRevista[i].CodigoIssuu;
-                if (i < listCatalogoRevista.Count - 1) queryString += "+OR+";
-                else queryString += "&jsonCallback=?";
+                txtBuil.Append("docname:" + listCatalogoRevista[i].CodigoIssuu);
+                if (i < listCatalogoRevista.Count - 1) txtBuil.Append("+OR+");
+                else txtBuil.Append("&jsonCallback=?");
             }
 
             string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            var url = urlIssuuSearch + queryString;
+            var url = urlIssuuSearch + txtBuil.ToString();
             string response = "";
             using (var wc = new WebClient())
             {
@@ -334,7 +384,7 @@ namespace Portal.Consultoras.BizLogic
                 return new Tuple<bool, dynamic>(true, Newtonsoft.Json.Linq.JObject.Parse(content));
             }
         }
-        
+
         private string GetPaisNombreByISO(string paisISO)
         {
             switch (paisISO)

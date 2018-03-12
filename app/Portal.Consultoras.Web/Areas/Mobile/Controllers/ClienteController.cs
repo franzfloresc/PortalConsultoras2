@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public PartialViewResult AgregarCliente(ClienteMobileModel model)
         {
-            if(model.ClienteID != 0)
+            if (model.ClienteID != 0)
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model = Mapper.Map<ClienteMobileModel>(clienteService);
                     }
                 }
-                catch (FaultException ex){ LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
+                catch (FaultException ex) { LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
                 catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
             return PartialView(model);

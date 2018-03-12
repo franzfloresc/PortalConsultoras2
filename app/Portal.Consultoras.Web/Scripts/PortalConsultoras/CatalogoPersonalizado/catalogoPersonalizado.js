@@ -119,7 +119,6 @@ $(document).ready(function () {
 });
 
 function Inicializar() {
-    //IniDialog();
     ValidarCargaCatalogoPersonalizado();
     LinkCargarCatalogoToScroll();
 }
@@ -290,8 +289,7 @@ function deleteFilters() {
                 alert('Error al borrar los filtros');
             }
         },
-        complete: function () {
-        }
+        complete: function () { }
     });
     LinkCargarCatalogoToScroll();
 }
@@ -505,24 +503,6 @@ function AgregarProductoCatalogoPersonalizado(item) {
         return false;
     }
 
-    var model = {
-        TipoOfertaSisID: tipoOfertaSisID,
-        ConfiguracionOfertaID: configuracionOfertaID,
-        IndicadorMontoMinimo: indicadorMontoMinimo,
-        MarcaID: marcaID,
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidad,
-        CUV: cuv,
-        Tipo: tipo,
-        DescripcionProd: descripcionProd,
-        Pagina: pagina,
-        DescripcionCategoria: descripcionCategoria,
-        DescripcionMarca: descripcionMarca,
-        DescripcionEstrategia: descripcionEstrategia,
-        EsSugerido: false,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    };
-
     if (tipoOrigen == '3') {
         var imagenProducto = $('#imagenAnimacion>img', item);
 
@@ -553,18 +533,29 @@ function AgregarProductoCatalogoPersonalizado(item) {
         }
     }
 
-    AgregarProducto('Insert', model, function () { $(divPadre).find(".product-add").show(); });
-    //TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);    
+    var model = {
+        CUV: cuv,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidad,
+        OrigenPedidoWeb: OrigenPedidoWeb,
+        MarcaID: marcaID,
+        DescripcionProd: descripcionProd,
+        TipoOfertaSisID: tipoOfertaSisID,
+        IndicadorMontoMinimo: indicadorMontoMinimo,
+        ConfiguracionOfertaID: configuracionOfertaID
+    };
+
+    AgregarProducto(model, function () { $(divPadre).find(".product-add").show(); });
 }
 
-function AgregarProducto(url, item, otraFunct) {
+function AgregarProducto(item, otraFunct) {
 
     DialogLoadingAbrir();
     tieneMicroefecto = true;
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'Pedido/' + url,
+        url: baseUrl + 'Pedido/PedidoInsertar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -572,7 +563,6 @@ function AgregarProducto(url, item, otraFunct) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    //ActualizarGanancia(data.DataBarra);
                     if (tipoOrigen == '3') {
                         MostrarBarra(data, '1');
                     }
@@ -825,23 +815,6 @@ function AgregarProductoOfertaRevista(btn) {
     }
 
     var cuvAdd = tipoCUV == 'pack' ? $(btn).attr("data-cuvadd") : $(hidden).find(".hdItemCuv").val();
-    var model = {
-        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
-        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val(),
-        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
-        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
-        Cantidad: cantidad,
-        PrecioUnidad: precioUnidadAdd,
-        CUV: cuvAdd,
-        Tipo: $(hidden).find(".hdItemTipo").val(),
-        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
-        Pagina: $(hidden).find(".hdItemPagina").val(),
-        DescripcionCategoria: $(hidden).find(".hdItemDescripcionCategoria").val(),
-        DescripcionMarca: $(hidden).find(".hdItemDescripcionMarca").val(),
-        DescripcionEstrategia: $(hidden).find(".hdItemDescripcionEstrategia").val(),
-        EsSugerido: false,
-        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val()
-    };
 
     var imagenProducto = $('#imagenAnimacion>img', item);
 
@@ -871,12 +844,23 @@ function AgregarProductoOfertaRevista(btn) {
         });
     }
 
-    AgregarProducto('Insert', model, function () {
+
+    var model = {
+        CUV: cuvAdd,
+        Cantidad: cantidad,
+        PrecioUnidad: precioUnidadAdd,
+        OrigenPedidoWeb: $(hidden).find(".OrigenPedidoWeb").val(),
+        MarcaID: $(hidden).find(".hdItemMarcaID").val(),
+        DescripcionProd: $(hidden).find(".hdItemDescripcionProd").val(),
+        TipoOfertaSisID: $(hidden).find(".hdItemTipoOfertaSisID").val(),
+        IndicadorMontoMinimo: $(hidden).find(".hdItemIndicadorMontoMinimo").val(),
+        ConfiguracionOfertaID: $(hidden).find(".hdItemConfiguracionOfertaID").val()
+    };
+
+    AgregarProducto(model, function () {
         $("[data-item='catalogopersonalizado']:has(.hdItemCuv[value='" + cuvAdd + "'])").find(".product-add").show();
-        //$('[class^=mod-ofer]').hide();
         $('[data-oferta]').attr("class", "").hide();
     });
-    //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
 }
 
 function agregarProductoAlCarrito(o) {
@@ -910,10 +894,6 @@ function agregarProductoAlCarrito(o) {
         $(this).animate({
             'top': carrito.offset().top,
             'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
         }, 150, 'swing', function () {
             $(this).remove();
         });
@@ -972,7 +952,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!data.pedidoReservado || mostrarAlerta == true) {
                 if (mostrarAlerta == true) {
                     DialogLoadingCerrar();
-                    //DialogMensaje(data.message);
                     AbrirPopupPedidoReservado(data.message, tipoOrigen);
                 }
                 return false;
@@ -1031,7 +1010,6 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.log(error);
                 DialogMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
@@ -1088,26 +1066,16 @@ function mostrarFichaProductoFAV2(cuv) {
 
                     closeWaitingDialog();
                 }
-                else {
-                    console.log(response.message);
-                }
             }
         },
-        error: function (data, err) {
-            if (checkTimeout(data)) {
-                console.log(err);
-            }
-        },
-        complete: function () {
-
-        }
+        error: function (data, err) { },
+        complete: function () { }
     });
 }
 
 function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
     if (dataFichaProductoFAV != null && dataFichaProductoFAV.length > 0) {
-
-        var xcuv = $('#hdCuvFichaProductoFAV').val();
+        
         var result;
         if (tipo == 1) {
             result = $.grep(dataFichaProductoFAV, function (e) { return e.CUV == cuv; });
@@ -1136,7 +1104,6 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".rsWARutaImagen").val(obj.ImagenProductoSugerido);
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Nombre").val(obj.Descripcion);
             $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".ProductoDescripcion").val(obj.DescripcionComercial);
-            //$('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Volumen").val(obj.Volumen);
         }
     }
 }
@@ -1265,7 +1232,6 @@ function CargarFiltros() {
                 if (datos.length != 0) {
 
                     $.each(datos, function (i) {
-                        var h = datos[i].Id;
                         if (datos[i].Id == "1") {
                             if (tipoOrigen == 2) {
                                 $('#orderby-price').val(datos[i].Orden);
@@ -1345,11 +1311,7 @@ function CargarFiltros() {
                 }
             }
         },
-        error: function (data, err) {
-            if (checkTimeout(data)) {
-                console.log(err);
-            }
-        },
+        error: function (data, err) { },
         complete: function () {
             DialogLoadingCerrar();
             cargandoRegistros = false;

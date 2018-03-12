@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
             await Task.Run(() => LoadConsultorasCache(11));
-            var listaCampanias = DropDowListCampanias(11);
+            //var listaCampanias = DropDowListCampanias(11);
             var reportePedidoCampaniaModel = new ReportePedidoCampaniaModel()
             {
                 listaCampanias = new List<CampaniaModel>(),
@@ -150,9 +150,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -189,11 +189,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        BEPais bepais;
-                        using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                        {
-                            bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                        }
+                        //BEPais bepais;
+                        //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                        //{
+                        //    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
+                        //}
                     }
                     catch (FaultException ex)
                     {
@@ -349,13 +349,12 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
-            BEPais bepais;
 
-
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-            }
+            //BEPais bepais;
+            //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            //{
+            //    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
+            //}
 
             if (vRegion == "" || vRegion == "-- Todas --") vRegion = "0";
             if (vZona == "" || vZona == "-- Todas --") vZona = "0";

@@ -6,17 +6,16 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLAfiliaClienteConsultora
     {
-
         public BLAfiliaClienteConsultora()
         {
         }
 
-        public BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID,string ConsultoraID)
+        public BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID)
         {
             BEAfiliaClienteConsultora beAfiliacionClienteConsultora = new BEAfiliaClienteConsultora();
 
             var daAfiliaClienteConsultora = new DAAfiliaClienteConsultora(paisID);
-            using (IDataReader reader =  daAfiliaClienteConsultora.GetAfiliaClienteConsultoraByConsultora(ConsultoraID))
+            using (IDataReader reader = daAfiliaClienteConsultora.GetAfiliaClienteConsultoraByConsultora(ConsultoraID))
             {
                 while (reader.Read())
                 {
@@ -28,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
             return beAfiliacionClienteConsultora;
         }
 
-        public int InsAfiliaClienteConsultora(int paisID,long ConsultoraID)
+        public int InsAfiliaClienteConsultora(int paisID, long ConsultoraID)
         {
             var daAfiliaClienteConsultora = new DAAfiliaClienteConsultora(paisID);
             return daAfiliaClienteConsultora.InsAfiliaClienteConsultora(ConsultoraID);

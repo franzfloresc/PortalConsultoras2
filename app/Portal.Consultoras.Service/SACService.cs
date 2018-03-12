@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
-using System.Data;
-using Portal.Consultoras.Entities.Mobile;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.Mobile;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -429,30 +431,30 @@ namespace Portal.Consultoras.Service
 
         public int InsertFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.InsertFactorGanancia(entidad);
+                result = BLFactorGanancia.InsertFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.UpdateFactorGanancia(entidad);
+                result = BLFactorGanancia.UpdateFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)
@@ -572,10 +574,10 @@ namespace Portal.Consultoras.Service
 
         public int InsertLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -586,10 +588,10 @@ namespace Portal.Consultoras.Service
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -1062,9 +1064,10 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
         {
-            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
@@ -1079,8 +1082,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
@@ -1260,7 +1267,7 @@ namespace Portal.Consultoras.Service
 
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
-            new BLConsultoraDigitales().GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+            BLConsultoraDigitales.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
         }
 
         public BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
@@ -1309,7 +1316,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
@@ -1337,7 +1344,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {
@@ -1394,6 +1401,56 @@ namespace Portal.Consultoras.Service
             var bl = new BLAdministrarEstrategia();
             return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
         }
+
         #endregion
+
+        #region UpSelling
+
+        public IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false)
+        {
+            return new UpSellingBusinessLogic(paisId).Obtener(codigoCampana, incluirDetalle);
+        }
+
+        public UpSelling UpSellingInsertar(int paisId, UpSelling upSelling)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            if (upSelling.UpSellingId != default(int))
+                throw new ArgumentException("UpSellingId debe ser 0 para insertar");
+
+            return upSellingBusinessLogic.Insertar(upSelling);
+        }
+
+        public UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera)
+        {
+            return new UpSellingBusinessLogic(paisId).Actualizar(upSelling, soloCabecera);
+        }
+
+        public void UpSellingEliminar(int paisId, int upSellingId)
+        {
+            new UpSellingBusinessLogic(paisId).Eliminar(upSellingId);
+        }
+
+        public UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalle(upSellingDetalleId);
+        }
+
+        public IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
+        }
+
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+        }
+        #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

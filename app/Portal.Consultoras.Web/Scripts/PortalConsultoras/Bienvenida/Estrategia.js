@@ -128,9 +128,6 @@ var obtenerModelMasVendidos = function () {
                         model = response.data;
                         set_local_storage(model, "data_mas_vendidos");
                     }
-                    else {
-                        console.log(response.message);
-                    }
                 }
             });
     }
@@ -214,8 +211,6 @@ function ArmarCarouselMasVendidos(data) {
                     PintarEstrellas(data.Lista);
                     PintarRecomendaciones(data.Lista);
                     PintarPrecioTachado(data.Lista);
-                } else {
-                    console.log(response.menssage);
                 }
             }
         });
@@ -287,8 +282,6 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
-    //$('#contenedor_template_estrategia_cabecera').show();
 
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();
@@ -322,7 +315,6 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     } catch (e) {
-        //console.log(e);
     }
     data.lista = data.Lista;
     SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
@@ -331,7 +323,6 @@ function ArmarCarouselEstrategias(data) {
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
-        //$('#divListaEstrategias').hide();
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
@@ -501,7 +492,6 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
     };
 
     if (accion == 'prev') {
-        //TagManager
         var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
         var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
         var recomendado = arrayOfertasParaTi[posicionEstrategia];
@@ -533,7 +523,6 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'label': 'Ver anterior'
         });
     } else if (accion == 'next') {
-        //TagManager
         var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
         var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
         var recomendado = arrayOfertasParaTi[posicionEstrategia];
@@ -782,7 +771,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             $(objInput).parents("[data-item]").find("[data-input='cantidad']").val(1);
         },
         error: function (data, error) {
-            alert(datos.data.message);
             CerrarLoad();
         }
     });
@@ -873,7 +861,7 @@ function EstrategiaTallaColor(datos) {
         var ofertas = datos.data.DescripcionCUV2.split('|');
         $(".zona1Edit").html(ofertas[0]);
         $("#txtCantidadZE").attr("est-descripcion", ofertas[0]);
-        $("#OfertasResultados li").remove(); // Limpiar la lista.
+        $("#OfertasResultados li").remove();
 
         $.each(ofertas, function (i) {
             if (i != 0 && $.trim(ofertas[i]) != "") {
@@ -957,18 +945,22 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
 
-    var param = ({
-        MarcaID: marcaID,
+    var param = {
         CUV: cuv,
-        PrecioUnidad: precio,
-        Descripcion: descripcion,
         Cantidad: cantidad,
+        PrecioUnidad: precio,
+        TipoEstrategiaID: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        OrigenPedidoWeb: OrigenPedidoWeb,
+        MarcaID: marcaID,
+        DescripcionProd: descripcion,
         IndicadorMontoMinimo: indicadorMontoMinimo,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
-        tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
-        OrigenPedidoWeb: OrigenPedidoWeb
-    });
+        TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+
+        Descripcion: descripcion,
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
+        tipoEstrategiaImagen: tipoEstrategiaImagen || 0
+    };
 
     jQuery.ajax({
         type: 'POST',
@@ -1014,7 +1006,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
                             if (_validartieneMasVendidos() === 1) {
-                                //CargarCarouselMasVendidos('desktop');
                             }
 
                             CargarResumenCampaniaHeader(true);
@@ -1048,7 +1039,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 CargarCarouselEstrategias(cuv);
 
                                 if (_validartieneMasVendidos() === 1) {
-                                    //CargarCarouselMasVendidos('mobile');
                                 }
                             }
                         }
@@ -1067,6 +1057,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         ActualizarLocalStorageAgregado("rd", param.CUV, true);
                         ActualizarLocalStorageAgregado("gn", param.CUV, true);
+                        ActualizarLocalStorageAgregado("hv", param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },
@@ -1207,9 +1198,6 @@ function GuardarProductoTemporal(obj) {
         error: function (response, error) {
             CerrarLoad();
             localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
         }
     });
 

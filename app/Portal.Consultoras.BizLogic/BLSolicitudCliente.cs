@@ -26,11 +26,7 @@ namespace Portal.Consultoras.BizLogic
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
             BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
-            
-            //var tablaLogDatos = new BLTablaLogicaDatos();
-            //List<BETablaLogicaDatos> tablalogicaDatos = tablaLogDatos.GetTablaLogicaDatos(paisID, 56);
-            //String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
-            
+
             String emailOculto = string.Empty;
             if (consultoraSolicitudCliente != null)
             {
@@ -75,7 +71,7 @@ namespace Portal.Consultoras.BizLogic
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("<tr>");
                     mensajeCorreo.AppendLine("<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-                    //mensajeCorreo.AppendLine(String.Format("<a href=\"{0}ConsultoraOnline/AtenderCorreo?tipo=SolicitudPedido\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
+
                     mensajeCorreo.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
                     mensajeCorreo.AppendLine("</td>");
                     mensajeCorreo.AppendLine("</tr>");
@@ -116,22 +112,20 @@ namespace Portal.Consultoras.BizLogic
 
                     Util.EnviarMail("no-responder@somosbelcorp.com", consultoraSolicitudCliente.Email, emailOculto, asunto, mensajeCorreo.ToString(), true, "Consultora Online Belcorp");
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception) { }
             }
         }
 
         #endregion
-        
+
         public BEResultadoSolicitud InsertarSolicitudCliente(int paisID, BEEntradaSolicitudCliente entidadSolicitud)
         {
             BEResultadoSolicitud resultado = null;
             try
             {
                 var daSolicitudCliente = new DASolicitudCliente(paisID);
-                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud == null 
-                    ? new List<BESolicitudClienteDetalle>().ToList() 
+                IEnumerable<BESolicitudClienteDetalle> listaSolicitudDetalle = entidadSolicitud.DetalleSolicitud == null
+                    ? new List<BESolicitudClienteDetalle>().ToList()
                     : entidadSolicitud.DetalleSolicitud.ToList();
 
                 using (IDataReader reader = daSolicitudCliente.InsertarSolicitudCliente(entidadSolicitud, listaSolicitudDetalle))
@@ -171,7 +165,7 @@ namespace Portal.Consultoras.BizLogic
                 return resultado;
             }
         }
-        
+
         public BESolicitudCliente GetSolicitudClienteBySolicitudId(int paisID, long solicitudClienteId)
         {
             BESolicitudCliente solicitudCliente = null;
@@ -235,7 +229,6 @@ namespace Portal.Consultoras.BizLogic
         {
             Util.EnviarMail(From, To, CCO, Subject, Message, isHTML);
         }
-
 
         public void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud)
         {
@@ -346,7 +339,7 @@ namespace Portal.Consultoras.BizLogic
                                 switch (detalle.TipoOfertaSisID)
                                 {
                                     case Constantes.ConfiguracionOferta.ShowRoom:
-                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockActualizar(detalle.CampaniaID, detalle.CUV, detalle.Stock, detalle.Flag);
                                         break;
                                     case Constantes.ConfiguracionOferta.Liquidacion:
                                     case Constantes.ConfiguracionOferta.Accesorizate:
@@ -361,7 +354,7 @@ namespace Portal.Consultoras.BizLogic
                                 switch (detalle.TipoOfertaSisID)
                                 {
                                     case Constantes.ConfiguracionOferta.ShowRoom:
-                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.TipoOfertaSisID, detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
+                                        new DAShowRoomEvento(paisID).UpdOfertaShowRoomStockEliminar(detalle.CampaniaID, detalle.CUV, detalle.Cantidad);
                                         break;
                                     case Constantes.ConfiguracionOferta.Liquidacion:
                                     case Constantes.ConfiguracionOferta.Accesorizate:
@@ -410,6 +403,7 @@ namespace Portal.Consultoras.BizLogic
             var daSolicitudCliente = new DASolicitudCliente(paisID);
             return daSolicitudCliente.EnviarSolicitudClienteaGZ(entidadSolicitudCliente);
         }
+
         public List<BESolicitudCliente> BuscarSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var listaSolicitudes = new List<BESolicitudCliente>();
@@ -424,6 +418,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return listaSolicitudes;
         }
+
         public BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var daSolicitudCliente = new DASolicitudCliente(paisID);
@@ -447,7 +442,7 @@ namespace Portal.Consultoras.BizLogic
                     listaDetalleSolicitudCliente.Add(solicitudClienteDetalle);
                 }
             }
-            
+
             resultadoSolicitudCliente.DetalleSolicitud = listaDetalleSolicitudCliente;
 
             return resultadoSolicitudCliente;
@@ -513,8 +508,8 @@ namespace Portal.Consultoras.BizLogic
                 var misPedidos = new List<BEMisPedidosAppCatalogo>();
 
                 IDataReader reader;
-                
-                if(tipoUsuario == 1) reader = daMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
+
+                if (tipoUsuario == 1) reader = daMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
                 else reader = daMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
 
                 using (reader)
@@ -541,7 +536,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 resultado = new BEResultadoPedidoDetalleAppCatalogo(false, "OK");
-                
+
                 var daMisPedidos = new DAConsultoraOnline(PaisID);
                 var miPedidoDetalles = new List<BEMisPedidosDetalleAppCatalogo>();
 

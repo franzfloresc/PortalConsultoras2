@@ -198,12 +198,7 @@ $(document).ready(function () {
                 RenderOfertaDelDia(_data, contenedorOfertas);
 
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
-
-                ///*Para personalizar el fondo del reloj*/
-                //$(".flip-clock-wrapper .flip").css("box-shadow", "0 2px 5px " + "black");
-                //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
-                //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
-
+                
 
                 var setColorFondo = _data.ColorFondo1;
                 var setColorTexto = "";
@@ -267,9 +262,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         if (!seAtacharonEventosOdd) {
@@ -487,6 +480,7 @@ $(document).ready(function () {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
             CUV: itemCampos.find('.cuv2-odd').val(),
             PrecioUnidad: itemCampos.find('.precio-odd').val(),
+            TipoEstrategiaID: itemCampos.find('.tipoestrategia-id-odd').val(),
             Descripcion: itemCampos.find('.nombre-odd').val(),
             Cantidad: cantidad,
             IndicadorMontoMinimo: itemCampos.find('.indmonto-min-odd').val(),
@@ -580,7 +574,6 @@ $(document).ready(function () {
         var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
         var marcaID = itemCampos.find('.marca-id-odd').val();
         var cuv2 = itemCampos.find('.cuv2-odd').val();
-        var flagNueva = itemCampos.find('.flagnueva-odd').val();
         var precio = itemCampos.find('.precio-odd').val();
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();
@@ -603,18 +596,21 @@ $(document).ready(function () {
             }
         }
 
-        var obj = ({
-            MarcaID: marcaID,
+        var obj = {
             CUV: cuv2,
-            PrecioUnidad: precio,
-            Descripcion: descripcion,
             Cantidad: cantidad,
+            PrecioUnidad: precio,
+            TipoEstrategiaID: tipoEstrategiaID,
+            OrigenPedidoWeb: origenPedidoWeb,
+            MarcaID: marcaID,
+            DescripcionProd: descripcion,
             IndicadorMontoMinimo: indMontoMinimo,
-            TipoOferta: tipoEstrategiaID,
             ClienteID_: '-1',
-            tipoEstrategiaImagen: teImagenMostrar || 0,
-            OrigenPedidoWeb: origenPedidoWeb
-        });
+            TipoEstrategiaImagen: teImagenMostrar || 0,
+            
+            Descripcion: descripcion,
+            TipoOferta: tipoEstrategiaID
+        };
 
         jQuery.ajax({
             type: 'POST',
@@ -629,9 +625,10 @@ $(document).ready(function () {
                     closeWaitingDialog();
                     return false;
                 }
+
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProductoZE',
+                    url: baseUrl + props.UrlAgregarProducto,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(obj),
@@ -730,9 +727,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         return ok;
@@ -775,21 +770,7 @@ $(document).ready(function () {
 
         return d.promise();
     }
-
-    function ResolverPromiseValidarStockEstrategia(response) {
-        if (!response.result) {
-            AbrirMensaje(response.message);
-            CerrarLoad();
-            return false;
-        } else {
-            var promiseAgregarProducto = AgregarProducto(producto);
-            $.when(promiseAgregarProducto).then(
-                ResolverPromiseAgregarProducto(response),
-                ResolverPromiseAgregarProductoError(response)
-             );
-        }
-    }
-
+    
     function ResolverPromiseAgregarProducto(response) {
         if (!checkTimeout(response)) {
             CerrarLoad();
@@ -836,9 +817,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            error: function (err) {
-                checkTimeout(err);
-            }
+            error: function (err) { }
         });
 
         return qty;

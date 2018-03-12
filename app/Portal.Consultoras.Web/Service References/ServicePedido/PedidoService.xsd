@@ -105,6 +105,7 @@
           <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
           <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Niveles" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
           <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
@@ -201,7 +202,7 @@
       <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Digitable" type="xs:short" />
+      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />
       <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
@@ -299,6 +300,9 @@
       <xs:element minOccurs="0" name="ConsultoraAsociadaID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="CuponEstado" type="xs:int" />
+      <xs:element minOccurs="0" name="CuponMontoMaxDscto" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CuponPctDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DestinatariosFeedback" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
@@ -415,6 +419,7 @@
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneGND" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneMasVendidos" type="xs:int" />

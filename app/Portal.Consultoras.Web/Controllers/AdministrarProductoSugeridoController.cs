@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -33,9 +34,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -62,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SortOrder = sord
             };
             IEnumerable<BEProductoSugerido> items = lst;
-            
+
             items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
@@ -175,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
@@ -213,8 +214,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(entidad.ImagenProducto);
                 }
                 else
-                {                    
-                    listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto);                    
+                {
+                    listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto);
                 }
 
                 if (listaImagenesResize != null && listaImagenesResize.Count > 0)
@@ -319,13 +320,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        
-
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
         {
             try
-            {   
+            {
                 var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(model);
 
                 entidad.Estado = 1;
@@ -410,12 +409,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
                 }
-                //listaEstrategias = listaEstrategias.Take(5).ToList();
-                var cuvNoGenerados = "";
-                var cuvNoExistentes = "";
+
+                var txtBuilNoGenerados = new StringBuilder();
+                var txtBuilNoExistentes = new StringBuilder();
 
                 foreach (var item in lista)
-                {                    
+                {
                     var mensajeError = "";
 
                     List<EntidadMagickResize> listaImagenesResize;
@@ -432,19 +431,21 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);                    
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
                     else
-                        cuvNoExistentes += item.Cuv + ",";
+                        txtBuilNoExistentes.Append(item.Cuv + ",");
 
                     if (mensajeError != "")
-                        cuvNoGenerados += item.Cuv + ",";
+                        txtBuilNoGenerados.Append(item.Cuv + ",");
                 }
 
                 var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                var cuvNoGenerados = txtBuilNoGenerados.ToString();
                 if (cuvNoGenerados != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
                 }
+                var cuvNoExistentes = txtBuilNoExistentes.ToString();
                 if (cuvNoExistentes != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;

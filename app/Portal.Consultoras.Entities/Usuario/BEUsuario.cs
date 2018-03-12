@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DiasAntes") && row["DiasAntes"] != DBNull.Value)
                 DiasAntes = DbConvert.ToByte(row["DiasAntes"]);
             if (DataRecord.HasColumn(row, "ZonaValida") && row["ZonaValida"] != DBNull.Value)
-                ZonaValida = Convert.ToInt32(row["ZonaValida"]) == -1 ? false : true;
+                ZonaValida = Convert.ToInt32(row["ZonaValida"]) != -1;
             if (DataRecord.HasColumn(row, "HoraInicioNoFacturable") && row["HoraInicioNoFacturable"] != DBNull.Value)
                 HoraInicioNoFacturable = DbConvert.ToTimeSpan(row["HoraInicioNoFacturable"]);
             if (DataRecord.HasColumn(row, "HoraCierreNoFacturable") && row["HoraCierreNoFacturable"] != DBNull.Value)
@@ -1080,6 +1080,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string NumeroDocumento { get; set; }
         [DataMember]
+        [Column("Seccion")]
         public string Seccion { get; set; }
         [DataMember]
         public string Zona { get; set; }
@@ -1401,5 +1402,13 @@ namespace Portal.Consultoras.Entities
         public short RevistaDigitalSuscripcion { get; set; }
         [DataMember]
         public string UrlBannerGanaMas { get; set; }
+        [DataMember]
+        public bool TieneGND { get; set; }
+        [DataMember]
+        public int CuponEstado { get; set; }
+        [DataMember]
+        public decimal CuponPctDescuento { get; set; }
+        [DataMember]
+        public decimal CuponMontoMaxDscto { get; set; }
     }
 }

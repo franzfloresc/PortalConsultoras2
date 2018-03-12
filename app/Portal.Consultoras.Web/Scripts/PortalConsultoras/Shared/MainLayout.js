@@ -60,6 +60,8 @@ $(document).ready(function () {
                 $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
+            
+            $('#alertDialogMensajes').dialog('close');
         }
     });
 
@@ -92,8 +94,10 @@ $(document).ready(function () {
                     var functionHide = $.trim($(this).attr("data-popup-function-hide"));
                     FuncionEjecutar(functionHide);
                     if ($(e.target).parents().find(".content_ficha_producto_nueva").length > 0) {
-                        document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
-                        dataLayerFichaProducto();
+                        if (document.getElementById('infusionsoft') != null) {
+                            document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                            dataLayerFichaProducto();
+                        }
                     }
                     CerrarPopup(e.target);
                 }
@@ -395,9 +399,7 @@ function CargarResumenCampaniaHeader(showPopup) {
                 }
             }
         },
-        error: function (data, error) {
-            checkTimeout(data);
-        }
+        error: function (data, error) { }
     });
 };
 
@@ -433,9 +435,7 @@ function CargarCantidadNotificacionesSinLeer() {
                 data.mensaje = data.mensaje || "";
             };
         },
-        error: function (data, error) {
-            checkTimeout(data);
-        }
+        error: function (data, error) { }
     });
 };
 
@@ -574,7 +574,6 @@ function ValidarCorreoComunidad(tipo) {
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
-                        alert_msg_com(data.message);
                     }
                 }
             });
@@ -638,7 +637,6 @@ function ValidarCorreoComunidad(tipo) {
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
-                        alert_msg_com(data.message);
                     }
                 }
             });
@@ -1093,9 +1091,7 @@ function checkCountdownODD() {
                     ok = false;
             }
         },
-        error: function (err) {
-            checkTimeout(err);
-        }
+        error: function (err) { }
     });
 
     return ok;
@@ -1117,9 +1113,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
                 qty = parseInt(response.cantidad);
             }
         },
-        error: function (err) {
-            checkTimeout(err);
-        }
+        error: function (err) { }
     });
 
     return qty;
@@ -1162,9 +1156,7 @@ function closeOfertaDelDia(sender) {
                 odd_desktop_google_analytics_cerrar_banner(nombreProducto);
             }
         },
-        error: function (err) {
-            checkTimeout(err);
-        }
+        error: function (err) { }
     });
 }
 

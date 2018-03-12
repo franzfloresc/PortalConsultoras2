@@ -7,7 +7,7 @@ var MatrizComercialFileUpload = function (config) {
     };
 
     var _validarImagen = '1';
-    var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
+    var _nemotecnico = config.nemotecnico;
     var _uploader = '';
 
     var _validarNemotecnico = function (fileName) {

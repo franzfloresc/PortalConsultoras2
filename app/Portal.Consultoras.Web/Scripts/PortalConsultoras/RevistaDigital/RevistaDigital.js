@@ -66,9 +66,6 @@ $(document).ready(function () {
         }
     });
 
-
-    /* fin popup validar datos 2017 */
-
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
@@ -121,8 +118,9 @@ $(document).ready(function () {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
             $('html, body').animate({
-                scrollTop: $('#divTopFiltros').position().top - 60
+                scrollTop: topFiltros - 60
             }, 1000, 'swing');
         }
     });
@@ -185,23 +183,19 @@ $(document).ready(function () {
         }
     });
 
-    $("body").on("click",
-        ".btn-volver-fix-detalle span",
-        function (e) {
-            window.location = urlRetorno;
-        });
-
+    $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
+        window.location = urlRetorno;
+    });
     
-
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('[data-listado-campania=' + idCamapania + ']');
-    if (top.length > 0) {
-        top = top.position().top;
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
+    if (topListado.length > 0) {
+        topListado = (top.position() || {}).top || 0;
 
         $('html, body').animate({
-            scrollTop: top - 70
+            scrollTop: topListado - 70
         }, 1000, 'swing');
     }
 }
@@ -246,14 +240,14 @@ function GetArrowNameNext() {
     else return "next.png";
 }
 
-function OfertaArmarEstrategias(response) {
+function OfertaArmarEstrategias(response, busquedaModel) {
 
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
-        OfertaArmarEstrategiasContenedor(response);
+        OfertaArmarEstrategiasContenedor(response, busquedaModel);
         return false;
     }
 
@@ -271,10 +265,10 @@ function OfertaArmarEstrategias(response) {
     response.Mobile = isMobile();
     cantTotalMostrar = response.cantidadTotal;
     OfertaObtenerIndLocal(response.CampaniaID);
-    if (filtroCampania[indCampania] != undefined) {
+    if (filtroCampania[lsListaRD + indCampania] != undefined) {
 
-        var cantListados = filtroCampania[indCampania].CantMostrados;
-        filtroCampania[indCampania].CantTotal = response.cantidad;
+        var cantListados = filtroCampania[lsListaRD + indCampania].CantMostrados;
+        filtroCampania[lsListaRD + indCampania].CantTotal = response.cantidad;
 
         var listaAdd = new Array();
 
@@ -289,9 +283,9 @@ function OfertaArmarEstrategias(response) {
             }
         });
 
-        filtroCampania[indCampania].CantMostrados += listaAdd.length;
+        filtroCampania[lsListaRD + indCampania].CantMostrados += listaAdd.length;
 
-        filtroCampania[indCampania].response.Completo = 1;
+        filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
     else {
         console.log('filtroCampania' + indCampania + " - " + response.CampaniaID);
@@ -315,7 +309,6 @@ function OfertaArmarEstrategias(response) {
     /*Logica para agregar atributos para el EfectoLazy*/
     EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
-    //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantTotalMostrar);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
@@ -331,7 +324,7 @@ function OfertaArmarEstrategias(response) {
     ResizeBoxContnet();
 
     if (!isDetalle) {
-        RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+        RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[lsListaRD + indCampania]);
     }
 }
 
@@ -345,8 +338,8 @@ function RDLocalStorageListado(key, valor, codigo) {
         if (codigo == "LAN") {
             valLocalStorage.response.listaLan = valor.listaLan;
         }
-        else {
-            valor.response.listaLan = valLocalStorage.listaLan || valLocalStorage.response.listaLan;
+        else if (valor) {
+            valor.response.listaLan = valLocalStorage.listaLan || (valLocalStorage.response || {}).listaLan || {};
             valLocalStorage = Clone(valor);
         }
     }
@@ -358,16 +351,21 @@ function RDLocalStorageListado(key, valor, codigo) {
 }
 
 
-function OfertaArmarEstrategiasContenedor(responseData) {
+function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
-    RDLocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
+    RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["RD", "RDR"]
+    var listaSeccionesRD = ["HV"]
+
+    if (busquedaModel.VarListaStorage === "ListaRD") {
+        listaSeccionesRD = ["RD", "RDR"]
+    }
 
     $.each(listaSeccionesRD, function (ind, tipo) {
         response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
+
         if (response.Seccion == undefined) {
             var seccHtml = $('[data-seccion][data-seccion="' + tipo + '"]');
             if (seccHtml.length == 1) {
@@ -412,7 +410,7 @@ function RDFiltrarLista(response, busquedaModel) {
     var cont = 0, contVal = 0;
 
     OfertaObtenerIndLocal(response.CampaniaID);
-    var ListaFiltro = filtroCampania[indCampania].ListaFiltro || new Array();
+    var ListaFiltro = filtroCampania[lsListaRD + indCampania].ListaFiltro || new Array();
 
     if (ListaFiltro.length > 0) {
         listaFinal = new Array();
@@ -459,7 +457,7 @@ function RDFiltrarLista(response, busquedaModel) {
         });
     }
 
-    var ordenar = filtroCampania[indCampania].Ordenamiento || new Object();
+    var ordenar = filtroCampania[lsListaRD + indCampania].Ordenamiento || new Object();
     ordenar.Tipo = $.trim(ordenar.Tipo).toLowerCase();
     if (ordenar.Tipo != "" && listaFinal.length > 0) {
         if (ordenar.Tipo == "precio") {
@@ -482,16 +480,16 @@ function ResizeBoxContnet() {
             that.on('load', function () {
                 if (that.width() < 115) {
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "105px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 150) {
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "140px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "140px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 200) {
 
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "190px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "190px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
             });
         });
@@ -519,14 +517,17 @@ function RDDetalleObtener() {
 
     if (cuv == "" || campania == "") {
         RDDetalleVolver(campaniaCodigo);
+        return false;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     if (prod == null || prod == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
     if (prod.CUV2 == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
 
     var obj = new Object();
@@ -537,7 +538,7 @@ function RDDetalleObtener() {
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.Posicion = ind + 1;
-        tem.TipoAccionAgregar = 2;
+        //tem.TipoAccionAgregar = 2; Comentado por KC. para activar la experiencia de tonos en el detalle
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");

@@ -74,4 +74,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PosiblesConsultorasPendientesVisitaCollection" nillable="true" type="tns:PosiblesConsultorasPendientesVisitaCollection" />
+  <xs:complexType name="ResumenDiasEsperaCollection">
+    <xs:sequence>
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ResumenDiasEsperaBE" nillable="true" type="q13:ResumenDiasEsperaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResumenDiasEsperaCollection" nillable="true" type="tns:ResumenDiasEsperaCollection" />
 </xs:schema>

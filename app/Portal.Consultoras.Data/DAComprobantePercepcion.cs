@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetComprobantePercepcionDetalle(int IdComprobantePercepcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetComprobantePercepcionDetalle");

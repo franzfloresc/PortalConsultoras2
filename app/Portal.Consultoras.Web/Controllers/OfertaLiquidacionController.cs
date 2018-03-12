@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);                                                
+                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
                         item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
                         item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
@@ -437,9 +437,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
+                lst = userData.RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(userData.PaisID)};
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -861,21 +861,19 @@ namespace Portal.Consultoras.Web.Controllers
                         while ((inputLine = sr.ReadLine()) != null)
                         {
                             var values = inputLine.Split(',');
-                            if (values.Length > 1)
+                            if (values.Length <= 1) continue;
+
+                            if (!IsNumeric(values[1].Trim()) || !IsNumeric(values[3].Trim())) continue;
+
+                            BEOfertaProducto ent = new BEOfertaProducto
                             {
-                                if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
-                                {
-                                    BEOfertaProducto ent = new BEOfertaProducto
-                                    {
-                                        ISOPais = values[0].Trim(),
-                                        CampaniaID = int.Parse(values[1]),
-                                        CUV = values[2].Trim(),
-                                        Stock = int.Parse(values[3].Trim())
-                                    };
-                                    if (ent.Stock >= 0)
-                                        lstStock.Add(ent);
-                                }
-                            }
+                                ISOPais = values[0].Trim(),
+                                CampaniaID = int.Parse(values[1]),
+                                CUV = values[2].Trim(),
+                                Stock = int.Parse(values[3].Trim())
+                            };
+                            if (ent.Stock >= 0)
+                                lstStock.Add(ent);
                         }
                     }
                     if (lstStock.Count > 0)
@@ -1312,8 +1310,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = ps.GetListaImagenesOfertaLiquidacionByCampania(userData.PaisID, campaniaId).ToList();
                 }
 
-                var cuvNoGenerados = "";
-                var cuvNoExistentes = "";
+                var txtBuilNoGenerados = new StringBuilder();
+                var txtBuilNoExistentes = new StringBuilder();
 
                 foreach (var item in lista)
                 {
@@ -1323,17 +1321,19 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                         mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
                     else
-                        cuvNoExistentes += item.Cuv + ",";
+                        txtBuilNoExistentes.Append(item.Cuv + ",");
 
                     if (mensajeError != "")
-                        cuvNoGenerados += item.Cuv + ",";
+                        txtBuilNoGenerados.Append(item.Cuv + ",");
                 }
 
                 var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                var cuvNoGenerados = txtBuilNoGenerados.ToString();
                 if (cuvNoGenerados != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
                 }
+                var cuvNoExistentes = txtBuilNoExistentes.ToString();
                 if (cuvNoExistentes != "")
                 {
                     mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;

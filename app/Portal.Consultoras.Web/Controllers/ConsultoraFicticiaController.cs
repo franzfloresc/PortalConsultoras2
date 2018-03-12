@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
 
-            var model = new ConsultoraFicticiaModel {listaPaises = DropDowListPaises()};
+            var model = new ConsultoraFicticiaModel { listaPaises = DropDowListPaises() };
             return View(model);
         }
 
@@ -37,10 +37,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -84,6 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ValidarUsuario(ConsultoraFicticiaModel model)
         {
@@ -91,10 +92,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -137,6 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
@@ -150,11 +152,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.InsConsultoraFicticia(entidad);
                 }
-                
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 if (result == 3)
                 {
@@ -165,7 +167,8 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                else if (result == 0)
+
+                if (result == 0)
                 {
                     return Json(new
                     {
@@ -174,16 +177,13 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                else
-                {
 
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Usuario de prueba ha sido creado correctamente.",
-                        extra = ""
-                    });
-                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Usuario de prueba ha sido creado correctamente.",
+                    extra = ""
+                });
             }
             catch (FaultException ex)
             {
@@ -206,6 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ActualizarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
@@ -246,6 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult EliminarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
@@ -362,10 +364,10 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   cell = new string[]
+                                   {
                                 a.ConsultoraID.ToString(),
                                 vPaisID,
                                 a.CodigoUsuario,
@@ -373,8 +375,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.NombreCompleto,
                                 a.PaisNombre,
                                 a.ZonaNombre
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -446,10 +448,10 @@ namespace Portal.Consultoras.Web.Controllers
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
                         rows = from a in items
-                        select new
-                        {
-                            cell = new string[]
-                            {
+                               select new
+                               {
+                                   cell = new string[]
+                                   {
                                 a.ConsultoraID.ToString(),
                                 vPaisID,
                                 a.CodigoUsuario,
@@ -457,8 +459,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.NombreCompleto,
                                 a.PaisNombre,
                                 a.ZonaNombre
-                            }
-                        }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -492,9 +494,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
-                    ? sv.SelectPaises().ToList() 
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);

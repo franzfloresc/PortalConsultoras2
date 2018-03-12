@@ -23,14 +23,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
-                TieneSeccionRD = revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva)),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
                 TieneGND = userData.TieneGND
             };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            
+
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
             ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
-            var paisesEsika = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).ToLower();
+            var paisesEsika = GetPaisesEsikaFromConfig().ToLower();
             ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
 
             return View(clienteModel);
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Campania = campaniaRevista;
             return View();
         }
-        
+
         private PartialSectionBpt GetPartialSectionBptModel()
         {
             var partial = new PartialSectionBpt();
@@ -155,6 +155,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
                         }
                     }
+                }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
                 }
                 else if (revistaDigital.TieneRDR)
                 {

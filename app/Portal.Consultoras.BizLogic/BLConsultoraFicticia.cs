@@ -28,13 +28,13 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public int DelConsultoraFicticia(int paisID, string CodigoConsultora)
-        { 
+        {
             var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
             return daConsultoraFicticia.DelConsultoraFicticia(CodigoConsultora);
         }
 
         public int UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave)
-        { 
+        {
             var daConsultoraFicticia = new DAConsultoraFicticia(paisID);
             return daConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, ConsultoraID, Clave);
         }

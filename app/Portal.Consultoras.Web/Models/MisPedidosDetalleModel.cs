@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
-
-using Portal.Consultoras.Common;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {

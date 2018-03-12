@@ -1182,6 +1182,25 @@ div#tab_revistasdigital_mobile {
     height: 20px;
 }
 
+.rd_arrowright {
+    position: relative;
+    width: 8px;
+    top: -2px;
+    left: 5px;
+}
+
+    .rd_arrowright:after {
+        background-image: url('../../../Images/Esika/rd_arrowright_red.png');
+        background-repeat: no-repeat;
+        background-size: 6px 10px;
+        display: inline-block;
+        width: 6px;
+        height: 10px;
+        content: '';
+        margin-left: 8px;
+        margin-top: 4px;
+    }
+
 .rd_ver_mas .arrow_rigth {
     width: 8px;
     height: 12px;
@@ -1857,10 +1876,15 @@ div#tab_revistasdigital_mobile {
         color: black;
         margin: 0 auto;
         width: 100%;
-        overflow: hidden;
-        height: 35px;
         margin-top: 6px;
         font-weight: 900;
+        /* hide text if it more than N lines  */
+        overflow: hidden;
+        /* for set '...' in absolute position */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow:ellipsis;
+        -webkit-box-orient: vertical;
     }
 
 .producto_precio_bpt {
@@ -1985,13 +2009,6 @@ div#tab_revistasdigital_mobile {
         font-weight: 700;
         letter-spacing: .5px;
     }
-
-.rd_arrowright {
-    position: relative;
-    width: 8px;
-    top: -2px;
-    left: 5px;
-}
 
 .btn_black_solid a, .btn_white_stroke a {
     background-color: black;
@@ -2292,6 +2309,9 @@ div#tab_revistasdigital_mobile {
 .como-funciona {
     background: #f5f5f5;
 }
+.como-funciona .contenedor-mobile-fix{
+    margin-bottom:0px !important;
+}
 
     .como-funciona .arrow {
         display: block;
@@ -2434,6 +2454,8 @@ div#tab_revistasdigital_mobile {
         display: block;
         width: 100%;
         text-align: center;
+        margin-bottom: 10px;
+        margin-top: 30px;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .instrucciones {

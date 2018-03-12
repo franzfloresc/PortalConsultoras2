@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Entities
         public bool HabilitarRestriccionHoraria { get; set; }
         public int HorasDuracionRestriccion { get; set; }
 
+        public string Mensajes { get; set; }
+
         public BEPais() { }
         public BEPais(IDataRecord row)
         {
@@ -44,6 +46,8 @@ namespace Portal.Consultoras.Entities
                 HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
             if (DataRecord.HasColumn(row, "HorasDuracionRestriccion") && row["HorasDuracionRestriccion"] != DBNull.Value)
                 HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
+            if (DataRecord.HasColumn(row, "Mensajes") && row["Mensajes"] != DBNull.Value)
+                Mensajes = row["Mensajes"].ToString();
         }
     }
 }

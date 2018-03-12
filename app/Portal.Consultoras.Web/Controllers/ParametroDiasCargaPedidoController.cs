@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
+            //IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {
@@ -58,9 +58,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = UserData().RolID == 2 
+                lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -178,7 +178,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-
         public JsonResult ConsultarLog(string sidx, string sord, int page, int rows, string vBusqueda)
         {
             IList<BELogParametroDiasCargaPedido> lst;
@@ -272,8 +271,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda) 
-                ? lst.Count 
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
+                ? lst.Count
                 : lst.Count(p => p.Fecha.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = recordCount;

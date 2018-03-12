@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"];
             if (listaProductoModel == null)
                 return RedirectToAction("Index");
-            if( !listaProductoModel.Any((x => x.CUV == model.CUVFP)))
+            if (!listaProductoModel.Any((x => x.CUV == model.CUVFP)))
                 return RedirectToAction("Index");
 
             var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP) ?? new ProductoModel();

@@ -40,7 +40,6 @@ function ValidarKitNuevas() {
             else CargarPedido(true);
         },
         error: function (error) {
-            console.log(error);
             messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
         }
     });
@@ -112,7 +111,7 @@ function GetProductoEntidad(id) {
 function UpdateLiquidacionEvento(evento) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 
@@ -157,10 +156,10 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
     else {
 
-        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
+        var Cantidad = $('#Cantidad_' + PedidoDetalleID).val() || "";
         var cantidadAnterior = $('#CantidadTemporal_' + PedidoDetalleID).val();
 
-        if (Cantidad.length == 0 || parseInt(Cantidad) == NaN) {
+        if (Cantidad.length == 0 || isNaN(Cantidad)) {
             messageInfoMalo('Por favor ingrese una cantidad válida.');
             $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
             return false;
@@ -210,18 +209,22 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             },
             error: function (data, error) {
                 CloseLoading();
-                if (checkTimeout(data))
-                    console.error(data);
             }
         });
     }
 }
 
 function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad) {
-    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
-    var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
+    var valCant = $.trim($('#Cantidad_' + PedidoDetalleID).val());
+    var valTemp = $.trim($('#CantidadTemporal_' + PedidoDetalleID).val());
 
-    if (cantidadActual == cantidadAnterior || cantidadActual == NaN || cantidadAnterior == NaN)
+    if (valCant === "" || valTemp === "" || isNaN(cantVal) || isNaN(valTemp)) 
+        return false;
+
+    var cantidadActual = parseInt(valCant);
+    var cantidadAnterior = parseInt(valTemp);
+
+    if (cantidadActual == cantidadAnterior)
         return false;
 
     if ($.trim(cantidadActual).length == 0) {
@@ -390,7 +393,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 function EliminarPedidoEvento(evento, esBackOrder) {
     var obj = $(evento.currentTarget);
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
-    if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+    if (isNaN(id) || parseInt(id, 10) <= 0) {
         return false;
     }
 
@@ -463,11 +466,10 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
                 ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
-                if (checkTimeout(data))
-                    console.error(data);
             }
         });
     };
@@ -519,8 +521,6 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-            }
         }
     });
 }
@@ -604,6 +604,7 @@ function PedidoDetalleEliminarTodo() {
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
             ActualizarLocalStorageAgregado("gn", "todo", false);
+            ActualizarLocalStorageAgregado("hv", "todo", false);
 
             location.reload();
 
@@ -611,9 +612,6 @@ function PedidoDetalleEliminarTodo() {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }
@@ -638,10 +636,7 @@ function HorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (response, error) {
-            if (checkTimeout(response))
-                console.error(response);
-        }
+        error: function (response, error) { }
     });
     return horarioRestringido;
 }
@@ -687,7 +682,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         ClienteID: CliID,
         Cantidad: Cantidad,
         PrecioUnidad: PrecioUnidad,
-        //ClienteDescripcion: CliDes,
         Nombre: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
@@ -739,8 +733,6 @@ function PedidoUpdate(item, PROL) {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data))
-                console.error(data);
         }
     });
 }
@@ -872,11 +864,7 @@ function EjecutarServicioPROL() {
             CloseLoading();
             if (checkTimeout(data)) {
                 var mensaje_ = "Por favor, vuelva a intentarlo";
-                if (data.mensaje != undefined || data.mensaje != null) {
-                    mensaje_ = data.mensaje;
-                }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                //console.error(data);
             }
         }
     })
@@ -897,7 +885,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1") {
-                    EnviarCorreoPedidoReservado(); //EPD-2378
+                    EnviarCorreoPedidoReservado();
                 }
                 RespuestaEjecutarServicioPROL(response, false);
             }
@@ -906,11 +894,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
             CloseLoading();
             if (checkTimeout(data)) {
                 var mensaje_ = "Por favor, vuelva a intentarlo";
-                if (data.mensaje != undefined || data.mensaje != null) {
-                    mensaje_ = data.mensaje;
-                }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                console.error(data);
             }
         }
     });
@@ -922,8 +906,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
 
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
-
-    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -980,7 +962,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     return true;
                 }
 
-                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278 POPUP
+                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
                 if (estaRechazado == "2") {
                     cerrarMensajeEstadoPedido();
                 }
@@ -1254,6 +1236,7 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
+    alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({
@@ -1278,9 +1261,7 @@ function InsertarProducto(model, asyncX) {
 
             CloseLoading();
 
-            setTimeout(function () {
-
-            }, 2000);
+            setTimeout(function () {}, 2000);
 
             ActualizarGanancia(data.DataBarra);
 
@@ -1310,9 +1291,6 @@ function InsertarProducto(model, asyncX) {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                console.error(data);
-            }
         }
     });
 
@@ -1338,7 +1316,7 @@ function MostrarMensajeProl(data) {
                 return true;
             }
 
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
+            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
             setTimeout(function () {
                 document.location = urlPedidoValidado;
             }, 2000);
