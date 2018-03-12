@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Portal.Consultoras.Common;
@@ -13,7 +12,6 @@ using Portal.Consultoras.Web.Providers;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
