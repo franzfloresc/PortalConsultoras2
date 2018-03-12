@@ -11,39 +11,62 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReservaSicc : IReservaExternaBL
     {
-        private readonly RestClient restClient = new RestClient();
+        private readonly RestClient restClient;
+        private readonly Dictionary<string, string> listMensajeProl;
 
-        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        public BLReservaSicc()
         {
-            var resultado = new BEResultadoReservaProl();
-            if (listPedidoWebDetalle.Count == 0) return resultado;
-
-            //¿8SE DEBE ENVIAR KIT DE NUEVAS?
-            //==================================================================
-            //==================================================================
-            ServSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
-            if (respuestaSicc == null) return resultado;
-
-            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
-            GuardarExplotado(input, listDetExp);
+            restClient = new RestClient();
             var listMensajeProl = new Dictionary<string, string> {
                 { Constantes.ProlObsCod.Deuda, "Su pedido no pasa por tener una deuda de {0}."},
                 { Constantes.ProlObsCod.MontoMaximo, "Su pedido no pasa por sobrepasar el monto máximo."},
                 { Constantes.ProlObsCod.MontoMinimo, "Su pedido no pasa por no superar el monto mínimo."},
                 { Constantes.ProlObsCod.LimiteVenta0, "El producto {0} está agotado."},
                 { Constantes.ProlObsCod.LimiteVenta, "El producto {0} sobrepasa el límite de venta {1}."},
-                { Constantes.ProlObsCod.LimiteVenta0Pack, "El producto {0} del pack {2} está agotado."},
-                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."},
-                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {2} sobrepasa el límite de venta {1}."},
+                { Constantes.ProlObsCod.LimiteVenta0Pack, "El producto {0} del pack {pack} está agotado."},
+                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {pack} sobrepasa el límite de venta {1}."},
                 { Constantes.ProlObsCod.Promocion0, "El producto {0} no cumple con la promoción del catálogo." },
                 { Constantes.ProlObsCod.Promocion, "{1} producto(s) {0} no cumple(n) con la promoción del catálogo." },
                 { Constantes.ProlObsCod.Reemplazo, "El producto {0} ha sido reemplazado por el producto {1}." },
-                { Constantes.ProlObsCod.ReemplazoPack, "El producto {0} del pack {2} ha sido reemplazado por el producto {1}." },
+                { Constantes.ProlObsCod.ReemplazoPack, "El producto {0} del pack {pack} ha sido reemplazado por el producto {1}." },
                 { Constantes.ProlObsCod.SinStock0, "El producto {0} no tiene stock." },
                 { Constantes.ProlObsCod.SinStock, "El producto {0} sólo tiene {1} en stock." },
-                { Constantes.ProlObsCod.SinStock0Pack, "El producto {0} del pack {2} no tiene stock." },
-                { Constantes.ProlObsCod.SinStockPack, "El producto {0} del pack {2} sólo tiene {1} en stock." }
+                { Constantes.ProlObsCod.SinStock0Pack, "El producto {0} del pack {pack} no tiene stock." },
+                { Constantes.ProlObsCod.SinStockPack, "El producto {0} del pack {pack} sólo tiene {1} en stock." }
             };
+
+            listMensajeProl = new Dictionary<string, string> {
+                { Constantes.ProlObsCod.Deuda, "Su pedido no pasa por tener una deuda de {0}."},
+                { Constantes.ProlObsCod.MontoMaximo, "Su pedido no pasa por sobrepasar el monto máximo."},
+                { Constantes.ProlObsCod.MontoMinimo, "Su pedido no pasa por no superar el monto mínimo."},
+                { Constantes.ProlObsCod.LimiteVenta0, "Lo sentimos, el producto {detCuv} está agotado."},
+                { Constantes.ProlObsCod.LimiteVenta, "Sólo puedes pedir un máximo de {limVen} unidades del producto {detCuv} en esta campaña. Modifica las unidades ingresadas."},
+                { Constantes.ProlObsCod.LimiteVenta0Pack, "El producto {0} del pack {pack} está agotado."},
+                { Constantes.ProlObsCod.LimiteVentaPack, "El producto {0} del pack {pack} sobrepasa el límite de venta {1}."},
+                { Constantes.ProlObsCod.Promocion0, "El producto {0} no cumple con la promoción del catálogo." },
+                { Constantes.ProlObsCod.Promocion, "{1} producto(s) {0} no cumple(n) con la promoción del catálogo." },
+                { Constantes.ProlObsCod.Reemplazo, "Lo sentimos, el producto {detCuv} está agotado. Lo hemos reemplazado por el producto {remCuv} - {remDes} que es igual o similar.." },
+                { Constantes.ProlObsCod.ReemplazoPack, "El producto {0} del pack {pack} ha sido reemplazado por el producto {1}." },
+                { Constantes.ProlObsCod.SinStock0, "El producto {0} no tiene stock." },
+                { Constantes.ProlObsCod.SinStock, "El producto {0} sólo tiene {1} en stock." },
+                { Constantes.ProlObsCod.SinStock0Pack, "El producto {0} del pack {pack} no tiene stock." },
+                { Constantes.ProlObsCod.SinStockPack, "El producto {0} del pack {pack} sólo tiene {1} en stock." }
+            };
+        }
+
+        public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            var resultado = new BEResultadoReservaProl();
+            if (listPedidoWebDetalle.Count == 0) return resultado;
+
+            //¿SE DEBE ENVIAR KIT DE NUEVAS?
+            //==================================================================
+            //==================================================================
+            ServSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
+            if (respuestaSicc == null) return resultado;
+
+            var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
+            GuardarExplotado(input, listDetExp);            
 
             resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
             resultado.MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure();
@@ -88,8 +111,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 if (detExp.IndRecuperacion) resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == detExp.CUV));
                 else
                 {
-                    var pedidoObservacion = CreatePedidoObservacion(detExp, listDetExp, listPedidoWebDetalle, listMensajeProl);
-                    if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
+                    var listpedidoObservacion = CreateListPedidoObservacion(detExp, listDetExp, listPedidoWebDetalle);
+                    if (listpedidoObservacion != null) resultado.ListPedidoObservacion.AddRange(listpedidoObservacion);
                 }
             }
 
@@ -201,59 +224,86 @@ namespace Portal.Consultoras.BizLogic.Reserva
             daPedidoWebDetalleExplotado.InsertList(listDetalleExp);
         }
 
-        private BEPedidoObservacion CreatePedidoObservacion(BEPedidoWebDetalleExplotado detalle, List<BEPedidoWebDetalleExplotado> listDetalle, List<BEPedidoWebDetalle> listPedidoWebDetalle, Dictionary<string, string> listMensajeProl)
+        private List<BEPedidoObservacion> CreateListPedidoObservacion(BEPedidoWebDetalleExplotado detalle, List<BEPedidoWebDetalleExplotado> listDetalle, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             if (detalle.PrecioUnitario == 0) return null;
 
-            //¿PUEDE TENER MÁS DE UN PADRE?
-            BEPedidoWebDetalleExplotado padre = null, reemplazo = null;
+            List<string> listCuvPadre = null;
             bool esHijo = detalle.UnidadesDemandadas == 0;
-            if (esHijo) padre = listDetalle.FirstOrDefault(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0);
-            if (esHijo && padre == null) return null; //Gratis o ¿posiblemente Kit de Nuevas?;
+            if (esHijo)
+            {
+                listCuvPadre = listDetalle.Where(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0).Select(d => d.CUV).ToList();
+                if (!listCuvPadre.Any()) return null; //Gratis o ¿posiblemente Kit de Nuevas?;
+            }
 
             //¿DEBO RECONOCER EL KIT DE NUEVAS?
             //===========================================
             //===========================================
-            var pedidoObservacion = new BEPedidoObservacion();
+            BEPedidoObservacion pedidoObservacion = null;
+            string descKey;
             if (detalle.IndLimiteVenta)
             {
-                pedidoObservacion.Caso = 0; //04 o 05, dependiendo de si unidadesPorAtender == 0
-                pedidoObservacion.Descripcion = esHijo ?
-                    (detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0Pack : Constantes.ProlObsCod.LimiteVentaPack) :
+                descKey = esHijo ? (detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0Pack : Constantes.ProlObsCod.LimiteVentaPack) :
                     (detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.LimiteVenta0 : Constantes.ProlObsCod.LimiteVenta);
-                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, detalle.UnidadesPorAtender, esHijo ? padre.CUV : "");
+                pedidoObservacion = new BEPedidoObservacion {
+                    Caso = detalle.UnidadesPorAtender == 0 ? 5 : 4,
+                    Descripcion = string.Format(listMensajeProl[descKey], detalle.CUV, detalle.UnidadesPorAtender)
+                };
             }
             else if (detalle.Observaciones == "PROMOCION NO CUMPLE")
             {
                 if (esHijo) return null;
-
-                pedidoObservacion.Caso = 0;
-                pedidoObservacion.Descripcion = detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.Promocion0 : Constantes.ProlObsCod.Promocion;
-                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, detalle.UnidadesDemandadas - detalle.UnidadesPorAtender);
+                
+                descKey = detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.Promocion0 : Constantes.ProlObsCod.Promocion;
+                pedidoObservacion = new BEPedidoObservacion {
+                    Caso = detalle.IdEstrategia == 2003 ? 1 : 7,
+                    Descripcion = string.Format(listMensajeProl[descKey], detalle.CUV, detalle.UnidadesDemandadas - detalle.UnidadesPorAtender)
+                };
             }
             else if (detalle.IdSubTipoPosicion == 2030)
             {
                 //VALIDAR SI EL CAMPO ValCodiOrig PERTENECE AL PADRE
-                reemplazo = listDetalle.FirstOrDefault(d => d.IdSubTipoPosicion == 2029 && d.ValCodiOrig == detalle.CUV);
+                var reemplazo = listDetalle.FirstOrDefault(d => d.IdSubTipoPosicion == 2029 && d.ValCodiOrig == detalle.CUV);
                 if (reemplazo == null) return null;
-
-                pedidoObservacion.Caso = 0;
-                pedidoObservacion.Descripcion = esHijo ? Constantes.ProlObsCod.ReemplazoPack : Constantes.ProlObsCod.Reemplazo;
-                pedidoObservacion.Descripcion = string.Format(Constantes.ProlObsCod.Reemplazo, detalle.CUV, reemplazo.CUV, esHijo ? padre.CUV : "");
+                
+                descKey = detalle.UnidadesPorAtender == 0 ? Constantes.ProlObsCod.Promocion0 : Constantes.ProlObsCod.Promocion;
+                pedidoObservacion = new BEPedidoObservacion {
+                    Caso = 0,
+                    Descripcion = string.Format(listMensajeProl[descKey], detalle.CUV, reemplazo.CUV)
+                };
             }
             else if (detalle.UnidadesReservadasSap < detalle.UnidadesPorAtender)
             {
-                pedidoObservacion.Caso = 0;
-                pedidoObservacion.Descripcion = esHijo ?
-                    (detalle.UnidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0Pack : Constantes.ProlObsCod.SinStockPack) :
+                descKey = esHijo ? (detalle.UnidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0Pack : Constantes.ProlObsCod.SinStockPack) :
                     (detalle.UnidadesReservadasSap == 0 ? Constantes.ProlObsCod.SinStock0 : Constantes.ProlObsCod.SinStock);
-                pedidoObservacion.Descripcion = string.Format(pedidoObservacion.Descripcion, detalle.CUV, detalle.UnidadesReservadasSap, esHijo ? padre.CUV : "");
+                //VALIDAR PROMOCION (CASO 0)
+                pedidoObservacion = new BEPedidoObservacion {
+                    Caso = detalle.UnidadesReservadasSap == 0 ? 5 : 6,
+                    Descripcion = string.Format(listMensajeProl[descKey], detalle.CUV, detalle.UnidadesReservadasSap)
+                };
             }
             else return null;
-            
-            pedidoObservacion.CUV = esHijo ? padre.CUV : detalle.CUV;
+
+            if (esHijo) return CreateListPedidoObservacionHijo(pedidoObservacion, listCuvPadre);
+            return CreateListPedidoObservacionPadre(pedidoObservacion, detalle);
+        }
+
+        private List<BEPedidoObservacion> CreateListPedidoObservacionHijo(BEPedidoObservacion pedidoObservacion, List<string> listCuvPadre)
+        {
+            return listCuvPadre.Select(cuv => new BEPedidoObservacion
+            {
+                Tipo = 2,
+                Caso = 0,
+                CUV = cuv,
+                Descripcion = pedidoObservacion.Descripcion.Replace("{pack}", cuv)
+            }).ToList();
+        }
+
+        private List<BEPedidoObservacion> CreateListPedidoObservacionPadre(BEPedidoObservacion pedidoObservacion, BEPedidoWebDetalleExplotado detalle)
+        {
             pedidoObservacion.Tipo = 2;
-            return pedidoObservacion;
+            pedidoObservacion.CUV = detalle.CUV;
+            return new List<BEPedidoObservacion>{ pedidoObservacion };
         }
     }
 }

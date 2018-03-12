@@ -299,6 +299,5 @@
             HerramientasVentaComprar = 10,
             HerramientasVentaRevisar = 11
         }
-
     }
 }
