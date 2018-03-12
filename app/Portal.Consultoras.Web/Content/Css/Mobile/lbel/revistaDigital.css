@@ -21,7 +21,7 @@
 }
 
 .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
-    background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
+    background: url('/Content/Images/Lbel/consejos-y-tips-visual.png');
 }
 
 .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
@@ -49,7 +49,7 @@ a.btn-suscribete-video {
 }
 
 .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
-    background: url(../../../Images/Lbel/loading_circle.gif);
+    background: url(/Content/Images/Lbel/loading_circle.gif);
 }
 /* FIN POP UP ACTUALIZA DATOS */
 

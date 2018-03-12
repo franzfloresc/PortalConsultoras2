@@ -87,9 +87,9 @@
             background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
         }
 
-    .gana-mas .txt-img-cont-tres {
-        background: url('../../../Images/Esika/consejos-y-tips-visual.png');
-    }
+.gana-mas .txt-img-cont-tres {
+    background: url('/Content/Images/Esika/consejos-y-tips-visual.png');
+}
 
 .como-funciona .caja-img .visual-funcionamiento {
     background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
