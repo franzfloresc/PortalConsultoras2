@@ -251,6 +251,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
                 "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/style-pedido.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css"
             ));
 
