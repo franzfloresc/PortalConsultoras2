@@ -196,16 +196,22 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             return OfertaFinalList ?? new List<OfertaFinalMontoMeta>();
         }
 
-        
-        public bool InsertarRegalo(UpSellingRegalo entidad)
+        public int InsertarRegalo(UpSellingRegalo entidad)
         {
             using (var transaction = new TransactionScope())
             {
-                var ok = _upSellingDataAccess.InsertarRegalo(entidad);
-               
+                var result = _upSellingDataAccess.InsertarRegalo(entidad);
+
                 transaction.Complete();
 
-                return ok;
+                //var upsellings = Obtener(entidad.CampaniaId.ToString(), true);
+                //var huboStock = upsellings.Any(x => x.Regalos.Any(r => r.CUV == entidad.CUV && r.Stock >= 0));
+                //if (huboStock)
+                //{
+                //    transaction.Complete();
+                //}
+
+                return result;
             }
         }
 

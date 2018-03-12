@@ -250,8 +250,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     if (cumpleOferta.upselling != null) {
         objUpselling = cumpleOferta.upselling;
-        objUpselling.Meta = GetRegaloMontoMeta();
-        upSellingGano = GetUpSellingRegalo();
+        //objUpselling.Meta = GetRegaloMontoMeta();
+        upSellingGano = GetUpSellingGanado();
         if (upSellingGano != null)
             objUpselling.Meta.MontoMeta = upSellingGano.MontoPedido;
     }
@@ -1199,25 +1199,21 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
 
 function GetUpSelling() {
     var obj = null;
-    var item = {
-        codigoCampana: viewBagCampaniaActual,
-        incluirRegalos: true
-    };
 
     jQuery.ajax({
         type: 'GET',
-        url: baseUrl + 'UpSelling/Obtener',
+        url: baseUrl + 'UpSelling/ObtenerUpSellingFull',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: item,
         async: false,
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response.Success) {
-                    if (response.Data.length > 0) {
-                        obj = response.Data[0];
-                    }
+                if (response.success) {
+                    //if (response.Data.length > 0) {
+                        //obj = response.Data[0];
+                    //}
+                    obj = response.data;
                 }
             }
         },
@@ -1230,7 +1226,7 @@ function GetUpSelling() {
 
     return obj;
 }
-
+/*
 function GetRegaloMontoMeta() {
     var obj = null;
 
@@ -1253,13 +1249,16 @@ function GetRegaloMontoMeta() {
 
     return obj;
 }
+*/
 
-function GetUpSellingRegalo() {
+//function GetUpSellingRegalo() {
+function GetUpSellingGanado() {
     var obj = null;
 
     jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ObtenerOfertaFinalRegalo',
+        type: 'GET',
+        //url: baseUrl + 'Pedido/ObtenerOfertaFinalRegalo',
+        url: baseUrl + 'UpSelling/ObtenerRegaloGanado',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,
@@ -1287,7 +1286,8 @@ function InsertUpSellingRegalo(id, cuv) {
         GapAgregar: objUpselling.Meta.GapAgregar,
         MontoMeta: objUpselling.Meta.MontoMeta,
         TipoRango: objUpselling.Meta.TipoRango,
-        MontoPedido: montoPedidoInicial
+        MontoPedido: montoPedidoInicial,
+        UpSellingDetalleId: id
     };
 
     if (tipoOrigen == "1") AbrirSplash();
@@ -1295,52 +1295,53 @@ function InsertUpSellingRegalo(id, cuv) {
 
     jQuery.ajax({
         type: 'POST',
-        url: baseUrl + 'UpSelling/InsertarRegalo',
+        url: baseUrl + 'UpSelling/GuardarRegalo',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
-        //async: false,
-        //cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.success) {
+                    if (response.code == 1) {
+                        ok = true;
+                        // mostrar regalo ganado
+                        var div = $('#of-regalo-' + id);
+                        if (typeof div !== 'undefined') {
+                            var descripcion = div.find('.titulo_regalo_producto').text();
+                            var imagen = div.find('.of-regalo-imagen').attr('src');
+                            var descripcionLarga = div.find('.descripcion_regalo').text();
 
-                    // mostrar regalo ganado
-                    var div = $('#of-regalo-' + id);
-                    if (typeof div !== 'undefined') {
-                        var descripcion = div.find('.titulo_regalo_producto').text();
-                        var imagen = div.find('.of-regalo-imagen').attr('src');
-                        var descripcionLarga = div.find('.descripcion_regalo').text();
+                            $('#of-regalo-descripcion').text(descripcion);
+                            $('#of-regalo-imagen').attr('src', imagen);
+                            $('#of-regalo-descripcion-larga').text(descripcionLarga);
 
-                        $('#of-regalo-descripcion').text(descripcion);
-                        $('#of-regalo-imagen').attr('src', imagen);
-                        $('#of-regalo-descripcion-larga').text(descripcionLarga);
+                            var effect = 'slide';
+                            var options = { direction: 'right' };
+                            var duration = 500;
 
-                        var effect = 'slide';
-                        var options = { direction: 'right' };
-                        var duration = 500;
+                            upSellingGano = GetUpSellingGanado();
 
-                        upSellingGano = GetUpSellingRegalo();
-
-                        if (tipoOrigen == "1") {
-                            $('#divCarruselRegalo.slick-initialized').slick('unslick');
-                            $('#divGanoRegalo').show();
-                            $('#container-of-regalo').hide();
+                            if (tipoOrigen == "1") {
+                                $('#divCarruselRegalo.slick-initialized').slick('unslick');
+                                $('#divGanoRegalo').show();
+                                $('#container-of-regalo').hide();
+                            }
+                            else {
+                                $('#divGanoRegalo').toggle(effect, options, duration, function () {
+                                    $('#ContentSorpresaMobile').hide();
+                                });
+                            }
                         }
-                        else {
-                            $('#divGanoRegalo').toggle(effect, options, duration, function () {
-                                $('#ContentSorpresaMobile').hide();
-                            });
-                        }
+                    }
+                    else if (response.code == -1) {
+                        alert("El producto seleccionado no tiene stock.");
                     }
 
                     if (tipoOrigen == "1") CerrarSplash();
                     else CloseLoading();
-
-                    ok = true;
                 }
                 else {
-                    alert(response.message);
+                    alert("No se pudo guardar el producto seleccionado.");
 
                     if (tipoOrigen == "1") CerrarSplash();
                     else CloseLoading();
@@ -1348,8 +1349,11 @@ function InsertUpSellingRegalo(id, cuv) {
             }
         },
         error: function (data, error) {
+            alert("No se pudo guardar el producto seleccionado");
+
             if (tipoOrigen == "1") CerrarSplash();
             else CloseLoading();
+
             if (checkTimeout(data)) {
                 console.log(error);
             }

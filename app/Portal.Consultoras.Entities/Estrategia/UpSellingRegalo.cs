@@ -39,6 +39,9 @@ namespace Portal.Consultoras.Entities.Estrategia
         [DataMember]
         public decimal MontoPedidoFinal { get; set; }
 
+        [DataMember]
+        public int UpSellingDetalleId { get; set; }
+
         public UpSellingRegalo(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CampaniaId"))
@@ -68,8 +71,6 @@ namespace Portal.Consultoras.Entities.Estrategia
             if (DataRecord.HasColumn(datarec, "TipoRango"))
                 TipoRango = Convert.ToString(datarec["TipoRango"]);
 
-            if (DataRecord.HasColumn(datarec, "MontoPedidoFinal"))
-                MontoPedidoFinal = Convert.ToDecimal(datarec["MontoPedidoFinal"]);
         }
     }
 }

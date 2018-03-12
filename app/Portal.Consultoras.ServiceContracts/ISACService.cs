@@ -736,7 +736,7 @@ namespace Portal.Consultoras.ServiceContracts
         IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
         
         [OperationContract]
-        bool InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad);
+        int InsertUpSellingRegalo(int paisId, UpSellingRegalo entidad);
 
         
         #endregion

@@ -3,7 +3,7 @@ using Portal.Consultoras.Web.Models.Common;
 
 namespace Portal.Consultoras.Web.Models.Estrategia
 {
-    public class UpSellingModel :AuditoriaModel
+    public partial class UpSellingModel :AuditoriaModel
     {
         public UpSellingModel()
         {

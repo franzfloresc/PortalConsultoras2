@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal MontoPedidoFinal { get; set; }
 
+        public int UpSellingDetalleId { get; set; }
+
         public string FormatoMontoPedido
         {
             get

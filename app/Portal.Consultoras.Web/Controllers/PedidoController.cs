@@ -3716,6 +3716,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Nuevo UpSelling")]
         public JsonResult ObtenerOfertaFinalRegalo()
         {
             try
@@ -3751,6 +3752,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Nuevo UpSelling")]
         public JsonResult ObtenerRegaloMontoMeta()
         {
             try
@@ -3783,6 +3785,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [Obsolete("Nuevo UpSelling")]
         public JsonResult InsertarOfertaFinalRegalo()
         {
             try

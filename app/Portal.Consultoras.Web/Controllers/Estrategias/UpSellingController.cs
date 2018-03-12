@@ -12,7 +12,6 @@ using Portal.Consultoras.Web.Providers;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -42,13 +41,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<JsonResult> Obtener(string codigoCampana, bool incluirRegalos = false)
+        private async Task<IEnumerable<UpSellingModel>> GetUpSellingsService(string codigoCampania, bool incluirRegalos)
         {
-            if (string.IsNullOrEmpty(codigoCampana))
-                codigoCampana = null;
-
-            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampana, incluirRegalos);
+            var upsellings = await _upSellingProvider.ObtenerAsync(userData.PaisID, codigoCampania, incluirRegalos);
 
             upsellings.Update(upSelling =>
             {
@@ -58,8 +53,77 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 SetFullUrlImage(upSelling.Regalos);
             });
 
+            return upsellings;
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> Obtener(string codigoCampana, bool incluirRegalos = false)
+        {
+            if (string.IsNullOrEmpty(codigoCampana))
+                codigoCampana = null;
+
+            var upsellings = await GetUpSellingsService(codigoCampana, incluirRegalos);
 
             return Json(ResultModel<IEnumerable<UpSellingModel>>.BuildOk(upsellings), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUpSellingFull()
+        {
+            try
+            {
+                var upsellings = await GetUpSellingsService(userData.CampaniaID.ToString(), true);
+
+                if (upsellings.Any())
+                {
+                    var upselling = upsellings.Where(x => x.Activo).FirstOrDefault();
+                    var available = 0;
+
+                    foreach (var item in upselling.Regalos)
+                    {
+                        if (item.Stock > 0 && item.Activo)
+                            available++;
+                    }
+
+                    if (available > 0)
+                    {
+                        upselling.Meta = await _upSellingProvider.ObtenerMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                        return Json(new
+                        {
+                            success = true,
+                            data = upselling
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new { success = false, message = string.Empty }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerRegaloGanado()
+        {
+            try
+            {
+                var regalo = await _upSellingProvider.ObtenerRegaloGanado(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                return Json(new
+                {
+                    success = true,
+                    data = regalo
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpGet]
@@ -262,32 +326,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public async Task<ActionResult> InsertarRegalo(RegaloOfertaFinalModel model)
+        public async Task<ActionResult> GuardarRegalo(RegaloOfertaFinalModel model)
         {
             try
             {
                 var montoPedidoFinal = Convert.ToDecimal(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                if (montoPedidoFinal >= model.MontoMeta)
-                {
-                    model.CampaniaId = userData.CampaniaID;
-                    model.ConsultoraId = userData.ConsultoraID;
-                    model.MontoPedidoFinal = montoPedidoFinal;
+                model.CampaniaId = userData.CampaniaID;
+                model.ConsultoraId = userData.ConsultoraID;
+                model.MontoPedidoFinal = montoPedidoFinal;
 
-                    var ok = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
-                    return Json(new {
-                        success = true,
-                        code = ok,
-                        JsonRequestBehavior.AllowGet
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "No se puede guardar el regalo"
-                    });
-                }
+                var result = await _upSellingProvider.GuardarRegalo(userData.PaisID, model);
+                return Json(new { success = true, code = result });
             }
             catch (Exception ex)
             {

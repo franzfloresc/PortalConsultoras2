@@ -5,6 +5,9 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.Models;
 
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Common;
+
 namespace Portal.Consultoras.Web.Providers
 {
     public class UpSellingProvider
@@ -67,14 +70,47 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task<bool> GuardarRegalo(int paisId, RegaloOfertaFinalModel model)
+        public async Task<RegaloOfertaFinalModel> ObtenerMontoMeta(string codigoISO, int campaniaId, long consultoraId)
+        {
+            using (var sv = new ProductoServiceClient())
+            {
+                var entidad = await sv.ObtenerRegaloMontoMetaAsync(codigoISO, campaniaId, consultoraId);
+                if (entidad != null)
+                {
+                    var model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                    model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, codigoISO);
+                    return model;
+                }
+                return null;
+            }
+        }
+
+        public async Task<RegaloOfertaFinalModel> ObtenerRegaloGanado(string codigoISO, int campaniaId, long consultoraId)
+        {
+            using (var sv = new ProductoServiceClient())
+            {
+                var entidad = await sv.ObtenerRegaloOfertaFinalAsync(codigoISO, campaniaId, consultoraId);
+                if (entidad != null)
+                {
+                    var model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(entidad);
+                    var carpetaPais = Globals.UrlMatriz + "/" + codigoISO;
+                    model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
+                    model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, codigoISO);
+
+                    return model;
+                }
+                return null;
+            }
+        }
+
+        public async Task<int> GuardarRegalo(int paisId, RegaloOfertaFinalModel model)
         {
             using (var sv = new SACServiceClient())
             {
-                var upSellingRegalo = Mapper.Map<RegaloOfertaFinalModel, UpSellingRegalo>(model);
-                var ok = await sv.InsertUpSellingRegaloAsync(paisId, upSellingRegalo);
+                var entidad = Mapper.Map<RegaloOfertaFinalModel, UpSellingRegalo>(model);
+                var result = await sv.InsertUpSellingRegaloAsync(paisId, entidad);
 
-                return ok;
+                return result;
             }
         }
 

@@ -1,8 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Estrategia;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+
 
 namespace Portal.Consultoras.Data.Estrategia
 {
@@ -182,7 +184,7 @@ namespace Portal.Consultoras.Data.Estrategia
             }
         }
 
-        public bool InsertarRegalo(UpSellingRegalo entidad)
+        public int InsertarRegalo(UpSellingRegalo entidad)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.InsertUpSellingRegalo"))
             {
@@ -196,9 +198,9 @@ namespace Portal.Consultoras.Data.Estrategia
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 Context.Database.AddInParameter(command, "@TipoRango", DbType.String, entidad.TipoRango);
                 Context.Database.AddInParameter(command, "@MontoPedidoFinal", DbType.Decimal, entidad.MontoPedidoFinal);
+                Context.Database.AddInParameter(command, "@UpSellingDetalleId", DbType.Int32, entidad.UpSellingDetalleId);
 
-                var result = Context.ExecuteNonQuery(command);
-                return (result > 0);
+                return Convert.ToInt32(Context.ExecuteScalar(command));
             }
         }
     }
