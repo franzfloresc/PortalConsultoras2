@@ -97,14 +97,14 @@ else
                     </div>
                 </div>
                 <div class="div-3">
-                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalDesktop.hasError }, preview : 'ImagenFondoPrincipalDesktop'">Imagen Fondo Principal Desktop:</div>
+                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalDesktop.hasError }, preview : 'ImagenFondoPrincipalDesktop'">Imagen Fondo Principal Desktop(308x608): </div>
                     <div class="selectA">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalDesktop, url: $root.settings().urlFileUpload }, imageSize: { show:true, attr:'alt'}"></div>
                         <div>
                             <img data-bind="attr: {src: ImagenFondoPrincipalDesktopUrl() }, imageSize: { show:true, attr:'title'}" class="img-preview">
                         </div>
                     </div>
-                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalMobile.hasError }, preview : 'ImagenFondoPrincipalMobile'">Imagen Fondo Principal Mobile:</div>
+                    <div class="titC titCD" data-bind="css: { error: ImagenFondoPrincipalMobile.hasError }, preview : 'ImagenFondoPrincipalMobile'">Imagen Fondo Principal Mobile(400x815):</div>
                     <div class="selectA">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoPrincipalMobile, url: $root.settings().urlFileUpload } "></div>
                         <div>
@@ -114,7 +114,8 @@ else
                 </div>
                 <div class="div-3">
                     <div class="titC titCD" data-bind="css: { error: ImagenFondoGanasteMobile.hasError }
-                                                       , preview : 'ImagenFondoGanasteMobile'">Imagen Fondo Mobile Pequeña:</div>
+                                                       , preview : 'ImagenFondoGanasteMobile'">Imagen Fondo Mobile Pequeña(374x92):
+                    </div>
                     <div class="selectA">
                         <div data-bind="upLoader: { valueAccessor: ImagenFondoGanasteMobile, url: $root.settings().urlFileUpload } "></div>
                         <div>
@@ -148,7 +149,7 @@ else
                             <div class="div-3">
                                 <div class="wrap">
                                     <div class="container clearfix">
-                                        <table  id="listOfertaFinalMontoMeta"></table>
+                                        <table id="listOfertaFinalMontoMeta"></table>
                                     </div>
                                     <div id="pagerListaRegalos"></div>
                                 </div>
