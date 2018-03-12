@@ -20236,6 +20236,10 @@ label.checkpop.c_on {
     width: 40px;
     border: 0;
     border-top: 2px solid #000;
+    height: auto;
+    background: initial;
+    transition: all;
+    text-align: initial;
 }
 
 .color_white {
