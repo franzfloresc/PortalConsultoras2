@@ -13668,11 +13668,11 @@ a {
 }
 
 .btn_regalo_sorpresa {
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
+    background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
+    background-position: center center;
     height: 92px;
     vertical-align: middle;
-    /*background: #613c87 url('../../../Images/mobile/icono_regalo.png') no-repeat;*/
 }
 
 .txt_regalo_sorpresa {
@@ -13743,20 +13743,19 @@ a {
 }
 
 .ContentSorpresaMobile {
-    display: none;
-    margin: 4% auto 5% auto;
-    right: 0;
+    background-color: #B72C3B;
+    background-repeat: no-repeat;
+    background-position: center top;
     left: 0;
-    position: absolute;
-    width: 95%;
+    margin: 4% auto 5% auto;
     max-width: 400px;
     min-height: 815px;
+    right: 0;
+    position: absolute;
     top: 0;
-    z-index: 1000;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background-size: cover !important;
     vertical-align: middle;
+    width: 95%;
+    z-index: 1000;
 }
 
 .btn_regresa_OF {

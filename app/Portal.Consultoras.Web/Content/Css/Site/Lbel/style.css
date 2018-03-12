@@ -35591,15 +35591,17 @@ h1#penmostreo .campana {
 }
 /*SPRINT 18*/
 .content_regalo_sorpresa {
-    display: inline-block;
-    width: 308px;
-    min-height: 608px;
-    margin: 35px -9px 0 0;
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    vertical-align: top;
-    z-index: 21;
-    position: relative;
+    background-position: center center;
+    display: inline-block;
+    margin: 35px -13px 0 0;
+    min-height: 608px;
     padding: 25px 25px 0 25px;
+    position: relative;
+    vertical-align: top;
+    width: 308px;
+    z-index: 21;
 }
 
 .fondo_blanco_regalo {
