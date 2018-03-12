@@ -3585,6 +3585,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
             }
+            if (campaniaIdMenuActivo == campaniaIdUsuario && !sessionManager.GetTieneHv())
+            {
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.HerramientasVenta).ToList();
+            }
 
             return menuContenedor;
         }
