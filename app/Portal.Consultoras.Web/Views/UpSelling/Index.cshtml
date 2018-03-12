@@ -148,7 +148,7 @@ else
                             <div class="div-3">
                                 <div class="wrap">
                                     <div class="container clearfix">
-                                        <table id="listOfertaFinalMontoMeta"></table>
+                                        <table  id="listOfertaFinalMontoMeta"></table>
                                     </div>
                                     <div id="pagerListaRegalos"></div>
                                 </div>
@@ -179,6 +179,7 @@ else
 
 <form action="/UpSelling/ExportarExcel" id="reporteListaGanadorasForm" style="display:none">
     <input type="text" name="upSellingIdListaGanadoras" value="1">
+    <input type="text" name="campaniaListaGanadoras" value="">
     <input type="submit" value="Submit">
 </form>
 
@@ -193,6 +194,7 @@ else
     <script>
         jQuery(document).ready(function() {
             belcorp.estrategias.upselling.initialize({
+                idCampaniaHidden: 'campaniaListaGanadoras',
                 urlImagenDesactivar: '@Url.Content("~/Content/Images/NotAllowed.png")',
                 urlImagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
                 urlImagengenDelete: '@Url.Content("~/Content/Images/Delete.png")',

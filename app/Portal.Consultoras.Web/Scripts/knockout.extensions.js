@@ -106,7 +106,7 @@
         });
 
         return invalidProperties.length == 0;
-        
+
         //return the original observable
         return target;
     };

@@ -6,6 +6,7 @@ belcorp.estrategias.upselling = belcorp.estrategias.upselling || {};
 
 belcorp.estrategias.upselling.initialize = function (config) {
     var settings = {
+        idCampaniaHidden: config.idCampaniaHidden,
         urlImagenDesactivar: config.urlImagenDesactivar,
         urlImagenEdit: config.urlImagenEdit,
         urlImagengenDelete: config.urlImagengenDelete,
@@ -545,6 +546,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.save = function () {
+            selfvm.recargarGanadoras = ko.observable(true);
             if (!selfvm.upSellingSeleccionado().isValid()) {
                 alert("Los campos marcados son necesarios");
                 return;
@@ -572,7 +574,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.cancel = function () {
+
             if (!selfvm.upSellingSeleccionadoIsDirty()) {
+                selfvm.recargarGanadoras = ko.observable(true);
                 selfvm.esconderEditor();
                 return false;
             }
@@ -610,16 +614,13 @@ belcorp.estrategias.upselling.initialize = function (config) {
             }
 
             selfvm.upSellingSeleccionado().Regalos.push(selfvm.regaloSeleccionado());
+            selfvm.ordernarRegalos();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
 
         selfvm.regaloActualizar = function () {
-            
-            //selfvm.upSellingSeleccionado().Regalos.sort(function (a,b) {
-            //    return a.Orden - b.Orden
-            //});
-
+            selfvm.ordernarRegalos();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
         }
@@ -636,6 +637,12 @@ belcorp.estrategias.upselling.initialize = function (config) {
             selfvm.regaloSeleccionado().UndoChanges();
             selfvm.regaloSeleccionado(null);
             HideDialog(settings.idDivPopUpRegalo);
+        }
+
+        selfvm.ordernarRegalos = function () {
+            selfvm.upSellingSeleccionado().Regalos(selfvm.upSellingSeleccionado().Regalos.sort(function (left, rigth) {
+                return Number(left.Orden()) - Number(rigth.Orden())
+            }));
         }
 
         selfvm.actualizarRutaPrefixRegalo = function () {
@@ -657,12 +664,10 @@ belcorp.estrategias.upselling.initialize = function (config) {
             }
         }
 
-
-
         selfvm.recargarGanadoras = ko.observable(true);
 
         selfvm.TraerListaGanadoras = function () {
-
+          
             if (selfvm.recargarGanadoras()) {
                 cargarGrillaListaGanadoras(selfvm.upSellingSeleccionado().UpSellingId());
                 selfvm.recargarGanadoras(false);
@@ -670,7 +675,9 @@ belcorp.estrategias.upselling.initialize = function (config) {
         }
 
         selfvm.exportarListaGanadoras = function () {
+
             $("[name='" + settings.idListaGanadorasHidden + "']").val(selfvm.upSellingSeleccionado().UpSellingId());
+            $("[name='" + settings.idCampaniaHidden + "']").val(selfvm.upSellingSeleccionado().CodigoCampana());
             $("#" + settings.idFormReporteListaGanadoras + "").submit();
         }
 
@@ -723,21 +730,20 @@ function configureGridListaGanadoras(response) {
         mtype: "GET",
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        //colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Pedido", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
-        colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Pedido", "Monto Meta",  "Fecha Registro"],
-        colModel: [
+        colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Inicial", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
+       colModel: [
             { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
             { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
             { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
             { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
-            { name: "NombreRegalo", index: "NombreRegalo", width: 120, sortable: false, align: "left" },
+            { name: "NombreRegalo", index: "NombreRegalo", width: 110, sortable: false, align: "left" },
             { name: "MontoInicial", index: "MontoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-           // { name: "RangoInicial", index: "RangoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-           // { name: "RangoFinal", index: "RangoFinal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-           // { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "RangoInicial", index: "RangoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "RangoFinal", index: "RangoFinal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
             { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-           // { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "FechaRegistro", index: "FechaRegistro", width: 100, sortable: false, align: "center" },
+            { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+            { name: "FechaRegistro", index: "FechaRegistro", width: 130, sortable: false, align: "center" },
 
         ],
         pager: jQuery("#pagerListaRegalos"),
@@ -751,7 +757,7 @@ function configureGridListaGanadoras(response) {
         sortorder: "asc",
         viewrecords: true,
         height: "auto",
-        width: 930,
+        width: 900,
         pgtext: "Pág: {0} de {1}",
         altRows: false
     });
@@ -760,7 +766,7 @@ function configureGridListaGanadoras(response) {
     for (var i = 0; i <= data.length - 1; i++) {
         convertirStringDate(data[i], 'FechaRegistro');
         grilla.jqGrid('addRowData', i + 1, data[i]);
-    }  
+    }
 
     $('#refresh_listOfertaFinalMontoMeta').click();
 

@@ -1459,5 +1459,32 @@ namespace Portal.Consultoras.Service
         {
             return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
         }
+
+        #region MarcaCategoria Apoyadas
+
+        public IEnumerable<UpsellingMarcaCategoria> UpsellingMarcaCategoriaObtener(int paisId,int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaObtener(upSellingId, MarcaID, CategoriaID);
+        }
+
+        public UpsellingMarcaCategoria UpsellingMarcaCategoriaInsertar(int paisId, int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaInsertar(upSellingId, MarcaID, CategoriaID);
+        }
+
+
+        public bool UpsellingMarcaCategoriaEliminar(int paisId, int upSellingId, string MarcaID, string CategoriaID)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaEliminar(upSellingId, MarcaID, CategoriaID);
+        }
+
+
+        public bool UpsellingMarcaCategoriaFlagsEditar(int paisId, int upSellingId, bool CategoriaApoyada, bool CategoriaMonto)
+        {
+            return new UpsellingMarcaCategoriaBusinessLogic(paisId).UpsellingMarcaCategoriaFlagsEditar(upSellingId, CategoriaApoyada, CategoriaMonto);
+        }
+     
+
+        #endregion
     }
 }

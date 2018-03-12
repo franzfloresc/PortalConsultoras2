@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(ResultModel<IEnumerable<OfertaFinalMontoMetaModel>>.BuildOk(upSelling), JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras)
+        public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras, string campaniaListaGanadoras)
         {
             var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
 
@@ -204,16 +204,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             {  "CUV Regalo","CuvRegalo" },
                             { "Nombre Regalo", "NombreRegalo" },
                             { "Monto Pedido","MontoInicial" }, 
-                           // { "RangoInicial", "Rango Inicial" },
-                           // { "RangoFinal", "Rango Final" },
+                            { "Rango Inicial", "RangoInicial" },
+                             { "Rango Final", "RangoFinal" },
                             { "Monto a Agregar" ,"MontoAgregar"},
                             { "Monto Meta","MontoMeta" },
-                           // { "MontoGanador", "Monto Ganador" },  
+                             { "Monto Ganador", "MontoGanador" },  
                             { "Fecha Registro" ,"FechaRegistro" },
                 };
 
-            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, DateTime.Now.ToString("yyyyMM"));
-            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy HH:mm");
+            var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, campaniaListaGanadoras);
+            Util.ExportToExcelFormat(filename, upSelling.ToList(), dic, "dd/MM/yyyy hh:mm:ss AM/PM");
             return View();
         }
 

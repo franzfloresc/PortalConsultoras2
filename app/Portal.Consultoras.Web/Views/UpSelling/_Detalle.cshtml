@@ -40,7 +40,7 @@
                                             <img src='@Url.Content("~/Content/Images/Edit.png")' alt="Editar UpSelling" title="Editar UpSelling" border='0' />
                                         </a>
                                         <a href="#" data-bind="click: $root.regaloActivarDesactivar">
-                                            <img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar UpSelling' title='Deshabilitar UpSelling' />
+                                            <img src='@Url.Content("~/Content/Images/NotAllowed.png")' data-bind="attr: { title : Activo() ? 'Deshabilitar UpSelling' : 'Habilitar UpSelling' }" />
                                         </a>
                                         <a href="#" data-bind="click: $root.regaloEliminar">
                                             <img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' />

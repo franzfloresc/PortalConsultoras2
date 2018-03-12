@@ -80,6 +80,7 @@
     <Compile Include="Estrategia\OfertaFinalMontoMeta.cs" />
     <Compile Include="Estrategia\UpSelling.cs" />
     <Compile Include="Estrategia\UpSellingDetalle.cs" />
+    <Compile Include="Estrategia\UpsellingMarcaCategoria.cs" />
     <Compile Include="Estrategia\UpSellingRegalo.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
