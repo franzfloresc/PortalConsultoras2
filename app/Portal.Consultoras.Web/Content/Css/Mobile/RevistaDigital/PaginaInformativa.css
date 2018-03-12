@@ -393,12 +393,10 @@
 }
 
 a.btn-suscribete-video {
-    color: white;
     font-weight: 600;
     text-decoration: none;
     width: 100%;
     display: block;
-    text-align: center;
     padding: 20px 0;
     text-transform: uppercase;
     position: fixed;

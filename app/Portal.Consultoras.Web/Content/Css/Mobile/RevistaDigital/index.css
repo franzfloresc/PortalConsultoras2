@@ -141,17 +141,6 @@
     margin-top: 20px;
 }
 
-.div-carousel-rd-prev {
-    left: -14%;
-    top: 35%;
-    text-align: right;
-}
-
-.div-carousel-rd-next {
-    right: -14%;
-    top: 35%;
-}
-
 .btn-ofertas-margen-fix {
     margin-top: 10px;
 }
@@ -173,27 +162,6 @@
         width: 25px;
     }
 }
-
-@media (max-width : 425px) {
-    .div-carousel-rd-prev {
-        left: -9% !important;
-    }
-
-    .div-carousel-rd-next {
-        right: -9% !important;
-    }
-}
-
-@media (min-width: 426px) and (max-width: 1024px) {
-    .div-carousel-rd-prev {
-        left: -10%;
-    }
-
-    .div-carousel-rd-next {
-        right: -10%;
-    }
-}
-
 
 /*TRANSITIONS*/
 @keyframes bounceLeft {
