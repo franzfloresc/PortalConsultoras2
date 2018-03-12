@@ -22,7 +22,7 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        
+
         public void InsertFeErratas(BEFeErratas entidad)
         {
             var daFeErratas = new DAFeErratas(entidad.PaisID);

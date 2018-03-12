@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Data
         OnPremise = 4,
         Cliente = 5
     }
-    
+
     public abstract class DataAccess
     {
         private readonly DbContext context;

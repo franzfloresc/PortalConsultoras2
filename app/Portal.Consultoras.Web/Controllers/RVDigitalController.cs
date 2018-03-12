@@ -5,12 +5,9 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
             string errorMessage;
             string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
             var oRVDigitalModel = new RVDigitalModel { listaCampania = GetListCampaniaPaqueteDocumentario(codigoConsultora, out errorMessage) };
-            
+
             ViewBag.ErrorDescripcion = errorMessage;
             if (userData.PaisID == 4)
             {
@@ -97,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEPager pag = new BEPager();
 
             var recordCount = string.IsNullOrEmpty(vBusqueda)
-                ? lst.Count 
+                ? lst.Count
                 : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = recordCount;

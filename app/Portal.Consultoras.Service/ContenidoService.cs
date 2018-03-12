@@ -487,12 +487,7 @@ namespace Portal.Consultoras.Service
 
         #region Miembros de IContenidoService
 
-
-
-
         #endregion
-
-
 
     }
 }

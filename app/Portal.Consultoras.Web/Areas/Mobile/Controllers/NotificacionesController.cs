@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Session["fechaGetNotificacionesSinLeer"] = null;
             Session["cantidadGetNotificacionesSinLeer"] = null;
 
-            var model = new NotificacionesModel {ListaNotificaciones = ObtenerNotificaciones()};
+            var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
         }
 
@@ -339,7 +339,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             CargarMensajesNotificacionesGPR(model, logsGprValidacion);
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             model.CampaniaDescripcion = userData.CampaniaID.ToString();
-            
+
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 

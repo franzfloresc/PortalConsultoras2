@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
                 zipOuput.SetLevel(5);// Normal compression
                 byte[] buffer = new byte[bufferSize];
 
-                ZipEntry entry = new ZipEntry(inZipFileName) {DateTime = DateTime.Now};
+                ZipEntry entry = new ZipEntry(inZipFileName) { DateTime = DateTime.Now };
 
                 // Could also use the last write time or similar for the file.
                 zipOuput.PutNextEntry(entry);
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.BizLogic
                 username = split[1];
             }
 
-            request.Credentials = domain == null 
+            request.Credentials = domain == null
                 ? new NetworkCredential(username, password)
                 : new NetworkCredential(username, password, domain);
 

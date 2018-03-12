@@ -1,12 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
-using System.Collections.Generic;
-
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace Portal.Consultoras.Web.SessionManager
@@ -111,6 +112,16 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
+        }
+
+        void ISessionManager.SetHerramientasVenta(HerramientasVentaModel herramientasVenta)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.HerramientasVenta] = herramientasVenta;
+        }
+
+        HerramientasVentaModel ISessionManager.GetHerramientasVenta()
+        {
+            return ((HerramientasVentaModel)HttpContext.Current.Session[Constantes.ConstSession.HerramientasVenta]) ?? new HerramientasVentaModel();
         }
 
         void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modeloGnd)
@@ -225,12 +236,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetTieneRdr(bool tieneRdr)
         {
-           HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
         }
 
         public bool GetTieneRdr()
         {
-           return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
         }
 
         void ISessionManager.SetUserData(UsuarioModel usuario)
@@ -242,7 +253,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (UsuarioModel)HttpContext.Current.Session["UserData"];
         }
-        
+
         void ISessionManager.SetMontosProl(List<ObjMontosProl> montosProl)
         {
             HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl] = montosProl;
@@ -252,7 +263,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
-        
+
         void ISessionManager.SetMisCertificados(List<MiCertificadoModel> lista)
         {
             HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
@@ -282,7 +293,39 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
         }
-        
+
+        void ISessionManager.SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo] = menuContenedorActivo;
+        }
+
+        MenuContenedorModel ISessionManager.GetMenuContenedorActivo()
+        {
+            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
+        }
+
+        void ISessionManager.SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor] = menuContenedor;
+        }
+
+        List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor()
+        {
+            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+        }
+
+        void ISessionManager.SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            HttpContext.Current.Session[seccionesXCampaniaSessionKey] = seccionesContenedor;
+        }
+
+        List<BEConfiguracionOfertasHome> ISessionManager.GetSeccionesContenedor(int campaniaId)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            return (List<BEConfiguracionOfertasHome>)(HttpContext.Current.Session[seccionesXCampaniaSessionKey]);
+        }
+
         void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
         {
             HttpContext.Current.Session["ListFiltersFAV"] = lista;

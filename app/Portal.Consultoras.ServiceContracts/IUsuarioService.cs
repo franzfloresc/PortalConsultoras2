@@ -43,7 +43,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdateDatos(BEUsuario usuario, string CorreoAnterior);
-        
+
         [OperationContract]
         int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario);
 
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
-        
+
         [OperationContract]
         int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario);
 
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
-        
+
         [OperationContract]
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
 
@@ -248,7 +248,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
-        
+
         [OperationContract]
         void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
 
@@ -271,27 +271,36 @@ namespace Portal.Consultoras.ServiceContracts
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
-        
+
         [OperationContract]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);
-          
+
         [OperationContract]
         bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
 
         [OperationContract]
         List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad);
-        
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad);
+
+        [OperationContract]
+        int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> entidad);
+
         [OperationContract]
         bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
-        
+
         [OperationContract]
         List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
 
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
-        
-        [OperationContract]
-        string RecuperarContrasenia(int paisId, string correo);
 
         [OperationContract]
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
@@ -301,7 +310,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
-        
+
         [OperationContract]
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
 
@@ -313,13 +322,16 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
-        
+
         [OperationContract]
         void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
-        
+
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
+        
+        [OperationContract]
+        BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
 
         #region TerminosCondiciones
         [OperationContract]
@@ -335,5 +347,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
+
+        #region Restaurar Contraseña
+        [OperationContract]
+        BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
+
+        [OperationContract]
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar);
+
+        [OperationContract]
+        void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario);
+
+        [OperationContract]
+        string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen);
+        #endregion
     }
 }

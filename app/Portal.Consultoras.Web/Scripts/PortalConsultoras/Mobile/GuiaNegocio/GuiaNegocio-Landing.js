@@ -42,7 +42,7 @@ function mostrarImagenPortadaRevista(codigoCampania) {
                         bottom: '0'
                     });
                     $('.desplegablegnd .gndcontenido .nrognd .flechitagnd img').css('transform', 'rotate(0deg)');
-
+                    
                     contadorgnddesktop = 0;
                 } else {
                     contadorgnddesktop = 1;

@@ -19,6 +19,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return listdDescripcionEstrategias;
         }
+
         public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
         {
             var daEstrategia = new DAEstrategia(paisId);

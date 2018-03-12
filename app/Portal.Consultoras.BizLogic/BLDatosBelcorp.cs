@@ -3,7 +3,6 @@ using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
 
-
 namespace Portal.Consultoras.BizLogic
 {
     public class BLDatosBelcorp

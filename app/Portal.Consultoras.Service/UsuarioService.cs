@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Service
             blUsuario.Update(usuario);
         }
 
-        public int UpdUsuarioRechazarInvitacion(int PaisID,  string CodigoUsuario)
+        public int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario)
         {
             var blUsuario = new BLUsuario();
             return blUsuario.UpdUsuarioRechazarInvitacion(PaisID, CodigoUsuario);
@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Service
             var blUsuario = new BLUsuario();
             return blUsuario.ChangePasswordUser(paisID, codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, origen);
         }
-        
+
         public int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario)
         {
             var blUsuario = new BLUsuario();
@@ -309,7 +309,7 @@ namespace Portal.Consultoras.Service
         {
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR, tienePagoEnLinea);
-        }       
+        }
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
@@ -497,8 +497,8 @@ namespace Portal.Consultoras.Service
                 };
 
                 string paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault() ?? "";
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
 
                 int outVal;
                 int.TryParse(paisId, out outVal);
@@ -668,11 +668,35 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPaisDetalle();
             return bl.Validar(entidad);
         }
-        
+
         public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad)
         {
             var bl = new BLConfiguracionPaisDatos();
             return bl.GetList(entidad);
+        }
+
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetListComponente(entidad);
+        }
+
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponenteDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetListComponenteDatos(entidad);
+        }
+
+        public bool ConfiguracionPaisComponenteDeshabilitar(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisComponenteDeshabilitar(entidad);
+        }
+
+        public int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> listaEntidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.ConfiguracionPaisDatosGuardar(paisId, listaEntidad);
         }
 
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
@@ -680,12 +704,6 @@ namespace Portal.Consultoras.Service
             int paisId = GetPaisID(paisISO);
             var blUsuario = new BLUsuario();
             return blUsuario.InsUsuarioPostulante(paisId, paisISO, entidad);
-        }
-        
-        public string RecuperarContrasenia(int paisId, string correo)
-        {
-            var blUsuario = new BLUsuario();
-            return blUsuario.RecuperarContrasenia(paisId, correo);
         }
 
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
@@ -750,6 +768,11 @@ namespace Portal.Consultoras.Service
             blUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetUsuarioChatEmtelco(paisID, codigoUsuario);
+        }
+
         #region TerminosCondiciones
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
@@ -774,5 +797,31 @@ namespace Portal.Consultoras.Service
         {
             return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
         }
+
+        #region Restaurar Contraseña
+        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
+        }
+
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
+        }
+
+        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdFechaBloqueoRestaurarClave(paisId, CodigoUsuario);
+        }
+
+        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
+        }
+        #endregion
     }
 }

@@ -38,6 +38,8 @@ jQuery(document).ready(function () {
             });
         }
     }
+    
+
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -674,7 +676,7 @@ function getMobilePrefixUrl() {
 function isPagina(pagina) {
     pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;
-    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+    return ("/" + $.trim(location.href).ReplaceAll(":", "/") + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
 }
 
 function isHome() {
@@ -895,7 +897,7 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
-    IsGuid: function(input) {
+    IsGuid: function (input) {
         var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return guidRegex.test(input);
     }
@@ -998,7 +1000,9 @@ function LayoutMenu() {
 }
 
 function LayoutMenuFin() {
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -1069,7 +1073,9 @@ function LayoutMenuFin() {
     }
 
     LayoutHeader();
-    menuModule.Resize();
+
+    if (typeof menuModule !== "undefined")
+        menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -1879,6 +1885,12 @@ var registerEvent = function (eventName) {
         
     }
 
+    self[eventName].emit = function (args) {
+        self[eventName].callBacks.forEach(function (cb) {
+            cb.call(undefined, args);
+        });
+    }
+
     self.subscribe = function (event, cb) {
         if (!!event) {
             if (self[event]) {
@@ -1890,6 +1902,7 @@ var registerEvent = function (eventName) {
 
     self.applyChanges = function (event, args) {
         if (self[event]) {
+            //todo: could be emit
             self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });

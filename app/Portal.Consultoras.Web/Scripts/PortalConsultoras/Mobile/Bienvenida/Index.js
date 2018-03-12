@@ -373,7 +373,7 @@ function CargarPopupsConsultora() {
         VerTutorialMobile();
     }
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
-        AbrirPopupFade("#PopRDSuscripcion");
+        rdPopup.Mostrar();
     }
 };
 
@@ -606,6 +606,8 @@ function armarComunicadosPopup(comunicado) {
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
+    ActualizarVisualizoComunicado(comunicado.ComunicadoId);
+
     $(window).resize();
     dataLayer.push({
         'event': 'promotionView',
@@ -647,6 +649,26 @@ function grabarComunicadoPopup() {
             if (checkTimeout(data)) {
                 CloseLoading();
                 alert("Ocurrió un error al aceptar el comunicado.");
+            }
+        }
+    });
+}
+
+function ActualizarVisualizoComunicado(comunicadoId) {
+    var params = { ComunicadoId: comunicadoId };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/ActualizarVisualizoComunicado",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("Ocurrió un error al actualizar la visualización del comunicado.");
             }
         }
     });

@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     Codigo = "-- Seleccionar --"
                                 }};
                 IEnumerable<RegionModel> lstRegion = new List<RegionModel>();
-        
+
                 IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
 
                 model.listaPaises = CargarDropDowListPaises();
@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(paisId);
             }
-            
+
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectAllZonas(paisId);
             }
-            
+
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
 
@@ -333,11 +333,11 @@ namespace Portal.Consultoras.Web.Controllers
                     totalregistros = lst.Count,
                     pedidosfacturar = total,
                     rows = from a in items
-                    select new
-                    {
-                        id = a.PedidoID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.PedidoID,
+                               cell = new string[]
+                               {
                             a.CampaniaID.ToString(),
                             a.Direccion,
                             a.CodigoTerritorio,
@@ -355,8 +355,8 @@ namespace Portal.Consultoras.Web.Controllers
                             a.Bloqueado.ToString(),
                             a.IndicadorEnviado.ToString(),
                             a.FechaProceso.ToString()
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -393,11 +393,11 @@ namespace Portal.Consultoras.Web.Controllers
                         : lst.Sum(x => x.ImporteTotal).ToString("0.00"),
                     simbolo = lst[0].Simbolo,
                     rows = from a in lst
-                    select new
-                    {
-                        id = a.PedidoID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.PedidoID,
+                               cell = new string[]
+                               {
                             a.CUV,
                             a.DescripcionProd,
                             a.Cantidad.ToString(),
@@ -408,8 +408,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? a.ImporteTotal.ToString("#,##0").Replace(',', '.')
                                 : a.ImporteTotal.ToString("0.00")
 
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -700,7 +700,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = UserData().RolID == 2
                     ? sv.SelectPaises().ToList()
-                    : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
