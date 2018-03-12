@@ -5,7 +5,8 @@ IF (OBJECT_ID('dbo.OfertaFinalMontoMeta_Select', 'P') IS NULL)
 	EXEC ('CREATE PROCEDURE dbo.OfertaFinalMontoMeta_Select AS SET NOCOUNT ON;')
 GO
 
-alter PROCEDURE [dbo].OfertaFinalMontoMeta_Select (@UpsellingId INT)
+alter PROCEDURE [dbo].OfertaFinalMontoMeta_Select 
+(@UpsellingId INT)
 AS
 SET NOCOUNT ON; 
 
@@ -36,11 +37,13 @@ SELECT ofmm.CampaniaId AS Campania
 	,ofmm.MontoPedido
 
 FROM OfertaFinalMontoMeta ofmm
-INNER JOIN Upselling up on up.CodigoCampana = ofmm.CampaniaId
-INNER JOIN UpsellingDetalle u ON u.Upsellingid = up.Upsellingid 
+INNER JOIN UpsellingDetalle u ON ofmm.cuv = u.cuv 
+INNER JOIN Upselling up on up.Upsellingid = u.Upsellingid
 INNER JOIN ods.consultora c ON ofmm.ConsultoraId = c.ConsultoraId
  where u.Upsellingid = @UpsellingId 
+ and  ofmm.Campaniaid =  (select CodigoCampana from upselling where upsellingid= @UpsellingId)
 
 ORDER BY ofmm.FechaRegistro DESC
+
 
  

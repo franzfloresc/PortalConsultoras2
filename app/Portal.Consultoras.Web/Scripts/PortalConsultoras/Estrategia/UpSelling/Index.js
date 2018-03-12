@@ -708,78 +708,80 @@ belcorp.estrategias.upselling.initialize = function (config) {
 
 
     }
-}
 
 
 
 
 
-function configureGridListaGanadoras(response) {
+    function configureGridListaGanadoras(response) {
 
-    var data = response.Data;
+        var data = response.Data;
 
 
-    var grilla = $("#listOfertaFinalMontoMeta");
+        var grilla = $("#listOfertaFinalMontoMeta");
 
-    grilla.jqGrid("GridUnload");
+        grilla.jqGrid("GridUnload");
 
-    grilla.jqGrid({
-        hidegrid: false,
-        datatype: "local",
-        mtype: "GET",
-        contentType: "application/json; charset=utf-8",
-        multiselect: false,
-        colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Inicial", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
-       colModel: [
-            { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
-            { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
-            { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
-            { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
-            { name: "NombreRegalo", index: "NombreRegalo", width: 110, sortable: false, align: "left" },
-            { name: "MontoInicial", index: "MontoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "RangoInicial", index: "RangoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "RangoFinal", index: "RangoFinal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-            { name: "FechaRegistro", index: "FechaRegistro", width: 130, sortable: false, align: "center" },
+        grilla.jqGrid({
+            hidegrid: false,
+            datatype: "local",
+            mtype: "GET",
+            contentType: "application/json; charset=utf-8",
+            multiselect: false,
+            colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Inicial", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
+            colModel: [
+                 { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
+                 { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
+                 { name: "Nombre", index: "Nombre", width: 120, sortable: false, align: "left" },
+                 { name: "CuvRegalo", index: "CuvRegalo", width: 40, sortable: false, align: "center" },
+                 { name: "NombreRegalo", index: "NombreRegalo", width: 110, sortable: false, align: "left" },
+                 { name: "MontoInicial", index: "MontoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "RangoInicial", index: "RangoInicial", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "RangoFinal", index: "RangoFinal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "FechaRegistro", index: "FechaRegistro", width: 130, sortable: false, align: "center" },
 
-        ],
-        pager: jQuery("#pagerListaRegalos"),
-        loadtext: "Cargando datos...",
-        recordtext: "{0} - {1} de {2} Registros",
-        emptyrecords: "No hay resultados",
-        rowNum: 10,
-        scrollOffset: 0,
-        rowList: [10, 20, 30, 40, 50],
-        sortname: "UpSellingId",
-        sortorder: "asc",
-        viewrecords: true,
-        height: "auto",
-        width: 900,
-        pgtext: "Pág: {0} de {1}",
-        altRows: false
-    });
-    grilla.jqGrid('navGrid', '#pagerListaRegalos', { add: false, edit: false, del: false, search: false, refresh: true });
+            ],
+            pager: jQuery("#pagerListaRegalos"),
+            loadtext: "Cargando datos...",
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: "No hay resultados",
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: "UpSellingId",
+            sortorder: "asc",
+            viewrecords: true,
+            height: "auto",
+            width: 900,
+            pgtext: "Pág: {0} de {1}",
+            altRows: false
+        });
+        grilla.jqGrid('navGrid', '#pagerListaRegalos', { add: false, edit: false, del: false, search: false, refresh: true });
 
-    for (var i = 0; i <= data.length - 1; i++) {
-        convertirStringDate(data[i], 'FechaRegistro');
-        grilla.jqGrid('addRowData', i + 1, data[i]);
-    }  
-
-    $('#refresh_listOfertaFinalMontoMeta').click();
-
-}
-
-function convertirStringDate(row, field) {
-
-    JSON.parse('{ "' + field + '":"' + row[field] + '"}', function (key, value) {
-        if (typeof value === 'string') {
-            var d = /\/Date\((\d*)\)\//.exec(value);
-            return (d) ? new Date(+d[1]) : value;
+        for (var i = 0; i <= data.length - 1; i++) {
+            convertirStringDate(data[i], 'FechaRegistro');
+            grilla.jqGrid('addRowData', i + 1, data[i]);
         }
-        row[field] = value[field].toLocaleString();
-    });
+
+        $('#refresh_listOfertaFinalMontoMeta').click();
+
+    }
+
+    function convertirStringDate(row, field) {
+
+        JSON.parse('{ "' + field + '":"' + row[field] + '"}', function (key, value) {
+            if (typeof value === 'string') {
+                var d = /\/Date\((\d*)\)\//.exec(value);
+                return (d) ? new Date(+d[1]) : value;
+            }
+            row[field] = value[field].toLocaleString();
+        });
 
 
+    }
 }
+
+
