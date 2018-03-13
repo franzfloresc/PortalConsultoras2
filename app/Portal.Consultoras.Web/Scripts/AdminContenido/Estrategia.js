@@ -737,10 +737,10 @@ function AddTitleCustom() {
         var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
         img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels)';
         if (nombre == 'prod_grilla_vacio.png') {
-            img.title = 'No se ha seleccionado imagen';
+            img.title = '';
         }
         if (img.naturalWidth == 0) {
-            img.title = 'Inaccesible';
+            img.title = '';
         }
     });
 }
