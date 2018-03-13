@@ -51,9 +51,11 @@
                 </div>
                 <div class="producto_nombre_descripcion_bpt">
                     <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
-                        {{#iff DescripcionMarca '!=' ''}}
-                        <h6>{{DescripcionMarca}}</h6>
-                        {{/iff}}
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
+                            <h6>{{DescripcionMarca}}</h6>
+                        {{else}}
+                            <h6>&ensp;&nbsp;</h6>
+                        {{/IsNullOrEmpty}}
 
                         {{#iff DescripcionResumen '!=' ''}}
                         <p class="nombre_producto_bpt" style="cursor:pointer;">
