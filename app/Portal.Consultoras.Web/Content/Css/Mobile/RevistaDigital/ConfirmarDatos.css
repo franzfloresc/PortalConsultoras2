@@ -113,7 +113,13 @@
                     height: auto;
                 }
 
+.popup_confirmacion_datos .form-datos .validar_chk .txtchk span.obligatorio {
+    color: red;
+    display: none;
+}
     .popup_confirmacion_datos .form_datos .input img.envelope {
+        margin-top: 10px;
+        margin-left: 4px;
         width: 40px;
         height: auto;
     }

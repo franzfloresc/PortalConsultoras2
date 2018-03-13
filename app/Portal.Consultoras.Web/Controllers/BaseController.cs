@@ -3589,6 +3589,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.HerramientasVenta).ToList();
             }
+            if (campaniaIdMenuActivo != campaniaIdUsuario && !sessionManager.GetTieneHvX1())
+            {
+                menuContenedor = menuContenedor.Where(e => e.Codigo != Constantes.ConfiguracionPais.HerramientasVenta).ToList();
+            }
 
             return menuContenedor;
         }

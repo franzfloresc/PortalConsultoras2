@@ -108,6 +108,7 @@
 
             .popup_confirmacion_datos .form-datos .validar_chk .txtchk span.obligatorio {
                 color: red;
+                display: none;
             }
 
             .popup_confirmacion_datos .form-datos .validar_chk .txtchk a.terminos {
