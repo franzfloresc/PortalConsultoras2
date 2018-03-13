@@ -181,12 +181,15 @@
         }
 
         @RenderBody()
+
         @if (ViewBag.TerminoMostrar == 1)
         {
             <div class="footerTerminos">
                 <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
             </div>
         }
+
+        <div class="showoom_banner_inferior" id="showoom_banner_inferior" style="display: none"></div>
         <!-- footer -->
         <hr class="clear" />
         <footer class="footer_e">
