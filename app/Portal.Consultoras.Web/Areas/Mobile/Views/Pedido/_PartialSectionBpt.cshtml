@@ -13,11 +13,8 @@
 
 @if (revistaDigital.TieneRDC)
 {
-    
-
         if (revistaDigital.EsSuscrita)
         {
-
             <div class="wrapper_resumen_mobile_clubganamas">
                 <div class="zonadecolor dorado">
                     <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
@@ -33,9 +30,7 @@
 
                 @if (revistaDigital.EsActiva)
                 {
-                    <div style="    top: -50px;
-    background: transparent;
-    position: relative;" id="divContenedorListaEstrategia">
+                    <div id="divContenedorListaEstrategia" style="top: -50px; background: transparent; position: relative;" >
                         <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
                              data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion" style="width: 100%;">
                             <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>

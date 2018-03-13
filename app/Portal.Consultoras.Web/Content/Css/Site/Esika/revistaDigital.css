@@ -89,3 +89,8 @@
 .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
     background: url('/Content/Images/Esika/loading_circle.gif');
 }
+
+/*BOTON NO ANIMADO*/
+.bg_activar_boton_no_animado {
+    background: #e81c36;
+}

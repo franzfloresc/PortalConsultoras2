@@ -10,7 +10,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="video-visual">
         <div class="video-container">
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete || Model.Origen == Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="como-funciona">
         <div class="contenedor-suscripcion">

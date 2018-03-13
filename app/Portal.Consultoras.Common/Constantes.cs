@@ -955,6 +955,7 @@ namespace Portal.Consultoras.Common
         {
             public const string RD = "RD";
             public const string Unete = "UNETE";
+            public const string Nueva = "NUEVA";
         }
 
         public static class MatrizNemotecnicoMensajes

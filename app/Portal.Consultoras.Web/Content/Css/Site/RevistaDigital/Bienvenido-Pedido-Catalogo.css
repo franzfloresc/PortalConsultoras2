@@ -800,9 +800,14 @@
 
         .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas {
             background: transparent;
-            max-width: 1063px;
+            max-width: 1050px;
+            /* margin-left: 10%; */
             margin: auto;
             margin-bottom: 25px;
+            margin-top: -1px;
+            /* margin-left: 67px; */
+            position: relative;
+            left: -2px;
         }
 
             .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
@@ -821,7 +826,7 @@
                         vertical-align: middle;
                         width: 100%;
                         height: 96px;
-                        background: url('/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png');
+                        background: url('/Content/Images/RevistaDigital/blanco-con-espacio.png');
                         background-size: contain;
                         background-repeat: no-repeat;
                     }
@@ -977,7 +982,13 @@
 
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 .activar_boton_esika_no_animado {
-    background-color: #e81c36 !important;
+    color: white !important;
+    padding: 15px 0px;
+}
+
+/*BOTON LBEL NO ANIMADO: ROJO*/
+.activar_boton_lbel_no_animado {
+    background-color: #613c87 !important;
     color: white !important;
     padding: 15px 0px;
 }

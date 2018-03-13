@@ -89,3 +89,8 @@
 .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
     background: url('/Content/Images/Lbel/loading_circle.gif');
 }
+
+/*BOTON NO ANIMADO*/
+.bg_activar_boton_no_animado {
+    background: #613c87;
+}

@@ -3187,6 +3187,7 @@
     <Content Include="Content\Images\RevistaDigital\bg_mini_bloque.png" />
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
     <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
+    <Content Include="Content\Images\RevistaDigital\blanco-con-espacio.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
@@ -3194,6 +3195,7 @@
     <Content Include="Content\Images\RevistaDigital\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
+    <Content Include="Content\Images\RevistaDigital\etiqueta-club-ganamas-blanco-independiente.png" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\fill-1.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
