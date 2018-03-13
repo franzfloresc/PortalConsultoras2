@@ -22,7 +22,7 @@
 
 <!-- TÍTULO -->
 <div class="cabecera_vista_pago_en_linea">
-    <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
     PAGO EN LÍNEA
 </div>
 <!-- FIN TÍTULO -->
@@ -144,17 +144,9 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+        var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+        var tipoOrigenPantalla = 2;
+</script>
 
-            var boton = $("button[type='submit']")[0];
-            $(boton).css("background", colorBoton);
-            $(boton).css("width", "100%");
-            $(boton).css("font-family", "Lato");
-            $(boton).css("border-radius", "0%");
-            $(boton).css("letter-spacing", "0.5px");
-            //$(boton).html("PAGA CON <div style='display:inline-block; width:44px; height:35px;'><img src='http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/Logo_Visa.png' alt='' style='width:100%; height:auto;'/></div>");
-            $(boton).html("PAGA CON VISA");
-        });
-    </script>
+<script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script> 
 }

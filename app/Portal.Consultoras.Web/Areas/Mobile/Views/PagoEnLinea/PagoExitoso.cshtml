@@ -109,6 +109,15 @@
         listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
         //listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-tiras.svg")';
         listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
+
+        $(document).ready(function () {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Pago en Línea',
+                'action': 'Clic en Botón',
+                'label': 'Pago Exitoso'
+            });
+        });
     </script>    
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
 }

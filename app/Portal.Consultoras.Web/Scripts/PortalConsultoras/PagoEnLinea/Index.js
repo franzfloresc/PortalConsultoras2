@@ -26,6 +26,7 @@ $(document).ready(function () {
                 $(document).on('click', '.btn_continuar', me.Eventos.MostrarTooltipAceptarTerminosYCondiciones);
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
+                $(document).on('click', '#divMetodoPagoVisa', me.Eventos.MarcacionMetodoPago);
             },
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
@@ -137,8 +138,17 @@ $(document).ready(function () {
                     data: JSON.stringify(parametros),
                     async: true,
                     success: function (response) {
-                        if (response.success)
+                        if (response.success) {
+
+                            dataLayer.push({
+                                'event': 'virtualEvent',
+                                'category': 'Pago en Línea',
+                                'action': 'Clic en Botón',
+                                'label': 'Continuar a Confirmar Monto'
+                            });
+
                             window.location.href = rutaPagoVisa;
+                        }                            
                     },
                     error: function (data, error) {                        
                         if (checkTimeout(data)) {
@@ -146,6 +156,14 @@ $(document).ready(function () {
                     }
                 });
             },
+            MarcacionMetodoPago: function (e) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Pago en Línea',
+                    'action': 'Clic en Método de Pago',
+                    'label': 'Tarjeta de Crédito Visa'
+                });
+            }
         },
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
