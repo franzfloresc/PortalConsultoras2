@@ -11,23 +11,26 @@
     width: -webkit-calc(100% - 80px);
 }
 
-.content_item_carrusel_ODD .btn_pop_agregalo_oferta{
+.content_item_carrusel_ODD .btn_pop_agregalo_oferta {
     width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
     width: -webkit-calc(100% - 80px);
 }
-.banner_especial_showroom{
+
+.banner_especial_showroom {
     width: -moz-calc(100% - 12%);
     width: calc(100% - 12%);
     width: -webkit-calc(100% - 12%);
-    overflow:hidden;
+    overflow: hidden;
 }
-.content_banner_compra{
+
+.content_banner_compra {
     width: -moz-calc(100% - 12%);
     width: calc(100% - 12%);
     width: -webkit-calc(100% - 12%);
 }
-.btn_pop_agregalo_oferta{
+
+.btn_pop_agregalo_oferta {
     width: -moz-calc(80% - 80px);
     width: calc(80% - 80px);
     width: -webkit-calc(80% - 80px);

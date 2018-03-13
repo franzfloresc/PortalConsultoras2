@@ -76,7 +76,6 @@
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
-                @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
         <br />
@@ -99,14 +98,12 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @*@Scripts.Render("~/Scripts/Mobile")*@
 
     <script src="/Scripts/jquery-1.11.2.js"></script>
     <script src="/Scripts/jquery-ui-1.9.2.custom.js"></script>
     <script src="/Scripts/jquery.validate.js"></script>
     <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
-    @*<script src="/Scripts/menu.js"></script>*@
     <script src="/Scripts/accordion.js"></script>
     <script src="/Scripts/General.js"></script>
     <script src="/Scripts/LogError.js"></script>
@@ -132,19 +129,11 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        var MobileHomeOfertasParaTi = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
-        var MobilePedidoOfertasParaTi = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
-        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
-        var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
-        var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
-        var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
-        var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
         var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
@@ -177,7 +166,6 @@
             rCampSelect = $("#hdrCampaniaAnterior").val();//$("#hdrCampaniaActual").val();
             $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
             RevistaMostrar(-1); 
-            //MostrarRevistaCorrecta(rCampSelect);
 
             $('#campaniaRevista').val(rCampSelect);
 
@@ -369,7 +357,7 @@
 
                 var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
                 $(idCat).find(elemItem).find("[data-tipo='content']").hide();
-                $(elemItem).attr("data-estado", estado || "0")
+                $(elemItem).attr("data-estado", estado)
 
                 var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 

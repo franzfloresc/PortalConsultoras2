@@ -5,6 +5,7 @@ var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
+var cantTotalMostrar = 0;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -21,13 +22,6 @@ $(document).ready(function () {
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
 
-    var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
-    var rdaccion = estador == 1 ? estador : 0;
-    $("[data-estadoregistro" + rdaccion + "]").show();
-    if (estador == 2) {
-        $("[data-estadoregistro2]").show();
-    }
-
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
@@ -41,7 +35,7 @@ $(document).ready(function () {
                 $(objTag).css('padding-top', '50px');
             }
         });
-        // Registrar valrores de analytics
+        // Registrar valores de analytics
         if (!esPrimeraCarga) {
             rdAnalyticsModule.Tabs($(this).attr("data-tab-index"), campaniaId);
         } else { esPrimeraCarga = false; }
@@ -57,6 +51,21 @@ $(document).ready(function () {
         $(window).scroll();
     });
 
+    /* popup validar datos 2017 */
+
+    $(".popup_confirmacion_datos .form-datos .input input#Email, .popup_confirmacion_datos .form-datos .input input#Celular").on("keyup", function () {
+        if ($('.popup_confirmacion_datos .form-datos .input input#Email').val() != "" || $('.popup_confirmacion_datos .form-datos .input input#Celular').val() != "") {
+            $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+            $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+            $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+        }
+        else {
+            $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+            $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+            $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+        }
+    });
+
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
@@ -64,8 +73,6 @@ $(document).ready(function () {
             $("#barCursor").css("margin-left", (left) + "px");
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
-
-    //RDMostrarPosicion();
 
     if (isDetalle) {
         RDDetalleObtener();
@@ -111,8 +118,9 @@ $(document).ready(function () {
 
         e.preventDefault();
         if ($('#divTopFiltros').length > 0) {
+            var topFiltros = ($('#divTopFiltros').position() || {}).top || 0;
             $('html, body').animate({
-                scrollTop: $('#divTopFiltros').position().top - 60
+                scrollTop: topFiltros - 60
             }, 1000, 'swing');
         }
     });
@@ -148,24 +156,23 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click", "[data-item-accion='verdetalle']", function(e) {
+    $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
         var obj = GetProductoStorage(cuv, campania);
         if (obj == undefined) {
             obj = $(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia");
-            if (obj != undefined)
-            {
-                 obj = JSON.parse(obj);
+            if (obj != undefined) {
+                obj = JSON.parse(obj);
             }
         }
         if (obj == undefined) {
-	        return;
+            return;
         }
 
         var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
-            obj.Posicion = 1;
+        obj.Posicion = 1;
         if (obj.CUV2 != "") {
             rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
@@ -176,20 +183,19 @@ $(document).ready(function () {
         }
     });
 
-    $("body").on("click",
-        ".btn-volver-fix-detalle span",
-        function(e) {
-            window.location = urlRetorno;
-        });
+    $("body").on("click", ".btn-volver-fix-detalle span", function (e) {
+        window.location = urlRetorno;
+    });
+    
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('[data-listado-campania=' + idCamapania + ']');
-    if (top.length > 0) {
-        top = top.position().top;
+    var topListado = $('[data-listado-campania=' + idCamapania + ']');
+    if (topListado.length > 0) {
+        topListado = (top.position() || {}).top || 0;
 
         $('html, body').animate({
-            scrollTop: top - 70
+            scrollTop: topListado - 70
         }, 1000, 'swing');
     }
 }
@@ -234,14 +240,14 @@ function GetArrowNameNext() {
     else return "next.png";
 }
 
-function OfertaArmarEstrategias(response) {
+function OfertaArmarEstrategias(response, busquedaModel) {
 
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
-        OfertaArmarEstrategiasContenedor(response);
+        OfertaArmarEstrategiasContenedor(response, busquedaModel);
         return false;
     }
 
@@ -257,18 +263,18 @@ function OfertaArmarEstrategias(response) {
     response.Consultora = usuarioNombre.toUpperCase();
 
     response.Mobile = isMobile();
-    var cantProdFiltros = response.cantidadTotal;
+    cantTotalMostrar = response.cantidadTotal;
     OfertaObtenerIndLocal(response.CampaniaID);
-    if (filtroCampania[indCampania] != undefined) {
+    if (filtroCampania[lsListaRD + indCampania] != undefined) {
 
-        var cantListados = filtroCampania[indCampania].CantMostrados;
-        filtroCampania[indCampania].CantTotal = response.cantidad;
+        var cantListados = filtroCampania[lsListaRD + indCampania].CantMostrados;
+        filtroCampania[lsListaRD + indCampania].CantTotal = response.cantidad;
 
         var listaAdd = new Array();
 
         var listado = RDFiltrarLista(response);
 
-        cantProdFiltros = listado.length;
+        cantTotalMostrar = listado.length;
 
         $.each(listado, function (ind, prod) {
             prod.Posicion = ind + 1;
@@ -277,9 +283,9 @@ function OfertaArmarEstrategias(response) {
             }
         });
 
-        filtroCampania[indCampania].CantMostrados += listaAdd.length;
+        filtroCampania[lsListaRD + indCampania].CantMostrados += listaAdd.length;
 
-        filtroCampania[indCampania].response.Completo = 1;
+        filtroCampania[lsListaRD + indCampania].response.Completo = 1;
     }
     else {
         console.log('filtroCampania' + indCampania + " - " + response.CampaniaID);
@@ -303,14 +309,13 @@ function OfertaArmarEstrategias(response) {
     /*Logica para agregar atributos para el EfectoLazy*/
     EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
-    //ResizeBoxContnet();
-    divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
+    divProd.find("#spnCantidadFiltro").html(cantTotalMostrar);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     if (response.listaPerdio != undefined) {
-        if (response.listaPerdio.length > 0) {
+        var divPredio = $("#divOfertaProductosPerdio");
+        if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
             modeloTemp.lista = response.listaPerdio;
-            var divPredio = $("#divOfertaProductosPerdio");
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
         }
@@ -319,7 +324,7 @@ function OfertaArmarEstrategias(response) {
     ResizeBoxContnet();
 
     if (!isDetalle) {
-        RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+        RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[lsListaRD + indCampania]);
     }
 }
 
@@ -333,8 +338,8 @@ function RDLocalStorageListado(key, valor, codigo) {
         if (codigo == "LAN") {
             valLocalStorage.response.listaLan = valor.listaLan;
         }
-        else {
-            valor.response.listaLan = valLocalStorage.listaLan || valLocalStorage.response.listaLan;
+        else if (valor) {
+            valor.response.listaLan = valLocalStorage.listaLan || (valLocalStorage.response || {}).listaLan || {};
             valLocalStorage = Clone(valor);
         }
     }
@@ -346,16 +351,21 @@ function RDLocalStorageListado(key, valor, codigo) {
 }
 
 
-function OfertaArmarEstrategiasContenedor(responseData) {
+function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
-    RDLocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
+    RDLocalStorageListado(busquedaModel.VarListaStorage + responseData.CampaniaID, filtroCampania[busquedaModel.VarListaStorage + indCampania]);
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["RD", "RDR"]
+    var listaSeccionesRD = ["HV"]
+
+    if (busquedaModel.VarListaStorage === "ListaRD") {
+        listaSeccionesRD = ["RD", "RDR"]
+    }
 
     $.each(listaSeccionesRD, function (ind, tipo) {
         response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
+
         if (response.Seccion == undefined) {
             var seccHtml = $('[data-seccion][data-seccion="' + tipo + '"]');
             if (seccHtml.length == 1) {
@@ -366,7 +376,7 @@ function OfertaArmarEstrategiasContenedor(responseData) {
         else {
             OfertaArmarEstrategiasContenedorSeccion(Clone(response));
         }
-       
+
     });
 }
 
@@ -400,7 +410,7 @@ function RDFiltrarLista(response, busquedaModel) {
     var cont = 0, contVal = 0;
 
     OfertaObtenerIndLocal(response.CampaniaID);
-    var ListaFiltro = filtroCampania[indCampania].ListaFiltro || new Array();
+    var ListaFiltro = filtroCampania[lsListaRD + indCampania].ListaFiltro || new Array();
 
     if (ListaFiltro.length > 0) {
         listaFinal = new Array();
@@ -447,7 +457,7 @@ function RDFiltrarLista(response, busquedaModel) {
         });
     }
 
-    var ordenar = filtroCampania[indCampania].Ordenamiento || new Object();
+    var ordenar = filtroCampania[lsListaRD + indCampania].Ordenamiento || new Object();
     ordenar.Tipo = $.trim(ordenar.Tipo).toLowerCase();
     if (ordenar.Tipo != "" && listaFinal.length > 0) {
         if (ordenar.Tipo == "precio") {
@@ -470,16 +480,16 @@ function ResizeBoxContnet() {
             that.on('load', function () {
                 if (that.width() < 115) {
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "105px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 150) {
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "140px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "140px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
                 else if (that.width() < 200) {
 
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "190px");
-                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "190px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "100%");
                 }
             });
         });
@@ -507,14 +517,17 @@ function RDDetalleObtener() {
 
     if (cuv == "" || campania == "") {
         RDDetalleVolver(campaniaCodigo);
+        return false;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     if (prod == null || prod == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
     if (prod.CUV2 == undefined) {
         RDDetalleVolver(campania || campaniaCodigo);
+        return false;
     }
 
     var obj = new Object();
@@ -525,7 +538,7 @@ function RDDetalleObtener() {
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.Posicion = ind + 1;
-        tem.TipoAccionAgregar = 2;
+        //tem.TipoAccionAgregar = 2; Comentado por KC. para activar la experiencia de tonos en el detalle
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
@@ -597,7 +610,7 @@ function RDPageInformativa() {
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-    
+
     window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
 }
 

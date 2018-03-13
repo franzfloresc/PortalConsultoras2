@@ -1,0 +1,24 @@
+<svg width="40" height="40" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>icono-descarga-e-imprime</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(828 -1487)">
+<g id="icono-descarga-e-imprime">
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-814.194 1499.51)" fill="#642F80"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_stroke" transform="translate(-813.32 1513.41)" fill="#642F80"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_stroke" transform="translate(-827 1488)" fill="#642F80"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 4.154 -6.10352e-08L 9.232 -6.10352e-08L 9.232 4.682L 13.184 4.682L 6.474 11.186L -2.44141e-07 4.711L 4.154 4.711L 4.154 -6.10352e-08Z"/>
+<path id="path1_stroke" d="M 3.05176e-07 0.675L 12.093 0.675L 12.093 -0.675L 3.05176e-07 -0.675L 3.05176e-07 0.675Z"/>
+<path id="path2_stroke" d="M 37.5 19C 37.5 29.2173 29.2173 37.5 19 37.5L 19 38.5C 29.7696 38.5 38.5 29.7696 38.5 19L 37.5 19ZM 19 37.5C 8.78273 37.5 0.5 29.2173 0.5 19L -0.5 19C -0.5 29.7696 8.23045 38.5 19 38.5L 19 37.5ZM 0.5 19C 0.5 8.78273 8.78273 0.5 19 0.5L 19 -0.5C 8.23045 -0.5 -0.5 8.23045 -0.5 19L 0.5 19ZM 19 0.5C 29.2173 0.5 37.5 8.78273 37.5 19L 38.5 19C 38.5 8.23045 29.7696 -0.5 19 -0.5L 19 0.5Z"/>
+</defs>
+</svg>

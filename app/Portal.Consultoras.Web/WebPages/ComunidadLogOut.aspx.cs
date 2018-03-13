@@ -11,16 +11,16 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string CodigoUsuario = Request.QueryString["C"];
-            string Tipo = Request.QueryString["T"];
+            string codigoUsuario = Request.QueryString["C"];
+            string tipo = Request.QueryString["T"];
 
-            BEUsuarioComunidad usuario = null;
+            BEUsuarioComunidad usuario;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
                 {
                     UsuarioId = 0,
-                    CodigoUsuario = CodigoUsuario,
+                    CodigoUsuario = codigoUsuario,
                     Tipo = 2
                 });
             }
@@ -30,9 +30,9 @@ namespace Portal.Consultoras.Web.WebPages
                 String uniqueId = SSOClient.ANONYMOUS_UNIQUE_ID;
                 SSOClient.writeLithiumCookie(uniqueId, usuario.CodigoUsuario, usuario.Correo, Request, Response);
 
-                if (Tipo == "1")
+                if (tipo == "1")
                 {
-                    Session["UserData"] = null;
+                    SessionManager.SessionManager.Instance.SetUserData(null);
                     Session.Clear();
                     Session.Abandon();
                     FormsAuthentication.SignOut();

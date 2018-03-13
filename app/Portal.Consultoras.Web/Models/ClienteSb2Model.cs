@@ -27,6 +27,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string CampaniaSiguiente { get; set; }
 
-        public string CodigoZona { get; set; } //R20160204
+        public string CodigoZona { get; set; }
     }
 }

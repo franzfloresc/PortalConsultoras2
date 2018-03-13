@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
-using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -25,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
             string str = Util.EncriptarQueryString(parametros);
-            string url = ConfigurationManager.AppSettings.Get("URL_LIDER") + "?p=" + str;
+            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
             if (Session[Constantes.ConstSession.IngresoPortalLideres] == null)
             {

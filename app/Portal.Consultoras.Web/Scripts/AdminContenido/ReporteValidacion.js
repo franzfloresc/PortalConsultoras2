@@ -77,7 +77,8 @@
             closeWaitingDialog();
         };
 
-        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+            // Si es Internet Explorer
             iframe_.onreadystatechange = function () {
                 switch (this.readyState) {
                     case "loading":
@@ -95,9 +96,7 @@
             };
         }
         else {
-            // Si es Firefox o Chrome
             $(iframe_).ready(function () {
-                //waitingDialog({}); TODO FIX THIS
             });
         }
 

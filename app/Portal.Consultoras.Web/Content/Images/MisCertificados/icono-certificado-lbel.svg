@@ -1,0 +1,35 @@
+<svg width="72" height="72" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Page 1.2</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="matrix(2 0 0 2 -1960 -2202)">
+<g id="Page 1.2">
+<g id="ENTREGABLE">
+<g id="Page 1">
+<g id="Stroke 13">
+<use xlink:href="#path0_stroke" transform="translate(981 1102)" fill="#642F80"/>
+</g>
+<g id="noun 1236269 cc">
+<g id="Shape">
+<use xlink:href="#path1_fill" transform="translate(990.802 1108.8)" fill="#642F80"/>
+</g>
+<g id="Rectangle path">
+<use xlink:href="#path2_fill" transform="translate(993.802 1122.8)" fill="#642F80"/>
+</g>
+<g id="Rectangle path">
+<use xlink:href="#path3_fill" transform="translate(993.802 1119.8)" fill="#642F80"/>
+</g>
+<g id="Rectangle path">
+<use xlink:href="#path3_fill" transform="translate(993.802 1116.8)" fill="#642F80"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_stroke" d="M 33.1226 17.1051C 33.1226 26.2571 25.823 33.6607 16.8363 33.6607L 16.8363 34.7607C 26.4469 34.7607 34.2226 26.8481 34.2226 17.1051L 33.1226 17.1051ZM 16.8363 33.6607C 7.85005 33.6607 0.55 26.2571 0.55 17.1051L -0.55 17.1051C -0.55 26.8481 7.22618 34.7607 16.8363 34.7607L 16.8363 33.6607ZM 0.55 17.1051C 0.55 7.95359 7.85004 0.55 16.8363 0.55L 16.8363 -0.55C 7.22619 -0.55 -0.55 7.36255 -0.55 17.1051L 0.55 17.1051ZM 16.8363 0.55C 25.823 0.55 33.1226 7.95358 33.1226 17.1051L 34.2226 17.1051C 34.2226 7.36256 26.4469 -0.55 16.8363 -0.55L 16.8363 0.55Z"/>
+<path id="path1_fill" d="M 15 5.13403L 9.80963 0L 0 0L 0 19L 15 19L 15 5.13403ZM 10.1498 2.07806L 13.0683 4.96901L 10.1498 4.96901L 10.1498 2.07806ZM 1.2598 17.7776L 1.2598 1.22239L 8.88998 1.22239L 8.88998 6.18936L 13.7402 6.18936L 13.7402 17.7776L 1.2598 17.7776Z"/>
+<path id="path2_fill" d="M 4 0L 0 0L 0 1L 4 1L 4 0Z"/>
+<path id="path3_fill" d="M 9 0L 0 0L 0 1L 9 1L 9 0Z"/>
+</defs>
+</svg>

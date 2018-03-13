@@ -7,15 +7,12 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using sc = Portal.Consultoras.Web.ServiceCliente;
 using SC = Portal.Consultoras.Web.ServiceCliente;
 
@@ -27,10 +24,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MisPedidosSb2Model();
             var pedidoActual = new BEPedidoWeb();
-            var listaPedidoFacturados = new List<BEPedidoWeb>();
 
             try
             {
+                List<BEPedidoWeb> listaPedidoFacturados;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.CodigoConsultora, 6).ToList();
@@ -40,15 +37,13 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Clientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
-
-                model.PedidoActual = pedidoActual ?? new BEPedidoWeb();
+                model.PedidoActual = pedidoActual;
 
                 if (listaPedidoFacturados.Count > 0)
                 {
                     listaPedidoFacturados.Update(x =>
                     {
-                        x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID);
+                        x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID.ToString(), x.NumeroPedido.ToString());
                         x.ImporteTotal = x.ImporteTotal - x.DescuentoProl;
                         x.ImporteCredito = x.ImporteTotal - x.Flete;
                     });
@@ -66,20 +61,19 @@ namespace Portal.Consultoras.Web.Controllers
                     usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);
                 }
 
-                string paisID = usuario.PaisID.ToString();
+                string paisId = usuario.PaisID.ToString();
                 string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
-                string paisISO = userData.CodigoISO.Trim();
-                string campanhaID = userData.CampaniaID.ToString();
+                string paisIso = userData.CodigoISO.Trim();
+                string campanhaId = userData.CampaniaID.ToString();
 
-                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId);
 
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
@@ -105,14 +99,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
         public JsonResult ClienteOnline(int[] campanias)
         {
-            var listPedidosClienteOnline = new List<BEMisPedidos>();
-            var listModel = new List<ClienteOnlineModel>();
             int campaniaResultado = 0;
 
             try
             {
+                var listPedidosClienteOnline = new List<BEMisPedidos>();
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     foreach (int campania in campanias)
@@ -122,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (listPedidosClienteOnline.Count != 0) break;
                     }
                 }
-                listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
+                var listModel = Mapper.Map<List<ClienteOnlineModel>>(listPedidosClienteOnline);
                 listModel.Update(model =>
                 {
                     model.TipoCliente = model.ClienteNuevo ? "NUEVO CLIENTE" : "CLIENTE EXISTENTE";
@@ -165,18 +159,18 @@ namespace Portal.Consultoras.Web.Controllers
                 campaniaResultado = campaniaResultado
             });
         }
+
         public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
-            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
-            var listModel = new List<ClienteOnlineDetalleModel>();
 
             try
             {
+                List<BEMisPedidosDetalle> listDetallesClienteOnline;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     listDetallesClienteOnline = sv.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, solicitudClienteId).ToList();
                 }
-                listModel = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
+                var listModel = Mapper.Map<List<ClienteOnlineDetalleModel>>(listDetallesClienteOnline);
                 listModel.Update(model =>
                 {
                     model.PrecioUnitarioString = string.Format("{0} {1}", userData.Simbolo, Util.DecimalToStringFormat(model.PrecioUnitario.ToDecimal(), userData.CodigoISO));
@@ -211,13 +205,12 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCliente = ""
             });
         }
+
         public JsonResult ClienteOnlineCancelarSolicitud(int solicitudClienteId, int? motivoSolicitudId, string razonMotivoSolicitud)
         {
-            var listDetallesClienteOnline = new List<BEMisPedidosDetalle>();
-            var listModel = new List<ClienteOnlineDetalleModel>();
             try
             {
-                using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient sc = new SACServiceClient())
                 {
                     sc.CancelarSolicitudClienteYRemoverPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.CodigoConsultora, solicitudClienteId, motivoSolicitudId ?? 0, razonMotivoSolicitud);
                 }
@@ -256,77 +249,18 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        public string ObtenerRutaPaqueteDocumentario(int campaniaId)
+        public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var complain = new RVDWebCampaniasParam
-            {
-                Pais = userData.CodigoISO,
-                Tipo = "1",
-                CodigoConsultora = ((userData.UsuarioPrueba == 1) ? userData.ConsultoraAsociada : userData.CodigoConsultora),
-                Campana = campaniaId.ToString()
-            };
-            List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
-
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string output = serializer.Serialize(complain);
-
-            string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
-            Uri uri = new Uri(strUri);
-            WebRequest request = WebRequest.Create(uri);
-            request.Method = "POST";
-            request.ContentType = "application/json; charset=utf-8";
-
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-            {
-                writer.Write(output);
-            }
-
-            WebResponse responce = request.GetResponse();
-            Stream reader = responce.GetResponseStream();
-            StreamReader sReader = new StreamReader(reader);
-            string outResult = sReader.ReadToEnd();
-            sReader.Close();
-
-            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-            WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
-
-            if (st != null)
-            {
-                if (st.GET_URLResult != null)
-                {
-                    if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
-                    {
-                        //R20150906
-                        if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
-                        {
-                            foreach (var item in st.GET_URLResult.objeto)
-                            {
-                                lstRVPRFModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
-                            }
-                        }
-                    }
-                }
-            }
-
-            string resultado = "";
-
-            if (lstRVPRFModel.Count > 0)
-            {
-                resultado = lstRVPRFModel[0].Ruta;
-            }
-
-            return resultado;
+            var lstRVPRFModel = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
+            return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 
         public string ObtenerFormatoFecha(DateTime fecha)
         {
-            string resultado = "";
-
             var dia = fecha.Day;
             var mes = fecha.Month;
 
-            resultado = dia + NombreMes(mes);
+            var resultado = dia + NombreMes(mes);
 
             return resultado;
         }
@@ -342,9 +276,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<SC.BEPedidoWebDetalle> lstDetalles = new List<SC.BEPedidoWebDetalle>();
-            List<SC.BEPedidoWebDetalle> lstDetallesTemp;
             foreach (SC.BEPedidoWebDetalle item in lstCabecera)
             {
+                List<SC.BEPedidoWebDetalle> lstDetallesTemp;
                 using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
                     lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), item.ClienteID).ToList();
@@ -353,15 +287,17 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
                 dicCabeceras.Add(new KeyValuePair<int, string>(lstDetallesTemp.Count, item.Nombre));
                 lstDetallesTemp.Add(new SC.BEPedidoWebDetalle() { ImporteTotalPedido = suma });
-                lstDetalles.AddRange((List<SC.BEPedidoWebDetalle>)lstDetallesTemp);
+                lstDetalles.AddRange(lstDetallesTemp);
             }
 
-            Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
-            dicDetalles.Add("Código", "CUV");
-            dicDetalles.Add("Descripción", "DescripcionProd");
-            dicDetalles.Add("Cantidad", "Cantidad");
-            dicDetalles.Add("Precio Unit.", userData.Simbolo + " #PrecioUnidad");
-            dicDetalles.Add("Precio Total", userData.Simbolo + " #ImporteTotal");
+            Dictionary<string, string> dicDetalles = new Dictionary<string, string>
+            {
+                {"Código", "CUV"},
+                {"Descripción", "DescripcionProd"},
+                {"Cantidad", "Cantidad"},
+                {"Precio Unit.", userData.Simbolo + " #PrecioUnidad"},
+                {"Precio Total", userData.Simbolo + " #ImporteTotal"}
+            };
 
             string[] arrTotal = { "Total:", userData.Simbolo + " #ImporteTotalPedido" };
 
@@ -369,7 +305,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal)
         {
             try
@@ -379,14 +315,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
-                int index = 1;
+                List<string> columns = new List<string>();
 
                 int row = 6;
                 int col = 0;
-                int i = 0;
-
-                int col2 = 1;
 
                 ws.Cell(1, 1).Value = "Código Consultora: " + userData.CodigoConsultora;
                 ws.Range(string.Format("A{0}:E{1}", 1, 1)).Row(1).Merge();
@@ -404,21 +336,20 @@ namespace Portal.Consultoras.Web.Controllers
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                decimal TotalPedido = 0;
-                string Simbolo = userData.Simbolo;
+                decimal totalPedido = 0;
+                string simbolo = userData.Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -429,19 +360,17 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in columns)
                         {
-                            //Establece el valor para esa columna
-                            SC.BEPedidoWebDetalle source = SourceDetails[i];
+                            SC.BEPedidoWebDetalle source = sourceDetails[i];
 
-                            string[] arr = new string[2];
-                            arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
+                            var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value =
                                   arr[1] == "CUV" ? source.CUV
                                 : arr[1] == "DescripcionProd" ? source.DescripcionProd
@@ -466,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
                         row++;
                         i++;
                     }
-                    Columns = new List<string>();
+                    columns = new List<string>();
                     if (arrTotal.Length > 0)
                     {
                         ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
@@ -477,23 +406,23 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        decimal importT = ((SC.BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
+                        decimal importT = sourceDetails[i].ImporteTotalPedido;
                         string importeTotalPedido = Util.DecimalToStringFormat(importT, userData.CodigoISO);
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + importeTotalPedido;
-                        TotalPedido += importT;
+                        totalPedido += importT;
                     }
                     row++;
-                    index = keyvalue.Key + 1;
-                    SourceDetails.RemoveRange(0, index);
+                    var index = keyvalue.Key + 1;
+                    sourceDetails.RemoveRange(0, index);
                 }
 
-                string importeTotalFinal = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO);
+                string importeTotalFinal = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
 
                 ws.Cell(row + 1, col - 2).Value = "Monto Total: ";
                 ws.Cell(row + 1, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 1, col - 1).Value = Simbolo + " " + importeTotalFinal;
+                ws.Cell(row + 1, col - 1).Value = simbolo + " " + importeTotalFinal;
                 ws.Cell(row + 1, col - 1).Style.Font.Bold = true;
 
                 ws.Columns().AdjustToContents();
@@ -503,12 +432,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -526,7 +453,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-            List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+            List<BEPedidoFacturado> lista;
             try
             {
                 using (SACServiceClient client = new SACServiceClient())
@@ -539,6 +466,8 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 lista = null;
             }
+
+            lista = lista ?? new List<BEPedidoFacturado>();
 
             foreach (var item in lista)
             {
@@ -558,14 +487,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
 
-            Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
-            dicDetalles.Add("Código", "CUV");
-            dicDetalles.Add("Descripción", "DescripcionProd");
-            dicDetalles.Add("Cantidad", "Cantidad");
-            dicDetalles.Add("Precio Unitario", userData.Simbolo + " #PrecioUnidad");
-            dicDetalles.Add("Total", userData.Simbolo + " #ImporteTotal");
-            dicDetalles.Add("Descuento", userData.Simbolo + " #Descuento");
-            dicDetalles.Add("Importe a Pagar", userData.Simbolo + " #ImportePagar");
+            Dictionary<string, string> dicDetalles = new Dictionary<string, string>
+            {
+                {"Código", "CUV"},
+                {"Descripción", "DescripcionProd"},
+                {"Cantidad", "Cantidad"},
+                {"Precio Unitario", userData.Simbolo + " #PrecioUnidad"},
+                {"Total", userData.Simbolo + " #ImporteTotal"},
+                {"Descuento", userData.Simbolo + " #Descuento"},
+                {"Importe a Pagar", userData.Simbolo + " #ImportePagar"}
+            };
 
             string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
@@ -573,7 +504,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
             Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
@@ -583,13 +514,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                List<string> columns = new List<string>();
 
                 int row = 5;
                 int col = 0;
-                int i = 0;
-
-                int col2 = 1;
 
                 ws.Cell(1, 1).Value = "Código Consultora: " + userData.CodigoConsultora;
                 ws.Range(string.Format("A{0}:E{1}", 1, 1)).Row(1).Merge();
@@ -607,17 +535,16 @@ namespace Portal.Consultoras.Web.Controllers
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                //decimal TotalPedido = 0;
-                string Simbolo = userData.Simbolo;
+                string simbolo = userData.Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -628,16 +555,15 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in columns)
                         {
-                            //Establece el valor para esa columna
-                            BEPedidoWebDetalle source = SourceDetails[i];
+                            BEPedidoWebDetalle source = sourceDetails[i];
                             string[] arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
                             string value =
@@ -673,17 +599,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ws.Cell(row + 1, col - 2).Value = "Importe Total: ";
                 ws.Cell(row + 1, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 1, col - 1).Value = Simbolo + " " + vTotalParcial.Trim();
+                ws.Cell(row + 1, col - 1).Value = simbolo + " " + vTotalParcial.Trim();
                 ws.Cell(row + 1, col - 1).Style.Font.Bold = true;
 
                 ws.Cell(row + 2, col - 2).Value = "Flete: ";
                 ws.Cell(row + 2, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 2, col - 1).Value = Simbolo + " " + vFlete.Trim();
+                ws.Cell(row + 2, col - 1).Value = simbolo + " " + vFlete.Trim();
                 ws.Cell(row + 2, col - 1).Style.Font.Bold = true;
 
                 ws.Cell(row + 3, col - 2).Value = "Total Facturado: ";
                 ws.Cell(row + 3, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 3, col - 1).Value = Simbolo + " " + vTotalFacturado.Trim();
+                ws.Cell(row + 3, col - 1).Value = simbolo + " " + vTotalFacturado.Trim();
                 ws.Cell(row + 3, col - 1).Style.Font.Bold = true;
 
                 ws.Columns().AdjustToContents();
@@ -693,12 +619,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -720,28 +644,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, "i", 0);
             List<BEPedidoWebDetalle> items = new List<BEPedidoWebDetalle>();
-            var existe = false;
             foreach (var item in lst)
             {
-                existe = items.Any(p => p.ClienteID == item.ClienteID);
+                var existe = items.Any(p => p.ClienteID == item.ClienteID);
                 if (existe) continue;
                 var itemx = new BEPedidoWebDetalle
                 {
                     ClienteID = item.ClienteID,
                     Nombre = item.Nombre,
                     eMail = item.eMail,
-                    Cantidad = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
-                    ImporteTotal = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
+                    Cantidad = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
+                    ImporteTotal = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
                 };
 
                 items.Add(itemx);
             }
 
-            BEGrid grid = SetGrid(sidx, sord, page, rows);
+            BEGrid grid = new BEGrid(sidx, sord, page, rows);
 
             BEPager pag = Util.PaginadorGenerico(grid, items);
             var importeTotal = Util.DecimalToStringFormat(items.Sum(p => p.ImporteTotal), userData.CodigoISO);
-            // Creamos la estructura
             var data = new
             {
                 CampaniaId,
@@ -751,8 +673,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pag.RecordCount,
                 grid.PageSize,
 
-                Simbolo = userData.Simbolo,
-                CantidadCliente = items.Count(),
+                userData.Simbolo,
+                CantidadCliente = items.Count,
                 CantidadProducto = items.Sum(p => p.Cantidad),
                 SubTotal = importeTotal,
                 OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),
@@ -761,8 +683,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     userData.Simbolo,
                     CampaniaId,
-                    CurrentPage = pag.CurrentPage,
-                    PageCount = pag.PageCount,
+                    pag.CurrentPage,
+                    pag.PageCount,
                     a.Nombre,
                     a.ClienteID,
                     a.Cantidad,
@@ -774,10 +696,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarPedidoWebDetallePorCamaniaPorCliente(string sidx, string sord, int page, int rows, string CampaniaId, int cliente, string estado, int pedidoId)
         {
-            BEGrid grid = SetGrid(sidx, sord, page, rows);
+            BEGrid grid = new BEGrid(sidx, sord, page, rows);
 
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado, pedidoId);
-            var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
+            var pedidoWeb = lst.Any() ? lst[0] : new BEPedidoWebDetalle();
 
             var listaCliente = (from item in lst
                                 select new ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre }
@@ -790,10 +712,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var totalpedido = itemCliente.Sum(p => p.ImporteTotal);
             var montoConDescto = cliente == -1 ? totalpedido - pedidoWeb.DescuentoProl : totalpedido;
-            var ImporteTotal = Util.DecimalToStringFormat(totalpedido, userData.CodigoISO);
+            var importeTotal = Util.DecimalToStringFormat(totalpedido, userData.CodigoISO);
             var montoConDesctoString = Util.DecimalToStringFormat(montoConDescto, userData.CodigoISO);
             var itm = items.FirstOrDefault() ?? new BEPedidoWebDetalle();
-            // Creamos la estructura
             var data = new
             {
                 pedidoId,
@@ -808,10 +729,10 @@ namespace Portal.Consultoras.Web.Controllers
                 pag.RecordCount,
                 grid.PageSize,
 
-                Simbolo = userData.Simbolo,
+                userData.Simbolo,
 
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
-                ImporteTotal,
+                ImporteTotal = importeTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
                 OfertaNiveles = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
                 ImporteFacturado = montoConDesctoString,
@@ -834,7 +755,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BEPedidoWebDetalle> GetDetallePorEstado(string CampaniaId, string estado, int pedidoId)
+        private List<BEPedidoWebDetalle> GetDetallePorEstado(string campaniaId, string estado, int pedidoId)
         {
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
 
@@ -843,7 +764,7 @@ namespace Portal.Consultoras.Web.Controllers
             string estadoCombo = (string)Session["MisPedidos-DetallePorCampania-Estado"];
             int pedidoIdSesion = (int)(Session["MisPedidos-DetallePorCampania-PedidoId"] ?? 0);
 
-            if (!(listx == null || campSes == null || campSes != CampaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
+            if (!(listx == null || campSes == null || campSes != campaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
                 lst = (List<BEPedidoWebDetalle>)listx;
                 return lst;
@@ -853,9 +774,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region ingresado
 
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = int.Parse(campaniaId),
+                    ConsultoraId = ObtenerConsultoraId(),
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = EsOpt() == 1,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva
+                };
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora, EsOpt()).ToList();
+                    lst = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
                 lst.Update(c => c.NombreCliente = string.IsNullOrEmpty(c.Nombre) ? userData.NombreConsultora : c.Nombre);
                 #endregion
@@ -864,12 +796,12 @@ namespace Portal.Consultoras.Web.Controllers
             else if (estado == "f")
             {
                 #region facturado
-                List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+                List<BEPedidoFacturado> lista;
                 try
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, CampaniaId, "0", "0", userData.CodigoConsultora, pedidoId).ToList();
+                        lista = client.GetPedidosFacturadosDetalle(userData.PaisID, campaniaId, "0", "0", userData.CodigoConsultora, pedidoId).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -880,8 +812,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var pedido in lista)
                 {
-                    pedido.CUV = pedido.CUV ?? "";
-                    pedido.Descripcion = pedido.Descripcion ?? "";
+                    pedido.CUV = Util.Trim(pedido.CUV);
+                    pedido.Descripcion = Util.Trim(pedido.Descripcion);
 
                     if (pedido.CUV.Trim() == "" || pedido.Descripcion.Trim() == "")
                     {
@@ -904,7 +836,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Session["MisPedidos-DetallePorCampania"] = lst;
-            Session["MisPedidos-DetallePorCampania-Campania"] = CampaniaId;
+            Session["MisPedidos-DetallePorCampania-Campania"] = campaniaId;
             Session["MisPedidos-DetallePorCampania-Estado"] = estado;
             Session["MisPedidos-DetallePorCampania-PedidoId"] = pedidoId;
 
@@ -913,19 +845,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         public long ObtenerConsultoraId()
         {
-            long ConsultoraIdmetodo;
+            long consultoraIdmetodo;
             if (userData.UsuarioPrueba == 1)
             {
                 using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
                 {
-                    ConsultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, userData.ConsultoraAsociada);
+                    consultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, userData.ConsultoraAsociada);
                 }
             }
             else
             {
-                ConsultoraIdmetodo = userData.ConsultoraID;
+                consultoraIdmetodo = userData.ConsultoraID;
             }
-            return ConsultoraIdmetodo;
+            return consultoraIdmetodo;
         }
         #endregion
     }

@@ -52,15 +52,15 @@ function setInfoCUV() {
 }
 
 function ObtenerOfertaRevista2(item) {
-    
+
     DialogLoadingAbrir();
     var $contenedor = item;
     var cuv = $contenedor.find('.hdItemCuv').val();
-    
+
     var tipoOfertaRevista = $.trim($contenedor.find('.hdItemTipoOfertaRevista').val());
 
     var obj = {
-        
+
         UrlImagen: $contenedor.find('.hdItemRutaImagen').val(),
         CUV: $contenedor.find('.hdItemCuv').val(),
         TipoOfertaSisID: $contenedor.find('.hdItemTipoOfertaSisID').val(),
@@ -82,7 +82,7 @@ function ObtenerOfertaRevista2(item) {
         data: JSON.stringify({ cuv: cuv, tipoOfertaRevista: tipoOfertaRevista }),
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            
+
             if (checkTimeout(response)) {
 
                 if (!response.success) {
@@ -97,12 +97,12 @@ function ObtenerOfertaRevista2(item) {
                 var settings = $.extend({}, response.data.dataPROL, obj);
                 settings.productoRevista = response.data.producto;
                 TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-            
+
                 if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
                     switch (settings.tipo_oferta) {
                         case '003':
                             codTipoOferta = '003';
-                        
+
                             SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
 
                             $('#Ficha_003A').show();
@@ -113,10 +113,10 @@ function ObtenerOfertaRevista2(item) {
                                 codTipoOferta = '048P';
                                 settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
                                 settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
-                            
+
                                 settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
                                 dataOfertaEnRevista = settings;
-                            
+
                                 SetHandlebars("#template-oferta048P", settings, '#Ficha_048B');
 
                                 $('#Ficha_048B').show();
@@ -132,9 +132,9 @@ function ObtenerOfertaRevista2(item) {
                                         settings.lista_ObjNivel.push(nivel);
                                     }
                                 });
-                            
+
                                 dataOfertaEnRevista = settings;
-                            
+
                                 SetHandlebars("#template-oferta048N", settings, '#Ficha_048A');
 
                                 $('#Ficha_048A').show();

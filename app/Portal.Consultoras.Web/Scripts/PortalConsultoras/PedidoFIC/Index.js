@@ -162,7 +162,7 @@
     $('#btnCancelarOferfaFIC').click(function () {
         $('#divOfertaFIC').dialog('close');
     });
-    
+
     CrearDialogs();
     CargarDetallePedido();
     CargarAutocomplete();
@@ -264,9 +264,7 @@ function CargarDetallePedido(page, rows) {
                 CargarAutocomplete();
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) { }
-        }
+        error: function (data, error) { }
     });
 }
 
@@ -305,11 +303,7 @@ function InsertarProducto(form) {
                 CerrarSplash();
             }
         },
-        error: function (response, x, xh, xhr) {
-            if (checkTimeout(response)) {
-                //console.error(xh);
-            }
-        }
+        error: function (response, x, xh, xhr) { }
     });
 }
 
@@ -512,7 +506,6 @@ function GuardarCliente() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
                 $("#divClientes").hide();
             }
         }
@@ -607,8 +600,6 @@ function BuscarByCUV(CUV) {
                 if (checkTimeout(data)) {
                     if (data.message == "" || data.message === undefined) {
                         location.href = baseUrl + "Login/SesionExpirada";
-                    } else {
-                        AbrirMensaje(data.message);
                     }
                 }
             }
@@ -668,11 +659,7 @@ function HorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
-        }
+        error: function (data, error) { }
     });
     return horarioRestringido;
 }
@@ -807,7 +794,6 @@ function EliminarPedido() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
                 CerrarSplash();
             }
         }
@@ -916,9 +902,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-            }
         }
     });
 }
@@ -945,7 +928,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         return false;
     }
 
-    if (parseInt(cant) == NaN) {
+    if (isNaN(cant)) {
         CerrarSplash();
         return false;
     }

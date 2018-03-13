@@ -40,42 +40,42 @@
                                 Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
                                 Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)//PE,CO,EC,GT.SV,PR,DO
+                                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)// MX,PA
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
                     {
                         cabezaEscala = "Ganancia estimada total";
                         pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)// CH
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
                     {
                         cabezaEscala = "Comisión y ahorro total";
                         pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                         lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
                         lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)//VE
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
                         pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
                         lbl1Ganancia = "Por tus compras de productos de catalogo";
                         lbl2Ganancia = "Por tus comprar de productos de revista";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)//BO
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
                     {
                         cabezaEscala = "Ganancia total";
                         pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
                         lbl1Ganancia = "Mis descuentos";
                         lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                     }
-                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)//CR
+                    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
                     {
                         cabezaEscala = "Oportunidad de ahorro total";
                         pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
@@ -237,10 +237,9 @@
     </div>
 </div>
 
-<!--SB20-483 - INICIO -->
 <!-- POPUP MIS GANANCIAS -->
 
-<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+<div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
@@ -270,7 +269,6 @@
 </div>
 
 <!-- FIN POPUP MIS GANANCIAS -->
-<!--SB20-483 - FIN -->
 
 @section Scripts{
     <script type="text/javascript">

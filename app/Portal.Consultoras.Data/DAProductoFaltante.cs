@@ -1,13 +1,10 @@
-﻿using Portal.Consultoras.Entities;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Data
 {
@@ -58,25 +55,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
 
-        //R1957
-        private DataTable productoTabla(BEProductoFaltante[] students)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("CampaniaID", typeof(string));
-            dt.Columns.Add("CUV", typeof(string));
-            dt.Columns.Add("ZonaID", typeof(string));
-            dt.Columns.Add("Zona", typeof(string));
-            dt.Columns.Add("FaltanteUltimoMinuto", typeof(string));
-            dt.Columns["CampaniaID"].ColumnMapping = MappingType.Attribute;
-
-            foreach (BEProductoFaltante s in students)
-            {
-                dt.Rows.Add(s.CampaniaID, s.CUV, s.ZonaID, s.Zona, s.FaltanteUltimoMinuto);
-            }
-            return dt;
-
-        }
-
         public int DelProductoFaltante(BEProductoFaltante prod, out bool Deleted)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltante");
@@ -90,8 +68,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        //R1957
-        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
+        public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
             var listTablaTempType = new List<BETablaTemType>();
 
@@ -101,7 +78,7 @@ namespace Portal.Consultoras.Data
                 tablaTemType.CampaniaID = item.CampaniaID;
                 tablaTemType.CUV = item.CUV;
                 tablaTemType.ZonaID = item.ZonaID;
-                
+
                 listTablaTempType.Add(tablaTemType);
             }
 
@@ -123,15 +100,13 @@ namespace Portal.Consultoras.Data
             return deleted;
         }
 
-        //R1957
-        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina,int pais)
+        public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina, int pais)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByEntity");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, productofaltante.CampaniaID);
             Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, productofaltante.Zona);
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, productofaltante.CUV);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, productofaltante.Descripcion);
-            //R2283
             Context.Database.AddInParameter(command, "@fecha", DbType.AnsiString, productofaltante.Fecha);
             Context.Database.AddInParameter(command, "@columnaOrder", DbType.AnsiString, ColumnaOrden);
             Context.Database.AddInParameter(command, "@tipoOrden", DbType.AnsiString, Ordenamiento);
@@ -184,7 +159,6 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        /* 1957 - Inicio */
         public int DelProductoFaltanteMasivo(int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltanteMasivo");
@@ -196,6 +170,6 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(Context.ExecuteScalar(command).ToString());
         }
-        /* 1957 - Fin */
+
     }
 }

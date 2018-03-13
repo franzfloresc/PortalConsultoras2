@@ -16,9 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public List<BENotificacionesDetalle> ListaNotificacionesDetalle { get; set; }
         public List<NotificacionesModelDetallePedido> ListaNotificacionesDetallePedido { get; set; }
         public BENotificacionesDetalleCatalogo NotificacionDetalleCatalogo { get; set; }
-        //RQ_NS - R2133
         public int Origen { get; set; }
-        /*R20150802 - Catalogo*/
         public bool TieneDescuentoCuv { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Descuento { get; set; }
@@ -29,9 +27,11 @@ namespace Portal.Consultoras.Web.Models
         public Converter<decimal, string> DecimalToString { get; set; }
         public string MotivoRechazo { get; set; }
 
-        /*EPD-1912*/
         public string CuerpoMensaje1 { get; set; }
         public List<string> CuerpoDetalles { get; set; }
         public string CuerpoMensaje2 { get; set; }
+ 
+        public string simbolo { get; set; }
+        public string mGanancia { get; set; }
     }
 }

@@ -37,12 +37,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public Boolean Desmarcado { get; set; }
-        //EPD1973
         [DataMember]
         public DateTime FechaProceso { get; set; }
         [DataMember]
         public DateTime FechaEnvio { get; set; }
-        //!EPD1973
         public BEPedidoDescarga()
         {
         }

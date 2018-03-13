@@ -28,16 +28,14 @@ namespace Portal.Consultoras.Entities
         public int IndicadorFaltanteAnunciado { set; get; }
         [DataMember]
         public int IndicadorActivo { set; get; }
-        //ITG - 1890 Inicio
         [DataMember]
         public decimal PrecioCatalogo { set; get; }
-        //ITG - 1890 Fin
         [DataMember]
-        public decimal PrecioUnitario { set; get; } //RQ 2612 EGL
+        public decimal PrecioUnitario { set; get; }
         [DataMember]
-        public int CodigoCatalogo { set; get; } //R20151007
+        public int CodigoCatalogo { set; get; }
         [DataMember]
-        public string CodigoTipoOferta { set; get; } //R20151007
+        public string CodigoTipoOferta { set; get; }
 
         [DataMember]
         public string RegaloDescripcion { set; get; }
@@ -73,18 +71,14 @@ namespace Portal.Consultoras.Entities
                 IndicadorActivo = Convert.ToInt32(row["IndicadorActivo"]);
             if (DataRecord.HasColumn(row, "IndicadorFaltanteAnunciado") && row["IndicadorFaltanteAnunciado"] != DBNull.Value)
                 IndicadorFaltanteAnunciado = Convert.ToInt32(row["IndicadorFaltanteAnunciado"]);
-            //ITG - 1890 Inicio
             if (DataRecord.HasColumn(row, "PrecioCatalogo") && row["PrecioCatalogo"] != DBNull.Value)
                 PrecioCatalogo = Convert.ToDecimal(row["PrecioCatalogo"]);
-            //ITG - 1890 Fin
-            if (DataRecord.HasColumn(row, "PrecioUnitario") && row["PrecioUnitario"] != DBNull.Value) //RQ 2612 EGL
+            if (DataRecord.HasColumn(row, "PrecioUnitario") && row["PrecioUnitario"] != DBNull.Value)
                 PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"]);
-            //R20151007 - Inicio
             if (DataRecord.HasColumn(row, "CodigoCatalogo") && row["CodigoCatalogo"] != DBNull.Value)
                 CodigoCatalogo = Convert.ToInt32(row["CodigoCatalogo"]);
             if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            //R20151007 - Fin
 
             if (DataRecord.HasColumn(row, "RegaloDescripcion") && row["RegaloDescripcion"] != DBNull.Value)
                 RegaloDescripcion = Convert.ToString(row["RegaloDescripcion"]);

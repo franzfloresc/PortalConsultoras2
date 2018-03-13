@@ -35,10 +35,10 @@ var productoComentarioAdmModule = (function () {
     var productoComentarioFilterModel = {
         paisID: 0,
         estadoComentarioID: 0,
-        tipoComentarioID : 0,
+        tipoComentarioID: 0,
         SAP: '',
         campaniaID: 0,
-        CUV : ''
+        CUV: ''
     };
 
     var actualizarEstadoProductoComentarioModel = {
@@ -125,10 +125,10 @@ var productoComentarioAdmModule = (function () {
 
             productoComentarioFilterModel = {
                 paisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
-                estadoComentarioID: function () { return ($(elements.ddlEstadoComentario).val() == '' ? '0' : $(elements.ddlEstadoComentario).val());},
-                tipoComentarioID: function () { return ($(elements.ddlTipoComentario).val() == '' ? "0" : $(elements.ddlTipoComentario).val());},
-                SAP: function () { return ($(elements.txtSAP).val() == '' ? '' : $(elements.txtSAP).val());},
-                campaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val());},
+                estadoComentarioID: function () { return ($(elements.ddlEstadoComentario).val() == '' ? '0' : $(elements.ddlEstadoComentario).val()); },
+                tipoComentarioID: function () { return ($(elements.ddlTipoComentario).val() == '' ? "0" : $(elements.ddlTipoComentario).val()); },
+                SAP: function () { return ($(elements.txtSAP).val() == '' ? '' : $(elements.txtSAP).val()); },
+                campaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val()); },
                 CUV: function () { return ($(elements.txtCUV).val() == '' ? '' : $(elements.txtCUV).val()); }
             };
 
@@ -183,7 +183,7 @@ var productoComentarioAdmModule = (function () {
 
     var _validarMostrarContenedorBotonBuscarComentarios = function () {
         var paisId = $(elements.ddlPais).val();
-        var estadoComentarioId = $(elements.ddlEstadoComentario).val(); 
+        var estadoComentarioId = $(elements.ddlEstadoComentario).val();
         var tipoComentarioId = $(elements.ddlTipoComentario).val();
         var codigoSAP = $.trim($(elements.txtSAP).val());
         var campaniaId = $(elements.ddlCampania).val();
@@ -246,7 +246,6 @@ var productoComentarioAdmModule = (function () {
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = $(elements.tablaProductoComentario).jqGrid('getGridParam', 'reccount');
                 $(elements.divContenedorProductoComentario).show();
                 closeWaitingDialog();
             }
@@ -260,7 +259,7 @@ var productoComentarioAdmModule = (function () {
 
         var aprobarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').AprobarComentario(" + rowObject.ProductoComentarioId + "," + rowObject.ProductoComentarioDetalleId + ");\" >" +
             "<img src='" + setting.imagenEnableUrl + "' alt='Aprobar Comentario' title='Aprobar Comentario' border='0' /></a>";
-        var rechazarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').RechazarComentario(" + rowObject.ProductoComentarioId + "," + rowObject.ProductoComentarioDetalleId +  ");\" >" +
+        var rechazarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').RechazarComentario(" + rowObject.ProductoComentarioId + "," + rowObject.ProductoComentarioDetalleId + ");\" >" +
             "<img src='" + setting.imagenDisableUrl + "' alt='Rechazar Comentario' title='Rechazar Comentario' border='0' /></a>";
         var resultado = "";
 
@@ -352,7 +351,6 @@ var productoComentarioAdmModule = (function () {
         setting.imagenEnableUrl = parameters.imagenEnableUrl;
         setting.imagenDisableUrl = parameters.imagenDisableUrl;
         setting.actualizarEstadoProductoComentarioUrl = parameters.actualizarEstadoProductoComentarioUrl;
-        //
         _bindEvents();
     };
 

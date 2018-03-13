@@ -12,9 +12,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public int FlagValidate { get; set; }
 
-        //[Display(Name = "Nombre")]
-        //[Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
-        //[StringLength(150, ErrorMessage = "No puede ingresar mas de 150 caracteres", MinimumLength = 1)]
         public string Nombre { get; set; }
 
         [Display(Name = "Correo")]
@@ -23,7 +20,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Email { get; set; }
 
         [Display(Name = "Teléfono Fijo")]
-        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
         public string Telefono { get; set; }
 
         public string CampaniaAnterior { get; set; }
@@ -32,10 +28,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string CampaniaSiguiente { get; set; }
 
-        public string CodigoZona { get; set; } //R20160204        
+        public string CodigoZona { get; set; }
 
         [Display(Name = "Celular")]
-        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
         public string Celular { get; set; }
 
         public long CodigoCliente { get; set; }

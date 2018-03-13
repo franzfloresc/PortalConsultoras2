@@ -13,12 +13,12 @@ $(document).ready(function () {
     LocalStorageLimpiar();
 
     if (esPaisEsika == 'True') {
-        $('#cssStyle').attr('disabled', false);
-        $('#cssStyleLbel').attr('disabled', true);
+        $('#cssStyle>link').attr('disabled', false);
+        $('#cssStyleLbel>link').attr('disabled', true);
     }
     if (esPaisLbel == 'True') {
-        $('#cssStyle').attr('disabled', true);
-        $('#cssStyleLbel').attr('disabled', false);
+        $('#cssStyle>link').attr('disabled', true);
+        $('#cssStyleLbel>link').attr('disabled', false);
     }
 
     $(".DropDown").change(function () {
@@ -65,7 +65,6 @@ $(document).ready(function () {
 });
 
 function Jqueryplaceholder(Control) {
-    var placeholder = $('#' + Control).attr('placeholder');
     $('#' + Control).val('');
     $('#' + Control).focus(function () {
         var placeholdertext = $(this).attr('placeholder');
@@ -130,6 +129,8 @@ function EjecutarMensajes() {
 
 function openDialog() {
     _gaq.push(['_trackEvent', 'Link', 'Crear-cuenta']);
+    analytics.invocarEventoPixel("CreaCorreoAqui");
+
     document.getElementById("bg_1").style.display = "block";
 }
 
@@ -145,6 +146,12 @@ function closeMant() {
     document.getElementById("divMant").style.display = "none";
 }
 
+function RedirectComunidadVirtual() {
+    analytics.invocarEventoPixel("ComunidadVirtual");
+
+    window.open('http://comunidad.somosbelcorp.com', '_self');
+    return false;
+}
 function RedirectBelcorpResponde() {
     _gaq.push(['_trackEvent', 'Link', 'Belcorp-Responde']);
     dataLayer.push({
@@ -154,12 +161,10 @@ function RedirectBelcorpResponde() {
     window.open('https://www2.somosbelcorp.com/belcorpresponde/belcorp-responde.asp', '_blank');
     return false;
 }
-
 function RedirectDespachosCobranza() {
     window.open('https://www.somosbelcorp.com/WebPages/DespachosCobranza.aspx', '_blank');
     return false;
 }
-
 function RedirectPagoLinea() {
     _gaq.push(['_trackEvent', 'Link', 'Pago-Linea']);
     dataLayer.push({
@@ -169,13 +174,14 @@ function RedirectPagoLinea() {
     window.open('https://www.zonapagos.com/t_belstar/pagos.asp', '_blank');
     return false;
 }
-
 function RedirectUneteaBelcorp() {
     _gaq.push(['_trackEvent', 'Link', 'Unete-Belcorp']);
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Login/Unete-Belcorp'
     });
+    analytics.invocarEventoPixel("UneteABelcorp");
+
     window.open('http://www.uneteabelcorp.com/', '_blank');
     return false;
 }

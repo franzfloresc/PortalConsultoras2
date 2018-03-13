@@ -37,7 +37,6 @@ function CargarEventosClienteOnline() {
             },
             error: function (data, error) {
                 $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
-                console.log(data, error);
             },
             complete: closeWaitingDialog
         });
@@ -85,7 +84,7 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             $('#popup_cliente_online_detalle .spnClienteOnlineDireccion').html(direccion);
             $('#popup_cliente_online_detalle .spnClienteOnlineEstado').html(estadoDesc);
             $('#popup_cliente_online_detalle .spnClienteOnlineMensaje').html(mensaje);
-            
+
             $('#popup_cliente_online_detalle .divClienteOnlineMensaje').css('display', marcaId == 0 ? 'none' : 'block');
             $('#popup_cliente_online_detalle .cubre').css('height', marcaId == 0 ? '160px' : '');
             var template = marcaId == 0 ? '#html-clientes-online-detalle-catalogos' : '#html-clientes-online-detalle-marcas';
@@ -98,13 +97,11 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
         },
         error: function (data, error) {
             alert_msg('Hubieron problemas de conexion al intentar cargar los datos del pedido de Consultora Online, inténtelo más tarde.');
-            console.log(data, error);
         },
         complete: closeWaitingDialog
-    });    
+    });
 }
-function AbrirConfirmacionCancelado()
-{
+function AbrirConfirmacionCancelado() {
     $('#popup_cliente_online_detalle').hide();
     $('#dialog_confirmacionCancelado').show();
 }
@@ -138,7 +135,7 @@ function CancelarSolicitud() {
                         MensajeErrorCancelado(data.message);
                         return false;
                     }
-                                        
+
                     $('#dialog_motivoCancelado').hide();
                     if (marcaIdActual == 0) $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoPortal);
                     else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
@@ -150,17 +147,16 @@ function CancelarSolicitud() {
                 },
                 error: function (data, error) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                    console.log(data, error);
                 },
                 complete: closeWaitingDialog
             });
         }
-    )    
+    )
 }
 function MensajeErrorCancelado(message) {
     $('#dialog_motivoCancelado').hide();
     $('#dialog_confirmacionCancelado').show();
-    if(message != null && message != '') alert_msg(message);
+    if (message != null && message != '') alert_msg(message);
 }
 function CerrarMensajeCancelado() {
     $('#dialog_mensajeCancelado').hide();
@@ -199,7 +195,6 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             fnRestringido();
         },
         error: function (error) {
-            console.log(error);
             alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             closeWaitingDialog();
             fnRestringido();

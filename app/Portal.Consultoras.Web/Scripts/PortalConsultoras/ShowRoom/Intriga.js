@@ -109,7 +109,7 @@ function IntrigaActualizarDatos(sendAnalytics) {
                         return true;
                     }
                 }
-                
+
                 $("#divIntrigaEmailRespuestaConfirmar").show();
             }
         },
@@ -123,8 +123,7 @@ function IntrigaActualizarDatos(sendAnalytics) {
     });
 }
 
-function click_terminos_y_condiciones_form_intriga()
-{
+function click_terminos_y_condiciones_form_intriga() {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Ofertas Showroom Formulario',
@@ -133,8 +132,7 @@ function click_terminos_y_condiciones_form_intriga()
     });
 }
 
-function click_completar_registro_form_intriga()
-{
+function click_completar_registro_form_intriga() {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Ofertas Showroom Formulario',

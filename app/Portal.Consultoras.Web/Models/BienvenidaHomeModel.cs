@@ -10,12 +10,8 @@ namespace Portal.Consultoras.Web.Models
         public string Telefono { get; set; }
         public string TelefonoTrabajo { get; set; }
         public string Celular { get; set; }
-        /*2116 -INICIO*/
         public string m_Apellidos { get; set; }
         public string m_Nombre { get; set; }
-        /*2116-FIN  */
-
-        /* EPD-2811 */
         private int _paisID;
         public int PaisID
         {
@@ -25,15 +21,15 @@ namespace Portal.Consultoras.Web.Models
             }
             set
             {
-                    if (value == 4)
-                    {
-                        TextoSobrenombre = "Nombre: ";
-                        TextoCorreoElectronico = "Correo Electrónico:";
-                        TextoTelefono = "Teléfono:";
-                        TextoCelular = "Celular:";
-                        TextoBoton = "Aceptar";
-                    }
-                    _paisID = value;
+                if (value == 4)
+                {
+                    TextoSobrenombre = "Nombre: ";
+                    TextoCorreoElectronico = "Correo Electrónico:";
+                    TextoTelefono = "Teléfono:";
+                    TextoCelular = "Celular:";
+                    TextoBoton = "Aceptar";
+                }
+                _paisID = value;
             }
         }
 
@@ -100,25 +96,21 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenUsuario { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
-        
+
         public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
 
-        public int limiteMaximoTelef{ get; set; }
+        public int limiteMaximoTelef { get; set; }
 
-        public int limiteMinimoTelef { get; set; }        
+        public int limiteMinimoTelef { get; set; }
         #region Propiedades para POPUps
         public int TipoPopUpMostrar { get; set; }
-        // DemandaAnticipada
         public string MensajeFechaDA { get; set; }
-        // Actualizar datos
         public int MostrarPopupActualizarDatosXPais { get; set; }
         #endregion
 
         #region Propiedades para PopUp MIS DATOS
-        // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
-        // HOLA
         public string TextoSobrenombre { get; set; }
         public string TextoCorreoElectronico { get; set; }
         public string TextoTelefono { get; set; }
@@ -129,16 +121,15 @@ namespace Portal.Consultoras.Web.Models
         public int ShowRoomMostrarLista { get; set; }
         public string ShowRoomBannerUrl { get; set; }
         public int TieneCupon { get; set; }
-        public int CampaniaMasDos { get; set; }
         public int TieneMasVendidos { get; set; }
         public string NombreGerenteZonal { get; internal set; }
         public bool PopupInicialCerrado { get; set; }
         public bool ShowPopupMisDatos { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
+        public PartialSectionBpt PartialSectionBpt { get; set; }
 
         public BienvenidaHomeModel()
         {
-            // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
             TextoSobrenombre = "¿Qué nombre te gustaría que te digamos?:";
             TextoCorreoElectronico = "Tu Correo Electrónico:";
             TextoTelefono = "Tu Teléfono:";

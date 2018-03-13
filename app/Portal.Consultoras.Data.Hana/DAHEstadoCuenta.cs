@@ -1,22 +1,18 @@
-﻿using System;
-using System.Configuration;
-using AutoMapper;
-using Newtonsoft.Json;
-using Portal.Consultoras.Common;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Globalization;
 
 namespace Portal.Consultoras.Data.Hana
 {
     public class DAHEstadoCuenta
-    {       
+    {
         public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int paisId, long consultoraId)
         {
-            var listBE = new List<BEEstadoCuenta>();
-            var listaHana = new List<EstadoCuentaHana>();
+            var listBe = new List<BEEstadoCuenta>();
 
             try
             {
@@ -28,7 +24,7 @@ namespace Portal.Consultoras.Data.Hana
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
-                listaHana = JsonConvert.DeserializeObject<List<EstadoCuentaHana>>(responseFromServer);
+                var listaHana = JsonConvert.DeserializeObject<List<EstadoCuentaHana>>(responseFromServer);
 
                 foreach (var estadoCuenta in listaHana)
                 {
@@ -60,15 +56,15 @@ namespace Portal.Consultoras.Data.Hana
 
                     beEstadoCuenta.Orden = 0;
 
-                    listBE.Add(beEstadoCuenta);
+                    listBe.Add(beEstadoCuenta);
                 }
             }
             catch (Exception)
             {
-                listBE = new List<BEEstadoCuenta>();
-            }            
+                listBe = new List<BEEstadoCuenta>();
+            }
 
-            return listBE;
+            return listBe;
         }
     }
 }

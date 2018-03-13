@@ -1,5 +1,4 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,7 +18,6 @@ namespace Portal.Consultoras.Data
         public IDataReader GetZonaByPais(int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetZonaByPais");
-            //Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
 
             return Context.ExecuteReader(command);
         }
@@ -198,28 +196,23 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ_BS - R2133
         public IDataReader GetSegmentoBanner()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSegmento");
             return Context.ExecuteReader(command);
         }
 
-        //RQ_BS - R2133
         public IDataReader GetZonificacionJerarquia()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetZonificacionJerarquia");
             return Context.ExecuteReader(command);
         }
-        /* CS(CGI) – RE2544 – INICIO – 12/05/2015 – Creacion de Metodo GetSegmentoInternoBanner para Segmento en los Banners*/
+
         public IDataReader GetSegmentoInternoBanner()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetSegmentoInterno");
             return Context.ExecuteReader(command);
         }
-        /* CS(CGI) – RE2544 – FIN */
-
-        //R20151221 - Parámetro
 
         public IDataReader GetRegionByPaisParametroCarga(int PaisID)
         {
@@ -235,7 +228,5 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-
-        //Fín R20151221 - Parámetro
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using System;
 using System.IO;
 using System.Web;
 
@@ -9,7 +8,6 @@ namespace Portal.Consultoras.Web.CustomHelpers
     {
         public void UploadFile(HttpRequestBase request, string fileName)
         {
-            // req. 1664 - Unificando todo en una unica carpeta temporal
             Stream inputStream = request.InputStream;
             byte[] fileBytes = ReadFully(inputStream);
             var path = Path.Combine(Globals.RutaTemporales, fileName);

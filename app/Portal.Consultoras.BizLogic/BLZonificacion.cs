@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEZona> SelectZona(int paisID, string codigo, int rowCount)
         {
             IList<BEZona> zonas = SelectAllZonas(paisID);
-            
+
             return (from zona in zonas
                     where zona.Codigo.Contains(codigo)
                     select zona).Take(rowCount).ToList();
@@ -40,21 +40,21 @@ namespace Portal.Consultoras.BizLogic
                 int paisMaster = 0;
                 if (int.TryParse(Util.Trim(masterCountry), out paisMaster))
                 {
-                    var DAZonificacion = new DAZonificacion(paisMaster);
-                    using (IDataReader reader = DAZonificacion.GetPais())
+                    var daZonificacion = new DAZonificacion(paisMaster);
+                    using (IDataReader reader = daZonificacion.GetPais())
                         while (reader.Read())
                             paises.Add(new BEPais(reader));
                     CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
                 }
             }
-            
+
             var arrPaisesEsika = Util.Trim(WebConfig.PaisesEsika).Split(';');
-            
+
             foreach (var pais in paises)
             {
                 pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? common.Marca.Esika : common.Marca.LBel);
             }
-            
+
             return paises;
         }
 
@@ -66,15 +66,12 @@ namespace Portal.Consultoras.BizLogic
         public int GetPaisNumeroCampaniasByPaisID(int paisID)
         {
             int nroCampanias = -1;
-            DAZonificacion DAZonificacion = new DAZonificacion(paisID);
-            try
+            DAZonificacion daZonificacion = new DAZonificacion(paisID);
+
+            using (IDataReader reader = daZonificacion.GetPaisNumeroCampaniasByPaisID(paisID))
             {
-                using (IDataReader reader = DAZonificacion.GetPaisNumeroCampaniasByPaisID(paisID))
-                {
-                    if (reader.Read()) nroCampanias = Convert.ToInt32(reader["NroCampanias"]);
-                }
+                if (reader.Read()) nroCampanias = Convert.ToInt32(reader["NroCampanias"]);
             }
-            catch (Exception) { }
             return nroCampanias;
         }
 
@@ -84,8 +81,8 @@ namespace Portal.Consultoras.BizLogic
             if (campanias == null)
             {
                 campanias = new List<BECampania>();
-                var DAZonificacion = new DAZonificacion(paisID);
-                using (IDataReader reader = DAZonificacion.GetCampania())
+                var daZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = daZonificacion.GetCampania())
                     while (reader.Read())
                         campanias.Add(new BECampania(reader));
                 CacheManager<BECampania>.AddData(paisID, ECacheItem.Campanias, campanias);
@@ -108,8 +105,8 @@ namespace Portal.Consultoras.BizLogic
             if (zonas == null)
             {
                 zonas = new List<BEZona>();
-                var DAZonificacion = new DAZonificacion(paisID);
-                using (IDataReader reader = DAZonificacion.GetZonaByPais(paisID))
+                var daZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = daZonificacion.GetZonaByPais(paisID))
                     while (reader.Read())
                         zonas.Add(new BEZona(reader));
                 CacheManager<BEZona>.AddData(paisID, ECacheItem.Zonas, zonas);
@@ -123,8 +120,8 @@ namespace Portal.Consultoras.BizLogic
             if (regiones == null)
             {
                 regiones = new List<BERegion>();
-                var DAZonificacion = new DAZonificacion(paisID);
-                using (IDataReader reader = DAZonificacion.GetRegionByPais(paisID))
+                var daZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = daZonificacion.GetRegionByPais(paisID))
                     while (reader.Read())
                         regiones.Add(new BERegion(reader));
                 CacheManager<BERegion>.AddData(paisID, ECacheItem.Regiones, regiones);
@@ -138,8 +135,8 @@ namespace Portal.Consultoras.BizLogic
             if (territorios == null)
             {
                 territorios = new List<BETerritorio>();
-                var DAZonificacion = new DAZonificacion(paisID);
-                using (IDataReader reader = DAZonificacion.GetTerritorio())
+                var daZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = daZonificacion.GetTerritorio())
                     while (reader.Read())
                         territorios.Add(new BETerritorio(reader));
                 CacheManager<BETerritorio>.AddData(paisID, ECacheItem.Territorios, territorios);
@@ -150,8 +147,8 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEZona> SelectZonasActivasFIC(int paisID, int CampaniaID)
         {
             IList<BEZona> zonas = new List<BEZona>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetZonasActivasFIC(CampaniaID))
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetZonasActivasFIC(CampaniaID))
             {
                 while (reader.Read()) { zonas.Add(new BEZona(reader)); }
             }
@@ -161,8 +158,8 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEZona> SelectZonasInactivasFIC(int paisID, int CampaniaID)
         {
             IList<BEZona> zonas = new List<BEZona>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetZonasInactivasFIC(CampaniaID))
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetZonasInactivasFIC(CampaniaID))
             {
                 while (reader.Read()) { zonas.Add(new BEZona(reader)); }
             }
@@ -171,21 +168,21 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsInsCronogramaFIC(int paisID, string CampaniaCodigo, string CodigoZona)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
-            DAZonificacion.InsInsCronogramaFIC(CampaniaCodigo, CodigoZona);
+            daZonificacion.InsInsCronogramaFIC(CampaniaCodigo, CodigoZona);
         }
 
         public void DelCronogramaFIC(int paisID, string CampaniaCodigo, string CodigoZona)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
-            DAZonificacion.DelCronogramaFIC(CampaniaCodigo, CodigoZona);
+            daZonificacion.DelCronogramaFIC(CampaniaCodigo, CodigoZona);
         }
 
         public void InsCronogramaFICMasivo(int paisID, int campaniaID, IList<BECronogramaFIC> cronogramaFIC)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
             List<BECronogramaFIC> lstFinal = new List<BECronogramaFIC>();
 
@@ -197,51 +194,51 @@ namespace Portal.Consultoras.BizLogic
                 lstFinal.Add(item);
             }
 
-            DAZonificacion.InsCronogramaFICMasivo(campaniaID, lstFinal);
+            daZonificacion.InsCronogramaFICMasivo(campaniaID, lstFinal);
         }
 
         public IList<BECronogramaFIC> GetCronogramaFICByCampania(int paisID, string CodigoCampania)
         {
-            var ListCFIC = new List<BECronogramaFIC>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetCronogramaFICByCampania(CodigoCampania))
+            var listCfic = new List<BECronogramaFIC>();
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetCronogramaFICByCampania(CodigoCampania))
             {
-                while (reader.Read()) { ListCFIC.Add(new BECronogramaFIC(reader)); }
+                while (reader.Read()) { listCfic.Add(new BECronogramaFIC(reader)); }
             }
-            return ListCFIC;
+            return listCfic;
         }
 
         public void UpdCronogramaFIC(int paisID, string CampaniaCodigo, string CodigoZona, DateTime? Fecha)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
-            DAZonificacion.UpdCronogramaFIC(CampaniaCodigo, CodigoZona, Fecha);
+            daZonificacion.UpdCronogramaFIC(CampaniaCodigo, CodigoZona, Fecha);
         }
 
         public IList<BECronogramaFIC> GetCronogramaFICByZona(int paisID, string CampaniaCodigo, string ZonaCodigo)
         {
-            var ListCFIC = new List<BECronogramaFIC>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetCronogramaFICByZona(CampaniaCodigo, ZonaCodigo))
+            var listCfic = new List<BECronogramaFIC>();
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetCronogramaFICByZona(CampaniaCodigo, ZonaCodigo))
             {
-                while (reader.Read()) { ListCFIC.Add(new BECronogramaFIC(reader)); }
+                while (reader.Read()) { listCfic.Add(new BECronogramaFIC(reader)); }
             }
-            return ListCFIC;
+            return listCfic;
         }
 
         public void DelCronogramaFICConsultora(int paisID, string CampaniaCodigo, string CodigoZona, string CodigoConsultora)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
-            DAZonificacion.DelCronogramaFICConsultora(CampaniaCodigo, CodigoZona, CodigoConsultora);
+            daZonificacion.DelCronogramaFICConsultora(CampaniaCodigo, CodigoZona, CodigoConsultora);
         }
 
         public IList<BEZona> SelectApeZona(int paisID, int regionID, string codigo)
         {
             IList<BEZona> zonas = new List<BEZona>();
 
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetApeZona(regionID, codigo))
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetApeZona(regionID, codigo))
                 while (reader.Read())
                     zonas.Add(new BEZona(reader));
 
@@ -250,9 +247,9 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdApeZona(int paisID, int zonaID, int cantidadDias)
         {
-            var DAZonificacion = new DAZonificacion(paisID);
+            var daZonificacion = new DAZonificacion(paisID);
 
-            DAZonificacion.UpdApeZona(zonaID, cantidadDias);
+            daZonificacion.UpdApeZona(zonaID, cantidadDias);
         }
 
         public IList<BEPais> SelectPaisesDD()
@@ -261,8 +258,8 @@ namespace Portal.Consultoras.BizLogic
             if (paises == null)
             {
                 paises = new List<BEPais>();
-                var DAZonificacion = new DAZonificacion(int.Parse(ConfigurationManager.AppSettings["masterCountry"]));
-                using (IDataReader reader = DAZonificacion.GetPaisDD())
+                var daZonificacion = new DAZonificacion(int.Parse(ConfigurationManager.AppSettings["masterCountry"]));
+                using (IDataReader reader = daZonificacion.GetPaisDD())
                     while (reader.Read())
                         paises.Add(new BEPais(reader));
                 CacheManager<BEPais>.AddData(ECacheItem.PaisesDD, paises);
@@ -282,51 +279,45 @@ namespace Portal.Consultoras.BizLogic
             return territorios;
         }
 
-        //RQ_BS - R2133
         public IList<BESegmentoBanner> GetSegmentoBanner(int PaisID)
         {
-            var ListaSegmentoBanner = new List<BESegmentoBanner>();
+            var listaSegmentoBanner = new List<BESegmentoBanner>();
             var daZonificacion = new DAZonificacion(PaisID);
 
             using (IDataReader reader = daZonificacion.GetSegmentoBanner())
                 while (reader.Read())
-                    ListaSegmentoBanner.Add(new BESegmentoBanner(reader));
+                    listaSegmentoBanner.Add(new BESegmentoBanner(reader));
 
-            return ListaSegmentoBanner;
+            return listaSegmentoBanner;
         }
 
-        //RQ_BS - R2133
         public IList<BEZonificacionJerarquia> GetZonificacionJerarquia(int PaisID)
         {
-            var ListaJerarquia = new List<BEZonificacionJerarquia>();
+            var listaJerarquia = new List<BEZonificacionJerarquia>();
             var daZonificacion = new DAZonificacion(PaisID);
 
             using (IDataReader reader = daZonificacion.GetZonificacionJerarquia())
                 while (reader.Read())
-                    ListaJerarquia.Add(new BEZonificacionJerarquia(reader));
+                    listaJerarquia.Add(new BEZonificacionJerarquia(reader));
 
-            return ListaJerarquia;
+            return listaJerarquia;
         }
-        /* CGI(CSR) – REQ – 2544 – INICIO – 12/05/2015 – Creacion de Metodo GetSegmentoInternoBanner para Segmento en los Banners*/
         public IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID)
         {
-            var ListaSegmentoBanner = new List<BESegmentoBanner>();    
-            var daZonificacion = new DAZonificacion(PaisID);   
+            var listaSegmentoBanner = new List<BESegmentoBanner>();
+            var daZonificacion = new DAZonificacion(PaisID);
 
-            using (IDataReader reader = daZonificacion.GetSegmentoInternoBanner())  
+            using (IDataReader reader = daZonificacion.GetSegmentoInternoBanner())
                 while (reader.Read())
-                    ListaSegmentoBanner.Add(new BESegmentoBanner(reader));
-            return ListaSegmentoBanner;
+                    listaSegmentoBanner.Add(new BESegmentoBanner(reader));
+            return listaSegmentoBanner;
         }
-        /* CGI(CSR) – REQ – 2544 – FIN */
-
-        //R2015121 - Parámetro
 
         public IList<BEGetRegionByPaisParametroCarga> GetRegionByPaisParametroCarga(int paisID)
         {
             IList<BEGetRegionByPaisParametroCarga> zonas = new List<BEGetRegionByPaisParametroCarga>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetRegionByPaisParametroCarga(paisID))
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetRegionByPaisParametroCarga(paisID))
             {
                 while (reader.Read()) { zonas.Add(new BEGetRegionByPaisParametroCarga(reader)); }
             }
@@ -337,15 +328,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEGetZonaByPaisParametroCarga> GetZonaByPaisParametroCarga(int paisID)
         {
             IList<BEGetZonaByPaisParametroCarga> zonas = new List<BEGetZonaByPaisParametroCarga>();
-            var DAZonificacion = new DAZonificacion(paisID);
-            using (IDataReader reader = DAZonificacion.GetZonaByPaisParametroCarga(paisID))
+            var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetZonaByPaisParametroCarga(paisID))
             {
                 while (reader.Read()) { zonas.Add(new BEGetZonaByPaisParametroCarga(reader)); }
             }
             return zonas;
         }
-
-
-        //R20151221 Fín Parámetro
     }
 }

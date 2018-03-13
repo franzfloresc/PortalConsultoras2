@@ -3,7 +3,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -18,24 +17,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
-            clienteModel.CampaniaActual = userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
-            clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                CampaniaActual = userData.CampaniaID.ToString(),
+                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
+                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
+                TieneGND = userData.TieneGND
+            };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
-            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
-            clienteModel.RevistaDigital = revistaDigital;
+            clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
-            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
-            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-            ViewBag.NombreConsultora = userData.Sobrenombre;
+
+            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+
+            var paisesEsika = GetPaisesEsikaFromConfig().ToLower();
+            ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
 
             return View(clienteModel);
         }
@@ -45,25 +51,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("EnterateMas");
         }
 
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + UserData().NroCampanias.ToString();
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == UserData().NroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
-        }
-
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            List<BECliente> lista = new List<BECliente>();
-            lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
+            var lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
@@ -89,11 +80,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpPost]
-
-
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
-            var url = string.Empty;
+            string url;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
 
             try
@@ -118,7 +107,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string GetStringIssuRevista(string codigoRevista)
         {
-            var stringIssuuRevista = string.Empty;
+            string stringIssuuRevista;
             using (var client = new WebClient())
             {
                 var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
@@ -132,6 +121,56 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             ViewBag.Campania = campaniaRevista;
             return View();
+        }
+
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+                partial.TieneGND = userData.TieneGND;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDI)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDI.MCatalogoIntriga) ?? new ConfiguracionPaisDatosModel();
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
         }
     }
 }

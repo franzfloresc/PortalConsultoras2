@@ -18,25 +18,47 @@ namespace Portal.Consultoras.BizLogic
     {
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
-            int paisID = Util.GetPaisID(paisISO);
+            int paisId = Util.GetPaisID(paisISO);
             try
             {
                 BEUsuario usuario = null;
-                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+                using (IDataReader reader = (new DAConfiguracionCampania(paisId)).GetConfiguracionByUsuarioAndCampania(paisId, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                    if (reader.Read())
+                        usuario = new BEUsuario(reader, true);
                 }
+                usuario = usuario ?? new BEUsuario();
                 BEConfiguracionCampania configuracion = null;
-                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                using (IDataReader reader = new DAPedidoWeb(paisId).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read())
+                        configuracion = new BEConfiguracionCampania(reader);
                 }
                 usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;
 
-                usuario.PaisID = paisID;
+                usuario.PaisID = paisId;
                 usuario.ConsultoraID = consultoraID;
                 usuario.CampaniaID = campania;
                 usuario.AceptacionConsultoraDA = aceptacionConsultoraDA;
+
+                #region Consultora Programa Nuevas
+
+                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisId);
+
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
+                {
+                    if (reader.Read())
+                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                }
+
+                if (beConsultoraProgramaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                }
+
+                #endregion                
 
                 return DeshacerPedidoValidado(usuario, tipo);
             }
@@ -65,18 +87,28 @@ namespace Portal.Consultoras.BizLogic
             var bLPedidoWebDetalle = new BLPedidoWebDetalle();
             bool validacionAbierta = usuario.NuevoPROL && usuario.ZonaNuevoPROL && tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
-            int pedidoID = 0;
+            int pedidoId;
 
-            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva
+            };
+
+            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
             if (listPedidoWebDetalle.Count == 0)
             {
-                pedidoID = new BLPedidoWeb().GetPedidoWebID(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                pedidoId = new BLPedidoWeb().GetPedidoWebID(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                 estado = Constantes.EstadoPedido.Pendiente;
             }
-            else pedidoID = listPedidoWebDetalle[0].PedidoID;
+            else pedidoId = listPedidoWebDetalle[0].PedidoID;
 
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
-            bLPedidoWebDetalle.UpdPedidoWebByEstado(usuario.PaisID, usuario.CampaniaID, pedidoID, estado, false, true, codigoUsuario, validacionAbierta);
+            bLPedidoWebDetalle.UpdPedidoWebByEstado(usuario.PaisID, usuario.CampaniaID, pedidoId, estado, false, true, codigoUsuario, validacionAbierta);
 
             if (tipo == "PI")
             {
@@ -89,25 +121,51 @@ namespace Portal.Consultoras.BizLogic
 
         public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            int paisID = Util.GetPaisID(paisISO);
+            int paisId = Util.GetPaisID(paisISO);
             try
             {
                 BEUsuario usuario = null;
-                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+                using (IDataReader reader = (new DAConfiguracionCampania(paisId)).GetConfiguracionByUsuarioAndCampania(paisId, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                    if (reader.Read())
+                        usuario = new BEUsuario(reader, true);
                 }
+
+                if (usuario == null)
+                    return null;
+
                 BEConfiguracionCampania configuracion = null;
-                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+
+                using (IDataReader reader = new DAPedidoWeb(paisId).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read())
+                        configuracion = new BEConfiguracionCampania(reader);
                 }
                 UpdateDiaPROLAndEsHoraReserva(usuario);
+
+                #region Consultora Programa Nuevas
+
+                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisId);
+
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                {
+                    if (reader.Read())
+                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                }
+
+                if (beConsultoraProgramaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                }
+
+                #endregion
 
                 var input = new BEInputReservaProl
                 {
                     PaisISO = paisISO,
-                    PaisID = paisID,
+                    PaisID = paisId,
                     Simbolo = usuario.Simbolo,
                     EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
                     CampaniaID = campania,
@@ -129,12 +187,14 @@ namespace Portal.Consultoras.BizLogic
                     ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
                     FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
                     EnviarCorreo = enviarCorreo,
-                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID))
+                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID)),
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
 
                 if (usuario.TieneHana == 1)
                 {
-                    var datosConsultoraHana = new BLUsuario().GetDatosConsultoraHana(paisID, usuario.CodigoUsuario, campania);
+                    var datosConsultoraHana = new BLUsuario().GetDatosConsultoraHana(paisId, usuario.CodigoUsuario, campania);
                     if (datosConsultoraHana != null)
                     {
                         input.MontoMinimo = datosConsultoraHana.MontoMinimoPedido;
@@ -174,10 +234,10 @@ namespace Portal.Consultoras.BizLogic
         {
             if (!usuario.DiaPROL) return false;
 
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
+            TimeSpan horaNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
             bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioFacturacion) ?
-                (HoraNow > usuario.HoraInicioNoFacturable && HoraNow < usuario.HoraCierreNoFacturable) :
-                (HoraNow > usuario.HoraInicio && HoraNow < usuario.HoraFin);
+                (horaNow > usuario.HoraInicioNoFacturable && horaNow < usuario.HoraCierreNoFacturable) :
+                (horaNow > usuario.HoraInicio && horaNow < usuario.HoraFin);
             if (!esHorarioReserva) return false;
 
             if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
@@ -193,7 +253,18 @@ namespace Portal.Consultoras.BizLogic
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = input.PaisID,
+                    CampaniaId = input.CampaniaID,
+                    ConsultoraId = input.ConsultoraID,
+                    Consultora = input.NombreConsultora,
+                    EsBpt = input.EsOpt == 1,
+                    CodigoPrograma = input.CodigoPrograma,
+                    NumeroPedido = input.ConsecutivoNueva
+                };
+
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -205,7 +276,7 @@ namespace Portal.Consultoras.BizLogic
                 else resultado = GetObservacionesPROL(input, listPedidoWebDetalle);
                 resultado.PedidoID = input.PedidoID;
 
-                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado, listPedidoWebDetalle);
+                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
                 if (input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return resultado;
             }
@@ -226,7 +297,18 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = input.PaisID,
+                    CampaniaId = input.CampaniaID,
+                    ConsultoraId = input.ConsultoraID,
+                    Consultora = input.NombreConsultora,
+                    EsBpt = input.EsOpt == 1,
+                    CodigoPrograma = input.CodigoPrograma,
+                    NumeroPedido = input.ConsecutivoNueva
+                };
+
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -247,7 +329,7 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                TransferirDatos datos = null;
+                TransferirDatos datos;
                 using (var sv = new ServiceStockSsic())
                 {
                     sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
@@ -255,7 +337,17 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (datos == null) return -1;
 
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = input.PaisID,
+                    CampaniaId = input.CampaniaID,
+                    ConsultoraId = input.ConsultoraID,
+                    Consultora = input.NombreConsultora,
+                    EsBpt = input.EsOpt == 1,
+                    CodigoPrograma = input.CodigoPrograma,
+                    NumeroPedido = input.ConsecutivoNueva
+                };
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count == 0) return 0;
 
                 var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
@@ -277,7 +369,7 @@ namespace Portal.Consultoras.BizLogic
             string listaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
 
             decimal montoenviar = GetMontoEnviar(input);
-            RespuestaProl datos = null;
+            RespuestaProl datos;
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
@@ -298,35 +390,31 @@ namespace Portal.Consultoras.BizLogic
             resultado.RefreshMontosProl = true;
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
-            //bool ValidacionPROLMM = false;
-            string CUV_Val = string.Empty;
-            int ValidacionReemplazo = 0;
+            int validacionReemplazo = 0;
 
             if (!datos.codigoMensaje.Equals("00"))
             {
                 foreach (var item in datos.ListaObservaciones)
                 {
-                    int TipoObs = Convert.ToInt32(item.cod_observacion);
-                    string CUV = item.codvta;
-                    string Observacion = item.observacion.Replace("+", "");
+                    int tipoObs = Convert.ToInt32(item.cod_observacion);
+                    string cuv = item.codvta;
+                    string observacion = item.observacion.Replace("+", "");
 
-                    if (TipoObs == 8)
+                    if (tipoObs == 8)
                     {
-                        lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
+                        lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == cuv));
                     }
                     else
                     {
-                        if (TipoObs == 0)
+                        if (tipoObs == 0)
                         {
-                            ValidacionReemplazo += 1;
+                            validacionReemplazo += 1;
                         }
-                        else if (TipoObs == 95)
+                        else if (tipoObs == 95)
                         {
-                            //ValidacionPROLMM = true;
-                            CUV_Val = CUV;
-                            Observacion = Regex.Replace(Observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+                            observacion = Regex.Replace(observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
                         }
-                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
+                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = tipoObs, CUV = cuv, Tipo = 2, Descripcion = observacion });
                     }
                 }
                 resultado.Reserva = input.FechaHoraReserva && resultado.Informativas && !resultado.Restrictivas;
@@ -335,11 +423,11 @@ namespace Portal.Consultoras.BizLogic
 
             if (resultado.Reserva)
             {
-                decimal montoTotalPROL = datos.montototal.ToDecimalSecure();
-                decimal descuentoPROL = datos.montoDescuento.ToDecimalSecure();
+                decimal montoTotalProl = datos.montototal.ToDecimalSecure();
+                decimal descuentoProl = datos.montoDescuento.ToDecimalSecure();
                 var listPedidoReserva = GetPedidoReservaV2(datos, olstPedidoWebDetalle);
 
-                EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalPROL, descuentoPROL);
+                EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalProl, descuentoProl);
             }
 
             if (datos.ListaConcursoIncentivos != null)
@@ -362,62 +450,62 @@ namespace Portal.Consultoras.BizLogic
             string listaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
             decimal montoEnviar = GetMontoEnviar(input);
 
-            RespuestaProl RespuestaPROL = null;
+            RespuestaProl respuestaProl;
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
-                else RespuestaPROL = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
+                if (input.FechaHoraReserva) respuestaProl = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
+                else respuestaProl = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
-            if (RespuestaPROL == null) return resultado;
+            if (respuestaProl == null) return resultado;
 
-            resultado.MontoAhorroCatalogo = RespuestaPROL.montoAhorroCatalogo.ToDecimalSecure();
-            resultado.MontoAhorroRevista = RespuestaPROL.montoAhorroRevista.ToDecimalSecure();
+            resultado.MontoAhorroCatalogo = respuestaProl.montoAhorroCatalogo.ToDecimalSecure();
+            resultado.MontoAhorroRevista = respuestaProl.montoAhorroRevista.ToDecimalSecure();
             resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
-            resultado.MontoDescuento = RespuestaPROL.montoDescuento.ToDecimalSecure();
-            resultado.MontoEscala = RespuestaPROL.montoEscala.ToDecimalSecure();
+            resultado.MontoDescuento = respuestaProl.montoDescuento.ToDecimalSecure();
+            resultado.MontoEscala = respuestaProl.montoEscala.ToDecimalSecure();
             resultado.MontoTotal = olstPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
             resultado.UnidadesAgregadas = olstPedidoWebDetalle.Sum(pd => pd.Cantidad);
-            resultado.CodigoMensaje = RespuestaPROL.codigoMensaje;
+            resultado.CodigoMensaje = respuestaProl.codigoMensaje;
             this.UpdateMontosPedidoWeb(resultado, input);
             resultado.RefreshPedido = true;
             resultado.RefreshMontosProl = true;
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
-            bool ValidacionPROLMM = false;
-            string CUV_Val = string.Empty;
-            int ValidacionReemplazo = 0;
-            if (!RespuestaPROL.codigoMensaje.Equals("00"))
+            bool validacionProlmm = false;
+            string cuvVal = string.Empty;
+            int validacionReemplazo = 0;
+            if (!respuestaProl.codigoMensaje.Equals("00"))
             {
-                foreach (var item in RespuestaPROL.ListaObservaciones)
+                foreach (var item in respuestaProl.ListaObservaciones)
                 {
-                    int TipoObs = Convert.ToInt32(item.cod_observacion);
-                    string CUV = item.codvta;
-                    string Observacion = item.observacion.Replace("+", "");
+                    int tipoObs = Convert.ToInt32(item.cod_observacion);
+                    string cuv = item.codvta;
+                    string observacion = item.observacion.Replace("+", "");
 
-                    if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
+                    if (tipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == cuv));
                     else
                     {
-                        if (TipoObs == 0) ValidacionReemplazo += 1;
-                        else if (TipoObs == 95)
+                        if (tipoObs == 0) validacionReemplazo += 1;
+                        else if (tipoObs == 95)
                         {
-                            ValidacionPROLMM = true;
-                            CUV_Val = CUV;
-                            Observacion = Regex.Replace(Observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+                            validacionProlmm = true;
+                            cuvVal = cuv;
+                            observacion = Regex.Replace(observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
                         }
-                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
+                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = tipoObs, CUV = cuv, Tipo = 2, Descripcion = observacion });
                     }
                 }
-                resultado.Restrictivas = (RespuestaPROL.ListaObservaciones.Count() > 0);
-                resultado.Reserva = input.FechaHoraReserva && (RespuestaPROL.ListaObservaciones.Count() == ValidacionReemplazo);
+                resultado.Restrictivas = respuestaProl.ListaObservaciones.Any();
+                resultado.Reserva = input.FechaHoraReserva && (respuestaProl.ListaObservaciones.Count() == validacionReemplazo);
                 resultado.ResultadoReservaEnum =
-                    RespuestaPROL.ListaObservaciones.Count() == ValidacionReemplazo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
-                    CUV_Val == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
-                    CUV_Val == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
+                    respuestaProl.ListaObservaciones.Count() == validacionReemplazo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
+                    cuvVal == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
+                    cuvVal == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
                     Enumeradores.ResultadoReserva.NoReservadoObservaciones;
 
                 var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-                if (input.ValidacionAbierta && ValidacionPROLMM && CUV_Val == "XXXXX")
+                if (input.ValidacionAbierta && validacionProlmm && cuvVal == "XXXXX")
                 {
                     bLPedidoWebDetalle.UpdPedidoWebByEstado(input.PaisID, input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, true, input.CodigoUsuario, false);
                 }
@@ -430,17 +518,17 @@ namespace Portal.Consultoras.BizLogic
             }
             if (resultado.Reserva)
             {
-                decimal montoTotalPROL = RespuestaPROL.montototal.ToDecimalSecure();
-                decimal descuentoPROL = RespuestaPROL.montoDescuento.ToDecimalSecure();
-                var listPedidoReserva = GetPedidoReservaV2(RespuestaPROL, olstPedidoWebDetalle);
-                EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, true, montoTotalPROL, descuentoPROL);
+                decimal montoTotalProl = respuestaProl.montototal.ToDecimalSecure();
+                decimal descuentoProl = respuestaProl.montoDescuento.ToDecimalSecure();
+                var listPedidoReserva = GetPedidoReservaV2(respuestaProl, olstPedidoWebDetalle);
+                EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, true, montoTotalProl, descuentoProl);
             }
 
-            if (RespuestaPROL.ListaConcursoIncentivos != null)
+            if (respuestaProl.ListaConcursoIncentivos != null)
             {
-                resultado.ListaConcursosCodigos = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
-                resultado.ListaConcursosPuntaje = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
-                resultado.ListaConcursosPuntajeExigido = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                resultado.ListaConcursosCodigos = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
+                resultado.ListaConcursosPuntaje = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
+                resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
             }
 
             return resultado;
@@ -483,25 +571,21 @@ namespace Portal.Consultoras.BizLogic
             foreach (DataRow row in dtr.Rows)
             {
                 var temp = listPedidoWebDetalle.Where(p => p.CUV == Convert.ToString(row.ItemArray.GetValue(0)));
-                if (temp.Count() == 0)
+                if (!temp.Any())
                 {
                     listPedidoReserva.Add(new BEPedidoWebDetalle()
                     {
                         CampaniaID = listPedidoWebDetalle[0].CampaniaID,
                         PedidoID = listPedidoWebDetalle[0].PedidoID,
-                        //PedidoDetalleID = PedidoDetalleIDPadre, //Desactivado porque no existe Jerarquia
                         PedidoDetalleID = 0,
                         MarcaID = listPedidoWebDetalle[0].MarcaID,
                         ConsultoraID = listPedidoWebDetalle[0].ConsultoraID,
                         ClienteID = 0,
                         Cantidad = Convert.ToInt32(row.ItemArray.GetValue(3)),
-                        //PrecioUnidad = Convert.ToDecimal(row.ItemArray.GetValue(2)), //Precio Unidad deberia ser cero pero lo envían
                         PrecioUnidad = 0,
-                        //ImporteTotal = Convert.ToDecimal(row.ItemArray.GetValue(4)),
                         ImporteTotal = 0,
                         CUV = Convert.ToString(row.ItemArray.GetValue(0)),
                         OfertaWeb = false,
-                        //CUVPadre = CUVPadre //Desactivado porque no existe Jerarquia
                         CUVPadre = "0",
                         CodigoUsuarioCreacion = codigoUsuario,
                         CodigoUsuarioModificacion = codigoUsuario
@@ -517,13 +601,18 @@ namespace Portal.Consultoras.BizLogic
             decimal indicadorNumero;
 
             BEFactorGanancia factorGanancia = null;
-            try { factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId); }
-            catch { }
+            try
+            {
+                factorGanancia = bLFactorGanancia.GetFactorGananciaEscalaDescuento(totalPedido, paisId);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId.ToString());
+            }
             decimal porcentajeGanancia = factorGanancia == null ? 0 : (factorGanancia.Porcentaje / 100);
 
-            // se recorren los productos del pedido y se evalua su indicador de descuento aplicando la logica siguiente:
-            var ProductosIndicadorDscto = bLFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(paisId, campaniaId, pedidoId).ToList();
-            ProductosIndicadorDscto.ForEach(pid =>
+            var productosIndicadorDscto = bLFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(paisId, campaniaId, pedidoId).ToList();
+            productosIndicadorDscto.ForEach(pid =>
             {
                 string indicador = pid.IndicadorDscto.ToLower();
 
@@ -534,12 +623,12 @@ namespace Portal.Consultoras.BizLogic
                     pid.MontoDscto = (pid.PrecioUnidad * (indicadorNumero / 100)) * pid.Cantidad;
                 }
             });
-            return ProductosIndicadorDscto.Sum(p => p.MontoDscto);
+            return productosIndicadorDscto.Sum(p => p.MontoDscto);
         }
 
         private void UpdateMontosPedidoWeb(BEResultadoReservaProl resultado, BEInputReservaProl input)
         {
-            BEPedidoWeb BePedidoWeb = new BEPedidoWeb
+            BEPedidoWeb bePedidoWeb = new BEPedidoWeb
             {
                 PaisID = input.PaisID,
                 CampaniaID = input.CampaniaID,
@@ -549,7 +638,7 @@ namespace Portal.Consultoras.BizLogic
                 DescuentoProl = resultado.MontoDescuento,
                 MontoEscala = resultado.MontoEscala
             };
-            new BLPedidoWeb().UpdateMontosPedidoWeb(BePedidoWeb);
+            new BLPedidoWeb().UpdateMontosPedidoWeb(bePedidoWeb);
         }
 
         private DataSet DataSetPedidoDetalleParaProl(List<BEPedidoWebDetalle> listPedidoWebDetalle, string codigoConsultora)
@@ -580,7 +669,7 @@ namespace Portal.Consultoras.BizLogic
             return montoEnviar;
         }
 
-        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {
             if (!resultado.Reserva || resultado.Informativas || input.Email.IsNullOrEmptyTrim()) return false;
             try
@@ -603,102 +692,16 @@ namespace Portal.Consultoras.BizLogic
             if (envio) InsLogEnvioCorreoPedidoValidado(input, listPedidoWebDetalle);
         }
 
-        //private bool EnviarPorCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
-        //{
-        //    bool IndicadorOfertaCUV = false;
-        //    string fechaEnvio = DateTime.Now.AddHours(input.ZonaHoraria).Date < input.FechaInicioCampania.Date ?
-        //        input.FechaInicioCampania.ToString(@"dd \de MMMM", new CultureInfo("es-PE")) :
-        //        "de hoy";
-
-        //    StringBuilder mailBody = new StringBuilder();
-        //    mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
-        //    mailBody.Append("<meta http-equiv='Content-Type' content='Type=text/html; charset=utf-8'>");
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-        //    mailBody.AppendFormat("<tr><td><div style='font-size:12px;font-family: calibri;'>Hola {0},</div></td></tr>", input.NombreConsultora);
-        //    mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>¡Lo lograste!</div ></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>Tu pedido ha sido reservado con éxito.</div></td></tr>");
-        //    mailBody.AppendFormat("<tr><td><div style='font-size:12px;font-family: calibri;'>Será enviado a Belcorp el día {0}, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.</div></div></td></tr>", fechaEnvio);
-        //    mailBody.Append("<tr style='height:12px;'><td></td></tr><tr><td><div style='font-size:12px;font-family: calibri;margin-left: 10px;'>Detalle de pedido:</div ></td></tr>");
-        //    mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("</table>");
-
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 90%; margin-left: 10px;'>");
-        //    mailBody.Append("<tr style='color: #FFFFFF'>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 70px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cód.<br />Venta</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #6c217f; padding-left:5px; padding-right:5px;'>");
-        //    mailBody.Append("Descripción</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cantidad</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #6c217f;'>");
-        //    mailBody.Append("Precio Unit.</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-        //    mailBody.Append("Precio Total</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cliente</td></tr>");
-        //    foreach (BEPedidoWebDetalle pedidoDetalle in olstPedidoWebDetalle)
-        //    {
-        //        mailBody.Append("<tr>");
-        //        mailBody.Append("<td style='font-size:11px; width: 56px; text-align: center; border-bottom: 1px solid #6c217f;  border-left: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.CUV);
-        //        mailBody.Append("<td style='font-size:11px; width: 347px; text-align: left; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.DescripcionProd);
-        //        mailBody.Append("<td style='font-size:11px; width: 124px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.Cantidad);
-        //        mailBody.Append("<td style='font-size:11px; width: 182px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.Append(input.Simbolo);
-        //        mailBody.Append(Util.DecimalToStringFormat(pedidoDetalle.PrecioUnidad, input.PaisISO));
-        //        mailBody.Append("</td>");
-        //        mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.Append(input.Simbolo);
-        //        mailBody.Append(Util.DecimalToStringFormat(pedidoDetalle.ImporteTotal, input.PaisISO));
-
-        //        if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
-        //        {
-        //            IndicadorOfertaCUV = true;
-        //            mailBody.Append("<img id='IndicadorOfercarCUVImage' height='13' width='13' src=\"cid:IconoIndicador\" />");
-        //        }
-        //        mailBody.Append("</td>");
-        //        mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;border-right: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.Nombre);
-        //    }
-        //    mailBody.Append("</tr></table>");
-
-        //    if (IndicadorOfertaCUV)
-        //    {
-        //        mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 90%; margin-left: 15px; margin-top:3px;'>");
-        //        mailBody.Append("<tr><td>");
-        //        mailBody.Append("<div id='LeyendaIndicadorCUV' style='font-family: arial; font-size: 11px; color: #722789; padding-right:10px; '>");
-        //        mailBody.Append("<div><img src=\"cid:IconoIndicador\" height='13' width='13'/>El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x). Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.</div>");
-        //        mailBody.Append("</div>");
-        //        mailBody.Append("</td></tr>");
-        //        mailBody.Append("</table>");
-        //    }
-        //    mailBody.Append("<br />");
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>Gracias,</div></td></tr><tr><td>&nbsp;</td></tr>");
-        //    mailBody.Append("<tr><td><img src='cid:Logo' border='0' /></td></tr>");
-        //    mailBody.Append("</table>");
-
-        //    try
-        //    {
-        //        return Util.EnviarMail("no-responder@somosbelcorp.com", input.Email, string.Empty, string.Format("({0}) Confirmación pedido Belcorp", input.PaisISO), mailBody.ToString(), true, null, IndicadorOfertaCUV);
-        //    }
-        //    catch { return false; }
-        //}
-
         private bool EnviarPorCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             bool esEsika = (ConfigurationManager.AppSettings.Get("PaisesEsika") ?? "").Contains(input.PaisISO);
             String colorStyle = esEsika ? "#e81c36" : "#613c87";
-            bool IndicadorOfertaCUV = false;
+            bool indicadorOfertaCuv = false;
             decimal montoTotal = olstPedidoWebDetalle.Sum(c => c.ImporteTotal) - olstPedidoWebDetalle[0].DescuentoProl;
             decimal gananciaEstimada = (olstPedidoWebDetalle[0].MontoAhorroCatalogo + olstPedidoWebDetalle[0].MontoAhorroRevista);
             decimal totalSinDescuento = olstPedidoWebDetalle.Sum(c => c.ImporteTotal);
             decimal descuento = olstPedidoWebDetalle[0].DescuentoProl;
-            string simbolo = input.Simbolo; //olstPedidoWebDetalle.Select(c => c.Simbolo).FirstOrDefault();
+            string simbolo = input.Simbolo;
 
             string _montoTotal = Util.DecimalToStringFormat(montoTotal, input.PaisISO);
             string _gananciaEstimada = Util.DecimalToStringFormat(gananciaEstimada, input.PaisISO);
@@ -737,11 +740,11 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (BEPedidoWebDetalle pedidoDetalle in olstPedidoWebDetalle)
             {
-                mailBody.Append("<table width = '100%' align = 'center' border = '0' cellspacing = '0' cellpadding = '0' align = 'center' style = 'padding-bottom: 1px;' >"); //
+                mailBody.Append("<table width = '100%' align = 'center' border = '0' cellspacing = '0' cellpadding = '0' align = 'center' style = 'padding-bottom: 1px;' >");
                 mailBody.AppendFormat(" <tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 13px; ' > Cód.Venta: {0} </td> <td style = 'width: 50%;'> &nbsp;</td></tr>", pedidoDetalle.CUV);
 
                 mailBody.AppendFormat("<tr> <td style = 'width: 50%; text-align: left; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {0} </td>", pedidoDetalle.DescripcionProd);
-                string rowPrecioUnitario = "";
+                string rowPrecioUnitario;
                 if (input.PaisID == 4)
                 {
                     mailBody.AppendFormat("<td style = 'width: 50%; text-align: right; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {1} {0} </td></tr> ", String.Format("{0:#,##0}", pedidoDetalle.ImporteTotal).Replace(',', '.'), simbolo);
@@ -749,27 +752,23 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    mailBody.AppendFormat("<td style = 'width: 50%; text-align: right; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {1} {0:#0.00} </td></tr> ", pedidoDetalle.ImporteTotal, simbolo);
-                    rowPrecioUnitario = String.Format("<tr> <td colspan = '2' style = 'width: 100%;text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px; padding-bottom:30px;' > Precio Unit.: {1} {0:#0.00} </td></tr>", pedidoDetalle.PrecioUnidad, simbolo);
+                    mailBody.AppendFormat("<td style = 'width: 50%; text-align: right; color: #000; font-family: Arial; font-size: 14px; font-weight:700;' > {1} {0} </td></tr> ", Util.DecimalToStringFormat(pedidoDetalle.ImporteTotal, input.PaisISO), simbolo);
+                    rowPrecioUnitario = String.Format("<tr> <td colspan = '2' style = 'width: 100%;text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px; padding-bottom:30px;' > Precio Unit.: {1} {0} </td></tr>", Util.DecimalToStringFormat(pedidoDetalle.PrecioUnidad, input.PaisISO), simbolo);
                 }
 
                 mailBody.AppendFormat("<tr> <td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cliente: {0} </td></tr>", !string.IsNullOrEmpty(pedidoDetalle.NombreCliente) ? CultureInfo.InvariantCulture.TextInfo.ToTitleCase(pedidoDetalle.NombreCliente.ToLower()) : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.Sobrenombre.ToLower()));
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
-                if (input.EstadoSimplificacionCUV && input.EstadoSimplificacionCUV)
+                if (input.EstadoSimplificacionCUV && pedidoDetalle.IndicadorOfertaCUV)
                 {
-                    if (pedidoDetalle.IndicadorOfertaCUV)
-                    {
-                        IndicadorOfertaCUV = true;
-                        //mailBody.Append("<img id='IndicadorOfercarCUVImage' height='13' width='13' src=\"cid:IconoIndicador\" />");
-                    }
+                    indicadorOfertaCuv = true;
                 }
                 mailBody.Append("</table>");
             }
             mailBody.Append("</tr></td></tr>");
 
-            if (IndicadorOfertaCUV)
+            if (indicadorOfertaCuv)
             {
                 if (input.PaisID == 4)
                 {
@@ -811,7 +810,6 @@ namespace Portal.Consultoras.BizLogic
             mailBody.Append("<span style = 'font-family:Calibri; font-size:12px; color:#000;' >¿Tienes dudas ?</span ></td ><td style = 'text-align:center; width:49%;' >");
             mailBody.Append("<span style = 'font-family:Calibri; font-size:12px; color:#000;' > <a href = 'http://belcorpresponde.somosbelcorp.com/' style = 'text-decoration: none; color: #000;' >");
             mailBody.Append("Contáctanos </a> </span></td></tr> </tbody></table></td ></tr> ");
-            //Close html
             mailBody.Append("</table></div> </div> </body>");
 
             try
@@ -820,71 +818,6 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { return false; }
         }
-
-        //private bool EnviarPorCorreoPedidoValidadoMobile(BEInputReservaProl input, List<BEPedidoWebDetalle> lstPedidoWebDetalle)
-        //{
-        //    string fechaEnvio = DateTime.Now.AddHours(input.ZonaHoraria).Date < input.FechaInicioCampania.Date ?
-        //        "el " + input.FechaInicioCampania.ToString(@"dd \de MMMM", new CultureInfo("es-PE")) :
-        //        "hoy";
-
-        //    var mailBody = new StringBuilder();
-        //    mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
-        //    mailBody.Append("<meta http-equiv='Content-Type' content='Type=text/html; charset=utf-8'>");
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-        //    mailBody.AppendFormat("<tr><td><div style='font-size:12px;'>Hola {0},</div></td></tr>", input.PrimerNombre);
-        //    mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;'>¡Felicitaciones!</div ></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;'>Tu pedido ha sido reservado con éxito.</div></td></tr>");
-        //    mailBody.AppendFormat("<tr><td><div style='font-size:12px;'>Será enviado a Belcorp {0}, siempre y cuando cumplas con el monto mínimo y no tengas deuda.</div></div></td></tr>", fechaEnvio);
-        //    mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("</table>");
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 90%; margin-left: 10px;'>");
-        //    mailBody.Append("<tr style='color: #FFFFFF'>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 70px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cód.<br />Venta</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #6c217f; padding-left:5px; padding-right:5px;'>");
-        //    mailBody.Append("Descripción</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cantidad</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #6c217f;'>");
-        //    mailBody.Append("Precio Unit.</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-        //    mailBody.Append("Precio Total</td>");
-        //    mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-        //    mailBody.Append("Cliente</td></tr>");
-
-        //    foreach (var pedidoDetalle in lstPedidoWebDetalle)
-        //    {
-        //        mailBody.Append("<tr>");
-        //        mailBody.Append("<td style='font-size:11px; width: 56px; text-align: center; border-bottom: 1px solid #6c217f;  border-left: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.CUV);
-        //        mailBody.Append("<td style='font-size:11px; width: 347px; text-align: left; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.DescripcionProd);
-        //        mailBody.Append("<td style='font-size:11px; width: 124px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.Cantidad);
-        //        mailBody.Append("<td style='font-size:11px; width: 182px; text-align: center; border-bottom: 1px solid #6c217f;'>");                    
-        //        mailBody.Append(input.Simbolo);
-        //        mailBody.Append(Util.DecimalToStringFormat(pedidoDetalle.PrecioUnidad, input.PaisISO));
-        //        mailBody.Append("</td>");
-        //        mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-        //        mailBody.Append(input.Simbolo);
-        //        mailBody.Append(Util.DecimalToStringFormat(pedidoDetalle.ImporteTotal, input.PaisISO));
-        //        mailBody.Append("</td>");
-        //        mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;border-right: 1px solid #6c217f;'>");
-        //        mailBody.AppendFormat("{0}</td>", pedidoDetalle.Nombre);
-        //    }
-        //    mailBody.Append("</tr></table><br />");
-        //    mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;'></div></td></tr>");
-        //    mailBody.Append("<tr><td><div style='font-size:12px;'>Gracias,</div><tr><td><tr><td><div style='font-size:12px;'>Equipo Belcorp.</div></tr></td>");
-        //    mailBody.Append("</table>");
-
-        //    try
-        //    {
-        //        return Util.EnviarMailMobile("no-responder@somosbelcorp.com", input.Email, string.Format("({0}) Confirmación pedido Belcorp", input.PaisISO), mailBody.ToString(), true, null);
-        //    }
-        //    catch { return false; }
-        //}
 
         private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {

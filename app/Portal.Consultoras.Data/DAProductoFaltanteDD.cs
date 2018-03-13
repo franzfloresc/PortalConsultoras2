@@ -1,13 +1,10 @@
-﻿using Portal.Consultoras.Entities;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Data
 {
@@ -19,7 +16,7 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int InsProductoFaltante(string PaisISO, string UsuarioCreacion,IEnumerable<BEProductoFaltante> productosFaltantes)
+        public int InsProductoFaltante(string PaisISO, string UsuarioCreacion, IEnumerable<BEProductoFaltante> productosFaltantes)
         {
             var productosFaltantesReader = new GenericDataReader<BEProductoFaltante>(productosFaltantes);
 
@@ -32,7 +29,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@PaisISO", SqlDbType.Char).Value = PaisISO;
             command.Parameters.Add("@UsuarioCreacion", SqlDbType.Char).Value = UsuarioCreacion;
             command.Parameters.Add(parameter);
-            
+
             return Context.ExecuteNonQuery(command);
         }
 

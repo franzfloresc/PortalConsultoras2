@@ -1,7 +1,7 @@
-﻿using System;
-using System.Web.Mvc;
-using DocumentFormat.OpenXml.Drawing;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Infraestructure;
+using System;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Helpers
 {
@@ -14,7 +14,18 @@ namespace Portal.Consultoras.Web.Helpers
         /// <returns>Guid or Null</returns>
         public static string GetUniqueKey(this Controller controller)
         {
-            //todo: should evaluate rest of RouteData ie. queryString?
+            var uniqueKey = controller.Request.Headers[UniqueRoute.IdentifierKey];
+            if (uniqueKey.IsGuid())
+                return uniqueKey;
+
+            if (controller.Request.UrlReferrer != null)
+            {
+                var indexOfUnique = controller.Request.UrlReferrer.AbsolutePath.IndexOf("/g/");
+                var uniqueKeyReferrer = indexOfUnique > 0 ? controller.Request.UrlReferrer.AbsolutePath.Substring(indexOfUnique, 39) : string.Empty;
+                if (uniqueKeyReferrer.IsGuid())
+                    return uniqueKeyReferrer;
+            }
+
             return controller.RouteData.GetUniqueRoute(UniqueRoute.IdentifierKey);
         }
 

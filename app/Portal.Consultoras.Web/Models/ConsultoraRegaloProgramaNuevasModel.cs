@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -13,8 +9,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string CodigoNivel { get; set; }
-
-        //public string CodigoPrograma { get; set; }
 
         public decimal TippingPoint { get; set; }
 

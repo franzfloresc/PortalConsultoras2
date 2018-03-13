@@ -6,16 +6,16 @@
     };
 
     var elements = {
-        
+
     };
-    
+
     var setting = {
-        baseUrl: ''        
+        baseUrl: ''
     };
 
     var lista = [];
 
-    var _bindEvents = function () {         
+    var _bindEvents = function () {
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
@@ -32,8 +32,8 @@
             _pintarUltimoComentarioConsultora(item);
             var xdata = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(xdata);
-            if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
-            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }            
+            if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop'); }
+            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }
             _validarDivTituloMasVendidos();
             if (tipoOrigenPantalla === 2) { $('.header_slider').hide(); LayoutHeader(); }
         });
@@ -151,8 +151,6 @@
                         else {
                             OcultarPanelMasVendidos();
                         }
-                    } else {
-                        console.log(response.menssage);
                     }
                 }
             });
@@ -220,18 +218,6 @@
     }
 
     function _pintarEstrellasCarrusel(item) {
-        //var xdiv = "#star-" + item.EstrategiaID.toString();
-        //var rating = '';
-        //rating = item.PromValorizado.toString() + '%';
-        //$(xdiv).rateYo({
-        //    rating: rating,
-        //    numStars: 5,
-        //    precision: 2,
-        //    minValue: 1,
-        //    maxValue: 5,
-        //    starWidth: "17px",
-        //    readOnly: true
-        //});
         _pintarEstrellas(item);
     }
 
@@ -294,24 +280,24 @@
         if (item != null && item != undefined) {
             item.EstrategiaID = item.EstrategiaID || 0;
             item.PromValorizado = item.PromValorizado || 0;
-        }
 
-        var xdiv = "#star-" + item.EstrategiaID.toString();
-        var rating = '';
-        rating = item.PromValorizado.toString() + '%';
+            var xdiv = "#star-" + item.EstrategiaID.toString();
+            var rating = '';
+            rating = item.PromValorizado.toString() + '%';
 
-        if ($(xdiv).length) {
-            $(xdiv).rateYo({
-                rating: rating,
-                numStars: 5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "17px",
-                readOnly: true
-            });
+            if ($(xdiv).length) {
+                $(xdiv).rateYo({
+                    rating: rating,
+                    numStars: 5,
+                    precision: 2,
+                    minValue: 1,
+                    maxValue: 5,
+                    starWidth: "17px",
+                    readOnly: true
+                });
+            }
+
         }
-        
     }
 
     var _validarGanancia = function (item) {
@@ -357,10 +343,8 @@
                         var model = get_local_storage("data_mas_vendidos");
                         model.Item = item;
                         model.Lista = _actualizarListaStorate(model.Lista, item);
-                        set_local_storage(model, "data_mas_vendidos");                        
+                        set_local_storage(model, "data_mas_vendidos");
                         location.href = setting.urlDetalleProducto;
-                    } else {
-                        console.log(verDetalleResponse.menssage);
                     }
                 }
             });
@@ -380,7 +364,7 @@
 
         return item;
     };
-    
+
     var _actualizarListaStorate = function (lista, item) {
         var temp = [];
         var elem = null;
@@ -422,7 +406,7 @@
         },
         estrategiaVerDetalle: function (estrategiaId) {
             _verDetalleProductoMasVendidos(estrategiaId);
-        },       
+        },
         readVariables: function (parameters) {
             _readVariables(parameters);
         },

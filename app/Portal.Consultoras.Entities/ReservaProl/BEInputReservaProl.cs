@@ -67,5 +67,9 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public int SegmentoInternoID { get; set; }
         [DataMember]
         public int EsOpt { get; set; }
+        [DataMember]
+        public string CodigoPrograma { get; set; }
+        [DataMember]
+        public int ConsecutivoNueva { get; set; }
     }
 }

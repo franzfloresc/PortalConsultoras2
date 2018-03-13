@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Data.Hana.Entities
+﻿namespace Portal.Consultoras.Data.Hana.Entities
 {
     public class PedidoDetalleHana
     {

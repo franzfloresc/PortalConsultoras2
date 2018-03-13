@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CDR
-{ 
+{
     public class DACDRWeb : DataAccess
     {
         public DACDRWeb(int paisID)
@@ -21,13 +21,10 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "PedidoNumero", DbType.Int32, entity.PedidoNumero);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "ConsultoraID", DbType.Int32, entity.ConsultoraID);
-            //Context.Database.AddInParameter(command, "FechaRegistro", DbType.DateTime, entity.FechaRegistro);
-            //Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
-            //Context.Database.AddInParameter(command, "FechaCulminado", DbType.DateTime, entity.FechaCulminado);
             Context.Database.AddInParameter(command, "Importe", DbType.Decimal, entity.Importe);
-            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho); //epd-1919
-            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);//epd-1919
-            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho); //epd-1919
+            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho);
+            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);
+            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho);
             Context.Database.AddInParameter(command, "EsMovilOrigen", DbType.Boolean, entity.EsMovilOrigen);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
@@ -75,11 +72,11 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
 
-            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho); //epd-1919
-            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);//epd-1919
-            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho); //epd-1919
+            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho);
+            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);
+            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho);
 
-            Context.Database.AddInParameter(command, "EsMovilFin", DbType.Boolean, entity.EsMovilFin); //epd-1919
+            Context.Database.AddInParameter(command, "EsMovilFin", DbType.Boolean, entity.EsMovilFin);
 
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
@@ -101,7 +98,6 @@ namespace Portal.Consultoras.Data.CDR
             return Context.ExecuteReader(command);
         }
 
-        //EPD-1919
         public IDataReader GetMontoFletePorZonaId(int ZonaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoFletePorZonaId");

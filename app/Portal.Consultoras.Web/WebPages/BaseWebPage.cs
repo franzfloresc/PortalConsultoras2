@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            UsuarioModel userData = (UsuarioModel)Context.Session["UserData"];
+            UsuarioModel userData = SessionManager.SessionManager.Instance.GetUserData();
 
             if (userData == null)
             {
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.WebPages
 
         private void CerrarSesion()
         {
-            Context.Session["UserData"] = null;
+            SessionManager.SessionManager.Instance.SetUserData(null);
             Context.Session.Clear();
             Context.Session.Abandon();
         }

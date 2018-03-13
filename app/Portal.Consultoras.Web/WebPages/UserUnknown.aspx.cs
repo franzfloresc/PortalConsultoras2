@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Configuration;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -13,11 +12,12 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void btnRegresar_Click(object sender, EventArgs e)
         {
-            Session["UserData"] = null;
+            SessionManager.SessionManager.Instance.SetUserData(null);
             Session.Clear();
             Session.Abandon();
 
-            Uri urlPortal = Util.GetUrlHost(Request);
+            Uri urlPortal = Util.GetUrlHost(Request);
+
             string urlLogin = string.Format("{0}/Login", urlPortal.AbsolutePath);
 
             Response.Redirect(urlLogin);

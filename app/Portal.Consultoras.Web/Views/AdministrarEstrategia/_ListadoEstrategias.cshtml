@@ -12,7 +12,7 @@
         -moz-border-radius: 10px;
         -khtml-border-radius: 10px;
         border-radius: 10px;
-        behavior: url(../../../../Content/Css/Pie/PIE.htc);
+        behavior: url('../../../../Content/Css/Pie/PIE.htc');
         position: relative;
     }
 </style>
@@ -74,7 +74,6 @@
                 }
             },
             error: function (error) {
-                console.log(error);
                 alert_msg('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         });

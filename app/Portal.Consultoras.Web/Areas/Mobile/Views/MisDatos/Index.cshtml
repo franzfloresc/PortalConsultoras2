@@ -4,17 +4,6 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
-@*<div class="content_slider_home">
-        <div id="sliderHomeLoading" class="center">
-            <br />
-            <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
-            <br />
-        </div>
-        <div class="flexslider">
-            <ul class="slides"></ul>
-        </div>
-    </div>*@
-
 <div class="wrapper_resumen_mobile wrapper_actualizarMisDatos">
 
     <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
@@ -263,16 +252,6 @@
                     return false;
                 }
 
-                /*
-                if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-                    if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                        AbrirMensaje("Número de celular tiene formato incorrecto.");
-                        $('#txtCelularMD').focus();
-                        return false;
-                    }
-                }
-                */
-
                 if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
                     var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
                     if (!MinCaracterOtroTelefono) {
@@ -412,7 +391,7 @@ function ValidarTelefono(celular) {
     var resultado = false;
 	ShowLoading();;
     var item = {
-        Telefono: celular //$("#txtCelular").val()
+        Telefono: celular
     };
 
     jQuery.ajax({

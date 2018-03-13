@@ -5,6 +5,7 @@ var menuModule = (function () {
         claseActivo: "activo",
         claseActivoP: "titulo-menu",
         menu2: "[data-layout-menu2]",
+        menu1: "[data-layout-menu1]",
         menu2Ul: "[data-layout-menu2] ul",
         menu2Li: "[data-layout-menu2] ul li",
         menu1Li: "[data-layout-menu1] ul li",
@@ -29,13 +30,12 @@ var menuModule = (function () {
         lastScrollTop = 0,
         delta = 10,
         navbarHeight,
-        seccionMenuMobileOuterHeight,
         seccionMenuMobileHeight,
         seccionFixedMenuHeigt,
-        seccionMenu2Heigt,
         alturaH,
         scr = false,
         alturaE;
+    var paddingTab = "1.5px";
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
@@ -64,8 +64,6 @@ var menuModule = (function () {
     function init() {
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
-        seccionMenuMobileOuterHeight = _getHeight(elementos.seccionBannerMobile);
-        seccionMenu2Heigt = _getHeight(elementos.menu2);
         seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija);
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
@@ -124,7 +122,6 @@ var menuModule = (function () {
         if (st > lastScrollTop) {
             //fix the menu 
             if (st > seccionMenuMobileHeight) {
-                //$(elementos.seccionMenuMobile).show();
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }
@@ -162,7 +159,7 @@ var menuModule = (function () {
             if (strippedUrl.length > 1) {
                 anchorValue = $.trim(strippedUrl[1]);
 
-                if (anchorValue != "") {
+                if (anchorValue !== "") {
                     $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
 
                     if ($(anchorMark + anchorValue).length > 0) {
@@ -194,7 +191,7 @@ var menuModule = (function () {
                 if (indexOf > 0) {
                     indexOf = currentLocation.split("&campaniaid=")[1];
                     indexOf = indexOf.split("&")[0];
-                    if (indexOf != campaniaCodigo) {
+                    if (indexOf !== campaniaCodigo) {
                         controller = "Ofertas/Revisar#";
                     }
                 }
@@ -214,7 +211,7 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-            if (codigo.indexOf("INICIO" > -1)) {
+            if (codigo.indexOf("INICIO") > -1) {
                 var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
                 if (img !== "") {
                     img = img.replace("_normal.", "_hover.");
@@ -228,12 +225,12 @@ var menuModule = (function () {
             window.location = window.location.origin + url;
         }
     }
-    function tabClick(element, url) {
+    function tabClick(element, url, pantalla) {
         if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
         var campania = $(element).data("campania") || "";
         var codigo = $(element).data("codigo") || "";
         if (typeof rdAnalyticsModule !== "undefined") {
-            rdAnalyticsModule.Tabs(codigo, campania);
+            rdAnalyticsModule.Tabs(codigo, campania, pantalla);
         }
         window.location = window.location.origin + url;
     }
@@ -252,6 +249,38 @@ var menuModule = (function () {
             });
         }
     }
+    function sectionClick(url, titulo) {
+        if (typeof rdAnalyticsModule !== "undefined") {
+            rdAnalyticsModule.ContendorSection(titulo);
+        }
+        window.location.href = url;
+    }
+    function tabResize() {
+
+        var listaMenu = $(elementos.menu1Li);
+        if (listaMenu.length === 0)
+            return false;
+        
+        var anchoMenu = $(elementos.menu1).outerWidth(true);
+        if (anchoMenu <= 0)
+            return false;
+
+        var anchoTab = anchoMenu / listaMenu.length;
+        $.each(listaMenu, function (ind, menuTab) {
+            $(menuTab).css("width", anchoTab + "px");
+            if (ind === 0) {
+                $(menuTab).css("padding-right", paddingTab);
+            }
+            else if (ind === listaMenu.length - 1) {
+                $(menuTab).css("padding-left", paddingTab);
+            }
+            else {
+                $(menuTab).css("padding-left", paddingTab);
+                $(menuTab).css("padding-right", paddingTab);
+            }
+        });
+        
+    }
     return {
         init: init,
         setHover: setHover,
@@ -260,7 +289,9 @@ var menuModule = (function () {
         checkAnchor: checkAnchor,
         menuClick: menuClick,
         setCarrouselMenu: setCarrouselMenu,
-        tabClick: tabClick
+        tabClick: tabClick,
+        sectionClick: sectionClick,
+        Resize: tabResize
     };
 })();
 

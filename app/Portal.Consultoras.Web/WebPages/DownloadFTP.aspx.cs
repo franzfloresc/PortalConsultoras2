@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -32,7 +26,7 @@ namespace Portal.Consultoras.Web.WebPages
                 request.Credentials = nc;
                 FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 Stream strm = response.GetResponseStream();
-                long cl = response.ContentLength;
+
                 int bufferSize = 2048;
                 int readCount;
                 byte[] buffer = new byte[bufferSize];
@@ -62,11 +56,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
             catch (WebException)
             {
-                
-            }
-            catch (Exception)
-            {
-                
+
             }
 
         }

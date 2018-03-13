@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -17,9 +14,9 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
         {
             BEShowRoomEvento entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomEventoByCampaniaID(campaniaID))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomEventoByCampaniaID(campaniaID))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomEvento(reader);
@@ -31,17 +28,19 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var DAShowRoomEvento = new DAShowRoomEvento(paisID);
+                var daShowRoomEvento = new DAShowRoomEvento(paisID);
                 int resultado;
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    resultado = DAShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
+                    resultado = daShowRoomEvento.InsertShowRoomEvento(beShowRoomEvento);
 
                     string formatoPerfiles = Util.GetPaisISO(paisID) + "_" + beShowRoomEvento.CampaniaID + "_Perfil";
-                    DAShowRoomEvento.InsertarShowRoomPerfil(beShowRoomEvento.NumeroPerfiles, formatoPerfiles, resultado);
+                    daShowRoomEvento.InsertarShowRoomPerfil(beShowRoomEvento.NumeroPerfiles, formatoPerfiles, resultado);
 
                     oTransactionScope.Complete();
                 }
@@ -51,13 +50,13 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
-            }            
+            }
         }
 
         public void UpdateShowRoomEvento(int paisID, BEShowRoomEvento beShowRoomEvento)
         {
-            var DAShowRoomEvento = new DAShowRoomEvento(paisID);
-            DAShowRoomEvento.UpdateShowRoomEvento(beShowRoomEvento);
+            var daShowRoomEvento = new DAShowRoomEvento(paisID);
+            daShowRoomEvento.UpdateShowRoomEvento(beShowRoomEvento);
         }
 
         public int CargarMasivaConsultora(int paisID, List<BEShowRoomEventoConsultora> listaConsultora)
@@ -66,30 +65,25 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.CargarMasivaConsultora(listaConsultora);
         }
 
-        public int ValidadStockOfertaShowRoom(int paisID,BEShowRoomOferta entity)
+        [Obsolete("Migrado PL50-50")]
+        public int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ValidadStockOfertaShowRoom(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdOfertaShowRoomStockMasivo(stockProductos);
         }
 
-        /*
-        public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
+        [Obsolete("Migrado PL50-50")]
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.InsOfertaShowRoomCargaMasiva(stockProductos);
-        }
-         * */
-
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
-        {
-            var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
 
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
@@ -101,33 +95,35 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             BEShowRoomEventoConsultora entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            if(!tienePersonalizacion)
+            if (!tienePersonalizacion)
             {
-                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
-                if (reader.Read())
-                {
-                    entidad = new BEShowRoomEventoConsultora(reader);
-                }
-            }else
-            {
-                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
-                if (reader.Read())
-                {
-                     entidad = new BEShowRoomEventoConsultora(reader);
-                }
+                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
+                    if (reader.Read())
+                    {
+                        entidad = new BEShowRoomEventoConsultora(reader);
+                    }
             }
-            
+            else
+            {
+                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
+                    if (reader.Read())
+                    {
+                        entidad = new BEShowRoomEventoConsultora(reader);
+                    }
+            }
+
             return entidad;
         }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)
         {
-            var DAShowRoomEvento = new DAShowRoomEvento(paisID);
-            DAShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
+            var daShowRoomEvento = new DAShowRoomEvento(paisID);
+            daShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
             var lst = new List<BEShowRoomOferta>();
@@ -142,36 +138,56 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.GetOrdenPriorizacionShowRoom(ConfiguracionOfertaID, CampaniaID);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ValidarPriorizacionShowRoom(ConfiguracionOfertaID, CampaniaID, Orden);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int InsOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.InsOfertaShowRoom(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdOfertaShowRoom(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.DelOfertaShowRoom(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead };
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                var dataAccess = new DAShowRoomEvento(paisID);
+                var result = dataAccess.InsOrUpdOfertaShowRoom(entity);
+
+                transactionScope.Complete();
+                return result;
+            }
+        }
+
+        [Obsolete("Migrado PL50-50")]
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
@@ -192,16 +208,9 @@ namespace Portal.Consultoras.BizLogic
 
         public int CantidadPedidoByConsultoraShowRoom(BEOfertaProducto entidad)
         {
-            try
-            {
-                var dataAccess = new DAShowRoomEvento(entidad.PaisID);
-                int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var dataAccess = new DAShowRoomEvento(entidad.PaisID);
+            int result = dataAccess.CantidadPedidoByConsultoraShowRoom(entidad);
+            return result;
         }
 
         public int GetStockOfertaShowRoom(int paisID, int CampaniaID, string CUV)
@@ -222,8 +231,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dataAccess = new DAShowRoomEvento(paisID);
                 int resultado;
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
@@ -238,7 +249,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
-            }               
+            }
         }
 
         public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion)
@@ -261,28 +272,38 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int InsOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.InsOfertaShowRoomDetalle(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int UpdOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdOfertaShowRoomDetalle(entity);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int EliminarOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle beShowRoomOfertaDetalle)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.EliminarOfertaShowRoomDetalle(beShowRoomOfertaDetalle);
         }
 
+        [Obsolete("Migrado PL50-50")]
         public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.EliminarOfertaShowRoomDetalleAll(campaniaID, cuv);
+        }
+
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.EliminarEstrategiaProductoAll(estrategiaID);
         }
 
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)
@@ -299,6 +320,7 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        [Obsolete("Migrado PL50-50")]
         public IList<BEShowRoomPerfilOferta> GetShowRoomPerfilOfertaCuvs(int paisId, BEShowRoomPerfilOferta beShowRoomPerfilOferta)
         {
             var lst = new List<BEShowRoomPerfilOferta>();
@@ -319,38 +341,22 @@ namespace Portal.Consultoras.BizLogic
             dataAccess.GuardarPerfilOfertaShowRoom(perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
-            var lst = new List<BEShowRoomOferta>();
-            var dataAccess = new DAShowRoomEvento(paisID);
+            List<BEShowRoomOferta> showRoomOfertas;
 
-            if (!tienePersonalizacion)
-            {
-                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
-                    while (reader.Read())
-                    {
-                        var entity = new BEShowRoomOferta(reader);
-                        lst.Add(entity);
-                    }
-            }else
-            {
-                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultoraPersonalizada(campaniaID, codigoConsultora))
-                    while (reader.Read())
-                    {
-                        var entity = new BEShowRoomOferta(reader);
-                        lst.Add(entity);
-                    }
-            }
-            
-            return lst;
+            using (var reader = new DAShowRoomEvento(paisID).GetShowRoomOfertasConsultoraPersonalizada(campaniaID, codigoConsultora))
+                showRoomOfertas = reader.MapToCollection<BEShowRoomOferta>();
+
+            return showRoomOfertas;
         }
 
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
         {
             BEShowRoomOferta entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisID);
+            var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomOfertaById(ofertaShowRoomID))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomOfertaById(ofertaShowRoomID))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomOferta(reader);
@@ -430,9 +436,9 @@ namespace Portal.Consultoras.BizLogic
         public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
         {
             BEShowRoomCategoria entidad = null;
-            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+            var daPedidoWeb = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomCategoriaById(categoriaId))
+            using (IDataReader reader = daPedidoWeb.GetShowRoomCategoriaById(categoriaId))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomCategoria(reader);
@@ -451,9 +457,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var dataAccess = new DAShowRoomEvento(paisId);
-                //int resultado;
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
 
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
@@ -462,20 +469,19 @@ namespace Portal.Consultoras.BizLogic
                     foreach (var beCategoria in listaCategoria)
                     {
                         dataAccess.InsertShowRoomCategoria(beCategoria);
-                    }                    
+                    }
 
                     oTransactionScope.Complete();
                 }
 
-                //return resultado;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
             }
         }
-        
-         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+
+        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.UpdUpdEventoConsultoraPopup(entity, tipo);
@@ -487,13 +493,12 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.ShowRoomEventoConsultoraEmailRecibido(entity);
         }
 
-
         public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {
             var lst = new List<BEShowRoomOferta>();
-            var DAPedidoWeb = new DAShowRoomEvento(paisId);
+            var daPedidoWeb = new DAShowRoomEvento(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetProductosCompraPorCompra(EventoID, CampaniaID))
+            using (IDataReader reader = daPedidoWeb.GetProductosCompraPorCompra(EventoID, CampaniaID))
                 while (reader.Read())
                 {
                     var entidad = new BEShowRoomOferta(reader);

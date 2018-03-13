@@ -36,10 +36,10 @@ namespace Portal.Consultoras.Web.CustomFilters
                 {
                     var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(IdentifierKey);
                     var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
-                    if (originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) > 0)
+                    var origiIndex = originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase);
+                    if (origiIndex > 0)
                     {
-                        //36 is guid length
-                        var urlGuid = originalString.Substring(originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) + RoutePrefix.Length, 36);
+                        var urlGuid = originalString.Substring(origiIndex + RoutePrefix.Length, 36);
                         guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
                     }
 
@@ -50,7 +50,15 @@ namespace Portal.Consultoras.Web.CustomFilters
                     if (!string.IsNullOrEmpty(guid) && !filterContext.RouteData.Values.ContainsKey(IdentifierKey))
                     {
                         filterContext.RouteData.Values.Add(IdentifierKey, validatedGuid.ToString());
+
+                        foreach (var param in filterContext.ActionParameters)
+                        {
+                            if (filterContext.RouteData.Values.ContainsKey(param.Key)) continue;
+                            filterContext.RouteData.Values.Add(param.Key, param.Value);
+                        }
+
                         filterContext.Result = new RedirectToRouteResult(RouteName, filterContext.RouteData.Values);
+
                         return;
                     }
                 }

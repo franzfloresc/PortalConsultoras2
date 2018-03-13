@@ -1,9 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -31,18 +27,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string ISOPais { get; set; }
         public string DescripcionMarca { get; set; }
         public string TallaColor { get; set; }
-        //public string UsuarioModificacion { get; set; }
-        //R2469 - JICM - Marcacion Zonificacion 2505 DCG
         public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
-        //public string TipoOferta { get; set; }
-        //public int FlagTransaccion { get; set; }
         public string CodigoTipoOferta { get; set; }
         public IEnumerable<AdministracionOfertaProductoModel> lstAdministracionOferta { get; set; }
         public IEnumerable<StockCargaLogModel> lstStockCarga { get; set; }
         public IEnumerable<ConfiguracionOfertaModel> lstConfiguracionOferta { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
-        public List<OfertaProductoMobilModel> listaProductosEnLiquidacion  { get; set; }
+        public List<OfertaProductoMobilModel> listaProductosEnLiquidacion { get; set; }
     }
 }

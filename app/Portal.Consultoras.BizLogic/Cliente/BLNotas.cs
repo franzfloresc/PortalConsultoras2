@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.Entities.Framework;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.Cliente
 {
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
         public ResponseType<List<BENota>> Listar(int paisId, long consultoraId, short clienteId = 0)
         {
-            var notas = new List<BENota>();
+            List<BENota> notas;
             var daCliente = new DACliente(paisId);
 
             using (IDataReader reader = daCliente.NotaObtener(consultoraId, clienteId))
@@ -82,7 +82,6 @@ namespace Portal.Consultoras.BizLogic.Cliente
                     nota.ClienteId = (short)clienteDb.ClienteID;
                     nota.ConsultoraId = clienteDb.ConsultoraID;
 
-                    //todo: improve
                     if (nota.StatusEnum == StatusEnum.Delete)
                     {
                         var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);
@@ -140,7 +139,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
         {
             var variablesApp = _blTablaLogicaDatos.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.App);
             var notaMaximaConfiguracion = variablesApp.FirstOrDefault(v => v.Codigo == Constantes.TablaLogica.Keys.NotaCantidadMaxima);
-            int notaMaxima = 10; //todo: consantes defaults?
+            int notaMaxima = 10;
             if (notaMaximaConfiguracion != null)
             {
                 int.TryParse(notaMaximaConfiguracion.Descripcion, out notaMaxima);
@@ -151,7 +150,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
             var result = ResponseType<bool>.Build();
             result.Success = notasCliente < notaMaxima;
-            result.Code = Constantes.ClienteValidacion.Code.ERROR_NOTACANTIDADMAXIMA; ;
+            result.Code = Constantes.ClienteValidacion.Code.ERROR_NOTACANTIDADMAXIMA;
             result.Message = string.Format(Resources.ClienteValidationMessages.NotaCantidadMaximaSuperada, notaMaxima);
 
             return result;

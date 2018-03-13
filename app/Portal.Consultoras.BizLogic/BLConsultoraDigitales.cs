@@ -1,66 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Data;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using Portal.Consultoras.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraDigitales
     {
-
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
-            DAConsultoraDigitales DAConsultoraDigitales = null;
-
-            string headerFile = null, NombreCabecera = null; string NombreArchivo = null;
+            DAConsultoraDigitales daConsultoraDigitales = new DAConsultoraDigitales(PaisId);
 
             try
             {
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
                 var element = section.Countries[PaisId];
 
-                string OrderTemplate = element.ConsDigTemplate;
-                TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderTemplate]);
+                string orderTemplate = element.ConsDigTemplate;
+                TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[orderTemplate]);
 
-
-                DAConsultoraDigitales = new DAConsultoraDigitales(PaisId);
-
-                DataSet dsCursoLider;
                 DataTable dtCursoLider;
 
                 try
                 {
-                    nroLote = DAConsultoraDigitales.InsConsultoraDigitales(FechaProceso, Usuario);
-                    dsCursoLider = DAConsultoraDigitales.GetConsultoraDigitalesDescarga();
+                    nroLote = daConsultoraDigitales.InsConsultoraDigitales(FechaProceso, Usuario);
+                    var dsCursoLider = daConsultoraDigitales.GetConsultoraDigitalesDescarga();
                     dtCursoLider = dsCursoLider.Tables[0];
                 }
                 catch (SqlException ex)
                 {
                     if (ex.Number == 50000)
                         throw new BizLogicException("Existe una descarga de consultoras digitales en proceso.", ex);
-                    else
-                        throw new BizLogicException("No es posible acceder a la información de consultoras digitales.", ex);
+
+                    throw new BizLogicException("No es posible acceder a la información de consultoras digitales.", ex);
                 }
 
-                FtpConfigurationElement ftpElement = null;
+                FtpConfigurationElement ftpElement;
 
-                Guid fileGuid = Guid.NewGuid();
                 string key = PaisISO + "-CONSDIG";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
 
+                string headerFile;
+                string nombreCabecera;
                 try
                 {
                     ftpElement = ftpSection.FtpConfigurations[key];
-                    headerFile = FormatFile(PaisISO, ftpElement.Header, FechaProceso, fileGuid);
-                    NombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
+                    headerFile = FormatFile(PaisISO, ftpElement.Header, FechaProceso);
+                    nombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
                     using (var streamWriter = new StreamWriter(headerFile))
                     {
@@ -68,7 +58,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             foreach (DataRow row in dtCursoLider.Rows)
                             {
-                                streamWriter.WriteLine(HeaderLine(headerTemplate, row, PaisISO));
+                                streamWriter.WriteLine(HeaderLine(headerTemplate, row));
                             }
                         }
                         else
@@ -82,38 +72,32 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar el archivo de descarga de consultora digitales.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                    try
                     {
-                        try
-                        {
-                            NombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
-                                            + FechaProceso + ""
-                                            + PaisISO + ""
-                                            + Path.GetExtension(ftpElement.Header);
+                        var nombreArchivo = Path.GetFileNameWithoutExtension(ftpElement.Header) + ""
+                                                                                                   + FechaProceso + ""
+                                                                                                   + PaisISO + ""
+                                                                                                   + Path.GetExtension(ftpElement.Header);
 
-                            BLFileManager.FtpUploadFile(ftpElement.Address + NombreArchivo,
-                                headerFile, ftpElement.UserName, ftpElement.Password);
-
-                            //BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                            //    headerFile, ftpElement.UserName, ftpElement.Password);
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
-                        }
+                        BLFileManager.FtpUploadFile(ftpElement.Address + nombreArchivo,
+                            headerFile, ftpElement.UserName, ftpElement.Password);
                     }
-
-                    DAConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, NombreCabecera, System.Environment.MachineName);
-
+                    catch (Exception ex)
+                    {
+                        throw new BizLogicException("No se pudo subir el archivo de consultoras digitales al destino FTP.", ex);
+                    }
                 }
+
+                daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 2, string.Empty, string.Empty, nombreCabecera, System.Environment.MachineName);
+
             }
             catch (Exception ex)
             {
                 if (nroLote > 0)
                 {
-                    DAConsultoraDigitales.UpdConsultoraDigitales(nroLote, 99, "Error desconocido: " + ex.Message, string.Empty, string.Empty, string.Empty);
+                    daConsultoraDigitales.UpdConsultoraDigitales(nroLote, 99, "Error desconocido: " + ex.Message, string.Empty, string.Empty, string.Empty);
                 }
                 throw;
             }
@@ -130,18 +114,18 @@ namespace Portal.Consultoras.BizLogic
             return template;
         }
 
-        private string FormatFile(string PaisISO, string fileName, string FechaProceso, Guid fileGuid)
+        private string FormatFile(string paisISO, string fileName, string fechaProceso)
         {
-             return ConfigurationManager.AppSettings["OrderDownloadPath"]
-                 + Path.GetFileNameWithoutExtension(fileName) + ""
-                 + FechaProceso + ""
-                 + PaisISO + ""
-                 + Path.GetExtension(fileName);
+            return ConfigurationManager.AppSettings["OrderDownloadPath"]
+                + Path.GetFileNameWithoutExtension(fileName) + ""
+                + fechaProceso + ""
+                + paisISO + ""
+                + Path.GetExtension(fileName);
         }
 
-        private string HeaderLine(TemplateField[] template, DataRow row, string PaisISO)
+        private string HeaderLine(TemplateField[] template, DataRow row)
         {
-            string line = string.Empty;
+            var txtBuil = new StringBuilder();
             foreach (TemplateField field in template)
             {
                 string item;
@@ -151,14 +135,11 @@ namespace Portal.Consultoras.BizLogic
                     case "CODCONSULTORA": item = row["CodigoConsultora"].ToString(); break;
                     default: item = string.Empty; break;
                 }
-
-                line += item + ",";
+                txtBuil.Append(item + ",");
             }
+            string line = txtBuil.ToString();
             return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
-
-
-
 
     }
 }

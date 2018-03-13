@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,13 +10,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int CampaniaID)
         {
             var lista = new List<BEConfiguracionValidacion>();
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(paisID);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(paisID);
 
-            using (IDataReader reader = DAConfiguracionValidacion.GetConfiguracionValidacion(CampaniaID))
+            using (IDataReader reader = daConfiguracionValidacion.GetConfiguracionValidacion(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BEConfiguracionValidacion(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEConfiguracionValidacion(reader) { PaisID = paisID };
                     lista.Add(entidad);
                 }
 
@@ -29,14 +24,14 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertConfiguracionValidacion(BEConfiguracionValidacion entidad)
         {
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
-            DAConfiguracionValidacion.Insert(entidad);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
+            daConfiguracionValidacion.Insert(entidad);
         }
 
         public void UpdateConfiguracionValidacion(BEConfiguracionValidacion entidad)
         {
-            var DAConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
-            DAConfiguracionValidacion.Update(entidad);
+            var daConfiguracionValidacion = new DAConfiguracionValidacion(entidad.PaisID);
+            daConfiguracionValidacion.Update(entidad);
         }
     }
 }

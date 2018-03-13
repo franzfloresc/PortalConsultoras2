@@ -1,11 +1,8 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System;
 
 namespace Portal.Consultoras.Data
 {
@@ -83,7 +80,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        
         public int UpdatePedidoWebEstimadoGanancia(int campaniaId, int pedidoId, decimal estimadoGanancia)
         {
             SqlCommand cmd = new SqlCommand("UdpPedidoWebEstimadoGanancia");

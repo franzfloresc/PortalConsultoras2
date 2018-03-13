@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
+        public string CodigoUsuarioReal { get; set; }
         public string NombreCompleto { get; set; }
         public string EMail { get; set; }
         public string Telefono { get; set; }

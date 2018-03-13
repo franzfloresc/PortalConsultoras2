@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Common;
 
-//Made by Uchida Virtual Coach
 namespace Portal.Consultoras.Data
 {
     public class DAAsesoraOnline : DataAccess
@@ -40,7 +39,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteConsultoraEnAsesoraOnline");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
-            return (int) Context.ExecuteScalar(command);
+            return (int)Context.ExecuteScalar(command);
         }
 
         public int ActualizarEstadoConfiguracionPaisDetalle(string codigoConsultora, int estado)

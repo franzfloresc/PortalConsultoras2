@@ -85,10 +85,12 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />
     <Compile Include="DABotmakerApiLog.cs" />
     <Compile Include="DAConcurso.cs" />
+    <Compile Include="DAConfiguracionPaisDatos.cs" />
     <Compile Include="DAFichaProducto.cs" />
     <Compile Include="DAConfiguracionOfertasHome.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="DAUsuarioOP.cs" />
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
+    <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevistaDigital\DARevistaDigitalSuscripcion.cs" />

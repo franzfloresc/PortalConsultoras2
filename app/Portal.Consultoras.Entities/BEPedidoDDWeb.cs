@@ -71,18 +71,19 @@ namespace Portal.Consultoras.Entities
         public decimal MontoMinimoPedido { get; set; }
         [DataMember]
         public decimal ImporteTotalMM { get; set; }
-        // 2446 - Inicio
         [DataMember]
         public string Region { get; set; }
-        // 2446 - Fin
-        //SB20-871
         [DataMember]
         public string MotivoRechazo { get; set; }
         [DataMember]
         public int EsRechazado { get; set; }
-        //F- SB20-871
         [DataMember]
         public string DocumentoIdentidad { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroInicio { get; set; }
+        [DataMember]
+        public DateTime? FechaRegistroFin { get; set; }
+
         public BEPedidoDDWeb()
         { }
 
@@ -132,13 +133,10 @@ namespace Portal.Consultoras.Entities
                 ImporteTotalMM = Convert.ToDecimal(row["ImporteTotalMM"]);
             if (DataRecord.HasColumn(row, "PedidoID") && row["PedidoID"] != DBNull.Value)
                 PedidoID = Convert.ToInt32(row["PedidoID"]);
-            // 2446 - Inicio
             if (DataRecord.HasColumn(row, "Region") && row["Region"] != DBNull.Value)
                 Region = Convert.ToString(row["Region"]);
-            // 2446 - Fin
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 this.DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
-            // SB20-871
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
             this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;

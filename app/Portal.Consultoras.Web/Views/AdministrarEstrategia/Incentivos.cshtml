@@ -1,0 +1,75 @@
+﻿
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.hdnPaisISO))
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+else
+{
+    <link href="@Url.Content("~/Content/Css/Site/Lbel/gestorContenido.css")" rel="stylesheet" type="text/css" />
+}
+
+@Html.Hidden("hdnTipoEstrategiaID")
+@Html.Hidden("hdnPaisID")
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements">
+            <div class="div-2">
+                <h1><span>Configuración Incentivos App</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titG">Campaña:</div>
+                <div class="selectA">
+                    @Html.DropDownList("ddlCampania", new SelectList(ViewBag.ddlCampania, "CampaniaID", "Codigo"), "-- Seleccionar --")
+                </div>
+                <div class="titG">Concurso:</div>
+                <div class="selectA">
+                    <input type="text" id="txtCodConcurso" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">CUV:</div>
+                <div class="selectA">
+                    <input type="text" id="txtCUV" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tiene imagen?:</div>
+                <div class="selectA">
+                    <select id="ddlTieneImagen">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <div class="titG">Oferta Activa?:</div>
+                <div class="selectA">
+                    <select id="ddlOfertaActiva">
+                        <option value="-1" selected>-- Seleccionar --</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="div-3">
+                <div class="titG"></div>
+                <input type="button" id="btnBuscar" value="Buscar" />
+                <input type="button" id="btnNuevo" value="Nuevo" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <table id="list"></table>
+        <div id="pager"></div>
+    </div>
+</div>
+<div id="divAgregar"></div>
+
+<script>
+    var rutaImagenVacia = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
+    var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
+</script>
+<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/EstrategiaIncentivos/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

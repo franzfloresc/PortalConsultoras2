@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -38,29 +38,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        /* GR-1883 - INICIO */
-        //public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingByConsultoraCampaniaFecha");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigo);
             Context.Database.AddInParameter(command, "@Campana", DbType.String, campana);
-            //Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, fecha);
             Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nropedido);
             return Context.ExecuteReader(command);
         }
-        /* GR-1883 - INICIO */
 
-        //Inicio ITG 1793 HFMG
         public IDataReader GetNovedadesTracking(string NumeroPedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetNovedadesTracking");
             Context.Database.AddInParameter(command, "@NumeroPedido", DbType.String, NumeroPedido);
             return Context.ExecuteReader(command);
         }
-        //Fin ITG 1793 HFMG
 
-        // Req. 1717 - Inicio
         public int InsConfirmacionEntrega(BEConfirmacionEntrega oBEConfirmacionEntrega)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsConfirmacionEntrega");
@@ -94,14 +87,11 @@ namespace Portal.Consultoras.Data
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
 
-        /* EPD-665 - INICIO */
         public void InsLogConfirmacionEntrega(BELogConfirmacionEntrega oBELogConfirmacionEntrega)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsLogConfirmacionEntrega");
             Context.Database.AddInParameter(command, "@LogTipoReg", DbType.Int32, oBELogConfirmacionEntrega.LogTipoReg);
             Context.Database.AddInParameter(command, "@LogResult", DbType.Int32, oBELogConfirmacionEntrega.LogResult);
-            //Context.Database.AddInParameter(command, "@ConfirmacionEntregaId", DbType.Int32, oBELogConfirmacionEntrega.ConfirmacionEntregaId);
-
             Context.Database.AddInParameter(command, "@IdentificadorEntrega", DbType.Int32, oBELogConfirmacionEntrega.IdentificadorEntrega);
             Context.Database.AddInParameter(command, "@NumeroPedido", DbType.AnsiString, oBELogConfirmacionEntrega.NumeroPedido);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, oBELogConfirmacionEntrega.CodigoConsultora);
@@ -119,9 +109,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-        /* EPD-665 - FIN */
 
-        //R2004
         public IDataReader GetPedidoRechazadoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoRechazadoByConsultora");
@@ -131,7 +119,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //R2004
         public IDataReader GetPedidoAnuladoByConsultora(string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.GetPedidoAnuladoByConsultora");
@@ -142,7 +129,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ 20150711 - Inicio
         public int InsConfirmacionRecojo(BEConfirmacionRecojo oBEConfirmacionRecojo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("BelEntrega.InsConfirmacionRecojo");
@@ -184,7 +170,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroRecojo", DbType.String, numeroRecojo);
             return Context.ExecuteReader(command);
         }
-        //RQ 20150711 - FIN
 
+        public IDataReader GetTrackingPedidoByConsultora(string codigoConsultora, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTrackingPedidoByConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Top", DbType.Int32, top);
+            return Context.ExecuteReader(command);
+        }
     }
 }

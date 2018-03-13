@@ -44,7 +44,6 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
             Context.Database.AddInParameter(command, "Excluyente", DbType.Boolean, entity.Excluyente);
-            //Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
             Context.Database.AddInParameter(command, "Estado", DbType.Boolean, entity.Estado);
             Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
             Context.Database.AddInParameter(command, "MobileTituloMenu", DbType.String, entity.MobileTituloMenu);
@@ -61,7 +60,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileLogoBanner", DbType.String, entity.MobileLogoBanner);
             Context.Database.AddInParameter(command, "UrlMenu", DbType.String, entity.UrlMenu);
             Context.Database.AddInParameter(command, "OrdenBpt", DbType.Int32, entity.OrdenBpt);
-            //BPT 353
             Context.Database.AddInParameter(command, "MobileOrden", DbType.Int32, entity.MobileOrden);
             Context.Database.AddInParameter(command, "MobileOrdenBPT", DbType.Int32, entity.MobileOrdenBpt);
             return Context.ExecuteReader(command);

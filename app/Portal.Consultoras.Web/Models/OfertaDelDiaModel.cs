@@ -7,6 +7,12 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class OfertaDelDiaModel : CompartirRedesSocialesModel
     {
+        public OfertaDelDiaModel()
+        {
+            ListaOfertas = new List<OfertaDelDiaModel>();
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+        }
+
         public int ID { get; set; }
         public string CodigoIso { get; set; }
         public int TipoEstrategiaID { get; set; }
@@ -22,6 +28,8 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenFondo1 { get; set; }
         public string ColorFondo1 { get; set; }
         public string ImagenBanner { get; set; }
+        public string ImagenBannerSmall { get; set; }
+        public string ImagenBannerMedium { get; set; }
         public string ImagenSoloHoy { get; set; }
         public string ImagenFondo2 { get; set; }
         public string ColorFondo2 { get; set; }
@@ -34,6 +42,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneOfertaDelDia { get; set; }
         public int Orden { get; set; }
         public List<OfertaDelDiaModel> ListaOfertas { get; set; }
+        public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public string PrecioOfertaFormat
         {
             get
@@ -56,5 +65,8 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionMarca { get; set; }
         public string TipoEstrategiaDescripcion { get; set; }
         public short Position { get; set; }
+        
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+        public bool BloqueoProductoDigital { get; set; }
     }
 }

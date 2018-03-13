@@ -11,10 +11,7 @@ namespace Portal.Consultoras.Data.Hana
     {
         public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisId, BEConfiguracionProgramaNuevas entidad)
         {
-            //var listBE = new List<BEConfiguracionProgramaNuevas>();
-            var listaHana = new List<ConfiguracionProgramaNuevasHana>();
             var programaNueva = new BEConfiguracionProgramaNuevas();
-
             try
             {
                 var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
@@ -22,13 +19,13 @@ namespace Portal.Consultoras.Data.Hana
 
                 string urlConParametros = rutaServiceHana + "ObtenerConfiguracionProgramaNuevas/" + codigoIsoHana + "/" +
                                           entidad.CampaniaInicio + "/" + entidad.CodigoRegion + "/" + entidad.CodigoZona;
-
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
+                List<ConfiguracionProgramaNuevasHana> listaHana = JsonConvert.DeserializeObject<List<ConfiguracionProgramaNuevasHana>>(responseFromServer);
 
-                listaHana = JsonConvert.DeserializeObject<List<ConfiguracionProgramaNuevasHana>>(responseFromServer);
-
-                foreach (var configuracionProgramaNuevasHana in listaHana)
+                if (listaHana != null && listaHana.Count > 0)
                 {
+                    var configuracionProgramaNuevasHana = listaHana[0];
+
                     programaNueva.CodigoPrograma = configuracionProgramaNuevasHana.cod_prog;
                     programaNueva.CampaniaInicio = configuracionProgramaNuevasHana.cam_inic;
                     programaNueva.CampaniaFin = configuracionProgramaNuevasHana.cam_fin;
@@ -38,14 +35,9 @@ namespace Portal.Consultoras.Data.Hana
                     programaNueva.CUVKit = configuracionProgramaNuevasHana.cuv_kit;
                     programaNueva.CodigoRegion = entidad.CodigoRegion;
                     programaNueva.CodigoZona = entidad.CodigoZona;
-
-                    break;
                 }
             }
-            catch (Exception)
-            {
-                programaNueva = new BEConfiguracionProgramaNuevas();
-            }
+            catch (Exception) { programaNueva = new BEConfiguracionProgramaNuevas(); }
 
             return programaNueva;
         }

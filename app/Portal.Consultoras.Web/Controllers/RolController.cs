@@ -30,20 +30,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                int paisID = UserData().PaisID;
+                int paisId = UserData().PaisID;
                 List<BERol> lst;
                 using (SeguridadServiceClient srv = new SeguridadServiceClient())
                 {
-                    lst = srv.GetRoles(paisID).ToList();
+                    lst = srv.GetRoles(paisId).ToList();
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<BERol> items = lst;
 
                 #region Sort Section
@@ -67,12 +68,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                if (string.IsNullOrEmpty(vDescripcion))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                else
-                    items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = string.IsNullOrEmpty(vDescripcion)
+                    ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize)
+                    : items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, items.ToList());
+                BEPager pag = Util.PaginadorGenerico(grid, items.ToList());
 
                 var data = new
                 {
@@ -105,20 +105,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Insertar(RolModel model)
         {
-            int vValidation = 0;
             try
             {
-                Mapper.CreateMap<RolModel, BERol>()
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Sistema, f => f.MapFrom(c => c.Sistema))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BERol rol = Mapper.Map<RolModel, BERol>(model);
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     rol.PaisID = UserData().PaisID;
-                    vValidation = sv.VerifyRolByDescripcion(rol);
+                    var vValidation = sv.VerifyRolByDescripcion(rol);
                     if (vValidation == 0)
                     {
                         if (rol.Descripcion.ToLower().Equals("administrador") || model.Descripcion.ToLower().Equals("consultora"))
@@ -169,21 +163,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Actualizar(RolModel model)
         {
-            int vValidation = 0;
             try
             {
-                Mapper.CreateMap<RolModel, BERol>()
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
-                    .ForMember(t => t.Sistema, f => f.MapFrom(c => c.Sistema))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BERol rol = Mapper.Map<RolModel, BERol>(model);
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     rol.PaisID = UserData().PaisID;
-                    vValidation = sv.VerifyRolByDescripcion(rol);
+                    var vValidation = sv.VerifyRolByDescripcion(rol);
                     if (vValidation == 0)
                     {
                         sv.UpdRol(rol);
@@ -233,12 +220,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int PaisID = UserData().PaisID;
-                int result = 0;
+                int paisId = UserData().PaisID;
+                int result;
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
-                    result = sv.DelRol(PaisID, RolID);
+                    result = sv.DelRol(paisId, RolID);
                 }
                 if (result == 0)
                 {
@@ -282,22 +269,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarPermiso(int RolID)
         {
-            JsTreeModel[] tree = null;
-
             List<BEPermiso> permisos;
             using (SeguridadServiceClient srv = new SeguridadServiceClient())
             {
-                int paisID = UserData().PaisID;
-                permisos = srv.GetAllPermisosCheckByRol(paisID, RolID).ToList();
+                int paisId = UserData().PaisID;
+                permisos = srv.GetAllPermisosCheckByRol(paisId, RolID).ToList();
             }
             int index = 0;
-            List<BEPermiso> filtrados = permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == 0 && m.Mostrar == true; }).OrderBy(p => p.OrdenItem).ToList();
-            tree = new JsTreeModel[filtrados.Count];
+            List<BEPermiso> filtrados = permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == 0 && m.Mostrar; }).OrderBy(p => p.OrdenItem).ToList();
+            var tree = new JsTreeModel[filtrados.Count];
             foreach (BEPermiso perm in filtrados)
             {
-                if (permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == perm.PermisoID && m.Mostrar == true; }).Count == 0)
+                if (permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == perm.PermisoID && m.Mostrar; }).Count == 0)
                 {
-                    //tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0 ? true : false) } };
                     tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? "jstree-checked" : "jstree-unchecked") } };
                 }
                 else
@@ -306,7 +290,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         data = perm.Descripcion,
                         attr = new JsTreeAttribute { id = perm.PermisoID },
-                        //attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? "jstree-checked" : "jstree-unchecked") },
                         children = CargarSubMenus(new JsTreeModel(), perm, permisos)
                     };
                 }
@@ -328,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                     nodo[index] = new JsTreeModel
                     {
                         data = perm.Descripcion,
-                        //attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0 ? true : false) },
                         attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? (filtrados.FindAll(x => x.IdPadre == perm.PermisoID).Count == 0 ? "jstree-checked" : "jstree-unchecked") : "jstree-unchecked") },
                         children = CargarSubMenus(new JsTreeModel(), perm, permisos)
                     };
@@ -340,7 +322,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult InsertarPermiso(int RolID, List<string> permisos)
         {
-            int paisID = UserData().PaisID;
+            int paisId = UserData().PaisID;
             try
             {
                 using (SeguridadServiceClient srv = new SeguridadServiceClient())
@@ -351,7 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         result = (from c in permisos
                                   select c).Aggregate((a, p) => a + "," + p);
-                    srv.InsPermisosByRolMasiv(paisID, RolID, result);
+                    srv.InsPermisosByRolMasiv(paisId, RolID, result);
                 }
 
                 return Json(new

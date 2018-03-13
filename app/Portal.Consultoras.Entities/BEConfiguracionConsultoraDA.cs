@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TipoConfiguracion") && row["TipoConfiguracion"] != DBNull.Value)
                 TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
             if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
-                CodigoUsuario = row["CodigoUsuario"].ToString(); // R20160302
+                CodigoUsuario = row["CodigoUsuario"].ToString();
         }
 
 

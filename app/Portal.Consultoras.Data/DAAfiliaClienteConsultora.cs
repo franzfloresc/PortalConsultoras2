@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
-    //R2319 - JLCS
     public class DAAfiliaClienteConsultora : DataAccess
     {
         public DAAfiliaClienteConsultora(int paisID)
@@ -18,7 +12,6 @@ namespace Portal.Consultoras.Data
 
         }
 
-        //R2319 - JLCS
         public IDataReader GetAfiliaClienteConsultoraByConsultora(string ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetAfiliaClienteConsultoraByConsultora");
@@ -27,7 +20,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //R2319 - JLCS
         public int InsAfiliaClienteConsultora(long ConsultoraID)
         {
             var command = new SqlCommand("dbo.InsAfiliaClienteConsultora");
@@ -42,7 +34,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        //R2319 - JLCS
         public int UpdAfiliaClienteConsultora(long ConsultoraID, bool EsAfiliacion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAfiliaClienteConsultora");

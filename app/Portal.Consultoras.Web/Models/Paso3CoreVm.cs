@@ -31,7 +31,6 @@
 
         public string RutaBaseVistaHome { get; set; }
 
-        //public int? CodigoOtrasMarcas { get; set; }
         public int? TieneExperiencia { get; set; }
     }
 }

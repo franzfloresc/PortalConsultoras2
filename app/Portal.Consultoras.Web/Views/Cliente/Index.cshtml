@@ -30,35 +30,14 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp">
-    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="pestana_lbel"></div>
     <hr class="clear" />
     <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" />
    
-    @*<a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>*@
     <a class="agregar_cliente_btn" onclick="showClienteDetalle(null);">AGREGAR CLIENTE</a>
     
     <hr class="clear" />
     <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px;" onclick="return validarExportarMC();" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
-    <!--PGINADOR-->
-    <!--
-    <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
-    <ul class="paginador_notificaciones">
-        <li class="texto_pagina">Página</li>
-        <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
-        <li style="margin-right: 6px;">
-            <span class="paginas_pedidos">
-                <span class="pagina_actual">
-                    <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
-                </span> de
-                <span class="paginas_totales">1</span>
-            </span>
-        </li>
-        <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
-        <li><input type="text" value="10" class="numero_lista" /></li>
-
-    </ul>
-    -->
-
     <div id="paginadorCab">
     </div>
 
@@ -122,7 +101,6 @@
     </ul>
     -->
     <hr class="clear" />
-    @*<a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>*@
     <a class="agregar_cliente_btn" onclick="showClienteDetalle(null);">AGREGAR CLIENTE</a>
     <hr class="clear" />
 </div>
@@ -135,95 +113,9 @@
 </div>
 
 <!-- POPUP AGREGAR CLIENTE -->
-@*<div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
-    <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="CerrarDiv(1);">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <h6>AGREGAR <b>CLIENTE</b></h6>
-        <form action="" method="post">
-            <input type="text" name="nombre" id="Nombres" value="" placeholder="Nombres y Apellidos" maxlength="50" class="input_search_form ValidaAlfabeto input-nombre" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        Por favor ingresa un nombre válido.
-                    </span>
-                </div>
-            </div>
-
-            <input type="text" name="telefono" id="Telefono" value="" placeholder="Teléfono Fijo" maxlength="20" class="input_search_form ValidaAlfabeto" />
-            <input type="text" name="celular" id="Celular" value="" placeholder="Celular" maxlength="20" class="input_search_form ValidaAlfabeto" />
-
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b> <br />
-                        Por favor ingresa un correo válido.
-                    </span>
-                </div>
-            </div>
-            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(1);" />
-            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerCliente(1);" />
-            <br />
-            <br />
-            <br />
-            <div id="divValidationSummary"></div>
-        </form>
-    </div>
-</div>*@
 
 <!-- FIN POPUP AGREGAR CLIENTE -->
 <!-- POPUP EDITAR CLIENTE -->
-
-@*<div class="contenedor_popup_agregarCliente mis_clientes" id="divEditarCliente">
-    <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="CerrarDiv(2);">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <h6>EDITAR <b>CLIENTE</b></h6>
-        <form action="" method="post">
-            <input type="hidden" id="hdeClienteID" />
-            <input type="text" name="nombre" id="Nombres2" value="Fiorella Goyzueta" placeholder="Nombres y Apellidos" maxlength="50" class="input-nombre" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiNombre2">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        Por favor ingresa un nombre válido.
-                    </span>
-                </div>
-            </div>
-
-            <input type="text" name="telefono" id="Telefono2" value="" placeholder="Teléfono Fijo" maxlength="20" class="input_search_form ValidaAlfabeto" />
-            <input type="text" name="celular" id="Celular2" value="" placeholder="Celular" maxlength="20" class="input_search_form ValidaAlfabeto" />
-
-            <input type="email" name="correoelectronico" id="Correo2" value="fgoyzueta@gmail.com" placeholder="Correo Electrónico" maxlength="80" class="input-correo" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiCorreo2">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado no es válido <br />
-                        Por favor ingresa un correo válido.
-                    </span>
-                </div>
-            </div>
-            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(2);" />
-            <input type="button" class="btnCliente_agregar" name="editarCliente" value="GUARDAR" onclick="MantenerCliente(2);" />
-            <br />
-            <br />
-            <br />
-            <div id="divValidationSummary2"></div>
-        </form>
-    </div>
-</div>*@
 
 <!-- FIN POPUP EDITAR CLIENTE -->
 <!-- POPUP ELIMINAR CLIENTE -->
@@ -379,7 +271,6 @@
         <div class="telefonofijo_cliente_sb">{{Telefono}}</div>
         <div class="celular_cliente_sb">{{Celular}}</div>
         <div class="correo_clientes">{{eMail}}</div>
-        @*<div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>*@
         <div class="editar_cliente"><a href="#" onclick="showClienteDetalle(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
         <div class="eliminar_cliente"><a href="#" onclick="ShowDivEliminar('{{ClienteID}}');"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
     </div>

@@ -7,6 +7,18 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
+@section styles
+{
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
+    }
+}
+
 <div class="titulo_mobile">
     @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
@@ -20,8 +32,8 @@
     var formatoCampania = Model.CampaniaID.ToString().Substring(0, 4) + "-" + Model.CampaniaID.ToString().Substring(4, 2);
 }
 
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
 
 <div class="wrapper_resumen_mobile">
 
@@ -75,27 +87,8 @@
                 <div class="resumen_respuesta_cdr">
                     <span class="tipografia_lato_regular">Resumen: </span>
                     <span class="tipografia_lato_bold"> @Model.ResumenResolucion</span>
-                    @*<!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
-                        <span class="tipografia_lato_bold" style="display:none;">Todos los productos fueron aprobados</span>
-                        <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
-                        <!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->
-                        <span class="tipografia_lato_bold">Resuelve las observaciones y envía nuevamente la solicitud.</span>
-                        <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->*@
                 </div>
 
-                <!-- INICIO - CUANDO HAY MENSAJE DE ENVÍO EXPRESS -->
-                @*<div class="envio_express_cdr">
-                        <div>
-                            <span class="tipografia_lato_bold">Envío EXPRESS especial:</span>
-                            <span class="tipografia_lato_regular">Tiene un costo de envío.</span>
-                            <span class="tipografia_lato_regular color_marca">Gratuito en tu ciclo de nuevas.</span>
-                        </div>
-                        <div>
-                            <span class="tipografia_lato_bold">Recíbelo:</span>
-                            <span class="tipografia_lato_regular">Lima - 48 horas y provincia 72 horas. No aplica domingos y feriados.</span>
-                        </div>
-                    </div>*@
-                <!-- FIN - CUANDO HAY MENSAJE DE ENVÍO EXPRESS -->
                 <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SE MUESTRA EL SALDO ACTUALIZADO -->
                 <div class="saldo_actualizado">
                     <span class="tipografia_lato_regular">Tu saldo actualizado es de:</span>
@@ -195,14 +188,6 @@
                             <!-- FIN - SOLICITUD CAMBIO DE PRODUCTO -->
                         }
 
-                        <!-- INICIO - SOLICITUD REENVÍO DE PRODUCTO -->
-                        @*<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-                            Reenviar:
-                            </span>
-                            <span class="detalle_cod_producto tipografia_lato_regular">
-                                El mismo producto
-                            </span>*@
-                        <!-- FIN - SOLICITUD REENVÍO DE PRODUCTO -->
                         <!-- INICIO - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                         @if (descripcionCompleta != "")
                         {

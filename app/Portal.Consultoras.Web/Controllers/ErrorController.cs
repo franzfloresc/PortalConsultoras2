@@ -7,7 +7,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            // se loggea el error
             UsuarioModel usuario = UserData();
             LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, usuario.CodigoConsultora, usuario.CodigoISO);
             return View();
@@ -15,7 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult NotFound()
         {
-            // se loggea el error
             UsuarioModel usuario = UserData();
             LogManager.LogManager.LogErrorWebServicesBus(((HandleErrorInfo)ViewData.Model).Exception, usuario.CodigoConsultora, usuario.CodigoISO);
             return View();

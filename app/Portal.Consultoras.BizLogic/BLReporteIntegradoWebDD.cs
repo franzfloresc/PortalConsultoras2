@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System;
 using System.Configuration;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -15,27 +12,25 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEInformacion GetReporteIntegradoWebDD(int PaisID, string PaisISO, int CampaniaIDInicio, int CampaniaIDFin)
         {
-            BEInformacion oBEInformacion = new BEInformacion();
-            string PrefijoDetalle = string.Empty;
+            BEInformacion obeInformacion = new BEInformacion();
+            string prefijoDetalle = string.Empty;
             try
             {
-                DAReporteIntegradoWebDD oDAReporteIntegradoWebDD = new DAReporteIntegradoWebDD(PaisID);
-                PrefijoDetalle = "Error de Base de Datos: ";
-                DateTime FechaHoraPais = new DAPedidoWeb(PaisID).GetFechaHoraPais();
-                DataSet dsPedidosWeb = oDAReporteIntegradoWebDD.GetReporteIntegradoWebDD(CampaniaIDInicio, CampaniaIDFin);
+                DAReporteIntegradoWebDD odaReporteIntegradoWebDd = new DAReporteIntegradoWebDD(PaisID);
+                prefijoDetalle = "Error de Base de Datos: ";
+                DateTime fechaHoraPais = new DAPedidoWeb(PaisID).GetFechaHoraPais();
+                DataSet dsPedidosWeb = odaReporteIntegradoWebDd.GetReporteIntegradoWebDD(CampaniaIDInicio, CampaniaIDFin);
                 DataTable dtPedidosWeb = dsPedidosWeb.Tables[0];
-
-                FtpConfigurationElement ftpElement = null;
 
                 string key = PaisISO + "-RIWD";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
-                ftpElement = ftpSection.FtpConfigurations[key];
+                var ftpElement = ftpSection.FtpConfigurations[key];
 
-                string File = FormatFile(ftpElement.Header, FechaHoraPais);
-                string Nombre = File.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
+                string file = FormatFile(ftpElement.Header, fechaHoraPais);
+                string nombre = file.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
-                PrefijoDetalle = "Error al Generar el Archivo: ";
-                using (var streamWriter = new StreamWriter(File))
+                prefijoDetalle = "Error al Generar el Archivo: ";
+                using (var streamWriter = new StreamWriter(file))
                 {
                     if (dtPedidosWeb != null && dtPedidosWeb.Rows.Count != 0)
                     {
@@ -49,26 +44,27 @@ namespace Portal.Consultoras.BizLogic
                         streamWriter.Write(string.Empty);
                     }
                 }
-                PrefijoDetalle = "Error al Cargar el Archivo en el FTP: ";
+                prefijoDetalle = "Error al Cargar el Archivo en el FTP: ";
 
                 if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                 {
-                    BLFileManager.FtpUploadFile(ftpElement.Address + Nombre,
-                                                File, ftpElement.UserName, ftpElement.Password);
+                    BLFileManager.FtpUploadFile(ftpElement.Address + nombre,
+                                                file, ftpElement.UserName, ftpElement.Password);
                 }
 
-                oBEInformacion.CodigoInformacion = 0;
-                oBEInformacion.DetalleInformacion = Nombre;
+                obeInformacion.CodigoInformacion = 0;
+                obeInformacion.DetalleInformacion = nombre;
 
             }
             catch (Exception ex)
-            { 
-                oBEInformacion.CodigoInformacion = 1;
-                oBEInformacion.DetalleInformacion = PrefijoDetalle + ex.Message;
+            {
+                obeInformacion.CodigoInformacion = 1;
+                obeInformacion.DetalleInformacion = prefijoDetalle + ex.Message;
             }
 
-            return oBEInformacion;
+            return obeInformacion;
         }
+
         private TemplateField[] ParseTemplate(string templateText)
         {
             string[] parts = templateText.Split(';');
@@ -79,23 +75,24 @@ namespace Portal.Consultoras.BizLogic
             }
             return template;
         }
+
         private string FormatFile(string fileName, DateTime date)
         {
             return ConfigurationManager.AppSettings["OrderDownloadPath"]
                 + Path.GetFileNameWithoutExtension(fileName)
-                + date.ToString("ddMMyyhhmmss") 
+                + date.ToString("ddMMyyhhmmss")
                 + Path.GetExtension(fileName);
         }
+
         private string FormatLine(DataRow row)
         {
-            string Line = string.Empty;
-
+            var txtBuil = new StringBuilder();
             foreach (var item in row.ItemArray)
             {
-                Line += Convert.ToString(item) + ";";
+                txtBuil.Append(Convert.ToString(item) + ";");
             }
-
-            return Line.Substring(0, Line.Length - 1);
+            string line = txtBuil.ToString();
+            return string.IsNullOrEmpty(line) ? line : line.Substring(0, line.Length - 1);
         }
     }
 }

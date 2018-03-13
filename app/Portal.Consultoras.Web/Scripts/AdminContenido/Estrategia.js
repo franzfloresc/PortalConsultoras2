@@ -1,4 +1,5 @@
-﻿var Estrategia = function (config) {
+﻿
+var Estrategia = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
@@ -72,7 +73,7 @@
     };
 
     var _editar = function (data, id) {
-       
+        
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -83,10 +84,12 @@
             paisID: $("#ddlPais").val(),
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
-            descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2')
-            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente')
+            descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2'),
+            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente'), BPT-369
+            ValidarImagen: data.ValidarImagen,
+            PesoMaximo: data.PesoMaximo
         };
-       
+
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
             var TipoEstrategiaCodigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             if (TipoEstrategiaCodigo == TipoEstrategiaIncentivosProgramaNuevas)
@@ -122,15 +125,14 @@
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
-
             if (data.success == false) {
                 alert(data.message);
                 closeWaitingDialog();
                 return false;
             }
-           
+
             $("#hdSimbolo").val(data.Simbolo);
-            
+
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
             else $("#chkHabilitarOferta").attr("checked", false);
 
@@ -151,7 +153,7 @@
 
             if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
             else $("#hdColorFondo").val("#FFF");
-            
+
             if (data.EsOfertaIndependiente == "1") $("#chkEsOfertaIndependiente").attr('checked', true);
             else $("#chkEsOfertaIndependiente").attr('checked', false);
 
@@ -175,7 +177,18 @@
             $("#ddlCampaniaFin").val(data.CampaniaIDFin);
             $("#hdNumeroPedido").val(data.NumeroPedido);
             $("#imgSeleccionada").attr('src', rutaImagenVacia);
-
+            if (data.ImagenMiniaturaURL == "") {
+                $("#imgMiniSeleccionada").attr('src', rutaImagenVacia);
+                $("#hdImagenMiniaturaURLAnterior").val('');
+            } else {
+                $("#imgMiniSeleccionada").attr('src', data.ImagenMiniaturaURL);
+                $("#hdImagenMiniaturaURLAnterior").val(data.ImagenMiniaturaURL.replace(/^.*[\\\/]/, ''));
+            }
+            if (data.EsSubCampania == 1) {
+                $('#chkEsSubCampania').attr('checked', true);
+            } else {
+                $('#chkEsSubCampania').removeAttr('checked');
+            }
             $("#divInformacionAdicionalEstrategiaContenido").hide();
 
             $("#divImagenEstrategia").css("color", "white");
@@ -218,8 +231,8 @@
 
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $("#hdEstrategiaCodigo").val();
-
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
 
@@ -234,7 +247,7 @@
                 $('#txt2-estrella').show();
             }
 
-            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008" || aux2 == "030") {
                 $("#ddlEtiqueta1").children('option').hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -284,6 +297,11 @@
             $("#txtPrecioPublico").val(data.PrecioPublico);
             $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
+            if ($('#ddlTipoEstrategia').find(':selected').data('codigo') == "030") {
+                VistaNuevoProductoShowroon();
+            } else {
+                VistaNuevoProductoGeneral();
+            }
 
             return data;
         };
@@ -323,17 +341,17 @@
             return data;
         }
     };
-
+    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
+        var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
+        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
+    };
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
         waitingDialog({});
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     };
 
-    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
-        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
-    };
+   
 
     var _obtenerImagenesByCodigoSAPSuccess = function (editData, recargarPaginacion) {
         return function (data, textStatus, jqXHR) {
@@ -392,6 +410,11 @@
         _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
+
+    var _limpiarCamposLanzamiento = function(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    };
     var _clearFields = function () {
 
         $("#hdnCodigoSAP").val("")
@@ -414,8 +437,10 @@
         $('#file-upload').hide();
 
         $('#imgSeleccionada').attr("src", rutaImagenVacia);
+        $('#imgMiniSeleccionada').attr("src", rutaImagenVacia);
+        $("#hdImagenMiniaturaURLAnterior").val('');
         $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
-
+        $('#chkEsSubCampania').removeAttr('checked');
         $("#divImagenEstrategiaContenido").show();
         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
@@ -442,10 +467,7 @@
 
     };
 
-    var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
-        $("#nombre-" + nombreCampo).val("");
-        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
-    };
+    
 
     var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
         $("#nombre-" + nombreCampo).val(valor);
@@ -616,7 +638,9 @@
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                    CampaniaID: $("#ddlCampania").val()
+                    CampaniaID: $("#ddlCampania").val(),
+                    ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
+                    PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
                 };
 
                 _idImagen = id;
@@ -650,6 +674,37 @@
                 jQuery.ajax({
                     type: 'POST',
                     url: urlDeshabilitarEstrategia,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(params),
+                    async: true,
+                    success: function (data) {
+                        alert(data.message);
+                        fnGrilla();
+                        closeWaitingDialog();
+                    },
+                    error: function (data, error) {
+                        alert(data.message);
+                        closeWaitingDialog();
+                    }
+                });
+            }
+            return false;
+        },
+        remover: function (id, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var elimina = confirm('¿Está seguro que desea eliminar el set seleccionado?');
+            if (!elimina){
+                return false;
+            }
+            if (id) {
+                waitingDialog({});
+                $("#hdEstrategiaID").val(id);
+                var params = { EstrategiaID: $("#hdEstrategiaID").val() };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: urlEliminarEstrategia,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),

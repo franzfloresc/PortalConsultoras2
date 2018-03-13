@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-//R2004
-using System.IO;
-using System.Transactions;
+using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
-using System.Net;
-using Portal.Consultoras.Common;
+using System.IO;
+using System.Text;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -21,9 +17,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPayPalConfiguracion> GetConfiguracionPayPal(int paisID)
         {
             var configuracionPayPal = new List<BEPayPalConfiguracion>();
-            var DAConfigPayPal = new DAPayPalConfiguracion(paisID);
+            var daConfigPayPal = new DAPayPalConfiguracion(paisID);
 
-            using (IDataReader reader = DAConfigPayPal.GetConfiguracionPayPal())
+            using (IDataReader reader = daConfigPayPal.GetConfiguracionPayPal())
                 while (reader.Read())
                 {
                     var cronograma = new BEPayPalConfiguracion(reader);
@@ -35,22 +31,22 @@ namespace Portal.Consultoras.BizLogic
 
         public int InsDatosPago(int paisID, string chrCodigoConsultora, string chrCodigoTerritorio, decimal montoAbono, string chrNumeroTarjeta, DateTime datFechaTransaccion, Int16 estado)
         {
-            var DAPayPalPagos = new DAPayPalPagos(paisID);
-            return DAPayPalPagos.InsDatosPago(chrCodigoConsultora, chrCodigoTerritorio, montoAbono, chrNumeroTarjeta, datFechaTransaccion, estado);
+            var daPayPalPagos = new DAPayPalPagos(paisID);
+            return daPayPalPagos.InsDatosPago(chrCodigoConsultora, chrCodigoTerritorio, montoAbono, chrNumeroTarjeta, datFechaTransaccion, estado);
         }
 
         public int InsAbonoPago(int paisID, string chrCodigoPais, string chrCodigoConsultora, decimal mnyMontoAbono, string chrCodigoAutorizacionBanco, string chrCodigoTransaccion, int chrResultado)
         {
-            var DAPayPalPagos = new DAPayPalPagos(paisID);
-            return DAPayPalPagos.InsAbonoPago(chrCodigoPais, chrCodigoConsultora, mnyMontoAbono, chrCodigoAutorizacionBanco, chrCodigoTransaccion, chrResultado);
+            var daPayPalPagos = new DAPayPalPagos(paisID);
+            return daPayPalPagos.InsAbonoPago(chrCodigoPais, chrCodigoConsultora, mnyMontoAbono, chrCodigoAutorizacionBanco, chrCodigoTransaccion, chrResultado);
         }
 
         public bool ExistePagoPendiente(int paisID, decimal mnyMontoAbono, string chrNumeroTarjeta, DateTime datFecha)
         {
             bool rslt = false;
-            var DAConfigPayPal = new DAPayPalPagos(paisID);
+            var daConfigPayPal = new DAPayPalPagos(paisID);
 
-            using (IDataReader reader = DAConfigPayPal.ValidarPagoExistente(mnyMontoAbono, chrNumeroTarjeta, datFecha))
+            using (IDataReader reader = daConfigPayPal.ValidarPagoExistente(mnyMontoAbono, chrNumeroTarjeta, datFecha))
                 while (reader.Read())
                 {
                     rslt = true;
@@ -62,9 +58,9 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPayPalConfiguracion> GetReporteAbonos(int paisID, string chrCodigoPais, string chrCodigoConsultora, int intDia, int intMes, int intAnho, string chrRETCodigoTransaccion)
         {
             var configuracionPayPal = new List<BEPayPalConfiguracion>();
-            var DAConfigPayPal = new DAPayPalPagos(paisID);
+            var daConfigPayPal = new DAPayPalPagos(paisID);
 
-            using (IDataReader reader = DAConfigPayPal.GetReporteAbonos(chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion))
+            using (IDataReader reader = daConfigPayPal.GetReporteAbonos(chrCodigoPais, chrCodigoConsultora, intDia, intMes, intAnho, chrRETCodigoTransaccion))
                 while (reader.Read())
                 {
                     var cronograma = new BEPayPalConfiguracion(reader, 1);
@@ -74,7 +70,6 @@ namespace Portal.Consultoras.BizLogic
             return configuracionPayPal;
         }
 
-		//R2004 - R2122
         public string[] DescargaPaypal(int paisID, string codigoUsuario, DateTime fechaEjecucion)
         {
             var numeroLote = 0;
@@ -85,7 +80,6 @@ namespace Portal.Consultoras.BizLogic
             var bePais = blZonificacion.SelectPais(paisID);
             var codigoPais = bePais.CodigoISO;
 
-            string pathFilePaypal = string.Empty, filePaypal = string.Empty;
             string s = null, r = null;
 
             try
@@ -108,14 +102,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var ds = daPaypalPagos.GetPagoPaypalNoEnviadas(numeroLote, fechaEjecucion);
 
-                    if (ds.Tables.Count == 1)
-                    {
-                        dtPaypal = ds.Tables[0];
-                    }
-                    else
-                    {
-                        dtPaypal = new DataTable();
-                    }
+                    dtPaypal = ds.Tables.Count == 1
+                        ? ds.Tables[0]
+                        : new DataTable();
                 }
                 catch (SqlException ex)
                 {
@@ -128,10 +117,10 @@ namespace Portal.Consultoras.BizLogic
                 FtpConfigurationElement ftpElementPaypal = ftpSection.FtpConfigurations[keyPaypal];
 
                 var fileGuid = Guid.NewGuid();
-                filePaypal = FormatFile(codigoPais, ftpElementPaypal.Header, fechaProceso, fileGuid);
+                var filePaypal = FormatFile(codigoPais, ftpElementPaypal.Header, fechaProceso, fileGuid);
 
                 var path = ConfigurationManager.AppSettings.Get("OrderDownloadPath");
-                pathFilePaypal = path + filePaypal;
+                var pathFilePaypal = path + filePaypal;
 
                 try
                 {
@@ -168,12 +157,14 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex) { throw new BizLogicException("No se pudo subir los archivos de Paypal al S3.", ex); }
 
-                TransactionOptions transactionOptions = new TransactionOptions();
-                transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     daPaypalPagos.UpdPaypalPasarelaPago(numeroLote);
-                    daPaypalPagos.UpdPaypalDescarga(numeroLote, 2, "Terminado Ok.",null, filePaypal, Environment.MachineName);
+                    daPaypalPagos.UpdPaypalDescarga(numeroLote, 2, "Terminado Ok.", null, filePaypal, Environment.MachineName);
 
                     transaction.Complete();
                 }
@@ -186,7 +177,7 @@ namespace Portal.Consultoras.BizLogic
                     if (ex is BizLogicException)
                     {
                         message = ex.Message;
-                        if(ex.InnerException != null) messageException = ex.InnerException.Message + "(" + ex.InnerException.StackTrace + ")";
+                        if (ex.InnerException != null) messageException = ex.InnerException.Message + "(" + ex.InnerException.StackTrace + ")";
                     }
                     daPaypalPagos.UpdPaypalDescarga(numeroLote, 99, message, messageException, string.Empty, Environment.MachineName);
                 }
@@ -197,7 +188,6 @@ namespace Portal.Consultoras.BizLogic
             return new string[] { s, r };
         }
 
-		//R2004
         private static string FormatFile(string codigoPais, string fileName, DateTime date, Guid fileGuid)
         {
             return string.Format("{0}-{1}-{2}-{3}{4}",
@@ -208,19 +198,15 @@ namespace Portal.Consultoras.BizLogic
                 Path.GetExtension(fileName));
         }
 
-
-		//R2004
         private static string BuildLine(DataRow row)
         {
             var line = string.Empty;
 
-            if (row.Table.Columns.Contains("REGISTROS"))
-            {
-                if (row["REGISTROS"] != DBNull.Value)
-                {
-                    line = row["REGISTROS"].ToString();
-                }
-            }
+            if (!row.Table.Columns.Contains("REGISTROS"))
+                return line;
+
+            if (row["REGISTROS"] != DBNull.Value)
+                line = row["REGISTROS"].ToString();
 
             return line;
         }

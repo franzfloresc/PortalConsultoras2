@@ -40,7 +40,7 @@
         tablaCupones: '#tabla-cupones',
         tablaCuponConsultoras: '#tabla-cupon-consultoras',
         chckActivo: '#chckActivo',
-        contenedorCheckActivo:'#contenedor-check-activo',
+        contenedorCheckActivo: '#contenedor-check-activo',
         contenedorEstadoCuponConsultora: '#contenedor-estado-cupon-consultora',
         contenedorCuponConsultora: '#contenedor-cupon-consultora',
         contenedorCupon: '#contenedor-cupon',
@@ -546,7 +546,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
                 closeWaitingDialog();
             }
         });
@@ -609,7 +608,6 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCuponConsultoras).jqGrid('getGridParam', 'reccount');
                 $(elements.contenedorGrillaCuponConsultoras).show();
                 closeWaitingDialog();
             }
@@ -642,7 +640,7 @@
                         } else {
                             alert(actualizarCuponResponse.message);
                         }
-                    
+
                         closeWaitingDialog();
                     }
                 });
@@ -685,7 +683,7 @@
             },
             VerDetalle: function (cuponId, tipoId, tipo, descripcion) {
                 waitingDialog({});
-                
+
                 $(elements.contenedorGrillaCuponConsultoras).hide();
                 _setearValoresDelContenedorCuponConsultora(cuponId, tipoId, tipo, descripcion);
                 _listarCuponConsultoras(cuponId);
@@ -792,7 +790,7 @@
             }
         });
     };
-    
+
     var _atacharEventosDeExtension = function () {
         $.jgrid.extend({
             Activar: function (cuponId, tipo, descripcion, estado) {
@@ -996,7 +994,7 @@
         _iniDialogMantenimientoCupon();
         _listarCuponesPorCampania();
     };
-        
+
     return {
         ini: function (parameters) {
             initializer(parameters);

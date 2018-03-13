@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class ShowRoomOfertaModel: CompartirRedesSocialesModel
+    public class ShowRoomOfertaModel : CompartirRedesSocialesModel
     {
         public int OfertaShowRoomID { get; set; }
 
@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUV { get; set; }
 
         public int TipoOfertaSisID { get; set; }
-       
+
         public int ConfiguracionOfertaID { get; set; }
 
         public string Descripcion { get; set; }
@@ -71,8 +71,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenMiniAnterior { get; set; }
 
-        public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
-
         public IList<ShowRoomOfertaModel> ListaOfertaShowRoom { get; set; }
 
         public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
@@ -90,37 +88,10 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCategoria { get; set; }
         public string TextoCondicionCompraCpc { get; set; }
         public string TextoDescripcionLegalCpc { get; set; }
-        public decimal Gana {
-            set
-            {
-                this.Gana = value;
-            }
-            get
-            {
-                return Math.Abs(PrecioValorizado - PrecioOferta);
-            }
-        }
-        public string FormatoPrecioValorizado
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
-            }
-        }
-        public string FormatoPrecioOferta
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
-            }
-        }
-        public string FormatoGana
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(Gana, CodigoISO);
-            }
-        }
+        public decimal Gana { get { return Math.Abs(PrecioValorizado - PrecioOferta); } }
+        public string FormatoPrecioValorizado { get { return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO); } }
+        public string FormatoPrecioOferta { get { return Util.DecimalToStringFormat(PrecioOferta, CodigoISO); } }
+        public string FormatoGana { get { return Util.DecimalToStringFormat(Gana, CodigoISO); } }
         public bool EMailActivo { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }
@@ -128,11 +99,20 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public bool EsSubCampania { get; set; }
-        //public int Orden { get; set; }
         public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 
         public int Posicion { get; set; }
         public string UrlDetalle { get; set; }
+
+        public List<ProductoModel> ProductoTonos { get; set; }
+
+        public string CodigoEstrategia { get; set; }
+
+        public int EstrategiaId { get; set; }
+
+        public int TipoAccionAgregar { get; set; }
+        
+        public int TieneVariedad { get; set; }
     }
 }

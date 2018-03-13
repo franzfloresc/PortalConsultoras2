@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web
 
             if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
+                var userData = SessionManager.SessionManager.Instance.GetUserData();
 
                 LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
             }

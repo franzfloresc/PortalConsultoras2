@@ -1,44 +1,47 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
+using Portal.Consultoras.Entities.Framework;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.BizLogic.Cliente;
-using Portal.Consultoras.Entities.Framework;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {
     public class ClienteService : IClienteService
     {
-        private BLCliente BLCliente;
-        private BLPedidoWeb BLPedidoWeb;
-        private BLPedidoWebDetalle BLPedidoWebDetalle;
-        private BLCatalogo BLCatalogo;
-        private BLPedidoWebAnteriores BLPedidoWebAnteriores;
+        private readonly BLCliente BLCliente;
+        private readonly BLPedidoWeb BLPedidoWeb;
+        private readonly BLPedidoWebDetalle BLPedidoWebDetalle;
+        private readonly BLPedidoWebAnteriores BLPedidoWebAnteriores;
         private readonly INotasBusinessLogic _notasBusinessLogic;
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
         private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
+        private readonly ICatalogoBusinessLogic _catalogoBusinessLogic;
 
         public ClienteService() : this(new BLNotas(),
             new BLMovimiento(),
-            new BLRecordatorio())
+            new BLRecordatorio(),
+            new BLCatalogo())
         {
             BLCliente = new BLCliente();
             BLPedidoWeb = new BLPedidoWeb();
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
-            BLCatalogo = new BLCatalogo();
+
             BLPedidoWebAnteriores = new BLPedidoWebAnteriores();
         }
 
         public ClienteService(INotasBusinessLogic notasBusinessLogic,
             IMovimientoBusinessLogic movimientoBusinessLogic,
-            IRecordatorioBusinessLogic recordatorioBusinessLogic)
+            IRecordatorioBusinessLogic recordatorioBusinessLogic, ICatalogoBusinessLogic catalogoBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
             _movimientoBusinessLogic = movimientoBusinessLogic;
             _recordatorioBusinessLogic = recordatorioBusinessLogic;
+            _catalogoBusinessLogic = catalogoBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -96,7 +99,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetClientesByCampania(paisID, campaniaID, consultoraID);
         }
 
-        //EPD-1164
         public IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID)
         {
             return BLPedidoWebDetalle.GetClientesByCampaniaByClienteID(paisID, campaniaID, consultoraID, ClienteID);
@@ -107,30 +109,45 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCliente(paisID, campaniaID, consultoraID, clienteID);
         }
 
+        [Obsolete("no usado")]
         public IList<BECatalogo> GetCatalogosByCampania(int paisID, int campaniaID)
         {
-            return BLCatalogo.GetCatalogosByCampania(paisID, campaniaID);
+            return _catalogoBusinessLogic.GetCatalogosByCampania(paisID, campaniaID);
         }
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         public IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID)
         {
-            return BLCatalogo.GetCatalogoConfiguracion(paisID);
+            return _catalogoBusinessLogic.GetCatalogoConfiguracion(paisID);
         }
 
         public IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
-            return BLCatalogo.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
+            return _catalogoBusinessLogic.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
         }
 
         public IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania)
         {
-            return BLCatalogo.GetListCatalogoRevistaPublicadoWithTitulo(paisISO, codigoZona, campania);
+            var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, new[] { campania });
+            Task.WaitAll(revistasTask);
+
+            return revistasTask.Result;
         }
 
         public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias)
         {
-            return BLCatalogo.GetCatalogoRevista(paisISO, codigoZona, campanias);
+            var campanasInt = new List<int>();
+
+            foreach (var campania in campanias.Split('|'))
+            {
+                int i;
+                if (int.TryParse(campania, out i))
+                    campanasInt.Add(i);
+            }
+
+            var revistasTask = _catalogoBusinessLogic.GetCatalogoRevista(paisISO, codigoZona, campanasInt);
+            Task.WaitAll(revistasTask);
+
+            return revistasTask.Result;
         }
 
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
@@ -143,12 +160,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebAnteriores.GetPedidoProductosByCampania(paisID, campaniaID, consultoraID);
         }
 
-
         public IList<BECliente> SelectByNombre(int paisID, long consultoraID, string Nombre)
         {
             return BLCliente.SelectByNombre(paisID, consultoraID, Nombre);
         }
-
 
         public int InsertById(BECliente cliente)
         {
@@ -241,7 +256,7 @@ namespace Portal.Consultoras.Service
             return _notasBusinessLogic.Eliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
 
-        public ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId,List<BEMovimientoDetalle> movimientoDetalle)
+        public ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle)
         {
             return _movimientoBusinessLogic.ActualizarDetalle(paisId, movimientoDetalle);
         }

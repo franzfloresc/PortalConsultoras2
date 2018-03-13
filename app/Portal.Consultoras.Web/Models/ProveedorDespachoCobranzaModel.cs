@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
-    //I R20151202
     public class ProveedorDespachoCobranzaModel
     {
         public int PaisID { get; set; }

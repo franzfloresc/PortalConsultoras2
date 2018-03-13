@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -72,7 +67,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, configuracionConsultoraDA.ConsultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.String, configuracionConsultoraDA.CampaniaID);
             Context.Database.AddInParameter(command, "@TipoConfiguracion", DbType.Byte, configuracionConsultoraDA.TipoConfiguracion);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, configuracionConsultoraDA.CodigoUsuario); //R20160302
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, configuracionConsultoraDA.CodigoUsuario);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
 

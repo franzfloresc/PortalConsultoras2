@@ -7,14 +7,6 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEProductoCompartido
     {
-        //private int miPcCampaniaID;
-        //private string miPcCuv;
-        //private string miPcPalanca;
-        //private int miPcDetalle;
-        //private int miPcApp;
-        //private int miPcID;
-        //private int miPaisID;
-
         [DataMember]
         public int PcCampaniaID { get; set; }
 

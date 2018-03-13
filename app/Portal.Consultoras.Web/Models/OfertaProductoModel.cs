@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class OfertaProductoModel
     {
-        //public int PaisID { get; set; }
         public int OfertaProductoID { get; set; }
         public int CampaniaID { get; set; }
         public string CUV { get; set; }
@@ -29,13 +24,9 @@ namespace Portal.Consultoras.Web.Models
         public int PaisID { get; set; }
         public string ISOPais { get; set; }
         public string DescripcionMarca { get; set; }
-		public string TallaColor { get; set; }
-        //public string UsuarioModificacion { get; set; }
-        //R2469 - JICM - Marcacion Zonificacion 2505 DCG
+        public string TallaColor { get; set; }
         public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
-        //public string TipoOferta { get; set; }
-        //public int FlagTransaccion { get; set; }
         public string CodigoTipoOferta { get; set; }
         public IEnumerable<AdministracionOfertaProductoModel> lstAdministracionOferta { get; set; }
         public IEnumerable<StockCargaLogModel> lstStockCarga { get; set; }

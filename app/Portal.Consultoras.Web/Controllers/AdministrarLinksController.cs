@@ -23,9 +23,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
 
                 List<BEPermiso> lst;
-                // solo para consultora
                 int rol = Constantes.Rol.Consultora;
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     lst = sv.GetPermisosByRolConsulta(UserData().PaisID, rol, string.Empty).ToList();
                 }
@@ -53,18 +52,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -74,19 +65,18 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEPermiso> lst;
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     lst = sv.GetPermisosByRolConsulta(vpaisID, vrolID, string.Empty).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEPermiso> items = lst;
 
                 #region Sort Section
@@ -140,11 +130,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -157,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.PermisoID.ToString(),
-                                   vpaisID.ToString(), //a.PaisID.ToString(),
+                                   vpaisID.ToString(),
                                    a.Descripcion,
                                    a.UrlItem,
                                    a.OrdenItem.ToString(),
@@ -191,14 +180,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarLinkModel, BEPermiso>()
-                   .ForMember(t => t.PermisoID, f => f.MapFrom(c => c.PermisoID))
-                   .ForMember(t => t.OrdenItem, f => f.MapFrom(c => c.OrdenItem))
-                   .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                   .ForMember(t => t.UrlItem, f => f.MapFrom(c => c.UrlItem))
-                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
-                   .ForMember(t => t.PaginaNueva, f => f.MapFrom(c => c.PaginaNueva))
-                   .ForMember(t => t.IdPadre, f => f.MapFrom(c => c.PermisoIDPadre));
                 BEPermiso entidad = Mapper.Map<AdministrarLinkModel, BEPermiso>(model);
 
                 if (!string.IsNullOrEmpty(entidad.UrlItem) && !entidad.UrlItem.Contains("http"))
@@ -214,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad.RolId = Constantes.Rol.Consultora;
 
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     sv.InsPermiso(entidad);
                 }
@@ -252,14 +233,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarLinkModel, BEPermiso>()
-                   .ForMember(t => t.PermisoID, f => f.MapFrom(c => c.PermisoID))
-                   .ForMember(t => t.OrdenItem, f => f.MapFrom(c => c.OrdenItem))
-                   .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                   .ForMember(t => t.UrlItem, f => f.MapFrom(c => c.UrlItem))
-                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
-                   .ForMember(t => t.PaginaNueva, f => f.MapFrom(c => c.PaginaNueva))
-                   .ForMember(t => t.IdPadre, f => f.MapFrom(c => c.PermisoIDPadre));
                 BEPermiso entidad = Mapper.Map<AdministrarLinkModel, BEPermiso>(model);
 
                 if (!string.IsNullOrEmpty(entidad.UrlItem) && !entidad.UrlItem.Contains("http"))
@@ -269,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad.RolId = Constantes.Rol.Consultora;
 
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     sv.UpdatePermiso(entidad);
                 }
@@ -306,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                using (SeguridadServiceClient sv = new SeguridadServiceClient())
                 {
                     sv.DeletePermiso(UserData().PaisID, PermisoID);
                 }
@@ -340,7 +313,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //[ChildActionOnly]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult TraerHeader()
         {
@@ -349,7 +321,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_PreviaMenu");
         }
 
-        //[ChildActionOnly]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult TraerFooter()
         {
@@ -359,58 +330,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenuConsultoras()
         {
-            //if (Session["UserData"] != null)
-            //{
-            int PaisID = UserData().PaisID;
-            // se quiere ver el menú para la consultora
-            int RolID = Constantes.Rol.Consultora;
-            if (RolID != 0)
+            IList<BEPermiso> lst;
+            using (SeguridadServiceClient sv = new SeguridadServiceClient())
             {
-                IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
-                {
-                    lst = sv.GetPermisosByRolAdministrador(PaisID, RolID).ToList();
-                }
-                Mapper.CreateMap<ServiceSeguridad.BEPermiso, PermisoModel>()
-                    .ForMember(x => x.PermisoID, t => t.MapFrom(c => c.PermisoID))
-                    .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
-                    .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
-                    .ForMember(x => x.IdPadre, t => t.MapFrom(c => c.IdPadre))
-                    .ForMember(x => x.OrdenItem, t => t.MapFrom(c => c.OrdenItem))
-                    .ForMember(x => x.UrlItem, t => t.MapFrom(c => c.UrlItem))
-                    .ForMember(x => x.PaginaNueva, t => t.MapFrom(c => c.PaginaNueva))
-                    .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
-                    .ForMember(x => x.Mostrar, t => t.MapFrom(c => c.Mostrar))
-                    .ForMember(x => x.Posicion, t => t.MapFrom(c => c.Posicion));
-
-                return Mapper.Map<IList<ServiceSeguridad.BEPermiso>, List<PermisoModel>>(lst);
+                lst = sv.GetPermisosByRolAdministrador(userData.PaisID, Constantes.Rol.Consultora).ToList();
             }
-            else
-                return new List<PermisoModel>();
-            //}
-            //else
-            //    return new List<PermisoModel>();
+
+            return Mapper.Map<IList<BEPermiso>, List<PermisoModel>>(lst);
+
         }
 
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()
         {
-            // TODO: que campaña pasar?
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
-                int Campaniaid = UserData().CampaniaID;
-                IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
+                IList<BEServicioCampania> lst;
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     lst = sv.GetServicioByCampaniaPaisAdministrador(UserData().PaisID, UserData().CampaniaID).ToList();
                 }
 
-                Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
-                        .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
-                        .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
-                        .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
-
-                return Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
+                return Mapper.Map<IList<BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
             }
             else
                 return new List<ServicioCampaniaModel>();

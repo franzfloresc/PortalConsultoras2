@@ -51,7 +51,10 @@ namespace Portal.Consultoras.Entities
             this.FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
             this.FacturaHoy = Convert.ToBoolean(row["FacturaHoy"]);
             this.EsMontoMinimo = Convert.ToBoolean(row["EsMontoMinino"]);
-            this.Visualizado = row["Visualizado"] != DBNull.Value ? Convert.ToBoolean(row["Visualizado"]) : false;
+
+            if (DataRecord.HasColumn(row, "Visualizado"))
+                this.Visualizado = Convert.ToBoolean(row["Visualizado"]);
+            
             this.FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
         }
     }
@@ -101,6 +104,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal ImporteTotalPedido { get; set; }
 
+        [DataMember]
+        public decimal MontoAhorroCatalogo { get; set; }
+        [DataMember]
+        public decimal MontoAhorroRevista { get; set; }
+        [DataMember]
+        public string NombreCliente { get; set; }
+
         public BENotificacionesDetallePedido(IDataRecord row)
         {
             this.CUV = Convert.ToString(row["CUV"]);
@@ -121,6 +131,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "StockDisponible") && row["StockDisponible"] != DBNull.Value)
                 StockDisponible = Convert.ToInt32(row["StockDisponible"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo") && row["MontoAhorroCatalogo"] != DBNull.Value)
+                MontoAhorroCatalogo = Convert.ToInt32(row["MontoAhorroCatalogo"]);
+            if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
+                MontoAhorroRevista = Convert.ToInt32(row["MontoAhorroRevista"]);
+            if (DataRecord.HasColumn(row, "NombreCliente") && row["NombreCliente"] != DBNull.Value)
+                NombreCliente = Convert.ToString(row["NombreCliente"]);
         }
     }
 

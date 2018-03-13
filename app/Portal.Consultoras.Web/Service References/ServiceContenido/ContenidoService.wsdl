@@ -2008,7 +2008,7 @@
       <soap:address location="http://localhost:41615/ContenidoService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IContenidoService" binding="tns:BasicHttpsBinding_IContenidoService">
-      <soap:address location="https://localhost:44300/ContenidoService.svc" />
+      <soap:address location="https://localhost:44392/ContenidoService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

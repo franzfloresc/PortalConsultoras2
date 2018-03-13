@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Data
 
         }
 
-
         public IDataReader GetPaginateProductoSugerido(int campaniaID, string cuvAgotado, string cuvSugerido)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaginateProductoSugerido_SB2");
@@ -36,7 +35,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioRegistro", DbType.String, entity.UsuarioRegistro);
 
-            var resultado = Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
             return id;
         }
@@ -54,7 +53,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.String, entity.UsuarioModificacion);
 
-            var resultado = Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
             return id;
         }
@@ -66,7 +65,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "ProductoSugeridoID", DbType.Int32, entity.ProductoSugeridoID);
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
 
-            var resultado = Context.ExecuteNonQuery(command);
+            Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
             return id;
         }

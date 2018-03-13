@@ -33,21 +33,29 @@ namespace Portal.Consultoras.Web.WebPages
                 var codigousuario = Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["bxyza"]).Trim()) : "";
                 var fechasolicitud = Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["zabxy"]).Trim()) : "";
                 var nombre = Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["xbaby"]).Trim()) : "";
+                var guiid = Decrypt(HttpUtility.UrlDecode(Request.QueryString["wxabc"])) != null ? Decrypt(HttpUtility.UrlDecode(Request.QueryString["wxabc"]).Trim()) : "";
 
                 DateTime fechaactual = DateTime.Now;
 
-                if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
+                if (paisid == "2" || paisid == "3" || paisid == "4" || paisid == "6" || paisid == "7" || paisid == "8" || paisid == "11" || paisid == "13" || paisid == "14")
                     esEsika = true;
 
-                if (!(Convert.ToDateTime(fechasolicitud) >= fechaactual))
+                TimeSpan tspan;
+                tspan = fechaactual.Subtract(Convert.ToDateTime(fechasolicitud));
+
+                if (tspan.Minutes >= 5)
                 {
-                    txtmarca.Text = esEsika ? "esika" : "lbel";
-                    string titulo = "Sesión Expirada";
-                    string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
+                    divCambiarClave.Visible = false;
+                    Response.Redirect(urlportal);
+
+                    //txtmarca.Text = esEsika ? "esika" : "lbel";
+                    //string titulo = "Sesión Expirada";
+                    //string mensaje = "Se ha expirado el tiempo del cambio de contraseña. Vuelva a solicitarla";
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "MensajeSesionExpirada", "$(function() { MostrarSesionExpirada('" + titulo + "', '" + mensaje + "'); });", true);
                 }
                 else
                 {
+                    divCambiarClave.Visible = true;
                     lblNombre.Text = nombre;
                     txtpaisid.Text = paisid;
                     txtcorreo.Text = correo;
@@ -80,9 +88,6 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
-                    //bool result = true;
-
                     bool result = sv.CambiarClaveUsuario(idpais, paisiso, codigousuario, nuevacontrasena, correo, "SISTEMA", EAplicacionOrigen.RecuperarClave);
 
                     if (result)
@@ -93,18 +98,18 @@ namespace Portal.Consultoras.Web.WebPages
                             url = urlportal
                         });
                     }
-                    else
+
+                    return serializer.Serialize(new
                     {
-                        return serializer.Serialize(new
-                        {
-                            success = false,
-                            urlportal = urlportal
-                        });
-                    }
+                        success = false,
+                        urlportal = urlportal
+                    });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RestablecerContrasena - ModificarClaveCS");
+
                 return serializer.Serialize(new
                 {
                     succes = false,
@@ -121,16 +126,21 @@ namespace Portal.Consultoras.Web.WebPages
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
+                if (encryptor != null)
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
                     {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.Close();
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(),
+                            CryptoStreamMode.Write))
+                        {
+                            cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            cs.Close();
+                        }
+
+                        cipherText = Encoding.Unicode.GetString(ms.ToArray());
                     }
-                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
                 }
             }
             return cipherText;

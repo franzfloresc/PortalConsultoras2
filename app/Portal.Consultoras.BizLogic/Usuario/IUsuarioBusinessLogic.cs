@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
     public interface IUsuarioBusinessLogic
     {
+        //List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID);
         void AceptarContrato(BEUsuario usuario);
         string AceptarContratoColombia(BEUsuario usuario);
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);
@@ -45,6 +46,7 @@ namespace Portal.Consultoras.BizLogic
         void GuardarContrasenia(int paisID, string codigoUsuario, string contrasenia);
         void Insert(BEUsuario usuario);
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos);
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
         void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
@@ -53,7 +55,6 @@ namespace Portal.Consultoras.BizLogic
         BEUsuario ObtenerDatosPorUsuario(int PaisID, string CodigoUsuario);
         List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin);
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
-        string RecuperarContrasenia(int paisId, string correo);
         BEUsuario Select(int paisID, string codigoUsuario);
         List<BEUsuarioCorreo> SelectByEmail(string Email, int paisID);
         List<BEUsuario> SelectByNombre(int paisID, string NombreUsuario);
@@ -86,5 +87,7 @@ namespace Portal.Consultoras.BizLogic
         int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
         bool ValidarUsuario(int paisId, string codigoUsuario, string clave);
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
+        BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
+        int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
     }
 }

@@ -1,0 +1,86 @@
+﻿
+@model List<Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel>
+
+    @{
+        ViewBag.Title = "Mis Certificados";
+        Layout = "~/Views/Shared/_MainLayout.cshtml";
+    }
+
+    <div class="fondo_f9f9f9">
+        <div class="content_belcorp">
+            <div class="fondo_negro_lateral"></div>
+            <div class="titulo_interiores">MIS <span>CERTIFICADOS</span></div>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora" style="margin-top:-1px"></div>
+    </div>
+
+    <div class="content_belcorp">
+        <div class="pestana_lbel" style="margin-bottom:0;"></div>
+        <div class="titulo_mis_certificados mt-45">
+            <div class="titulo_mis_certificados_img"></div>
+            <div>MIS<b> CERTIFICADOS DIGITALES</b></div>
+        </div>
+        <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">
+            Genera e imprime tus certificados digitales aquí :
+        </div>
+        <div class="contenedor_lista_certificados">
+            @foreach (var certificado in Model)
+            {
+                <div class="certificado_digital" data-item="">
+                    <div data-campos="" style="display:none;">
+                        <input type="hidden" class="certificadoId" value="@certificado.CertificadoId" data-available="@certificado.Result" />
+                        <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
+                    </div>
+                    <a data-certificado="">
+                        <span class="icono_certificados"></span>
+                        <span class="nombre_certificado">
+                            @certificado.Nombre
+                        </span>
+                    </a>
+                </div>
+            }
+        </div>
+        <div>
+            <p>*El documento que se emitirá a través de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma física del mismo. Para estos casos, usted deberá realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
+        </div>
+    </div>
+
+
+    @section scripts{
+        <script type="text/javascript">
+            var urlExportar = '@Url.Action("Export", "MisCertificados")';
+            var codigoISO = '@ViewBag.codigoISOMenu';
+
+            $(document).ready(function () {
+                $("a[data-certificado]").click(function (e) {
+                    var parent = $(this).parents("[data-item]");
+                    var parametros = $(parent).find("[data-campos]");
+
+                    var certificadoId = $(parametros).find(".certificadoId").val();
+                    var available = $(parametros).find("[data-available]").val();
+
+                    if (parseInt(certificadoId) === 0 || parseInt(available) === 0) {
+                        var error = $(parametros).find(".mensajeError").val();
+
+                        AbrirMensaje(error);
+                    }
+                    else {
+                        var category = (certificadoId == 1) ? 'No Adeudo' : 'Certificado Comercial';
+                        var label = codigoISO + '_Certificado_' + certificadoId + '.pdf';
+
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': category,
+                            'action': 'Descargar',
+                            'label': label
+                        });
+
+                        window.open(urlExportar + "/" + certificadoId, 'blank');
+                    }
+
+                    e.preventDefault();
+                });
+            });
+        </script>
+    }

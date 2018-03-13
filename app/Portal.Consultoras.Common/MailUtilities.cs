@@ -109,7 +109,6 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
-        //1774
         public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisEsika)
         {
             string s_html = string.Empty;
@@ -144,7 +143,6 @@ namespace Portal.Consultoras.Common
             s_html += "<td style=\"text-align:center; font-family:'Calibri'; font-size:20px; color:#000; padding-bottom:15px;\">Confírmanos tu dirección de correo para tener tu información actualizada y que puedas acceder a todos nuestros beneficios</td>";
             s_html += "</tr>";
             s_html += "<tr>";
-            //s_html += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;  padding-left:14px; padding-right:14px;\">Confirma tu correo para acceder a todos nuestros beneficios: para tener la info actualizada</td>";
             s_html += "</tr>";
             s_html += "<tr>";
             s_html += "<td>";

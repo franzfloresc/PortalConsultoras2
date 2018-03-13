@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string NombrePais { set; get; }
         [DataMember]
-        public string SegmentoInterno { get; set; }/*CGI(RSA) - REQ 2544*/
+        public string SegmentoInterno { get; set; }
 
         public BEBannerSegmentoZona()
         {

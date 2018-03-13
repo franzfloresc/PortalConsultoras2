@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -18,40 +17,37 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 string parametros = Request.QueryString["parametros"];
                 string param = Util.DesencriptarQueryString(parametros);
-                string[] lst = param.Split(new char[] { ';' });
+                string[] lst = param.Split(';');
 
-                string Campaniaddl = lst[0];
-                string Regionddl = lst[1];
-                string Zonaddl = lst[2];
-                string Paisddl = lst[3];
-                //string Fechaddl = lst[4];
+                string campaniaddl = lst[0];
+                string zonaddl = lst[2];
+                string paisddl = lst[3];
                 string territoriotxt = lst[5];
-                string EstadoPedidoddl = lst[6];
-                string CodConsultoratxt = lst[7];
-                string Bloqueadoddl = lst[8];
+                string estadoPedidoddl = lst[6];
+                string codConsultoratxt = lst[7];
+                string bloqueadoddl = lst[8];
 
-                string Campaniaddl_val = lst[9];
-                string Regionddl_val = "";
-                string Zonaddl_val = lst[11];
-                string Paisddl_val = lst[12];
-                //string Fechaddl_val = lst[13];
-                string EstadoPedidoddl_val = lst[14];
-                string Bloqueadoddl_val = lst[15];
-                string territoriotxt_ID = lst[16];
-                string CodConsultoratxt_ID = lst[17];
-                string Usuario = lst[18];
-                string TotalPedidos = lst[19];
-                string PorFacturar = lst[20];
+                string campaniaddlVal = lst[9];
+                string regionddlVal = "";
+                string zonaddlVal = lst[11];
+                string paisddlVal = lst[12];
+                string estadoPedidoddlVal = lst[14];
+                string bloqueadoddlVal = lst[15];
+                string territoriotxtId = lst[16];
+                string codConsultoratxtId = lst[17];
+                string usuario = lst[18];
+                string totalPedidos = lst[19];
+                string porFacturar = lst[20];
 
-                lblUsuario.Text = Usuario;
-                spTotalPedidos.InnerText = TotalPedidos;
-                spPorFacturar.InnerText = PorFacturar;
-                ddlCampania.Items.Add(new ListItem { Text = Campaniaddl, Value = Campaniaddl_val }); ddlCampania.SelectedIndex = 0;
-                ddlPais.Items.Add(new ListItem { Text = Paisddl, Value = Paisddl_val }); ddlPais.SelectedIndex = 0;
-                ddlZonas.Items.Add(new ListItem { Text = Zonaddl, Value = Zonaddl_val }); ddlZonas.SelectedIndex = 0;
-                ddlEstadoPedido.Items.Add(new ListItem { Text = EstadoPedidoddl, Value = EstadoPedidoddl_val }); ddlZonas.SelectedIndex = 0;
-                ddlBloqueado.Items.Add(new ListItem { Text = Bloqueadoddl, Value = Bloqueadoddl_val }); ddlZonas.SelectedIndex = 0;
-                txtCodConsultora.Text = CodConsultoratxt;
+                lblUsuario.Text = usuario;
+                spTotalPedidos.InnerText = totalPedidos;
+                spPorFacturar.InnerText = porFacturar;
+                ddlCampania.Items.Add(new ListItem { Text = campaniaddl, Value = campaniaddlVal }); ddlCampania.SelectedIndex = 0;
+                ddlPais.Items.Add(new ListItem { Text = paisddl, Value = paisddlVal }); ddlPais.SelectedIndex = 0;
+                ddlZonas.Items.Add(new ListItem { Text = zonaddl, Value = zonaddlVal }); ddlZonas.SelectedIndex = 0;
+                ddlEstadoPedido.Items.Add(new ListItem { Text = estadoPedidoddl, Value = estadoPedidoddlVal }); ddlZonas.SelectedIndex = 0;
+                ddlBloqueado.Items.Add(new ListItem { Text = bloqueadoddl, Value = bloqueadoddlVal }); ddlZonas.SelectedIndex = 0;
+                txtCodConsultora.Text = codConsultoratxt;
                 txtTerritorio.Text = territoriotxt;
                 imgBandera.ImageUrl = "../Content/Banderas/" + lst[21];
                 imgLogoResponde.ImageUrl = "../Content/Images/logo_responde_" + lst[21];
@@ -66,21 +62,21 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     BEPedidoWeb pedido = new BEPedidoWeb()
                     {
-                        PaisID = Convert.ToInt32(Paisddl_val),
-                        CodigoZona = Zonaddl_val,
-                        CodigoConsultora = CodConsultoratxt_ID,
-                        CampaniaID = (string.IsNullOrEmpty(Campaniaddl_val)) ? 0 : Convert.ToInt32(Campaniaddl_val),
-                        EstadoPedido = Convert.ToByte(EstadoPedidoddl_val),
-                        Bloqueado = Convert.ToInt16(Bloqueadoddl_val)
+                        PaisID = Convert.ToInt32(paisddlVal),
+                        CodigoZona = zonaddlVal,
+                        CodigoConsultora = codConsultoratxtId,
+                        CampaniaID = (string.IsNullOrEmpty(campaniaddlVal)) ? 0 : Convert.ToInt32(campaniaddlVal),
+                        EstadoPedido = Convert.ToByte(estadoPedidoddlVal),
+                        Bloqueado = Convert.ToInt16(bloqueadoddlVal)
                     };
 
                     int? regionid = null;
-                    if (!string.IsNullOrEmpty(Regionddl_val))
-                        regionid = int.Parse(Regionddl_val);
+                    if (!string.IsNullOrEmpty(regionddlVal))
+                        regionid = int.Parse(regionddlVal);
 
                     int? territorioid = null;
-                    if (!string.IsNullOrEmpty(territoriotxt_ID))
-                        territorioid = int.Parse(territoriotxt_ID);
+                    if (!string.IsNullOrEmpty(territoriotxtId))
+                        territorioid = int.Parse(territoriotxtId);
 
                     lista = srv.SelectPedidosWebByFilter(pedido, "01012013", regionid, territorioid).ToList();
                 }

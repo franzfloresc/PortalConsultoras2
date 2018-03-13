@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class ActualizarDatosModel
     {
@@ -11,9 +6,7 @@ namespace Portal.Consultoras.Web.Models
         public string EMail { get; set; }
         public string Telefono { get; set; }
         public string Celular { get; set; }
-        /*2116 -INICIO*/
         public string m_Apellidos { get; set; }
         public string m_Nombre { get; set; }
-        /*2116-FIN  */
     }
 }

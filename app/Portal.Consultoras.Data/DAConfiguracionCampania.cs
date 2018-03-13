@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -33,7 +28,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
-            //Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Context.ExecuteReader(command);
         }

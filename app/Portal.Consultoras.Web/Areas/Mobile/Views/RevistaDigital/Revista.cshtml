@@ -1,0 +1,136 @@
+﻿<style>
+    .demo-lightSlider {
+        width: 100%;
+    }
+    .demo-lightSlider .lSSlideOuter ul.lSGallery li a img{
+        
+    }
+    .demo-lightSlider a.btn-ver-mas{
+         display: inline-block; 
+    text-align: center;
+    background: black;
+    color: white;
+    padding: 15px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 9px;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    
+    }
+    .demo-lightSlider a.btn-ver-mas span.txt-ver{
+       
+    }
+        .demo-lightSlider a.btn-ver-mas span.txt-ocultar {
+            display:none;
+        }
+
+    .demo-lightSlider ul {
+        list-style: none outside none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+        .demo-lightSlider ul li {
+            display: block;
+            float: left;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+
+        .demo-lightSlider ul li img {
+            width: 100%;
+        }
+    .contenedor-items-revista {
+        display: none;
+        background: rgba(0, 0, 0, 0.70);
+        padding: 15px 0px;
+        margin-top: -317px;
+        position: absolute;
+        height: 250px;
+        width: 100%;
+        text-align: center;
+        overflow: hidden;
+    }
+        .contenedor-items-revista img {
+            display: inline-block;
+            text-align: center;
+            margin-left: 2%;
+            margin-right: 2%;
+            margin-bottom: 5%;
+        }
+    .abrir-productos-portada {
+        position: absolute;
+        top: 208px;
+        background: transparent;
+        width: 100%;
+        height: auto;
+    }
+    .abrir-productos-portada a{
+        display:block;
+    }
+    .abrir-productos-portada img{
+        display:block;
+        width:100%;
+        height:auto;
+    }
+    [data-seccion]{
+        display:none;
+    }
+</style>
+<div class="demo-lightSlider">
+    <ul id="lightSlider">
+        <!-- En data-thumb iría el previsual pequeño de la portada-->
+        <li data-thumb="https://i.imgur.com/GRlazUG.jpg" attr-id-portada-1="1">
+            <img src="https://i.imgur.com/GRlazUG.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/JkgE5fN.jpg" attr-id-portada-2="2">
+            <img src="https://i.imgur.com/JkgE5fN.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/n7SQijX.jpg">
+            <img src="https://i.imgur.com/n7SQijX.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/W8SQ8od.jpg">
+            <img src="https://i.imgur.com/W8SQ8od.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/QNdSjT0.jpg">
+            <img src="https://i.imgur.com/QNdSjT0.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/uEOdRLp.jpg">
+            <img src="https://i.imgur.com/uEOdRLp.jpg" />
+        </li>
+
+        <li data-thumb="https://i.imgur.com/vrnhemY.jpg">
+            <img src="https://i.imgur.com/vrnhemY.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/qaZ3Ewj.jpg">
+            <img src="https://i.imgur.com/qaZ3Ewj.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/kOi7DFu.jpg">
+            <img src="https://i.imgur.com/kOi7DFu.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/zebawYb.jpg">
+            <img src="https://i.imgur.com/zebawYb.jpg" />
+        </li>
+        <li data-thumb="https://i.imgur.com/lCOAOim.jpg">
+            <img src="https://i.imgur.com/lCOAOim.jpg" />
+        </li>
+    </ul>
+    <div class="abrir-productos-portada btn-mostrar-productos">
+
+            <img src="https://i.imgur.com/2nQftSl.png" alt="Alternate Text" />
+        
+    </div>
+    <a class="btn-ver-mas btn-mostrar-productos">
+        <span class="txt-ver">VER PRODUCTOS</span>
+        <span class="txt-ocultar">OCULTAR PRODUCTOS</span>
+    </a>
+    <div class="contenedor-items-revista">
+        <img src="https://i.imgur.com/DJjiYqb.jpg" alt="Alternate Text" />
+        <img src="https://i.imgur.com/4q9lDKK.jpg" alt="Alternate Text" />
+        <img src="https://i.imgur.com/vOSXqBO.jpg" alt="Alternate Text" />
+    </div>   
+</div>

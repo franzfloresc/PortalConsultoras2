@@ -5,10 +5,10 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -26,25 +26,28 @@ namespace Portal.Consultoras.Web.Controllers
             string fechaVencimiento;
             string montoPagar;
             decimal montoPagarDec;
-
             ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
 
             var parametroAEncriptar = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
 
-            var model = new MisPagosModel();
-            model.CodigoISO = userData.CodigoISO;
-            model.UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar);
-            model.RutaChile = userData.CodigoISO == "CL" ? ConfigurationManager.AppSettings.Get("UrlPagoLineaChile") : string.Empty;
-            model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
-            model.Simbolo = string.Format("{0} ", userData.Simbolo);
-            model.TieneFlexipago = userData.IndicadorFlexiPago;
-            model.MontoMinimoFlexipago = userData.MontoMinimoFlexipago;
-            model.TienePagoOnline = userData.IndicadorPagoOnline;
-            model.UrlPagoOnline = userData.UrlPagoOnline;
-            model.CorreoConsultora = userData.EMail;
-            model.FechaVencimiento = fechaVencimiento;
-            model.MontoPagar = montoPagar;
-            model.PestanhaInicial = pestanhaInicial ?? "";
+            var model = new MisPagosModel
+            {
+                CodigoISO = userData.CodigoISO,
+                UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar),
+                RutaChile = userData.CodigoISO == "CL"
+                    ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
+                    : string.Empty,
+                MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;",
+                Simbolo = string.Format("{0} ", userData.Simbolo),
+                TieneFlexipago = userData.IndicadorFlexiPago,
+                MontoMinimoFlexipago = userData.MontoMinimoFlexipago,
+                TienePagoOnline = userData.IndicadorPagoOnline,
+                UrlPagoOnline = userData.UrlPagoOnline,
+                CorreoConsultora = userData.EMail,
+                FechaVencimiento = fechaVencimiento,
+                MontoPagar = montoPagar,
+                PestanhaInicial = pestanhaInicial ?? ""
+            };
 
             List<string> pestanhaMisPagosAll = new List<string> {
                 Constantes.PestanhasMisPagos.EstadoCuenta,
@@ -61,22 +64,20 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ListarEstadoCuenta(string sidx, string sord, int page, int rows, string vCampania)
         {
-            List<EstadoCuentaModel> lst;
-
-            lst = ObtenerEstadoCuenta();
+            var lst = ObtenerEstadoCuenta();
             if (lst.Count != 0)
             {
                 lst.RemoveAt(lst.Count - 1);
             }
 
-            // Usamos el modelo para obtener los datos
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
 
-            BEPager pag = new BEPager();
             IEnumerable<EstadoCuentaModel> items = lst;
 
             lst.ForEach(l =>
@@ -93,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Util.PaginadorGenerico(grid, lst);
+            BEPager pag = Util.PaginadorGenerico(grid, lst);
 
             items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
@@ -118,97 +119,73 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EnviarCorreoEstadoCuenta(string correo)
         {
-            string aux_fechaVencimiento;
-            string montoPagar;
-            decimal montoPagarDec = 0;
-
             try
             {
-                List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
-                lst = ObtenerEstadoCuenta();
+                var lst = ObtenerEstadoCuenta();
                 lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
-                ObtenerFechaVencimientoMontoPagar(out aux_fechaVencimiento, out montoPagar, out montoPagarDec);
+                string auxFechaVencimiento;
+                string montoPagar;
+                decimal montoPagarDec;
+                ObtenerFechaVencimientoMontoPagar(out auxFechaVencimiento, out montoPagar, out montoPagarDec);
+
                 lst.Add(new EstadoCuentaModel()
                 {
                     Cargo = montoPagarDec
                 });
 
                 #region cotnenido del correo
-                /*CO-RE2584 - CS(CGI) */
-                string cadena = "<span style='font-family:Calibri'><h2> Estado de Cuenta Belcorp </h2></span>" +
+
+                var txtBuil = new StringBuilder();
+                txtBuil.Append("<span style='font-family:Calibri'><h2> Estado de Cuenta Belcorp </h2></span>" +
                                 "<table width='650px' border = '1px' bordercolor='black' cellpadding='5px' cellspacing='0px' bgcolor='dddddd' >" +
                                 "<tr>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Fecha</th>" +
                                     "<th bgcolor='666666' width='350px' align='center'><font color='#FFFFFF'>Últimos Movimientos</th>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Pedidos</th>" +
                                     "<th bgcolor='666666' width='100px' align='center'><font color='#FFFFFF'>Abonos</th>" +
-                                "</tr>";
+                                "</tr>"
+                            );
 
                 for (int i = 0; i < lst.Count - 1; i++)
                 {
-                    cadena = cadena + "<tr>" +
+                    txtBuil.Append("<tr>" +
                                         "<td align='center'>" + lst[i].Fecha.ToString("dd/MM/yyyy") + "</td>" +
                                         "<td align='left'>" + lst[i].Glosa + "</td>" +
                                         "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Cargo, userData.CodigoISO) + "</td>" +
                                         "<td align='right'>" + Util.DecimalToStringFormat(lst[i].Abono, userData.CodigoISO) + "</td>" +
-                                      "</tr>";
+                                      "</tr>");
                 }
 
-                //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
-                //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
                 if (lst.Count > 0)
                 {
-                    string fechaVencimiento = string.Empty;
-                    if (!lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("19000101") && !lst[lst.Count - 1].Fecha.ToString("yyyyMMdd").Equals("00010101"))
-                    {
-                        fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
-                    }
-                    //R2524 - JICM - Formateando decimal y Eliminando Fecha Vencimiento
-                    //R2524 - JICM - CC - Validación Cargo y Abono para el envío de Mail
                     if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
                     {
 
-                        cadena = cadena + "</table><br /><br />" +
-                                     "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                     "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Cargo).Replace(',', '.') +
+                                     "<br />");
 
                     }
                     else if (Math.Abs(lst[lst.Count - 1].Abono) > 0)
                     {
 
-                        cadena = cadena + "</table><br /><br />" +
-                                         "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                         "TOTAL A PAGAR: " + string.Format("{0:0.##}", lst[lst.Count - 1].Abono).Replace(',', '.') +
+                                         "<br />");
 
                     }
                     else
                     {
-                        cadena = cadena + "</table><br /><br />" +
-                                          "TOTAL A PAGAR: " + "0" + "<br />";
+                        txtBuil.Append("</table><br /><br />" +
+                                          "TOTAL A PAGAR: " + "0" +
+                                          "<br />");
                     }
                 }
-                // else
-                // {
-                //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
-                //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
-
-                //cadena = cadena + "</table><br /><br />" +
-                //                  "TOTAL A PAGAR: " + "0" + "<br />" ;
-
-                //  }
-
-
-                //Mejora - Correo
-                //cadena += "<table border='0' style='width: 650px;'>";
-                //cadena += "<tr>";
-                //cadena += "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>";
-                //cadena += "Belcorp - " + nomPais;
-                //cadena += "</td>";
-                //cadena += "</tr>";
-                //cadena += "</table>";
 
                 #endregion
 
-                Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + userData.CodigoISO + ") Estado de Cuenta", cadena, true, userData.NombreConsultora);
+                Util.EnviarMail("no-responder@somosbelcorp.com", correo, "(" + userData.CodigoISO + ") Estado de Cuenta", txtBuil.ToString(), true, userData.NombreConsultora);
                 return Json(new
                 {
                     success = true,
@@ -241,8 +218,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcelEstadoCuenta()
         {
             decimal abono = 0;
-            string fechaVencimiento;
-            string montoPagar;
             decimal montoPagarDec = 0;
             List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
             lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
@@ -251,12 +226,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count != 0)
             {
+                string fechaVencimiento;
+                string montoPagar;
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
-
-                //EstadoCuentaModel cuenta = lst[lst.Count - 1];
-                //cargo = cuenta.Cargo;
-                //abono = cuenta.Abono;
-                //lst.RemoveAt(lst.Count - 1);
 
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
@@ -265,12 +237,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-
-            dic.Add("Fecha", "Fecha");
-            dic.Add("Ultimos Movimientos", "Glosa");
-            dic.Add("Pedidos", userData.Simbolo + " #Cargo");
-            dic.Add("Abonos", userData.Simbolo + " #Abono");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Fecha", "Fecha"},
+                {"Ultimos Movimientos", "Glosa"},
+                {"Pedidos", userData.Simbolo + " #Cargo"},
+                {"Abonos", userData.Simbolo + " #Abono"}
+            };
 
             string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
 
@@ -315,14 +288,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcion(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
-            BEPager pag = new BEPager();
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEComprobantePercepcion> items = lst;
 
             #region Sort Section
@@ -364,11 +336,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = PaginadorPercepcion(grid, lst);
+            BEPager pag = PaginadorPercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -401,12 +372,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
                 }
-                if (lsta == null)
-                {
-                    lsta = new List<BEDatosBelcorp>();
-                }
 
-                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
+                string importePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
 
                 return Json(new
                 {
@@ -415,7 +382,7 @@ namespace Portal.Consultoras.Web.Controllers
                     RUC = lsta[0].RUC,
                     RazonSocial = lsta[0].RazonSocial,
                     Simbolo = UserData().Simbolo,
-                    Texto = ImportePercepcionTexto
+                    Texto = importePercepcionTexto
                 });
             }
             catch (FaultException ex)
@@ -445,14 +412,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcionDetalle(UserData().PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
-            BEPager pag = new BEPager();
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BEComprobantePercepcionDetalle> items = lst;
 
             #region Sort Section
@@ -534,11 +500,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = PaginadorDetallePercepcion(grid, lst);
+            BEPager pag = PaginadorDetallePercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -586,31 +551,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BEDatosBelcorp> lsta;
 
-            string IdComprobantePercepcion = data["IdComprobantePercepcion"].ToString();
-            string RUCAgentePerceptor = data["RUCAgentePerceptor"].ToString();
-            string NombreAgentePerceptor = data["NombreAgentePerceptor"].ToString();
-            string NumeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
-            string FechaEmision = data["FechaEmision"].ToString();
-            string ImportePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
-            string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
+            string idComprobantePercepcion = data["IdComprobantePercepcion"].ToString();
+            string rucAgentePerceptor = data["RUCAgentePerceptor"].ToString();
+            string nombreAgentePerceptor = data["NombreAgentePerceptor"].ToString();
+            string numeroComprobanteSerie = data["NumeroComprobanteSerie"].ToString();
+            string fechaEmision = data["FechaEmision"].ToString();
+            string importePercepcion = Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00");
+            string importePercepcionTexto = "Son: " + Util.Enletras(Convert.ToDecimal(data["ImportePercepcion"]).ToString("0.00")) + " Nuevos Soles";
 
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lsta = sv.GetDatosBelcorp(UserData().PaisID).ToList();
             }
 
-            var model = new PercepcionesModel();
+            var model = new PercepcionesModel
+            {
+                IdComprobantePercepcion = idComprobantePercepcion,
+                RUCAgentePerceptor = rucAgentePerceptor,
+                NombreAgentePerceptor = nombreAgentePerceptor,
+                NumeroComprobanteSerie = numeroComprobanteSerie,
+                FechaEmision = fechaEmision,
+                ImportePercepcion = UserData().Simbolo + " " + importePercepcion,
+                ImportePercepcionTexto = importePercepcionTexto,
+                Direccion = lsta[0].Direccion,
+                RUC = lsta[0].RUC,
+                RazonSocial = lsta[0].RazonSocial
+            };
 
-            model.IdComprobantePercepcion = IdComprobantePercepcion;
-            model.RUCAgentePerceptor = RUCAgentePerceptor;
-            model.NombreAgentePerceptor = NombreAgentePerceptor;
-            model.NumeroComprobanteSerie = NumeroComprobanteSerie;
-            model.FechaEmision = FechaEmision;
-            model.ImportePercepcion = UserData().Simbolo + " " + ImportePercepcion;
-            model.ImportePercepcionTexto = ImportePercepcionTexto;
-            model.Direccion = lsta[0].Direccion;
-            model.RUC = lsta[0].RUC;
-            model.RazonSocial = lsta[0].RazonSocial;
 
             return View(model);
         }
@@ -649,11 +616,11 @@ namespace Portal.Consultoras.Web.Controllers
         private LugaresPagoModel ObtenerLugaresPago()
         {
             List<BELugarPago> lst;
-            int paisID = userData.PaisID;
+            int paisId = userData.PaisID;
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x => x.Posicion).ToList();
+                lst = (sv.SelectLugarPago(paisId) ?? new BELugarPago[0]).OrderBy(x => x.Posicion).ToList();
             }
 
             foreach (var item in lst)
@@ -668,7 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var lugaresPagoModel = new LugaresPagoModel()
             {
-                PaisID = paisID,
+                PaisID = paisId,
                 CampaniaID = userData.CampaniaID,
                 ISO = iso,
                 listaLugaresPago = lst
@@ -677,7 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
             return lugaresPagoModel;
         }
 
-        private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)
         {
             try
@@ -687,25 +654,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
-                int index = 1;
+                List<string> columns = new List<string>();
 
                 int row = 1;
                 int col = 0;
-                int i = 0;
 
-                int col2 = 1;
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -716,21 +680,19 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
                     {
                         col = 1;
-                        foreach (string column in Columns)
+                        foreach (string column in columns)
                         {
-                            EstadoCuentaModel source = SourceDetails[i];
+                            EstadoCuentaModel source = sourceDetails[i];
 
-                            string[] arr = new string[2];
-                            if (column.Contains("#"))
-                                arr = column.Split('#');
-                            else
-                                arr = new string[] { "", column };
+                            var arr = column.Contains("#")
+                                ? column.Split('#')
+                                : new string[] { "", column };
 
                             if (arr[1] == "Fecha")
                             {
@@ -748,30 +710,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "Cargo")
                             {
-                                string cargo = "";
-                                if (userData.PaisID == 4) //Colombia
-                                {
-                                    cargo = source.Cargo.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    cargo = source.Cargo.ToString("0.00");
-                                }
+                                string cargo = userData.PaisID == 4
+                                    ? source.Cargo.ToString("#,##0").Replace(',', '.')
+                                    : source.Cargo.ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + cargo;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
                             }
 
                             else if (arr[1] == "Abono")
                             {
-                                string abono = "";
-                                if (userData.PaisID == 4) //Colombia
-                                {
-                                    abono = source.Abono.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    abono = source.Abono.ToString("0.00");
-                                }
+                                string abono = userData.PaisID == 4
+                                    ? source.Abono.ToString("#,##0").Replace(',', '.')
+                                    : source.Abono.ToString("0.00");
                                 ws.Cell(row, col).Value = arr[0] + abono;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
                             }
@@ -780,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
                         row++;
                         i++;
                     }
-                    Columns = new List<string>();
+                    columns = new List<string>();
                     if (arrTotal.Length > 0)
                     {
                         ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
@@ -792,7 +743,7 @@ namespace Portal.Consultoras.Web.Controllers
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
                         string cargo = "";
-                        if (userData.PaisID == 4) //Colombia
+                        if (userData.PaisID == 4)
                         {
                             if (Math.Abs(cargoTotal) > 0)
                             {
@@ -816,12 +767,12 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + cargo;
                     }
                     row++;
-                    index = keyvalue.Key + 1;
-                    SourceDetails.RemoveRange(0, index);
+                    var index = keyvalue.Key + 1;
+                    sourceDetails.RemoveRange(0, index);
                 }
 
                 ws.Columns().AdjustToContents();
@@ -831,20 +782,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
                 HttpContext.Response.End();
                 stream = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 
@@ -852,20 +802,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -874,20 +822,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }

@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
 
 namespace Portal.Consultoras.Data
@@ -24,13 +20,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             return Context.ExecuteReader(command);
         }
-
-        //public IDataReader GetFeErratasById(int feErratasID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFeErratasID");
-        //    Context.Database.AddInParameter(command, "@FeErratasID", DbType.Int32, feErratasID);
-        //    return Context.ExecuteReader(command);
-        //}
 
         public int Insert(BEFeErratas entidad)
         {

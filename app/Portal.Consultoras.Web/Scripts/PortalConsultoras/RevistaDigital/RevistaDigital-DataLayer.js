@@ -6,7 +6,6 @@
 
 // Primer Dígito -- Plataforma
 // 1: Desktop                   2: Mobile
-
 // Segundo Dígito -- Pantalla
 // 1: Home                      2: Pedido
 // 3: Liquidacion               4: Catalogo Personalizado
@@ -59,7 +58,9 @@ var rdAnalyticsModule = (function () {
         pedido: "Pedido",
         homeMobile: "Mobile Home",
         catalogoMobile: "Mobile Catálogos y revistas",
-        pedidoMobile: "Mobile Pedido"
+        pedidoMobile: "Mobile Pedido",
+        enterate: "Enterate",
+        confirmarDatos: "ConfirmarDatos"
     },
     _text = {
         noDisponible: "NO DISPONIBLE",
@@ -68,7 +69,7 @@ var rdAnalyticsModule = (function () {
         exception: "Exception on analytics RD ",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
-        saberMas: "Saber más de Ésika para mí",
+        saberMas: "Conoce todo sobre Club Gana+",
         rdBannerPrincipal: "Oferta para ti - RO Banner Principal",
         rdBannerDetPrincipal: "Oferta para ti - RO Detalle Banner Principal",
         rdMisOfertas: "Oferta para ti - RO Mis Ofertas",
@@ -86,7 +87,12 @@ var rdAnalyticsModule = (function () {
         roInscribirme: "Revista Online - Inscribirme a Ésika para mí",
         banner: "Banner",
         popup: "Home pop-up - 1",
-        notAvailable: "(not available)"
+        notAvailable: "(not available)",
+        contenedor: "Contendor",
+        enterate: "Click en botón - Entérate aquí",
+        cerrarPopup: "Cerrar popup",
+        suscribete: "Suscríbete gratis aquí",
+        guardarDatos: "Click en botón - Guardar datos"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -95,7 +101,6 @@ var rdAnalyticsModule = (function () {
         verMas: "Ver más ofertas",
         verTodas: "Ver todas mis ofertas",
         clickBoton: "Click Botón",
-        cerrarPopup: "Cerrar popup",
         clickCancelar: "Click Link Cancelar Suscripción",
         cancelarInscripcion: "Cancelar inscripción",
         suscripcionExitosa: "Suscripción Exitosa",
@@ -106,6 +111,8 @@ var rdAnalyticsModule = (function () {
         ordenar: "Ordenar",
         filtrar: "Filtrar por marca",
         borrar: "Borrar Filtros",
+        popupEnterate: "Popup Entérate aquí",
+        popupSuscripcion: "Popup Suscripción"
     },
     _tabCode = {
         comprar: "1",
@@ -121,19 +128,22 @@ var rdAnalyticsModule = (function () {
     _filterCode = {
         precio: "precio",
         marca: "marca"
+    },
+    _category = {
+        ganaMas: "Gana Más"
     }
-        
-        
-    function _virtualEventPush(category, action, label) {
+
+
+    var _virtualEventPush = function(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
             "category": category,
             "action": action,
             "label": label
         });
-    }
+    };
 
-    function _promotionClickPush(name, position, creative) {
+    var _promotionClickPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionClick,
             "ecommerce": {
@@ -150,7 +160,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _promotionViewPush(name, position, creative) {
+    var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
             "event": _event.promotionView,
             "ecommerce": {
@@ -167,7 +177,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _addToCartPush(list, estrategia) {
+    var _addToCartPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.addToCart,
             "ecommerce": {
@@ -190,7 +200,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _productClickPush(list, estrategia) {
+    var _productClickPush = function (list, estrategia) {
         dataLayer.push({
             "event": _event.productClick,
             "ecommerce": {
@@ -211,7 +221,7 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    function _socialEventPush(socialNetwork, socialAction, socialUrl) {
+    var _socialEventPush = function (socialNetwork, socialAction, socialUrl) {
         dataLayer.push({
             'event': _event.socialEvent,
             'socialNetwork': socialNetwork,
@@ -227,7 +237,7 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.home: //Home
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogos: //Catalogos
+                case _origenWeb.catalogo: //Catalogos
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido: //Pedido
@@ -260,17 +270,17 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function Tabs(codigo, campaniaId) {
+    function Tabs(codigo, campaniaId, pantalla) {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor + "-" + pantalla, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
@@ -280,20 +290,22 @@ var rdAnalyticsModule = (function () {
 
     function FiltrarProducto(tipo, label) {
         try {
-            switch (tipo.toString()) {
-            case _filterCode.marca:
-                _virtualEventPush(_text.epm, _action.filtrar, label);
-                break;
-            case _filterCode.precio:
-                _virtualEventPush(_text.epm, _action.ordenar, label);
-                break;
-            default:
-                _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
-                break;
+            tipo = $.trim(tipo);
+            label = $.trim(label);
+            switch (tipo) {
+                case _filterCode.marca:
+                    _virtualEventPush(_text.epm, _action.filtrar, label);
+                    break;
+                case _filterCode.precio:
+                    _virtualEventPush(_text.epm, _action.ordenar, label);
+                    break;
+                default:
+                    _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
+                    break;
             }
         } catch (e) {
             console.log(_text.exception + e);
-        } 
+        }
     }
 
     function AgregarProducto(origenWeb, estrategia, popup) {
@@ -414,20 +426,22 @@ var rdAnalyticsModule = (function () {
 
     function CompartirProducto(tipo, url, name) {
         try {
-            var label = name + " - " + url;
+            var label = url;
+            if(name !== "")
+                label = name + " - " + url;
             tipo = tipo.toString();
             switch (tipo) {
                 case _socialCode.facebook:
                     _socialEventPush(_text.facebook, _action.facebook, url);
                     break;
                 case _socialCode.whatsapp:
-                    _virtualEventPush(_text.epm, _action.whatsapp, label);
+                    _virtualEventPush(_category.ganaMas, _action.whatsapp, label);
                     break;
                 case _socialCode.youtubeStart:
-                    _virtualEventPush(_text.epm, _action.inicioVideo, label);
+                    _virtualEventPush(_category.ganaMas, _action.inicioVideo, label);
                     break;
                 case _socialCode.youtubeEnd:
-                    _virtualEventPush(_text.epm, _action.finVideo, label);
+                    _virtualEventPush(_category.ganaMas, _action.finVideo, label);
                     break;
             }
         } catch (e) {
@@ -436,7 +450,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function SuscripcionExistosa() {
-        _virtualEventPush(_text.epm, _action.suscripcionExitosa, _text.notAvailable);
+        _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
     }
 
     function MostrarPopup() {
@@ -444,12 +458,29 @@ var rdAnalyticsModule = (function () {
     }
 
     function Inscripcion() {
-        _promotionClickPush(_text.roInscribirme, _text.popup, _text.banner);
+        _virtualEventPush(_category.ganaMas, _action.clickBoton, _text.suscribete);
 
     }
 
-    function CerrarPopUp(tipoBanner) {
-        _virtualEventPush(_text.ro, _action.cerrarPopup, tipoBanner);
+    function CerrarPopUp(tipo) {
+        try {
+            var action = "";
+            switch (tipo) {
+                case _seccionWeb.enterate:
+                    action = _action.popupEnterate;
+                    break;
+                case _seccionWeb.confirmarDatos:
+                    action = _action.popupSuscripcion;
+                    break;
+            }
+            _virtualEventPush(_category.ganaMas, action, _text.cerrarPopup);
+        } catch (e) {
+            console.log(_text.exception + e);
+        }
+    }
+    
+    function GuardarDatos() {
+        _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
     function IrCancelarSuscripcion() {
@@ -460,6 +491,14 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
     }
 
+    function ContendorSection(titulo) {
+        _virtualEventPush(_text.contenedor + " - Home", titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
+    }
+    
+    function IrEnterate() {
+        _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
+    }
+    
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
@@ -475,6 +514,9 @@ var rdAnalyticsModule = (function () {
         AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
-        Access: Access
+        Access: Access,
+        ContendorSection: ContendorSection,
+        IrEnterate: IrEnterate,
+        GuardarDatos: GuardarDatos
     };
 })();

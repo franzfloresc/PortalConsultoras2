@@ -27,20 +27,6 @@
 
         });
 
-        //$.ajax({
-        //    dataType: "json",
-        //    url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-        //    success: function (resultado) {
-        //        $("#ddlCampaniaPaquete").empty();
-
-        //        for (var i in resultado) {
-        //            var campania = resultado[i];
-        //            $("#ddlCampaniaPaquete").append('<option value=' + campania.CampaniaID + '>' + campania.Codigo + '</option>');
-        //        }
-        //    }
-        //});
-
-
         $("#ddlCampaniaPaquete").change(function () {
             if ($("#ddlCampaniaPaquete").val() != "")
                 $("#divMensaje").html("Paquetes encontrados para la campaña: " + $("#ddlCampaniaPaquete").val());

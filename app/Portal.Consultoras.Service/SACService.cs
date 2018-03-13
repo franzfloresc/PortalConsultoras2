@@ -1,53 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
-using System.ServiceModel;
-using System.Data;
-using Portal.Consultoras.Entities.Mobile;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.Mobile;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.ServiceModel;
+using Portal.Consultoras.BizLogic.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
     public class SACService : ISACService
     {
-        private BLCronograma BLCronograma;
-        private BLCronogramaAnticipado BLCronogramaAnticipado;
-        private BLProductoFaltante BLproductofaltante;
-        private BLConfiguracionValidacionZona BLConfiguracionValidacionZona;
-        private BLConfiguracionValidacion BLConfiguracionValidacion;
-        private BLProducto BLProducto;
-        private BLOfertaWeb BLOfertaWeb;
-        private BLConsultoraFicticia BLConsultoraFicticia;
-        private BLDatosBelcorp BLDatosBelcorp;
-        private BLServicio BLServicio;
-        private BLFactorGanancia BLFactorGanancia;
-        private BLSolicitudCredito BLSolicitudCredito;
-        private BLLogModificacionCronograma BLLogModificacionCronograma;
-        private BLLugarPago BLLugarPago;
-        private BLIncentivo BLIncentivo;
-        private BLBelcorpNoticia BLBelcorpNoticia;
-        private BLTablaLogicaDatos BLTablaLogicaDatos;
-        private BLFeErratas BLFeErratas;
-        private BLCuv BLCUV;
-        private BLBannerPedido BLBannerPedido;
-        private BLComunicado BLComunicado; //R2004
-        private BLEstadoCuenta BLEstadoCuenta; //R2073
-        private BLPedidoFacturado BLPedidoFacturado; //R2073
-        private BLAfiliaClienteConsultora BLAfiliaClienteConsultora;//R2319
-        private BLSolicitudCliente BLSolicitudCliente;
-        private BLConfiguracionPortal BLConfiguracionPortal;
-        private BLConsultoraDigitales BLConsultoraDigitales;
-        private BLProveedorDespachoCobranza BLProveedorDespachoCobranza;
-        private BLConfiguracionParametroCarga BLConfiguracionParametroCarga; //R20151221
-        private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
-        private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
-        private BLPopupPais BLPopupPais; //SB20-1095
-        private BLApp _blApp;
+        private readonly BLCronograma BLCronograma;
+        private readonly BLCronogramaAnticipado BLCronogramaAnticipado;
+        private readonly BLProductoFaltante BLproductofaltante;
+        private readonly BLConfiguracionValidacionZona BLConfiguracionValidacionZona;
+        private readonly BLConfiguracionValidacion BLConfiguracionValidacion;
+        private readonly BLProducto BLProducto;
+        private readonly BLOfertaWeb BLOfertaWeb;
+        private readonly BLConsultoraFicticia BLConsultoraFicticia;
+        private readonly BLDatosBelcorp BLDatosBelcorp;
+        private readonly BLServicio BLServicio;
+        private readonly BLFactorGanancia BLFactorGanancia;
+        private readonly BLSolicitudCredito BLSolicitudCredito;
+        private readonly BLLogModificacionCronograma BLLogModificacionCronograma;
+        private readonly BLLugarPago BLLugarPago;
+        private readonly BLIncentivo BLIncentivo;
+        private readonly BLBelcorpNoticia BLBelcorpNoticia;
+        private readonly BLTablaLogicaDatos BLTablaLogicaDatos;
+        private readonly BLFeErratas BLFeErratas;
+        private readonly BLCuv BLCUV;
+        private readonly BLBannerPedido BLBannerPedido;
+        private readonly BLComunicado BLComunicado;
+        private readonly BLEstadoCuenta BLEstadoCuenta;
+        private readonly BLPedidoFacturado BLPedidoFacturado;
+        private readonly BLAfiliaClienteConsultora BLAfiliaClienteConsultora;
+        private readonly BLSolicitudCliente BLSolicitudCliente;
+        private readonly BLConfiguracionPortal BLConfiguracionPortal;
+        private readonly BLConsultoraDigitales BLConsultoraDigitales;
+        private readonly BLProveedorDespachoCobranza BLProveedorDespachoCobranza;
+        private readonly BLConfiguracionParametroCarga BLConfiguracionParametroCarga;
+        private readonly BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido;
+        private readonly BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada;
+        private readonly BLPopupPais BLPopupPais;
+        private readonly BLApp _blApp;
 
-        public SACService()
+        private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
+
+        public SACService() : this(new BLComunicado())
         {
             BLCronograma = new BLCronograma();
             BLCronogramaAnticipado = new BLCronogramaAnticipado();
@@ -69,26 +73,31 @@ namespace Portal.Consultoras.Service
             BLFeErratas = new BLFeErratas();
             BLCUV = new BLCuv();
             BLBannerPedido = new BLBannerPedido();
-            BLComunicado = new BLComunicado(); //R2004
-            BLEstadoCuenta = new BLEstadoCuenta(); //R2073
-            BLPedidoFacturado = new BLPedidoFacturado(); //R2073
-            BLAfiliaClienteConsultora = new BLAfiliaClienteConsultora();//2319
+            BLComunicado = new BLComunicado();
+            BLEstadoCuenta = new BLEstadoCuenta();
+            BLPedidoFacturado = new BLPedidoFacturado();
+            BLAfiliaClienteConsultora = new BLAfiliaClienteConsultora();
             BLSolicitudCliente = new BLSolicitudCliente();
             BLConfiguracionPortal = new BLConfiguracionPortal();
             BLConsultoraDigitales = new BLConsultoraDigitales();
             BLProveedorDespachoCobranza = new BLProveedorDespachoCobranza();
-            BLConfiguracionParametroCarga = new BLConfiguracionParametroCarga(); //R20151221
-            BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
-            BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
+            BLConfiguracionParametroCarga = new BLConfiguracionParametroCarga();
+            BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido();
+            BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada();
             BLPopupPais = new BLPopupPais();
             _blApp = new BLApp();
         }
 
+        public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
+        {
+            _comunicadoBusinessLogic = comunicadoBusinessLogic;
+        }
+
         #region Cronograma Anticipado
 
-        public IList<BECronograma> GetCronogramaByCampaniaAnticipado(int paisID, int CampaniaID, int ZonaID, Int16 TipoCronogramaID)
+        public IList<BECronograma> GetCronogramaByCampaniaAnticipado(int paisID, int campaniaID, int ZonaID, Int16 TipoCronogramaID)
         {
-            return BLCronogramaAnticipado.GetCronogramaByCampaniaAnticipado(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+            return BLCronogramaAnticipado.GetCronogramaByCampaniaAnticipado(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
 
         public int InsertCronogramaAnticipado(BECronograma cronograma)
@@ -124,24 +133,19 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Cronograma
-        public IList<BECronograma> GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, Int16 TipoCronogramaID)
+        public IList<BECronograma> GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, Int16 TipoCronogramaID)
         {
-            return BLCronograma.GetCronogramaByCampania(paisID, CampaniaID, ZonaID, TipoCronogramaID);
+            return BLCronograma.GetCronogramaByCampania(paisID, campaniaID, ZonaID, TipoCronogramaID);
         }
 
-        //public void Update(BECronograma cronograma)
-        //{
-        //    BLCronograma.Update(cronograma);
-        //}
-
-        public BECronograma GetCronogramaByCampaniayZona(int paisID, int CampaniaID, int ZonaID)
+        public BECronograma GetCronogramaByCampaniayZona(int paisID, int campaniaID, int ZonaID)
         {
-            return BLCronograma.GetCronogramaByCampaniayZona(paisID, CampaniaID, ZonaID);
+            return BLCronograma.GetCronogramaByCampaniayZona(paisID, campaniaID, ZonaID);
         }
 
-        public int MigrarCronogramaAnticipado(int paisID, int CampaniaID, int ZonaID)
+        public int MigrarCronogramaAnticipado(int paisID, int campaniaID, int ZonaID)
         {
-            return BLCronograma.MigrarCronogramaAnticipado(paisID, CampaniaID, ZonaID);
+            return BLCronograma.MigrarCronogramaAnticipado(paisID, campaniaID, ZonaID);
         }
 
         public bool GetCronogramaAutomaticoActivacion(int paisID)
@@ -162,15 +166,14 @@ namespace Portal.Consultoras.Service
             BLproductofaltante.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes, FaltanteUltimoMinuto);
         }
 
-        public bool DelProductoFaltante(int paisID, string paisISO, string CodigoUsuario, BEProductoFaltante productofaltante)
+        public bool DelProductoFaltante(int paisID, string paisISO, string CodigoUsuario, BEProductoFaltante productoFaltante)
         {
-            return BLproductofaltante.DelProductoFaltante(paisID, paisISO, CodigoUsuario, productofaltante);
+            return BLproductofaltante.DelProductoFaltante(paisID, paisISO, CodigoUsuario, productoFaltante);
         }
 
-        //R1957
-        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
+        public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha)
         {
-            return BLproductofaltante.DelProductoFaltante2(paisID, paisISO, CodigoUsuario, productofaltante, flag, pais, campania, zona, cuv, e_producto, fecha);
+            return BLproductofaltante.DelProductoFaltante2(paisID, paisISO, CodigoUsuario, productoFaltante, flag, pais, campania, zona, cuv, e_producto, fecha);
         }
 
         public IList<BEProductoFaltante> GetProductoFaltanteByEntity(int paisID, BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina)
@@ -178,9 +181,9 @@ namespace Portal.Consultoras.Service
             return BLproductofaltante.GetProductoFaltanteByEntity(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
 
-        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
+        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion)
         {
-            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID, cuv, descripcion);
+            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, campaniaID, ZonaID, cuv, descripcion);
         }
 
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
@@ -259,9 +262,9 @@ namespace Portal.Consultoras.Service
 
         #region Oferta Web
 
-        public IList<BEOfertaWeb> GetOfertaWebByCampania(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID)
+        public IList<BEOfertaWeb> GetOfertaWebByCampania(int PaisID, int campaniaID, int PedidoID, long ConsultoraID)
         {
-            return BLOfertaWeb.GetOfertaWebByCampania(PaisID, CampaniaID, PedidoID, ConsultoraID);
+            return BLOfertaWeb.GetOfertaWebByCampania(PaisID, campaniaID, PedidoID, ConsultoraID);
         }
 
         #endregion
@@ -315,7 +318,7 @@ namespace Portal.Consultoras.Service
         {
             return BLCronograma.UpdLogActualizacionFacturacion(paisID, CampaniaCodigo, Codigos, Tipo, FechaFacturacion, FechaReFacturacion, CodigoUsuario);
         }
-        //public void UpdateCronogramaDD(int paisID, string CampaniaCodigo, string Codigos, int Tipo, DateTime FechaFacturacion, DateTime FechaReFacturacion, DateTime FechaFinFacturacion, string CodigoUsuario)
+
         public void UpdateCronogramaDD(int paisID, string CampaniaCodigo, string Codigos, int Tipo, DateTime FechaFacturacion, DateTime FechaFinFacturacion, DateTime FechaReFacturacion, string CodigoUsuario)
         {
             BLCronograma.UpdateCronogramaDD(paisID, CampaniaCodigo, Codigos, Tipo, FechaFacturacion, FechaFinFacturacion, FechaReFacturacion, CodigoUsuario);
@@ -428,30 +431,30 @@ namespace Portal.Consultoras.Service
 
         public int InsertFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.InsertFactorGanancia(entidad);
+                result = BLFactorGanancia.InsertFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public int UpdateFactorGanancia(BEFactorGanancia entidad)
         {
-            int Result = 0;
+            int result;
             try
             {
-                Result = BLFactorGanancia.UpdateFactorGanancia(entidad);
+                result = BLFactorGanancia.UpdateFactorGanancia(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Factor Ganancia.");
             }
-            return Result;
+            return result;
         }
 
         public void DeleteFactorGanancia(int paisID, int factorGananciaID)
@@ -504,30 +507,12 @@ namespace Portal.Consultoras.Service
 
         public BEFactorGanancia GetFactorGananciaSiguienteEscala(decimal monto, int paisID)
         {
-            BEFactorGanancia Result = null;
-            try
-            {
-                Result = BLFactorGanancia.GetFactorGananciaSiguienteEscala(monto, paisID);
-            }
-            catch (Exception)
-            {
-                //throw new FaultException("Error al realizar la consulta de la siguiente escala de descuento.");
-            }
-            return Result;
+            return BLFactorGanancia.GetFactorGananciaSiguienteEscala(monto, paisID);
         }
 
         public BEFactorGanancia GetFactorGananciaEscalaDescuento(decimal monto, int paisID)
         {
-            BEFactorGanancia Result = null;
-            try
-            {
-                Result = BLFactorGanancia.GetFactorGananciaEscalaDescuento(monto, paisID);
-            }
-            catch (Exception)
-            {
-                //throw new FaultException("Error al realizar la consulta de la Escala de Descuento.");
-            }
-            return Result;
+            return BLFactorGanancia.GetFactorGananciaEscalaDescuento(monto, paisID);
         }
 
         #endregion
@@ -589,10 +574,10 @@ namespace Portal.Consultoras.Service
 
         public int InsertLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion = BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
@@ -603,10 +588,10 @@ namespace Portal.Consultoras.Service
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
-            int lintPosicion = 0;
+            int lintPosicion;
             try
             {
-                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion = BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
@@ -642,18 +627,6 @@ namespace Portal.Consultoras.Service
                 throw new FaultException("Error al realizar la consulta de Incentivo.");
             }
         }
-
-        //public BEIncentivo GetIncentivoById(int paisID, int incentivoID)
-        //{
-        //    try
-        //    {
-        //        return BLIncentivo.GetIncentivoById(paisID, incentivoID);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new FaultException("Error al realizar la consulta de Incentivo.");
-        //    } 
-        //}
 
         public void InsertIncentivo(BEIncentivo entidad)
         {
@@ -777,18 +750,6 @@ namespace Portal.Consultoras.Service
                 throw new FaultException("Error al realizar la consulta de Fe de Erratas.");
             }
         }
-
-        //public BELugarPago GetFeErratasById(int paisID, int feErratasID)
-        //{
-        //    try
-        //    {
-        //        return BLFeErratas.GetFeErratasById(paisID, feErratasID);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new FaultException("Error al realizar la consulta de Fe de Erratas.");
-        //    } 
-        //}
 
         public void InsertFeErratas(BEFeErratas entidad)
         {
@@ -934,12 +895,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Solicitud Credito
-        //R20150909 - Inicio
         public DateTime GetFechaHoraPais(int paisID)
         {
             return BLSolicitudCredito.GetFechaHoraPais(paisID);
         }
-        //R20150909 - Fin
         public IList<BESolicitudCredito> GetSolicitudCreditos(BESolicitudCredito objSolCredito)
         {
             return BLSolicitudCredito.GetSolicitudCreditos(objSolCredito);
@@ -992,7 +951,6 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        //AOB :Reportes
         public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
             return BLSolicitudCredito.ReporteSolidCreditDia(paisID, codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);
@@ -1026,9 +984,6 @@ namespace Portal.Consultoras.Service
             return new BLConfiguracionTipoProcesoCargaPedidos().InsConfiguracionTipoProcesoCargaPedidos(PaisID, Usuario, ZonasNuevoPROL);
         }
         #endregion
-
-
-        //R20151221 Inicio
 
         #region ConfiguracionParametroCarga
 
@@ -1084,9 +1039,6 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionPortal.GetConfiguracionPortal(paisID);
         }
 
-        //End R20151221
-
-
         #region Participantes Demanada Anticipada - R20160302
 
         public IList<BEParticipantesDemandaAnticipada> GetParticipantesConfiguracionConsultoraDA(int PaisID, string CodigoCampania, string CodigoConsultora)
@@ -1107,16 +1059,15 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-
-        //R2004
         public BEComunicado GetComunicadoByConsultora(int paisID, string CodigoConsultora)
         {
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad)
         {
-            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
@@ -1124,7 +1075,6 @@ namespace Portal.Consultoras.Service
             return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
         }
 
-        //R2004
         public void UpdComunicadoByConsultora(int paisID, string CodigoConsultora)
         {
             BLComunicado.UpdComunicadoByConsultora(paisID, CodigoConsultora);
@@ -1132,8 +1082,12 @@ namespace Portal.Consultoras.Service
 
         public void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID)
         {
-
             BLComunicado.InsertarComunicadoVisualizado(PaisID, CodigoConsultora, ComunicadoID);
+        }
+
+        public void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId)
+        {
+            BLComunicado.ActualizarVisualizoComunicado(PaisId, CodigoConsultora, ComunicadoId);
         }
 
         public void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario)
@@ -1141,10 +1095,14 @@ namespace Portal.Consultoras.Service
             BLComunicado.InsertarDonacionConsultora(PaisId, CodigoISO, CodigoConsultora, Campania, IPUsuario);
         }
 
-        // R2073 - Inicio
         public List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId)
         {
             return BLEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
+        }
+
+        public string GetDeudaActualConsultora(int PaisId, long consultoraId)
+        {
+            return BLEstadoCuenta.GetDeudaActualConsultora(PaisId, consultoraId);
         }
 
         public List<BEPedidoFacturado> GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora)
@@ -1156,41 +1114,32 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoFacturado.GetPedidosFacturadosDetalle(PaisId, Campania, Region, Zona, CodigoConsultora, pedidoId);
         }
-        // R2073 - Fin
 
-        //RQ_DC - R2133
         public void DeleteCacheServicio(string CodigoISO, int CampaniaId)
         {
             BLServicio.DeleteCacheServicio(CodigoISO, CampaniaId);
         }
 
-        //RQ_PBS - R2161
         public BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
             return BLServicio.GetServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId);
         }
 
-        //RQ_PBS - R2161
         public List<BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo)
         {
             return BLServicio.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo);
         }
 
-        //RQ_PBS - R2161
-        /*RE2544 - CS(CGI)*/        
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
             BLServicio.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
         }
 
-        // 1957 - Inicio
         public int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             return BLproductofaltante.DelProductoFaltanteMasivo(paisID, campaniaID, zona, cuv, fecha, descripcion);
         }
-        // 1957 - Fin
 
-        // R2155 - Inicio
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
             return BLSolicitudCredito.ListarColoniasByTerritorio(paisID, codigo);
@@ -1199,20 +1148,16 @@ namespace Portal.Consultoras.Service
         {
             return BLSolicitudCredito.ValidarNumeroRFC(paisID, numeroRFC);
         }
-        // R2155 - Fin
 
         #region Cliente Busca Consultora
-        //R2319 - JLCS
         public BEAfiliaClienteConsultora GetAfiliaClienteConsultoraByConsultora(int paisID, string ConsultoraID)
         {
             return BLAfiliaClienteConsultora.GetAfiliaClienteConsultoraByConsultora(paisID, ConsultoraID);
         }
-        //R2319 - JLCS
         public int InsAfiliaClienteConsultora(int paisID, long ConsultoraID)
         {
             return BLAfiliaClienteConsultora.InsAfiliaClienteConsultora(paisID, ConsultoraID);
         }
-        //R2319 - JLCS
         public int UpdAfiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion)
         {
             return BLAfiliaClienteConsultora.UpdAfiliaClienteConsultora(paisID, ConsultoraID, EsAfiliacion);
@@ -1224,7 +1169,6 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        //R2319 JLCS
         #region Solicitud Cliente
         public BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId)
         {
@@ -1274,7 +1218,6 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             return BLSolicitudCliente.EnviarSolicitudClienteaGZ(paisID, entidadSolicitudCliente);
@@ -1289,7 +1232,6 @@ namespace Portal.Consultoras.Service
         {
             return BLSolicitudCliente.DetalleSolicitudAnuladasRechazadas(paisID, entidadSolicitudCliente);
         }
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         public BEConfiguracionPortal ObtenerConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal)
         {
@@ -1301,14 +1243,12 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionPortal.ActualizarConfiguracionPortal(beoConfiguracionPortal);
         }
 
-        /*R20150804 - MER - inico*/
         #region Descarga Curso Lider
         public void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             new BLMiAcademia().GetInformacionCursoLiderDescarga(PaisId, PaisISO, FechaProceso, Usuario);
         }
         #endregion
-        /*R20150804 - MER - fin*/
 
         public List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID)
         {
@@ -1327,7 +1267,7 @@ namespace Portal.Consultoras.Service
 
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
-            new BLConsultoraDigitales().GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
+            BLConsultoraDigitales.GetConsultoraDigitalesDescarga(PaisId, PaisISO, FechaProceso, Usuario);
         }
 
         public BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta)
@@ -1339,8 +1279,6 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranza(paisID);
         }
-
-        //i R20151202
 
         public int DelProveedorDespachoCobranza(int paisID, int ProveedorDespachoCobanzaID)
         {
@@ -1378,17 +1316,16 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-        //fR20151202
-        
+
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
 
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
 
-        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
         {
-            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, campaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
 
         public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
@@ -1407,7 +1344,7 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
-        
+
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {
@@ -1451,5 +1388,69 @@ namespace Portal.Consultoras.Service
             return bl.GetListarSeccion(paisId, campaniaId);
         }
         #endregion
+
+        #region Estrategia
+        public List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
+        {
+            var bl = new BLAdministrarEstrategia();
+            return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
+        }
+
+        public int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad)
+        {
+            var bl = new BLAdministrarEstrategia();
+            return bl.ActualizarTonoEstrategia(paisId, estrategiaId, codigoEstrategia, tieneVariedad);
+        }
+
+        #endregion
+
+        #region UpSelling
+
+        public IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false)
+        {
+            return new UpSellingBusinessLogic(paisId).Obtener(codigoCampana, incluirDetalle);
+        }
+
+        public UpSelling UpSellingInsertar(int paisId, UpSelling upSelling)
+        {
+            var upSellingBusinessLogic = new UpSellingBusinessLogic(paisId);
+
+            if (upSelling.UpSellingId != default(int))
+                throw new ArgumentException("UpSellingId debe ser 0 para insertar");
+
+            return upSellingBusinessLogic.Insertar(upSelling);
+        }
+
+        public UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera)
+        {
+            return new UpSellingBusinessLogic(paisId).Actualizar(upSelling, soloCabecera);
+        }
+
+        public void UpSellingEliminar(int paisId, int upSellingId)
+        {
+            new UpSellingBusinessLogic(paisId).Eliminar(upSellingId);
+        }
+
+        public UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalle(upSellingDetalleId);
+        }
+
+        public IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerDetalles(upSellingId);
+        }
+
+
+        public IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId)
+        {
+            return new UpSellingBusinessLogic(paisId).ObtenerOfertaFinalMontoMeta( upSellingId);
+        }
+        #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

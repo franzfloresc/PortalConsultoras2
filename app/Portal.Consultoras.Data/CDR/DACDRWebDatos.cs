@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities.CDR;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Data.CDR
 {
-    public class DACDRWebDatos: DataAccess
+    public class DACDRWebDatos : DataAccess
     {
         public DACDRWebDatos(int paisID)
             : base(paisID, EDbSource.Portal)

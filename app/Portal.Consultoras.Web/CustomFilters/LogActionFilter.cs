@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.CustomFilters
@@ -12,7 +7,6 @@ namespace Portal.Consultoras.Web.CustomFilters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            // se crea la entrada de log
             ErrorsLog logModel = new ErrorsLog()
             {
                 Controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,

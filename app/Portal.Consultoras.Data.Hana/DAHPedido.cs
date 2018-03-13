@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Portal.Consultoras.Data.Hana.Entities;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace Portal.Consultoras.Data.Hana
 {
@@ -14,8 +11,7 @@ namespace Portal.Consultoras.Data.Hana
     {
         public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisId, string codigoConsultora)
         {
-            var listBE = new List<BEPedidoWeb>();
-            var listaHana = new List<PedidoHana>();
+            var listBe = new List<BEPedidoWeb>();
 
             try
             {
@@ -27,7 +23,7 @@ namespace Portal.Consultoras.Data.Hana
 
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
 
-                listaHana = JsonConvert.DeserializeObject<List<PedidoHana>>(responseFromServer);
+                var listaHana = JsonConvert.DeserializeObject<List<PedidoHana>>(responseFromServer);
 
                 foreach (var pedidoHana in listaHana)
                 {
@@ -40,31 +36,27 @@ namespace Portal.Consultoras.Data.Hana
 
                     bePedidoWeb.ImporteTotal = pedidoHana.montoPedido;
                     bePedidoWeb.Flete = pedidoHana.MONTOFLETE;
-                    bePedidoWeb.ImporteCredito = 0; //por defecto cero
+                    bePedidoWeb.ImporteCredito = 0;
 
-                    //short motivoCredito;
-                    //bool esMotivo = short.TryParse(pedidoHana.motivoEstado, out motivoCredito);
-                    //if (esMotivo)
-                        //bePedidoWeb.MotivoCreditoID = motivoCredito;
-                    bePedidoWeb.MotivoCreditoID = 0; //por defecto cero
-                    bePedidoWeb.PaisID = 0; //por defecto cero
-                    bePedidoWeb.Clientes = 0; //por defecto cero
+                    bePedidoWeb.MotivoCreditoID = 0;
+                    bePedidoWeb.PaisID = 0;
+                    bePedidoWeb.Clientes = 0;
                     bePedidoWeb.EstadoPedidoDesc = pedidoHana.estadoPedido;
-                    bePedidoWeb.ConsultoraID = 0; //por defecto cero
-                    bePedidoWeb.PedidoID = pedidoHana.oidPedido;                  
+                    bePedidoWeb.ConsultoraID = 0;
+                    bePedidoWeb.PedidoID = pedidoHana.oidPedido;
                     bePedidoWeb.FechaRegistro = pedidoHana.fechaFacturacion;
                     bePedidoWeb.CanalIngreso = pedidoHana.origen;
                     bePedidoWeb.CantidadProductos = pedidoHana.NUMUNIDATEN;
 
-                    listBE.Add(bePedidoWeb);
+                    listBe.Add(bePedidoWeb);
                 }
             }
             catch (Exception)
             {
-                listBE = new List<BEPedidoWeb>();
+                listBe = new List<BEPedidoWeb>();
             }
 
-            return listBE;
+            return listBe;
         }
     }
 }

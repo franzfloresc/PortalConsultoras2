@@ -1,154 +1,266 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
 
-@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
 @{
-    ViewBag.Title = "ÉSIKA PARA MÍ";
-    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    ViewBag.Title = "CLUB GANA+";
+    Layout = ViewBag.TipoLayout == "2" ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-<div class="content_gana_mas" data-estadoregistro="@Model.EstadoSuscripcion">
-    <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
-    <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
-    <div class="content_texto_gana">
-        <div style="width:406px;margin:0 auto;">
-            <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
-            <div>
-                <div class="texto_resaltante_gana">GANA+</div>
-                <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
-            </div>
-            <div>
-                <div class="texto_resaltante_gana">VENDE+</div>
-                <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
-            </div>
-            <div>
-                <div class="texto_resaltante_gana">PUNTOS+</div>
-                <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
-            </div>
-        </div>
-        <div style="display:none;" data-estadoregistro0="" data-estadoregistro2="">
-            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-        </div>
-    </div>
-    <hr class="clear" />
+<div class="back-to" onClick="RedireccionarContenedorComprar()">
+    <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
-<div class="content_funciona_esika">
-    <div class="content_belcorp">
-        <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
-        <div style="overflow: hidden;padding: 0 5%;">
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
-                <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
 
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
-            </div>
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+{
+    <div class="video-visual">
+        <div class="video-container">
+            <div id="player"></div>
         </div>
     </div>
-    <hr class="clear" />
-</div>
-<div class="content_belcorp">
-    <div class="titulo_funciona">preguntas frecuentes</div>
-    <div class="ept_preguntasRespuestas_accordion">
-        <div class="box_pregunta_ept">
-            <div class="tit_pregunta_ept">¿Qué es “Ésika para mí”? </div>
-            <div class="text_respuesta_ept">Es tu revista online personalizada, con las mejores y exclusivas ofertas que se acomodan a tus preferencias y de tu negocio. Son las ofertas que sí o sí tus clientes te pedirán.</div>
-        </div>
-        <div class="box_pregunta_ept">
-            <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” tienen algún descuento adicional? ¿O es su precio final lo que sale en el momento de la compra?</div>
-            <div class="text_respuesta_ept">El precio que ves en “Ésika para mí” es el precio neto consultora, es el precio que deberás pagar una vez facturado tu pedido.</div>
-        </div>
-        <div class="box_pregunta_ept">
-            <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
-            <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
-        </div>
-    </div>
-    <div class="ept_preguntasRespuestas_accordion2">
-        <div class="box_pregunta_ept2">
-            <div class="tit_pregunta_ept2">Mi amiga y yo tenemos el mismo producto, pero los precios son distintos. ¿Por qué?</div>
-            <div class="text_respuesta_ept2">“Ésika para mí” ofrece ofertas personalizadas en función a tu historial de compra y preparará para ti las mejores ofertas en función a esto. De esta manera, las ofertas que figuren en tu “Ésika para mí” tendrán mayor probabilidad de venta, porque ya tienes clientes que seguramente estén interesados en estos.</div>
-        </div>
-        <div class="box_pregunta_ept2">
-            <div class="tit_pregunta_ept2">¿Cuál es mi ganancia por la venta de los productos de “Ésika para mí”?</div>
-            <div class="text_respuesta_ept2">Todos los precios son no comisionables (funciona como revista). La ganancia es el precio de catálogo del producto menos el precio de la revista online.</div>
-        </div>
-        <div class="box_pregunta_ept2">
-            <div class="tit_pregunta_ept2">¿Por qué cancelaron mi revista impresa?</div>
-            <div class="text_respuesta_ept2">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
-        </div>
-    </div>
-    <hr class="clear" />
+}
 
-    <div class="descargarPreguntasRespuestas">
-        <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
-    </div>
-
-    <div id="divCambiosEstadoRegistro">
-
-       @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
-       {
-            <div id="divSuscripcion" style="display:none;" data-estadoregistro0="">
-                <div class="titulo_no_inscrita">INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                <div class="texto_no_inscrita">INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.</div>
-                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-                <hr class="clear" />
-                <div class="legal_gana_mas">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a>.</div>
+<div class="gana-mas">
+    <div class="contenedor-suscripcion" style="text-align: center;">
+        <div class="logo"></div>
+        <p class="sblogo">
+            OFERTAS A TU MEDIDA, SEGÚN LO QUE SIEMPRE PIDES ¡Y MUCHO MÁS!
+        </p>
+        <div class="caja-gana-mas pack-medida">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    PACKS A TU MEDIDA
+                </p>
+                <span class="txt-bloque">
+                    Ofertas de tus productos favoritos, más ganadoras que las de tu guía impresa.
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-uno">
+                        </span>
+                    </span>
+                </span>
             </div>
-        }
-
-        <div id="divAnularSuscripcion" style="display:none;" data-estadoregistro1="">
-            <div class="titulo_no_inscrita">¿ya no quieres estar inscrita a ésika para mí?</div>
-            <div class="texto_no_inscrita">al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
-            <div class="advertencia_no_inscrita">
-                Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas.
-                Cualquier duda llama a @Model.NumeroContacto o haz click
-                <a href="javascript:;" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a>
-            </div>
-            <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion(2);">CANCELAR MI INSCRIPCIÓN</a> </div>
-            <hr class="clear" />
-            <div class="legal_gana_mas">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br />Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
         </div>
-        <div id="divMensajeAnularSuscripcion" style="display: none" data-estadoregistro2="">
-            <div class="titulo_no_inscrita">haz anulado tu inscripción con éxito</div>
-            <div class="texto_no_inscrita">
-                al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
-                <br/>
-                Puedes volver a inscribirte.
+        <div class="caja-gana-mas codigos">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    SIN CÓDIGOS
+                </p>
+                <span class="txt-bloque">
+                    No vas a tener que digitar códigos, todo será más rápido. <br>
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-dos">
+                        </span>
+                    </span>
+                </span>
             </div>
-            <hr class="clear" />
-            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-            <hr class="clear" />
-            <div class="legal_gana_mas"></div>
         </div>
-
+        <div class="caja-gana-mas tips">
+            <div class="caja-gana-mas-cont">
+                <p class="titulo-bloque">
+                    TIPS PARA GANAR
+                </p>
+                <span class="txt-bloque">
+                    En tu celular y/o correo electrónico. Prepárate para vender más. <br>
+                    <span class="txt-img">
+                        <span class="txt-img-cont txt-img-cont-tres">
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
     </div>
 </div>
+
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+    <div class="como-funciona">
+        <div class="contenedor-suscripcion">
+            <div class="arrow-down"></div>
+            <p class="como-funciona-txt">
+                ¿POR QUÉ EL CLUB ES PERFECTO PARA TI?
+            </p>
+            <div class="caja-club-izquierda">
+                <img src="~/Content/Images/visual_de_causa.png" />
+            </div>
+            <div class="caja-club-derecha">
+                <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
+                <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
+                <hr />
+                <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
+                <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
+                <hr />
+                <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
+                <span class="cont-caja-club">¡Lo digital es para ti!</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="como-funciona">
+        <div class="contenedor-suscripcion">
+            <div class="arrow-down"></div>
+            <p class="como-funciona-txt">
+                ¿CÓMO FUNCIONA?
+            </p>
+            <div class="caja-texto">
+                <span class="nro">-</span>
+                <span class="txt">
+                    En esta campaña te suscribes al Club GANA+.
+                </span>
+                <div class="clear"></div>
+                <span class="nro">-</span>
+                <span class="txt">
+                    Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
+                </span>
+                <div class="clear"></div>
+                <span class="nro mobil-nro-funciona">-</span>
+                <span class="txt mobil-nro-funciona">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+                @if (!Model.EsSuscrita)
+                {
+                    <span class="txt recuerda-txt">
+                        RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                    </span>
+                }
+            </div>
+            <div class="caja-img">
+                <div class="visual-funcionamiento"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+    <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
+        <div class="contenedor-suscripcion">
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿NO TE GUSTÓ EL CLUB?
+                </p>
+                <span class="deseas-cancelar">
+                    Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+            }
+            else
+            {
+                <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
+            }
+            <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
+        <div class="contenedor-suscripcion">
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+                </p>
+                <span class="deseas-cancelar">
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+            }
+            else
+            {
+                <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
+            }
+            <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+        </div>
+    </div>
+}
+
+<div class="preguntas-frecuentes-cont-sus">
+    <div class="contenedor-mobile-fix">
+        <span class="titulo-p-frecuente">PREGUNTAS FRECUENTES</span>
+        <ul class="preg-frecuentes">
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Cuál es diferencia entre GANA+ y Club GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
+                            Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
+                        </span>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
+                            Recuerda que puedes suscribirte nuevamente cuando desees.
+                        </span>
+                    </li>
+                    
+                </ul>
+            </li>
+            <div style="clear:both;"></div>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.
+                        </span>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a class="abrir-preg-frecuente"><p>¿Las ofertas del Club Gana+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
+                <ul>
+                    <li>
+                        <span>
+                            Al seleccionar “Club Gana+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
+                        </span>
+                    </li>
+                    
+                </ul>
+            </li>
+            <div style="clear:both;"></div>
+        </ul>
+        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+    </div>
+</div>
+
+@Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml")
 
 @section scripts{
+    <script src="https://www.youtube.com/player_api"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript">
+        var done = false;
+        var player;
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
-        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
-        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
-        var tipoOrigenEstrategia = 17;
-        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
-        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
-        var tieneMasVendidos = 0;
+        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var isScroll = false;
+        var videoKey = '@Model.Video';
+        var estaSuscrita = '@Model.EsSuscrita';
     </script>
-
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }
+
+

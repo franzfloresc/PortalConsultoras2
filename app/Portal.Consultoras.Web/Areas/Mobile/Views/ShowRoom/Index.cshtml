@@ -21,15 +21,8 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
 <!--  MAQUETADO NUEVO-->
-@*<div class="content_banner_header_showroom">*@
     @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-        @*if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>
-        }*@ 
     }
-    @*<img src="@ViewBag.BannerImagenVenta" />*@
-@*</div>*@
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
@@ -143,38 +136,6 @@
 
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
         <div id="divProductosShowRoom">
-            @*@{ var posicions = 1; }
-                @foreach (var item in Model.ListaShowRoomOferta)
-                {
-                    <div class="content_item_home" style="position: relative;">
-                        <div class="liquidacion_item" data-posicion="@posicions">
-                            <div class="producto_img_mobile">
-                                <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
-                                    @if (string.IsNullOrEmpty(item.ImagenMini))
-                                    {
-                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
-                                    }
-                                    else
-                                    {
-                                        <img src="@item.ImagenProducto" alt="" />
-                                    }
-                                </a>
-                            </div>
-                            <div class="producto_nombre_descripcion">
-                                <p class="nombre_producto" style="cursor: pointer; height: 36px;">
-                                    <b>@item.Descripcion</b>
-                                </p>
-                                <div class="producto_precio">
-                                    <span class="producto_precio_normal">@item.Simbolo @item.FormatoPrecioValorizado</span>
-                                    <span class="producto_precio_oferta"><b>@item.Simbolo @item.FormatoPrecioOferta</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        posicions++;
-                    }
-                }*@
         </div>
     </div>
 </div>
@@ -228,7 +189,6 @@
                             <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta </b>
                             <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
                         </div>
-                        @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
                     </div>
                     <hr class="clear" />
                 </div>
@@ -360,7 +320,6 @@ else
                                     <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
                                     <hr class="clear">
                                 </div>
-                                @*<a class="btn_agrega_compra" data-btn-agregar-cpc="" href="javascript: void(0);">AGRÉGALO</a>*@
                             </div>
                             {
                                 posicionCpc++;
@@ -403,6 +362,15 @@ else
                     <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
+               <div class="producto_precio">
+               {{#iff TipoAccionAgregar '==' '0'}}
+                   <B>&nbsp</B>
+               {{/iff}}
+               {{#iff TipoAccionAgregar '==' '1'}}
+                   <b style="color:#b52e36">ELIGE TU OPCIÓN</b>      
+                {{/iff}}
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
     {{/each}}
@@ -437,7 +405,6 @@ else
             <input type="hidden" class="Palanca" value="Showroom" />
         </div>
         <div class="saludo_paginacion">
-            @*Valeria, te mostramos <b>1 de 6</b> ofertas*@
             @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
             {{#iff ../CantidadProductos '>' 1}}
             &nbsp;ofertas

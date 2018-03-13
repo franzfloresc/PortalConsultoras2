@@ -1,15 +1,11 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
-using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class FamiliaProtegidaController : BaseController
     {
-        //
-        // GET: /FamiliaProtegida/
-
         public ActionResult Index()
         {
             string nroDocumento;
@@ -18,17 +14,17 @@ namespace Portal.Consultoras.Web.Controllers
                 nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
             }
 
-            string Url = DevolverURL(UserData().CodigoISO);
+            string url = DevolverUrl(UserData().CodigoISO);
             string[] parametros = new string[] { UserData().CodigoISO, UserData().CodigoConsultora, "", nroDocumento, UserData().NombreConsultora, "", UserData().EMail, UserData().Celular, UserData().Telefono, UserData().CodigoZona };
 
-            Url = Url + "?data=" + Util.EncriptarQueryString(parametros);
+            url = url + "?data=" + Util.EncriptarQueryString(parametros);
 
-            return Redirect(Url);
+            return Redirect(url);
         }
 
-        private string DevolverURL(string ISOPais)
+        private string DevolverUrl(string isoPais)
         {
-            return ConfigurationManager.AppSettings["URL_FAMILIAPROTEGIDA_" + ISOPais].ToString(); // 2224
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_ + isoPais);
         }
 
     }

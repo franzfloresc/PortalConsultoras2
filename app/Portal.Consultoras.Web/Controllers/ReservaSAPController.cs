@@ -5,27 +5,17 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReservaSAPController : BaseController
     {
-        //
-        // GET: /ReservaSAP/
-
         public ActionResult Index()
         {
             return View();
         }
 
-        //R2293
         [HttpPost]
         public JsonResult GenerarReserva(DateTime FechaGeneracion)
         {
-
-            string mensaje = string.Empty;
             try
             {
-
-                if (FechaGeneracion.ToShortDateString() == "01/01/0001")
-                    mensaje += "La Fecha de Generación no tiene el formato correcto, verifique yyyy/MM/dd. \n";
-
-                ServicePROLArchivoReserva.Respuesta[] respuesta = null;
+                ServicePROLArchivoReserva.Respuesta[] respuesta;
 
                 using (ServicePROLArchivoReserva.ReservaPedidos reserva = new ServicePROLArchivoReserva.ReservaPedidos())
                 {
@@ -40,14 +30,12 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "Respuesta Servicio PROL: " + respuesta[0].Descripcion,
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
+
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El servicio de PROL no envió una respuesta válida. Por favor, volver a intentar."
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                    success = true,
+                    mensaje = "El servicio de PROL no envió una respuesta válida. Por favor, volver a intentar."
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Data
         public DAConsultoraCatalogo(int paisID)
             : base(paisID, EDbSource.Portal)
         {
-            //
         }
 
         public IDataReader GetConsultoraCatalogo(int pais, string codigoConsultora, bool parametroEsDocumento, int tipoFiltroUbigeo)
@@ -64,9 +63,9 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int InsLogClienteRegistraConsultoraCatalogo(int consultoraId, string codigoConsultora, 
-            int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo, 
-            string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente, 
+        public int InsLogClienteRegistraConsultoraCatalogo(int consultoraId, string codigoConsultora,
+            int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo,
+            string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente,
             string telefonoCliente, int nuevaConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.InsLogClienteRegistraConsultora");
@@ -91,7 +90,7 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
 
             return (int)Context.Database.GetParameterValue(command, "@IdRegistro");
-          
+
         }
     }
 }

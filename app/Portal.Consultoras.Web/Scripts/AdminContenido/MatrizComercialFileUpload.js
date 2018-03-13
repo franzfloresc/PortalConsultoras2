@@ -3,16 +3,30 @@ var MatrizComercialFileUpload = function (config) {
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
-        habilitarNemotecnico: config.habilitarNemotecnico || false       
+        habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 
-    var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
+    var _validarImagen = '1';
+    var _nemotecnico = config.nemotecnico;
     var _uploader = '';
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
         return _nemotecnico.validarNemotecnico(sinExtension);
     };
+
+    var _validarTamano = function () {
+
+
+        var tamanoMaximo = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
+
+        if ($("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen") == _validarImagen) {
+            return tamanoMaximo;
+        }
+        else {
+            return 0;
+        }
+    }
 
     var _onFileSubmit = function (id, fileName) {
         if (_config.habilitarNemotecnico && !_validarNemotecnico(fileName)) {
@@ -40,6 +54,7 @@ var MatrizComercialFileUpload = function (config) {
                 DescripcionComercial: data.descripcionOriginal,
                 NemotecnicoActivo: _config.habilitarNemotecnico
             },
+            sizeLimit: _validarTamano() * 1024,
             onComplete: data.onComplete,
             onSubmit: _onFileSubmit,
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },

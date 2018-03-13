@@ -1,11 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -41,8 +38,8 @@ namespace Portal.Consultoras.Web.Models
             this.IndicadorPermisoFIC = 0;
             this.IndicadorPermisoFlexipago = false;
             this.MostrarAyudaWebTraking = false;
-            this.IndicadorOfertaFIC = 0;//SSAP CGI(Id Solicitud=1402)
-            this.ImagenURLOfertaFIC = string.Empty;//SSAP CGI(Id Solicitud=1402)
+            this.IndicadorOfertaFIC = 0;
+            this.ImagenURLOfertaFIC = string.Empty;
             this.Lider = 0;
             this.ConsultoraAsociada = string.Empty;
             this.CampaniaInicioLider = string.Empty;
@@ -51,32 +48,30 @@ namespace Portal.Consultoras.Web.Models
             this.PortalLideres = false;
             this.LogoLideres = string.Empty;
             this.IndicadorContrato = 0;
-            this.PROLSinStock = false;//1510
-            this.ValidacionAbierta = false;//CCSS_JZ_PROL
-            this.MenuNotificaciones = 0;//CCSS_JZ_PROL
-            this.TieneNotificaciones = 0;//CCSS_JZ_PROL
-            this.NuevoPROL = false;//RQ_NP - R2133
-            this.ZonaNuevoPROL = false;//RQ_NP - R2133
-            this.EsUsuarioComunidad = false;//Cambios_Landing_Comunidad
-            this.SegmentoConstancia = string.Empty;//R2469
-            this.SeccionAnalytics = string.Empty;//R2469
-            this.DescripcionNivel = string.Empty; //2469
-            this.esConsultoraLider = false;//2469
-            this.EMailActivo = false; //2532 EGL
-            this.EstadoSimplificacionCUV = false;  /*R20150701*/
-            this.IngresoPedidoCierre = false; //20150811
+            this.PROLSinStock = false;
+            this.ValidacionAbierta = false;
+            this.MenuNotificaciones = 0;
+            this.TieneNotificaciones = 0;
+            this.NuevoPROL = false;
+            this.ZonaNuevoPROL = false;
+            this.EsUsuarioComunidad = false;
+            this.SegmentoConstancia = string.Empty;
+            this.SeccionAnalytics = string.Empty;
+            this.DescripcionNivel = string.Empty;
+            this.esConsultoraLider = false;
+            this.EMailActivo = false;
+            this.EstadoSimplificacionCUV = false;
+            this.IngresoPedidoCierre = false;
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-            //this.RevistaDigital = new RevistaDigital();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
-            //this.OfertaFinalModel = new OfertaFinalModel();
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
-            //this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
+            this.FotoPerfil = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -84,6 +79,7 @@ namespace Portal.Consultoras.Web.Models
         public string TelefonoTrabajo { get; set; }
         public int CambioClave { get; set; }
         public int ConsultoraNueva { get; set; }
+        public bool EsConsultoraNueva { get; set; }
         public string NombrePais { get; set; }
         public string BanderaImagen { get; set; }
         public string CodigoFuente { get; set; }
@@ -98,6 +94,10 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
+        
+        /// <summary>
+        /// Codigo Campaña
+        /// </summary>
         public int CampaniaID { get; set; }
 
         public string CampaniaAnio
@@ -200,49 +200,45 @@ namespace Portal.Consultoras.Web.Models
         public bool PedidoFICActivo { get; set; }
         public bool IndicadorPermisoFlexipago { get; set; }
 
-        public string CampanaInvitada { get; set; } //1796
-        public string InscritaFlexipago { get; set; } //1796
-        public string InvitacionRechazada { get; set; } //1796
+        public string CampanaInvitada { get; set; }
+        public string InscritaFlexipago { get; set; }
+        public string InvitacionRechazada { get; set; }
 
         public bool MostrarAyudaWebTraking { get; set; }
-        public int IndicadorOfertaFIC { get; set; }//SSAP CGI(Id Solicitud=1402)
-        public string ImagenURLOfertaFIC { get; set; }//SSAP CGI(Id Solicitud=1402)
-        public int Lider { get; set; }//1485
-        public string ConsultoraAsociada { get; set; }//1688
-        public string CampaniaInicioLider { get; set; }//1589
-        public string SeccionGestionLider { get; set; }//1589
-        public int NivelLider { get; set; }//1485        
-        public bool PortalLideres { get; set; }//1589
-        public string LogoLideres { get; set; }//1589
-        public int IndicadorContrato { get; set; }//1484
+        public int IndicadorOfertaFIC { get; set; }
+        public string ImagenURLOfertaFIC { get; set; }
+        public int Lider { get; set; }
+        public string ConsultoraAsociada { get; set; }
+        public string CampaniaInicioLider { get; set; }
+        public string SeccionGestionLider { get; set; }
+        public int NivelLider { get; set; }
+        public bool PortalLideres { get; set; }
+        public string LogoLideres { get; set; }
+        public int IndicadorContrato { get; set; }
         public int NroCampanias { get; set; }
         public string RolDescripcion { get; set; }
-        public DateTime FechaFinFIC { get; set; }//1501
+        public DateTime FechaFinFIC { get; set; }
         public int EsJoven { get; set; }
-        public bool ValidacionAbierta { get; set; }//CCSS_JZ_PROL
-        public int MenuNotificaciones { get; set; }//CCSS_JZ_PROL
-        public int TieneNotificaciones { get; set; }//CCSS_JZ_PROL
-        public bool EMailActivo { get; set; } //2532 EGL
-        public bool EstadoSimplificacionCUV { get; set; } /*20150701*/
-        public bool IngresoPedidoCierre { get; set; }//20150811 
+        public bool ValidacionAbierta { get; set; }
+        public int MenuNotificaciones { get; set; }
+        public int TieneNotificaciones { get; set; }
+        public bool EMailActivo { get; set; }
+        public bool EstadoSimplificacionCUV { get; set; }
+        public bool IngresoPedidoCierre { get; set; }
         public bool EsquemaDAConsultora { get; set; }
-        public TimeSpan HoraCierreZonaDemAntiCierre { get; set; } //R20151123
+        public TimeSpan HoraCierreZonaDemAntiCierre { get; set; }
 
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
 
         public string SegmentoAbreviatura { get; set; }
 
-        /*Inicio Cambios_Landing_Comunidad*/
         public static bool HasAcces(List<PermisoModel> lista, string Action)
         {
             bool estado = false;
-            if (lista != null)
+            if (lista != null && lista.Count > 0)
             {
-                if (lista.Count > 0)
-                {
-                    estado = HasAccessRecursive(lista, Action);
-                }
+                estado = HasAccessRecursive(lista, Action);
             }
             return estado;
         }
@@ -263,29 +259,27 @@ namespace Portal.Consultoras.Web.Models
 
             return false;
         }
-        /*Fin Cambios_Landing_Comunidad*/
-        public bool PROLSinStock { get; set; }//1510
-        public bool NuevoPROL { get; set; } //RQ_NP - R2133
-        public bool ZonaNuevoPROL { get; set; } //RQ_NP - R2133
-        public DateTime FechaPromesaEntrega { get; set; }//RQ_FP - R2161
-        public bool EsUsuarioComunidad { get; set; }//Cambios_Landing_Comunidad
-        public string SegmentoConstancia { get; set; } //R2469
-        public string SeccionAnalytics { get; set; } //R2469
-        public string DescripcionNivel { get; set; } //R2469
-        public bool esConsultoraLider { get; set; } //R2469        
-        /*re2544 - cs*/
+        public bool PROLSinStock { get; set; }
+        public bool NuevoPROL { get; set; }
+        public bool ZonaNuevoPROL { get; set; }
+        public DateTime FechaPromesaEntrega { get; set; }
+        public bool EsUsuarioComunidad { get; set; }
+        public string SegmentoConstancia { get; set; }
+        public string SeccionAnalytics { get; set; }
+        public string DescripcionNivel { get; set; }
+        public bool esConsultoraLider { get; set; }
         public int? SegmentoInternoID
         {
             get;
             set;
         }
 
-        public bool ValidacionInteractiva { get; set; } // R20150306
-        public string MensajeValidacionInteractiva { get; set; } // R20150306
+        public bool ValidacionInteractiva { get; set; }
+        public string MensajeValidacionInteractiva { get; set; }
 
-        public bool CargoEntidadesShowRoom { get; set; } // GR-1776
-        public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; } // GR-1776
-        public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776    
+        public bool CargoEntidadesShowRoom { get; set; }
+        public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; }
+        public BEShowRoomEvento BeShowRoom { get; set; }
 
         public List<BEShowRoomNivel> ListaShowRoomNivel { get; set; }
 
@@ -294,9 +288,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; }
 
         public int ShowRoomNivelId { get; set; }
-
-       
-        
 
         public int CatalogoPersonalizado { get; set; }
 
@@ -307,6 +298,7 @@ namespace Portal.Consultoras.Web.Models
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public bool OptBloqueoProductoDigital { get; set; }
         public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
@@ -325,14 +317,14 @@ namespace Portal.Consultoras.Web.Models
         public bool RechazadoXdeuda { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
-        public bool TieneCDRExpress { get; set; } //EPD-1919
-        public string MensajeCDRExpress { get; set; } //EPD-1919
-        public bool EsConsecutivoNueva { get; set; } //EPD-1919
+        public bool TieneCDRExpress { get; set; }
+        public string MensajeCDRExpress { get; set; }
+        public bool EsConsecutivoNueva { get; set; }
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
         public int CerrarBannerPostulante { get; set; }
-        public string NombreGerenteZonal { get; set; }  // SB20-907
+        public string NombreGerenteZonal { get; set; }
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
 
@@ -341,7 +333,6 @@ namespace Portal.Consultoras.Web.Models
         public List<PermisoModel> Menu { get; internal set; }
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
 
-        /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
@@ -349,18 +340,12 @@ namespace Portal.Consultoras.Web.Models
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
-        /*PL20-1226*/
 
-        //MC-EPD1837
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
 
         public bool CloseBannerCompraPorCompra { get; set; }
-
-        //public RevistaDigital RevistaDigital { get; set; }
-        //public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
-        
         public bool EsLebel { get; set; }
         public int AceptacionConsultoraDA { get; set; }
         public int MensajePedidoDesktop { get; set; }
@@ -371,24 +356,23 @@ namespace Portal.Consultoras.Web.Models
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }
-        
-        public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
-
+        public bool TieneValidacionMontoMaximo { get; set; }
         public bool EsOfertaFinalZonaValida { get; set; }
         public bool EsOFGanaMasZonaValida { get; set; }
         public int OfertaFinalGanaMas { get; set; }
-
-        //public OfertaFinalModel OfertaFinalModel { get; set; }
-
         public string CodigosConcursos { get; set; }
         public string CodigosProgramaNuevas { get; set; }
-
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
-        //HD-817 Evento Festivo
-        //public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
-        //public string EfRutaPedido { get; set; }
-        //public string EfSaludo { get; set; }
-        //public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
+        public bool TieneGND { get; set; }
+        public string CodigosRevistaImpresa { get; set; }
+        public string CodigoPrograma { get; set; }
+        public int ConsecutivoNueva { get; set; }
+
+        public DateTime FechaHoy { get; set; }
+
+        public string FotoPerfil { get; set; }
+
+        public string CodigoUsuarioHost { get; set; }
     }
 }

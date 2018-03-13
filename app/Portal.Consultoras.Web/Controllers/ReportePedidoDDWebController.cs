@@ -34,390 +34,181 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            var model = new ReportePedidoDDWebModel();
-            model.DropDownListCampania = new List<BECampania>();
-            model.DropDownListZona = new List<BEZona>();
-            model.DropDownListRegion = new List<BERegion>();
-            model.listaPaises = DropDowListPaises();
-            model.hdnpaisISO = UserData().CodigoISO;
-            ViewBag.PaisOcultoID = UserData().PaisID;
+
+            var model = new ReportePedidoDDWebModel
+            {
+                DropDownListCampania = new List<BECampania>(),
+                DropDownListZona = new List<BEZona>(),
+                DropDownListRegion = new List<BERegion>(),
+                listaPaises = DropDowListPaises(),
+                hdnpaisISO = userData.CodigoISO
+            };
+            ViewBag.PaisOcultoID = userData.PaisID;
             return View(model);
         }
+
         public ActionResult ReportePedidosDDWebDetalle()
         {
             if (Request.Form["data"] == null)
                 return RedirectToAction("ReportePedidosDDWeb");
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            Dictionary<string, object> data = serializer.Deserialize<Dictionary<string, object>>(Request.Form["data"]);
+            var serializer = new JavaScriptSerializer();
+            var data = serializer.Deserialize<Dictionary<string, object>>(Request.Form["data"]);
 
-            var model = new ReportePedidoDDWebModel();
+            var model = new ReportePedidoDDWebModel
+            {
+                lblCampaniaCod = data["CampaniaCod"].ToString(),
+                lblConsultoraCod = data["ConsultoraCod"].ToString(),
+                lblConsultoraNombre = data["ConsultoraNombre"].ToString(),
+                lblUsuarioNombre = data["UsuarioNombre"].ToString(),
+                lblOrigen = data["Origen"].ToString(),
+                lblValidado = data["Validado"].ToString(),
+                lblSaldo = data["Saldo"].ToString(),
+                lblImporte = data["Importe"].ToString(),
+                lblImporteConDescuento = data["ImporteConDescuento"].ToString(),
+                hdnpaisISO = data["paisISO"].ToString(),
+                Usuario = Convert.ToString(data["Usuario"]),
+                TipoProceso = data["TipoProceso"].ToString(),
+                MotivoRechazo = data["MotivoRechazo"].ToString()
+            };
 
-            model.lblCampaniaCod = data["CampaniaCod"].ToString();
-            model.lblConsultoraCod = data["ConsultoraCod"].ToString();
-            model.lblConsultoraNombre = data["ConsultoraNombre"].ToString();
-            model.lblUsuarioNombre = data["UsuarioNombre"].ToString();
-            model.lblOrigen = data["Origen"].ToString();
-            model.lblValidado = data["Validado"].ToString();
-            model.lblSaldo = data["Saldo"].ToString();
-            model.lblImporte = data["Importe"].ToString();
-            model.lblImporteConDescuento = data["ImporteConDescuento"].ToString();
-            model.hdnpaisISO = data["paisISO"].ToString();
-            model.Usuario = Convert.ToString(data["Usuario"]);
-            model.TipoProceso = data["TipoProceso"].ToString();
-            model.MotivoRechazo = data["MotivoRechazo"].ToString();
             return View(model);
         }
+
         public ActionResult ReportePedidosDDWebDetalleImp(string parametros)
         {
             string param = Util.DesencriptarQueryString(parametros);
-            string[] lista = param.Split(new char[] { ';' });
-            string PaisISO = lista[0];
-            string CampaniaCod = lista[1];
-            string ConsultoraCod = lista[2];
-            string ConsultoraNombre = lista[3];
-            string UsuarioNombre = lista[4];
-            string Origen = lista[5];
-            string Validado = lista[6];
-            string Saldo = lista[7];
-            string Importe = lista[8];
-            string page = lista[9];
-            string sortname = lista[10];
-            string sortorder = lista[11];
-            string rowNum = lista[12];
-            string usuario = lista[13];
-            string TipoProceso = lista[17];
-            string MotivoRechazo = lista[18];
+            string[] lista = param.Split(';');
 
-            var model = new ReportePedidoDDWebModel();
+            var model = new ReportePedidoDDWebModel
+            {
+                hdnpaisISO = lista[0],
+                lblCampaniaCod = lista[1],
+                lblConsultoraCod = lista[2],
+                lblConsultoraNombre = lista[3],
+                lblUsuarioNombre = lista[4],
+                lblOrigen = lista[5],
+                lblValidado = lista[6],
+                lblSaldo = lista[7],
+                lblImporte = lista[8],
+                vpage = lista[9],
+                vsortname = lista[10],
+                vsortorder = lista[11],
+                vrowNum = lista[12],
+                Usuario = lista[13],
+                TipoProceso = lista[17],
+                MotivoRechazo = lista[18]
+            };
 
-            model.lblCampaniaCod = CampaniaCod;
-            model.lblConsultoraCod = ConsultoraCod;
-            model.lblConsultoraNombre = ConsultoraNombre;
-            model.lblUsuarioNombre = UsuarioNombre;
-            model.lblOrigen = Origen;
-            model.lblValidado = Validado;
-            model.lblSaldo = Saldo;
-            model.lblImporte = Importe;
-            model.hdnpaisISO = PaisISO;
-            model.vpage = page;
-            model.vsortname = sortname;
-            model.vsortorder = sortorder;
-            model.vrowNum = rowNum;
-            model.Usuario = usuario;
-            model.TipoProceso = TipoProceso;
-            model.MotivoRechazo = MotivoRechazo;
             return View(model);
         }
-        public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+
+        public ActionResult ConsultarPedidosDDWeb(FiltroReportePedidoDDWebModel model)
         {
-            if (ModelState.IsValid)
+            ViewBag.PaisOcultoID = userData.PaisID;
+            var list = GetPedidoWebDD(model);
+
+            bool orderAsc = (model.Sord == "asc");
+            switch (model.Sidx)
             {
-                ViewBag.PaisOcultoID = UserData().PaisID;
-
-                string cadena = vPaisID + vCampania + vConsultora + vRegionID + vZonaID + vOrigen + vEstadoValidacion + vEsRechazado;
-
-                if (Session["PedidosWebDDConf"] == null)
-                    Session["PedidosWebDDConf"] = cadena;
-                else
-                {
-                    if (Convert.ToString(Session["PedidosWebDDConf"]) != cadena)
-                    {
-                        Session["PedidosWebDDConf"] = cadena;
-                        Session["PedidosWebDD"] = null;
-                    }
-                }
-
-                List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
-                BEPais bepais = new BEPais();
-
-                if (vPaisID == "")
-                {
-                    bepais.CodigoISO = "";
-                }
-                else
-                {
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                    }
-                }
-                if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-                if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-                if (vConsultora == "") vConsultora = "0";
-
-                string ISOWS = bepais.CodigoISO;
-
-                // Valida los pedidos No Facturados
-
-                try
-                {
-                    if (Session["PedidosWebDD"] == null)
-                    {
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
-                        {
-                            ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
-                            lst = sv.GetPedidosWebDDNoFacturados(
-                                new BEPedidoDDWeb
-                                {
-                                    paisID = Convert.ToInt32(vPaisID),
-                                    paisISO = ISOWS,
-                                    CampaniaID = Convert.ToInt32(vCampania),
-                                    RegionCodigo = vRegionID,
-                                    ZonaCodigo = vZonaID,
-                                    Origen = Convert.ToInt32(vOrigen),
-                                    ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                                    EstadoValidacion = int.Parse(vEstadoValidacion),
-                                    EsRechazado = int.Parse(vEsRechazado)
-                                }).ToList();
-                        }
-
-                        Session["PedidosWebDD"] = lst;
-                    }
-                    else
-                    {
-                        lst = (List<BEPedidoDDWeb>)Session["PedidosWebDD"];
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEPedidoDDWeb>();
-                }
-
-                if (lst.Count != 0)
-                {
-                    int fila = 1;
-                    List<BEPedidoDDWeb> temp = new List<BEPedidoDDWeb>();
-
-                    foreach (var item in lst)
-                    {
-                        temp.Add(new BEPedidoDDWeb
-                        {
-                            NroRegistro = fila.ToString(),
-                            FechaRegistro = item.FechaRegistro,
-                            FechaReserva = item.FechaReserva,
-                            CampaniaCodigo = item.CampaniaCodigo,
-                            Seccion = item.Seccion,
-                            ConsultoraCodigo = item.ConsultoraCodigo,
-                            ConsultoraNombre = item.ConsultoraNombre,
-                            ImporteTotal = item.ImporteTotal,
-                            ImporteTotalConDescuento = item.ImporteTotalConDescuento,
-                            UsuarioResponsable = item.UsuarioResponsable,
-                            ConsultoraSaldo = item.ConsultoraSaldo,
-                            OrigenNombre = item.OrigenNombre,
-                            EstadoValidacionNombre = item.EstadoValidacionNombre,
-                            paisISO = ISOWS,
-                            TipoProceso = item.OrigenNombre,
-                            Zona = item.Zona,
-                            IndicadorEnviado = item.IndicadorEnviado,
-                            PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
-                            Region = item.Region,
-                            DocumentoIdentidad = item.DocumentoIdentidad,
-                            MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
-                        });
-                        fila = fila + 1;
-                    }
-                    lst = temp;
-                }
-
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
-                IEnumerable<BEPedidoDDWeb> items = lst;//lst;
-
-                #region Sort Section
-                if (sord == "asc")
-                {
-                    switch (sidx)
-                    {
-                        case "NroRegistro":
-                            items = lst.OrderBy(x => x.NroRegistro);
-                            break;
-                        case "FechaRegistro":
-                            items = lst.OrderBy(x => x.FechaRegistro);
-                            break;
-                        case "CampaniaCodigo":
-                            items = lst.OrderBy(x => x.CampaniaCodigo);
-                            break;
-                        case "Seccion":
-                            items = lst.OrderBy(x => x.Seccion);
-                            break;
-                        case "ConsultoraCodigo":
-                            items = lst.OrderBy(x => x.ConsultoraCodigo);
-                            break;
-                        case "ImporteTotal":
-                            items = lst.OrderBy(x => x.ImporteTotal);
-                            break;
-                        case "ImporteTotalConDescuento":
-                            items = lst.OrderBy(x => x.ImporteTotalConDescuento);
-                            break;
-                        case "ConsultoraNombre":
-                            items = lst.OrderBy(x => x.ConsultoraNombre);
-                            break;
-                        case "UsuarioResponsable":
-                            items = lst.OrderBy(x => x.UsuarioResponsable);
-                            break;
-                        case "ConsultoraSaldo":
-                            items = lst.OrderBy(x => x.ConsultoraSaldo);
-                            break;
-                        case "OrigenNombre":
-                            items = lst.OrderBy(x => x.OrigenNombre);
-                            break;
-                        case "EstadoValidacionNombre":
-                            items = lst.OrderBy(x => x.EstadoValidacionNombre);
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "NroRegistro":
-                            items = lst.OrderByDescending(x => x.NroRegistro);
-                            break;
-                        case "FechaRegistro":
-                            items = lst.OrderByDescending(x => x.FechaRegistro);
-                            break;
-                        case "CampaniaCodigo":
-                            items = lst.OrderByDescending(x => x.CampaniaCodigo);
-                            break;
-                        case "Seccion":
-                            items = lst.OrderByDescending(x => x.Seccion);
-                            break;
-                        case "ConsultoraCodigo":
-                            items = lst.OrderByDescending(x => x.ConsultoraCodigo);
-                            break;
-                        case "ImporteTotal":
-                            items = lst.OrderByDescending(x => x.ImporteTotal);
-                            break;
-                        case "ImporteTotalConDescuento":
-                            items = lst.OrderByDescending(x => x.ImporteTotalConDescuento);
-                            break;
-                        case "ConsultoraNombre":
-                            items = lst.OrderByDescending(x => x.ConsultoraNombre);
-                            break;
-                        case "UsuarioResponsable":
-                            items = lst.OrderByDescending(x => x.UsuarioResponsable);
-                            break;
-                        case "ConsultoraSaldo":
-                            items = lst.OrderByDescending(x => x.ConsultoraSaldo);
-                            break;
-                        case "OrigenNombre":
-                            items = lst.OrderByDescending(x => x.OrigenNombre);
-                            break;
-                        case "EstadoValidacionNombre":
-                            items = lst.OrderByDescending(x => x.EstadoValidacionNombre);
-                            break;
-                    }
-                }
-                #endregion
-
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                pag = Paginador(grid, lst);
-
-                // Creamos la estructura
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               idCampania = a.CampaniaID.ToString(),
-                               idPedido = a.PedidoID.ToString(),
-                               cell = new string[]
-                               {
-                                   //a.CampaniaID.ToString(),
-                                   //a.PedidoID.ToString(),
-                                   a.paisISO,
-                                   a.NroRegistro.ToString(),
-                                   a.FechaRegistro.ToString(),
-                                   a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
-                                   a.CampaniaCodigo.ToString(),
-                                   a.Region,
-                                   a.Zona,
-                                   a.Seccion.ToString(),
-                                   a.ConsultoraCodigo.ToString(),
-                                   a.ConsultoraNombre.ToString(),
-                                   a.DocumentoIdentidad.ToString(),
-                                   UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")), // Validación país colombia req. 1478
-                                   UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")), // GR-846
-                                   UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")), // Validación país colombia req. 1478
-                                   a.OrigenNombre.ToString(),
-                                   a.EstadoValidacionNombre.ToString(),
-                                   a.IndicadorEnviado,
-                                   a.TipoProceso,
-                                   FomatearMontoDecimalGPR(a.MotivoRechazo)
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                case "NroRegistro": list = list.OrderBy(x => x.NroRegistro, orderAsc).ToList(); break;
+                case "FechaRegistro": list = list.OrderBy(x => x.FechaRegistro, orderAsc).ToList(); break;
+                case "CampaniaCodigo": list = list.OrderBy(x => x.CampaniaCodigo, orderAsc).ToList(); break;
+                case "Seccion": list = list.OrderBy(x => x.Seccion, orderAsc).ToList(); break;
+                case "ConsultoraCodigo": list = list.OrderBy(x => x.ConsultoraCodigo, orderAsc).ToList(); break;
+                case "ImporteTotal": list = list.OrderBy(x => x.ImporteTotal, orderAsc).ToList(); break;
+                case "ImporteTotalConDescuento": list = list.OrderBy(x => x.ImporteTotalConDescuento, orderAsc).ToList(); break;
+                case "ConsultoraNombre": list = list.OrderBy(x => x.ConsultoraNombre, orderAsc).ToList(); break;
+                case "UsuarioResponsable": list = list.OrderBy(x => x.UsuarioResponsable, orderAsc).ToList(); break;
+                case "ConsultoraSaldo": list = list.OrderBy(x => x.ConsultoraSaldo, orderAsc).ToList(); break;
+                case "OrigenNombre": list = list.OrderBy(x => x.OrigenNombre, orderAsc).ToList(); break;
+                case "EstadoValidacionNombre": list = list.OrderBy(x => x.EstadoValidacionNombre, orderAsc).ToList(); break;
             }
-            return RedirectToAction("Index", "Bienvenida");
+
+            var grid = new BEGrid(model.Sidx, model.Sord, model.Page, model.Rows);
+            var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            var pag = Util.PaginadorGenerico(grid, list);
+
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = items.Select(a => new
+                {
+                    idCampania = a.CampaniaID.ToString(),
+                    idPedido = a.PedidoID.ToString(),
+                    cell = new string[]
+                    {
+                        a.paisISO,
+                        a.NroRegistro,
+                        a.FechaRegistro.ToString(),
+                        a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
+                        a.CampaniaCodigo,
+                        a.Region,
+                        a.Zona,
+                        a.Seccion,
+                        a.ConsultoraCodigo,
+                        a.ConsultoraNombre,
+                        a.DocumentoIdentidad,
+                        Util.DecimalToStringFormat(a.ImporteTotal, model.PaisID, userData.Simbolo),
+                        Util.DecimalToStringFormat(a.ImporteTotalConDescuento, model.PaisID, userData.Simbolo),
+                        Util.DecimalToStringFormat(a.ConsultoraSaldo, model.PaisID, userData.Simbolo),
+                        a.OrigenNombre,
+                        a.EstadoValidacionNombre,
+                        a.IndicadorEnviado,
+                        a.TipoProceso,
+                        FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
+                    }
+                })
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
-        private string FomatearMontoDecimalGPR(string MotivoRechazo)
+
+        private string FomatearMontoDecimalGPR(string motivoRechazo)
         {
-            string TextoDecimal = string.Empty;
-            string[] Motivos = MotivoRechazo.Split(',');
-            string MotivoItem = string.Empty;
+            var txtBuil = new StringBuilder();
+            string[] motivos = motivoRechazo.Split(',');
 
-            foreach (string item in Motivos)
+            foreach (string item in motivos)
             {
-                MotivoItem = item;
-                if (MotivoItem.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+                var motivoItem = item;
+                if (motivoItem.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                 {
-                    decimal MontoDecimal = Convert.ToDecimal(MotivoItem.Substring(MotivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
+                    decimal montoDecimal = Convert.ToDecimal(motivoItem.Substring(motivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
 
-                    MotivoItem = MotivoItem.Remove(MotivoItem.IndexOf(':'));
-                    TextoDecimal += string.Format("{0}: {1}", MotivoItem, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+                    motivoItem = motivoItem.Remove(motivoItem.IndexOf(':'));
+                    txtBuil.Append(string.Format("{0}: {1}", motivoItem, (userData.PaisID == 4) ? montoDecimal.ToString("#,##0").Replace(',', '.') : montoDecimal.ToString("0.00")));
                 }
             }
-            return string.IsNullOrEmpty(TextoDecimal) ? MotivoRechazo : TextoDecimal;
+
+            string textoDecimal = txtBuil.ToString();
+            return string.IsNullOrEmpty(textoDecimal) ? motivoRechazo : textoDecimal;
         }
 
         public ActionResult ConsultarPedidosDDWebDetalle(string sidx, string sord, int page, int rows, string vPaisISO, string vCampania, string vConsultoraCodigo, string vTipoProceso)
         {
             if (ModelState.IsValid)
             {
-                List<BEPedidoDDWebDetalle> lst = new List<BEPedidoDDWebDetalle>();
+                List<BEPedidoDDWebDetalle> lst;
 
-                //ServiceOSBBelcorp.BusinessService BusinessService = new BusinessService();
-                //ServiceOSBBelcorp.pedidoWebAnteriorDetalleBean[] lista;
-                PedidoBS BusinessService = new PedidoBS();
-                ServiceOSBBelcorpPedido.pedidoWebAnteriorDetalleBean[] lista;
+                PedidoBS businessService = new PedidoBS();
 
-                string ISOWS = vPaisISO;
-
-                //if (UserData().CodigoISO.Equals("PE"))
-                //    ISOWS = "PE";
-                //else if (UserData().CodigoISO.Equals("CL"))
-                //    ISOWS = "CLE";
-                //else if (UserData().CodigoISO.Equals("EC"))
-                //    ISOWS = "ECL";
+                string isoWs = vPaisISO;
 
                 if (vTipoProceso == "SRV")
                 {
-                    lista = BusinessService.obtenerPedidoWebAnteriorDetalle(vCampania, ISOWS, "0", "0", vConsultoraCodigo);
-                    //lista = BusinessService.obtenerPedidoWebAnteriorDetalle("201303", "PE", "0", "0", "032054889");
-                    //'201303','PE',0,0,'032054889'
+                    var lista = businessService.obtenerPedidoWebAnteriorDetalle(vCampania, isoWs, "0", "0", vConsultoraCodigo);
                     if (lista == null)
                     {
-                        lst = new List<BEPedidoDDWebDetalle>(); ;
+                        lst = new List<BEPedidoDDWebDetalle>();
                     }
                     else
                     {
                         lst = (from c in lista
-                               where string.IsNullOrEmpty(c.descripcion.Trim()) == false
+                               where !string.IsNullOrEmpty(c.descripcion.Trim())
                                select new BEPedidoDDWebDetalle
                                {
                                    CUV = c.cuv,
@@ -427,54 +218,36 @@ namespace Portal.Consultoras.Web.Controllers
                                    PrecioTotal = Convert.ToDecimal(c.importeTotal)
                                }).ToList();
 
-                        //foreach (var pedidoWebAnteriorDetalleBean in lista)
-                        //{
-                        //    lst.Add(new BEPedidoDDWebDetalle
-                        //    {
-                        //        CUV = pedidoWebAnteriorDetalleBean.cuv,
-                        //        Descripcion = pedidoWebAnteriorDetalleBean.descripcion,
-                        //        Cantidad = pedidoWebAnteriorDetalleBean.cantidad,
-                        //        PrecioUnitario = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.precioUnidad),
-                        //        PrecioTotal = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.importeTotal),
-                        //    });
-                        //}
                     }
                 }
                 else
                 {
-                    ISOWS = UserData().CodigoISO;
-                    List<BEPedidoDDWebDetalle> lstPedidosDDWebNoFacturados;
+                    isoWs = userData.CodigoISO;
+                    List<BEPedidoDDWebDetalle> lstPedidosDdWebNoFacturados;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        lstPedidosDDWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(UserData().PaisID, ISOWS, Convert.ToInt32(vCampania), vConsultoraCodigo, vTipoProceso).ToList();
+                        lstPedidosDdWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(userData.PaisID, isoWs, Convert.ToInt32(vCampania), vConsultoraCodigo, vTipoProceso).ToList();
                     }
 
-                    if (lstPedidosDDWebNoFacturados == null)
-                    {
-                        lst = new List<BEPedidoDDWebDetalle>(); ;
-                    }
-                    else
-                    {
-                        lst = (from c in lstPedidosDDWebNoFacturados
-                               select new BEPedidoDDWebDetalle
-                               {
-                                   CUV = c.CUV,
-                                   Descripcion = c.Descripcion,
-                                   Cantidad = c.Cantidad,
-                                   PrecioUnitario = c.PrecioUnitario,
-                                   PrecioTotal = c.PrecioTotal
-                               }).ToList();
-                    }
+                    lst = (from c in lstPedidosDdWebNoFacturados
+                           select new BEPedidoDDWebDetalle
+                           {
+                               CUV = c.CUV,
+                               Descripcion = c.Descripcion,
+                               Cantidad = c.Cantidad,
+                               PrecioUnitario = c.PrecioUnitario,
+                               PrecioTotal = c.PrecioTotal
+                           }).ToList();
+
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEPedidoDDWebDetalle> items = lst;
 
                 #region Sort Section
@@ -522,11 +295,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                var pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -537,11 +309,11 @@ namespace Portal.Consultoras.Web.Controllers
                            {
                                cell = new string[]
                                {
-                                   a.CUV.ToString(),
-                                   a.Descripcion.ToString(),
+                                   a.CUV,
+                                   a.Descripcion,
                                    a.Cantidad.ToString("0.00"),
-                                   UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.PrecioUnitario.ToString("#,##0").Replace(',','.') : a.PrecioUnitario.ToString("0.00")),
-                                   UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.PrecioTotal.ToString("#,##0").Replace(',','.') : a.PrecioTotal.ToString("0.00"))
+                                   userData.Simbolo + " " + (userData.PaisID == 4 ? a.PrecioUnitario.ToString("#,##0").Replace(',','.') : a.PrecioUnitario.ToString("0.00")),
+                                   userData.Simbolo + " " + (userData.PaisID == 4 ? a.PrecioTotal.ToString("#,##0").Replace(',','.') : a.PrecioTotal.ToString("0.00"))
                                 }
                            }
                 };
@@ -549,32 +321,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult ExportarExcel(string vCampania, string vPaisISO, string vConsultoraCodigo, string vTipoProceso, string vMotivoRechazo)
         {
+            var lst = new List<BEPedidoDDWebDetalle>();
 
-            List<BEPedidoDDWebDetalle> lst;
+            PedidoBS businessService = new PedidoBS();
+            string isoWs = vPaisISO;
 
-            PedidoBS BusinessService = new PedidoBS();
-            ServiceOSBBelcorpPedido.pedidoWebAnteriorDetalleBean[] lista;
-            string ISOWS = vPaisISO;
-
-            //if (UserData().CodigoISO.Equals("PE"))
-            //    ISOWS = "PE";
-            //else if (UserData().CodigoISO.Equals("CL"))
-            //    ISOWS = "CLE";
-            //else if (UserData().CodigoISO.Equals("EC"))
-            //    ISOWS = "ECL";
-
-            lst = new List<BEPedidoDDWebDetalle>();
 
             if (vTipoProceso == "SRV")
             {
-                lista = BusinessService.obtenerPedidoWebAnteriorDetalle(vCampania, ISOWS, "0", "0", vConsultoraCodigo);
+                var lista = businessService.obtenerPedidoWebAnteriorDetalle(vCampania, isoWs, "0", "0", vConsultoraCodigo);
 
                 if (lista != null)
                 {
                     lst = (from c in lista
-                           where string.IsNullOrEmpty(c.descripcion.Trim()) == false
+                           where !string.IsNullOrEmpty(c.descripcion.Trim())
                            select new BEPedidoDDWebDetalle
                            {
                                CUV = c.cuv,
@@ -584,30 +347,18 @@ namespace Portal.Consultoras.Web.Controllers
                                PrecioTotal = Convert.ToDecimal(c.importeTotal),
                                MotivoRechazo = vMotivoRechazo
                            }).ToList();
-
-                    //foreach (var pedidoWebAnteriorDetalleBean in lista)
-                    //{
-                    //    lst.Add(new BEPedidoDDWebDetalle
-                    //    {
-                    //        CUV = pedidoWebAnteriorDetalleBean.cuv,
-                    //        Descripcion = pedidoWebAnteriorDetalleBean.descripcion,
-                    //        Cantidad = pedidoWebAnteriorDetalleBean.cantidad,
-                    //        PrecioUnitario = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.precioUnidad),
-                    //        PrecioTotal = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.importeTotal),
-                    //    });
-                    //}
                 }
             }
             else
             {
-                ISOWS = UserData().CodigoISO;
-                List<BEPedidoDDWebDetalle> lstPedidosDDWebNoFacturados;
+                isoWs = userData.CodigoISO;
+                List<BEPedidoDDWebDetalle> lstPedidosDdWebNoFacturados;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lstPedidosDDWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(UserData().PaisID, ISOWS, Convert.ToInt32(vCampania), vConsultoraCodigo, vTipoProceso).ToList();
+                    lstPedidosDdWebNoFacturados = sv.GetPedidosWebDDNoFacturadosDetalle(userData.PaisID, isoWs, Convert.ToInt32(vCampania), vConsultoraCodigo, vTipoProceso).ToList();
                 }
 
-                lst = (from c in lstPedidosDDWebNoFacturados
+                lst = (from c in lstPedidosDdWebNoFacturados
                        select new BEPedidoDDWebDetalle
                        {
                            CUV = c.CUV,
@@ -619,196 +370,115 @@ namespace Portal.Consultoras.Web.Controllers
                        }).ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Código Único de Venta", "CUV"},
+                {"Descripción", "Descripcion"},
+                {"Cantidad", "Cantidad"},
+                {"Precio Unitario", "PrecioUnitario"},
+                {"Precio Total", "PrecioTotal"},
+                {"MotivoRechazo", "MotivoRechazo"}
+            };
 
-            dic.Add("Código Único de Venta", "CUV");
-            dic.Add("Descripción", "Descripcion");
-            dic.Add("Cantidad", "Cantidad");
-            dic.Add("Precio Unitario", "PrecioUnitario");
-            dic.Add("Precio Total", "PrecioTotal");
-            dic.Add("MotivoRechazo", "MotivoRechazo");
 
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
-        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+
+        public ActionResult ExportarExcelDetallePedido(FiltroReportePedidoDDWebModel model)
         {
-            List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
-
-            if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-            if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-            if (vConsultora == "") vConsultora = "0";
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                string paisISO = Util.GetPaisISO(int.Parse(vPaisID));
-                lst = sv.GetPedidosWebDDDetalleConsultora(
-                    new BEPedidoDDWeb
-                    {
-                        paisID = Convert.ToInt32(vPaisID),
-                        paisISO = paisISO,
-                        CampaniaID = Convert.ToInt32(vCampania),
-                        RegionCodigo = vRegionID,
-                        ZonaCodigo = vZonaID,
-                        Origen = Convert.ToInt32(vOrigen),
-                        ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                        EstadoValidacion = int.Parse(vEstadoValidacion),
-                        EsRechazado = int.Parse(vEsRechazado)
-                    }).ToList();
-            }
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-
-            dic.Add("Región", "RegionCodigo");
-            dic.Add("Zona", "Zona");
-            dic.Add("Cod. Consultora", "ConsultoraCodigo");
-            dic.Add("CUV", "CUV");
-            dic.Add("Cantidad", "Cantidad");
+            var dic = new Dictionary<string, string>{
+                { "Región", "RegionCodigo" },
+                { "Zona", "Zona" },
+                { "Cod. Consultora", "ConsultoraCodigo" },
+                { "CUV", "CUV" },
+                { "Cantidad", "Cantidad" }
+            };
+            List<BEPedidoDDWeb> lst = GetPedidoWebDDDetalle(model);
 
             Util.ExportToExcel("PedidoDetalleConsultora", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
 
-        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+        public JsonResult ValidLimitCountDetalle(FiltroReportePedidoDDWebModel model)
         {
-
-            List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
-            BEPais bepais = new BEPais();
-
-            //ServiceOSBBelcorp.BusinessService BusinessService = new BusinessService();
-            PedidoBS BusinessService = new PedidoBS();
-
-            if (vPaisID == "")
-            {
-                bepais.CodigoISO = "";
-            }
-            else
-            {
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
-                }
-            }
-            if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-            if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-            if (vConsultora == "") vConsultora = "0";
-
-            string ISOWS = bepais.CodigoISO;
-
-            // Valida los pedidos No Facturados
-
             try
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
-                    lst = sv.GetPedidosWebDDNoFacturados(
-                        new BEPedidoDDWeb
-                        {
-                            paisID = Convert.ToInt32(vPaisID),
-                            paisISO = ISOWS,
-                            CampaniaID = Convert.ToInt32(vCampania),
-                            RegionCodigo = vRegionID,
-                            ZonaCodigo = vZonaID,
-                            Origen = Convert.ToInt32(vOrigen),
-                            ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                            EstadoValidacion = int.Parse(vEstadoValidacion),
-                            EsRechazado = int.Parse(vEsRechazado)
-                        }).ToList();
-                }
+                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int count = GetPedidoWebDDDetalle(model).Count;
+
+                if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
+                return SuccessJson(string.Empty, true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lst = new List<BEPedidoDDWeb>();
+                return ErrorJson(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera, true);
             }
+        }
 
-            if (lst.Count != 0)
+        public JsonResult ValidLimitCountCabecera(FiltroReportePedidoDDWebModel model)
+        {
+            try
             {
-                int fila = 1;
-                List<BEPedidoDDWeb> temp = new List<BEPedidoDDWeb>();
+                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int count = GetPedidoWebDD(model).Count;
 
-                foreach (var item in lst)
-                {
-                    temp.Add(new BEPedidoDDWeb
-                    {
-                        NroRegistro = fila.ToString(),
-                        FechaRegistro = item.FechaRegistro,
-                        FechaReserva = item.FechaReserva,
-                        CampaniaCodigo = item.CampaniaCodigo,
-                        Seccion = item.Seccion,
-                        ConsultoraCodigo = item.ConsultoraCodigo,
-                        ConsultoraNombre = item.ConsultoraNombre,
-                        PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,  // 1630
-                        ImporteTotal = item.ImporteTotal,
-                        ImporteTotalConDescuento = item.ImporteTotalConDescuento,
-                        UsuarioResponsable = item.UsuarioResponsable,
-                        ConsultoraSaldo = item.ConsultoraSaldo,
-                        OrigenNombre = item.OrigenNombre,
-                        EstadoValidacionNombre = item.EstadoValidacionNombre,
-                        paisISO = ISOWS,
-                        TipoProceso = item.OrigenNombre,
-                        Zona = item.Zona,
-                        IndicadorEnviado = item.IndicadorEnviado,
-                        Region = item.Region, // 2446
-                        MotivoRechazo = item.MotivoRechazo,
-                        DocumentoIdentidad = item.DocumentoIdentidad,
-                    });
-                    fila = fila + 1;
-                }
-                lst = temp;
+                if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
+                return SuccessJson(string.Empty, true);
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera, true);
+            }
+        }
 
-            // 2446 - Inicio
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+        public ActionResult ExportarExcelCabecera(FiltroReportePedidoDDWebModel model)
+        {
+            var dic = new Dictionary<string, string>{
+                { "NroRegistro", "Nro. Registro," },
+                { "FechaRegistro", "Fecha/Hora Ingreso," },
+                { "FechaReserva", "Fecha Reserva," },
+                { "CampaniaCodigo", "Año/Campaña," },
+                { "Region", "Región," },
+                { "Zona", "Zona," },
+                { "Seccion", "Sección," },
+                { "ConsultoraCodigo", "Cod. Consultora," },
+                { "ConsultoraNombre", "Nombre Consultora," },
+                { "DocumentoIdentidad", "Documento Identidad," },
+                { "ImporteTotal", "Monto Total Pedido," },
+                { "ImporteTotalConDescuento", "Monto Total Pedido con Descuento," },
+                { "ConsultoraSaldo", "Saldo," },
+                { "OrigenNombre", "Origen," },
+                { "EstadoValidacionNombre", "Validado," },
+                { "IndicadorEnviado", "Estado," },
+                { "MotivoRechazo", "Motivo de Rechazo" }
+            };
 
-            dic.Add("NroRegistro", "Nro. Registro,");
-            dic.Add("FechaRegistro", "Fecha/Hora Ingreso,");
-            dic.Add("FechaReserva", "Fecha Reserva,");
-            dic.Add("CampaniaCodigo", "Año/Campaña,");
-            dic.Add("Region", "Región,");
-            dic.Add("Zona", "Zona,");
-            dic.Add("Seccion", "Sección,");
-            dic.Add("ConsultoraCodigo", "Cod. Consultora,");
-            dic.Add("ConsultoraNombre", "Nombre Consultora,");
-            //if (UserData().PaisID == 9)
-            //{
-            //    dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
-            //}
-            dic.Add("DocumentoIdentidad", "Documento Identidad,");
-            dic.Add("ImporteTotal", "Monto Total Pedido,");
-            dic.Add("ImporteTotalConDescuento", "Monto Total Pedido con Descuento,");
-            dic.Add("ConsultoraSaldo", "Saldo,");
-            dic.Add("OrigenNombre", "Origen,");
-            dic.Add("EstadoValidacionNombre", "Validado,");
-            dic.Add("IndicadorEnviado", "Estado,");
-            dic.Add("MotivoRechazo", "Motivo de Rechazo");
+            var list = GetPedidoWebDD(model);
+            var lista = list.Select(a => new
+            {
+                a.NroRegistro,
+                a.FechaRegistro,
+                a.FechaReserva,
+                a.CampaniaCodigo,
+                a.Region,
+                a.Zona,
+                a.Seccion,
+                a.ConsultoraCodigo,
+                a.ConsultoraNombre,
+                a.DocumentoIdentidad,
+                ImporteTotal = Util.DecimalToStringFormat(a.ImporteTotal, model.CodigoISO, userData.Simbolo),
+                ImporteTotalConDescuento = Util.DecimalToStringFormat(a.ImporteTotalConDescuento, model.CodigoISO, userData.Simbolo),
+                ConsultoraSaldo = Util.DecimalToStringFormat(a.ConsultoraSaldo, model.CodigoISO, userData.Simbolo),
+                a.OrigenNombre,
+                a.EstadoValidacionNombre,
+                a.IndicadorEnviado,
+                MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
+            }).ToList();
 
-            var lista = from a in lst
-                        select new
-                        {
-                            a.NroRegistro,
-                            a.FechaRegistro,
-                            a.FechaReserva,
-                            a.CampaniaCodigo,
-                            a.Region,
-                            a.Zona,
-                            a.Seccion,
-                            a.ConsultoraCodigo,
-                            a.ConsultoraNombre,
-                            //a.PrimeraCampaniaCodigo,
-                            a.DocumentoIdentidad,
-                            ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotal.ToString("#,##0").Replace(',', '.') : a.ImporteTotal.ToString("0.00")),
-                            ImporteTotalConDescuento = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',', '.') : a.ImporteTotalConDescuento.ToString("0.00")),
-                            ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ConsultoraSaldo.ToString("#,##0").Replace(',', '.') : a.ConsultoraSaldo.ToString("0.00")),
-                            a.OrigenNombre,
-                            a.EstadoValidacionNombre,
-                            a.IndicadorEnviado,
-                            MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
-                        };
-
-            ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
-            // 2446 - Fin
+            ExportToCSV("exportar", lista, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
 
@@ -821,24 +491,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                var columns = new List<string>();
                 int index = 1;
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
-                    Columns.Add(keyvalue.Value);
+                    columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
-                    foreach (string column in Columns)
+                    var col = 1;
+                    foreach (string column in columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -866,9 +533,6 @@ namespace Portal.Consultoras.Web.Controllers
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -876,21 +540,18 @@ namespace Portal.Consultoras.Web.Controllers
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
                     HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -899,8 +560,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }
@@ -914,24 +576,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                var columns = new List<string>();
                 int index = 1;
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
-                    Columns.Add(keyvalue.Value);
+                    columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
-                    foreach (string column in Columns)
+                    var col = 1;
+                    foreach (string column in columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -948,7 +607,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    // validación pais colombia req. 1478
                                     if (col == 9 || col == 10)
                                     {
                                         string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
@@ -968,9 +626,6 @@ namespace Portal.Consultoras.Web.Controllers
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -978,21 +633,18 @@ namespace Portal.Consultoras.Web.Controllers
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
                     HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -1001,8 +653,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }
@@ -1016,24 +669,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                var columns = new List<string>();
                 int index = 1;
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
-                    Columns.Add(keyvalue.Value);
+                    columns.Add(keyvalue.Value);
                 }
                 int row = 2;
-                int col = 0;
                 foreach (var dataItem in (System.Collections.IEnumerable)Source)
                 {
-                    col = 1;
-                    foreach (string column in Columns)
+                    var col = 1;
+                    foreach (string column in columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -1050,8 +700,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (UserData().PaisID == 4)
-                                    { // validación pais colombia req. 1478
+                                    if (userData.PaisID == 4)
+                                    {
                                         if (col == 4 || col == 5)
                                         {
                                             string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
@@ -1075,9 +725,6 @@ namespace Portal.Consultoras.Web.Controllers
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -1085,21 +732,18 @@ namespace Portal.Consultoras.Web.Controllers
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
                     HttpContext.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -1108,8 +752,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }
@@ -1118,7 +763,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             using (ODSServiceClient sv = new ODSServiceClient())
             {
-                BEConsultoraCodigo[] beconsultora = sv.SelectConsultoraCodigo_A(UserData().PaisID, codigo, rowCount);
+                BEConsultoraCodigo[] beconsultora = sv.SelectConsultoraCodigo_A(userData.PaisID, codigo, rowCount);
                 return Json(beconsultora, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1129,13 +774,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string[] lista = new string[21];
 
-            Session["PaisID"] = UserData().PaisID;
+            Session["PaisID"] = userData.PaisID;
 
             lista[0] = vPaisISO; lista[1] = vCampaniaCod; lista[2] = vConsultoraCod; lista[3] = vConsultoraNombre;
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
             lista[8] = vImporte; lista[9] = vImporteConDescuento; lista[10] = vpage; lista[11] = vsortname; lista[12] = vsortorder;
-            lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = UserData().Simbolo; lista[16] = UserData().BanderaImagen;
-            lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString(); lista[20] = vMotivoRechazo;
+            lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = userData.Simbolo; lista[16] = userData.BanderaImagen;
+            lista[17] = userData.NombrePais; lista[18] = vTipoProceso; lista[19] = userData.PaisID.ToString(); lista[20] = vMotivoRechazo;
 
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));
             return new EmptyResult();
@@ -1151,26 +796,28 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                BECampania[] becampania = sv.SelectCampanias(UserData().PaisID);
+                BECampania[] becampania = sv.SelectCampanias(userData.PaisID);
 
                 model.DropDownListCampania = becampania.ToList();
                 model.DropDownListCampania.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
                 return model.DropDownListCampania;
             }
         }
+
         public List<BEZona> CargarZona()
         {
             var model = new ReportePedidoDDWebModel();
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                BEZona[] bezona = sv.SelectAllZonas(UserData().PaisID);
+                BEZona[] bezona = sv.SelectAllZonas(userData.PaisID);
 
                 model.DropDownListZona = bezona.ToList();
                 model.DropDownListZona.Insert(0, new BEZona { ZonaID = 0, Codigo = "-- Todas --" });
                 return model.DropDownListZona;
             }
         }
+
         public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
@@ -1185,106 +832,114 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public BEPager Paginador(BEGrid item, List<BEPedidoDDWeb> lst)
-        {
-            BEPager pag = new BEPager();
-
-            int RecordCount;
-
-            RecordCount = lst.Count;
-
-            pag.RecordCount = RecordCount;
-
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
-
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
-
-            return pag;
-        }
-        public BEPager PaginadorDetalle(BEGrid item, List<BEPedidoDDWebDetalle> lst)
-        {
-            BEPager pag = new BEPager();
-
-            int RecordCount;
-
-            RecordCount = lst.Count;
-
-            pag.RecordCount = RecordCount;
-
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
-
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
-
-            return pag;
-        }
-
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = userData.RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
+        private List<BEPedidoDDWeb> GetPedidoWebDD(FiltroReportePedidoDDWebModel model)
+        {
+            AjustarModel(model);
+            if ((string)Session[Constantes.ConstSession.PedidoWebDDConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDD];
+
+            Session[Constantes.ConstSession.PedidoWebDDConf] = model.UniqueId;
+            var list = new List<BEPedidoDDWeb>();
+            try
+            {
+                var pedidoDDWebFiltro = Mapper.Map<BEPedidoDDWeb>(model);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    list = sv.GetPedidosWebDDNoFacturados(pedidoDDWebFiltro).ToList();
+                }
+
+                list = list.Select((p, i) =>
+                {
+                    p.NroRegistro = (i + 1).ToString();
+                    p.paisISO = model.CodigoISO;
+                    p.TipoProceso = p.OrigenNombre;
+
+                    return p;
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                list = new List<BEPedidoDDWeb>();
+            }
+            Session[Constantes.ConstSession.PedidoWebDD] = list;
+            return list;
+        }
+
+        private List<BEPedidoDDWeb> GetPedidoWebDDDetalle(FiltroReportePedidoDDWebModel model)
+        {
+            AjustarModel(model);
+            if ((string)Session[Constantes.ConstSession.PedidoWebDDDetalleConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDDDetalle];
+
+            Session[Constantes.ConstSession.PedidoWebDDDetalleConf] = model.UniqueId;
+            var list = new List<BEPedidoDDWeb>();
+            try
+            {
+                var pedidoDDWebFiltro = Mapper.Map<BEPedidoDDWeb>(model);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    list = sv.GetPedidosWebDDDetalleConsultora(pedidoDDWebFiltro).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                list = new List<BEPedidoDDWeb>();
+            }
+            Session[Constantes.ConstSession.PedidoWebDDDetalle] = list;
+            return list;
+        }
+
+        private void AjustarModel(FiltroReportePedidoDDWebModel model)
+        {
+            if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = "0";
+            if (model.ZonaID == "" || model.ZonaID == "-- Todas --") model.ZonaID = "0";
+            if (model.Consultora == "") model.Consultora = "0";
+            model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
+        }
+
         #endregion
 
-
-        // 2446 - Inicio
         public bool ExportToCSV<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
         {
             try
             {
                 string extension = ".csv";
                 string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
-                string nombreCabecera = "";
-                string cabecera = "";
-                string nombre = originalFileName; // +"-" + DateTime.Now.ToString("yyyyMMdd-hhmmss") + ".csv";
+
+                string nombre = originalFileName;
                 var sw = new StringWriter();
 
+                var txtBuilNombre = new StringBuilder();
+                var txtBuilCabecera = new StringBuilder();
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
-                    nombreCabecera += keyvalue.Key + ",";
-                    cabecera += keyvalue.Value;
+                    txtBuilNombre.Append(keyvalue.Key + ",");
+                    txtBuilCabecera.Append(keyvalue.Value);
                 }
-                string csv = CreateCSVTextFile(nombreCabecera, Source);
-                sw.WriteLine(cabecera);
+                string csv = CreateCSVTextFile(txtBuilNombre.ToString(), Source);
+                sw.WriteLine(txtBuilCabecera.ToString());
                 sw.Write(csv);
 
                 HttpContext.Response.ClearHeaders();
@@ -1296,7 +951,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var isoEncoding = Encoding.GetEncoding("iso-8859-1");
                 HttpContext.Response.Charset = isoEncoding.WebName;
                 HttpContext.Response.ContentEncoding = isoEncoding;
-                //HttpContext.Response.BinaryWrite(Encoding.UTF8.GetPreamble);
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
                 HttpContext.Response.ContentType = "text/csv";
                 HttpContext.Response.Write(sw);
@@ -1305,8 +959,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return false;
             }
         }
@@ -1347,7 +1002,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return str;
         }
-        // 2446 - Fin
 
     }
 }

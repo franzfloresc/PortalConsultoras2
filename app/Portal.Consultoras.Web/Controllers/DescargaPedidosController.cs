@@ -42,10 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == UserData().PaisID);
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -71,30 +67,24 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                // 2382 - Inicio
-                string fechaproceso;
                 if (model.TipoCronogramaID == 5)
                 {
-                    string isoPais = UserData().CodigoISO;
+                    var anio = model.FechaFacturacion.Year.ToString();
+                    var mes = model.FechaFacturacion.Month.ToString();
+                    if (mes.Length == 1)
+                    {
+                        mes = "0" + mes;
+                    }
+                    var dia = model.FechaFacturacion.Day.ToString();
+                    if (dia.Length == 1)
+                    {
+                        dia = "0" + dia;
+                    }
+
+                    var fechaproceso = anio + mes + dia;
 
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
                     {
-                        string anio;
-                        string mes;
-                        string dia;
-                        anio = model.FechaFacturacion.Year.ToString();
-                        mes = model.FechaFacturacion.Month.ToString();
-                        if (mes.Length == 1)
-                        {
-                            mes = "0" + mes;
-                        }
-                        dia = model.FechaFacturacion.Day.ToString();
-                        if (dia.Length == 1)
-                        {
-                            dia = "0" + dia;
-                        }
-
-                        fechaproceso = anio + mes + dia;
                         sv.GetInformacionCursoLiderDescarga(UserData().PaisID, UserData().CodigoISO, fechaproceso, UserData().CodigoUsuario);
                     }
 
@@ -104,72 +94,55 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "El proceso de generación de lideres ha finalizado satisfactoriamente."
                     });
 
-                    // 2382 - Fin
                 }
-                else
+
+                string[] file;
+
+                using (var pedidoService = new PedidoServiceClient())
                 {
+                    int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? 1 : (model.TipoCronogramaID == 3 ? 1 : 0), model.FechaFacturacion);
 
-                    string[] file = null;
-
-                    using (var pedidoService = new PedidoServiceClient())
+                    if (contadorCarga == 0)
                     {
-                        int ContadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? 1 : (model.TipoCronogramaID == 3 ? 1 : 0), model.FechaFacturacion);
-
-                        if (ContadorCarga == 0)
-                        {
-                            string usuario = UserData().NombreConsultora;
-                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3 ? true : false), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
-                        }
-                        else
-                        {
-                            return Json(new
-                            {
-                                success = false,
-                                mensaje = "Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado."
-                            });
-                        }
-                    }
-                    //return Json(new
-                    //{
-                    //    success = true,
-                    //    mensaje = "Se inició el proceso de Carga de Pedidos, espere unos minutos a que se procese la información y luego verifique en la ruta correspondiente."
-                    //});
-                    bool fox = false;
-                    //if (file.Length != 2)
-                    if (file.Length != 3) //CGI VVA 2450
-                    {
-                        return Json(new
-                        {
-                            success = true,
-                            mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
-                        });
+                        string usuario = UserData().NombreConsultora;
+                        file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 || (model.TipoCronogramaID == 3), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
                     }
                     else
                     {
-                        //if (UserData().CodigoISO.Equals("BO") ||
-                        //    UserData().CodigoISO.Equals("MX"))
-                        fox = true;
-
                         return Json(new
                         {
-                            success = true,
-                            mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
-                            cabecera = System.IO.Path.GetFileName(file[0]),
-                            detalle = System.IO.Path.GetFileName(file[1]),
-                            detalleAct = System.IO.Path.GetFileName(file[2]),//CGI VVA 2450
-
-                            rutac = file[0],
-                            rutad = file[1],
-                            rutae = file[2], // CGI VVA 2450
-                            IsFox = fox
+                            success = false,
+                            mensaje = "Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado."
                         });
                     }
                 }
+
+                if (file.Length != 3)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
+                    });
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
+                    cabecera = System.IO.Path.GetFileName(file[0]),
+                    detalle = System.IO.Path.GetFileName(file[1]),
+                    detalleAct = System.IO.Path.GetFileName(file[2]),
+
+                    rutac = file[0],
+                    rutad = file[1],
+                    rutae = file[2],
+                    IsFox = true
+                });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //throw ex.InnerException
                 return Json(new
                 {
                     success = false,
@@ -177,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        // R20151003 - Inicio
+
         [HttpPost]
         public JsonResult RealizarDescargaDDParcial(DescargarPedidoModel model)
         {
@@ -199,13 +172,13 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                string[] file = null;
+                string[] file;
 
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    int ContadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID, 0, model.FechaFacturacion);
+                    int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID, 0, model.FechaFacturacion);
 
-                    if (ContadorCarga == 0)
+                    if (contadorCarga == 0)
                     {
                         string usuario = UserData().NombreConsultora;
                         file = pedidoService.DescargaPedidosDD(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID, false, usuario);
@@ -220,8 +193,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                bool fox = false;
-
                 if (file.Length != 2)
                 {
                     return Json(new
@@ -230,21 +201,17 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
                     });
                 }
-                else
-                {
-                    fox = true;
 
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
-                        cabecera = System.IO.Path.GetFileName(file[0]),
-                        detalle = System.IO.Path.GetFileName(file[1]),
-                        rutac = file[0],
-                        rutad = file[1],
-                        IsFox = fox
-                    });
-                }
+                return Json(new
+                {
+                    success = true,
+                    mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
+                    cabecera = System.IO.Path.GetFileName(file[0]),
+                    detalle = System.IO.Path.GetFileName(file[1]),
+                    rutac = file[0],
+                    rutad = file[1],
+                    IsFox = true
+                });
 
             }
             catch (FaultException ex)
@@ -258,7 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        // R20151003 - Inicio
 
         [HttpPost]
         public JsonResult RealizarDescargaFIC(DescargarPedidoModel model)
@@ -281,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                string[] file = null;
+                string[] file;
 
                 using (var pedidoService = new PedidoServiceClient())
                 {
@@ -290,7 +256,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                bool fox = false;
                 if (file.Length != 2)
                 {
                     return Json(new
@@ -299,26 +264,21 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente."
                     });
                 }
-                else
-                {
-                    fox = true;
 
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
-                        cabecera = System.IO.Path.GetFileName(file[0]),
-                        detalle = System.IO.Path.GetFileName(file[1]),
-                        rutac = file[0],
-                        rutad = file[1],
-                        IsFox = fox
-                    });
-                }
+                return Json(new
+                {
+                    success = true,
+                    mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
+                    cabecera = System.IO.Path.GetFileName(file[0]),
+                    detalle = System.IO.Path.GetFileName(file[1]),
+                    rutac = file[0],
+                    rutad = file[1],
+                    IsFox = true
+                });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //throw ex.InnerException
                 return Json(new
                 {
                     success = false,
@@ -329,10 +289,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DescargarPedidosHeader(string header)
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string path = @"D:\Files\Belcorp\Pedidos\";
-            httpPath = path + header;
+            string httpPath = path + header;
             if (System.IO.File.Exists(httpPath))
             {
                 HttpContext.Response.Clear();
@@ -351,10 +309,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DescargarPedidosDetail(string detail)
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string path = @"D:\Files\Belcorp\Pedidos\";
-            httpPath = path + detail;
+            string httpPath = path + detail;
             if (System.IO.File.Exists(httpPath))
             {
                 HttpContext.Response.Clear();
@@ -370,18 +326,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        /*EPD-1025*/
+
         public ActionResult ObtenerUltimaDescargaPedido()
         {
             if (ModelState.IsValid)
             {
                 List<BEPedidoDescarga> lst = new List<BEPedidoDescarga>();
-                BEPedidoDescarga UltimaDescargaPedido = new BEPedidoDescarga();
+                BEPedidoDescarga ultimaDescargaPedido;
                 using (PedidoServiceClient srv = new PedidoServiceClient())
                 {
-                    UltimaDescargaPedido = srv.ObtenerUltimaDescargaPedido(userData.PaisID);
+                    ultimaDescargaPedido = srv.ObtenerUltimaDescargaPedido(userData.PaisID);
                 }
-                lst.Add(UltimaDescargaPedido);
+                lst.Add(ultimaDescargaPedido);
 
                 var data = new
                 {
@@ -409,6 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
         public ActionResult DeshacerUltimaDescargaPedidos()
         {
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -422,14 +379,13 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "Se desmarcó correctamente la última descarga."
             });
         }
-        /*EPD-1025*/
-        /*EPD1973*/
+
         public ActionResult ObtenerUltimaDescargaExitosa()
         {
-            BEPedidoDescarga UltimaDescarga = new BEPedidoDescarga();
+            BEPedidoDescarga ultimaDescarga;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                UltimaDescarga = sv.ObtenerUltimaDescargaExitosa(userData.PaisID);
+                ultimaDescarga = sv.ObtenerUltimaDescargaExitosa(userData.PaisID);
             }
 
             return Json(new
@@ -437,8 +393,8 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 descarga = new
                 {
-                    FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
-                    FechaProceso = UltimaDescarga.FechaProceso.ToString()
+                    FechaEnvio = ultimaDescarga.FechaEnvio.ToString(),
+                    FechaProceso = ultimaDescarga.FechaProceso.ToString()
                 }
             });
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceCatalogosIssuu;
+﻿using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -28,13 +24,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string RutaImagenLbel { get; set; }
         public string RutaImagenEsika { get; set; }
         public string RutaImagenCyzone { get; set; }
-        
+
         public string LinkLbel { get; set; }
         public string LinkEsika { get; set; }
         public string LinkCyzone { get; set; }
 
-        public int PaisID { get; set; } //R20160204
-        public string CodigoZona { get; set; } //R20160204
+        public int PaisID { get; set; }
+        public string CodigoZona { get; set; }
 
         public List<BECliente> ListaCliente { get; set; }
     }

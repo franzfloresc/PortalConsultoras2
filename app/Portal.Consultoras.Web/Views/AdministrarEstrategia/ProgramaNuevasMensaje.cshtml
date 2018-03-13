@@ -1,0 +1,29 @@
+﻿﻿<input type="hidden" id="ConfiguracionProgramaNuevasAppID" />
+<div class="Content_modal">
+    <div class="div-3">
+        <div class="titG"><span class="required">(*)</span>Cod. programa:</div>
+        <div class="selectA" style="width:200px">
+            <input type="text" id="CodigoPrograma" autocomplete="off" maxlength="3" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Texto cupón:</div>
+        <div class="selectA" style="width:450px">
+            <input type="text" id="TextoCupon" autocomplete="off" maxlength="500" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG multiline">Texto cupón independiente:</div>
+        <div class="selectA" style="width:450px">
+            <input type="text" id="TextoCuponIndependiente" autocomplete="off" maxlength="500" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="EstrategiaRequerido"><span class="required">(*)</span>Campos obligatorios</div>
+        <div class="EstrategiaBotones">
+            <input type="button" id="btnGuardar" value="GUARDAR" />
+            <input type="button" id="btnCancelar" value="CANCELAR" class="EstrategiaBotonSecundario" />
+        </div>
+    </div>
+</div>
+<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/EstrategiaProgramaNuevas/Mensaje.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

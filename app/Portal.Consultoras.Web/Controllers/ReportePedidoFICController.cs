@@ -14,10 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReportePedidoFICController : BaseController
     {
-        delegate List<BEServicePROLFIC> OrderItemsDelegate(List<BEServicePROLFIC> list, Func<BEServicePROLFIC, string> orderFunc);
-        OrderItemsDelegate OrderAscending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-        OrderItemsDelegate OrderDescending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-
         public ActionResult Index()
         {
             var reportePedidoCampaniaModel = new ReportePedidoFICModel();
@@ -43,9 +39,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
+                List<BEServicePROLFIC> lst;
                 BEPais bepais = new BEPais();
-                DataTable dt = new DataTable();
+
                 try
                 {
                     if (vPaisID == "")
@@ -74,31 +70,26 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid(sidx, sord, page, rows);
                 IEnumerable<BEServicePROLFIC> items = lst;
 
                 #region Sort Section
-                var orderList = (sord == "asc") ? OrderAscending : OrderDescending;
+                bool orderAsc = (sord == "asc");
                 switch (sidx)
                 {
-                    case "ZONA": items = orderList(lst, x => x.ZONA); break;
-                    case "CUENTA": items = orderList(lst, x => x.CUENTA); break;
-                    case "CUV": items = orderList(lst, x => x.CUV); break;
-                    case "PRODUCTO": items = orderList(lst, x => x.PRODUCTO); break;
-                    case "TIPO_OFETA": items = orderList(lst, x => x.TIPO_OFETA); break;
-                    case "UNIDADES": items = orderList(lst, x => x.UNIDADES); break;
-                    case "VENTA_NETA": items = orderList(lst, x => x.VENTA_NETA); break;
+                    case "ZONA": items = lst.OrderBy(x => x.ZONA, orderAsc); break;
+                    case "CUENTA": items = lst.OrderBy(x => x.CUENTA, orderAsc); break;
+                    case "CUV": items = lst.OrderBy(x => x.CUV, orderAsc); break;
+                    case "PRODUCTO": items = lst.OrderBy(x => x.PRODUCTO, orderAsc); break;
+                    case "TIPO_OFETA": items = lst.OrderBy(x => x.TIPO_OFETA, orderAsc); break;
+                    case "UNIDADES": items = lst.OrderBy(x => x.UNIDADES, orderAsc); break;
+                    case "VENTA_NETA": items = lst.OrderBy(x => x.VENTA_NETA, orderAsc); break;
                 }
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                var pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -133,18 +124,19 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
-                else lst = new List<BEPais> { sv.SelectPais(userData.PaisID) };
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(paisID);
+                lst = sv.SelectCampanias(paisId);
             }
             return Mapper.Map<IEnumerable<CampaniaModel>>(lst);
         }
@@ -158,20 +150,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public BEPager Paginador(BEGrid item, List<ReportePedidoCampaniaModel> lst)
-        {
-            var pag = new BEPager { RecordCount = lst.Count, CurrentPage = item.CurrentPage };
-            pag.PageCount = (int)(((float)pag.RecordCount / (float)item.PageSize) + 1);
-            if (pag.CurrentPage > pag.PageCount) pag.CurrentPage = pag.PageCount;
-            return pag;
-        }
-
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             if (vRegion == "" || vRegion == "-- Todas --") vRegion = "x";
             if (vZona == "" || vZona == "-- Todas --") vZona = "x";
 
-            List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
+            List<BEServicePROLFIC> lst;
             try
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -185,18 +169,20 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = new List<BEServicePROLFIC>();
             }
 
-            var dic = new Dictionary<string, string>();
-            dic.Add("País", "PAIS");
-            dic.Add("Periodo", "PERIODO");
-            dic.Add("Fecha Registro", "FechaRegistro");
-            dic.Add("Fecha Modificación", "FechaModificacion");
-            dic.Add("Zona", "ZONA");
-            dic.Add("Cuenta", "CUENTA");
-            dic.Add("CUV", "CUV");
-            dic.Add("Producto", "PRODUCTO");
-            dic.Add("Tipo de Oferta", "TIPO_OFETA");
-            dic.Add("Unidades", "UNIDADES");
-            dic.Add("Venta Neta", "VENTA_NETA");
+            var dic = new Dictionary<string, string>
+            {
+                {"País", "PAIS"},
+                {"Periodo", "PERIODO"},
+                {"Fecha Registro", "FechaRegistro"},
+                {"Fecha Modificación", "FechaModificacion"},
+                {"Zona", "ZONA"},
+                {"Cuenta", "CUENTA"},
+                {"CUV", "CUV"},
+                {"Producto", "PRODUCTO"},
+                {"Tipo de Oferta", "TIPO_OFETA"},
+                {"Unidades", "UNIDADES"},
+                {"Venta Neta", "VENTA_NETA"}
+            };
 
             Util.ExportToExcel_FIC("PedidosFICExcel", lst, dic);
             return View();

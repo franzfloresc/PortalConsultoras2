@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarTipoEstrategiaController : BaseController
     {
-        //
-        // GET: /AdministrarTipoEstrategia/
-
         public ActionResult Index(TipoEstrategiaModel model)
         {
             try
@@ -38,34 +35,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BETipoEstrategia> lst;
-
-
-                if (Consulta == "1")
-                {
-                    lst = GetTipoEstrategias();
-                }
-                else
-                {
-                    lst = new List<BETipoEstrategia>();
-                }
+                var lst = Consulta == "1" ? GetTipoEstrategias() : new List<BETipoEstrategia>();
+                lst = lst ?? new List<BETipoEstrategia>();
 
                 string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
-                if (lst != null && lst.Count > 0)
+                if (lst.Count > 0)
                 {
                     lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenEstrategia, carpetapais));
                     lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BETipoEstrategia> items = lst;
 
                 #region Sort Section
@@ -95,11 +82,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -113,19 +99,21 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.TipoEstrategiaID.ToString(),
                                    a.Codigo,
-                                   a.DescripcionEstrategia.ToString(),
-                                   a.DescripcionOferta.ToString(),
+                                   a.DescripcionEstrategia,
+                                   a.DescripcionOferta,
                                    a.Orden.ToString(),
-                                   a.ImagenEstrategia.ToString(),
-                                   a.OfertaID.ToString(),
+                                   a.ImagenEstrategia,
+                                   a.OfertaID,
                                    a.FlagActivo.ToString(),
                                    a.FlagNueva.ToString(),
                                    a.FlagRecoProduc.ToString(),
                                    a.FlagRecoPerfil.ToString(),
-                                   string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma.ToString(),
-                                   a.FlagMostrarImg.ToString(),     // SB20-353
+                                   string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma,
+                                   a.FlagMostrarImg.ToString(),
                                    a.MostrarImgOfertaIndependiente.ToInt().ToString(),
-                                   a.ImagenOfertaIndependiente
+                                   a.ImagenOfertaIndependiente,
+                                   a.FlagValidarImagen.ToString(),
+                                   a.PesoMaximoImagen.ToString()
                                 }
                            }
                 };
@@ -138,31 +126,31 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEOferta> lst = new List<BEOferta>();
-                BEOferta entidad = new BEOferta();
-                entidad.PaisID = UserData().PaisID;
-                entidad.TipoEstrategiaID = Convert.ToInt32(id);
+                List<BEOferta> lst;
+                BEOferta entidad = new BEOferta
+                {
+                    PaisID = UserData().PaisID,
+                    TipoEstrategiaID = Convert.ToInt32(id)
+                };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     lst = sv.GetOfertas(entidad).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEOferta> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -175,8 +163,8 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.OfertaID.ToString(),
-                                   a.CodigoOferta.ToString(),
-                                   a.DescripcionOferta.ToString()
+                                   a.CodigoOferta,
+                                   a.DescripcionOferta
                                 }
                            }
                 };
@@ -190,18 +178,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -209,22 +189,23 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarOferta(string OfertaID, string PaisID, string CodigoOferta, string DescripcionOferta, string CodigoPrograma = null)
         {
-            int resultado = 0;
             string operacion = "registró";
             try
             {
-                BEOferta entidad = new BEOferta();
-                entidad.OfertaID = Convert.ToInt32(OfertaID);
-                entidad.PaisID = UserData().PaisID;
-                entidad.CodigoOferta = CodigoOferta;
-                entidad.DescripcionOferta = DescripcionOferta;
-                entidad.UsuarioRegistro = UserData().CodigoUsuario;
-                entidad.UsuarioModificacion = UserData().CodigoUsuario;
-                entidad.CodigoPrograma = CodigoPrograma;
+                BEOferta entidad = new BEOferta
+                {
+                    OfertaID = Convert.ToInt32(OfertaID),
+                    PaisID = UserData().PaisID,
+                    CodigoOferta = CodigoOferta,
+                    DescripcionOferta = DescripcionOferta,
+                    UsuarioRegistro = UserData().CodigoUsuario,
+                    UsuarioModificacion = UserData().CodigoUsuario,
+                    CodigoPrograma = CodigoPrograma
+                };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarOferta(entidad);
+                    sv.InsertarOferta(entidad);
                 }
 
                 if (OfertaID != "0")
@@ -253,17 +234,18 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarOferta(string OfertaID)
         {
-            int resultado = 0;
             string operacion = "eliminó";
             try
             {
-                BEOferta entidad = new BEOferta();
-                entidad.OfertaID = Convert.ToInt32(OfertaID);
-                entidad.PaisID = UserData().PaisID;
+                BEOferta entidad = new BEOferta
+                {
+                    OfertaID = Convert.ToInt32(OfertaID),
+                    PaisID = UserData().PaisID
+                };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.DeleteOferta(entidad);
+                    sv.DeleteOferta(entidad);
                 }
 
                 return Json(new
@@ -284,71 +266,68 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /* SB2-353 - INICIO */
         [HttpPost]
         public JsonResult Registrar(string TipoEstrategiaID, string DescripcionEstrategia,
                         string ImagenEstrategia, string Orden,
                         string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg,
-                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
+                        string FlagValidarImagen,
+                        string PesoMaximoImagen,
+                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "",
                         string ImagenOfertaIndependienteAnterior = "", string Codigo = "")
         {
-            int resultado = 0;
             string operacion = "registró";
             try
             {
-                BETipoEstrategia entidad = new BETipoEstrategia();
-                entidad.PaisID = UserData().PaisID;
-                entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
-                entidad.DescripcionEstrategia = DescripcionEstrategia;
-                entidad.ImagenEstrategia = ImagenEstrategia;
-                entidad.Orden = Convert.ToInt32(Orden);
-                entidad.FlagActivo = Convert.ToInt32(FlagActivo);
-                entidad.OfertaID = OfertaID;
-                entidad.UsuarioRegistro = UserData().CodigoUsuario;
-                entidad.UsuarioModificacion = UserData().CodigoUsuario;
-                entidad.FlagNueva = Convert.ToInt32(FlagNueva);
-                entidad.FlagRecoPerfil = Convert.ToInt32(FlagRecoPerfil);
-                entidad.FlagRecoProduc = Convert.ToInt32(FlagRecoProduc);
-                entidad.CodigoPrograma = CodigoPrograma;
-                entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
-                entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
-                entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
-                entidad.Codigo = Codigo;
-
-                //entidad
-                if (ImagenEstrategia != "")
+                BETipoEstrategia entidad = new BETipoEstrategia
                 {
-                    if (imagenAnterior != ImagenEstrategia)
-                    {
-                        var path = Path.Combine(Globals.RutaTemporales, ImagenEstrategia);
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                        if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                        entidad.ImagenEstrategia = newfilename;
-                    }
+                    PaisID = UserData().PaisID,
+                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
+                    DescripcionEstrategia = DescripcionEstrategia,
+                    ImagenEstrategia = ImagenEstrategia,
+                    Orden = Convert.ToInt32(Orden),
+                    FlagActivo = Convert.ToInt32(FlagActivo),
+                    OfertaID = OfertaID,
+                    UsuarioRegistro = UserData().CodigoUsuario,
+                    UsuarioModificacion = UserData().CodigoUsuario,
+                    FlagNueva = Convert.ToInt32(FlagNueva),
+                    FlagRecoPerfil = Convert.ToInt32(FlagRecoPerfil),
+                    FlagRecoProduc = Convert.ToInt32(FlagRecoProduc),
+                    CodigoPrograma = CodigoPrograma,
+                    FlagMostrarImg = Convert.ToInt32(FlagMostrarImg),
+                    MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente,
+                    ImagenOfertaIndependiente = ImagenOfertaIndependiente,
+                    Codigo = Codigo,
+                    FlagValidarImagen = Convert.ToInt32(FlagValidarImagen),
+                    PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen)
+                };
+
+                if (ImagenEstrategia != "" && imagenAnterior != ImagenEstrategia)
+                {
+                    var path = Path.Combine(Globals.RutaTemporales, ImagenEstrategia);
+                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                    entidad.ImagenEstrategia = newfilename;
                 }
 
-                if (ImagenOfertaIndependiente != "")
+                if (ImagenOfertaIndependiente != "" && ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
                 {
-                    if (ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
-                    {
-                        var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
-                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                        if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
-                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                        entidad.ImagenOfertaIndependiente = newfilename;
-                    }
+                    var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
+                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                    entidad.ImagenOfertaIndependiente = newfilename;
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarTipoEstrategia(entidad);
+                    sv.InsertarTipoEstrategia(entidad);
                 }
 
                 if (TipoEstrategiaID != "0")
@@ -384,21 +363,21 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        /* SB2-353 - FIN */
 
         [HttpPost]
         public JsonResult Eliminar(string PaisID, string TipoEstrategiaID)
         {
-            int resultado = 0;
             string operacion = "eliminó";
             try
             {
-                var entidad = new BETipoEstrategia();
-                entidad.PaisID = UserData().PaisID;
-                entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
+                var entidad = new BETipoEstrategia
+                {
+                    PaisID = UserData().PaisID,
+                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
+                };
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.EliminarTipoEstrategia(entidad);
+                    sv.EliminarTipoEstrategia(entidad);
                 }
 
                 return Json(new
@@ -433,17 +412,16 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageTipoOfertaUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
-                // req. 1664 - Unificando todo en una unica carpeta temporal
                 Stream inputStream = Request.InputStream;
                 byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile; // qqfile;
+                string ffFileName = qqfile;
                 var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
                 if (!System.IO.File.Exists(Globals.RutaTemporales))
-                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                    Directory.CreateDirectory(Globals.RutaTemporales);
+
                 var failImage = false;
                 var image = Image.FromFile(path);
                 if (image.Width > 62)
@@ -464,8 +442,9 @@ namespace Portal.Consultoras.Web.Controllers
                 image.Dispose();
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }

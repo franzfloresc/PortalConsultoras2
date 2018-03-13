@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -18,7 +13,8 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int setUsuarioVideoIntroductorio(string CodigoUsuario) {
+        public int setUsuarioVideoIntroductorio(string CodigoUsuario)
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.setUsuarioVideoIntroductorio_SB2");
             Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
 
@@ -51,7 +47,7 @@ namespace Portal.Consultoras.Data
         public IDataReader GetUsuarioByConsultora(string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioByConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);            
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             return Context.ExecuteReader(command);
         }
 
@@ -122,7 +118,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, usuario.Activo);
             Context.Database.AddInParameter(command, "@TipoUsuario", DbType.Byte, usuario.TipoUsuario);
             Context.Database.AddInParameter(command, "@CambioClave", DbType.Boolean, usuario.CambioClave);
-            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, usuario.DocumentoIdentidad); //EPD-1836
+            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, usuario.DocumentoIdentidad);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -189,7 +185,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TelefonoTrabajo", DbType.AnsiString, telefonoTrabajo);
             Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, celular);
             Context.Database.AddInParameter(command, "@CorreoAnterior", DbType.AnsiString, correoAnterior);
-            Context.Database.AddInParameter(command, "@AceptoContrato", DbType.Boolean, aceptoContrato); //2532 EGL
+            Context.Database.AddInParameter(command, "@AceptoContrato", DbType.Boolean, aceptoContrato);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -232,14 +228,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        //1796 Inicio 
         public int UpdUsuarioRechazarInvitacion(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioRechazarInvitacion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             return Context.ExecuteNonQuery(command);
         }
-        //1796 Fin 
 
         public bool ActiveEmail(string CodigoUsuario)
         {
@@ -326,19 +320,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        /*EPD-1012*/
         public IDataReader GetValidarLoginSB2(string codigoUsuario, string contrasenia)
         {
-            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, contrasenia);
 
             return Context.ExecuteReader(command);
         }
-        /*EPD-1012*/
 
-        /*EPD-2340*/
         public IDataReader GetValidarAutoLogin(string codigoUsuario, string proveedor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin");
@@ -358,7 +348,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-        /*EPD-2340*/
 
         public IDataReader GetInfoPreLoginConsultoraCatalogo(string CodigoUsuario)
         {
@@ -489,7 +478,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteScalar(command);
         }
-        /* 2116-inicio*/
+
         public int UpdUsuarioDatosPrimeraVezMexico(string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
         {
 
@@ -529,9 +518,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTiempoVentana");
             return Context.ExecuteReader(command);
         }
-        /* 2116 -fin*/
 
-        /* R2392 - AHAA - LIDERES - INICIO */
         public int ValidarEstadoSubscripcion(string CodigoUsuario, int NroDiasPermitidos)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarEstadoSuscripcion");
@@ -585,9 +572,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoReporte", DbType.AnsiString, TipoReporte);
             return Context.ExecuteReader(command);
         }
-        /* R2392 - AHAA - LIDERES - INICIO */
 
-        /*R2520 - JICM - LIDERES - INICIO*/
         public IDataReader GenerarReporteResultadoEncuesta(int paisId, int campaniaIncio, int campaniaFin)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetResultadoEncuesta");
@@ -596,8 +581,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaFin", DbType.Int32, campaniaFin);
             return Context.ExecuteReader(command);
         }
-
-        /*R2520 - JICM - LIDERES - FIN*/
 
         public void GuardarContrasenia(string codigoUsuario, string contrasenia)
         {
@@ -628,8 +611,8 @@ namespace Portal.Consultoras.Data
         public int ExisteUsuario(string codigoUsuario, string clave)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteUsuario");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);            
-            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);            
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, clave);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
@@ -641,7 +624,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
-        
+
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
@@ -653,28 +636,13 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
         }
-        /*PL20-1226*/
-        //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEsOfertaDelDia");
-        //    Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
-        //    Context.Database.AddInParameter(command, "@CodConsultora", DbType.AnsiString, codConsultora);
-        //    Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.DateTime, fechaInicioFact);
 
-        //    return Convert.ToInt16(Context.ExecuteScalar(command));
-        //}
-
-        //EPD-1836
         public int InsUsuarioPostulante(BEUsuarioPostulante entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioPostulante");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
-            //Context.Database.AddInParameter(command, "@NombreCompleto", DbType.AnsiString, entidad.NombreCompleto);
-            //Context.Database.AddInParameter(command, "@TipoDocumento", DbType.AnsiString, entidad.TipoDocumento);
-            //Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
             Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, entidad.Zona);
             Context.Database.AddInParameter(command, "@Seccion", DbType.AnsiString, entidad.Seccion);
-            //Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
             Context.Database.AddInParameter(command, "@EnvioCorreo", DbType.AnsiString, entidad.EnvioCorreo);
             Context.Database.AddInParameter(command, "@UsuarioReal", DbType.AnsiString, entidad.UsuarioReal);
 
@@ -684,23 +652,19 @@ namespace Portal.Consultoras.Data
         public int DelUsuarioPostulante(string numeroDocumento)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelUsuarioPostulante");
-            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
 
             return Context.ExecuteNonQuery(command);
         }
 
-        //EPD-2058
         public IDataReader GetUsuarioPostulante(string numeroDocumento)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioPostulante");
-            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
 
             return Context.ExecuteReader(command);
         }
-        
-        /*EPD-1837*/
+
         public int InsUsuarioExterno(BEUsuarioExterno usuarioExterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioExterno");
@@ -746,17 +710,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        /*
-        public bool GetExisteEmailActivo(string email)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteEmailActivo");
-            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
-
-            return Convert.ToBoolean(Context.ExecuteScalar(command));
-        }
-         * */
-
-        
         public IDataReader GetListaLoginExterno(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaLoginExterno");
@@ -764,7 +717,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        /*EPD-1837*/
 
         public int UpdatePostulanteMensajes(string CodigoUsuario, int tipo)
         {
@@ -773,8 +725,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Tipo", DbType.AnsiString, tipo);
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
-        
-        //EPD-2539
+
         public int UpdFlagEnvioCorreo(string pCodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagEnvioCorreo");
@@ -782,13 +733,26 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioChatEmtelco");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            BEUsuarioChatEmtelco usuarioChatemtelco = null;
+            using (IDataReader reader = Context.ExecuteReader(command))
+            {
+                if (reader.Read()) usuarioChatemtelco = new BEUsuarioChatEmtelco(reader);
+            }
+            return usuarioChatemtelco;
+        }
         
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
-        {            
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno"); ;            
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioexterno.CodigoUsuario);
             Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioexterno.FotoPerfil);
-            
+
             return Context.ExecuteNonQuery(command);
         }
 
@@ -800,6 +764,44 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
 
             return Context.ExecuteReader(command);
+        }
+        #endregion
+
+        public int UpdUsuarioFotoPerfil(string codigoUsuario, string fotoPerfil)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioFotoPerfil");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, fotoPerfil);
+
+            return Context.ExecuteNonQuery(command);
+        }       
+
+        #region Restaurar Contraseña
+        public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
+            Context.Database.AddInParameter(command, "@CodigoEntrante", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public void UpdFechaBloqueoRestaurarClave(string CodigoUsuario, string Tipo)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFechaBloqueoRestaurarClave");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoBloqueo", DbType.AnsiString, Tipo);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public string GetCodigoSMS(string CodigoConsultora, string Origen)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoSMS"); ;
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, Origen);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
         }
         #endregion
     }

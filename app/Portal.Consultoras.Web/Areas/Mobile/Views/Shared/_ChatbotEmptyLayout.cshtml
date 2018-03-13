@@ -25,6 +25,11 @@
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
     @RenderSection("styles", required: false)
+
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -287,10 +292,6 @@
         var MostrarODD = '@ViewBag.MostrarODD';
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
 
-        var UrlChat = '@ViewBag.UrlBelcorpChat';
-        var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
-        var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
-        var PaisesChatEMTELCO = '@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -308,5 +309,14 @@
         var OrigenDesktopODD = 0;
     </script>
     @RenderSection("scripts", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 </body>
 </html>

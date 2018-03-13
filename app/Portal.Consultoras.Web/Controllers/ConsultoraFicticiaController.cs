@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -15,9 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraFicticiaController : BaseController
     {
-        //
-        // GET: /ConsultoraFicticia/
-
         public ActionResult Index()
         {
             try
@@ -29,67 +25,28 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            var model = new ConsultoraFicticiaModel();
-            model.listaPaises = DropDowListPaises();
+
+            var model = new ConsultoraFicticiaModel { listaPaises = DropDowListPaises() };
             return View(model);
         }
 
         [HttpPost]
         public JsonResult ValidarConsultora(ConsultoraFicticiaModel model)
         {
-            //try
-            //{
-            //    Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultora>()
-            //        .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoConsultora))
-            //        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
-            //    BEConsultora entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultora>(model);
-
-            //    using (ODSServiceClient sv = new ODSServiceClient())
-            //    {
-            //        List<BEConsultoraCodigo> lst = new List<BEConsultoraCodigo>();
-            //        lst = sv.SelectConsultoraByCodigo(entidad.PaisID, entidad.Codigo).ToList();
-
-            //        if (lst.Count == 0)
-            //        {
-            //            return Json(new
-            //            {
-            //                success = false,
-            //                message = "el código ingresado no es válido.",
-            //                extra = ""
-            //            });
-            //        }
-            //        else
-            //        {
-            //            return Json(new
-            //            {
-            //                success = true,
-            //                ConsultoraID = lst[0].ConsultoraID
-            //            });
-            //        }
-            //    }
-            //}
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-                BEPais bepais = new BEPais();
 
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int result_portal;
+                    var resultPortal = sv.ValidarUsuarioPrueba(entidad.CodigoConsultora, entidad.PaisID);
 
-                    result_portal = sv.ValidarUsuarioPrueba(entidad.CodigoConsultora, entidad.PaisID);
-
-                    if (result_portal == 0)
+                    if (resultPortal == 0)
                     {
                         return Json(new
                         {
@@ -98,14 +55,12 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            ConsultoraID = result_portal
-                        });
-                    }
+                        success = true,
+                        ConsultoraID = resultPortal
+                    });
                 }
             }
             catch (FaultException ex)
@@ -129,30 +84,24 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ValidarUsuario(ConsultoraFicticiaModel model)
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-                BEPais bepais = new BEPais();
 
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int result_portal;
+                    var resultPortal = sv.ValidarUsuarioPrueba(entidad.CodigoUsuario, entidad.PaisID);
 
-                    result_portal = sv.ValidarUsuarioPrueba(entidad.CodigoUsuario, entidad.PaisID);
-
-                    if (result_portal > 0)
+                    if (resultPortal > 0)
                     {
                         return Json(new
                         {
@@ -161,13 +110,11 @@ namespace Portal.Consultoras.Web.Controllers
                             extra = ""
                         });
                     }
-                    else
+
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true
-                        });
-                    }
+                        success = true
+                    });
                 }
             }
             catch (FaultException ex)
@@ -191,19 +138,14 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult InsertarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
-                List<BEConsultora> lst = new List<BEConsultora>();
+
                 int result;
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -211,12 +153,10 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.InsConsultoraFicticia(entidad);
                 }
 
-                BEPais bepais = new BEPais();
-
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
+                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                //{
+                //    BEPais bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
+                //}
 
                 if (result == 3)
                 {
@@ -227,7 +167,8 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                else if (result == 0)
+
+                if (result == 0)
                 {
                     return Json(new
                     {
@@ -236,16 +177,13 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                else
-                {
 
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Usuario de prueba ha sido creado correctamente.",
-                        extra = ""
-                    });
-                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Usuario de prueba ha sido creado correctamente.",
+                    extra = ""
+                });
             }
             catch (FaultException ex)
             {
@@ -268,25 +206,16 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ActualizarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave))
-                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
-
-                List<BEConsultora> lst = new List<BEConsultora>();
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-
                     sv.UpdConsultoraFicticia(entidad.CodigoUsuario, entidad.CodigoConsultora, entidad.PaisID, entidad.ConsultoraID, entidad.ActualizarClave);
                 }
 
@@ -318,15 +247,12 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult EliminarConsultoraFicticia(ConsultoraFicticiaModel model)
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
-
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -374,14 +300,13 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.SelectConsultoraFicticia(Convert.ToInt32(vPaisID), vCodigoUsuario, vNombreCompleto).ToList();
                     }
 
-                    // Usamos el modelo para obtener los datos
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
-                    BEPager pag = new BEPager();
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -429,11 +354,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Paginador(grid, lst);
+                    BEPager pag = Paginador(grid, lst);
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -443,15 +367,15 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    cell = new string[]
-                                {
-                                   a.ConsultoraID.ToString(),
-                                   vPaisID,
-                                   a.CodigoUsuario,
-                                   a.CodigoConsultora,
-                                   a.NombreCompleto,
-                                   a.PaisNombre,
-                                   a.ZonaNombre
-                                }
+                                   {
+                                a.ConsultoraID.ToString(),
+                                vPaisID,
+                                a.CodigoUsuario,
+                                a.CodigoConsultora,
+                                a.NombreCompleto,
+                                a.PaisNombre,
+                                a.ZonaNombre
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -460,14 +384,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<BEConsultoraFicticia> lst = new List<BEConsultoraFicticia>();
 
-                    // Usamos el modelo para obtener los datos
-                    BEGrid grid = new BEGrid();
-                    grid.PageSize = rows;
-                    grid.CurrentPage = page;
-                    grid.SortColumn = sidx;
-                    grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
-                    BEPager pag = new BEPager();
+                    BEGrid grid = new BEGrid
+                    {
+                        PageSize = rows,
+                        CurrentPage = page,
+                        SortColumn = sidx,
+                        SortOrder = sord
+                    };
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
                     #region Sort Section
@@ -515,11 +438,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Paginador(grid, lst);
+                    BEPager pag = Paginador(grid, lst);
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -529,15 +451,15 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    cell = new string[]
-                               {
-                                   a.ConsultoraID.ToString(),
-                                   vPaisID,
-                                   a.CodigoUsuario,
-                                   a.CodigoConsultora,
-                                   a.NombreCompleto,
-                                   a.PaisNombre,
-                                   a.ZonaNombre
-                                }
+                                   {
+                                a.ConsultoraID.ToString(),
+                                vPaisID,
+                                a.CodigoUsuario,
+                                a.CodigoConsultora,
+                                a.NombreCompleto,
+                                a.PaisNombre,
+                                a.ZonaNombre
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -551,20 +473,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = lst.Count;
 
-            RecordCount = lst.Count;
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }
@@ -574,18 +494,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

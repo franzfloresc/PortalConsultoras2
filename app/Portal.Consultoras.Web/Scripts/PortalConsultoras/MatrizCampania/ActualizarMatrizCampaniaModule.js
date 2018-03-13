@@ -11,7 +11,7 @@ var actualizarMatrizCampaniaModule = (function () {
         habilitarNemotecnico: false,
         getImagesByCodigoSapUrl: '',
     };
-    
+
     var _constants = {
         BUSCAR: 'Buscar',
         BUSCAR_OTRO: 'Buscar Otro',
@@ -22,20 +22,17 @@ var actualizarMatrizCampaniaModule = (function () {
         ddlCampania: '#ddlCampania',
         txtCodVenta: '#txtCodVenta',
         btnBuscar: '#btnBuscar',
-        //
         hdnSap: '#hdnSap',
         hdnIdMatrizComercial: '#hdnIdMatrizComercial',
         hdnIdMatrizComercialImagen: '#hdnIdMatrizComercialImagen',
         txtDescripcion: '#txtDescripcion',
         txtPrecio: '#txtPrecio',
         txtFactorRepeticion: '#txtFactorRepeticion',
-        //
         txtDescripcionNueva: '#txtDescripcionNueva',
         txtPrecioNuevo: '#txtPrecioNuevo',
         txtFactorRepeticionNuevo: '#txtFactorRepeticionNuevo',
         txtRegaloDescripcion: '#txtRegaloDescripcion',
         imgSeleccionada: '#imgSeleccionada',
-        //
         matrizComercial: '#matriz-comercial',
         fileUpload: '#file-upload',
         matrizImagenesPaginacion: '#matriz-imagenes-paginacion',
@@ -43,10 +40,8 @@ var actualizarMatrizCampaniaModule = (function () {
         matrizComercialItemTemplate: '#matriz-comercial-item-template',
         chkImagenProducto: '.chkImagenProducto',
         imgMatrizPreview: '.img-matriz-preview',
-        //
         divVistaPrevia: 'divVistaPrevia',
         imgZonaEstrategia: '#imgZonaEstrategia',
-        //
         btnGrabar: '#btnGrabar',
     }
 
@@ -63,10 +58,8 @@ var actualizarMatrizCampaniaModule = (function () {
         _settings.actualizarMatrizComercialUrl = settings.actualizarMatrizComercialUrl;
         _settings.habilitarNemotecnico = settings.habilitarNemotecnico;
         _settings.getImagesByCodigoSapUrl = settings.getImagesByCodigoSapUrl;
-        //
         _initDialogs();
         _bindEvents();
-        //
         _nemotecnicoComponent = Nemotecnico({
             expresionValidacion: ''
         });
@@ -82,7 +75,7 @@ var actualizarMatrizCampaniaModule = (function () {
     };
 
     var _initDialogs = function () {
-        $('#'+_elements.divVistaPrevia).dialog({
+        $('#' + _elements.divVistaPrevia).dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
@@ -261,13 +254,16 @@ var actualizarMatrizCampaniaModule = (function () {
 
     var _buscar = function () {
         waitingDialog({});
+        var _cuv = $(_elements.txtCodVenta).val();
+        _cuv = _cuv.trim();
+        $(_elements.txtCodVenta).val(_cuv);
         $.ajax({
             type: 'POST',
             url: _settings.consultarDescripcionUrl,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                CUV: $(_elements.txtCodVenta).val(),
+                CUV: _cuv,
                 IDCampania: $(_elements.ddlCampania).val(),
                 paisID: $(_elements.ddlPais).val()
             }),
@@ -305,7 +301,7 @@ var actualizarMatrizCampaniaModule = (function () {
                                 $(_elements.imgSeleccionada).attr("src", data.lstProducto[1].RegaloImagenUrl);
                             }
                         }
-                        
+
                     }
 
                     if (_settings.habilitarRegalo) {
@@ -334,7 +330,7 @@ var actualizarMatrizCampaniaModule = (function () {
             paisID: $(_elements.ddlPais).val(),
             codigoSAP: $(_elements.hdnSap).val(),
             maxConnections: $(_elements.hdnIdMatrizComercial).val() == '0' ? 1 : 3,
-            multiple: $(_elements.hdnIdMatrizComercial).val() == '0' ? false : true,
+            multiple: $(_elements.hdnIdMatrizComercial).val() != '0',
             onComplete: _uploadComplete
         };
         _matrizFileUploaderComponent.crearFileUpload(data);
@@ -345,7 +341,7 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
-                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val(); 
+                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val();
                 $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
                 if (IdMatrizComercialAnterior == '0')
                     _crearFileUploadAdd();
@@ -401,25 +397,21 @@ var actualizarMatrizCampaniaModule = (function () {
 
     var _limpiarFormulario = function () {
         $(_elements.txtCodVenta).val("");
-        //
         $(_elements.hdnSap).val("");
         $(_elements.hdnIdMatrizComercial).val("");
         $(_elements.hdnIdMatrizComercialImagen).val("");
         $(_elements.txtDescripcion).val("");
         $(_elements.txtPrecio).val("");
         $(_elements.txtFactorRepeticion).val("");
-        //
         $(_elements.txtDescripcionNueva).val("");
         $(_elements.txtPrecioNuevo).val("");
         $(_elements.txtFactorRepeticionNuevo).val("");
         $(_elements.txtRegaloDescripcion).val("");
         $(_elements.imgSeleccionada).attr("src", rutaImagenVacia);
-        //
         $(_elements.matrizComercial).hide();
         $(_elements.matrizImagenesPaginacion).empty();
         $(_elements.fileUpload).hide();
         $(_elements.matrizComercialImages).empty();
-        //
         $(_elements.imgZonaEstrategia).attr("src", rutaImagenVacia);
     };
 
@@ -454,10 +446,10 @@ var actualizarMatrizCampaniaModule = (function () {
 
         waitingDialog({});
         var item = {
-            CUV: $(_elements.txtCodVenta).val(),
-            CampaniaID: $(_elements.ddlCampania).val(),
+            CUV: $(_elements.txtCodVenta).val().trim(),
+            CampaniaID: $(_elements.ddlCampania).val().trim(),
             Descripcion: $(_elements.txtDescripcionNueva).val(),
-            PaisID: $(_elements.ddlPais).val(),
+            PaisID: $(_elements.ddlPais).val().trim(),
             PrecioProducto: $(_elements.txtPrecioNuevo).val(),
             FactorRepeticion: $(_elements.txtFactorRepeticionNuevo).val()
         };
@@ -497,12 +489,6 @@ var actualizarMatrizCampaniaModule = (function () {
             }
         });
     };
-
-    var _hasDecimalPlacefunction = function  (value, decimalDigits) {
-        var decimalPointIndex = value.indexOf('.');
-        var stringLenght = value.length
-        return decimalPointIndex >= 0 && decimalPointIndex < stringLenght - decimalDigits;
-    }
 
     return {
         ini: function (settings) {

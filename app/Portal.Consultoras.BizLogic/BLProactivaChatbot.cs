@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic
             var urlAbsolute = string.Format("{0}/{1}", _chatBotUrl, urlRelative);
 
             var pages = Math.Ceiling((double)listProactivaMensaje.Count / _messagePerRequest);
-            
+
             var tasks = new List<Task<bool>>();
 
             for (int i = 1; i <= pages; i++)
@@ -140,9 +140,9 @@ namespace Portal.Consultoras.BizLogic
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
-                    int paisID = Util.GetPaisID(resultado.PaisISO);
+                    int paisId = Util.GetPaisID(resultado.PaisISO);
 
-                    new DABotmakerApiLog(paisID).Insert(resultado);
+                    new DABotmakerApiLog(paisId).Insert(resultado);
 
                     transaction.Complete();
                 }

@@ -5,7 +5,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data.CDR
 {
-    public class DACDRWebMotivoOperacion: DataAccess
+    public class DACDRWebMotivoOperacion : DataAccess
     {
         public DACDRWebMotivoOperacion(int paisID)
             : base(paisID, EDbSource.Portal)
@@ -48,12 +48,5 @@ namespace Portal.Consultoras.Data.CDR
             return Context.ExecuteReader(command);
         }
 
-        //EPD-2038
-        //public IDataReader GetCDRWebTipoOperacion()
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebTipoOperacion");
-
-        //    return Context.ExecuteReader(command);
-        //}
     }
 }

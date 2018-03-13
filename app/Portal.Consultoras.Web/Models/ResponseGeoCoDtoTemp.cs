@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class ResponseGeoCoDtoTemp
     {
@@ -11,7 +6,6 @@ namespace Portal.Consultoras.Web.Models
         public string message { get; set; }
         public ResponseDataTemp data { get; set; }
     }
-
 
     public class ResponseDataTemp
     {

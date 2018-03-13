@@ -1,14 +1,12 @@
-﻿using System;
+﻿using EasyCallback;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceComunidad;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EasyCallback;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceComunidad;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -32,22 +30,22 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
-                BEUsuarioComunidad oBEUsuarioComunidad = null;
+                BEUsuarioComunidad obeUsuarioComunidad;
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
-                    oBEUsuarioComunidad = sv.GetUsuarioInformacionByCorreo(new BEUsuarioComunidad()
+                    obeUsuarioComunidad = sv.GetUsuarioInformacionByCorreo(new BEUsuarioComunidad()
                     {
                         Correo = datos["Correo"].ToString(),
                     });
                 }
 
-                if (oBEUsuarioComunidad != null)
+                if (obeUsuarioComunidad != null)
                 {
-                    string[] parametros = new string[] { oBEUsuarioComunidad.UsuarioId.ToString() };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    string[] parametros = new string[] { obeUsuarioComunidad.UsuarioId.ToString() };
+                    string paramQuerystring = Util.EncriptarQueryString(parametros);
 
-                    string pagina_confirmacion = GetUrlHost(Page.Request) + "WebPages/CambiarClaveComunidad.aspx?data=" + param_querystring;
-                    string pagina_confirmacion_masc = GetUrlHost(Page.Request) + "WebPages/CambiarClaveComunidad.aspx";
+                    string paginaConfirmacion = GetUrlHost(Page.Request) + "WebPages/CambiarClaveComunidad.aspx?data=" + paramQuerystring;
+                    string paginaConfirmacionMasc = GetUrlHost(Page.Request) + "WebPages/CambiarClaveComunidad.aspx";
 
                     StringBuilder sb = new StringBuilder();
                     sb.Append("<html><head><title>Cambia tu contraseña - Comunidad Somos Belcorp</title><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head>");
@@ -63,7 +61,7 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<td colspan='2'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>&nbsp;</font></td></tr>");
                     sb.Append("</tr>");
                     sb.Append("<tr>");
-                    sb.Append(string.Format("<td colspan='2' style='vertical-align: top; padding-left: 38px; padding-right: 60px;'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>Hola {0},</font></td>", oBEUsuarioComunidad.Nombre));
+                    sb.Append(string.Format("<td colspan='2' style='vertical-align: top; padding-left: 38px; padding-right: 60px;'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>Hola {0},</font></td>", obeUsuarioComunidad.Nombre));
                     sb.Append("</tr>");
                     sb.Append("<tr>");
                     sb.Append("<td colspan='2'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>&nbsp;</font></td>");
@@ -75,7 +73,7 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<td colspan='2'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>&nbsp;</font></td>");
                     sb.Append("</tr>");
                     sb.Append("<tr>");
-                    sb.Append(string.Format("<td colspan='2' style='vertical-align: top; padding-left: 38px; padding-right: 60px;'><a href='{0}' style='font-family: Arial,sans-serif; font-size: 14px; color: #AE66AF; line-height: 1.2; text-decoration:none;'>{1}</a></td>", pagina_confirmacion, pagina_confirmacion_masc));
+                    sb.Append(string.Format("<td colspan='2' style='vertical-align: top; padding-left: 38px; padding-right: 60px;'><a href='{0}' style='font-family: Arial,sans-serif; font-size: 14px; color: #AE66AF; line-height: 1.2; text-decoration:none;'>{1}</a></td>", paginaConfirmacion, paginaConfirmacionMasc));
                     sb.Append("</tr>");
                     sb.Append("<tr>");
                     sb.Append("<td colspan='2'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>&nbsp;</font></td>");
@@ -106,14 +104,13 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("</tr>");
                     sb.Append("</table></body></html>");
 
-                    //Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", datos["Correo"].ToString(), "Cambia tu contraseña - Comunidad Somos Belcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
                     Util.EnviarMail("comunidadsomosbelcorp@somosbelcorp.com", datos["Correo"].ToString(), "Cambia tu contraseña - Comunidad Somos Belcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
 
                     using (ComunidadServiceClient sv = new ComunidadServiceClient())
                     {
                         sv.UpdCambioContrasenia(new BEUsuarioComunidad()
                         {
-                            UsuarioId = oBEUsuarioComunidad.UsuarioId,
+                            UsuarioId = obeUsuarioComunidad.UsuarioId,
                             Tipo = 1,
                             Contrasenia = string.Empty
                         });
@@ -133,8 +130,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClaveComunidad - RecuperarClaveUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false

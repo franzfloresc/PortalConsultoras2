@@ -8,13 +8,15 @@ namespace Portal.Consultoras.BizLogic.CDR
     {
         public void CreateLogCDRWebCulminadoFromCDRWeb(int paisId, int cDRWebId)
         {
-            TransactionOptions transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = IsolationLevel.ReadCommitted;
-            var dALogCDRWebCulminado = new DALogCDRWebCulminado(paisId);
+            TransactionOptions transactionOptions = new TransactionOptions
+            {
+                IsolationLevel = IsolationLevel.ReadCommitted
+            };
+            var daLogCdrWebCulminado = new DALogCDRWebCulminado(paisId);
 
             using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
-                dALogCDRWebCulminado.CreateLogCDRWebCulminadoFromCDRWeb(cDRWebId);
+                daLogCdrWebCulminado.CreateLogCDRWebCulminadoFromCDRWeb(cDRWebId);
                 transaction.Complete();
             }
         }

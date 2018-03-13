@@ -30,27 +30,11 @@ namespace Portal.Consultoras.Web.Controllers
 
     public class ParametroDiasCargaPedidoController : BaseController
     {
-        //
-        // GET: /ParametroDiasCargaPedido/
 
         public ActionResult Index()
         {
-            //try
-            //{
-            //    if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ModificacionCronograma/Index"))
-            //        return RedirectToAction("Index", "Bienvenida");
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            //}
-
-            //await Task.Run(() => LoadConsultorasCache(11));
-            //var listaCampanias = DropDowListCampanias(11);
-
             var parametroDiasCargaPedidoModel = new ParametroDiasCargaPedidoModel()
             {
-                //listaCampanias = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 listaRegiones = new List<RegionModel>(),
                 listaZonas = new List<ZonaModel>()
@@ -60,14 +44,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
+            //IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {
                 lstRegiones = lstRegiones.OrderBy(x => x.Codigo)
-                //listaZonas = lstZonas.OrderBy(x => x.Codigo)
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -76,51 +58,42 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult TraerRegiones(int pais)
         {
-            JsTreeModel[] tree = null;
-            tree = new JsTreeModel[]
+            var tree = new JsTreeModel[]
+            {
+                new JsTreeModel { data = "Confirm Application", attr = new JsTreeAttribute { id = 10, selected = true } },
+                new JsTreeModel
                 {
-                    new JsTreeModel { data = "Confirm Application", attr = new JsTreeAttribute { id = 10, selected = true } },
-                    new JsTreeModel
+                    data = "Things",
+                    attr = new JsTreeAttribute { id = 20 },
+                    children = new JsTreeModel[]
                     {
-                        data = "Things",
-                        attr = new JsTreeAttribute { id = 20 },
-                        children = new JsTreeModel[]
+                        new JsTreeModel { data = "Thing 1", attr = new JsTreeAttribute { id = 21, selected = true } },
+                        new JsTreeModel { data = "Thing 2", attr = new JsTreeAttribute { id = 22 } },
+                        new JsTreeModel { data = "Thing 3", attr = new JsTreeAttribute { id = 23 } },
+                        new JsTreeModel
+                        {
+                            data = "Thing 4",
+                            attr = new JsTreeAttribute { id = 24 },
+                            children = new JsTreeModel[]
                             {
-                                new JsTreeModel { data = "Thing 1", attr = new JsTreeAttribute { id = 21, selected = true } },
-                                new JsTreeModel { data = "Thing 2", attr = new JsTreeAttribute { id = 22 } },
-                                new JsTreeModel { data = "Thing 3", attr = new JsTreeAttribute { id = 23 } },
-                                new JsTreeModel
-                                {
-                                    data = "Thing 4",
-                                    attr = new JsTreeAttribute { id = 24 },
-                                    children = new JsTreeModel[]
-                                    {
-                                        new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } },
-                                        new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } },
-                                        new JsTreeModel { data = "Thing 4.3", attr = new JsTreeAttribute { id = 243 } }
-                                    },
-                                },
-                            }
+                                new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } },
+                                new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } },
+                                new JsTreeModel { data = "Thing 4.3", attr = new JsTreeAttribute { id = 243 } }
+                            },
+                        },
                     }
-                };
+                }
+            };
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
 
@@ -129,13 +102,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEConfiguracionParametroCarga> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetRegionZonaDiasParametroCarga(pais.GetValueOrDefault(), region.GetValueOrDefault(), zona.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel[] tree = lst.Distinct<BEConfiguracionParametroCarga>(new BEConfiguracionParametroCargaRegionIDComparer()).Select(
                                     r => new JsTreeModel
                                     {
@@ -165,12 +136,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se hace la actualizacion de modificación de cronograma
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    // grabar en el log cada cambio
                     sv.InsLogParametroDiasCargaPedido(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
-                    // update de la zona para el nuevo valor de dias de duracion de cronograma
                     sv.UpdConfiguracionParametroCargaPedido(UserData().PaisID, EntradasConfiguracionParametroCarga.ToArray());
                 }
                 return Json(new
@@ -192,43 +160,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //public ActionResult ExportarExcel(string PaisID, string RegionID, string ZonaID, string vConsultora)
         public ActionResult ExportarExcel(int PaisID)
         {
-            // consulta toda la data de ConfiguracionValidacionZona
             IList<BEConfiguracionParametroCarga> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetRegionZonaDiasParametroCarga(PaisID, 0, 0).ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Región", "RegionNombre");
-            dic.Add("Zona", "ZonaNombre");
-            dic.Add("No. Dias", "DiasParametroCarga");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Región", "RegionNombre"},
+                {"Zona", "ZonaNombre"},
+                {"No. Dias", "DiasParametroCarga"}
+            };
             Util.ExportToExcel<BEConfiguracionParametroCarga>("PedidosExcel", lst.ToList(), dic);
             return View();
         }
 
-
         public JsonResult ConsultarLog(string sidx, string sord, int page, int rows, string vBusqueda)
         {
-            //if (ModelState.IsValid)
-            //{
             IList<BELogParametroDiasCargaPedido> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetLogParametroDiasCargaPedido(UserData().PaisID);
             }
 
-            // Usamos el modelo para obtener los datos
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
-            BEPager pag = new BEPager();
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             IEnumerable<BELogParametroDiasCargaPedido> items = lst;
 
             #region Sort Section
@@ -270,14 +234,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
-            if (string.IsNullOrEmpty(vBusqueda))
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-            else
-                items = items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = string.IsNullOrEmpty(vBusqueda)
+                ? items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize)
+                : items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Paginador(grid, vBusqueda);
+            BEPager pag = Paginador(grid, vBusqueda);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -286,19 +248,17 @@ namespace Portal.Consultoras.Web.Controllers
                 rows = from a in items
                        select new
                        {
-                           id = a.CodigoUsuario.ToString(),
+                           id = a.CodigoUsuario,
                            cell = new string[]
                                {
                                    a.CodigoUsuario,
-                                   a.Fecha.ToString(),
+                                   a.Fecha,
                                    a.CodigosRegionZona,
                                    Convert.ToString(a.DiasParametroCargaActual)
                                 }
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-            //}
-            //return RedirectToAction("Index", "ModificacionCronograma");
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda)
@@ -311,24 +271,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = new BEPager();
 
-            int RecordCount;
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
+                ? lst.Count
+                : lst.Count(p => p.Fecha.ToUpper().Contains(vBusqueda.ToUpper()));
 
-            // TODO: probar si es necesario el valor de 'vBusqueda'
-            if (string.IsNullOrEmpty(vBusqueda))
-                RecordCount = lst.Count;
-            else
-                RecordCount = lst.Where(p => p.Fecha.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+            pag.RecordCount = recordCount;
 
-            pag.RecordCount = RecordCount;
+            int pageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = pageCount;
 
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
+            int currentPage = item.CurrentPage;
+            pag.CurrentPage = currentPage;
 
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
+            if (currentPage > pageCount)
+                pag.CurrentPage = pageCount;
 
             return pag;
         }

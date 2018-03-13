@@ -12,7 +12,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Detalle")
 }
 <div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" 
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" 
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage" 
      data-estadoregistro="@ViewBag.EstadoSuscripcion" data-tag-html="@ViewBag.Campania">
 
     <div data-compartir-campos="" style="display:none;">
@@ -91,8 +91,8 @@
         <div id="block_inscribete">
             <div class="content_belcorp">
                 <div class="block_inscribete_predio">
-                    <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
-                    <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
+                    <span class="hblock_title_perdio">@ViewBag.PerdioTitulo</span><br />
+                    <span class="hblock_title_perdio2">@ViewBag.PerdioSubTitulo</span>
                 </div>
             </div>
         </div>
@@ -146,10 +146,9 @@
     @Html.Action("MensajeBloqueado", "RevistaDigital")
 }
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDosX)
 @section scripts{
 <script type="text/javascript">
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage';
     var tipoOrigenEstrategia = 272;
 </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Detalle")

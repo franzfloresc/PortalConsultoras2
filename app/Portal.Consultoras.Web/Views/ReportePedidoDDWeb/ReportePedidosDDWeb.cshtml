@@ -1,80 +1,12 @@
-﻿@model Portal.Consultoras.Web.Models.ReportePedidoDDWebModel
+﻿@using Portal.Consultoras.Common;
+
+@model Portal.Consultoras.Web.Models.ReportePedidoDDWebModel
 @{
     ViewBag.Title = "Reporte de Pedidos DD y Web";
 }
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        $("#btnExcel").click(function () {
-            if ($("#ddlPais").val() == "") {
-                alert("Debe seleccionar un País, verifique");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                alert("Debe seleccionar una Campaña, verifique");
-                return false;
-            }
-            //if ($("#ddlZona").val() == "") {
-            //    alert("Debe seleccionar una Zona, verifique");
-            //    return false;
-            //}
-            waitingDialog({});
-
-            var vPaisID = jQuery.trim($("#ddlPais").val());
-            var vCampania = jQuery.trim($("#ddlCampania").val());
-            var vConsultora = jQuery.trim($("#txtCodConsultora").val());
-            var vRegionID = $('#ddlRegion option:selected').text();
-            var vZonaID = jQuery.trim($("#ddlZona").val());
-            var vOrigen = jQuery.trim($("#ddlOrigen").val());
-            var vEstadoValidacion = jQuery.trim($("#ddlEnviadosValidacion").val());
-            var vEsRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
-
-            setTimeout(function () {
-                DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado)
-            }, 0);
-        });
-
-        $('#ddlRegion').change(function () {
-            var Id = $(this).val();
-            if (Id != null) {
-                waitingDialog({});
-                $.ajaxSetup({ cache: false });
-                $.ajax({
-                    type: 'GET',
-                    url: baseUrl + 'ReportePedidoDDWeb/ObtenerZonasByRegion',
-                    data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
-                    cache: false,
-                    dataType: 'Json',
-                    success: function (data) {
-                        if (checkTimeout(data)) {
-                            var ddlZona = $('#ddlZona');
-                            ddlZona.empty();
-                            if (data.listaZonas.length > 0) {
-                                ddlZona.append($('<option/>', {
-                                    value: "",
-                                    text: "-- Todas --"
-                                }));
-                                for (var item in data.listaZonas) {
-                                    if (data.listaZonas.hasOwnProperty(item)) {
-                                        ddlZona.append($('<option/>', {
-                                            value: data.listaZonas[item].Codigo,
-                                            text: data.listaZonas[item].Codigo
-                                        }));
-                                    }
-                                }
-                            }
-                            closeWaitingDialog();
-                        }
-                    },
-                    error: function (x, xh, xhr) {
-                        if (checkTimeout(x)) {
-                            closeWaitingDialog();
-                        }
-                    }
-                });
-            }
-        });
-
         $('#ddlPais').change(function () {
             var Id = $(this).val();
             if (Id != null) {
@@ -123,6 +55,46 @@
                 });
             }
         });
+        $('#ddlRegion').change(function () {
+            var Id = $(this).val();
+            if (Id != null) {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+                $.ajax({
+                    type: 'GET',
+                    url: baseUrl + 'ReportePedidoDDWeb/ObtenerZonasByRegion',
+                    data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
+                    cache: false,
+                    dataType: 'Json',
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            var ddlZona = $('#ddlZona');
+                            ddlZona.empty();
+                            if (data.listaZonas.length > 0) {
+                                ddlZona.append($('<option/>', {
+                                    value: "",
+                                    text: "-- Todas --"
+                                }));
+                                for (var item in data.listaZonas) {
+                                    if (data.listaZonas.hasOwnProperty(item)) {
+                                        ddlZona.append($('<option/>', {
+                                            value: data.listaZonas[item].Codigo,
+                                            text: data.listaZonas[item].Codigo
+                                        }));
+                                    }
+                                }
+                            }
+                            closeWaitingDialog();
+                        }
+                    },
+                    error: function (x, xh, xhr) {
+                        if (checkTimeout(x)) {
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            }
+        });
 
         $("#txtCodConsultora").autocomplete({
             source: function (request, response) {
@@ -149,17 +121,6 @@
             },
             minLength: 3,
         });
-        $("#btnBuscar").click(function () {
-            if ($("#ddlPais").val() == "") {
-                alert("Debe seleccionar un País, verifique");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                alert("Debe seleccionar una Campaña, verifique");
-                return false;
-            }
-            fnGrilla();
-        });
         $("#txtCodConsultora").keypress(function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
@@ -171,7 +132,6 @@
                 return re.test(keyChar);
             }
         });
-        // SB20-871
         $("#ddlEsRechazado").change(function () {
             var value = this.value;
             if (value == "1") {
@@ -186,66 +146,133 @@
             }
         });
 
+        $("#txtFechaInicio, #txtFechaFin").datepicker({
+            showOn: "button",
+            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+        
+        $("#btnBuscar").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar un País, verifique");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar una Campaña, verifique");
+                return false;
+            }
+            fnGrilla();
+        });
+        $("#btnExcel").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar un País, verifique");
+                return false;
+            }
+            if ($("#ddlCampania").val() == "") {
+                alert("Debe seleccionar una Campaña, verifique");
+                return false;
+            }
+            //if ($("#ddlZona").val() == "") {
+            //    alert("Debe seleccionar una Zona, verifique");
+            //    return false;
+            //}
+            waitingDialog({});
+
+            var paisID = jQuery.trim($("#ddlPais").val());
+            var campania = jQuery.trim($("#ddlCampania").val());
+            var consultora = jQuery.trim($("#txtCodConsultora").val());
+            var regionID = $('#ddlRegion option:selected').text();
+            var zonaID = jQuery.trim($("#ddlZona").val());
+            var origen = jQuery.trim($("#ddlOrigen").val());
+            var estadoValidacion = jQuery.trim($("#ddlEnviadosValidacion").val());
+            var esRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
+            var fechaInicio = $("#txtFechaInicio").val();
+            var fechaFin = $("#txtFechaFin").val();
+
+            setTimeout(function () {
+                DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin)
+            }, 0);
+        });
+
         fnGrilla();
     });
-    function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado) {
-        // TODO: probar la repercusion de este if
-        if (checkTimeout()) {
-            var isPedido = "ExportarExcelCabecera";
-            if ($("#hdnPedidoDetalle").val() === "1") {
-                $("#hdnPedidoDetalle").val("0");
-                isPedido = "ExportarExcelDetallePedido";
-            }
-            var content = baseUrl + "ReportePedidoDDWeb/" + isPedido + "?vPaisID=" + vPaisID +
-                                "&vCampania=" + vCampania +
-                                "&vConsultora=" + vConsultora +
-                                "&vRegionID=" + vRegionID +
-                                "&vZonaID=" + vZonaID +
-                                "&vOrigen=" + vOrigen +
-                                "&vEstadoValidacion=" + vEstadoValidacion +
-                                "&vEsRechazado=" + vEsRechazado;
 
-            var iframe_ = document.createElement("iframe");
-            iframe_.style.display = "none";
-            iframe_.setAttribute("src", content);
-            iframe_.frameBorder = 0;
+    function DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin) {        
+        var urlExcel = "ExportarExcelCabecera";
+        var urlCount = "ValidLimitCountCabecera";
+        var mensajeError = "@Html.Raw(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera)";
+        if ($("#hdnPedidoDetalle").val() === "1") {
+            $("#hdnPedidoDetalle").val("0");
+            urlExcel = "ExportarExcelDetallePedido";
+            urlCount = "ValidLimitCountDetalle";
+            mensajeError = "@Html.Raw(Constantes.MensajesError.ReportePedidoDDWeb_DescargaDetalle)";
+        }
 
-            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
-                iframe_.onreadystatechange = function () {
-                    switch (this.readyState) {
-                        case "loading":
-                            waitingDialog({});
-                            break;
-                        case "complete":
-                        case "interactive":
-                        case "uninitialized":
-                            closeWaitingDialog();
-                            delCookie("DescargaCompleta");
-                            break;
-                        default:
-                            closeWaitingDialog();
-                            delCookie("DescargaCompleta");
-                            break;
-                    }
-                };
-            }
-            else {
-                // Si es Firefox o Chrome
-                document.body.appendChild(iframe_);
+        var parameters = "?PaisID=" + paisID +
+            "&Campania=" + campania +
+            "&Consultora=" + consultora +
+            "&RegionID=" + regionID +
+            "&ZonaID=" + zonaID +
+            "&Origen=" + origen +
+            "&EstadoValidacion=" + estadoValidacion +
+            "&EsRechazado=" + esRechazado +
+            "&FechaInicio=" + fechaInicio +
+            "&FechaFin=" + fechaFin;
 
-                var _timer = setInterval(function () {
-                    var success = getCookie("DescargaCompleta");
-                    if (success === "1") {
-                        clearInterval(_timer);
+        waitingDialog();
+        $.get(baseUrl + "ReportePedidoDDWeb/" + urlCount + parameters)
+            .done(function (response) {
+                if (!checkTimeout(response)) return false;
+
+                if (!response.success) alert(response.message);
+                else DownloadAttachExcel(baseUrl + "ReportePedidoDDWeb/" + urlExcel + parameters);
+            })
+            .fail(function() { alert(mensajeError); })
+            .always(closeWaitingDialog);
+    }
+
+    function DownloadAttachExcel(content) {
+        var iframe_ = document.createElement("iframe");
+        iframe_.style.display = "none";
+        iframe_.setAttribute("src", content);
+        iframe_.frameBorder = 0;
+
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+            iframe_.onreadystatechange = function () {
+                switch (this.readyState) {
+                    case "loading":
+                        waitingDialog();
+                        break;
+                    case "complete":
+                    case "interactive":
+                    case "uninitialized":
                         closeWaitingDialog();
                         delCookie("DescargaCompleta");
-                    }
-                }, 1000)
-                return;
-            }
-
-            document.body.appendChild(iframe_);
+                        break;
+                    default:
+                        closeWaitingDialog();
+                        delCookie("DescargaCompleta");
+                        break;
+                }
+            };
         }
+        else {
+            // Si es Firefox o Chrome
+            document.body.appendChild(iframe_);
+
+            var _timer = setInterval(function () {
+                var success = getCookie("DescargaCompleta");
+                if (success === "1") {
+                    clearInterval(_timer);
+                    closeWaitingDialog();
+                    delCookie("DescargaCompleta");
+                }
+            }, 1000)
+            return;
+        }
+
+        document.body.appendChild(iframe_);
     }
 
     function getCookie(name) {
@@ -292,14 +319,16 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                vPaisID: function () { return jQuery.trim($("#ddlPais").val()); },
-                vCampania: function () { return jQuery.trim($("#ddlCampania").val()); },
-                vConsultora: function () { return jQuery.trim($("#txtCodConsultora").val()); },
-                vRegionID: function () { return jQuery.trim($('#ddlRegion option:selected').text()); },
-                vZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
-                vOrigen: function () { return jQuery.trim($("#ddlOrigen").val()); },
-                vEstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
-                vEsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); }
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                Consultora: function () { return jQuery.trim($("#txtCodConsultora").val()); },
+                RegionID: function () { return jQuery.trim($('#ddlRegion option:selected').text()); },
+                ZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
+                Origen: function () { return jQuery.trim($("#ddlOrigen").val()); },
+                EstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
+                EsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); },
+                FechaInicio: function () { return $("#txtFechaInicio").val(); },
+                FechaFin: function () { return $("#txtFechaFin").val(); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -309,7 +338,7 @@
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
                 { name: 'FechaRegistro', index: 'FechaRegistro', width: 10, editable: true, resizable: false },
                 { name: 'FechaReserva', index: 'FechaReserva', width: 10, editable: true, resizable: false },
-                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },                
+                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },
                 { name: 'Region', index: 'Region', width: 6, editable: true, resizable: false },
                 { name: 'Zona', index: 'Zona', width: 6, editable: true, resizable: false },
                 { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
@@ -430,7 +459,7 @@
 
 <div class="wrap_cab">
     <div class="filtros2">
-        <div class="elements">
+        <div class="elements" style="width:1200px;">
             <div class="div-2">
                 <h1>Reporte de <span>Pedidos Digitados DD y Web</span></h1>
             </div>
@@ -447,12 +476,12 @@
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownListFor(x => x.NombreRegion, new SelectList(Model.DropDownListRegion, "RegionID", "Codigo"), "-- Todas --", new { id = "ddlRegion" })
                 </div>
-            </div>
-            <div class="div-3">
                 <div class="titC">Zona:</div>
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownListFor(x => x.NombreZona, new SelectList(Model.DropDownListZona, "ZonaID", "Codigo"), "-- Todas --", new { id = "ddlZona" })
                 </div>
+            </div>
+            <div class="div-3">
                 <div class="titC">Origen:</div>
                 <div class="selectP2 borde_redondeado">
                     <select id="ddlOrigen">
@@ -469,8 +498,6 @@
                         <option value="201">NO</option>
                     </select>
                 </div>
-            </div>
-            <div class="div-3">
                 <div class="titC">Consultora:</div>
                 <div class="selectP2 borde_redondeado">
                     <input id="txtCodConsultora" type="text" />
@@ -483,8 +510,22 @@
                         <option value="0">NO</option>
                     </select>
                 </div>
+            </div>
+            <div class="div-3">
+                <fieldset class="fieldset-2">
+                    <legend >Fecha de Ingreso</legend>
+
+                    <div class="titC" style="padding-left: 0px;">Inicio:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaInicio">
+                    </div>
+                    <div class="titC" style="padding-left: 5px;">Fin:</div>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaFin">
+                    </div>
+                </fieldset>
                 <div class="input_search">
-                    <input type="submit" name="" id="btnBuscar" value="Buscar" />
+                    <input type="submit" name="" id="btnBuscar" value="Buscar" style="margin-top: 22px;" />
                 </div>
             </div>
             <input type="hidden" id="hdnPedidoDetalle" value="0" />

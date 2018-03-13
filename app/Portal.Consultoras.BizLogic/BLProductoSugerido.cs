@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -41,19 +37,19 @@ namespace Portal.Consultoras.BizLogic
         public string InsProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.InsProductoSugerido(entidad); ;
+            return dataAccess.InsProductoSugerido(entidad);
         }
 
         public string UpdProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.UpdProductoSugerido(entidad); ;
+            return dataAccess.UpdProductoSugerido(entidad);
         }
 
         public string DelProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
-            return dataAccess.DelProductoSugerido(entidad); ;
+            return dataAccess.DelProductoSugerido(entidad);
         }
     }
 }

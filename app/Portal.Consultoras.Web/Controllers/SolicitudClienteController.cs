@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -15,8 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class SolicitudClienteController : BaseController
     {
-        //
-        // GET: /SolicitudCliente/
         public ActionResult Index(string Campania, string Estado, string paginacion)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "SolicitudCliente/Index"))
@@ -28,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPaises = DropDowListPaises()
             };
 
-            if (Campania != null && Campania != string.Empty && Estado != null && Estado != string.Empty)
+            if (!string.IsNullOrEmpty(Campania) && !string.IsNullOrEmpty(Estado))
             {
                 solicitudClienteModel.listaCampania = DropDowListCampanias(UserData().PaisID);
                 solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID);
@@ -52,63 +49,53 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private List<BEEstadoSolicitudCliente> DropDowListEstado(int PaisID)
+        private List<BEEstadoSolicitudCliente> DropDowListEstado(int paisId)
         {
             List<BEEstadoSolicitudCliente> listaEstadoSolicitudCliente = new List<BEEstadoSolicitudCliente>();
 
-            BEEstadoSolicitudCliente estadoSeleccione = new BEEstadoSolicitudCliente();
-            estadoSeleccione.EstadoSolicitudClienteID = -1;
-            estadoSeleccione.Descripcion = "-- Selecione Estado --";
-            estadoSeleccione.TipoEstado = ""; //"Carga Todos los estados"
-            estadoSeleccione.Activo = true;
+            BEEstadoSolicitudCliente estadoSeleccione = new BEEstadoSolicitudCliente
+            {
+                EstadoSolicitudClienteID = -1,
+                Descripcion = "-- Selecione Estado --",
+                TipoEstado = "",
+                Activo = true
+            };
             listaEstadoSolicitudCliente.Add(estadoSeleccione);
 
 
-            BEEstadoSolicitudCliente estadoSolicitudCliente = new BEEstadoSolicitudCliente();
-            estadoSolicitudCliente.EstadoSolicitudClienteID = 0;
-            estadoSolicitudCliente.Descripcion = "Todos";
-            estadoSolicitudCliente.TipoEstado = "T"; //"Carga Todos los estados"
-            estadoSolicitudCliente.Activo = true;
+            BEEstadoSolicitudCliente estadoSolicitudCliente =
+                new BEEstadoSolicitudCliente
+                {
+                    EstadoSolicitudClienteID = 0,
+                    Descripcion = "Todos",
+                    TipoEstado = "T",
+                    Activo = true
+                };
             listaEstadoSolicitudCliente.Add(estadoSolicitudCliente);
 
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                listaEstadoSolicitudCliente.AddRange(sv.GetEstadoSolicitudCliente(PaisID).ToList());
+                listaEstadoSolicitudCliente.AddRange(sv.GetEstadoSolicitudCliente(paisId).ToList());
             }
 
             return listaEstadoSolicitudCliente;
@@ -116,35 +103,40 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Detalle(string SolicitudClienteId, string Estado, string paginacion)
         {
-            var entidadCliente = new BESolicitudCliente();
+            BESolicitudCliente entidadCliente;
+
+            var paramSolicitudCliente = new BESolicitudCliente
+            {
+                SolicitudClienteID = Convert.ToInt64(SolicitudClienteId)
+            };
+
             using (SACServiceClient sv = new SACServiceClient())
             {
-                var paramSolicitudCliente = new BESolicitudCliente();
-                paramSolicitudCliente.SolicitudClienteID = Convert.ToInt64(SolicitudClienteId);
-                //paramSolicitudCliente.EstadoSolicitudClienteId = int.Parse(Estado);
                 entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente);
             }
 
-            SolicitudClienteModel modelSolicitudCliente = new SolicitudClienteModel();
-            modelSolicitudCliente.UnidadGeografica1 = entidadCliente.UnidadGeografica1;
-            modelSolicitudCliente.UnidadGeografica2 = entidadCliente.UnidadGeografica2;
-            modelSolicitudCliente.UnidadGeografica3 = entidadCliente.UnidadGeografica3;
-            modelSolicitudCliente.TipoDistribucion = entidadCliente.TipoDistribucion;
-            modelSolicitudCliente.Seccion = entidadCliente.Seccion;
-            modelSolicitudCliente.NombreConsultoraAsignada = entidadCliente.NombreConsultoraAsignada;
-            modelSolicitudCliente.CorreoConsultoraAsginada = entidadCliente.CorreoConsultoraAsginada;
-            modelSolicitudCliente.NombreCliente = entidadCliente.NombreCompleto;
-            modelSolicitudCliente.EmailCliente = entidadCliente.Email;
-            modelSolicitudCliente.TelefonoCliente = entidadCliente.Telefono;
-            modelSolicitudCliente.Mensaje = entidadCliente.Mensaje;
-            modelSolicitudCliente.listaDetalle = entidadCliente.DetalleSolicitud.ToList();
-            modelSolicitudCliente.NombreGZ = entidadCliente.NombreGZ;
-            modelSolicitudCliente.EmailGZ = entidadCliente.EmailGZ;
-            modelSolicitudCliente.Direccion = entidadCliente.Direccion;
-            modelSolicitudCliente.MensajeaGZ = entidadCliente.MensajeaGZ;
-            modelSolicitudCliente.Campania = entidadCliente.Campania;
-            modelSolicitudCliente.Estado = entidadCliente.Estado.ToString();
-            modelSolicitudCliente.Paginacion = paginacion;
+            SolicitudClienteModel modelSolicitudCliente = new SolicitudClienteModel
+            {
+                UnidadGeografica1 = entidadCliente.UnidadGeografica1,
+                UnidadGeografica2 = entidadCliente.UnidadGeografica2,
+                UnidadGeografica3 = entidadCliente.UnidadGeografica3,
+                TipoDistribucion = entidadCliente.TipoDistribucion,
+                Seccion = entidadCliente.Seccion,
+                NombreConsultoraAsignada = entidadCliente.NombreConsultoraAsignada,
+                CorreoConsultoraAsginada = entidadCliente.CorreoConsultoraAsginada,
+                NombreCliente = entidadCliente.NombreCompleto,
+                EmailCliente = entidadCliente.Email,
+                TelefonoCliente = entidadCliente.Telefono,
+                Mensaje = entidadCliente.Mensaje,
+                listaDetalle = entidadCliente.DetalleSolicitud.ToList(),
+                NombreGZ = entidadCliente.NombreGZ,
+                EmailGZ = entidadCliente.EmailGZ,
+                Direccion = entidadCliente.Direccion,
+                MensajeaGZ = entidadCliente.MensajeaGZ,
+                Campania = entidadCliente.Campania,
+                Estado = entidadCliente.Estado,
+                Paginacion = paginacion
+            };
 
             decimal sumaTotal = 0;
             foreach (var item in modelSolicitudCliente.listaDetalle)
@@ -153,18 +145,15 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Simbolo = UserData().Simbolo;
             ViewBag.MontoTotal = sumaTotal.ToString();
             ViewBag.MarcaID = entidadCliente.MarcaID;
-            //ViewBag.Tono¿entidadCliente.to
             ViewBag.TieneDetalle = (entidadCliente.DetalleSolicitud != null) ? entidadCliente.DetalleSolicitud.ToList().Count : 0;
 
             string tipoDistribucion = String.Format("_{0}", modelSolicitudCliente.TipoDistribucion >= 1 ? modelSolicitudCliente.TipoDistribucion : 1);
-            //R2319 - JICM - Se Obtiene la descripción de etiquetas correspondiente al pais logueado.
-            string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
-            string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
+            string descripcionUnidad = GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
-            ViewBag.UnidadGeografica1 = arrayUnidades[0].ToString() + ":";
-            ViewBag.UnidadGeografica2 = arrayUnidades[1].ToString() + ":";
-            ViewBag.UnidadGeografica3 = arrayUnidades[2].ToString() + ":";
-            //R2319 - JICM - FIN
+            ViewBag.UnidadGeografica1 = arrayUnidades[0] + ":";
+            ViewBag.UnidadGeografica2 = arrayUnidades[1] + ":";
+            ViewBag.UnidadGeografica3 = arrayUnidades[2] + ":";
 
             return View("Detalle", modelSolicitudCliente);
 
@@ -174,22 +163,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Paginacion != null && Paginacion != string.Empty)
+                Paginacion = Util.Trim(Paginacion);
+                int outVal;
+                int.TryParse(Paginacion, out outVal);
+
+                if (page == 1 && outVal > 0)
                 {
-                    if (page == 1 && int.Parse(Paginacion) > 0)
-                    {
-                        page = int.Parse(Paginacion);
-                    }
+                    page = outVal;
                 }
+
                 List<BESolicitudCliente> lst;
 
                 if (Consulta == "1")
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        var paramSolicitudCliente = new BESolicitudCliente();
-                        paramSolicitudCliente.Campania = CampaniaID;
-                        paramSolicitudCliente.EstadoSolicitudClienteId = Estado;
+                        var paramSolicitudCliente = new BESolicitudCliente
+                        {
+                            Campania = CampaniaID,
+                            EstadoSolicitudClienteId = Estado
+                        };
                         lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
                     }
                 }
@@ -198,14 +191,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BESolicitudCliente>();
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
                 IEnumerable<BESolicitudCliente> items = lst;
                 if (sord == "asc")
@@ -263,11 +255,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -301,30 +292,31 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BESolicitudClienteDetalle> lst = new List<BESolicitudClienteDetalle>();
+                List<BESolicitudClienteDetalle> lst;
+
+                var paramSolicitudCliente = new BESolicitudCliente
+                {
+                    SolicitudClienteID = Convert.ToInt64(SolicitudClienteID)
+                };
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    var paramSolicitudCliente = new BESolicitudCliente();
-                    paramSolicitudCliente.SolicitudClienteID = Convert.ToInt64(SolicitudClienteID);
-
                     lst = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).DetalleSolicitud.ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BESolicitudClienteDetalle> items = lst;
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -338,7 +330,7 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.CUV,
                                    a.DescripcionProducto,
-                                   a.Tono.ToString(),
+                                   a.Tono,
                                    a.Cantidad.ToString(),
                                    a.Precio.ToString(),
                                    Convert.ToString(a.Cantidad * a.Precio)
@@ -355,25 +347,25 @@ namespace Portal.Consultoras.Web.Controllers
             int resultado = 0;
             try
             {
-                var entidadCliente = new BESolicitudCliente();
-                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
+                BESolicitudCliente entidadCliente;
                 string correoOculto;
+                var solicitudCliente = new BESolicitudCliente
+                {
+                    SolicitudClienteID = Convert.ToInt64(SolicitudClienteId),
+                    NombreGZ = NombreGZ,
+                    EmailGZ = EmailGZ,
+                    MensajeaGZ = MensajeaGZ,
+                    UsuarioModificacion = UserData().CodigoUsuario
+                };
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    list_segmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 57).ToList();
-                    correoOculto = (from item in list_segmentos where item.TablaLogicaDatosID == 5701 select item.Descripcion).First();
-                    var solicitudCliente = new BESolicitudCliente();
-                    solicitudCliente.SolicitudClienteID = Convert.ToInt64(SolicitudClienteId);
-                    solicitudCliente.NombreGZ = NombreGZ;
-                    solicitudCliente.EmailGZ = EmailGZ;
-                    solicitudCliente.MensajeaGZ = MensajeaGZ;
-                    solicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
+                    var listSegmentos = sv.GetTablaLogicaDatos(UserData().PaisID, 57).ToList();
+                    correoOculto = (from item in listSegmentos where item.TablaLogicaDatosID == 5701 select item.Descripcion).First();
                     resultado = sv.EnviarSolicitudClienteaGZ(UserData().PaisID, solicitudCliente);
                     entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, solicitudCliente);
                 }
 
-                /* Envío de correo a la gerente de zona */
                 string cuerpoCorreo = ConstruirCorreo(entidadCliente);
                 string asunto = String.Format("({0}) Nuevo Pedido {1}", UserData().CodigoISO, entidadCliente.MarcaNombre);
                 Util.EnviarMail("no-responder@somosbelcorp.com", EmailGZ, correoOculto, asunto, cuerpoCorreo, true, "SomosBelcorp");
@@ -453,8 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
             cuerpoMensaje.Append(String.Format("<p>Estimada <strong>{0}</strong>,</p>", entidadSolicitud.NombreGZ.ToUpper()));
             cuerpoMensaje.Append("<p>Hemos recibido el pedido de un nuevo cliente de tu Zona que está en búsqueda de una Consultora.</p>");
             cuerpoMensaje.Append("<p>Te sugerimos asignar este nuevo cliente a una de tus Consultoras más proactivas, digitales y que quieras motivar.</p>");
-            //cuerpoMensaje.Append("<p>Hemos recibido el pedido de un nuevo cliente que no ha podido ser <br />");
-            //cuerpoMensaje.Append(String.Format("atendido por {0} consultoras de tu zona.</p>", entidadSolicitud.NumIteracion.ToString()));
             cuerpoMensaje.Append("<p>A continuación te adjuntamos sus datos y pedido para que puedan atenderlo a la brevedad.</p>");
             cuerpoMensaje.Append(String.Format("<p style=\"line-height:22px\">Cliente: {0}<br />", entidadSolicitud.NombreCompleto));
             cuerpoMensaje.Append(String.Format("Correo electrónico: {0}<br />", entidadSolicitud.Email));
@@ -462,9 +452,8 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             string tipoDistribucion = String.Format("_{0}", entidadSolicitud.TipoDistribucion >= 1 ? entidadSolicitud.TipoDistribucion : 1);
-            //R2319 - JICM - Se Obtiene la descripción de etiquetas correspondiente al pais logueado.
-            string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
-            string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
+            string descripcionUnidad = GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
 
             if (arrayUnidades[0] != "")
@@ -499,7 +488,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (entidadSolicitud.MarcaID != 2)
                     {
-                        cuerpoMensaje.Append(String.Format("<td>{0}</td>", item.Tono.ToString()));
+                        cuerpoMensaje.Append(String.Format("<td>{0}</td>", item.Tono));
                         cuerpoMensaje.Append(String.Format("<td>{0}</td>", item.Cantidad.ToString()));
                         cuerpoMensaje.Append(String.Format("<td>{0}</td>", item.Precio.ToString()));
                         cuerpoMensaje.Append(String.Format("<td {0}>{1}</td>", cssColumnaFinal, Convert.ToString(item.Cantidad * item.Precio)));
@@ -532,24 +521,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BESolicitudCliente> lst;
 
+            var paramSolicitudCliente = new BESolicitudCliente
+            {
+                Campania = CampaniaID,
+                EstadoSolicitudClienteId = Estado
+            };
+
             using (SACServiceClient sv = new SACServiceClient())
             {
-                var paramSolicitudCliente = new BESolicitudCliente();
-                paramSolicitudCliente.Campania = CampaniaID;
-                paramSolicitudCliente.EstadoSolicitudClienteId = Estado;
-
                 lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
             }
 
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Campaña", "Campania");
-            dic.Add("Nombre del Cliente", "NombreCompleto");
-            dic.Add("Fecha de la Solicitud", "FechaSolicitud");
-            dic.Add("Marca", "MarcaNombre");
-            dic.Add("Estado", "Estado");
-            dic.Add("Sección", "Seccion");
-            dic.Add("Enviado", "EnviadoGZ");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Campaña", "Campania"},
+                {"Nombre del Cliente", "NombreCompleto"},
+                {"Fecha de la Solicitud", "FechaSolicitud"},
+                {"Marca", "MarcaNombre"},
+                {"Estado", "Estado"},
+                {"Sección", "Seccion"},
+                {"Enviado", "EnviadoGZ"}
+            };
             Util.ExportToExcel("Solicitud Cliente", lst, dic);
             return View();
         }
@@ -557,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<BETablaLogicaDatos> ConsultarTipodeUnidadGeografica()
         {
 
-            List<BETablaLogicaDatos> listaColumna = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> listaColumna;
 
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -571,7 +564,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BETablaLogicaDatos> listaColumna = ConsultarTipodeUnidadGeografica().ToList();
             ViewBag.UnidadGeografica1 = listaColumna.Where(l => l.Codigo == "01").Select(c => c.Descripcion).FirstOrDefault();
-            //ViewBag.UnidadGeografica1 = listaColumna.Select(x => { x.Codigo = "01"; return x.Descripcion; }).First();
             ViewBag.UnidadGeografica2 = listaColumna.Where(l => l.Codigo == "02").Select(c => c.Descripcion).FirstOrDefault();
             ViewBag.UnidadGeografica3 = listaColumna.Where(l => l.Codigo == "03").Select(c => c.Descripcion).FirstOrDefault();
             ViewBag.HdConsulta = 0;
@@ -584,10 +576,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                List<BEReporteAfiliados> lst = new List<BEReporteAfiliados>();
+                List<BEReporteAfiliados> lst;
                 if (Consulta == "1")
                 {
-
                     DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
                     DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
 
@@ -601,15 +592,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEReporteAfiliados>();
                 }
 
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
                 IEnumerable<BEReporteAfiliados> items = lst;
 
                 #region Sort Section
@@ -692,10 +682,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -707,19 +696,17 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.CodigoConsultora,
                                cell = new string[]
                                {
-                                   a.CodigoConsultora.ToString(),
+                                   a.CodigoConsultora,
                                    a.CodigoUbigeo,
-                                   Convert.ToString(a.UnidadGeografica1),
-                                   Convert.ToString(a.UnidadGeografica2.ToString()),
-                                   Convert.ToString(a.UnidadGeografica3.ToString()),
+                                   a.UnidadGeografica1,
+                                   a.UnidadGeografica2,
+                                   a.UnidadGeografica3,
                                    a.NombreCompleto,
                                    a.EsAfiliado.ToString(),
-                                   Convert.ToString(a.Segmento.ToString()),
-                                   Convert.ToString(a.AnoCampanaIngreso),
-                                   a.FechaCreacionString.ToString(),
-                                   a.FechaModificacionString.ToString()
-                                   //Convert.ToDateTime(a.FechaCreacion.ToString()).ToShortDateString(),
-                                   //Convert.ToDateTime(a.FechaModificacion.ToString()).ToShortDateString()
+                                   a.Segmento,
+                                   a.AnoCampanaIngreso,
+                                   a.FechaCreacionString,
+                                   a.FechaModificacionString
                                 }
                            }
                 };
@@ -742,34 +729,36 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BETablaLogicaDatos> listaColumna = ConsultarTipodeUnidadGeografica().ToList();
 
-            string UnidadGeografica1 = listaColumna.Where(l => l.Codigo == "01").Select(c => c.Descripcion).FirstOrDefault();
-            string UnidadGeografica2 = listaColumna.Where(l => l.Codigo == "02").Select(c => c.Descripcion).FirstOrDefault();
-            string UnidadGeografica3 = listaColumna.Where(l => l.Codigo == "03").Select(c => c.Descripcion).FirstOrDefault();
+            string unidadGeografica1 = listaColumna.Where(l => l.Codigo == "01").Select(c => c.Descripcion).FirstOrDefault();
+            string unidadGeografica2 = listaColumna.Where(l => l.Codigo == "02").Select(c => c.Descripcion).FirstOrDefault();
+            string unidadGeografica3 = listaColumna.Where(l => l.Codigo == "03").Select(c => c.Descripcion).FirstOrDefault();
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Código", "CodigoConsultora");
-            dic.Add("Código Ubigeo", "CodigoUbigeo");
-            dic.Add(UnidadGeografica1, "UnidadGeografica1");
-            dic.Add(UnidadGeografica2, "UnidadGeografica2");
-            dic.Add(UnidadGeografica3, "UnidadGeografica3");
-            dic.Add("Nombre Completo", "NombreCompleto");
-            dic.Add("Es Afiliado", "EsAfiliado");
-            dic.Add("Segmento", "Segmento");
-            dic.Add("Año Campaña Ingreso", "AnoCampanaIngreso");
-            dic.Add("Fecha Creación", "FechaCreacionString");
-            dic.Add("Fecha Modificación", "FechaModificacionString");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Código", "CodigoConsultora"},
+                {"Código Ubigeo", "CodigoUbigeo"},
+                {unidadGeografica1, "UnidadGeografica1"},
+                {unidadGeografica2, "UnidadGeografica2"},
+                {unidadGeografica3, "UnidadGeografica3"},
+                {"Nombre Completo", "NombreCompleto"},
+                {"Es Afiliado", "EsAfiliado"},
+                {"Segmento", "Segmento"},
+                {"Año Campaña Ingreso", "AnoCampanaIngreso"},
+                {"Fecha Creación", "FechaCreacionString"},
+                {"Fecha Modificación", "FechaModificacionString"}
+            };
             Util.ExportToExcel("Reporte Afiliadas", lst, dic);
             return View();
         }
 
         public ActionResult ReportePedidos(string Campania)
         {
-
-            var solicitudClienteModel = new SolicitudClienteModel();
-
-            solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID);
-            solicitudClienteModel.listaCampania = DropDowListCampanias(UserData().PaisID);
-            solicitudClienteModel.listaMarcas = GetDescripcionMarca();
+            var solicitudClienteModel = new SolicitudClienteModel
+            {
+                listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID),
+                listaCampania = DropDowListCampanias(UserData().PaisID),
+                listaMarcas = GetDescripcionMarca()
+            };
 
             return View(solicitudClienteModel);
         }
@@ -777,11 +766,10 @@ namespace Portal.Consultoras.Web.Controllers
         public Dictionary<int, string> GetDescripcionMarca()
         {
 
-            Dictionary<int, string> dicMarcas = new Dictionary<int, string>();
-            dicMarcas.Add(1, "Lbel");
-            dicMarcas.Add(2, "Esika");
-            dicMarcas.Add(3, "Cyzone");
-            dicMarcas.Add(6, "Finart");
+            Dictionary<int, string> dicMarcas = new Dictionary<int, string>
+            {
+                {1, "Lbel"}, {2, "Esika"}, {3, "Cyzone"}, {6, "Finart"}
+            };
 
             return dicMarcas;
         }
@@ -800,14 +788,14 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, UserData().PaisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEReportePedidos> items = lst;
 
                 #region Sort Section
@@ -944,10 +932,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -960,24 +947,24 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.SolicitudClienteID.ToString(),
-                                   a.Estado.ToString(),
+                                   a.Estado,
                                    Convert.ToDateTime(a.FechaSolicitud.ToString()).ToShortDateString(),
-                                   a.NombreCliente.ToString(),
-                                   a.Direccion.ToString(),
-                                   a.EmailCliente.ToString(),
-                                   a.TelefonoCliente.ToString(),
-                                   a.Marca.ToString(),
-                                   a.Campania.ToString(),
-                                   a.Producto.ToString(),
-                                   a.Tono.ToString(),
+                                   a.NombreCliente,
+                                   a.Direccion,
+                                   a.EmailCliente,
+                                   a.TelefonoCliente,
+                                   a.Marca,
+                                   a.Campania,
+                                   a.Producto,
+                                   a.Tono,
                                    a.Cantidad.ToString(),
                                    a.Precio.ToString(),
-                                   a.MensajeCliente.ToString(),
-                                   a.CodigoConsultora.ToString(),
-                                   a.NombreConsultora.ToString(),
-                                   a.TelefonoMovilConsultora.ToString(),
-                                   a.TelefonoFijoConsultora.ToString(),
-                                   a.EmailConsultora.ToString(),
+                                   a.MensajeCliente,
+                                   a.CodigoConsultora,
+                                   a.NombreConsultora,
+                                   a.TelefonoMovilConsultora,
+                                   a.TelefonoFijoConsultora,
+                                   a.EmailConsultora,
                                    a.Leido.ToString()
                                 }
                            }
@@ -999,27 +986,29 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, UserData().PaisID).ToList();
             }
 
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("SolicitudClienteID", "SolicitudClienteID");
-            dic.Add("Estado", "Estado");
-            dic.Add("Fecha Solicitud", "FechaSolicitud");
-            dic.Add("Nombre Cliente", "NombreCliente");
-            dic.Add("Dirección", "Direccion");
-            dic.Add("Email Cliente", "EmailCliente");
-            dic.Add("Telefono Cliente", "TelefonoCliente");
-            dic.Add("Marca", "Marca");
-            dic.Add("Campaña", "Campania");
-            dic.Add("Producto", "Producto");
-            dic.Add("Tono", "Tono");
-            dic.Add("Cantidad", "Cantidad");
-            dic.Add("Precio", "Precio");
-            dic.Add("Msj del Cliente", "MensajeCliente");
-            dic.Add("Código Consultora", "CodigoConsultora");
-            dic.Add("Nombre Consultora", "NombreConsultora");
-            dic.Add("Tlf. Movil Consultora", "TelefonoMovilConsultora");
-            dic.Add("Tlf. Fijo Consultora", "TelefonoFijoConsultora");
-            dic.Add("Email Consultora", "EmailConsultora");
-            dic.Add("Leido", "Leido");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"SolicitudClienteID", "SolicitudClienteID"},
+                {"Estado", "Estado"},
+                {"Fecha Solicitud", "FechaSolicitud"},
+                {"Nombre Cliente", "NombreCliente"},
+                {"Dirección", "Direccion"},
+                {"Email Cliente", "EmailCliente"},
+                {"Telefono Cliente", "TelefonoCliente"},
+                {"Marca", "Marca"},
+                {"Campaña", "Campania"},
+                {"Producto", "Producto"},
+                {"Tono", "Tono"},
+                {"Cantidad", "Cantidad"},
+                {"Precio", "Precio"},
+                {"Msj del Cliente", "MensajeCliente"},
+                {"Código Consultora", "CodigoConsultora"},
+                {"Nombre Consultora", "NombreConsultora"},
+                {"Tlf. Movil Consultora", "TelefonoMovilConsultora"},
+                {"Tlf. Fijo Consultora", "TelefonoFijoConsultora"},
+                {"Email Consultora", "EmailConsultora"},
+                {"Leido", "Leido"}
+            };
 
             Util.ExportToExcel("Reporte Pedidos", lst, dic);
             return View();

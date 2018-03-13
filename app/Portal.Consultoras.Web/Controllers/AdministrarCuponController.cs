@@ -47,8 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
-                        var cuponBE = MapearCuponModelABECupon(model);
-                        svClient.CrearCupon(userData.PaisID, cuponBE);
+                        var cuponBe = MapearCuponModelABECupon(model);
+                        svClient.CrearCupon(userData.PaisID, cuponBe);
                     }
                 }
                 else
@@ -73,8 +73,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
-                        var cuponBE = MapearCuponModelABECupon(model);
-                        svClient.ActualizarCupon(userData.PaisID, cuponBE);
+                        var cuponBe = MapearCuponModelABECupon(model);
+                        svClient.ActualizarCupon(userData.PaisID, cuponBe);
                     }
                 }
                 else
@@ -94,13 +94,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaCupones = ListarCuponesPorCampania(paisID, campaniaID);
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<CuponModel> items = listaCupones;
 
                 if (listaCupones.Any())
@@ -108,28 +109,25 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (grid.SortColumn)
                     {
                         case "Tipo":
-                            if (grid.SortOrder == "asc")
-                                items = listaCupones.OrderBy(c => c.Tipo);
-                            else
-                                items = listaCupones.OrderByDescending(c => c.Tipo);
+                            items = grid.SortOrder == "asc"
+                                ? listaCupones.OrderBy(c => c.Tipo)
+                                : listaCupones.OrderByDescending(c => c.Tipo);
                             break;
                         case "Descripcion":
-                            if (grid.SortOrder == "asc")
-                                items = listaCupones.OrderBy(c => c.Descripcion);
-                            else
-                                items = listaCupones.OrderByDescending(c => c.Descripcion);
+                            items = grid.SortOrder == "asc"
+                                ? listaCupones.OrderBy(c => c.Descripcion)
+                                : listaCupones.OrderByDescending(c => c.Descripcion);
                             break;
                         case "FechaCreacion":
-                            if (grid.SortOrder == "asc")
-                                items = listaCupones.OrderBy(c => c.FechaCreacion);
-                            else
-                                items = listaCupones.OrderByDescending(c => c.FechaCreacion);
+                            items = grid.SortOrder == "asc" ?
+                                listaCupones.OrderBy(c => c.FechaCreacion)
+                                : listaCupones.OrderByDescending(c => c.FechaCreacion);
                             break;
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, listaCupones);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, listaCupones);
 
                 var data = new
                 {
@@ -165,8 +163,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
-                        var cuponConsultoraBE = MapearCuponConsultoraModelABECuponConsultora(model);
-                        svClient.CrearCuponConsultora(userData.PaisID, cuponConsultoraBE);
+                        var cuponConsultoraBe = MapearCuponConsultoraModelABECuponConsultora(model);
+                        svClient.CrearCuponConsultora(userData.PaisID, cuponConsultoraBe);
                     }
                 }
                 else
@@ -191,8 +189,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
-                        var cuponConsultoraBE = MapearCuponConsultoraModelABECuponConsultora(model);
-                        svClient.ActualizarCuponConsultora(userData.PaisID, cuponConsultoraBE);
+                        var cuponConsultoraBe = MapearCuponConsultoraModelABECuponConsultora(model);
+                        svClient.ActualizarCuponConsultora(userData.PaisID, cuponConsultoraBe);
                     }
                 }
                 else
@@ -212,13 +210,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaCuponConsultoras = ListarCuponConsultorasPorCupon(paisID, cuponID);
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
-                BEPager pag = new BEPager();
                 IEnumerable<CuponConsultoraModel> items = listaCuponConsultoras;
 
                 if (listaCuponConsultoras.Any())
@@ -226,28 +225,25 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (grid.SortColumn)
                     {
                         case "Consultora":
-                            if (grid.SortOrder == "asc")
-                                items = listaCuponConsultoras.OrderBy(c => c.CodigoConsultora);
-                            else
-                                items = listaCuponConsultoras.OrderByDescending(c => c.CodigoConsultora);
+                            items = grid.SortOrder == "asc"
+                                ? listaCuponConsultoras.OrderBy(c => c.CodigoConsultora)
+                                : listaCuponConsultoras.OrderByDescending(c => c.CodigoConsultora);
                             break;
                         case "ValorAsociado":
-                            if (grid.SortOrder == "asc")
-                                items = listaCuponConsultoras.OrderBy(c => c.ValorAsociado);
-                            else
-                                items = listaCuponConsultoras.OrderByDescending(c => c.ValorAsociado);
+                            items = grid.SortOrder == "asc"
+                                ? listaCuponConsultoras.OrderBy(c => c.ValorAsociado)
+                                : listaCuponConsultoras.OrderByDescending(c => c.ValorAsociado);
                             break;
                         case "Estado":
-                            if (grid.SortOrder == "asc")
-                                items = listaCuponConsultoras.OrderBy(c => c.EstadoCupon);
-                            else
-                                items = listaCuponConsultoras.OrderByDescending(c => c.EstadoCupon);
+                            items = grid.SortOrder == "asc"
+                                ? listaCuponConsultoras.OrderBy(c => c.EstadoCupon)
+                                : listaCuponConsultoras.OrderByDescending(c => c.EstadoCupon);
                             break;
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, listaCuponConsultoras);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                BEPager pag = Util.PaginadorGenerico(grid, listaCuponConsultoras);
 
                 var data = new
                 {
@@ -278,7 +274,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (flCuponConsultora != null)
                 {
-                    string finalPath = string.Empty;
+                    string finalPath;
                     GuardarArchivoEnCarpeta(flCuponConsultora, out finalPath);
                     var listaCuponConsultoras = ObtenerListaCuponConsultora(finalPath);
 
@@ -302,7 +298,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GuardarArchivoEnCarpeta(HttpPostedFileBase flCuponConsultora, out string finalPath)
         {
-            string fileName = Path.GetFileName(flCuponConsultora.FileName);
+            string fileName = Path.GetFileName(flCuponConsultora.FileName) ?? "";
             string pathFolder = Server.MapPath("~/Content/FileCargaCuponConsultora");
             if (!Directory.Exists(pathFolder))
                 Directory.CreateDirectory(pathFolder);
@@ -312,11 +308,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BECuponConsultora> ObtenerListaCuponConsultora(string finalPath)
         {
-            List<BECuponConsultora> ListaCuponConsultoras = new List<BECuponConsultora>();
+            List<BECuponConsultora> listaCuponConsultoras = new List<BECuponConsultora>();
 
             using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
             {
-                string inputLine = "";
+                string inputLine;
                 int count = 0;
 
                 while ((inputLine = sr.ReadLine()) != null)
@@ -327,27 +323,30 @@ namespace Portal.Consultoras.Web.Controllers
                         var values = inputLine.Split(',');
                         if (values.Length > 0)
                         {
-                            BECuponConsultora cuponConsultora = new BECuponConsultora();
-                            cuponConsultora.CodigoConsultora = values[0].Trim();
-                            cuponConsultora.ValorAsociado = Convert.ToDecimal(values[1].Trim());
+                            BECuponConsultora cuponConsultora =
+                                new BECuponConsultora
+                                {
+                                    CodigoConsultora = values[0].Trim(),
+                                    ValorAsociado = Convert.ToDecimal(values[1].Trim())
+                                };
 
-                            ListaCuponConsultoras.Add(cuponConsultora);
+                            listaCuponConsultoras.Add(cuponConsultora);
                         }
                     }
                 }
             }
 
-            return ListaCuponConsultoras;
+            return listaCuponConsultoras;
         }
 
         private List<CuponModel> ListarCuponesPorCampania(int paisId, int campaniaId)
         {
-            List<CuponModel> listaCupones = new List<CuponModel>();
+            List<CuponModel> listaCupones;
 
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
-                var listaCuponesBE = svClient.ListarCuponesPorCampania(paisId, campaniaId).ToList();
-                listaCupones = listaCuponesBE.Select(x => MapearBECuponACuponModel(x)).ToList();
+                var listaCuponesBe = svClient.ListarCuponesPorCampania(paisId, campaniaId).ToList();
+                listaCupones = listaCuponesBe.Select(x => MapearBECuponACuponModel(x)).ToList();
             }
 
             return listaCupones;
@@ -355,12 +354,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<CuponConsultoraModel> ListarCuponConsultorasPorCupon(int paisId, int cuponId)
         {
-            List<CuponConsultoraModel> listaCuponConsultoras = new List<CuponConsultoraModel>();
+            List<CuponConsultoraModel> listaCuponConsultoras;
 
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
-                var listaCuponConsultorasBE = svClient.ListarCuponConsultorasPorCupon(paisId, cuponId).ToList();
-                listaCuponConsultoras = listaCuponConsultorasBE.Select(x => MapearBECuponConsultoraABECuponConsultoraModel(x)).ToList();
+                var listaCuponConsultorasBe = svClient.ListarCuponConsultorasPorCupon(paisId, cuponId).ToList();
+                listaCuponConsultoras = listaCuponConsultorasBe.Select(x => MapearBECuponConsultoraABECuponConsultoraModel(x)).ToList();
             }
 
             return listaCuponConsultoras;
@@ -371,18 +370,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -405,19 +396,19 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
+        private CuponModel MapearBECuponACuponModel(BECupon cuponBe)
         {
             return new CuponModel()
             {
-                CuponId = cuponBE.CuponId,
-                Tipo = cuponBE.Tipo,
-                Descripcion = cuponBE.Descripcion,
-                CampaniaId = cuponBE.CampaniaId,
-                Estado = cuponBE.Estado,
-                FechaCreacion = cuponBE.FechaCreacion,
-                FechaModificacion = cuponBE.FechaModificacion,
-                UsuarioCreacion = cuponBE.UsuarioCreacion,
-                UsuarioModificacion = cuponBE.UsuarioModificacion
+                CuponId = cuponBe.CuponId,
+                Tipo = cuponBe.Tipo,
+                Descripcion = cuponBe.Descripcion,
+                CampaniaId = cuponBe.CampaniaId,
+                Estado = cuponBe.Estado,
+                FechaCreacion = cuponBe.FechaCreacion,
+                FechaModificacion = cuponBe.FechaModificacion,
+                UsuarioCreacion = cuponBe.UsuarioCreacion,
+                UsuarioModificacion = cuponBe.UsuarioModificacion
             };
         }
 
@@ -439,23 +430,23 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private CuponConsultoraModel MapearBECuponConsultoraABECuponConsultoraModel(BECuponConsultora cuponConsultoraBE)
+        private CuponConsultoraModel MapearBECuponConsultoraABECuponConsultoraModel(BECuponConsultora cuponConsultoraBe)
         {
-            var codigoISO = userData.CodigoISO;
+            var codigoIso = userData.CodigoISO;
 
-            return new CuponConsultoraModel(codigoISO)
+            return new CuponConsultoraModel(codigoIso)
             {
-                CuponConsultoraId = cuponConsultoraBE.CuponConsultoraId,
-                CodigoConsultora = cuponConsultoraBE.CodigoConsultora,
-                CampaniaId = cuponConsultoraBE.CampaniaId,
-                CuponId = cuponConsultoraBE.CuponId,
-                ValorAsociado = cuponConsultoraBE.ValorAsociado,
-                EstadoCupon = cuponConsultoraBE.EstadoCupon,
-                CorreoGanasteEnviado = cuponConsultoraBE.EnvioCorreo,
-                FechaCreacion = cuponConsultoraBE.FechaCreacion,
-                FechaModificacion = cuponConsultoraBE.FechaModificacion,
-                UsuarioCreacion = cuponConsultoraBE.UsuarioCreacion,
-                UsuarioModificacion = cuponConsultoraBE.UsuarioModificacion,
+                CuponConsultoraId = cuponConsultoraBe.CuponConsultoraId,
+                CodigoConsultora = cuponConsultoraBe.CodigoConsultora,
+                CampaniaId = cuponConsultoraBe.CampaniaId,
+                CuponId = cuponConsultoraBe.CuponId,
+                ValorAsociado = cuponConsultoraBe.ValorAsociado,
+                EstadoCupon = cuponConsultoraBe.EstadoCupon,
+                CorreoGanasteEnviado = cuponConsultoraBe.EnvioCorreo,
+                FechaCreacion = cuponConsultoraBe.FechaCreacion,
+                FechaModificacion = cuponConsultoraBe.FechaModificacion,
+                UsuarioCreacion = cuponConsultoraBe.UsuarioCreacion,
+                UsuarioModificacion = cuponConsultoraBe.UsuarioModificacion,
             };
         }
 

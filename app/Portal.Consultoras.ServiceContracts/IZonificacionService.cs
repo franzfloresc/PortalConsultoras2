@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -33,15 +30,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BERegion> SelectAllRegiones(int paisID);
 
-        //R20151221 - Parámetro 
-
         [OperationContract]
         IList<BEGetRegionByPaisParametroCarga> GetRegionByPaisParametroCarga(int paisID);
 
         [OperationContract]
         IList<BEGetZonaByPaisParametroCarga> GetZonaByPaisParametroCarga(int paisID);
-
-        //R20151221 - Fín Parámetro
 
         [OperationContract]
         IList<BETerritorio> SelectAllTerritorios(int paisID);
@@ -99,15 +92,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BETerritorio> SearchTerritoriosByZona(int paisID, string codigoZona, string codigoTerritorio);
 
-        //RQ_BS - R2133
         [OperationContract]
         IList<BESegmentoBanner> GetSegmentoBanner(int PaisID);
 
-        //RQ_BS - R2133
         [OperationContract]
         IList<BEZonificacionJerarquia> GetZonificacionJerarquia(int PaisID);
 
-        /*RE2544 - CS(CGI) */     
         [OperationContract]
         IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID);
 

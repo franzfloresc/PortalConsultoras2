@@ -24,11 +24,8 @@
         } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
-
-
-
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
 
 <div class="col-xs-12">
     <ul class="list-notificaciones noti-detalle">
@@ -355,10 +352,6 @@
                             $('#DiagloBotonCancelar').modal('show');
 
                             $.post('@Url.Action("ActualizarEstadoNotificacion", "Notificaciones", new { area = "" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
-                                data.mensaje = data.mensaje || "";
-                                if (data.mensaje != '') {
-                                    console.log(data.mensaje);
-                                }
                             });
                         }
                     }

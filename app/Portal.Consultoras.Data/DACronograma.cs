@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -60,7 +54,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Codigos", DbType.String, Codigos);
             Context.Database.AddInParameter(command, "@Tipo", DbType.Int32, Tipo);
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.DateTime, FechaFacturacion);
-            //Context.Database.AddInParameter(command, "@FechaFinFacturacion", DbType.DateTime, FechaFinFacturacion);
             Context.Database.AddInParameter(command, "@FechaReFacturacion", DbType.DateTime, FechaReFacturacion);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, CodigoUsuario);
 
@@ -78,7 +71,10 @@ namespace Portal.Consultoras.Data
         public bool GetCronogramaAutomaticoActivacion()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCronogramaAutomaticoActivacion");
-            bool result = Context.ExecuteScalar(command) == null ? false : Convert.ToBoolean(Context.ExecuteScalar(command));
+            bool result = false;
+            if (Context.ExecuteScalar(command) != null)
+                result = Convert.ToBoolean(Context.ExecuteScalar(command));
+
             return result;
         }
 
@@ -89,7 +85,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetCampaniaActivaPais(DateTime  fechaConsulta)
+        public IDataReader GetCampaniaActivaPais(DateTime fechaConsulta)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCampaniaActivaPais");
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, fechaConsulta);

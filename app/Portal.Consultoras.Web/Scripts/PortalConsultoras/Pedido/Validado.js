@@ -111,7 +111,7 @@ function ConfirmarModificar() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
@@ -216,7 +216,7 @@ function EnviarCorreo() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert("ERROR al enviar correo.");
             }
         }
@@ -257,7 +257,7 @@ function CargarListado(page, rows) {
 
                     var data = response.data;
 
-                    var html = ArmarListado(data.ListaDetalle);
+                    var html = ArmarListado(data.ListaDetalleFormato);
                     $('#divListadoPedido').html(html);
 
                     var htmlPaginador = ArmarListadoPaginador(data);
@@ -269,11 +269,7 @@ function CargarListado(page, rows) {
                 }
             }
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(error);
-            }
-        }
+        error: function (data, error) { }
     });
 }
 

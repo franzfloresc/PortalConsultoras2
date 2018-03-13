@@ -15,11 +15,16 @@ window.onerror = function (msg, url, line, col, error) {
 
     // Tener en cuenta que col & error son nuevos en la especificación HTML 5 y no pueden ser 
     // soportados en todos los navegadores. 
-    var stackTrace = "";
+    var stackTrace = '';
     if (!error && !col) {
         stackTrace += msg + ' en ' + url + ' linea ' + line;
     } else {
         stackTrace = 'linea: ' + line + ', columna: ' + col + ', ' + error.stack;
+    }
+
+    if (msg === 'Script error.') {
+        //Errores de JS externos
+        return;
     }
 
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
@@ -31,8 +36,6 @@ window.onerror = function (msg, url, line, col, error) {
         Origen: 'Cliente',
         TipoTrace: 'ScriptError'
     };
-
-    console.log(objError);
 
     registrarLogError(objError);
 
@@ -51,10 +54,8 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
             (jqxhr.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1)) {
             if (!checkTimeout(jqxhr))
                 return;
-
             return;
         }
-            
     }
 
     // Jquery Ajax
@@ -65,7 +66,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
-    
+
     var urlAjax = window.location.origin + "" + settings.url;
 
     var message = settings.url + ": ";
@@ -80,12 +81,14 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         stackTrace = thrownError;
     }
     else if (thrownError == 'abort') {
-        message += "Request was aborted.";
-        stackTrace = thrownError;
+        //message += "Request was aborted.";
+        //stackTrace = thrownError;
+        return;
     }
     else if (jqxhr.status === 0) {
-        message += "No connection.";
-        stackTrace = jqxhr.responseText;
+        //message += "No connection.";
+        //stackTrace = jqxhr.responseText;
+        return;
     }
     else if (jqxhr.status >= 400) {
         message += "HTTP Error " + jqxhr.status + " – " + jqxhr.statusText + ".";
@@ -109,6 +112,10 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
+
+    if (isPagina("localhost")) {
+        console.log(objError);
+    }
 
     if (!urlLogDynamo) return;
 

@@ -30,11 +30,10 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorPromocion { get; set; }
         [DataMember]
         public string UsuarioResponsable { get; set; }
-        [DataMember]  // R20151003 - Inicio
+        [DataMember]
         public bool IndicadorEnviado { get; set; }
         [DataMember]
-        public DateTime FechaEnvio { get; set; }  // R20151003 - Fin
-        //SB20-871
+        public DateTime FechaEnvio { get; set; }
         [DataMember]
         public string MotivoRechazo { get; set; }
 
@@ -68,11 +67,10 @@ namespace Portal.Consultoras.Entities
                 UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
             if (DataRecord.HasColumn(row, "PedidoDetalleID") && row["PedidoDetalleID"] != DBNull.Value)
                 PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value) // R20151003 - Inicio
+            if (DataRecord.HasColumn(row, "IndicadorEnviado") && row["IndicadorEnviado"] != DBNull.Value)
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
             if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
-            // SB20-871
+                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
 

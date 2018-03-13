@@ -79,7 +79,6 @@ var Nemotecnico = function (config) {
         var label = $('#' + _config.prefixControlNemotecnico + entity.IdMatrizComercialImagen);
         label.prop('title', entity.Nemotecnico).text(entity.Nemotecnico);
         closeWaitingDialog();
-        //alert(response.message);
         _toastHelper.success(response.message);
     };
 

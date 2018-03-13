@@ -215,7 +215,6 @@
             return false;
         }
         fnGrilla();
-        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
     function LimpiarDependencias(Id) {
@@ -262,26 +261,9 @@
                 $.getJSON(baseUrl + 'ConsultaPedido/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         var ddlCampania = $("#ddlCampania");
-                        //ddlCampania.empty();
-                        //ddlCampania.append($('<option/>', {
-                        //    value: 0,
-                        //    text: "-- Seleccionar --"
-                        //}));
-
                         var ddlZona = $("#ddlZonas");
-                        //ddlZona.empty();
-                        //ddlZona.append($('<option/>', {
-                        //    value: 0,
-                        //    text: "-- Todos --"
-                        //}));
-
                         var ddlRegion = $("#ddlRegion");
-                        //ddlRegion.empty();
-                        //ddlRegion.append($('<option/>', {
-                        //    value: 0,
-                        //    text: "-- Todos --"
-                        //}));
-
+                        
                         if (Id != "") {
                             if (data.lstCampania.length > 0) {
                                 for (var item in data.lstCampania) {

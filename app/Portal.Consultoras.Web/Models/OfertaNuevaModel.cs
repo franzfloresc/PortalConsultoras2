@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -37,6 +34,6 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { set; get; }
         public string DescripcionMarca { get; set; }
         public int IndicadorPedido { get; set; }
-        public decimal ganahasta { set; get; }//1731
+        public decimal ganahasta { set; get; }
     }
 }

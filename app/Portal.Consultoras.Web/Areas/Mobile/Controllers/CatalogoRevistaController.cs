@@ -16,24 +16,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class CatalogoRevistaController : Controller
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
-
         private const string CodigoISO = "BR";
         private const string paisNombre = "brasil";
-        private const int NroCampanias = 18;
-
+        //private const int NroCampanias = 18;
 
         public ActionResult Index(string ID = "")
         {
 
-            string scampaniaAnterior = "";
-            string scampaniaActual = "";
-            string scampaniaSiguiente = "";
+            string scampaniaAnterior;
+            string scampaniaActual;
+            string scampaniaSiguiente;
 
             if (ID != "")
             {
                 var vcampania = ID.Split('|');
                 if (vcampania.Length != 3)
                     return RedirectToAction("Index", "Login", new { area = "" });
+
                 scampaniaAnterior = vcampania[0];
                 scampaniaActual = vcampania[1];
                 scampaniaSiguiente = vcampania[2];
@@ -44,16 +43,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
 
-            var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = CodigoISO;
-            clienteModel.CampaniaActual = scampaniaActual;
-            clienteModel.CampaniaAnterior = scampaniaAnterior;
-            clienteModel.CampaniaSiguiente = scampaniaSiguiente;
+            var clienteModel = new MisCatalogosRevistasModel
+            {
+                PaisNombre = CodigoISO,
+                CampaniaActual = scampaniaActual,
+                CampaniaAnterior = scampaniaAnterior,
+                CampaniaSiguiente = scampaniaSiguiente
+            };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            var EsMobile = Request.Browser.IsMobileDevice;
-            if (EsMobile)
+            var esMobile = Request.Browser.IsMobileDevice;
+            if (esMobile)
             {
                 clienteModel.NombreClasefb = "btnfbMobile";
                 clienteModel.NombreClasews = "btnwspMobile";
@@ -67,8 +68,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CodigoISO = CodigoISO;
             ViewBag.EsConsultoraNueva = true;
 
-            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
-            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(CodigoISO) ? 1 : 0;
+            string paisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+            ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(CodigoISO) ? 1 : 0;
 
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.PaisAnalytics = CodigoISO;
@@ -84,20 +85,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult MiRevista2()
         {
             return View();
-        }
-
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + NroCampanias.ToString()/*UserData().NroCampanias.ToString()*/;
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == NroCampanias.ToString()/*UserData().NroCampanias.ToString()*/)
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
         }
 
         public JsonResult Detalle(int campania)
@@ -128,11 +115,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public List<Catalogo> GetCatalogosPublicados(string paisISO, string campaniaId)
+        public List<Catalogo> GetCatalogosPublicados(string paisIso, string campaniaId)
         {
             List<Catalogo> catalogos = new List<Catalogo>();
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
-            string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
+            string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
+            string urlIssuuVisor = ConfigurationManager.AppSettings["UrlIssuu"];
 
             try
             {
@@ -141,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string catalogoCyzone = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone);
                 string catalogoFinart = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart);
 
-                var url = urlISSUUSearch +
+                var url = urlIssuuSearch +
                     "docname:" + catalogoLbel + "+OR+" +
                     "docname:" + catalogoEsika + "+OR+" +
                     "docname:" + catalogoCyzone + "+OR+" +
@@ -152,10 +139,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     using (Stream myStream = wc.OpenRead(new Uri(url)))
                     {
-                        using (StreamReader streamReader = new StreamReader(myStream))
-                        {
-                            response = streamReader.ReadToEnd();
-                        }
+                        if (myStream != null)
+                            using (StreamReader streamReader = new StreamReader(myStream))
+                            {
+                                response = streamReader.ReadToEnd();
+                            }
                     }
                 }
 
@@ -167,13 +155,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     string docName = doc["docname"], documentId = doc["documentId"];
 
-                    if (docName == catalogoLbel) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.LBel, marcaCatalogo = "LBel", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoEsika) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Esika, marcaCatalogo = "Esika", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoCyzone) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Cyzone, marcaCatalogo = "Cyzone", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
-                    else if (docName == catalogoFinart) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
+                    if (docName == catalogoLbel) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.LBel, marcaCatalogo = "LBel", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoEsika) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Esika, marcaCatalogo = "Esika", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoCyzone) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Cyzone, marcaCatalogo = "Cyzone", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
+                    else if (docName == catalogoFinart) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlIssuuVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetCatalogosPublicados");
+                catalogos = new List<Catalogo>();
+            }
             return catalogos;
         }
 
@@ -224,7 +216,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
-            var url = string.Empty;
+            string url;
             var urlNotFound = Url.Content("~/Content/Images/revista_no_disponible.jpg");
 
             try
@@ -249,7 +241,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string GetStringIssuRevista(string codigoRevista)
         {
-            var stringIssuuRevista = string.Empty;
+            string stringIssuuRevista;
             using (var client = new WebClient())
             {
                 var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
@@ -287,7 +279,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetUrlRevistaIssuu");
+            }
+
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }

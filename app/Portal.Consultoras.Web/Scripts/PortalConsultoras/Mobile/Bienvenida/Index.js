@@ -5,7 +5,7 @@ var tag = null;
 var firstScriptTag = null;
 var player;
 
-$(document).ready(function () {        
+$(document).ready(function () {
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
         if (typeof intrigaAceptoTerminos !== 'undefined') {
@@ -20,7 +20,7 @@ $(document).ready(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
     });
-    $(".footer-page").css({ "margin-bottom": "54px" });    
+    $(".footer-page").css({ "margin-bottom": "54px" });
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
@@ -30,7 +30,7 @@ $(document).ready(function () {
     $("#tutorialFooterMobile").click(function () {
         VerTutorialMobile();
     });
-    $(".ver_video_introductorio").click(function () {        
+    $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
 
         ConfigurarYoutube();
@@ -51,11 +51,7 @@ $(document).ready(function () {
     $("#imgProductoMobile").click(function () {
 
     });
-
-    if (viewBagVioTutorial == "0") {
-        VerTutorialMobile();
-    }
-
+    
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
@@ -85,8 +81,8 @@ $(document).ready(function () {
 
         CargarCarouselMasVendidos('mobile');
     }
-
-    CargarPopupsConsultora();
+    
+    if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -103,23 +99,16 @@ $(document).ready(function () {
             }
         });
     });
-   
-    ObtenerComunicadosPopup();
-    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");    
+
+    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
 function CrearPopShow() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
 
-    $("#btnCerrarPopShowroom").click(function () {        
+    $("#btnCerrarPopShowroom").click(function () {
         $("#PopShowroom").modal("hide");
     });
 
@@ -160,7 +149,7 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
-    
+
     if (!sesionEsShowRoom) {
         return;
     }
@@ -183,7 +172,7 @@ function MostrarShowRoom() {
                                 $("#spnShowRoomDiaInicioHoy").html(response.diaFin - 2);
                                 $("#spnShowRoomDiaFinHoy").html(response.diaFin);
                                 $("#spnShowRoomMesHoy").html(response.mesFin);
-                                
+
                                 $("#PopShowroomHoy").modal("show");
                                 $("#lnkConoceMasShowRoomPopupHoy").attr("href", urlShowRoomBienvenida);
 
@@ -192,7 +181,7 @@ function MostrarShowRoom() {
                                 $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                 AgregarTagManagerShowRoomPopup(evento.Tema, true);
-                                
+
                             } else {
                                 $("#spnShowRoomNombreConsultora").html(response.nombre);
                                 $("#spnShowRoomEvento").html(evento.Tema);
@@ -202,7 +191,7 @@ function MostrarShowRoom() {
                                 if (response.mesFin.length > 6) {
                                     $(".fecha_promocion_m").css("font-size", "10.5pt");
                                 }
-                                
+
                                 $("#PopShowroom").modal("show");
                                 $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 
@@ -229,7 +218,7 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 
     if (esHoy)
         name += " - fase 2";
-    
+
     dataLayer.push({
         'event': 'promotionView',
         'ecommerce': {
@@ -311,13 +300,10 @@ function UpdateUsuarioTutorialMobile() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-            viewBagVioTutorial = data.result;
+                viewBagVioTutorial = data.result;
             }
         },
-        error: function (data) {
-            if (checkTimeout(data)) {
-        }
-        }
+        error: function (data) { }
     });
 };
 
@@ -358,8 +344,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    //messageInfo(data.message);
-                    AbrirPopupPedidoReservado(data.message,'2');
+                    AbrirPopupPedidoReservado(data.message, '2');
                 }
                 else fnRedireccionar();
             }
@@ -370,21 +355,25 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-            console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-        }
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
 };
 
 function CargarPopupsConsultora() {
-    
+
     MostrarDemandaAnticipada();
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
-        //$("#PopRDSuscripcion").show();
-        AbrirPopupFade("#PopRDSuscripcion");
         rdAnalyticsModule.MostrarPopup();
+    }
+
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
+    else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
+        rdPopup.Mostrar();
     }
 };
 
@@ -404,7 +393,7 @@ function MostrarDemandaAnticipada() {
                     $("#popupDemandaAnticipada").show();
                     contadorFondoPopUp++;
                 }
-                
+
             }
         },
         error: function (data, error) {
@@ -529,7 +518,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
-        //CERRAR
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'App Consultora',
@@ -539,8 +527,6 @@ function ObtenerComunicadosPopup() {
     });
 
     $(window).resize(function (e) {
-        //var w_width = $(window).width() - 50;
-        //var w_height = $(window).height() - 150;
         var w_width = 326;
         var w_height = 418;
 
@@ -560,7 +546,6 @@ function ObtenerComunicadosPopup() {
 
         window.open($(this).attr("urlAccion"));
 
-        //CLICK
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
@@ -600,7 +585,6 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
-
             if (checkTimeout(response)) {
                 armarComunicadosPopup(response.data)
             }
@@ -611,7 +595,7 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(comunicado){
+function armarComunicadosPopup(comunicado) {
     if (comunicado == null)
         return;
 
@@ -621,6 +605,8 @@ function armarComunicadosPopup(comunicado){
 
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
+
+    ActualizarVisualizoComunicado(comunicado.ComunicadoId);
 
     $(window).resize();
     dataLayer.push({
@@ -656,13 +642,33 @@ function grabarComunicadoPopup() {
         success: function (data) {
             if (checkTimeout(data)) {
                 CloseLoading();
-                if(!data.success) alert(data.message)
+                if (!data.success) alert(data.message)
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CloseLoading();
                 alert("Ocurrió un error al aceptar el comunicado.");
+            }
+        }
+    });
+}
+
+function ActualizarVisualizoComunicado(comunicadoId) {
+    var params = { ComunicadoId: comunicadoId };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/ActualizarVisualizoComunicado",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                alert("Ocurrió un error al actualizar la visualización del comunicado.");
             }
         }
     });
@@ -682,9 +688,6 @@ function VerSeccionBienvenida(seccion) {
             break;
         case "Footer":
             id = "footer";
-            break;
-        default://Home
-            id = "#contentmobile";
             break;
     }
     if (id != "") {

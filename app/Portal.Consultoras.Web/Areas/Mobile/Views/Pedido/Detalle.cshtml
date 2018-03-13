@@ -10,7 +10,7 @@
 
 <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 
-<!--SB20-565 - INICIO -->
+
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
 <input type="hidden" id="hdEsOfertaFinalZonaValida" value="@Model.EsOfertaFinalZonaValida.ToString()" />
@@ -20,7 +20,7 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
-<!--SB20-565 - FIN -->
+
 <div class="contenedor_producto">
     <div class="content_320 ingresoPedidom">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
@@ -102,7 +102,7 @@
             <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
         </div>
         <div id="modal-prol-botoneAceptar">
-            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" id="" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
 </div>
@@ -169,10 +169,10 @@
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
 <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
-<!--SB20-483 - INICIO -->
+
 <!-- POPUP MIS GANANCIAS -->
 
-<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+<div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
@@ -202,7 +202,6 @@
 </div>
 
 <!-- FIN POPUP MIS GANANCIAS -->
-<!--SB20-483 - FIN -->
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
@@ -221,21 +220,21 @@
                         Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
                         Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
                         Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
+                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
             {
                 cabezaEscala = "Ganancia estimada total";
                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 lbl1Ganancia = "Mis descuentos";
                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
             }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)// MX,PA
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
             {
                 cabezaEscala = "Ganancia estimada total";
                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 lbl1Ganancia = "Mis descuentos";
                 lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
             }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)// CH
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
                 cabezaEscala = "Comisión y ahorro total";
                 pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
@@ -279,13 +278,23 @@
         <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
         <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
     </div>
+    <div class="contenedor_cupon" id="cupon-pedido-mobile" style="display: none;">
+        <div class="background_cupon"></div>
+        <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+            <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+        </div>
+        <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
+            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+            <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+        </div>
+    </div>
     <div class="detalle_pedido_ingresado">
         <span class="titulo_detalle">DETALLE</span>
     </div>
 
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
-        @*<i class="icon-exclamation-circle"></i> <div id="divMensajeCierreCampania">{{MensajeCierreCampania}}</div>*@
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
@@ -314,7 +323,7 @@
                         <span>Oferta Flexipago</span>
                         {{else iff detalle.TipoOfertaSisID '==' @Constantes.ConfiguracionOferta.ShowRoom}}
                         <br />
-                        <span>Pre-venta Digital</span>
+                        <span>OFERTAS ESPECIALES GANA+</span>
                         {{else}}
                         {{#IsNullOrEmpty detalle.DescripcionOferta '!='}}
                         <br />
@@ -327,15 +336,15 @@
 
                         {{/if_eq}}
                     </span>
-                        <span class="cod_prod">
-                            {{#if detalle.EstadoSimplificacionCuv}}
-                            {{#if detalle.IndicadorOfertaCUV}}
-                            <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
-                            <span class="icon-advertencia"></span>
-                            {{/if}}
-                            {{/if}}
-                            {{detalle.CUV}}
-                        </span>
+                    <span class="cod_prod">
+                        {{#if detalle.EstadoSimplificacionCuv}}
+                        {{#if detalle.IndicadorOfertaCUV}}
+                        <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                        <span class="icon-advertencia"></span>
+                        {{/if}}
+                        {{/if}}
+                        {{detalle.CUV}}
+                    </span>
                     <span class="desc_prod">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
@@ -529,8 +538,6 @@
 </script>
 
 
-<!--SB20-565 - INICIO -->
-
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div  data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
@@ -610,6 +617,7 @@
                                 <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                                 <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                                 <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                                <input type="hidden" class="hdOfertaFinalImagenProductoSugeridoMedium" value="{{ImagenProductoSugeridoMedium}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                                 <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
@@ -620,10 +628,11 @@
                                 <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                                 <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
                                 <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
+                                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
                             </div>
                             <div class="contenido_item_ofertaFinal">
                                 <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="">
-                                    <img src="{{ImagenProductoSugerido}}">
+                                    <img src="{{ImagenProductoSugeridoSmall}}">
                                 </div>
                                 <div class="producto_nombre_descripcion">
                                     <div onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
@@ -717,8 +726,7 @@
     </div>
     
 </script>
-<!--SB20-565 - FIN -->
-<!-- PL20 1287 - INICIO -->
+
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
         <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
@@ -756,13 +764,14 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="OF" />
-                    <input type="hidden" class="ID" value="{{ID}}" />
-                    <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
-                    <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
-                    <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
-                    <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
-                    <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
-                    <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="ID" value="{{ID}}" />
+                <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+                <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+                <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
             </div>
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
@@ -791,7 +800,6 @@
         </div>
     </div>
 </script>
-<!-- PL20 1287 - FIN -->
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
@@ -839,7 +847,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
@@ -858,7 +866,7 @@
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var nombreConsultora = '@ViewBag.NombreConsultora';
-
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 

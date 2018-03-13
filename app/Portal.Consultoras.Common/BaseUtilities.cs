@@ -49,21 +49,30 @@ namespace Portal.Consultoras.Common
         {
             try
             {
+                var result = "";
                 var request = WebRequest.Create(string.Format("{0}{1}", urlBase, metodo)) as HttpWebRequest;
-                request.Method = "POST";
-                request.Timeout = 5 * 60 * 1000;
-                request.ContentType = contentType;
-                request.ContentLength = data.Length;
-
-                using (var stream = request.GetRequestStream())
+                if (request != null)
                 {
-                    stream.Write(data, 0, data.Length);
+                    request.Method = "POST";
+                    request.Timeout = 5 * 60 * 1000;
+                    request.ContentType = contentType;
+                    request.ContentLength = data.Length;
+
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+
+                    var response = (request.GetResponse()) as HttpWebResponse;
+                    if (response != null)
+                    {
+                        var streamRe = response.GetResponseStream();
+                        if (streamRe != null)
+                            result = new StreamReader(streamRe).ReadToEnd();
+                    }
                 }
 
-                var response = (request.GetResponse()) as HttpWebResponse;
-                var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-                var resultado = (JsonConvert.DeserializeObject<TResult>(result));
+                var resultado = JsonConvert.DeserializeObject<TResult>(result);
                 return resultado;
             }
             catch (Exception ex)
@@ -153,7 +162,7 @@ namespace Portal.Consultoras.Common
         private static LambdaExpression ObtenerLambda<T>(string propiedad)
         {
             ParameterExpression p = Expression.Parameter(typeof(T), "p");
-            var propertyReference = typeof(T).GetProperty(propiedad); ;
+            var propertyReference = typeof(T).GetProperty(propiedad);
 
             var lambdaOrder = Expression.Lambda(
                 Expression.Property(p, propertyReference), p);

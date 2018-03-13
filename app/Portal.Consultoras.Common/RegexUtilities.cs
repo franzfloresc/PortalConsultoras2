@@ -25,9 +25,6 @@ namespace Portal.Consultoras.Common
                 return false;
             }
 
-            if (invalid)
-                return false;
-
             // Return true if strIn is in valid e-mail format. 
             try
             {

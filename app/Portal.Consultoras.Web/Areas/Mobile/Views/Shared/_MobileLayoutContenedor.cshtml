@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SomosBelcorp Web Mobile" />
-   
+
     <title>Somos Belcorp</title>
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
@@ -46,43 +46,14 @@
 
     @RenderSection("styles", required: false)
 
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
-    <!-- Google Tag Manager -->
-    <script type="text/javascript">
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-        dataLayer = [{
-            'campana': '@ViewBag.AnalyticsCampania',
-            'segmento': '@ViewBag.AnalyticsSegmento',
-            'edad': '@ViewBag.AnalyticsEdad',
-            'zona': '@ViewBag.AnalyticsZona',
-            'pais': '@ViewBag.AnalyticsPais',
-            'rol': '@ViewBag.AnalyticsRol',
-            'region': '@ViewBag.AnalyticsRegion',
-            'seccion': '@ViewBag.AnalyticsSeccion',
-            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
-            'periodo': '@ViewBag.AnalyticsPeriodo',
-            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
-            'socianivel': '@ViewBag.AnalyticsSociaNivel',
-            'semana-periodo': '@ViewBag.SemanaAnalytics'
-        }];
-    </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
-    </script>
-    <!-- End Google Tag Manager -->
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -103,10 +74,10 @@
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-    
+
     @if (!esIngresoUnico)
     {
-       <!-- Menu icon -->
+        <!-- Menu icon -->
         <div class="menu">
             <div class="content_close">
                 <div class="icon-close">
@@ -149,83 +120,46 @@
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPedido.cshtml")
         }
-        @*else if (ViewBag.MostrarBannerTopPL20 == true)
+
+        @if (!esIngresoUnico)
         {
-            <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
-                <ul class="slides">
-                    @if (ViewBag.MostrarOfertaDelDia == true)
-                {
-                        <li>
-                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
-                        </li>
-                    }
-
-                    @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
-                {
-                    if (showRoomBannerLateral.MostrarShowRoomProductos == true)
-                    {
-                            <li>
-                                <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
-                                    <div class="content_banner_header_showroom">
-                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                                    <div class="content_banner_header_showroom">
-                                        <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
-                                        <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="" />
-                                    </div>
-                                </a>
-                            </li>
-
-                        }
-                    }
-                </ul>
-            </div>
-        }*@
-        <!--END BANNER-->
-        
-    @if (!esIngresoUnico)
-    {
-        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
-            <div class="row">
-                <div class="col-xs-4">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
-                </div>
-                <div class="col-xs-4 text-center">
-                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                </div>
-                <div class="col-xs-4 text-right">
-                    <div class="menu-shop">
-                        <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                           class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                        </a>
-                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                           class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                            <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                        </a>
+            <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                    </div>
+                    <div class="col-xs-4 text-center">
+                        <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                           class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <div class="menu-shop">
+                            <div class="contenedor_circulos">
+                                <div class="circulo-1 iniciarTransicion"></div>
+                                <div class="circulo-2 iniciarTransicion"></div>
+                                <div class="circulo-3 iniciarTransicion"></div>
+                            </div>
+                            <a role="link" region="Superior" parent="Pedido" title="Pedido"
+                               class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
+                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
+                            </a>
+                            <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
+                               class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                                <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
     </header>
-    
+
 
     <!-- content -->
     <section style="min-height: 380px;">
-        @{ 
+        @{
             var marginTop = esIngresoUnico ? "0px;" : "60px";
         }
         <div id="contentmobile" data-content="" style="margin-top:@marginTop">
@@ -270,7 +204,7 @@
             <br />
         </div>
     </section>
-    
+
     @if (!esIngresoUnico)
     {
         <!-- footer -->
@@ -278,6 +212,11 @@
             @Html.Partial("_MobileMenuFooter")
             <hr class="clear" />
         </footer>
+    }
+    else
+    {
+        <!-- footer -->
+        <footer class="footer-page" style="background:none"></footer>
     }
 
     <div class="content-spinner2" id="loading-spin">
@@ -298,20 +237,18 @@
             </div>
         </div>
     </div>
-    
+
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
     <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    <!--FIN--> 
-
+    <!--FIN-->
     <!--POP COMUNIDAD-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
-    <!--FIN--> 
-
+    <!--FIN-->
     <!--POP MENSAJE SESION FINALIZADA Error-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    <!--FIN-->    
+    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -343,10 +280,6 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        var MobileHomeOfertasParaTi = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
-        var MobilePedidoOfertasParaTi = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
-        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -371,17 +304,20 @@
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
         var TipoOrigenPantallaODD = 2;
-        var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
-        var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
-        var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
-        var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
-
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '@ViewBag.CodigoUsuario';
+        var emt_type = '0';
+        // New Chat -->
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -401,6 +337,12 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
+
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
@@ -413,7 +355,7 @@
         </script>
     }
 
-    
+
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {
@@ -507,14 +449,12 @@
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                         });
-                        //AgregarTagManagerShowRoomBannerLateral(true);
                     }
                     else {
                         $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                         });
                         AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        //AgregarTagManagerShowRoomBannerLateral(false);
                     }
                 }
 
@@ -591,7 +531,6 @@
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
                         $(".clsDia").html(days);
                         $(".clsHora").html(hours);
                         $(".clsMinuto").html(minutes);
@@ -614,14 +553,42 @@
         }
     }
     <script type="text/javascript">
-                function messageInfoPostulante() {
-                    $('.icon-close').click();
-                    $('#mensajeInformacionvalidado').html('Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.');
-                    $('#popupInformacionValidado').show();
-                    return false;
-                }
+        function messageInfoPostulante() {
+            $('.icon-close').click();
+            $('#mensajeInformacionvalidado').html('Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.');
+            $('#popupInformacionValidado').show();
+            return false;
+        }
     </script>
     @RenderSection("scripts", required: false)
+
+    @{
+        if (!esIngresoUnico)
+        {
+            <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+            <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+            <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+        }
+    }
+
     @{Html.PlaceScripts();}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
+
+    @{
+        if (TempData.ContainsKey("LimpiarLocalStorage"))
+        {
+            TempData.Remove("LimpiarLocalStorage");
+            <script>limpiar_local_storage();</script>
+        }
+    }
 </body>
 </html>

@@ -1,12 +1,9 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -15,13 +12,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEResumenCampania> GetPedidoWebAcumulado(int paisID, int CampaniaID, int ConsultoraID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAproductofaltante = new DAResumenCampania(paisID);
+            var daProductofaltante = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAproductofaltante.GetPedidoWebAcumulado(CampaniaID, ConsultoraID))
+            using (IDataReader reader = daProductofaltante.GetPedidoWebAcumulado(CampaniaID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var prodfal = new BEResumenCampania(reader);
-                    prodfal.PaisID = paisID;
+                    var prodfal = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(prodfal);
                 }
 
@@ -31,13 +27,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEResumenCampania> GetSaldoPendiente(int paisID, int CampaniaID, int ConsultoraID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAproductofaltante = new DAResumenCampania(paisID);
+            var daProductofaltante = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAproductofaltante.GetSaldoPendiente(CampaniaID, ConsultoraID))
+            using (IDataReader reader = daProductofaltante.GetSaldoPendiente(CampaniaID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var prodfal = new BEResumenCampania(reader);
-                    prodfal.PaisID = paisID;
+                    var prodfal = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(prodfal);
                 }
 
@@ -47,30 +42,27 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEResumenCampania> GetProductosSolicitados(int paisID, int CampaniaID, int ConsultoraID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAproductofaltante = new DAResumenCampania(paisID);
+            var daProductofaltante = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAproductofaltante.GetProductosSolicitados(CampaniaID, ConsultoraID))
+            using (IDataReader reader = daProductofaltante.GetProductosSolicitados(CampaniaID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var prodfal = new BEResumenCampania(reader);
-                    prodfal.PaisID = paisID;
+                    var prodfal = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(prodfal);
                 }
 
             return productos;
         }
 
-
         public IList<BEResumenCampania> GetValorAPagar(int paisID, int CampaniaID, int ConsultoraID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAResumenCampania = new DAResumenCampania(paisID);
+            var daResumenCampania = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAResumenCampania.GetValorAPagar(CampaniaID, ConsultoraID))
+            using (IDataReader reader = daResumenCampania.GetValorAPagar(CampaniaID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var resCampania = new BEResumenCampania(reader);
-                    resCampania.PaisID = paisID;
+                    var resCampania = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(resCampania);
                 }
 
@@ -80,13 +72,12 @@ namespace Portal.Consultoras.BizLogic
         public List<BEResumenCampania> GetFlexipago(int paisID, int ConsultoraID, int CampaniaID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAResumenCampania = new DAResumenCampania(paisID);
+            var daResumenCampania = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAResumenCampania.GetFlexipago(CampaniaID, ConsultoraID))
+            using (IDataReader reader = daResumenCampania.GetFlexipago(CampaniaID, ConsultoraID))
                 while (reader.Read())
                 {
-                    var resCampania = new BEResumenCampania(reader);
-                    resCampania.PaisID = paisID;
+                    var resCampania = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(resCampania);
                 }
             return productos;
@@ -95,13 +86,12 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID)
         {
             var productos = new List<BEResumenCampania>();
-            var DAResumenCampania = new DAResumenCampania(paisID);
+            var daResumenCampania = new DAResumenCampania(paisID);
 
-            using (IDataReader reader = DAResumenCampania.GetDeudaTotal(ConsultoraID))
+            using (IDataReader reader = daResumenCampania.GetDeudaTotal(ConsultoraID))
                 while (reader.Read())
                 {
-                    var resCampania = new BEResumenCampania(reader);
-                    resCampania.PaisID = paisID;
+                    var resCampania = new BEResumenCampania(reader) { PaisID = paisID };
                     productos.Add(resCampania);
                 }
 
@@ -118,13 +108,13 @@ namespace Portal.Consultoras.BizLogic
                     if (datosConsultoraHana != null) return datosConsultoraHana.MontoDeuda;
                     return 0;
                 }
-                
-                string paisISO = Util.GetPaisISO(paisID);
-                bool esPaisDeudaTotal = new List<string> { Constantes.CodigosISOPais.Colombia, Constantes.CodigosISOPais.Peru }.Contains(paisISO);
+
+                string paisIso = Util.GetPaisISO(paisID);
+                bool esPaisDeudaTotal = new List<string> { Constantes.CodigosISOPais.Colombia, Constantes.CodigosISOPais.Peru }.Contains(paisIso);
                 List<BEResumenCampania> infoDeuda = esPaisDeudaTotal ? GetDeudaTotal(paisID, consultoraID).ToList() :
                     GetSaldoPendiente(paisID, campaniaID, consultoraID).ToList();
 
-                if (infoDeuda != null && infoDeuda.Count > 0) return infoDeuda[0].SaldoPendiente;
+                if (infoDeuda.Count > 0) return infoDeuda[0].SaldoPendiente;
                 return 0;
             }
             catch { return 0; }

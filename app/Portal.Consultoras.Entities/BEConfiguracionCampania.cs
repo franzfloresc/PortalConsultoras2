@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ZonaValida
         {
-            get { return TempZonaValida == -1 ? false : true; }
+            get { return TempZonaValida != -1; }
             set { TempZonaValida = value ? 1 : -1; }
         }
 
@@ -141,11 +141,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int IndicadorGPRSB { get; set; }
         [DataMember]
+        [Column("FechaActualPais")]
         public DateTime FechaActualPais { get; set; }
 
         [Column("AceptacionConsultoraDA")]
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
+
+        [Column("IndicadorEnviado")]
+        [DataMember]
+        public bool IndicadorEnviado { get; set; }
 
         public BEConfiguracionCampania()
         {
@@ -192,7 +197,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "NroCampanias") && datarec["NroCampanias"] != DBNull.Value)
                 NroCampanias = DbConvert.ToInt32(datarec["NroCampanias"]);
             if (DataRecord.HasColumn(datarec, "PROLSinStock") && datarec["PROLSinStock"] != DBNull.Value)
-                PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]); //1510
+                PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]);
             else
                 PROLSinStock = false;
 
@@ -227,8 +232,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "MensajeValidacionInteractiva") && datarec["MensajeValidacionInteractiva"] != DBNull.Value)
                 MensajeValidacionInteractiva = DbConvert.ToString(datarec["MensajeValidacionInteractiva"]);
 
-            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB") && datarec["IndicadorGPRSB"] != DBNull.Value)
-                IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB")) IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorEnviado")) IndicadorEnviado = Convert.ToBoolean(datarec["IndicadorEnviado"]);
 
             if (DataRecord.HasColumn(datarec, "EstadoPedido") && datarec["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(datarec["EstadoPedido"]);

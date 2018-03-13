@@ -1,6 +1,6 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
+﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -13,13 +13,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Simbolo { get; set; }
 
         public decimal Total { get; set; }
+
         public string TotalStr { get; set; }
 
         public string DescripcionTotal { get; set; }
 
         public decimal TotalMinimo { get; set; }
+
         public string TotalMinimoStr { get; set; }
+
         public string DescuentoStr { get; set; }
+
         public string MontoConDsctoStr { get; set; }
 
         public string DescripcionTotalMinimo { get; set; }
@@ -29,7 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int CantidadProductos { get; set; }
 
         public string CampaniaActual { get; set; }
-        
+
         public string CampaniaNro { get; set; }
 
         public string DescripcionCampaniaActual
@@ -51,23 +55,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal MontoAhorroCatalogo { get; set; }
 
         public decimal MontoAhorroRevista { get; set; }
-        
+
         public string GananciaFormat { get; set; }
 
         public string FormatoMontoAhorroCatalogo { get; set; }
 
         public string FormatoMontoAhorroRevista { get; set; }
 
-        public string NombreConsultora { get; set; }        
+        public string NombreConsultora { get; set; }
 
         public int TieneCupon { get; set; }
+
         public bool EmailActivo { get; set; }
+
         public string EMail { get; set; }
+
         public string Celular { get; set; }
 
         public int TieneMasVendidos { get; set; }
+
         public int TieneOfertaLog { get; set; }
-        public RevistaDigitalModel RevistaDigital { get; set; }
+
+        public PartialSectionBpt PartialSectionBpt { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }
     }

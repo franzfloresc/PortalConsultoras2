@@ -4,11 +4,9 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 @section styles{
-    @*<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />*@
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
 }
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
@@ -45,7 +43,7 @@
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
-        <form id="frmInsertPedido" action="@Url.Action("Insert", "Pedido")" method="post" role="form">
+        <form id="frmInsertPedido" action="@Url.Action("PedidoInsertar", "Pedido")" method="post" role="form">
             <input type="hidden" id="hdfDescripcionCategoria" />
             <input type="hidden" id="hdfDescripcionEstrategia" />
             <input type="hidden" id="hdfDescripcionMarca" />
@@ -69,8 +67,7 @@
             <input type="hidden" id="hdfClienteID" value="@Model.ClienteID" name="ClienteID" />
             <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedido" name="OrigenPedidoWeb" />
 
-            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;">
-            </div>
+            <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
@@ -105,7 +102,6 @@
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
-                @*<a class="pedidos_cliente" onclick="AbrirModalCliente();">*@
                 <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
                 </a>
@@ -229,13 +225,13 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
-                                <div id="" class="contenedorCupon" style="width:100%;">
-                                    <div id="" class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
-                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                <div class="contenedorCupon" style="width:100%;">
+                                    <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
                                         <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
                                     </div>
-                                    <div id="" class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
-                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                    <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
                                 </div>
@@ -243,13 +239,11 @@
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
-                                    <!--SB20-483 - INICIO -->
                                     <div class="caja_montos_textos_sinDescuento">
                                         <span>TOTAL SIN DSCTO.</span>
                                         <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                     </div>
                                     <br />
-                                    <!--SB20-483 - FIN -->
                                     <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
@@ -261,7 +255,6 @@
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
-                                        <!--SB20-483 - INICIO -->
                                         @{
                                             string cabezaEscala = null, pieEscala = null;
                                             string lbl1Ganancia = null, lbl2Ganancia = null;
@@ -323,17 +316,14 @@
                                         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                                         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                                        <!--SB20-483 - FIN -->
                                     </div>
                                 </div>
                                 <div class="caja_montos_cantidades">
 
-                                    <!--SB20-483 - INICIO -->
                                     <div class="caja_montos_cantidades_sinDescuento">
                                         <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
                                         <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                     </div>
-                                    <!--SB20-483 - FIN -->
 
                                     <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                         <span id="spnTotalCliente"></span>
@@ -370,7 +360,7 @@
                             }
                             else
                             {
-                                tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                                tooltip1 = tooltips.Any() ? tooltips[0] : "";
                                 tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
                             }
                         }
@@ -428,7 +418,6 @@
                 </p>
             </div>
 
-            <!--14082016 - INICIO -->
             <div class="contenedor_banners">
                 <ul>
                     <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
@@ -474,7 +463,6 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            <!--14082016 - FIN -->
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
@@ -512,7 +500,6 @@
         </div>
     </div>
 
-    <!--14092016 - INICIO -->
     <div class="flexiPago_belcorp">
         @if (Model.IndicadorFlexiPago == 1)
         {
@@ -539,14 +526,13 @@
             }
         }
     </div>
-    <!--14092016 - FIN -->
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
         }
-        <div id="contenedor_template_estrategia_cabecera"></div>
+        @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
         
     <div class="clear"></div>
@@ -561,7 +547,7 @@
 </div>
 
 <!-- POPUP MIS GANANCIAS -->
-<div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
+<div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" title="Cerrar" class="cerrar_tutorial" onclick="return $('#popupGanancias').fadeOut(200);">
@@ -853,7 +839,6 @@
             </a>
         </div>
         <div class="contenido_popUp">
-            @*<span class="icono_exclamacion"></span>*@
             <div class="icono_mensaje_alerta icono_check_alerta" id="ofIconoSuperior" style="margin-bottom: 20px;"></div>
             <h1 class="titulo_agregarUnidades"><b>¡LO LOGRASTE!</b></h1>
             <div id="mensajedivReservaSatisfactoria" class="mensaje_agregarUnidades">
@@ -939,63 +924,62 @@
 </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
-        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
-            
-            <div class="popup_ofertaFinal" style="padding:35px;">
-                <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
+<div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
+    <div class="popup_ofertaFinal" style="padding:35px;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
+        <hr class="clear" />
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto" style="width:97%; height:auto; margin:0 auto;">
+                <img id="fav_imagen_prod" class="imagen_producto" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" /></a>
+                <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" /></a>
                 <hr class="clear" />
-                <div class="content_left_ficha">
-                    <div class="content_ficha_producto" style="width:97%; height:auto; margin:0 auto;">
-                        <img id="fav_imagen_prod" class="imagen_producto" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
-                    </div>
-                    <div class="compartir_redes_ficha">
-                        <div class="texto_compartelo">Compártelo con tus clientes</div>
-                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" /></a>
-                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" /></a>
-                        <hr class="clear" />
-                    </div>
-                </div>
-                <div class="content_right_ficha">
-                    <div style="height:130px;">
-                        <div class="titulo_ficha_producto">Essential Limpiadora. Cutis Graso</div>
-                        <div class="peso_ficha_producto">180 ml e 6 fl. oz</div>
-                        <div class="descripcion_ficha_producto" style="margin-top:10px;">Liso absoluto todo el día con exquisita fragancia a jazmín.</div>
-                        <div class="precio_ficha_producto">
-                            <span class="precio_tachado_ficha">S/. 70.00</span>S/. 49.00
-                        </div>
-                    </div>
-                    <div style="height:196px;">
-                        <div class="opcion_escala_descuento">
-                            <div class="texto_producto_relacionado">
-                                Cómpralo porque ya tienes <b>Shampoo Essens para cabello liso</b>   en tu pedido
-                            </div>
-                            <div class="imagen_relacionada">
-                                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
-                            </div>
-                            <hr class="clear" />
-                        </div>
-                    </div>
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home ficha_btn_agregar" style="width:238px;">
-                        AGRÉGALO
-                    </a>
-                </div>
-                <hr class="clear" /> 
-             </div>
+            </div>
         </div>
-        <!--FIN-->
-        <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-        <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-        <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-        <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        <div class="content_right_ficha">
+            <div style="height:130px;">
+                <div class="titulo_ficha_producto">Essential Limpiadora. Cutis Graso</div>
+                <div class="peso_ficha_producto">180 ml e 6 fl. oz</div>
+                <div class="descripcion_ficha_producto" style="margin-top:10px;">Liso absoluto todo el día con exquisita fragancia a jazmín.</div>
+                <div class="precio_ficha_producto">
+                    <span class="precio_tachado_ficha">S/. 70.00</span>S/. 49.00
+                </div>
+            </div>
+            <div style="height:196px;">
+                <div class="opcion_escala_descuento">
+                    <div class="texto_producto_relacionado">
+                        Cómpralo porque ya tienes <b>Shampoo Essens para cabello liso</b>   en tu pedido
+                    </div>
+                    <div class="imagen_relacionada">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" style="width:238px;">
+                AGRÉGALO
+            </a>
+        </div>
+        <hr class="clear" /> 
+        </div>
+</div>
+<!--FIN-->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
@@ -1158,7 +1142,7 @@
                         <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
 
                         @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
-                {
+                        {
                             <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
                         }
 
@@ -1502,6 +1486,7 @@
                         <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
                         <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                         <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
+                        <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
                     </div>
                     <div>
                         <div class="producto_imagen">
@@ -1580,30 +1565,27 @@
                         <label>CLIENTE ONLINE</label>
                     </span>
                     {{else}}
-                    {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
-                    {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
-                    {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>OFERTA LIQUIDACIÓN</label>
-                    </span>
-                    {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>OFERTA FLEXIPLAGO</label>
-                    </span>
-                    {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
-                    <span class="texto_pedidos_ofertas">
-                        <label>PRE-VENTA DIGITAL</label>
-                    </span>
-                    {{else}}
-                    {{#IsNullOrEmpty DescripcionOferta '!='}}
-                    <span class="texto_pedidos_ofertas">
-                        {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
+                        {{#if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal'}}
+                        {{else if_eq OrigenPedidoWeb '@Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal'}}
+                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Liquidacion'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTA LIQUIDACIÓN</label>
+                        </span>
+                        {{else if_eq ConfiguracionOfertaID '@Constantes.TipoOferta.Flexipago'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTA FLEXIPLAGO</label>
+                        </span>
+                        {{else if_eq TipoOfertaSisID '@Constantes.ConfiguracionOferta.ShowRoom'}}
+                        <span class="texto_pedidos_ofertas">
+                            <label>OFERTAS ESPECIALES GANA+</label>
+                        </span>
                         {{else}}
-                        <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
-                        {{/iff}}
-                    </span>
-                    {{/IsNullOrEmpty}}
-                    {{/if_eq}}
+                            {{#IsNullOrEmpty DescripcionOferta '!='}}
+                            <span class="texto_pedidos_ofertas">
+                                <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
+                            </span>
+                            {{/IsNullOrEmpty}}
+                        {{/if_eq}}
                     {{/if_eq}}
 
                     {{#if_eq TipoPedido 'M'}}
@@ -1624,7 +1606,7 @@
                 {{Split DescripcionProd '|' 0}}
             </div>
 
-                    <input type="hidden" name="hdfTipoEstrategia{{PedidoID}}" value="{{TipoEstrategiaID}}" id="hdfTipoEstrategia{{PedidoID}}" />
+                    <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" />
                     <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />
                     <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" />
                     <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" />
@@ -1635,7 +1617,7 @@
                 <div class="celda_cantidad_pedidos">
                     {{#if EsKitNueva}}
                     <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-                    {{else iff TipoEstrategiaID '==' 1}}
+                    {{else if FlagNueva}}
                     <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
                     {{else}}
                     <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
@@ -1687,11 +1669,11 @@
                 </div>
                 <div class="texto_pedidos celda_iconos_acciones">
                     {{#if EsKitNueva}}
-                    <div>
+                    <div class="info_copy">
                         <input type="hidden" data-kit="true" />
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                        <div class="tooltips tooltip_infoCopy msj_info" style="display: none;">
-                            <div class="tooltip_flecha"></div>
+                        <div class="tooltips tooltip_infoCopy_grid">
+                            <div class="tooltip_flecha_grid"></div>
                             <h6>Kit de Inicio</h6>
                             <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
                             <p>*Este Kit se agrega automáticamente solo en tu primer pedido.</p>
@@ -1746,134 +1728,6 @@
             {{/IsNullOrEmpty}}
             {{/each}}
         </script>
-
-
-<script id="template-estrategia-header" type="text/x-handlebars-template">
-@if (revistaDigital.TieneRDC)
-{
-    if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
-        revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
-    {
-        <!-- PASE PEDIDO INSCRITAS C-11 -->
-        <div class="banner_pedido_rd">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @revistaDigital.CampaniaMasUno</b>?</div>
-                <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-        @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-    }
-    else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
-    {
-        <!-- PASE PEDIDO INSCRITAS C-12 -->
-        <div class="banner_pedido_rd" style="box-shadow: none;">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas" style="padding-bottom:0;">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @revistaDigital.Campania</b>?</div>
-                <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                    </a>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
-            <hr class="clear" />
-        </div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-12 -->
-    }
-    else
-    {
-        <!-- PASE PEDIDO NO INSCRITAS C-11 -->
-        <div class="banner_pedido_rd">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
-                <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-        @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-    }
-}
-else if (revistaDigital.TieneRDR)
-{
-    <div class="revistadigital">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div class="truco_bloqueo sim2"></div>
-        }
-        <div class="revistadigital-content pedido">
-            <div>
-                <div class="revistadigital-title overflowContenido">
-                    <div class="contenedor_cabecera_revistaDigital">
-                        <div class="fondo_franja"></div>
-                        <div class="contenedor_contenido_cabecera">
-                            <div class="cabecera_contenedor_logoMarca">
-                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
-                            </div>
-                            <div class="cabecera_texto">{{Titulo}}</div>
-                        </div>
-                    </div>
-                    <div class="texto_ofertas_bonificaciones">
-                        {{TituloDescripcion}}
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
-                </div>
-            </div>
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
-                 onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                <div class="fondo_boton"></div>
-                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-            </div>
-            <hr class="clear" />
-        </div>
-    </div>
-}
-else
-{
-    @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-}
-</script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
@@ -2021,6 +1875,7 @@ else
                                     <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                                    <input type="hidden" class="hdOfertaFinalImagenProductoSugeridoMedium" value="{{ImagenProductoSugerido}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
@@ -2030,6 +1885,7 @@ else
                                     <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
                                     <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
                                     <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
+                                    <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
 
                                 </div>
                                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;">
@@ -2115,6 +1971,7 @@ else
             <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" class="ID" value="{{ID}}" />
             <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+            <input type="hidden" class="hdOfertaFinalTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
         </div>
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear" />
@@ -2191,7 +2048,7 @@ else
         var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
         var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
         var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
-        var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
+        var alertaSugerido = '@Url.Content("~/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg")';
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
         var dataBarra = {};
@@ -2205,14 +2062,15 @@ else
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.DesktopPedidoVirtualCoach;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
+        var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoSugerido;
+        var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal;
         var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';

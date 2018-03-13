@@ -37,7 +37,7 @@ function cargarDetallePedido(campaniaID, nroPedido) {
             $("#divListaPedidoDetalle_" + pedidoActual).html(html);
             pedidosCargados.push(pedidoActual);
         },
-        error: function (data, error) { console.log(data); },
+        error: function (data, error) { },
         complete: CloseLoading
     });
 }

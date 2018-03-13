@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
-//R2004
 namespace Portal.Consultoras.Data
 {
     public class DAComunicado : DataAccess
@@ -35,7 +27,6 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        /*GR-1209*/
         public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora, short TipoDispositivo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerComunicadoPorConsultora");
@@ -49,6 +40,14 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertComunicadoByConsultoraVisualizacion");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@ComunicadoId", DbType.Int32, ComunicadoID);
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void ActualizarVisualizoComunicado(string CodigoConsultora,int ComunicadoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarVisualizoComunicado");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ComunicadoId", DbType.Int32, ComunicadoId);
             Context.ExecuteNonQuery(command);
         }
 

@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using System.Configuration;
-
 
 namespace Portal.Consultoras.Data
 {
@@ -40,8 +33,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        
 
         public int UpdPedidoWebByEstado(int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado)
         {
@@ -158,7 +149,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
-            
+
             return Context.ExecuteReader(command);
         }
 
@@ -293,14 +284,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigosZonas", DbType.AnsiString, CodigosZonas);
 
             return Context.ExecuteReader(command);
-    }
+        }
 
         public IDataReader GetPedidoWebID(int CampaniaID, long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebID");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            
+
             return Context.ExecuteReader(command);
         }
 
@@ -310,10 +301,6 @@ namespace Portal.Consultoras.Data
             DateTime result = Convert.ToDateTime(Context.ExecuteScalar(command));
             return result;
         }
-
-
-
-        /////////////////////////////////////
 
         public int InsPedidoFIC(BEPedidoFIC pedidoweb)
         {

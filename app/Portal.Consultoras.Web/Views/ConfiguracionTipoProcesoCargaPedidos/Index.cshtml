@@ -73,7 +73,6 @@
                 
                 $(this).parent().parent().parent().find('.listZonas.on').remove();
 
-            // Llamamos a la función para ordenar la lista
             ordenarSelect('lbHasNot');
             
         });
@@ -94,15 +93,12 @@
 
             $('#lbHas').children().remove();
 
-            // Llamamos a la función para ordenar la lista
             ordenarSelect('lbHasNot');
 
         });
 
         $('#btnAllToHas').click(function () {
            
-            //$(document).off("click", "#btnAllToHas");
-
             var listAllBack = $('#lbHasNot .listZonasNuevo'); 
 
             for (var i = 0; i < listAllBack.length; i++) {
@@ -116,7 +112,6 @@
 
             $('#lbHasNot').children().remove();
 
-            // Llamamos a la función para ordenar la lista
             ordenarSelect('lbHas');
 
         });
@@ -132,7 +127,6 @@
 
             $(this).parent().parent().parent().find('.listZonasNuevo.on').remove();
 
-            // Llamamos a la función para ordenar la lista
             ordenarSelect('lbHas');
 
         });

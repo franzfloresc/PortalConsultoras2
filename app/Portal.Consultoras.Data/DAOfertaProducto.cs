@@ -173,17 +173,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        //public int UpdOfertaProductoStockActualizar(int TipoOfertaSisID, int CampaniaID, string CUV, int Stock)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdStockOfertaProducto");
-        //    Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, TipoOfertaSisID);
-        //    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-        //    Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, CUV);
-        //    Context.Database.AddInParameter(command, "@Stock", DbType.Int32, Stock);
-
-        //    return Context.ExecuteNonQuery(command);
-        //}
-
         public IDataReader GetDatosAdmStockMinimoCorreos()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetAdmStockMinimoCorreos");
@@ -216,7 +205,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DescripcionOriginal", DbType.AnsiString, entity.DescripcionOriginal);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
-            
+
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
@@ -242,7 +231,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity) 
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialImagen");
             Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
@@ -345,8 +334,7 @@ namespace Portal.Consultoras.Data
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
                 query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
                 query.Append("left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
-                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
-                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
+                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
             }
             else
             {
@@ -571,7 +559,6 @@ namespace Portal.Consultoras.Data
         }
         #endregion
 
-        /* 2108 - Inicio */
         public int ValidarUnidadesPermitidasEnPedidoZA(int CampaniaID, string CUV, long ConsultoraID, int TipoOfertaSisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarUnidadesPermitidaPedidoZA");
@@ -626,9 +613,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@tipoOfertaSisID", DbType.Int32, entity.OfertaAdmID);
             return Context.ExecuteNonQuery(command);
         }
-        /* 2108 - Fin */
 
-		/* 2024 - Inicio */
         public int EliminarTallaColor(BEOfertaProducto entidad)
         {
             int result;
@@ -673,7 +658,7 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConsultarLiquidacionByCUV"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
-                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV); 
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
                 return Context.ExecuteReader(command);
             }
         }
@@ -690,9 +675,7 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-        /* 2024 - Fin */
 
-        /*RQ 2370 - EC*/
         public int RemoverOfertaLiquidacion(BEOfertaProducto entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.RemoverOfertaLiquidacion");

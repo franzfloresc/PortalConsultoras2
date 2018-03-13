@@ -2,14 +2,16 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
 
 @model BienvenidaModel
 
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    Model.RevistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
     var urlDomain = Util.GetUrlHost(Request);
-    var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
+    var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
     ViewBag.SourcePage = 1;
 }
@@ -20,24 +22,24 @@
             background: #FFF !important;
         }
 
-        .bloqueOfertaDia_vistaOfertas{
-            width:100%;
-            box-shadow:none;
-            margin:0;
+        .bloqueOfertaDia_vistaOfertas {
+            width: 100%;
+            box-shadow: none;
+            margin: 0;
         }
     </style>
-    @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/CcsBienvenida")   
+    @Styles.Render("~/bundles/Css/Site/CcsBienvenida")
 }
 
 <div id="tutorialesMobile" style="display:none;">
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
             </ul>
         </div>
 
@@ -52,14 +54,14 @@
     <div class="contenedor-tutorial-esika">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
                 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
                 {
-                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial=""/></li>
+                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial="" /></li>
                 }
             </ul>
         </div>
@@ -78,13 +80,6 @@
     <div class="content_320" style="text-align:center;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
-            @*<div class="foto_usuaria_mobile">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
-                    <div class="tooltip_foto">
-                        Prepara tu foto, pronto podrás subirla a tu portal.
-                    </div>
-                </div>*@
-
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
@@ -95,7 +90,6 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
-            @*<div class="saludo_mobile">¡Hola&nbsp;</div>*@
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
                 <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
@@ -157,8 +151,8 @@
 @if (ViewBag.CantPedidosPendientes > 0)
 {
     <div class="content_320" style="padding-top:0">
-        <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
-        <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
+        <div class="pestana_lbel"></div>
+        <div class="triangulo_home"></div>
         <div style="float:left; max-width:185px;">
             <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
             <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
@@ -174,8 +168,8 @@
 <div class="fondo_faf5e6">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
-        <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
-        <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
+        <div class="pestana_lbel"></div>
+        <div class="triangulo_home"></div>
     }
 
     @if (ViewBag.CantPedidosPendientes > 0)
@@ -261,7 +255,6 @@
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
-                @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
             }
         </div>
         <!--FIN ITEM 2-->
@@ -291,8 +284,8 @@
 }
 
 <!--INICIO CARRUSEL-->
-<div id="divListaEstrategias" style="display: none;">
-    <div id="contenedor_template_estrategia_cabecera"></div>
+<div id="divListaEstrategias" style="display: none; padding-top: 22px;">
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <!--FIN CARRUSEL-->
 
@@ -342,7 +335,6 @@
                     var urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/AppDeCatalogos.html";
 
                     urlWhatsApp = "whatsapp://send?text=Descarga%20el%20App%20de%20Catálogos%20y%20búscame%20como%20tu%20Consultora.%20Mi%20" + UsuarioTipo + "%20es " + Model.CodigoUsuario + ".%20" + urlBase;
-                    //urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
                                                                       id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
@@ -350,7 +342,7 @@
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
-            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home=""/></div>
+            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
@@ -366,7 +358,7 @@
         <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
             <div class="content_banner_fav">
                 <div class="content_imagen_banner_fav">
-                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home=""/>
+                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
                 </div>
                 <div class="texto_fav_banner">
                     @ViewBag.NombreConsultoraFAV, estos son los
@@ -396,7 +388,7 @@
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
         <div class="imagen_catalogo video_esika">
-            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home=""/>
+            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
         </div>
     </a>
     <hr class="clear" />
@@ -412,7 +404,7 @@
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home=""/>
+                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
             </a>
         </div>
         <hr class="clear" />
@@ -657,43 +649,10 @@
 <!--POP UP REVISTA DIGITAL-->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    <div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" data-popup-function-hide="RDPopupCerrar(0)">
-        <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
-            <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" data-popup-close="" href="javascript:;">
-                <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
-            </a>
-            <div class="mpopup_rd_cabecera">
-                <div class="mrd_logo">
-                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
-                </div>
-                <div class="mpopup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-
-            <div class="mpopup_rd_content">
-                <div class="mpopup_saludo">@Model.NombreConsultora, crece tus ganancias con ofertas únicas para ti. Reemplazando:</div>
-                <div class="mpopup_inscripcion">
-                    <img src="/Content/Images/RevistaDigital/mpopup_inscripcion.png" width="100%">
-                </div>
-                <div class="mpopup_text">
-                    <div><span class="mtit">GANA <span style="font-size: 17px; margin-right: 10px;">+</span></span> Hasta 65% descuento</div>
-                    <div><span class="mtit">VENDE <span style="font-size: 17px; margin-right: 4px;">+</span></span> Productos que tus clientes piden</div>
-                </div>
-                <div class="btn_bpt btn_red"><a href="javascript: RDSuscripcion();">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-                <div class="mpopup_textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
-            </div>
-            <div class="mpopup_nomostrar">
-                <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a ver este mensaje">No volver a ver este mensaje</a>
-            </div>
-        </div>
-    </div>
-    <!-- FIN POPUP REVISTA DIGITAL -->
-    <!-- POPUP INSCRITA A REVISTA DIGITAL -->
-
-    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", @Model.CampaniaMasDos)
-
+    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml", Model.RevistaDigital)
+
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
@@ -761,9 +720,14 @@
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 <!--POP UP CUPONES-->
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ 
+    if (!Model.ConsultoraNuevaBannerAppMostrar)
+    {
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+        @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+    }
+}
 
 <div class="contenedor_popup_comunicado modal">
     <div class="popup_comunicado">
@@ -793,54 +757,54 @@
 <!--FIN-->
 @section scripts{
     <script type="text/javascript">
-            var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-            var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-            var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-            var ViewBagRutaChile = '@Model.RutaChile';
-            var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-            var viewBagPaisID = '@Model.PaisID';
-            var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
-            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-            var contadorFondoPopUp = 0;
-            var viewBagVioTutorial = '@Model.VioTutorial';
-            var origenPagina = 1;//PL20-1233
-            var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
-            var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
-            var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
-            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
-            var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-            var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
-            var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-            var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
-            var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var ViewBagRutaChile = '@Model.RutaChile';
+        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagPaisID = '@Model.PaisID';
+        var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var contadorFondoPopUp = 0;
+        var viewBagVioTutorial = '@Model.VioTutorial';
+        var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
+        var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+        var origenPagina = 1;
+        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
+        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
+        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
+        var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
-            var tipoOrigenEstrategia = 2;
-            var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
-            var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
+        var tipoOrigenEstrategia = 2;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome';
+        var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
-            //EPD-1837
-            var vbFotoPerfil = '@ViewBag.FotoPerfil';
-            if (vbFotoPerfil != null && vbFotoPerfil != "") {
-                $('.content_foto').show();
-            }
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.content_foto').show();
+        }
 
-            var viewBagCampaniaActual = '@Model.CampaniaActual';
-            var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-            var tieneCupon = '@Model.TieneCupon';
-            var tieneMasVendidos = @Model.TieneMasVendidos;
-            var tieneAsesoraOnline = '@Model.TieneAsesoraOnline';
-            var paginaOrigenCupon = 2;
-            var esEmailActivo = '@Model.EmailActivo';
-            var paisISO = '@ViewBag.paisISO';
-            var viewBagAmbiente = '@ViewBag.Ambiente';
-            var correo = '@Model.EMail';
-            var celular = '@Model.Celular';
-            var tipoOrigenPantalla = 2;
-            var primeraVezSession = @Model.PrimeraVezSession;
-            var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
-            var verSeccion = '@ViewBag.VerSeccion' || '';
-            var OrigenDesktopODD = 1;
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var tieneCupon = '@Model.TieneCupon';
+        var tieneMasVendidos = @Model.TieneMasVendidos;
+        var tieneAsesoraOnline = '@Model.TieneAsesoraOnline';
+        var paginaOrigenCupon = 2;
+        var esEmailActivo = '@Model.EmailActivo';
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
+        var tipoOrigenPantalla = 2;
+        var primeraVezSession = @Model.PrimeraVezSession;
+        var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
+        var verSeccion = '@ViewBag.VerSeccion' || '';
+        var OrigenDesktopODD = 1;
+        var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
+        var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
-   
+
 }

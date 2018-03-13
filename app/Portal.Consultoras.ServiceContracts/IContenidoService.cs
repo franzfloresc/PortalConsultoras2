@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
-using Portal.Consultoras.Entities;
 using System.Data;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -27,9 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int SaveBanner(BEBanner banner);
-		[OperationContract]
+        [OperationContract]
         List<int> SaveListBanner(List<BEBanner> listBanner);
-		[OperationContract]
+        [OperationContract]
         int GetPaisBannerMarquesina(string CampaniaID, int IdBanner);
 
         [OperationContract]
@@ -124,7 +121,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEPayPalConfiguracion> GetReporteAbonos(int paisID, string chrCodigoPais, string chrCodigoConsultora, int intDia, int intMes, int intAnho, string chrRETCodigoTransaccion);
 
-		//R2004 - R2122
         [OperationContract]
         string[] DescargaPaypal(int paisID, string codigoUsuario, DateTime fechaEjecucion);
 
@@ -158,7 +154,7 @@ namespace Portal.Consultoras.ServiceContracts
         /// <summary>
         /// Obtiene un listado de contenido de revista
         /// </summary>
-        /// /// <param name="paisId">Código pais</param>
+        /// <param name="paisId">Código pais</param>
         /// <param name="campania">Campaña</param>
         /// <returns>Listado contenido revista</returns>
         [OperationContract]
@@ -166,7 +162,7 @@ namespace Portal.Consultoras.ServiceContracts
         /// <summary>
         /// Obtiene un item contenido revista
         /// </summary>
-        /// /// <param name="paisId">Código pais</param>
+        /// <param name="paisId">Código pais</param>
         /// <param name="id">Identificador registro</param>
         /// <returns>Contenido revista</returns>
         [OperationContract]
@@ -174,7 +170,7 @@ namespace Portal.Consultoras.ServiceContracts
         /// <summary>
         /// Obtiene un listado de contenido de revista
         /// </summary>
-        /// /// <param name="paisId">Código pais</param>
+        /// <param name="paisId">Código pais</param>
         /// <param name="campania">Campaña</param>
         /// <param name="pageSize">Campaña</param>
         /// <param name="pageNum">Campaña</param>
@@ -194,40 +190,33 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsBelcorpResponde(BEBelcorpResponde BEBelcorpResponde);
-        //20150906
         [OperationContract]
         void DeleteBelcorpRespondeCache(int paisID);
 
 
         #endregion
 
-        //RQ_SB - R2133
         [OperationContract]
         BEBannerSegmentoZona GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId);
 
-        //RQ_SB - R2133
         [OperationContract]
         List<BEBannerSegmentoZona> GetBannerPaisesAsignados(int CampaniaId, int BannerId);
 
-        //RQ_SB - R2133
-        /*RE2544 - CS - Agregando nuevo parametro*/           
         [OperationContract]
         void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno);
 
-        //RQ_SB - R2133
         [OperationContract]
         void DeleteCacheBanner(int CampaniaID);
 
-		[OperationContract]
-        int ActualizarEstadoPaqueteDocumentario(int paisID,string codigo, int campania);
+        [OperationContract]
+        int ActualizarEstadoPaqueteDocumentario(int paisID, string codigo, int campania);
 
         [OperationContract]
-        bool ValidarInvitacionPaqueteDocumentario(int paisID,string codigo);
+        bool ValidarInvitacionPaqueteDocumentario(int paisID, string codigo);
 
         [OperationContract]
         string[] GetPaqueteDocumentario(int paisID);
 
-        //R2106 - Inicio
         #region Navidad
         [OperationContract]
         int InsertarNavidadConsultora(BENavidadConsultora entidad);
@@ -244,25 +233,18 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BENavidadConsultora> SeleccionarNavidadConsultora(BENavidadConsultora entidad);
         #endregion
-        //R2106 - Fin
 
-        //2397
         [OperationContract]
         IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais);
 
-        //2397
         [OperationContract]
         IList<string> GetProyectaNivel(int paisID, long ConsultoraID);
-        //2397 - control de cambios
         [OperationContract]
         DataSet ObtenerParametrosSuperateLider(int paisID, long ConsultoraID, int CampaniaVenta);
 
-        /*Inicio Cambios_Landing_Comunidad*/
         [OperationContract]
         IList<BEItemCarruselInicio> GetItemCarruselInicio(int paisID);
-        /*Fin Cambios_Landing_Comunidad*/
 
-        //R2447 - Inicio
         #region Emailing para SE
         [OperationContract]
         List<BEPlantillasMailing> ObtenerPlantillasEmailingSE();
@@ -275,7 +257,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool AgregarPaisPlantillaEmailingSE(int PaisID, int PlantillaID, string CodigoUsuario);
-        
+
         [OperationContract]
         bool QuitarPaisPlantillaEmailingSE(int PaisID, int PlantillaID);
 
@@ -293,15 +275,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPlantillasMailing> GetPlantillasPais(int PaisID);
-        //List< GetPlantillasPais(int PaisID);
         [OperationContract]
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
 
-
-        //R2447 - Fin
-
-      
     }
 }

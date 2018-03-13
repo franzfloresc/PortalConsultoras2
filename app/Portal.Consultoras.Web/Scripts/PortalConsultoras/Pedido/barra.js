@@ -5,7 +5,7 @@ var belcorp = belcorp || {};
 belcorp.barra = belcorp.barra || {};
 belcorp.barra.settings = belcorp.barra.settings || {};
 belcorp.barra.settings = {
-    isMobile : isMobile()
+    isMobile: isMobile()
 }
 
 function GetWidthTotalBase() {
@@ -19,12 +19,12 @@ function MostrarBarra(datax, destino) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
-    
+
     ActualizarGanancia(dataBarra);
-    
-    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array(); 
+
+    dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();
     if (dataBarra.ListaEscalaDescuento.length > 0) {
-        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;       
+        listaEscalaDescuento = dataBarra.ListaEscalaDescuento;
         if (dataBarra.redondeo == undefined) {
             $.each(listaEscalaDescuento, function (i, item) {
                 if (IsDecimalExist(item.MontoHasta)) {
@@ -35,7 +35,7 @@ function MostrarBarra(datax, destino) {
                 listaEscalaDescuento[i].MontoHastaStr = DecimalToStringFormat(listaEscalaDescuento[i].MontoHasta, true);
             });
             dataBarra.redondeo = true;
-        }        
+        }
     }
 
     dataBarra.ListaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
@@ -49,21 +49,20 @@ function MostrarBarra(datax, destino) {
     dataBarra.MontoMaximoStr = DecimalToStringFormat(dataBarra.MontoMaximo, true);
     dataBarra.TippingPoint = Math.ceil(dataBarra.TippingPoint);
     dataBarra.TippingPointStr = DecimalToStringFormat(dataBarra.TippingPoint, true);
-    
+
     var me = data.MontoEscala;
     var md = data.MontoDescuento;
     var mx = data.MontoMaximo;
     var mn = data.MontoMinimo;
     var tp = data.TippingPoint;
     var mt = data.TotalPedido;
-
-    var salto = "<br>";
+    
     var listaLimite = new Array();
 
     var widthTotal = GetWidthTotalBase();
     if (widthTotal <= 0)
         return false;
-    
+
     var wPrimer = 0;
     var vLogro = 0;
     var wMsgFin = 0;
@@ -92,8 +91,7 @@ function MostrarBarra(datax, destino) {
                 valorStr: data.TippingPointStr
             });
         }
-
-        var dif = parseFloat(data.MontoMaximo - vLogro).toFixed(2);       
+        
         listaLimite.push({
             nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
             tipoMensaje: 'MontoMaximo',
@@ -184,7 +182,7 @@ function MostrarBarra(datax, destino) {
 
     listaLimite = listaLimite || new Array();
     $.each(listaLimite, function (ind, limite) {
-        if (ind > 0 ) {
+        if (ind > 0) {
             var valBack = listaLimite[ind - 1].valor;
             if (valBack < vLogro && vLogro < limite.valor) {
                 indPuntoLimite = ind;
@@ -229,10 +227,10 @@ function MostrarBarra(datax, destino) {
 
     if (mx > 0 || destino == '1')
         htmlPuntoLimite = htmlPunto;
-    
+
     var wTotalPunto = 0;
     $("#divBarra #divBarraLimite").html("");
-    
+
     $.each(listaLimite, function (ind, limite) {
         var htmlSet = indPuntoLimite == ind && ind > 0 ? vLogro < vLimite ? htmlPuntoLimite : htmlPunto : htmlPunto;
         htmlSet = ind == 1 && indPuntoLimite == 0 && mn == 0 ? htmlPuntoLimite : htmlSet;
@@ -379,7 +377,7 @@ function MostrarBarra(datax, destino) {
             $("#punto_" + indPuntoLimite).css("margin-right", wAreaMover);
         }
     }
-    
+
     var wPuntosAnterior = 0;
     indAux = indPuntoLimite;
     while (indAux > 0) {
@@ -482,7 +480,7 @@ function MostrarBarra(datax, destino) {
         return true;
     }
 
-	if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
+    if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
@@ -516,7 +514,7 @@ function MostrarBarra(datax, destino) {
     if (!belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
     }
-    
+
     return true;
 }
 

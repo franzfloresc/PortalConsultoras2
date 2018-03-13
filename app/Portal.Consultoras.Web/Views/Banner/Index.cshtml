@@ -12,7 +12,6 @@
             "use strict";
 
             //Probando Filter in IE8
-
             if (this == null)
                 throw new TypeError();
 
@@ -183,8 +182,7 @@
                                     div2.setAttribute("class", "banner_img");
 
                                     var img1 = document.createElement("img");
-                                    // img1.setAttribute("src", ".." + data.lstBannerInfo[item].Archivo);
-                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo); // 1664 - ObtenerBannerPrevio
+                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo);
                                     img1.setAttribute("alt", "Imagen Banner");
                                     img1.setAttribute("width", "290");
                                     img1.setAttribute("height", "120");
@@ -270,8 +268,7 @@
                                     div2.setAttribute("class", "banner_img");
 
                                     var img1 = document.createElement("img");
-                                    // img1.setAttribute("src", ".." + data.lstBannerInfo[item].Archivo);
-                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo); // 1664 - ObtenerBannerPrevio
+                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo);
                                     img1.setAttribute("alt", "Imagen Banner");
                                     img1.setAttribute("width", "290");
                                     img1.setAttribute("height", "120");
@@ -361,8 +358,7 @@
                                     div3.setAttribute("class", "banner_img_art");
 
                                     var img1 = document.createElement("img");
-                                    // img1.setAttribute("src", ".." + data.lstBannerInfo[item].Archivo);
-                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo); // 1664 - ObtenerBannerPrevio
+                                    img1.setAttribute("src", data.lstBannerInfo[item].Archivo);
                                     img1.setAttribute("alt", "Imagen Banner");
                                     div3.appendChild(img1);
 
@@ -747,7 +743,7 @@
                 Id = "0";
                 $('#ddlTipoAccion')[0].children[0].innerHTML;
                 $('#ddlTipoAccion')[0].value = Id;
-                $('#txtUrl').val(""); //R20151126 Mediano
+                $('#txtUrl').val("");
                 boton[0].style['display'] = "block";
                 lblUrl[0].innerHTML = "Url destino:";
             }
@@ -756,20 +752,11 @@
                 Id = "0";
                 $('#ddlTipoAccion')[0].children[0].innerHTML;
                 $('#ddlTipoAccion')[0].value = Id;
-                $('#txtUrl').val(""); //R20151126 Mediano
+                $('#txtUrl').val("");
                 boton[0].style['display'] = "none";
                 lblUrl[0].innerHTML = "Mensaje:";
             }
 
-            //else if ($("#ddlTipoContenido").val() == "2") {
-            //    Id = "2";
-            //    $('#ddlTipoAccion')[0].children[2].innerHTML;
-            //    $('#ddlTipoAccion')[0].value = Id;
-            //    $('#txtUrl').val(""); //R20151126 Mediano
-            //    boton[0].style['display'] = "none";
-            //    lblUrl[0].innerHTML = "Id Curso:";
-            //}
-            //$("#hdTipoContenido").val($("#ddlTipoContenido").val());
         })
         //Obtener las Columnas y el Modelo de la SubGrilla desde el inicio
         $.ajaxSetup({ cache: false });
@@ -795,7 +782,7 @@
                         }
                         else if (value.formatter == 'ShowBannerOptions') {
                             value.formatter = ShowBannerOptions;
-                        } else if (value.formatter == 'formatearArchivo') { // 1664
+                        } else if (value.formatter == 'formatearArchivo') {
                             value.formatter = formatearArchivo;
                         }
                     });
@@ -832,7 +819,7 @@
                         }
                         else if (value.formatter == 'ShowBannerOptions') {
                             value.formatter = ShowBannerOptions;
-                        } else if (value.formatter == 'formatearArchivo') { // 1664
+                        } else if (value.formatter == 'formatearArchivo') {
                             value.formatter = formatearArchivo;
                         }
                     });
@@ -855,15 +842,14 @@
                 if (Id == 0) {
                     $('#div_cuv').hide();
                     $('#div_Url').show();
-                    $('#DivbtnValidarUrl').show(); // R20151126_Link a Mi Academia por medio de marquesinas
-                    $('#div_Url').find('#lblUrl')[0].innerHTML = "Url destino:"; // R20151126_Link a Mi Academia por medio de marquesinas
+                    $('#DivbtnValidarUrl').show();
+                    $('#div_Url').find('#lblUrl')[0].innerHTML = "Url destino:";
                 }
                 else {
                     if (Id == 1) {
                         $('#div_cuv').show();
                         $('#div_Url').hide();
                     }
-                        // R20151126_Link a Mi Academia por medio de marquesinas
                     else if (Id == 2) {
                         $('#div_cuv').hide();
                         $('#div_Url').show();
@@ -877,8 +863,6 @@
 
 
                     }
-                    // End R20151126_Link a Mi Academia por medio de marquesinas
-
 
                 }
                 $('#txtCUV').val("");
@@ -900,21 +884,14 @@
                 fnGrilla();
         });
 
-        //Crea Dialogos
         IniDialog();
 
-        //Bindea Eventos
         fnEventos();
 
-        //Extender Metodos del array
         fnExtenderMetodosArray();
 
-		//R2133
         $("#chkSeleccionar").click(function () {
-            //alert(this.status);
-            //$.jstree._reference($("#arbolRegionZona")).check_all();
             if (this.checked)
-                //$.jstree._reference($("#arbolRegionZona")).get_checked(null, true)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
             else
                 $.jstree._reference($("#arbolRegionZona")).uncheck_all();
@@ -935,7 +912,6 @@
         });
     });
 
-	//R2133
 	function ConfigurarArbol(Zonas) {
         $.ajaxSetup({
             cache: false
@@ -979,7 +955,6 @@
                             if (zonas != "") {
                                 zonas = zonas.substring(0, zonas.length - 1);
                             }
-                            //$("#hdBannerIdSegZon").val(zonas);
                             $("#chkSeleccionar").attr("checked", true);
                         }
                         $('#arbolRegionZona').jstree('close_all');
@@ -996,7 +971,6 @@
         return false;
     }
 
-	//R2133
     function CargarSegmentoPais()
     {
         var PaisId = $('#ddlPaisesBanSegZona').val();
@@ -1049,7 +1023,6 @@
         return false;
     }
 
-	//R2133
     function CargarSegmentoZonaConfigurada() {
         var BannerId = $("#hdBannerIdSegZon").val();
         var CampaniaId = $('#ddlCampania').val();
@@ -1086,10 +1059,9 @@
         var BannerId = $("#hdBannerIdSegZon").val();
         var CampaniaId = $('#ddlCampania').val();
         var PaisId = $('#ddlPaisesBanSegZona').val();
-        var Segmento = -100; // $('#ddlSegmentoBanner').val();//colocar por defaild -100
+        var Segmento = -100;
 
-
-        var SegmentoInterno = "";//$('#ddlSegmentoBanner').val();
+        var SegmentoInterno = "";
 
         $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
             if ($(this).attr("checked")) {
@@ -1280,10 +1252,7 @@
             height: 'auto',
             display: 'block',
             width: '100%',
-            //height: 580,
-            //width: 930,
             pgtext: 'Pág: {0} de {1}',
-            //altRows: true,
             autowidth: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function (data) {
@@ -1375,16 +1344,13 @@
         $("#hdn_SeccionID").val(SeccionId);
         var editar = "&nbsp;<a href='#' onclick=\"return $('#list').EditBanner(" + BannerId + ", this);\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Banner' title='Editar Banner' border='0' /></a>";
         var eliminar = "&nbsp;<a href='#' onclick=\"return $('#list').DeleteBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Banner' title='Eliminar Banner' border='0' /></a>";
-        //RQ_BS - R2133
         var segzona = "&nbsp;<a href='#' onclick=\"return $('#list').SegZonaBanner('" + BannerId + "', this);\" >" + "<img src='@Url.Content("~/Content/Images/configuracion.png")' alt='Configurar Segmento y Zona' title='Configurar Segmento y Zona' border='0' /></a>";
-        //RQ_BS - R2133
         if(SeccionId < 6 || SeccionId > 9)
             return editar + eliminar + segzona;
         else
             return editar + eliminar;
     }
 
-    // 1664
     function formatearArchivo(val, options, rowObject) {
         var rutaLarga = rowObject[3];
 
@@ -1480,7 +1446,6 @@
             CampaniaID: $('#ddlCampania').val(),
             GrupoBannerID: subgrid.jqGrid('getCell', BannerId, 'GrupoBannerID'),
             Titulo: subgrid.jqGrid('getCell', BannerId, 'Titulo'),
-            // Archivo: subgrid.jqGrid('getCell', BannerId, 'ArchivoRutaCompleto'),
             Archivo: img01,
             URL: subgrid.jqGrid('getCell', BannerId, 'Url'),
             FlagGrupoConsultora: getControlCellValue(subgrid, subgrid.jqGrid('getCell', BannerId, 'FlagGrupoConsultora')),
@@ -1535,8 +1500,6 @@
             $('#txtUrl').val('');
             $('#lblArchivoCargado').text('Ingresar Imagen');
 
-            //var divcontainer = $('#flUpload').closest('div');
-            //divcontainer.html(divcontainer.html());
             $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")' + "");
             $('#imagenProducto01').val("");
             $('#hdnAccion').val("Insertar");
@@ -1619,11 +1582,6 @@
             //Setear variable global IdSubGrilla para actualizarla
             idSubGrid = subgrid.attr('id');
 
-            //var divcontainer = $('#flUpload').closest('div');
-            //divcontainer.html(divcontainer.html());
-
-            // $('#img01').attr('src', ('@Url.Content("~")' + ArchivoRutaCompleto).substring(1));
-            // 1664
             $('#img01').attr('src', ArchivoRutaCompleto);
             $('#imagenProducto01').val("");
             $('#hdnAccion').val("Actualizar");
@@ -1645,25 +1603,21 @@
             if (TipoAccion == 0) {
                 $("#div_cuv")[0].style['display'] = "none";
                 $("#div_Url")[0].style['display'] = "block";
-                $('#DivbtnValidarUrl').show(); // R20151126_Link a Mi Academia por medio de marquesinas
-                $('#div_Url').find('#lblUrl')[0].innerHTML = "Url destino:"; // R20151126_Link a Mi Academia por medio de marquesinas
+                $('#DivbtnValidarUrl').show();
+                $('#div_Url').find('#lblUrl')[0].innerHTML = "Url destino:";
             }
             else if(TipoAccion == 1) {
                 $("#div_cuv")[0].style['display'] = "block";
                 $("#div_Url")[0].style['display'] = "none";
             }
 
-            // R20151126_Link a Mi Academia por medio de marquesinas
             else if(TipoAccion == 2)
             {
                 $("#div_cuv")[0].style['display'] = "none";
                 $("#div_Url")[0].style['display'] = "block";
                 $('#DivbtnValidarUrl').hide();
                 $('#div_Url').find('#lblUrl')[0].innerHTML = "Id Curso:";
-
-
             }
-            // End R20151126_Link a Mi Academia por medio de marquesinas
 
             if (Number(GrupoBannerId) == 2 || Number(GrupoBannerId) == 3 || Number(GrupoBannerId) == 4 || Number(GrupoBannerId) == 5 || Number(GrupoBannerId) == 11 || Number(GrupoBannerId) == 12 || Number(GrupoBannerId) == 13 || Number(GrupoBannerId) == 14 || Number(GrupoBannerId) == 15 || Number(GrupoBannerId) == 16 || Number(GrupoBannerId) == 17 || Number(GrupoBannerId) == 18 || Number(GrupoBannerId) == 19 || Number(GrupoBannerId) == 20 || Number(GrupoBannerId) == 21 || Number(GrupoBannerId) == 22 || Number(GrupoBannerId) == 23 || Number(GrupoBannerId) == 26) {
                 contenedor[0].style['display'] = "block";
@@ -1673,13 +1627,10 @@
                 if (Number(TipoContenido) == 1) {
                     botonvalidar[0].style['display'] = "none";
                 }
-                //else if (Number(TipoContenido) == 2) { //R20151126
-                //    botonvalidar[0].style['display'] = "none"; //R20151126
-                //}
                 else {
 
                     if (TipoAccion == 2) {
-                        botonvalidar[0].style['display'] = "none"; //R20151126
+                        botonvalidar[0].style['display'] = "none";
                     }
                     else {
                         botonvalidar[0].style['display'] = "block";
@@ -1784,9 +1735,7 @@
         }
     });
 
-    // 1664
     function FormatearImagenes(id) {
-        // 1664
         var img01 = $(id).val().replace(/^.*[\\\/]/, '');
         if (img01.lastIndexOf("?") >= 0) {
             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -1856,7 +1805,6 @@
             }
         });
 
-		//R2133
         $('#DialogSegZonaBanner').dialog({
             autoOpen: false,
             resizable: false,
@@ -1948,7 +1896,6 @@
                         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     }
                     else {
-                        //alert_msg(data.message);
                         alert_msg('Error al realizar proceso, intentelo mas tarde.');
                     }
                 }
@@ -2008,7 +1955,6 @@
                         alert_msg(result.message);
                     }
                     else {
-                        //alert_msg(data.message);
                         alert_msg('Error al realizar proceso, intentelo mas tarde.');
                     }
 
@@ -2031,7 +1977,6 @@
         $('#DialogMensajesBanner').dialog('open');
     }
 
-    // 1664
     function htmlDecode(value) {
         if (value) {
             return $('<div />').html(value).text();
@@ -2160,8 +2105,6 @@
                                         if (responseJSON.success) {
                                             $("#imagenProducto01").val(responseJSON.name);
                                             $("#lblArchivoCargado").text(responseJSON.name);
-                                            // $('#img01').attr('src', '@Url.Content("~/Content/TemporalesBanners/")' + responseJSON.name);
-                                            // 1664
                                             $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                         }
                                         else {
@@ -2256,7 +2199,6 @@
         </div>
     </div>
 </div>
-<!-- R2133 -->
 <div id="DialogSegZonaBanner" style="display: none">
     <div class="Content_modal">
         @Html.Hidden("hdBannerIdSegZon")

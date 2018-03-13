@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Data
     public class DACalculoPROL
     {
         public string URL { get; private set; }
+
         public DACalculoPROL(string urlService)
         {
             URL = urlService;
@@ -21,17 +22,18 @@ namespace Portal.Consultoras.Data
         /// <param name="zona">Codigo Zona</param>
         /// <param name="lstProductos"></param>
         /// <returns></returns>
-        public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona, System.Data.DataTable lstProductos)
+        public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona,
+            string ListaCUVS, string ListaCantidades, string CodigosConcursos)
         {
-           
-            var rtpa = new List<ObjMontosProl>();
+            List<ObjMontosProl> rtpa;
+
             using (var sv = new ServicesCalculoPrecioNiveles())
             {
                 sv.Url = URL;
-                rtpa = sv.CalculoMontosProl(pais, periodo, codigoconsultora, zona, lstProductos).ToList();
+                rtpa = sv.CalculoMontosProlxIncentivos(pais, periodo, codigoconsultora, zona, ListaCUVS, ListaCantidades, CodigosConcursos).ToList();
             }
 
-            return rtpa ?? new List<ObjMontosProl>();
+            return rtpa;
         }
     }
 }

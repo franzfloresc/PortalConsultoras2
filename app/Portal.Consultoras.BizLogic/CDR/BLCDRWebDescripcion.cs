@@ -13,13 +13,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebDescripcion = new DACDRWebDescripcion(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebDescripcion = new DACDRWebDescripcion(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebDescripcion.InsCDRWebDescripcion(entity);
+                    retorno = daCdrWebDescripcion.InsCDRWebDescripcion(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -35,13 +37,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebDescripcion = new DACDRWebDescripcion(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebDescripcion = new DACDRWebDescripcion(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebDescripcion.DelCDRWebDescripcion(entity);
+                    retorno = daCdrWebDescripcion.DelCDRWebDescripcion(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -58,8 +62,8 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             try
             {
-                var DACDRWebDescripcion = new DACDRWebDescripcion(PaisID);
-                using (IDataReader reader = DACDRWebDescripcion.GetCDRWebDescripcion(entity))
+                var daCdrWebDescripcion = new DACDRWebDescripcion(PaisID);
+                using (IDataReader reader = daCdrWebDescripcion.GetCDRWebDescripcion(entity))
                 {
                     while (reader.Read())
                     {

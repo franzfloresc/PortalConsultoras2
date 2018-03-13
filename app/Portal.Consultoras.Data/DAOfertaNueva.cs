@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -74,7 +70,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlagImagenActiva", DbType.Int16, oBe.FlagImagenActiva);
             Context.Database.AddInParameter(command, "@FlagHabilitarOferta", DbType.Boolean, oBe.FlagHabilitarOferta);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, oBe.UsuarioRegistro);
-            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);//1731
+            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -96,7 +92,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlagImagenActiva", DbType.Int16, oBe.FlagImagenActiva);
             Context.Database.AddInParameter(command, "@FlagHabilitarOferta", DbType.Boolean, oBe.FlagHabilitarOferta);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, oBe.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);//1731
+            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);
             return Context.ExecuteNonQuery(command);
         }
 
@@ -136,7 +132,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //1487
         public IDataReader GetProductosOfertaConsultoraNueva(int CampaniaID, int consultoraid)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosOfertaConsultoraNueva");
@@ -146,21 +141,21 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int UpdEstadoPacksOfertasNueva(int idconsultora,string CodigoConsultora, int campania)
+        public int UpdEstadoPacksOfertasNueva(int idconsultora, string CodigoConsultora, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdestadoAccesoPackNueva");
             Context.Database.AddInParameter(command, "@idconsultora", DbType.Int32, idconsultora);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);            
+            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);
 
             return Context.ExecuteNonQuery(command);
         }
 
-        public int ObtenerEstadoPacksOfertasNueva(int idconsultora,  int campania)
+        public int ObtenerEstadoPacksOfertasNueva(int idconsultora, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadoPacksOfertasNueva");
             Context.Database.AddInParameter(command, "@idconsultora", DbType.Int32, idconsultora);
-            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);         
+            Context.Database.AddInParameter(command, "@campania", DbType.Int32, campania);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }

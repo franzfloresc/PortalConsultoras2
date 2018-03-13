@@ -1,21 +1,15 @@
-﻿using System;
+﻿using EasyCallback;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Web;
+using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.Controllers;
-using EasyCallback;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using Portal.Consultoras.Common;
-using System.Security.Cryptography;
-using System.Text;
-using System.IO;
-using System.Configuration;
-using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -38,7 +32,7 @@ namespace Portal.Consultoras.Web.WebPages
                 bool isMobile = regEx.IsMatch(uAg);
 
                 if (isMobile)
-                Response.Redirect(urlportal + "/WebPages/RecuperarClaveMobile.aspx");
+                    Response.Redirect(urlportal + "/WebPages/RecuperarClaveMobile.aspx");
 
                 DropDowListPaises();
             }
@@ -64,9 +58,7 @@ namespace Portal.Consultoras.Web.WebPages
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             try
             {
-                string password = "";
-                string mensaje = "";
-                List<BEUsuarioCorreo> lst;
+                string mensaje = ""; string password = "";
                 Dictionary<string, object> datos = serializer.Deserialize<Dictionary<string, object>>(data);
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -74,13 +66,10 @@ namespace Portal.Consultoras.Web.WebPages
                     string correo = datos["Correo"].ToString();
                     int codigoPais = Convert.ToInt32(datos["IdPais"].ToString());
 
-                    lst = sv.SelectByEmail(correo, codigoPais).ToList();
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(lst[0].CodigoISO);
+                    var lst = sv.SelectByEmail(correo, codigoPais).ToList();
 
-                    // 1891 - Inicio
                     if (codigoPais.ToString().Trim() == "4")
-                    {// 1895 - Inicio
+                    {
                         if (lst.Count == 0)
                         {
                             return serializer.Serialize(new
@@ -90,21 +79,18 @@ namespace Portal.Consultoras.Web.WebPages
                                 mensaje = "El Número de Cédula ingresado no existe."
                             });
                         }
-                        else
+
+                        correo = lst[0].Descripcion; // contiene el correo del destinatario
+                        if (correo.Trim() == "")
                         {
-                            correo = lst[0].Descripcion; // contiene el correo del destinatario
-                            if (correo.Trim() == "")
+                            return serializer.Serialize(new
                             {
-                                return serializer.Serialize(new
-                                {
-                                    succes = false,
-                                    pais = codigoPais,
-                                    mensaje = "No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente 0-8000-9-37452"
-                                });
-                            }
-                        }// 1895 - Fin
+                                succes = false,
+                                pais = codigoPais,
+                                mensaje = "No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente 0-8000-9-37452"
+                            });
+                        }
                     }
-                    // 1891 - Fin
 
                     if (lst[0].Cantidad == 0)
                         return serializer.Serialize(new
@@ -143,7 +129,7 @@ namespace Portal.Consultoras.Web.WebPages
                                                                                     "<td width='722' valign='top' style='background:#E5E5E5; line-height: 18px; padding: 20px 20px 30px 20px;'>" +
                                                                                         "<table width='100%' border='0' cellpadding='0'>" +
                                                                                             "<tr>" +
-                                                                                                "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'><b>Hola:</b> " + lst[0].Nombre + "</td>" +
+                                                                                                "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'><b>Hola:</b> " + lst[0].NombreCompleto + "</td>" +
                                                                                             "</tr>" +
                                                                                             "<tr>" +
                                                                                                 "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'>" +
@@ -219,8 +205,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClave - RecuperarClaveCS");
+
                 return serializer.Serialize(new
                 {
                     succes = false,

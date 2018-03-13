@@ -13,37 +13,37 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string UsuarioComunidad = Convert.ToString(Request.QueryString["UC"]);
-            string Tipo = Convert.ToString(Request.QueryString["T"]);
+            string usuarioComunidad = Convert.ToString(Request.QueryString["UC"]);
+            string tipo = Convert.ToString(Request.QueryString["T"]);
 
             Uri urlPortal = Util.GetUrlHost(Request);
             string urlLogin = string.Format("{0}/Login", urlPortal.AbsolutePath);
 
-            if (!string.IsNullOrEmpty(UsuarioComunidad))
+            if (!string.IsNullOrEmpty(usuarioComunidad))
             {
-                BEUsuarioComunidad usuario = null;
+                BEUsuarioComunidad usuario;
                 using (ComunidadServiceClient sv = new ComunidadServiceClient())
                 {
                     usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
                     { 
                         UsuarioId = 0,
-                        CodigoUsuario = UsuarioComunidad,
+                        CodigoUsuario = usuarioComunidad,
                         Tipo = 2
                     });
                 }
 
-                if (Tipo == "0")
+                if (tipo == "0")
                 {
                     if (usuario != null)
                     {
-                        string XmlPath = Server.MapPath("~/Key");
-                        string KeyPath = Path.Combine(XmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                        string xmlPath = Server.MapPath("~/Key");
+                        string keyPath = Path.Combine(xmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                        SSOClient.init(KeyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                        SSOClient.init(keyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
                         Hashtable settingsMap = new Hashtable();
                         settingsMap.Add("profile.name_first", usuario.Nombre);
                         settingsMap.Add("profile.name_last", usuario.Apellido);
-                        //settingsMap.Add("profile.im_id_aim", "janem04");
+
                         if (!string.IsNullOrEmpty(usuario.Rol))
                         {
                             settingsMap.Add("roles.grant", usuario.Rol);
@@ -57,13 +57,13 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     if (usuario != null)
                     {
-                        string Consultora = Convert.ToString(Request.QueryString["CO"]);
+                        string consultora = Convert.ToString(Request.QueryString["CO"]);
 
-                        Session["UserData"] = null;
+                        SessionManager.SessionManager.Instance.SetUserData(null);
                         Session.Clear();
                         Session.Abandon();
 
-                        if (Consultora == "1")
+                        if (consultora == "1")
                         {
                             Response.Redirect(urlLogin);
                         }
@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.WebPages
         [WebMethod]
         public static string ValidarUsuarioConsultora(string usuario)
         {
-            bool result = false;
+            bool result;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 result = sv.GetUsuarioByConsultora(new BEUsuarioComunidad()

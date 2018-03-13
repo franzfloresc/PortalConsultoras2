@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -61,18 +57,6 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAOfertaFlexipago(paisID);
             return dataAccess.GetCategoriaByConsultora(CampaniaID, CodigoConsultora);
         }
-
-        //public int ValidarPriorizacionFlexipago(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden)
-        //{
-        //    var dataAccess = new DAOfertaFlexipago(paisID);
-        //    return dataAccess.ValidarPriorizacionFlexipago(ConfiguracionOfertaID, CampaniaID, Orden);
-        //}
-
-        //public int GetOrdenPriorizacionFlexipago(int paisID, int ConfiguracionOfertaID, int CampaniaID)
-        //{
-        //    var dataAccess = new DAOfertaFlexipago(paisID);
-        //    return dataAccess.GetOrdenPriorizacionFlexipago(ConfiguracionOfertaID, CampaniaID);
-        //}
 
         public int InsOfertaFlexipago(BEOfertaFlexipago entity)
         {

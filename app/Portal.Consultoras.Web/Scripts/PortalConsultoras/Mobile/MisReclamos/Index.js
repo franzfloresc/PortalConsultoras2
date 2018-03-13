@@ -8,9 +8,8 @@ $(document).ready(function () {
     PortalConsultorasReclamos = function () {
 
         var me = this;
-        
+
         me.Variables = {
-            //BtnAgregar: '#btnAgregar',
             IrPaso1: '#IrPaso1',
             VerDetalleCDR: ".abrir_detallemb",
             cdrweb_id: ".cdrweb_id",
@@ -22,19 +21,19 @@ $(document).ready(function () {
             cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
             cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
         };
-        
+
         me.Eventos = {
-            
+
             bindEvents: function () {
 
                 $(document).on('click', me.Variables.IrPaso1, function () {
-                    if (mensajeGestionCdrInhabilitada != '') {                     
+                    if (mensajeGestionCdrInhabilitada != '') {
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').html(mensajeGestionCdrInhabilitada);
                         $('#popupInformacionSB2Error').show();
 
                         return false;
                     }
-                    console.log('Proceder con el registro');
+
                     window.location.href = urlReclamo;
                 });
 
@@ -89,11 +88,9 @@ $(document).ready(function () {
         };
 
         me.Constantes = {
-            //PromocionNoDisponible: "Esta promoción no se encuentra disponible."
         };
 
         me.Funciones = {
-            //BuscarPorCUV: function (CUV) { }
         };
 
         me.Inicializar = function () {

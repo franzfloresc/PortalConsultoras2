@@ -13,13 +13,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebMotivoOperacion.InsCDRWebMotivoOperacion(entity);
+                    retorno = daCdrWebMotivoOperacion.InsCDRWebMotivoOperacion(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -35,13 +37,15 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                var retorno = 0;
-                var DACDRWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
-                TransactionOptions oTransactionOptions = new TransactionOptions();
-                oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                int retorno;
+                var daCdrWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    retorno = DACDRWebMotivoOperacion.DelCDRWebMotivoOperacion(entity);
+                    retorno = daCdrWebMotivoOperacion.DelCDRWebMotivoOperacion(entity);
                     oTransactionScope.Complete();
                 }
                 return retorno;
@@ -58,14 +62,16 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             try
             {
-                var DACDRWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
-                using (IDataReader reader = DACDRWebMotivoOperacion.GetCDRWebMotivoOperacion(entity))
+                var daCdrWebMotivoOperacion = new DACDRWebMotivoOperacion(PaisID);
+                using (IDataReader reader = daCdrWebMotivoOperacion.GetCDRWebMotivoOperacion(entity))
                 {
                     while (reader.Read())
                     {
-                        var entidad = new BECDRWebMotivoOperacion(reader);
-                        entidad.CDRMotivoReclamo = new BECDRMotivoReclamo(reader);
-                        entidad.CDRTipoOperacion = new BECDRTipoOperacion(reader);
+                        var entidad = new BECDRWebMotivoOperacion(reader)
+                        {
+                            CDRMotivoReclamo = new BECDRMotivoReclamo(reader),
+                            CDRTipoOperacion = new BECDRTipoOperacion(reader)
+                        };
                         listaEntity.Add(entidad);
                     }
                 }
@@ -78,27 +84,5 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
-        //public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
-        //{
-        //    var listaEntity = new List<BECDRTipoOperacion>();
-        //    try
-        //    {
-        //        var DACDRWebTipoOperacion = new DACDRWebMotivoOperacion(PaisID);
-        //        using (IDataReader reader = DACDRWebTipoOperacion.GetCDRWebTipoOperacion())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var entidad = new BECDRTipoOperacion(reader);
-        //                listaEntity.Add(entidad);
-        //            }
-        //        }
-        //        return listaEntity;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return null;
-        //        throw;               
-        //    }
-        //}
     }
 }

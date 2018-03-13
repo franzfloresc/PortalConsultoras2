@@ -1,5 +1,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyFechaGetCantidadProductos = "fechaGetCantidadProductos";
         private const string keyCantidadGetCantidadProductos = "cantidadGetCantidadProductos";
 
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
         #endregion
@@ -32,26 +32,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// <returns></returns>
         public ActionResult Procesar()
         {
-            var userData = (UsuarioModel)Session["UserData"];
+            var model = new ShowRoomBannerLateralModel();
+            var zonaHoraria = 0d;
+            var fechaInicioCampania = DateTime.Now.Date;
+
+            var userData = sessionManager.GetUserData();
             if (userData != null)
+            {
                 CargarEntidadesShowRoom(userData);
+
+                model.BEShowRoom = userData.BeShowRoom;
+                zonaHoraria = userData.ZonaHoraria;
+                fechaInicioCampania = userData.FechaInicioCampania;
+            }
 
             var esShowRoom = false;
 
-            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
-            model.BEShowRoom = userData.BeShowRoom;
-
-            if (model.BEShowRoom == null)
+            if (model.BEShowRoom != null)
             {
-                model.BEShowRoom = new BEShowRoomEvento();
-            }
+                var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
 
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
-                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
-            {
-                esShowRoom = true && OfertaShowRoom() != null;
+                if ((fechaHoy >= fechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                    fechaHoy <= fechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
+                {
+                    esShowRoom = OfertaShowRoom() != null;
+                }
             }
 
             return esShowRoom ?
@@ -77,7 +82,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
             if (mostrarPopupIntriga)
             {
@@ -87,10 +91,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
-            if (query != null)
+            if (!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
-                string[] lista = param.Split(new char[] { ';' });
+                string[] lista = param.Split(';');
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                 {
@@ -104,16 +108,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
 
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
-
-                        Entidad.CodigoConsultora = lista[2];
-                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
+                        {
+                            CodigoConsultora = lista[2],
+                            CampaniaID = Convert.ToInt32(lista[3])
+                        };
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
                         }
                     }
                 }
@@ -169,7 +174,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
+                model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
                 model.Celular = userData.Celular;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
@@ -223,7 +228,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
@@ -244,7 +249,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (query != null)
             {
                 string param = Util.Decrypt(query);
-                string[] lista = param.Split(new char[] { ';' });
+                string[] lista = param.Split(';');
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                 {
@@ -260,16 +265,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
-                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
-
-                        Entidad.CodigoConsultora = lista[2];
-                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        BEShowRoomEventoConsultora entidad = new BEShowRoomEventoConsultora
+                        {
+                            CodigoConsultora = lista[2],
+                            CampaniaID = Convert.ToInt32(lista[3])
+                        };
 
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, entidad);
                         }
 
                     }
@@ -291,7 +297,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-
+            modelo.EstrategiaId = id;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 

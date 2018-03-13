@@ -1,0 +1,171 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@model PartialSectionBpt
+@{
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
+    RevistaDigitalModel revistaDigital = Model.RevistaDigital;
+
+    var urlLogo = revistaDigital.MLogoComercialNoActiva;
+    if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
+    {
+        urlLogo = revistaDigital.MLogoComercialActiva;
+    }
+}
+
+@if (revistaDigital.TieneRDC)
+{
+    if (revistaDigital.EsActiva)
+    {
+        <div class="mob_home_bpt">
+            <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                <div class="cabecera_pedido_rd">
+                    <div class="rd_logo">
+                        <img src="@urlLogo" alt="" class="small">
+                    </div>
+                    <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                </div>
+            </div>
+            <div id="divContenedorListaEstrategia">
+                <div id="divListadoEstrategia2">
+                    <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" alt="" /><br /></div>
+                </div>
+                <hr class="clear" />
+                <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
+                    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                         data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion"></div>
+                </div>
+            </div>
+
+            <hr class="clear" />
+            <div class="mob_carrusel_bpt">
+                <div class="wrapper_resumen_mobile">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER MÁS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="rd_verofertas">
+                <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                <div class="btn_white_stroke">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="banner_pedido_rd">
+                <div class="cabecera_pedido_rd">
+                    <div class="rd_logo">
+                        <img src="@urlLogo" alt="" class="small">
+                    </div>
+                    <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                </div>
+                <div class="banner_pedido_masofertas">
+                    <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                    <div class="btn_red">
+                        <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER TODAS MIS OFERTAS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="clear" />
+        @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
+                            new ViewDataDictionary {
+                { "Source", 2 },
+                { "NombreConsultora", revistaDigital.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+                { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                            });
+    }
+}
+else if (revistaDigital.TieneRDI)
+{
+    <div class="wrapper_resumen_mobile">
+        <div class="banner_pedido_rd">
+            <div class="cabecera_pedido_rd">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="small">
+                </div>
+                <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+            </div>
+            <div class="banner_pedido_masofertas">
+                <div class="banner_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                <div class="btn_red">
+                    <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="clear" />
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
+                new ViewDataDictionary {
+    { "Source", 2 },
+    { "NombreConsultora", revistaDigital.NombreConsultora },
+    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+    { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                });
+}
+else if (revistaDigital.TieneRDR)
+{
+    <div class="mob_home_bpt">
+        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+            <div class="cabecera_pedido_rd">
+                <div class="rd_logo">
+                    <img src="@urlLogo" alt="" class="small">
+                </div>
+                <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+            </div>
+        </div>
+        <div id="divContenedorListaEstrategia">
+            <div id="divListadoEstrategia2">
+                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" alt="" /><br /></div>
+            </div>
+            <hr class="clear" />
+            <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
+                <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                     data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion"></div>
+            </div>
+        </div>
+
+        <hr class="clear" />
+        <div class="mob_carrusel_bpt">
+            <div class="wrapper_resumen_mobile">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                    VER MÁS OFERTAS
+                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" alt="" />
+                </a>
+            </div>
+        </div>
+
+        <div class="rd_verofertas">
+            <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+            <div class="btn_white_stroke">
+                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                    VER TODAS MIS OFERTAS
+                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" alt="" />
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
+                new ViewDataDictionary {
+    { "Source", 1 },
+    { "NombreConsultora", revistaDigital.NombreConsultora },
+    { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome },
+    { "NombrePalanca" , revistaDigital.NombreComercialNoActiva}
+                });
+}

@@ -22,62 +22,40 @@ namespace Portal.Consultoras.Web.Controllers
         private const string NombreSRHoja4 = "Ofertas (Componentes del Set)";
 
         private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
-        private const string MensajeExitoso = "Se ha descargado satisfactoriamente.";
 
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarReporteValidacion/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-            string paisISO = Util.GetPaisISO(userData.PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            string paisIso = Util.GetPaisISO(userData.PaisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-            var ReporteValidacionModel = new ReporteValidacionModel()
+            var reporteValidacionModel = new ReporteValidacionModel()
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
                 UrlS3 = urlS3
             };
-            return View(ReporteValidacionModel);
+            return View(reporteValidacionModel);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            List<BEPais> lst = new List<BEPais>();
-            lst.Add(new BEPais { PaisID = 0, Nombre = "Todos", NombreCorto = "Todos" });
-
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+            List<BEPais> lst = new List<BEPais>
+            {
+                new BEPais {PaisID = 0, Nombre = "Todos", NombreCorto = "Todos"}
+            };
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private IEnumerable<EtiquetaModel> DropDowListEtiqueta()
-        {
-            IList<BEEtiqueta> lst;
-            var entidad = new BEEtiqueta();
-            entidad.PaisID = UserData().PaisID;
-            entidad.Estado = -1;
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetEtiquetas(entidad);
-            }
-            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
-                    .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
-            return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
-        }
-
         public JsonResult ObtenerCampanias()
         {
-            int PaisID = UserData().PaisID;
-            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            int paisId = UserData().PaisID;
+            IEnumerable<CampaniaModel> lst = DropDowListCampanias(paisId);
 
             return Json(new
             {
@@ -85,20 +63,13 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int paisId)
         {
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = sv.SelectCampanias(PaisID);
+                lst = sv.SelectCampanias(paisId);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -153,7 +124,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (int.Parse(TipoEstrategiaID) == 7)
                 nombreReporte = NombreReporteValidacionODD;
 
-
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetReporteValidacion(UserData().PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
@@ -174,35 +144,36 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
+        [Obsolete("Migrado PL50-50")]
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
             List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
             List<string> nombresHojas = new List<string>();
 
-            List<BEReporteValidacionSRCampania> lstSRCampania = new List<BEReporteValidacionSRCampania>();
-            List<BEReporteValidacionSRPersonalizacion> lstSRPersonalizacion = new List<BEReporteValidacionSRPersonalizacion>();
-            List<BEReporteValidacionSROferta> lstSROferta = new List<BEReporteValidacionSROferta>();
-            List<BEReporteValidacionSRComponentes> lstSRComponente = new List<BEReporteValidacionSRComponentes>();
+            List<BEReporteValidacionSRCampania> lstSrCampania;
+            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion;
+            List<BEReporteValidacionSROferta> lstSrOferta;
+            List<BEReporteValidacionSRComponentes> lstSrComponente;
             string nombreReporte = NombreReporteValidacionSR;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lstSRCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSRPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSROferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                lstSRComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSrOferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
+                lstSrComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList(); //migrado
             }
 
-            if (lstSRCampania.Count == 0 && lstSRPersonalizacion.Count == 0 && lstSROferta.Count == 0 && lstSRComponente.Count == 0)
+            if (lstSrCampania.Count == 0 && lstSrPersonalizacion.Count == 0 && lstSrOferta.Count == 0 && lstSrComponente.Count == 0)
                 return Content("<script>alert('" + MensajeNoHayRegistros + "')</script>");
 
-            List<ReporteValidacionSRModel> listSRCampaniaModel = new List<ReporteValidacionSRModel>();
-            List<ReporteValidacionSRModel> lstSRPersonalizacionModel = new List<ReporteValidacionSRModel>();
-            List<ReporteValidacionSRModel> lstSROfertaModel = new List<ReporteValidacionSRModel>();
-            List<ReporteValidacionSRModel> lstSRComponenteModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> listSrCampaniaModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSrPersonalizacionModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSrOfertaModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSrComponenteModel = new List<ReporteValidacionSRModel>();
 
-            lstSRCampania.ForEach(x => listSRCampaniaModel.Add(new ReporteValidacionSRModel
+            lstSrCampania.ForEach(x => listSrCampaniaModel.Add(new ReporteValidacionSRModel
             {
                 CodPais = x.CodPais,
                 Campania = x.Campania,
@@ -216,7 +187,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }));
 
-            lstSRPersonalizacion.ForEach(x => lstSRPersonalizacionModel.Add(new ReporteValidacionSRModel
+            lstSrPersonalizacion.ForEach(x => lstSrPersonalizacionModel.Add(new ReporteValidacionSRModel
             {
                 Personalizacion = x.Personalizacion,
                 Medio = x.Medio,
@@ -235,7 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 VE = x.VE
             }));
 
-            lstSROferta.ForEach(x => lstSROfertaModel.Add(new ReporteValidacionSRModel
+            lstSrOferta.ForEach(x => lstSrOfertaModel.Add(new ReporteValidacionSRModel
             {
                 CodPais = x.CodPais,
                 Campania = x.Campania,
@@ -253,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }));
 
-            lstSRComponente.ForEach(x => lstSRComponenteModel.Add(new ReporteValidacionSRModel
+            lstSrComponente.ForEach(x => lstSrComponenteModel.Add(new ReporteValidacionSRModel
             {
                 CodPais = x.CodPais,
                 Campania = x.Campania,
@@ -265,10 +236,10 @@ namespace Portal.Consultoras.Web.Controllers
                 FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
-            lst.Add(listSRCampaniaModel);
-            lst.Add(lstSRPersonalizacionModel);
-            lst.Add(lstSROfertaModel);
-            lst.Add(lstSRComponenteModel);
+            lst.Add(listSrCampaniaModel);
+            lst.Add(lstSrPersonalizacionModel);
+            lst.Add(lstSrOfertaModel);
+            lst.Add(lstSrComponenteModel);
 
             lstConfiguration.Add(GetConfiguracionExcelSRCampania());
             lstConfiguration.Add(GetConfiguracionExcelSRPersonalizacion());
@@ -285,21 +256,23 @@ namespace Portal.Consultoras.Web.Controllers
             return null;
         }
 
-        private Dictionary<string, string> GetConfiguracionExcel(int tipoEstrategiaID)
+        private Dictionary<string, string> GetConfiguracionExcel(int tipoEstrategiaId)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("PALANCA", "TipoPersonalizacion");
-            dic.Add("CAMPAÑA", "AnioCampanaVenta");
-            dic.Add("CÓDIGO PAÍS", "CodPais");
-            dic.Add("CUV PADRE", "CUV2");
-            if (tipoEstrategiaID == 4)
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"PALANCA", "TipoPersonalizacion"},
+                {"CAMPAÑA", "AnioCampanaVenta"},
+                {"CÓDIGO PAÍS", "CodPais"},
+                {"CUV PADRE", "CUV2"}
+            };
+            if (tipoEstrategiaId == 4)
             {
                 dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");
             }
-            if (tipoEstrategiaID == 7)
+            if (tipoEstrategiaId == 7)
             {
-                dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
+                //dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN DE LOS COMPONENTES DEL SET", "DescripcionCorta");
             }
             dic.Add("IMAGEN", "ImagenUrl");
@@ -315,69 +288,77 @@ namespace Portal.Consultoras.Web.Controllers
 
         private Dictionary<string, string> GetConfiguracionExcelSRCampania()
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "CodPais");
-            dic.Add("Campaña", "Campania");
-            dic.Add("Nombre Evento", "NombreEvento");
-            dic.Add("Días Antes de Facturación", "DiasAntesFacturacion");
-            dic.Add("Días Después de Facturación", "DiasDespuesFacturacion");
-            dic.Add("Flag Habilitar Evento", "FlagHabilitarEvento");
-            dic.Add("Flag Habilitar Compra por Compra", "FlagHabilitarCompraXCompra");
-            dic.Add("Flag Habilitar SubCampaña", "FlagHabilitarSubCampania");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"País", "CodPais"},
+                {"Campaña", "Campania"},
+                {"Nombre Evento", "NombreEvento"},
+                {"Días Antes de Facturación", "DiasAntesFacturacion"},
+                {"Días Después de Facturación", "DiasDespuesFacturacion"},
+                {"Flag Habilitar Evento", "FlagHabilitarEvento"},
+                {"Flag Habilitar Compra por Compra", "FlagHabilitarCompraXCompra"},
+                {"Flag Habilitar SubCampaña", "FlagHabilitarSubCampania"}
+            };
             return dic;
         }
 
         private Dictionary<string, string> GetConfiguracionExcelSRPersonalizacion()
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Detalle Personalización", "Personalizacion");
-            dic.Add("Medio", "Medio");
-            dic.Add("Bolivia", "BO");
-            dic.Add("Chile", "CL");
-            dic.Add("Colombia", "CO");
-            dic.Add("Costa Rica", "CR");
-            dic.Add("Dominicana", "DO");
-            dic.Add("Ecuador", "EC");
-            dic.Add("Guatemala", "GT");
-            dic.Add("México", "MX");
-            dic.Add("Panamá", "PA");
-            dic.Add("Perú", "PE");
-            dic.Add("Puerto Rico", "PR");
-            dic.Add("Salvador", "SV");
-            dic.Add("Venezuela", "VE");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Detalle Personalización", "Personalizacion"},
+                {"Medio", "Medio"},
+                {"Bolivia", "BO"},
+                {"Chile", "CL"},
+                {"Colombia", "CO"},
+                {"Costa Rica", "CR"},
+                {"Dominicana", "DO"},
+                {"Ecuador", "EC"},
+                {"Guatemala", "GT"},
+                {"México", "MX"},
+                {"Panamá", "PA"},
+                {"Perú", "PE"},
+                {"Puerto Rico", "PR"},
+                {"Salvador", "SV"},
+                {"Venezuela", "VE"}
+            };
             return dic;
         }
 
         private Dictionary<string, string> GetConfiguracionExcelSROferta()
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "CodPais");
-            dic.Add("Campaña", "Campania");
-            dic.Add("Código TO", "CodigoTO");
-            dic.Add("SAP", "CodigoSAP");
-            dic.Add("CUV", "CUV");
-            dic.Add("Descripción", "Descripcion");
-            dic.Add("Precio Valorizado", "PrecioValorizado");
-            dic.Add("Precio Oferta", "PrecioOferta");
-            dic.Add("Unidades Permitidas", "UnidadesPermitidas");
-            dic.Add("Es Subcampaña", "EsSubCampania");
-            dic.Add("Habilitar Oferta", "HabilitarOferta");
-            dic.Add("Flag Imagen Cargada", "FlagImagenCargada");
-            dic.Add("Flag Imagen MINI", "FlagImagenMINI");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"País", "CodPais"},
+                {"Campaña", "Campania"},
+                {"Código TO", "CodigoTO"},
+                {"SAP", "CodigoSAP"},
+                {"CUV", "CUV"},
+                {"Descripción", "Descripcion"},
+                {"Precio Valorizado", "PrecioValorizado"},
+                {"Precio Oferta", "PrecioOferta"},
+                {"Unidades Permitidas", "UnidadesPermitidas"},
+                {"Es Subcampaña", "EsSubCampania"},
+                {"Habilitar Oferta", "HabilitarOferta"},
+                {"Flag Imagen Cargada", "FlagImagenCargada"},
+                {"Flag Imagen MINI", "FlagImagenMINI"}
+            };
             return dic;
         }
 
         private Dictionary<string, string> GetConfiguracionExcelSRComponentes()
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "CodPais");
-            dic.Add("Campaña", "Campania");
-            dic.Add("CUV", "CUV");
-            dic.Add("Nombre", "Nombre");
-            dic.Add("Descripción1", "Descripcion1");
-            dic.Add("Descripción2", "Descripcion2");
-            dic.Add("Descripción3", "Descripcion3");
-            dic.Add("Flag Imagen Cargada", "FlagImagenCargada");
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"País", "CodPais"},
+                {"Campaña", "Campania"},
+                {"CUV", "CUV"},
+                {"Nombre", "Nombre"},
+                {"Descripción1", "Descripcion1"},
+                {"Descripción2", "Descripcion2"},
+                {"Descripción3", "Descripcion3"},
+                {"Flag Imagen Cargada", "FlagImagenCargada"}
+            };
             return dic;
         }
     }

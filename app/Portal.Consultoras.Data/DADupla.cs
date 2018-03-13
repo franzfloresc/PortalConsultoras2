@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -28,42 +22,42 @@ namespace Portal.Consultoras.Data
 
         public int InsDupla(BEDupla dupla)
         {
-	        DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsDupla");
-	        Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, dupla.CodigoUsuario);
-	        Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, dupla.Nombre);
-	        Context.Database.AddInParameter(command, "@SegundoNombre", DbType.AnsiString, dupla.SegundoNombre);
-	        Context.Database.AddInParameter(command, "@ApellidoPaterno", DbType.AnsiString, dupla.ApellidoPaterno);
-	        Context.Database.AddInParameter(command, "@ApellidoMaterno", DbType.AnsiString, dupla.ApellidoMaterno);
-	        Context.Database.AddInParameter(command, "@Sobrenombre", DbType.AnsiString, dupla.Sobrenombre);
-	        Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.Date, dupla.FechaNacimiento);
-	        Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, dupla.eMail);
-	        Context.Database.AddInParameter(command, "@Sexo", DbType.AnsiString, dupla.Sexo);
-	        Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, dupla.Telefono);
-	        Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, dupla.Celular);
-	        Context.Database.AddInParameter(command, "@Direccion", DbType.AnsiString, dupla.Direccion);
-	        Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, dupla.Activo);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsDupla");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, dupla.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, dupla.Nombre);
+            Context.Database.AddInParameter(command, "@SegundoNombre", DbType.AnsiString, dupla.SegundoNombre);
+            Context.Database.AddInParameter(command, "@ApellidoPaterno", DbType.AnsiString, dupla.ApellidoPaterno);
+            Context.Database.AddInParameter(command, "@ApellidoMaterno", DbType.AnsiString, dupla.ApellidoMaterno);
+            Context.Database.AddInParameter(command, "@Sobrenombre", DbType.AnsiString, dupla.Sobrenombre);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.Date, dupla.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, dupla.eMail);
+            Context.Database.AddInParameter(command, "@Sexo", DbType.AnsiString, dupla.Sexo);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, dupla.Telefono);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, dupla.Celular);
+            Context.Database.AddInParameter(command, "@Direccion", DbType.AnsiString, dupla.Direccion);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, dupla.Activo);
 
-	        return Context.ExecuteNonQuery(command);
+            return Context.ExecuteNonQuery(command);
         }
 
         public int UpdDupla(BEDupla dupla)
         {
-	        DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdDupla");
-	        Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, dupla.CodigoUsuario);
-	        Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, dupla.Nombre);
-	        Context.Database.AddInParameter(command, "@SegundoNombre", DbType.AnsiString, dupla.SegundoNombre);
-	        Context.Database.AddInParameter(command, "@ApellidoPaterno", DbType.AnsiString, dupla.ApellidoPaterno);
-	        Context.Database.AddInParameter(command, "@ApellidoMaterno", DbType.AnsiString, dupla.ApellidoMaterno);
-	        Context.Database.AddInParameter(command, "@Sobrenombre", DbType.AnsiString, dupla.Sobrenombre);
-	        Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.Date, dupla.FechaNacimiento);
-	        Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, dupla.eMail);
-	        Context.Database.AddInParameter(command, "@Sexo", DbType.AnsiString, dupla.Sexo);
-	        Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, dupla.Telefono);
-	        Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, dupla.Celular);
-	        Context.Database.AddInParameter(command, "@Direccion", DbType.AnsiString, dupla.Direccion);
-	        Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, dupla.Activo);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdDupla");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, dupla.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, dupla.Nombre);
+            Context.Database.AddInParameter(command, "@SegundoNombre", DbType.AnsiString, dupla.SegundoNombre);
+            Context.Database.AddInParameter(command, "@ApellidoPaterno", DbType.AnsiString, dupla.ApellidoPaterno);
+            Context.Database.AddInParameter(command, "@ApellidoMaterno", DbType.AnsiString, dupla.ApellidoMaterno);
+            Context.Database.AddInParameter(command, "@Sobrenombre", DbType.AnsiString, dupla.Sobrenombre);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.Date, dupla.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, dupla.eMail);
+            Context.Database.AddInParameter(command, "@Sexo", DbType.AnsiString, dupla.Sexo);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, dupla.Telefono);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, dupla.Celular);
+            Context.Database.AddInParameter(command, "@Direccion", DbType.AnsiString, dupla.Direccion);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, dupla.Activo);
 
-	        return Context.ExecuteNonQuery(command);
+            return Context.ExecuteNonQuery(command);
         }
     }
 }

@@ -29,7 +29,7 @@ function GetProductoStorage(cuv, campania, nombreKey) {
             model = $("[data-item-cuv=" + cuv + "]").attr("data-estrategia");
         }
         if (model == undefined) return model;
-        
+
         model = JSON.parse(model);
         if (model != null) return model;
         else return null;
@@ -53,38 +53,28 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     try {
         tipo = $.trim(tipo);
         cuv = $.trim(cuv);
-
-        if (tipo == "" || tipo == undefined) {
-            return false;
-        }
-        if (cuv == "" || cuv == undefined) {
-            return false;
-        }
-        if (valor == undefined) {
+        
+        if (tipo === "" || cuv === "" || valor == undefined) {
             return false;
         }
 
+        var listaCuv = cuv.split('|');
+        var indCampania = indCampania || 0;
         if (tipo == "rd") {
-            var listaCuv = cuv.split('|');
-            $.each(listaCuv, function (ind, cuvItem) {
-                var cuvx = cuvItem.split(';')[0];
-                var lista =  "ListaRD";
-                var indCampania = indCampania || 0;
-
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
-            });
+            var lista = "ListaRD";
+        }
+        else if (tipo == "gn") {
+            var lista = "GNDLista";
+        }
+        else if (tipo == "hv") {
+            var lista = "HVLista";
         }
 
-        if (tipo == "gn") {
-            var listaCuv = cuv.split('|');
-            $.each(listaCuv, function (ind, cuvItem) {
-                var cuvx = cuvItem.split(';')[0];
-                var lista = "GNDLista";
-                var indCampania = indCampania || 0;
+        $.each(listaCuv, function (ind, cuvItem) {
+            var cuvx = cuvItem.split(';')[0];
+            ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
+        });
 
-                ok = ActualizarLocalStorageIsAgregado(cuvx, valor, lista, indCampania);
-            });
-        }
     } catch (e) {
         console.log(e);
     }
@@ -99,12 +89,9 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     if (valLocalStorage != null) {
         var data = JSON.parse(valLocalStorage);
 
-        ok = actualizarIsAgregado(data.response.listaLan, cuv, valor);
-
-        if (!ok) {
-            ok = actualizarIsAgregado(data.response.lista, cuv, valor);
-        }
-
+        ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
+        ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+        
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));
         }
@@ -119,7 +106,13 @@ function actualizarIsAgregado(lista, cuv, valor) {
     if (lista !== undefined) {
         $.each(lista, function (index, item) {
             if (item.CUV2 == cuv || cuv == "todo") {
-                item.IsAgregado = valor;
+                if (item.ClaseBloqueada !== "" && valor === true) {
+                    item.IsAgregado = false;
+                }
+                else {
+                    item.IsAgregado = valor;
+                }
+
                 ok = true;
                 if (cuv != "todo") {
                     return false;

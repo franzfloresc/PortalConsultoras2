@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.IO;
 using System.Net;
-using System.Configuration;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -36,42 +33,41 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEPaqueteDocumentario> GetPaqueteDocumentario(int paisID)
         {
-            List<BEPaqueteDocumentario> PaqueteDocumentarioLista = new List<BEPaqueteDocumentario>();
+            List<BEPaqueteDocumentario> paqueteDocumentarioLista = new List<BEPaqueteDocumentario>();
 
-            var DAPaqueteDocumentario = new DAPaqueteDocumentario(paisID);
-            using (IDataReader reader = DAPaqueteDocumentario.GetPaqueteDocumentario())
+            var daPaqueteDocumentario = new DAPaqueteDocumentario(paisID);
+            using (IDataReader reader = daPaqueteDocumentario.GetPaqueteDocumentario())
                 while (reader.Read())
                 {
-                    PaqueteDocumentarioLista.Add(new BEPaqueteDocumentario(reader));
+                    paqueteDocumentarioLista.Add(new BEPaqueteDocumentario(reader));
                 }
-            return PaqueteDocumentarioLista;
+            return paqueteDocumentarioLista;
         }
 
         public string[] GenerarPaqueteDocumentario(int paisID)
         {
-            string[] resultadoOperacion = {"OK"};
+            string[] resultadoOperacion = { "OK" };
 
             try
             {
-                List<BEPaqueteDocumentario> PaqueteDocumentarioLista;
-                PaqueteDocumentarioLista = GetPaqueteDocumentario(paisID);
+                var paqueteDocumentarioLista = GetPaqueteDocumentario(paisID);
 
-                string servidorFTP = ConfigurationManager.AppSettings["servidorFTP"];
+                string servidorFtp = ConfigurationManager.AppSettings["servidorFTP"];
                 string archivo = ConfigurationManager.AppSettings["archivo"];
-                string usuarioFTP = ConfigurationManager.AppSettings["usuarioFTP"];
-                string claveFTP = ConfigurationManager.AppSettings["claveFTP"];
+                string usuarioFtp = ConfigurationManager.AppSettings["usuarioFTP"];
+                string claveFtp = ConfigurationManager.AppSettings["claveFTP"];
 
-                Uri uri = new Uri(String.Format("ftp://{0}/{1}", servidorFTP, archivo));
-                FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(uri);
-                reqFTP.Credentials = new NetworkCredential(usuarioFTP, claveFTP);
-                reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
-                reqFTP.KeepAlive = false;
-                reqFTP.UsePassive = false;
+                Uri uri = new Uri(String.Format("ftp://{0}/{1}", servidorFtp, archivo));
+                FtpWebRequest reqFtp = (FtpWebRequest)FtpWebRequest.Create(uri);
+                reqFtp.Credentials = new NetworkCredential(usuarioFtp, claveFtp);
+                reqFtp.Method = WebRequestMethods.Ftp.UploadFile;
+                reqFtp.KeepAlive = false;
+                reqFtp.UsePassive = false;
 
                 MemoryStream stIn = new MemoryStream();
                 using (StreamWriter sw = new StreamWriter(stIn))
                 {
-                    foreach (BEPaqueteDocumentario row in PaqueteDocumentarioLista)
+                    foreach (BEPaqueteDocumentario row in paqueteDocumentarioLista)
                     {
                         string codigo = row.codigoConsultora;
                         codigo = codigo.PadRight(15, ' ');
@@ -79,22 +75,22 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     sw.Flush();
-                    using (Stream stOut = reqFTP.GetRequestStream())
+                    using (Stream stOut = reqFtp.GetRequestStream())
                     {
                         stOut.Write(stIn.GetBuffer(), 0, (int)stIn.Length);
                     }
                 }
 
-                FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+                FtpWebResponse response = (FtpWebResponse)reqFtp.GetResponse();
                 response.Close();
-                
+
                 return resultadoOperacion;
             }
             catch (Exception)
             {
                 return null;
             }
-            
+
         }
     }
 }

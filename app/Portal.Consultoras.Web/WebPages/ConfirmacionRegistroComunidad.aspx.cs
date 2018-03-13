@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using LithiumSSOClient;
+﻿using LithiumSSOClient;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System;
+using System.Collections;
+using System.Configuration;
+using System.IO;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -20,60 +16,56 @@ namespace Portal.Consultoras.Web.WebPages
         {
             try
             {
-                if (!Page.IsPostBack)
-                {
-                    if (Request.QueryString["data"] != null)
-                    {
-                        //Formato que envia la url: CodigoUsuario;IdPais
-                        string[] query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
+                if (Page.IsPostBack) return;
+                if (Request.QueryString["data"] == null) return;
 
-                        using (ComunidadServiceClient sv = new ComunidadServiceClient())
+                //Formato que envia la url: CodigoUsuario;IdPais
+                string[] query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
+
+                using (ComunidadServiceClient sv = new ComunidadServiceClient())
+                {
+                    if (Convert.ToInt32(query[1]) == 0)
+                    {
+                        sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
                         {
-                            if (Convert.ToInt32(query[1]) == 0)
-                            {
-                                sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
-                                {
-                                    UsuarioId = Convert.ToInt64(query[0]),
-                                    Tipo = Convert.ToInt32(query[1]),
-                                    PaisId = Convert.ToInt32(query[2])
-                                });
-                            }
-                            else
-                            {
-                                sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
-                                {
-                                    UsuarioId = Convert.ToInt64(query[0]),
-                                    Tipo = Convert.ToInt32(query[1]),
-                                    PaisId = Convert.ToInt32(query[2]),
-                                    CodigoUsuarioSB = Convert.ToString(query[3]),
-                                    CodigoConsultoraSB = Convert.ToString(query[4])
-                                });
-                            }
-                        }
-                        hdfUsuario.Value = query[0];
-                        hdfTipo.Value = query[1];
-                        hdfPaisId.Value = query[2];
-                        hdfUsuarioSB.Value = query[3];
+                            UsuarioId = Convert.ToInt64(query[0]),
+                            Tipo = Convert.ToInt32(query[1]),
+                            PaisId = Convert.ToInt32(query[2])
+                        });
+                    }
+                    else
+                    {
+                        sv.UpdUsuarioCorreoActivo(new BEUsuarioComunidad()
+                        {
+                            UsuarioId = Convert.ToInt64(query[0]),
+                            Tipo = Convert.ToInt32(query[1]),
+                            PaisId = Convert.ToInt32(query[2]),
+                            CodigoUsuarioSB = Convert.ToString(query[3]),
+                            CodigoConsultoraSB = Convert.ToString(query[4])
+                        });
                     }
                 }
+                hdfUsuario.Value = query[0];
+                hdfTipo.Value = query[1];
+                hdfPaisId.Value = query[2];
+                hdfUsuarioSB.Value = query[3];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //lblConfirmacion.Text = ex.Message;
-                //lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ConfirmacionRegistroComunidad - Page_Load");
             }
         }
 
         protected void btnIngreso_Click(object sender, EventArgs e)
         {
-            int TipoUsuario = 0;
-            BEUsuario oBEUsuario = null;
+            int tipoUsuario = 0;
+            BEUsuario obeUsuario = null;
 
             if (Convert.ToInt32(hdfTipo.Value) != 0)
             {
                 //Validacion Inicio
 
-                TipoUsuario = 2;
+                tipoUsuario = 2;
                 //2: Consultora
                 //3: Colaborador
                 //4: Lider
@@ -81,31 +73,29 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    oBEUsuario = sv.GetSesionUsuario(Convert.ToInt32(hdfPaisId.Value), hdfUsuarioSB.Value);
+                    obeUsuario = sv.GetSesionUsuario(Convert.ToInt32(hdfPaisId.Value), hdfUsuarioSB.Value);
                 }
 
-                if (oBEUsuario.Lider == 1)
+                if (obeUsuario.Lider == 1)
                 {
-                    TipoUsuario = 4;
+                    tipoUsuario = 4;
                 }
                 else
                 {
-                    int EsColaborador = 0;
+                    int esColaborador;
                     using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        EsColaborador = sv.GetValidarColaboradorZona(oBEUsuario.PaisID, oBEUsuario.CodigoZona);
+                        esColaborador = sv.GetValidarColaboradorZona(obeUsuario.PaisID, obeUsuario.CodigoZona);
                     }
 
-                    if (EsColaborador == 1)
+                    if (esColaborador == 1)
                     {
-                        TipoUsuario = 3;
+                        tipoUsuario = 3;
                     }
                 }
-
-                //Validacion Final
             }
 
-            BEUsuarioComunidad usuario = null;
+            BEUsuarioComunidad usuario;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
             {
                 usuario = sv.GetUsuarioInformacion(new BEUsuarioComunidad()
@@ -113,16 +103,16 @@ namespace Portal.Consultoras.Web.WebPages
                     UsuarioId = Convert.ToInt64(hdfUsuario.Value),
                     CodigoUsuario = string.Empty,
                     Tipo = 1,
-                    TipoUsuario = TipoUsuario
+                    TipoUsuario = tipoUsuario
                 });
             }
 
             if (usuario != null)
             {
-                string XmlPath = Server.MapPath("~/Key");
-                string KeyPath = Path.Combine(XmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                string xmlPath = Server.MapPath("~/Key");
+                string keyPath = Path.Combine(xmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                SSOClient.init(KeyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                SSOClient.init(keyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
                 Hashtable settingsMap = new Hashtable();
 
                 if (Convert.ToInt32(hdfTipo.Value) == 0)
@@ -132,20 +122,20 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    if (oBEUsuario != null)
+                    if (obeUsuario != null)
                     {
-                        settingsMap.Add("profile.name_first", oBEUsuario.PrimerNombre);
-                        settingsMap.Add("profile.name_last", oBEUsuario.PrimerApellido);
-                        settingsMap.Add("profile.codigo_consultora", oBEUsuario.CodigoConsultora);
-                        settingsMap.Add("profile.pais", oBEUsuario.CodigoISO);
-                        settingsMap.Add("profile.zona", oBEUsuario.CodigoZona);
-                        settingsMap.Add("profile.region", oBEUsuario.CodigorRegion);
+                        settingsMap.Add("profile.name_first", obeUsuario.PrimerNombre);
+                        settingsMap.Add("profile.name_last", obeUsuario.PrimerApellido);
+                        settingsMap.Add("profile.codigo_consultora", obeUsuario.CodigoConsultora);
+                        settingsMap.Add("profile.pais", obeUsuario.CodigoISO);
+                        settingsMap.Add("profile.zona", obeUsuario.CodigoZona);
+                        settingsMap.Add("profile.region", obeUsuario.CodigorRegion);
                         settingsMap.Add("profile.seccion", string.Empty);
-                        settingsMap.Add("profile.lider", oBEUsuario.Lider.ToString());
-                        settingsMap.Add("profile.seccion_lider", oBEUsuario.SeccionGestionLider);
+                        settingsMap.Add("profile.lider", obeUsuario.Lider.ToString());
+                        settingsMap.Add("profile.seccion_lider", obeUsuario.SeccionGestionLider);
                         settingsMap.Add("profile.gz", string.Empty);
                         settingsMap.Add("profile.ubigeo", string.Empty);
-                        settingsMap.Add("profile.campania_actual", oBEUsuario.CampaniaID.ToString());
+                        settingsMap.Add("profile.campania_actual", obeUsuario.CampaniaID.ToString());
                     }
                 }
 

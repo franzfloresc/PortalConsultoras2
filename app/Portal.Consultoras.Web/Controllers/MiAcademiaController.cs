@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net;
@@ -19,18 +18,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string key = ConfigurationManager.AppSettings["secret_key"];
-                string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
-                string token;
-                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLms = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLMS);
+                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-                string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
-                bool exito = false;
+                string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
-                string NivelProyectado = "";
-                string SeccionGestionLider = "";
-                DataSet parametros = null;
+                string nivelProyectado = "";
+                DataSet parametros;
 
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
@@ -39,49 +34,42 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (parametros != null && parametros.Tables.Count > 0)
                 {
-                    SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString();
-                    NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                    SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
                 }
 
-                ws_server svcLMS = new ws_server();
-                result getUser = new result();
+                ws_server svcLms = new ws_server();
                 result createUser = new result();
 
-                getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
-                token = getUser.token;
+                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
+                var token = getUser.token;
 
                 if (getUser.codigo == "002")
                 {
-                    createUser = svcLMS.ws_servercreate_user(
-                        IsoUsuario,
+                    createUser = svcLms.ws_servercreate_user(
+                        isoUsuario,
                         userData.NombreConsultora,
                         eMail,
                         userData.CampaniaID.ToString(),
                         userData.CodigorRegion,
                         userData.CodigoZona,
-                        userData.SegmentoConstancia.ToString(),
-                        userData.SeccionAnalytics.ToString(),
+                        userData.SegmentoConstancia,
+                        userData.SeccionAnalytics,
                         userData.Lider.ToString(),
                         userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider.ToString(),
-                        userData.SeccionGestionLider.ToString(),
-                        NivelProyectado,
+                        userData.CampaniaInicioLider,
+                        userData.SeccionGestionLider,
+                        nivelProyectado,
                         key);
                     token = createUser.token;
                 }
 
-                exito = true;
+                var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
+                              createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                    createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
-                {
-                    exito = false;
-                }
+                urlLms = String.Format(urlLms, isoUsuario, token);
 
-                urlLMS = String.Format(urlLMS, IsoUsuario, token);
-
-                return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
+                if (HttpContext.Request.UrlReferrer != null)
+                    return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
             }
             catch (Exception ex)
             {
@@ -94,18 +82,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string key = ConfigurationManager.AppSettings["secret_key"];
-                string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
-                string token;
-                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLms = GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
+                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
-                string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
-                bool exito = false;
+                string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
-                string NivelProyectado = "";
-                string SeccionGestionLider = "";
-                DataSet parametros = null;
+                string nivelProyectado = "";
+                DataSet parametros;
 
                 using (ContenidoServiceClient csv = new ContenidoServiceClient())
                 {
@@ -114,35 +98,42 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (parametros != null && parametros.Tables.Count > 0)
                 {
-                    SeccionGestionLider = parametros.Tables[0].Rows[0][0].ToString();
-                    NivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                    SeccionGestionLider = SeccionGestionLider.Length == 0 ? "" : SeccionGestionLider.Substring(6);
+                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
                 }
 
-                ws_server svcLMS = new ws_server();
-                result getUser = new result();
+                ws_server svcLms = new ws_server();
                 result createUser = new result();
 
-                getUser = svcLMS.ws_serverget_user(IsoUsuario, userData.CampaniaID.ToString(), key);
-                token = getUser.token;
+                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
+                var token = getUser.token;
 
                 if (getUser.codigo == "002")
                 {
-                    createUser = svcLMS.ws_servercreate_user(IsoUsuario, userData.NombreConsultora, eMail, userData.CampaniaID.ToString(), userData.CodigorRegion, userData.CodigoZona, userData.SegmentoConstancia.ToString(), userData.SeccionAnalytics.ToString(), userData.Lider.ToString(), userData.NivelLider.ToString(), userData.CampaniaInicioLider.ToString(), userData.SeccionGestionLider.ToString(), NivelProyectado, key);
+                    createUser = svcLms.ws_servercreate_user(
+                        isoUsuario,
+                        userData.NombreConsultora,
+                        eMail,
+                        userData.CampaniaID.ToString(),
+                        userData.CodigorRegion,
+                        userData.CodigoZona,
+                        userData.SegmentoConstancia,
+                        userData.SeccionAnalytics,
+                        userData.Lider.ToString(),
+                        userData.NivelLider.ToString(),
+                        userData.CampaniaInicioLider,
+                        userData.SeccionGestionLider,
+                        nivelProyectado,
+                        key);
                     token = createUser.token;
                 }
 
-                exito = true;
+                var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
+                              createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
 
-                if (getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
-                    createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004")
-                {
-                    exito = false;
-                }
+                urlLms = String.Format(urlLms, isoUsuario, token, idcurso);
 
-                urlLMS = String.Format(urlLMS, IsoUsuario, token, idcurso);
-
-                return Redirect(exito ? urlLMS : HttpContext.Request.UrlReferrer.AbsoluteUri);
+                if (HttpContext.Request.UrlReferrer != null)
+                    return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
             }
             catch (Exception ex)
             {
@@ -151,36 +142,30 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        private string GetCampaniaLider(int paisID, long ConsultoraID, string CodigoPais)
-        {
-            ContenidoServiceClient sv = new ContenidoServiceClient();
-            return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
-        }
-
         private List<MiCurso> ValidadCursosMA()
         {
             try
             {
-                string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
-                string token = ConfigurationManager.AppSettings["TokenMisCursos"];
-                string urlCurso = ConfigurationManager.AppSettings["UrlCursoMiAcademia"];
-                string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
+                string urlMc = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
+                string token = GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
+                string urlCurso = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
+                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 int max = 4;
                 if (ViewBag.CodigoISODL == "VE") max = 3;
-                urlMC = String.Format(urlMC, IsoUsuario);
+                urlMc = String.Format(urlMc, isoUsuario);
 
                 using (WebClient client = new WebClient())
                 {
                     client.Proxy = null;
                     client.Headers.Add("Content-Type", "application/json");
                     client.Headers.Add("token", token);
-                    string json = client.DownloadString(urlMC);
+                    string json = client.DownloadString(urlMc);
 
                     if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
                         model.Cursos = model.Cursos ?? new List<MiCurso>();
-                        var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+                        var lstCursos = model.Cursos.OrderBy(x => x.estado).Take(max).ToList();
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 
@@ -204,13 +189,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<MiCurso> MisCursosMA = ValidadCursosMA();
-                if (MisCursosMA.Any())
+                List<MiCurso> misCursosMa = ValidadCursosMA();
+                if (misCursosMa.Any())
                 {
                     return Json(new
                     {
                         success = true,
-                        data = MisCursosMA,
+                        data = misCursosMa,
                     }, JsonRequestBehavior.AllowGet);
                 }
 

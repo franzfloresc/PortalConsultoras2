@@ -6,20 +6,6 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
-@*<div class="content_banner_intriga">
-    <div class="texto_dias_intriga">
-        @if (ViewBag.DiasFaltan == 1)
-        {
-            <text>FALTA 1 DÍA</text>
-        }
-        else
-        {
-            <text>FALTAN @ViewBag.DiasFaltan DÍAS</text>
-        }
-    </div>
-
-    <img src="@ViewBag.urlImagenPopupIntriga" />
-</div>*@
 <div class="content_belcorp" style="text-align:center;">
     <div class="content_set_intriga">
 
@@ -218,7 +204,6 @@
                     error: function (response, error) {
                         if (checkTimeout(response)) {
                             closeWaitingDialog();
-                            console.log(response);
                         }
                     }
                 });

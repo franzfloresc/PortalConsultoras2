@@ -6,7 +6,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Data;//R1957
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -46,11 +46,10 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 ViewBag.FaltanteUltimoMinuto = 0;
 
-            ViewBag.PaisID = UserData().PaisID;//R1957
+            ViewBag.PaisID = UserData().PaisID;
             return View(gestionfaltantemodel);
         }
 
-        //R1957
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int paisID, string vBusqueda1,
                                      string vBusqueda2, string vBusqueda3, int campaniaID, String fecha, int flagPaginacion = 1)
         {
@@ -61,7 +60,6 @@ namespace Portal.Consultoras.Web.Controllers
                     List<BEProductoFaltante> lst;
                     using (SACServiceClient srv = new SACServiceClient())
                     {
-                        //En caso tenga error en maximum message, habilitar el MaxReceivedMessageSize 2147483647.
                         ((BasicHttpBinding)srv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
 
                         BEProductoFaltante producto = new BEProductoFaltante()
@@ -70,23 +68,23 @@ namespace Portal.Consultoras.Web.Controllers
                             Zona = vBusqueda1,
                             CUV = vBusqueda2,
                             Descripcion = vBusqueda3,
-                            Fecha = (fecha != null) ? fecha : ""//R1957 – ECM - Se modifico el parámetro en caso no se ingrese fecha
+                            Fecha = fecha ?? ""
                         };
 
                         lst = srv.GetProductoFaltanteByEntity(paisID, producto, sidx, sord, page, flagPaginacion, rows).ToList();
                     }
 
-                    int Records = 0, TotalPages = 0;
+                    int records = 0, totalPages = 0;
                     if (lst.Count > 0)
                     {
-                        TotalPages = lst[0].TotalPages;
-                        Records = lst[0].RowsCount;
+                        totalPages = lst[0].TotalPages;
+                        records = lst[0].RowsCount;
                     }
                     var data = new
                     {
-                        total = TotalPages,
+                        total = totalPages,
                         page = page,
-                        records = Records,
+                        records = records,
                         rows = from a in lst
                                select new
                                {
@@ -95,11 +93,11 @@ namespace Portal.Consultoras.Web.Controllers
                                    {
                                        a.ZonaID.ToString(),
                                        a.CampaniaID.ToString(),
-                                       a.Codigo, // Se regresa a mostrar el código - 1957
+                                       a.Codigo,
                                        a.CUV,
                                        a.Descripcion,
                                        a.FaltanteUltimoMinuto?"SI":"NO",
-                                       a.Fecha.ToString(),
+                                       a.Fecha,
                                        a.Estado.ToString()
                                    }
                                }
@@ -112,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 return RedirectToAction("Index", "Bienvenida");
             }
-            catch (System.ServiceModel.FaultException ex)
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return Json(new
@@ -136,11 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectZonaByCodigo(int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
             List<BEZona> lista;
             using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
             {
@@ -154,10 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectCodigoProducto(int campaniaID, int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>()
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
             List<ServiceODS.BEProductoDescripcion> lista;
             using (ODSServiceClient srv = new ODSServiceClient())
             {
@@ -173,9 +162,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                object jsonData = null;
-                string paisISO = UserData().CodigoISO;
-                string CodigoUsuario = UserData().CodigoUsuario;
+                object jsonData;
+                string paisIso = UserData().CodigoISO;
+                string codigoUsuario = UserData().CodigoUsuario;
                 string messageCodigosNoValidos = string.Empty;
                 List<BEProductoFaltante> productosFaltantes = new List<BEProductoFaltante>();
 
@@ -188,7 +177,6 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEZona> zonasValidas = new List<BEZona>();
                 List<ServiceODS.BEProductoDescripcion> productosValidos = new List<ServiceODS.BEProductoDescripcion>();
 
-                //Zonas a validar
                 if (zonasAValidar.Length != 0)
                 {
                     BEZona[] zonas;
@@ -197,11 +185,11 @@ namespace Portal.Consultoras.Web.Controllers
                         zonas = srv.SelectAllZonas(paisID);
                     }
 
-                    var zonasNoValidas = from item in zonasAValidar
-                                         where !(zonas.Any(z => z.Codigo == item))
-                                         select item;
+                    var zonasNoValidas = (from item in zonasAValidar
+                                          where !(zonas.Any(z => z.Codigo == item))
+                                          select item).ToList();
 
-                    if (zonasNoValidas.ToList().Count != 0)
+                    if (zonasNoValidas.Count != 0)
                     {
                         messageCodigosNoValidos = "Las siguientes zonas no son válidas: " +
                                                   string.Join(",", zonasNoValidas.Select(zona => zona));
@@ -214,17 +202,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                //Productos a validar
                 if (productosAValidar.Length != 0)
                 {
                     List<string> productosNoValidos = new List<string>();
-                    List<ServiceODS.BEProductoDescripcion> productoFaltante;
 
                     using (ODSServiceClient srv = new ODSServiceClient())
                     {
                         foreach (string cuv in productosAValidar)
                         {
-                            productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaID, cuv, paisID, 1).ToList();
+                            var productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaID, cuv, paisID, 1).ToList();
 
                             if (productoFaltante.Count == 0 || productoFaltante[0].CUV != cuv)
                             {
@@ -256,10 +242,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    //Registro de productos faltantes
-                    if (zonasValidas.Count() != 0)
+                    if (zonasValidas.Any())
                     {
-                        //Por zona-producto
                         foreach (BEZona zona in zonasValidas)
                         {
                             foreach (ServiceODS.BEProductoDescripcion producto in productosValidos)
@@ -270,7 +254,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        //Todas las zonas
                         foreach (ServiceODS.BEProductoDescripcion producto in productosValidos)
                         {
                             productosFaltantes.Add(new BEProductoFaltante() { CUV = producto.CUV, Zona = "TODAS" });
@@ -279,10 +262,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        if (zonasValidas.Count() != 0)
-                            sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                        if (zonasValidas.Any())
+                            sv.InsProductoFaltante(paisID, paisIso, codigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                         else
-                            sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                            sv.InsProductoFaltanteMasivo(paisID, paisIso, codigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                     }
 
                     jsonData = new
@@ -317,17 +300,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //R1957
         public JsonResult Eliminar2(FaltanteTotal data)
         {
 
             try
             {
 
-                int rslt = 0;
-                using (SACServiceClient SACsrv = new SACServiceClient())
+                int rslt;
+                using (SACServiceClient saCsrv = new SACServiceClient())
                 {
-                    List<BEProductoFaltante> Lproducto = new List<BEProductoFaltante>();
+                    List<BEProductoFaltante> lproducto = new List<BEProductoFaltante>();
                     if (data.Lista != null)
                     {
 
@@ -340,13 +322,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 ZonaID = data.Lista.Items[i].ZonaID,
                                 FaltanteUltimoMinuto = false,
                             };
-                            Lproducto.Add(producto);
+                            lproducto.Add(producto);
                         }
-
-                        //R1957 – ECM - cambios en los parámetros
                     }
 
-                    rslt = SACsrv.DelProductoFaltante2(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, Lproducto.ToArray(), data.Flag, data.Pais, data.Campania, data.Zona, data.CUV, data.EProducto, data.Fecha);
+                    rslt = saCsrv.DelProductoFaltante2(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, lproducto.ToArray(), data.Flag, data.Pais, data.Campania, data.Zona, data.CUV, data.EProducto, data.Fecha);
                 }
                 if (rslt > 0)
                 {
@@ -403,23 +383,23 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         public JsonResult Eliminar(int CampaniaID, string CUV, int ZonaID, string Zona, string FaltanteUM)
         {
             try
             {
-                bool rslt = false;
-                using (SACServiceClient SACsrv = new SACServiceClient())
+                BEProductoFaltante producto = new BEProductoFaltante()
                 {
-                    BEProductoFaltante producto = new BEProductoFaltante()
-                    {
-                        CampaniaID = CampaniaID,
-                        CUV = CUV,
-                        ZonaID = ZonaID,
-                        Zona = Zona,
-                        FaltanteUltimoMinuto = FaltanteUM == "SI" ? true : false
-                    };
+                    CampaniaID = CampaniaID,
+                    CUV = CUV,
+                    ZonaID = ZonaID,
+                    Zona = Zona,
+                    FaltanteUltimoMinuto = FaltanteUM == "SI"
+                };
 
-                    rslt = SACsrv.DelProductoFaltante(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, producto);
+                using (SACServiceClient saCsrv = new SACServiceClient())
+                {
+                    saCsrv.DelProductoFaltante(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, producto);
                 }
                 return Json(new
                 {
@@ -451,87 +431,70 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public string ProcesarMasivo(HttpPostedFileBase uplArchivo, GestionFaltantesModel model)
         {
-            int paisID = model.PaisID;
-            int campaniaID = model.CampaniaID;
-            string message = string.Empty;
+            int paisId = model.PaisID;
+            int campaniaId = model.CampaniaID;
             try
             {
-                // valida que el archivo exista
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
-                // valida la extensión del archivo
-                if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
-
-                //Guarda el archivo en una ruta del servidor
-                string finalPath = string.Empty, httpPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
-                if (!fileextension.ToLower().Equals(".xlsx"))
+                if (fileextension != null && !fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-                httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+
                 if (!Directory.Exists(pathfaltante))
                     Directory.CreateDirectory(pathfaltante);
-                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
                 uplArchivo.SaveAs(finalPath);
 
-                bool IsCorrect = false;
+                bool isCorrect = false;
                 GestionFaltantesModel prod = new GestionFaltantesModel();
-                IList<GestionFaltantesModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                IList<GestionFaltantesModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
 
-                //elimina el documento, una vez que haya sido procesado
                 System.IO.File.Delete(finalPath);
 
-                if (IsCorrect && lista != null)
+                if (isCorrect && lista != null)
                 {
-                    Mapper.CreateMap<GestionFaltantesModel, BEProductoFaltante>()
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                   .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona))
-                   .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
-
                     var lst = Mapper.Map<IList<GestionFaltantesModel>, IEnumerable<BEProductoFaltante>>(lista);
                     using (SACServiceClient srv = new SACServiceClient())
                     {
-                        string s = srv.InsProductoFaltanteMasivo(paisID, UserData().CodigoISO, UserData().CodigoUsuario, campaniaID, lst.ToArray(), model.FaltanteUltimoMinuto);
+                        srv.InsProductoFaltanteMasivo(paisId, UserData().CodigoISO, UserData().CodigoUsuario, campaniaId, lst.ToArray(), model.FaltanteUltimoMinuto);
                     }
-                    return message = "Se realizo satisfactoriamente la carga de datos.";
+                    return "Se realizo satisfactoriamente la carga de datos.";
                 }
-                else
-                {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
-                }
+
+                return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lista = DropDownCampanias(PaisID);
 
             return Json(new
@@ -542,14 +505,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DescargaModelo()
         {
-            string finalPath = string.Empty, httpPath = string.Empty;
-
             string fileName = "PlantillaModelFaltante.xlsx";
             string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-            httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+
             if (!Directory.Exists(pathfaltante))
                 Directory.CreateDirectory(pathfaltante);
-            finalPath = Path.Combine(pathfaltante, fileName);
+            var finalPath = Path.Combine(pathfaltante, fileName);
 
             HttpContext.Response.Clear();
             HttpContext.Response.Buffer = false;
@@ -566,71 +527,45 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Metodos
-        public IEnumerable<CampaniaModel> DropDownCampanias(int PaisID)
+        public IEnumerable<CampaniaModel> DropDownCampanias(int paisId)
         {
             List<BECampania> lista;
             using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
             {
-                //R1957
-                if (PaisID == 0)
-                {
-                    lista = servicezona.SelectCampanias(UserData().PaisID).ToList();
-                }
-                else
-                {
-                    lista = servicezona.SelectCampanias(PaisID).ToList();
-                }
-
+                lista = paisId == 0
+                    ? servicezona.SelectCampanias(UserData().PaisID).ToList()
+                    : servicezona.SelectCampanias(paisId).ToList();
             }
             lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
+            List<BEPais> lst;
 
-            //R1957
-            List<BEPais> lst = new List<BEPais>() {
-                                new BEPais() {
-                                    PaisID = 0,
-                                    Nombre = "-- Seleccionar --"
-                                }
-                  };
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
         #endregion
 
-        // 1957 - Inicio
         public JsonResult EliminarTodos(string CampaniaID, string Zona, string CUV, string Fecha, string Descripcion)
         {
 
             try
             {
 
-                int rslt = 0;
-                using (SACServiceClient SACsrv = new SACServiceClient())
+                int rslt;
+                using (SACServiceClient saCsrv = new SACServiceClient())
                 {
-                    rslt = SACsrv.DelProductoFaltanteMasivo(UserData().PaisID, Convert.ToInt32(CampaniaID), Zona, CUV, Fecha, Descripcion);
+                    rslt = saCsrv.DelProductoFaltanteMasivo(UserData().PaisID, Convert.ToInt32(CampaniaID), Zona, CUV, Fecha, Descripcion);
                 }
                 if (rslt > 0)
                 {
@@ -687,10 +622,8 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        // 1957 - Fin
     }
 
-    //R1957
     public class FaltanteTotal
     {
         public FaltanteAnunciadoDel Lista { get; set; }
@@ -704,14 +637,11 @@ namespace Portal.Consultoras.Web.Controllers
 
     }
 
-    //R1957
     public class FaltanteAnunciadoDel
     {
-        // data = { "lista": objetos, "flag": flag, "pais": pais, "campania": campania, "zona": zona, "cuv": cuv, "e_producto": e_producto, "fecha": fecha };
         public List<FaltanteDetalles> Items { get; set; }
     }
 
-    //R1957
     public class FaltanteDetalles
     {
         public int CampaniaID { get; set; }

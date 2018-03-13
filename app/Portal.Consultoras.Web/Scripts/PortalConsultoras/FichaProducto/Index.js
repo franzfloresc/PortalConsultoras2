@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $(document).on('click', '#btnAceptarNoHayProducto', me.Funciones.IrASeccionBienvenida);
             },
             Ready: function () {
-                
+
                 if (!window.hasOwnProperty('detalleFichaProducto'))
                     FichaProducto.Funciones.ObtenerProducto();
 
@@ -38,7 +38,7 @@ $(document).ready(function () {
                     nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
                     nuevoScript.id = "infusionsoft";
                     cabecera.appendChild(nuevoScript);
-                    
+
                     me.Funciones.Marcador();
                 }
             },
@@ -124,14 +124,14 @@ $(document).ready(function () {
                 me.Funciones.CloseLoading();
             },
             ObtenerProducto: function () {
-               
+
                 if (me.settings.cuv !== "") {
                     var fichaPromise = me.Funciones.ObtenerProductoPromise(me.settings.cuv, me.settings.campana);
 
                     $.when(fichaPromise).then(function (response) {
                         if (checkTimeout(response)) {
                             if (response !== null) {
-                              
+
                                 var cabecera = document.getElementsByTagName("head")[0];
                                 var nuevoScript = document.createElement('script');
                                 nuevoScript.type = 'text/javascript';
@@ -260,30 +260,30 @@ $(document).ready(function () {
 
                 var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
-                var params = ({
-                    listaCuvTonos: $.trim(cuvs),
-                    EstrategiaID: $.trim(ficha.EstrategiaID),
-                    FlagNueva: $.trim(ficha.FlagNueva),
+                var params = {
+                    CuvTonos: $.trim(cuvs),
                     Cantidad: $.trim(cantidad),
+                    TipoEstrategiaID: ficha.TipoEstrategiaID,
+                    EstrategiaID: $.trim(ficha.EstrategiaID),
                     OrigenPedidoWeb: $.trim(origenPedidoWebFichaProducto),
-                    ClienteID_: '-1',
-                    tipoEstrategiaImagen: tipoEstrategiaImagen || 0
-                });
+                    TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
+                    FlagNueva: $.trim(ficha.FlagNueva)
+                };
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProducto',
+                    url: baseUrl + 'Pedido/PedidoAgregarProducto',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
-                        console.log(data);
+
                         if (!checkTimeout(data)) {
                             me.Funciones.CloseLoading();
                             return false;
                         }
-                        
+
                         dataLayer.push({
                             'event': 'addToCart',
                             'ecommerce': {
@@ -295,8 +295,6 @@ $(document).ready(function () {
                                         'price': $.trim(ficha.PrecioVenta),
                                         'brand': $.trim(ficha.DescripcionMarca),
                                         'id': $.trim(ficha.CUV2),
-                                        //'category': 'Maquillaje > Cuerpo',
-                                        //'variant': 'Fucsia Vibrante',
                                         'quantity': $.trim(cantidad)
                                     }]
                                 }
@@ -340,7 +338,6 @@ $(document).ready(function () {
 
                     },
                     error: function (data, error) {
-                        console.log(data);
                         me.Funciones.CloseLoading();
                     }
                 });
@@ -372,7 +369,7 @@ $(document).ready(function () {
                 }
             },
             Marcador: function () {
-                
+
                 dataLayer.push({
                     'event': 'promotionView',
                     'ecommerce': {

@@ -14,10 +14,16 @@ namespace Portal.Consultoras.Common
         {
             get
             {
-                return ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                return ConfigurationManager.AppSettings["PaisesEsika"] ?? string.Empty;
             }
         }
-
+        public static string WebTrackingConfirmacion
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? string.Empty;
+            }
+        }
         #endregion
     }
 }

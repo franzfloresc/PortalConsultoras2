@@ -1,5 +1,5 @@
-﻿$(document).ready(function () {   
-    CargarProgramasBelcorp();     
+﻿$(document).ready(function () {
+    CargarProgramasBelcorp();
 });
 
 function CargarProgramasBelcorp() {
@@ -13,17 +13,15 @@ function CargarProgramasBelcorp() {
         success: function (data) {
             if (data.exito == true) {
                 $.each(data.lista,
-                    function(i, item) {
+                    function (i, item) {
                         item.codigoISO = data.codigoISO;
                         item.DetalleDesripcion = "";
                         item.urlImgBeneficios = "";
                     });
                 ArmarProgramasBelcorp(data.lista);
-            }         
-        },        
-        error: function (data, error) {
-            console.log(data, error);
-        }
+            }
+        },
+        error: function (data, error) { }
     });
 };
 function ArmarProgramasBelcorp(data) {
@@ -53,10 +51,10 @@ function ArmarProgramasBelcorp(data) {
 function EstructurarDataProgramasBelcorp(array) {
     $.each(array, function (i, item) {
         if (item.Descripcion.trim() == "Brillante 2016") {
-            item.urlImgBeneficios = urlS3Raiz+ "MisBeneficios/" + codigoISO_MB + "/brillante.png";
+            item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/brillante.png";
             item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento </br><b>¡y una gran celebración!</b>";
             item.Descripcion = "<b>BRILLANTE</b> " + anioActual;
-        } else if (item.Descripcion.trim() == "Familia Protegida" || (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero') ) {
+        } else if (item.Descripcion.trim() == "Familia Protegida" || (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero')) {
             item.Descripcion = "";
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/familiaprotegida.png";
             item.DetalleDesripcion = "Programa de ayuda económica para ti, tus hijos y esposo en caso de hospitalización y fallecimiento.";

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceUnete;
-using Portal.Consultoras.Common;
-using System.ComponentModel.DataAnnotations;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Annotations;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -52,10 +48,10 @@ namespace Portal.Consultoras.Web.Models
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [MaxLength(1, ErrorMessage = "Máximo 1 caractér")]
         public string Sexo { get; set; }
-        
+
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string FechaNacimiento { get; set; }
-        
+
         [MaxLength(140, ErrorMessage = "Máximo 140 caractéres")]
         public string Direccion { get; set; }
 
@@ -111,7 +107,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int? TipoContacto { get; set; }
 
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]        
+        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
         public string CodigoConsultoraRecomienda { get; set; }
 
         public string NombreConsultoraRecomienda { get; set; }
@@ -122,7 +118,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombrePrefijoCelular { get; set; }
 
         public string NombreColonia { get; set; }
-        
+
         public string DireccionMx { get; set; }
 
         [RequiredIf("CodigoPais", "PE", ErrorMessage = "Este campo es obligatorio")]
@@ -222,186 +218,4 @@ namespace Portal.Consultoras.Web.Models
         };
     }
 
-    //public static class DictionariesUnete
-    //{
-    //    /// <summary>
-    //    /// Longitud de texto del telefono fijo key: Codigo del país, value: int
-    //    /// </summary>
-    //    public static Dictionary<string, int> LengthTelefonoFijo = new Dictionary<string, int>
-    //    {
-    //        { "BO", 0 },
-    //        { "CL", 9 },
-    //        { "CO", 7 },
-    //        { "CR", 0 },
-    //        { "DO", 0 },
-    //        { "EC", 0 },
-    //        { "GT", 0 },
-    //        { "MX", 12 },
-    //        { "PA", 0 },
-    //        { "PE", 7 },
-    //        { "PR", 0 },
-    //        { "SV", 0 },
-    //        { "VE", 0 }
-    //    };
-
-    //    /// <summary>
-    //    /// Longitud de texto del celular key: Codigo del país, value: int
-    //    /// </summary>
-    //    public static Dictionary<string, int> LengthTelefonoCelular = new Dictionary<string, int>
-    //    {
-    //        { "BO", 0 },
-    //        { "CL", 8 },
-    //        { "CO", 13 },
-    //        { "CR", 0 },
-    //        { "DO", 0 },
-    //        { "EC", 0 },
-    //        { "GT", 0 },
-    //        { "MX", 13 },
-    //        { "PA", 0 },
-    //        { "PE", 9 },
-    //        { "PR", 0 },
-    //        { "SV", 0 },
-    //        { "VE", 0 }
-    //    };
-
-    //    /// <summary>
-    //    /// Formatos de los numeros de documento para guardar en BD, key: Codigo del país, value: Func<string, string> 
-    //    /// </summary>
-    //    public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoBD = new Dictionary<string, Func<string, string>>
-    //    {
-    //        { "BO", null },
-    //        { "CL", t => t.Replace("-", string.Empty) },
-    //        { "CO", t=>t },
-    //        { "CR", null },
-    //        { "DO", null },
-    //        { "EC", null },
-    //        { "GT", null },
-    //        { "MX", t=> t},
-    //        { "PA", null },
-    //        { "PE", t => t },
-    //        { "PR", null },
-    //        { "SV", null },
-    //        { "VE", null }
-    //    };
-
-    //    /// <summary>
-    //    /// Formatos de los numeros de documento para mostrar, key: Codigo del país, value: Func<string, string> 
-    //    /// </summary>
-    //    public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoView = new Dictionary<string, Func<string, string>>
-    //    {
-    //        { "BO", null },
-    //        { "CL", t => t.Insert(8, "-") },
-    //        { "CO", t=> t},
-    //        { "CR", null },
-    //        { "DO", null },
-    //        { "EC", null },
-    //        { "GT", null },
-    //        { "MX", t=> t },
-    //        { "PA", null },
-    //        { "PE", t => t },
-    //        { "PR", null },
-    //        { "SV", null },
-    //        { "VE", null }
-    //    };
-
-    //    /// <summary>
-    //    /// Label para el primero combo de lugares, key: Codigo del país, value: string
-    //    /// </summary>
-    //    public static Dictionary<string, string> LabelLugar1 = new Dictionary<string, string>
-    //    {
-    //        { "BO", "" },
-    //        { "CL", "Ciudad (Región)" },
-    //        { "CO", "Departamento" },
-    //        { "CR", "" },
-    //        { "DO", "" },
-    //        { "EC", "" },
-    //        { "GT", "Departamento" },
-    //        { "MX", "Estado" },
-    //        { "PA", "" },
-    //        { "PE", "Departamento" },
-    //        { "PR", "" },
-    //        { "SV", "Departamento" },
-    //        { "VE", "" }
-    //    };
-
-    //    /// <summary>
-    //    /// Label para el segundo combo de lugares, key: Codigo del país, value: string
-    //    /// </summary>
-    //    public static Dictionary<string, string> LabelLugar2 = new Dictionary<string, string>
-    //    {
-    //        { "BO", "" },
-    //        { "CL", "Comuna" },
-    //        { "CO", "Municipio" },
-    //        { "CR", "" },
-    //        { "DO", "" },
-    //        { "EC", "" },
-    //        { "GT", "Municipio" },
-    //        { "MX", "Municipio" },
-    //        { "PA", "" },
-    //        { "PE", "Provincia" },
-    //        { "PR", "" },
-    //        { "SV", "Municipio" },
-    //        { "VE", "" }
-    //    };
-
-    //    /// <summary>
-    //    /// Label para el segundo combo de lugares, key: Codigo del país, value: string
-    //    /// </summary>
-    //    public static Dictionary<string, string> LabelLugar3 = new Dictionary<string, string>
-    //    {
-    //        { "BO", "" },
-    //        { "CL", "" },
-    //        { "CO", "" },
-    //        { "CR", "" },
-    //        { "DO", "" },
-    //        { "EC", "" },
-    //        { "GT", "Centro Poblado" },
-    //        { "MX", "" },
-    //        { "PA", "" },
-    //        { "PE", "Distrito" },
-    //        { "PR", "" },
-    //        { "SV", "Canton" },
-    //        { "VE", "" }
-    //    };
-
-    //    /// <summary>
-    //    /// Label para el segundo combo de lugares, key: Codigo del país, value: string
-    //    /// </summary>
-    //    public static Dictionary<string, string> LabelLugar4 = new Dictionary<string, string>
-    //    {
-    //        { "BO", "" },
-    //        { "CL", "" },
-    //        { "CO", "" },
-    //        { "CR", "Barrio/Referencia" },
-    //        { "DO", "" },
-    //        { "EC", "" },
-    //        { "GT", "Zona" },
-    //        { "MX", "" },
-    //        { "PA", "Barrio/Colonia" },
-    //        { "PE", "Centro Poblado" },
-    //        { "PR", "" },
-    //        { "SV", "Barrio/Colonia" },
-    //        { "VE", "" }
-    //    };
-
-    //    /// <summary>
-    //    /// Label para el segundo combo de lugares, key: Codigo del país, value: string
-    //    /// </summary>
-    //    public static Dictionary<string, string> LabelLugar5 = new Dictionary<string, string>
-    //    {
-    //        { "BO", "" },
-    //        { "CL", "" },
-    //        { "CO", "" },
-    //        { "CR", "" },
-    //        { "DO", "" },
-    //        { "EC", "" },
-    //        { "GT", "Barrio/Colonia" },
-    //        { "MX", "" },
-    //        { "PA", "" },
-    //        { "PE", "" },
-    //        { "PR", "" },
-    //        { "SV", "" },
-    //        { "VE", "" }
-    //    };
-    //}
 }

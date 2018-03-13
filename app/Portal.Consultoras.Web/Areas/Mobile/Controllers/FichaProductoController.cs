@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -12,10 +13,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
-        public ActionResult Detalle(string cuv = "", int campanaId = 0)
+
+        public ActionResult Detalle(string param)
         {
             try
             {
+                var cuv = param.Substring(0, 5);
+                var campanaId = Convert.ToInt32(param.Substring(5, 6));
                 var producto = (FichaProductoDetalleModel)null;
                 if (userData.CampaniaID == campanaId)
                 {
@@ -35,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VirtualCoachCampana = campanaId;
                 return View(producto);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }

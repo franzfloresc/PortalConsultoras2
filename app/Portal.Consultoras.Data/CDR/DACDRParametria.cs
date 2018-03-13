@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Entities.CDR;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Data.CDR
 {

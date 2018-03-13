@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
-using System.Security.Cryptography;
-using System.IO;
+using System;
 using System.Configuration;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -21,8 +14,7 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 if (!Page.IsPostBack)
                 {
-                    string result = string.Empty;
-                    bool HasSuccess = false;
+                    string result;
 
                     var esEsika = false;
 
@@ -31,23 +23,21 @@ namespace Portal.Consultoras.Web.WebPages
                     if (Request.QueryString["data"] != null)
                     {
                         string parametros = Request.QueryString["data"];
-                        var parametrosDesencriptados = Util.Decrypt(parametros);// Util.DesencriptarQueryString(parametros);
+                        var parametrosDesencriptados = Util.Decrypt(parametros);
                         string[] query = parametrosDesencriptados.Split(';');
                         string paisid = query[1];
-                        //032610099;11;PE;leonarddgl@gmail.com;31/12/9999 23:59:59
 
                         if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
                             esEsika = true;
 
                         txtmarca.Text = esEsika ? "esika" : "lbel";
-                        //Formato que envia la url: CodigoUsuario;IdPais
-                        //string[] query1 = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
 
+                        bool hasSuccess;
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
-                            HasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                            hasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                         }
-                        if (HasSuccess)
+                        if (hasSuccess)
                             result = "Su dirección de correo electrónico ha sido activada correctamente.";
                         else
                             result = "Esta dirección de correo electrónico ya ha sido activada.";
@@ -56,12 +46,9 @@ namespace Portal.Consultoras.Web.WebPages
                         if (opcional != "")
                         {
                             var opcionalLista = opcional.Split(',');
-                            if (opcionalLista.Length > 1)
+                            if (opcionalLista.Length > 1 && opcionalLista[0].ToLower() == "urlreturn")
                             {
-                                if (opcionalLista[0].ToLower() == "urlreturn")
-                                {
-                                    urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
-                                }
+                                urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
                             }
                         }
                     }
@@ -69,23 +56,11 @@ namespace Portal.Consultoras.Web.WebPages
                         result = "Ha ocurrido un error con la activación de su correo electrónico.";
                     lblConfirmacion.Text = result;
                     linkregresarasomosbelcorp.NavigateUrl = urlportal;
-                    //if (Request.QueryString["tipo"] != null)
-                    //{
-                    //    if (!Request.QueryString["tipo"].Equals("ccc"))
-                    //        lnkClienteCC.Visible = false;
-                    //}
-                    //else
-                    //{
-                    //    lnkClienteCC.Visible = false;
-                    //}
                 }
-                //else
-                //    lblConfirmacion.Text = "Para activar la dirección E-mail, debe hacer clic en el enlace enviado a su correo electrónico.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
-                //lblConfirmacion.Text = ex.Message;
                 lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
         }

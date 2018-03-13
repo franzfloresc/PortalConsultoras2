@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public int Flag { get; set; }
         public int Stock { get; set; }
         public string ClienteDescripcion { set; get; }
-        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
+        public bool IndicadorOfertaCUV { get; set; }
 
         public string urlBanner_01 { get; set; }
         public string urlBanner_02 { get; set; }
@@ -72,26 +72,24 @@ namespace Portal.Consultoras.Web.Models
         public string ClienteID_ { get; set; }
 
         public List<BEPedidoWebDetalle> ListaDetalle { get; set; }
+        public List<PedidoWebDetalleModel> ListaDetalleFormato { get; set; }
         public List<ServiceSAC.BEProductoFaltante> ListaProductoFaltante { get; set; }
         public List<ServiceSAC.BEOfertaWeb> ListaOfertaWeb { get; set; }
         public List<ObservacionModel> ListaObservacionesPROL { get; set; }
         public List<PedidoActualizaModel> ListaPedidoActualizaModel { get; set; }
         public List<ServiceCliente.BECliente> DropDownListCliente { get; set; }
-        public bool PROLSinStock { get; set; } //1510
-        public int SubTipoOfertaSisID { get; set; } //1513
-        public int ModificacionPedidoProl { get; set; }//CCSS_JZ_PROL
-        /*R2469 - JICM - INI*/      
+        public bool PROLSinStock { get; set; }
+        public int SubTipoOfertaSisID { get; set; }
+        public int ModificacionPedidoProl { get; set; }
         public string DescripcionEstrategia { get; set; }
         public string Categoria { get; set; }
         public string DescripcionLarga { get; set; }
-        /*R2469 - JICM - FIN*/
-        /*R2621LR */
         public int FlagNueva { get; set; }
         public string MensajeError { get; set; }
-        public bool ZonaNuevoPROLM { get; set; }//R2584
+        public bool ZonaNuevoPROLM { get; set; }
 
-        public bool ValidacionInteractiva { get; set; } // R20150306
-        public string MensajeValidacionInteractiva { get; set; } // R20150306
+        public bool ValidacionInteractiva { get; set; }
+        public string MensajeValidacionInteractiva { get; set; }
 
         public bool EsSugerido { get; set; }
         public bool EsKitNueva { get; set; }
@@ -108,7 +106,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionMarca { get; set; }
         public int LimiteVenta { get; set; }
-        
+
         public string TotalSinDsctoFormato { get; set; }
         public string TotalConDsctoFormato { get; set; }
 
@@ -133,18 +131,14 @@ namespace Portal.Consultoras.Web.Models
         public string IndicadorMontoMinimo { get; set; }
         public int ConfiguracionOfertaID { get; set; }
         public int TipoOfertaSisID { get; set; }
-        // 1522
         public string MensajeCUV { get; set; }
-        public int? DesactivaRevistaGana { get; set; } //R2154
-        //2140
+        public int? DesactivaRevistaGana { get; set; }
         public string ObservacionCUV { get; set; }
-        /*R2469 - JICM - INI*/       
-        public string DescripcionMarca { get; set; }        
-        public string DescripcionCategoria { get; set; }      
+        public string DescripcionMarca { get; set; }
+        public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
-        /*R2469 - JICM - FIN*/
-        public string FlagNueva { get; set; } // CGI(AHAA) - bug 2015000858
-        public string TipoEstrategiaID { get; set; } // CGI(AHAA) - bug 2015000858
+        public string FlagNueva { get; set; }
+        public string TipoEstrategiaID { get; set; }
 
         public int LimiteVenta { get; set; }
 
@@ -182,11 +176,10 @@ namespace Portal.Consultoras.Web.Models
         public int Relevancia { get; set; }
         public string CodigoCategoria { get; set; }
         public string CodigoMarca { get; set; }
-        //PL20-1239
         public bool PaisEsikizado { get; set; }
 
         public string UrlCompartirFB { get; set; }
-        
+
         public string NombreComercial { get; set; }
         public string NombreComercialCorto { get; set; }
 
@@ -204,10 +197,14 @@ namespace Portal.Consultoras.Web.Models
 
         public int Cantidad { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-        
+
         public bool TieneRDC { get; set; }
 
         public int FactorCuadre { get; set; }
+
+        public string ImagenProductoSugeridoSmall { get; set; }
+
+        public string ImagenProductoSugeridoMedium { get; set; }
 
         public object Clone()
         {

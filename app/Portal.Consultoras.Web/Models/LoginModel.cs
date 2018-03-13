@@ -15,5 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string RutaEventoLBel { get; set; }
 
         public UsuarioExternoModel UsuarioExterno { get; set; }
+
+        public List<LoginAnalyticsModel> ListPaisAnalytics { get; set; }
     }
 }

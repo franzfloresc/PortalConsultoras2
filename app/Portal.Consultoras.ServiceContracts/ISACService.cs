@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using System.Data;//AOB
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Mobile;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.ServiceModel;
+using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -12,10 +13,10 @@ namespace Portal.Consultoras.ServiceContracts
     {
         #region Cronograma
         [OperationContract]
-        IList<BECronograma> GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, Int16 TipoCronogramaID);
+        IList<BECronograma> GetCronogramaByCampania(int paisID, int campaniaID, int ZonaID, Int16 TipoCronogramaID);
 
         [OperationContract]
-        int MigrarCronogramaAnticipado(int paisID, int CampaniaID, int ZonaID);
+        int MigrarCronogramaAnticipado(int paisID, int campaniaID, int ZonaID);
 
         [OperationContract]
         bool GetCronogramaAutomaticoActivacion(int paisID);
@@ -28,7 +29,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Cronograma Anticipado
 
         [OperationContract]
-        IList<BECronograma> GetCronogramaByCampaniaAnticipado(int paisID, int CampaniaID, int ZonaID, Int16 TipoCronogramaID);
+        IList<BECronograma> GetCronogramaByCampaniaAnticipado(int paisID, int campaniaID, int ZonaID, Int16 TipoCronogramaID);
 
         [OperationContract]
         int InsertCronogramaAnticipado(BECronograma cronograma);
@@ -40,7 +41,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DeleteCronogramaAnticipado(BECronograma cronograma);
 
         [OperationContract]
-        BECronograma GetCronogramaByCampaniayZona(int paisID, int CampaniaID, int ZonaID);
+        BECronograma GetCronogramaByCampaniayZona(int paisID, int campaniaID, int ZonaID);
 
         [OperationContract]
         int InsConfiguracionConsultoraDA(int paisID, BEConfiguracionConsultoraDA configuracionConsultoraDA);
@@ -60,15 +61,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool DelProductoFaltante(int paisID, string paisISO, string CodigoUsuario, BEProductoFaltante productoFaltante);
 
-        //R1957
         [OperationContract]
-        int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha);
+        int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productoFaltante, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha);
 
         [OperationContract]
         IList<BEProductoFaltante> GetProductoFaltanteByEntity(int paisID, BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina);
 
         [OperationContract]
-        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion);
+        IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int campaniaID, int ZonaID, string cuv, string descripcion);
 
         [OperationContract]
         string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto);
@@ -89,14 +89,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdConfiguracionValidacionZona(BEConfiguracionValidacion ent, List<BEConfiguracionValidacionZona> lista);
         [OperationContract]
-        void DelConfiguracionValidacionZona(int paisID, int CampaniaID);
+        void DelConfiguracionValidacionZona(int paisID, int campaniaID);
 
         #endregion
 
         #region ConfiguracionValidacion
 
         [OperationContract]
-        IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int CampaniaID);
+        IList<BEConfiguracionValidacion> GetConfiguracionValidacion(int paisID, int campaniaID);
         [OperationContract]
         void InsertConfiguracionValidacion(BEConfiguracionValidacion entidad);
         [OperationContract]
@@ -117,7 +117,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Oferta Web
 
         [OperationContract]
-        IList<BEOfertaWeb> GetOfertaWebByCampania(int PaisID, int CampaniaID, int PedidoID, long ConsultoraID);
+        IList<BEOfertaWeb> GetOfertaWebByCampania(int PaisID, int campaniaID, int PedidoID, long ConsultoraID);
 
         #endregion
 
@@ -282,9 +282,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEIncentivo> SelectIncentivos(int paisID, int campaniaID);
 
-        //[OperationContract]
-        //BEIncentivo GetIncentivoById(int paisID, int incentivoID);
-
         [OperationContract]
         void InsertIncentivo(BEIncentivo entidad);
 
@@ -324,9 +321,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEFeErratas> SelectFeErratas(int paisID, int campaniaID);
-
-        //[OperationContract]
-        //BELugarPago GetFeErratasById(int paisID, int feErratasID);
 
         [OperationContract]
         void InsertFeErratas(BEFeErratas entidad);
@@ -414,7 +408,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string[] DescargaSolicitudes(int paisID, string codigoUsuario);
 
-        //AOB REPORTES 
         [OperationContract]
         DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud);
 
@@ -422,44 +415,44 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Comunicado
 
-        //R2004
         [OperationContract]
         BEComunicado GetComunicadoByConsultora(int paisID, string CodigoConsultora);
 
-        //GR-1209
         [OperationContract]
-        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo);
+        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+            string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
-        //R2004
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
 
-        //GR-1209
         [OperationContract]
         void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID);
-        
-        //GR-1645
+
+        [OperationContract]
+        void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId);
+
         [OperationContract]
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
+
         #endregion
 
         #region Estado Cuenta
 
-        //R2073
         [OperationContract]
         List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId);
+
+        [OperationContract]
+        string GetDeudaActualConsultora(int PaisId, long consultoraId);
 
         #endregion
 
         #region Pedidos Facturados
 
-        //R2073
         [OperationContract]
         List<BEPedidoFacturado> GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora);
 
-        //R2073
         [OperationContract]
         List<BEPedidoFacturado> GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId);
 
@@ -481,8 +474,6 @@ namespace Portal.Consultoras.ServiceContracts
         int InsConfiguracionTipoProcesoCargaPedidos(int PaisID, string Usuario, IList<BEConfiguracionTipoProcesoCargaPedidos> ZonasNuevoPROL);
         #endregion
 
-        //R20151221 Inicio
-
         #region ConfiguracionParametroCarga
 
         [OperationContract]
@@ -495,7 +486,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdConfiguracionParametroCarga(BEConfiguracionValidacion ent, List<BEConfiguracionParametroCarga> lista);
 
         [OperationContract]
-        void DelConfiguracionParametroCarga(int paisID, int CampaniaID);
+        void DelConfiguracionParametroCarga(int paisID, int campaniaID);
 
         #endregion
 
@@ -513,16 +504,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, List<BELogParametroDiasCargaPedido> listaEntidades);
 
-        //[OperationContract]
-        //BEConfiguracionParametroCarga GetConfiguracionParametroCarga(int paisID, int campaniaID, int zonaID);
-
         #endregion
 
         [OperationContract]
         IList<BEConfiguracionPortal> GetConfiguracionPortal(int paisID);
-
-        //R20151221 Fín
-
 
         #region Participantes Demanada Anticipada - R20160302
 
@@ -537,38 +522,27 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
-        //RQ_DC - R2133R
         [OperationContract]
         void DeleteCacheServicio(string CodigoISO, int CampaniaId);
 
-        //RQ_PBS - R2161
         [OperationContract]
         BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId);
 
-        //RQ_PBS - R2161
         [OperationContract]
         List<BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo);
 
-        //RQ_PBS - R2161
-        /*RE2544 - CS(CGI) - 14/05/2015*/
         [OperationContract]
         void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
 
-        // 1957 - Inicio
         [OperationContract]
         int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
-        // 1957 - Fin
 
-        // R2155 - Inicio
         [OperationContract]
         List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo);
 
         [OperationContract]
         string ValidarNumeroRFC(int paisID, string numeroRFC);
-        // R2155 - Fin
 
-        //R2319 - JLCS
         #region Cliente Busca Consultora
 
         [OperationContract]
@@ -584,8 +558,6 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
 
         #endregion
-
-        //R2319 - JLCS
 
         [OperationContract]
         BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId);
@@ -603,18 +575,17 @@ namespace Portal.Consultoras.ServiceContracts
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
-        BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int OpcionRechazo, string RazonMotivoRechazo);
+        BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
         void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
-        
+
         [OperationContract]
         void CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion);
 
         [OperationContract]
         List<BEMotivoSolicitud> GetMotivosRechazo(int paisID);
 
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         [OperationContract]
         int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente);
 
@@ -623,7 +594,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente);
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         [OperationContract]
         BEConfiguracionPortal ObtenerConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal);
@@ -631,12 +601,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ActualizarConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal);
 
-        /* R20150804 - MER - inicio*/
         #region Descarga Curso Lider
         [OperationContract]
         void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
         #endregion
-        /* R20150804 - MER - fin*/
         [OperationContract]
         List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID);
 
@@ -652,12 +620,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta);
 
-        //R20150909 - Inicio
         [OperationContract]
         DateTime GetFechaHoraPais(int paisID);
-        //R20150909 - Fin
 
-        //I R20151202
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranza(int paisID);
 
@@ -674,24 +639,23 @@ namespace Portal.Consultoras.ServiceContracts
         void MntoCampoProveedorDespachoCobranza(BEProveedorDespachoCobranza entidad, int accion, int campoid, string valor, string valorAntiguo);
 
         [OperationContract]
-        List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaMnto(int paisID, BEProveedorDespachoCobranza entity);
+        List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaMnto(int paisID, BEProveedorDespachoCobranza entidad);
 
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
-        //F R20151202
-        
+
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
 
         [OperationContract]
-        List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
+        List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int campaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
 
         [OperationContract]
         int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
 
         [OperationContract]
-        string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
-        
+        string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso);
+
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
 
@@ -706,6 +670,13 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
 
+        #region Horario
+
+        [OperationContract]
+        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
+
+        #endregion
+        
         #region ConfiguracionOfertasHome
         [OperationContract]
         List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
@@ -718,6 +689,51 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+        #endregion
+
+        #region Estrategia
+        [OperationContract]
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId,
+                int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+
+        [OperationContract]
+        int ActualizarTonoEstrategia(int paisId, int estrategiaId, string codigoEstrategia, int tieneVariedad);
+        #endregion
+
+        #region UpSelling
+        [OperationContract]
+        IEnumerable<UpSelling> UpSellingObtener(int paisId, string codigoCampana, bool incluirDetalle = false);
+
+        [OperationContract]
+        UpSelling UpSellingInsertar(int paisId, UpSelling upSelling);
+
+        [OperationContract]
+        UpSelling UpSellingActualizar(int paisId, UpSelling upSelling, bool soloCabecera);
+
+
+        [OperationContract]
+        void UpSellingEliminar(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene la lista de detalles del UpSelling
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        IEnumerable<UpSellingDetalle> UpSellingDetallesObtener(int paisId, int upSellingId);
+
+        /// <summary>
+        /// Obtiene 1 detalle por su UpSellingDetalleId
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="upSellingDetalleId"></param>
+        /// <returns></returns>
+        [OperationContract]
+        UpSellingDetalle UpSellingDetalleObtener(int paisId, int upSellingDetalleId);
+
+        [OperationContract]
+        IEnumerable<OfertaFinalMontoMeta> ObtenerOfertaFinalMontoMeta(int paisId, int upSellingId);
         #endregion
     }
 }

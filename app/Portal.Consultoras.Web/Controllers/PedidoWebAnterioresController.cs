@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceSAC; //R2073
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,23 +36,22 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("PedidoWebAnteriores");
 
             JObject o = JObject.Parse(Request.Form["data"]);
-            int CampaniaId = (int)o["CampaniaId"];
-            decimal Flete = o["Flete"].ToString() == string.Empty ? 0 : (decimal)o["Flete"];
-            decimal Total = o["Total"].ToString() == string.Empty ? 0 : (decimal)o["Total"];
-            ViewBag.CampaniaId = CampaniaId;
+            int campaniaId = (int)o["CampaniaId"];
+            decimal flete = o["Flete"].ToString() == string.Empty ? 0 : (decimal)o["Flete"];
+            decimal total = o["Total"].ToString() == string.Empty ? 0 : (decimal)o["Total"];
+            ViewBag.CampaniaId = campaniaId;
 
             if (UserData().PaisID == 4)
             {
-                // Validación pais Colombia Req. 1478
-                ViewBag.Flete = string.Format("{0:#,##0}", Flete).Replace(',', '.');
-                ViewBag.Total = string.Format("{0:#,##0}", Total).Replace(',', '.');
-                ViewBag.Parcial = string.Format("{0:#,##0}", Total - Flete).Replace(',', '.');
+                ViewBag.Flete = string.Format("{0:#,##0}", flete).Replace(',', '.');
+                ViewBag.Total = string.Format("{0:#,##0}", total).Replace(',', '.');
+                ViewBag.Parcial = string.Format("{0:#,##0}", total - flete).Replace(',', '.');
             }
             else
             {
-                ViewBag.Flete = string.Format("{0:#,##0.00}", Flete);
-                ViewBag.Total = string.Format("{0:#,##0.00}", Total);
-                ViewBag.Parcial = string.Format("{0:#,##0.00}", Total - Flete);
+                ViewBag.Flete = string.Format("{0:#,##0.00}", flete);
+                ViewBag.Total = string.Format("{0:#,##0.00}", total);
+                ViewBag.Parcial = string.Format("{0:#,##0.00}", total - flete);
             }
             UsuarioModel usuario = UserData();
 
@@ -65,10 +64,10 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public string OrigenDescripcion(string Origen)
+        public string OrigenDescripcion(string origen)
         {
-            string result = string.Empty;
-            switch (Origen)
+            string result;
+            switch (origen)
             {
                 case "A":
                     result = "PEDIDO ESPECIAL";
@@ -92,14 +91,13 @@ namespace Portal.Consultoras.Web.Controllers
                     result = "MIXTO (DD + WEB)";
                     break;
                 default:
-                    result = Origen;
+                    result = origen;
                     break;
 
             }
             return result;
         }
 
-        //R2073
         public ActionResult ConsultarPedidoWebAnteriores(string sidx, string sord, int page, int rows)
         {
             if (ModelState.IsValid)
@@ -120,37 +118,34 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var pedido in lista)
                 {
-                    BEPedidoWeb oBEPedidoWeb = new BEPedidoWeb();
-                    oBEPedidoWeb.CampaniaID = pedido.Campania;
-                    oBEPedidoWeb.ImporteTotal = pedido.ImporteTotal;
-                    oBEPedidoWeb.CantidadProductos = pedido.Cantidad;
+                    BEPedidoWeb obePedidoWeb = new BEPedidoWeb
+                    {
+                        CampaniaID = pedido.Campania,
+                        ImporteTotal = pedido.ImporteTotal,
+                        CantidadProductos = pedido.Cantidad
+                    };
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
                     {
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
                         {
-                            //Se utilizará el campo para enviar la información de Origen
-                            oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            //Se utilizará el campo para enviar la información de Flete
-                            oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            //Se utilizará el campo para enviar la fecha de Facturación
-                            oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
+                            obePedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                            obePedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                            obePedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
-
 
                     }
 
-                    lst.Add(oBEPedidoWeb);
+                    lst.Add(obePedidoWeb);
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -192,13 +187,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                pag = Util.PaginadorGenerico(grid, lst);
-
-                // Creamos la estructura
-                if (UserData().PaisID == 4) // validación pais colombia req. 1478
+                if (UserData().PaisID == 4)
                 {
                     var data = new
                     {
@@ -210,15 +203,16 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    id = a.CampaniaID,
                                    cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
+                                   {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (UserData().Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -235,15 +229,15 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    id = a.CampaniaID,
                                    cell = new string[]
-                               {
-                                   DescripcionCampania(a.CampaniaID.ToString()),
-                                   a.EstadoPedidoDesc,
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   a.CantidadProductos.ToString(),
-                                   a.CodigoUsuarioCreacion,
-                                   a.Direccion,
-                                   a.ImporteTotal.ToString()
-                                }
+                                   {
+                                DescripcionCampania(a.CampaniaID.ToString()),
+                                a.EstadoPedidoDesc,
+                                (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                a.CantidadProductos.ToString(),
+                                a.CodigoUsuarioCreacion,
+                                a.Direccion,
+                                a.ImporteTotal.ToString()
+                                   }
                                }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
@@ -252,28 +246,27 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public string DescripcionCampania(string CampaniaID)
+        public string DescripcionCampania(string campaniaId)
         {
-            string DesCamp = string.Empty;
+            string desCamp;
             try
             {
-                DesCamp = CampaniaID.Substring(0, 4) + "-C" + CampaniaID.Substring(4, 2);
+                desCamp = campaniaId.Substring(0, 4) + "-C" + campaniaId.Substring(4, 2);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                DesCamp = CampaniaID;
+                desCamp = campaniaId;
             }
-            return DesCamp;
+            return desCamp;
         }
 
-        //R2073
         public ActionResult ConsultarPedidoWebAnterioresProductos(string sidx, string sord, int page, int rows, string CampaniaId)
         {
             if (ModelState.IsValid)
             {
                 List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-                List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+                List<BEPedidoFacturado> lista;
                 try
                 {
                     using (SACServiceClient client = new SACServiceClient())
@@ -286,6 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                     lista = null;
                 }
+                lista = lista ?? new List<BEPedidoFacturado>();
 
                 foreach (var pedido in lista)
                 {
@@ -298,18 +292,18 @@ namespace Portal.Consultoras.Web.Controllers
                             Cantidad = pedido.Cantidad,
                             PrecioUnidad = pedido.PrecioUnidad,
                             ImporteTotal = pedido.ImporteTotal,
-                            //Se esta reutilizando este campo para devolver el descuente correspondiente al CUV
                             ImporteTotalPedido = pedido.MontoDescuento
                         });
                 }
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -365,36 +359,38 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-                pag = Util.PaginadorGenerico(grid, lst);
-
-                // Creamos la estructura
                 if (UserData().PaisID == 4)
-                { // validación país colombia req. 1478
+                {
                     var data = new
                     {
                         simbolo = UserData().Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
-                        totalSum = "0",//string.Format("{0:#,##0.00}", Math.Truncate((from req in lst select req.ImporteTotal - req.ImporteTotalPedido).Sum()*100)/100),
+                        totalSum = "0",
                         rows = from a in items
                                select new
                                {
                                    id = a.CUV,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.PrecioUnidad).Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
-                                   (" " + a.ImporteTotal.ToString("#,##0").Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotalPedido).Replace(',','.')),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0}",a.ImporteTotal - a.ImporteTotalPedido).Replace(',','.'))
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (UserData().Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.PrecioUnidad).Replace(',', '.')),
+                                (UserData().Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotal).Replace(',', '.')),
+                                (" " + a.ImporteTotal.ToString("#,##0").Replace(',', '.')),
+                                (UserData().Simbolo + " " +
+                                 string.Format("{0:#,##0}", a.ImporteTotalPedido).Replace(',', '.')),
+                                (UserData().Simbolo + " " + string
+                                     .Format("{0:#,##0}", a.ImporteTotal - a.ImporteTotalPedido).Replace(',', '.'))
+                                   }
                                }
                     };
 
@@ -408,22 +404,23 @@ namespace Portal.Consultoras.Web.Controllers
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
-                        totalSum = "0",//string.Format("{0:#,##0.00}", Math.Truncate((from req in lst select req.ImporteTotal - req.ImporteTotalPedido).Sum()*100)/100),
+                        totalSum = "0",
                         rows = from a in items
                                select new
                                {
                                    id = a.CUV,
                                    cell = new string[]
-                               {
-                                   a.CUV,
-                                   a.DescripcionProd,
-                                   a.Cantidad.ToString(),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.PrecioUnidad)),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
-                                   (" " + a.ImporteTotal.ToString("#0.00")),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotalPedido)),
-                                   (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal - a.ImporteTotalPedido))
-                                }
+                                   {
+                                a.CUV,
+                                a.DescripcionProd,
+                                a.Cantidad.ToString(),
+                                (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.PrecioUnidad)),
+                                (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotal)),
+                                (" " + a.ImporteTotal.ToString("#0.00")),
+                                (UserData().Simbolo + " " + string.Format("{0:#,##0.00}", a.ImporteTotalPedido)),
+                                (UserData().Simbolo + " " +
+                                 string.Format("{0:#,##0.00}", a.ImporteTotal - a.ImporteTotalPedido))
+                                   }
                                }
                     };
 
@@ -433,12 +430,11 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        //R2073
         public ActionResult ExportarExcel(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-            List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+            List<BEPedidoFacturado> lista;
             try
             {
                 using (SACServiceClient client = new SACServiceClient())
@@ -451,6 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 lista = null;
             }
+            lista = lista ?? new List<BEPedidoFacturado>();
 
             foreach (var item in lista)
             {
@@ -470,14 +467,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, UserData().NombreConsultora));
 
-            Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
-            dicDetalles.Add("Código", "CUV");
-            dicDetalles.Add("Descripción", "DescripcionProd");
-            dicDetalles.Add("Cantidad", "Cantidad");
-            dicDetalles.Add("Precio Unitario", UserData().Simbolo + " #PrecioUnidad");
-            dicDetalles.Add("Total", UserData().Simbolo + " #ImporteTotal");
-            dicDetalles.Add("Descuento", UserData().Simbolo + " #Descuento");
-            dicDetalles.Add("Importe a Pagar", UserData().Simbolo + " #ImportePagar");
+            Dictionary<string, string> dicDetalles = new Dictionary<string, string>
+            {
+                {"Código", "CUV"},
+                {"Descripción", "DescripcionProd"},
+                {"Cantidad", "Cantidad"},
+                {"Precio Unitario", UserData().Simbolo + " #PrecioUnidad"},
+                {"Total", UserData().Simbolo + " #ImporteTotal"},
+                {"Descuento", UserData().Simbolo + " #Descuento"},
+                {"Importe a Pagar", UserData().Simbolo + " #ImportePagar"}
+            };
 
             string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
@@ -485,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        private void ExportToExcelMultiple(string filename, List<BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
+        private void ExportToExcelMultiple(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
             Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
@@ -495,13 +494,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
-                List<string> Columns = new List<string>();
+                List<string> columns = new List<string>();
 
                 int row = 5;
                 int col = 0;
-                int i = 0;
-
-                int col2 = 1;
 
                 ws.Cell(1, 1).Value = "Código Consultora: " + UserData().CodigoConsultora;
                 ws.Range(string.Format("A{0}:E{1}", 1, 1)).Row(1).Merge();
@@ -519,21 +515,16 @@ namespace Portal.Consultoras.Web.Controllers
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                //decimal TotalPedido = 0;
-                string Simbolo = UserData().Simbolo;
+                string simbolo = UserData().Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
-                    //ws.Cell(row, 1).Value = keyvalue.Value;
-                    //ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
-                    //ws.Cell(row, 1).Style.Font.Bold = true;
-                    col2 = 1;
+                    var col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
                         ws.Cell(row + 1, col2).Value = keyvalue2.Key;
                         col2++;
-                        Columns.Add(keyvalue2.Value);
+                        columns.Add(keyvalue2.Value);
                     }
 
                     ws.Range(row + 1, 1, row + 1, col2 - 1).AddToNamed("HeadDetails");
@@ -544,26 +535,16 @@ namespace Portal.Consultoras.Web.Controllers
                     titlesStyleh.Font.FontColor = XLColor.FromHtml("#ffffff");
                     wb.NamedRanges.NamedRange("HeadDetails").Ranges.Style = titlesStyleh;
 
-                    i = 0;
+                    var i = 0;
 
                     row += 2;
                     while (i < keyvalue.Key)
-                    // ( i < ; i++)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in columns)
                         {
-                            //Establece el valor para esa columna
-                            BEPedidoWebDetalle source = SourceDetails[i];
-                            //foreach (PropertyInfo property in source.GetType().GetProperties())
-                            //{
-                            //for (int m = 0; m < 5; m++)
-                            //{
-                            string[] arr = new string[2];
-                            if (column.Contains("#"))
-                                arr = column.Split('#');
-                            else
-                                arr = new string[] { "", column };
+                            BEPedidoWebDetalle source = sourceDetails[i];
+                            var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
                             if (arr[1] == "CUV")
                             {
@@ -588,15 +569,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "ImporteTotal")
                             {
-                                string importeTotal = "";
-                                if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
-                                    importeTotal = source.ImporteTotal.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    importeTotal = source.ImporteTotal.ToString("0.00");
-                                }
+                                var importeTotal = UserData().PaisID == 4
+                                    ? source.ImporteTotal.ToString("#,##0").Replace(',', '.')
+                                    : source.ImporteTotal.ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + importeTotal;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
@@ -604,90 +580,56 @@ namespace Portal.Consultoras.Web.Controllers
 
                             else if (arr[1] == "PrecioUnidad")
                             {
-                                string precioUnidad = "";
-                                if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
-                                    precioUnidad = source.PrecioUnidad.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    precioUnidad = source.PrecioUnidad.ToString("0.00");
-                                }
+                                var precioUnidad = UserData().PaisID == 4
+                                    ? source.PrecioUnidad.ToString("#,##0").Replace(',', '.')
+                                    : source.PrecioUnidad.ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + precioUnidad;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                             }
                             else if (arr[1] == "Descuento")
                             {
-                                string importeTotalPedido = "";
-                                if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
-                                    importeTotalPedido = source.ImporteTotalPedido.ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    importeTotalPedido = source.ImporteTotalPedido.ToString("0.00");
-                                }
+                                var importeTotalPedido = UserData().PaisID == 4
+                                    ? source.ImporteTotalPedido.ToString("#,##0").Replace(',', '.')
+                                    : source.ImporteTotalPedido.ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + importeTotalPedido;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                             }
                             else if (arr[1] == "ImportePagar")
                             {
-                                string importePagar = "";
-                                if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
-                                    importePagar = (source.ImporteTotal - source.ImporteTotalPedido).ToString("#,##0").Replace(',', '.');
-                                }
-                                else
-                                {
-                                    importePagar = (source.ImporteTotal - source.ImporteTotalPedido).ToString("0.00");
-                                }
+                                var importePagar = UserData().PaisID == 4
+                                    ? (source.ImporteTotal - source.ImporteTotalPedido).ToString("#,##0").Replace(',', '.')
+                                    : (source.ImporteTotal - source.ImporteTotalPedido).ToString("0.00");
+
                                 ws.Cell(row, col).Value = arr[0] + importePagar;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                             }
-                            //}
                             col++;
                         }
                         row++;
                         i++;
                     }
-                    //Columns = new List<string>();
-                    //if (arrTotal.Length > 0)
-                    //{
-                    //    ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
-                    //    var titlesStyle = wb.Style;
-                    //    titlesStyle.Font.Bold = true;
-                    //    titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                    //    titlesStyle.Fill.BackgroundColor = XLColor.NoColor;
-                    //    titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
-                    //    wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                    //    ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
-                    //    ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
-
-
-                    //    //TotalPedido += ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
-                    //}
                     row++;
-                    //index = keyvalue.Key + 1;
-                    //SourceDetails.RemoveRange(0, index);
                 }
 
                 ws.Cell(row + 1, col - 2).Value = "Importe Total: ";
                 ws.Cell(row + 1, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 1, col - 1).Value = Simbolo + " " + vTotalParcial.Trim();
+                ws.Cell(row + 1, col - 1).Value = simbolo + " " + vTotalParcial.Trim();
                 ws.Cell(row + 1, col - 1).Style.Font.Bold = true;
 
                 ws.Cell(row + 2, col - 2).Value = "Flete: ";
                 ws.Cell(row + 2, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 2, col - 1).Value = Simbolo + " " + vFlete.Trim();
+                ws.Cell(row + 2, col - 1).Value = simbolo + " " + vFlete.Trim();
                 ws.Cell(row + 2, col - 1).Style.Font.Bold = true;
 
                 ws.Cell(row + 3, col - 2).Value = "Total Facturado: ";
                 ws.Cell(row + 3, col - 2).Style.Font.Bold = true;
-                ws.Cell(row + 3, col - 1).Value = Simbolo + " " + vTotalFacturado.Trim();
+                ws.Cell(row + 3, col - 1).Value = simbolo + " " + vTotalFacturado.Trim();
                 ws.Cell(row + 3, col - 1).Style.Font.Bold = true;
 
                 ws.Columns().AdjustToContents();
@@ -697,23 +639,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
                 HttpContext.Response.End();
                 stream = null;
 
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 

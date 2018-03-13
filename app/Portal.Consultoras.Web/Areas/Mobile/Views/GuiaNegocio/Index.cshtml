@@ -17,8 +17,7 @@
             font-family: 'Lato';
             padding-left: 7px;
             font-size: 12px;
-            /* margin-right: 10px; */
-            border: 1px solid rgba(0, 0, 0, 0.21);
+            border: 1px solid rgba(0, 0, 0, .21);
             float: left;
             margin-left: 1%;
             margin-right: 1%;
@@ -26,10 +25,10 @@
     </style>
 }
 
-<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage">
+<div data-listado-campania="@Model.CampaniaID">
     <div data-listado-content="" style="display: none;">
         <div>
-            <div class="subtitulo_landing" style="display: none;">OFERTAS ÉSIKA PARA MÍ</div>
+            <div class="subtitulo_landing" style="display: none;">CLUB GANA+</div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
                 <div id="orderby-filter" style="display: block;">
@@ -68,7 +67,7 @@
         <div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile ">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage"
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileLanding"
                      data-content-item="@Model.CampaniaID"
                      class="ofertaProductoslanding flex-container"
                      style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
@@ -88,16 +87,15 @@
 <!--Fin seccion landing-->
 <hr class="clear" />
 
-<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage"></div>
-
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
+@Html.Partial("~/Areas/Mobile/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
+
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        /*var tipoOrigenPantalla = 1;*/
         var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileProductPage';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileLanding';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
@@ -106,6 +104,15 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var lsListaRD = "GNDLista";
         var campaniaId = @Model.CampaniaID;
-    </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
+        //
+        var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+        var RevistaCodigoIssuu = {
+            '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
+            '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
+            '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+        };
+
+</script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/GuiaNegocio-Landing")
 }

@@ -17,8 +17,8 @@
 @if (Model.TieneOfertaEnRevista)
 {
     <div class="fondo_f2f2f2" style="border-bottom:0">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel mobileLiquidaciones"></div>
         <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
             <li class="one">
                 <a href="#" id="VerGuiaNegocio">
@@ -42,8 +42,8 @@
 else
 {
     <div class="">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTANA LBEL-->
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel mobileLiquidaciones"></div>
     </div>
 }
 
@@ -84,7 +84,7 @@ else
                     <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
                     <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
                     <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
-                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
                     <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
                     <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
                     <input type="hidden" class="hdItemVolumen" value="@Model.Volumen" />
@@ -195,7 +195,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -210,7 +210,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV" />
@@ -282,7 +282,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -297,7 +297,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV" />
@@ -409,7 +409,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -424,7 +424,7 @@ else
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV" />
@@ -560,7 +560,6 @@ else
     @section scripts{
         <script type="text/javascript">
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
-        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var tipoOrigen = '2';

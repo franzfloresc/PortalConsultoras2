@@ -1,10 +1,4 @@
-﻿using Portal.Consultoras.Web.ServiceZonificacion;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.WebPages.Html;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {

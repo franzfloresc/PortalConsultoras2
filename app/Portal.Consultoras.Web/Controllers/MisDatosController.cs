@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -18,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
-            BEUsuario beusuario = new BEUsuario();
+            BEUsuario beusuario;
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -38,15 +37,14 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = UserData().UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + UserData().CodigoISO].ToString();
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + UserData().CodigoISO);
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
                     bezona = sv.SelectZonaById(UserData().PaisID, UserData().ZonaID);
                 }
-                if (bezona.ToList().Count == 0) model.NombreGerenteZonal = "";
-                else model.NombreGerenteZonal = bezona[0].NombreGerenteZona;
+                model.NombreGerenteZonal = bezona.ToList().Count == 0 ? "" : bezona[0].NombreGerenteZona;
 
                 if (beusuario.EMailActivo) model.CorreoAlerta = "";
                 if ((!beusuario.EMailActivo) && beusuario.EMail != "") model.CorreoAlerta = "Su correo aun no ha sido activado";
@@ -59,11 +57,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
-                if (PaisesDigitoControl.Contains(model.PaisISO))
+                if (paisesDigitoControl.Contains(model.PaisISO))
                 {
-                    model.DigitoVerificador = beusuario.DigitoVerificador.ToString();
+                    model.DigitoVerificador = beusuario.DigitoVerificador;
                 }
             }
 
@@ -78,14 +76,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    int resultExiste;
-                    bool result;
-
-                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
@@ -138,16 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
-                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
-                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
-                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
                 entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 CorreoAnterior = model.CorreoAnterior;
@@ -228,11 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.ZonaID = UserData().ZonaID;

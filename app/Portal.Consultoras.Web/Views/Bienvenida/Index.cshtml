@@ -19,7 +19,7 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -27,9 +27,9 @@
 <div class="content_slider_home" style="min-height: 300px;">
     <div id="sliderHomeLoading" class="center">
         <br />
-        <div >
+        <div>
             <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
-        </div>        
+        </div>
         <br />
     </div>
     <div class="flexslider">
@@ -132,13 +132,16 @@
     <hr class="clear" />
     <div class="items_belcorp">
         @{
-            string verUltmPagos = Model.PaisID == 3 || Model.PaisID == 4 || Model.PaisID == 12 || Model.PaisID == 6 || Model.PaisID == 11 ? "0" : "1";
+            string verUltmPagos = Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador ||
+                Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru ? "0" : "1";
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
-            string clasePagoUltMovVZ = "";
 
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
-            if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
+            if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela) { clasePagoOnlineVZ = "margin-top: 0px;"; }
         }
 
         <div class="titulo_home_img"></div>
@@ -159,23 +162,24 @@
 
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
 
-        @if (Model.PaisID == 3) //Chile
+        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Chile)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 4) //Colombia
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 12) //Puerto Rico
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.PuertoRico)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
         }
-        else if (Model.PaisID == 6 || Model.PaisID == 11)
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Ecuador ||
+            Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Peru)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
         }
-        else if (Model.PaisID == 14) //Venezuela EPD-1204
+        else if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Venezuela)
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta"
                title="Pago en Línea" class="btn_paga_online btn_100_paga"
@@ -194,33 +198,33 @@
         <hr class="clear" />
         <div class="info_centro">
             @{string cabezaEscala = null, pieEscala = null;
-            if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
-            {
-                cabezaEscala = "Ganancia estimada total*";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
-            {
-                cabezaEscala = "Comisión y ahorro total*";
-                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
-            {
-                cabezaEscala = "Ganancia estimada total*";
-                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-            }
-            else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
-            {
-                cabezaEscala = "Oportunidad de ahorro total";
-                pieEscala = "";
-            }
+                if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
+                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
+                {
+                    cabezaEscala = "Comisión y ahorro total*";
+                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
+                {
+                    cabezaEscala = "Ganancia estimada total*";
+                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                }
+                else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "";
+                }
             }
             @(cabezaEscala)
             <div class="deuda_home">
@@ -258,20 +262,15 @@
     Html.RenderPartial("MasVendidos");
 }
 <!--CAROUSEL OFERTAS PARA TI-->
-<div id="divListaEstrategias" style="display:none;">
-    <div id="contenedor_template_estrategia_cabecera" class="fondo_gris"></div>
-
+<div id="divListaEstrategias" class="fondo_gris" style="display:none;">
+    @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
-<div class="fondo_gris content_belcorp" id="divRevistaDigital">
-
-</div>
+<div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
 <!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
-<div class="content_belcorp" id="divProductosShowRoom">
-
-</div>
+<div class="content_belcorp" id="divProductosShowRoom"></div>
 <!-- FIN-->
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
@@ -523,11 +522,7 @@
     <!-- POPUP INSCRIPCION COACH VIRTUAL -->
     <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
         <a id="cerrar-virtual-coach-dialog" class="cerrar_popup_inscripcion" title="Cerrar">
-            @*<img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">*@
         </a>
-        @*<div class="img_celular_animado">
-            <img src="@Url.Content("~/Content/Images/popup-inscripcion-animacion.gif")" alt="" />
-        </div>*@
         <div class="img_popup_inscripcion_asesoria_online">
             <img src="@Url.Content("~/Content/Images/img_inscripcion_asesoria_online.png")" alt="Inscripción Asesora Online">
         </div>
@@ -585,48 +580,6 @@
                 </a>
                 <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_lato_bold" title="">VER MÁS INFORMACIÓN</a>
             </div>
-            @*<div class="fondo_titulo_asesora">
-                    <div class="titulo_principal_asesora_online tipografia_lato_light">
-                        SUSCRÍBETE Y GANA MÁS CON<br /><span class="titulo_tu_asesora_online tipografia_lato_bold">ÉSIKA TE ASESORA</span>
-                    </div>
-                </div>
-                <div class="mensaje_popup">
-                    <div class="texto_popup">
-                        TODO LO QUE NECESITAS PARA GANAR MÁS, <span class="salto_linea">AHORA EN LA PALMA DE TUS MANOS (CORREO Y SMS)</span>
-                    </div>
-                    <div class="lista_beneficios_inscripcion">
-                        <div class="beneficio_inscripcion">
-                            <div class="icono_beneficio_inscripcion beneficio_vender_mas">
-                                <img src="@Url.Content("~/Content/Images/icono-vender-mas-asesora-online-blanco.png")" alt="LOS MEJORES CONSEJOS PARA VENDER MÁS">
-                            </div>
-                            <div class="descripcion_beneficio_inscripcion">
-                                <div>LOS MEJORES CONSEJOS PARA VENDER MÁS</div>
-                            </div>
-                        </div>
-                        <div class="beneficio_inscripcion">
-                            <div class="icono_beneficio_inscripcion beneficio_ofertas_asesoras">
-                                <img src="@Url.Content("~/Content/Images/icono-ofertas-asesora-online.png")" alt="LAS OFERTAS EXCLUSIVAS SÓLO PARA TI">
-                            </div>
-                            <div class="descripcion_beneficio_inscripcion">
-                                <div>LAS OFERTAS EXCLUSIVAS <span class="salto_linea">SÓLO PARA TI</span></div>
-                            </div>
-                        </div>
-                        <div class="beneficio_inscripcion">
-                            <div class="icono_beneficio_inscripcion beneficio_asesoramiento_gestion_clientes">
-                                <img src="@Url.Content("~/Content/Images//icono-gestion-clientes-asesora-online.png")" alt="ASESORAMIENTO PARA GESTIONAR TUS CLIENTES">
-                            </div>
-                            <div class="descripcion_beneficio_inscripcion">
-                                <div>ASESORAMIENTO PARA GESTIONAR TUS CLIENTES</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wrapper_cta_inscripcion">
-                        <a id="quiero-tips-ofertas" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
-                            QUIERO TIPS Y OFERTAS
-                        </a>
-                        <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
-                    </div>
-                </div>*@
         </div>
         <a id="no-volver-mostrar-mensaje" class="enlace_no_volver_mostrar_mensaje" title="No volver a ver este mensaje">
             No volver a ver este mensaje
@@ -729,7 +682,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Nombres</label>
-                        <input type="text" name="nombres" id="" value="@Model.NombreCompleto" />
+                        <input type="text" name="nombres" value="@Model.NombreCompleto" />
                     </div>
                     <div>
                         <label>Teléfono</label>
@@ -770,7 +723,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
+                            @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                             {
                                 <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
                             }
@@ -781,7 +734,7 @@
                         </label>
                     </div>
                 </div>
-                @if (Model.PaisID == 4)
+                @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
                 {
                     <div class="datos_obligatorios">
                         Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
@@ -917,6 +870,7 @@
             <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
             <input type="hidden" id="hdn_CorreoMD" value="" />
             <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
+            <input type="hidden" id="hdn_CodigoUsuarioReal" value="" />
             <input type="hidden" id="hdn_NombreCompletoMD" value="" />
             <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
             <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
@@ -950,142 +904,142 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>@Model.TextoSobrenombre</label>
-                        @if (Model.PaisID == 4)
-                        {
-                            <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
-                        }
-                        else
-                        {
-                            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
-                        }
+                        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
+        }
+        else
+        {
+            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+}
                     </div>
                     <div>
                         <label>
-                            @if (Model.PaisID != 4)
-                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
-                        </label>
-                        @if (Model.PaisID == 4)
-                        {
-                            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                        }
-                        else
-                        {
-                            <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                        }
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div>
-                        <label>
-                            @if (Model.PaisID != 4)
-                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
-                        </label>
-                        @if (Model.PaisID == 4)
-                        {
-                            <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                        }
-                        else
-                        {
-                            <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                        }
-                    </div>
-                    <div>
-                        <label>
-                            @if (Model.PaisID != 4)
-                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
-                        </label>
-                        @if (Model.PaisID == 4)
-                        {
-                            <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                        }
-                        else
-                        {
-                            <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                        }
+                            @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
+                </label>
+                @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+        {
+            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+}
+else
+{
+        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+}
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div>
+                <label>
+                    @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
+        </label>
+        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+{
+        <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+}
+else
+{
+        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+}
+        </div>
+        <div>
+            <label>
+                @if (Model.PaisID != Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
+        </label>
+        @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+{
+        <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+}
+else
+{
+        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+}
 
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div>
-                        <label>Otro teléfono:</label>
-                        @if (Model.PaisID == 4)
-                        {
-                            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-                        }
-                        else
-                        {
-                            <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-                        }
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div class="checkbox_condiciones">
-                        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
-                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
-                            }
-                            else
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
-                            }
-                        </label>
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    @if (Model.PaisID == 4)
-                    {
-                        <div class="datos_obligatorios">
-                            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                        </div>
-                        <div class="contenedor_boton_actualizar">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                                ACEPTAR
-                            </button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="datos_obligatorios">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-                        </div>
-                        <div class="contenedor_boton_actualizar">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                                ACTUALIZAR
-                            </button>
-                        </div>
-                    }
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div>
-                        <label>Tu contraseña</label>
-                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div>
-                        <label>Nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
-                    </div>
-                    <div>
-                        <label>Repite la nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div class="contenedor_boton_cancelar misDatos">
-                        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
-                            CANCELAR
-                        </button>
-                    </div>
-                    <div class="contenedor_boton_actualizar misDatos">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
-                            GUARDAR
-                        </button>
-                    </div>
-                </div>
-            </form>
+        </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div>
+                <label>Otro teléfono:</label>
+                @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+        {
+            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+}
+else
+{
+        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+}
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div class="checkbox_condiciones">
+                <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                    @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+            {
+                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+    }
+    else
+    {
+        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+}
+                </label>
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            @if (Model.PaisID == Portal.Consultoras.Common.Constantes.PaisID.Colombia)
+    {
+        <div class="datos_obligatorios">
+            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+        </div>
+        <div class="contenedor_boton_actualizar">
+            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                ACEPTAR
+            </button>
+        </div>
+}
+else
+{
+        <div class="datos_obligatorios">
+            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+        </div>
+        <div class="contenedor_boton_actualizar">
+            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                ACTUALIZAR
+            </button>
+        </div>
+}
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div>
+                <label>Tu contraseña</label>
+                <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div>
+                <label>Nueva contraseña</label>
+                <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+            </div>
+            <div>
+                <label>Repite la nueva contraseña</label>
+                <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div class="contenedor_boton_cancelar misDatos">
+                <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+                    CANCELAR
+                </button>
+            </div>
+            <div class="contenedor_boton_actualizar misDatos">
+                <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+                    GUARDAR
+                </button>
+            </div>
+        </div>
+        </form>
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
@@ -1125,7 +1079,7 @@
 <!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
-        <a href="javascript:CerrarCamara();" id="" title="Cerrar">
+        <a href="javascript:CerrarCamara();" title="Cerrar">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
@@ -1316,119 +1270,8 @@
     </div>
 </div>
 
-<script id="template-estrategia-header" type="text/x-handlebars-template">
-    @if(revistaDigital.TieneRDC)
-    {
-        if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 && 
-            revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
-        {
-            <div class="home_block_rd home_rd1">
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="max-width: 68%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES PEDIR <br />TUS OFERTAS DE CAMPAÑA @revistaDigital.Campania Y VER LAS DE CAMPAÑA @revistaDigital.CampaniaMasUno</div>
-                        <div class="btn_diagonal">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div style="height: 35px; background: #fff;"></div>
-            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-        }
-        else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
-        {
-            <div class="home_block_rd home_rd" style="position:relative; z-index:1">
-                <div class="hblock"></div>
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="width: 65%">AHORA PUEDES COMPRAR TODAS TUS OFERTAS <br />DE CAMPAÑA @revistaDigital.Campania Y VER LAS DE CAMPAÑA @revistaDigital.CampaniaMasUno</div>
-                        <div class="btn_diagonal">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
-            <hr class="clear" />
-        }
-        else
-        {
-            <div class="home_block_rd home_rd1">
-                <div class="content_belcorp" style="background-color: black;">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
-                    </div>
-                    <div class="hblock_text">
-                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="width: 65%">ENTRA Y CONOCE TODO LO QUE TIENE PARA TI. <br /> HASTA 65% DE DESCUENTO EN OFERTAS EXCLUSIVAS.</div>
-                        <div class="btn_diagonal">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div style="height: 35px; background: #fff;"></div>
-            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-        }
-    }
-    else if (revistaDigital.TieneRDR)
-    {
-        <div class="home_block_rd home_rd" style="position:relative; z-index:1">
-            <div class="hblock"></div>
-            <div class="content_belcorp" style="background-color: black;">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
-                </div>
-                <div class="hblock_text">
-                    <div class="hblock_tit">{{Titulo}}</div>
-                    <div style="width: 65%">{{TituloDescripcion}}</div>
-                    <div class="btn_diagonal">
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
-                            VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <hr class="clear" />
-            <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
-            <hr class="clear" />
-    }
-    else
-    {
-        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-            new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
-    }
-</script>
 
-@if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+@if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
 {
     @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary { { "NombreConsultora", Model.SobreNombre } })
 }
@@ -1452,7 +1295,7 @@
             <input type="hidden" id="ImagenProducto" value="{{ImagenProducto}}" />
             <input type="hidden" id="Posicion" value="{{Posicion}}" />
             <div class="producto_img_home mini">
-                <img src="{{ImagenProducto}}" class="imagen_producto" data-img-lazy="1"/>
+                <img src="{{ImagenProducto}}" class="imagen_producto" data-img-lazy="1" />
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
@@ -1549,7 +1392,7 @@
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
         <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
-            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom=""/>
+            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom="" />
         </div>
         <div style="width:71%;float:left;">
             <div class="clear"></div>
@@ -1571,9 +1414,9 @@
                     </div>
                     <div class="producto_img_home mini" data-img="">
                         {{#IsNullOrEmpty ImagenProducto '=='}}
-                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom=""/>
+                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom="" />
                         {{else}}
-                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom=""/>
+                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
                         {{/IsNullOrEmpty}}
                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                     </div>
@@ -1583,6 +1426,7 @@
                             <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
                             <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                         </div>
+                        {{#iff TipoAccionAgregar '==' '0'}}
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -1594,8 +1438,14 @@
                             </div>
                         </div>
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        {{/iff}}
+                        {{#iff TipoAccionAgregar '==' '1'}}
+                        <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                            <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                        </a>
+                        {{/iff}}
                         <div class="clear"></div>
-                        <div style="padding-top: 9px; height: 15px;">
+                        <div style="padding-top: 9px; margin-bottom:6px; height: 15px;">
                             <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
                                 AGREGADO
                                 <div class="icono"></div>
@@ -1632,7 +1482,7 @@
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHome" />
                 <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
             </div>
             <div class="producto_img_home mini" id="imagenAnimacion" data-img="">
@@ -1697,7 +1547,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
             <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1712,7 +1562,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1784,7 +1634,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
         </div>
         <div style="display:none;" id="hiddenRevista">
             <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1799,7 +1649,7 @@
             <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
             <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
         </div>
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -1931,7 +1781,7 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
             </div>
             <div style="display:none;" id="hiddenRevista">
                 <input type="hidden" class="hdItemCuv" value="{{productoRevista.CUV}}" />
@@ -1946,7 +1796,7 @@
                 <input type="hidden" class="hdItemDescripcionCategoria" value="{{productoRevista.DescripcionCategoria}}" />
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{productoRevista.DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{productoRevista.DescripcionEstrategia}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp" />
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
             </div>
         </div>
         <!--ITEM 1-->
@@ -2091,7 +1941,7 @@
             <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
-            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktopHomePopUp" />
             <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
         </div>
         <div data-compartir-campos="" style="display:none;">
@@ -2168,26 +2018,6 @@
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
-<!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main="" data-popup-function-hide="SRPopupCerrar('I')">
-    <div class="content_pop_up_intriga" data-popup-body>
-        <input type="hidden" id="hdEventoIDShowRoom" />
-        <input type="hidden" id="spnShowRoomEvento" />
-        <input type="hidden" id="spnShowRoomEventoDescripcion" />
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" data-popup-close="">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="">
-        </a>
-        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
-        <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
-        <div class="check_01">
-            <label class="checkpop2">
-                <a id="cbNoMostrarPopupShowRoomIntriga" onclick="NoMostrarPopupShowRoomIntrigaVenta('I');">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
-            </label>
-        </div>
-        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
-    </div>
-
-</div>
 <!--FIN-->
 <!--NUEVO POP UP DE SHOWROOM Venta-->
 <div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
@@ -2218,51 +2048,9 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-@if (Model.RevistaDigital.TieneRDS == true)
+@if (revistaDigital.TieneRDS == true)
 {
-    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
-        <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
-            <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="">
-                <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
-            </a>
-            <div class="popup_rd_cabecera">
-                <div class="rd_logo">
-                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
-                </div>
-                <div class="popup_cabecera_text" style="top: 14px;">
-                    <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                    <div>INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE</div>
-                </div>
-            </div>
-            <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
-                <div class="popup_rd_text">
-                    <div class="popup_saludo">@Model.SobreNombre, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
-                    <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
-                    <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
-                    <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>
-                    <div class="rd_desc" style="top: 120px; left: 124px;">Productos que tus<br>clientes piden</div>
-                    <div class="btn_diagonal"><a href="javascript: RDSuscripcion()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-                </div>
-                <div class="popup-textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
-            </div>
-            <div class="rid_text" style="left: 10px">
-                <div class="rid_tit">ANTES</div>
-                <hr class="rid_line">
-                <div>REVISTA IMPRESA</div>
-            </div>
-            <div class="rid_text" style="right: 10px; text-align: right;">
-                <div class="rid_tit">AHORA</div>
-                <hr class="rid_line">
-                <div>REVISTA ONLINE</div>
-            </div>
-            <div class="popup_revistaSuscripcion_noAMostrarMensaje">
-                <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
-            </div>
-        </div>
-    </div>
-    <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
-    <!-- POPUP INSCRITA A REVISTA DIGITAL -->
-    @Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)Model.CampaniaMasDos)
+    @Html.Partial("~/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
@@ -2313,7 +2101,7 @@
         var contadorFondoPopUp = 0;
         var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
         var viewBagVioTutorial = '@Model.VioTutorialDesktop';
-        var sessionIsContrato = '@Session["IsContrato"]';
+        var sessionIsContrato = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetIsContrato()';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
@@ -2350,19 +2138,17 @@
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
         var tipoOrigenEstrategia = 1;
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome';
 
         var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
-        var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
-        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
+        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
         var tipoOrigenPantalla = 1;
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         var tieneCupon = '@Model.TieneCupon';
@@ -2397,5 +2183,5 @@
         var OrigenDesktopODD = 1;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    @{ Session["IsContrato"] = 0; }
+    @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }

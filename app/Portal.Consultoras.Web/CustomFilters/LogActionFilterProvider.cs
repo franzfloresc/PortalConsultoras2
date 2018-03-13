@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.CustomFilters
@@ -38,6 +35,6 @@ namespace Portal.Consultoras.Web.CustomFilters
     {
         internal string ControllerName { get; set; }
         internal string ActionName { get; set; }
-        internal string AreaName { get; set; }//20150903
+        internal string AreaName { get; set; }
     }
 }

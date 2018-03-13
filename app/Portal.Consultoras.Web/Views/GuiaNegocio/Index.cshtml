@@ -12,53 +12,56 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/GuiaNegocio-Landing")
 }
 
-<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDDesktopLanding">
-    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
-               
-    <div id="orderby-filter" style="padding: 0px 2%;">
-        <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-            <div class="rd-seccion2" style=" padding 0px 0%; height:auto;">
 
-                <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
-                    <div class="rd-cantidad">
-                        Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
-                    </div>
-                    <div class="rd-filtro-limpiar">
-                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
+    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
+
+        <div id="orderby-filter" style="padding: 0px 2%;">
+            <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                <div class="rd-seccion2" style=" padding 0px 0%; height:auto;">
+                    <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                        <div class="rd-cantidad">
+                            Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
+                        </div>
+                        <div class="rd-filtro-limpiar">
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
-                    @if (Model.FiltersByBrand.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                            @foreach (var item in Model.FiltersByBrand)
-                            {
-                                <option value="@item.Codigo">@item.Descripcion</option>
-                            }
-                        </select>
-                    }
-                    @if (Model.FiltersBySorting.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                            @foreach (var item1 in Model.FiltersBySorting)
-                            {
-                                <option value="@item1.Codigo">@item1.Descripcion</option>
-                            }
-                        </select>
-                    }
+                    <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
+                        @if (Model.FiltersByBrand.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                @foreach (var item in Model.FiltersByBrand)
+                                {
+                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                }
+                            </select>
+                        }
+                        @if (Model.FiltersBySorting.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                @foreach (var item1 in Model.FiltersBySorting)
+                                {
+                                    <option value="@item1.Codigo">@item1.Descripcion</option>
+                                }
+                            </select>
+                        }
 
+                    </div>
+                    <div style="clear:both;"></div>
                 </div>
-                <div style="clear:both;"></div>
             </div>
         </div>
-    </div>
 
-        
-        <div id="RDListado" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDDesktopLanding">
-            <div id="divOfertaProductos"  style="text-align: center;"></div>
-            <div id="no-productos" class="seccion-no-productos" >
+
+        <div id="RDListado" data-content-item="@Model.CampaniaID"
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDDesktopLanding"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp">
+
+            <div id="divOfertaProductos" style="text-align: center;"></div>
+            <div id="no-productos" class="seccion-no-productos">
                 Próximamente encontrarás aquí las mejores ofertas que te harán ganar más y obtener más ingresos.<br />
                 ¡Vuelve pronto!
             </div>
@@ -84,19 +87,47 @@
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
 
+@Html.Partial("~/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
+
 @section scripts{
-    <script type="text/javascript">
-        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio")';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDDesktopLanding';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
-        var tipoOrigenEstrategia = 1;
-        var CantidadFilas = @Model.CantidadFilas;
-        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
-        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
-        var lsListaRD = "GNDLista";
-        var campaniaId = @Model.CampaniaID;
-    </script>
+<script type="text/javascript">
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var tipoOrigenPantalla = 1;
+    var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio")';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDDesktopLanding';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var tipoOrigenEstrategia = 1;
+    var CantidadFilas = @Model.CantidadFilas;
+    var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+    var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+    var lsListaRD = "GNDLista";
+    var campaniaId = @Model.CampaniaID;
+    //
+    var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
+    var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
+    var RevistaCodigoIssuu = {
+        '@ViewBag.CampaniaAnterior': '@ViewBag.CodigoRevistaAnterior',
+        '@ViewBag.CampaniaActual': '@ViewBag.CodigoRevistaActual',
+        '@ViewBag.CampaniaSiguiente': '@ViewBag.CodigoRevistaSiguiente'
+    };
+    var contadorgnddesktop = 1;
+    $('.desplegablegnd .gndcontenido .gnd span.gndcerrar').click(function () {
+        if (contadorgnddesktop == 1) {
+            $('.desplegablegnd').animate({
+                right: '-120'
+            });
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(270deg)');
+            contadorgnddesktop = 0;
+        } else {
+            contadorgnddesktop = 1;
+            $('.desplegablegnd').animate({
+                right: '0px'
+            });
+            $('.desplegablegnd .gndcontenido .gnd .gndcerrar img.flechitagnd').css('transform', 'rotate(90deg)');
+        }
+    });
+
+
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/GuiaNegocio-Landing")
 }

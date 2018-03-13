@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Mobile;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -68,10 +67,8 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Menus App
-
         [OperationContract]
-        IList<BEMenuApp> GetMenuApp(int paisiD);
-
+        IList<BEMenuApp> GetMenuApp(BEMenuApp menuApp);
         #endregion
     }
 }

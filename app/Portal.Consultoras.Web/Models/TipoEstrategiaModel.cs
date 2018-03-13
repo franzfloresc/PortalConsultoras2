@@ -19,5 +19,9 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public int CodigoGeneral { get; set; }
         public string Codigo { get; set; }
+
+        public int FlagValidarImagen { get; set; }
+        public int PesoMaximoImagen { get; set; }
+
     }
 }

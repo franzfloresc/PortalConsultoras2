@@ -1,10 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
+using Portal.Consultoras.Entities.Framework;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -50,7 +50,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID);
 
-        //EPD-1164
         [OperationContract]
         IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID);
 
@@ -60,7 +59,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BECatalogo> GetCatalogosByCampania(int paisID, int campaniaID);
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         [OperationContract]
         IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID);
 

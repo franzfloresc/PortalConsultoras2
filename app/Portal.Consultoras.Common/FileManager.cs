@@ -30,18 +30,16 @@ namespace Portal.Consultoras.Common
                 var c = root + Path;
                 File.Delete(c + filename);
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) { }
         }
 
         public static void DeleteImagesInFolder(string root)
         {
             try
             {
-                string[] Files = Directory.GetFiles(root);
+                string[] files = Directory.GetFiles(root);
 
-                foreach (string file in Files)
+                foreach (string file in files)
                 {
                     File.Delete(file);
                 }
@@ -56,9 +54,9 @@ namespace Portal.Consultoras.Common
         {
             try
             {
-                string[] Files = Directory.GetFiles(root);
+                string[] files = Directory.GetFiles(root);
 
-                foreach (string file in Files)
+                foreach (string file in files)
                 {
                     string fileName = System.IO.Path.GetFileName(file);
                     if (!fileName.ToUpper().Equals(filter.ToUpper()))
@@ -75,9 +73,9 @@ namespace Portal.Consultoras.Common
         {
             try
             {
-                string[] Files = Directory.GetFiles(root);
+                string[] files = Directory.GetFiles(root);
 
-                foreach (string file in Files)
+                foreach (string file in files)
                 {
                     string fileName = System.IO.Path.GetFileName(file);
                     if (fileName.ToUpper().Equals(image.ToUpper()))
@@ -93,21 +91,14 @@ namespace Portal.Consultoras.Common
         public static string CopyImages(string root, string filename, string temproot)
         {
             if (!File.Exists(root))
-                System.IO.Directory.CreateDirectory(root);
+                Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var r = root + Path + filename;
-            //var g = Guid.NewGuid() + ".jpg";
 
             var newfilename = string.Empty;
 
             if (File.Exists(t))
             {
-                //while (File.Exists(r))
-                //{
-                //    //g = Guid.NewGuid() + ".jpg";
-                //    //filename = g;
-                //    r = root + Path + filename;
-                //}
                 File.Copy(t, r, true);
                 newfilename = filename;
             }
@@ -118,10 +109,8 @@ namespace Portal.Consultoras.Common
         public static string CopyFile(string root, string filename, string temproot)
         {
             if (!File.Exists(temproot))
-                System.IO.Directory.CreateDirectory(temproot);
+                Directory.CreateDirectory(temproot);
             var t = temproot + TempPath + filename;
-            //var r = root + Path + filename;
-            //var g = Guid.NewGuid() + ".pdf";
 
             if (File.Exists(root))
             {
@@ -157,7 +146,7 @@ namespace Portal.Consultoras.Common
 
                 var resized = Imager.Resize(image, image.Height, image.Width, true);
                 if (!File.Exists(System.IO.Path.GetDirectoryName(filePath)))
-                    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(filePath));
+                    Directory.CreateDirectory(System.IO.Path.GetDirectoryName(filePath));
                 Imager.SaveJpeg(filePath, resized);
                 w = image.Width;
                 h = image.Height;
@@ -168,7 +157,6 @@ namespace Portal.Consultoras.Common
 
         public static string SaveTempPng(string root, string FileName)
         {
-            //var g = Guid.NewGuid() + ".png";
             try
             {
                 string sPathFile = @"D:\LogError\";
@@ -185,14 +173,6 @@ namespace Portal.Consultoras.Common
                 log.WriteLine(string.Format("Globals.RutaImagenesTemp ==> {0}", Globals.RutaImagenesTemp));
                 log.WriteLine(string.Format("TempPath ==> {0}", TempPath));
 
-
-
-                //StreamWriter oStream = new StreamWriter(sPathFile + "Log_" + sFechaTxt + ".log", true);
-                //oStream.WriteLine(string.Format("{0} {1} - Error: {2}", sFechaLog, strUsuario, expException));
-
-                //if (!File.Exists(System.IO.Path.GetDirectoryName(filePath)))
-                //    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(filePath));
-
                 File.Copy(FileName, (Globals.RutaImagenesTemp + TempPath + System.IO.Path.GetFileName(FileName)), true);
                 log.Flush();
                 log.Close();
@@ -207,7 +187,7 @@ namespace Portal.Consultoras.Common
         public static string CopyImagesFondoLogo(string root, string filename, string temproot, string Pais, string CampaniaID)
         {
             if (!File.Exists(root))
-                System.IO.Directory.CreateDirectory(root);
+                Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var newfilename = Pais + "_" + CampaniaID + ".png";
             var r = root + Path + newfilename;
@@ -223,7 +203,7 @@ namespace Portal.Consultoras.Common
         public static string CopyImagesOfertas(string root, string filename, string temproot, string ISO, string campania, string cuv)
         {
             if (!File.Exists(root))
-                System.IO.Directory.CreateDirectory(root);
+                Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var newfilename = ISO + "_" + campania + "_" + cuv + "_" + RandomString() + ".png";
             var r = root + Path + newfilename;
@@ -241,7 +221,7 @@ namespace Portal.Consultoras.Common
 
             string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
             if (!File.Exists(root))
-                System.IO.Directory.CreateDirectory(root);
+                Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var newfilename = ISO + "_" + CodigoProducto + "_" + time + "_" + numero + "_" + RandomString() + ".png";
             var r = root + Path + newfilename;
@@ -259,7 +239,7 @@ namespace Portal.Consultoras.Common
 
             string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
             if (!File.Exists(root))
-                System.IO.Directory.CreateDirectory(root);
+                Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
             var newfilename = filename.Substring(0, filename.Length - 4) + "_" + time + ".png";
             var r = root + Path + newfilename;
@@ -275,18 +255,14 @@ namespace Portal.Consultoras.Common
         public static string RandomString()
         {
             int size = 10;
-            bool lowerCase = true;
             StringBuilder builder = new StringBuilder();
             Random random = new Random();
-            char ch;
             for (int i = 0; i < size; i++)
             {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                var ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
                 builder.Append(ch);
             }
-            if (lowerCase)
-                return builder.ToString().ToLower();
-            return builder.ToString();
+            return builder.ToString().ToLower();
         }
 
         public static void DeleteFileStartWhit(string rutaFisica, string nameStart)

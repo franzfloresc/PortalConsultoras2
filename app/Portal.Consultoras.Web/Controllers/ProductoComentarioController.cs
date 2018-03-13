@@ -40,39 +40,35 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2
+                    ? sv.SelectPaises().ToList()
+                    : new List<BEPais> { sv.SelectPais(UserData().PaisID) };
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         private IEnumerable<EstadoProductoComentarioModel> ListarEstadosComentario()
         {
-            var estadosComentarios = new List<EstadoProductoComentarioModel>();
+            var estadosComentarios = new List<EstadoProductoComentarioModel>
+            {
+                new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Ingresado),
+                new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Aprobado),
+                new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Rechazado)
+            };
 
-            estadosComentarios.Add(new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Ingresado));
-            estadosComentarios.Add(new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Aprobado));
-            estadosComentarios.Add(new EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario.Rechazado));
 
             return estadosComentarios;
         }
 
         private IEnumerable<TipoProductoComentarioModel> ListarTiposComentario()
         {
-            var tiposComentario = new List<TipoProductoComentarioModel>();
+            var tiposComentario = new List<TipoProductoComentarioModel>
+            {
+                new TipoProductoComentarioModel(Enumeradores.TipoProductoComentario.SAP),
+                new TipoProductoComentarioModel(Enumeradores.TipoProductoComentario.CUV)
+            };
 
-            tiposComentario.Add(new TipoProductoComentarioModel(Enumeradores.TipoProductoComentario.SAP));
-            tiposComentario.Add(new TipoProductoComentarioModel(Enumeradores.TipoProductoComentario.CUV));
 
             return tiposComentario;
         }
@@ -84,9 +80,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV, campaniaID);
-                var listaProductoComentario = ListarProductoComentario(paisID, productoComentarioFilter);
+                var listaProductoComentario = ListarProductoComentario(paisID, productoComentarioFilter).ToList();
 
-                var totalRows = listaProductoComentario.Count() == 0 ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
+                var totalRows = !listaProductoComentario.Any() ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
                 var nro = (page - 1) * rows + 1;
                 var data = new
                 {
@@ -124,30 +120,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV, int campaniaID)
+        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioId, int tipoComentarioId, string sap, string cuv, int campaniaId)
         {
-            var productoComentarioFilter = new BEProductoComentarioFilter();
+            var productoComentarioFilter = new BEProductoComentarioFilter
+            {
+                Cantidad = rows,
+                Limite = (page - 1) * rows,
+                Ordenar = 0,
+                Estado = (short)estadoComentarioId,
+                Tipo = (short)tipoComentarioId,
+                Valor = (Enumeradores.TipoProductoComentario)tipoComentarioId ==
+                        Enumeradores.TipoProductoComentario.SAP
+                    ? sap
+                    : cuv,
+                CampaniaID = campaniaId
+            };
 
-            productoComentarioFilter.Cantidad = rows;
-            productoComentarioFilter.Limite = (page - 1) * rows;
-            productoComentarioFilter.Ordenar = 0;
 
-            productoComentarioFilter.Estado = (short)estadoComentarioID;
-            productoComentarioFilter.Tipo = (short)tipoComentarioID;
-            productoComentarioFilter.Valor = (Enumeradores.TipoProductoComentario)tipoComentarioID == Enumeradores.TipoProductoComentario.SAP ? SAP : CUV;
-            productoComentarioFilter.CampaniaID = campaniaID;
 
             return productoComentarioFilter;
         }
 
-        private IEnumerable<BEProductoComentarioDetalle> ListarProductoComentario(int paisID, BEProductoComentarioFilter productoComentarioFilter)
+        private IEnumerable<BEProductoComentarioDetalle> ListarProductoComentario(int paisId, BEProductoComentarioFilter productoComentarioFilter)
         {
-            IEnumerable<BEProductoComentarioDetalle> ListaProductoComentario;
+            IEnumerable<BEProductoComentarioDetalle> listaProductoComentario;
             using (PedidoServiceClient client = new PedidoServiceClient())
             {
-                ListaProductoComentario = client.GetListaProductoComentarioDetalleAprobar(paisID, productoComentarioFilter);
+                listaProductoComentario = client.GetListaProductoComentarioDetalleAprobar(paisId, productoComentarioFilter);
             }
-            return ListaProductoComentario;
+            return listaProductoComentario;
         }
 
         [HttpPost]
@@ -155,12 +156,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoComentarioDetalle = new BEProductoComentarioDetalle();
-                productoComentarioDetalle.ProdComentarioId = productoComentarioId;
-                productoComentarioDetalle.ProdComentarioDetalleId = productoComentarioDetalleId;
-                productoComentarioDetalle.Estado = estadoProductoComentarioId;
+                var productoComentarioDetalle =
+                    new BEProductoComentarioDetalle
+                    {
+                        ProdComentarioId = productoComentarioId,
+                        ProdComentarioDetalleId = productoComentarioDetalleId,
+                        Estado = estadoProductoComentarioId
+                    };
 
-                int result = 0;
+                int result;
                 using (PedidoServiceClient client = new PedidoServiceClient())
                 {
                     result = client.AprobarProductoComentarioDetalle(paisId, productoComentarioDetalle);

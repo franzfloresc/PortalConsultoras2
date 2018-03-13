@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Helpers
 {
     public static class RouteExtensions
     {
-        //maybe not necesary
         public static string GetUniqueRoute(this RouteData routeData, string identifier)
         {
             return routeData.Values[identifier] != null ? routeData.Values[identifier].ToString() : null;

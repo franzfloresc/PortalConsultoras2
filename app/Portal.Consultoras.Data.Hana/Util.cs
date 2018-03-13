@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Data.Hana
+﻿using System.IO;
+
+namespace Portal.Consultoras.Data.Hana
 {
     public class Util
     {
@@ -44,20 +46,23 @@
 
             wr.ContentType = "application/x-www-form-urlencoded";
 
-            System.IO.Stream newStream;
             // Obtiene la respuesta
             System.Net.WebResponse response = wr.GetResponse();
             // Stream con el contenido recibido del servidor
-            newStream = response.GetResponseStream();
-            System.IO.StreamReader reader = new System.IO.StreamReader(newStream);
-            // Leemos el contenido
-            string responseFromServer = reader.ReadToEnd();
-            reader.Close();
-            newStream.Close();
-            response.Close();
+            var newStream = response.GetResponseStream();
+            if (newStream != null)
+            {
+                StreamReader reader = new StreamReader(newStream);
+                // Leemos el contenido
+                string responseFromServer = reader.ReadToEnd();
+                reader.Close();
+                newStream.Close();
+                response.Close();
 
-            //json
-            return responseFromServer;
+                return responseFromServer;
+            }
+
+            return "";
         }
     }
 }

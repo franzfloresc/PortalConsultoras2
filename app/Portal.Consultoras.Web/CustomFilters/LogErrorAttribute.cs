@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.Models;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.CustomFilters
@@ -12,7 +11,7 @@ namespace Portal.Consultoras.Web.CustomFilters
             {
                 if (HttpContext.Current != null && HttpContext.Current.Session != null)
                 {
-                    var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
+                    var userData = SessionManager.SessionManager.Instance.GetUserData();
 
                     LogManager.LogManager.LogErrorWebServicesBus(filterContext.Exception, userData.CodigoUsuario, userData.CodigoISO);
                 }

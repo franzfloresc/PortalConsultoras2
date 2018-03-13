@@ -1,7 +1,7 @@
-﻿using Portal.Consultoras.Web.ServiceSAC;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -9,13 +9,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class FacturaElectronicaController : BaseController
     {
-        //
-        // GET: /FacturaElectronica/
-
         public ActionResult Index()
         {
-            string nroDocumento, Url = string.Empty;
-            string nroRUC = null;
+            string url = string.Empty;
+            string nroRuc = null;
 
             if (UserData().CodigoISO == "EC" || UserData().CodigoISO == "PE")
             {
@@ -23,25 +20,24 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient svc = new SACServiceClient())
                     {
-                        BEDatosBelcorp datos = svc.GetDatosBelcorp(UserData().PaisID).FirstOrDefault();
-                        nroRUC = datos.RUC;
+                        BEDatosBelcorp datos = svc.GetDatosBelcorp(UserData().PaisID).FirstOrDefault() ?? new BEDatosBelcorp();
+                        nroRuc = datos.RUC;
                     }
                 }
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
+                    string nroDocumento;
                     switch (UserData().CodigoISO)
                     {
                         case "PE":
                             nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
-                            Url = Common.NeoGridCipher.CreateProductionURL(nroDocumento);
+                            url = NeoGridCipher.CreateProductionURL(nroDocumento);
                             break;
                         case "EC":
                             nroDocumento = sv.GetNroDocumentoConsultora(UserData().PaisID, UserData().CodigoConsultora);
-                            Url = string.Format("IdEmpresa={0}&Identificacion={1}&HoraFecha={2}", nroRUC, nroDocumento, DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
-                            Url = ConfigurationManager.AppSettings.Get("FacturaElectronica_EC") + Trancenter.IFacturaEcuador.EncriptTool.Encriptation.EncryptData("TUFIFAQTUAAECDZD", Url);
-                            break;
-                        default:
+                            url = string.Format("IdEmpresa={0}&Identificacion={1}&HoraFecha={2}", nroRuc, nroDocumento, DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"));
+                            url = GetConfiguracionManager(Constantes.ConfiguracionManager.FacturaElectronica_EC) + Trancenter.IFacturaEcuador.EncriptTool.Encriptation.EncryptData("TUFIFAQTUAAECDZD", url);
                             break;
                     }
                 }
@@ -51,8 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-            //string Url = Common.NeoGridCipher.CreateProductionURL("0016718829");
-            return Redirect(Url);
+            return Redirect(url);
         }
     }
 }

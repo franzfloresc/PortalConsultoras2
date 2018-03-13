@@ -17,13 +17,12 @@
 
     var _listarCampaniasPromise = function (paisId) {
         var d = $.Deferred();
-        
+
         var promise = $.ajax({
             type: 'GET',
             url: (setting.BaseUrl + setting.UrlListarCampanias),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            //data: { paisId: paisId },
             async: true
         });
 

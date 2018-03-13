@@ -94,6 +94,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("ImportePedido")]
         public decimal ImportePedido { get; set; }
+        [DataMember]
+        [Column("TextoCupon")]
+        public string TextoCupon { get; set; }
+        [DataMember]
+        [Column("TextoCuponIndependiente")]
+        public string TextoCuponIndependiente { get; set; }
+        [DataMember]
+        [Column("ArchivoBannerCupon")]
+        public string ArchivoBannerCupon { get; set; }
+        [DataMember]
+        [Column("ArchivoBannerPremio")]
+        public string ArchivoBannerPremio { get; set; }
         #endregion
 
         public BEIncentivoConcurso()

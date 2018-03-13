@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Data
         {
 
         }
-        
+
         public List<string> GetAll()
         {
             var listTexto = new List<string>();

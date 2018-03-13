@@ -2,7 +2,7 @@
 <p class="text_verde2">Has aceptado el pedido de @Model.Cliente</p>
 
 <p class="comment">Si no tienes los productos en stock, no te olvides de agregarlos a tu pedido.</p>
-@if (Model.DetallePedido.Count() > 0)
+@if (Model.DetallePedido.Any())
 {
     <br />
     <br />

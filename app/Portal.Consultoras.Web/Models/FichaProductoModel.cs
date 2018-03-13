@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -86,7 +85,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlDetalle { get; set; }
         public bool ProductoPerdio { get; set; }
 
-        //public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
 
         public decimal Ganancia
@@ -94,7 +92,7 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 decimal precioValorizado = 0;
-                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { }
+                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { /*no log*/ }
 
                 return (precioValorizado - Precio2);
             }
@@ -105,7 +103,6 @@ namespace Portal.Consultoras.Web.Models
         public int CantComenAprob { get; set; }
         public int CantComenRecom { get; set; }
         public int PromValorizado { get; set; }
-        //public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
         public int Posicion { get; set; }
         public string GananciaString { get; set; }
     }
