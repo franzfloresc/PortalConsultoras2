@@ -28,10 +28,11 @@
         <div class="contenedor_detalle_pedidoIngresado">
             <div class="contenedor_resumenPedido">
                 @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-                    if (mobileConfiguracion.MostrarBotonAtras)
-                    {
-                        <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-                    }
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
+            @*<a href="@Request.UrlReferrer.LocalPath" class="enlace_regresar detalleP" title="Regresar"></a>*@
+}
                 }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO FIC
@@ -68,7 +69,7 @@
 </div>
 
 <!-- START Popup para Observaciones PROL -->
-<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
+@*<div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="$('#popup-observaciones-prol').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -85,7 +86,7 @@
             <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
-</div>
+</div>*@
 <!-- END Popup para Observaciones PROL -->
 <!-- START POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
 <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display:none;">
@@ -160,24 +161,7 @@
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
-        @*<div class="contenido_misGanancias" id="detalleGanancia">
-                <h6>GANANCIA ESTIMADA TOTAL</h6>
-                <div class="mis_descuentos">
-                    <span class="mis_descuentos_texto">Mis descuentos</span>
-                    <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroCatalogo</span>
-                </div>
-                <div class="mis_descuentos">
-                    <span class="mis_descuentos_texto">Oportunidad de ahorro (Revista y otros)</span>
-                    <span class="mis_descuentos_monto">@Model.Simbolo @ViewBag.MontoAhorroRevista</span>
-                </div>
-                <div class="separador_montos_misGanancias"></div>
-                <div class="mis_descuentos">
-                    <span class="monto_total_misGanancias">@Model.Simbolo @ViewBag.GananciaEstimada</span>
-                </div>
-                <div class="nota_popup_misGanancias">
-                    <span>*Oportunidad de ahorro= ahorro estimado proveniente de la resta de los precios en catálogo de los productos menos el monto a pagar de los mismos.</span>
-                </div>
-            </div>*@
+
     </div>
 </div>
 
