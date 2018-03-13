@@ -62,6 +62,7 @@
         margin-bottom: 20px;
         line-height: 16px;
         color: black;
+        text-transform:initial;
     }
 
     .popup_confirmacion_datos .form-datos button {
@@ -204,6 +205,7 @@
             }
 
         .popup_confirmacion_datos .form-datos .validar_chk .txtchk {
+            text-transform: initial;
             width: 88%;
             float: left;
             display: block;

@@ -982,7 +982,13 @@
 
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 .activar_boton_esika_no_animado {
-    background-color: #e81c36 !important;
+    color: white !important;
+    padding: 15px 0px;
+}
+
+/*BOTON LBEL NO ANIMADO: ROJO*/
+.activar_boton_lbel_no_animado {
+    background-color: #613c87 !important;
     color: white !important;
     padding: 15px 0px;
 }
