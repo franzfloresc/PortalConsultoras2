@@ -8878,6 +8878,10 @@ span.title-app-b {
 
 /* POPUP OFERTA FINAL */
 
+.contenedor_fondo_popup.agregarScrollVertical{
+    overflow:auto;
+}
+
 .popup_ofertaFinal {
     display: block;
     margin: 4% auto 5% auto;
