@@ -5007,7 +5007,7 @@ table > thead > tr > th {
     }
 @media only screen and (max-width: 991px) {
     .contenedor_carrusel_home .content_item_carrusel_clubganamas {
-        padding: 111px 10px 33px 120px;
+        padding: 111px 20px 33px 20px;
     }
     .contenedor_carrusel_home .content_item_carrusel_clubganamas p{
         font-size:15px;
