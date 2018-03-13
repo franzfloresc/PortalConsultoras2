@@ -37,11 +37,13 @@
 });
 
 function CheckTermCondiciones() {
-    if ($("#chkinput").attr("checked")) {
+    if ($("#chkinput").attr("checked") || $("#chkinput").is(":checked")) {
         $("label[for='chkinput']").css("border", "none");
+        $(".obligatorio").fadeOut();
         return true;
     } else {
         $("label[for='chkinput']").css("border", "1px solid red");
+        $(".obligatorio").fadeIn();
         return false;
     }
 }

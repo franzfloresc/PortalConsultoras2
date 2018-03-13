@@ -36,7 +36,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Celular = userData.Celular,
                 LimiteMax = limiteMaximoTelef,
                 LimiteMin = limiteMinimoTelef,
-                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario()
+                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
+                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4)
             };
 
             return View("template-informativa", modelo);

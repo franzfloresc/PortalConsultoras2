@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneRdr(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
                     sessionManager.SetTieneHv(false);
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.HerramientasVenta))
+                    sessionManager.SetTieneHvX1(false);
                 return Json(new
                 {
                     estado = "Ok"

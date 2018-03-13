@@ -17,7 +17,8 @@
 <div class="bc_menu_estrategia" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
     @if (ViewBag.TieneRevistaDigital)
     {
-        if(menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
+        if((menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
+        && menuActivo.Codigo != Constantes.ConfiguracionPais.Informacion)
         {
             <div class="contenedor_cabecera_2018">
                 <div class="sb_contenedor_cabecera_2018">
