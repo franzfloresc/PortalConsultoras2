@@ -14,6 +14,10 @@
     background: linear-gradient(135deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
 }
+.rd_logo_dorado {
+    background-image: linear-gradient(to right, #b3842f, #d9b43c);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+}
 
 /* FIN BIENVENIDA - PEDIDO - CATALOGO */
 
