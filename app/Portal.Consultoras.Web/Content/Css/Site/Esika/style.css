@@ -32669,6 +32669,20 @@ display: inline-block;
 .btn_compartir_facebook_ficha img{
 float:left;
 }
+
+.btn_compartir_facebook_ficha_fix_ODD {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: initial;
+    display: initial;
+}
+
+    .btn_compartir_facebook_ficha_fix_ODD img {
+        float: initial;
+    }
+
 .content_right_ficha {
     float: right;
     width: 55%;
