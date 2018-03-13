@@ -3667,6 +3667,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneGNDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5797,6 +5800,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCuponField.Equals(value) != true)) {
                     this.TieneCuponField = value;
                     this.RaisePropertyChanged("TieneCupon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneGND {
+            get {
+                return this.TieneGNDField;
+            }
+            set {
+                if ((this.TieneGNDField.Equals(value) != true)) {
+                    this.TieneGNDField = value;
+                    this.RaisePropertyChanged("TieneGND");
                 }
             }
         }
@@ -12855,6 +12871,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoCategoriaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoEstrategiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12925,6 +12944,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StockResultadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneVariedadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipNegocioField;
@@ -13028,6 +13050,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoCategoriaField, value) != true)) {
                     this.CodigoCategoriaField = value;
                     this.RaisePropertyChanged("CodigoCategoria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoEstrategia {
+            get {
+                return this.CodigoEstrategiaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoEstrategiaField, value) != true)) {
+                    this.CodigoEstrategiaField = value;
+                    this.RaisePropertyChanged("CodigoEstrategia");
                 }
             }
         }
@@ -13340,6 +13375,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.StockResultadoField.Equals(value) != true)) {
                     this.StockResultadoField = value;
                     this.RaisePropertyChanged("StockResultado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneVariedad {
+            get {
+                return this.TieneVariedadField;
+            }
+            set {
+                if ((this.TieneVariedadField.Equals(value) != true)) {
+                    this.TieneVariedadField = value;
+                    this.RaisePropertyChanged("TieneVariedad");
                 }
             }
         }

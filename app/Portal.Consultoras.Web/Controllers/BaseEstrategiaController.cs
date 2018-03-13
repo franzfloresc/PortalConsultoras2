@@ -620,7 +620,38 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
                 {
-                    prodModel.PrecioNiveles = estrategia.Niveles != null ? estrategia.Niveles : String.Empty;
+                    prodModel.Precio = 0;
+                    prodModel.Ganancia = 0;
+                    if (estrategia.Precio2 > 0 && !string.IsNullOrWhiteSpace(estrategia.Niveles))
+                    {
+                        try
+                        {
+                            var niveles = estrategia.Niveles.Split('|');
+                            if (niveles.Length > 0)
+                            {
+                                var nivelesConFormato = new List<string>();
+                                niveles.Each(n =>
+                                {
+                                    var tmp = n.Split('-');
+                                    if(tmp.Length == 2)
+                                    {
+                                        tmp[0] = Util.Trim(tmp[0]).ToLower();
+                                        var precio = decimal.Parse(tmp[1]);
+                                        tmp[1] =  Util.DecimalToStringFormat(precio, userData.CodigoISO, userData.Simbolo);
+                                    }
+                                    nivelesConFormato.Add(string.Join(" ", tmp));
+                                });
+
+                                estrategia.Niveles = string.Join("|", nivelesConFormato);
+                            }
+                        }
+                        catch
+                        {
+                            estrategia.Niveles = "";
+                        }
+                    }
+
+                    prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
                 }
                 listaRetorno.Add(prodModel);
             });

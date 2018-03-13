@@ -1404,6 +1404,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string UrlBannerGanaMas { get; set; }
         [DataMember]
+        public bool TieneGND { get; set; }
+        [DataMember]
         public int CuponEstado { get; set; }
         [DataMember]
         public decimal CuponPctDescuento { get; set; }

@@ -8,6 +8,7 @@
       <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
@@ -32,6 +33,7 @@
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
       <xs:element minOccurs="0" name="StockResultado" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
       <xs:element minOccurs="0" name="TipNegocio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />

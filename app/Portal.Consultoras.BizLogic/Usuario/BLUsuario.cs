@@ -471,8 +471,9 @@ namespace Portal.Consultoras.BizLogic
             usuario.CodigosConcursos = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[0] : string.Empty;
             usuario.CodigosProgramaNuevas = incentivosConcursosTask.Result.Count == 2 ? incentivosConcursosTask.Result[1] : string.Empty;
 
-            usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 2 ? Convert.ToInt16(revistaDigitalSuscripcionTask.Result[0]) : Constantes.GanaMas.PaisSinGND;
-            usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 2 ? revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+            usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
+            usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
+            usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 ? (bool)revistaDigitalSuscripcionTask.Result[2] : false;
 
             usuario.CuponEstado = cuponTask.Result.EstadoCupon;
             usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
@@ -643,12 +644,13 @@ namespace Portal.Consultoras.BizLogic
             return lstConcursos;
         }
 
-        private List<string> GetRevistaDigitalSuscripcion(BEUsuario usuario)
+        private List<object> GetRevistaDigitalSuscripcion(BEUsuario usuario)
         {
-            var lst = new List<string>();
+            var lst = new List<object>();
 
-            var resultado = Constantes.GanaMas.PaisSinGND;
+            var resultado = Constantes.GanaMas.PaisSinRD;
             var UrlBannerGanaMas = string.Empty;
+            var tieneGND = false;
 
             var configPais = new BEConfiguracionPais()
             {
@@ -662,9 +664,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             };
 
-            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais).Where(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
+            var lstCnfigPais = _configuracionPaisBusinessLogic.GetList(configPais);
 
-            if (lstCnfigPais.Any())
+            var configRD = lstCnfigPais.Where(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
+
+            if (configRD.Any())
             {
                 var oRequest = new BERevistaDigitalSuscripcion()
                 {
@@ -678,22 +682,22 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (oResponse.FechaSuscripcion > oResponse.FechaDesuscripcion)
                     {
-                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_SuscritaActiva;
-                        else resultado = Constantes.GanaMas.PaisConGND_SuscritaNoActiva;
+                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConRD_SuscritaActiva;
+                        else resultado = Constantes.GanaMas.PaisConRD_SuscritaNoActiva;
                     }
                     else if (oResponse.FechaSuscripcion < oResponse.FechaDesuscripcion)
                     {
-                        if (oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
-                        else resultado = Constantes.GanaMas.PaisConGND_NoSuscritaActiva;
+                        if(oResponse.CampaniaEfectiva <= usuario.CampaniaID) resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
+                        else resultado = Constantes.GanaMas.PaisConRD_NoSuscritaActiva;
                     }
                 }
                 else
                 {
-                    resultado = Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva;
+                    resultado = Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva;
                 }
             }
 
-            lst.Add(resultado.ToString());
+            lst.Add(resultado);
 
             var tablaLogica = _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(usuario.PaisID, Constantes.TablaLogica.ExtensionBannerGanaMasApp);
             var oSuscrita = tablaLogica.Where(x => x.Codigo == Constantes.GanaMas.Banner.TablaLogicaSuscrita).FirstOrDefault();
@@ -702,12 +706,20 @@ namespace Portal.Consultoras.BizLogic
             var extensionNoSuscrita = oNoSuscrita == null ? string.Empty : oNoSuscrita.Descripcion;
 
             var carpetaPais = string.Format(Constantes.GanaMas.Banner.CarpetaPais, usuario.CodigoISO);
-            if (resultado == Constantes.GanaMas.PaisConGND_SuscritaActiva || resultado == Constantes.GanaMas.PaisConGND_SuscritaNoActiva)
+            if ((resultado == Constantes.GanaMas.PaisConRD_SuscritaActiva || resultado == Constantes.GanaMas.PaisConRD_SuscritaNoActiva) && !string.IsNullOrEmpty(extensionSuscrita))
                 UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenSuscrita, extensionSuscrita));
-            else if (resultado == Constantes.GanaMas.PaisConGND_NoSuscritaActiva || resultado == Constantes.GanaMas.PaisConGND_NoSuscritaNoActiva)
+            else if ((resultado == Constantes.GanaMas.PaisConRD_NoSuscritaActiva || resultado == Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva) && !string.IsNullOrEmpty(extensionNoSuscrita))
                 UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenNoSuscrita, extensionNoSuscrita));
 
             lst.Add(UrlBannerGanaMas);
+
+            if (resultado == Constantes.GanaMas.PaisSinRD || resultado == Constantes.GanaMas.PaisConRD_NoSuscritaActiva || resultado == Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva)
+            {
+                var configGND = lstCnfigPais.Where(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada);
+                tieneGND = configGND.Any();
+            }
+
+            lst.Add(tieneGND);
 
             return lst;
         }
