@@ -165,8 +165,9 @@
         border: none !important;
         min-height: 372px;
         padding: 111px 30px 33px 30px;
-        max-width: 240px;
+        width: 240px;
         margin: auto;
+        float: none;
     }
 
     .revistadigital-landing .content_item_carrusel .clubganamas_logo {
