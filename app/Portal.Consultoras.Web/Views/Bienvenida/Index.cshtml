@@ -7,6 +7,7 @@
 
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
+    
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
@@ -938,141 +939,141 @@
                     <div>
                         <label>@Model.TextoSobrenombre</label>
                         @if (Model.PaisID == Constantes.PaisID.Colombia)
-                {
-                    <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
-        }
-        else
-        {
-            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
-}
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
                     </div>
                     <div>
                         <label>
                             @if (Model.PaisID != Constantes.PaisID.Colombia)
-                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
-                </label>
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
+                        </label>
                 @if (Model.PaisID == Constantes.PaisID.Colombia)
-        {
-            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-}
-else
-{
-        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-}
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div>
-                <label>
-                    @if (Model.PaisID != Constantes.PaisID.Colombia)
-            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
-        </label>
-        @if (Model.PaisID == Constantes.PaisID.Colombia)
-{
-        <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-}
-else
-{
-        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-}
-        </div>
-        <div>
-            <label>
-                @if (Model.PaisID != Constantes.PaisID.Colombia)
-        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
-        </label>
-        @if (Model.PaisID == Constantes.PaisID.Colombia)
-{
-        <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-}
-else
-{
-        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-}
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label>
+                    	@if (Model.PaisID != Constantes.PaisID.Colombia)
+                        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
+                        </label>
+        		@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
+                    </div>
+                    <div>
+                        <label>
+                	@if (Model.PaisID != Constantes.PaisID.Colombia)
+                        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
+                        </label>
+        		@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
 
-        </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div>
-                <label>Otro teléfono:</label>
-                @if (Model.PaisID == Constantes.PaisID.Colombia)
-        {
-            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-}
-else
-{
-        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-}
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div class="checkbox_condiciones">
-                <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
-                <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                    @if (Model.PaisID == Constantes.PaisID.Colombia)
-            {
-                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
-    }
-    else
-    {
-        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
-}
-                </label>
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label>Otro teléfono:</label>
+                	@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div class="checkbox_condiciones">
+                        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                    	@if (Model.PaisID == Constantes.PaisID.Colombia)
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                            }
+                            else
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                            }
+                        </label>
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             @if (Model.PaisID == Constantes.PaisID.Colombia)
-    {
-        <div class="datos_obligatorios">
-            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-        </div>
-        <div class="contenedor_boton_actualizar">
-            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                ACEPTAR
-            </button>
-        </div>
-}
-else
-{
-        <div class="datos_obligatorios">
-            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-        </div>
-        <div class="contenedor_boton_actualizar">
-            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                ACTUALIZAR
-            </button>
-        </div>
-}
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div>
-                <label>Tu contraseña</label>
-                <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div>
-                <label>Nueva contraseña</label>
-                <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
-            </div>
-            <div>
-                <label>Repite la nueva contraseña</label>
-                <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div class="contenedor_boton_cancelar misDatos">
-                <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
-                    CANCELAR
-                </button>
-            </div>
-            <div class="contenedor_boton_actualizar misDatos">
-                <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
-                    GUARDAR
-                </button>
-            </div>
-        </div>
-        </form>
+                    {
+                        <div class="datos_obligatorios">
+                            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        </div>
+                        <div class="contenedor_boton_actualizar">
+                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                                ACEPTAR
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="datos_obligatorios">
+                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                        </div>
+                        <div class="contenedor_boton_actualizar">
+                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Tu contraseña</label>
+                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div>
+                        <label>Nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+                    </div>
+                    <div>
+                        <label>Repite la nueva contraseña</label>
+                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
+                    </div>
+                </div>
+                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+                    <div class="contenedor_boton_cancelar misDatos">
+                        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+                            CANCELAR
+                        </button>
+                    </div>
+                    <div class="contenedor_boton_actualizar misDatos">
+                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+                            GUARDAR
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- FIN POPUP MIS DATOS -->
@@ -2095,7 +2096,7 @@ else
 
 <!--EPD-1204 FIN-->
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2208,7 +2209,7 @@ else
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
         var OrigenDesktopODD = 1;
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }
