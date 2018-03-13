@@ -13,10 +13,7 @@
     {
         urlLogo = revistaDigital.MLogoComercialFondoNoActiva;
     }
-
-    var urlArrowRight = "~/Content/Images/RevistaDigital/";
-    urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
-
+    
 }
 <div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
@@ -27,8 +24,7 @@
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
                         <div class="rd_logo rd_logo_dorado">
-                            <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" alt="" class="small" style="position: relative;
-    top: 5px;">
+                            <img src="@revistaDigital.MLogoComercialActiva" alt="" class="small" style="position: relative;top: 5px;">
                         </div>
                         <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                     </div>
@@ -44,8 +40,6 @@
                     </div>
                 </div>
             </div>
-
-            
         }
     }
     else if (revistaDigital.TieneRDI)
