@@ -3475,7 +3475,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             _sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
-            return Json(ResultModel<bool>.BuildOk(true));
+            return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
     }
 }

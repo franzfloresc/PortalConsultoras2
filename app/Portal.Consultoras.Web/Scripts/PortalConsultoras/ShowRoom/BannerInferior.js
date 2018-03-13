@@ -6,14 +6,17 @@ belcorp.showroom.initialize = function (config) {
     var self = this;
 
     function initBindings() {
-        $(config.element).on("click", document.Body, desactivarBanner)
+        config.botonCerrar.addEventListener("click", desactivarBanner)
     }
 
 
     function desactivarBanner(banner) {
         desactivarPromise()
-        .then(function () {
-            $(banner).hide();
+        .then(function (result) {
+            if (!result.Success)
+                err(result);
+
+            config.banner.style.display = "none";
         }, err);
     }
 

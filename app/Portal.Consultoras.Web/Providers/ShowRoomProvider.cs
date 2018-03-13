@@ -47,8 +47,10 @@ namespace Portal.Consultoras.Web.Providers
         public BannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId, ISessionManager session)
         {
             var configuracion = ObtenerBannerConfiguracion(paisId);
-            if (session.ShowRoom.BannerInferiorConfiguracion != null)
-                configuracion.Activo = configuracion.Activo && session.ShowRoom.BannerInferiorConfiguracion.Activo;
+            if (session.ShowRoom.BannerInferiorConfiguracion == null)
+                session.ShowRoom.BannerInferiorConfiguracion = configuracion;
+
+            configuracion.Activo = configuracion.Activo && session.ShowRoom.BannerInferiorConfiguracion.Activo;
 
             return configuracion;
         }
