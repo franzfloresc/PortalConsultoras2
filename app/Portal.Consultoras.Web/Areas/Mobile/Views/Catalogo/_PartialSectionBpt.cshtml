@@ -45,26 +45,7 @@
                 </div>
             </div>
 
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" alt="" class="small" style="padding-top: 30px;">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
-                            @Html.Raw(configuracionPaisDatosModel.Valor2)
-                        </div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         }
     }
     else if (revistaDigital.TieneRDI)
