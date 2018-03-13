@@ -9,10 +9,10 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
+    @Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="video-visual">
         <div class="video-container">
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete || Model.Origen == Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
         <div class="contenedor-mobile-fix">
@@ -271,6 +271,6 @@ else
         var estaSuscrita = '@Model.EsSuscrita';
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
+    @Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
 }
 
