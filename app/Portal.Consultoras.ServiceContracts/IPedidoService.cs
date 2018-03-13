@@ -862,7 +862,7 @@ namespace Portal.Consultoras.ServiceContracts
         int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
-        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID);
+        int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario);
 
         [OperationContract]
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
