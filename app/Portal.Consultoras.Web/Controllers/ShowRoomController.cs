@@ -2304,7 +2304,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId);
+                    sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId, userData.CodigoConsultora);
                 }
 
                 return Json(new
