@@ -4239,7 +4239,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionPaisOdd = ListConfiguracionPais().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
                 ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
-                ViewBag.BannerInferior = _showRoomProvider.ObtenerBannerConfiguracion(userData.PaisID, userData.CodigoConsultora, Request);
+                ViewBag.BannerInferior = _showRoomProvider.ObtenerBannerConfiguracion(userData.PaisID, sessionManager);
             }
             catch (Exception ex)
             {

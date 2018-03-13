@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
+﻿namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
 {
+    //todo: should be an interface
     public class BannerInferiorConfiguracion
     {
         public bool Activo { get; set; }

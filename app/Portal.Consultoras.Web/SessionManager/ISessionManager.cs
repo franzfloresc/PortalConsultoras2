@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneRdr(bool tieneRdr);
 
         bool GetTieneRdr();
-        
+
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMontosProl(List<ObjMontosProl> montosProl);
 
         List<ObjMontosProl> GetMontosProl();
-        
+
         void SetMisCertificados(List<MiCertificadoModel> lista);
 
         List<MiCertificadoModel> GetMisCertificados();
@@ -115,5 +115,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+
+        IShowRoom ShowRoom { get; }
     }
 }

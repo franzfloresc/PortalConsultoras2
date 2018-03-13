@@ -1,0 +1,17 @@
+﻿.showroom_banner_inferior {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    z-index: 6;
+}
+
+.showroom_banner_boton {
+    font-family: 'Lato';
+    font-weight: 300;
+    font-size: 33px;
+    /* color: white; */
+    text-align: right;
+    position: relative;
+    right: 7px;
+    top: -12px;
+}

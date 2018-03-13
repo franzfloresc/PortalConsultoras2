@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,13 +44,11 @@ namespace Portal.Consultoras.Web.Providers
         /// <param name="codigoConsultora"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public BannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId, string codigoConsultora, System.Web.HttpRequestBase request)
+        public BannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId, ISessionManager session)
         {
-            var cookie = request.Cookies[paisId.ToString() + codigoConsultora + CookieDoNotShowAgain];
-            var mostrarBannerCookie = cookie.Value == "true";
-
             var configuracion = ObtenerBannerConfiguracion(paisId);
-            configuracion.Activo = configuracion.Activo && mostrarBannerCookie;
+            if (session.ShowRoom.BannerInferiorConfiguracion != null)
+                configuracion.Activo = configuracion.Activo && session.ShowRoom.BannerInferiorConfiguracion.Activo;
 
             return configuracion;
         }

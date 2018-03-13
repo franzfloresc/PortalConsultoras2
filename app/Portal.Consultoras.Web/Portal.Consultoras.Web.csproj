@@ -782,7 +782,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\IShowRoom.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
+    <Compile Include="SessionManager\ShowRoom.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1223,6 +1225,7 @@
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
+    <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
     <Content Include="Content\Images\colorpicker\colorpicker_background.png" />
     <Content Include="Content\Images\colorpicker\colorpicker_hex.png" />
@@ -3562,6 +3565,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
@@ -4772,6 +4776,7 @@
     <Content Include="Views\UpSelling\Index.cshtml" />
     <Content Include="Views\UpSelling\_Detalle.cshtml" />
     <Content Include="Views\UpSelling\_DetalleEdit.cshtml" />
+    <Content Include="Views\ShowRoom\_BannerInferior.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -188,8 +188,7 @@
                 <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
             </div>
         }
-
-        <div class="showoom_banner_inferior" id="showoom_banner_inferior" style="display: none"></div>
+        @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
         <!-- footer -->
         <hr class="clear" />
         <footer class="footer_e">

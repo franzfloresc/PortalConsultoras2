@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+@model Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion
+
+@if (Model.Activo)
+{
+    <div class="showroom_banner_inferior" id="showroom_banner_inferior">
+        <a href="@Model.UrlRedireccion">
+            <img src="@Model.UrlImagen" />
+        </a>
+
+        <a class="showroom_banner_boton" href="javascript:;">x</a>
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/BannerInferior.js")"></script>
+    <script>
+        $(document).ready(function () {
+            belcorp.showroom.initialize({
+                element: $("#showroom_banner_inferior a:last-child")
+            })
+        });
+    </script>
+}

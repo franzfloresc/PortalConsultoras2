@@ -7,15 +7,19 @@ using System.Collections.Generic;
 
 using System;
 using System.Web;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
     public class SessionManager : ISessionManager
     {
         private static ISessionManager _instance;
+        private static IShowRoom _showRoom;
 
         public SessionManager()
         {
+            if (_showRoom == null)
+                _showRoom = new ShowRoom();
         }
 
         public static ISessionManager Instance
@@ -26,6 +30,14 @@ namespace Portal.Consultoras.Web.SessionManager
                     _instance = new SessionManager();
 
                 return _instance;
+            }
+        }
+
+        public IShowRoom ShowRoom
+        {
+            get
+            {
+                return _showRoom;
             }
         }
 
@@ -224,12 +236,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetTieneRdr(bool tieneRdr)
         {
-           HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
         }
 
         public bool GetTieneRdr()
         {
-           return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
         }
 
         void ISessionManager.SetUserData(UsuarioModel usuario)
@@ -241,7 +253,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (UsuarioModel)HttpContext.Current.Session["UserData"];
         }
-        
+
         void ISessionManager.SetMontosProl(List<ObjMontosProl> montosProl)
         {
             HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl] = montosProl;
@@ -251,7 +263,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
-        
+
         void ISessionManager.SetMisCertificados(List<MiCertificadoModel> lista)
         {
             HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
@@ -281,7 +293,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
         }
-        
+
         void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)
         {
             HttpContext.Current.Session["ListFiltersFAV"] = lista;
