@@ -1412,5 +1412,15 @@ namespace Portal.Consultoras.Entities
         public decimal CuponMontoMaxDscto { get; set; }
         [DataMember]
         public short CuponTipoCondicion { get; set; }
+        [DataMember]
+        public BERevistaDigital RevistaDigital { get; set; }
+        [DataMember]
+        public string CodigosRevistaImpresa { get; set; }
+        [DataMember]
+        public bool OptBloqueoProductoDigital { get; set; }
+        [DataMember]
+        public BEOfertaDelDia OfertaDelDiaModel { get; set; }
+        [DataMember]
+        public BEGuiaNegocio GuiaNegocio { get; set; }
     }
 }
