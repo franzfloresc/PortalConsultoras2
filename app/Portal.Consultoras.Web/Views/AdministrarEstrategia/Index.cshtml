@@ -926,7 +926,12 @@
 
             },
             //EliminarProducto: function(ID, CampaniaID, CUV) {
-            EliminarProducto: function(EstrategiaID) {
+            EliminarProducto: function(EstrategiaID,event) {
+                if(event)
+                {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
                 var eliminar = confirm('¿ Está seguro que desea eliminar todos los productos del set ?');
                 if (!eliminar)
                     return false;
@@ -962,6 +967,7 @@
                         }
                     }
                 });
+                return false;
             },
             //EditarProductoDetalle: function(ID, CampaniaID, CUV, Imagen) {
             EditarProductoDetalle: function(ID, Imagen) {
@@ -2503,7 +2509,7 @@
 
             var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Productos ShowRoom' title='Editar Productos ShowRoom' border='0' /></a>";
             //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + rutaImagenDelete + "' alt='Eliminar Productos Oferta Show Room' title='Eliminar Productos Oferta Show Room' border='0' /></a>";
-            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "');\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
+            var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "',event);\" >" + "<img src='" + rutaImagenDisable + "' alt='Deshabilitar Productos ShowRoom' title='Deshabilitar Productos ShowRoom' border='0' /></a>";
 
             return edit + remove;
         return "";
