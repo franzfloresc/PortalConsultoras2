@@ -18,52 +18,31 @@
 <div class="content_revistas_mob" style="margin: 15px 0;">
     @if (revistaDigital.TieneRDC)
     {
-        if (revistaDigital.EsSuscrita)
+        if (!revistaDigital.EsSuscrita)
         {
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" alt="" class="small">
+                        <div class="rd_logo rd_logo_dorado">
+                            <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" alt="" class="small" style="position: relative;
+    top: 5px;">
                         </div>
                         <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                     </div>
                     <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
+                        <div class="banner_pedido_text banner_pedido_text_dorado">
                             @Html.Raw(configuracionPaisDatosModel.Valor2)
                         </div>
-                        <div class="btn_red">
+                        <div class="btn_red btn_dorado">
                             <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="wrapper_resumen_mobile">
-                <div class="banner_pedido_rd">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@urlLogo" alt="" class="small">
-                        </div>
-                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                    </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">
-                            @Html.Raw(configuracionPaisDatosModel.Valor2)
-                        </div>
-                        <div class="btn_red">
-                            <a class="rd_arrowright" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
+                                ENTÉRATE CÓMO
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
+            
         }
     }
     else if (revistaDigital.TieneRDI)
@@ -72,7 +51,7 @@
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
-                        <img src="@urlLogo" alt="" class="small">
+                        <img src="@urlLogo" alt="" class="small" style="padding-top: 30px;">
                     </div>
                     <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                 </div>
@@ -95,7 +74,7 @@
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">
                 <div class="seccionRevistaDigital_logo_marca">
-                    <img src="@urlLogo" alt="Club Gana+" class="small" />
+                    <img src="@urlLogo" alt="Club Gana+" class="small" style="padding-top: 30px;" />
                 </div>
                 <div class="clear"></div>
                 <div class="contenido_seccionRevistaDigital">

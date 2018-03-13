@@ -449,10 +449,18 @@ div#tab_revistasdigital_mobile {
     text-transform: uppercase;
 }
 
+.banner_pedido_text_dorado{
+    padding:0 10px;
+}
+
 .btn_red, .btn_black_solid, .btn_white_stroke {
     margin: 20px 0;
 }
-
+.btn_dorado a {
+    background: #c39934 !important;
+    border: none;
+    color: white;
+}
     .btn_red a {
         text-decoration: none;
         padding: 15px;
