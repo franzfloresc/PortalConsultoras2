@@ -9,10 +9,10 @@
 }
 
 @section styles{
-    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
+    @Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="video-visual">
         <div class="video-container">
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete || Model.Origen == Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
         <div class="contenedor-mobile-fix">
@@ -91,10 +91,10 @@
             <div class="caja-club-derecha">
                 <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
                 <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
-                <hr />
+                <hr class="dorado" />
                 <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
                 <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
-                <hr />
+                <hr class="dorado" />
                 <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
                 <span class="cont-caja-club">¡Lo digital es para ti!</span>
             </div>
@@ -164,7 +164,36 @@ else
     </div>
 }
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == null || Model.Origen == Constantes.RevistaDigitalOrigen.RD)
+{
+    <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
+        <div class="contenedor-mobile-fix" style="padding: 25px;">
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+                </p>
+                <span class="deseas-cancelar">
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
+            }
+            else
+            {
+                <div id="div-suscribite">
+                    <div class="logo" style="margin-top:0;"></div>
+                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                </div>
+            }
+
+            <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
+
+        </div>
+    </div>
+}
+else if(Model.CancelarSuscripcion)
 {
     <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
         <div class="contenedor-mobile-fix" style="padding: 25px;">
@@ -185,35 +214,6 @@ else
             else
             {
                 <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
-            }
-
-            <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
-                VER TÉRMINOS Y CONDICIONES
-            </a>
-
-        </div>
-    </div>
-}
-else
-{
-    <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
-        <div class="contenedor-mobile-fix" style="padding: 25px;">
-            @if (Model.EsSuscrita)
-            {
-                <p class="txt-deseas-cancelar">
-                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-                </p>
-                <span class="deseas-cancelar">
-                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-                </span>
-                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
-            }
-            else
-            {
-                <div id="div-suscribite">
-                    <div class="logo" style="margin-top:0;"></div>
-                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
-                </div>
             }
 
             <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
@@ -271,6 +271,6 @@ else
         var estaSuscrita = '@Model.EsSuscrita';
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
+    @Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
 }
 

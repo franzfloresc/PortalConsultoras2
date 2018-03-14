@@ -165,8 +165,9 @@
         border: none !important;
         min-height: 372px;
         padding: 111px 30px 33px 30px;
-        max-width: 240px;
+        width: 240px;
         margin: auto;
+        float: none;
     }
 
     .revistadigital-landing .content_item_carrusel .clubganamas_logo {
@@ -186,7 +187,7 @@
     .revistadigital-landing .content_item_carrusel_clubganamas a.portada {
         border: 1px solid black !important;
         color: black !important;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
