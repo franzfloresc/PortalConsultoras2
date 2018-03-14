@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                     {
-                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Publico).ToList();
+                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                     }
 
                     var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();

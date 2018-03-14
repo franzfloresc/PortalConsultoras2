@@ -1841,9 +1841,9 @@ namespace Portal.Consultoras.Common
 
         public class FlagRevista
         {
-            public const int Publico = 0;
-            public const int Compra = 1;
-            public const int Perdiste = 2;
+            public const int Valor0 = 0;
+            public const int Valor1 = 1;
+            public const int Valor2 = 2;
         }
     }
 }

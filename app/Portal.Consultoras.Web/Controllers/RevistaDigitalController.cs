@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
                     listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Publico));
+                    listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
                 }
 
                 var cantidadTotal = listModel.Count;
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = listModelCompleta.Where(e =>
                             e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                             && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                            && e.FlagRevista == Constantes.FlagRevista.Perdiste
+                            && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
                     }
                     else
