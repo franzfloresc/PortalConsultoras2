@@ -3904,7 +3904,6 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
