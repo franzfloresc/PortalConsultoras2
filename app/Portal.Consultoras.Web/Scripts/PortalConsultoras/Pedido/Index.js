@@ -1312,6 +1312,7 @@ function BuscarByCUV(CUV) {
                 $("#hdTipoEstrategiaID").val(data[0].TipoEstrategiaID);
                 ObservacionesProducto(data[0]);
                 $('#hdMetodoBusqueda').val('Por código');
+                $('#hdfCUV').val('');
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
