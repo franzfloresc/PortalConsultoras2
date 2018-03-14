@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Video = GetVideoInformativo(),
                 UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionEfectiva.Origen,
+                Origen = revistaDigital.SuscripcionModel.Origen,
                 NombreConsultora = userData.Sobrenombre.ToUpper(),
                 Email = userData.EMail,
                 Celular = userData.Celular,
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LimiteMin = limiteMinimoTelef,
                 UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
                 CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4),
-                CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionEfectiva.Origen, userData.CodigoISO)
+                CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO)
             };
 
             return View("template-informativa", modelo);
@@ -162,17 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            string video;
-            if (IsMobile())
-            {
-                video = Util.Trim(dato.Valor2);
-            }
-            else
-            {
-                video = Util.Trim(dato.Valor1);
-            }
-
-            return video;
+            return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
         }
 
         public string GetValorDato(string codigo, int valor = 1)
@@ -191,6 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool CancelarSuscripcion(string origen, string pais)
         {
+            if (origen.IsNullOrEmptyTrim()) return false;
             string paises;
             if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
             {

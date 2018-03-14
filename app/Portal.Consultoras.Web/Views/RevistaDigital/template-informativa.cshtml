@@ -135,7 +135,7 @@ else
     </div>
 }
 
-@if(Model.Origen == Constantes.RevistaDigitalOrigen.RD)
+@if(Model.Origen == null || Model.Origen == Constantes.RevistaDigitalOrigen.RD)
 {
 <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="contenedor-suscripcion">

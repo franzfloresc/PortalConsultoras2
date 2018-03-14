@@ -554,7 +554,7 @@ a.btn-suscribete-video {
 /* PREGUNTAS FRECUENTAS NUEVAS */
 .preguntas-frecuentes-cont-sus {
     margin-bottom: 30px;
-    margin-top: -20px;
+    margin-top: 20px;
 }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
