@@ -334,6 +334,10 @@
         width: 100%;
     }
 
+    .bloques-gana-mas .contenedor-mobile-fix .caja-club-derecha hr.dorado{
+        background:#c39934 !important;
+    }
+
     .bloques-gana-mas .contenedor-mobile-fix .caja-club-izquierda img {
         width: 288px !important;
         display: block;
