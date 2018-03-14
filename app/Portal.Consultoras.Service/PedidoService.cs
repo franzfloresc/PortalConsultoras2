@@ -5,13 +5,13 @@ using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.BizLogic.Pedido;
-using Portal.Consultoras.Entities.Producto;
 
 using System;
 using System.Collections.Generic;
@@ -2289,9 +2289,9 @@ namespace Portal.Consultoras.Service
         }
 
         #region PedidoApp
-        public BEProductoApp GetCUVApp(BEProductoFiltro productoFiltro)
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
-            return _pedidoAppBusinessLogic.GetCUV(productoFiltro);
+            return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
         #endregion
     }

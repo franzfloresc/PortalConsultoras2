@@ -1,8 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-using Portal.Consultoras.Common;
-
-namespace Portal.Consultoras.Entities.Producto
+namespace Portal.Consultoras.Entities.Pedido.App
 {
     public class BEProductoApp
     {

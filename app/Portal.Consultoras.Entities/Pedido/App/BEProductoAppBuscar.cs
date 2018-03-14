@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Portal.Consultoras.Entities.Producto
+namespace Portal.Consultoras.Entities.Pedido.App
 {
     [DataContract]
-    public class BEProductoFiltro
+    public class BEProductoAppBuscar
     {
         [DataMember]
         public int PaisID { get; set; }

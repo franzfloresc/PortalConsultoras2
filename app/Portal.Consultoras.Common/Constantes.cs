@@ -1819,27 +1819,29 @@ namespace Portal.Consultoras.Common
             public const string Error = "Error";
         }
 
-        public static class ProductoValidacion
+        public static class PedidoAppValidacion
         {
-            private static Dictionary<string, string> _Message;
-
-            public static class Code
+            public static class ProductoBuscar
             {
-                public const string SUCCESS = "0000";
-                public const string ERROR_PRODUCTO_NOEXISTE = "1101";
-                public const string ERROR_PRODUCTO_AGOTADO = "1102";
-                public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
-                public const string ERROR_PRODUCTO_SHOWROOM = "1104";
-                public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE= "1105";
-                public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
-                public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
-            }
+                private static Dictionary<string, string> _Message;
 
-            public static Dictionary<string, string> Message
-            {
-                get
+                public static class Code
                 {
-                    return _Message ?? (_Message = new Dictionary<string, string>
+                    public const string SUCCESS = "0000";
+                    public const string ERROR_PRODUCTO_NOEXISTE = "1101";
+                    public const string ERROR_PRODUCTO_AGOTADO = "1102";
+                    public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
+                    public const string ERROR_PRODUCTO_SHOWROOM = "1104";
+                    public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
+                    public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
                     {
                         {Code.SUCCESS, "OK"},
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
@@ -1850,6 +1852,28 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                     });
+                    }
+                }
+            }
+
+            public class ProductoAgregar
+            {
+                private static Dictionary<string, string> _Message;
+
+                public static class Code
+                {
+                    public const string SUCCESS = "0000";
+                }
+
+                public static Dictionary<string, string> Message
+                {
+                    get
+                    {
+                        return _Message ?? (_Message = new Dictionary<string, string>
+                            {
+                                {Code.SUCCESS, "OK"},
+                            });
+                    }
                 }
             }
         }
