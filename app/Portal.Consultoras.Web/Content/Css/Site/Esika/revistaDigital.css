@@ -81,6 +81,10 @@
     background: #e81c36;
 }
 
+.como-funciona .caja-club-derecha hr.dorado{
+    background: #c39934 !important;
+}
+
 /* POPUP CONFIRMACION DE DATOS */
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
