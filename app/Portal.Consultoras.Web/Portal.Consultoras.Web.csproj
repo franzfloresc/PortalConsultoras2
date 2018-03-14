@@ -292,6 +292,7 @@
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />

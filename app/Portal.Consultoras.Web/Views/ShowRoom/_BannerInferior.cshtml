@@ -2,17 +2,20 @@
     Layout = null;
 }
 
-@model Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion
+@model Portal.Consultoras.Web.Models.Estrategia.ShowRoom.IBannerInferiorConfiguracion
 
 @if (Model.Activo)
 {
-    <div class="showroom_banner_inferior" id="showroom_banner_inferior">
-        <a href="@Model.UrlRedireccion">
-            <img src="@Model.UrlImagen" />
-        </a>
+    if (Model.SeDebeMostrar(Request))
+    {
+        <div class="showroom_banner_inferior" id="showroom_banner_inferior">
+            <a href="@Model.UrlRedireccion">
+                <img src="@Model.UrlImagen" />
+            </a>
 
-        <a class="showroom_banner_boton" href="javascript:;">x</a>
-    </div>
+            <a class="showroom_banner_boton" href="javascript:;">x</a>
+        </div>
+    }
 }
 
 @{

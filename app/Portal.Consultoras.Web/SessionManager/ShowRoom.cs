@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Web.SessionManager
 {
     public class ShowRoom : IShowRoom
     {
-        public BannerInferiorConfiguracion BannerInferiorConfiguracion
+        public IBannerInferiorConfiguracion BannerInferiorConfiguracion
         {
             get
             {
