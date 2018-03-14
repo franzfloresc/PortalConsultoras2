@@ -18,6 +18,7 @@
     <NameOfLastUsedPublishProfile>Consultoras.Web</NameOfLastUsedPublishProfile>
     <Use64BitIISExpress />
     <UseGlobalApplicationHostFile />
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

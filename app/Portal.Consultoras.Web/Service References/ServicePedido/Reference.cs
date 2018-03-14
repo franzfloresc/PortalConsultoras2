@@ -7595,12 +7595,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Descripcion2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string Descripcion3Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagImagenCargadaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7664,32 +7658,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion2 {
-            get {
-                return this.Descripcion2Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Descripcion2Field, value) != true)) {
-                    this.Descripcion2Field = value;
-                    this.RaisePropertyChanged("Descripcion2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion3 {
-            get {
-                return this.Descripcion3Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Descripcion3Field, value) != true)) {
-                    this.Descripcion3Field = value;
-                    this.RaisePropertyChanged("Descripcion3");
                 }
             }
         }
