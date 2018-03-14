@@ -13,6 +13,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 var _campania = "";
 var TieneHV = TieneHV || false;
+var revistaDigital = revistaDigital || null;
 
 var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || new Object();
@@ -586,24 +587,32 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
     }
 
     if (divMensaje.length > 0) {
-        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
-        if (itemClone.length > 0) {
-            var dataItemHtml = divMensaje.find("[data-item-html]");
-            dataItemHtml.html(itemClone.html());
-            dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-            dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
-            dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
-            dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
-            dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
-            dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
-            dataItemHtml.find('[data-item-tag="agregar"]').remove();
-            dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
-            dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
-            dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
-            dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
-            dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
-            dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
+        var clonarItem = true;
+        if (revistaDigital) {
+            clonarItem = !(revistaDigital.TieneRDC && !revistaDigital.EsSuscrita) ? !(revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva) ? true:false : false;
         }
+
+        if (clonarItem) {
+            var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+            if (itemClone.length > 0) {
+                var dataItemHtml = divMensaje.find("[data-item-html]");
+                dataItemHtml.html(itemClone.html());
+                dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+                dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
+                dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
+                dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
+                dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
+                dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
+                dataItemHtml.find('[data-item-tag="agregar"]').remove();
+                dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
+                dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
+                dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
+                dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
+                dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
+            }
+        }
+        
         $(".contenedor_popup_detalleCarousel").hide();
         divMensaje.show();
     }

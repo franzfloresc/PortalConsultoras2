@@ -1,8 +1,24 @@
 ﻿
 @model Portal.Consultoras.Web.Models.MensajeProductoBloqueadoModel
-@{ 
+@using Portal.Consultoras.Web.Models
+@{
+
     var divid = @Model.divId ?? "divMensajeBloqueada";
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
 }
+
+@if (revistaDigital.TieneRDC && !revistaDigital.EsSuscrita)
+{
+    <!--POPUP NOSUSCRITA BRYAN-->
+    <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
+     </div>
+}
+else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
+{
+    <!--POPUP SUSCRITA INACTIVA BRYAN-->
+}
+else
+{
 <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
     <div class="popup_rd_bloqueado" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
@@ -29,3 +45,4 @@
         }
     </div>
 </div>
+}

@@ -6,6 +6,7 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
 var cantTotalMostrar = 0;
+var revistaDigital = revistaDigital || null;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -291,6 +292,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             tem.TipoAccionAgregar = 0;
         });
     }
+
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
@@ -307,6 +309,25 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         var divPredio = $("#divOfertaProductosPerdio");
         if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
             modeloTemp.lista = response.listaPerdio;
+
+            $.each(modeloTemp.lista, function (ind, tem) {
+                tem.EsBanner = false;
+                tem.EsLanzamiento = false;
+            });
+
+            if (revistaDigital) {
+                var ExperienciaGanaMas = new Object();
+                ExperienciaGanaMas.OcultarAgregar = revistaDigital.TieneRDC && !revistaDigital.EsSuscrita ? true : false;
+                ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
+                ExperienciaGanaMas.OcultarLoQuieres = revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+
+                $.each(modeloTemp.lista, function (ind, tem) {
+                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                    tem.TieneVerDetalle = !ExperienciaGanaMas.OcultarVerDetalle;
+                });
+            }
+            
+
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
         }

@@ -1,6 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
 
+
     {{#each this.lista as |item|}}
 
     {{#if EsBanner}}
@@ -15,7 +16,6 @@
     </div>
     {{else}}
     {{#if EsLanzamiento}}
-    <!--Bryan aqui-->
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_carrusel content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
@@ -77,6 +77,26 @@
                 </div>
             </div>
             <div class="clear"></div>
+
+            {{#if this.ExperienciaGanaMas includeZero=true}}
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                <div>
+                    <div class="texto_elige_tono"></div>
+                    <div class="clear"></div>
+                    <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                       onclick="javascript:EstrategiaAgregar(event); ">
+                        ¿LO QUIERES?
+                    </a>
+                </div>
+                <div class="clear"></div>
+                <div style="margin: 9px 0;height: 15px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+            </div>
+            {{else}}
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
                 <div>
                     {{#iff TipoAccionAgregar '==' '1'}}
@@ -86,7 +106,7 @@
                         <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
                     </div>
                     <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:EstrategiaAgregar(event, true, 1); ">
+                        onclick="javascript:EstrategiaAgregar(event, true, 1); ">
                         AGR&Eacute;GALO
                     </a>
                     {{/iff}}
@@ -101,7 +121,7 @@
                         </div>
                     </div>
                     <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                       onclick="javascript:EstrategiaAgregar(event); ">
+                        onclick="javascript:EstrategiaAgregar(event); ">
                         AGR&Eacute;GALO
                     </a>
                     {{/iff}}
@@ -123,8 +143,10 @@
                     </div>
                 </div>
             </div>
+            {{/if}}
+
+            </div>
         </div>
-    </div>
     {{/if}}
 
     {{/if}}

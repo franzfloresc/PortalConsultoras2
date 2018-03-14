@@ -1,5 +1,6 @@
 ﻿
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
 @{
@@ -7,6 +8,7 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
     var idBorrar = "borrar" + Model.CampaniaID;
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalModel();
 }
 
 @section styles{
@@ -29,43 +31,43 @@
 <div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <div data-listado-content="" style="display: none;">
         <div>
-        @if (!Model.ProductosPerdio)
-        {
-            <div class="subtitulo_landing" style="display: none;">OFERTAS CLUB GANA+</div>
-            <hr class="clear" />
-            <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
-                <div id="orderby-filter" style="display: block;">
-                    <div id="content-orderby" style="margin: 15px 0; text-align: center;">
-                        <div id="divFiltros">
-                            <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%;">
-                                @foreach (var item in Model.FiltersByBrand)
-                                {
-                                    <option value="@item.Codigo">@item.Descripcion</option>
-                                }
-                            </select>
-                            <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width:56%;">
-                                @foreach (var item1 in Model.FiltersBySorting)
-                                {
-                                    <option value="@item1.Codigo">@item1.Descripcion</option>
-                                }
-                            </select>
-                            <div style="clear:both;"></div>
+            @if (!Model.ProductosPerdio)
+            {
+                <div class="subtitulo_landing" style="display: none;">OFERTAS CLUB GANA+</div>
+                <hr class="clear" />
+                <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
+                    <div id="orderby-filter" style="display: block;">
+                        <div id="content-orderby" style="margin: 15px 0; text-align: center;">
+                            <div id="divFiltros">
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%;">
+                                    @foreach (var item in Model.FiltersByBrand)
+                                    {
+                                        <option value="@item.Codigo">@item.Descripcion</option>
+                                    }
+                                </select>
+                                <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width:56%;">
+                                    @foreach (var item1 in Model.FiltersBySorting)
+                                    {
+                                        <option value="@item1.Codigo">@item1.Descripcion</option>
+                                    }
+                                </select>
+                                <div style="clear:both;"></div>
+                            </div>
                         </div>
-                    </div>
-                    <hr class="clear">
-                    <div id="summary-filters">
-                        <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                            <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span></span>
-                        </div>
+                        <hr class="clear">
+                        <div id="summary-filters">
+                            <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
+                                <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span></span>
+                            </div>
 
-                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
+                            </div>
+                            <br><br>
                         </div>
-                        <br><br>
                     </div>
                 </div>
-            </div>
-        }
+            }
         </div>
         <hr class="clear" />
         <div>
@@ -122,6 +124,7 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
+        var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
 }
