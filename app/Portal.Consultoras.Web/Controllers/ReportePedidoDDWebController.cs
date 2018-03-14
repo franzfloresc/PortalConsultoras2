@@ -860,7 +860,7 @@ namespace Portal.Consultoras.Web.Controllers
             if ((string)Session[Constantes.ConstSession.PedidoWebDDConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDD];
 
             Session[Constantes.ConstSession.PedidoWebDDConf] = model.UniqueId;
-            var list = new List<BEPedidoDDWeb>();
+            List<BEPedidoDDWeb> list;
             try
             {
                 var pedidoDDWebFiltro = Mapper.Map<BEPedidoDDWeb>(model);
@@ -893,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
             if ((string)Session[Constantes.ConstSession.PedidoWebDDDetalleConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDDDetalle];
 
             Session[Constantes.ConstSession.PedidoWebDDDetalleConf] = model.UniqueId;
-            var list = new List<BEPedidoDDWeb>();
+            List<BEPedidoDDWeb> list;
             try
             {
                 var pedidoDDWebFiltro = Mapper.Map<BEPedidoDDWeb>(model);
