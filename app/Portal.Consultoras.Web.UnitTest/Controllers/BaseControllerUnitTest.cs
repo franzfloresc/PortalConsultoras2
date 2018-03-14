@@ -21,27 +21,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     public class BaseControllerUnitTest
     {
         [TestClass]
-        public class Base
-        {
-            protected Mock<ISessionManager> sessionManager;
-            protected Mock<ILogManager> logManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                sessionManager = new Mock<ISessionManager>();
-                logManager = new Mock<ILogManager>();
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                sessionManager = null;
-                logManager = null;
-            }
-        }
-
-        [TestClass]
         public class BuildMenuMobile : Base
         {
             [TestMethod]

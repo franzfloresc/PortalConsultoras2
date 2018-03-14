@@ -98,6 +98,7 @@
     <Compile Include="AreasMobile\Mobile\BaseGuiaNegocioControllerUnitTests.cs" />
     <Compile Include="AreasMobile\Mobile\OfertasParaTiUnitTests.cs" />
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
+    <Compile Include="Base.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
     <Compile Include="Controllers\BienvenidaControllerUnitTests.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />

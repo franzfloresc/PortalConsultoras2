@@ -17,28 +17,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     {
 
         [TestClass]
-        public class Base
-        {
-            public Mock<ILogManager> logManager;
-            public Mock<ISessionManager> sessionManager;
-
-            [TestInitialize]
-            public void Test_Initialize()
-            {
-                logManager = new Mock<ILogManager>();
-                sessionManager = new Mock<ISessionManager>();
-            }
-
-            [TestCleanup]
-            public void Test_Cleanup()
-            {
-                logManager = null;
-                sessionManager = null;
-            }
-        }
-
-
-        [TestClass]
         public class Index
         {
             //class LoginController_GetClientIpReturnsMultipleIps : LoginController
