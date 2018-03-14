@@ -5,10 +5,11 @@ BEGIN
 END
 GO
 create proc dbo.DeletePedidoWebDetalleExplotadoByPedidoID
+	@CampaniaID int,
 	@PedidoID int
 as
 begin
 	delete from PedidoWebDetalleExplotado
-	where PedidoID = @PedidoID;
+	where CampaniaID = @CampaniaID and PedidoID = @PedidoID;
 end
 GO

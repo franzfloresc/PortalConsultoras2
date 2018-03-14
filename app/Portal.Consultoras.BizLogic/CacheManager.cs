@@ -38,7 +38,8 @@ namespace Portal.Consultoras.BizLogic
         ConfiguracionEventoFestivo,
         GNDEstrategia,
         HVEstrategia,
-        ConfiguracionValidacion
+        ConfiguracionValidacion,
+        TablaLogicaDatos
     }
 
     internal class CacheManager<T>
@@ -86,21 +87,17 @@ namespace Portal.Consultoras.BizLogic
 
         public static IList<T> GetData(int paisID, ECacheItem cacheItem)
         {
-            return getData(paisID, cacheItem, string.Empty);
+            return GetData(paisID, cacheItem, string.Empty);
         }
         public static IList<T> GetData(ECacheItem cacheItem)
         {
-            return getData(0, cacheItem, string.Empty);
+            return GetData(0, cacheItem, string.Empty);
         }
         public static IList<T> GetData(ECacheItem cacheItem, string customKey)
         {
-            return getData(0, cacheItem, customKey);
+            return GetData(0, cacheItem, customKey);
         }
         public static IList<T> GetData(int paisID, ECacheItem cacheItem, string customKey)
-        {
-            return getData(paisID, cacheItem, customKey);
-        }
-        private static IList<T> getData(int paisID, ECacheItem cacheItem, string customKey)
         {
             IList<T> result = null;
             if (Connection != null)
@@ -119,21 +116,17 @@ namespace Portal.Consultoras.BizLogic
 
         public static T GetDataElement(int paisID, ECacheItem cacheItem)
         {
-            return getDataElement(paisID, cacheItem, string.Empty);
+            return GetDataElement(paisID, cacheItem, string.Empty);
         }
         public static T GetDataElement(ECacheItem cacheItem)
         {
-            return getDataElement(0, cacheItem, string.Empty);
+            return GetDataElement(0, cacheItem, string.Empty);
         }
         public static T GetDataElement(ECacheItem cacheItem, string customKey)
         {
-            return getDataElement(0, cacheItem, customKey);
+            return GetDataElement(0, cacheItem, customKey);
         }
         public static T GetDataElement(int paisID, ECacheItem cacheItem, string customKey)
-        {
-            return getDataElement(paisID, cacheItem, customKey);
-        }
-        private static T getDataElement(int paisID, ECacheItem cacheItem, string customKey)
         {
             T result = default(T);
             if (Connection != null)
@@ -182,21 +175,17 @@ namespace Portal.Consultoras.BizLogic
 
         public static void RemoveData(int paisID, ECacheItem cacheItem)
         {
-            removeData(paisID, cacheItem, string.Empty);
-        }
-        public static void RemoveData(int paisID, ECacheItem cacheItem, string customKey)
-        {
-            removeData(paisID, cacheItem, customKey);
+            RemoveData(paisID, cacheItem, string.Empty);
         }
         public static void RemoveData(ECacheItem cacheItem)
         {
-            removeData(0, cacheItem, string.Empty);
+            RemoveData(0, cacheItem, string.Empty);
         }
         public static void RemoveData(ECacheItem cacheItem, string customKey)
         {
-            removeData(0, cacheItem, customKey);
+            RemoveData(0, cacheItem, customKey);
         }
-        private static void removeData(int paisID, ECacheItem cacheItem, string customKey)
+        public static void RemoveData(int paisID, ECacheItem cacheItem, string customKey)
         {
             if (Connection != null)
             {
@@ -208,6 +197,28 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
             }
+        }
+
+        public static T ValidateDataElement(int paisID, ECacheItem cacheItem, Func<T> fn)
+        {
+            return ValidateDataElement(paisID, cacheItem, string.Empty, fn);
+        }
+        public static T ValidateDataElement(ECacheItem cacheItem, Func<T> fn)
+        {
+            return ValidateDataElement(0, cacheItem, string.Empty, fn);
+        }
+        public static T ValidateDataElement(ECacheItem cacheItem, string customKey, Func<T> fn)
+        {
+            return ValidateDataElement(0, cacheItem, customKey, fn);
+        }
+        public static T ValidateDataElement(int paisID, ECacheItem cacheItem, string customKey, Func<T> fn)
+        {
+            var entidad = GetDataElement(paisID, cacheItem, customKey);
+            if (entidad != null) return entidad;
+
+            entidad = fn();
+            AddDataElement(paisID, cacheItem, customKey, entidad);
+            return entidad;
         }
 
         private static string getKey(int paisID, ECacheItem cacheItem, string customKey)

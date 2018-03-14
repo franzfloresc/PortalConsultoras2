@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -9,29 +10,28 @@ namespace Portal.Consultoras.BizLogic
     {
         public bool EstaActivoProl3(int paisID)
         {
-            var entidad = GetConfiguracionValidacion(paisID, true);
+            var entidad = GetConfiguracionValidacionCache(paisID);
 
             if (entidad == null) return false;
             return entidad.TieneProl3;
         }
-
-        public BEConfiguracionValidacion GetConfiguracionValidacion(int paisID, bool useCache)
+        
+        public BEConfiguracionValidacion GetConfiguracionValidacion(int paisID)
         {
-            BEConfiguracionValidacion entidad = null;
-            if(useCache) entidad = CacheManager<BEConfiguracionValidacion>.GetDataElement(paisID, ECacheItem.ConfiguracionValidacion);
-            if (entidad != null) return entidad;
-
             using (IDataReader reader = new DAConfiguracionValidacion(paisID).GetConfiguracionValidacion())
             {
-                if (reader.Read()) entidad = new BEConfiguracionValidacion(reader) { PaisID = paisID };
+                if (reader.Read()) return new BEConfiguracionValidacion(reader) { PaisID = paisID };
             }
-            if (useCache) CacheManager<BEConfiguracionValidacion>.AddDataElement(paisID, ECacheItem.ConfiguracionValidacion, entidad);
-            return entidad;
+            return null;
+        }
+        public BEConfiguracionValidacion GetConfiguracionValidacionCache(int paisID)
+        {
+            return CacheManager<BEConfiguracionValidacion>.ValidateDataElement(paisID, ECacheItem.ConfiguracionValidacion, () => GetConfiguracionValidacion(paisID));
         }
 
         public IList<BEConfiguracionValidacion> GetListConfiguracionValidacion(int paisID)
         {
-            var entidad = GetConfiguracionValidacion(paisID, false);
+            var entidad = GetConfiguracionValidacion(paisID);
 
             if (entidad == null) return new List<BEConfiguracionValidacion>();
             return new List<BEConfiguracionValidacion> { entidad };
