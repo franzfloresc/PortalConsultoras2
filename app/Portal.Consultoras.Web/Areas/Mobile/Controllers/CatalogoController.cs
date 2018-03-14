@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
                 CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
-                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || (userData.TieneGND && revistaDigital.EsActiva))) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
-                TieneSeccionRevista = !revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva),
+                TieneSeccionRD = (revistaDigital.TieneRDC && (!userData.TieneGND || revistaDigital.EsActiva)) || revistaDigital.TieneRDI || revistaDigital.TieneRDR,
+                TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
             };
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
@@ -87,6 +87,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
+                if (revistaDigital.TieneRDCR)
+                    codigoRevista += Constantes.CatalogoUrlIssu.RDR;
+
                 string stringIssuuRevista = GetStringIssuRevista(codigoRevista);
                 dynamic item = new JavaScriptSerializer().Deserialize<object>(stringIssuuRevista);
                 url = item["thumbnail_url"];

@@ -10,16 +10,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public virtual ActionResult ViewLanding()
         {
-
-            ViewBag.NombreConsultora = userData.Sobrenombre;
-            //
-            ViewBag.CampaniaActual = userData.CampaniaID.ToString();
-            ViewBag.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
-            ViewBag.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
-            //
-            ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(ViewBag.CampaniaActual);
-            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(ViewBag.CampaniaAnterior);
-            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(ViewBag.CampaniaSiguiente);
+            ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(userData.CampaniaID.ToString());
+            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, -1).ToString());
+            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, 1).ToString());
 
             var model = new RevistaDigitalLandingModel
             {

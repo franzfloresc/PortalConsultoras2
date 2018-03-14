@@ -1036,6 +1036,7 @@ namespace Portal.Consultoras.Common
         public class CatalogoUrlIssu
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            public const string RDR = "rdr";
         }
 
         public static class RevistaNombre
@@ -1838,9 +1839,9 @@ namespace Portal.Consultoras.Common
 
         public class FlagRevista
         {
-            public const int Publico = 0;
-            public const int Compra = 1;
-            public const int Perdiste = 2;
+            public const int Valor0 = 0;
+            public const int Valor1 = 1;
+            public const int Valor2 = 2;
         }
     }
 }

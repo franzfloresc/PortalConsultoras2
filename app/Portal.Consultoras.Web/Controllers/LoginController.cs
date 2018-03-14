@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -16,8 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,10 +29,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using WebGrease.Css.Extensions;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1244,17 +1242,20 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
 
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                if (revistaDigitalModel.TieneRDC)
-                                    break;
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
-                                revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                                revistaDigitalModel.TieneRDR = true;
+                                revistaDigitalModel.TieneRDCR = true;
                                 break;
+
+                                //if (revistaDigitalModel.TieneRDC)
+                                //    break;
+
+                                //revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
+                                //    listaPaisDatos
+                                //        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
+                                //        .ToList(), usuarioModel.CodigoISO);
+
+                                //revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
+                                //revistaDigitalModel.TieneRDR = true;
+                                //break;
 
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC)
