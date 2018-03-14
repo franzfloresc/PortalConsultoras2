@@ -499,12 +499,12 @@
 
         $(elements.ContenedorTituloGanaste).empty();
 
-        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡TIENES UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
+        $(elements.ContenedorTituloGanaste).append(nombreAlias.toUpperCase() + " ¡PUEDES GANAR UN CUPÓN DE " + valor + simbolo + " DE DSCTO!");
         //$(elements.ContenedorTituloGanaste).append("¡ACTIVASTE TU CUPÓN DE " + valor + simbolo + " DE DSCTO!");
 
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();
-        $(elements.ContenedorTextoDetalleCuponCampania).append("Válido solo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");
+        $(elements.ContenedorTextoDetalleCuponCampania).append("Válido sólo en C" + campania + " (Dscto. máximo " + setting.SimboloMoneda + " " + setting.Cupon.MontoLimiteFormateado + "). El Dscto. se reflejará en tu facturación");
         $(elements.ContenedorMontoLimitePopupGanaste).empty();
         $(elements.ContenedorMontoLimitePopupGanaste).append("Agrega mínimo 1 oferta Gana+ pasando pedido por el App " + (isEsika ? "Ésika" : "L'bel") + " Conmigo *");
 

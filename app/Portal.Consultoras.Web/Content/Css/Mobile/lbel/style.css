@@ -12808,8 +12808,8 @@ span.icon-advertencia {
 
 .titulo_cupon2 {
     font-family: 'LAto';
-    font-size: 18.5px;
-    font-weight: 900;
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 1px;
     margin-top: 7px;
 }
@@ -12856,7 +12856,7 @@ span.icon-advertencia {
 .info_recuerda_cupon {
     float: left;
     width: 100%;
-    margin-top: 14px;
+    margin-top: 12px;
     font-family: 'Lato';
     font-size: 11px;
 }
@@ -13037,9 +13037,9 @@ span.icon-advertencia {
 .texto_recuerda_cupon {
     font-family: 'LAto';
     font-size: 14px;
-    margin-top: 53px;
-    text-align: left;
-    padding-left: 51px;
+    margin-top: 63px;
+    text-align: center;
+    /*padding-left: 51px;*/
 }
 
 .info_recuerda_cupon_icono {
