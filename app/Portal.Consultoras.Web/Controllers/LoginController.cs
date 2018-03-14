@@ -1226,36 +1226,25 @@ namespace Portal.Consultoras.Web.Controllers
                 var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                 if (configuracionesPaisModels.Any())
                 {
-                    var listaPaisDatos = GetConfiguracionPaisDatos(usuarioModel);
-
+                    var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuarioModel);
                     foreach (var c in configuracionesPaisModels)
                     {
+                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList();
                         switch (c.Codigo)
                         {
                             case Constantes.ConfiguracionPais.RevistaDigital:
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                 break;
-
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                 if (revistaDigitalModel.TieneRDC)
                                     break;
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
-
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel, configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDR = true;
                                 break;
-
                             case Constantes.ConfiguracionPais.RevistaDigitalIntriga:
                                 if (revistaDigitalModel.TieneRDC)
                                 {
@@ -1266,18 +1255,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         "LoginController.ConfiguracionPaisUsuario");
                                     break;
                                 }
-
-                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel,
-                                    listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList(), usuarioModel.CodigoISO);
+                                revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalIntriga(revistaDigitalModel,configuracionPaisDatos, usuarioModel.CodigoISO);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                                 revistaDigitalModel.TieneRDI = true;
                                 break;
                             case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                 usuarioModel.TieneValidacionMontoMaximo = c.Estado;
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertaFinalTradicional:
                             case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
                             case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
@@ -1290,23 +1274,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
 
                                 break;
-
                             case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                                guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
-                                        .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
-                                        .ToList());
+                                guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(configuracionPaisDatos);
                                 guiaNegocio.TieneGND = true;
                                 usuarioModel.TieneGND = true;
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertaDelDia:
-                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, listaPaisDatos
+                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, configuracionPaisDatosAll
                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                     .ToList());
                                 break;
-
                             case Constantes.ConfiguracionPais.OfertasParaTi:
-                                usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, listaPaisDatos
+                                usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, configuracionPaisDatosAll
                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)
                                     .ToList());
                                 break;
@@ -1316,9 +1295,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                             case Constantes.ConfiguracionPais.HerramientasVenta:
                                 herramientasVentaModel.TieneHV = true;
-
-                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,
-                                        listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
+                                herramientasVentaModel = ConfiguracionPaisHerramientasVenta(herramientasVentaModel,configuracionPaisDatos);
                                 break;
                         }
                     }
