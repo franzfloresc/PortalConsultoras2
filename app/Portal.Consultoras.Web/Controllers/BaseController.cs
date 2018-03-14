@@ -2180,8 +2180,10 @@ namespace Portal.Consultoras.Web.Controllers
                 requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
             else
             {
-                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "");
-                requestUrl                      = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                requestUrl                      = string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania, "") ?? string.Empty;
+                requestUrl                      = !string.IsNullOrEmpty(requestUrl) && requestUrl.Substring(requestUrl.Length - 1) == "." ? 
+                                                requestUrl.Substring(0, requestUrl.Length - 1) : 
+                                                requestUrl;
             }
             return requestUrl;
         }
