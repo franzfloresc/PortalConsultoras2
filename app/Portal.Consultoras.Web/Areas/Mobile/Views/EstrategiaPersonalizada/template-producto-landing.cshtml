@@ -22,7 +22,13 @@
             {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
             <img src="{{TipoEstrategiaDetalle.ImgHomeMobile}}" class="portada">
             {{/iff}}
-            <p class="tercero">Conoce {{DescripcionResumen}}</p>
+            <div class="centrar-tercero">
+                <div class="centrar-tercero-centro">
+                    <p class="tercero">
+                        Conoce {{DescripcionResumen}}
+                    </p>
+                </div>
+            </div>
             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
     </div>

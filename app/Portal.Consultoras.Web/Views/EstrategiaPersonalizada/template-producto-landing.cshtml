@@ -54,9 +54,12 @@
                 {{/iff}}
                 {{/iff}}
                 <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                    {{#iff DescripcionMarca '!=' ''}}
-                    <h6>{{DescripcionMarca}}</h6>
-                    {{/iff}}
+                    {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6>{{DescripcionMarca}}</h6>
+                    {{else}}
+                        <h6>&ensp;&nbsp;</h6>
+                    {{/IsNullOrEmpty}}
+
                     {{#iff DescripcionResumen '!=' ''}}
                     <p class="nombre_producto"><b>{{DescripcionResumen}}</b></p>
                     {{/iff}}
