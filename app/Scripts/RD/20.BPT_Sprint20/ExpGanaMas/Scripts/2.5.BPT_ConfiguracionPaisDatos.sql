@@ -21,11 +21,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
+		,'60,02'
 		,''
 		,''
-		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -45,11 +45,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
+		,'60,02'
 		,''
 		,''
-		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -73,7 +73,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -102,11 +102,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -126,11 +126,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -154,7 +154,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -162,7 +162,7 @@ GO
 
 USE BelcorpColombia
 GO
-
+select * from ods.region
 BEGIN
 DECLARE @ConfiguracionPaisID INT
 SELECT @ConfiguracionPaisID = [ConfiguracionPaisID] FROM ConfiguracionPais WHERE Codigo = 'RD'
@@ -183,11 +183,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
+		,'01,26'
 		,''
 		,''
-		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -207,11 +207,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
+		,'01,26'
 		,''
 		,''
-		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -235,7 +235,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -264,11 +264,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -288,11 +288,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -316,7 +316,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -345,11 +345,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -369,11 +369,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -397,7 +397,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -426,11 +426,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -450,11 +450,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -478,7 +478,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -507,11 +507,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -531,11 +531,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -559,7 +559,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -588,11 +588,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -612,11 +612,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -640,7 +640,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -669,11 +669,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -693,11 +693,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -721,7 +721,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -750,11 +750,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -774,11 +774,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -802,7 +802,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -831,11 +831,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -855,11 +855,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -883,7 +883,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END
@@ -912,11 +912,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesNuevas'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Nuevas.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Nuevas.'
 		,0
 		,'')
 
@@ -936,11 +936,11 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 	VALUES
 		(@ConfiguracionPaisID
 		,'HabilitarRegionesUnete'
-		,201802
+		,0
 		,''
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica de Unete.'
+		,'Filtrar regiones para la suscripci贸n autom谩tica de Unete.'
 		,0
 		,'')
 
@@ -964,7 +964,7 @@ INSERT INTO [dbo].[ConfiguracionPaisDatos]
 		,'1'
 		,''
 		,''
-		,'Filtrar regiones para la suscripci髇 autom醫ica.'
+		,'Activar suscripcion de las consultoras nuevas.'
 		,0
 		,'')
 END

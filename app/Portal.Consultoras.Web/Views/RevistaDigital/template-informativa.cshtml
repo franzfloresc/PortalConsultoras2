@@ -135,7 +135,31 @@ else
     </div>
 }
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if(Model.Origen == Constantes.RevistaDigitalOrigen.RD)
+{
+<div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
+    <div class="contenedor-suscripcion">
+        @if (Model.EsSuscrita)
+        {
+            <p class="txt-deseas-cancelar">
+                ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+            </p>
+            <span class="deseas-cancelar">
+                Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+            </span>
+            <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+        }
+        else
+        {
+            <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
+        }
+        <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
+            VER TÉRMINOS Y CONDICIONES
+        </a>
+    </div>
+</div>
+}
+else if(Model.CancelarSuscripcion)
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
@@ -146,30 +170,6 @@ else
                 </p>
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-                </span>
-                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
-            }
-            else
-            {
-                <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
-            }
-            <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
-                VER TÉRMINOS Y CONDICIONES
-            </a>
-        </div>
-    </div>
-}
-else
-{
-    <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
-        <div class="contenedor-suscripcion">
-            @if (Model.EsSuscrita)
-            {
-                <p class="txt-deseas-cancelar">
-                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-                </p>
-                <span class="deseas-cancelar">
-                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }

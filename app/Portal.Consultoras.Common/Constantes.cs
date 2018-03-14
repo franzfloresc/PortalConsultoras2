@@ -404,6 +404,8 @@ namespace Portal.Consultoras.Common
 
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
             public const string RevistaPiloto_Escenario = "ESC";
+            public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
+            public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
