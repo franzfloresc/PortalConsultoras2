@@ -4,6 +4,8 @@
 
 @model Portal.Consultoras.Web.Models.Estrategia.ShowRoom.IBannerInferiorConfiguracion
 
+<link href="@Url.Content("~/Content/Css/Site/ShowRoom.css")" rel="stylesheet" />
+
 @if (Model.Activo)
 {
     if (Model.SeDebeMostrar(Request))
@@ -13,7 +15,9 @@
                 <img src="@Model.UrlImagen" />
             </a>
 
-            <a class="showroom_banner_boton" href="javascript:;">x</a>
+            <div class="showroom_banner_boton" id="showroom_banner_boton" >
+                <a href="javascript:;">x</a>
+            </div>            
         </div>
     }
 }
@@ -32,7 +36,7 @@
         ready(function () {
             ready(belcorp.showroom.initialize({
                 banner: document.getElementById("showroom_banner_inferior"),
-                botonCerrar: document.getElementById("showroom_banner_inferior").lastElementChild,
+                botonCerrar: document.getElementById("showroom_banner_boton"),
                 urlDesactivarBarra: '@Url.Action("DesactivarBannerInferior", "ShowRoom")'
             }));
         })
