@@ -34781,7 +34781,7 @@ height:30px;
 
 .content_cupon {
     width: 664px;
-    height: 280px;
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -34942,7 +34942,7 @@ height:30px;
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
@@ -34951,13 +34951,13 @@ height:30px;
     width: 33%;
     /*margin-top: 12px;*/
     font-family: 'Lato';
-    font-size: 12px;
+    font-size: 13px;
     height: 72px;
 }
 
     .info_recuerda_cupon span {
         display: block;
-        margin-top: 5px;
+        margin-top: 14px;
         line-height: 15px;
     }
 
