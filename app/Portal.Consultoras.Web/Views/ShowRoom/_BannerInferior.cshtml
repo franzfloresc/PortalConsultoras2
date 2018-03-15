@@ -10,10 +10,10 @@
 {
     if (Model.SeDebeMostrar(Request))
     {
-        var imgRoute = string.IsNullOrEmpty(Model.UrlRedireccion) ? "#" : Model.UrlRedireccion;
+        var routeRedirect = string.IsNullOrEmpty(Model.UrlRedireccion) ? "#" : Model.UrlRedireccion;
 
         <div class="showroom_banner_inferior" id="showroom_banner_inferior">
-            <a href="@imgRoute">
+            <a href="@routeRedirect">
                 <img src="@Model.UrlImagen" />
             </a>
             <div class="showroom_banner_boton" id="showroom_banner_boton">
