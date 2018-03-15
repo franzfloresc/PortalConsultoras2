@@ -753,6 +753,69 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual("banner-ganamas.jpg", result.BannerOfertasActivaSuscrita);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSEExperienciaClub_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEEmpresariaExperienciaClub,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaExperienciaGanaMas);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaNoActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSESuscritaActivaCancelarSuscripcion_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SociaEmpresariaSuscritaActivaCancelarSuscripcion,
+                        Valor1 = "1",
+                        Valor2 = null
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SociaEmpresariaSuscritaActivaCancelarSuscripcion);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
         }
 
         [TestClass]

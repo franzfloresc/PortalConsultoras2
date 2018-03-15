@@ -1226,6 +1226,12 @@ namespace Portal.Consultoras.Common
                 public const string PopupFondoColorMarco = "PopupFondoColorMarco";
                 #endregion
 
+                #region SociaEmpresaria
+                public static readonly string SociaEEmpresariaExperienciaClub = "SEExperienciaClub";
+                public static readonly string SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = "SESuscritaNoActivaCancelarSuscripcion";
+                public static readonly string SociaEmpresariaSuscritaActivaCancelarSuscripcion = "SESuscritaActivaCancelarSuscripcion";
+                #endregion
+
             }
 
             public static class RDR
