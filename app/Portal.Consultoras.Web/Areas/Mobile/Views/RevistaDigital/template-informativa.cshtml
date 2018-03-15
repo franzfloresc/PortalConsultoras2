@@ -103,7 +103,7 @@
                 <img src="~/Content/Images/visual_de_causa.png" />
             </div>
             <div class="clear"></div>
-            @if (!Model.EsSuscrita)
+            @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <span class="txt recuerda-txt">
                     RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
@@ -172,7 +172,7 @@ else
             {
                 <div class="logo" style="margin-top:0;"></div>
             }
-            @if (Model.EsSuscrita)
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <p class="txt-deseas-cancelar">
                     ¿NO TE GUSTÓ EL CLUB?
@@ -182,7 +182,7 @@ else
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
-            else
+            @if(!Model.EsSuscrita)
             {
                 <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
             }
@@ -198,7 +198,7 @@ else
 {
     <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
         <div class="contenedor-mobile-fix" style="padding: 25px;">
-            @if (Model.EsSuscrita)
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <p class="txt-deseas-cancelar">
                     ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
@@ -208,7 +208,7 @@ else
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
             }
-            else
+            @if (!Model.EsSuscrita)
             {
                 <div id="div-suscribite">
                     <div class="logo" style="margin-top:0;"></div>

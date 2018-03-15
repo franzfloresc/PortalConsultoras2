@@ -100,6 +100,7 @@
     <Compile Include="Attributes\ExpectedExceptionWithMessageAttribute.cs" />
     <Compile Include="Base.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
+    <Compile Include="Controllers\BaseRevistaDigitalControllerUnitTests.cs" />
     <Compile Include="Controllers\BienvenidaControllerUnitTests.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />

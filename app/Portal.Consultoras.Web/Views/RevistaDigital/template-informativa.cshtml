@@ -120,7 +120,7 @@ else
                     En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
                 </span>
                 <div class="clear"></div>
-                @if (!Model.EsSuscrita)
+                @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
                 {
                     <span class="txt recuerda-txt">
                         RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
@@ -139,7 +139,7 @@ else
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
-            @if (Model.EsSuscrita)
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <p class="txt-deseas-cancelar">
                     ¿NO TE GUSTÓ EL CLUB?
@@ -149,7 +149,7 @@ else
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
-            else
+            @if (!Model.EsSuscrita)
             {
                 <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
             }
@@ -163,7 +163,7 @@ else
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
-            @if (Model.EsSuscrita)
+            @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
                 <p class="txt-deseas-cancelar">
                     ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
@@ -173,7 +173,7 @@ else
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
-            else
+            @if (!Model.EsSuscrita)
             {
                 <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
             }

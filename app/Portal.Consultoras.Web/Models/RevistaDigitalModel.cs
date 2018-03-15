@@ -96,6 +96,9 @@ namespace Portal.Consultoras.Web.Models
         public string BannerOfertasNoActivaSuscrita { get; set; }
         public string BannerOfertasActivaNoSuscrita { get; set; }
         public string BannerOfertasActivaSuscrita { get; set; }
+        public bool SociaEmpresariaExperienciaGanaMas { get; set; }
+        public bool SociaEmpresariaSuscritaNoActivaCancelarSuscripcion { get; set; }
+        public bool SociaEmpresariaSuscritaActivaCancelarSuscripcion { get; set; }
 
         public bool EsSuscritaInactiva()
         {

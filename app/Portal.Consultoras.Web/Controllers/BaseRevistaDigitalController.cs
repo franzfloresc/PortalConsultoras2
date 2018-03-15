@@ -23,22 +23,23 @@ namespace Portal.Consultoras.Web.Controllers
             int limiteMinimoTelef, limiteMaximoTelef;
             GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
 
-            var modelo = new RevistaDigitalInformativoModel
-            {
-                EsSuscrita = revistaDigital.EsSuscrita,
-                EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
-                Video = GetVideoInformativo(),
-                UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
-                UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionEfectiva.Origen,
-                NombreConsultora = userData.Sobrenombre.ToUpper(),
-                Email = userData.EMail,
-                Celular = userData.Celular,
-                LimiteMax = limiteMaximoTelef,
-                LimiteMin = limiteMinimoTelef,
-                UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
-                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4)
-            };
+            var modelo = new RevistaDigitalInformativoModel();
+            modelo.EsSuscrita = revistaDigital.EsSuscrita;
+            modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;
+            modelo.Video = GetVideoInformativo();
+            modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones);
+            modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes);
+            modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
+            modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
+            modelo.Email = userData.EMail;
+            modelo.Celular = userData.Celular;
+            modelo.LimiteMax = limiteMaximoTelef;
+            modelo.LimiteMin = limiteMinimoTelef;
+            modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
+            modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
+            modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && 
+                ((revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
+                (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
 
             return View("template-informativa", modelo);
         }
