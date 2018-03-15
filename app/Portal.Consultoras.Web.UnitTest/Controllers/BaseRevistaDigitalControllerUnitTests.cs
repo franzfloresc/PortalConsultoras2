@@ -117,13 +117,15 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         EsSuscrita = false,
                         //
                         EsActiva = esActiva,
+                        SociaEmpresariaSuscritaActivaCancelarSuscripcion = true,
+                        SociaEmpresariaSuscritaNoActivaCancelarSuscripcion = true,
                     };
                 }
             }
             [DataRow(false, DisplayName = "No Activa")]
             [DataRow(true,DisplayName = "Activa")]
             [DataTestMethod]
-            public void IndexModel_EsSociaEmprsariaYTieneSEExpGanamasYEsNoSuscrita_RetornaViewTemplateInformativoYMostrarCancerlarSuscripcionVerdadero(bool esActiva)
+            public void IndexModel_EsSociaEmprsariaYTieneSEExpGanamasYEsNoSuscrita_RetornaViewTemplateInformativoYMostrarCancerlarSuscripcionFalso(bool esActiva)
             {
                 var controller = new BaseRevistaDigitalController_EsSociaEmprsariaYTieneSEExpGanamasYEsNoSuscrita(esActiva);
 
@@ -161,7 +163,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [DataRow(false, DisplayName = "No Activa")]
             [DataRow(true, DisplayName = "Activa")]
             [DataTestMethod]
-            public void IndexModel_EsSociaEmprsariaYTieneSEExpGanamasYEsSuscritaYSocEmprPuedeCancelar_RetornaViewTemplateInformativoYMostrarCancerlarSuscripcionVerdadero(
+            public void IndexModel_EsSociaEmpresariaYTieneSEExpGanamasYEsSuscritaYSocEmprPuedeCancelar_RetornaViewTemplateInformativoYMostrarCancerlarSuscripcionVerdadero(
                 bool esActiva)
             {
                 var controller = new BaseRevistaDigitalController_EsSociaEmprsariaYTieneSEExpGanamasYEsSuscritaYSocEmprPuedeCancelar(esActiva);
