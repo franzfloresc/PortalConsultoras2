@@ -1636,6 +1636,17 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
+            if (revistaDigital.TieneRDCR)
+            {
+                var dato = guiaNegocio.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.BloquearProductoGnd) ?? new ConfiguracionPaisDatosModel();
+                dato.Valor1 = Util.Trim(dato.Valor1);
+                if (dato.Estado && dato.Valor1 != "")
+                {
+                    beProductos = beProductos
+                        .Where(prod => !dato.Valor1.Contains(prod.CUV))
+                        .ToList();
+                }
+            }
         }
 
         private ProductoModel GetProductoNoExiste()
