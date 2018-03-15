@@ -189,13 +189,15 @@
 
 .contenedor_carrusel_home .content_item_carrusel_clubganamas_off {
     background-image: linear-gradient(48deg, white, white) !important;
-    padding: 20px 10px;
-    min-height: 395px !important;
+    padding: 20px 20px;
+    height: 379px !important;
     border: 1px solid #e7e1e1 !important;
 }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off img.portada {
         width: 100%;
+        margin-top: 22px;
+        height: 145px;
     }
 
     .contenedor_carrusel_home .content_item_carrusel_clubganamas_off a.portada {
@@ -415,10 +417,13 @@ div#tab_revistasdigital_mobile {
         text-align: center;
         color: #ffffff;
         font-size: 13px;
-        padding: 55px 0px 15px 0px;
+        padding: 10px 0 15px 0;
         text-transform: uppercase;
     }
 
+        .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
+            padding-top: 50px !important;
+        }
         .wrapper_resumen_mobile_clubganamas .zonadecolor span p.primero {
             display: block;
             font-weight: normal !important;
@@ -428,6 +433,7 @@ div#tab_revistasdigital_mobile {
         .wrapper_resumen_mobile_clubganamas .zonadecolor span p.segundo {
             display: block;
             font-weight: 900;
+            margin-bottom: 0;
         }
 
     .wrapper_resumen_mobile_clubganamas .zonadecolor a.boton-ver-mas {

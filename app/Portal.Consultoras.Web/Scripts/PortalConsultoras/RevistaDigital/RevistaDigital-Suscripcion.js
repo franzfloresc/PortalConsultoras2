@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
-
-    var clickabrir = 1
+    "use strict";
+    var clickabrir = 1;
 
     if (isMobile()) {
         
@@ -36,11 +36,9 @@ $(document).ready(function () {
             }
         });
     }
-    
-   
-
+  
 });
- window.onYouTubePlayerAPIReady = function () {
+function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         width: '640',
         height: '390',
@@ -48,7 +46,7 @@ $(document).ready(function () {
         fs: 0,
         showinfo: 0,
         modestbranding: 1,
-        loop:1,
+        loop: 1,
         videoId: videoKey,
         playerVars: {
             autoplay: 1,
@@ -59,7 +57,7 @@ $(document).ready(function () {
             onStateChange: onPlayerStateChange
         }
     });
- }
+}
 
 function onScrollDown(event) {
     $(window).scroll(function () {
