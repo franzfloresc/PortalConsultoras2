@@ -34776,7 +34776,7 @@ height:30px;
     float: left;
     margin-left: 38px;
     line-height: 1.17;
-    width: 185px;
+    width: 185px;           
 }
 
 .content_cupon {
@@ -34889,7 +34889,7 @@ height:30px;
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 700;   
     letter-spacing: 1px;
 }
 
@@ -34949,7 +34949,7 @@ height:30px;
 .info_recuerda_cupon {
     float: left;
     width: 33%;
-    /*margin-top: 12px;*/
+    /*margin-top: 12px;*/       
     font-family: 'Lato';
     font-size: 13px;
     height: 72px;
@@ -34968,7 +34968,7 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%;
+    width: 40%;         
 }
 
 .info_recuerda_cupon_line {

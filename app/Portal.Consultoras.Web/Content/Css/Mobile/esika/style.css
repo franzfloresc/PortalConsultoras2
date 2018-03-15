@@ -12607,7 +12607,7 @@ a {
 
 @media (max-width: 374px) {
     .texto_cupon_monto {
-        font-size: 10px !important;
+        font-size: 10px !important;         
     }
 }
 
@@ -12633,7 +12633,7 @@ a {
 
 .content_pedido_cupon_monto {
     height: 51px;
-    /*display: inline-block;*/
+    /*display: inline-block;*/      
     position: relative;
     z-index: 2;
     background: #fff;
@@ -12642,7 +12642,7 @@ a {
 .icono_cupon_monto {
     display: block !important;
     float: left;
-    width: 70px;
+    width: 70px;        
     height: 51px;
     font-family: 'LAto';
     font-size: 12px;
@@ -12650,7 +12650,7 @@ a {
     position: relative;
     text-align: right;
     padding-right: 13px;
-    padding-top: 10px;
+    padding-top: 10px;          
 }
 
     .icono_cupon_monto img {
@@ -12675,9 +12675,9 @@ a {
     font-size: 12px;
     font-family: 'LAto';
     float: left;
-    margin-left: 35px;
+    margin-left: 35px;          
     line-height: 1.17;
-    width: 55%;
+    width: 55%;         
 }
 
 .link_cupon_home {
@@ -12842,8 +12842,8 @@ a {
 
 .titulo_cupon2 {
     font-family: 'LAto';
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 15px;    
+    font-weight: 700;   
     letter-spacing: 1px;
     margin-top: 7px;
 }
@@ -12890,9 +12890,9 @@ a {
 .info_recuerda_cupon {
     float: left;
     width: 100%;
-    margin-top: 12px;
+    margin-top: 12px;   
     font-family: 'Lato';
-    font-size: 11px;
+    font-size: 11px;        
 }
 
     .info_recuerda_cupon img {
@@ -12933,9 +12933,9 @@ a {
 .texto_recuerda_cupon {
     font-family: 'LAto';
     font-size: 14px;
-    margin-top: 63px;
-    text-align: center;
-    /*padding-left: 51px;*/
+    margin-top: 63px;   
+    text-align: center; 
+    /*padding-left: 51px;*/ 
 }
 
 .tipo_porcentaje {

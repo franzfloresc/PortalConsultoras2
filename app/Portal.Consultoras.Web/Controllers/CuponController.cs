@@ -119,9 +119,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool tieneOfertasPlan20 = false;                
-                tieneOfertasPlan20 = TieneOfertasPlan20();
+                tieneOfertasPlan20 = TieneOfertasPlan20();          
 
-                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -213,8 +213,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool TieneOfertasPlan20()
         {
             var flag = false;
-            var flagValidacionCodigoCatalogo = false;
-            var flagValidacionAppCatalogo = false;
+            var flagValidacionCodigoCatalogo = false;   
+            var flagValidacionAppCatalogo = false;  
             List<BEPedidoWebDetalle> listaPedidoWebDetalle;
 
             if (sessionManager.GetDetallesPedido() == null)
@@ -240,46 +240,46 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
             }
 
-            #region Logica validacion por Codigo de Catalogo
+            #region Logica validacion por Codigo de Catalogo    
 
-            List<BETablaLogicaDatos> lstCodigosOfertas;
+            List<BETablaLogicaDatos> lstCodigosOfertas; 
             using (SACServiceClient svc = new SACServiceClient())
             {
                 lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
             }
 
 
-            var listaCodigoTipoOferta = new List<string>();
-            listaCodigoTipoOferta.Add("126");
+            var listaCodigoTipoOferta = new List<string>(); 
+            listaCodigoTipoOferta.Add("126");   
 
-            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any())
+            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
             {
-                var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)) 
-                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)
-                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+                var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
+                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
+                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
 
-                if (producto != null)
+                if (producto != null)   
                     flagValidacionCodigoCatalogo = true;
             }
 
             #endregion
 
-            #region Logica validacion por App Catalogo y OrigenPedidoWeb            
+            #region Logica validacion por App Catalogo y OrigenPedidoWeb    
 
-            if (listaPedidoWebDetalle.Any())
+            if (listaPedidoWebDetalle.Any())    
             {
-                var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")
-                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)
-                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-                if (producto != null)
+                var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
+                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
+                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+                if (producto != null)   
                     flagValidacionAppCatalogo = true;
             }
 
             #endregion
 
-            flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;
+            flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
 
-            return flag;
+            return flag;    
         }
 
         private void ValidarPopupDelGestorPopups()

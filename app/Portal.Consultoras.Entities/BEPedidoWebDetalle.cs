@@ -159,6 +159,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoTipoOferta { get; set; }
 
+
         public BEPedidoWebDetalle()
         { }
 
@@ -258,6 +259,7 @@ namespace Portal.Consultoras.Entities
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+
             
         }
 
@@ -370,7 +372,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
                 ProgramaNuevoActivado = Convert.ToBoolean(row["ProgramaNuevoActivado"]);
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);            
+                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+
         }
     }
 
