@@ -2199,6 +2199,9 @@ namespace Portal.Consultoras.BizLogic
                             revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
                             revistaDigitalModel.TieneRDI = true;
                             break;
+                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                            usuarioModel.TieneValidacionMontoMaximo = c.Estado;
+                            break;
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
                             guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(listaPaisDatos
                                     .Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID)

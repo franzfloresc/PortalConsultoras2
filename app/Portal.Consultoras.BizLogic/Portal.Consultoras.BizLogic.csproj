@@ -188,6 +188,7 @@
     <Compile Include="Pedido\BLTracking.cs" />
     <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
@@ -207,7 +208,7 @@
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="Pedido\BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
-    <Compile Include="BLPedidoWebDetalle.cs" />
+    <Compile Include="Pedido\BLPedidoWebDetalle.cs" />
     <Compile Include="BLPedidoWebDetalleManager.cs" />
     <Compile Include="BLPermiso.cs" />
     <Compile Include="BLPopupPais.cs" />

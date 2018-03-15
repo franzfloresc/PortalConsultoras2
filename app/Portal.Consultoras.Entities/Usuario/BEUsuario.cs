@@ -1422,5 +1422,7 @@ namespace Portal.Consultoras.Entities
         public BEOfertaDelDia OfertaDelDiaModel { get; set; }
         [DataMember]
         public BEGuiaNegocio GuiaNegocio { get; set; }
+        [DataMember]
+        public bool TieneValidacionMontoMaximo { get; set; }
     }
 }

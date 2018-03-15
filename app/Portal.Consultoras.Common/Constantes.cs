@@ -1863,6 +1863,8 @@ namespace Portal.Consultoras.Common
                 public static class Code
                 {
                     public const string SUCCESS = "0000";
+                    public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
+                    public const string ERROR_STOCK_ESTRATEGIA = "2102";
                 }
 
                 public static Dictionary<string, string> Message
@@ -1872,6 +1874,8 @@ namespace Portal.Consultoras.Common
                         return _Message ?? (_Message = new Dictionary<string, string>
                             {
                                 {Code.SUCCESS, "OK"},
+                                {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
+                                {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
                             });
                     }
                 }
