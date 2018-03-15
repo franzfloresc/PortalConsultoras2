@@ -3849,7 +3849,6 @@
     <Content Include="emt_chat\scss\_variables.scss" />
     <Content Include="Areas\Mobile\Views\PedidoFIC\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\PedidoFIC\Detalle.cshtml" />
-    <Content Include="Areas\Mobile\Views\Shared\_MobileFICLayout .cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
