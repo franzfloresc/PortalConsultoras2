@@ -9,7 +9,6 @@ namespace Portal.Consultoras.Web.Providers
     /// </summary>
     public class ShowRoomProvider
     {
-        private const string CookieDoNotShowAgain = "showRoomBannerNotShow";
         private const string ImageUrlCode = "bar_in_img";
         private const string RedirectCode = "bar_in_url";
         private const string EnabledCode = "bar_in_act";
@@ -17,9 +16,9 @@ namespace Portal.Consultoras.Web.Providers
         private const short Pl50Key = 98;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
-        public ShowRoomProvider()
+        public ShowRoomProvider(TablaLogicaProvider tablaLogicaProvider)
         {
-            _tablaLogicaProvider = new TablaLogicaProvider();
+            _tablaLogicaProvider = tablaLogicaProvider;
         }
 
         /// <summary>

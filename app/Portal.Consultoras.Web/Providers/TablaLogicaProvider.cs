@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class TablaLogicaProvider
     {
-        public List<TablaLogicaDatosModel> ObtenerConfiguracion(int paisId, short key)
+        public virtual List<TablaLogicaDatosModel> ObtenerConfiguracion(int paisId, short key)
         {
             using (var cliente = new SACServiceClient())
             {
@@ -20,7 +20,5 @@ namespace Portal.Consultoras.Web.Providers
                 return mapped ?? new List<TablaLogicaDatosModel>();
             }
         }
-
-
     }
 }
