@@ -48,7 +48,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreatePedidoObservacion(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
-            
+
+            listDetExp = listDetExp.OrderByDescending(detExp => detExp.UnidadesDemandadas).ToList(); //Primero agregarán las observaciones de los padres.
             foreach (var detExp in listDetExp)
             {
                 if (detExp.IndRecuperacion) resultado.ListDetalleBackOrder.AddRange(listPedidoWebDetalle.Where(d => d.CUV == detExp.CUV));

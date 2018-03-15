@@ -223,16 +223,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 if (temp.Count != 0)
                 {                        
-                    if (temp[0].Caso == 0)
-                    {
-                        item.ClaseFila = string.Empty;
-                        item.TipoObservacion = 0;
-                    }
-                    else
-                    {
-                        item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
-                        item.TipoObservacion = temp[0].Tipo;
-                    }
+                    if (temp[0].Caso == 0) item.TipoObservacion = 0;
+                    else item.TipoObservacion = temp[0].Tipo;
                         
                     foreach (var ob in temp)
                     {
@@ -241,11 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
                     item.Mensaje = txtBuil.ToString();
                     txtBuil.Clear();
                 }
-                else
-                {
-                    item.ClaseFila = string.Empty;
-                    item.TipoObservacion = 0;
-                }
+                else item.TipoObservacion = 0;
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
