@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             logManager = LogManager.LogManager.Instance;
             sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
-            _showRoomProvider = new ShowRoomProvider();
+            _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
         }
 
         public BaseController(ISessionManager sessionManager)

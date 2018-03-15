@@ -10,16 +10,17 @@
 {
     if (Model.SeDebeMostrar(Request))
     {
+        var routeRedirect = string.IsNullOrEmpty(Model.UrlRedireccion) ? "#" : Model.UrlRedireccion;
+
         <div class="showroom_banner_inferior" id="showroom_banner_inferior">
-            <a href="@Model.UrlRedireccion">
+            <a href="@routeRedirect">
                 <img class="showroom_banner_img" src="@Model.UrlImagen">
             </a>
-
-            <div class="showroom_banner_boton" id="showroom_banner_boton" >
+            <div class="showroom_banner_boton" id="showroom_banner_boton">
                 <a href="javascript:;">
                     <div class="draw_close draw_close_white" alt="Cerrar"></div>
                 </a>
-            </div>            
+            </div>
         </div>
     }
 }
