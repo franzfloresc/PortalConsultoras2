@@ -1,32 +1,63 @@
 ﻿/*#region Banner inferior */
 .showroom_banner_inferior {
     bottom: 0;
-    left: 0;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
     height: auto;
-    width: 100%;
     position: fixed;
+    left: 0;
+    width: 100%;
     z-index: 900;
-    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
-    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
-    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
 }
 
-    .showroom_banner_inferior img {
-        margin: 0 0 0 0;
-        padding: 0 0 0 0;
+.showroom_banner_img {
+    display: block;
+    width: 100vw;
+    height: 73px;
+    object-fit: cover;
+}
+
+.draw_close {
+    display: flex;
+    flex-direction: column;
+    height: 25px;
+    justify-content: center;
+    position: relative;
+    width: 25px;
+}
+
+    .draw_close::before,
+    .draw_close::after {
+        background-color: #4e4e4e;
+        content: '';
+        height: 2px; /* cross thickness */
+        position: absolute;
+        width: 100%;
+    }
+
+    .draw_close::before {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .draw_close::after {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
     }
 
 .showroom_banner_boton {
-    font-family: 'Lato';
-    font-weight: 300;
-    font-size: 33px;
-    color: white;
-    text-align: right;
-    position: absolute;
-    top: -12px;
-    padding-bottom: 3px;
-    z-index: 901;
     cursor: pointer;
+    left: 5px;
+    top: 5px;
+    position: absolute;
+    z-index: 901;
 }
 
 /*#endregion */
