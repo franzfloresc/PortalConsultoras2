@@ -1238,11 +1238,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuarioModel);
                                 revistaDigitalModel = FormatTextConfiguracionPaisDatosModel(revistaDigitalModel, usuarioModel.Sobrenombre);
-                                revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
                                 break;
 
                             case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                 revistaDigitalModel.TieneRDCR = true;
+                                revistaDigitalModel.BloqueoRevistaImpresa = revistaDigitalModel.BloqueoRevistaImpresa || c.BloqueoRevistaImpresa;
                                 break;
 
                                 //if (revistaDigitalModel.TieneRDC)
