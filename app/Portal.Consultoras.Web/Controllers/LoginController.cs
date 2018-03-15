@@ -880,9 +880,6 @@ namespace Portal.Consultoras.Web.Controllers
                         usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         usuarioModel.TieneNotificaciones = TieneNotificaciones(usuario);
 
-                    usuarioModel.NuevoPROL = usuario.NuevoPROL;
-                    usuarioModel.ZonaNuevoPROL = usuario.ZonaNuevoPROL;
-
                     if (usuario.CampaniaID != 0 && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
                         var valores = GetFechaPromesaEntrega(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora,
