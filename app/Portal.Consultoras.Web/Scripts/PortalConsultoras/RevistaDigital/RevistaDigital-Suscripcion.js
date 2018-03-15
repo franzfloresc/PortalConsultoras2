@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function () {
-
-    var clickabrir = 1
+    "use strict";
+    var clickabrir = 1;
 
     if (isMobile()) {
         
@@ -36,11 +36,9 @@ $(document).ready(function () {
             }
         });
     }
-    
-   
-
+  
 });
-window.onYouTubePlayerAPIReady = function () {
+function onYouTubeIframeAPIReady() {
     if (typeof videoKey != 'undefined') {
         player = new YT.Player('player', {
             width: '640',
@@ -61,7 +59,7 @@ window.onYouTubePlayerAPIReady = function () {
             }
         });
     }
- }
+}
 
 function onScrollDown(event) {
     $(window).scroll(function () {
