@@ -99,4 +99,5 @@
 .logo_no_suscrita {
     background: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
     background-size: cover !important;
+    background-repeat: no-repeat;
 }
