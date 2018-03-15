@@ -391,6 +391,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 }
 function ConfigurarPopUpConfirmacion() {
     var regalo = GetUpSellingGanado();
+
     if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
         $('#mensaleAvisoRegalo').show();
     }

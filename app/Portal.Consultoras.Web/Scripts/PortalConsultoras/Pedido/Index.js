@@ -1814,6 +1814,7 @@ function CerrarProductoAgregado() {
 function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder)
 {
     var regalo = GetUpSellingGanado();
+
     if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR' && regalo) {
         var popup = $('#divAvisoEliminarRegaloGenerico');
 
