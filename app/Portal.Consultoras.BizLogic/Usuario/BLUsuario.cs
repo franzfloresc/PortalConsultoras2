@@ -2666,7 +2666,7 @@ namespace Portal.Consultoras.BizLogic
         private BEUsuario ConfiguracionPaisDatosUsuario(BEUsuario modelo, List<BEConfiguracionPaisDatos> listaDatos)
         {
             try
-            { 
+            {
                 if (listaDatos == null || !listaDatos.Any()) return modelo;
 
                 var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);

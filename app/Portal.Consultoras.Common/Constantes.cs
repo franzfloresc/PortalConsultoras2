@@ -1856,7 +1856,7 @@ namespace Portal.Consultoras.Common
                 }
             }
 
-            public class ProductoAgregar
+            public class PedidoInsertar
             {
                 private static Dictionary<string, string> _Message;
 

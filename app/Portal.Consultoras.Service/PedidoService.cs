@@ -2293,6 +2293,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
+
+        public BEPedidoAppInsertarResult InsertPedidoDetalleApp(BEPedidoAppInsertar pedidoInsertar)
+        {
+            return _pedidoAppBusinessLogic.Insert(pedidoInsertar);
+        }
         #endregion
     }
 }
