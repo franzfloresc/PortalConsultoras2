@@ -307,6 +307,12 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         var divPredio = $("#divOfertaProductosPerdio");
         if (response.listaPerdio.length > 0 && divPredio.children('div').length < response.listaPerdio.length) {
             modeloTemp.lista = response.listaPerdio;
+
+            $.each(modeloTemp.lista, function (ind, tem) {
+                tem.EsBanner = false;
+                tem.EsLanzamiento = false;
+            });
+
             var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
             divPredio.append(htmlDivPerdio);
         }

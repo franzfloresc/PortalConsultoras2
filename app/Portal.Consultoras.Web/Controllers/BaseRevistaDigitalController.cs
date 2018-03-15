@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -30,14 +31,15 @@ namespace Portal.Consultoras.Web.Controllers
                 Video = GetVideoInformativo(),
                 UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
                 UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes),
-                Origen = revistaDigital.SuscripcionEfectiva.Origen,
+                Origen = revistaDigital.SuscripcionModel.Origen,
                 NombreConsultora = userData.Sobrenombre.ToUpper(),
                 Email = userData.EMail,
                 Celular = userData.Celular,
                 LimiteMax = limiteMaximoTelef,
                 LimiteMin = limiteMinimoTelef,
                 UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(),
-                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4)
+                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4),
+                CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO)
             };
 
             return View("template-informativa", modelo);
@@ -160,17 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            string video;
-            if (IsMobile())
-            {
-                video = Util.Trim(dato.Valor2);
-            }
-            else
-            {
-                video = Util.Trim(dato.Valor1);
-            }
-
-            return video;
+            return Util.Trim(IsMobile() ? dato.Valor2 : dato.Valor1);
         }
 
         public string GetValorDato(string codigo, int valor = 1)
@@ -188,5 +180,21 @@ namespace Portal.Consultoras.Web.Controllers
             return Util.Trim(valorDato);
         }
 
+        private bool CancelarSuscripcion(string origen, string pais)
+        {
+            if (origen.IsNullOrEmptyTrim()) return false;
+            string paises;
+            if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
+            {
+                paises = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas) ?? string.Empty;
+                if (paises.Contains(pais)) return true;
+            }
+            return false;
+        }
     }
 }

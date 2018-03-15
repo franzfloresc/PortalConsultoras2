@@ -81,6 +81,10 @@
     background: #e81c36;
 }
 
+.como-funciona .caja-club-derecha hr.dorado{
+    background: #c39934 !important;
+}
+
 /* POPUP CONFIRMACION DE DATOS */
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
@@ -88,4 +92,15 @@
 
 .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
     background: url('/Content/Images/Esika/loading_circle.gif');
+}
+
+/*BOTON NO ANIMADO*/
+.bg_activar_boton_no_animado {
+    background: #e81c36;
+}
+
+.logo_no_suscrita {
+    background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
 }

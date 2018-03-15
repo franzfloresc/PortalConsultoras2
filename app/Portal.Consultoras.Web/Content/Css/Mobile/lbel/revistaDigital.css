@@ -45,3 +45,8 @@
 }
 /* FIN POP UP ACTUALIZA DATOS */
 
+.logo_no_suscrita {
+    background-image: url(/Content/Images/Lbel/RevistaDigital/logo_lbel_diagonal.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+}
