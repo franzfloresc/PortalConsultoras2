@@ -4832,6 +4832,7 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatosCabecera.cshtml" />
     <Content Include="Views\HerramientasVenta\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-popup-suscripcion.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_GoogleOptimize.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
