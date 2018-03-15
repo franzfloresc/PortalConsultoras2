@@ -98,3 +98,9 @@
 .bg_activar_boton_no_animado {
     background: #e81c36;
 }
+
+.logo_no_suscrita {
+    background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+}
