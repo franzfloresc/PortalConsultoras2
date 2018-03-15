@@ -17,11 +17,69 @@ var sProps = {
     UrlContenedorRevisar: baseUrl + 'Ofertas/Revisar'
 };
 
+var windw = this;
+
+$.fn.followTo = function (elem) {
+    var $this = this,
+        $window = $(windw),
+        $bumper = $(elem),
+        bumperPos = $bumper.offset().top,
+        thisHeight = $this.outerHeight(),
+        setPosition = function () {
+            if ($window.scrollTop() > (bumperPos - thisHeight)) {
+                var alturaH = $('header').outerHeight(true);
+                var topAltura = 0;
+                if (isMobile()) {
+                    var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
+                    //topAltura = alturaH + seccionMenuMobileHeight;
+                    $bumper.css("position", "fixed");
+                    $('header').css("position", "relative");
+                    $('#seccion-fixed-menu').css("position", "relative");
+                } else {
+                    topAltura = alturaH;
+                    $bumper.addClass("menu-fixed");
+                }
+                
+                $bumper.css({
+                    top: topAltura 
+                });
+            } else {
+                if (isMobile()) {
+                    $bumper.css("position", "");
+                    $('header').css("position", "fixed");
+                    //$('#seccion-fixed-menu').css("z-index", "10");
+                    //$('#seccion-fixed-menu').css("width", "100%");
+                    //$('#seccion-fixed-menu').css("position", "fixed");
+                    //$('#seccion-fixed-menu').css("top", "29px");
+
+                } else {
+                    $bumper.removeClass("menu-fixed");
+                }
+                $bumper.css({
+                    top: 0
+                });
+            }
+        };
+    $window.resize(function () {
+        bumperPos = pos.offset().top;
+        thisHeight = $this.outerHeight();
+        setPosition();
+    });
+    $window.scroll(setPosition);
+    setPosition();
+};
+
 
 $(document).ready(function () {
     "use strict";
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
+    if (isMobile()) {
+        $('#seccion-fixed-menu').followTo('#block_inscribete');
+    }else{
+        $('header').followTo('#block_inscribete');
+    }
+    
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
@@ -319,7 +377,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
                 var ExperienciaGanaMas = new Object();
                 ExperienciaGanaMas.OcultarAgregar = revistaDigital.TieneRDC && !revistaDigital.EsSuscrita ? true : false;
                 ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
-                ExperienciaGanaMas.OcultarLoQuieres = revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
+                ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
 
                 $.each(modeloTemp.lista, function (ind, tem) {
                     tem.ExperienciaGanaMas = ExperienciaGanaMas;

@@ -14,6 +14,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
 }
 
+
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"
      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
      data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
@@ -21,47 +22,49 @@
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
 
         @if (!Model.ProductosPerdio)
-        {
-            <div id="orderby-filter" style="padding: 0px 2%;">
-                <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                    <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
+    {
+        <div id="orderby-filter" style="padding: 0px 2%;">
+            <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
 
-                        <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
-                            <div class="rd-cantidad">
-                                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
-                            </div>
-                            <div class="rd-filtro-limpiar">
-                                <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                                    <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
-                                </div>
+                    <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                        <div class="rd-cantidad">
+                            Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
+                        </div>
+                        <div class="rd-filtro-limpiar">
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
                             </div>
                         </div>
-                        <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
-                            @if (Model.FiltersByBrand.Any())
-                            {
-                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                                    @foreach (var item in Model.FiltersByBrand)
-                                    {
-                                        <option value="@item.Codigo">@item.Descripcion</option>
-                                    }
-                                </select>
-                            }
-                            @if (Model.FiltersBySorting.Any())
-                            {
-                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                                    @foreach (var item1 in Model.FiltersBySorting)
-                                    {
-                                        <option value="@item1.Codigo">@item1.Descripcion</option>
-                                    }
-                                </select>
-                            }
-
-                        </div>
-                        <div style="clear:both;"></div>
                     </div>
+                    <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
+                        @if (Model.FiltersByBrand.Any())
+                    {
+                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                            @foreach (var item in Model.FiltersByBrand)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                        </select>
+                }
+                        @if (Model.FiltersBySorting.Any())
+                    {
+                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                            @foreach (var item1 in Model.FiltersBySorting)
+                        {
+                            <option value="@item1.Codigo">@item1.Descripcion</option>
+                    }
+                        </select>
+                }
+
+                    </div>
+                    <div style="clear:both;"></div>
                 </div>
             </div>
-        }
+        </div>
+}
+
+       
         <div id="RDListado" data-content-item="@Model.CampaniaID"
              data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
              data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
@@ -69,19 +72,21 @@
             <div id="divOfertaProductos" style="text-align: center;"></div>
             <hr class="clear" />
             @if (Model.ProductosPerdio)
-            {
-                <div id="block_inscribete">
-                    <div class="content_belcorp">
-                        <div class="block_inscribete_predio">
-                            <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
-                            <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
-                        </div>
+    {
+        <div>
+            <div id="block_inscribete">
+                <div class="content_belcorp">
+                    <div class="block_inscribete_predio">
+                        <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
+                        <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
                     </div>
                 </div>
-                <hr class="clear" />
-                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
-                <hr class="clear" />
-            }
+            </div>
+            <hr class="clear" />
+            <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
+            <hr class="clear" />
+        </div>
+}
         </div>
     </div>
     <hr class="clear" />
@@ -106,7 +111,7 @@
 </div>
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
@@ -120,6 +125,6 @@
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
         var revistaDigital= @Html.Raw(Json.Encode(revistaDigital));
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
 }

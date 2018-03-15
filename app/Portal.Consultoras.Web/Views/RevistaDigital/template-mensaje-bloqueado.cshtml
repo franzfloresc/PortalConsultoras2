@@ -11,38 +11,42 @@
 {
     <!--POPUP NOSUSCRITA BRYAN-->
     <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
-     </div>
+        Banner no Suscrita
+    </div>
 }
 else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
 {
     <!--POPUP SUSCRITA INACTIVA BRYAN-->
+    <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
+        Banner Suscrita Inactiva
+    </div>
 }
 else
 {
-<div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
-    <div class="popup_rd_bloqueado" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
-        </a>
-        @if (Model.MensajeIconoSuperior)
-        {
-            <span class="icono_exclamacion"></span>
-        }
-        <div class="popup_text">@Model.MensajeTitulo</div>
-        <hr class="clear" />
-        <div class="box_producto" data-item-html="" style="overflow: hidden;"></div>
-        <hr class="clear" />
-        @if (Model.BtnInscribirse)
-        {
-            <div class="rd_btn" data-estadoregistro0="">
-                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDPageInformativa()">SUSCRÍBETE</a></div>
-            </div>
-        }
-        @if (Model.MensajeTieneDudas)
-        {
-            <div class="popup_text">¿TIENES DUDAS?</div>
-            <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">CONOCE TODO SOBRE CLUB GANA+</a>
-        }
+    <div class="Content_general_pop_up" id="@divid" style="display: none;" data-popup-main="">
+        <div class="popup_rd_bloqueado" data-popup-body="">
+            <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
+                <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
+            </a>
+            @if (Model.MensajeIconoSuperior)
+            {
+                <span class="icono_exclamacion"></span>
+            }
+            <div class="popup_text">@Model.MensajeTitulo</div>
+            <hr class="clear" />
+            <div class="box_producto" data-item-html="" style="overflow: hidden;"></div>
+            <hr class="clear" />
+            @if (Model.BtnInscribirse)
+            {
+                <div class="rd_btn" data-estadoregistro0="">
+                    <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDPageInformativa()">SUSCRÍBETE</a></div>
+                </div>
+            }
+            @if (Model.MensajeTieneDudas)
+            {
+                <div class="popup_text">¿TIENES DUDAS?</div>
+                <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">CONOCE TODO SOBRE CLUB GANA+</a>
+            }
+        </div>
     </div>
-</div>
 }
