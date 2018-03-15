@@ -3,9 +3,9 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using ServSicc = Portal.Consultoras.Data.ServiceSicc;
 
 namespace Portal.Consultoras.BizLogic.Reserva
@@ -14,26 +14,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
     {
         private readonly RestClient restClient;
         ITablaLogicaDatosBusinessLogic blTablaLogicaDatos;
-        private readonly Dictionary<string, string> listMensajeProl;
 
         public BLReservaSicc()
         {
             restClient = new RestClient();
             blTablaLogicaDatos = new BLTablaLogicaDatos();
-            listMensajeProl = new Dictionary<string, string> {
-                { Constantes.ProlObsCod.Deuda, "Lo sentimos, tienes una deuda de {simb} {deuMon}. Te invitamos a cancelar el saldo pendiente y reservar tu pedido para que sea facturado exitosamente." },
-                { Constantes.ProlObsCod.MontoMaximo, "Lo sentimos, has superado el límite de tu línea de crédito de {simb} {maxMon}. Por favor, modifica tu pedido para que sea guardado con éxito." },
-                { Constantes.ProlObsCod.MontoMinimoVenta, "Tu pedido debe cumplir con el Pedido Mínimo de {simb} {minMon}, añade otros productos a tu pedido para completarlo." },
-                { Constantes.ProlObsCod.MontoMinimoFact, "Tu pedido debe cumplir con el Pedido Mínimo de {simb} {minMon}, añade otros productos a tu pedido para ser reservado y facturado." },
-                //FALTA MONTO MIN CON DESCUENTO: Tu pedido no cumple con el monto mínimo de S./ 220 ya que se realizó un descuento de #3 #2 para las ofertas con más de un precio que escogiste. Agrega otros productos a tu pedido para completarlo
-                { Constantes.ProlObsCod.LimiteVenta0, "Lo sentimos, el producto {detCuv} está agotado."},
-                { Constantes.ProlObsCod.LimiteVenta, "Sólo puedes pedir un máximo de {limVen} unidades del producto {detCuv} en esta campaña. Modifica las unidades ingresadas."},
-                { Constantes.ProlObsCod.Promocion2003, "Recuerda que debes cumplir con la condición que aparece en el catálogo para pedir el producto {detCuv}." },
-                { Constantes.ProlObsCod.Promocion, "Este producto ({detCuv}) NO se facturará debido a que no cumples con la condición para adquirirlo. Por favor revisa las condiciones requeridas." },
-                { Constantes.ProlObsCod.Reemplazo, "Lo sentimos, el producto {detCuv} está agotado. Lo hemos reemplazado por el producto {remCuv} - {remDes} que es igual o similar." },
-                { Constantes.ProlObsCod.SinStock0, "Lo sentimos, el producto {detCuv} está agotado." },
-                { Constantes.ProlObsCod.SinStock, "Por el momento sólo contamos con {stock} unidades del producto {detCuv}. Modifica las unidades ingresadas." }
-            };
         }
 
         public BEResultadoReservaProl ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
@@ -41,14 +26,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var resultado = new BEResultadoReservaProl();
             if (listPedidoWebDetalle.Count == 0) return resultado;
 
-            //¿SE DEBE ENVIAR KIT DE NUEVAS?
-            //==================================================================
-            //==================================================================
             ServSicc.Pedido respuestaSicc = ConsumirServicioSicc(input, listPedidoWebDetalle);
             if (respuestaSicc == null) return resultado;
 
             var listDetExp = NewListPedidoWebDetalleExplotado(input, respuestaSicc.posiciones);
-            GuardarExplotado(input, listDetExp);
+            GuardarExplotado(input, GetExplotadoSinKitNueva(listDetExp, listPedidoWebDetalle));
 
             resultado.MontoTotalProl = respuestaSicc.montoPedidoMontoMaximo.ToDecimalSecure(); //montoPedidoMontoMinimo devuelve lo mismo.
             resultado.MontoDescuento = respuestaSicc.montoTotalDcto.ToDecimalSecure();
@@ -185,6 +167,22 @@ namespace Portal.Consultoras.BizLogic.Reserva
             daPedidoWebDetalleExplotado.InsertList(listDetalleExp);
         }
 
+        private List<BEPedidoWebDetalleExplotado> GetExplotadoSinKitNueva(List<BEPedidoWebDetalleExplotado> listDetalleExp, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        {
+            var detKitNueva = listPedidoWebDetalle.FirstOrDefault(det => det.EsKitNueva);
+            if (detKitNueva == null) return listDetalleExp;
+            
+            //NUNCA DEBERÍA RETORNAR NULL, YA  QUE EL EXPLOTADO SIEMPRE DEVUELVE EL DETALLE MÁS OTROS PRODUCTOS
+            var detExpKit = listDetalleExp.First(detExp => detExp.CUV == detKitNueva.CUV);
+
+            Func<BEPedidoWebDetalleExplotado, bool> fnEsKit, fnEsKitHijo;
+            fnEsKit = (detExp => detExp.CUV == detKitNueva.CUV);
+            fnEsKitHijo = (detExp => detExp.IdOferta == detExpKit.IdOferta && detExp.UnidadesDemandadas == 0);
+
+            if (detExpKit.IdOferta == 0) return listDetalleExp.Where(detExp => !fnEsKit(detExp)).ToList();
+            return listDetalleExp.Where(detExp => !(fnEsKit(detExp) || fnEsKitHijo(detExp))).ToList();
+        }
+
         private BEPedidoObservacion CreatePedidoObservacion(BEInputReservaProl input, ServSicc.Pedido respuestaSicc, List<BETablaLogicaDatos> listMensajeObs)
         {
             var dictToken = new Dictionary<string, string>();
@@ -223,12 +221,9 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (esHijo)
             {
                 listCuvPadre = listDetalle.Where(d => d.IdOferta == detalle.IdOferta && d.UnidadesDemandadas > 0).Select(d => d.CUV).ToList();
-                if (!listCuvPadre.Any()) return null; //Gratis o ¿posiblemente Kit de Nuevas?;
+                if (!listCuvPadre.Any()) return null;
             }
 
-            //¿DEBO RECONOCER EL KIT DE NUEVAS?
-            //===========================================
-            //===========================================
             var dictToken = new Dictionary<string, string>();
             int caso;
             string descKey;
@@ -254,7 +249,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 descKey = Constantes.ProlObsCod.Reemplazo;
                 caso = 0;
                 dictToken.Add(Constantes.ProlObsToken.ReemplazoCuv, reemplazo.CUV);
-                dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, reemplazo.Descripcion);
+                //AGREGAR DESCRIPCION DE REEMPLAZO EN DATABASE
+                dictToken.Add(Constantes.ProlObsToken.ReemplazoDesc, "");
             }
             else if (detalle.UnidadesReservadasSap < detalle.UnidadesPorAtender)
             {

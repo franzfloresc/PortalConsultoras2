@@ -24,10 +24,10 @@ namespace Portal.Consultoras.Data
             SqlCommand cmd = new SqlCommand("InsertListPedidoWebDetalleExplotado");
             cmd.CommandType = CommandType.StoredProcedure;
 
-            var parListPalabra = new SqlParameter("@ListPedidoWebDetalleExplotado", SqlDbType.Structured);
-            parListPalabra.TypeName = "dbo.PedidoWebDetalleExplotadoType";
-            parListPalabra.Value = new GenericDataReader<BEPedidoWebDetalleExplotado>(listPedidoWebDetalleExplotado);
-            cmd.Parameters.Add(parListPalabra);
+            var parListDetalleExp = new SqlParameter("@ListPedidoWebDetalleExplotado", SqlDbType.Structured);
+            parListDetalleExp.TypeName = "dbo.PedidoWebDetalleExplotadoType";
+            parListDetalleExp.Value = new GenericDataReader<BEPedidoWebDetalleExplotado>(listPedidoWebDetalleExplotado);
+            cmd.Parameters.Add(parListDetalleExp);
 
             return Context.ExecuteNonQuery(cmd);
         }
