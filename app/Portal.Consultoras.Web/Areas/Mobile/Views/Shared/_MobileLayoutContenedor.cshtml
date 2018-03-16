@@ -32,13 +32,13 @@
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-        <link href="@Url.Content("~/Content/Css/Mobile/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-        <link href="@Url.Content("~/Content/Css/Mobile/Lbel/Contenedor.css")" rel="stylesheet" type="text/css" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
