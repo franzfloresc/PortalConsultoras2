@@ -2209,7 +2209,7 @@ namespace Portal.Consultoras.Web.Controllers
             return string.Format(codigo, userData.CodigoISO.ToLower(), nroCampania, anioCampania);
         }
 
-        protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
+        protected string GetCatalogoCodigoIssuu_Backup(string campania, int idMarcaCatalogo)
         {
             string nombreCatalogoIssuu = null, nombreCatalogoConfig = null;
             switch (idMarcaCatalogo)
@@ -2240,6 +2240,77 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
+
+        protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
+        {
+            string nombreCatalogoIssuu              = null;
+            string nombreCatalogoConfig             = null;
+            string CodeGrup                         = null;
+            string nroCampania                      = string.Empty;
+            string anioCampania                     = string.Empty;
+            string codigo                           = null;
+            string requestUrl                       = null;
+            bool esRevistaPiloto                    = false;
+            string Grupos                           = null;
+            string marcas                           = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + userData.CodigoISO + campania) ?? "";
+            bool esMarcaEspecial                    = false;
+
+            switch (idMarcaCatalogo)
+            {
+                case Constantes.Marca.LBel:
+                    nombreCatalogoIssuu             = "lbel";
+                    nombreCatalogoConfig            = "Lbel";
+                    break;
+                case Constantes.Marca.Esika:
+                    nombreCatalogoIssuu             = "esika";
+                    nombreCatalogoConfig            = "Esika";
+                    break;
+                case Constantes.Marca.Cyzone:
+                    nombreCatalogoIssuu             = "cyzone";
+                    nombreCatalogoConfig            = "Cyzone";
+                    break;
+                case Constantes.Marca.Finart:
+                    nombreCatalogoIssuu             = "finart";
+                    break;
+            }
+
+            Grupos                              = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania);
+            esMarcaEspecial                     = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
+
+
+            if (!string.IsNullOrEmpty(Grupos))
+            {
+                foreach (var grupo in Grupos.Split(','))
+                {
+                    var zonas                   = GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + userData.CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    esRevistaPiloto             = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+                    if (esRevistaPiloto)
+                    {
+                        CodeGrup                = grupo.Trim().ToString();
+                        break;
+                    }
+                }
+            }
+            else
+                esRevistaPiloto                 = false;
+
+            codigo                              = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
+            if (campania.Length >= 6)
+                nroCampania                     = campania.Substring(4, 2);
+            if (campania.Length >= 6)
+                anioCampania                    = campania.Substring(0, 4);
+
+            if(esRevistaPiloto && esMarcaEspecial) 
+                requestUrl                      = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), nroCampania, anioCampania , CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+            else
+            {
+                requestUrl                      = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4),"");
+                requestUrl                      = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+            }
+              
+            return requestUrl;
+        }
+
 
         protected string GetPaisNombreByISO(string paisISO)
         {

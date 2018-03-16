@@ -402,6 +402,13 @@ namespace Portal.Consultoras.Common
 
             public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
             public const string RevistaPiloto_Escenario = "ESC";
+
+            public const string Catalogo_Piloto_Escenario = "ESC";
+            public const string Catalogo_Piloto_Zonas = "Catalogo_Piloto_Zonas_";
+            public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
+            public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
+            public const string SubGuion =  "_";
+
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
