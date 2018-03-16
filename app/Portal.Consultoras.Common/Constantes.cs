@@ -1865,6 +1865,7 @@ namespace Portal.Consultoras.Common
                     public const string SUCCESS = "0000";
                     public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                     public const string ERROR_STOCK_ESTRATEGIA = "2102";
+                    public const string ERROR_KIT_INICIO = "2103";
                 }
 
                 public static Dictionary<string, string> Message
@@ -1876,6 +1877,7 @@ namespace Portal.Consultoras.Common
                                 {Code.SUCCESS, "OK"},
                                 {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                                 {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
+                                {Code.ERROR_KIT_INICIO, string.Empty},
                             });
                     }
                 }

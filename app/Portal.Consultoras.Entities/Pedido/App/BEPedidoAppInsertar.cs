@@ -23,8 +23,6 @@ namespace Portal.Consultoras.Entities.Pedido.App
         [DataMember]
         public int Cantidad { get; set; }
         [DataMember]
-        public decimal PrecioUnidad { get; set; }
-        [DataMember]
         public double ZonaHoraria { get; set; }
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
@@ -32,26 +30,23 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public DateTime FechaFinFacturacion { get; set; }
         [DataMember]
         public string Simbolo { get; set; }
-
-        //[DataMember]
-        //public string CUV { get; set; }
-        //[DataMember]
-        //public int TipoOferta { get; set; }
-        //[DataMember]
-        //public string MarcaID { get; set; }
-        //[DataMember]
-        //public string Descripcion { get; set; }
-        //[DataMember]
-        //public string IndicadorMontoMinimo { get; set; }
-        //[DataMember]
-        //public BEUsuario Usuario { get; set; }
-        //[DataMember]
-        //public string NombreConsultora { get; set; }
-        //[DataMember]
-        //public string CodigoPrograma { get; set; }
-        //[DataMember]
-        //public int ConsecutivoNueva { get; set; }
-        //[DataMember]
-        //public BERevistaDigital RevistaDigital { get; set; }
+        [DataMember]
+        public string NombreConsultora { get; set; }
+        [DataMember]
+        public BERevistaDigital RevistaDigital { get; set; }
+        [DataMember]
+        public string CodigoPrograma { get; set; }
+        [DataMember]
+        public int ConsecutivoNueva { get; set; }
+        [DataMember]
+        public BEProducto Producto { get; set; }
+        [DataMember]
+        public bool EsConsultoraNueva { get; set; }
+        [DataMember]
+        public string CodigoRegion { get; set; }
+        [DataMember]
+        public string CodigoZona { get; set; }
+        [DataMember]
+        public int ConsultoraNueva { get; set; }
     }
 }

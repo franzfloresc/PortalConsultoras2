@@ -100,6 +100,7 @@
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
+    <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="BLDupla.cs" />
     <Compile Include="BLEscalaDescuento.cs" />
     <Compile Include="BLEstadoCuenta.cs" />
-    <Compile Include="BLEstrategia.cs" />
+    <Compile Include="Estrategia\BLEstrategia.cs" />
     <Compile Include="BLEtiqueta.cs" />
     <Compile Include="BLFactorGanancia.cs" />
     <Compile Include="BLFeErratas.cs" />

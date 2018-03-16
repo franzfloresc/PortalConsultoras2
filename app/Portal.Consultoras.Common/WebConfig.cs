@@ -24,6 +24,14 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["WebTrackingConfirmacion"] ?? string.Empty;
             }
         }
+
+        public static string PaisesFraccionKitNuevas
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["PaisesFraccionKitNuevas"] ?? string.Empty;
+            }
+        }
         #endregion
     }
 }
