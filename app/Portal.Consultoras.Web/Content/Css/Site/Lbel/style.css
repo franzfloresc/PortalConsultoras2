@@ -27279,14 +27279,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .content_carrusel_agregado .agregado {
-    height: 12px;
+    color: #a18328;
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: .5px;
     text-align: center;
-    color: #a18328;
-    margin-top: 10px;
 }
 
     .content_carrusel_agregado .agregado .icono {
@@ -33510,6 +33508,13 @@ height:30px;
     color: #a18328;
 }
 /*SHOWROOM*/
+
+.contenedor_productos_showroom {
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
 .set-productos-showroom {
     background-color: white;
     border: 1px solid #e6e3e3;
@@ -33517,10 +33522,12 @@ height:30px;
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     display: inline-block;
-    margin: 15px 2.44% 15px 0;
+    height: 338px;
+    margin: 15px 25.516px 15px 0;
     padding-bottom: 12px;
     position: relative;
-    width: 23%;
+    vertical-align: top;
+    width: 240.66px;
 }
 
     .set-productos-showroom:nth-child(4n) {
