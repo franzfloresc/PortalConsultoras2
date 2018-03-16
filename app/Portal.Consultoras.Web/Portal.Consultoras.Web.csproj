@@ -630,6 +630,7 @@
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\FiltroReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ReporteRol.cs" />
     <Compile Include="Models\ReporteValidacionModel.cs" />
     <Compile Include="Models\ReporteValidacionSRModel.cs" />
     <Compile Include="Models\ResponseGeoCoDto.cs" />
@@ -1356,6 +1357,8 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
+    <Content Include="Content\Images\flecha-campo-select.svg" />
+    <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
     <Content Include="Content\Images\Login2\Icons\icono-envelope-esika.png" />
     <Content Include="Content\Images\Login2\Icons\icono-envelope-lbel.png" />
@@ -4827,6 +4830,7 @@
     <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
+    <Content Include="Views\Unete\ReporteRol.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoExitoso.cshtml" />
     <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
