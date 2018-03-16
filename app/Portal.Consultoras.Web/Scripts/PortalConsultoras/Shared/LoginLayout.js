@@ -267,6 +267,8 @@ function LocalStorageLimpiar() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+        var itemChatEConnected = localStorage.getItem('connected');//add
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');//add
 
         localStorage.clear();
 
@@ -276,6 +278,14 @@ function LocalStorageLimpiar() {
 
         if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {//add
+            localStorage.setItem('connected', itemChatEConnected);
+        }
+
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {//add
+            localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
     }
 };
