@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (mdo0 && model.CampaniaID == userData.CampaniaID)
                 {
-                    var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
+                    var listaRd = listModelCompleta.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
                     listModel = listModelCompleta.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
                     listModel.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
                 }
@@ -178,8 +178,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mdo0)
                     {
                         listPerdio = listModelCompleta.Where(e =>
-                            e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            && e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                            (e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                            || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
                     }
