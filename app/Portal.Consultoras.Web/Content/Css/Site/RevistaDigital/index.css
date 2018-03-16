@@ -213,7 +213,6 @@
         overflow: hidden;
         font-weight: bold;
         margin-bottom: 15px;
-        display: -webkit-box;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
@@ -223,14 +222,12 @@
         margin: 0 auto;
         width: 100%;
         max-width: 177px;
-        overflow: hidden;
-        height: 40px;
-        display: flex;
+        display: -webkit-box;
+        display: block;
         justify-content: center;
         align-content: center;
         flex-direction: column;
         line-height: 18px;
-        display: block;
     }
 
     .revistadigital-landing .content_item_carrusel_clubganamas p.primero {
