@@ -5012,7 +5012,7 @@ table > thead > tr > th {
         margin: 0 auto;
         width: 100%;
         overflow: hidden;
-        height: 35px;
+        height: 15px;
         margin-top: 6px;
         font-weight: 900;
     }
@@ -9407,6 +9407,10 @@ span.icon-advertencia {
 
 /* POPUP OFERTA FINAL */
 
+.contenedor_fondo_popup.agregarScrollVertical{
+    overflow:auto;
+}
+
 .popup_ofertaFinal {
     display: block;
     margin: 4% auto 5% auto;
@@ -9443,7 +9447,7 @@ span.icon-advertencia {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    line-height: 19px;
+    line-height: 27px;
     color: #000000;
     margin-bottom: 14px;
 }
@@ -9589,8 +9593,8 @@ span.icon-advertencia {
     background-size: 27px;
     background-position: 0;
     padding-left: 40px;
-    height: 32px;
-    margin-top: -22px;
+    height: 28px;
+    font-size: 12px;
     margin-bottom: 5px;
 }
 
