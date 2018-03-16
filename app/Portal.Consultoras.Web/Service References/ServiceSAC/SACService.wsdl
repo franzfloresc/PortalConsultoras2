@@ -92,6 +92,12 @@
   <wsdl:message name="ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerOfertaFinalMontoMetaResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_InsertUpSellingRegalo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpSellingRegalo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertUpSellingRegalo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUpSellingRegaloResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCarga" />
   </wsdl:message>
@@ -1281,6 +1287,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMetaResponse" message="tns:ISACService_ObtenerOfertaFinalMontoMeta_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegalo" message="tns:ISACService_InsertUpSellingRegalo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertUpSellingRegaloResponse" message="tns:ISACService_InsertUpSellingRegalo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
@@ -2126,6 +2136,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3939,6 +3958,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerOfertaFinalMontoMeta">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerOfertaFinalMontoMeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUpSellingRegalo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertUpSellingRegalo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

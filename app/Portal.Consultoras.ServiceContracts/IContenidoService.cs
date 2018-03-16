@@ -279,6 +279,5 @@ namespace Portal.Consultoras.ServiceContracts
         string ObtenerCorreoEmisor(int PaisID);
 
         #endregion
-
     }
 }

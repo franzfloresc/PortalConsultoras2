@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
   <xs:complexType name="BEMiCertificado">
     <xs:sequence>
       <xs:element minOccurs="0" name="Asunto" nillable="true" type="xs:string" />
@@ -303,6 +303,7 @@
       <xs:element minOccurs="0" name="CuponEstado" type="xs:int" />
       <xs:element minOccurs="0" name="CuponMontoMaxDscto" type="xs:decimal" />
       <xs:element minOccurs="0" name="CuponPctDescuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CuponTipoCondicion" type="xs:short" />
       <xs:element minOccurs="0" name="DescripcionNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DestinatariosFeedback" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiasAntes" type="xs:int" />
@@ -1037,6 +1038,7 @@
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="Clientes" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCatalago" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />

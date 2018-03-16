@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
-
+                model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
             catch (FaultException ex)
