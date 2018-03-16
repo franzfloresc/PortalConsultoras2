@@ -1606,6 +1606,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tipo == 1)
                 {
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                    entidad.TipoEstrategiaID = model.ConfiguracionOfertaID;
                 }
                 else if (tipo == 2)
                 {

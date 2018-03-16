@@ -236,7 +236,16 @@ namespace Portal.Consultoras.Web.Controllers
                     x.CodigoISO = userData.CodigoISO;
                     x.Simbolo = userData.Simbolo;
                     x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                    x.TipoAccionAgregar = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.TieneVariedad).FirstOrDefault();
+                    string CodigoEstrategia = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
+                    if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
+                    {
+                        x.TipoAccionAgregar = 0;
+                    }
+                    else
+                    {
+                        x.TipoAccionAgregar = 1;
+                    }
+
                 });
                 return listadoOfertasTodasModel;
             }
@@ -313,7 +322,15 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
                 x.UrlCompartir = GetUrlCompartirFB();
-                x.TipoAccionAgregar = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.TieneVariedad).FirstOrDefault();
+                string CodigoEstrategia = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
+                if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
+                {
+                    x.TipoAccionAgregar = 0;
+                }
+                else
+                {
+                    x.TipoAccionAgregar = 1;
+                }
             });
             return listadoOfertasTodasModel1;
         }
