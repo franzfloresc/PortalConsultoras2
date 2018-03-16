@@ -182,14 +182,17 @@ namespace Portal.Consultoras.Web.Controllers
                             || e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
                             && e.FlagRevista == Constantes.FlagRevista.Valor2
                             ).ToList();
+                        listPerdio.ForEach(e =>
+                        {
+                            e.ClaseBloqueada = "btn_desactivado_general";
+                            e.IsAgregado = false;
+                        });
                     }
                     else
                     {
                         var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                        listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                         listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-
-                        listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
                 }
 
