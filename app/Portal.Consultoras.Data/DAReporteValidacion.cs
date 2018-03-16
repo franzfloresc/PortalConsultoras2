@@ -43,21 +43,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSROferta(int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOferta");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomOfertaV2");
             Context.Database.AddInParameter(command, "@campania", DbType.Int32, campaniaID);
-
             return Context.ExecuteReader(command);
         }
 
-        [Obsolete("Migrado PL50-50")]
         public IDataReader GetReporteValidacionSRComponentes(int campaniaID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentes");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteValidacionShowRoomComponentesV2");
             Context.Database.AddInParameter(command, "@campania", DbType.Int32, campaniaID);
-
             return Context.ExecuteReader(command);
         }
     }
