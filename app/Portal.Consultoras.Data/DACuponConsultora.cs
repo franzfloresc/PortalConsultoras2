@@ -1,11 +1,10 @@
 ﻿using Portal.Consultoras.Entities.Cupon;
-using System;
 using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {
-    public class DACuponConsultora: DataAccess
+    public class DACuponConsultora : DataAccess
     {
         public DACuponConsultora(int paisID)
             : base(paisID, EDbSource.Portal)
@@ -15,13 +14,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetCuponConsultoraByCodigoConsultoraCampaniaId(BECuponConsultora cuponConsultora)
         {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId"))
-                {
-                    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, cuponConsultora.CodigoConsultora);
-                    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, cuponConsultora.CampaniaId);
-                    return Context.ExecuteReader(command);
-                }
-            
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, cuponConsultora.CodigoConsultora);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, cuponConsultora.CampaniaId);
+                return Context.ExecuteReader(command);
+            }
+
         }
 
         public void UpdateCuponConsultoraEstadoCupon(BECuponConsultora cuponConsultora)
@@ -52,7 +51,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponConsultora.CuponId);
             Context.Database.AddInParameter(command, "@ValorAsociado", DbType.Decimal, cuponConsultora.ValorAsociado);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, cuponConsultora.UsuarioCreacion);
-            
+
             Context.ExecuteNonQuery(command);
         }
 
@@ -65,31 +64,31 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponConsultora.CuponId);
             Context.Database.AddInParameter(command, "@ValorAsociado", DbType.Decimal, cuponConsultora.ValorAsociado);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, cuponConsultora.UsuarioModificacion);
-            
+
             Context.ExecuteNonQuery(command);
         }
 
         public IDataReader ListarCuponConsultorasPorCupon(int paisId, int cuponId)
         {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponConsultorasPorCuponId"))
-                {
-                    Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
-                    Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponConsultorasPorCuponId"))
+            {
+                Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+                Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
 
-                    return Context.ExecuteReader(command);
-                }
+                return Context.ExecuteReader(command);
+            }
         }
 
         public int InsertarCuponConsultorasXML(int cuponId, int campaniaId, string xml)
         {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarCuponConsultoraCargaMasiva"))
-                {
-                    Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
-                    Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
-                    Context.Database.AddInParameter(command, "@CuponConsultorasXml", DbType.Xml, xml);
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarCuponConsultoraCargaMasiva"))
+            {
+                Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@CuponConsultorasXml", DbType.Xml, xml);
 
-                    return Context.ExecuteNonQuery(command);
-                }
+                return Context.ExecuteNonQuery(command);
+            }
         }
     }
 }

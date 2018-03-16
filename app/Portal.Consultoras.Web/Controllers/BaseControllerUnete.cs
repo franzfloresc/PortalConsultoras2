@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Web.Controllers
             get
             {
                 var url = Request.Url;
-                return url != null 
-                    ? string.Format("{0}://{1}", url.Scheme, url.Authority) 
+                return url != null
+                    ? string.Format("{0}://{1}", url.Scheme, url.Authority)
                     : "";
             }
         }
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return BaseUtilities.ConsumirServicio<dynamic>(dataJson, urlBase, metodo) as JObject;
         }
-        
+
         public bool CodigoISOActivo(string codigoIso)
         {
             if (string.IsNullOrWhiteSpace(codigoIso))
@@ -173,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Métodos privados
-        
+
         private string ObtenerIPPublica()
         {
             var context = System.Web.HttpContext.Current;

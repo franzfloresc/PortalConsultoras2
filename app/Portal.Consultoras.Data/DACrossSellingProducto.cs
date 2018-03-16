@@ -85,7 +85,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-
         public IDataReader GetProductosRecomendadosHabilitados(int CampaniaID, int tipo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosRecomendadosHabilitados");
@@ -102,7 +101,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUVAsociado", DbType.AnsiString, entity.CUVAsociado);
             Context.Database.AddInParameter(command, "@CUVAsociado2", DbType.AnsiString, entity.CUVAsociado2);
             Context.Database.AddInParameter(command, "@CodigoSegmento", DbType.AnsiString, entity.CodigoSegmento);
-			Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);            
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
             Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);
             return Context.ExecuteNonQuery(command);
         }
@@ -115,7 +114,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUVAsociado", DbType.AnsiString, entity.CUVAsociado);
             Context.Database.AddInParameter(command, "@CUVAsociado2", DbType.AnsiString, entity.CUVAsociado2);
             Context.Database.AddInParameter(command, "@CodigoSegmento", DbType.AnsiString, entity.CodigoSegmento);
-			Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);            
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
             Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);
             return Context.ExecuteNonQuery(command);
         }
@@ -148,8 +147,8 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-		
- 		public int UpdVisualizacionPopupProRecom(int consultoraid, int campaniaid)
+
+        public int UpdVisualizacionPopupProRecom(int consultoraid, int campaniaid)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdVisualizacionPopupProRecom");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraid);

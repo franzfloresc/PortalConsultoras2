@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEZona> SelectZona(int paisID, string codigo, int rowCount)
         {
             IList<BEZona> zonas = SelectAllZonas(paisID);
-            
+
             return (from zona in zonas
                     where zona.Codigo.Contains(codigo)
                     select zona).Take(rowCount).ToList();
@@ -47,14 +47,14 @@ namespace Portal.Consultoras.BizLogic
                     CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
                 }
             }
-            
+
             var arrPaisesEsika = Util.Trim(WebConfig.PaisesEsika).Split(';');
-            
+
             foreach (var pais in paises)
             {
                 pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? common.Marca.Esika : common.Marca.LBel);
             }
-            
+
             return paises;
         }
 
@@ -68,10 +68,10 @@ namespace Portal.Consultoras.BizLogic
             int nroCampanias = -1;
             DAZonificacion daZonificacion = new DAZonificacion(paisID);
 
-                using (IDataReader reader = daZonificacion.GetPaisNumeroCampaniasByPaisID(paisID))
-                {
-                    if (reader.Read()) nroCampanias = Convert.ToInt32(reader["NroCampanias"]);
-                }
+            using (IDataReader reader = daZonificacion.GetPaisNumeroCampaniasByPaisID(paisID))
+            {
+                if (reader.Read()) nroCampanias = Convert.ToInt32(reader["NroCampanias"]);
+            }
             return nroCampanias;
         }
 
@@ -304,10 +304,10 @@ namespace Portal.Consultoras.BizLogic
         }
         public IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID)
         {
-            var listaSegmentoBanner = new List<BESegmentoBanner>();    
-            var daZonificacion = new DAZonificacion(PaisID);   
+            var listaSegmentoBanner = new List<BESegmentoBanner>();
+            var daZonificacion = new DAZonificacion(PaisID);
 
-            using (IDataReader reader = daZonificacion.GetSegmentoInternoBanner())  
+            using (IDataReader reader = daZonificacion.GetSegmentoInternoBanner())
                 while (reader.Read())
                     listaSegmentoBanner.Add(new BESegmentoBanner(reader));
             return listaSegmentoBanner;

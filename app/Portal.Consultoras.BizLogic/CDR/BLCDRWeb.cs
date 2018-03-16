@@ -37,8 +37,8 @@ namespace Portal.Consultoras.BizLogic.CDR
                             if (idDetalle <= 0)
                             {
                                 retorno = 0;
-                                oTransactionScope.Dispose(); 
-                            }                           
+                                oTransactionScope.Dispose();
+                            }
                         }
                     }
                     oTransactionScope.Complete();
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.BizLogic.CDR
 
         public List<BECDRWeb> GetCDRWeb(int PaisID, BECDRWeb entity, int Esmobile = 0)
         {
-            var listaEntity = new List<BECDRWeb>();            
+            var listaEntity = new List<BECDRWeb>();
             try
             {
                 var dacdrWeb = new DACDRWeb(PaisID);

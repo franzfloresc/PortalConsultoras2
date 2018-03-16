@@ -13,7 +13,7 @@ namespace Portal.Consultoras.BizLogic
             var cant = 0;
             var beEntidad = new BEProcesoPedidoRechazado();
             using (IDataReader reader = da.ObtenerProcesoPedidoRechazadoGPR(campaniaID, consultoraID))
-            {                
+            {
                 while (reader.Read())
                 {
                     if (cant == 0)
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.BizLogic
                     var beEntidadDetalle = new BEPedidoRechazado(reader);
                     if (beEntidadDetalle.IdPedidoRechazado > 0)
                         beEntidad.olstBEPedidoRechazado.Add(beEntidadDetalle);
-                    
+
                 }
             }
 
