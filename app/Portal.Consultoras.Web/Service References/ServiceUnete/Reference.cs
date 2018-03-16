@@ -6483,9 +6483,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoTemplate", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoGT))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoSV))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoPA))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoGT))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUnete.UbigeoCR))]
     public partial class UbigeoTemplate : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -6604,6 +6604,93 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoGT", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
+    [System.SerializableAttribute()]
+    public partial class UbigeoGT : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CENTRO_POBLADOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DEPARTAMENTOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MUNICIPIOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZONA_CIUDADField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS {
+            get {
+                return this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField, value) != true)) {
+                    this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField = value;
+                    this.RaisePropertyChanged("BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CENTRO_POBLADO {
+            get {
+                return this.CENTRO_POBLADOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CENTRO_POBLADOField, value) != true)) {
+                    this.CENTRO_POBLADOField = value;
+                    this.RaisePropertyChanged("CENTRO_POBLADO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DEPARTAMENTO {
+            get {
+                return this.DEPARTAMENTOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DEPARTAMENTOField, value) != true)) {
+                    this.DEPARTAMENTOField = value;
+                    this.RaisePropertyChanged("DEPARTAMENTO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MUNICIPIO {
+            get {
+                return this.MUNICIPIOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MUNICIPIOField, value) != true)) {
+                    this.MUNICIPIOField = value;
+                    this.RaisePropertyChanged("MUNICIPIO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ZONA_CIUDAD {
+            get {
+                return this.ZONA_CIUDADField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZONA_CIUDADField, value) != true)) {
+                    this.ZONA_CIUDADField = value;
+                    this.RaisePropertyChanged("ZONA_CIUDAD");
+                }
             }
         }
     }
@@ -6745,93 +6832,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.PROVINCIAField, value) != true)) {
                     this.PROVINCIAField = value;
                     this.RaisePropertyChanged("PROVINCIA");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UbigeoGT", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais")]
-    [System.SerializableAttribute()]
-    public partial class UbigeoGT : Portal.Consultoras.Web.ServiceUnete.UbigeoTemplate {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CENTRO_POBLADOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DEPARTAMENTOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MUNICIPIOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ZONA_CIUDADField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS {
-            get {
-                return this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField, value) != true)) {
-                    this.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIASField = value;
-                    this.RaisePropertyChanged("BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CENTRO_POBLADO {
-            get {
-                return this.CENTRO_POBLADOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CENTRO_POBLADOField, value) != true)) {
-                    this.CENTRO_POBLADOField = value;
-                    this.RaisePropertyChanged("CENTRO_POBLADO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DEPARTAMENTO {
-            get {
-                return this.DEPARTAMENTOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DEPARTAMENTOField, value) != true)) {
-                    this.DEPARTAMENTOField = value;
-                    this.RaisePropertyChanged("DEPARTAMENTO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MUNICIPIO {
-            get {
-                return this.MUNICIPIOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MUNICIPIOField, value) != true)) {
-                    this.MUNICIPIOField = value;
-                    this.RaisePropertyChanged("MUNICIPIO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ZONA_CIUDAD {
-            get {
-                return this.ZONA_CIUDADField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ZONA_CIUDADField, value) != true)) {
-                    this.ZONA_CIUDADField = value;
-                    this.RaisePropertyChanged("ZONA_CIUDAD");
                 }
             }
         }
@@ -7255,6 +7255,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MovilGRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MovilGZField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PortalGZField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7305,6 +7311,32 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CampaniaField, value) != true)) {
                     this.CampaniaField = value;
                     this.RaisePropertyChanged("Campania");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MovilGR {
+            get {
+                return this.MovilGRField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MovilGRField, value) != true)) {
+                    this.MovilGRField = value;
+                    this.RaisePropertyChanged("MovilGR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MovilGZ {
+            get {
+                return this.MovilGZField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MovilGZField, value) != true)) {
+                    this.MovilGZField = value;
+                    this.RaisePropertyChanged("MovilGZ");
                 }
             }
         }

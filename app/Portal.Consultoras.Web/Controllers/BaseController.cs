@@ -4979,7 +4979,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlAuthorize = urlAutorizacionBotonPago + merchantId;
             string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
 
-            Data data = new Data();
+            Common.PagoEnLinea.Data data = new Common.PagoEnLinea.Data();
             //data.numreferencia = "12345678901234567890";
             //data.codasociado = "12345";
             //data.nombreasociado = "prueba";

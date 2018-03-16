@@ -79,7 +79,9 @@
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMeta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DetalleDiasEspera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaAFFVV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaASAC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleDiasEsperaGSAC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DevueltoPorSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
@@ -111,6 +113,7 @@
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoAval" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagConsultoraDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
@@ -143,6 +146,7 @@
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumentoLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Offline" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrigenIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Paso" type="xs:int" />
       <xs:element minOccurs="0" name="PoblacionVilla" nillable="true" type="xs:string" />
@@ -152,6 +156,7 @@
       <xs:element minOccurs="0" name="RechazadoPor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiereAprobacionSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
@@ -194,6 +199,8 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ACC" type="xs:int" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovilGR" type="xs:int" />
+      <xs:element minOccurs="0" name="MovilGZ" type="xs:int" />
       <xs:element minOccurs="0" name="MovilSE" type="xs:int" />
       <xs:element minOccurs="0" name="PortalGZ" type="xs:int" />
       <xs:element minOccurs="0" name="Totales" type="xs:int" />
@@ -272,9 +279,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="DiasEspera" type="xs:int" />
       <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResumenDiasEspera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+  <xs:complexType name="ArrayOfResumenDiasEsperaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ResumenDiasEsperaBE" nillable="true" type="tns:ResumenDiasEsperaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfResumenDiasEsperaBE" nillable="true" type="tns:ArrayOfResumenDiasEsperaBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteBE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
