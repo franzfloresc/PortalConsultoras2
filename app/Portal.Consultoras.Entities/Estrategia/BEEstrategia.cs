@@ -567,6 +567,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Niveles") && row["Niveles"] != DBNull.Value)
                 Niveles = row["Niveles"].ToString();
+            
+            if (DataRecord.HasColumn(row, "FlagRevista"))
+                FlagRevista = Convert.ToInt32(row["FlagRevista"]);
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
