@@ -4779,21 +4779,84 @@ table > thead > tr > th {
     display: block;
     width: 100%;
     height: 45px;
-    line-height: 45px;
-    margin-top: 15px;
+    /*line-height:41px;*/
+    margin-top:22px;
+    padding: 5.5px 0;
     border: 1px solid black;
     color: black;
     font-family: 'Lato';
     font-size: 13px;
-    font-weight: 900;
-    background: url('../../../Images/mobile/Esika/tarjeta.png') no-repeat;
-    background-position: 30% 10px;
-    padding-left: 10%;
+    font-weight:bold;
+    background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
+    background-position:28% 10px;
+    padding-left:10%;
 }
 
     .btn_paga_online_mobile:hover {
         color: black;
     }
+
+.texto_btn_pago_en_linea,
+.logo_visa,
+.logo_mastercard
+{
+    display:inline-block;
+    vertical-align:middle;
+    height:auto;
+}
+
+.texto_btn_pago_en_linea,
+.logo_visa{
+    margin-left:12px;
+}
+
+.texto_btn_pago_en_linea{
+    text-align:left;
+}
+
+.texto_btn_pago_en_linea span{
+    display:block;
+    line-height:16px;
+}
+
+.texto_btn_pago_en_linea span:first-child{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.texto_btn_pago_en_linea span:last-child{
+    font-size:11px;
+    font-weight:normal;
+}
+
+.logo_visa{
+    width:35px;
+}
+
+.logo_mastercard{
+    width:34px;
+}
+
+.logo_visa img,
+.logo_mastercard img
+{
+    width:100%;
+    height:auto;
+}
+
+.info_lugares_de_pago{
+    font-size:12px;
+    letter-spacing:0.3px;
+    color:#8a8a8a;
+    margin-top:18px;
+    margin-bottom:-9px;
+}
+
+.info_lugares_de_pago a,
+.info_lugares_de_pago a:hover{
+    text-decoration:underline;
+    color:#8a8a8a;
+}
 
 * {
     -webkit-box-sizing: border-box;

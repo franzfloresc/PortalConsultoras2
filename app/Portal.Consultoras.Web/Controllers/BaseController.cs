@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -35,6 +36,10 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using System.Threading.Tasks;
+using Portal.Consultoras.Common.PagoEnLinea;
+using System.Net;
+using System.ServiceModel;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1945,7 +1950,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
-
+                
                 if (estadoCuenta.Count > 0)
                 {
                     foreach (var ec in estadoCuenta)
@@ -1978,6 +1983,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return lst;
+        }
+
+        public EstadoCuentaModel ObtenerUltimoMovimientoEstadoCuenta()
+        {
+            var ultimoMovimiento = new EstadoCuentaModel();
+            ultimoMovimiento.Glosa = "";
+
+            if (userData.TienePagoEnLinea)
+            {
+                var ultimoPagoEnLinea = new BEPagoEnLineaResultadoLog();
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    ultimoPagoEnLinea = ps.ObtenerUltimoPagoEnLineaByConsultoraId(userData.PaisID, userData.ConsultoraID);
+                }
+
+                if (ultimoPagoEnLinea != null && ultimoPagoEnLinea.PagoEnLineaResultadoLogId != 0)
+                {
+                    var fechaUltimoPagoEnLinea = ultimoPagoEnLinea.FechaCreacion;
+                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                    if (fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy") == fechaHoy.ToString("dd/MM/yyyy"))
+                    {
+                        ultimoMovimiento.Simbolo = userData.Simbolo;
+                        ultimoMovimiento.Glosa = "PAGO EN LINEA";
+                        ultimoMovimiento.Fecha = fechaUltimoPagoEnLinea;
+                        ultimoMovimiento.FechaVencimiento = fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy");
+                        ultimoMovimiento.FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(ultimoPagoEnLinea.FechaCreacion);
+                        ultimoMovimiento.TipoMovimiento = Constantes.EstadoCuentaTipoMovimiento.Abono;
+                        ultimoMovimiento.Abono = ultimoPagoEnLinea.MontoPago;
+                        ultimoMovimiento.Cargo = 0;
+                        ultimoMovimiento.MontoPagar = Util.DecimalToStringFormat(ultimoMovimiento.Abono, userData.CodigoISO);
+                    }
+                }
+            }
+
+            return ultimoMovimiento;
         }
 
         public string GetFechaPromesaEntrega(int paisId, int campaniaId, string codigoConsultora, DateTime fechaFact)
@@ -4572,7 +4613,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
-
+        
         protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)
         {
             string errorMessage;
@@ -4679,7 +4720,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return serializer.Deserialize<T>(outputJson);
         }
-
+        
         public List<BEComunicado> ObtenerComunicadoPorConsultora()
         {
             using (var sac = new SACServiceClient())
@@ -4717,6 +4758,357 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
 
             return model;
+        }
+        
+        #region PagoEnLinea
+
+        public PagoEnLineaModel ObtenerValoresPagoEnLinea()
+        {
+            var model = new PagoEnLineaModel();
+
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+            model.MontoDeuda = userData.MontoDeuda;
+            model.FechaVencimiento = userData.FechaLimPago;
+
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+
+            var porcentajeGastosAdministrativosString = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
+            int porcentajeGastosAdministrativos;
+            bool esInt = int.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
+
+            model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
+
+            return model;
+        }
+
+        public PagoVisaModel ObtenerValoresPagoVisa(PagoEnLineaModel model)
+        {
+            var pagoVisaModel = new PagoVisaModel();
+
+            #region Valores Configuracion Pago En Linea
+
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+
+            pagoVisaModel.MerchantId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
+            pagoVisaModel.AccessKeyId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
+            pagoVisaModel.SecretAccessKey = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
+            pagoVisaModel.UrlSessionBotonPagos = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
+            pagoVisaModel.UrlGenerarNumeroPedido = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
+            pagoVisaModel.UrlLibreriaPagoVisa = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
+            pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
+
+            #endregion
+
+            pagoVisaModel.Amount = model.MontoDeudaConGastos;
+
+            #region Generar Sesión para el boton de pagos
+
+            string urlCreateSessionTokenAPI = pagoVisaModel.UrlSessionBotonPagos + pagoVisaModel.MerchantId;
+
+            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(pagoVisaModel.AccessKeyId + ":" + pagoVisaModel.SecretAccessKey));
+
+            DataToken datatoken = new DataToken();
+            datatoken.amount = Convert.ToDouble(pagoVisaModel.Amount.ToString());
+
+            string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
+
+            HttpWebRequest requestSesion;
+            requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
+            requestSesion.Method = "POST";
+            requestSesion.ContentType = "application/json";
+            requestSesion.Headers.Add("Authorization", "Basic " + credentials);
+            requestSesion.Headers.Add("VisaNet-Session-Key", pagoVisaModel.SessionToken);
+
+            StreamWriter postStreamWriterSesion = new StreamWriter(requestSesion.GetRequestStream());
+            postStreamWriterSesion.Write(json);
+            postStreamWriterSesion.Close();
+
+            HttpWebResponse responseSesion;
+            responseSesion = requestSesion.GetResponse() as HttpWebResponse;
+            StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
+            //string respuestaSesion = postStreamReaderSesion.ReadToEnd();
+            postStreamReaderSesion.ReadToEnd();
+            postStreamReaderSesion.Close();
+
+            #endregion
+
+            #region Generar Número de Pedido
+
+            string urlNextCounterAPI = pagoVisaModel.UrlGenerarNumeroPedido + pagoVisaModel.MerchantId + "/nextCounter";
+            HttpWebRequest requestNumPedido;
+            requestNumPedido = WebRequest.Create(urlNextCounterAPI) as HttpWebRequest;
+            requestNumPedido.Method = "GET";
+            requestNumPedido.ContentType = "application/json";
+            requestNumPedido.Headers.Add("Authorization", "Basic " + credentials);
+
+            HttpWebResponse responseNumPedido;
+            responseNumPedido = requestNumPedido.GetResponse() as HttpWebResponse;
+            StreamReader postStreamReaderNumPedido = new StreamReader(responseNumPedido.GetResponseStream());
+
+            pagoVisaModel.PurchaseNumber = postStreamReaderNumPedido.ReadToEnd();
+            postStreamReaderNumPedido.Close();
+
+            #endregion
+
+            #region Variables para el formulario de pago visa
+
+            //buttonSize = "";
+            //buttonColor = "";
+            //merchantName = "";
+            //showAmount = "";
+            //cardholderName = "";
+            //cardholderlastName = "";
+            //cardholderEmail = "";
+            //userToken = "";
+
+            pagoVisaModel.MerchantLogo = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
+            pagoVisaModel.FormButtonColor = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
+            pagoVisaModel.Recurrence = "FALSE";
+            pagoVisaModel.RecurrenceFrequency = "";
+            pagoVisaModel.RecurrenceType = "";
+            pagoVisaModel.RecurrenceAmount = "0.00";
+
+            #endregion
+
+            #region Obtener Token de Tarjeta Guardada
+
+            var tokenTarjetaGuardada = "";
+
+            try
+            {
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    tokenTarjetaGuardada = ps.ObtenerTokenTarjetaGuardadaByConsultora(userData.PaisID, userData.CodigoConsultora);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                tokenTarjetaGuardada = "";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                tokenTarjetaGuardada = "";
+            }            
+
+            pagoVisaModel.TokenTarjetaGuardada = tokenTarjetaGuardada;
+
+            #endregion
+
+            return pagoVisaModel;        
+        }
+
+        public bool ProcesarPagoVisa(ref PagoEnLineaModel model, string transactionToken)
+        {
+            var resultado = false;
+
+            try
+            {
+                string sessionToken = model.PagoVisaModel.SessionToken;
+                string merchantId = model.PagoVisaModel.MerchantId;
+                string accessKeyId = model.PagoVisaModel.AccessKeyId; /*Colocar aquí el accessKeyId*/
+                string secretAccessKey = model.PagoVisaModel.SecretAccessKey; /*Colocar aquí el secretAccessKey*/
+
+                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
+                var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
+
+                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
+                bePagoEnLinea.MontoPago = model.MontoDeuda;
+                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;                
+
+                int pagoEnLineaResultadoLogId = 0;
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
+                }
+
+                if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
+                {
+                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
+                    model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                    model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+                    model.FechaVencimiento = userData.FechaLimPago;
+                    model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
+                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
+
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
+                    }
+
+                    var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+                    var mensajeExitoso = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
+
+                    model.MensajeInformacionPagoExitoso = mensajeExitoso;
+
+                    userData.MontoDeuda = model.SaldoPendiente;
+                    sessionManager.SetUserData(userData);
+
+                    //userData.EMail = "tucorreo@gmail.com";
+                    if (!string.IsNullOrEmpty(userData.EMail))
+                    {
+                        string template = ObtenerTemplatePagoEnLinea(model);
+                        Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
+                    }
+
+                    resultado = true;
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            sessionManager.SetDatosPagoVisa(null);
+            Session["ListadoEstadoCuenta"] = null;
+
+            return resultado;
+        }
+
+        public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
+        {
+            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+            string urlAutorizacionBotonPago = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlAutorizacionBotonPago);
+
+            string urlAuthorize = urlAutorizacionBotonPago + merchantId;
+            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
+
+            Data data = new Data();
+            //data.numreferencia = "12345678901234567890";
+            //data.codasociado = "12345";
+            //data.nombreasociado = "prueba";
+            //data.mcc = "3030";
+
+            DataRequestAut dataAutorizacionRQ = new DataRequestAut();
+            dataAutorizacionRQ.transactionToken = transactionToken;
+            dataAutorizacionRQ.sessionToken = sessionToken;
+            dataAutorizacionRQ.data = data;
+
+            string json = JsonHelper.JsonSerializer<DataRequestAut>(dataAutorizacionRQ);
+
+            HttpWebRequest requestAutorizacion;
+            requestAutorizacion = WebRequest.Create(urlAuthorize) as HttpWebRequest;
+            requestAutorizacion.Method = "POST";
+            requestAutorizacion.ContentType = "application/json";
+            requestAutorizacion.Headers.Add("Authorization", "Basic " + credentials);
+            StreamWriter postStreamWriterAutorizacion = new StreamWriter(requestAutorizacion.GetRequestStream());
+            postStreamWriterAutorizacion.Write(json);
+            postStreamWriterAutorizacion.Close();
+
+            HttpWebResponse responseAutorizacion;
+            StreamReader postStreamReaderAutorizacion;
+            string respuestaAutorizacion;
+            try
+            {
+                responseAutorizacion = requestAutorizacion.GetResponse() as HttpWebResponse;
+                postStreamReaderAutorizacion = new StreamReader(responseAutorizacion.GetResponseStream());
+                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+                postStreamReaderAutorizacion.Close();
+            }
+            catch (WebException ex)
+            {
+                postStreamReaderAutorizacion = new StreamReader(ex.Response.GetResponseStream(), true);
+                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+                postStreamReaderAutorizacion.Close();
+            }
+
+            //Response.Clear();
+            //Response.ContentType = "application/json; charset=utf-8";
+            //Response.Write(respuestaAutorizacion);
+            //Response.End();
+
+            return respuestaAutorizacion;
+        }
+
+        public BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(RespuestaAutorizacionVisa respuestaVisa)
+        {
+            BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+            bePagoEnLinea.ConsultoraId = userData.ConsultoraID;
+            bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
+            bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
+            bePagoEnLinea.CampaniaId = userData.CampaniaID;
+            bePagoEnLinea.FechaVencimiento = userData.FechaLimPago;
+            bePagoEnLinea.TipoTarjeta = "VISA";
+            bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
+            bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
+            bePagoEnLinea.IdGuidTransaccion = respuestaVisa.transactionUUID ?? "";
+            bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.externalTransactionId ?? "";
+            bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
+            bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
+            bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
+
+            var fechaTransaccion = string.IsNullOrEmpty(respuestaVisa.data.FECHAYHORA_TX) ? DateTime.MinValue.ToString() : respuestaVisa.data.FECHAYHORA_TX;
+            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(fechaTransaccion);
+            if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
+                bePagoEnLinea.FechaTransaccion = DateTime.Now;
+
+            bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
+            bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
+            bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
+            bePagoEnLinea.Etiqueta = respuestaVisa.data.ETICKET ?? "";
+            bePagoEnLinea.RespuestaSistemAntifraude = respuestaVisa.data.DECISIONCS ?? "";
+            bePagoEnLinea.CsiPorcentajeDescuento = Convert.ToDecimal(respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "0");
+            bePagoEnLinea.NumeroCuota = respuestaVisa.data.NROCUOTA ?? "";
+            bePagoEnLinea.TokenTarjetaGuardada = respuestaVisa.data.cardTokenUUID ?? "";
+            bePagoEnLinea.CsiImporteComercio = Convert.ToDecimal(respuestaVisa.data.CSIIMPORTECOMERCIO ?? "0");
+            bePagoEnLinea.CsiCodigoPrograma = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
+            bePagoEnLinea.DescripcionIndicadorComercioElectronico = respuestaVisa.data.DSC_ECI ?? "";
+            bePagoEnLinea.IndicadorComercioElectronico = respuestaVisa.data.ECI ?? "";
+            bePagoEnLinea.DescripcionCodigoAccion = respuestaVisa.data.DSC_COD_ACCION ?? "";
+            bePagoEnLinea.NombreBancoEmisor = respuestaVisa.data.NOM_EMISOR ?? "";
+            bePagoEnLinea.ImporteCuota = Convert.ToDecimal(respuestaVisa.data.IMPCUOTAAPROX ?? "0");
+            bePagoEnLinea.CsiTipoCobro = respuestaVisa.data.CSITIPOCOBRO ?? "";
+            bePagoEnLinea.NumeroReferencia = respuestaVisa.data.NUMREFERENCIA ?? "";
+            bePagoEnLinea.Respuesta = respuestaVisa.data.RESPUESTA ?? "";
+            bePagoEnLinea.NumeroOrdenTienda = respuestaVisa.data.NUMORDEN ?? "";
+            bePagoEnLinea.CodigoAccion = respuestaVisa.data.CODACCION ?? "";
+            bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
+            bePagoEnLinea.CodigoAutorizacion = respuestaVisa.data.COD_AUTORIZA ?? "";
+            bePagoEnLinea.CodigoTienda = respuestaVisa.data.CODTIENDA ?? "";
+            bePagoEnLinea.NumeroTarjeta = respuestaVisa.data.PAN ?? "";
+            bePagoEnLinea.OrigenTarjeta = respuestaVisa.data.ORI_TARJETA ?? "";
+            bePagoEnLinea.UsuarioCreacion = userData.CodigoUsuario;
+
+            return bePagoEnLinea;
+        }
+
+        public string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+            
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", model.MontoDeudaString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOGASTOSADMINISTRATIVOS#", model.MontoGastosAdministrativosString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOTOTAL#", model.MontoDeudaConGastosString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_SIMBOLO#", model.Simbolo);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", model.SaldoPendienteString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", model.FechaVencimientoString);
+            htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", model.MensajeInformacionPagoExitoso);
+
+            return htmlTemplate;
+        }
+
+        #endregion
+
+        public string ObtenerFormatoDiaMes(DateTime fecha)
+        {
+            string resultado = "";
+
+            var nombreMes = Util.NombreMes(fecha.Month);
+
+            resultado = fecha.Day + " " + nombreMes;
+
+            return resultado;
         }
 
     }

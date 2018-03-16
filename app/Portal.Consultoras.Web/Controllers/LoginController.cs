@@ -1269,41 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.IPUsuario = GetIpCliente();
                     usuarioModel.AnoCampaniaIngreso = usuario.AnoCampaniaIngreso;
                     usuarioModel.PrimerNombre = usuario.PrimerNombre;
-                    usuarioModel.PrimerApellido = usuario.PrimerApellido;
-
-                    #region LLamadas asincronas 
-
-                    var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
-                    var notificacionTask = Task.Run(() => TieneNotificaciones(usuario));
-                    var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
-                    var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
-                    var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
-
-                    Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
-
-                    usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
-                    usuarioModel.TieneNotificaciones = notificacionTask.Result;
-
-                    var fechaPromesa = fechaPromesaTask.Result;
-                    if (!string.IsNullOrEmpty(fechaPromesa))
-                    {
-                        var arrValores = fechaPromesa.Split('|');
-                        usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
-                        usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
-                        usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
-                    }
-
-                    var lista = linkPaisTask.Result;
-                    if (lista.Count > 0)
-                    {
-                        usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
-                        usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
-                        usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
-                    }
-
-                    usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
-
-                    #endregion
+                    usuarioModel.PrimerApellido = usuario.PrimerApellido;                    
 
                     if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
@@ -1375,6 +1341,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
+
+                    usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
 
                     #endregion
 
@@ -1493,10 +1461,44 @@ namespace Portal.Consultoras.Web.Controllers
 
                         usuarioModel = await ConfiguracionPaisUsuario(usuarioModel);
 
-                        #endregion                        
+                        #endregion
+
+                        #region LLamadas asincronas 
+
+                        var flexiPagoTask = Task.Run(() => GetPermisoFlexipago(usuario));
+                        var notificacionTask = Task.Run(() => TieneNotificaciones(usuario, usuarioModel.TienePagoEnLinea));
+                        var fechaPromesaTask = Task.Run(() => GetFechaPromesaEntrega(usuario));
+                        var linkPaisTask = Task.Run(() => GetLinksPorPais(usuario.PaisID));
+                        var usuarioComunidadTask = Task.Run(() => EsUsuarioComunidad(usuario));
+
+                        Task.WaitAll(flexiPagoTask, notificacionTask, fechaPromesaTask, linkPaisTask, usuarioComunidadTask);
+
+                        usuarioModel.IndicadorPermisoFlexipago = flexiPagoTask.Result;
+                        usuarioModel.TieneNotificaciones = notificacionTask.Result;
+
+                        var fechaPromesa = fechaPromesaTask.Result;
+                        if (!string.IsNullOrEmpty(fechaPromesa))
+                        {
+                            var arrValores = fechaPromesa.Split('|');
+                            usuarioModel.TipoCasoPromesa = arrValores[2].ToString();
+                            usuarioModel.DiasCasoPromesa = Convert.ToInt16(arrValores[1].ToString());
+                            usuarioModel.FechaPromesaEntrega = Convert.ToDateTime(arrValores[0].ToString());
+                        }
+
+                        var lista = linkPaisTask.Result;
+                        if (lista.Count > 0)
+                        {
+                            usuarioModel.UrlAyuda = lista.Find(x => x.TipoLinkID == 301).Url;
+                            usuarioModel.UrlCapedevi = lista.Find(x => x.TipoLinkID == 302).Url;
+                            usuarioModel.UrlTerminos = lista.Find(x => x.TipoLinkID == 303).Url;
+                        }
+
+                        usuarioModel.EsUsuarioComunidad = usuarioComunidadTask.Result;
+
+                        #endregion
                     }
 
-                    if(usuarioModel.CatalogoPersonalizado != 0)
+                    if (usuarioModel.CatalogoPersonalizado != 0)
                     {
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
@@ -1546,14 +1548,14 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private async Task<int> TieneNotificaciones(ServiceUsuario.BEUsuario usuario)
+        private async Task<int> TieneNotificaciones(ServiceUsuario.BEUsuario usuario, bool tienePagoEnLinea)
         {
             if (usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) return 0;
 
             int tiene;
             using (var sv = new UsuarioServiceClient())
             {
-                tiene = await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR);
+                tiene = await sv.GetNotificacionesSinLeerAsync(usuario.PaisID, usuario.ConsultoraID, usuario.IndicadorBloqueoCDR, tienePagoEnLinea);
             }
 
             return tiene;
@@ -1598,6 +1600,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
+
         
         private async Task<bool> EsUsuarioComunidad(ServiceUsuario.BEUsuario usuario)
         {
@@ -2176,6 +2179,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (c.Estado)
                                     usuarioModel.OfertaFinalGanaMas = 1;
                                 break;
+                            case Constantes.ConfiguracionPais.PagoEnLinea:
+                                if (c.Estado)
+                                    usuarioModel.TienePagoEnLinea = true;
+                                break;
                         }
                     }
 
@@ -2221,7 +2228,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        await usuarioServiceClient.InsLogIngresoPortalAsync(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString(), EsDispositivoMovil() ? Constantes.Canal.Mobile : Constantes.Canal.Desktop);
+                        await usuarioServiceClient.InsLogIngresoPortalAsync(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString(), EsDispositivoMovil() ? Constantes.Canal.Mobile : Constantes.Canal.Desktop);                        
                     }
                     catch (Exception ex)
                     {

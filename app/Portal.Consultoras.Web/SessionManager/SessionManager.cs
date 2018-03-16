@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -343,6 +344,16 @@ namespace Portal.Consultoras.Web.SessionManager
         DateTime ISessionManager.GetStartSession()
         {
             return (DateTime)HttpContext.Current.Session["StartSession"];
+        }
+        
+        void ISessionManager.SetDatosPagoVisa(PagoEnLineaModel model)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa] = model;
+        }
+
+        PagoEnLineaModel ISessionManager.GetDatosPagoVisa()
+        {
+            return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
     }
 }

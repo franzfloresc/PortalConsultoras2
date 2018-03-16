@@ -39,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -190,6 +191,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\GuiaNegocioController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisDatosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
@@ -297,6 +299,7 @@
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
+    <Compile Include="Controllers\PagoEnLineaController.cs" />
     <Compile Include="Controllers\ProductoComentarioController.cs" />
     <Compile Include="Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
@@ -445,6 +448,7 @@
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
@@ -468,6 +472,11 @@
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\PedidoCrudModel.cs" />
+    <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
+    <Compile Include="Models\PagoEnlineaInfoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\DataToken.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoVisaModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -1269,6 +1278,7 @@
     <Content Include="Content\Css\Mobile\esika\cdr.css" />
     <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\descargar-app.css" />
+    <Content Include="Content\Css\Mobile\esika\estado-cuenta.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\misDatos.css" />
@@ -1288,9 +1298,11 @@
     <Content Include="Content\Css\Mobile\lbel\cdr.css" />
     <Content Include="Content\Css\Mobile\lbel\Contenedor.css" />
     <Content Include="Content\Css\Mobile\lbel\descargar-app.css" />
+    <Content Include="Content\Css\Mobile\lbel\estado-cuenta.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
+    <Content Include="Content\Css\Mobile\lbel\pago-en-linea.css" />
     <Content Include="Content\Css\Mobile\lbel\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
@@ -1304,10 +1316,13 @@
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Site\Esika\gestorContenido.css" />
+    <Content Include="Content\Css\Mobile\esika\pago-en-linea.css" />
+    <Content Include="Content\Css\Site\Esika\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.svg" />
     <Content Include="Content\Css\Site\Images\android-EPM-mockup.png" />
     <Content Include="Content\Css\Site\Images\arrow-caja.png" />
     <Content Include="Content\Css\Site\Images\bgx.jpg" />
@@ -1327,6 +1342,7 @@
     <Content Include="Content\Css\Site\Images\visual de funcionamiento.png" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
     <Content Include="Content\Css\Site\Lbel\gestorContenido.css" />
+    <Content Include="Content\Css\Site\Lbel\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
     <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
@@ -1348,7 +1364,13 @@
     <Content Include="Content\Images\boton-cerrar-vista-descargar-app.svg" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\celebracion-img.png" />
     <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\confetti-circulo.svg" />
+    <Content Include="Content\Images\confetti-estrella.svg" />
+    <Content Include="Content\Images\confetti-ondas.svg" />
+    <Content Include="Content\Images\confetti-rombo.svg" />
+    <Content Include="Content\Images\confetti-tiras.svg" />
     <Content Include="Content\Images\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
@@ -1359,8 +1381,11 @@
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Esika\img-descarga-app.png" />
+    <Content Include="Content\Images\Esika\icono-mailing-pago-exitoso.png" />
     <Content Include="Content\Images\Esika\loading_circle.gif" />
     <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
+    <Content Include="Content\Images\Esika\icono-pago-desactivado.svg" />
+    <Content Include="Content\Images\Esika\icono-pago.svg" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\rd_arrowright_red.png" />
@@ -1368,11 +1393,18 @@
     <Content Include="Content\Images\Esika\visual de funcionamiento.png" />
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Esika\precarga-pago-en-linea.svg" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\expand-button.png" />
     <Content Include="Content\Images\flecha-hacia-abajo.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
     <Content Include="Content\Images\icono_advertencia_notificacion.svg" />
+    <Content Include="Content\Images\icono-celebracion-pago-exitoso.png" />
+    <Content Include="Content\Images\icono-pago-seguro.svg" />
+    <Content Include="Content\Images\icono-paso-completado.svg" />
+    <Content Include="Content\Images\icono-tarjeta-blanco.svg" />
+    <Content Include="Content\Images\icono-tarjeta.svg" />
+    <Content Include="Content\Images\icono_enviar_detalle_correo.svg" />
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
@@ -1394,6 +1426,8 @@
     <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
     <Content Include="Content\Images\mailIcon.png" />
+    <Content Include="Content\Images\logo-mastercard.svg" />
+    <Content Include="Content\Images\logo-visa.svg" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
@@ -3375,6 +3409,9 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
+    <Content Include="Content\Template\mailing_pago_en_linea.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Template\mailing_mensaje_express.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3519,6 +3556,8 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -3867,6 +3906,7 @@
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Areas\Mobile\Views\DescargarApp\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa-rdi.cshtml" />
     <Content Include="Areas\Mobile\Views\HerramientasVenta\template-landing.cshtml" />
@@ -3877,6 +3917,13 @@
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff2" />
     <Content Include="emt_chat\fonts\FontAwesome.otf" />
     <Content Include="emt_chat\less\animated.less" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.eot" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.ttf" />
+    <Content Include="Content\Css\Site\fonts\icomoon\somos-belcorp-iconos.woff" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoVisa.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoExitoso.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PagoRechazado.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\DetallePagoEnLinea.cshtml" />
     <Content Include="emt_chat\less\bordered-pulled.less" />
     <Content Include="emt_chat\less\core.less" />
     <Content Include="emt_chat\less\fixed-width.less" />
@@ -4041,6 +4088,9 @@
     <None Include="Service References\ServicePedido\PedidoService113.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService114.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4148,7 +4198,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
-    <None Include="Service References\ServicePedido\PedidoService.disco" />
     <None Include="Service References\ServicePedido\configuration91.svcinfo" />
     <None Include="Service References\ServicePedido\configuration.svcinfo" />
     <None Include="Service References\ServicePedido\Reference.svcmap">
@@ -4162,6 +4211,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceSAC\SACService.disco" />
+    <None Include="Service References\ServicePedido\PedidoService.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -4766,6 +4816,7 @@
     <Content Include="Views\AdministrarEstrategia\IncentivosDetalle.cshtml" />
     <Content Include="Views\AdministrarEstrategia\ProgramaNuevasBanner.cshtml" />
     <Content Include="Views\Notificaciones\DetalleNotificacionesPedido.cshtml" />
+    <Content Include="Views\PagoEnLinea\Index.cshtml" />
     <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
@@ -4777,6 +4828,11 @@
     <Content Include="Views\GuiaNegocio\_GuiaNegocioFlotante.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\MiRevista.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa-rdi.cshtml" />
+    <Content Include="Views\PagoEnLinea\PagoExitoso.cshtml" />
+    <Content Include="Views\PagoEnLinea\PagoRechazado.cshtml" />
+    <Content Include="Views\PagoEnLinea\PagoVisa.cshtml" />
+    <Content Include="Views\Notificaciones\DetallePagoEnLinea.cshtml" />
+    <Content Include="Views\PagoEnLinea\Reporte.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalancaDatos.cshtml" />
     <Content Include="Views\Unete\_ResumenDiasEspera.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoProximamente.cshtml" />

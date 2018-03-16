@@ -20018,15 +20018,15 @@ label.checkpop.c_on {
     float: right;
     margin-top: 30px;
     height: 45px;
-    border: 1px solid #613c87;
-    color: #613c87;
+    border: 1px solid black;
+    color: #000;
     text-align: center;
     font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url('../../../Images/Lbel/tarjeta.png') no-repeat;
+    background: white url('../../../Images/icono-tarjeta.svg') no-repeat;
     background-position: 23px 10px;
 }
 
@@ -20172,6 +20172,11 @@ label.checkpop.c_on {
     margin: auto;
     left: 0;
     right: 0;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
 }
 
     .btn_comparte:hover {
@@ -20222,7 +20227,23 @@ label.checkpop.c_on {
 
 .btn_100_paga {
     width: 100%;
-    background-position: 34% 10px;
+    background-position: 27.5% 10px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    margin-top:27px;
+    padding-top: 12px;
+    padding-left: 20px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_100_paga:hover{
+    color:#FFF;
+    background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
 }
 
 .btn_100_facturacion {

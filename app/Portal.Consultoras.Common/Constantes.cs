@@ -154,6 +154,18 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMedium = 12103;
             public const int ValoresImagenesResizeHeightMedium = 12104;
+
+            public const int MerchantId = 12201;
+            public const int AccessKeyId = 12202;
+            public const int SecretAccessKey = 12203;
+            public const int UrlSessionBotonPago = 12204;
+            public const int UrlGenerarNumeroPedido = 12205;
+            public const int PorcentajeGastosAdministrativos = 12206;
+            public const int UrlLibreriaPagoVisa = 12207;
+            public const int UrlAutorizacionBotonPago = 12208;
+            public const int UrlLogoPasarelaPago = 12209;
+            public const int ColorBotonPagarPasarelaPago = 12210;
+            public const int MensajeInformacionPagoExitoso = 12211;
         }
 
         public static class ParametrosNames
@@ -285,7 +297,7 @@ namespace Portal.Consultoras.Common
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
-
+            public const string DatosPagoVisa = "DatosPagoVisa";
             //ODD
             public const string ConfiguracionEstrategiaOdd = "ConfiguracionEstrategiaOdd";
             public const string GuiaNegocio = "GuiaNegocio";
@@ -1104,6 +1116,7 @@ namespace Portal.Consultoras.Common
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string HerramientasVenta = "HV";
+            public const string PagoEnLinea = "PAYONLINE";
         }
 
         public static class ConfiguracionPaisComponente
@@ -1374,6 +1387,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresImagenesResize = 121;
             public const short ExtensionBannerGanaMasApp = 136;
             public const short MontoLimiteCupon = 103;
+            public const int ValoresPagoEnLinea = 122;
         }
 
         public struct MensajesCDRExpress
