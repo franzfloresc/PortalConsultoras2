@@ -32849,6 +32849,20 @@ h1#penmostreo .campana {
 .btn_compartir_facebook_ficha img {
     float: left;
 }
+
+.btn_compartir_facebook_ficha_fix_ODD {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: initial;
+    display: initial;
+}
+
+    .btn_compartir_facebook_ficha_fix_ODD img {
+        float: initial;
+    }
+
 .content_right_ficha {
     float: right;
     width: 55%;
@@ -33531,19 +33545,15 @@ height:30px;
 /*SHOWROOM*/
 .set-productos-showroom {
     background-color: white;
-    margin-right: 2.6%;
-    float: left;
-    position: relative;
-    width: 23%;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
+    border: 1px solid #e6e3e3;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    margin-bottom: 15px;
-    margin-top: 15px;
-    border: 1px solid #e6e3e3;
+    display: inline-block;
+    margin: 15px 2.44% 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    width: 23%;
 }
 
     .set-productos-showroom:nth-child(4n) {

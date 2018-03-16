@@ -1411,5 +1411,7 @@ namespace Portal.Consultoras.Entities
         public decimal CuponPctDescuento { get; set; }
         [DataMember]
         public decimal CuponMontoMaxDscto { get; set; }
+        [DataMember]
+        public short CuponTipoCondicion { get; set; }
     }
 }
