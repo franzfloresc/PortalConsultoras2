@@ -32831,24 +32831,30 @@ h1#penmostreo .campana {
     margin-top: 0;
 }
 
-
 .btn_compartir_facebook_ficha {
-    width: 45%;
-    float: none;
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
     margin-left: 0;
     display: inline-block;
 }
 
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
 .btn_compartir_facebook_ficha_fix {
-    width: 35%;
+    width: 30%;
     float: left;
-    margin-right: 5px;
+    margin-right: 2%;
     text-align: center;
+    height: 25px;
 }
 
-.btn_compartir_facebook_ficha img {
-    float: left;
-}
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
 
 .btn_compartir_facebook_ficha_fix_ODD {
     width: 25px;
@@ -33120,6 +33126,7 @@ h1#penmostreo .campana {
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 12px 0;
 }
 .texto_compartelo {
     float: left;
@@ -33131,12 +33138,10 @@ h1#penmostreo .campana {
 .texto_compartelo_fix {
     font-family: 'Lato';
     font-size: 12px;
-    /* margin-top: 3px; */
-    width: 60%;
+    width: 62%;
     text-align: right;
     margin-right: 3%;
     height: 42px;
-    padding: 12px 0px;
 }
 .texto_compartelo_fix p {
 display: block;
@@ -33148,13 +33153,6 @@ padding: 10px 0px;
 .texto_compartelo_fix p div{
 display:block;
 height:30px;
-}
-
-.btn_compartir_facebook_ficha {
-    width: 25px;
-    float: left;
-    margin-right: 5px;
-    text-align: center;
 }
 
 .opcion_escala_descuento {
@@ -33225,10 +33223,6 @@ height:30px;
     padding-left: 20px;
     background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
-}
-
-.btn_compartir_facebook_ficha:nth-child(3) {
-    margin-right: 0;
 }
 
 .notificacion_cantidad {
