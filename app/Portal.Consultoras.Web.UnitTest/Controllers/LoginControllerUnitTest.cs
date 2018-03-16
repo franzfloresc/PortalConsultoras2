@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Common;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -151,21 +152,27 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 }
 
-                protected override BEUsuario GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
+                protected override async Task<ServiceUsuario.BEUsuario> GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
                 {
-                    var usuario = new BEUsuario();
-                    usuario.CodigoISO = "PE";
-                    usuario.RolID = Constantes.Rol.Consultora;
-                    usuario.CampaniaID = 201715;
-                    usuario.NroCampanias = 18;
-                    return usuario;
-                }
+                    return  await Task.Factory.StartNew(() =>
+                    {
+                        var usuario = new BEUsuario();
+                        usuario.CodigoISO = "PE";
+                        usuario.RolID = Constantes.Rol.Consultora;
+                        usuario.CampaniaID = 201715;
+                        usuario.NroCampanias = 18;
+                        return usuario;
+                    });                  
+                }                
 
-                protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
+                protected override async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
                 {
-                    var list = new List<ConfiguracionPaisModel>();
-                    list.Add(new ConfiguracionPaisModel { ConfiguracionPaisID = 0, Codigo = "GND" });
-                    return list;
+                    return await Task.Factory.StartNew(() =>
+                    {
+                        var list = new List<ConfiguracionPaisModel>();
+                        list.Add(new ConfiguracionPaisModel { Codigo = "GND" });
+                        return list;
+                    });                    
                 }
             }
 
@@ -176,8 +183,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginControllerStub(logManager.Object, sessionManager.Object);
 
                 // Act
-                var result = controller.GetUserData(1, "041395737", 0);
-
+                var getUserDataTask = Task.Run(() => controller.GetUserData(1, "041395737", 0));
+                Task.WaitAll(getUserDataTask);
+                var result = getUserDataTask.Result;
+                
                 // Assert
                 Assert.IsNotNull(result);
                 Assert.AreEqual(true, result.TieneGND);
@@ -231,19 +240,27 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 }
 
-                protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
+                protected override async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
                 {
-                    var list = new List<ConfiguracionPaisModel>();
-                    list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigital });
-                    list.Add( new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
-                    return list;
+                    return await Task.Factory.StartNew(() =>
+                    {
+                        var list = new List<ConfiguracionPaisModel>();
+                        list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigital });
+                        list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
+                        return list;
+                    });
+
+                    
                 }
 
-                protected override List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
+                protected override async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
                 {
-                    var list = new List<BEConfiguracionPaisDatos>();
-                    //
-                    return list;
+                    return await Task.Factory.StartNew(() =>
+                    {
+                        var list = new List<BEConfiguracionPaisDatos>();
+                        //
+                        return list;
+                    });                    
                 }
 
                 protected override void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
@@ -280,18 +297,25 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
                 }
 
-                protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
+                protected override async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
                 {
-                    var list = new List<ConfiguracionPaisModel>();
-                    list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
-                    return list;
+                    return await Task.Factory.StartNew(() =>
+                    {
+                        var list = new List<ConfiguracionPaisModel>();
+                        list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
+                        return list;
+                    });
+                    
                 }
 
-                protected override List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
+                protected override async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
                 {
-                    var list = new List<BEConfiguracionPaisDatos>();
-                    //
-                    return list;
+                    return await Task.Factory.StartNew(() =>
+                    {
+                        var list = new List<BEConfiguracionPaisDatos>();
+                        //
+                        return list;
+                    });                    
                 }
 
                 protected override void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
