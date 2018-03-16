@@ -1473,18 +1473,22 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ResumenDiasEsperaBE> listaRequest = new List<ResumenDiasEsperaBE>();
                 foreach (var item in resultado)
                 {
-                    listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera= Convert.ToInt32(item.DiasEnEspera)});
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera= Convert.ToInt32(item.DiasEnEspera)});
                 }
-                //Se separó para saturar el servicio ObtenerReporteGestionPostulante
+                //Se separó para no saturar el servicio ObtenerReporteGestionPostulante
                 ResumenDiasEsperaCollection reporteDiasEspera;
                 reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, listaRequest.ToArray());
 
                 foreach (var item in resultado)
                 {
-                    var data = reporteDiasEspera.ToList().Where(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).FirstOrDefault().ResumenDiasEspera.Split('|');
-                    item.DetalleDiasEsperaGSAC = data[0];
-                    item.DetalleDiasEsperaAFFVV = data[1];
-                    item.DetalleDiasEsperaASAC = data[2];
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                    {
+                        var data = reporteDiasEspera.ToList().Where(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).FirstOrDefault().ResumenDiasEspera.Split('|');
+                        item.DetalleDiasEsperaGSAC = data[0];
+                        item.DetalleDiasEsperaAFFVV = data[1];
+                        item.DetalleDiasEsperaASAC = data[2];
+                    }
                 }
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
