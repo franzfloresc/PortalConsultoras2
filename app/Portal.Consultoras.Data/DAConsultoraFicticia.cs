@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Data
 {
     public class DAConsultoraFicticia : DataAccess
     {
-
         public DAConsultoraFicticia(int paisID)
             : base(paisID, EDbSource.Portal)
         {
@@ -49,7 +48,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.AnsiString, ConsultoraID);
             Context.Database.AddInParameter(command, "@Clave", DbType.AnsiString, Clave);
-            
+
             int result = Context.ExecuteNonQuery(command);
             return result;
         }

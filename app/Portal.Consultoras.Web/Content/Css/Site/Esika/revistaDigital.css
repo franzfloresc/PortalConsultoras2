@@ -2897,6 +2897,15 @@
         line-height: 18px;
     }
 
+.producto_nombre_descripcion .nombre_producto {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    height: 40px;
+}
+
 .producto_precio_bpt {
     width: 100%;
     padding-left: 16px;

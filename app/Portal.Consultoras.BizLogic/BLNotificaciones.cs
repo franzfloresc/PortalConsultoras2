@@ -30,14 +30,14 @@ namespace Portal.Consultoras.BizLogic
         {
             var daNotificaciones = new DANotificaciones(PaisID);
             return daNotificaciones.GetNotificacionesSinLeer(ConsultoraId, indicadorBloqueoCDR);
-        }    
+        }
 
-        public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) 
+        public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
 
             var daNotificaciones = new DANotificaciones(PaisID);
             var notificaciones = new List<BENotificacionesDetalle>();
-            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultoraDetalle(ValAutomaticaPROLLogId, TipoOrigen)) 
+            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultoraDetalle(ValAutomaticaPROLLogId, TipoOrigen))
                 while (reader.Read())
                 {
                     var entidad = new BENotificacionesDetalle(reader);
@@ -47,11 +47,11 @@ namespace Portal.Consultoras.BizLogic
             return notificaciones;
         }
 
-        public IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) 
+        public IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             var daNotificaciones = new DANotificaciones(PaisID);
             var notificacionespedido = new List<BENotificacionesDetallePedido>();
-            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultoraDetallePedido(ValAutomaticaPROLLogId, TipoOrigen)) 
+            using (IDataReader reader = daNotificaciones.GetNotificacionesConsultoraDetallePedido(ValAutomaticaPROLLogId, TipoOrigen))
                 while (reader.Read())
                 {
                     var entidad = new BENotificacionesDetallePedido(reader);
@@ -61,10 +61,10 @@ namespace Portal.Consultoras.BizLogic
             return notificacionespedido;
         }
 
-        public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) 
+        public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             var daNotificaciones = new DANotificaciones(PaisID);
-            daNotificaciones.UpdNotificacionesConsultoraVisualizacion(ValAutomaticaPROLLogId, TipoOrigen); 
+            daNotificaciones.UpdNotificacionesConsultoraVisualizacion(ValAutomaticaPROLLogId, TipoOrigen);
         }
 
         public IList<BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId)
@@ -94,7 +94,7 @@ namespace Portal.Consultoras.BizLogic
             var daNotificaciones = new DANotificaciones(PaisID);
             return daNotificaciones.GetFechaPromesaCronogramaByCampania(CampaniaId, CodigoConsultora, Fechafact);
         }
-        
+
         public void UpdNotificacionSolicitudClienteVisualizacion(int PaisID, long SolicitudClienteId)
         {
             var daNotificaciones = new DANotificaciones(PaisID);

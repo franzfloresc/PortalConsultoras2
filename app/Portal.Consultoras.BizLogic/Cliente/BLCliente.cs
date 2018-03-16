@@ -70,7 +70,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCliente.GetClienteByConsultora(consultoraID, ClienteID))
                 while (reader.Read())
                 {
-                    var cliente = new BECliente(reader) {PaisID = paisID};
+                    var cliente = new BECliente(reader) { PaisID = paisID };
                     clientes.Add(cliente);
                 }
 
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCliente.GetClienteByCodigo(consultoraID, ClienteID, codigoCliente))
                 if (reader.Read())
                 {
-                    cliente = new BECliente(reader) {PaisID = paisID};
+                    cliente = new BECliente(reader) { PaisID = paisID };
                 }
             return cliente;
         }
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCliente.GetClienteByConsultora(consultoraID, clienteID))
                 if (reader.Read())
                 {
-                    cliente = new BECliente(reader) {PaisID = paisID};
+                    cliente = new BECliente(reader) { PaisID = paisID };
                 }
             return cliente;
         }
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daCliente.GetClienteByNombre(consultoraID, Nombre))
                 while (reader.Read())
                 {
-                    var cliente = new BECliente(reader) {PaisID = paisID};
+                    var cliente = new BECliente(reader) { PaisID = paisID };
                     clientes.Add(cliente);
                 }
             return clientes;

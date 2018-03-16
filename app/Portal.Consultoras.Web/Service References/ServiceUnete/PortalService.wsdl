@@ -283,6 +283,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulanteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumento" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulantePorDocumentoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_AgregarSolicitudPrePostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:AgregarSolicitudPrePostulante" />
   </wsdl:message>
@@ -565,6 +571,10 @@
     <wsdl:operation name="ObtenerSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumentoResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulantePorDocumento_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AgregarSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" message="tns:IPortalService_AgregarSolicitudPrePostulante_InputMessage" />
@@ -1035,6 +1045,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPrePostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulantePorDocumento">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulantePorDocumento" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

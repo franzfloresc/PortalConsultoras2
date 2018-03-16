@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServiceCDR;
@@ -11,8 +11,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Common;
-
 using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -197,6 +195,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
+
+            Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisComponenteModel>()
+                .ForMember(t => t.ConfiguracionPaisComponenteID, f => f.MapFrom(c => c.Codigo + c.CampaniaID + c.Componente))
+                .ForMember(t => t.PalancaCodigo, f => f.MapFrom(c => c.Codigo))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => (c.Componente ?? "").Replace("_", " ")))
+                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Componente));
+
             Mapper.CreateMap<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>();
             Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();

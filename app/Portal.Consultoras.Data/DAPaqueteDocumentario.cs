@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int ActualizarEstadoPaqueteDocumentario(string codigo,int campania)
+        public int ActualizarEstadoPaqueteDocumentario(string codigo, int campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarEstadoPaqueteDocumentario");
             Context.Database.AddInParameter(command, "@Codigo", DbType.String, codigo);

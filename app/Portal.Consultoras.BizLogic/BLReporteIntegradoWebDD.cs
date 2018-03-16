@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic
 
             }
             catch (Exception ex)
-            { 
+            {
                 obeInformacion.CodigoInformacion = 1;
                 obeInformacion.DetalleInformacion = prefijoDetalle + ex.Message;
             }
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.BizLogic
         {
             return ConfigurationManager.AppSettings["OrderDownloadPath"]
                 + Path.GetFileNameWithoutExtension(fileName)
-                + date.ToString("ddMMyyhhmmss") 
+                + date.ToString("ddMMyyhhmmss")
                 + Path.GetExtension(fileName);
         }
 

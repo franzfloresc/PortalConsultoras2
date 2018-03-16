@@ -21,7 +21,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
         idDivPopUpRegalo: config.idDivPopUpRegalo,
         idTabs: config.idTabs,
         idTargetDiv: config.idTargetDiv,
-        campanasPais: config.campanasPais,
+        campanasPais: config.campanasPais,        
         idListaGanadorasHidden: config.idListaGanadorasHidden,
         idFormReporteListaGanadoras: config.idFormReporteListaGanadoras,
         urlListaGanadorasObtener: config.urlListaGanadorasObtener,

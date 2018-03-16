@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     txtBuil.Append("</td>");
                     txtBuil.Append("</tr>");
                     txtBuil.Append("</table>");
-                    
+
                     var mailBody = txtBuil.ToString();
                     #endregion
 

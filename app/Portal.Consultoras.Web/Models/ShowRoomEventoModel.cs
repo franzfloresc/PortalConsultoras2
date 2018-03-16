@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Models
 {

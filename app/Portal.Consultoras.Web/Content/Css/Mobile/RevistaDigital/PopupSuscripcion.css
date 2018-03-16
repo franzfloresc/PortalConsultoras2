@@ -1,0 +1,172 @@
+﻿
+.contenido-popup-nuevo-2017 {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        padding: 20px;
+        height: 85%;
+        margin-top: 1.4% !important;
+        width: 390px;
+        margin: auto;
+        display: table;
+    }
+
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+                font-size: 17px;
+                letter-spacing: 1px;
+                text-align: center;
+                color: white;
+                font-weight: 300;
+                margin-bottom: 0;
+                display: block;
+                width: 250px;
+                margin: auto;
+                margin-bottom: 5px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+                font-size: 24px;
+                letter-spacing: 1px;
+                text-align: center;
+                color: white;
+                font-weight: 700;
+                margin-top: 10px;
+                letter-spacing: 1px;
+                display: block;
+                width: 250px;
+                margin: auto;
+                margin-bottom: 20px;
+            }
+
+                .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
+                    color: white;
+                }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido .logogndplus {
+                float: left;
+                top: 0;
+                WIDTH: 100%;
+                LEFT: 0;
+                text-align: left;
+                margin: -9.5% 5% 0% -14.5px;
+            }
+
+
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido img {
+                display: block;
+                margin: auto;
+                text-align: center;
+                height: 160px;
+                margin-bottom: 15px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+                color: white;
+                text-align: center;
+                max-width: 240px;
+                display: block;
+                font-size: 17px;
+                text-decoration: none;
+                padding: 17px 0;
+                letter-spacing: 1px;
+                margin: auto;
+                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
+            }
+
+
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+            position: absolute;
+            margin-top: -20px;
+            margin-left: -20px;
+            width: 64px;
+        }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus img {
+                width: 100%;
+            }
+
+        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+            position: absolute;
+            margin-left: 29px;
+            margin-top: -20px;
+        }
+
+    .contenido-popup-nuevo-2017 .cerrargndtxt {
+        margin-top: 20px;
+        font-size: 11px;
+        letter-spacing: .5px;
+        color: #9E9E9E;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+@media (max-width:400px) {
+    .contenido-popup-nuevo-2017 .centrar-estructura .logogndplus {
+        position: absolute;
+        margin-top: 0;
+        margin-left: 0;
+        width: 64px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+        font-size: 17px;
+        margin-bottom: 5px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        font-size: 24px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+        font-size: 13px;
+        padding: 13.5px 0;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+        position: absolute;
+        margin-left: 0;
+        margin-top: -49px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        width: 92%;
+        margin-top: 4.9% !important;
+    }
+}
+
+@media (max-width: 400px) {
+
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        padding: 0;
+    }
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+            width: 100%;
+        }
+
+        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+            margin-left: -19px;
+            margin-top: -30px;
+        }
+}

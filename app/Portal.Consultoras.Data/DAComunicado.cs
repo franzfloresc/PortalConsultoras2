@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora, short TipoDispositivo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerComunicadoPorConsultora");

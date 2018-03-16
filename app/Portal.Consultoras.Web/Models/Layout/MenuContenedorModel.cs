@@ -26,9 +26,11 @@ namespace Portal.Consultoras.Web.Models.Layout
             }
         }
         public ConfiguracionPaisModel ConfiguracionPais { get; set; }
-        
-        public string NombreOrigenPantalla {
-            get {
+
+        public string NombreOrigenPantalla
+        {
+            get
+            {
                 switch (OrigenPantalla)
                 {
                     case Constantes.OrigenPantallaWeb.DContenedorHome:

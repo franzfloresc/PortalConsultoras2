@@ -298,7 +298,6 @@ namespace Portal.Consultoras.BizLogic
             return beConsultoraCvu;
         }
 
-
         public List<BEConsultora> GetConsultorasPorUbigeo(int paisId, string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
         {
             var vListaConsultora = new List<BEConsultora>();
@@ -317,7 +316,6 @@ namespace Portal.Consultoras.BizLogic
             }
             return vListaConsultora;
         }
-                
 
     }
 }

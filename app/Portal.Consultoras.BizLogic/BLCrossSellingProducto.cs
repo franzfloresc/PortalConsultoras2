@@ -33,7 +33,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetCrossSellingProductosAdministracion(CampaniaID))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingProducto(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingProducto(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
@@ -48,14 +48,14 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetCrossSellingAsociacionListado(CampaniaID, CUV))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingAsociacion(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingAsociacion(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
             return ofertaWeb;
         }
 
-        public IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento )
+        public IList<BECrossSellingAsociacion> GetCUVAsociadoByFilter(int PaisID, int CampaniaID, string CUV, string CodigoSegmento)
         {
             var ofertaWeb = new List<BECrossSellingAsociacion>();
             var daOfertaWeb = new DACrossSellingProducto(PaisID);
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetCUVAsociadoByFilter(CampaniaID, CUV, CodigoSegmento))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingAsociacion(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingAsociacion(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetDescripcionProductoByCUV(CampaniaID, CUV))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingAsociacion(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingAsociacion(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
@@ -93,7 +93,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetProductosRecomendadosHabilitados(CampaniaID, tipo))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingProducto(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingProducto(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
@@ -117,7 +117,7 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DACrossSellingProducto(entidad.PaisID);
             return dataAccess.DelCrossSellingAsociacion(entidad);
         }
-		public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad)
+        public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad)
         {
             var dataAccess = new DACrossSellingProducto(entidad.PaisID);
             return dataAccess.DelCrossSellingAsociacion_Perfil(entidad);
@@ -130,13 +130,13 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daOfertaWeb.GetProductosRecomendadosByCUVCampaniaPortal(ConsultoraID, CampaniaID, CUV))
                 while (reader.Read())
                 {
-                    var entidad = new BECrossSellingProducto(reader) {PaisID = PaisID};
+                    var entidad = new BECrossSellingProducto(reader) { PaisID = PaisID };
                     ofertaWeb.Add(entidad);
                 }
 
             return ofertaWeb;
         }
-		public int UpdVisualizacionPopupProRecom(int consultoraid, int campaniaid, int paisid)
+        public int UpdVisualizacionPopupProRecom(int consultoraid, int campaniaid, int paisid)
         {
             var dataAccess = new DACrossSellingProducto(paisid);
             return dataAccess.UpdVisualizacionPopupProRecom(consultoraid, campaniaid);

@@ -4,7 +4,7 @@ using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data.Hana.AutoMapper
 {
-    public class HanaEntitiesToBEEntititesMappingProfile: Profile
+    public class HanaEntitiesToBEEntititesMappingProfile : Profile
     {
         public override string ProfileName
         {

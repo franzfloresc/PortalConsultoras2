@@ -47,9 +47,9 @@ namespace Portal.Consultoras.Service
                 };
 
                 string paisId = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault() ?? "";
-                
+                                 where c.Value == ISO.ToUpper()
+                                 select c.Key).SingleOrDefault() ?? "";
+
                 int outVal;
                 int.TryParse(paisId, out outVal);
                 return outVal;
@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Service
         }
 
         public List<BEUnidadGeografica> ObtenerUbigeosPais(string paisCodigoISO)
-        {            
+        {
             var blUbigeo = new BLUbigeo();
             int paisId = GetPaisID(paisCodigoISO);
             return blUbigeo.GetUbigeosPorPais(paisId);
