@@ -864,11 +864,15 @@
                     margin-bottom: 0;
                 }
 
-                .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
-                    display: table-cell;
-                    vertical-align: middle;
-                    width: 100%;
-                }
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .clubtxt .centrar_vertical .centrar_cont_club p b {
+    font-weight: 900;
+}
 
             .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_btn {
                 display: inline-block;
