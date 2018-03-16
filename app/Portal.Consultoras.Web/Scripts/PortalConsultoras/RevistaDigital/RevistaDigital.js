@@ -33,6 +33,7 @@ $.fn.followTo = function (elem) {
                     var seccionMenuMobileHeight = $('.slick-slider-fixed-mobile').outerHeight(true);
                     //topAltura = alturaH + seccionMenuMobileHeight;
                     $bumper.css("position", "fixed");
+                    $bumper.css("z-index", "50");
                     $('header').css("position", "relative");
                     $('#seccion-fixed-menu').css("position", "relative");
                 } else {
@@ -74,10 +75,17 @@ $(document).ready(function () {
     "use strict";
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
-    if (isMobile()) {
-        $('#seccion-fixed-menu').followTo('#block_inscribete');
-    }else{
-        $('header').followTo('#block_inscribete');
+
+    if (revistaDigital) {
+        if (!revistaDigital.EsActiva) {
+            if (tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 27) {
+                if (isMobile()) {
+                    $('#seccion-fixed-menu').followTo('#block_inscribete');
+                } else {
+                    $('header').followTo('#block_inscribete');
+                }
+            }
+        }
     }
     
 
@@ -375,7 +383,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
 
             if (revistaDigital) {
                 var ExperienciaGanaMas = new Object();
-                ExperienciaGanaMas.OcultarAgregar = revistaDigital.TieneRDC && !revistaDigital.EsSuscrita ? true : false;
+                ExperienciaGanaMas.OcultarAgregar = revistaDigital.TieneRDC && !revistaDigital.EsActiva ? true : false;
                 ExperienciaGanaMas.OcultarVerDetalle = ExperienciaGanaMas.OcultarAgregar;
                 ExperienciaGanaMas.MostrarLoQuieres = revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? false : true;
 

@@ -142,6 +142,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = "";
 
+                revistaDigital.ActivoMdo = false;
+
                 if (revistaDigital.ActivoMdo)
                 {
                     palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
@@ -169,7 +171,8 @@ namespace Portal.Consultoras.Web.Controllers
                         mdo0 = true;
                     }
                 }
-           
+                
+
                 if (mdo0)
                 {
                     if (model.CampaniaID == userData.CampaniaID)
@@ -202,6 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
                 }
+                
 
                 return Json(new
                 {
