@@ -1617,9 +1617,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
         }
 
-        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID)
+        public int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario)
         {
-            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID);
+            return BLShowRoomEvento.EliminarEstrategiaProductoAll(paisID, estrategiaID, usuario);
         }
 
         public IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId)

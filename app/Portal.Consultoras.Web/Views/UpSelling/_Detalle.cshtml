@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+
+<div>
+    <div class="div-3">
+        <input type="button" value="Agregar" data-bind="click:$root.regaloNuevo" />
+    </div>
+    <div class="div-3">
+        <div class="wrap">
+            <div class="container clearfix">
+                <div id="pagerRegalos"></div>
+                <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all">
+                    <div class="ui-jqgrid-view">
+
+                        <table class="ui-jqgrid-htable" style="width: 100%" id="listRegalos" data-bind="with: $root.upSellingSeleccionado">
+                            <thead>
+                                <tr class="ui-jqgrid-labels">
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 65px;">Nombre</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">CUV</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">Stock</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 30px;">Stock Actual</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Orden</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" style="width: 15px;">Activo</th>
+                                    <th class="ui-state-default ui-th-column ui-th-ltr" data-sortable="false" style="width: 40px;">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody data-bind="foreach: Regalos">
+                                <tr class="ui-widget-content jqgrow ui-row-ltr ui-state-highlight">
+                                    <td data-bind="text: Nombre" style="text-align:center;"></td>
+                                    <td data-bind="text: CUV" style="text-align:center;"></td>
+                                    <td data-bind="text: Stock" style="text-align:center;"></td>
+                                    <td data-bind="text: StockActual" style="text-align:center;"></td>
+                                    <td data-bind="text: Orden" style="text-align:center;"></td>
+                                    <td style="text-align: center;">
+                                        <input type="checkbox" data-bind="checked: Activo, enable : false" style="text-align:center;" />
+                                    </td>
+                                    <td style="text-align:center;">
+                                        <a href="#" data-bind="click: $root.regaloEditar">
+                                            <img src='@Url.Content("~/Content/Images/Edit.png")' alt="Editar UpSelling" title="Editar UpSelling" border='0' />
+                                        </a>
+                                        <a href="#" data-bind="click: $root.regaloActivarDesactivar">
+                                            <img src='@Url.Content("~/Content/Images/NotAllowed.png")' data-bind="attr: { title : Activo() ? 'Deshabilitar UpSelling' : 'Habilitar UpSelling' }" />
+                                        </a>
+                                        <a href="#" data-bind="click: $root.regaloEliminar">
+                                            <img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar UpSelling' title='Eliminar UpSelling' border='0' />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

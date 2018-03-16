@@ -1608,16 +1608,17 @@ ul.tabs {
 }
 
 .div-3 .titG2 {
-    float: left;
-    width: 95px;
-    height: auto;
-    padding: 9px;
     background: none;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
     border: 0;
+    color: #702789;
+    display: inline-block;
+    font-size: 14px;
+    height: auto;
+    margin: 0;
+    padding: 9px;
+    position: relative;
     text-align: left;
+    width: 95px;
 }
 .div-3 .titG3 {
     float: left;
@@ -2238,14 +2239,14 @@ ul.tabs {
     }
 
 .div-3 .pdr_modal {
-    float: left;
-    width: 35px;
-    height: auto;
-    padding: 10px;
     background: #fff;
-    color: #702789;
-    margin-right: 10px;
     border: 1px solid #cfcfcf;
+    color: #702789;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    position: relative;
+    width: 35px;
 }
 
 .div-3 .pdr_modal2 {
@@ -2260,11 +2261,9 @@ ul.tabs {
 }
 
 .div-3 .pdr_modal_check {
-    float: left;
-    width: 56px;
-    height: auto;
-    padding: 0 0 0 0;
-    margin-right: 10px;
+    margin: auto;
+    position: relative;
+    width: 20px;
 }
 
 .div-3 .selectP2 {
@@ -12720,7 +12719,7 @@ label.checkpop {
 
 .matriz-comercial-zona-estrategia {
     margin: 0 auto;
-    width: 570px;
+    width: 580px;
 }
 
 .matriz-campania .div-img-matriz-comercial {

@@ -534,6 +534,9 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region Estrategias-UpSelling
+            bundles.Add(new StyleBundle("~/bundles/estrategias-upselling-css")
+                .Include("~/Content/Css/Site/Admin/Estrategias/UpSelling.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/estrategias-upselling").Include(
                 "~/Scripts/knockout-{version}.js",
                 "~/Scripts/knockout.extensions.js"
