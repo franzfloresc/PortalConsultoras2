@@ -35,7 +35,7 @@
             Tu negocio es más fácil con el <span class="nombre_app"></span>
         </h1>
         <p class="info_descarga">Descárgalo y disfruta de sus beneficios</p>
-        <button type="button" class="btn_descargar_app" onclick="window.open('@ViewBag.Url')">¡Descárgalo ahora!</button>
+        <button type="button" class="btn_descargar_app">¡Descárgalo ahora!</button>
     </div>
     <div class="imagen_descargar_app_e_ir_a_version_web">
         <div class="img_vista_descargar_app">
@@ -53,3 +53,98 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        var comunicadoId = '@ViewBag.ComunicadoId';
+        var esPaisEsika = '@ViewBag.EsPaisEsika';
+        var url = '@ViewBag.Url';
+
+        var marcacionBannerAppModule = (function () {
+            "use strict"
+
+            var settings = {
+                ComunicadoId: comunicadoId,
+                EsPaisEsika: esPaisEsika,
+                UrlDescargar: url,
+                DescargarName: esPaisEsika === "1" ? "Descargar app consultora Ésika" : "Descargar app consultora L'bel",
+                LoadPageName: esPaisEsika === "1" ? "Banner Descargar app consultora Ésika" : "Banner Descargar app consultora L'bel"
+            };
+
+            var elements = {
+                btnCerrar: '.btn_cerrar_vista_descargar_app',
+                btnDescargar: '.btn_descargar_app',
+                linkEnlace: '.enlace_ir_version_web'
+            };
+
+            var _bindEvents = function () {
+                $(elements.btnCerrar).click(function (e) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Banner Pop-up',
+                        'action': 'Banner Descargar app consultora',
+                        'label': 'Cerrar Pop-up'
+                    });
+                });
+
+                $(elements.btnDescargar).click(function (e) {
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': settings.ComunicadoId,
+                                        'name': settings.DescargarName,
+                                        'creative': 'Banner Pop-up',
+                                        'position': 'Home Pop-up'
+                                    }]
+                            }
+                        }
+                    });
+                    window.open(Url);
+                });
+
+                $(elements.linkEnlace).click(function (e) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Banner Pop-up',
+                        'action': 'Banner Descargar app consultora',
+                        'label': 'Ir a la versión web'
+                    });
+                });
+            };
+
+            var _loadPageMarcacion = function () {
+                dataLayer.push({
+                    'event': 'promotionView',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': settings.ComunicadoId,
+                                    'name': settings.LoadPageName,
+                                    'position': 'Home Pop-up',
+                                    'creative': 'Banner'
+                                }]
+                        }
+                    }
+                });
+            };
+
+            var initializer = function () {
+                _bindEvents();
+                _loadPageMarcacion();
+            };
+
+            return {
+                ini: function () {
+                    initializer();
+                }
+            };
+        })();
+
+        $(document).ready(function () {
+            marcacionBannerAppModule.ini();
+        });
+    </script>
+}
