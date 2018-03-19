@@ -653,6 +653,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
                 }
+                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+                {
+                    prodModel.PuedeAgregarProducto = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
+                }
                 listaRetorno.Add(prodModel);
             });
 
