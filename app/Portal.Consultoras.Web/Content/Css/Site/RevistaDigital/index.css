@@ -306,6 +306,7 @@
         transform: translateX(calc(20% + 25px)) translateY(10%) rotate(-45deg);
         transform: translateY(40%) translateX(270px) rotate(-75deg);
         transition: transform .5s;
+        background: #000;
     }
 
     .btn_diagonal:hover::after {
