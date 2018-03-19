@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF NOT EXISTS(SELECT * FROM SYS.COLUMNS C
