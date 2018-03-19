@@ -1,8 +1,6 @@
 ﻿using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -19,7 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public string Mensaje { get; set; }
         public string MensajeaCliente { get; set; }
         public int NumIteracion { get; set; }
-        public List<BESolicitudClienteDetalle> lsProductosDetalle {get; set;}
+        public List<BESolicitudClienteDetalle> lsProductosDetalle { get; set; }
         public int MarcaID { get; set; }
         public string MarcaNombre { get; set; }
         public string Campania { get; set; }

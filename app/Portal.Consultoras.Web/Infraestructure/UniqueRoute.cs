@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Infraestructure
         public const string IdentifierKey = "guid";
 
         private readonly bool _isGuidRoute;
+
         public UniqueRoute(string uri, object defaults, RouteValueDictionary dataTokens)
             : base(uri, new RouteValueDictionary(defaults), new MvcRouteHandler())
         {

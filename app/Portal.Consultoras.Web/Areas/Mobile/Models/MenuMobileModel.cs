@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Codigo { get; set; }
 
         public IList<MenuMobileModel> SubMenu { get; set; }
-        
+
         public string PageTarget { get; set; }
         public string ClaseSubMenu { get; set; }
         public string OnClickFunt { get; set; }

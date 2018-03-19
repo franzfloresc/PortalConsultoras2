@@ -116,8 +116,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var cambio = sv.ChangePasswordUser(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, model.ConfirmarClave.ToUpper(), string.Empty, EAplicacionOrigen.BienvenidaConsultora);
 
-                        message = cambio 
-                            ? "- Los datos han sido actualizados correctamente.\n " 
+                        message = cambio
+                            ? "- Los datos han sido actualizados correctamente.\n "
                             : "- Los datos han sido actualizados correctamente.\n - La contraseña no ha sido modificada, intentelo mas tarde.\n ";
                     }
                     else

@@ -99,6 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
         public JsonResult ClienteOnline(int[] campanias)
         {
             int campaniaResultado = 0;
@@ -158,6 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                 campaniaResultado = campaniaResultado
             });
         }
+
         public JsonResult ClienteOnlineDetalle(long solicitudClienteId)
         {
 
@@ -203,6 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCliente = ""
             });
         }
+
         public JsonResult ClienteOnlineCancelarSolicitud(int solicitudClienteId, int? motivoSolicitudId, string razonMotivoSolicitud)
         {
             try
@@ -806,7 +809,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lista = new List<BEPedidoFacturado>();
                 }
-                
+
                 foreach (var pedido in lista)
                 {
                     pedido.CUV = Util.Trim(pedido.CUV);

@@ -1,0 +1,64 @@
+﻿/*#region Banner inferior */
+.showroom_banner_inferior {
+    bottom: 0;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    height: auto;
+    overflow: hidden;
+    position: fixed;
+    left: 7%;
+    width: 86%;
+    z-index: 900;
+}
+
+.showroom_banner_img {
+    display: block;
+    height: 73px;
+    object-fit: cover;
+    width: 86vw;
+}
+
+.draw_close {
+    display: flex;
+    flex-direction: column;
+    height: 35px;
+    justify-content: center;
+    position: relative;
+    width: 35px;
+}
+
+    .draw_close::before,
+    .draw_close::after {
+        background-color: #fff;
+        content: '';
+        height: 2px; /* cross thickness */
+        position: absolute;
+        width: 100%;
+    }
+
+    .draw_close::before {
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .draw_close::after {
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+.showroom_banner_boton {
+    cursor: pointer;
+    right: 25px;
+    top: 20px;
+    position: absolute;
+    z-index: 901;
+}
+
+/*#endregion */

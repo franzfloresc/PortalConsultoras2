@@ -181,12 +181,19 @@
         }
 
         @RenderBody()
+
         @if (ViewBag.TerminoMostrar == 1)
         {
             <div class="footerTerminos">
                 <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
             </div>
         }
+
+        @if (ViewBag.BannerInferior != null)
+        {
+            @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
+        }
+
         <!-- footer -->
         <hr class="clear" />
         <footer class="footer_e">
@@ -425,7 +432,7 @@
     </script>
     <!--OFERTA DEL DIA -->
     <!--OFERTA DEL DIA STYLE -->
-@*Html.Partial("_template-ofertadeldia-style")*@
+    @*Html.Partial("_template-ofertadeldia-style")*@
     <!-- FIN OFERTA DEL DIA STYLE -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")

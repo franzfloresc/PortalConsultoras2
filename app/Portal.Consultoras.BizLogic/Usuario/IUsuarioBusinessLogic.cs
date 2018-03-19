@@ -6,7 +6,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public interface IUsuarioBusinessLogic
     {
-        //List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID);
+        List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID);
         void AceptarContrato(BEUsuario usuario);
         string AceptarContratoColombia(BEUsuario usuario);
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);

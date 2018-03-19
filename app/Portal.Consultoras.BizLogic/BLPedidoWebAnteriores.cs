@@ -15,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daPedidoWeb.GetPedidosWebAnterioresByConsultora(consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWeb(reader) {PaisID = paisID};
+                    var entidad = new BEPedidoWeb(reader) { PaisID = paisID };
                     pedidoWeb.Add(entidad);
                 }
 
@@ -30,7 +30,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daPedidoWeb.GetPedidoProductosByCampania(campaniaID, consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWebDetalle(reader) {PaisID = paisID};
+                    var entidad = new BEPedidoWebDetalle(reader) { PaisID = paisID };
                     pedidoWeb.Add(entidad);
                 }
 

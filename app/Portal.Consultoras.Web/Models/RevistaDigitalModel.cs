@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -14,8 +13,9 @@ namespace Portal.Consultoras.Web.Models
             ListaTabs = new List<ComunModel>();
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
             EstadoRdcAnalytics = "(not available)";
-            
+
             BloquearRevistaImpresaGeneral = null;
+            NoVolverMostrar = true;
         }
 
         public int ConfiguracionPaisID { get; set; }
@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC && !EsSuscrita && !EsActiva;
         }
-        
+
         public bool EsNoSuscritaActiva()
         {
             return TieneRDC && !EsSuscrita && EsActiva;
@@ -122,6 +122,11 @@ namespace Portal.Consultoras.Web.Models
                 return EsActiva ? MLogoComercialFondoActiva : EsSuscrita ? MLogoComercialFondoActiva : MLogoComercialFondoNoActiva;
             }
             return EsActiva ? DLogoComercialFondoActiva : EsSuscrita ? DLogoComercialFondoActiva : DLogoComercialFondoNoActiva;
+        }
+
+        public bool TieneRevistaDigital()
+        {
+            return TieneRDC || TieneRDR;
         }
     }
 }

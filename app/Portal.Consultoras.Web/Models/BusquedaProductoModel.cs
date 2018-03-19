@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Models
     public class Filtro
     {
         public string Tipo { get; set; }
-        public List<string> Valores { get; set; } 
+        public List<string> Valores { get; set; }
     }
 
     public class Ordenamiento

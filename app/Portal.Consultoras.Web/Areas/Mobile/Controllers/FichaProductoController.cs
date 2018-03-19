@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
+
         public ActionResult Detalle(string param)
         {
             try

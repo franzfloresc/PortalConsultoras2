@@ -9,7 +9,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
@@ -125,11 +124,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                         productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, producto.RegaloImagenUrl, carpetaPais);
-                        
+
 
                     }
                 }
-                
+
                 return Json(new
                 {
                     success = true,
