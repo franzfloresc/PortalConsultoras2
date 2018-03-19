@@ -7,6 +7,15 @@
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
     var tipoUsuario = ViewBag.TipoUsuario;
+
+    foreach (var item in itemsMenu)
+    {
+        if (item.MenuMobileID == 1002)
+        {
+            item.Descripcion = ViewBag.TieneRDC ? ViewBag.EsSuscrita ? "Catálogos" : item.Descripcion : item.Descripcion;
+        }
+
+    }
 }
 
 <div class="botones" id="ulNavPrincipal-0" data-menu-count="@(itemsMenu.Count())">

@@ -3,15 +3,14 @@
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 @section styles{
-
-    <link href="@Url.Content("~/Content/Css/Mobile/jquery.tag-editor.css")" rel="stylesheet" />
-
+    
     <style type="text/css">
         body {
             overflow-x: hidden;
         }
     </style>
 
+    @Styles.Render("~/bundles/Css/Mobile/Site/MisCatalogoRevista")
 }
 
 @{
@@ -24,6 +23,14 @@
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 
     var titulo = "MIS CATÁLOGOS Y REVISTAS";
+    var EsconderRevista = "block";
+    var EsconderBanner = "block";
+
+    titulo = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "MIS CATÁLOGOS" : titulo : titulo;
+    EsconderRevista = revistaDigital.TieneRDC ? revistaDigital.EsSuscrita ? "none" : EsconderRevista : EsconderRevista;
+    EsconderBanner = EsconderRevista;
+
+
 }
 
 <style type="text/css">
@@ -68,7 +75,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;@titulo
 </div>
 
-<div class="fondo_f2f2f2">
+<div class="fondo_f2f2f2" style="display:@EsconderRevista">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
 
@@ -86,7 +93,7 @@
             </a>
         </li>
     </ul>
-    
+
     <hr class="clear" />
 </div>
 
@@ -108,12 +115,12 @@
         @if (Model.TieneSeccionRevista)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml",
-                new ViewDataDictionary {
-                { "TieneGnd", Model.TieneGND },
-                { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
-            })
+                     new ViewDataDictionary {
+            { "TieneGnd", Model.TieneGND },
+            { "CampaniaNro", @Util.SubStr(Model.CampaniaActual, 4, 2) }
+                 })
         }
-        
+
         @if (Model.TieneSeccionRD)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)

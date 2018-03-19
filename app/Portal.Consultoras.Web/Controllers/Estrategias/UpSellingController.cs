@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Web.Models;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         public async Task<ActionResult> ExportarExcel(int upSellingIdListaGanadoras, string campaniaListaGanadoras)
         {
-            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);   
+            var upSelling = await _upSellingProvider.ObtenerOfertaFinalMontoMeta(userData.PaisID, upSellingIdListaGanadoras);
 
 
             Dictionary<string, string> dic =
@@ -203,12 +203,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             { "Nombre de Consultora","Nombre" },
                             {  "CUV Regalo","CuvRegalo" },
                             { "Nombre Regalo", "NombreRegalo" },
-                            { "Monto Pedido","MontoInicial" }, 
+                            { "Monto Pedido","MontoInicial" },
                             { "Rango Inicial", "RangoInicial" },
                              { "Rango Final", "RangoFinal" },
                             { "Monto a Agregar" ,"MontoAgregar"},
                             { "Monto Meta","MontoMeta" },
-                             { "Monto Ganador", "MontoGanador" },  
+                             { "Monto Ganador", "MontoGanador" },
                             { "Fecha Registro" ,"FechaRegistro" },
                 };
 

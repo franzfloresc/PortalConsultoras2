@@ -3082,7 +3082,104 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
     width: 28.1%;
 }
+.club_gana_mas_pedido {
+    height: 289px;
+    background: black;
+    padding: 64px 50px;
+}
 
+    .club_gana_mas_pedido .logo_club {
+        background: url(../../../Images/Esika/RevistaDigital/logo_esika_diagonal.png);
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido p.primer-texto {
+        font-size: 17px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 0;
+        display: block;
+        padding: 0 35px;
+        display: block;
+        word-wrap: break-word;
+    }
+
+    .club_gana_mas_pedido p.segundo-texto {
+        font-size: 17px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.47;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: #ffffff;
+        display: block;
+        word-wrap: break-word;
+    }
+
+    .club_gana_mas_pedido a {
+        color: white;
+        border: 1px solid white;
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 15px 0px;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+    }
+.club_gana_mas_pedido_activo {
+    background: #f8f8f8;
+}
+
+    .club_gana_mas_pedido_activo .logo_club_activo {
+        background: url(../../../Images/etiqueta-club-ganamas-dorado-independiente.png);
+    }
+
+    .club_gana_mas_pedido_activo a {
+        background-color: #c39934;
+        border: none;
+    }
+
+    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+        color: black;
+    }
+.club_gana_mas_pedido_activo {
+    background: #f8f8f8;
+}
+
+    .club_gana_mas_pedido_activo .logo_club_activo {
+        background: url(../../../Images/etiqueta-club-ganamas-dorado-independiente.png);
+        height: 45px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 97px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .club_gana_mas_pedido_activo a {
+        background-color: #c39934;
+        border: none;
+    }
+
+    .club_gana_mas_pedido_activo p.primer-texto, .club_gana_mas_pedido_activo p.segundo-texto {
+        color: black;
+    }
 .flexiPago_belcorp {
     display: block;
     width: 28.1%;
@@ -3411,6 +3508,8 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 16px;
     width: 50%;
     padding-left: 5px;
+    position:relative;
+    top:-3.5px;
 }
 
 .boton_elegirTono {
@@ -19691,6 +19790,7 @@ label.checkpop.c_on {
     width: 100%;
     overflow: hidden;
     color: black;
+    font-size:15px;
 }
 
 .consultora_home {
@@ -19699,6 +19799,14 @@ label.checkpop.c_on {
     color: black;
     margin-top: -5px;
     float: left;
+    font-size: 13px !important;
+}
+.consultora_home a.txtdorado{
+    display: inline;
+    font-size: 13px !important;
+    color: #d4ae3a !important;
+    margin-right: 5px;
+    text-decoration:underline;
 }
 
 .info_cam_belcorp {
@@ -20130,10 +20238,18 @@ label.checkpop.c_on {
     font-size: 9px;
     letter-spacing: .1px;
     color: #848484;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-left: 10px;
-    float: left;
+    display: inline;
+    top: -2px;
+    position: relative;
 }
+
+    .mis_datos img {
+        margin-left: 5px;
+        position: relative;
+        top: 1px;
+    }
 
     .mis_datos:hover {
         text-decoration: underline;
@@ -26140,20 +26256,6 @@ div.subir_archivo {
     cursor: pointer;
 }
 
-input[type='checkbox']:checked + span:after {
-    content: '■';
-    content: '■';
-    position: absolute;
-    z-index: 1002;
-    top: 2px;
-    overflow: hidden;
-    width: 10px;
-    height: 10px;
-    left: 2px;
-    background: #e81c36;
-    color: #e81c36;
-    font-size: 10px;
-}
 
 .check_label {
     float: left;
@@ -32669,7 +32771,7 @@ h1#penmostreo .campana {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .85);
-    z-index: 10000002;
+    z-index: 1000;
     overflow: auto;
     display: none;
 }
@@ -32738,21 +32840,29 @@ margin-top:0;
 
 
 .btn_compartir_facebook_ficha {
-width:45%;
-float:none;
-margin-left:0;
-
-display: inline-block;
-}
-.btn_compartir_facebook_ficha_fix {
-    width: 35%;
+    width: 25px;
     float: left;
     margin-right: 5px;
     text-align: center;
+    margin-left: 0;
+    display: inline-block;
 }
-.btn_compartir_facebook_ficha img{
-float:left;
+
+    .btn_compartir_facebook_ficha img {
+        float: left;
+    }
+
+.btn_compartir_facebook_ficha_fix {
+    width: 30%;
+    float: left;
+    margin-right: 2%;
+    text-align: center;
+    height: 25px;
 }
+
+    .btn_compartir_facebook_ficha_fix img {
+        height: 100%;
+    }
 
 .btn_compartir_facebook_ficha_fix_ODD {
     width: 25px;
@@ -33107,6 +33217,7 @@ float:left;
     display: inline-block;
     text-align: center;
     width: 100%;
+    padding: 12px 0;
 }
 .texto_compartelo {
     float: left;
@@ -33116,15 +33227,12 @@ float:left;
     margin-top: 3px;
 }
 .texto_compartelo_fix {
-    float: left;
     font-family: 'Lato';
     font-size: 12px;
-    /* margin-top: 3px; */
-    width: 60%;
+    width: 62%;
     text-align: right;
     margin-right: 3%;
     height: 42px;
-    padding: 12px 0px;
 }
 .texto_compartelo_fix p {
 display: block;
@@ -36336,7 +36444,7 @@ height:30px;
 }
 
 .activar_boton_popup_confirma_datos {
-    background: #e81c36 !important;
+    background: #c39934 !important;
 }
 
 @-webkit-keyframes flash {

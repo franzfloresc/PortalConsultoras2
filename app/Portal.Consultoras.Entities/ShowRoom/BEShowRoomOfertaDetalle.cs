@@ -1,9 +1,9 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public string SAP { get; set; }
 
-         [DataMember]
+        [DataMember]
         public string Grupo { get; set; }
 
         public BEShowRoomOfertaDetalle(IDataRecord row)
