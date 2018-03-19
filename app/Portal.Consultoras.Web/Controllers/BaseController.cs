@@ -4445,7 +4445,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.TieneRDI = revistaDigital.TieneRDI;
-            ViewBag.TieneHV = false;
+            ViewBag.TieneHV = herramientasVenta.TieneHV;
             var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
