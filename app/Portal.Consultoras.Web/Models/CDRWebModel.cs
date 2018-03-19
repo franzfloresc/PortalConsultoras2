@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceCDR;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -32,7 +30,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
 
-        public string Proceso {get; set;}
+        public string Proceso { get; set; }
 
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
@@ -68,7 +66,7 @@ namespace Portal.Consultoras.Web.Models
         public int ZonaID { get; set; }
         public int PaisID { get; set; }
         public int RegionID { get; set; }
-        
+
         public int CantidadAprobados { get; set; }
         public int CantidadRechazados { get; set; }
         public string OrigenCDRDetalle { get; set; }

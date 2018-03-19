@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -18,7 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUVAsociado2 { get; set; }
         public string CodigoSegmento { get; set; }
         public int CampaniaID { get; set; }
-		public string EtiquetaPrecio { get; set; }
+        public string EtiquetaPrecio { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
         public IEnumerable<CrossSellingProductoModel> lstCrossSellingProducto { get; set; }

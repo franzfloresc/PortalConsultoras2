@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEServicePROLFIC> lst;
                 BEPais bepais = new BEPais();
-                
+
                 try
                 {
                     if (vPaisID == "")
@@ -124,8 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                lst = userData.RolID == 2 
-                    ? sv.SelectPaises().ToList() 
+                lst = userData.RolID == 2
+                    ? sv.SelectPaises().ToList()
                     : new List<BEPais> { sv.SelectPais(userData.PaisID) };
             }
             return Mapper.Map<IEnumerable<PaisModel>>(lst);

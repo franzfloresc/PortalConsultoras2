@@ -29,10 +29,10 @@ namespace Portal.Consultoras.BizLogic
             var daLugarPago = new DALugarPago(paisID);
 
             using (IDataReader reader = daLugarPago.GetLugarPagoById(lugarPagoID))
-            if (reader.Read())
-            {
-                entidad = new BELugarPago(reader);
-            }
+                if (reader.Read())
+                {
+                    entidad = new BELugarPago(reader);
+                }
 
             return entidad;
         }
@@ -40,13 +40,13 @@ namespace Portal.Consultoras.BizLogic
         public int InsertLugarPago(BELugarPago entidad)
         {
             var daLugarPago = new DALugarPago(entidad.PaisID);
-           return Convert.ToInt32(daLugarPago.Insert(entidad));
+            return Convert.ToInt32(daLugarPago.Insert(entidad));
         }
 
         public int UpdateLugarPago(BELugarPago entidad)
         {
             var daLugarPago = new DALugarPago(entidad.PaisID);
-         return daLugarPago.Update(entidad);
+            return daLugarPago.Update(entidad);
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)

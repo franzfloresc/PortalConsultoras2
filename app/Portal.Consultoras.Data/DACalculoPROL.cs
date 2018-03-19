@@ -7,6 +7,7 @@ namespace Portal.Consultoras.Data
     public class DACalculoPROL
     {
         public string URL { get; private set; }
+
         public DACalculoPROL(string urlService)
         {
             URL = urlService;
@@ -21,7 +22,7 @@ namespace Portal.Consultoras.Data
         /// <param name="zona">Codigo Zona</param>
         /// <param name="lstProductos"></param>
         /// <returns></returns>
-        public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona, 
+        public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona,
             string ListaCUVS, string ListaCantidades, string CodigosConcursos)
         {
             List<ObjMontosProl> rtpa;

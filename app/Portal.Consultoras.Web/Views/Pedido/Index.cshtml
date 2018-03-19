@@ -1771,7 +1771,7 @@
         //var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
     }
 
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: #613c87; background-repeat:no-repeat; background-size:cover;" data-popup-body="">
+    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');" data-popup-body="">
         <div class="icono_regalo_sorpresa">
             <img src="/Content/Images/gif-regalo-gano.gif" alt="">
         </div>
@@ -1837,7 +1837,7 @@
         </div>
         *@
     </div>
-    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="background: #613c87; display: none;">
+    <div id="divGanoRegalo" class="content_regalo_sorpresa" style="display: none; background-image: url('/Content/Images/PL20/Banner_desktop.png');">
         <div class="btn_regresa_OF" id="btnCambiarRegalo1">
             <img class="img_regresa_OF" img="" src="/Content/Images/Esika/regresar.png" alt="">
             <span class="span_regresa_OF">CAMBIAR REGALO</span>
@@ -2126,7 +2126,7 @@
         var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
         var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
         var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
-        var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
+        var alertaSugerido = '@Url.Content("~/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg")';
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
         var dataBarra = {};
@@ -2140,7 +2140,6 @@
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';

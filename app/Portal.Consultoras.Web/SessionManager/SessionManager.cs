@@ -1,11 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
-using System.Collections.Generic;
-
 using System;
+using System.Collections.Generic;
 using System.Web;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
@@ -122,6 +123,16 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
+        }
+
+        void ISessionManager.SetHerramientasVenta(HerramientasVentaModel herramientasVenta)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.HerramientasVenta] = herramientasVenta;
+        }
+
+        HerramientasVentaModel ISessionManager.GetHerramientasVenta()
+        {
+            return ((HerramientasVentaModel)HttpContext.Current.Session[Constantes.ConstSession.HerramientasVenta]) ?? new HerramientasVentaModel();
         }
 
         void ISessionManager.SetGuiaNegocio(GuiaNegocioModel modeloGnd)
@@ -292,6 +303,38 @@ namespace Portal.Consultoras.Web.SessionManager
         public bool GetFlagLogCargaOfertas()
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.HabilidarLogCargaOferta] ?? false);
+        }
+
+        void ISessionManager.SetMenuContenedorActivo(MenuContenedorModel menuContenedorActivo)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo] = menuContenedorActivo;
+        }
+
+        MenuContenedorModel ISessionManager.GetMenuContenedorActivo()
+        {
+            return (MenuContenedorModel)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedorActivo]);
+        }
+
+        void ISessionManager.SetMenuContenedor(List<ConfiguracionPaisModel> menuContenedor)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor] = menuContenedor;
+        }
+
+        List<ConfiguracionPaisModel> ISessionManager.GetMenuContenedor()
+        {
+            return (List<ConfiguracionPaisModel>)(HttpContext.Current.Session[Constantes.ConstSession.MenuContenedor]);
+        }
+
+        void ISessionManager.SetSeccionesContenedor(int campaniaId, List<BEConfiguracionOfertasHome> seccionesContenedor)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            HttpContext.Current.Session[seccionesXCampaniaSessionKey] = seccionesContenedor;
+        }
+
+        List<BEConfiguracionOfertasHome> ISessionManager.GetSeccionesContenedor(int campaniaId)
+        {
+            string seccionesXCampaniaSessionKey = Constantes.ConstSession.ListadoSeccionPalanca + campaniaId;
+            return (List<BEConfiguracionOfertasHome>)(HttpContext.Current.Session[seccionesXCampaniaSessionKey]);
         }
 
         void ISessionManager.SetListFiltersFAV(List<ServiceSAC.BETablaLogicaDatos> lista)

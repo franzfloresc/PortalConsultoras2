@@ -333,19 +333,19 @@ namespace Portal.Consultoras.BizLogic
                 var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, codigosConcursos);
                 if (lista != null && lista.Count > 0)
                 {
-                        var datos = lista[0];
+                    var datos = lista[0];
 
-                        decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
-                        decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
-                        decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
-                        decimal.TryParse(datos.MontoEscala, out montoEscala);
+                    decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
+                    decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
+                    decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
+                    decimal.TryParse(datos.MontoEscala, out montoEscala);
 
-                        if (datos.ListaConcursoIncentivos != null)
-                        {
-                            puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
-                            puntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
-                        }
-                    
+                    if (datos.ListaConcursoIncentivos != null)
+                    {
+                        puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
+                        puntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
+                    }
+
                 }
 
                 var bePedidoWeb = new BEPedidoWeb

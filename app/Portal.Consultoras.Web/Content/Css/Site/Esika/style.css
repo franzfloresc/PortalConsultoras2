@@ -562,7 +562,7 @@ header {
     font-size: 10pt;
     line-height: 11.2pt;
     color: #000;
-    background: #fff url('../../../Images/Esika/ayuda.png') no-repeat;
+    background: #FFF url('../../../Images/Esika/ayuda.png') no-repeat;
     background-position: 18px 4px;
 }
 
@@ -1939,9 +1939,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: left;
     width: 20px;
     height: 20px;
-    top: 1px;
+    top: -1px;
     margin-right: 7px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .caja_guardar_pedido {
@@ -4550,7 +4550,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') center center no-repeat;
 }
 
 .texto_notaDemanda {
@@ -26783,7 +26783,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -27101,17 +27101,17 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin-right: 40px;
-    float: left;
-    position: relative;
-    width: 248px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    display: inline-block;
+    height: 338px;
+    margin: 15px 40px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 248px;
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {
@@ -27127,14 +27127,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
 .content_carrusel_agregado .agregado {
-    height: 12px;
+    color: #a18328;
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: .5px;
     text-align: center;
-    color: #a18328;
-    margin-top: 10px;
 }
 
     .content_carrusel_agregado .agregado .icono {
@@ -30439,7 +30437,7 @@ h1#penmostreo .campana {
     width: 7%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: middle;
 }
@@ -31316,7 +31314,7 @@ h1#penmostreo .campana {
 }
 
 .icono_resumen_resolucion {
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     background-position: 0 33px;
 }
 
@@ -31737,7 +31735,7 @@ h1#penmostreo .campana {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
 }
 
 .btn_eliminar_observado {
@@ -31765,7 +31763,7 @@ h1#penmostreo .campana {
     padding-left: 25px;
     margin-top: 25px;
     margin-bottom: 40px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat top left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
     font-family: 'Lato';
     font-size: 11px;
     color: #9b9b9b;
@@ -32661,6 +32659,7 @@ h1#penmostreo .campana {
     padding: 43px 51px;
 }
 /*FICHA PRODUCTO FAV DESKTOP*/
+
 .content_left_ficha {
     float: left;
     width: 43%;
@@ -32676,6 +32675,72 @@ h1#penmostreo .campana {
     .content_ficha_producto img {
         max-height: 300px;
         max-width: 100% !important;
+    }
+.etiqueta_producto_fix{
+display:table;
+width:100%;
+height:286px;
+}
+.content_ficha_producto_fix {
+display: table;
+width: 100%;
+height: 286px;
+}
+.etiqueta_producto_fix .cont_etiqueta_producto {
+display: table-cell;
+vertical-align: middle;
+}
+.etiqueta_producto_fix .cont_etiqueta_producto img{
+margin:auto;
+display:block;
+}
+.content_ficha_producto_fix .cont_etiqueta_producto {
+display: table-cell;
+vertical-align: middle;
+}
+
+.content_ficha_producto_fix .cont_etiqueta_producto img{
+margin: auto;
+display: block;
+}
+.etiqueta_descripcion_fix {
+display: table;
+width: 100%;
+height: 286px;
+}
+.liquidacion_rango_home_fix, .boton_Agregalo_home_fix{
+margin-top:0;
+}
+
+
+.btn_compartir_facebook_ficha {
+width:45%;
+float:none;
+margin-left:0;
+
+display: inline-block;
+}
+.btn_compartir_facebook_ficha_fix {
+    width: 35%;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+}
+.btn_compartir_facebook_ficha img{
+float:left;
+}
+
+.btn_compartir_facebook_ficha_fix_ODD {
+    width: 25px;
+    float: left;
+    margin-right: 5px;
+    text-align: center;
+    margin-left: initial;
+    display: initial;
+}
+
+    .btn_compartir_facebook_ficha_fix_ODD img {
+        float: initial;
     }
 
 .content_right_ficha {
@@ -33012,7 +33077,13 @@ h1#penmostreo .campana {
     margin-top: 30px;
     padding-left: 25px;
 }
-
+.compartir_redes_ficha_fix {
+    margin-top: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
 .texto_compartelo {
     float: left;
     margin-right: 15px;
@@ -33020,13 +33091,29 @@ h1#penmostreo .campana {
     font-size: 12px;
     margin-top: 3px;
 }
-
-.btn_compartir_facebook_ficha {
-    width: 25px;
+.texto_compartelo_fix {
     float: left;
-    margin-right: 5px;
-    text-align: center;
+    font-family: 'Lato';
+    font-size: 12px;
+    /* margin-top: 3px; */
+    width: 60%;
+    text-align: right;
+    margin-right: 3%;
+    height: 42px;
+    padding: 12px 0px;
 }
+.texto_compartelo_fix p {
+display: block;
+height: 39px;
+margin: 0;
+padding: 0;
+padding: 10px 0px;
+}
+.texto_compartelo_fix p div{
+display:block;
+height:30px;
+}
+
 
 .opcion_escala_descuento {
     position: relative;
@@ -33106,7 +33193,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12.5px;
     padding-left: 25px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat left;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat left;
     padding-top: 3px;
     margin-top: 30px;
 }
@@ -33124,8 +33211,16 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-weight: 400;
     margin-right: 10px;
+    width:90px;
 }
-
+.precios_para_ti {
+    margin-top: -3px;
+    display: inline-table;
+}
+    .precios_para_ti p {
+        display: block;
+        margin-bottom: 0px;
+    }
 .ganancia_ficha {
     color: #e81c36;
     font-weight: 400;
@@ -33147,8 +33242,7 @@ h1#penmostreo .campana {
 }
 
 .cantidad_producto_opt {
-    width: 4%;
-    float: left;
+    margin-right: 5px;
 }
 
 .sub_precio {
@@ -33623,21 +33717,26 @@ h1#penmostreo .campana {
     color: #a18328;
 }
 /*SHOWROOM*/
+
+.contenedor_productos_showroom {
+    display: block;
+    position: relative;
+    text-align: left;
+}
+
 .set-productos-showroom {
     background-color: white;
-    margin-right: 2.6%;
-    float: left;
-    position: relative;
-    width: 23%;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
+    border: 1px solid #e6e3e3;
     -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
-    margin-bottom: 15px;
-    margin-top: 15px;
-    border: 1px solid #e6e3e3;
+    display: inline-block;
+    height: 338px;
+    margin: 15px 25.516px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 240.66px;
 }
 
     .set-productos-showroom:nth-child(4n) {
@@ -33893,7 +33992,7 @@ h1#penmostreo .campana {
 
 .notificacion_compra {
     margin-left: 29%;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
     background-size: 16px 16px;
     font-family: 'Lato';
     font-size: 11px;
@@ -35069,7 +35168,7 @@ h1#penmostreo .campana {
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -35709,16 +35808,17 @@ h1#penmostreo .campana {
 }
 /*SPRINT 18*/
 .content_regalo_sorpresa {
-    display: inline-block;
-    width: 308px;
-    min-height: 608px;
-    margin: 35px -9px 0 0;
-    /*background: url('../../../Images/Esika/bg_regalo_chile.png') no-repeat;*/
+    background-repeat: no-repeat;
     background-size: 100% 100%;
-    vertical-align: top;
-    z-index: 21;
-    position: relative;
+    background-position: center center;
+    display: inline-block;
+    margin: 35px -13px 0 0;
+    min-height: 608px;
     padding: 25px 25px 0 25px;
+    position: relative;
+    vertical-align: top;
+    width: 308px;
+    z-index: 21;
 }
 
 .fondo_blanco_regalo {
@@ -36215,27 +36315,6 @@ h1#penmostreo .campana {
     font-size: 17px;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        margin: 5% auto auto auto;
-        width: 432px;
-        height: 432px;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-            color: white;
-        }
-
 .desactivar_boton_popup_confirma_datos {
     background: #e0e0e0;
 }
@@ -36270,61 +36349,6 @@ h1#penmostreo .campana {
     100% {
         opacity: 1;
     }
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 280px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
-        letter-spacing: 1px;
-        line-height: 35px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 280px;
-        margin: auto;
-        margin-bottom: 35px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        background: #e81c36;
-        color: white;
-        text-align: center;
-        max-width: 240px;
-        display: block;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 17px 0;
-        letter-spacing: 1px;
-        margin: auto;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-    }
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-top: -20px;
-    margin-left: 30px;
 }
 
 .contenedor_fondo_popup {

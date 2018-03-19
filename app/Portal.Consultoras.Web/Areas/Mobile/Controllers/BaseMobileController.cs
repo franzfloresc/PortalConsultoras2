@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                BuildMenuMobile(userData,revistaDigital);
+                BuildMenuMobile(userData, revistaDigital);
                 CargarValoresGenerales(userData);
 
                 bool mostrarBanner, permitirCerrarBanner = false;
@@ -82,11 +82,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                ViewBag.MostrarOfertaDelDia =
-                        !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
-                        && userData.TieneOfertaDelDia 
-                        && ofertaDelDia != null 
-                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    ViewBag.MostrarOfertaDelDia =
+                            !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
+                            && userData.TieneOfertaDelDia
+                            && ofertaDelDia != null
+                            && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -181,6 +181,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             return false;
         }
+
         private bool NuncaMostrarBannerPL20()
         {
             string controllerName = ControllerContext.RouteData.Values["controller"].ToString();

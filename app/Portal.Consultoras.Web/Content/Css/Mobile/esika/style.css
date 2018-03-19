@@ -3801,21 +3801,6 @@ table > thead > tr > th {
         color: black;
     }
 
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
-}
-
 .imagen_mobile_hoy {
     margin-top: 10px;
     margin-left: 50px;
@@ -9751,7 +9736,7 @@ a {
     color: black;
     font-weight: 700;
     margin-top: 20px;
-    background: #f3f3f3 url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: #f3f3f3 url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     background-position: 10px 10px;
     padding: 10px 10px 10px 43px;
     position: relative;
@@ -9801,7 +9786,7 @@ a {
     margin-right: 2%;
     height: 20px;
     background-size: cover;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center center;
     display: inline-block;
     vertical-align: top;
     margin-top: 2px;
@@ -10852,7 +10837,24 @@ a {
     font-family: 'Lato';
     position: relative;
 }
+.content_oferta_guia_negocio::after{
+    content:"";
+    display:block;
+    width:100%;
+    height:30px;
+}
+.precio_para_ti_048_izquierdo {
+    display: inline-block;
+    width: 90px;
+}
 
+.precio_para_ti_048_derecho {
+    display: inline-block;
+}
+
+.precio_para_ti_portantos {
+    margin-left: 90px;
+}
 .etiqueta_guia_negocio {
     background: black;
     width: 70px;
@@ -12314,7 +12316,7 @@ a {
     margin-bottom: 15px;
     top: 1px;
     margin-right: 7px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') center center no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') center center no-repeat;
 }
 
 .tono_select_opt {
@@ -12341,14 +12343,15 @@ a {
 
 .alerta_notificacion {
     font-family: 'Lato';
-    width: 250px;
+    width: 74%;
     text-align: center;
     height: 20px;
     margin: 0 auto;
     font-size: 12px;
     letter-spacing: .2px;
     padding-left: 29px;
-    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
+    background: url('../../../Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat;
+    margin-top: 20px;
 }
 
 .texto_sin_tono {
@@ -13668,11 +13671,11 @@ a {
 }
 
 .btn_regalo_sorpresa {
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
+    background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
+    background-position: center center;
     height: 92px;
     vertical-align: middle;
-    /*background: #613c87 url('../../../Images/mobile/icono_regalo.png') no-repeat;*/
 }
 
 .txt_regalo_sorpresa {
@@ -13743,20 +13746,19 @@ a {
 }
 
 .ContentSorpresaMobile {
-    display: none;
-    margin: 4% auto 5% auto;
-    right: 0;
+    background-color: #B72C3B;
+    background-repeat: no-repeat;
+    background-position: center top;
     left: 0;
-    position: absolute;
-    width: 95%;
+    margin: 4% auto 5% auto;
     max-width: 400px;
     min-height: 815px;
+    right: 0;
+    position: absolute;
     top: 0;
-    z-index: 1000;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background-size: cover !important;
     vertical-align: middle;
+    width: 95%;
+    z-index: 1000;
 }
 
 .btn_regresa_OF {
@@ -14378,134 +14380,6 @@ a {
     }
 /*FIN BANNER APP*/
 
-/* NUEVO POPUP SUSCRIBIRSE RD */
-
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 2.9% !important;
-        width: 390px;
-        margin: auto;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 28px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 300;
-                margin-bottom: 0;
-                display: block;
-                width: 250px;
-                margin: auto;
-                line-height: 30px;
-                margin-bottom: 15px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 30px;
-                letter-spacing: 1px;
-                line-height: 35px;
-                text-align: center;
-                color: white;
-                font-weight: 700;
-                margin-top: 10px;
-                letter-spacing: 1px;
-                margin-bottom: 36px;
-                display: block;
-                width: 250px;
-                margin: auto;
-                margin-bottom: 35px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-                background: #e81c36;
-                display: inline;
-                vertical-align: middle;
-                text-transform: uppercase;
-                text-align: center;
-                margin: auto;
-            }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 1.4% !important;
-        width: 390px;
-        margin: auto;
-        display: table;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-                font-size: 28px;
-                letter-spacing: 1px;
-                text-align: center;
-                color: white;
-                font-weight: 300;
-                margin-bottom: 0;
-                display: block;
-                width: 250px !important;
-                margin: auto;
-                line-height: 30px;
-                margin-bottom: 15px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-                font-size: 30px;
-                letter-spacing: 1px;
-                line-height: 35px;
-                text-align: center;
-                color: white;
-                font-weight: 700;
-                margin-top: 10px;
-                letter-spacing: 1px;
-                margin-bottom: 36px;
-                display: block;
-                width: 250px !important;
-                margin: auto;
-                margin-bottom: 35px;
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-                background: #e81c36;
-                color: white;
-                text-align: center;
-                max-width: 240px;
-                display: block;
-                font-size: 17px;
-                text-decoration: none;
-                padding: 17px 0;
-                letter-spacing: 1px;
-                margin: auto;
-                box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
-            }
-
-            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-                color: white;
-            }
-
 /* POP UP ACTUALIZA DATOS*/
 .boton_popup_confirmacion_datos {
     background: #e81c36 !important;
@@ -14609,14 +14483,19 @@ a {
                 display: inline;
                 position: absolute;
                 padding: 0px 10px;
-                /* width: 20px; */
                 margin-top: 14px;
-                /* width: 20px; */
             }
 
                 .popup_confirmacion_datos .form-datos .input img.phone {
                     margin-top: 10px;
                     margin-left: 4px;
+                    width: 32px;
+                    height: auto;
+                }
+
+                .popup_confirmacion_datos .form_datos .input img.envelope{
+                    width: 40px;
+                     height: auto;
                 }
 
                 .popup_confirmacion_datos .form-datos .input img.info {
@@ -14660,6 +14539,64 @@ a {
     background: #e81c36 !important;
 }
 
+.contenedor_circulos {
+    display: none;
+    position: absolute;
+    z-index: 500;
+    left: 23px;
+    top: 6px;
+}
+
+.circulo-1, .circulo-2, .circulo-3 {
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    background: #e81c36;
+    z-index: 500;
+}
+
+.circulo-1.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-2.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+.circulo-3.iniciarTransicion {
+    animation: circulo;
+    animation-duration: 1.5s;
+    animation-delay: .3s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+
+@keyframes circulo {
+    0% {
+        top: 12px;
+        left: 7px;
+        opacity: .8;
+        width: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -14px;
+        left: -21px;
+        width: 58px;
+        height: 58px;
+    }
+}
+
 @media (max-width:400px) {
     .popup_confirmacion_datos {
         padding: 0px 15px !important;
@@ -14699,95 +14636,18 @@ a {
     }
 }
 
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 29px;
-    margin-top: -20px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 24px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-    font-size: 26px;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-    font-size: 13px;
-    padding: 14.5px 0;
-    border: none;
-}
-
-.contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-    position: absolute;
-    margin-left: 0;
-    margin-top: -49px;
-}
-
 .content_pop_up_intriga {
     HEIGHT: 100%;
     display: table;
     width: 100%;
 }
 
-.contenido-popup-nuevo-2017 {
-    display: table-cell;
-    vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
-
 @media (max-width: 1024px) {
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 24px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 26px;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        font-size: 13px;
-        padding: 14.5px 0;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-        position: absolute;
-        margin-left: 0;
-        margin-top: -49px;
-    }
-
     .contenido .centrar-estructura {
         height: 80%;
     }
 }
 
-@media (max-width: 500px) {
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        width: 92%;
-        margin-top: 4.9% !important;
-    }
-}
-
-@media (max-width: 400px) {
-
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        width: 100%;
-    }
-
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        padding: 0;
-    }
-
-        .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
-            margin-left: -19px;
-            margin-top: -30px;
-        }
-}
 /* FIN NUEVO POPUP SUSCRIBIRSE RD */
 
 .text-uppercase {

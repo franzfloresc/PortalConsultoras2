@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPager pag = new BEPager();
 
-            var recordCount = string.IsNullOrEmpty(vBusqueda) 
+            var recordCount = string.IsNullOrEmpty(vBusqueda)
                 ? lst.Count
                 : lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 

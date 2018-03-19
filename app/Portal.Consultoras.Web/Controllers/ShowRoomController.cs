@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -1615,6 +1616,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tipo == 1)
                 {
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                    entidad.TipoEstrategiaID = model.ConfiguracionOfertaID;
                 }
                 else if (tipo == 2)
                 {
@@ -2312,7 +2314,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PedidoServiceClient())
                 {
-                    sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId);
+                    sv.EliminarEstrategiaProductoAll(userData.PaisID, estrategiaId, userData.CodigoConsultora);
                 }
 
                 return Json(new

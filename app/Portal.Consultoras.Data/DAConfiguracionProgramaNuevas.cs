@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(command);
             }
         }
+
         public bool InsConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionProgramaNuevasApp"))

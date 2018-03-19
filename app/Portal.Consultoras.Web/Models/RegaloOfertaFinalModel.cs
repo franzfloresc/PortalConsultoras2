@@ -1,5 +1,5 @@
-﻿using System;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
 
         public string RegaloDescripcion { get; set; }
-   
+
         public string RegaloImagenUrl { get; set; }
 
         public decimal MontoPedidoFinal { get; set; }

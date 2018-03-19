@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
 
             return Context.ExecuteReader(command);
-        }       
+        }
 
         public IDataReader GetPedidoWebDetalleByPedidoValidado(int CampaniaID, long ConsultoraID)
         {
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Data
 
             int result = Context.ExecuteNonQuery(command);
             return result;
-        } 
+        }
 
         public short DelPedidoFICDetalleByCUV(int CampaniaID, int PedidoID, string CUV)
         {
