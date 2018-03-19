@@ -134,5 +134,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+
+        IShowRoom ShowRoom { get; }
     }
 }

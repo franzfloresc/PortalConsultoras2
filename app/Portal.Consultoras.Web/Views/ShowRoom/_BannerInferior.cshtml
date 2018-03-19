@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+@model Portal.Consultoras.Web.Models.Estrategia.ShowRoom.IBannerInferiorConfiguracion
+
+<link href="@Url.Content("~/Content/Css/Site/ShowRoom.css")" rel="stylesheet" />
+
+@if (Model.Activo)
+{
+    if (Model.SeDebeMostrar(Request))
+    {
+        var routeRedirect = string.IsNullOrEmpty(Model.UrlRedireccion) ? "#" : Model.UrlRedireccion;
+
+        <div class="showroom_banner_inferior" id="showroom_banner_inferior">
+            <a href="@routeRedirect">
+                <img class="showroom_banner_img" src="@Model.UrlImagen">
+            </a>
+            <div class="showroom_banner_boton" id="showroom_banner_boton">
+                <a href="javascript:;">
+                    <div class="draw_close" alt="Cerrar"></div>
+                </a>
+            </div>
+        </div>
+    }
+}
+
+@{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/BannerInferior.js")"></script>
+    <script type="text/javascript">
+        function ready(fn) {
+            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                fn();
+            } else {
+                document.addEventListener('DOMContentLoaded', fn);
+            }
+        }
+
+        ready(function () {
+            ready(belcorp.showroom.initialize({
+                banner: document.getElementById("showroom_banner_inferior"),
+                botonCerrar: document.getElementById("showroom_banner_boton"),
+                urlDesactivarBarra: '@Url.Action("DesactivarBannerInferior", "ShowRoom")'
+            }));
+        })
+    </script>
+}
