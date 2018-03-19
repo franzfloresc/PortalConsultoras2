@@ -296,7 +296,6 @@
 
     .btn_diagonal:after {
         content: '';
-        background: #000;
         color: #fff;
         position: absolute;
         top: 0;
