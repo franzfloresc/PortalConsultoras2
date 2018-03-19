@@ -28,14 +28,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -106,14 +102,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
+	BEGIN
  
-
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -183,14 +175,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
+	BEGIN
  
-
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -260,14 +248,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -337,14 +321,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -414,14 +394,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -461,6 +437,7 @@ END
 END
 
 go
+
 USE BelcorpGuatemala
 GO
 
@@ -491,14 +468,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -568,14 +541,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -645,14 +614,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -722,14 +687,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
+	BEGIN	
  
-
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -799,14 +760,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
- 
+	BEGIN
 
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
@@ -876,14 +833,10 @@ BEGIN
 	INNER JOIN ods.Campania c(NOLOCK) ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 
- 
-	  
-
 	IF (@CategoriaApoyada = '1')
-BEGIN
+	BEGIN
  
-
-				SELECT distinct e.cuv2 AS CUV
+		SELECT distinct e.cuv2 AS CUV
 			,e.DescripcionCUV2 AS NombreComercial
 			,e.precio AS PrecioValorizado
 			,COALESCE(e.precio2, o.PrecioCatalogo) AS PrecioCatalogo
