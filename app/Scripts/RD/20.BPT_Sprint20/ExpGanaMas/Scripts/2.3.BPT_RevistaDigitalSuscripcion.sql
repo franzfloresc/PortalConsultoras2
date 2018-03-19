@@ -34,18 +34,6 @@ BEGIN
 END
 GO
 
-USE BelcorpVenezuela
-GO
-
-IF NOT EXISTS(SELECT * FROM SYS.COLUMNS C
-	JOIN SYS.OBJECTS  O ON C.[OBJECT_ID] = O.[OBJECT_ID]
-	WHERE  O.TYPE = 'U'  AND O.NAME = 'RevistaDigitalSuscripcion'
-		AND C.NAME = 'SubOrigen')
-BEGIN
-	ALTER TABLE RevistaDigitalSuscripcion ADD SubOrigen varchar(200)
-END
-GO
-
 USE BelcorpSalvador
 GO
 

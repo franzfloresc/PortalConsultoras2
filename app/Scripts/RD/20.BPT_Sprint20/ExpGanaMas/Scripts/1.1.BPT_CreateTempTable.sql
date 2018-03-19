@@ -49,23 +49,6 @@ BEGIN
 END
 GO
 
-USE BelcorpVenezuela
-GO
-
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ConsultoraNuevaTemporal]') AND type in (N'U'))
-	DROP TABLE [ConsultoraNuevaTemporal]
-	
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ConsultoraNuevaTemporal]') AND type in (N'U'))
-BEGIN
-	CREATE TABLE [ConsultoraNuevaTemporal]
-	(
-		[CodigoConsultora] [varchar](55) NULL,
-		[Campania] [varchar](6) NULL,
-		[Origen] [varchar](55) NULL -- Registrada (activa), Egreso/Egresada, Retirada (activa)
-	)
-END
-GO
-
 USE BelcorpSalvador
 GO
 
