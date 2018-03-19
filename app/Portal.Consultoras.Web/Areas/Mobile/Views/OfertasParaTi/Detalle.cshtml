@@ -32,7 +32,9 @@
             position: relative;
             top: -2px;
         }
+
     </style>
+    @Styles.Render("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle")
 }
 
 <div class="titulo_mobile" style="display:none;">
@@ -297,7 +299,7 @@
 }
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
@@ -305,7 +307,7 @@
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlRetorno =  $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
-</script>
+    </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
 

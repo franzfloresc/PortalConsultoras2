@@ -142,7 +142,6 @@
 
         $("#ddlOrigen").change(function () {
             if ($(this).val() == 1) {
-                //$("#chkEsRechazado").attr('checked', false);
             }
         });
 
@@ -173,10 +172,6 @@
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
-            //if ($("#ddlZona").val() == "") {
-            //    alert("Debe seleccionar una Zona, verifique");
-            //    return false;
-            //}
             waitingDialog({});
 
             var paisID = jQuery.trim($("#ddlPais").val());

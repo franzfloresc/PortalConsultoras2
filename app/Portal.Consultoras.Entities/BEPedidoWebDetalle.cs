@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
 
-            
+
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)

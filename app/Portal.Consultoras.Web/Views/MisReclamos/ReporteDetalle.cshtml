@@ -24,21 +24,9 @@
                 return false;
             }
 
-            //if (jQuery.trim($("#ddlPais").val()) == 3 || jQuery.trim($("#ddlPais").val()) == 11) {
             $("#hdTipoConsulta").val('1');
             fnGrilla();
-            //}
-            //else {
-            //    if (jQuery.trim($("#ddlRegion").val()) == "") {
-            //        alert("Debe seleccionar una Región, verifique");
-            //        return false;
-            //    } else {
-            //        $("#hdTipoConsulta").val('1');
-            //        fnGrilla();
-            //    }
-            //}
-
-
+            
         });
 
         $('#ddlCampania').click(function () {
@@ -103,7 +91,7 @@
                 CodigoConsultora: function () { return jQuery.trim($("#CodigoConsultora").val()); },
                 Estado: function () { return jQuery.trim($("#ddlEstado").val()); },
                 Consulta: function () { return jQuery.trim($("#hdTipoConsulta").val()); },
-                TipoConsultora: function () { return jQuery.trim($("#dllTipoConsultora").val()); } //EPD-2582
+                TipoConsultora: function () { return jQuery.trim($("#dllTipoConsultora").val()); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -133,11 +121,9 @@
                 { name: 'Reclamo', index: 'Reclamo', width: 30, editable: true, resizable: false },
                 { name: 'EstadoDetalle', index: 'EstadoDetalle', width: 30, editable: true, resizable: false, align: 'center' },
                 { name: 'MotivoRechazo', index: 'MotivoRechazo', width: 30, editable: true, resizable: false },                   
-                //EPD-2582 INICIO
                 { name: 'TipoConsultora', index: 'TipoConsultora', width: 30, editable: true, resizable: false, align: 'center' },
                 { name: 'TipoDespacho', index: 'TipoDespacho', width: 30, editable: true, resizable: false, align: 'center' },
                 { name: 'FleteDespacho', index: 'FleteDespacho', width: 30, editable: true, resizable: false, align: 'right' },
-                //EPD-2582 FIN
                 { name: 'OrigenCDRWeb', index: 'OrigenCDRWeb', width: 30, editable: true, resizable: false, align: 'center'}
             ],
             jsonReader:
@@ -187,10 +173,6 @@
             return false;
         }
         var RegionID = jQuery.trim($("#ddlRegion").val());
-        //if (RegionID == "") {
-        //    alert("Debe seleccionar una región.");
-        //    return false;
-        //}
 
         var ZonaID = jQuery.trim($("#ddlZona").val());
 

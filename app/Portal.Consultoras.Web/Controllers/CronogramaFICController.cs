@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string fileName = "PlantillaModelFIC.xlsx";
             string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-            //string httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+
             if (!Directory.Exists(pathfaltante))
                 Directory.CreateDirectory(pathfaltante);
             var finalPath = Path.Combine(pathfaltante, fileName);
@@ -506,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoFaltante");
-                //string httpPath = Url.Content("~/Content/ArchivoFaltante") + "/" + fileName;
+
                 if (!Directory.Exists(pathfaltante))
                     Directory.CreateDirectory(pathfaltante);
                 var finalPath = Path.Combine(pathfaltante, fileName + fileextension);

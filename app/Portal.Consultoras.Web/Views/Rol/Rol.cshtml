@@ -312,11 +312,9 @@
                         },
                         plugins: ["themes", "json_data", "ui", "checkbox"],
                     }).bind("loaded.jstree", function (event, data) {
-                        //$(this).jstree("select_node", data).trigger("select_node.jstree");
                         $(this).jstree("open_all");
                         closeWaitingDialog();
                         ShowDialog('DialogPermisos');
-                        // $(this).jstree('check_node', 'li[selected=selected]');
                     });
                 }
             });

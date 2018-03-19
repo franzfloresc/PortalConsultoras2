@@ -10,11 +10,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-<div class="back-to" onClick="RedireccionarContenedorComprar()">
-    <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
-</div>
-
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="video-visual">
         <div class="video-container">
@@ -27,7 +23,7 @@
     <div class="contenedor-suscripcion" style="text-align: center;">
         <div class="logo"></div>
         <p class="sblogo">
-            OFERTAS A TU MEDIDA, SEGÚN LO QUE SIEMPRE PIDES ¡Y MUCHO MÁS!
+            CONOCE SUS BENEFICIOS EXCLUSIVOS <br/>¡Y ÚNETE YA!
         </p>
         <div class="caja-gana-mas pack-medida">
             <div class="caja-gana-mas-cont">
@@ -46,10 +42,10 @@
         <div class="caja-gana-mas codigos">
             <div class="caja-gana-mas-cont">
                 <p class="titulo-bloque">
-                    SIN CÓDIGOS
+                    MENOS CÓDIGOS QUE DIGITAR
                 </p>
                 <span class="txt-bloque">
-                    No vas a tener que digitar códigos, todo será más rápido. <br>
+                    Tendrás menos códigos que digitar, todo será más rápido. <br>
                     <span class="txt-img">
                         <span class="txt-img-cont txt-img-cont-dos">
                         </span>
@@ -75,7 +71,7 @@
     </div>
 </div>
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete || Model.Origen == Constantes.RevistaDigitalOrigen.Nueva)
 {
     <div class="como-funciona">
         <div class="contenedor-suscripcion">
@@ -89,10 +85,10 @@
             <div class="caja-club-derecha">
                 <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
                 <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
-                <hr />
+                <hr class="dorado" />
                 <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
                 <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
-                <hr />
+                <hr class="dorado" />
                 <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
                 <span class="cont-caja-club">¡Lo digital es para ti!</span>
             </div>
@@ -109,17 +105,17 @@ else
                 ¿CÓMO FUNCIONA?
             </p>
             <div class="caja-texto">
-                <span class="nro">-</span>
+                <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
                     En esta campaña te suscribes al Club GANA+.
                 </span>
                 <div class="clear"></div>
-                <span class="nro">-</span>
+                <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
-                    Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
+                    Para tu próximo pedido, <b>dejarás de recibir la revista guía de negocio impresa.</b>
                 </span>
                 <div class="clear"></div>
-                <span class="nro mobil-nro-funciona">-</span>
+                <span class="nro mobil-nro-funciona"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt mobil-nro-funciona">
                     En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
                 </span>
@@ -139,7 +135,31 @@ else
     </div>
 }
 
-@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+@if(Model.Origen == null || Model.Origen == Constantes.RevistaDigitalOrigen.RD)
+{
+<div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
+    <div class="contenedor-suscripcion">
+        @if (Model.EsSuscrita)
+        {
+            <p class="txt-deseas-cancelar">
+                ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+            </p>
+            <span class="deseas-cancelar">
+                Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+            </span>
+            <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
+        }
+        else
+        {
+            <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
+        }
+        <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
+            VER TÉRMINOS Y CONDICIONES
+        </a>
+    </div>
+</div>
+}
+else if(Model.CancelarSuscripcion)
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
@@ -150,30 +170,6 @@ else
                 </p>
                 <span class="deseas-cancelar">
                     Cancela tu suscripción haciendo clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-                </span>
-                <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
-            }
-            else
-            {
-                <a href="javascript: RDSuscripcion();" class="suscribete-btn">SUSCRÍBETE GRATIS AQUÍ</a>
-            }
-            <a href="javascript: MostrarTerminos();" class="ver-terminos" style="text-decoration:underline;">
-                VER TÉRMINOS Y CONDICIONES
-            </a>
-        </div>
-    </div>
-}
-else
-{
-    <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
-        <div class="contenedor-suscripcion">
-            @if (Model.EsSuscrita)
-            {
-                <p class="txt-deseas-cancelar">
-                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-                </p>
-                <span class="deseas-cancelar">
-                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
@@ -245,20 +241,24 @@ else
     </div>
 </div>
 
-@Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml", Model)
 
 @section scripts{
-    <script src="https://www.youtube.com/player_api"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script type="text/javascript">
         var done = false;
-        var player;
+       
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var isScroll = false;
         var videoKey = '@Model.Video';
         var estaSuscrita = '@Model.EsSuscrita';
+        
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var player;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

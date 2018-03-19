@@ -1204,7 +1204,7 @@ function CargarBanners() {
 
                             var attibutes = '';
                             if (objData.URL.length > 0) {
-                                if (objData.GrupoBannerID == -5) {
+                                if (viewBagTieneHV && objData.GrupoBannerID == -5) {
                                     attibutes += "onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'Ofertas#HV' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
                                 } else {
                                     attibutes += "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + objData.URL + "','" + trackingText + "','0','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "');\"";
