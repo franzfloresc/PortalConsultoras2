@@ -27207,15 +27207,17 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin-right: 2%;
-    float: left;
-    position: relative;
-    width: 248px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    padding-bottom: 12px;
-    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    display: inline-block;
+    height: 338px;
+    margin: 15px 40px 15px 0;
+    padding-bottom: 12px;
+    position: relative;
+    vertical-align: top;
+    width: 248px;
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {
