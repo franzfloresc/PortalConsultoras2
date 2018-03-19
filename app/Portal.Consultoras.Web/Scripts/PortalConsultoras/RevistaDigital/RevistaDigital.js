@@ -38,7 +38,8 @@ $.fn.followTo = function (elem) {
                     $('#seccion-fixed-menu').css("position", "relative");
                 } else {
                     topAltura = alturaH;
-                    $bumper.addClass("menu-fixed");
+                    //$bumper.addClass("menu-fixed");
+                    $bumper.css("position", "fixed");
                 }
                 
                 $bumper.css({
@@ -54,7 +55,7 @@ $.fn.followTo = function (elem) {
                     //$('#seccion-fixed-menu').css("top", "29px");
 
                 } else {
-                    $bumper.removeClass("menu-fixed");
+                    $bumper.css("position", "");
                 }
                 $bumper.css({
                     top: 0

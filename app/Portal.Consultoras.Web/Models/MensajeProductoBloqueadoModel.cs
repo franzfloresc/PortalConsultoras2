@@ -15,5 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeTitulo { get; set; }
         public bool IsMobile { get; set; }
         public bool MensajeTieneDudas { get; set; }
+        public string MensajePopupPrimero { get; set; }
+        public string MensajePopupSegundo { get; set; }
     }
 }

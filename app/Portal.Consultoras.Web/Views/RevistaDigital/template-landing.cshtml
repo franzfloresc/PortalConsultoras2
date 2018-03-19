@@ -22,8 +22,8 @@
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
 
         @if (!Model.ProductosPerdio)
-    {
-        <div id="orderby-filter" style="padding: 0px 2%;">
+        {
+            <div id="orderby-filter" style="padding: 0px 2%;">
             <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
                 <div class="rd-seccion2" style="padding: 0px 0%; height:auto;">
 
@@ -39,41 +39,97 @@
                     </div>
                     <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
                         @if (Model.FiltersByBrand.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                            @foreach (var item in Model.FiltersByBrand)
                         {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                    }
-                        </select>
-                }
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                @foreach (var item in Model.FiltersByBrand)
+                                {
+                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                }
+                            </select>
+                        }
                         @if (Model.FiltersBySorting.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                            @foreach (var item1 in Model.FiltersBySorting)
                         {
-                            <option value="@item1.Codigo">@item1.Descripcion</option>
-                    }
-                        </select>
-                }
-
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                @foreach (var item1 in Model.FiltersBySorting)
+                                {
+                                    <option value="@item1.Codigo">@item1.Descripcion</option>
+                                }
+                            </select>
+                        }
                     </div>
                     <div style="clear:both;"></div>
                 </div>
             </div>
         </div>
-}
+        }
 
        
-        <div id="RDListado" data-content-item="@Model.CampaniaID"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
-             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+            <div id="RDListado" data-content-item="@Model.CampaniaID"
+                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
 
-            <div id="divOfertaProductos" style="text-align: center;"></div>
-            <hr class="clear" />
-            @if (Model.ProductosPerdio)
+                <div id="divOfertaProductos" style="text-align: center;"></div>
+                <hr class="clear" />
+                @if (Model.ProductosPerdio)
     {
-        <div>
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+
+            <style>
+                .contenedor_ganamas {
+                    width: 100%;
+                    max-height: 500px;
+                    overflow: hidden;
+                }
+
+                    .contenedor_ganamas .sb_contenedor_ganamas_bg {
+                        width: 100%;
+                        height: 230px;
+                        background-color: #deaf0c;
+                        position: relative;
+                        z-index: 150;
+                    }
+
+                    .contenedor_ganamas .sb_contenedor_ganamas_bg_two {
+                        width: 100%;
+                        height: 150px;
+                        background-color: #deaf0c;
+                        position: relative;
+                        z-index: 60;
+                    }
+
+                    /*.contenedor_ganamas .sb_contenedor_ganamas {
+                        max-width: 1189px;
+                        margin: auto;
+                        position: relative;
+                        top: -200px;
+                        z-index: 100;
+                    }
+
+                    .contenedor_ganamas .sb_contenedor_ganamas .head_gana_mas .club_logo {
+                        display: inline-block;
+                        width: 20%;
+                    }*/
+
+                .contenido_gana_mas_ns {
+                    top: -100px;
+                    z-index: 100;
+                }
+            </style>
+            <div id="block_inscribete" class="contenedor_ganamas">
+                <div class="sb_contenedor_ganamas_bg"></div>
+                <div class="sb_contenedor_ganamas_bg_two"></div>
+            </div>
+
+            <div class="contenido_gana_mas_ns">
+                <hr class="clear" />
+                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
+                <hr class="clear" />
+            </div>
+
+}
+else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+{
             <div id="block_inscribete">
                 <div class="content_belcorp">
                     <div class="block_inscribete_predio">
@@ -82,12 +138,25 @@
                     </div>
                 </div>
             </div>
-            <hr class="clear" />
-            <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
-            <hr class="clear" />
-        </div>
 }
-        </div>
+else
+{
+            <div>
+                <div id="block_inscribete">
+                    <div class="content_belcorp">
+                        <div class="block_inscribete_predio">
+                            <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
+                            <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+}
+
+
+}
+            </div>
     </div>
     <hr class="clear" />
     <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>

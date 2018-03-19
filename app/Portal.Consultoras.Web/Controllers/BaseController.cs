@@ -3991,22 +3991,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.IsMobile = IsMobile();
 
-            string codigo;
-            if (revistaDigital.EsSuscrita)
+            string codigo = String.Empty;
+            if (revistaDigital.EsActiva)
             {
                 model.MensajeIconoSuperior = true;
                 codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
                 model.BtnInscribirse = false;
+                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+                model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
             }
-            else
+            else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
             {
-                model.MensajeIconoSuperior = false;
-                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-                model.BtnInscribirse = true;
+                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoSNA;
+                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
+                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
+            }
+            else if (!revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.PopupBloqueadoNS;
+                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+                model.MensajePopupPrimero = dato == null ? "" : Util.Trim(dato.Valor1);
+                model.MensajePopupSegundo = dato == null ? "" : Util.Trim(dato.Valor2);
             }
 
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+           
 
             return model;
         }

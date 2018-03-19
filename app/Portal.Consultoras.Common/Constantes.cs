@@ -1182,11 +1182,15 @@ namespace Portal.Consultoras.Common
                 public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
                 public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
                 public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+                public const string PopupBloqueadoNS = "PopupBloqueadoNS";
+                public const string PopupBloqueadoSNA = "PopupBloqueadoSNA";
                 #endregion
 
                 #region Revista Digital Lo que te perdiste
                 public const string DPerdiste = "DPerdiste";
                 public const string MPerdiste = "MPerdiste";
+                public const string NSPerdiste = "NSPerdiste";
+                public const string SNAPerdiste = "SNAPerdiste";
                 #endregion
 
                 #region Inicio Revista Digital - Banner

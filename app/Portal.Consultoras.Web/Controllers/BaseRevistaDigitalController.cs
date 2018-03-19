@@ -147,8 +147,23 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = new ConfiguracionPaisDatosModel();
             if (TieneProductosPerdio(campaniaId))
             {
-                dato = revistaDigital.ConfiguracionPaisDatos
+                if (!revistaDigital.EsSuscrita)
+                {
+                    dato = revistaDigital.ConfiguracionPaisDatos
+                   .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NSPerdiste);
+                }
+                else if(revistaDigital.EsSuscrita&&!revistaDigital.EsActiva)
+                {
+                    dato = revistaDigital.ConfiguracionPaisDatos
+                   .FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste);
+                    dato.Valor2 = dato.Valor2.Replace("#campania", revistaDigital.CampaniaActiva);
+                }
+                else
+                {
+                    dato = revistaDigital.ConfiguracionPaisDatos
                     .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
+                }
+                
                 dato = dato ?? new ConfiguracionPaisDatosModel();
                 dato.Estado = true;
             }
