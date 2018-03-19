@@ -447,7 +447,6 @@ Image .nav0:hover {
     }
 
 .user2 {
-    /* background: url('../images/user_ico2.png') top left no-repeat;*/
     font-family: 'icomoon';
 }
 
@@ -1153,8 +1152,6 @@ h1, h2, h3, h4, h5, h6 {
     height: 55px;
     width: 88%;
     background:#000;
-    /*background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
-    background-position: right;*/
     font-family:'Lato';
     color: white;
     line-height: 55px;

@@ -118,7 +118,6 @@
         margin: auto;
         color: #ffffff;
         margin-bottom: 22px;
-        /* margin-left: -6%; */
         word-wrap: break-word;
     }
 
@@ -133,7 +132,6 @@
         color: #ffffff;
         width: 100%;
         border: 1px solid white;
-        /* padding: 18.6px 0px; */
         height: 46px;
         padding: 13px 0px;
         display: block;
