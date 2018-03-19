@@ -3,7 +3,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -13,8 +13,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -25,7 +24,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -35,8 +34,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -47,7 +45,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -57,8 +55,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -69,7 +66,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -79,8 +76,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -91,7 +87,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -101,8 +97,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -113,7 +108,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -123,8 +118,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -135,7 +129,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -145,8 +139,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -157,7 +150,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -167,8 +160,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -179,7 +171,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -189,8 +181,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -201,7 +192,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -211,8 +202,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -223,7 +213,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -233,8 +223,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
@@ -245,7 +234,7 @@ GO
 
 IF COL_LENGTH('dbo.TablaLogicaDatos', 'Valor') IS NULL
 BEGIN
-	ALTER TABLE TablaLogicaDatos ADD Valor VARCHAR(500);
+	ALTER TABLE TablaLogicaDatos DROP COLUMN Valor;
 END
 
 GO
@@ -255,8 +244,7 @@ AS
 SELECT TablaLogicaDatosID
 	,TablaLogicaID
 	,Codigo
-	,Descripcion
-	,Valor
+	,Descripcion	
 FROM TablaLogicaDatos(NOLOCK)
 WHERE TablaLogicaID = @TablaLogicaID
 
