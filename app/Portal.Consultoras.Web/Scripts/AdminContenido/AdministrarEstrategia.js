@@ -4620,10 +4620,14 @@
     function AddTitleCustom() {
         $('[name^=picture-]').each(function () {
             var img = document.getElementById($(this).attr('id'));
-            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
-            if (img.src.indexOf(".") == -1) {
+            var uri = (img.src.substring(img.src.lastIndexOf("/") + 1)).toUpperCase();
+            if (img.src === "unknown") {
                 img.src = rutaImagenVacia;
             }
+            if (uri.indexOf(".") == -1) {
+                img.src = rutaImagenVacia;
+            }
+            var extension = (img.src.substring(img.src.lastIndexOf(".") + 1)).toUpperCase();
             var nombre = img.src.match(/[-_\w]+[.][\w]+$/i)[0];
             img.title = extension + ' (' + img.naturalWidth + ' x ' + img.naturalHeight + ' pixels)';
             if (nombre == 'prod_grilla_vacio.png') {
