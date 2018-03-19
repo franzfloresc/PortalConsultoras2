@@ -1960,7 +1960,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lstProd.Any())
                 {
                     var objx = lstProd.Where(x => x.CUV == model.CUV && x.Activo == 1).FirstOrDefault();
-                    existe = (objx != null) ? true : false;
+                    existe = objx != null;
                 }
 
                 if (!existe)

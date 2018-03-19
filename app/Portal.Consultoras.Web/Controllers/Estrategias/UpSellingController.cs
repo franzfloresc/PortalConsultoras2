@@ -82,8 +82,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var upLoaded = ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, regalo.Imagen), carpetaPais, regalo.Imagen);
                 if (!upLoaded)
                     return Json(ResultModel<bool>.BuildBad("Sucedio un error al guardar las imagenes", false));
-            };
-
+            }
 
             UpSellingModel result;
             if (model.UpSellingId > 0)

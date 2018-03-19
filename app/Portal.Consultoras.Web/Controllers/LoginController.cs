@@ -808,10 +808,8 @@ namespace Portal.Consultoras.Web.Controllers
                     oRestaurarClave = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                 }
 
-                if (oRestaurarClave != null)
+                if (oRestaurarClave != null && oRestaurarClave.Cantidad != 0)
                 {
-                    if (oRestaurarClave.Cantidad != 0)
-                    {
                         oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                         Session["RestaurarClave"] = oRestaurarClave;
 
@@ -871,71 +869,32 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 switch (paisId)
                                 {
-                                    case 2:
-                                        {
-                                            //BOLIVIA
-                                            oRestaurarClave.TelefonoCentral = "901-105678"; break;
-                                        };
-                                    case 3:
-                                        {
-                                            //CHILE
-                                            oRestaurarClave.TelefonoCentral = "02-28762100"; break;
-                                        };
-                                    case 4:
-                                        {
-                                            //COLOMBIA
-                                            oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                        };
-                                    case 5:
-                                        {
-                                            //COSTA RICA
-                                            oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                        };
-                                    case 6:
-                                        {
-                                            //ECUADOR
-                                            oRestaurarClave.TelefonoCentral = "1800-76667"; break;
-                                        };
-                                    case 7:
-                                        {
-                                            //EL SALVADOR
-                                            oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                        };
-                                    case 8:
-                                        {
-                                            //GUATEMALA
-                                            oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                        };
-                                    case 9:
-                                        {
-                                            //MEXICO
-                                            oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
-                                        };
-                                    case 10:
-                                        {
-                                            //PANAMA
-                                            oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
-                                        };
-                                    case 11:
-                                        {
-                                            //PERU
-                                            oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                        };
-                                    case 12:
-                                        {
-                                            //PUERTO RICO
-                                            oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                        };
-                                    case 13:
-                                        {
-                                            //REPUBLICA DOMINICANA
-                                            oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                        };
-                                    case 14:
-                                        {
-                                            //VENEZUELA
-                                            oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
-                                        };
+                                    case Constantes.PaisID.Bolivia:
+                                        oRestaurarClave.TelefonoCentral = "901-105678"; break;
+                                    case Constantes.PaisID.Chile:
+                                        oRestaurarClave.TelefonoCentral = "02-28762100"; break;
+                                    case Constantes.PaisID.Colombia:
+                                        oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                    case Constantes.PaisID.CostaRica:
+                                        oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                    case Constantes.PaisID.Ecuador:
+                                        oRestaurarClave.TelefonoCentral = "1800-76667"; break;
+                                    case Constantes.PaisID.ElSalvador:
+                                        oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                    case Constantes.PaisID.Guatemala:
+                                        oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                    case Constantes.PaisID.Mexico:
+                                        oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
+                                    case Constantes.PaisID.Panama:
+                                        oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
+                                    case Constantes.PaisID.Peru:
+                                        oRestaurarClave.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                    case Constantes.PaisID.PuertoRico:
+                                        oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                    case Constantes.PaisID.RepublicaDominicana:
+                                        oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                    case Constantes.PaisID.Venezuela:
+                                        oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
                                 }
 
                                 if (oRestaurarClave.TelefonoCentral.Length > 0)
@@ -950,7 +909,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             resul = "prioridad3";
                         }
-                    }
                 }
 
                 return Json(new
@@ -1132,7 +1090,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return resultadoInicioSesion;
-        }       
+        }
 
         public async Task<UsuarioModel> GetUserData(int paisId, string codigoUsuario, int refrescarDatos = 0, bool esAppMobile = false)
         {
@@ -1149,7 +1107,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (string.IsNullOrEmpty(codigoUsuario))
                     throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
-                
+
                 var usuario = await GetUsuarioAndLogsIngresoPortal(paisId, codigoUsuario, refrescarDatos);
 
                 if (usuario != null)
@@ -1321,7 +1279,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.LogoLideres = usuario.LogoLideres;
                     usuarioModel.IndicadorContrato = usuario.IndicadorContrato;
                     usuarioModel.FechaFinFIC = usuario.FechaFinFIC;
-                    usuarioModel.MenuNotificaciones = 1;                    
+                    usuarioModel.MenuNotificaciones = 1;
 
                     usuarioModel.NuevoPROL = usuario.NuevoPROL;
                     usuarioModel.ZonaNuevoPROL = usuario.ZonaNuevoPROL;
@@ -1405,11 +1363,11 @@ namespace Portal.Consultoras.Web.Controllers
                             var ofertaFlexipagoTask = Task.Run(() => GetLineaCreditoFlexipago(usuarioModel));
                             Task.WaitAll(montoDeudaTask, ofertaFlexipagoTask);
 
-                            usuarioModel.MontoDeuda = montoDeudaTask.Result;                            
+                            usuarioModel.MontoDeuda = montoDeudaTask.Result;
 
                             var ofertaFlexipago = ofertaFlexipagoTask.Result;
-                            
-                            usuarioModel.MontoMinimoFlexipago = ofertaFlexipago == null ? "0.00" : string.Format("{0:#,##0.00}", ofertaFlexipago.MontoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago);                            
+
+                            usuarioModel.MontoMinimoFlexipago = ofertaFlexipago == null ? "0.00" : string.Format("{0:#,##0.00}", ofertaFlexipago.MontoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago);
                         }
 
                         #endregion
@@ -1492,14 +1450,14 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion                        
                     }
 
-                    if(usuarioModel.CatalogoPersonalizado != 0)
+                    if (usuarioModel.CatalogoPersonalizado != 0)
                     {
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
-                    
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1521,7 +1479,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return usuarioModel;
-        }                
+        }
 
         #region metodos asincronos
 
@@ -1573,7 +1531,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.PaisID.ToString(), "LoginController.GetFechaPromesaEntrega");
             }
             return sFecha;
-        }        
+        }
 
         private async Task<List<TipoLinkModel>> GetLinksPorPais(int paisId)
         {
@@ -1594,7 +1552,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
-        
+
         private async Task<bool> EsUsuarioComunidad(ServiceUsuario.BEUsuario usuario)
         {
             if (usuario.TipoUsuario != Constantes.TipoUsuario.Consultora) return false;
@@ -1879,7 +1837,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         private async Task<List<UsuarioExternoModel>> GetListaLoginExterno(ServiceUsuario.BEUsuario usuario)
-        {            
+        {
             if (!usuario.TieneLoginExterno) return new List<UsuarioExternoModel>();
 
             using (var usuarioServiceClient = new UsuarioServiceClient())
@@ -2341,7 +2299,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
                 if (value1 != null) revistaDigitalModel.BloqueoProductoDigital = value1.Valor1 == "1";
-                
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.ActivoMdo);
                 if (value1 != null) revistaDigitalModel.ActivoMdo = value1.Valor1 == "1";
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BannerOfertasNoActivaNoSuscrita);
@@ -3065,8 +3023,8 @@ namespace Portal.Consultoras.Web.Controllers
             return regEx.IsMatch(uAg);
         }
 
-        #endregion                
-             
+        #endregion
+
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
         {
             var route = new RouteValueDictionary(new
